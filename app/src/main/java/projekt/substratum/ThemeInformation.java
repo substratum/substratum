@@ -29,7 +29,7 @@ public class ThemeInformation extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.theme_configurator);
+        setContentView(R.layout.theme_information);
 
         // Handle collapsible toolbar with theme name
 
@@ -125,7 +125,7 @@ public class ThemeInformation extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.theme_configuration_menu, menu);
+        getMenuInflater().inflate(R.menu.theme_information_menu, menu);
         return true;
     }
 

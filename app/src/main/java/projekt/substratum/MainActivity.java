@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
                         Intent myIntent = new Intent(MainActivity.this, ThemeInformation.class);
                         //myIntent.putExtra("key", value); //Optional parameters
                         myIntent.putExtra("theme_name", "Domination by Dave");
-                        myIntent.putExtra("theme_pid", "projekt.klar");
+                        myIntent.putExtra("theme_pid", "com.annihilation.domination");
                         MainActivity.this.startActivity(myIntent);
                     }
                 }).start();

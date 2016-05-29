@@ -1,6 +1,7 @@
 package projekt.substratum;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +24,7 @@ import android.widget.Switch;
 public class ThemeInformation extends AppCompatActivity {
 
     public ListView listView;
+    public String theme_name, theme_pid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +34,8 @@ public class ThemeInformation extends AppCompatActivity {
         // Handle collapsible toolbar with theme name
 
         Intent currentIntent = getIntent();
-        String theme_name = currentIntent.getStringExtra("theme_name");
-        String theme_pid = currentIntent.getStringExtra("theme_pid");
+        theme_name = currentIntent.getStringExtra("theme_name");
+        theme_pid = currentIntent.getStringExtra("theme_pid");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(theme_name);
@@ -132,7 +134,11 @@ public class ThemeInformation extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.rate) {
+            String playURL = "https://play.google.com/store/apps/details?id=" + theme_pid;
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(playURL));
+            startActivity(i);
             return true;
         }
 

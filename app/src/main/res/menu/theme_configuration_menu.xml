@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/action_settings"
-        android:title="Rate theme on Play!"/>
+        android:id="@+id/rate"
+        android:title="@string/menu_rate"/>
 </menu>

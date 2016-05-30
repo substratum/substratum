@@ -93,10 +93,9 @@ public class MainActivity extends AppCompatActivity {
         List<ApplicationInfo> list = packageManager.getInstalledApplications(PackageManager
                 .GET_META_DATA);
         for (ApplicationInfo packageInfo : list) {
-            Log.d("Processing package", packageInfo.packageName);
             getLayersPackages(mContext, packageInfo.packageName);
         }
-        Log.e("Substratum Ready Themes", Integer.toString(layers_packages.size()));
+        Log.d("Substratum Ready Themes", Integer.toString(layers_packages.size()));
 
         // Now we need to sort the buffered installed Layers themes
         map = new TreeMap<String, String[]>(layers_packages);

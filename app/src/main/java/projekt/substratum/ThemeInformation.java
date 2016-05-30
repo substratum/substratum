@@ -157,12 +157,17 @@ public class ThemeInformation extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.rate) {
             String playURL = "https://play.google.com/store/apps/details?id=" + theme_pid;
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(playURL));
             startActivity(i);
+            return true;
+        }
+        if (id == R.id.uninstall) {
+            Intent intent = new Intent(Intent.ACTION_DELETE);
+            intent.setData(Uri.parse("package:" + theme_pid));
+            startActivity(intent);
             return true;
         }
 

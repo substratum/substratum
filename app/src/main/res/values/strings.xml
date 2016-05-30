@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">substratum</string>
 
-    <string name="menu_rate">Rate theme on Play!</string>
-    <string name="search_play_store">Play Store Themes</string>
+    <string name="menu_rate">Rate theme</string>
+    <string name="menu_search">Play Store Themes</string>
+    <string name="menu_uninstall">Uninstall</string>
 </resources>

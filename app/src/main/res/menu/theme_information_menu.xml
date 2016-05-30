@@ -3,4 +3,7 @@
     <item
         android:id="@+id/rate"
         android:title="@string/menu_rate"/>
+    <item
+        android:id="@+id/uninstall"
+        android:title="@string/menu_uninstall"/>
 </menu>

@@ -1,6 +1,9 @@
 package projekt.substratum;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -14,6 +17,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Switch;
 
@@ -26,6 +30,23 @@ public class ThemeInformation extends AppCompatActivity {
     public ListView listView;
     public String theme_name, theme_pid;
 
+    public Drawable grabPackageHeroImage(String package_name) {
+        Resources res;
+        Drawable hero = null;
+        try {
+            //I want to use the clear_activities string in Package com.android.settings
+            res = getPackageManager().getResourcesForApplication(package_name);
+            int resourceId = res.getIdentifier(package_name + ":drawable/heroimage", null, null);
+            if (0 != resourceId) {
+                hero = getPackageManager().getDrawable(package_name, resourceId, null);
+            }
+            return hero;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return hero;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +57,9 @@ public class ThemeInformation extends AppCompatActivity {
         Intent currentIntent = getIntent();
         theme_name = currentIntent.getStringExtra("theme_name");
         theme_pid = currentIntent.getStringExtra("theme_pid");
+
+        ImageView imageView = (ImageView) findViewById(R.id.preview_image);
+        imageView.setImageDrawable(grabPackageHeroImage(theme_pid));
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(theme_name);

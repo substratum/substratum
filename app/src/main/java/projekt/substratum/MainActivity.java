@@ -6,19 +6,31 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+
+import projekt.substratum.adapters.DataAdapter;
+import projekt.substratum.util.ThemeParser;
+
+/**
+ * @author Nicholas Chum (nicholaschum)
+ */
 
 public class MainActivity extends AppCompatActivity {
 
-    public RecyclerView list;
     public HashMap<String, String[]> layers_packages;
-    private String[] headerNamesArray, headerPreviewsArray;
+    public RecyclerView recyclerView;
+    public Map<String, String[]> map;
     private Context mContext;
 
     public void getLayersPackages(Context context, String package_name) {
@@ -46,8 +58,9 @@ public class MainActivity extends AppCompatActivity {
 
         mContext = this;
         layers_packages = new HashMap<String, String[]>();
+        recyclerView = (RecyclerView) findViewById(R.id.theme_list);
 
-        // TODO: Create it so it uses a recyclerView to parse substratum-based themes
+        // Create it so it uses a recyclerView to parse substratum-based themes
 
         PackageManager packageManager = getPackageManager();
         List<ApplicationInfo> list = packageManager.getInstalledApplications(PackageManager
@@ -58,24 +71,70 @@ public class MainActivity extends AppCompatActivity {
         }
         Log.e("Substratum Ready Themes", Integer.toString(layers_packages.size()));
 
-        // Test
+        // Now we need to sort the buffered installed Layers themes
+        map = new TreeMap<String, String[]>(layers_packages);
 
-        CardView testCard = (CardView) findViewById(R.id.theme_card);
-        testCard.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                new Thread(new Runnable() {
-                    public void run() {
-                        Intent myIntent = new Intent(MainActivity.this, ThemeInformation.class);
-                        //myIntent.putExtra("key", value); //Optional parameters
-                        myIntent.putExtra("theme_name", "Domination by Dave");
-                        myIntent.putExtra("theme_pid", "com.annihilation.domination");
-                        MainActivity.this.startActivity(myIntent);
-                    }
-                }).start();
+        ArrayList<ThemeParser> headerParsers = prepareData();
+        DataAdapter adapter = new DataAdapter(getApplicationContext(), headerParsers);
+        // Assign adapter to RecyclerView
+        recyclerView.setAdapter(adapter);
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(layoutManager);
+
+        recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+            GestureDetector gestureDetector = new GestureDetector(getApplicationContext(),
+                    new GestureDetector.SimpleOnGestureListener() {
+
+                        @Override
+                        public boolean onSingleTapUp(MotionEvent e) {
+                            return true;
+                        }
+
+                    });
+
+            @Override
+            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+                View child = rv.findChildViewUnder(e.getX(), e.getY());
+                if (child != null && gestureDetector.onTouchEvent(e)) {
+                    // RecyclerView Clicked item value
+                    int position = rv.getChildAdapterPosition(child);
+
+                    Intent myIntent = new Intent(MainActivity.this, ThemeInformation.class);
+                    //myIntent.putExtra("key", value); //Optional parameters
+                    myIntent.putExtra("theme_name", map.keySet().toArray()[position].toString());
+                    myIntent.putExtra("theme_pid", map.get(map.keySet().toArray()[position]
+                            .toString())[1]);
+                    MainActivity.this.startActivity(myIntent);
+                }
+
+                return false;
+            }
+
+            @Override
+            public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
             }
         });
 
+    }
 
+    private ArrayList<ThemeParser> prepareData() {
+
+        ArrayList<ThemeParser> themes = new ArrayList<>();
+        for (int i = 0; i < map.size(); i++) {
+            ThemeParser themeParser = new ThemeParser();
+            themeParser.setThemeName(map.keySet().toArray()[i].toString());
+            themeParser.setThemeAuthor(map.get(map.keySet().toArray()[i].toString())[0]);
+            themeParser.setThemePackage(map.get(map.keySet().toArray()[i].toString())[1]);
+            themes.add(themeParser);
+        }
+        return themes;
     }
 
 }

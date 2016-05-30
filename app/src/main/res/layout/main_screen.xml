@@ -10,5 +10,10 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="MainActivity">
 
-    <include layout="@layout/theme_entry_card"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/theme_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
 </RelativeLayout>

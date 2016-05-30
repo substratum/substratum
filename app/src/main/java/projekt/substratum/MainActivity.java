@@ -44,9 +44,11 @@ public class MainActivity extends AppCompatActivity {
             if (appInfo.metaData != null) {
                 if (appInfo.metaData.getString("Layers_Name") != null) {
                     if (appInfo.metaData.getString("Layers_Developer") != null) {
-                        String[] data = {appInfo.metaData.getString("Layers_Developer"),
-                                package_name};
-                        layers_packages.put(appInfo.metaData.getString("Layers_Name"), data);
+                        if (appInfo.metaData.getString("Substratum_Enabled") != null) {
+                            String[] data = {appInfo.metaData.getString("Layers_Developer"),
+                                    package_name};
+                            layers_packages.put(appInfo.metaData.getString("Layers_Name"), data);
+                        }
                     }
                 }
             }

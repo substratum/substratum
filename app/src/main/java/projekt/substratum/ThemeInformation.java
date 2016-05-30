@@ -1,7 +1,9 @@
 package projekt.substratum;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -29,6 +31,8 @@ public class ThemeInformation extends AppCompatActivity {
 
     public ListView listView;
     public String theme_name, theme_pid;
+    public AssetManager am;
+    public String[] values;
 
     public Drawable grabPackageHeroImage(String package_name) {
         Resources res;
@@ -81,17 +85,16 @@ public class ThemeInformation extends AppCompatActivity {
         // Handle all overlays that are located in the APK
         listView = (ListView) findViewById(R.id.overlay_picker);
 
-        // Defined Array values to show in ListView
-        // TODO: Parse the list of overlay folders inside assets/overlays
-        String[] values = new String[]{"Android List View",
-                "Adapter implementation",
-                "Simple List View In Android",
-                "Create List View Android",
-                "Android Example",
-                "List View Source Code",
-                "List View Array Adapter",
-                "Android Example List View"
-        };
+        // Parse the list of overlay folders inside assets/overlays
+        try {
+            Context otherContext = createPackageContext(theme_pid, 0);
+            am = otherContext.getAssets();
+            values = new String[am.list("overlays").length];
+            for (int i = 0; i < am.list("overlays").length; i++) {
+                values[i] = am.list("overlays")[i];
+            }
+        } catch (Exception e) {
+        }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_multiple_choice, values);

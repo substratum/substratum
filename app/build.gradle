@@ -47,4 +47,5 @@ dependencies {
 
     // Dialogs
     compile 'com.mikhaellopez:circularfillableloaders:1.2.0'
+    compile 'me.zhanghai.android.materialprogressbar:library:1.1.6'
 }

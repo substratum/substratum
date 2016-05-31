@@ -97,6 +97,16 @@
                     android:paddingBottom="10dp">
                 </ListView>
 
+                <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+                    android:id="@+id/progress_bar"
+                    style="@style/Widget.MaterialProgressBar.ProgressBar.Large"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/title_overlays"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_marginTop="50dp"
+                    android:indeterminate="true"/>
+
             </RelativeLayout>
         </android.support.v7.widget.CardView>
 

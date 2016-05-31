@@ -35,6 +35,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.util.LayersBuilder;
 
 
@@ -129,25 +130,9 @@ public class ThemeInformation extends AppCompatActivity {
         // Handle all overlays that are located in the APK
         listView = (ListView) findViewById(R.id.overlay_picker);
 
-        // Parse the list of overlay folders inside assets/overlays
-        try {
-            Context otherContext = createPackageContext(theme_pid, 0);
-            am = otherContext.getAssets();
-            values = new String[am.list("overlays").length];
-            for (int i = 0; i < am.list("overlays").length; i++) {
-                values[i] = am.list("overlays")[i];
-            }
-        } catch (Exception e) {
-        }
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_multiple_choice, values);
-
-        if (listView != null) {
-            listView.setNestedScrollingEnabled(true);
-            listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-            listView.setAdapter(adapter);
-        }
+        //
+        LoadOverlays loadOverlays = new LoadOverlays();
+        loadOverlays.execute("");
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -261,6 +246,46 @@ public class ThemeInformation extends AppCompatActivity {
         Log.d("LayersBuilder", "The cache has been flushed!");
 
         super.onBackPressed();
+    }
+
+    private class LoadOverlays extends AsyncTask<String, Integer, String> {
+
+        @Override
+        protected void onPreExecute() {
+            Log.d("Phase 1", "This phase has started it's asynchronous task.");
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            MaterialProgressBar materialProgressBar = (MaterialProgressBar) findViewById(R.id
+                    .progress_bar);
+            materialProgressBar.setVisibility(View.GONE);
+
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(ThemeInformation.this,
+                    android.R.layout.simple_list_item_multiple_choice, values);
+
+            if (listView != null) {
+                listView.setNestedScrollingEnabled(true);
+                listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+                listView.setAdapter(adapter);
+            }
+        }
+
+        @Override
+        protected String doInBackground(String... sUrl) {
+            // Parse the list of overlay folders inside assets/overlays
+            try {
+                Context otherContext = createPackageContext(theme_pid, 0);
+                am = otherContext.getAssets();
+                values = new String[am.list("overlays").length];
+                for (int i = 0; i < am.list("overlays").length; i++) {
+                    values[i] = am.list("overlays")[i];
+                }
+            } catch (Exception e) {
+            }
+            return null;
+        }
     }
 
     private class Phase1_AAPT_Check extends AsyncTask<String, Integer, String> {

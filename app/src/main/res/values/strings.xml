@@ -10,6 +10,8 @@
         or the app will not function properly!</string>
     <string name="dialog_ok">OK</string>
 
+    <string name="failed_to_install_overlay_toast">Failed to compile \"%s\" overlay</string>
+
     <string name="lb_phase_1_loader">extracting assets from theme</string>
     <string name="lb_phase_2_loader">creating and signing overlay</string>
     <string name="lb_phase_3_loader">initializing overlay manager service</string>

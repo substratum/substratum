@@ -27,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mikhaellopez.circularfillableloaders.CircularFillableLoaders;
 
@@ -50,7 +51,7 @@ public class ThemeInformation extends AppCompatActivity {
     public LayersBuilder lb;
     public CircularFillableLoaders loader;
     public TextView loader_string;
-    public List<String> listStrings;
+    public List<String> listStrings, erroredOverlays;
     public Switch toggle_overlays;
     ProgressDialog mProgressDialog;
     private PowerManager.WakeLock mWakeLock;
@@ -287,6 +288,7 @@ public class ThemeInformation extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
+            Log.d("Phase 2", "This phase has started it's asynchronous task.");
             PowerManager pm = (PowerManager)
                     getApplicationContext().getSystemService(Context.POWER_SERVICE);
             mWakeLock = null;
@@ -326,6 +328,8 @@ public class ThemeInformation extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
+            Log.d("Phase 3", "This phase has started it's asynchronous task.");
+            erroredOverlays = new ArrayList<String>();
             loader_string.setText(getApplicationContext().getResources().getString(
                     R.string.lb_phase_2_loader));
             loader.setProgress(40);
@@ -339,6 +343,16 @@ public class ThemeInformation extends AppCompatActivity {
             loader_string.setText(getApplicationContext().getResources().getString(
                     R.string.lb_phase_3_loader));
             mWakeLock.release();
+            if (erroredOverlays.size() > 0) {
+                for (int i = 0; i < erroredOverlays.size(); i++) {
+                    String toast_text = String.format(getApplicationContext().getResources()
+                            .getString(
+                            R.string.failed_to_install_overlay_toast), erroredOverlays.get(i));
+                    Toast toast = Toast.makeText(getApplicationContext(), toast_text,
+                            Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            }
         }
 
         @Override
@@ -347,6 +361,9 @@ public class ThemeInformation extends AppCompatActivity {
             for (int i = 0; i < listStrings.size(); i++) {
                 lb = new LayersBuilder();
                 lb.beginAction(getApplicationContext(), listStrings.get(i), theme_name);
+                if (lb.has_errored_out) {
+                    erroredOverlays.add(listStrings.get(i));
+                }
             }
             return null;
         }

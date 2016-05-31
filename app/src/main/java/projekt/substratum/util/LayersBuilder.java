@@ -8,6 +8,7 @@ import android.os.Environment;
 import android.util.Log;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,6 +17,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.zip.ZipEntry;
@@ -41,6 +43,7 @@ public class LayersBuilder {
 
      */
 
+    public Boolean has_errored_out = false;
     private Context mContext;
 
     public void injectAAPT(Context context) {
@@ -76,7 +79,7 @@ public class LayersBuilder {
                         "been injected.");
             }
         } else {
-            Log.d("aaptChecker", "There is no need to inject system partition with aapt.");
+            Log.d("Phase 1", "There is no need to inject system partition with aapt.");
         }
     }
 
@@ -84,7 +87,7 @@ public class LayersBuilder {
         mContext = context;
         try {
             unzip(package_identifier);
-            Log.d("LayersBuilder", "The cache has been built from the APK assets");
+            Log.d("Phase 2", "The cache has been built from the APK assets");
         } catch (IOException ioe) {
         }
     }
@@ -170,6 +173,7 @@ public class LayersBuilder {
 
     public void beginAction(Context context, String overlay_package, String theme_name) {
 
+        has_errored_out = false;
         mContext = context;
         String work_area;
 
@@ -196,117 +200,175 @@ public class LayersBuilder {
 
         // 2b. Create the manifest file based on the new parsed names
 
-        try {
-            root.createNewFile();
-            FileWriter fw = new FileWriter(root);
-            BufferedWriter bw = new BufferedWriter(fw);
-            PrintWriter pw = new PrintWriter(bw);
-            String manifest =
-                    "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?>\n" +
-                            "<manifest xmlns:android=\"http://schemas.android" +
-                            ".com/apk/res/android\" package=\"" + overlay_package + "." +
-                            parse2_themeName + "\">\n" +
-                            "    <overlay android:targetPackage=\"" + overlay_package + "\" " +
-                            "android:priority=\"100\"/>\n" +
-                            "</manifest>\n";
-            pw.write(manifest);
-            pw.close();
-            bw.close();
-            fw.close();
-        } catch (IOException e) {
-            Log.e("ManifestCreation", "There was an exception creating a new Manifest file!");
+        if (!has_errored_out) {
+            try {
+                root.createNewFile();
+                FileWriter fw = new FileWriter(root);
+                BufferedWriter bw = new BufferedWriter(fw);
+                PrintWriter pw = new PrintWriter(bw);
+                String manifest =
+                        "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?>\n" +
+                                "<manifest xmlns:android=\"http://schemas.android" +
+                                ".com/apk/res/android\" package=\"" + overlay_package + "." +
+                                parse2_themeName + "\">\n" +
+                                "    <overlay android:targetPackage=\"" + overlay_package + "\" " +
+                                "android:priority=\"100\"/>\n" +
+                                "</manifest>\n";
+                pw.write(manifest);
+                pw.close();
+                bw.close();
+                fw.close();
+            } catch (IOException e) {
+                Log.e("Phase 3", "There was an exception creating a new Manifest file!");
+                has_errored_out = true;
+                Log.e("LayersBuilder", "Installation of \"" + overlay_package + "\" has failed.");
+            }
         }
 
         // Compile the new theme apk based on new manifest, framework-res.apk and extracted asset
 
-        try {
-            Process nativeApp = Runtime.getRuntime().exec(
-                    "aapt p -M " + work_area +
-                            "/AndroidManifest.xml -S " +
-                            work_area +
-                            "/res/ -I " +
-                            "/system/framework/framework-res.apk -F " +
-                            work_area +
-                            "/" + overlay_package + "." + parse2_themeName + "-unsigned.apk -f\n");
+        if (!has_errored_out) {
+            try {
+                String line;
+                Process nativeApp = Runtime.getRuntime().exec(
+                        "aapt p -M " + work_area +
+                                "/AndroidManifest.xml -S " +
+                                work_area +
+                                "/res/ -I " +
+                                "/system/framework/framework-res.apk -F " +
+                                work_area +
+                                "/" + overlay_package + "." + parse2_themeName + "-unsigned.apk " +
+                                "-f\n");
 
-            // We need this Process to be waited for before moving on to the next function.
-            Log.d("ProcessWaitFor", "Overlay APK creation is running now...");
-            nativeApp.waitFor();
-            File unsignedAPK = new File(work_area + "/" + overlay_package + "." +
-                    parse2_themeName + "-unsigned.apk");
-            if (unsignedAPK.exists()) {
-                Log.d("ProcessWaitFor", "Overlay APK creation has completed!");
-            } else {
-                Log.e("ProcessWaitFor", "Overlay APK creation has failed!");
+
+                OutputStream stdin = nativeApp.getOutputStream();
+                InputStream stderr = nativeApp.getErrorStream();
+                InputStream stdout = nativeApp.getInputStream();
+                stdin.write(("ls\n").getBytes());
+                stdin.write("exit\n".getBytes());
+                stdin.flush();
+                stdin.close();
+
+                BufferedReader br = new BufferedReader(new InputStreamReader(stdout));
+                while ((line = br.readLine()) != null) {
+                    Log.d("OverlayOptimizer", line);
+                }
+                br.close();
+                br = new BufferedReader(new InputStreamReader(stderr));
+                while ((line = br.readLine()) != null) {
+                    Log.e("LayersBuilder", line);
+                    has_errored_out = true;
+                    Log.e("LayersBuilder", "Installation of \"" + overlay_package + "\" has " +
+                            "failed.");
+                }
+                br.close();
+
+                if (!has_errored_out) {
+                    // We need this Process to be waited for before moving on to the next function.
+                    Log.d("Phase 3", "Overlay APK creation is running now...");
+                    nativeApp.waitFor();
+                    File unsignedAPK = new File(work_area + "/" + overlay_package + "." +
+                            parse2_themeName + "-unsigned.apk");
+                    if (unsignedAPK.exists()) {
+                        Log.d("Phase 3", "Overlay APK creation has completed!");
+                    } else {
+                        Log.e("Phase 3", "Overlay APK creation has failed!");
+                        has_errored_out = true;
+                        Log.e("LayersBuilder", "Installation of \"" + overlay_package + "\" " +
+                                "overlay has failed.");
+
+                    }
+                }
+            } catch (Exception e) {
+                Log.e("Phase 3", "Unfortunately, there was an exception trying to create a new " +
+                        "APK");
+                has_errored_out = true;
+                Log.e("LayersBuilder", "Installation of \"" + overlay_package + "\" has failed.");
             }
-        } catch (Exception e) {
-            Log.e("aaptCompile", "Unfortunately, there was an exception trying to create a new " +
-                    "APK");
         }
 
         // Sign the apk
 
-        try {
-            // Delete the previous APK if it exists in the dashboard folder
-            eu.chainfire.libsuperuser.Shell.SU.run(
-                    "rm -r " + Environment.getExternalStorageDirectory().getAbsolutePath() +
-                            "/substratum/" + overlay_package + "." + parse2_themeName +
-                            "-unsigned.apk");
+        if (!has_errored_out) {
+            try {
+                // Delete the previous APK if it exists in the dashboard folder
+                eu.chainfire.libsuperuser.Shell.SU.run(
+                        "rm -r " + Environment.getExternalStorageDirectory().getAbsolutePath() +
+                                "/substratum/" + overlay_package + "." + parse2_themeName +
+                                "-unsigned.apk");
 
-            // Sign with the built-in auto-test key/certificate.
-            String source = work_area + "/" + overlay_package + "." + parse2_themeName +
-                    "-unsigned.apk";
-            String destination = Environment.getExternalStorageDirectory().getAbsolutePath() +
-                    "/substratum/" + overlay_package + "." + parse2_themeName + "-signed.apk";
+                // Sign with the built-in auto-test key/certificate.
+                String source = work_area + "/" + overlay_package + "." + parse2_themeName +
+                        "-unsigned.apk";
+                String destination = Environment.getExternalStorageDirectory().getAbsolutePath() +
+                        "/substratum/" + overlay_package + "." + parse2_themeName + "-signed.apk";
 
-            ZipSigner zipSigner = new ZipSigner();
-            zipSigner.setKeymode("testkey");
-            zipSigner.signZip(source, destination);
+                ZipSigner zipSigner = new ZipSigner();
+                zipSigner.setKeymode("testkey");
+                zipSigner.signZip(source, destination);
 
-            Log.d("ZipSigner", "APK successfully signed!");
-        } catch (Throwable t) {
-            Log.e("ZipSigner", "APK could not be signed. " + t.toString());
+                Log.d("Phase 3", "APK successfully signed!");
+            } catch (Throwable t) {
+                Log.e("Phase 3", "APK could not be signed. " + t.toString());
+                has_errored_out = true;
+                Log.e("LayersBuilder", "Installation of \"" + overlay_package + "\" has failed.");
+            }
         }
 
         // Install the APK silently
         // Superuser needed as this requires elevated privileges to run these commands
 
-        try {
-            eu.chainfire.libsuperuser.Shell.SU.run(
-                    "pm install " + Environment.getExternalStorageDirectory().getAbsolutePath() +
-                            "/substratum/" + overlay_package + "." + parse2_themeName + "-signed" +
-                            ".apk");
+        if (!has_errored_out) {
+            try {
+                eu.chainfire.libsuperuser.Shell.SU.run(
+                        "pm install " + Environment.getExternalStorageDirectory().getAbsolutePath
+                                () +
 
-            // We need this Process to be waited for before moving on to the next function.
-            Log.d("SilentInstaller", "Installing APK...");
-            if (checkIfPackageInstalled(overlay_package + "." + parse2_themeName, context)) {
-                Log.d("SilentInstaller", "Overlay APK has successfully been installed!");
-            } else {
-                Log.e("SilentInstaller", "Overlay APK has failed to install!");
+                                "/substratum/" + overlay_package + "." + parse2_themeName +
+                                "-signed" +
+                                ".apk");
+
+                // We need this Process to be waited for before moving on to the next function.
+                Log.d("Phase 3", "Silently installing APK...");
+                if (checkIfPackageInstalled(overlay_package + "." + parse2_themeName, context)) {
+                    Log.d("Phase 3", "Overlay APK has successfully been installed!");
+                } else {
+                    Log.e("Phase 3", "Overlay APK has failed to install!");
+                }
+            } catch (Exception e) {
+                Log.e("Phase 3", "Overlay APK has failed to install! (Exception)");
+                has_errored_out = true;
+                Log.e("LayersBuilder", "Installation of \"" + overlay_package + "\" has failed.");
             }
-        } catch (Exception e) {
-            Log.e("SilentInstaller", "Overlay APK has failed to install! (Exception)");
         }
 
         // Enable the APK using om list, om enable
         // Superuser needed as this requires elevated privileges to run these commands
 
-        try {
-            eu.chainfire.libsuperuser.Shell.SU.run(
-                    "om enable " + overlay_package + "." + parse2_themeName);
+        if (!has_errored_out) {
+            try {
+                eu.chainfire.libsuperuser.Shell.SU.run(
+                        "om enable " + overlay_package + "." + parse2_themeName);
 
-            // We need this Process to be waited for before moving on to the next function.
-            Log.d("OverlayManagerService", "Enabling overlay \"" + overlay_package + "." +
-                    parse2_themeName + "\"");
-            if (checkIfPackageInstalled(overlay_package + "." + parse2_themeName, context)) {
-                Log.d("OverlayManagerService", "Successfully enabled overlay!");
-            } else {
-                Log.e("OverlayManagerService", "Failed to enable overlay!");
+                // We need this Process to be waited for before moving on to the next function.
+                Log.d("Phase 3", "(OverlayManagerService) Enabling overlay \"" + overlay_package
+                        + "." +
+
+                        parse2_themeName + "\"");
+                if (checkIfPackageInstalled(overlay_package + "." + parse2_themeName, context)) {
+                    Log.d("Phase 3", "(OverlayManagerService) Successfully enabled overlay!");
+                } else {
+                    Log.e("Phase 3", "(OverlayManagerService) Failed to enable overlay!");
+                    has_errored_out = true;
+                    Log.e("LayersBuilder", "Installation of \"" + overlay_package + "\" has " +
+                            "failed.");
+                }
+            } catch (Exception e) {
+                Log.e("Phase 3", "(OverlayManagerService) Failed to enable overlay! (Exception)");
+                has_errored_out = true;
+                Log.e("LayersBuilder", "Installation of \"" + overlay_package + "\" has failed.");
             }
-        } catch (Exception e) {
-            Log.e("SilentInstaller", "Failed to enable overlay! (Exception)");
         }
-
     }
 
     private Boolean checkIfPackageInstalled(String packagename, Context context) {

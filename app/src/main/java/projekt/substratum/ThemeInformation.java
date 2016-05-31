@@ -10,9 +10,9 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.PowerManager;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -20,8 +20,8 @@ import android.util.SparseBooleanArray;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -51,6 +51,7 @@ public class ThemeInformation extends AppCompatActivity {
     public CircularFillableLoaders loader;
     public TextView loader_string;
     public List<String> listStrings;
+    public Switch toggle_overlays;
     ProgressDialog mProgressDialog;
     private PowerManager.WakeLock mWakeLock;
 
@@ -58,7 +59,6 @@ public class ThemeInformation extends AppCompatActivity {
         Resources res;
         Drawable hero = null;
         try {
-            //I want to use the clear_activities string in Package com.android.settings
             res = getPackageManager().getResourcesForApplication(package_name);
             int resourceId = res.getIdentifier(package_name + ":drawable/heroimage", null, null);
             if (0 != resourceId) {
@@ -83,6 +83,27 @@ public class ThemeInformation extends AppCompatActivity {
         Intent currentIntent = getIntent();
         theme_name = currentIntent.getStringExtra("theme_name");
         theme_pid = currentIntent.getStringExtra("theme_pid");
+
+        final FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R
+                .id.apply_fab);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                SparseBooleanArray checked = listView.getCheckedItemPositions();
+                listStrings = new ArrayList<String>();
+                for (int i = 0; i < listView.getAdapter()
+                        .getCount(); i++) {
+                    if (checked.get(i)) {
+                        listStrings.add(listView
+                                .getItemAtPosition(i)
+                                .toString());
+                    }
+                }
+                // Run through phase two - initialize the cache for the specific theme
+                Phase2_InitializeCache phase2_initializeCache = new Phase2_InitializeCache();
+                phase2_initializeCache.execute("");
+            }
+        });
+        floatingActionButton.hide();
 
         ImageView imageView = (ImageView) findViewById(R.id.preview_image);
         imageView.setImageDrawable(grabPackageHeroImage(theme_pid));
@@ -127,9 +148,36 @@ public class ThemeInformation extends AppCompatActivity {
             listView.setAdapter(adapter);
         }
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                int counter = 0;
+                SparseBooleanArray checked = listView.getCheckedItemPositions();
+                for (int i = 0; i < listView.getAdapter()
+                        .getCount(); i++) {
+                    if (checked.get(i)) {
+                        counter += 1;
+                    }
+                }
+                if (counter > 0) {
+                    if (counter == listView.getCount()) {
+                        if (!toggle_overlays.isChecked()) {
+                            toggle_overlays.setChecked(true);
+                        }
+                    }
+                    floatingActionButton.show();
+                } else {
+                    if (toggle_overlays.isChecked()) {
+                        toggle_overlays.setChecked(false);
+                    }
+                    floatingActionButton.hide();
+                }
+            }
+        });
+
         // Handle the logic for selecting all overlays or not
 
-        Switch toggle_overlays = (Switch) findViewById(R.id.toggle_all_overlays);
+        toggle_overlays = (Switch) findViewById(R.id.toggle_all_overlays);
         if (toggle_overlays != null) {
             toggle_overlays.setOnCheckedChangeListener(
                     new CompoundButton.OnCheckedChangeListener() {
@@ -139,14 +187,18 @@ public class ThemeInformation extends AppCompatActivity {
                             for (int i = 0; i < listView.getAdapter().getCount(); i++) {
                                 if (checked.get(i)) {
                                     if (!isChecked == listView.isItemChecked(i)) {
+                                        floatingActionButton.hide();
                                         listView.setItemChecked(i, false);
                                     } else {
+                                        floatingActionButton.show();
                                         listView.setItemChecked(i, true);
                                     }
                                 } else {
                                     if (!isChecked == listView.isItemChecked(i)) {
+                                        floatingActionButton.show();
                                         listView.setItemChecked(i, true);
                                     } else {
+                                        floatingActionButton.hide();
                                         listView.setItemChecked(i, false);
                                     }
                                 }
@@ -158,25 +210,6 @@ public class ThemeInformation extends AppCompatActivity {
         // Run through phase one - checking whether aapt exists on the device
         Phase1_AAPT_Check phase1_aapt_check = new Phase1_AAPT_Check();
         phase1_aapt_check.execute("");
-
-        Button button = (Button) findViewById(R.id.btnSelection);
-        if (button != null) {
-            button.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    SparseBooleanArray checked = listView.getCheckedItemPositions();
-                    listStrings = new ArrayList<String>();
-                    for (int i = 0; i < listView.getAdapter().getCount(); i++) {
-                        if (checked.get(i)) {
-                            listStrings.add(listView.getItemAtPosition(i).toString());
-                        }
-                    }
-
-                    // Run through phase two - initialize the cache for the specific theme
-                    Phase2_InitializeCache phase2_initializeCache = new Phase2_InitializeCache();
-                    phase2_initializeCache.execute("");
-                }
-            });
-        }
 
         mProgressDialog = null;
         mProgressDialog = new ProgressDialog(ThemeInformation.this, R.style

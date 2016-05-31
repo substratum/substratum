@@ -339,15 +339,13 @@ public class ThemeInformation extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            loader.setProgress(10);
-            loader_string.setText(getApplicationContext().getResources().getString(
-                    R.string.lb_phase_3_loader));
             mWakeLock.release();
             if (erroredOverlays.size() > 0) {
                 for (int i = 0; i < erroredOverlays.size(); i++) {
                     String toast_text = String.format(getApplicationContext().getResources()
                             .getString(
-                            R.string.failed_to_install_overlay_toast), erroredOverlays.get(i));
+                                    R.string.failed_to_install_overlay_toast), erroredOverlays
+                            .get(i));
                     Toast toast = Toast.makeText(getApplicationContext(), toast_text,
                             Toast.LENGTH_SHORT);
                     toast.show();

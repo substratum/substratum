@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SettingsActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/purge_title"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"
+        android:textColor="?colorAccent"
+        android:text="@string/settings_title_1"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/purge_title"
+        android:id="@+id/purge_description"
+        android:layout_margin="10dp"
+        android:text="@string/purge_information"/>
+
+    <Button
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/purge_description"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/purge"
+        android:text="Purge all overlays from device"
+        android:textColor="@android:color/white"
+        android:background="@color/purge_button"/>
+</RelativeLayout>

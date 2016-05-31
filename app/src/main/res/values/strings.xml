@@ -3,6 +3,7 @@
 
     <string name="menu_rate">Rate theme</string>
     <string name="menu_search">Play Store Themes</string>
+    <string name="menu_settings">Settings</string>
     <string name="menu_uninstall">Uninstall</string>
 
     <string name="permission_not_granted_dialog_title">Permissions not granted</string>
@@ -14,5 +15,8 @@
 
     <string name="lb_phase_1_loader">extracting assets from theme</string>
     <string name="lb_phase_2_loader">creating and signing overlay</string>
-    <string name="lb_phase_3_loader">initializing overlay manager service</string>
+
+    <string name="settings_title_1">Advanced Options</string>
+    <string name="purge_information">Purging all overlays from the device at once is a potentially dangerous action causing multiple FCs DURING the action. If you experience an FC before receiving a toast confirming that you have removed all overlays, please click the button again.</string>
+    <string name="purge_completion">All overlays deactivated and removed</string>
 </resources>

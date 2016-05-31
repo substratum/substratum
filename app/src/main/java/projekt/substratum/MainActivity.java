@@ -74,12 +74,17 @@ public class MainActivity extends AppCompatActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.search) {
             String playURL = "https://play.google.com/store/search?q=layers%20theme&c=apps";
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(playURL));
             startActivity(i);
+            return true;
+        }
+
+        if (id == R.id.settings) {
+            Intent myIntent = new Intent(MainActivity.this, SettingsActivity.class);
+            MainActivity.this.startActivity(myIntent);
             return true;
         }
 

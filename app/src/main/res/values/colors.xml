@@ -4,5 +4,6 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+    <color name="purge_button">#d50000</color>
     <color name="window_bg_glass">#99000000</color>
 </resources>

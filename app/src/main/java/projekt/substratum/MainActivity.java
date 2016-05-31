@@ -120,8 +120,8 @@ public class MainActivity extends AppCompatActivity implements
 
         // Now we need to sort the buffered installed Layers themes
         map = new TreeMap<String, String[]>(layers_packages);
-        ArrayList<ThemeParser> headerParsers = prepareData();
-        adapter = new DataAdapter(getApplicationContext(), headerParsers);
+        ArrayList<ThemeParser> themeParsers = prepareData();
+        adapter = new DataAdapter(getApplicationContext(), themeParsers);
         recyclerView.setAdapter(adapter);
         swipeRefreshLayout.setRefreshing(false);
     }
@@ -147,8 +147,8 @@ public class MainActivity extends AppCompatActivity implements
         // Now we need to sort the buffered installed Layers themes
         map = new TreeMap<String, String[]>(layers_packages);
 
-        ArrayList<ThemeParser> headerParsers = prepareData();
-        adapter = new DataAdapter(getApplicationContext(), headerParsers);
+        ArrayList<ThemeParser> themeParsers = prepareData();
+        adapter = new DataAdapter(getApplicationContext(), themeParsers);
 
         // Assign adapter to RecyclerView
         recyclerView.setAdapter(adapter);

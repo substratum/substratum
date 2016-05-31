@@ -77,7 +77,7 @@
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="15dp"
                     android:layout_toStartOf="@+id/toggle_all_overlays"
-                    android:text="List of overlays"
+                    android:text="@string/list_of_overlays"
                     android:textColor="@color/theme_information_card_title"
                     android:textStyle="bold"/>
 
@@ -99,7 +99,7 @@
 
                 <me.zhanghai.android.materialprogressbar.MaterialProgressBar
                     android:id="@+id/progress_bar"
-                    style="@style/Widget.MaterialProgressBar.ProgressBar.Large"
+                    style="@style/Widget.MaterialProgressBar.ProgressBar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/title_overlays"

@@ -31,4 +31,20 @@ dependencies {
 
     // Image Downloading and Caching
     compile 'com.squareup.picasso:picasso:2.5.2'
+
+    // Superuser and Root Utilities
+    compile 'eu.chainfire:libsuperuser:1.0.0.+'
+
+    // Commons IO
+    compile "commons-io:commons-io:+"
+
+    // ZipSigner
+    compile files('src/main/libs/kellinwood-logging-android-1.4.jar')
+    compile files('src/main/libs/kellinwood-logging-lib-1.1.jar')
+    compile files('src/main/libs/kellinwood-logging-log4j-1.0.jar')
+    compile files('src/main/libs/zipio-lib-1.8.jar')
+    compile files('src/main/libs/zipsigner-lib-1.17.jar')
+
+    // Dialogs
+    compile 'com.mikhaellopez:circularfillableloaders:1.2.0'
 }

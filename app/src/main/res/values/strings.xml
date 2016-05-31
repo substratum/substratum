@@ -4,4 +4,13 @@
     <string name="menu_rate">Rate theme</string>
     <string name="menu_search">Play Store Themes</string>
     <string name="menu_uninstall">Uninstall</string>
+
+    <string name="permission_not_granted_dialog_title">Permissions not granted</string>
+    <string name="permission_not_granted_dialog_message">Please grant dashboard storage permissions
+        or the app will not function properly!</string>
+    <string name="dialog_ok">OK</string>
+
+    <string name="lb_phase_1_loader">extracting assets from theme</string>
+    <string name="lb_phase_2_loader">creating and signing overlay</string>
+    <string name="lb_phase_3_loader">initializing overlay manager service</string>
 </resources>

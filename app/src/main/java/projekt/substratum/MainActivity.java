@@ -1,11 +1,16 @@
 package projekt.substratum;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +21,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,8 +35,10 @@ import projekt.substratum.util.ThemeParser;
  * @author Nicholas Chum (nicholaschum)
  */
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements
+        ActivityCompat.OnRequestPermissionsResultCallback {
 
+    private static final int PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
     public HashMap<String, String[]> layers_packages;
     public RecyclerView recyclerView;
     public Map<String, String[]> map;
@@ -148,6 +156,54 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        int permissionCheck = ContextCompat.checkSelfPermission(getApplicationContext(),
+                android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
+            // permission already granted, allow the program to continue running
+            File directory = new File(Environment.getExternalStorageDirectory(),
+                    "/substratum/");
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+        } else {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
+        }
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[],
+                                           int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission already granted, allow the program to continue running
+                    File directory = new File(Environment.getExternalStorageDirectory(),
+                            "/substratum/");
+                    if (!directory.exists()) {
+                        directory.mkdirs();
+                    }
+                } else {
+                    // permission was not granted, show closing dialog
+                    new AlertDialog.Builder(this)
+                            .setTitle(R.string.permission_not_granted_dialog_title)
+                            .setMessage(R.string.permission_not_granted_dialog_message)
+                            .setPositiveButton(R.string.dialog_ok, new DialogInterface
+                                    .OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    MainActivity.this.finish();
+                                }
+                            })
+                            .show();
+                    return;
+                }
+                break;
+            }
+        }
     }
 
     private ArrayList<ThemeParser> prepareData() {

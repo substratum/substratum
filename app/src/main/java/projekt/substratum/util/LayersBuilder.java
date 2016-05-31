@@ -211,7 +211,6 @@ public class LayersBuilder {
                                 "<manifest xmlns:android=\"http://schemas.android" +
                                 ".com/apk/res/android\" package=\"" + overlay_package + "." +
                                 parse2_themeName + "\">\n" +
-                                "    <uses-sdk android:minSdkVersion=\"21\" />\n" +
                                 "    <overlay android:targetPackage=\"" + overlay_package + "\" " +
                                 "android:priority=\"100\"/>\n" +
                                 "</manifest>\n";

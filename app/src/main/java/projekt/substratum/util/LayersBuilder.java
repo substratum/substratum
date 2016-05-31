@@ -44,6 +44,7 @@ public class LayersBuilder {
      */
 
     public Boolean has_errored_out = false;
+    public String parse2_themeName;
     private Context mContext;
 
     public void injectAAPT(Context context) {
@@ -191,7 +192,7 @@ public class LayersBuilder {
         // 2a. Parse the theme's name before adding it into the new manifest to prevent any issues
 
         String parse1_themeName = theme_name.replaceAll("\\s+", "");
-        String parse2_themeName = parse1_themeName.replaceAll("[^a-zA-Z0-9]+", "");
+        parse2_themeName = parse1_themeName.replaceAll("[^a-zA-Z0-9]+", "");
 
         if (parse2_themeName.equals("")) {
             int inputNumber = 1;
@@ -337,34 +338,6 @@ public class LayersBuilder {
                 }
             } catch (Exception e) {
                 Log.e("Phase 3", "Overlay APK has failed to install! (Exception)");
-                has_errored_out = true;
-                Log.e("LayersBuilder", "Installation of \"" + overlay_package + "\" has failed.");
-            }
-        }
-
-        // Enable the APK using om list, om enable
-        // Superuser needed as this requires elevated privileges to run these commands
-
-        if (!has_errored_out) {
-            try {
-                eu.chainfire.libsuperuser.Shell.SU.run(
-                        "om enable " + overlay_package + "." + parse2_themeName);
-
-                // We need this Process to be waited for before moving on to the next function.
-                Log.d("Phase 3", "(OverlayManagerService) Enabling overlay \"" + overlay_package
-                        + "." +
-
-                        parse2_themeName + "\"");
-                if (checkIfPackageInstalled(overlay_package + "." + parse2_themeName, context)) {
-                    Log.d("Phase 3", "(OverlayManagerService) Successfully enabled overlay!");
-                } else {
-                    Log.e("Phase 3", "(OverlayManagerService) Failed to enable overlay!");
-                    has_errored_out = true;
-                    Log.e("LayersBuilder", "Installation of \"" + overlay_package + "\" has " +
-                            "failed.");
-                }
-            } catch (Exception e) {
-                Log.e("Phase 3", "(OverlayManagerService) Failed to enable overlay! (Exception)");
                 has_errored_out = true;
                 Log.e("LayersBuilder", "Installation of \"" + overlay_package + "\" has failed.");
             }

@@ -90,7 +90,6 @@ public class SettingsActivity extends AppCompatActivity {
                                 eu.chainfire.libsuperuser.Shell.SU.run(
                                         "pm uninstall " + line.substring(8));
                             }
-                            Log.d("CHECK", line);
                         }
                         br.close();
                         br = new BufferedReader(new InputStreamReader(stderr));

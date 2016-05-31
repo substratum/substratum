@@ -349,7 +349,6 @@ public class ThemeInformation extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            Log.d("Phase 1", "This phase has started it's asynchronous task.");
         }
 
         @Override
@@ -499,14 +498,25 @@ public class ThemeInformation extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            // Initialize the cache for this specific app
+            ArrayList<String> approved_overlays = new ArrayList<String>();
             for (int i = 0; i < listStrings.size(); i++) {
                 lb = new LayersBuilder();
                 lb.beginAction(getApplicationContext(), listStrings.get(i), theme_name);
                 if (lb.has_errored_out) {
                     erroredOverlays.add(listStrings.get(i));
+                } else {
+                    approved_overlays.add(listStrings.get(i) + "." + lb.parse2_themeName);
                 }
             }
+            String commands = "";
+            for (int i = 0; i < approved_overlays.size(); i++) {
+                if (i == 0) {
+                    commands = commands + "om enable " + approved_overlays.get(i);
+                } else {
+                    commands = commands + " && om enable " + approved_overlays.get(i);
+                }
+            }
+            eu.chainfire.libsuperuser.Shell.SU.run(commands);
             return null;
         }
     }

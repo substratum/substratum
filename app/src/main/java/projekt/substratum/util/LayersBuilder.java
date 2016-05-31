@@ -53,33 +53,33 @@ public class LayersBuilder {
 
         File aapt = new File("/system/bin/aapt");
         if (!aapt.exists()) {
-            // Take account for 64bit devices first
-            if (Build.SUPPORTED_64_BIT_ABIS.length != 0) {
-                copyAAPT("aapt-64");
+            if (!Build.SUPPORTED_ABIS.toString().contains("86")) {
+                // Take account for ARM/ARM64 devices
+                copyAAPT("aapt");
                 eu.chainfire.libsuperuser.Shell.SU.run("mount -o remount,rw /system");
                 eu.chainfire.libsuperuser.Shell.SU.run(
                         "cp " + context.getFilesDir().getAbsolutePath() +
-                                "/aapt-64 " +
+                                "/aapt " +
                                 "/system/bin/aapt");
                 eu.chainfire.libsuperuser.Shell.SU.run("chmod 755 /system/bin/aapt");
                 eu.chainfire.libsuperuser.Shell.SU.run("mount -o remount,ro /system");
-                Log.d("aaptChecker", "A 64 bit version of the Android Assets Packaging Tool has  " +
-                        "been injected.");
+                Log.d("Phase 1", "Android Assets Packaging Tool (ARM) has been injected into the " +
+                        "system partition.");
             } else {
-                // 32 bit devices start here
-                copyAAPT("aapt-32");
+                // Take account for x86 devices
+                copyAAPT("aapt-x86");
                 eu.chainfire.libsuperuser.Shell.SU.run("mount -o remount,rw /system");
                 eu.chainfire.libsuperuser.Shell.SU.run(
                         "cp " + context.getFilesDir().getAbsolutePath() +
-                                "/aapt-32 " +
+                                "/aapt-x86 " +
                                 "/system/bin/aapt");
                 eu.chainfire.libsuperuser.Shell.SU.run("chmod 755 /system/bin/aapt");
                 eu.chainfire.libsuperuser.Shell.SU.run("mount -o remount,ro /system");
-                Log.d("aaptChecker", "A 32 bit version of the Android Assets Packaging Tool has  " +
-                        "been injected.");
+                Log.d("Phase 1", "Android Assets Packaging Tool (x86) has been injected into the " +
+                        "system partition.");
             }
         } else {
-            Log.d("Phase 1", "There is no need to inject system partition with aapt.");
+            Log.d("Phase 1", "There is no need to inject AAPT into the system partition.");
         }
     }
 

@@ -17,6 +17,7 @@
     <string name="lb_phase_2_loader">creating and signing overlay</string>
 
     <string name="list_of_overlays">List of overlays</string>
+    <string name="toast_uninstalled">Hmm&#8230;you just uninstalled this one!</string>
 
     <string name="settings_title_1">Advanced Options</string>
     <string name="purge_button_text">Purge all overlays from device</string>

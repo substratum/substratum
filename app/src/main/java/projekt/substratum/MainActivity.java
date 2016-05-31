@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -39,10 +41,23 @@ public class MainActivity extends AppCompatActivity implements
         ActivityCompat.OnRequestPermissionsResultCallback {
 
     private static final int PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
-    public HashMap<String, String[]> layers_packages;
-    public RecyclerView recyclerView;
-    public Map<String, String[]> map;
+    private HashMap<String, String[]> layers_packages;
+    private RecyclerView recyclerView;
+    private Map<String, String[]> map;
     private Context mContext;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private List<ApplicationInfo> list;
+    private DataAdapter adapter;
+
+    private boolean isPackageInstalled(Context context, String package_name) {
+        PackageManager pm = context.getPackageManager();
+        try {
+            pm.getPackageInfo(package_name, PackageManager.GET_ACTIVITIES);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+    }
 
     public void getLayersPackages(Context context, String package_name) {
         // Simulate the Layers Plugin feature by filtering all installed apps and their metadata
@@ -91,11 +106,30 @@ public class MainActivity extends AppCompatActivity implements
         return super.onOptionsItemSelected(item);
     }
 
+    private void refreshLayout() {
+        PackageManager packageManager = getPackageManager();
+        list.clear();
+        recyclerView.setAdapter(null);
+        layers_packages = new HashMap<String, String[]>();
+        list = packageManager.getInstalledApplications(PackageManager
+                .GET_META_DATA);
+        for (ApplicationInfo packageInfo : list) {
+            getLayersPackages(mContext, packageInfo.packageName);
+        }
+        Log.d("Substratum Ready Themes", Integer.toString(layers_packages.size()));
+
+        // Now we need to sort the buffered installed Layers themes
+        map = new TreeMap<String, String[]>(layers_packages);
+        ArrayList<ThemeParser> headerParsers = prepareData();
+        adapter = new DataAdapter(getApplicationContext(), headerParsers);
+        recyclerView.setAdapter(adapter);
+        swipeRefreshLayout.setRefreshing(false);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_screen);
-
         mContext = this;
         layers_packages = new HashMap<String, String[]>();
         recyclerView = (RecyclerView) findViewById(R.id.theme_list);
@@ -103,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements
         // Create it so it uses a recyclerView to parse substratum-based themes
 
         PackageManager packageManager = getPackageManager();
-        List<ApplicationInfo> list = packageManager.getInstalledApplications(PackageManager
+        list = packageManager.getInstalledApplications(PackageManager
                 .GET_META_DATA);
         for (ApplicationInfo packageInfo : list) {
             getLayersPackages(mContext, packageInfo.packageName);
@@ -114,7 +148,8 @@ public class MainActivity extends AppCompatActivity implements
         map = new TreeMap<String, String[]>(layers_packages);
 
         ArrayList<ThemeParser> headerParsers = prepareData();
-        DataAdapter adapter = new DataAdapter(getApplicationContext(), headerParsers);
+        adapter = new DataAdapter(getApplicationContext(), headerParsers);
+
         // Assign adapter to RecyclerView
         recyclerView.setAdapter(adapter);
 
@@ -139,12 +174,23 @@ public class MainActivity extends AppCompatActivity implements
                     // RecyclerView Clicked item value
                     int position = rv.getChildAdapterPosition(child);
 
-                    Intent myIntent = new Intent(MainActivity.this, ThemeInformation.class);
-                    //myIntent.putExtra("key", value); //Optional parameters
-                    myIntent.putExtra("theme_name", map.keySet().toArray()[position].toString());
-                    myIntent.putExtra("theme_pid", map.get(map.keySet().toArray()[position]
-                            .toString())[1]);
-                    MainActivity.this.startActivity(myIntent);
+                    // Process fail case if user uninstalls an app and goes back an activity
+                    if (isPackageInstalled(getApplicationContext(),
+                            map.get(map.keySet().toArray()[position].toString())[1])) {
+                        Intent myIntent = new Intent(MainActivity.this, ThemeInformation.class);
+                        //myIntent.putExtra("key", value); //Optional parameters
+                        myIntent.putExtra("theme_name", map.keySet().toArray()[position].toString
+                                ());
+                        myIntent.putExtra("theme_pid", map.get(map.keySet().toArray()[position]
+                                .toString())[1]);
+                        MainActivity.this.startActivity(myIntent);
+                    } else {
+                        Toast toast = Toast.makeText(getApplicationContext(), getString(R.string
+                                .toast_uninstalled),
+                                Toast.LENGTH_SHORT);
+                        toast.show();
+                        refreshLayout();
+                    }
                 }
 
                 return false;
@@ -158,6 +204,15 @@ public class MainActivity extends AppCompatActivity implements
             @Override
             public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
 
+            }
+        });
+
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Refresh items
+                refreshLayout();
             }
         });
 
@@ -175,6 +230,15 @@ public class MainActivity extends AppCompatActivity implements
                     new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
         }
+
+        File[] fileList = new File(getCacheDir().getAbsolutePath() +
+                "/LayersBuilder/").listFiles();
+        for (int i = 0; i < fileList.length; i++) {
+            eu.chainfire.libsuperuser.Shell.SU.run(
+                    "rm -r " + getCacheDir().getAbsolutePath() +
+                            "/LayersBuilder/" + fileList[i].getName());
+        }
+        Log.d("LayersBuilder", "The cache has been flushed!");
 
     }
 

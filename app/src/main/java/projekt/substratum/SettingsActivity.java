@@ -100,7 +100,7 @@ public class SettingsActivity extends AppCompatActivity {
                         br.close();
 
                         Toast toast = Toast.makeText(getApplicationContext(), getString(R.string
-                                .purge_completion),
+                                        .purge_completion),
                                 Toast.LENGTH_SHORT);
                         toast.show();
                     } catch (IOException ioe) {

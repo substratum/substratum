@@ -58,10 +58,10 @@ public class ThemeInformation extends AppCompatActivity {
     public LayersBuilder lb;
     public List<String> listStrings, erroredOverlays;
     public Switch toggle_overlays;
+    public ProgressBar progressBar;
     private PowerManager.WakeLock mWakeLock;
     private ArrayList<String> enabled_overlays;
     private ArrayAdapter<String> adapter;
-    public ProgressBar progressBar;
 
     private boolean isPackageInstalled(Context context, String package_name) {
         PackageManager pm = context.getPackageManager();
@@ -161,14 +161,18 @@ public class ThemeInformation extends AppCompatActivity {
         if (progressBar != null) progressBar.setVisibility(View.GONE);
 
         ImageView imageView = (ImageView) findViewById(R.id.preview_image);
-        imageView.setImageDrawable(grabPackageHeroImage(theme_pid));
+        if (imageView != null) imageView.setImageDrawable(grabPackageHeroImage(theme_pid));
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(theme_name);
+        if (toolbar != null) toolbar.setTitle(theme_name);
 
         CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById
                 (R.id.collapsingToolbarLayout);
-        collapsingToolbarLayout.setTitle(theme_name);
+        if (collapsingToolbarLayout != null) collapsingToolbarLayout.setTitle(theme_name);
+
+        // From now on parse the theme_name as a package_identifier ready version
+        String parse1_themeName = theme_name.replaceAll("\\s+", "");
+        theme_name = parse1_themeName.replaceAll("[^a-zA-Z0-9]+", "");
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -211,6 +215,52 @@ public class ThemeInformation extends AppCompatActivity {
                     }
                     floatingActionButton.hide();
                 }
+            }
+        });
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+                                           int position, long id) {
+
+                if (isPackageInstalled(ThemeInformation.this, listView.getItemAtPosition
+                        (position).toString() + "." + theme_name)) {
+                    if (enabled_overlays.contains(listView.getItemAtPosition(position)
+                            .toString() + "." + theme_name)) {
+                        try {
+                            eu.chainfire.libsuperuser.Shell.SU.run(
+                                    "om disable " + listView.getItemAtPosition(position)
+                                            .toString() + "." + theme_name);
+                        } catch (Exception e) {
+                        }
+                        String toast_text = String.format(getApplicationContext().getResources()
+                                .getString(
+                                        R.string.toast_disabled), listView.getItemAtPosition
+                                (position)
+                                .toString() + "." + theme_name);
+                        Toast toast = Toast.makeText(getApplicationContext(), toast_text,
+                                Toast.LENGTH_SHORT);
+                        toast.show();
+                        adapter.notifyDataSetChanged();
+                    } else {
+                        try {
+                            eu.chainfire.libsuperuser.Shell.SU.run(
+                                    "om enable " + listView.getItemAtPosition(position)
+                                            .toString() + "." + theme_name);
+                        } catch (Exception e) {
+                        }
+                        String toast_text = String.format(getApplicationContext().getResources()
+                                .getString(
+                                        R.string.toast_enabled), listView.getItemAtPosition
+                                (position)
+                                .toString() + "." + theme_name);
+                        Toast toast = Toast.makeText(getApplicationContext(), toast_text,
+                                Toast.LENGTH_SHORT);
+                        toast.show();
+                        adapter.notifyDataSetChanged();
+                    }
+                }
+                return true;
             }
         });
 

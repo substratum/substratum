@@ -17,6 +17,8 @@
     <string name="lb_phase_2_loader">creating and signing overlay</string>
 
     <string name="list_of_overlays">List of overlays</string>
+    <string name="toast_enabled">\"%s\" overlay enabled!</string>
+    <string name="toast_disabled">\"%s\" overlay disabled!</string>
     <string name="toast_installed">Selected overlay(s) applied!</string>
     <string name="toast_uninstalled">Hmm&#8230;you just uninstalled this one!</string>
 

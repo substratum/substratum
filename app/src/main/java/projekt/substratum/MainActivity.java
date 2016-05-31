@@ -186,7 +186,7 @@ public class MainActivity extends AppCompatActivity implements
                         MainActivity.this.startActivity(myIntent);
                     } else {
                         Toast toast = Toast.makeText(getApplicationContext(), getString(R.string
-                                .toast_uninstalled),
+                                        .toast_uninstalled),
                                 Toast.LENGTH_SHORT);
                         toast.show();
                         refreshLayout();

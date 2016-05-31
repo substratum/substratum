@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -19,15 +20,22 @@ import android.util.SparseBooleanArray;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +46,7 @@ import projekt.substratum.util.LayersBuilder;
 /**
  * @author Nicholas Chum (nicholaschum)
  */
+
 public class ThemeInformation extends AppCompatActivity {
 
     public ListView listView;
@@ -49,6 +58,49 @@ public class ThemeInformation extends AppCompatActivity {
     public List<String> listStrings, erroredOverlays;
     public Switch toggle_overlays;
     private PowerManager.WakeLock mWakeLock;
+    private ArrayList<String> enabled_overlays;
+    private ArrayAdapter<String> adapter;
+
+    private boolean isPackageInstalled(Context context, String package_name) {
+        PackageManager pm = context.getPackageManager();
+        try {
+            pm.getPackageInfo(package_name, PackageManager.GET_ACTIVITIES);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+    }
+
+    private void checkEnabledOverlays() {
+        try {
+            String line;
+            enabled_overlays = new ArrayList<String>();
+            Process nativeApp = Runtime.getRuntime().exec(
+                    "om list");
+
+            OutputStream stdin = nativeApp.getOutputStream();
+            InputStream stderr = nativeApp.getErrorStream();
+            InputStream stdout = nativeApp.getInputStream();
+            stdin.write(("ls\n").getBytes());
+            stdin.write("exit\n".getBytes());
+            stdin.flush();
+            stdin.close();
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(stdout));
+            while ((line = br.readLine()) != null) {
+                if (line.contains("    [x] ")) {
+                    enabled_overlays.add(line.substring(8));
+                }
+            }
+            br.close();
+            br = new BufferedReader(new InputStreamReader(stderr));
+            while ((line = br.readLine()) != null) {
+                Log.e("LayersBuilder", line);
+            }
+            br.close();
+        } catch (IOException ioe) {
+        }
+    }
 
     public Drawable grabPackageHeroImage(String package_name) {
         Resources res;
@@ -71,6 +123,7 @@ public class ThemeInformation extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.theme_information);
 
+        enabled_overlays = new ArrayList<String>();
         has_extracted_cache = false;
 
         // Handle collapsible toolbar with theme name
@@ -81,24 +134,26 @@ public class ThemeInformation extends AppCompatActivity {
 
         final FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R
                 .id.apply_fab);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                SparseBooleanArray checked = listView.getCheckedItemPositions();
-                listStrings = new ArrayList<String>();
-                for (int i = 0; i < listView.getAdapter()
-                        .getCount(); i++) {
-                    if (checked.get(i)) {
-                        listStrings.add(listView
-                                .getItemAtPosition(i)
-                                .toString());
+        if (floatingActionButton != null) {
+            floatingActionButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    SparseBooleanArray checked = listView.getCheckedItemPositions();
+                    listStrings = new ArrayList<String>();
+                    for (int i = 0; i < listView.getAdapter()
+                            .getCount(); i++) {
+                        if (checked.get(i)) {
+                            listStrings.add(listView
+                                    .getItemAtPosition(i)
+                                    .toString());
+                        }
                     }
+                    // Run through phase two - initialize the cache for the specific theme
+                    Phase2_InitializeCache phase2_initializeCache = new Phase2_InitializeCache();
+                    phase2_initializeCache.execute("");
                 }
-                // Run through phase two - initialize the cache for the specific theme
-                Phase2_InitializeCache phase2_initializeCache = new Phase2_InitializeCache();
-                phase2_initializeCache.execute("");
-            }
-        });
-        floatingActionButton.hide();
+            });
+            floatingActionButton.hide();
+        }
 
         ImageView imageView = (ImageView) findViewById(R.id.preview_image);
         imageView.setImageDrawable(grabPackageHeroImage(theme_pid));
@@ -247,14 +302,36 @@ public class ThemeInformation extends AppCompatActivity {
             super.onPostExecute(result);
             MaterialProgressBar materialProgressBar = (MaterialProgressBar) findViewById(R.id
                     .progress_bar);
-            materialProgressBar.setVisibility(View.GONE);
-
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(ThemeInformation.this,
-                    android.R.layout.simple_list_item_multiple_choice, values);
+            if (materialProgressBar != null) materialProgressBar.setVisibility(View.GONE);
 
             if (listView != null) {
                 listView.setNestedScrollingEnabled(true);
                 listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+                adapter = new ArrayAdapter<String>(ThemeInformation.this, android.R.layout
+                        .simple_list_item_multiple_choice, values) {
+                    @Override
+                    public View getView(final int position, View convertView, ViewGroup parent) {
+                        TextView textView = (TextView) super.getView(position, convertView, parent);
+                        if (isPackageInstalled(ThemeInformation.this, listView.getItemAtPosition
+                                (position).toString() + "." + theme_name)) {
+                            if (enabled_overlays.contains(listView.getItemAtPosition(position)
+                                    .toString() + "." + theme_name)) {
+                                textView.setTextColor(getColor(R.color
+                                        .overlay_installed_list_entry));
+                                textView.setTypeface(null, Typeface.BOLD_ITALIC);
+                            } else {
+                                textView.setTextColor(getColor(R.color
+                                        .overlay_not_enabled_list_entry));
+                                textView.setTypeface(null, Typeface.NORMAL);
+                            }
+                        } else {
+                            textView.setTextColor(getColor(R.color
+                                    .overlay_not_installed_list_entry));
+                            textView.setTypeface(null, Typeface.NORMAL);
+                        }
+                        return textView;
+                    }
+                };
                 listView.setAdapter(adapter);
             }
         }
@@ -271,6 +348,7 @@ public class ThemeInformation extends AppCompatActivity {
                 }
             } catch (Exception e) {
             }
+            checkEnabledOverlays();
             return null;
         }
     }
@@ -351,7 +429,14 @@ public class ThemeInformation extends AppCompatActivity {
                     Toast toast = Toast.makeText(getApplicationContext(), toast_text,
                             Toast.LENGTH_SHORT);
                     toast.show();
+                    adapter.notifyDataSetChanged();
                 }
+            } else {
+                Toast toast = Toast.makeText(getApplicationContext(), getString(R.string
+                                .toast_installed),
+                        Toast.LENGTH_SHORT);
+                toast.show();
+                adapter.notifyDataSetChanged();
             }
         }
 

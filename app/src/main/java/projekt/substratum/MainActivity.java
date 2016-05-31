@@ -225,21 +225,24 @@ public class MainActivity extends AppCompatActivity implements
             if (!directory.exists()) {
                 directory.mkdirs();
             }
+            File cacheDirectory = new File(getCacheDir(),
+                    "/LayersBuilder/");
+            if (!cacheDirectory.exists()) {
+                cacheDirectory.mkdirs();
+            }
+            File[] fileList = new File(getCacheDir().getAbsolutePath() +
+                    "/LayersBuilder/").listFiles();
+            for (int i = 0; i < fileList.length; i++) {
+                eu.chainfire.libsuperuser.Shell.SU.run(
+                        "rm -r " + getCacheDir().getAbsolutePath() +
+                                "/LayersBuilder/" + fileList[i].getName());
+            }
+            Log.d("LayersBuilder", "The cache has been flushed!");
         } else {
             ActivityCompat.requestPermissions(this,
                     new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
         }
-
-        File[] fileList = new File(getCacheDir().getAbsolutePath() +
-                "/LayersBuilder/").listFiles();
-        for (int i = 0; i < fileList.length; i++) {
-            eu.chainfire.libsuperuser.Shell.SU.run(
-                    "rm -r " + getCacheDir().getAbsolutePath() +
-                            "/LayersBuilder/" + fileList[i].getName());
-        }
-        Log.d("LayersBuilder", "The cache has been flushed!");
-
     }
 
     @Override
@@ -255,6 +258,19 @@ public class MainActivity extends AppCompatActivity implements
                     if (!directory.exists()) {
                         directory.mkdirs();
                     }
+                    File cacheDirectory = new File(getCacheDir(),
+                            "/LayersBuilder/");
+                    if (!cacheDirectory.exists()) {
+                        cacheDirectory.mkdirs();
+                    }
+                    File[] fileList = new File(getCacheDir().getAbsolutePath() +
+                            "/LayersBuilder/").listFiles();
+                    for (int i = 0; i < fileList.length; i++) {
+                        eu.chainfire.libsuperuser.Shell.SU.run(
+                                "rm -r " + getCacheDir().getAbsolutePath() +
+                                        "/LayersBuilder/" + fileList[i].getName());
+                    }
+                    Log.d("LayersBuilder", "The cache has been flushed!");
                 } else {
                     // permission was not granted, show closing dialog
                     new AlertDialog.Builder(this)

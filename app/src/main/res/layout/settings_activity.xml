@@ -13,7 +13,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:textStyle="bold"
-        android:textColor="?colorAccent"
+        android:textColor="@color/settings_title_color"
         android:text="@string/settings_title_1"/>
 
     <TextView
@@ -31,7 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/purge"
-        android:text="Purge all overlays from device"
-        android:textColor="@android:color/white"
+        android:text="@string/purge_button_text"
+        android:textColor="@color/purge_button_text_color"
         android:background="@color/purge_button"/>
 </RelativeLayout>

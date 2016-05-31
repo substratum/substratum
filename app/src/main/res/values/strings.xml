@@ -17,6 +17,7 @@
     <string name="lb_phase_2_loader">creating and signing overlay</string>
 
     <string name="settings_title_1">Advanced Options</string>
+    <string name="purge_button_text">Purge all overlays from device</string>
     <string name="purge_information">Purging all overlays from the device at once is a potentially dangerous action causing multiple FCs DURING the action. If you experience an FC before receiving a toast confirming that you have removed all overlays, please click the button again.</string>
     <string name="purge_completion">All overlays deactivated and removed</string>
 </resources>

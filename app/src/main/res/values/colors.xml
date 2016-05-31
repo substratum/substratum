@@ -4,6 +4,17 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+    <color name="main_screen_card_background">#fffafafa</color>
+    <color name="main_screen_card_theme_title">#ff000000</color>
+    <color name="main_screen_card_theme_author">#d0000000</color>
+
+    <color name="theme_information_background">#ffeeeeee</color>
+    <color name="theme_information_card_background">#fffafafa</color>
+    <color name="theme_information_card_title">@color/colorAccent</color>
+
+    <color name="settings_title_color">@color/colorAccent</color>
+
     <color name="purge_button">#d50000</color>
+    <color name="purge_button_text_color">#ffffffff</color>
     <color name="window_bg_glass">#99000000</color>
 </resources>

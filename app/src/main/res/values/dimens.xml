@@ -1,4 +1,8 @@
 <resources>
     <dimen name="activity_horizontal_margin">12dp</dimen>
     <dimen name="activity_vertical_margin">12dp</dimen>
+    <dimen name="main_screen_card_corner_elevation">5dp</dimen>
+    <dimen name="main_screen_card_corner_radius">5dp</dimen>
+    <dimen name="theme_information_card_corner_elevation">5dp</dimen>
+    <dimen name="theme_information_card_corner_radius">5dp</dimen>
 </resources>

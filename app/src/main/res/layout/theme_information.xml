@@ -4,7 +4,7 @@
                                                  xmlns:tools="http://schemas.android.com/tools"
                                                  android:layout_width="match_parent"
                                                  android:layout_height="match_parent"
-                                                 android:background="#ffeeeeee"
+                                                 android:background="@color/theme_information_background"
                                                  android:fitsSystemWindows="true"
                                                  tools:context=".MainActivity">
 
@@ -61,9 +61,9 @@
                                             android:layout_height="wrap_content"
                                             android:layout_marginBottom="10dp"
                                             android:layout_marginTop="5dp"
-                                            card_view:cardBackgroundColor="#fffafafa"
-                                            card_view:cardCornerRadius="5dp"
-                                            card_view:cardElevation="5dp">
+                                            card_view:cardBackgroundColor="@color/theme_information_card_background"
+                                            card_view:cardCornerRadius="@dimen/theme_information_card_corner_radius"
+                                            card_view:cardElevation="@dimen/theme_information_card_corner_elevation">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -78,7 +78,7 @@
                     android:layout_marginTop="15dp"
                     android:layout_toStartOf="@+id/toggle_all_overlays"
                     android:text="List of overlays"
-                    android:textColor="?attr/colorAccent"
+                    android:textColor="@color/theme_information_card_title"
                     android:textStyle="bold"/>
 
                 <Switch

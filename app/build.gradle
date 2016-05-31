@@ -4,12 +4,19 @@ android {
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
 
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            output.outputFile = new File(
+                    output.outputFile.parent, "substratum_beta_testers.apk")
+        }
+    }
+
     defaultConfig {
         applicationId "projekt.substratum"
         minSdkVersion 23
         targetSdkVersion 23
         versionCode 1
-        versionName "1.0"
+        versionName "one"
     }
     buildTypes {
         release {

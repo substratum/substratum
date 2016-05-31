@@ -26,6 +26,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -60,6 +61,7 @@ public class ThemeInformation extends AppCompatActivity {
     private PowerManager.WakeLock mWakeLock;
     private ArrayList<String> enabled_overlays;
     private ArrayAdapter<String> adapter;
+    public ProgressBar progressBar;
 
     private boolean isPackageInstalled(Context context, String package_name) {
         PackageManager pm = context.getPackageManager();
@@ -137,6 +139,7 @@ public class ThemeInformation extends AppCompatActivity {
         if (floatingActionButton != null) {
             floatingActionButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
+                    progressBar.setVisibility(View.VISIBLE);
                     SparseBooleanArray checked = listView.getCheckedItemPositions();
                     listStrings = new ArrayList<String>();
                     for (int i = 0; i < listView.getAdapter()
@@ -154,6 +157,8 @@ public class ThemeInformation extends AppCompatActivity {
             });
             floatingActionButton.hide();
         }
+        progressBar = (ProgressBar) findViewById(R.id.loading_bar);
+        if (progressBar != null) progressBar.setVisibility(View.GONE);
 
         ImageView imageView = (ImageView) findViewById(R.id.preview_image);
         imageView.setImageDrawable(grabPackageHeroImage(theme_pid));
@@ -419,7 +424,6 @@ public class ThemeInformation extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            mWakeLock.release();
             if (erroredOverlays.size() > 0) {
                 for (int i = 0; i < erroredOverlays.size(); i++) {
                     String toast_text = String.format(getApplicationContext().getResources()
@@ -429,6 +433,7 @@ public class ThemeInformation extends AppCompatActivity {
                     Toast toast = Toast.makeText(getApplicationContext(), toast_text,
                             Toast.LENGTH_SHORT);
                     toast.show();
+                    progressBar.setVisibility(View.GONE);
                     adapter.notifyDataSetChanged();
                 }
             } else {
@@ -436,8 +441,10 @@ public class ThemeInformation extends AppCompatActivity {
                                 .toast_installed),
                         Toast.LENGTH_SHORT);
                 toast.show();
+                progressBar.setVisibility(View.GONE);
                 adapter.notifyDataSetChanged();
             }
+            mWakeLock.release();
         }
 
         @Override

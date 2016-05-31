@@ -1,6 +1,5 @@
 package projekt.substratum;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -26,10 +25,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Switch;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import com.mikhaellopez.circularfillableloaders.CircularFillableLoaders;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -50,11 +46,8 @@ public class ThemeInformation extends AppCompatActivity {
     public String[] values;
     public Boolean has_extracted_cache;
     public LayersBuilder lb;
-    public CircularFillableLoaders loader;
-    public TextView loader_string;
     public List<String> listStrings, erroredOverlays;
     public Switch toggle_overlays;
-    ProgressDialog mProgressDialog;
     private PowerManager.WakeLock mWakeLock;
 
     public Drawable grabPackageHeroImage(String package_name) {
@@ -196,12 +189,6 @@ public class ThemeInformation extends AppCompatActivity {
         // Run through phase one - checking whether aapt exists on the device
         Phase1_AAPT_Check phase1_aapt_check = new Phase1_AAPT_Check();
         phase1_aapt_check.execute("");
-
-        mProgressDialog = null;
-        mProgressDialog = new ProgressDialog(ThemeInformation.this, R.style
-                .LayersBuilder_ActivityTheme);
-        mProgressDialog.setIndeterminate(false);
-        mProgressDialog.setCancelable(false);
     }
 
     @Override
@@ -320,13 +307,6 @@ public class ThemeInformation extends AppCompatActivity {
             mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
                     getClass().getName());
             mWakeLock.acquire();
-            mProgressDialog.setContentView(R.layout.custom_dialog_loader);
-            loader_string = (TextView) mProgressDialog.findViewById(R.id.loadingTextCreativeMode);
-            loader_string.setText(getApplicationContext().getResources().getString(
-                    R.string.lb_phase_1_loader));
-            loader = (CircularFillableLoaders) mProgressDialog.findViewById(
-                    R.id.circularFillableLoader);
-            loader.setProgress(60);
             super.onPreExecute();
         }
 
@@ -355,9 +335,6 @@ public class ThemeInformation extends AppCompatActivity {
         protected void onPreExecute() {
             Log.d("Phase 3", "This phase has started it's asynchronous task.");
             erroredOverlays = new ArrayList<String>();
-            loader_string.setText(getApplicationContext().getResources().getString(
-                    R.string.lb_phase_2_loader));
-            loader.setProgress(40);
             super.onPreExecute();
         }
 

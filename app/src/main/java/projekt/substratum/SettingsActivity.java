@@ -106,7 +106,7 @@ public class SettingsActivity extends AppCompatActivity {
                             Log.e("LayersBuilder", line);
                         }
                         br.close();
-
+                        eu.chainfire.libsuperuser.Shell.SU.run("pkill com.android.systemui");
                         Toast toast = Toast.makeText(getApplicationContext(), getString(R.string
                                         .purge_completion),
                                 Toast.LENGTH_SHORT);

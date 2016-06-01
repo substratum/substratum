@@ -64,6 +64,7 @@ public class ThemeInformation extends AppCompatActivity {
     private PowerManager.WakeLock mWakeLock;
     private ArrayList<String> enabled_overlays;
     private ArrayAdapter<String> adapter;
+    private String final_commands;
 
     private boolean isPackageInstalled(Context context, String package_name) {
         PackageManager pm = context.getPackageManager();
@@ -504,6 +505,10 @@ public class ThemeInformation extends AppCompatActivity {
                 progressBar.setVisibility(View.GONE);
                 adapter.notifyDataSetChanged();
             }
+
+            eu.chainfire.libsuperuser.Shell.SU.run(final_commands);
+            final_commands = null;
+
             mWakeLock.release();
         }
 
@@ -519,15 +524,14 @@ public class ThemeInformation extends AppCompatActivity {
                     approved_overlays.add(listStrings.get(i) + "." + lb.parse2_themeName);
                 }
             }
-            String commands = "";
+            final_commands = "";
             for (int i = 0; i < approved_overlays.size(); i++) {
                 if (i == 0) {
-                    commands = commands + "om enable " + approved_overlays.get(i);
+                    final_commands = final_commands + "om enable " + approved_overlays.get(i);
                 } else {
-                    commands = commands + " && om enable " + approved_overlays.get(i);
+                    final_commands = final_commands + " && om enable " + approved_overlays.get(i);
                 }
             }
-            eu.chainfire.libsuperuser.Shell.SU.run(commands);
             return null;
         }
     }

@@ -390,6 +390,7 @@ public class ThemeInformation extends AppCompatActivity {
                 };
                 listView.setAdapter(adapter);
             }
+            toggle_overlays.setClickable(true);
         }
 
         @Override

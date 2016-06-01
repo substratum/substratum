@@ -236,11 +236,12 @@ public class ThemeInformation extends AppCompatActivity {
                         (position).toString() + "." + theme_name)) {
                     if (enabled_overlays.contains(listView.getItemAtPosition(position)
                             .toString() + "." + theme_name)) {
-                        try {
-                            eu.chainfire.libsuperuser.Shell.SU.run(
-                                    "om disable " + listView.getItemAtPosition(position)
-                                            .toString() + "." + theme_name);
-                        } catch (Exception e) {
+                        eu.chainfire.libsuperuser.Shell.SU.run(
+                                "om disable " + listView.getItemAtPosition(position)
+                                        .toString() + "." + theme_name);
+                        if (listView.getItemAtPosition(position).toString().equals("com.android" +
+                                ".systemui")) {
+                            eu.chainfire.libsuperuser.Shell.SU.run("pkill com.android.systemui");
                         }
                         String toast_text = String.format(getApplicationContext().getResources()
                                 .getString(
@@ -252,11 +253,12 @@ public class ThemeInformation extends AppCompatActivity {
                         toast.show();
                         adapter.notifyDataSetChanged();
                     } else {
-                        try {
-                            eu.chainfire.libsuperuser.Shell.SU.run(
-                                    "om enable " + listView.getItemAtPosition(position)
-                                            .toString() + "." + theme_name);
-                        } catch (Exception e) {
+                        eu.chainfire.libsuperuser.Shell.SU.run(
+                                "om enable " + listView.getItemAtPosition(position)
+                                        .toString() + "." + theme_name);
+                        if (listView.getItemAtPosition(position).toString().equals("com.android" +
+                                ".systemui")) {
+                            eu.chainfire.libsuperuser.Shell.SU.run("pkill com.android.systemui");
                         }
                         String toast_text = String.format(getApplicationContext().getResources()
                                 .getString(

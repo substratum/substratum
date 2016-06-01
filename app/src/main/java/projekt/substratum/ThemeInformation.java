@@ -2,6 +2,7 @@ package projekt.substratum;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -17,6 +18,7 @@ import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -36,6 +38,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mikhaellopez.circularfillableloaders.CircularFillableLoaders;
+import com.stericson.RootTools.RootTools;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -112,6 +115,15 @@ public class ThemeInformation extends AppCompatActivity {
             br.close();
         } catch (IOException ioe) {
         }
+    }
+
+    public Drawable grabAppIcon(String package_name) {
+        Drawable icon = null;
+        try {
+            icon = getPackageManager().getApplicationIcon(package_name);
+        } catch (PackageManager.NameNotFoundException nnfe) {
+        }
+        return icon;
     }
 
     public Drawable grabPackageHeroImage(String package_name) {
@@ -345,9 +357,89 @@ public class ThemeInformation extends AppCompatActivity {
             return true;
         }
         if (id == R.id.uninstall) {
-            Intent intent = new Intent(Intent.ACTION_DELETE);
-            intent.setData(Uri.parse("package:" + theme_pid));
-            startActivity(intent);
+            if (RootTools.isRootAvailable()) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(ThemeInformation.this);
+                builder.setTitle(theme_name);
+                builder.setIcon(grabAppIcon(theme_pid));
+                builder.setMessage(R.string.uninstall_dialog_body)
+                        .setPositiveButton(R.string.uninstall_dialog_okay, new DialogInterface
+                                .OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                eu.chainfire.libsuperuser.Shell.SU.run("pm uninstall " + theme_pid);
+
+                                // Quickly parse theme_name
+                                String parse1_themeName = theme_name.replaceAll("\\s+", "");
+                                String parse2_themeName = parse1_themeName.replaceAll
+                                        ("[^a-zA-Z0-9]+", "");
+
+                                // Begin uninstalling all overlays based on this package
+                                try {
+                                    String line;
+                                    Boolean systemui_found = false;
+                                    Process nativeApp = Runtime.getRuntime().exec(
+                                            "om list");
+
+                                    OutputStream stdin = nativeApp.getOutputStream();
+                                    InputStream stderr = nativeApp.getErrorStream();
+                                    InputStream stdout = nativeApp.getInputStream();
+                                    stdin.write(("ls\n").getBytes());
+                                    stdin.write("exit\n".getBytes());
+                                    stdin.flush();
+                                    stdin.close();
+
+                                    BufferedReader br = new BufferedReader(new InputStreamReader
+                                            (stdout));
+                                    while ((line = br.readLine()) != null) {
+                                        if (line.contains("    ")) {
+                                            String[] packageNameParsed = line.substring(8).split
+                                                    ("\\.");
+                                            if (packageNameParsed[packageNameParsed.length - 1]
+                                                    .equals(parse2_themeName)) {
+                                                if (line.substring(8).contains("systemui"))
+                                                    systemui_found = true;
+                                                Log.d("OverlayCleaner", "Removing overlay \"" +
+                                                        line.substring(8) + "\"");
+                                                eu.chainfire.libsuperuser.Shell.SU.run(
+                                                        "pm uninstall " + line.substring(8));
+                                            }
+                                        }
+                                    }
+                                    br.close();
+                                    br = new BufferedReader(new InputStreamReader(stderr));
+                                    while ((line = br.readLine()) != null) {
+                                        Log.e("LayersBuilder", line);
+                                    }
+                                    br.close();
+                                    if (systemui_found)
+                                        eu.chainfire.libsuperuser.Shell.SU.run("pkill com.android" +
+                                                ".systemui");
+                                    Toast toast = Toast.makeText(getApplicationContext(),
+                                            getString(R.string
+                                                    .purge_completion),
+                                            Toast.LENGTH_SHORT);
+                                    toast.show();
+                                } catch (Exception e) {
+                                }
+
+                                // Finally close out of the window
+                                finish();
+                            }
+                        })
+                        .setNegativeButton(R.string.uninstall_dialog_cancel, new DialogInterface
+                                .OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // User cancelled the dialog
+                            }
+                        });
+                // Create the AlertDialog object and return it
+                builder.create();
+                builder.show();
+
+            } else {
+                Intent intent = new Intent(Intent.ACTION_DELETE);
+                intent.setData(Uri.parse("package:" + theme_pid));
+                startActivity(intent);
+            }
             return true;
         }
 

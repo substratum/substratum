@@ -34,9 +34,9 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
 import com.mikhaellopez.circularfillableloaders.CircularFillableLoaders;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -511,6 +511,7 @@ public class ThemeInformation extends AppCompatActivity {
 
             // Dismiss the dialog first to prevent windows from leaking
             mProgressDialog.dismiss();
+            progressBar.setVisibility(View.GONE);
             mWakeLock.release();
 
             eu.chainfire.libsuperuser.Shell.SU.run(final_commands);
@@ -525,7 +526,6 @@ public class ThemeInformation extends AppCompatActivity {
                     Toast toast = Toast.makeText(getApplicationContext(), toast_text,
                             Toast.LENGTH_SHORT);
                     toast.show();
-                    progressBar.setVisibility(View.GONE);
                     adapter.notifyDataSetChanged();
                 }
             } else {
@@ -533,7 +533,6 @@ public class ThemeInformation extends AppCompatActivity {
                                 .toast_installed),
                         Toast.LENGTH_SHORT);
                 toast.show();
-                progressBar.setVisibility(View.GONE);
                 adapter.notifyDataSetChanged();
             }
         }
@@ -557,6 +556,9 @@ public class ThemeInformation extends AppCompatActivity {
                 } else {
                     final_commands = final_commands + " && om enable " + approved_overlays.get(i);
                 }
+            }
+            if (final_commands.contains("com.android.systemui")) {
+                final_commands = final_commands + " && pkill com.android.systemui";
             }
             return null;
         }

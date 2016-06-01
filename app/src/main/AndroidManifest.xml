@@ -37,6 +37,7 @@
             android:name=".RestoreActivity"
             android:label="@string/restore_app_name"
             android:icon="@mipmap/restore_launcher"
+            android:theme="@style/RestoreActivity.ActivityTheme"
             android:taskAffinity=".RestoreActivity">
 
             <intent-filter>

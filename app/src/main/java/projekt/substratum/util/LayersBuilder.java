@@ -198,6 +198,8 @@ public class LayersBuilder {
             int inputNumber = 1;
             parse2_themeName = "no_name";
         }
+        Log.d("PackageProcessor", "Processing package \"" + overlay_package + "." +
+                parse2_themeName + "\"");
 
         // 2b. Create the manifest file based on the new parsed names
 

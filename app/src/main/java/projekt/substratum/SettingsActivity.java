@@ -2,6 +2,7 @@ package projekt.substratum;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -14,10 +15,14 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.util.List;
+
+import projekt.substratum.util.ReadXMLFile;
 
 /**
  * Created by Nicholas on 2016-03-31.
@@ -116,5 +121,53 @@ public class SettingsActivity extends AppCompatActivity {
                 }
             });
         }
+
+        Button purgeAll2 = (Button) findViewById(R.id.purge2);
+        if (purgeAll2 != null) {
+            purgeAll2.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    eu.chainfire.libsuperuser.Shell.SU.run("cp /data/system/overlays.xml " +
+                            Environment.getExternalStorageDirectory().getAbsolutePath() +
+                            "/substratum/current_overlays.xml");
+
+                    String final_commands = "";
+                    String[] commands = {Environment.getExternalStorageDirectory()
+                            .getAbsolutePath() +
+                            "/substratum/current_overlays.xml", "5"};
+                    List<String> enabled_overlays = ReadXMLFile.main(commands);
+
+                    File f = new File(Environment.getExternalStorageDirectory().getAbsolutePath() +
+                            "/substratum/current_overlays.xml");
+                    if (f.exists() && !f.isDirectory()) {
+                        Toast toast = Toast.makeText(getApplicationContext(), getString(R.string
+                                        .disable_overlay_toast),
+                                Toast.LENGTH_SHORT);
+                        toast.show();
+                        for (int i = 0; i < enabled_overlays.size(); i++) {
+                            if (i == 0) {
+                                final_commands = final_commands + "om disable " +
+                                        enabled_overlays.get(i);
+                            } else {
+                                final_commands = final_commands + " && om disable " +
+                                        enabled_overlays.get(i);
+                            }
+                            Log.d("SettingsActivity", "Disabling overlay \"" + enabled_overlays
+                                    .get(i) + "\"");
+                        }
+                        if (final_commands.contains("com.android.systemui")) {
+                            final_commands = final_commands + " && pkill com.android.systemui";
+                        }
+                        eu.chainfire.libsuperuser.Shell.SU.run(final_commands);
+                    } else {
+                        Toast toast = Toast.makeText(getApplicationContext(), getString(R.string
+                                        .disable_overlay_toast_not_found),
+                                Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+
+                }
+            });
+        }
     }
+
 }

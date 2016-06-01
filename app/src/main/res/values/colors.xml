@@ -20,6 +20,7 @@
     <color name="overlay_not_installed_list_entry">#4c000000</color>
 
     <color name="purge_button">#d50000</color>
+    <color name="purge2_button">#ef6c00</color>
     <color name="purge_button_text_color">#ffffffff</color>
     <color name="window_bg_glass">#99000000</color>
 </resources>

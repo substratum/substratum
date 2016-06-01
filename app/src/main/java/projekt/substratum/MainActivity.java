@@ -262,7 +262,7 @@ public class MainActivity extends AppCompatActivity implements
         if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
             // permission already granted, allow the program to continue running
             File directory = new File(Environment.getExternalStorageDirectory(),
-                    "/substratum/");
+                    "/.substratum/");
             if (!directory.exists()) {
                 directory.mkdirs();
             }
@@ -295,7 +295,7 @@ public class MainActivity extends AppCompatActivity implements
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // permission already granted, allow the program to continue running
                     File directory = new File(Environment.getExternalStorageDirectory(),
-                            "/substratum/");
+                            "/.substratum/");
                     if (!directory.exists()) {
                         directory.mkdirs();
                     }

@@ -128,16 +128,16 @@ public class SettingsActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     eu.chainfire.libsuperuser.Shell.SU.run("cp /data/system/overlays.xml " +
                             Environment.getExternalStorageDirectory().getAbsolutePath() +
-                            "/substratum/current_overlays.xml");
+                            "/.substratum/current_overlays.xml");
 
                     String final_commands = "";
                     String[] commands = {Environment.getExternalStorageDirectory()
                             .getAbsolutePath() +
-                            "/substratum/current_overlays.xml", "5"};
+                            "/.substratum/current_overlays.xml", "5"};
                     List<String> enabled_overlays = ReadXMLFile.main(commands);
 
                     File f = new File(Environment.getExternalStorageDirectory().getAbsolutePath() +
-                            "/substratum/current_overlays.xml");
+                            "/.substratum/current_overlays.xml");
                     if (f.exists() && !f.isDirectory()) {
                         Toast toast = Toast.makeText(getApplicationContext(), getString(R.string
                                         .disable_overlay_toast),

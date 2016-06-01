@@ -23,11 +23,11 @@ public class RestoreActivity extends AppCompatActivity {
         this.finish();
         String final_commands = "";
         String[] commands = {Environment.getExternalStorageDirectory().getAbsolutePath() +
-                "/substratum/overlays.xml", "5"};
+                "/.substratum/overlays.xml", "5"};
         List<String> enabled_overlays = ReadXMLFile.main(commands);
 
         File f = new File(Environment.getExternalStorageDirectory().getAbsolutePath() +
-                "/substratum/overlays.xml");
+                "/.substratum/overlays.xml");
         if (f.exists() && !f.isDirectory()) {
             Toast toast = Toast.makeText(getApplicationContext(), getString(R.string
                             .restore_activity_toast),

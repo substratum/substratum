@@ -243,7 +243,7 @@ public class ThemeInformation extends AppCompatActivity {
                         eu.chainfire.libsuperuser.Shell.SU.run("cp /data/system/overlays.xml " +
                                 Environment
                                         .getExternalStorageDirectory().getAbsolutePath() +
-                                "/substratum/overlays.xml");
+                                "/.substratum/overlays.xml");
                         if (listView.getItemAtPosition(position).toString().equals("com.android" +
                                 ".systemui")) {
                             eu.chainfire.libsuperuser.Shell.SU.run("pkill com.android.systemui");
@@ -264,7 +264,7 @@ public class ThemeInformation extends AppCompatActivity {
                         eu.chainfire.libsuperuser.Shell.SU.run("cp /data/system/overlays.xml " +
                                 Environment
                                         .getExternalStorageDirectory().getAbsolutePath() +
-                                "/substratum/overlays.xml");
+                                "/.substratum/overlays.xml");
                         if (listView.getItemAtPosition(position).toString().equals("com.android" +
                                 ".systemui")) {
                             eu.chainfire.libsuperuser.Shell.SU.run("pkill com.android.systemui");
@@ -572,7 +572,7 @@ public class ThemeInformation extends AppCompatActivity {
                 final_commands = final_commands + " && pkill com.android.systemui";
             }
             final_commands = final_commands + "cp /data/system/overlays.xml " + Environment
-                    .getExternalStorageDirectory().getAbsolutePath() + "/substratum/overlays.xml";
+                    .getExternalStorageDirectory().getAbsolutePath() + "/.substratum/overlays.xml";
             return null;
         }
     }

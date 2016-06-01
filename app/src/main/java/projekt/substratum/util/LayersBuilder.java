@@ -297,14 +297,14 @@ public class LayersBuilder {
                 // Delete the previous APK if it exists in the dashboard folder
                 eu.chainfire.libsuperuser.Shell.SU.run(
                         "rm -r " + Environment.getExternalStorageDirectory().getAbsolutePath() +
-                                "/substratum/" + overlay_package + "." + parse2_themeName +
+                                "/.substratum/" + overlay_package + "." + parse2_themeName +
                                 "-unsigned.apk");
 
                 // Sign with the built-in auto-test key/certificate.
                 String source = work_area + "/" + overlay_package + "." + parse2_themeName +
                         "-unsigned.apk";
                 String destination = Environment.getExternalStorageDirectory().getAbsolutePath() +
-                        "/substratum/" + overlay_package + "." + parse2_themeName + "-signed.apk";
+                        "/.substratum/" + overlay_package + "." + parse2_themeName + "-signed.apk";
 
                 ZipSigner zipSigner = new ZipSigner();
                 zipSigner.setKeymode("testkey");
@@ -327,7 +327,7 @@ public class LayersBuilder {
                         "pm install " + Environment.getExternalStorageDirectory().getAbsolutePath
                                 () +
 
-                                "/substratum/" + overlay_package + "." + parse2_themeName +
+                                "/.substratum/" + overlay_package + "." + parse2_themeName +
                                 "-signed" +
                                 ".apk");
 

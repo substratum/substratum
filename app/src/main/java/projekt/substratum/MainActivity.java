@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements
     private SwipeRefreshLayout swipeRefreshLayout;
     private List<ApplicationInfo> list;
     private DataAdapter adapter;
+    private View cardView;
 
     private boolean isPackageInstalled(Context context, String package_name) {
         PackageManager pm = context.getPackageManager();
@@ -71,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements
                             String[] data = {appInfo.metaData.getString("Layers_Developer"),
                                     package_name};
                             layers_packages.put(appInfo.metaData.getString("Layers_Name"), data);
+                            Log.d("Substratum Ready Theme", package_name);
                         }
                     }
                 }
@@ -106,6 +108,19 @@ public class MainActivity extends AppCompatActivity implements
         return super.onOptionsItemSelected(item);
     }
 
+    private ArrayList<ThemeParser> prepareData() {
+
+        ArrayList<ThemeParser> themes = new ArrayList<>();
+        for (int i = 0; i < map.size(); i++) {
+            ThemeParser themeParser = new ThemeParser();
+            themeParser.setThemeName(map.keySet().toArray()[i].toString());
+            themeParser.setThemeAuthor(map.get(map.keySet().toArray()[i].toString())[0]);
+            themeParser.setThemePackage(map.get(map.keySet().toArray()[i].toString())[1]);
+            themes.add(themeParser);
+        }
+        return themes;
+    }
+
     private void refreshLayout() {
         PackageManager packageManager = getPackageManager();
         list.clear();
@@ -116,7 +131,14 @@ public class MainActivity extends AppCompatActivity implements
         for (ApplicationInfo packageInfo : list) {
             getLayersPackages(mContext, packageInfo.packageName);
         }
-        Log.d("Substratum Ready Themes", Integer.toString(layers_packages.size()));
+
+        if (layers_packages.size() == 0) {
+            cardView.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
+        } else {
+            cardView.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
+        }
 
         // Now we need to sort the buffered installed Layers themes
         map = new TreeMap<String, String[]>(layers_packages);
@@ -133,6 +155,8 @@ public class MainActivity extends AppCompatActivity implements
         mContext = this;
         layers_packages = new HashMap<String, String[]>();
         recyclerView = (RecyclerView) findViewById(R.id.theme_list);
+        cardView = findViewById(R.id.no_entry_card_view);
+        cardView.setVisibility(View.GONE);
 
         // Create it so it uses a recyclerView to parse substratum-based themes
 
@@ -142,7 +166,14 @@ public class MainActivity extends AppCompatActivity implements
         for (ApplicationInfo packageInfo : list) {
             getLayersPackages(mContext, packageInfo.packageName);
         }
-        Log.d("Substratum Ready Themes", Integer.toString(layers_packages.size()));
+
+        if (layers_packages.size() == 0) {
+            cardView.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
+        } else {
+            cardView.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
+        }
 
         // Now we need to sort the buffered installed Layers themes
         map = new TreeMap<String, String[]>(layers_packages);
@@ -290,18 +321,4 @@ public class MainActivity extends AppCompatActivity implements
             }
         }
     }
-
-    private ArrayList<ThemeParser> prepareData() {
-
-        ArrayList<ThemeParser> themes = new ArrayList<>();
-        for (int i = 0; i < map.size(); i++) {
-            ThemeParser themeParser = new ThemeParser();
-            themeParser.setThemeName(map.keySet().toArray()[i].toString());
-            themeParser.setThemeAuthor(map.get(map.keySet().toArray()[i].toString())[0]);
-            themeParser.setThemePackage(map.get(map.keySet().toArray()[i].toString())[1]);
-            themes.add(themeParser);
-        }
-        return themes;
-    }
-
 }

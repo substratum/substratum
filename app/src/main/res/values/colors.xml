@@ -11,6 +11,7 @@
     <color name="theme_information_background">#ffeeeeee</color>
     <color name="theme_information_card_background">#fffafafa</color>
     <color name="theme_information_card_title">@color/colorAccent</color>
+    <color name="theme_information_dialog_wave_color">#32ffffff</color>
 
     <color name="settings_title_color">@color/colorAccent</color>
 

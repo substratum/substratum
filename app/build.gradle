@@ -53,5 +53,6 @@ dependencies {
     compile files('src/main/libs/zipsigner-lib-1.17.jar')
 
     // Dialogs
+    compile 'com.mikhaellopez:circularfillableloaders:1.2.0'
     compile 'me.zhanghai.android.materialprogressbar:library:1.1.6'
 }

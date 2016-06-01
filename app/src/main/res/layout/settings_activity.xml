@@ -7,12 +7,33 @@
     tools:context=".SettingsActivity">
 
     <TextView
-        android:id="@+id/purge_title"
+        android:id="@+id/app_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:text="@string/settings_title_1"
+        android:textColor="@color/settings_title_color"
+        android:textStyle="bold"/>
+
+    <Switch
+        android:id="@+id/show_installed_packages_only"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/app_title"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/show_installed_packages_only"/>
+
+    <TextView
+        android:id="@+id/purge_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/show_installed_packages_only"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/settings_title_2"
         android:textColor="@color/settings_title_color"
         android:textStyle="bold"/>
 

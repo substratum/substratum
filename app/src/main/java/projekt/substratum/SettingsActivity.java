@@ -1,13 +1,16 @@
 package projekt.substratum;
 
-import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -21,18 +24,10 @@ import java.io.OutputStream;
  */
 public class SettingsActivity extends AppCompatActivity {
 
-    public boolean has_modified_anything = false;
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                if (has_modified_anything) {
-                    Intent i = getBaseContext().getPackageManager()
-                            .getLaunchIntentForPackage(getBaseContext().getPackageName());
-                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(i);
-                }
                 this.finish();
                 return true;
             default:
@@ -43,12 +38,6 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if (has_modified_anything) {
-            Intent i = getBaseContext().getPackageManager()
-                    .getLaunchIntentForPackage(getBaseContext().getPackageName());
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-        }
     }
 
     @Override
@@ -65,6 +54,26 @@ public class SettingsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
+                getApplicationContext());
+
+        Switch show_installed_packages = (Switch) findViewById(R.id.show_installed_packages_only);
+        if (prefs.getBoolean("show_installed_packages", true)) {
+            show_installed_packages.setChecked(true);
+        } else {
+            show_installed_packages.setChecked(false);
+        }
+        show_installed_packages.setOnCheckedChangeListener(new CompoundButton
+                .OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    prefs.edit().putBoolean("show_installed_packages", true).apply();
+                } else {
+                    prefs.edit().putBoolean("show_installed_packages", false).apply();
+                }
+            }
+        });
 
         Button purgeAll = (Button) findViewById(R.id.purge);
         if (purgeAll != null) {
@@ -104,10 +113,8 @@ public class SettingsActivity extends AppCompatActivity {
                         toast.show();
                     } catch (IOException ioe) {
                     }
-
                 }
             });
         }
-
     }
 }

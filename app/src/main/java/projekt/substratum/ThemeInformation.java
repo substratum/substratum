@@ -2,6 +2,7 @@ package projekt.substratum;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
@@ -11,6 +12,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.PowerManager;
+import android.preference.PreferenceManager;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -53,7 +55,7 @@ public class ThemeInformation extends AppCompatActivity {
     public ListView listView;
     public String theme_name, theme_pid;
     public AssetManager am;
-    public String[] values;
+    public ArrayList<String> values;
     public Boolean has_extracted_cache;
     public LayersBuilder lb;
     public List<String> listStrings, erroredOverlays;
@@ -392,13 +394,21 @@ public class ThemeInformation extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... sUrl) {
+            final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
+                    getApplicationContext());
             // Parse the list of overlay folders inside assets/overlays
             try {
+                values = new ArrayList<String>();
                 Context otherContext = createPackageContext(theme_pid, 0);
                 am = otherContext.getAssets();
-                values = new String[am.list("overlays").length];
                 for (int i = 0; i < am.list("overlays").length; i++) {
-                    values[i] = am.list("overlays")[i];
+                    if (prefs.getBoolean("show_installed_packages", true)) {
+                        if (isPackageInstalled(ThemeInformation.this, am.list("overlays")[i])) {
+                            values.add(am.list("overlays")[i]);
+                        }
+                    } else {
+                        values.add(am.list("overlays")[i]);
+                    }
                 }
             } catch (Exception e) {
             }

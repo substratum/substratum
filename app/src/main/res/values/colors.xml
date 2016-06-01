@@ -16,7 +16,7 @@
 
     <color name="overlay_installed_list_entry">#00c853</color>
     <color name="overlay_not_enabled_list_entry">#ef6c00</color>
-    <color name="overlay_not_installed_list_entry">#ff000000</color>
+    <color name="overlay_not_installed_list_entry">#4c000000</color>
 
     <color name="purge_button">#d50000</color>
     <color name="purge_button_text_color">#ffffffff</color>

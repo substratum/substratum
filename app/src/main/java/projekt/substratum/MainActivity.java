@@ -4,11 +4,13 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -49,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements
     private List<ApplicationInfo> list;
     private DataAdapter adapter;
     private View cardView;
+    private SharedPreferences prefs;
 
     private boolean isPackageInstalled(Context context, String package_name) {
         PackageManager pm = context.getPackageManager();
@@ -152,6 +155,13 @@ public class MainActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_screen);
+        prefs = PreferenceManager.getDefaultSharedPreferences(
+                getApplicationContext());
+
+        // prefs.edit().putBoolean("show_installed_packages", true).apply();
+
+        // Add this to the AppIntro Library
+
         mContext = this;
         layers_packages = new HashMap<String, String[]>();
         recyclerView = (RecyclerView) findViewById(R.id.theme_list);

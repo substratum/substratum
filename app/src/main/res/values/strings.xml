@@ -24,7 +24,9 @@
     <string name="no_themes_title">no themes installed&#8230;</string>
     <string name="no_themes_description">please install a compatible theme!</string>
 
-    <string name="settings_title_1">Advanced Options</string>
+    <string name="settings_title_1">App Options</string>
+    <string name="settings_title_2">Advanced Options</string>
+    <string name="show_installed_packages_only">Only show installed packages in overlay picker</string>
     <string name="purge_button_text">Purge all overlays from device</string>
     <string name="purge_information">Purging all overlays from the device at once is a potentially dangerous action causing multiple FCs DURING the action. If you experience an FC before receiving a toast confirming that you have removed all overlays, please click the button again.</string>
     <string name="purge_completion">All overlays deactivated and removed</string>

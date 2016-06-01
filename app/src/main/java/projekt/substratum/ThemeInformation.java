@@ -12,6 +12,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -239,6 +240,10 @@ public class ThemeInformation extends AppCompatActivity {
                         eu.chainfire.libsuperuser.Shell.SU.run(
                                 "om disable " + listView.getItemAtPosition(position)
                                         .toString() + "." + theme_name);
+                        eu.chainfire.libsuperuser.Shell.SU.run("cp /data/system/overlays.xml " +
+                                Environment
+                                        .getExternalStorageDirectory().getAbsolutePath() +
+                                "/substratum/overlays.xml");
                         if (listView.getItemAtPosition(position).toString().equals("com.android" +
                                 ".systemui")) {
                             eu.chainfire.libsuperuser.Shell.SU.run("pkill com.android.systemui");
@@ -256,6 +261,10 @@ public class ThemeInformation extends AppCompatActivity {
                         eu.chainfire.libsuperuser.Shell.SU.run(
                                 "om enable " + listView.getItemAtPosition(position)
                                         .toString() + "." + theme_name);
+                        eu.chainfire.libsuperuser.Shell.SU.run("cp /data/system/overlays.xml " +
+                                Environment
+                                        .getExternalStorageDirectory().getAbsolutePath() +
+                                "/substratum/overlays.xml");
                         if (listView.getItemAtPosition(position).toString().equals("com.android" +
                                 ".systemui")) {
                             eu.chainfire.libsuperuser.Shell.SU.run("pkill com.android.systemui");
@@ -562,6 +571,8 @@ public class ThemeInformation extends AppCompatActivity {
             if (final_commands.contains("com.android.systemui")) {
                 final_commands = final_commands + " && pkill com.android.systemui";
             }
+            final_commands = final_commands + "cp /data/system/overlays.xml " + Environment
+                    .getExternalStorageDirectory().getAbsolutePath() + "/substratum/overlays.xml";
             return null;
         }
     }

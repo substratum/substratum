@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">substratum</string>
+    <string name="restore_app_name">restore theme</string>
+
+    <string name="restore_activity_toast">Backup file found! Now restoring&#8230;</string>
+    <string name="restore_activity_toast_not_found">No overlay database backup found.</string>
 
     <string name="menu_rate">Rate theme</string>
     <string name="menu_search">Play Store Themes</string>

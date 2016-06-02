@@ -8,7 +8,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
-import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -21,6 +20,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.SpannableString;
+import android.text.style.StrikethroughSpan;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.Menu;
@@ -51,6 +52,7 @@ import java.util.List;
 
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.util.LayersBuilder;
+import projekt.substratum.util.ReadXMLFile;
 
 
 /**
@@ -75,6 +77,7 @@ public class ThemeInformation extends AppCompatActivity {
     private ArrayList<String> enabled_overlays;
     private ArrayAdapter<String> adapter;
     private String final_commands;
+    private List<String> unapproved_overlays;
 
     private boolean isPackageInstalled(Context context, String package_name) {
         PackageManager pm = context.getPackageManager();
@@ -247,49 +250,61 @@ public class ThemeInformation extends AppCompatActivity {
 
                 if (isPackageInstalled(ThemeInformation.this, listView.getItemAtPosition
                         (position).toString() + "." + theme_name)) {
-                    if (enabled_overlays.contains(listView.getItemAtPosition(position)
+                    if (unapproved_overlays.contains(listView.getItemAtPosition(position)
                             .toString() + "." + theme_name)) {
-                        eu.chainfire.libsuperuser.Shell.SU.run(
-                                "om disable " + listView.getItemAtPosition(position)
-                                        .toString() + "." + theme_name);
-                        eu.chainfire.libsuperuser.Shell.SU.run("cp /data/system/overlays.xml " +
-                                Environment
-                                        .getExternalStorageDirectory().getAbsolutePath() +
-                                "/.substratum/overlays.xml");
-                        if (listView.getItemAtPosition(position).toString().equals("com.android" +
-                                ".systemui")) {
-                            eu.chainfire.libsuperuser.Shell.SU.run("pkill com.android.systemui");
-                        }
-                        String toast_text = String.format(getApplicationContext().getResources()
-                                .getString(
-                                        R.string.toast_disabled), listView.getItemAtPosition
-                                (position)
-                                .toString() + "." + theme_name);
-                        Toast toast = Toast.makeText(getApplicationContext(), toast_text,
-                                Toast.LENGTH_SHORT);
+                        Toast toast = Toast.makeText(getApplicationContext(),
+                                getString(R.string.toast_unapproved), Toast.LENGTH_SHORT);
                         toast.show();
-                        adapter.notifyDataSetChanged();
                     } else {
-                        eu.chainfire.libsuperuser.Shell.SU.run(
-                                "om enable " + listView.getItemAtPosition(position)
-                                        .toString() + "." + theme_name);
-                        eu.chainfire.libsuperuser.Shell.SU.run("cp /data/system/overlays.xml " +
-                                Environment
-                                        .getExternalStorageDirectory().getAbsolutePath() +
-                                "/.substratum/overlays.xml");
-                        if (listView.getItemAtPosition(position).toString().equals("com.android" +
-                                ".systemui")) {
-                            eu.chainfire.libsuperuser.Shell.SU.run("pkill com.android.systemui");
+                        if (enabled_overlays.contains(listView.getItemAtPosition(position)
+                                .toString() + "." + theme_name)) {
+                            eu.chainfire.libsuperuser.Shell.SU.run(
+                                    "om disable " + listView.getItemAtPosition(position)
+                                            .toString() + "." + theme_name);
+                            eu.chainfire.libsuperuser.Shell.SU.run("cp /data/system/overlays.xml " +
+                                    Environment
+                                            .getExternalStorageDirectory().getAbsolutePath() +
+                                    "/.substratum/overlays.xml");
+                            if (listView.getItemAtPosition(position).toString().equals("com" +
+                                    ".android" +
+
+                                    ".systemui")) {
+                                eu.chainfire.libsuperuser.Shell.SU.run("pkill com.android" +
+                                        ".systemui");
+                            }
+                            String toast_text = String.format(getApplicationContext().getResources()
+                                    .getString(
+                                            R.string.toast_disabled), listView.getItemAtPosition
+                                    (position)
+                                    .toString() + "." + theme_name);
+                            Toast toast = Toast.makeText(getApplicationContext(), toast_text,
+                                    Toast.LENGTH_SHORT);
+                            toast.show();
+                            adapter.notifyDataSetChanged();
+                        } else {
+                            eu.chainfire.libsuperuser.Shell.SU.run(
+                                    "om enable " + listView.getItemAtPosition(position)
+                                            .toString() + "." + theme_name);
+                            eu.chainfire.libsuperuser.Shell.SU.run("cp /data/system/overlays.xml " +
+                                    Environment
+                                            .getExternalStorageDirectory().getAbsolutePath() +
+                                    "/.substratum/overlays.xml");
+                            if (listView.getItemAtPosition(position).toString().equals("com" +
+                                    ".android" +
+                                    ".systemui")) {
+                                eu.chainfire.libsuperuser.Shell.SU.run("pkill com.android" +
+                                        ".systemui");
+                            }
+                            String toast_text = String.format(getApplicationContext().getResources()
+                                    .getString(
+                                            R.string.toast_enabled), listView.getItemAtPosition
+                                    (position)
+                                    .toString() + "." + theme_name);
+                            Toast toast = Toast.makeText(getApplicationContext(), toast_text,
+                                    Toast.LENGTH_SHORT);
+                            toast.show();
+                            adapter.notifyDataSetChanged();
                         }
-                        String toast_text = String.format(getApplicationContext().getResources()
-                                .getString(
-                                        R.string.toast_enabled), listView.getItemAtPosition
-                                (position)
-                                .toString() + "." + theme_name);
-                        Toast toast = Toast.makeText(getApplicationContext(), toast_text,
-                                Toast.LENGTH_SHORT);
-                        toast.show();
-                        adapter.notifyDataSetChanged();
                     }
                 }
                 return true;
@@ -782,16 +797,23 @@ public class ThemeInformation extends AppCompatActivity {
                                     .toString() + "." + theme_name)) {
                                 textView.setTextColor(getColor(R.color
                                         .overlay_installed_list_entry));
-                                textView.setTypeface(null, Typeface.BOLD_ITALIC);
                             } else {
-                                textView.setTextColor(getColor(R.color
-                                        .overlay_not_enabled_list_entry));
-                                textView.setTypeface(null, Typeface.NORMAL);
+                                if (unapproved_overlays.contains(listView.getItemAtPosition
+                                        (position).toString() + "." + theme_name)) {
+                                    SpannableString string = new SpannableString(textView.getText
+                                            ());
+                                    string.setSpan(new StrikethroughSpan(), 0, string.length(), 0);
+                                    textView.setText(string);
+                                    textView.setTextColor(getColor(R.color
+                                            .overlay_not_approved_list_entry));
+                                } else {
+                                    textView.setTextColor(getColor(R.color
+                                            .overlay_not_enabled_list_entry));
+                                }
                             }
                         } else {
                             textView.setTextColor(getColor(R.color
                                     .overlay_not_installed_list_entry));
-                            textView.setTypeface(null, Typeface.NORMAL);
                         }
                         return textView;
                     }
@@ -805,6 +827,32 @@ public class ThemeInformation extends AppCompatActivity {
         protected String doInBackground(String... sUrl) {
             final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
                     getApplicationContext());
+
+            // Filter out state 0-3 overlays before enabling them
+
+            eu.chainfire.libsuperuser.Shell.SU.run("cp /data/system/overlays.xml " +
+                    Environment
+                            .getExternalStorageDirectory().getAbsolutePath() +
+                    "/.substratum/current_overlays.xml");
+            String[] commands0 = {Environment.getExternalStorageDirectory().getAbsolutePath() +
+                    "/.substratum/current_overlays.xml", "0"};
+            String[] commands1 = {Environment.getExternalStorageDirectory().getAbsolutePath() +
+                    "/.substratum/current_overlays.xml", "1"};
+            String[] commands2 = {Environment.getExternalStorageDirectory().getAbsolutePath() +
+                    "/.substratum/current_overlays.xml", "2"};
+            String[] commands3 = {Environment.getExternalStorageDirectory().getAbsolutePath() +
+                    "/.substratum/current_overlays.xml", "3"};
+
+            List<String> state0 = ReadXMLFile.main(commands0);
+            List<String> state1 = ReadXMLFile.main(commands1);
+            List<String> state2 = ReadXMLFile.main(commands2);
+            List<String> state3 = ReadXMLFile.main(commands3);
+
+            unapproved_overlays = new ArrayList<String>(state0);
+            unapproved_overlays.addAll(state1);
+            unapproved_overlays.addAll(state2);
+            unapproved_overlays.addAll(state3);
+
             // Parse the list of overlay folders inside assets/overlays
             try {
                 values = new ArrayList<String>();
@@ -934,7 +982,16 @@ public class ThemeInformation extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... sUrl) {
+            // Filter out state 4 overlays before programming them to enable
             ArrayList<String> approved_overlays = new ArrayList<String>();
+            eu.chainfire.libsuperuser.Shell.SU.run("cp /data/system/overlays.xml " +
+                    Environment
+                            .getExternalStorageDirectory().getAbsolutePath() +
+                    "/.substratum/current_overlays.xml");
+            String[] commands = {Environment.getExternalStorageDirectory().getAbsolutePath() +
+                    "/.substratum/current_overlays.xml", "4"};
+            List<String> approved_disabled_overlays = ReadXMLFile.main(commands);
+
             for (int i = 0; i < listStrings.size(); i++) {
                 lb = new LayersBuilder();
                 lb.beginAction(getApplicationContext(), listStrings.get(i), theme_name);
@@ -946,10 +1003,18 @@ public class ThemeInformation extends AppCompatActivity {
             }
             final_commands = "";
             for (int i = 0; i < approved_overlays.size(); i++) {
-                if (i == 0) {
+                if (i == 0 && approved_disabled_overlays.contains(approved_overlays.get(i))) {
                     final_commands = final_commands + "om enable " + approved_overlays.get(i);
                 } else {
-                    final_commands = final_commands + " && om enable " + approved_overlays.get(i);
+                    if (i != 0 && final_commands.length() == 0 && approved_disabled_overlays
+                            .contains(approved_overlays.get(i))) {
+                        final_commands = final_commands + "om enable " + approved_overlays.get(i);
+                    } else {
+                        if (approved_disabled_overlays.contains(approved_overlays.get(i))) {
+                            final_commands = final_commands + " && om enable " +
+                                    approved_overlays.get(i);
+                        }
+                    }
                 }
             }
             if (final_commands.contains("systemui")) {

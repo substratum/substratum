@@ -33,6 +33,7 @@
     <string name="lb_phase_2_loader">creating, signing and enabling overlay(s)</string>
 
     <string name="list_of_overlays">List of overlays</string>
+    <string name="toast_unapproved">This overlay has been rejected by the system</string>
     <string name="toast_enabled">\"%s\" enabled!</string>
     <string name="toast_disabled">\"%s\" disabled!</string>
     <string name="toast_installed">Selected overlay(s) applied!</string>

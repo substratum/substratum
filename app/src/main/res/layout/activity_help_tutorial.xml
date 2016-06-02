@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/activity_help_root"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/activity_help_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/linear_layout_indicator"
+        android:clipChildren="false"
+        android:clipToPadding="false">
+
+    </android.support.v4.view.ViewPager>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@+id/linear_layout_indicator"
+        android:background="@color/tutorial_slide_divider" />
+
+    <LinearLayout
+        android:id="@+id/linear_layout_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <Button
+            android:id="@+id/activity_help_skip_textview"
+            style="@android:style/Widget.Material.Button.Borderless"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:layout_weight="0.25"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:text="@string/tutorial_skip"
+            android:textColor="@color/tutorial_buttonTextColor"
+            android:textSize="18sp"/>
+
+        <za.co.riggaroo.materialhelptutorial.view.CirclePageIndicator
+            android:id="@+id/activity_help_view_page_indicator"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/activity_help_skip_textview"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="0.5"
+            android:minHeight="24dp"
+            app:fillColor="@color/tutorial_page_indicator_fill_color"
+            app:pageColor="@color/tutorial_page_indicator_page_color"
+            app:radius="@dimen/tutorial_page_indicator"
+            app:strokeColor="@android:color/transparent"
+            app:strokeWidth="0dp"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.25"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/activity_next_button"
+                style="@android:style/Widget.Material.Button.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="8dp"
+                android:padding="16dp"
+                android:src="@drawable/ic_navigate_next"
+                android:visibility="visible"/>
+
+            <Button
+                android:id="@+id/activity_tutorial_done"
+                style="@android:style/Widget.Material.Button.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:text="@string/tutorial_done"
+                android:textColor="@color/tutorial_buttonTextColor"
+                android:textSize="18sp"
+                android:visibility="gone"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

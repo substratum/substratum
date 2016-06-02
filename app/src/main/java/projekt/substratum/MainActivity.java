@@ -158,10 +158,6 @@ public class MainActivity extends AppCompatActivity implements
         prefs = PreferenceManager.getDefaultSharedPreferences(
                 getApplicationContext());
 
-        // prefs.edit().putBoolean("show_installed_packages", true).apply();
-
-        // Add this to the AppIntro Library
-
         mContext = this;
         layers_packages = new HashMap<String, String[]>();
         recyclerView = (RecyclerView) findViewById(R.id.theme_list);

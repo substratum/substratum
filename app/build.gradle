@@ -15,8 +15,8 @@ android {
         applicationId "projekt.substratum"
         minSdkVersion 23
         targetSdkVersion 23
-        versionCode 2
-        versionName "two"
+        versionCode 3
+        versionName "three"
     }
     buildTypes {
         release {
@@ -56,4 +56,7 @@ dependencies {
     // Dialogs
     compile 'com.mikhaellopez:circularfillableloaders:1.2.0'
     compile 'me.zhanghai.android.materialprogressbar:library:1.1.6'
+
+    // App Intro
+    compile 'za.co.riggaroo:materialhelptutorial:1.+'
 }

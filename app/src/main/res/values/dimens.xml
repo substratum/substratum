@@ -5,4 +5,5 @@
     <dimen name="main_screen_card_corner_radius">5dp</dimen>
     <dimen name="theme_information_card_corner_elevation">5dp</dimen>
     <dimen name="theme_information_card_corner_radius">5dp</dimen>
+    <dimen name="tutorial_page_indicator">4dp</dimen>
 </resources>

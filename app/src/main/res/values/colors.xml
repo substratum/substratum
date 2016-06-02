@@ -23,4 +23,13 @@
     <color name="purge2_button">#ef6c00</color>
     <color name="purge_button_text_color">#ffffffff</color>
     <color name="window_bg_glass">#99000000</color>
+
+    <color name="slide_1">#4f91ff</color>
+    <color name="slide_2">#fb9c25</color>
+    <color name="slide_3">#5ab55d</color>
+    <color name="slide_4">#ea2d6d</color>
+
+    <color name="tutorial_slide_divider">@android:color/transparent</color>
+    <color name="tutorial_page_indicator_fill_color">#70ffffff</color>
+    <color name="tutorial_page_indicator_page_color">#56ffffff</color>
 </resources>

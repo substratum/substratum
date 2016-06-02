@@ -28,7 +28,8 @@ public class LaunchActivity extends AppCompatActivity {
         prefs = PreferenceManager.getDefaultSharedPreferences(
                 getApplicationContext());
 
-        if (!prefs.getBoolean("first_run", false)) {
+        //if (!prefs.getBoolean("first_run", false)) {
+        if (false == true) {
             loadAppIntro();
         } else {
             Intent intent = new Intent(this, MainActivity.class);
@@ -42,7 +43,6 @@ public class LaunchActivity extends AppCompatActivity {
         mainAct.putParcelableArrayListExtra(MaterialTutorialActivity
                 .MATERIAL_TUTORIAL_ARG_TUTORIAL_ITEMS, getTutorialItems(this));
         startActivityForResult(mainAct, REQUEST_CODE);
-
     }
 
     private ArrayList<TutorialItem> getTutorialItems(Context context) {

@@ -304,25 +304,35 @@ public class ThemeInformation extends AppCompatActivity {
                     new CompoundButton.OnCheckedChangeListener() {
                         @Override
                         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                            SparseBooleanArray checked = listView.getCheckedItemPositions();
-                            for (int i = 0; i < listView.getAdapter().getCount(); i++) {
-                                if (checked.get(i)) {
-                                    if (!isChecked == listView.isItemChecked(i)) {
-                                        floatingActionButton.hide();
-                                        listView.setItemChecked(i, false);
+                            try {
+                                SparseBooleanArray checked = listView.getCheckedItemPositions();
+                                for (int i = 0; i < listView.getAdapter().getCount(); i++) {
+                                    if (checked.get(i)) {
+                                        if (!isChecked == listView.isItemChecked(i)) {
+                                            floatingActionButton.hide();
+                                            listView.setItemChecked(i, false);
+                                        } else {
+                                            floatingActionButton.show();
+                                            listView.setItemChecked(i, true);
+                                        }
                                     } else {
-                                        floatingActionButton.show();
-                                        listView.setItemChecked(i, true);
-                                    }
-                                } else {
-                                    if (!isChecked == listView.isItemChecked(i)) {
-                                        floatingActionButton.show();
-                                        listView.setItemChecked(i, true);
-                                    } else {
-                                        floatingActionButton.hide();
-                                        listView.setItemChecked(i, false);
+                                        if (!isChecked == listView.isItemChecked(i)) {
+                                            floatingActionButton.show();
+                                            listView.setItemChecked(i, true);
+                                        } else {
+                                            floatingActionButton.hide();
+                                            listView.setItemChecked(i, false);
+                                        }
                                     }
                                 }
+                            } catch (Exception e) {
+                                // Deal with app force closing after too many window refreshes
+                                Log.e("SubstratumLogger", "ThemeInformation window refreshed too " +
+                                        "many times, restarting current activity to preserve app " +
+                                        "integrity.");
+                                Intent intent = getIntent();
+                                finish();
+                                startActivity(intent);
                             }
                         }
                     });

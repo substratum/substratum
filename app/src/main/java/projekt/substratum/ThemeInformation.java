@@ -945,7 +945,7 @@ public class ThemeInformation extends AppCompatActivity {
             if (final_commands.contains("systemui")) {
                 final_commands = final_commands + " && pkill com.android.systemui";
             }
-            final_commands = final_commands + "cp /data/system/overlays.xml " + Environment
+            final_commands = final_commands + " && cp /data/system/overlays.xml " + Environment
                     .getExternalStorageDirectory().getAbsolutePath() + "/.substratum/overlays.xml";
             return null;
         }

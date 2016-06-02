@@ -15,8 +15,8 @@ android {
         applicationId "projekt.substratum"
         minSdkVersion 23
         targetSdkVersion 23
-        versionCode 8
-        versionName "eight"
+        versionCode 10
+        versionName "ten"
     }
     buildTypes {
         release {
@@ -59,4 +59,7 @@ dependencies {
 
     // App Intro
     compile 'za.co.riggaroo:materialhelptutorial:1.+'
+
+    // Floating Action Button Sheet Menu
+    compile 'com.gordonwong:material-sheet-fab:1.2.1'
 }

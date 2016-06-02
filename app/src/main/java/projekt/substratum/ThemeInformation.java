@@ -957,6 +957,7 @@ public class ThemeInformation extends AppCompatActivity {
             progressBar.setVisibility(View.GONE);
             mWakeLock.release();
 
+            Log.e("Running final commands", final_commands);
             eu.chainfire.libsuperuser.Shell.SU.run(final_commands);
             final_commands = null;
 
@@ -984,13 +985,6 @@ public class ThemeInformation extends AppCompatActivity {
         protected String doInBackground(String... sUrl) {
             // Filter out state 4 overlays before programming them to enable
             ArrayList<String> approved_overlays = new ArrayList<String>();
-            eu.chainfire.libsuperuser.Shell.SU.run("cp /data/system/overlays.xml " +
-                    Environment
-                            .getExternalStorageDirectory().getAbsolutePath() +
-                    "/.substratum/current_overlays.xml");
-            String[] commands = {Environment.getExternalStorageDirectory().getAbsolutePath() +
-                    "/.substratum/current_overlays.xml", "4"};
-            List<String> approved_disabled_overlays = ReadXMLFile.main(commands);
 
             for (int i = 0; i < listStrings.size(); i++) {
                 lb = new LayersBuilder();
@@ -1001,6 +995,15 @@ public class ThemeInformation extends AppCompatActivity {
                     approved_overlays.add(listStrings.get(i) + "." + lb.parse2_themeName);
                 }
             }
+
+            eu.chainfire.libsuperuser.Shell.SU.run("cp /data/system/overlays.xml " +
+                    Environment
+                            .getExternalStorageDirectory().getAbsolutePath() +
+                    "/.substratum/current_overlays.xml");
+            String[] commands = {Environment.getExternalStorageDirectory().getAbsolutePath() +
+                    "/.substratum/current_overlays.xml", "4"};
+            List<String> approved_disabled_overlays = ReadXMLFile.main(commands);
+
             final_commands = "";
             for (int i = 0; i < approved_overlays.size(); i++) {
                 if (i == 0 && approved_disabled_overlays.contains(approved_overlays.get(i))) {

@@ -96,8 +96,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_marginEnd="10dp"
                     android:layout_marginTop="10dp"
-                    android:clickable="false"
-                    android:visibility="gone"/>
+                    android:clickable="false" />
 
                 <ListView
                     android:id="@+id/overlay_picker"

@@ -96,7 +96,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_marginEnd="10dp"
                     android:layout_marginTop="10dp"
-                    android:clickable="false" />
+                    android:clickable="false"/>
 
                 <ListView
                     android:id="@+id/overlay_picker"
@@ -122,7 +122,7 @@
 
     </android.support.v4.widget.NestedScrollView>
 
-    <android.support.design.widget.FloatingActionButton
+    <projekt.substratum.util.FloatingActionMenu
         android:id="@+id/apply_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -131,5 +131,76 @@
         android:src="@drawable/floating_action_button_icon"
         android:visibility="visible"
         app:layout_anchorGravity="bottom|right|end"/>
+
+    <!-- Overlay that dims the screen -->
+    <com.gordonwong.materialsheetfab.DimOverlayFrameLayout
+        android:id="@+id/overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <io.codetail.widget.RevealLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="end|bottom"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/fab_sheet"
+            style="@style/Widget.MaterialSheetFab.Sheet">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Switch
+                    android:id="@+id/enable_swap"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
+                    android:checked="true"
+                    android:text="@string/fab_menu_swap_toggle"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/fab_menu_divider"/>
+
+                <TextView
+                    android:id="@+id/compile_selected"
+                    style="@style/TextAppearance.MaterialSheetFab.Sheet.Item"
+                    android:drawableStart="@drawable/fab_menu_compile"
+                    android:text="@string/fab_menu_compile"/>
+
+                <TextView
+                    android:id="@+id/compile_enable_selected"
+                    style="@style/TextAppearance.MaterialSheetFab.Sheet.Item"
+                    android:drawableStart="@drawable/fab_menu_compile_enable"
+                    android:text="@string/fab_menu_compile_enable"/>
+
+                <TextView
+                    android:id="@+id/disable_selected"
+                    style="@style/TextAppearance.MaterialSheetFab.Sheet.Item"
+                    android:drawableStart="@drawable/fab_menu_disable"
+                    android:text="@string/fab_menu_disable"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/enable_selected"
+                        style="@style/TextAppearance.MaterialSheetFab.Sheet.Item"
+                        android:drawableStart="@drawable/fab_menu_enable"
+                        android:text="@string/fab_menu_enable"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+    </io.codetail.widget.RevealLinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

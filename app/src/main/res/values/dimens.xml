@@ -1,9 +1,24 @@
 <resources>
     <dimen name="activity_horizontal_margin">12dp</dimen>
     <dimen name="activity_vertical_margin">12dp</dimen>
+
     <dimen name="main_screen_card_corner_elevation">5dp</dimen>
     <dimen name="main_screen_card_corner_radius">5dp</dimen>
+
     <dimen name="theme_information_card_corner_elevation">5dp</dimen>
     <dimen name="theme_information_card_corner_radius">5dp</dimen>
+
     <dimen name="tutorial_page_indicator">4dp</dimen>
+
+    <dimen name="fab_elevation">4dp</dimen>
+    <dimen name="fab_sheet_elevation">0dp</dimen>
+    <dimen name="fab_spacing">0dp</dimen>
+
+    <dimen name="keyline_spacing">16dp</dimen>
+
+    <dimen name="sheet_item_image_spacing">24dp</dimen>
+    <dimen name="sheet_item_spacing">@dimen/keyline_spacing</dimen>
+    <dimen name="sheet_item_textsize">16sp</dimen>
+    <dimen name="sheet_spacing">10dp</dimen>
+    <dimen name="sheet_width">210dp</dimen>
 </resources>

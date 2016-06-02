@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_above="@+id/linear_layout_indicator"
-        android:background="@color/tutorial_slide_divider" />
+        android:background="@color/tutorial_slide_divider"/>
 
     <LinearLayout
         android:id="@+id/linear_layout_indicator"

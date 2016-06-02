@@ -50,8 +50,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/purge_description"
-        android:layout_margin="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
         android:background="@color/purge_button"
         android:text="@string/purge_button_text"
         android:textColor="@color/purge_button_text_color"/>
@@ -62,7 +62,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/purge"
         android:layout_margin="10dp"
-        android:layout_marginTop="10dp"
         android:background="@color/purge2_button"
         android:text="@string/purge2_button_text"
         android:textColor="@color/purge_button_text_color"/>

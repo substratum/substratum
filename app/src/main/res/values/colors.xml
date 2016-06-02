@@ -33,4 +33,9 @@
     <color name="tutorial_slide_divider">@android:color/transparent</color>
     <color name="tutorial_page_indicator_fill_color">#70ffffff</color>
     <color name="tutorial_page_indicator_page_color">#56ffffff</color>
+
+    <color name="fab_menu_background_card">#ffffffff</color>
+    <color name="fab_menu_icon_color">#ff000000</color>
+    <color name="fab_menu_text_color">#de000000</color>
+    <color name="fab_menu_divider">#4a000000</color>
 </resources>

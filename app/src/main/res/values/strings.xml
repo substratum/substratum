@@ -7,6 +7,9 @@
     <string name="restore_activity_toast">Backup file found! Now restoring&#8230;</string>
     <string name="restore_activity_toast_not_found">No overlay database backup found.</string>
 
+    <string name="menu_clean">Clean overlays</string>
+    <string name="menu_disable">Disable installed overlays</string>
+    <string name="menu_enable">Enable installed overlays</string>
     <string name="menu_rate">Rate theme</string>
     <string name="menu_search">Play Store Themes</string>
     <string name="menu_settings">Settings</string>
@@ -17,6 +20,9 @@
         or the app will not function properly!</string>
     <string name="dialog_ok">OK</string>
 
+    <string name="clean_dialog_body">Do you want to clean all overlays for this theme?</string>
+    <string name="disable_dialog_body">Do you want to disable all overlays for this theme?</string>
+    <string name="enable_dialog_body">Do you want to enable all installed overlays for this theme?</string>
     <string name="uninstall_dialog_body">Do you want to uninstall this theme?</string>
     <string name="uninstall_dialog_cancel">Cancel</string>
     <string name="uninstall_dialog_okay">OK</string>
@@ -41,4 +47,7 @@
     <string name="purge2_button_text">Disable all enabled overlays on device</string>
     <string name="purge_information">Purging all overlays from the device at once is a potentially dangerous action causing multiple FCs DURING the action. If you experience an FC before receiving a toast confirming that you have removed all overlays, please click the button again.</string>
     <string name="purge_completion">All overlays deactivated and removed</string>
+    <string name="clean_completion">All overlays for this theme has been deactivated and removed</string>
+    <string name="disable_completion">All overlays for this theme has been deactivated</string>
+    <string name="enable_completion">All installed overlays for this theme has been activated</string>
 </resources>

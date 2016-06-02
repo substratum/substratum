@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/clean"
+        android:title="@string/menu_clean"/>
+    <item
+        android:id="@+id/disable"
+        android:title="@string/menu_disable"/>
+    <item
+        android:id="@+id/enable"
+        android:title="@string/menu_enable"/>
+    <item
         android:id="@+id/rate"
         android:title="@string/menu_rate"/>
     <item

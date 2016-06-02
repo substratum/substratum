@@ -349,6 +349,288 @@ public class ThemeInformation extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
+        if (id == R.id.clean) {
+            if (RootTools.isRootAvailable()) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(ThemeInformation.this);
+                builder.setTitle(theme_name);
+                builder.setIcon(grabAppIcon(theme_pid));
+                builder.setMessage(R.string.clean_dialog_body)
+                        .setPositiveButton(R.string.uninstall_dialog_okay, new DialogInterface
+                                .OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // Quickly parse theme_name
+                                String parse1_themeName = theme_name.replaceAll("\\s+", "");
+                                String parse2_themeName = parse1_themeName.replaceAll
+                                        ("[^a-zA-Z0-9]+", "");
+
+                                // Begin uninstalling all overlays based on this package
+                                try {
+                                    String line;
+                                    Boolean systemui_found = false;
+                                    Process nativeApp = Runtime.getRuntime().exec(
+                                            "om list");
+
+                                    OutputStream stdin = nativeApp.getOutputStream();
+                                    InputStream stderr = nativeApp.getErrorStream();
+                                    InputStream stdout = nativeApp.getInputStream();
+                                    stdin.write(("ls\n").getBytes());
+                                    stdin.write("exit\n".getBytes());
+                                    stdin.flush();
+                                    stdin.close();
+
+                                    BufferedReader br = new BufferedReader(new InputStreamReader
+                                            (stdout));
+                                    while ((line = br.readLine()) != null) {
+                                        if (line.contains("    ")) {
+                                            String[] packageNameParsed = line.substring(8).split
+                                                    ("\\.");
+                                            if (packageNameParsed[packageNameParsed.length - 1]
+                                                    .equals(parse2_themeName)) {
+                                                if (line.substring(8).contains("systemui"))
+                                                    systemui_found = true;
+                                                Log.d("OverlayCleaner", "Removing overlay \"" +
+                                                        line.substring(8) + "\"");
+                                                eu.chainfire.libsuperuser.Shell.SU.run(
+                                                        "pm uninstall " + line.substring(8));
+                                            }
+                                        }
+                                    }
+                                    br.close();
+                                    br = new BufferedReader(new InputStreamReader(stderr));
+                                    while ((line = br.readLine()) != null) {
+                                        Log.e("LayersBuilder", line);
+                                    }
+                                    br.close();
+                                    if (systemui_found)
+                                        eu.chainfire.libsuperuser.Shell.SU.run("pkill com.android" +
+                                                ".systemui");
+                                    Toast toast = Toast.makeText(getApplicationContext(),
+                                            getString(R.string
+                                                    .clean_completion),
+                                            Toast.LENGTH_SHORT);
+                                    toast.show();
+                                } catch (Exception e) {
+                                }
+
+                                // Finally close out of the window
+                                adapter.notifyDataSetChanged();
+                            }
+                        })
+                        .setNegativeButton(R.string.uninstall_dialog_cancel, new DialogInterface
+                                .OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // User cancelled the dialog
+                            }
+                        });
+                // Create the AlertDialog object and return it
+                builder.create();
+                builder.show();
+
+            } else {
+                Intent intent = new Intent(Intent.ACTION_DELETE);
+                intent.setData(Uri.parse("package:" + theme_pid));
+                startActivity(intent);
+            }
+            return true;
+        }
+        if (id == R.id.disable) {
+            if (RootTools.isRootAvailable()) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(ThemeInformation.this);
+                builder.setTitle(theme_name);
+                builder.setIcon(grabAppIcon(theme_pid));
+                builder.setMessage(R.string.disable_dialog_body)
+                        .setPositiveButton(R.string.uninstall_dialog_okay, new DialogInterface
+                                .OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // Quickly parse theme_name
+                                String parse1_themeName = theme_name.replaceAll("\\s+", "");
+                                String parse2_themeName = parse1_themeName.replaceAll
+                                        ("[^a-zA-Z0-9]+", "");
+
+                                // Begin uninstalling all overlays based on this package
+                                try {
+                                    String line;
+                                    String commands = "";
+                                    ArrayList<String> all_overlays = new ArrayList<String>();
+
+                                    Boolean systemui_found = false;
+                                    Process nativeApp = Runtime.getRuntime().exec(
+                                            "om list");
+
+                                    OutputStream stdin = nativeApp.getOutputStream();
+                                    InputStream stderr = nativeApp.getErrorStream();
+                                    InputStream stdout = nativeApp.getInputStream();
+                                    stdin.write(("ls\n").getBytes());
+                                    stdin.write("exit\n".getBytes());
+                                    stdin.flush();
+                                    stdin.close();
+
+                                    BufferedReader br = new BufferedReader(new InputStreamReader
+                                            (stdout));
+                                    while ((line = br.readLine()) != null) {
+                                        if (line.contains("    ")) {
+                                            String[] packageNameParsed = line.substring(8).split
+                                                    ("\\.");
+                                            if (packageNameParsed[packageNameParsed.length - 1]
+                                                    .equals(parse2_themeName)) {
+                                                if (line.substring(8).contains("systemui"))
+                                                    systemui_found = true;
+                                                Log.d("OverlayDisabler", "Disabling overlay \"" +
+                                                        line.substring(8) + "\"");
+                                                all_overlays.add(line.substring(8));
+                                            }
+                                        }
+                                    }
+                                    for (int i = 0; i < all_overlays.size(); i++) {
+                                        if (i == 0) {
+                                            commands = commands + "om disable " + all_overlays
+                                                    .get(i);
+                                        } else {
+                                            commands = commands + " && om disable " +
+                                                    all_overlays.get(i);
+                                        }
+                                    }
+                                    if (commands.contains("systemui")) {
+                                        commands = commands + " && pkill com.android.systemui";
+                                    }
+                                    br.close();
+                                    br = new BufferedReader(new InputStreamReader(stderr));
+                                    while ((line = br.readLine()) != null) {
+                                        Log.e("LayersBuilder", line);
+                                    }
+                                    br.close();
+                                    eu.chainfire.libsuperuser.Shell.SU.run(commands);
+                                    if (systemui_found)
+                                        eu.chainfire.libsuperuser.Shell.SU.run("pkill com.android" +
+                                                ".systemui");
+                                    Toast toast = Toast.makeText(getApplicationContext(),
+                                            getString(R.string
+                                                    .disable_completion),
+                                            Toast.LENGTH_SHORT);
+                                    toast.show();
+                                } catch (Exception e) {
+                                }
+
+                                // Finally close out of the window
+                                adapter.notifyDataSetChanged();
+                            }
+                        })
+                        .setNegativeButton(R.string.uninstall_dialog_cancel, new DialogInterface
+                                .OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // User cancelled the dialog
+                            }
+                        });
+                // Create the AlertDialog object and return it
+                builder.create();
+                builder.show();
+
+            } else {
+                Intent intent = new Intent(Intent.ACTION_DELETE);
+                intent.setData(Uri.parse("package:" + theme_pid));
+                startActivity(intent);
+            }
+            return true;
+        }
+        if (id == R.id.enable) {
+            if (RootTools.isRootAvailable()) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(ThemeInformation.this);
+                builder.setTitle(theme_name);
+                builder.setIcon(grabAppIcon(theme_pid));
+                builder.setMessage(R.string.enable_dialog_body)
+                        .setPositiveButton(R.string.uninstall_dialog_okay, new DialogInterface
+                                .OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // Quickly parse theme_name
+                                String parse1_themeName = theme_name.replaceAll("\\s+", "");
+                                String parse2_themeName = parse1_themeName.replaceAll
+                                        ("[^a-zA-Z0-9]+", "");
+
+                                // Begin uninstalling all overlays based on this package
+                                try {
+                                    String line;
+                                    String commands = "";
+                                    ArrayList<String> all_overlays = new ArrayList<String>();
+
+                                    Boolean systemui_found = false;
+                                    Process nativeApp = Runtime.getRuntime().exec(
+                                            "om list");
+
+                                    OutputStream stdin = nativeApp.getOutputStream();
+                                    InputStream stderr = nativeApp.getErrorStream();
+                                    InputStream stdout = nativeApp.getInputStream();
+                                    stdin.write(("ls\n").getBytes());
+                                    stdin.write("exit\n".getBytes());
+                                    stdin.flush();
+                                    stdin.close();
+
+                                    BufferedReader br = new BufferedReader(new InputStreamReader
+                                            (stdout));
+                                    while ((line = br.readLine()) != null) {
+                                        if (line.contains("    ")) {
+                                            String[] packageNameParsed = line.substring(8).split
+                                                    ("\\.");
+                                            if (packageNameParsed[packageNameParsed.length - 1]
+                                                    .equals(parse2_themeName)) {
+                                                if (line.substring(8).contains("systemui"))
+                                                    systemui_found = true;
+                                                Log.d("OverlayEnabler", "Enabling overlay \"" +
+                                                        line.substring(8) + "\"");
+                                                all_overlays.add(line.substring(8));
+                                            }
+                                        }
+                                    }
+                                    for (int i = 0; i < all_overlays.size(); i++) {
+                                        if (i == 0) {
+                                            commands = commands + "om enable " + all_overlays
+                                                    .get(i);
+                                        } else {
+                                            commands = commands + " && om enable " +
+                                                    all_overlays.get(i);
+                                        }
+                                    }
+                                    if (commands.contains("systemui")) {
+                                        commands = commands + " && pkill com.android.systemui";
+                                    }
+                                    br.close();
+                                    br = new BufferedReader(new InputStreamReader(stderr));
+                                    while ((line = br.readLine()) != null) {
+                                        Log.e("LayersBuilder", line);
+                                    }
+                                    br.close();
+                                    eu.chainfire.libsuperuser.Shell.SU.run(commands);
+                                    if (systemui_found)
+                                        eu.chainfire.libsuperuser.Shell.SU.run("pkill com.android" +
+                                                ".systemui");
+                                    Toast toast = Toast.makeText(getApplicationContext(),
+                                            getString(R.string
+                                                    .enable_completion),
+                                            Toast.LENGTH_SHORT);
+                                    toast.show();
+                                } catch (Exception e) {
+                                }
+
+                                // Finally close out of the window
+                                adapter.notifyDataSetChanged();
+                            }
+                        })
+                        .setNegativeButton(R.string.uninstall_dialog_cancel, new DialogInterface
+                                .OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // User cancelled the dialog
+                            }
+                        });
+                // Create the AlertDialog object and return it
+                builder.create();
+                builder.show();
+
+            } else {
+                Intent intent = new Intent(Intent.ACTION_DELETE);
+                intent.setData(Uri.parse("package:" + theme_pid));
+                startActivity(intent);
+            }
+            return true;
+        }
         if (id == R.id.rate) {
             String playURL = "https://play.google.com/store/apps/details?id=" + theme_pid;
             Intent i = new Intent(Intent.ACTION_VIEW);
@@ -660,7 +942,7 @@ public class ThemeInformation extends AppCompatActivity {
                     final_commands = final_commands + " && om enable " + approved_overlays.get(i);
                 }
             }
-            if (final_commands.contains("com.android.systemui")) {
+            if (final_commands.contains("systemui")) {
                 final_commands = final_commands + " && pkill com.android.systemui";
             }
             final_commands = final_commands + "cp /data/system/overlays.xml " + Environment

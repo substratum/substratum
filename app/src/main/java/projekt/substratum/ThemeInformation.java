@@ -142,7 +142,7 @@ public class ThemeInformation extends AppCompatActivity {
 
             BufferedReader br = new BufferedReader(new InputStreamReader(stdout));
             while ((line = br.readLine()) != null) {
-                if (line.contains("    ")) {
+                if (line.contains("    [x] ")) {
                     String[] packageNameParsed = line.substring(8).split("\\.");
                     mixAndMatch.add(packageNameParsed[packageNameParsed.length - 1]);
                 }

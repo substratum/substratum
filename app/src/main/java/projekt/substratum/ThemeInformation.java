@@ -869,14 +869,9 @@ public class ThemeInformation extends AppCompatActivity {
     public void onBackPressed() {
         // Destroy the cache if the user leaves the activity
         // Superuser is used due to some files being held hostage by the system
-
-        File[] fileList = new File(getCacheDir().getAbsolutePath() +
-                "/LayersBuilder/").listFiles();
-        for (int i = 0; i < fileList.length; i++) {
-            eu.chainfire.libsuperuser.Shell.SU.run(
-                    "rm -r " + getCacheDir().getAbsolutePath() +
-                            "/LayersBuilder/" + fileList[i].getName());
-        }
+        eu.chainfire.libsuperuser.Shell.SU.run(
+                "rm -r " + getCacheDir().getAbsolutePath() +
+                        "/LayersBuilder/");
         Log.d("LayersBuilder", "The cache has been flushed!");
 
         super.onBackPressed();

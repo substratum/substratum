@@ -1090,6 +1090,7 @@ public class ThemeInformation extends AppCompatActivity {
                                 .getExternalStorageDirectory().getAbsolutePath() + "/" +
                                 ".substratum/overlays" +
                                 ".xml";
+                        Log.e("Substratum1", swap_mode_commands);
                         eu.chainfire.libsuperuser.Shell.SU.run(swap_mode_commands);
                         if (swap_mode_commands.contains("systemui"))
                             eu.chainfire.libsuperuser.Shell.SU.run("pkill com.android" +
@@ -1101,6 +1102,7 @@ public class ThemeInformation extends AppCompatActivity {
                                         .getExternalStorageDirectory().getAbsolutePath() + "/" +
                                 ".substratum/overlays" +
                                 ".xml";
+                        Log.e("Substratum2", final_commands);
                         eu.chainfire.libsuperuser.Shell.SU.run(final_commands);
                         if (final_commands.contains("systemui"))
                             eu.chainfire.libsuperuser.Shell.SU.run("pkill com.android" +
@@ -1116,6 +1118,7 @@ public class ThemeInformation extends AppCompatActivity {
                                 "/overlays" +
                                 ".xml";
                         eu.chainfire.libsuperuser.Shell.SU.run(final_commands);
+                        Log.e("Substratum3", final_commands);
                         if (final_commands.contains("systemui"))
                             eu.chainfire.libsuperuser.Shell.SU.run("pkill com.android" +
                                     ".systemui");
@@ -1161,6 +1164,7 @@ public class ThemeInformation extends AppCompatActivity {
                                         ".substratum" +
                                         "/overlays" +
                                         ".xml";
+                                Log.e("Substratum4", final_commands);
                                 eu.chainfire.libsuperuser.Shell.SU.run(final_commands);
                                 adapter.notifyDataSetChanged();
                             } else {
@@ -1183,6 +1187,7 @@ public class ThemeInformation extends AppCompatActivity {
                                         ".substratum" +
                                         "/overlays" +
                                         ".xml";
+                                Log.e("Substratum5", final_commands);
                                 eu.chainfire.libsuperuser.Shell.SU.run(final_commands);
                                 adapter.notifyDataSetChanged();
                             } else {

@@ -393,7 +393,6 @@ public class ThemeInformation extends AppCompatActivity {
         // Handle all overlays that are located in the APK
         listView = (ListView) findViewById(R.id.overlay_picker);
 
-        //
         LoadOverlays loadOverlays = new LoadOverlays();
         loadOverlays.execute("");
 
@@ -971,13 +970,15 @@ public class ThemeInformation extends AppCompatActivity {
                 values = new ArrayList<String>();
                 Context otherContext = createPackageContext(theme_pid, 0);
                 am = otherContext.getAssets();
-                for (int i = 0; i < am.list("overlays").length; i++) {
+                String[] am_list = am.list("overlays");
+
+                for (int i = 0; i < am_list.length; i++) {
                     if (prefs.getBoolean("show_installed_packages", true)) {
-                        if (isPackageInstalled(ThemeInformation.this, am.list("overlays")[i])) {
-                            values.add(am.list("overlays")[i]);
+                        if (isPackageInstalled(ThemeInformation.this, am_list[i])) {
+                            values.add(am_list[i]);
                         }
                     } else {
-                        values.add(am.list("overlays")[i]);
+                        values.add(am_list[i]);
                     }
                 }
             } catch (Exception e) {

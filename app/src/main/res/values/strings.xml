@@ -39,7 +39,8 @@
     <string name="toast_enabled">\"%s\" enabled!</string>
     <string name="toast_disabled">\"%s\" disabled!</string>
     <string name="toast_disabled2">Selected overlay(s) disabled!</string>
-    <string name="toast_disabled3">Please select an installed overlay!</string>
+    <string name="toast_disabled3">Please compile this overlay before applying!</string>
+    <string name="toast_disabled4">Please compile this overlay before disabling!</string>
     <string name="toast_installed">Selected overlay(s) applied!</string>
     <string name="toast_uninstalled">You just uninstalled this one!</string>
     <string name="no_themes_title">no themes installed&#8230;</string>
@@ -60,7 +61,7 @@
     <string name="fab_menu_compile_enable">Compile Selected (+enable)</string>
     <string name="fab_menu_disable">Disable Selected</string>
     <string name="fab_menu_enable">Enable Selected</string>
-    <string name="fab_menu_swap_toggle">Enable Swap Mode</string>
+    <string name="fab_menu_swap_toggle">Enable Mix &amp; Match</string>
 
     <string name="slide_1_african_story_books">New African Story Books</string>
     <string name="slide_2_volunteer_professionals">Created by Volunteer Professionals</string>

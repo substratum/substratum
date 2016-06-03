@@ -77,6 +77,7 @@ public class LaunchActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
 
             // Add all predefined booleans here for the app to function
+            prefs.edit().putBoolean("enable_swapping_overlays", false).apply();
             prefs.edit().putBoolean("first_run", true).apply();
             prefs.edit().putBoolean("show_installed_packages", true).apply();
 

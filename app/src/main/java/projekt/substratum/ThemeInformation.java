@@ -70,7 +70,7 @@ public class ThemeInformation extends AppCompatActivity {
     public LayersBuilder lb;
     public CircularFillableLoaders loader;
     public TextView loader_string;
-    public List<String> listStrings, erroredOverlays;
+    public List<String> listStrings, erroredOverlays, mixAndMatch;
     public Switch toggle_overlays;
     public ProgressBar progressBar;
     ProgressDialog mProgressDialog;
@@ -81,7 +81,7 @@ public class ThemeInformation extends AppCompatActivity {
     private List<String> unapproved_overlays;
     private SharedPreferences prefs;
     private String current_mode;
-    private Boolean swap_mode;
+    private Boolean mixAndMatchMode;
     private String swap_mode_commands;
 
     private boolean isPackageInstalled(Context context, String package_name) {
@@ -113,6 +113,38 @@ public class ThemeInformation extends AppCompatActivity {
             while ((line = br.readLine()) != null) {
                 if (line.contains("    [x] ")) {
                     enabled_overlays.add(line.substring(8));
+                }
+            }
+            br.close();
+            br = new BufferedReader(new InputStreamReader(stderr));
+            while ((line = br.readLine()) != null) {
+                Log.e("LayersBuilder", line);
+            }
+            br.close();
+        } catch (IOException ioe) {
+        }
+    }
+
+    private void checkMixAndMatch() {
+        try {
+            String line;
+            mixAndMatch = new ArrayList<String>();
+            Process nativeApp = Runtime.getRuntime().exec(
+                    "om list");
+
+            OutputStream stdin = nativeApp.getOutputStream();
+            InputStream stderr = nativeApp.getErrorStream();
+            InputStream stdout = nativeApp.getInputStream();
+            stdin.write(("ls\n").getBytes());
+            stdin.write("exit\n".getBytes());
+            stdin.flush();
+            stdin.close();
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(stdout));
+            while ((line = br.readLine()) != null) {
+                if (line.contains("    ")) {
+                    String[] packageNameParsed = line.substring(8).split("\\.");
+                    mixAndMatch.add(packageNameParsed[packageNameParsed.length - 1]);
                 }
             }
             br.close();
@@ -188,11 +220,11 @@ public class ThemeInformation extends AppCompatActivity {
 
         Switch enable_swap = (Switch) findViewById(R.id.enable_swap);
         if (prefs.getBoolean("enable_swapping_overlays", true)) {
-            swap_mode = true;
-            enable_swap.setChecked(true);
-        } else {
-            swap_mode = false;
+            mixAndMatchMode = false;
             enable_swap.setChecked(false);
+        } else {
+            mixAndMatchMode = true;
+            enable_swap.setChecked(true);
         }
         enable_swap.setOnCheckedChangeListener(new CompoundButton
                 .OnCheckedChangeListener() {
@@ -200,10 +232,10 @@ public class ThemeInformation extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     prefs.edit().putBoolean("enable_swapping_overlays", true).apply();
-                    swap_mode = true;
+                    mixAndMatchMode = true;
                 } else {
                     prefs.edit().putBoolean("enable_swapping_overlays", false).apply();
-                    swap_mode = false;
+                    mixAndMatchMode = false;
                 }
             }
         });
@@ -234,6 +266,42 @@ public class ThemeInformation extends AppCompatActivity {
         if (compile_enable_selected != null)
             compile_enable_selected.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
+
+                    eu.chainfire.libsuperuser.Shell.SU.run("cp /data/system/overlays.xml " +
+                            Environment
+                                    .getExternalStorageDirectory().getAbsolutePath() +
+                            "/.substratum/current_overlays.xml");
+                    String[] commands0 = {Environment.getExternalStorageDirectory()
+                            .getAbsolutePath() +
+                            "/.substratum/current_overlays.xml", "4"};
+                    String[] commands1 = {Environment.getExternalStorageDirectory()
+                            .getAbsolutePath() +
+                            "/.substratum/current_overlays.xml", "5"};
+
+                    List<String> state4 = ReadXMLFile.main(commands0);
+                    List<String> state5 = ReadXMLFile.main(commands1);
+
+                    unapproved_overlays = new ArrayList<String>(state4);
+                    unapproved_overlays.addAll(state5);
+
+                    if (!mixAndMatchMode) {
+                        String parse1_themeName = theme_name.replaceAll("\\s+", "");
+                        String parse2_themeName = parse1_themeName.replaceAll
+                                ("[^a-zA-Z0-9]+", "");
+
+                        checkMixAndMatch();
+
+                        boolean if_all_same_theme = true;
+                        for (int i = 0; i < mixAndMatch.size(); i++) {
+                            if (!mixAndMatch.get(i).equals(parse2_themeName)) {
+                                if_all_same_theme = false;
+                            }
+                        }
+                        if (if_all_same_theme) {
+                            mixAndMatchMode = true;
+                        }
+                    }
+
                     current_mode = "compile_enable";
                     progressBar.setVisibility(View.VISIBLE);
                     SparseBooleanArray checked = listView.getCheckedItemPositions();
@@ -1013,22 +1081,22 @@ public class ThemeInformation extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             Log.d("Phase 2", "This phase has started it's asynchronous task.");
-            PowerManager pm = (PowerManager)
-                    getApplicationContext().getSystemService(Context.POWER_SERVICE);
             mWakeLock = null;
-            mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
-                    getClass().getName());
             if (!current_mode.equals("enable") && !current_mode.equals("disable")) {
+                PowerManager pm = (PowerManager)
+                        getApplicationContext().getSystemService(Context.POWER_SERVICE);
+                mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, getClass().getName());
                 mWakeLock.acquire();
                 mProgressDialog.show();
+                mProgressDialog.setContentView(R.layout.theme_information_dialog_loader);
+                loader_string = (TextView) mProgressDialog.findViewById(R.id
+                        .loadingTextCreativeMode);
+                loader_string.setText(getApplicationContext().getResources().getString(
+                        R.string.lb_phase_1_loader));
+                loader = (CircularFillableLoaders) mProgressDialog.findViewById(
+                        R.id.circularFillableLoader);
+                loader.setProgress(60);
             }
-            mProgressDialog.setContentView(R.layout.theme_information_dialog_loader);
-            loader_string = (TextView) mProgressDialog.findViewById(R.id.loadingTextCreativeMode);
-            loader_string.setText(getApplicationContext().getResources().getString(
-                    R.string.lb_phase_1_loader));
-            loader = (CircularFillableLoaders) mProgressDialog.findViewById(
-                    R.id.circularFillableLoader);
-            loader.setProgress(60);
             super.onPreExecute();
         }
 
@@ -1059,14 +1127,16 @@ public class ThemeInformation extends AppCompatActivity {
         protected void onPreExecute() {
             Log.d("Phase 3", "This phase has started it's asynchronous task.");
             erroredOverlays = new ArrayList<String>();
-            if (current_mode.equals("compile")) {
-                loader_string.setText(getApplicationContext().getResources().getString(
-                        R.string.lb_phase_2_loader_no_enable));
-            } else {
-                loader_string.setText(getApplicationContext().getResources().getString(
-                        R.string.lb_phase_2_loader));
+            if (!current_mode.equals("enable") && !current_mode.equals("disable")) {
+                if (current_mode.equals("compile")) {
+                    loader_string.setText(getApplicationContext().getResources().getString(
+                            R.string.lb_phase_2_loader_no_enable));
+                } else {
+                    loader_string.setText(getApplicationContext().getResources().getString(
+                            R.string.lb_phase_2_loader));
+                }
+                loader.setProgress(30);
             }
-            loader.setProgress(30);
             super.onPreExecute();
         }
 
@@ -1083,8 +1153,8 @@ public class ThemeInformation extends AppCompatActivity {
             // On non-compiling dialogs, we have the progress bar shown instead
             progressBar.setVisibility(View.GONE);
 
-            if (!current_mode.equals("compile")) {
-                if (swap_mode) {
+            if (current_mode.equals("compile_enable")) {
+                if (!mixAndMatchMode) {
                     if (swap_mode_commands.length() > 0) {
                         swap_mode_commands = swap_mode_commands + " && " + final_commands + " && " +
                                 "cp " +
@@ -1150,17 +1220,49 @@ public class ThemeInformation extends AppCompatActivity {
                         adapter.notifyDataSetChanged();
                     } else {
                         if (!current_mode.equals("disable")) {
-                            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string
-                                            .toast_installed),
-                                    Toast.LENGTH_SHORT);
-                            toast.show();
-                            adapter.notifyDataSetChanged();
+                            if (final_commands.length() > 0) {
+                                Toast toast = Toast.makeText(getApplicationContext(), getString(R
+                                                .string.toast_installed),
+                                        Toast.LENGTH_SHORT);
+                                toast.show();
+                                final_commands = final_commands + " && cp /data/system/overlays" +
+                                        ".xml " +
+                                        Environment
+                                                .getExternalStorageDirectory().getAbsolutePath()
+                                        + "/" +
+                                        ".substratum" +
+                                        "/overlays" +
+                                        ".xml";
+                                eu.chainfire.libsuperuser.Shell.SU.run(final_commands);
+                                adapter.notifyDataSetChanged();
+                            } else {
+                                Toast toast = Toast.makeText(getApplicationContext(), getString(R
+                                                .string.toast_disabled3),
+                                        Toast.LENGTH_SHORT);
+                                toast.show();
+                            }
                         } else {
-                            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string
-                                            .toast_disabled2),
-                                    Toast.LENGTH_SHORT);
-                            toast.show();
-                            adapter.notifyDataSetChanged();
+                            if (final_commands.length() > 0) {
+                                Toast toast = Toast.makeText(getApplicationContext(), getString(R
+                                                .string.toast_disabled2),
+                                        Toast.LENGTH_SHORT);
+                                toast.show();
+                                final_commands = final_commands + " && cp /data/system/overlays" +
+                                        ".xml " +
+                                        Environment
+                                                .getExternalStorageDirectory().getAbsolutePath()
+                                        + "/" +
+                                        ".substratum" +
+                                        "/overlays" +
+                                        ".xml";
+                                eu.chainfire.libsuperuser.Shell.SU.run(final_commands);
+                                adapter.notifyDataSetChanged();
+                            } else {
+                                Toast toast = Toast.makeText(getApplicationContext(), getString(R
+                                                .string.toast_disabled4),
+                                        Toast.LENGTH_SHORT);
+                                toast.show();
+                            }
                         }
                     }
                 }
@@ -1277,8 +1379,7 @@ public class ThemeInformation extends AppCompatActivity {
             }
             if (final_commands.length() > 0) {
                 if (!current_mode.equals("compile")) {
-                    if (swap_mode) {
-                        Boolean systemui_found = false;
+                    if (!mixAndMatchMode) {
                         // Begin uninstalling all overlays based on this package
                         try {
                             String line;
@@ -1299,9 +1400,8 @@ public class ThemeInformation extends AppCompatActivity {
                             while ((line = br.readLine()) != null) {
                                 if (line.contains("    [x] ")) {
                                     if (line.substring(8).contains("systemui"))
-                                        systemui_found = true;
-                                    Log.d("OverlayDisabler", "Disabling overlay \"" +
-                                            line.substring(8) + "\"");
+                                        Log.d("OverlayDisabler", "Disabling overlay \"" +
+                                                line.substring(8) + "\"");
                                     all_overlays.add(line.substring(8));
                                 }
                             }

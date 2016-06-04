@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements
     private static final int PERMISSIONS_REQUEST_READ_PHONE_STATE = 2;
     private Drawer drawer;
     private int drawerSelected;
+    private int permissionCheck, permissionCheck2;
 
     private void switchFragment(String title, String fragment) {
         getSupportActionBar().setTitle(title);
@@ -129,12 +130,9 @@ public class MainActivity extends AppCompatActivity implements
                 .withSelectedItemByPosition(1)
                 .build();
 
-        // Set the first option to start at app boot
-        drawer.setSelectionAtPosition(1);
-
-        int permissionCheck = ContextCompat.checkSelfPermission(getApplicationContext(),
+        permissionCheck = ContextCompat.checkSelfPermission(getApplicationContext(),
                 Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        int permissionCheck2 = ContextCompat.checkSelfPermission(getApplicationContext(),
+        permissionCheck2 = ContextCompat.checkSelfPermission(getApplicationContext(),
                 Manifest.permission.READ_PHONE_STATE);
 
         if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
@@ -157,25 +155,30 @@ public class MainActivity extends AppCompatActivity implements
                                 "/LayersBuilder/" + fileList[i].getName());
             }
             Log.d("LayersBuilder", "The cache has been flushed!");
+            if (permissionCheck2 == PackageManager.PERMISSION_GRANTED) {
+                // permission already granted, allow the program to continue running
+                // Set the first option to start at app boot
+                drawer.setSelectionAtPosition(1);
+            } else {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.READ_PHONE_STATE},
+                        PERMISSIONS_REQUEST_READ_PHONE_STATE);
+            }
         } else {
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
         }
-        if (permissionCheck2 == PackageManager.PERMISSION_GRANTED) {
-            // permission already granted, allow the program to continue running
-        } else {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.READ_PHONE_STATE},
-                    PERMISSIONS_REQUEST_READ_PHONE_STATE);
-        }
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        //add the values which need to be saved from the drawer to the bundle
-        outState = drawer.saveInstanceState(outState);
-        super.onSaveInstanceState(outState);
+        if (permissionCheck == PackageManager.PERMISSION_GRANTED && permissionCheck2 ==
+                PackageManager.PERMISSION_GRANTED) {
+            //add the values which need to be saved from the drawer to the bundle
+            outState = drawer.saveInstanceState(outState);
+            super.onSaveInstanceState(outState);
+        }
     }
 
     @Override
@@ -243,11 +246,20 @@ public class MainActivity extends AppCompatActivity implements
                                         "/LayersBuilder/" + fileList[i].getName());
                     }
                     Log.d("LayersBuilder", "The cache has been flushed!");
+                    if (permissionCheck2 == PackageManager.PERMISSION_GRANTED) {
+                        // permission already granted, allow the program to continue running
+                        // Set the first option to start at app boot
+                        drawer.setSelectionAtPosition(1);
+                    } else {
+                        ActivityCompat.requestPermissions(this,
+                                new String[]{Manifest.permission.READ_PHONE_STATE},
+                                PERMISSIONS_REQUEST_READ_PHONE_STATE);
+                    }
                 } else {
                     // permission was not granted, show closing dialog
                     new AlertDialog.Builder(this)
                             .setTitle(R.string.permission_not_granted_dialog_title)
-                            .setMessage(R.string.permission_not_granted_dialog_message)
+                            .setMessage(R.string.permission_not_granted_dialog_message1)
                             .setPositiveButton(R.string.dialog_ok, new DialogInterface
                                     .OnClickListener() {
                                 @Override
@@ -264,11 +276,13 @@ public class MainActivity extends AppCompatActivity implements
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // permission already granted, allow the program to continue running
+                    // Set the first option to start at app boot
+                    drawer.setSelectionAtPosition(1);
                 } else {
                     // permission was not granted, show closing dialog
                     new AlertDialog.Builder(this)
                             .setTitle(R.string.permission_not_granted_dialog_title)
-                            .setMessage(R.string.permission_not_granted_dialog_message)
+                            .setMessage(R.string.permission_not_granted_dialog_message2)
                             .setPositiveButton(R.string.dialog_ok, new DialogInterface
                                     .OnClickListener() {
                                 @Override

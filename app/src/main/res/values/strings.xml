@@ -23,7 +23,9 @@
     <string name="nav_about">About</string>
 
     <string name="permission_not_granted_dialog_title">Permissions not granted</string>
-    <string name="permission_not_granted_dialog_message">Please grant dashboard storage permissions
+    <string name="permission_not_granted_dialog_message1">Please grant substratum storage permissions
+        or the app will not function properly!</string>
+    <string name="permission_not_granted_dialog_message2">Please grant substratum phone permissions
         or the app will not function properly!</string>
     <string name="dialog_ok">OK</string>
 

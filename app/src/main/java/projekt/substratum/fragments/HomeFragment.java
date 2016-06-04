@@ -193,8 +193,11 @@ public class HomeFragment extends Fragment {
                         pm.get(i).packageName, PackageManager.GET_META_DATA);
                 if (appInfo.metaData != null) {
                     if (appInfo.metaData.getString("Layers_Name") != null) {
-                        if (appInfo.metaData.getString("Layers_Name").equals
-                                (theme_name_abbreviation)) {
+                        String parse1_themeName = appInfo.metaData.getString("Layers_Name")
+                                .replaceAll("\\s+", "");
+                        String parse2_themeName = parse1_themeName.replaceAll
+                                ("[^a-zA-Z0-9]+", "");
+                        if (parse2_themeName.equals(theme_name_abbreviation)) {
                             return true;
                         }
                     }

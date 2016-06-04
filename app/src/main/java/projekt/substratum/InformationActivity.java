@@ -42,6 +42,7 @@ import com.mikhaellopez.circularfillableloaders.CircularFillableLoaders;
 import com.stericson.RootTools.RootTools;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -866,12 +867,8 @@ public class InformationActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         // Destroy the cache if the user leaves the activity
-        // Superuser is used due to some files being held hostage by the system
-        eu.chainfire.libsuperuser.Shell.SU.run(
-                "rm -r " + getCacheDir().getAbsolutePath() +
-                        "/LayersBuilder/");
-        Log.d("LayersBuilder", "The cache has been flushed!");
-
+        clearCache clear = new clearCache();
+        clear.execute("");
         super.onBackPressed();
     }
 
@@ -977,6 +974,31 @@ public class InformationActivity extends AppCompatActivity {
             } catch (Exception e) {
             }
             checkEnabledOverlays();
+            return null;
+        }
+    }
+
+    private class clearCache extends AsyncTask<String, Integer, String> {
+
+        @Override
+        protected void onPreExecute() {
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            Log.d("LayersBuilder", "The cache has been flushed!");
+        }
+
+        @Override
+        protected String doInBackground(String... sUrl) {
+            // Superuser is used due to some files being held hostage by the system
+            File cacheFolder = new File(getCacheDir().getAbsolutePath() + "/LayersBuilder/");
+            if (cacheFolder.exists()) {
+                eu.chainfire.libsuperuser.Shell.SU.run(
+                        "rm -r " + getCacheDir().getAbsolutePath() +
+                                "/LayersBuilder/");
+            }
             return null;
         }
     }

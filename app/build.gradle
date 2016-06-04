@@ -62,4 +62,9 @@ dependencies {
 
     // Floating Action Button Sheet Menu
     compile 'com.gordonwong:material-sheet-fab:1.2.1'
+
+    // Material Drawer
+    compile('com.mikepenz:materialdrawer:5.2.9@aar') {
+        transitive = true
+    }
 }

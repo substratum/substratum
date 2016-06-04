@@ -58,7 +58,7 @@ import projekt.substratum.util.ReadXMLFile;
  * @author Nicholas Chum (nicholaschum)
  */
 
-public class ThemeInformation extends AppCompatActivity {
+public class InformationActivity extends AppCompatActivity {
 
     public ListView listView;
     public String theme_name, theme_pid;
@@ -183,7 +183,7 @@ public class ThemeInformation extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.theme_information);
+        setContentView(R.layout.information_activity);
         prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         enabled_overlays = new ArrayList<String>();
@@ -452,7 +452,7 @@ public class ThemeInformation extends AppCompatActivity {
                                 }
                             } catch (Exception e) {
                                 // Deal with app force closing after too many window refreshes
-                                Log.e("SubstratumLogger", "ThemeInformation window refreshed too " +
+                                Log.e("SubstratumLogger", "Information window refreshed too " +
                                         "many times, restarting current activity to preserve app " +
                                         "integrity.");
                                 Intent intent = getIntent();
@@ -468,7 +468,7 @@ public class ThemeInformation extends AppCompatActivity {
         phase1_aapt_check.execute("");
 
         mProgressDialog = null;
-        mProgressDialog = new ProgressDialog(ThemeInformation.this, R.style
+        mProgressDialog = new ProgressDialog(InformationActivity.this, R.style
                 .LayersBuilder_ActivityTheme);
         mProgressDialog.setIndeterminate(false);
         mProgressDialog.setCancelable(false);
@@ -486,7 +486,7 @@ public class ThemeInformation extends AppCompatActivity {
 
         if (id == R.id.clean) {
             if (RootTools.isRootAvailable()) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(ThemeInformation.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(InformationActivity.this);
                 builder.setTitle(theme_name);
                 builder.setIcon(grabAppIcon(theme_pid));
                 builder.setMessage(R.string.clean_dialog_body)
@@ -570,7 +570,7 @@ public class ThemeInformation extends AppCompatActivity {
         }
         if (id == R.id.disable) {
             if (RootTools.isRootAvailable()) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(ThemeInformation.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(InformationActivity.this);
                 builder.setTitle(theme_name);
                 builder.setIcon(grabAppIcon(theme_pid));
                 builder.setMessage(R.string.disable_dialog_body)
@@ -669,7 +669,7 @@ public class ThemeInformation extends AppCompatActivity {
         }
         if (id == R.id.enable) {
             if (RootTools.isRootAvailable()) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(ThemeInformation.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(InformationActivity.this);
                 builder.setTitle(theme_name);
                 builder.setIcon(grabAppIcon(theme_pid));
                 builder.setMessage(R.string.enable_dialog_body)
@@ -775,7 +775,7 @@ public class ThemeInformation extends AppCompatActivity {
         }
         if (id == R.id.uninstall) {
             if (RootTools.isRootAvailable()) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(ThemeInformation.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(InformationActivity.this);
                 builder.setTitle(theme_name);
                 builder.setIcon(grabAppIcon(theme_pid));
                 builder.setMessage(R.string.uninstall_dialog_body)
@@ -891,12 +891,12 @@ public class ThemeInformation extends AppCompatActivity {
             if (listView != null) {
                 listView.setNestedScrollingEnabled(true);
                 listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-                adapter = new ArrayAdapter<String>(ThemeInformation.this, android.R.layout
+                adapter = new ArrayAdapter<String>(InformationActivity.this, android.R.layout
                         .simple_list_item_multiple_choice, values) {
                     @Override
                     public View getView(final int position, View convertView, ViewGroup parent) {
                         TextView textView = (TextView) super.getView(position, convertView, parent);
-                        if (isPackageInstalled(ThemeInformation.this, listView.getItemAtPosition
+                        if (isPackageInstalled(InformationActivity.this, listView.getItemAtPosition
                                 (position).toString() + "." + theme_name)) {
                             if (enabled_overlays.contains(listView.getItemAtPosition(position)
                                     .toString() + "." + theme_name)) {
@@ -967,7 +967,7 @@ public class ThemeInformation extends AppCompatActivity {
 
                 for (int i = 0; i < am_list.length; i++) {
                     if (prefs.getBoolean("show_installed_packages", true)) {
-                        if (isPackageInstalled(ThemeInformation.this, am_list[i])) {
+                        if (isPackageInstalled(InformationActivity.this, am_list[i])) {
                             values.add(am_list[i]);
                         }
                     } else {
@@ -1014,7 +1014,7 @@ public class ThemeInformation extends AppCompatActivity {
                 mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, getClass().getName());
                 mWakeLock.acquire();
                 mProgressDialog.show();
-                mProgressDialog.setContentView(R.layout.theme_information_dialog_loader);
+                mProgressDialog.setContentView(R.layout.dialog_loader);
                 loader_string = (TextView) mProgressDialog.findViewById(R.id
                         .loadingTextCreativeMode);
                 loader_string.setText(getApplicationContext().getResources().getString(

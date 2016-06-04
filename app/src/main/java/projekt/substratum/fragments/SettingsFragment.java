@@ -1,14 +1,14 @@
-package projekt.substratum;
+package projekt.substratum.fragments;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
@@ -22,47 +22,25 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.List;
 
+import projekt.substratum.R;
 import projekt.substratum.util.ReadXMLFile;
 
 /**
  * Created by Nicholas on 2016-03-31.
  */
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsFragment extends Fragment {
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                this.finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        return true;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
+            savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.settings_activity);
-
-        getSupportActionBar().setTitle(getString(R.string.menu_settings));
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.settings_fragment, null);
 
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
-                getApplicationContext());
+                getContext());
 
-        Switch show_installed_packages = (Switch) findViewById(R.id.show_installed_packages_only);
+        Switch show_installed_packages = (Switch) root.findViewById(R.id
+                .show_installed_packages_only);
         if (prefs.getBoolean("show_installed_packages", true)) {
             show_installed_packages.setChecked(true);
         } else {
@@ -80,7 +58,7 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-        Button purgeAll = (Button) findViewById(R.id.purge);
+        Button purgeAll = (Button) root.findViewById(R.id.purge);
         if (purgeAll != null) {
             purgeAll.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
@@ -112,7 +90,7 @@ public class SettingsActivity extends AppCompatActivity {
                         }
                         br.close();
                         eu.chainfire.libsuperuser.Shell.SU.run("pkill com.android.systemui");
-                        Toast toast = Toast.makeText(getApplicationContext(), getString(R.string
+                        Toast toast = Toast.makeText(getContext(), getString(R.string
                                         .purge_completion),
                                 Toast.LENGTH_SHORT);
                         toast.show();
@@ -122,7 +100,7 @@ public class SettingsActivity extends AppCompatActivity {
             });
         }
 
-        Button purgeAll2 = (Button) findViewById(R.id.purge2);
+        Button purgeAll2 = (Button) root.findViewById(R.id.purge2);
         if (purgeAll2 != null) {
             purgeAll2.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
@@ -139,7 +117,7 @@ public class SettingsActivity extends AppCompatActivity {
                     File f = new File(Environment.getExternalStorageDirectory().getAbsolutePath() +
                             "/.substratum/current_overlays.xml");
                     if (f.exists() && !f.isDirectory()) {
-                        Toast toast = Toast.makeText(getApplicationContext(), getString(R.string
+                        Toast toast = Toast.makeText(getContext(), getString(R.string
                                         .disable_overlay_toast),
                                 Toast.LENGTH_SHORT);
                         toast.show();
@@ -151,7 +129,7 @@ public class SettingsActivity extends AppCompatActivity {
                                 final_commands = final_commands + " && om disable " +
                                         enabled_overlays.get(i);
                             }
-                            Log.d("SettingsActivity", "Disabling overlay \"" + enabled_overlays
+                            Log.d("Settings", "Disabling overlay \"" + enabled_overlays
                                     .get(i) + "\"");
                         }
                         if (final_commands.contains("com.android.systemui")) {
@@ -159,15 +137,14 @@ public class SettingsActivity extends AppCompatActivity {
                         }
                         eu.chainfire.libsuperuser.Shell.SU.run(final_commands);
                     } else {
-                        Toast toast = Toast.makeText(getApplicationContext(), getString(R.string
+                        Toast toast = Toast.makeText(getContext(), getString(R.string
                                         .disable_overlay_toast_not_found),
                                 Toast.LENGTH_SHORT);
                         toast.show();
                     }
-
                 }
             });
         }
+        return root;
     }
-
 }

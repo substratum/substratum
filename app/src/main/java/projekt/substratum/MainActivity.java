@@ -75,6 +75,28 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
+    private boolean findOverlayParent(Context context, String theme_name_abbreviation) {
+        try {
+            PackageManager packageManager = getPackageManager();
+            List<ApplicationInfo> pm = packageManager.getInstalledApplications(PackageManager
+                    .GET_META_DATA);
+            for (int i = 0; i < pm.size(); i++) {
+                ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
+                        pm.get(i).packageName, PackageManager.GET_META_DATA);
+                if (appInfo.metaData != null) {
+                    if (appInfo.metaData.getString("Layers_Name") != null) {
+                        if (appInfo.metaData.getString("Layers_Name").equals
+                                (theme_name_abbreviation)) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        } catch (PackageManager.NameNotFoundException nnfe) {
+        }
+        return false;
+    }
+
     public void getLayersPackages(Context context, String package_name) {
         // Simulate the Layers Plugin feature by filtering all installed apps and their metadata
         try {
@@ -95,22 +117,29 @@ public class MainActivity extends AppCompatActivity implements
                     if (appInfo.metaData.getString("Substratum_ID").equals(Settings.
                             Secure.getString(context.getContentResolver(),
                             Settings.Secure.ANDROID_ID))) {
-                        Log.d("OverlayVerification", package_name + " verified to be used on this" +
-                                " device. (Android ID)");
                         if (appInfo.metaData.getString("Substratum_IMEI") != null) {
                             if (appInfo.metaData.getString("Substratum_IMEI").equals("!" +
                                     getDeviceIMEI())) {
-                                Log.d("OverlayVerification", package_name + " verified to be used" +
-                                        " on this device. (IMEI)");
+                                if (!findOverlayParent(context, package_name.split("\\.")
+                                        [package_name.split("\\.").length - 1])) {
+                                    Log.d("OverlayVerification", package_name + " unauthorized to" +
+                                            " be" +
+                                            " used on this device.");
+                                    unauthorized_packages.add(package_name);
+                                } else {
+                                    Log.d("OverlayVerification", package_name + " verified to be " +
+                                            "used" +
+                                            " on this device.");
+                                }
                             } else {
                                 Log.d("OverlayVerification", package_name + " unauthorized to be" +
-                                        " used on this device. (IMEI)");
+                                        " used on this device.");
                                 unauthorized_packages.add(package_name);
                             }
                         }
                     } else {
                         Log.d("OverlayVerification", package_name + " unauthorized to be" +
-                                " used on this device. (Android ID)");
+                                " used on this device.");
                         unauthorized_packages.add(package_name);
                     }
                 }

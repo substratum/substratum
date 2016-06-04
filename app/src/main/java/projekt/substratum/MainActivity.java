@@ -37,6 +37,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import projekt.substratum.adapters.DataAdapter;
+import projekt.substratum.util.ReadXMLFile;
 import projekt.substratum.util.ThemeParser;
 
 /**
@@ -57,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements
     private DataAdapter adapter;
     private View cardView;
     private SharedPreferences prefs;
+    private List<String> to_be_cleaned_up;
     private List<String> unauthorized_packages;
 
     private String getDeviceIMEI() {
@@ -199,6 +201,14 @@ public class MainActivity extends AppCompatActivity implements
             getLayersPackages(mContext, packageInfo.packageName);
         }
 
+        if (unauthorized_packages.size() > 0) {
+            PurgeUnauthorizedOverlays purgeUnauthorizedOverlays = new PurgeUnauthorizedOverlays();
+            purgeUnauthorizedOverlays.execute("");
+        }
+
+        doCleanUp cleanUp = new doCleanUp();
+        cleanUp.execute("");
+
         if (layers_packages.size() == 0) {
             cardView.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.GONE);
@@ -242,6 +252,9 @@ public class MainActivity extends AppCompatActivity implements
             PurgeUnauthorizedOverlays purgeUnauthorizedOverlays = new PurgeUnauthorizedOverlays();
             purgeUnauthorizedOverlays.execute("");
         }
+
+        doCleanUp cleanUp = new doCleanUp();
+        cleanUp.execute("");
 
         if (layers_packages.size() == 0) {
             cardView.setVisibility(View.VISIBLE);
@@ -426,6 +439,36 @@ public class MainActivity extends AppCompatActivity implements
                 }
                 break;
             }
+        }
+    }
+
+    private class doCleanUp extends AsyncTask<String, Integer, String> {
+
+        @Override
+        protected void onPreExecute() {
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+        }
+
+        @Override
+        protected String doInBackground(String... sUrl) {
+            eu.chainfire.libsuperuser.Shell.SU.run("cp /data/system/overlays.xml " +
+                    Environment.getExternalStorageDirectory().getAbsolutePath() +
+                    "/.substratum/current_overlays.xml");
+            String[] commands = {Environment.getExternalStorageDirectory()
+                    .getAbsolutePath() +
+                    "/.substratum/current_overlays.xml", "1"};
+            List<String> state1 = ReadXMLFile.main(commands);  // Overlays with non-existent targets
+            for (int i = 0; i < state1.size(); i++) {
+                Log.e("OverlayCleaner", "Target APK not found for \"" + state1.get(i) + "\" and " +
+                        "will " +
+                        "be removed.");
+                eu.chainfire.libsuperuser.Shell.SU.run("pm uninstall " + state1.get(i));
+            }
+            return null;
         }
     }
 

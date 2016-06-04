@@ -42,7 +42,6 @@ import com.mikhaellopez.circularfillableloaders.CircularFillableLoaders;
 import com.stericson.RootTools.RootTools;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -1096,6 +1095,10 @@ public class ThemeInformation extends AppCompatActivity {
                             eu.chainfire.libsuperuser.Shell.SU.run("pkill com.android" +
                                     ".systemui");
                         swap_mode_commands = null;
+                        Toast toast = Toast.makeText(getApplicationContext(), getString(R
+                                        .string.toast_installed),
+                                Toast.LENGTH_SHORT);
+                        toast.show();
                     } else {
                         final_commands = final_commands + " && cp /data/system/overlays.xml " +
                                 Environment
@@ -1108,6 +1111,10 @@ public class ThemeInformation extends AppCompatActivity {
                             eu.chainfire.libsuperuser.Shell.SU.run("pkill com.android" +
                                     ".systemui");
                         final_commands = null;
+                        Toast toast = Toast.makeText(getApplicationContext(), getString(R
+                                        .string.toast_installed),
+                                Toast.LENGTH_SHORT);
+                        toast.show();
                     }
                 } else {
                     if (final_commands.length() > 0) {
@@ -1123,6 +1130,10 @@ public class ThemeInformation extends AppCompatActivity {
                             eu.chainfire.libsuperuser.Shell.SU.run("pkill com.android" +
                                     ".systemui");
                         final_commands = null;
+                        Toast toast = Toast.makeText(getApplicationContext(), getString(R
+                                        .string.toast_installed),
+                                Toast.LENGTH_SHORT);
+                        toast.show();
                     } else {
                         Toast toast = Toast.makeText(getApplicationContext(), getString(R.string
                                         .toast_disabled3),
@@ -1223,9 +1234,21 @@ public class ThemeInformation extends AppCompatActivity {
                     Environment
                             .getExternalStorageDirectory().getAbsolutePath() +
                     "/.substratum/current_overlays.xml");
-            String[] commands = {Environment.getExternalStorageDirectory().getAbsolutePath() +
-                    "/.substratum/current_overlays.xml", "4"};
-            List<String> approved_disabled_overlays = ReadXMLFile.main(commands);
+
+            List<String> approved_disabled_overlays = null;
+            if (current_mode.equals("compile_enable")) {
+                String[] commands = {Environment.getExternalStorageDirectory().getAbsolutePath() +
+                        "/.substratum/current_overlays.xml", "4"};
+                String[] commands1 = {Environment.getExternalStorageDirectory().getAbsolutePath() +
+                        "/.substratum/current_overlays.xml", "5"};
+                approved_disabled_overlays = ReadXMLFile.main(commands);
+                approved_disabled_overlays.addAll(ReadXMLFile.main(commands1));
+            } else {
+                String[] commands = {Environment.getExternalStorageDirectory().getAbsolutePath() +
+                        "/.substratum/current_overlays.xml", "4"};
+                approved_disabled_overlays = ReadXMLFile.main(commands);
+            }
+
             if (!current_mode.equals("enable") && !current_mode.equals("disable")) {
                 final_commands = "";
                 swap_mode_commands = "";

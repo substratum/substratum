@@ -58,7 +58,6 @@ public class MainActivity extends AppCompatActivity implements
     private DataAdapter adapter;
     private View cardView;
     private SharedPreferences prefs;
-    private List<String> to_be_cleaned_up;
     private List<String> unauthorized_packages;
 
     private String getDeviceIMEI() {

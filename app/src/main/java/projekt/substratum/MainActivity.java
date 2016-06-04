@@ -1,5 +1,6 @@
 package projekt.substratum;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -8,15 +9,18 @@ import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Menu;
@@ -43,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements
         ActivityCompat.OnRequestPermissionsResultCallback {
 
     private static final int PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
+    private static final int PERMISSIONS_REQUEST_READ_PHONE_STATE = 2;
     private HashMap<String, String[]> layers_packages;
     private RecyclerView recyclerView;
     private Map<String, String[]> map;
@@ -52,6 +57,13 @@ public class MainActivity extends AppCompatActivity implements
     private DataAdapter adapter;
     private View cardView;
     private SharedPreferences prefs;
+    private List<String> unauthorized_packages;
+
+    private String getDeviceIMEI() {
+        TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context
+                .TELEPHONY_SERVICE);
+        return telephonyManager.getDeviceId();
+    }
 
     private boolean isPackageInstalled(Context context, String package_name) {
         PackageManager pm = context.getPackageManager();
@@ -77,6 +89,29 @@ public class MainActivity extends AppCompatActivity implements
                             layers_packages.put(appInfo.metaData.getString("Layers_Name"), data);
                             Log.d("Substratum Ready Theme", package_name);
                         }
+                    }
+                }
+                if (appInfo.metaData.getString("Substratum_ID") != null) {
+                    if (appInfo.metaData.getString("Substratum_ID").equals(Settings.
+                            Secure.getString(context.getContentResolver(),
+                            Settings.Secure.ANDROID_ID))) {
+                        Log.d("OverlayVerification", package_name + " verified to be used on this" +
+                                " device. (Android ID)");
+                        if (appInfo.metaData.getString("Substratum_IMEI") != null) {
+                            if (appInfo.metaData.getString("Substratum_IMEI").equals("!" +
+                                    getDeviceIMEI())) {
+                                Log.d("OverlayVerification", package_name + " verified to be used" +
+                                        " on this device. (IMEI)");
+                            } else {
+                                Log.d("OverlayVerification", package_name + " unauthorized to be" +
+                                        " used on this device. (IMEI)");
+                                unauthorized_packages.add(package_name);
+                            }
+                        }
+                    } else {
+                        Log.d("OverlayVerification", package_name + " unauthorized to be" +
+                                " used on this device. (Android ID)");
+                        unauthorized_packages.add(package_name);
                     }
                 }
             }
@@ -159,6 +194,7 @@ public class MainActivity extends AppCompatActivity implements
                 getApplicationContext());
 
         mContext = this;
+        unauthorized_packages = new ArrayList<String>();
         layers_packages = new HashMap<String, String[]>();
         recyclerView = (RecyclerView) findViewById(R.id.theme_list);
         cardView = findViewById(R.id.no_entry_card_view);
@@ -171,6 +207,11 @@ public class MainActivity extends AppCompatActivity implements
                 .GET_META_DATA);
         for (ApplicationInfo packageInfo : list) {
             getLayersPackages(mContext, packageInfo.packageName);
+        }
+
+        if (unauthorized_packages.size() > 0) {
+            PurgeUnauthorizedOverlays purgeUnauthorizedOverlays = new PurgeUnauthorizedOverlays();
+            purgeUnauthorizedOverlays.execute("");
         }
 
         if (layers_packages.size() == 0) {
@@ -254,7 +295,10 @@ public class MainActivity extends AppCompatActivity implements
         });
 
         int permissionCheck = ContextCompat.checkSelfPermission(getApplicationContext(),
-                android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int permissionCheck2 = ContextCompat.checkSelfPermission(getApplicationContext(),
+                Manifest.permission.READ_PHONE_STATE);
+
         if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
             // permission already granted, allow the program to continue running
             File directory = new File(Environment.getExternalStorageDirectory(),
@@ -277,8 +321,15 @@ public class MainActivity extends AppCompatActivity implements
             Log.d("LayersBuilder", "The cache has been flushed!");
         } else {
             ActivityCompat.requestPermissions(this,
-                    new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
+        }
+        if (permissionCheck2 == PackageManager.PERMISSION_GRANTED) {
+            // permission already granted, allow the program to continue running
+        } else {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.READ_PHONE_STATE},
+                    PERMISSIONS_REQUEST_READ_PHONE_STATE);
         }
     }
 
@@ -325,6 +376,60 @@ public class MainActivity extends AppCompatActivity implements
                 }
                 break;
             }
+            case PERMISSIONS_REQUEST_READ_PHONE_STATE: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission already granted, allow the program to continue running
+                } else {
+                    // permission was not granted, show closing dialog
+                    new AlertDialog.Builder(this)
+                            .setTitle(R.string.permission_not_granted_dialog_title)
+                            .setMessage(R.string.permission_not_granted_dialog_message)
+                            .setPositiveButton(R.string.dialog_ok, new DialogInterface
+                                    .OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    MainActivity.this.finish();
+                                }
+                            })
+                            .show();
+                    return;
+                }
+                break;
+            }
+        }
+    }
+
+    private class PurgeUnauthorizedOverlays extends AsyncTask<String, Integer, String> {
+
+        @Override
+        protected void onPreExecute() {
+            Log.d("SubstratumAntiPiracy", "The device has found unauthorized overlays created by " +
+                    "another device.");
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    getString(R.string
+                            .antipiracy_toast),
+                    Toast.LENGTH_LONG);
+            toast.show();
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    getString(R.string
+                            .antipiracy_toast_complete),
+                    Toast.LENGTH_LONG);
+            toast.show();
+        }
+
+        @Override
+        protected String doInBackground(String... sUrl) {
+            for (int i = 0; i < unauthorized_packages.size(); i++) {
+                eu.chainfire.libsuperuser.Shell.SU.run("pm uninstall " + unauthorized_packages
+                        .get(i));
+            }
+            return null;
         }
     }
 }

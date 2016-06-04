@@ -54,7 +54,6 @@ import projekt.substratum.util.FloatingActionMenu;
 import projekt.substratum.util.LayersBuilder;
 import projekt.substratum.util.ReadXMLFile;
 
-
 /**
  * @author Nicholas Chum (nicholaschum)
  */

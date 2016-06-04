@@ -5,6 +5,8 @@ import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.os.Build;
 import android.os.Environment;
+import android.provider.Settings;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 
 import java.io.BufferedInputStream;
@@ -112,6 +114,17 @@ public class LayersBuilder {
         }
     }
 
+    private String getDeviceIMEI() {
+        TelephonyManager telephonyManager = (TelephonyManager) mContext.getSystemService(Context
+                .TELEPHONY_SERVICE);
+        return telephonyManager.getDeviceId();
+    }
+
+    private String getDeviceID() {
+        return Settings.Secure.getString(mContext.getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+    }
+
     private void unzip(String package_identifier) throws IOException {
         // First, extract the APK as a zip so we don't have to access the APK multiple times
 
@@ -216,6 +229,13 @@ public class LayersBuilder {
                                 parse2_themeName + "\">\n" +
                                 "    <overlay android:targetPackage=\"" + overlay_package + "\" " +
                                 "android:priority=\"100\"/>\n" +
+                                "    <application android:label=\"" + overlay_package + "." +
+                                parse2_themeName + "\"> \n" +
+                                "        <meta-data android:name=\"Substratum_ID\" " +
+                                "android:value=\"" + getDeviceID() + "\"/>\n" +
+                                "        <meta-data android:name=\"Substratum_IMEI\" " +
+                                "android:value=\"!" + getDeviceIMEI() + "\"/>\n" +
+                                "    </application>\n" +
                                 "</manifest>\n";
                 pw.write(manifest);
                 pw.close();
@@ -241,8 +261,7 @@ public class LayersBuilder {
                                 "/system/framework/framework-res.apk -F " +
                                 work_area +
                                 "/" + overlay_package + "." + parse2_themeName + "-unsigned.apk " +
-                                "-f\n");
-
+                                "-f --include-meta-data\n");
 
                 OutputStream stdin = nativeApp.getOutputStream();
                 InputStream stderr = nativeApp.getErrorStream();

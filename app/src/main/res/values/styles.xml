@@ -4,6 +4,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:navigationBarColor">@color/colorPrimary</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -21,6 +22,12 @@
     <style name="TextAppearance.ExpandedTitle"
            parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textSize">26sp</item>
+    </style>
+
+    <style name="SplashScreen.ActivityTheme" parent="Theme.AppCompat">
+        <item name="android:navigationBarColor">@color/splashscreen_background</item>
+        <item name="android:statusBarColor">@color/splashscreen_background</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
     <style name="SubstratumBuilder.ActivityTheme" parent="Theme.AppCompat">

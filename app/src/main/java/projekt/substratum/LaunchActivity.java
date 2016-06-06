@@ -32,7 +32,7 @@ public class LaunchActivity extends AppCompatActivity {
         //if (false == true) {
         //    loadAppIntro();
         //} else {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, SplashScreenActivity.class);
         startActivity(intent);
         this.finish();
     }

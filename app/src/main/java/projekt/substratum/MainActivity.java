@@ -194,7 +194,7 @@ public class MainActivity extends AppCompatActivity implements
                 onBackPressed();
                 return true;
             case R.id.search:
-                String playURL = "https://play.google.com/store/search?q=Layers%20Theme&c=apps";
+                String playURL = "https://play.google.com/store/search?q=Substratum%20Theme&c=apps";
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(playURL));
                 startActivity(i);

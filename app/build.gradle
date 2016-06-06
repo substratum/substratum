@@ -15,8 +15,8 @@ android {
         applicationId "projekt.substratum"
         minSdkVersion 23
         targetSdkVersion 23
-        versionCode 18
-        versionName "eighteen"
+        versionCode 19
+        versionName "nineteen"
     }
     buildTypes {
         release {
@@ -51,7 +51,6 @@ dependencies {
     compile files('src/main/libs/kellinwood-logging-log4j-1.0.jar')
     compile files('src/main/libs/zipio-lib-1.8.jar')
     compile files('src/main/libs/zipsigner-lib-1.17.jar')
-    compile files('src/main/libs/RootTools.jar')
 
     // Dialogs
     compile 'com.mikhaellopez:circularfillableloaders:1.2.0'

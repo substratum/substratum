@@ -1,6 +1,7 @@
 package projekt.substratum.util;
 
 import android.content.Context;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.os.Build;
@@ -22,6 +23,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -31,7 +35,7 @@ import kellinwood.security.zipsigner.ZipSigner;
  * @author Nicholas Chum (nicholaschum)
  */
 
-public class LayersBuilder {
+public class SubstratumBuilder {
 
     /*
 
@@ -39,7 +43,7 @@ public class LayersBuilder {
 
     1. injectAAPT(Context) : initial check/injection for AAPT access on device
     2. initializeCache(Context, package_identifier) : extract assets for theme so no reuse needed
-    3. beginAction(Context, package_name, theme_package) : start LayersBuilder function
+    3. beginAction(Context, package_name, theme_package) : start SubstratumBuilder function
         - this will create an AndroidManifest based on selected package
         - then it will compile using the new work zone
 
@@ -134,11 +138,11 @@ public class LayersBuilder {
                     folder_abbreviation + "/base.apk";
             File checkFile = new File(source);
             long fileSize = checkFile.length();
-            File myDir = new File(mContext.getCacheDir(), "LayersBuilder");
+            File myDir = new File(mContext.getCacheDir(), "SubstratumBuilder");
             if (!myDir.exists()) {
                 myDir.mkdir();
             }
-            String destination = mContext.getCacheDir().getAbsolutePath() + "/LayersBuilder";
+            String destination = mContext.getCacheDir().getAbsolutePath() + "/SubstratumBuilder";
 
             ZipInputStream inputStream = new ZipInputStream(
                     new BufferedInputStream(new FileInputStream(source)));
@@ -175,26 +179,28 @@ public class LayersBuilder {
         // Superuser is used due to some files being held hostage by the system
 
         File[] fileList = new File(mContext.getCacheDir().getAbsolutePath() +
-                "/LayersBuilder/").listFiles();
+                "/SubstratumBuilder/").listFiles();
         for (int i = 0; i < fileList.length; i++) {
             if (!fileList[i].getName().equals("assets")) {
                 eu.chainfire.libsuperuser.Shell.SU.run(
                         "rm -r " + mContext.getCacheDir().getAbsolutePath() +
-                                "/LayersBuilder/" + fileList[i].getName());
+                                "/SubstratumBuilder/" + fileList[i].getName());
             }
         }
     }
 
-    public void beginAction(Context context, String overlay_package, String theme_name) {
+    public void beginAction(Context context, String overlay_package, String theme_name, String
+            update_mode_input) {
 
         has_errored_out = false;
         mContext = context;
         String work_area;
+        Boolean update_mode = Boolean.valueOf(update_mode_input);
 
         // 1. Set work area to asset chosen based on the parameter passed into this class
 
 
-        work_area = mContext.getCacheDir().getAbsolutePath() + "/LayersBuilder/assets/overlays/"
+        work_area = mContext.getCacheDir().getAbsolutePath() + "/SubstratumBuilder/assets/overlays/"
                 + overlay_package;
 
 
@@ -218,6 +224,13 @@ public class LayersBuilder {
 
         if (!has_errored_out) {
             try {
+                PackageInfo pInfo = mContext.getPackageManager().getPackageInfo(mContext
+                        .getPackageName(), 0);
+                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                Date date = new Date();
+                String versionName = "Substratum (" + pInfo.versionName + ") [" + dateFormat
+                        .format(date) + "]";
+
                 root.createNewFile();
                 FileWriter fw = new FileWriter(root);
                 BufferedWriter bw = new BufferedWriter(fw);
@@ -226,11 +239,12 @@ public class LayersBuilder {
                         "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?>\n" +
                                 "<manifest xmlns:android=\"http://schemas.android" +
                                 ".com/apk/res/android\" package=\"" + overlay_package + "." +
-                                parse2_themeName + "\">\n" +
+                                parse2_themeName + "\"\n" +
+                                "        android:versionName=\"" + versionName + "\"> \n" +
                                 "    <overlay android:targetPackage=\"" + overlay_package + "\" " +
                                 "android:priority=\"100\"/>\n" +
                                 "    <application android:label=\"" + overlay_package + "." +
-                                parse2_themeName + "\"> \n" +
+                                parse2_themeName + "\">\n" +
                                 "        <meta-data android:name=\"Substratum_ID\" " +
                                 "android:value=\"" + getDeviceID() + "\"/>\n" +
                                 "        <meta-data android:name=\"Substratum_IMEI\" " +
@@ -241,10 +255,11 @@ public class LayersBuilder {
                 pw.close();
                 bw.close();
                 fw.close();
-            } catch (IOException e) {
+            } catch (Exception e) {
                 Log.e("Phase 3", "There was an exception creating a new Manifest file!");
                 has_errored_out = true;
-                Log.e("LayersBuilder", "Installation of \"" + overlay_package + "\" has failed.");
+                Log.e("SubstratumBuilder", "Installation of \"" + overlay_package + "\" has " +
+                        "failed.");
             }
         }
 
@@ -278,9 +293,9 @@ public class LayersBuilder {
                 br.close();
                 br = new BufferedReader(new InputStreamReader(stderr));
                 while ((line = br.readLine()) != null) {
-                    Log.e("LayersBuilder", line);
+                    Log.e("SubstratumBuilder", line);
                     has_errored_out = true;
-                    Log.e("LayersBuilder", "Installation of \"" + overlay_package + "\" has " +
+                    Log.e("SubstratumBuilder", "Installation of \"" + overlay_package + "\" has " +
                             "failed.");
                 }
                 br.close();
@@ -296,7 +311,7 @@ public class LayersBuilder {
                     } else {
                         Log.e("Phase 3", "Overlay APK creation has failed!");
                         has_errored_out = true;
-                        Log.e("LayersBuilder", "Installation of \"" + overlay_package + "\" " +
+                        Log.e("SubstratumBuilder", "Installation of \"" + overlay_package + "\" " +
                                 "overlay has failed.");
 
                     }
@@ -305,7 +320,8 @@ public class LayersBuilder {
                 Log.e("Phase 3", "Unfortunately, there was an exception trying to create a new " +
                         "APK");
                 has_errored_out = true;
-                Log.e("LayersBuilder", "Installation of \"" + overlay_package + "\" has failed.");
+                Log.e("SubstratumBuilder", "Installation of \"" + overlay_package + "\" has " +
+                        "failed.");
             }
         }
 
@@ -333,7 +349,8 @@ public class LayersBuilder {
             } catch (Throwable t) {
                 Log.e("Phase 3", "APK could not be signed. " + t.toString());
                 has_errored_out = true;
-                Log.e("LayersBuilder", "Installation of \"" + overlay_package + "\" has failed.");
+                Log.e("SubstratumBuilder", "Installation of \"" + overlay_package + "\" has " +
+                        "failed.");
             }
         }
 
@@ -341,26 +358,57 @@ public class LayersBuilder {
         // Superuser needed as this requires elevated privileges to run these commands
 
         if (!has_errored_out) {
-            try {
-                eu.chainfire.libsuperuser.Shell.SU.run(
-                        "pm install " + Environment.getExternalStorageDirectory().getAbsolutePath
-                                () +
+            if (update_mode) {
+                try {
+                    eu.chainfire.libsuperuser.Shell.SU.run(
+                            "pm uninstall " + overlay_package + "." + parse2_themeName);
+                    eu.chainfire.libsuperuser.Shell.SU.run(
+                            "pm install " + Environment.getExternalStorageDirectory()
+                                    .getAbsolutePath
+                                            () +
 
-                                "/.substratum/" + overlay_package + "." + parse2_themeName +
-                                "-signed" +
-                                ".apk");
+                                    "/.substratum/" + overlay_package + "." + parse2_themeName +
+                                    "-signed" +
+                                    ".apk");
 
-                // We need this Process to be waited for before moving on to the next function.
-                Log.d("Phase 3", "Silently installing APK...");
-                if (checkIfPackageInstalled(overlay_package + "." + parse2_themeName, context)) {
-                    Log.d("Phase 3", "Overlay APK has successfully been installed!");
-                } else {
-                    Log.e("Phase 3", "Overlay APK has failed to install!");
+                    Log.d("Phase 3", "Silently installing APK...");
+                    if (checkIfPackageInstalled(overlay_package + "." + parse2_themeName,
+                            context)) {
+                        Log.d("Phase 3", "Overlay APK has successfully been installed!");
+                    } else {
+                        Log.e("Phase 3", "Overlay APK has failed to install!");
+                    }
+                } catch (Exception e) {
+                    Log.e("Phase 3", "Overlay APK has failed to install! (Exception)");
+                    has_errored_out = true;
+                    Log.e("SubstratumBuilder", "Installation of \"" + overlay_package + "\" has " +
+                            "failed.");
                 }
-            } catch (Exception e) {
-                Log.e("Phase 3", "Overlay APK has failed to install! (Exception)");
-                has_errored_out = true;
-                Log.e("LayersBuilder", "Installation of \"" + overlay_package + "\" has failed.");
+            } else {
+                try {
+                    eu.chainfire.libsuperuser.Shell.SU.run(
+                            "pm install " + Environment.getExternalStorageDirectory()
+                                    .getAbsolutePath
+
+                                            () +
+
+                                    "/.substratum/" + overlay_package + "." + parse2_themeName +
+                                    "-signed" +
+                                    ".apk");
+
+                    Log.d("Phase 3", "Silently installing APK...");
+                    if (checkIfPackageInstalled(overlay_package + "." + parse2_themeName,
+                            context)) {
+                        Log.d("Phase 3", "Overlay APK has successfully been installed!");
+                    } else {
+                        Log.e("Phase 3", "Overlay APK has failed to install!");
+                    }
+                } catch (Exception e) {
+                    Log.e("Phase 3", "Overlay APK has failed to install! (Exception)");
+                    has_errored_out = true;
+                    Log.e("SubstratumBuilder", "Installation of \"" + overlay_package + "\" has " +
+                            "failed.");
+                }
             }
         }
     }

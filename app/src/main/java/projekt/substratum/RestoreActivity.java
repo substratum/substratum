@@ -9,7 +9,7 @@ import android.widget.Toast;
 import java.io.File;
 import java.util.List;
 
-import projekt.substratum.util.ReadXMLFile;
+import projekt.substratum.util.ReadOverlaysFile;
 
 /**
  * @author Nicholas Chum (nicholaschum)
@@ -24,7 +24,7 @@ public class RestoreActivity extends AppCompatActivity {
         String final_commands = "";
         String[] commands = {Environment.getExternalStorageDirectory().getAbsolutePath() +
                 "/.substratum/overlays.xml", "5"};
-        List<String> enabled_overlays = ReadXMLFile.main(commands);
+        List<String> enabled_overlays = ReadOverlaysFile.main(commands);
 
         File f = new File(Environment.getExternalStorageDirectory().getAbsolutePath() +
                 "/.substratum/overlays.xml");

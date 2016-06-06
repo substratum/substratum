@@ -29,13 +29,12 @@ public class LaunchActivity extends AppCompatActivity {
                 getApplicationContext());
 
         //if (!prefs.getBoolean("first_run", false)) {
-        if (false == true) {
-            loadAppIntro();
-        } else {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            this.finish();
-        }
+        //if (false == true) {
+        //    loadAppIntro();
+        //} else {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        this.finish();
     }
 
     public void loadAppIntro() {

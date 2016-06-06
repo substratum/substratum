@@ -32,7 +32,7 @@ import java.util.TreeMap;
 import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
 import projekt.substratum.adapters.DataAdapter;
-import projekt.substratum.util.ReadXMLFile;
+import projekt.substratum.util.ReadOverlaysFile;
 import projekt.substratum.util.ThemeParser;
 
 /**
@@ -256,6 +256,7 @@ public class HomeFragment extends Fragment {
                 }
             }
         } catch (PackageManager.NameNotFoundException e) {
+            Log.e("SubstratumLogger", "Unable to find package identifier (OUT OF BOUNDS)");
         }
     }
 
@@ -276,7 +277,7 @@ public class HomeFragment extends Fragment {
         PackageManager packageManager = mContext.getPackageManager();
         list.clear();
         recyclerView.setAdapter(null);
-        layers_packages = new HashMap<String, String[]>();
+        layers_packages = new HashMap<>();
         list = packageManager.getInstalledApplications(PackageManager
                 .GET_META_DATA);
         for (ApplicationInfo packageInfo : list) {
@@ -300,7 +301,7 @@ public class HomeFragment extends Fragment {
         }
 
         // Now we need to sort the buffered installed Layers themes
-        map = new TreeMap<String, String[]>(layers_packages);
+        map = new TreeMap<>(layers_packages);
         ArrayList<ThemeParser> themeParsers = prepareData();
         adapter = new DataAdapter(mContext.getApplicationContext(), themeParsers);
         recyclerView.setAdapter(adapter);
@@ -326,7 +327,8 @@ public class HomeFragment extends Fragment {
             String[] commands = {Environment.getExternalStorageDirectory()
                     .getAbsolutePath() +
                     "/.substratum/current_overlays.xml", "1"};
-            List<String> state1 = ReadXMLFile.main(commands);  // Overlays with non-existent targets
+            List<String> state1 = ReadOverlaysFile.main(commands);  // Overlays with non-existent
+            // targets
             for (int i = 0; i < state1.size(); i++) {
                 Log.e("OverlayCleaner", "Target APK not found for \"" + state1.get(i) + "\" and " +
                         "will " +

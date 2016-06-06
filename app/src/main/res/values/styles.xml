@@ -23,13 +23,13 @@
         <item name="android:textSize">26sp</item>
     </style>
 
-    <style name="LayersBuilder.ActivityTheme" parent="Theme.AppCompat">
-        <item name="android:windowAnimationStyle">@style/LayersBuilder.WindowAnimation</item>
+    <style name="SubstratumBuilder.ActivityTheme" parent="Theme.AppCompat">
+        <item name="android:windowAnimationStyle">@style/SubstratumBuilder.WindowAnimation</item>
         <item name="android:windowBackground">@color/window_bg_glass</item>
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 
-    <style name="LayersBuilder.WindowAnimation" parent="Animation.AppCompat.Dialog">
+    <style name="SubstratumBuilder.WindowAnimation" parent="Animation.AppCompat.Dialog">
         <item name="android:windowEnterAnimation">@anim/fade_in</item>
         <item name="android:windowExitAnimation">@anim/fade_out</item>
     </style>

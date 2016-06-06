@@ -1,5 +1,7 @@
 package projekt.substratum.util;
 
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -11,7 +13,7 @@ import java.util.List;
  * @author Nicholas Chum (nicholaschum)
  */
 
-public class ReadXMLFile {
+public class ReadOverlaysFile {
 
     public static List<String> main(String argv[]) {
 
@@ -28,6 +30,7 @@ public class ReadXMLFile {
                 }
             }
         } catch (IOException ioe) {
+            Log.e("SubstratumLogger", "Unable to load XML file correctly.");
         }
         return list;
     }

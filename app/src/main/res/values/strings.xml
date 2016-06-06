@@ -26,7 +26,7 @@
     <string name="permission_not_granted_dialog_message1">Please grant substratum storage permissions
         or the app will not function properly!</string>
     <string name="permission_not_granted_dialog_message2">Please grant substratum phone permissions
-        or the app will not function properly!</string>
+        or the app will not compile device dependent overlays properly!</string>
     <string name="dialog_ok">OK</string>
 
     <string name="antipiracy_toast">Unauthorized overlay found on device, cleaning up&#8230;</string>
@@ -42,19 +42,22 @@
     <string name="failed_to_install_overlay_toast">Failed to compile \"%s\" overlay</string>
 
     <string name="lb_phase_1_loader">extracting assets from theme</string>
-    <string name="lb_phase_2_loader">compiling, signing and enabling overlay(s)</string>
+    <string name="lb_phase_2_loader">compiling updated overlay(s)</string>
     <string name="lb_phase_2_loader_no_enable">compiling and signing overlay(s)</string>
 
-    <string name="list_of_overlays">List of overlays</string>
+    <string name="list_of_overlays">List of installable overlays</string>
     <string name="toast_unapproved">This overlay has been rejected by the system</string>
     <string name="toast_compiled">Selected overlay(s) compiled!</string>
+    <string name="toast_compiled_updated">Selected overlay(s) updated!</string>
     <string name="toast_enabled">\"%s\" enabled!</string>
     <string name="toast_disabled">\"%s\" disabled!</string>
     <string name="toast_disabled2">Selected overlay(s) disabled!</string>
     <string name="toast_disabled3">Please compile this overlay before applying!</string>
     <string name="toast_disabled4">Please compile this overlay before disabling!</string>
+    <string name="toast_disabled5">Please select a valid overlay before performing any action.</string>
     <string name="toast_installed">Selected overlay(s) applied!</string>
-    <string name="toast_uninstalled">You just uninstalled this one!</string>
+    <string name="toast_uninstalled">You just uninstalled this theme!</string>
+    <string name="toast_updating">Compiling/updating in the background, once done the window will refresh automatically!</string>
     <string name="no_themes_title">no themes installed&#8230;</string>
     <string name="no_themes_description">please install a compatible theme!</string>
 
@@ -70,10 +73,10 @@
     <string name="enable_completion">All installed overlays for this theme has been activated</string>
 
     <string name="fab_menu_compile">Compile Selected</string>
-    <string name="fab_menu_compile_enable">Compile Selected (+enable)</string>
+    <string name="fab_menu_compile_enable">Compile/Update</string>
     <string name="fab_menu_disable">Disable Selected</string>
     <string name="fab_menu_enable">Enable Selected</string>
-    <string name="fab_menu_swap_toggle">Enable Mix &amp; Match</string>
+    <string name="fab_menu_swap_toggle">Disable other themes</string>
 
     <string name="slide_1_african_story_books">New African Story Books</string>
     <string name="slide_2_volunteer_professionals">Created by Volunteer Professionals</string>

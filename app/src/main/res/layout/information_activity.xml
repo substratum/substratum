@@ -170,15 +170,9 @@
                     android:background="@color/fab_menu_divider"/>
 
                 <TextView
-                    android:id="@+id/compile_selected"
-                    style="@style/TextAppearance.MaterialSheetFab.Sheet.Item"
-                    android:drawableStart="@drawable/fab_menu_compile"
-                    android:text="@string/fab_menu_compile"/>
-
-                <TextView
                     android:id="@+id/compile_enable_selected"
                     style="@style/TextAppearance.MaterialSheetFab.Sheet.Item"
-                    android:drawableStart="@drawable/fab_menu_compile_enable"
+                    android:drawableStart="@drawable/fab_menu_compile_update"
                     android:text="@string/fab_menu_compile_enable"/>
 
                 <TextView

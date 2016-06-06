@@ -1,17 +1,13 @@
 package projekt.substratum.fragments;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.Switch;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -23,7 +19,7 @@ import java.io.OutputStream;
 import java.util.List;
 
 import projekt.substratum.R;
-import projekt.substratum.util.ReadXMLFile;
+import projekt.substratum.util.ReadOverlaysFile;
 
 /**
  * Created by Nicholas on 2016-03-31.
@@ -35,28 +31,6 @@ public class SettingsFragment extends Fragment {
             savedInstanceState) {
         super.onCreate(savedInstanceState);
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.settings_fragment, null);
-
-        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
-                getContext());
-
-        Switch show_installed_packages = (Switch) root.findViewById(R.id
-                .show_installed_packages_only);
-        if (prefs.getBoolean("show_installed_packages", true)) {
-            show_installed_packages.setChecked(true);
-        } else {
-            show_installed_packages.setChecked(false);
-        }
-        show_installed_packages.setOnCheckedChangeListener(new CompoundButton
-                .OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    prefs.edit().putBoolean("show_installed_packages", true).apply();
-                } else {
-                    prefs.edit().putBoolean("show_installed_packages", false).apply();
-                }
-            }
-        });
 
         Button purgeAll = (Button) root.findViewById(R.id.purge);
         if (purgeAll != null) {
@@ -86,7 +60,7 @@ public class SettingsFragment extends Fragment {
                         br.close();
                         br = new BufferedReader(new InputStreamReader(stderr));
                         while ((line = br.readLine()) != null) {
-                            Log.e("LayersBuilder", line);
+                            Log.e("SubstratumBuilder", line);
                         }
                         br.close();
                         eu.chainfire.libsuperuser.Shell.SU.run("pkill com.android.systemui");
@@ -112,7 +86,7 @@ public class SettingsFragment extends Fragment {
                     String[] commands = {Environment.getExternalStorageDirectory()
                             .getAbsolutePath() +
                             "/.substratum/current_overlays.xml", "5"};
-                    List<String> enabled_overlays = ReadXMLFile.main(commands);
+                    List<String> enabled_overlays = ReadOverlaysFile.main(commands);
 
                     File f = new File(Environment.getExternalStorageDirectory().getAbsolutePath() +
                             "/.substratum/current_overlays.xml");

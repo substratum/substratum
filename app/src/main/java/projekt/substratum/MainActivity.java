@@ -143,18 +143,18 @@ public class MainActivity extends AppCompatActivity implements
                 directory.mkdirs();
             }
             File cacheDirectory = new File(getCacheDir(),
-                    "/LayersBuilder/");
+                    "/SubstratumBuilder/");
             if (!cacheDirectory.exists()) {
                 cacheDirectory.mkdirs();
             }
             File[] fileList = new File(getCacheDir().getAbsolutePath() +
-                    "/LayersBuilder/").listFiles();
+                    "/SubstratumBuilder/").listFiles();
             for (int i = 0; i < fileList.length; i++) {
                 eu.chainfire.libsuperuser.Shell.SU.run(
                         "rm -r " + getCacheDir().getAbsolutePath() +
-                                "/LayersBuilder/" + fileList[i].getName());
+                                "/SubstratumBuilder/" + fileList[i].getName());
             }
-            Log.d("LayersBuilder", "The cache has been flushed!");
+            Log.d("SubstratumBuilder", "The cache has been flushed!");
             if (permissionCheck2 == PackageManager.PERMISSION_GRANTED) {
                 // permission already granted, allow the program to continue running
                 // Set the first option to start at app boot
@@ -234,18 +234,18 @@ public class MainActivity extends AppCompatActivity implements
                         directory.mkdirs();
                     }
                     File cacheDirectory = new File(getCacheDir(),
-                            "/LayersBuilder/");
+                            "/SubstratumBuilder/");
                     if (!cacheDirectory.exists()) {
                         cacheDirectory.mkdirs();
                     }
                     File[] fileList = new File(getCacheDir().getAbsolutePath() +
-                            "/LayersBuilder/").listFiles();
+                            "/SubstratumBuilder/").listFiles();
                     for (int i = 0; i < fileList.length; i++) {
                         eu.chainfire.libsuperuser.Shell.SU.run(
                                 "rm -r " + getCacheDir().getAbsolutePath() +
-                                        "/LayersBuilder/" + fileList[i].getName());
+                                        "/SubstratumBuilder/" + fileList[i].getName());
                     }
-                    Log.d("LayersBuilder", "The cache has been flushed!");
+                    Log.d("SubstratumBuilder", "The cache has been flushed!");
                     if (permissionCheck2 == PackageManager.PERMISSION_GRANTED) {
                         // permission already granted, allow the program to continue running
                         // Set the first option to start at app boot

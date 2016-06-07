@@ -1,5 +1,6 @@
 package projekt.substratum.services;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -36,6 +37,7 @@ public class ThemeDetector extends Service {
     public Context context = this;
     public Handler handler = null;
     private String new_theme_name;
+    private Boolean new_theme = false;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -70,31 +72,40 @@ public class ThemeDetector extends Service {
 
                 // Everything below will only run as long as the PackageManager changes
 
-                Intent notificationIntent = new Intent(ThemeDetector.this, InformationActivity
-                        .class);
-                notificationIntent.putExtra("theme_name", packageTitle);
-                notificationIntent.putExtra("theme_pid", new_theme_name);
-                notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
-                        Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                PendingIntent intent =
-                        PendingIntent.getActivity(ThemeDetector.this, 0, notificationIntent,
-                                PendingIntent.FLAG_CANCEL_CURRENT);
+                if (new_theme) {
+                    Intent notificationIntent = new Intent(ThemeDetector.this, InformationActivity
+                            .class);
+                    notificationIntent.putExtra("theme_name", packageTitle);
+                    notificationIntent.putExtra("theme_pid", new_theme_name);
+                    notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                            Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    PendingIntent intent =
+                            PendingIntent.getActivity(ThemeDetector.this, 0, notificationIntent,
+                                    PendingIntent.FLAG_CANCEL_CURRENT);
 
-                // This is the time when the notification should be shown on the user's screen
-                NotificationManager mNotifyManager =
-                        (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                NotificationCompat.Builder mBuilder = new NotificationCompat.Builder
-                        (getApplicationContext());
-                mBuilder.setContentTitle(packageTitle + " " + getString(R.string
-                        .notification_theme_installed))
-                        .setContentIntent(intent)
-                        .setContentText(getString(R.string.notification_theme_installed_content))
-                        .setSmallIcon(R.drawable.notification_icon)
-                        .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap
-                                .main_launcher))
-                        .setPriority(notification_priority);
-                mNotifyManager.notify(id, mBuilder.build());
-                super.onPostExecute(result);
+                    // This is the time when the notification should be shown on the user's screen
+                    NotificationManager mNotifyManager =
+                            (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                    NotificationCompat.Builder mBuilder = new NotificationCompat.Builder
+                            (getApplicationContext());
+                    mBuilder.getNotification().flags |= Notification.FLAG_AUTO_CANCEL;
+                    mBuilder.setContentTitle(packageTitle + " " + getString(R.string
+                            .notification_theme_installed))
+                            .setContentIntent(intent)
+                            .setContentText(getString(R.string
+                                    .notification_theme_installed_content))
+
+                            .setAutoCancel(true)
+                            .setSmallIcon(R.drawable.notification_icon)
+                            .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap
+                                    .main_launcher))
+                            .setPriority(notification_priority);
+                    mNotifyManager.notify(id, mBuilder.build());
+
+                    new_theme = false;
+
+                    super.onPostExecute(result);
+                }
             } catch (PackageManager.NameNotFoundException nnfe) {
                 // We will automatically assume that the service ran and there are no new themes
             }
@@ -150,6 +161,7 @@ public class ThemeDetector extends Service {
                     .equals(setStringSorted)) {
                 for (int i = 0; i < installed_setStringSorted.size(); i++) {
                     if (!setStringSorted.contains(installed.get(i))) {
+                        new_theme = true;
                         new_theme_name = installed.get(i);
                         i = installed_setStringSorted.size();
                         SharedPreferences.Editor edit = prefs.edit();
@@ -158,7 +170,6 @@ public class ThemeDetector extends Service {
                     }
                 }
             }
-
             return null;
         }
     }

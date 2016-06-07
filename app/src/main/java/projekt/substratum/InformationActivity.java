@@ -57,6 +57,7 @@ import projekt.substratum.util.SubstratumBuilder;
 
 public class InformationActivity extends AppCompatActivity {
 
+    private final int THEME_INFORMATION_REQUEST_CODE = 1;
     public ListView listView;
     public String theme_name, theme_pid;
     public AssetManager am;
@@ -81,6 +82,7 @@ public class InformationActivity extends AppCompatActivity {
     private Boolean is_building = false;
     private Boolean app_paused = false;
     private Boolean app_resumed = false;
+    private Boolean uninstalled = false;
     private int id = 1;
 
     private boolean isPackageInstalled(Context context, String package_name) {
@@ -708,7 +710,8 @@ public class InformationActivity extends AppCompatActivity {
                             eu.chainfire.libsuperuser.Shell.SU.run(commands2);
 
                             // Finally close out of the window
-                            finish();
+                            uninstalled = true;
+                            onBackPressed();
                         }
                     })
                     .setNegativeButton(R.string.uninstall_dialog_cancel, new DialogInterface
@@ -731,6 +734,13 @@ public class InformationActivity extends AppCompatActivity {
             materialSheetFab.hideSheet();
         } else {
             if (!is_building) {
+                Intent intent = new Intent();
+                if (uninstalled) {
+                    intent.putExtra("Uninstalled", true);
+                } else {
+                    intent.putExtra("Uninstalled", false);
+                }
+                setResult(THEME_INFORMATION_REQUEST_CODE, intent);
                 // Destroy the cache if the user leaves the activity
                 super.onBackPressed();
                 clearCache clear = new clearCache();

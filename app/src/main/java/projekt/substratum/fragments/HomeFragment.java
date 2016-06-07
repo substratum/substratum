@@ -43,6 +43,7 @@ import projekt.substratum.util.ThemeParser;
 
 public class HomeFragment extends Fragment {
 
+    private final int THEME_INFORMATION_REQUEST_CODE = 1;
     private HashMap<String, String[]> layers_packages;
     private RecyclerView recyclerView;
     private Map<String, String[]> map;
@@ -54,6 +55,18 @@ public class HomeFragment extends Fragment {
     private SharedPreferences prefs;
     private List<String> unauthorized_packages;
     private List<String> installed_themes;
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Check which request we're responding to
+        if (requestCode == THEME_INFORMATION_REQUEST_CODE) {
+            Boolean uninstalled = data.getBooleanExtra("Uninstalled", false);
+            if (uninstalled) {
+                Log.e("Detected", "Uninstall");
+                refreshLayout();
+            }
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
@@ -131,7 +144,7 @@ public class HomeFragment extends Fragment {
                                 ());
                         myIntent.putExtra("theme_pid", map.get(map.keySet().toArray()[position]
                                 .toString())[1]);
-                        getContext().startActivity(myIntent);
+                        startActivityForResult(myIntent, THEME_INFORMATION_REQUEST_CODE);
                     } else {
                         Toast toast = Toast.makeText(getContext(), getString(R.string
                                         .toast_uninstalled),

@@ -63,6 +63,9 @@
 
     <string name="toast_on_back_press_compiling">You can use other apps during compile by clicking Home/Recents buttons.</string>
 
+    <string name="notification_theme_installed">installed</string>
+    <string name="notification_theme_installed_content">Theme successfully installed.</string>
+
     <string name="notification_initial_title">Substratum is running</string>
     <string name="notification_done_title">Theme compilation has completed</string>
     <string name="notification_extracting_assets">Extracting assets from theme package&#8230;</string>

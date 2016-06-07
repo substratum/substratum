@@ -31,6 +31,8 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 import java.io.File;
 
+import projekt.substratum.services.ThemeDetector;
+
 /**
  * @author Nicholas Chum (nicholaschum)
  */
@@ -57,6 +59,8 @@ public class MainActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
+
+        startService(new Intent(this, ThemeDetector.class));
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

@@ -25,8 +25,10 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 
 import projekt.substratum.InformationActivity;
@@ -51,6 +53,7 @@ public class HomeFragment extends Fragment {
     private View cardView;
     private SharedPreferences prefs;
     private List<String> unauthorized_packages;
+    private List<String> installed_themes;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
@@ -62,8 +65,9 @@ public class HomeFragment extends Fragment {
         prefs = PreferenceManager.getDefaultSharedPreferences(
                 getContext());
 
-        unauthorized_packages = new ArrayList<String>();
-        layers_packages = new HashMap<String, String[]>();
+        installed_themes = new ArrayList<>();
+        unauthorized_packages = new ArrayList<>();
+        layers_packages = new HashMap<>();
         recyclerView = (RecyclerView) root.findViewById(R.id.theme_list);
         cardView = root.findViewById(R.id.no_entry_card_view);
         cardView.setVisibility(View.GONE);
@@ -76,6 +80,12 @@ public class HomeFragment extends Fragment {
         for (ApplicationInfo packageInfo : list) {
             getLayersPackages(mContext, packageInfo.packageName);
         }
+
+        Set<String> installed = new HashSet<>();
+        installed.addAll(installed_themes);
+        SharedPreferences.Editor edit = prefs.edit();
+        edit.putStringSet("installed_themes", installed);
+        edit.apply();
 
         if (unauthorized_packages.size() > 0) {
             PurgeUnauthorizedOverlays purgeUnauthorizedOverlays = new PurgeUnauthorizedOverlays();
@@ -94,7 +104,7 @@ public class HomeFragment extends Fragment {
         }
 
         // Now we need to sort the buffered installed Layers themes
-        map = new TreeMap<String, String[]>(layers_packages);
+        map = new TreeMap<>(layers_packages);
 
         ArrayList<ThemeParser> themeParsers = prepareData();
         adapter = new DataAdapter(getContext(), themeParsers);
@@ -221,6 +231,7 @@ public class HomeFragment extends Fragment {
                                     package_name};
                             layers_packages.put(appInfo.metaData.getString("Layers_Name"), data);
                             Log.d("Substratum Ready Theme", package_name);
+                            installed_themes.add(package_name);
                         }
                     }
                 }
@@ -256,7 +267,7 @@ public class HomeFragment extends Fragment {
                 }
             }
         } catch (PackageManager.NameNotFoundException e) {
-            Log.e("SubstratumLogger", "Unable to find package identifier (OUT OF BOUNDS)");
+            Log.e("SubstratumLogger", "Unable to find package identifier (INDEX OUT OF BOUNDS)");
         }
     }
 
@@ -275,6 +286,7 @@ public class HomeFragment extends Fragment {
 
     private void refreshLayout() {
         PackageManager packageManager = mContext.getPackageManager();
+        installed_themes = new ArrayList<>();
         list.clear();
         recyclerView.setAdapter(null);
         layers_packages = new HashMap<>();
@@ -283,6 +295,11 @@ public class HomeFragment extends Fragment {
         for (ApplicationInfo packageInfo : list) {
             getLayersPackages(mContext, packageInfo.packageName);
         }
+        Set<String> installed = new HashSet<>();
+        installed.addAll(installed_themes);
+        SharedPreferences.Editor edit = prefs.edit();
+        edit.putStringSet("installed_themes", installed);
+        edit.apply();
 
         if (unauthorized_packages.size() > 0) {
             PurgeUnauthorizedOverlays purgeUnauthorizedOverlays = new PurgeUnauthorizedOverlays();

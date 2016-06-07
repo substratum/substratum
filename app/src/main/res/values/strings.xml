@@ -57,9 +57,20 @@
     <string name="toast_disabled5">Please select a valid overlay before performing any action.</string>
     <string name="toast_installed">Selected overlay(s) applied!</string>
     <string name="toast_uninstalled">You just uninstalled this theme!</string>
-    <string name="toast_updating">Compiling/updating in the background, once done the window will refresh automatically!</string>
+    <string name="toast_updating">Compiling/updating in the notification panel, you can use other apps by clicking Home/Recents!</string>
     <string name="no_themes_title">no themes installed&#8230;</string>
     <string name="no_themes_description">please install a compatible theme!</string>
+
+    <string name="toast_on_back_press_compiling">You can use other apps during compile by clicking Home/Recents buttons.</string>
+
+    <string name="notification_initial_title">Substratum is running</string>
+    <string name="notification_done_title">Theme compilation has completed</string>
+    <string name="notification_extracting_assets">Extracting assets from theme package&#8230;</string>
+    <string name="notification_extracting_assets_text">Processing overlays&#8230;</string>
+    <string name="notification_no_errors_found">No errors while installing any overlays</string>
+    <string name="notification_some_errors_found">An error has occurred during overlay installation</string>
+    <string name="notification_processing">Processing overlay for</string>
+    <string name="notification_compiling_signing_installing">Creating and installing your overlays&#8230;</string>
 
     <string name="settings_title_1">App Options</string>
     <string name="settings_title_2">Advanced Options</string>

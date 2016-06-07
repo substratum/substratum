@@ -1,10 +1,12 @@
 package projekt.substratum;
 
+import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
@@ -19,6 +21,7 @@ import android.preference.PreferenceManager;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.SpannableString;
 import android.text.style.StrikethroughSpan;
@@ -79,6 +82,12 @@ public class InformationActivity extends AppCompatActivity {
     private MaterialSheetFab materialSheetFab;
     private String mixAndMatchCommands;
     private int overlayCount;
+    private NotificationManager mNotifyManager;
+    private NotificationCompat.Builder mBuilder;
+    private Boolean is_building = false;
+    private Boolean app_paused = false;
+    private Boolean app_resumed = false;
+    private int id = 1;
 
     private boolean isPackageInstalled(Context context, String package_name) {
         PackageManager pm = context.getPackageManager();
@@ -139,14 +148,7 @@ public class InformationActivity extends AppCompatActivity {
 
         final FloatingActionMenu floatingActionButton = (FloatingActionMenu) findViewById(R
                 .id.apply_fab);
-        if (floatingActionButton != null) {
-            floatingActionButton.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-
-                }
-            });
-            floatingActionButton.hide();
-        }
+        floatingActionButton.hide();
 
         // Create material sheet FAB
         if (floatingActionButton != null && sheetView != null && overlay != null) {
@@ -740,11 +742,38 @@ public class InformationActivity extends AppCompatActivity {
         if (materialSheetFab.isSheetVisible()) {
             materialSheetFab.hideSheet();
         } else {
-            // Destroy the cache if the user leaves the activity
-            clearCache clear = new clearCache();
-            clear.execute("");
-            super.onBackPressed();
+            if (!is_building) {
+                // Destroy the cache if the user leaves the activity
+                clearCache clear = new clearCache();
+                clear.execute("");
+                super.onBackPressed();
+            } else {
+                Toast toast = Toast.makeText(getApplicationContext(),
+                        getString(R.string
+                                .toast_on_back_press_compiling),
+                        Toast.LENGTH_LONG);
+                toast.show();
+            }
         }
+    }
+
+    @Override
+    public void onPause() {
+        app_paused = true;
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        Log.e("THISHASRUN", "ONRESUME RAN!");
+        app_paused = false;
+        if (app_resumed) {
+            Log.e("THISHASRUN", "ONRESUME RAN!!!!!!!!");
+            Intent intent = getIntent();
+            finish();
+            startActivity(intent);
+        }
+        super.onResume();
     }
 
     private class LoadOverlays extends AsyncTask<String, Integer, String> {
@@ -761,7 +790,9 @@ public class InformationActivity extends AppCompatActivity {
             if (materialProgressBar != null) materialProgressBar.setVisibility(View.GONE);
 
             TextView overlay_count = (TextView) findViewById(R.id.title_overlays);
-            overlay_count.setText(getString(R.string.list_of_overlays) + " (" + overlayCount + ")");
+            if (overlay_count != null)
+                overlay_count.setText(getString(R.string.list_of_overlays) + " (" + overlayCount
+                        + ")");
 
             if (listView != null) {
                 listView.setNestedScrollingEnabled(true);
@@ -919,6 +950,18 @@ public class InformationActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             Log.d("Phase 2", "This phase has started it's asynchronous task.");
+
+            // This is the time when the notification should be shown on the user's screen
+            mNotifyManager =
+                    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            mBuilder = new NotificationCompat.Builder(InformationActivity.this);
+            mBuilder.setContentTitle(getString(R.string.notification_initial_title))
+                    .setProgress(100, 0, true)
+                    .setSmallIcon(R.drawable.notification_icon)
+                    .setOngoing(true);
+            mNotifyManager.notify(id, mBuilder.build());
+            is_building = true;
+
             mWakeLock = null;
             if (!current_mode.equals("enable") && !current_mode.equals("disable") &&
                     !current_mode.equals("compile_enable")) {
@@ -965,6 +1008,13 @@ public class InformationActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             Log.d("Phase 3", "This phase has started it's asynchronous task.");
+
+            // Change title in preparation for loop to change subtext
+            mBuilder.setContentTitle(getString(R.string.notification_compiling_signing_installing))
+                    .setContentText(getString(R.string.notification_extracting_assets_text))
+                    .setProgress(100, 0, false);
+            mNotifyManager.notify(id, mBuilder.build());
+
             problematicOverlays = new ArrayList<>();
             if (!current_mode.equals("enable") && !current_mode.equals("disable") &&
                     !current_mode.equals("compile_enable")) {
@@ -989,32 +1039,59 @@ public class InformationActivity extends AppCompatActivity {
             // On non-compiling dialogs, we have the progress bar shown instead
             progressBar.setVisibility(View.GONE);
 
-            if (current_mode.equals("compile_enable")) {
+            if (current_mode.equals("compile_enable") && problematicOverlays.size() == 0) {
+                // Closing off the persistent notification
+                mBuilder.setProgress(0, 0, false);
+                mBuilder.setOngoing(false);
+                mBuilder.setSmallIcon(R.drawable.notification_success_icon);
+                mBuilder.setContentTitle(getString(R.string.notification_done_title));
+                mBuilder.setContentText(getString(R.string.notification_no_errors_found));
+                mNotifyManager.notify(id, mBuilder.build());
+                is_building = false;
+
                 Toast toast = Toast.makeText(getApplicationContext(), getString(R
                                 .string.toast_compiled_updated),
                         Toast.LENGTH_SHORT);
                 toast.show();
-                final Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Intent intent = getIntent();
-                        finish();
-                        startActivity(intent);
-                    }
-                }, 2000);
+
+                if (!app_paused) {
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent intent = getIntent();
+                            finish();
+                            startActivity(intent);
+                        }
+                    }, 2000);
+                } else {
+                    // Named this way because it will assume the next time the app is loaded, it
+                    // will most definitely restart the activity
+                    app_resumed = true;
+                }
 
             } else {
                 if (problematicOverlays.size() > 0) {
-                    for (int i = 0; i < problematicOverlays.size(); i++) {
-                        String toast_text = String.format(getApplicationContext().getResources()
-                                        .getString(
-                                                R.string.failed_to_install_overlay_toast),
-                                problematicOverlays.get(i));
-                        Toast toast = Toast.makeText(getApplicationContext(), toast_text,
-                                Toast.LENGTH_SHORT);
-                        toast.show();
-                        adapter.notifyDataSetChanged();
+                    if (current_mode.equals("compile_enable")) {
+                        // Closing off the persistent notification
+                        mBuilder.setProgress(0, 0, false);
+                        mBuilder.setOngoing(false);
+                        mBuilder.setSmallIcon(R.drawable.notification_warning_icon);
+                        mBuilder.setContentTitle(getString(R.string.notification_done_title));
+                        mBuilder.setContentText(getString(R.string.notification_some_errors_found));
+                        mNotifyManager.notify(id, mBuilder.build());
+                        is_building = false;
+                    } else {
+                        for (int i = 0; i < problematicOverlays.size(); i++) {
+                            String toast_text = String.format(getApplicationContext().getResources()
+                                            .getString(
+                                                    R.string.failed_to_install_overlay_toast),
+                                    problematicOverlays.get(i));
+                            Toast toast = Toast.makeText(getApplicationContext(), toast_text,
+                                    Toast.LENGTH_SHORT);
+                            toast.show();
+                            adapter.notifyDataSetChanged();
+                        }
                     }
                 } else {
                     if (!current_mode.equals("disable")) {
@@ -1087,13 +1164,30 @@ public class InformationActivity extends AppCompatActivity {
 
             if (!current_mode.equals("enable") && !current_mode.equals("disable")) {
                 for (int i = 0; i < listStrings.size(); i++) {
-                    lb = new SubstratumBuilder();
-                    lb.beginAction(getApplicationContext(), listStrings.get(i), theme_name,
-                            current_mode.equals("compile_enable") + "");
-                    if (lb.has_errored_out) {
-                        problematicOverlays.add(listStrings.get(i));
-                    } else {
-                        approved_overlays.add(listStrings.get(i) + "." + lb.parse2_themeName);
+                    try {
+                        // Process notification while compiling
+                        ApplicationInfo applicationInfo = getPackageManager().getApplicationInfo
+                                (listStrings.get(i), 0);
+                        String packageTitle = getPackageManager().getApplicationLabel
+                                (applicationInfo).toString();
+                        mBuilder.setProgress(100, (int) (((double) (i + 1) / listStrings.size()) *
+                                100), false);
+                        mBuilder.setContentText(getString(R.string.notification_processing) + " " +
+                                "\"" +
+                                packageTitle + "\"");
+                        mNotifyManager.notify(id, mBuilder.build());
+
+                        lb = new SubstratumBuilder();
+                        lb.beginAction(getApplicationContext(), listStrings.get(i), theme_name,
+                                current_mode.equals("compile_enable") + "");
+                        if (lb.has_errored_out) {
+                            problematicOverlays.add(listStrings.get(i));
+                        } else {
+                            approved_overlays.add(listStrings.get(i) + "." + lb.parse2_themeName);
+                        }
+                    } catch (PackageManager.NameNotFoundException nnfe) {
+                        Log.e("SubstratumLogger", "Could not find explicit package identifier in " +
+                                "package manager list.");
                     }
                 }
             }

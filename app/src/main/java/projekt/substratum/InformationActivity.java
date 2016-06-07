@@ -765,11 +765,14 @@ public class InformationActivity extends AppCompatActivity {
 
     @Override
     public void onResume() {
-        app_paused = false;
         if (app_resumed) {
-            Intent intent = getIntent();
-            finish();
-            startActivity(intent);
+            if (!is_building) {
+                Intent intent = getIntent();
+                finish();
+                startActivity(intent);
+            }
+        } else {
+            app_paused = false;
         }
         super.onResume();
     }

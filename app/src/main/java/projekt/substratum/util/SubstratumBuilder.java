@@ -52,6 +52,7 @@ public class SubstratumBuilder {
     public Boolean has_errored_out = false;
     public String parse2_themeName;
     private Context mContext;
+    private Boolean enable_signing = true;
 
     public void injectAAPT(Context context) {
         mContext = context;
@@ -327,7 +328,7 @@ public class SubstratumBuilder {
 
         // Sign the apk
 
-        if (!has_errored_out) {
+        if (!has_errored_out && enable_signing) {
             try {
                 // Delete the previous APK if it exists in the dashboard folder
                 eu.chainfire.libsuperuser.Shell.SU.run(

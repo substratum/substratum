@@ -765,10 +765,8 @@ public class InformationActivity extends AppCompatActivity {
 
     @Override
     public void onResume() {
-        Log.e("THISHASRUN", "ONRESUME RAN!");
         app_paused = false;
         if (app_resumed) {
-            Log.e("THISHASRUN", "ONRESUME RAN!!!!!!!!");
             Intent intent = getIntent();
             finish();
             startActivity(intent);

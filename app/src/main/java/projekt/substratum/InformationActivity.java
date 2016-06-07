@@ -1005,6 +1005,7 @@ public class InformationActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             Log.d("Phase 2", "This phase has started it's asynchronous task.");
+            int notification_priority = 2; // PRIORITY_MAX == 2
 
             // This is the time when the notification should be shown on the user's screen
             mNotifyManager =
@@ -1013,6 +1014,7 @@ public class InformationActivity extends AppCompatActivity {
             mBuilder.setContentTitle(getString(R.string.notification_initial_title))
                     .setProgress(100, 0, true)
                     .setSmallIcon(R.drawable.notification_icon)
+                    .setPriority(notification_priority)
                     .setOngoing(true);
             mNotifyManager.notify(id, mBuilder.build());
             is_building = true;

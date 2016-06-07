@@ -77,7 +77,8 @@ public class ThemeDetector extends Service {
                 notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
                         Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 PendingIntent intent =
-                        PendingIntent.getActivity(ThemeDetector.this, 0, notificationIntent, 0);
+                        PendingIntent.getActivity(ThemeDetector.this, 0, notificationIntent,
+                                PendingIntent.FLAG_CANCEL_CURRENT);
 
                 // This is the time when the notification should be shown on the user's screen
                 NotificationManager mNotifyManager =

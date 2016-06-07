@@ -7,7 +7,7 @@ android {
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
             output.outputFile = new File(
-                    output.outputFile.parent, "substratum_beta_testers.apk")
+                    output.outputFile.parent, "substratum_beta_testers" + versionCode + ".apk")
         }
     }
 
@@ -15,8 +15,8 @@ android {
         applicationId "projekt.substratum"
         minSdkVersion 23
         targetSdkVersion 23
-        versionCode 21
-        versionName "twenty one"
+        versionCode 22
+        versionName "twenty two"
     }
     buildTypes {
         release {

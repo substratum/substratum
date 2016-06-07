@@ -1001,7 +1001,7 @@ public class InformationActivity extends AppCompatActivity {
                 mBuilder = new NotificationCompat.Builder(InformationActivity.this);
                 mBuilder.setContentTitle(getString(R.string.notification_initial_title))
                         .setProgress(100, 0, true)
-                        .setSmallIcon(R.drawable.notification_icon)
+                        .setSmallIcon(android.R.drawable.ic_popup_sync)
                         .setPriority(notification_priority)
                         .setOngoing(true);
                 mNotifyManager.notify(id, mBuilder.build());

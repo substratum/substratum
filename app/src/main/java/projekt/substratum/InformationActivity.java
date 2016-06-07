@@ -46,6 +46,7 @@ import com.mikhaellopez.circularfillableloaders.CircularFillableLoaders;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
@@ -795,6 +796,48 @@ public class InformationActivity extends AppCompatActivity {
                 overlay_count.setText(getString(R.string.list_of_overlays) + " (" + overlayCount
                         + ")");
 
+            // Let's start sorting the overlay list alphabetically with proper package names
+            List<String> unsortedList = new ArrayList<String>();
+            List<String> unsortedListWithNames = new ArrayList<String>();
+
+            // Let's convert the values list to package names first
+            for (int i = 0; i < values.size(); i++) {
+                try {
+                    ApplicationInfo applicationInfo = getPackageManager().getApplicationInfo
+                            (values.get(i), 0);
+                    String packageTitle = getPackageManager().getApplicationLabel
+                            (applicationInfo).toString();
+
+                    // Organized list of packages
+                    unsortedList.add(values.get(i));  // Add this to be parsed later
+                    unsortedListWithNames.add(packageTitle);  // Add this to be parsed later
+
+                    values.set(i, packageTitle);
+                } catch (PackageManager.NameNotFoundException nnfe) {
+                    Log.e("SubstratumLogger", "Could not find explicit package identifier in " +
+                            "package manager list.");
+                }
+            }
+
+            // Sort the values list
+            Collections.sort(values);
+
+            // Change the names of each of the values back into package identifiers
+            for (int i = 0; i < values.size(); i++) {
+                int counter = -1;
+                for (int j = 0; j < unsortedList.size(); j++) {
+                    if (unsortedListWithNames.get(j).equals(values.get(i))) {
+                        counter = j;
+                    }
+                }
+                if (counter > -1) {
+                    values.set(i, unsortedList.get(counter));
+                } else {
+                    Log.e("SubstratumLogger", "Could not assign specific index \"" + values.get
+                            (i) + "\" for sorted values list.");
+                }
+            }
+
             if (listView != null) {
                 listView.setNestedScrollingEnabled(true);
                 listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
@@ -803,6 +846,17 @@ public class InformationActivity extends AppCompatActivity {
                     @Override
                     public View getView(final int position, View convertView, ViewGroup parent) {
                         TextView textView = (TextView) super.getView(position, convertView, parent);
+                        try {
+                            ApplicationInfo applicationInfo = getPackageManager().getApplicationInfo
+                                    (listView.getItemAtPosition
+                                            (position).toString(), 0);
+                            String packageTitle = getPackageManager().getApplicationLabel
+                                    (applicationInfo).toString();
+                            textView.setText(packageTitle);
+                        } catch (PackageManager.NameNotFoundException nnfe) {
+                            Log.e("SubstratumLogger", "Could not find explicit package identifier" +
+                                    " in package manager list.");
+                        }
                         if (isPackageInstalled(InformationActivity.this, listView.getItemAtPosition
                                 (position).toString() + "." + theme_name)) {
                             if (enabled_overlays.contains(listView.getItemAtPosition(position)

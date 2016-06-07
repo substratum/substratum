@@ -732,9 +732,9 @@ public class InformationActivity extends AppCompatActivity {
         } else {
             if (!is_building) {
                 // Destroy the cache if the user leaves the activity
+                super.onBackPressed();
                 clearCache clear = new clearCache();
                 clear.execute("");
-                super.onBackPressed();
             } else {
                 Toast toast = Toast.makeText(getApplicationContext(),
                         getString(R.string

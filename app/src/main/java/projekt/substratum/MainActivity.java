@@ -203,7 +203,9 @@ public class MainActivity extends AppCompatActivity implements
                 i.setData(Uri.parse(playURL));
                 startActivity(i);
                 return true;
-
+            case R.id.restart_systemui:
+                eu.chainfire.libsuperuser.Shell.SU.run("pkill com.android.systemui");
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

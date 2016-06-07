@@ -1144,6 +1144,32 @@ public class InformationActivity extends AppCompatActivity {
                         mBuilder.setContentText(getString(R.string.notification_some_errors_found));
                         mNotifyManager.notify(id, mBuilder.build());
                         is_building = false;
+
+                        for (int i = 0; i < problematicOverlays.size(); i++) {
+                            String toast_text = String.format(getApplicationContext().getResources()
+                                            .getString(
+                                                    R.string.failed_to_install_overlay_toast),
+                                    problematicOverlays.get(i));
+                            Toast toast = Toast.makeText(getApplicationContext(), toast_text,
+                                    Toast.LENGTH_SHORT);
+                            toast.show();
+                        }
+
+                        if (!app_paused) {
+                            Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Intent intent = getIntent();
+                                    finish();
+                                    startActivity(intent);
+                                }
+                            }, 2000);
+                        } else {
+                            // Named this way because it will assume the next time the app is
+                            // loaded, it will most definitely restart the activity
+                            app_resumed = true;
+                        }
                     } else {
                         for (int i = 0; i < problematicOverlays.size(); i++) {
                             String toast_text = String.format(getApplicationContext().getResources()

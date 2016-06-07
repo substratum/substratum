@@ -1008,15 +1008,18 @@ public class InformationActivity extends AppCompatActivity {
             int notification_priority = 2; // PRIORITY_MAX == 2
 
             // This is the time when the notification should be shown on the user's screen
-            mNotifyManager =
-                    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-            mBuilder = new NotificationCompat.Builder(InformationActivity.this);
-            mBuilder.setContentTitle(getString(R.string.notification_initial_title))
-                    .setProgress(100, 0, true)
-                    .setSmallIcon(R.drawable.notification_icon)
-                    .setPriority(notification_priority)
-                    .setOngoing(true);
-            mNotifyManager.notify(id, mBuilder.build());
+            if (!current_mode.equals("enable") && !current_mode.equals("disable")) {
+                mNotifyManager =
+                        (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                mBuilder = new NotificationCompat.Builder(InformationActivity.this);
+                mBuilder.setContentTitle(getString(R.string.notification_initial_title))
+                        .setProgress(100, 0, true)
+                        .setSmallIcon(R.drawable.notification_icon)
+                        .setPriority(notification_priority)
+                        .setOngoing(true);
+                mNotifyManager.notify(id, mBuilder.build());
+            }
+
             is_building = true;
 
             mWakeLock = null;
@@ -1066,11 +1069,14 @@ public class InformationActivity extends AppCompatActivity {
         protected void onPreExecute() {
             Log.d("Phase 3", "This phase has started it's asynchronous task.");
 
-            // Change title in preparation for loop to change subtext
-            mBuilder.setContentTitle(getString(R.string.notification_compiling_signing_installing))
-                    .setContentText(getString(R.string.notification_extracting_assets_text))
-                    .setProgress(100, 0, false);
-            mNotifyManager.notify(id, mBuilder.build());
+            if (!current_mode.equals("enable") && !current_mode.equals("disable")) {
+                // Change title in preparation for loop to change subtext
+                mBuilder.setContentTitle(getString(R.string
+                        .notification_compiling_signing_installing))
+                        .setContentText(getString(R.string.notification_extracting_assets_text))
+                        .setProgress(100, 0, false);
+                mNotifyManager.notify(id, mBuilder.build());
+            }
 
             problematicOverlays = new ArrayList<>();
             if (!current_mode.equals("enable") && !current_mode.equals("disable") &&

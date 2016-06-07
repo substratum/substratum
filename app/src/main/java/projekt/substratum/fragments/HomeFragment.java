@@ -62,7 +62,6 @@ public class HomeFragment extends Fragment {
         if (requestCode == THEME_INFORMATION_REQUEST_CODE) {
             Boolean uninstalled = data.getBooleanExtra("Uninstalled", false);
             if (uninstalled) {
-                Log.e("Detected", "Uninstall");
                 refreshLayout();
             }
         }

@@ -81,19 +81,8 @@ public class HomeFragment extends Fragment {
             getLayersPackages(mContext, packageInfo.packageName);
         }
 
-        Set<String> installed = new HashSet<>();
-        installed.addAll(installed_themes);
-        SharedPreferences.Editor edit = prefs.edit();
-        edit.putStringSet("installed_themes", installed);
-        edit.apply();
-
-        if (unauthorized_packages.size() > 0) {
-            PurgeUnauthorizedOverlays purgeUnauthorizedOverlays = new PurgeUnauthorizedOverlays();
-            purgeUnauthorizedOverlays.execute("");
-        }
-
-        doCleanUp cleanUp = new doCleanUp();
-        cleanUp.execute("");
+        AntiPiracyCheck antiPiracyCheck = new AntiPiracyCheck();
+        antiPiracyCheck.execute("");
 
         if (layers_packages.size() == 0) {
             cardView.setVisibility(View.VISIBLE);
@@ -323,6 +312,31 @@ public class HomeFragment extends Fragment {
         adapter = new DataAdapter(mContext.getApplicationContext(), themeParsers);
         recyclerView.setAdapter(adapter);
         swipeRefreshLayout.setRefreshing(false);
+    }
+
+    private class AntiPiracyCheck extends AsyncTask<String, Integer, String> {
+
+        @Override
+        protected void onPostExecute(String result) {
+            if (unauthorized_packages.size() > 0) {
+                PurgeUnauthorizedOverlays purgeUnauthorizedOverlays = new
+                        PurgeUnauthorizedOverlays();
+                purgeUnauthorizedOverlays.execute("");
+            }
+
+            doCleanUp cleanUp = new doCleanUp();
+            cleanUp.execute("");
+        }
+
+        @Override
+        protected String doInBackground(String... sUrl) {
+            Set<String> installed = new HashSet<>();
+            installed.addAll(installed_themes);
+            SharedPreferences.Editor edit = prefs.edit();
+            edit.putStringSet("installed_themes", installed);
+            edit.apply();
+            return null;
+        }
     }
 
     private class doCleanUp extends AsyncTask<String, Integer, String> {

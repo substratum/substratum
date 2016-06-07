@@ -1,6 +1,7 @@
 package projekt.substratum.services;
 
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -22,6 +23,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
 
 /**
@@ -66,6 +68,17 @@ public class ThemeDetector extends Service {
                 String packageTitle = getPackageManager().getApplicationLabel
                         (applicationInfo).toString();
 
+                // Everything below will only run as long as the PackageManager changes
+
+                Intent notificationIntent = new Intent(ThemeDetector.this, InformationActivity
+                        .class);
+                notificationIntent.putExtra("theme_name", packageTitle);
+                notificationIntent.putExtra("theme_pid", new_theme_name);
+                notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                        Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                PendingIntent intent =
+                        PendingIntent.getActivity(ThemeDetector.this, 0, notificationIntent, 0);
+
                 // This is the time when the notification should be shown on the user's screen
                 NotificationManager mNotifyManager =
                         (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
@@ -73,6 +86,7 @@ public class ThemeDetector extends Service {
                         (getApplicationContext());
                 mBuilder.setContentTitle(packageTitle + " " + getString(R.string
                         .notification_theme_installed))
+                        .setContentIntent(intent)
                         .setContentText(getString(R.string.notification_theme_installed_content))
                         .setSmallIcon(R.drawable.notification_icon)
                         .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap

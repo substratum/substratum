@@ -1,7 +1,6 @@
 package projekt.substratum;
 
 import android.app.NotificationManager;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,7 +15,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
-import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AlertDialog;
@@ -42,7 +40,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gordonwong.materialsheetfab.MaterialSheetFab;
-import com.mikhaellopez.circularfillableloaders.CircularFillableLoaders;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -66,13 +63,9 @@ public class InformationActivity extends AppCompatActivity {
     public ArrayList<String> values;
     public Boolean has_extracted_cache;
     public SubstratumBuilder lb;
-    public CircularFillableLoaders loader;
-    public TextView loader_string;
     public List<String> listStrings, problematicOverlays, mixAndMatch;
     public Switch toggle_overlays;
     public ProgressBar progressBar;
-    ProgressDialog mProgressDialog;
-    private PowerManager.WakeLock mWakeLock;
     private ArrayList<String> enabled_overlays;
     private ArrayAdapter<String> adapter;
     private String final_commands;
@@ -388,12 +381,6 @@ public class InformationActivity extends AppCompatActivity {
         // Run through phase one - checking whether aapt exists on the device
         Phase1_AAPT_Check phase1_aapt_check = new Phase1_AAPT_Check();
         phase1_aapt_check.execute("");
-
-        mProgressDialog = null;
-        mProgressDialog = new ProgressDialog(InformationActivity.this, R.style
-                .SubstratumBuilder_ActivityTheme);
-        mProgressDialog.setIndeterminate(false);
-        mProgressDialog.setCancelable(false);
     }
 
     @Override
@@ -1019,26 +1006,7 @@ public class InformationActivity extends AppCompatActivity {
                         .setOngoing(true);
                 mNotifyManager.notify(id, mBuilder.build());
             }
-
             is_building = true;
-
-            mWakeLock = null;
-            if (!current_mode.equals("enable") && !current_mode.equals("disable") &&
-                    !current_mode.equals("compile_enable")) {
-                PowerManager pm = (PowerManager)
-                        getApplicationContext().getSystemService(Context.POWER_SERVICE);
-                mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, getClass().getName());
-                mWakeLock.acquire();
-                mProgressDialog.show();
-                mProgressDialog.setContentView(R.layout.dialog_loader);
-                loader_string = (TextView) mProgressDialog.findViewById(R.id
-                        .loadingTextCreativeMode);
-                loader_string.setText(getApplicationContext().getResources().getString(
-                        R.string.lb_phase_1_loader));
-                loader = (CircularFillableLoaders) mProgressDialog.findViewById(
-                        R.id.circularFillableLoader);
-                loader.setProgress(60);
-            }
             super.onPreExecute();
         }
 
@@ -1079,12 +1047,6 @@ public class InformationActivity extends AppCompatActivity {
             }
 
             problematicOverlays = new ArrayList<>();
-            if (!current_mode.equals("enable") && !current_mode.equals("disable") &&
-                    !current_mode.equals("compile_enable")) {
-                loader_string.setText(getApplicationContext().getResources().getString(
-                        R.string.lb_phase_2_loader));
-                loader.setProgress(30);
-            }
             super.onPreExecute();
         }
 
@@ -1092,14 +1054,7 @@ public class InformationActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-            // Dismiss the dialog first to prevent windows from leaking
-            if (!current_mode.equals("enable") && !current_mode.equals("disable") &&
-                    !current_mode.equals("compile_enable")) {
-                mProgressDialog.dismiss();
-                mWakeLock.release();
-            }
-
-            // On non-compiling dialogs, we have the progress bar shown instead
+            // On non-compiling dialogs, we have the progress bar shown
             progressBar.setVisibility(View.GONE);
 
             if (current_mode.equals("compile_enable") && problematicOverlays.size() == 0) {

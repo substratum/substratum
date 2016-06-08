@@ -94,7 +94,6 @@ public class ThemeDetector extends Service {
                             .setContentIntent(intent)
                             .setContentText(getString(R.string
                                     .notification_theme_installed_content))
-
                             .setAutoCancel(true)
                             .setSmallIcon(R.drawable.notification_icon)
                             .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap

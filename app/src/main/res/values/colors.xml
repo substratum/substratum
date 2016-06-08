@@ -30,10 +30,12 @@
     <color name="purge_button_text_color">#ffffffff</color>
     <color name="window_bg_glass">#99000000</color>
 
-    <color name="slide_1">#4f91ff</color>
-    <color name="slide_2">#fb9c25</color>
-    <color name="slide_3">#5ab55d</color>
-    <color name="slide_4">#ea2d6d</color>
+    <color name="slide_1">#5e98ce</color>
+    <color name="slide_2">#fcb257</color>
+    <color name="slide_3">#ff8da1</color>
+    <color name="slide_4">#a9d67b</color>
+    <color name="slide_5">#c187ff</color>
+    <color name="slide_6">#f9da7c</color>
 
     <color name="tutorial_slide_divider">#00000000</color>
     <color name="tutorial_page_indicator_fill_color">#70ffffff</color>

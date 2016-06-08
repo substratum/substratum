@@ -66,6 +66,6 @@
         </activity>
         <activity
             android:name="za.co.riggaroo.materialhelptutorial.tutorial.MaterialTutorialActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+            android:theme="@style/AppIntro.ActivityTheme"/>
     </application>
 </manifest>

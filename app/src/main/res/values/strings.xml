@@ -89,12 +89,16 @@
     <string name="fab_menu_enable">Enable Selected</string>
     <string name="fab_menu_swap_toggle">Disable other themes</string>
 
-    <string name="slide_1_african_story_books">New African Story Books</string>
-    <string name="slide_2_volunteer_professionals">Created by Volunteer Professionals</string>
-    <string name="slide_3_download_and_go">Download and Read on the go</string>
-    <string name="slide_4_different_languages">Available in different languages</string>
-    <string name="slide_1_african_story_books_subtitle">That anyone can freely translate and distribute.</string>
-    <string name="slide_2_volunteer_professionals_subtitle">On a single day, designers, writers and illustrators meet to create cool books.</string>
-    <string name="slide_3_download_and_go_subtitle">On the bus, in a train, wherever you are - the books are there too.</string>
-    <string name="slide_4_different_languages_subtitle">English, Zulu, Afrikaans, Xhosa and more!</string>
+    <string name="slide_1_title">welcome to substratum</string>
+    <string name="slide_1_text">a minimal yet powerful theme engine based on Sony\'s overlay manager service</string>
+    <string name="slide_2_title">a brand new user interface</string>
+    <string name="slide_2_text">do you love your themes? introducing a gorgeous card view interface to showcase each of your theme\'s preview images installed on your device!</string>
+    <string name="slide_3_title">per-app theming to its finest</string>
+    <string name="slide_3_text">not sure whether you want your Google+ themed? that\'s okay, just pick whatever you want themed from the overlay list!</string>
+    <string name="slide_4_title">compile? enable? disable? where?</string>
+    <string name="slide_4_text">by clicking on the floating action button after selecting overlays, you could compile (do this first!), enable and disable each overlay directly on your phone to begin using your theme.</string>
+    <string name="slide_5_title">while compiling your overlays&#8230;</string>
+    <string name="slide_5_text">you can switch over to your own apps and allow the overlays to compile in the background as this process may take a while. just check your notification panel for the progress!</string>
+    <string name="slide_6_title">we hope you enjoy our creation!</string>
+    <string name="slide_6_text">thank you for reading the introduction and we hope you enjoy using substratum as much as we did while developing for it!</string>
 </resources>

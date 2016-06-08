@@ -92,6 +92,26 @@ public class TeamFragment extends Fragment {
             }
         });
 
+        CardView sajid = (CardView) root.findViewById(R.id.sajid);
+        sajid.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                String playURL = getString(R.string.contributor_sajid_link);
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(playURL));
+                startActivity(i);
+            }
+        });
+
+        CardView travis = (CardView) root.findViewById(R.id.travis);
+        travis.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                String playURL = getString(R.string.contributor_travis_link);
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(playURL));
+                startActivity(i);
+            }
+        });
+
         return root;
     }
 }

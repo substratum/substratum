@@ -74,5 +74,31 @@
         <include
             android:id="@+id/jimmy"
             layout="@layout/team_card_jimmy"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="30dp"
+            android:text="@string/contributor_title_1"
+            android:textColor="@color/settings_title_color"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/contributor_text_1"/>
+
+        <include
+            android:id="@+id/sajid"
+            layout="@layout/contributor_card_sajid"/>
+
+        <include
+            android:id="@+id/travis"
+            layout="@layout/contributor_card_travis"/>
     </LinearLayout>
 </ScrollView>

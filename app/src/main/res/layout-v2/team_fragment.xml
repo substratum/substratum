@@ -100,5 +100,51 @@
         <include
             android:id="@+id/travis"
             layout="@layout/contributor_card_travis"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="30dp"
+            android:text="@string/contributor_title_2"
+            android:textColor="@color/settings_title_color"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/contributor_text_2"/>
+
+        <include
+            android:id="@+id/reinhard"
+            layout="@layout/contributor_card_reinhard"/>
+
+        <include
+            android:id="@+id/brian"
+            layout="@layout/contributor_card_brian"/>
+
+        <include
+            android:id="@+id/aldrin"
+            layout="@layout/contributor_card_aldrin"/>
+
+        <include
+            android:id="@+id/steve"
+            layout="@layout/contributor_card_steve"/>
+
+        <include
+            android:id="@+id/niklas"
+            layout="@layout/contributor_card_niklas"/>
+
+        <include
+            android:id="@+id/andrzej"
+            layout="@layout/contributor_card_andrzej"/>
+
+        <include
+            android:id="@+id/denis"
+            layout="@layout/contributor_card_denis"/>
     </LinearLayout>
 </ScrollView>

@@ -102,6 +102,30 @@
     <string name="contributor_sajid_content">I made all of Substratum\'s app icons!</string>
     <string name="contributor_sajid_link">https://plus.google.com/+DroidAppsReviewer/</string>
 
+    <string name="contributor_title_2">Layers Contributors</string>
+    <string name="contributor_text_2">These people brought you Layers Manager in the past and have since went on to do many great things in getting Substratum ready for us!</string>
+    <string name="contributor_reinhard">Reinhard Strauch</string>
+    <string name="contributor_reinhard_content">I created Layers with Mike!</string>
+    <string name="contributor_reinhard_link">https://plus.google.com/u/0/101549242713977412381/</string>
+    <string name="contributor_brian">Brian Gill (Bgill55)</string>
+    <string name="contributor_brian_content">I worked on the ROM side of Layers!</string>
+    <string name="contributor_brian_link">https://plus.google.com/u/0/+BrianGill55/</string>
+    <string name="contributor_aldrin">Aldrin Holmes (CallMeAldy)</string>
+    <string name="contributor_aldrin_content">I worked on the ROM side of Layers!</string>
+    <string name="contributor_aldrin_link">https://plus.google.com/u/0/+AldrinHolmes20/</string>
+    <string name="contributor_steve">Steve Lovejoy</string>
+    <string name="contributor_steve_content">I created Layers Manager!</string>
+    <string name="contributor_steve_link">https://plus.google.com/u/0/+SteveLovejoy/</string>
+    <string name="contributor_niklas">Niklas Schnettler (Sh4dowSoul)</string>
+    <string name="contributor_niklas_content">I worked on Layers Manager!</string>
+    <string name="contributor_niklas_link">https://plus.google.com/u/0/+NiklasSchnettler/</string>
+    <string name="contributor_andrzej">Andrzej Ressel (jereksel)</string>
+    <string name="contributor_andrzej_content">I worked on Layers Manager!</string>
+    <string name="contributor_andrzej_link">https://plus.google.com/u/0/117376207394302665227/</string>
+    <string name="contributor_denis">Denis Suarez</string>
+    <string name="contributor_denis_content">I started the Layers Showcase!</string>
+    <string name="contributor_denis_link">https://plus.google.com/u/0/+DenisSuarez98/</string>
+
     <string name="team_title_1">Substratum Developers</string>
     <string name="team_text_1">Not only did we create something that works for the users, but we worked in conjunction with themers to make it a wonderful theming engine for the community!</string>
     <string name="team_title_2">Substratum Themers</string>

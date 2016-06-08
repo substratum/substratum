@@ -112,6 +112,76 @@ public class TeamFragment extends Fragment {
             }
         });
 
+        CardView reinhard = (CardView) root.findViewById(R.id.reinhard);
+        reinhard.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                String playURL = getString(R.string.contributor_reinhard_link);
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(playURL));
+                startActivity(i);
+            }
+        });
+
+        CardView brian = (CardView) root.findViewById(R.id.brian);
+        brian.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                String playURL = getString(R.string.contributor_brian_link);
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(playURL));
+                startActivity(i);
+            }
+        });
+
+        CardView aldrin = (CardView) root.findViewById(R.id.aldrin);
+        aldrin.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                String playURL = getString(R.string.contributor_aldrin_link);
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(playURL));
+                startActivity(i);
+            }
+        });
+
+        CardView steve = (CardView) root.findViewById(R.id.steve);
+        steve.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                String playURL = getString(R.string.contributor_steve_link);
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(playURL));
+                startActivity(i);
+            }
+        });
+
+        CardView niklas = (CardView) root.findViewById(R.id.niklas);
+        niklas.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                String playURL = getString(R.string.contributor_niklas_link);
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(playURL));
+                startActivity(i);
+            }
+        });
+
+        CardView andrzej = (CardView) root.findViewById(R.id.andrzej);
+        andrzej.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                String playURL = getString(R.string.contributor_andrzej_link);
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(playURL));
+                startActivity(i);
+            }
+        });
+
+        CardView denis = (CardView) root.findViewById(R.id.denis);
+        denis.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                String playURL = getString(R.string.contributor_denis_link);
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(playURL));
+                startActivity(i);
+            }
+        });
+
         return root;
     }
 }

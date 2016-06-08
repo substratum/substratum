@@ -65,4 +65,9 @@ dependencies {
     compile('com.mikepenz:materialdrawer:5.2.9@aar') {
         transitive = true
     }
+
+    // About Libraries
+    compile('com.mikepenz:aboutlibraries:5.6.7@aar') {
+        transitive = true
+    }
 }

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <!-- commons-io -->
+    <string name="define_commons_io"/>
+    <!-- Author section -->
+    <string name="library_commons_io_author">Apache</string>
+    <string name="library_commons_io_authorWebsite">http://commons.apache.org/</string>
+    <!-- Library section -->
+    <string name="library_commons_io_libraryName">Commons IO</string>
+    <string name="library_commons_io_libraryDescription">Commons IO is a library of utilities to assist with developing IO functionality.</string>
+    <string name="library_commons_io_libraryWebsite">https://commons.apache.org/proper/commons-io/</string>
+    <string name="library_commons_io_libraryVersion">1.0</string>
+    <!-- OpenSource section -->
+    <string name="library_commons_io_isOpenSource">true</string>
+    <string name="library_commons_io_repositoryLink">https://commons.apache.org/proper/commons-io/</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_commons_io_classPath">commons-io</string>
+    <!-- License section -->
+    <string name="library_commons_io_licenseId">apache_2_0</string>
+
+    <!-- libsuperuser -->
+    <string name="define_libsuperuser"/>
+    <!-- Author section -->
+    <string name="library_libsuperuser_author">Chainfire</string>
+    <string name="library_libsuperuser_authorWebsite">http://su.chainfire.eu/</string>
+    <!-- Library section -->
+    <string name="library_libsuperuser_libraryName">libsuperuser</string>
+    <string name="library_libsuperuser_libraryDescription">The goal of this library is to demonstrate techniques you may want to reuse in your root app that work around common problems, in as little code as possible. </string>
+    <string name="library_libsuperuser_libraryWebsite">https://github.com/Chainfire/libsuperuser</string>
+    <string name="library_libsuperuser_libraryVersion">1.0.0</string>
+    <!-- OpenSource section -->
+    <string name="library_libsuperuser_isOpenSource">true</string>
+    <string name="library_libsuperuser_repositoryLink">https://github.com/Chainfire/libsuperuser</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_libsuperuser_classPath">eu.chainfire:libsuperuser</string>
+    <!-- License section -->
+    <string name="library_libsuperuser_licenseId">apache_2_0</string>
+
+    <!-- Material Progress Bar -->
+    <string name="define_materialprogressbar"/>
+    <!-- Author section -->
+    <string name="library_materialprogressbar_author">Zhang Hai</string>
+    <string name="library_materialprogressbar_authorWebsite">http://blog.zhanghai.me/</string>
+    <!-- Library section -->
+    <string name="library_materialprogressbar_libraryName">MaterialProgressBar</string>
+    <string name="library_materialprogressbar_libraryDescription">Material Design ProgressBar with consistent appearance on Android 4.0+.</string>
+    <string name="library_materialprogressbar_libraryWebsite">https://github.com/DreaminginCodeZH/MaterialProgressBar</string>
+    <string name="library_materialprogressbar_libraryVersion">1.1.6</string>
+    <!-- OpenSource section -->
+    <string name="library_materialprogressbar_isOpenSource">true</string>
+    <string name="library_materialprogressbar_repositoryLink">https://github.com/DreaminginCodeZH/MaterialProgressBar</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_materialprogressbar_classPath">me.zhanghai.android.materialprogressbar</string>
+    <!-- License section -->
+    <string name="library_materialprogressbar_licenseId">apache_2_0</string>
+
+    <!-- Material Intro Tutorial -->
+    <string name="define_materialintrotutorial"/>
+    <!-- Author section -->
+    <string name="library_materialintrotutorial_author">Rebecca Franks</string>
+    <string name="library_materialintrotutorial_authorWebsite">http://riggaroo.co.za/</string>
+    <!-- Library section -->
+    <string name="library_materialintrotutorial_libraryName">MaterialIntroTutorial</string>
+    <string name="library_materialintrotutorial_libraryDescription">An Android library demonstrating a material intro tutorial much like the ones on Google Sheets.  This library creates an introduction screen for your application. The help tutorial takes the background colour set for each page and when scrolling between the two pages, the two colours will fade into one another.</string>
+    <string name="library_materialintrotutorial_libraryWebsite">https://github.com/riggaroo/MaterialIntroTutorial</string>
+    <string name="library_materialintrotutorial_libraryVersion">1.1.0</string>
+    <!-- OpenSource section -->
+    <string name="library_materialintrotutorial_isOpenSource">true</string>
+    <string name="library_materialintrotutorial_repositoryLink">https://github.com/riggaroo/MaterialIntroTutorial</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_materialintrotutorial_classPath">za.co.riggaroo:materialhelptutorial</string>
+    <!-- License section -->
+    <string name="library_materialintrotutorial_licenseId">mit</string>
+
+    <!-- Material Sheet Fab -->
+    <string name="define_materialsheetfab"/>
+    <!-- Author section -->
+    <string name="library_materialsheetfab_author">Gordon Wong</string>
+    <string name="library_materialsheetfab_authorWebsite">http://gordonwong.com/</string>
+    <!-- Library section -->
+    <string name="library_materialsheetfab_libraryName">MaterialSheetFab</string>
+    <string name="library_materialsheetfab_libraryDescription">Library that implements the floating action button to sheet transition from Google\'s Material Design documentation. It can be used with any FAB library on Android 4.0+ (API levels >= 14).</string>
+    <string name="library_materialsheetfab_libraryWebsite">https://github.com/gowong/material-sheet-fab/</string>
+    <string name="library_materialsheetfab_libraryVersion">1.2.1</string>
+    <!-- OpenSource section -->
+    <string name="library_materialsheetfab_isOpenSource">true</string>
+    <string name="library_materialsheetfab_repositoryLink">https://github.com/gowong/material-sheet-fab/</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_materialsheetfab_classPath">com.gordonwong:material-sheet-fab</string>
+    <!-- License section -->
+    <string name="library_materialsheetfab_licenseId">mit</string>
+
+    <!-- ZipSigner -->
+    <string name="define_zipsigner"/>
+    <!-- Author section -->
+    <string name="library_zipsigner_author">Ken Ellinwood</string>
+    <string name="library_zipsigner_authorWebsite">https://sites.google.com/site/zipsigner/home</string>
+    <!-- Library section -->
+    <string name="library_zipsigner_libraryName">ZipSigner</string>
+    <string name="library_zipsigner_libraryDescription">ZipSigner is an Android library for signing Zip, Apk, and/or Jar files on-board Android devices.</string>
+    <string name="library_zipsigner_libraryWebsite">https://code.google.com/archive/p/zip-signer/</string>
+    <string name="library_zipsigner_libraryVersion">1.17</string>
+    <!-- OpenSource section -->
+    <string name="library_zipsigner_isOpenSource">true</string>
+    <string name="library_zipsigner_repositoryLink">https://code.google.com/archive/p/zip-signer/</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_zipsigner_classPath">kellinwood.security.zipsigner</string>
+    <!-- License section -->
+    <string name="library_zipsigner_licenseId">apache_2_0</string>
+</resources>

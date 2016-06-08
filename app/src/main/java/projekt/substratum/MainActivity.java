@@ -19,6 +19,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.mikepenz.aboutlibraries.LibsBuilder;
+import com.mikepenz.aboutlibraries.ui.LibsSupportFragment;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
@@ -55,6 +57,14 @@ public class MainActivity extends AppCompatActivity implements
         tx.commit();
     }
 
+    private void switchFragmentToLicenses(String title, LibsSupportFragment fragment) {
+        getSupportActionBar().setTitle(title);
+        FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
+        tx.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
+        tx.replace(R.id.main, fragment);
+        tx.commit();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +89,8 @@ public class MainActivity extends AppCompatActivity implements
                 .withCurrentProfileHiddenInList(true)
                 .build();
 
+        final LibsSupportFragment fragment = new LibsBuilder().supportFragment();
+
         drawer = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
@@ -95,6 +107,9 @@ public class MainActivity extends AppCompatActivity implements
                                 .drawable.nav_drawer_profiles).withBadge("WIP ★").withEnabled
                                 (false),
                         new DividerDrawerItem(),
+                        new SecondaryDrawerItem().withName(getString(R.string.nav_opensource))
+                                .withIcon(R
+                                        .drawable.nav_drawer_licenses),
                         new SecondaryDrawerItem().withName(R.string.nav_team).withIcon(R
                                 .drawable.nav_drawer_team),
                         new SecondaryDrawerItem().withName(R.string.nav_settings).withIcon(R
@@ -117,17 +132,22 @@ public class MainActivity extends AppCompatActivity implements
                                 case 3:
                                     break;
                                 case 5:
-                                    if (drawerSelected != position) {
-                                        switchFragment(getString(R.string.fragment_team),
-                                                "TeamFragment");
-                                        drawerSelected = 5;
-                                    }
+                                    switchFragmentToLicenses(getString(R.string.nav_opensource),
+                                            fragment);
+                                    drawerSelected = 5;
                                     break;
                                 case 6:
                                     if (drawerSelected != position) {
+                                        switchFragment(getString(R.string.fragment_team),
+                                                "TeamFragment");
+                                        drawerSelected = 6;
+                                    }
+                                    break;
+                                case 7:
+                                    if (drawerSelected != position) {
                                         switchFragment(getString(R.string.fragment_settings),
                                                 "SettingsFragment");
-                                        drawerSelected = 6;
+                                        drawerSelected = 7;
                                     }
                                     break;
                             }

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -79,6 +80,16 @@ public class HomeFragment extends Fragment {
         layers_packages = new HashMap<>();
         recyclerView = (RecyclerView) root.findViewById(R.id.theme_list);
         cardView = root.findViewById(R.id.no_entry_card_view);
+        cardView.setOnClickListener(new View.OnClickListener() {
+                                        public void onClick(View v) {
+                                            String playURL = getString(R.string
+                                                    .search_play_store_url);
+                                            Intent i = new Intent(Intent.ACTION_VIEW);
+                                            i.setData(Uri.parse(playURL));
+                                            startActivity(i);
+                                        }
+                                    }
+        );
         cardView.setVisibility(View.GONE);
 
         // Create it so it uses a recyclerView to parse substratum-based themes

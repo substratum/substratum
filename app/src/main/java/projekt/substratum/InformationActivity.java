@@ -1,6 +1,8 @@
 package projekt.substratum;
 
+import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -155,11 +157,11 @@ public class InformationActivity extends AppCompatActivity {
         Switch enable_swap = (Switch) findViewById(R.id.enable_swap);
         if (enable_swap != null) {
             if (prefs.getBoolean("enable_swapping_overlays", true)) {
-                mixAndMatchMode = false;
-                enable_swap.setChecked(false);
-            } else {
                 mixAndMatchMode = true;
                 enable_swap.setChecked(true);
+            } else {
+                mixAndMatchMode = false;
+                enable_swap.setChecked(false);
             }
             enable_swap.setOnCheckedChangeListener(new CompoundButton
                     .OnCheckedChangeListener() {
@@ -917,11 +919,7 @@ public class InformationActivity extends AppCompatActivity {
                 String[] am_list = am.list("overlays");
 
                 for (String package_name : am_list) {
-                    if (prefs.getBoolean("show_installed_packages", true)) {
-                        if (isPackageInstalled(InformationActivity.this, package_name)) {
-                            values.add(package_name);
-                        }
-                    } else {
+                    if (isPackageInstalled(InformationActivity.this, package_name)) {
                         values.add(package_name);
                     }
                 }
@@ -1061,12 +1059,25 @@ public class InformationActivity extends AppCompatActivity {
             progressBar.setVisibility(View.GONE);
 
             if (current_mode.equals("compile_enable") && problematicOverlays.size() == 0) {
+                Intent notificationIntent = new Intent(InformationActivity.this, InformationActivity
+                        .class);
+                notificationIntent.putExtra("theme_name", theme_name);
+                notificationIntent.putExtra("theme_pid", theme_pid);
+                notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                        Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                PendingIntent intent =
+                        PendingIntent.getActivity(InformationActivity.this, 0, notificationIntent,
+                                PendingIntent.FLAG_CANCEL_CURRENT);
+
                 // Closing off the persistent notification
+                mBuilder.setAutoCancel(true);
                 mBuilder.setProgress(0, 0, false);
                 mBuilder.setOngoing(false);
+                mBuilder.setContentIntent(intent);
                 mBuilder.setSmallIcon(R.drawable.notification_success_icon);
                 mBuilder.setContentTitle(getString(R.string.notification_done_title));
                 mBuilder.setContentText(getString(R.string.notification_no_errors_found));
+                mBuilder.getNotification().flags |= Notification.FLAG_AUTO_CANCEL;
                 mNotifyManager.notify(id, mBuilder.build());
                 is_building = false;
 

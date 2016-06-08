@@ -17,7 +17,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
-            android:text="@string/about_title_1"
+            android:text="@string/team_title_1"
             android:textColor="@color/settings_title_color"
             android:textStyle="bold"/>
 
@@ -27,7 +27,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
-            android:text="@string/about_text_1"/>
+            android:text="@string/team_text_1"/>
 
         <include
             android:id="@+id/nicholas"
@@ -51,7 +51,7 @@
             android:layout_marginTop="30dp"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
-            android:text="@string/about_title_2"
+            android:text="@string/team_title_2"
             android:textColor="@color/settings_title_color"
             android:textStyle="bold"/>
 
@@ -61,7 +61,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
-            android:text="@string/about_text_2"/>
+            android:text="@string/team_text_2"/>
 
         <include
             android:id="@+id/branden"

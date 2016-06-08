@@ -25,7 +25,7 @@ public class TeamFragment extends Fragment {
         CardView nicholas = (CardView) root.findViewById(R.id.nicholas);
         nicholas.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                String playURL = getString(R.string.about_nicholas_link);
+                String playURL = getString(R.string.team_nicholas_link);
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(playURL));
                 startActivity(i);
@@ -35,7 +35,7 @@ public class TeamFragment extends Fragment {
         CardView syko = (CardView) root.findViewById(R.id.syko);
         syko.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                String playURL = getString(R.string.about_syko_link);
+                String playURL = getString(R.string.team_syko_link);
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(playURL));
                 startActivity(i);
@@ -45,7 +45,7 @@ public class TeamFragment extends Fragment {
         CardView george = (CardView) root.findViewById(R.id.george);
         george.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                String playURL = getString(R.string.about_george_link);
+                String playURL = getString(R.string.team_george_link);
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(playURL));
                 startActivity(i);
@@ -55,7 +55,7 @@ public class TeamFragment extends Fragment {
         CardView cory = (CardView) root.findViewById(R.id.cory);
         cory.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                String playURL = getString(R.string.about_cory_link);
+                String playURL = getString(R.string.team_cory_link);
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(playURL));
                 startActivity(i);
@@ -65,7 +65,7 @@ public class TeamFragment extends Fragment {
         CardView branden = (CardView) root.findViewById(R.id.branden);
         branden.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                String playURL = getString(R.string.about_branden_link);
+                String playURL = getString(R.string.team_branden_link);
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(playURL));
                 startActivity(i);
@@ -75,7 +75,7 @@ public class TeamFragment extends Fragment {
         CardView dave = (CardView) root.findViewById(R.id.dave);
         dave.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                String playURL = getString(R.string.about_dave_link);
+                String playURL = getString(R.string.team_dave_link);
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(playURL));
                 startActivity(i);
@@ -85,13 +85,13 @@ public class TeamFragment extends Fragment {
         CardView jimmy = (CardView) root.findViewById(R.id.jimmy);
         jimmy.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                String playURL = getString(R.string.about_jimmy_link);
+                String playURL = getString(R.string.team_jimmy_link);
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(playURL));
                 startActivity(i);
             }
         });
-        
+
         return root;
     }
 }

@@ -95,10 +95,10 @@ public class MainActivity extends AppCompatActivity implements
                                 .drawable.nav_drawer_profiles).withBadge("WIP ★").withEnabled
                                 (false),
                         new DividerDrawerItem(),
+                        new SecondaryDrawerItem().withName(R.string.nav_team).withIcon(R
+                                .drawable.nav_drawer_team),
                         new SecondaryDrawerItem().withName(R.string.nav_settings).withIcon(R
-                                .drawable.nav_drawer_settings),
-                        new SecondaryDrawerItem().withName(R.string.nav_about).withIcon(R
-                                .drawable.nav_drawer_about).withBadge("WIP ★").withEnabled(false)
+                                .drawable.nav_drawer_settings)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -118,12 +118,17 @@ public class MainActivity extends AppCompatActivity implements
                                     break;
                                 case 5:
                                     if (drawerSelected != position) {
-                                        switchFragment(getString(R.string.fragment_settings),
-                                                "SettingsFragment");
+                                        switchFragment(getString(R.string.fragment_team),
+                                                "TeamFragment");
                                         drawerSelected = 5;
                                     }
                                     break;
                                 case 6:
+                                    if (drawerSelected != position) {
+                                        switchFragment(getString(R.string.fragment_settings),
+                                                "SettingsFragment");
+                                        drawerSelected = 6;
+                                    }
                                     break;
                             }
                         }

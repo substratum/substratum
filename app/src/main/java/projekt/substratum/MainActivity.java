@@ -104,8 +104,7 @@ public class MainActivity extends AppCompatActivity implements
                                 .drawable.nav_drawer_priorities).withBadge("WIP ★").withEnabled
                                 (false),
                         new PrimaryDrawerItem().withName(R.string.nav_backup_restore).withIcon(R
-                                .drawable.nav_drawer_profiles).withBadge("WIP ★").withEnabled
-                                (false),
+                                .drawable.nav_drawer_profiles),
                         new DividerDrawerItem(),
                         new SecondaryDrawerItem().withName(getString(R.string.nav_opensource))
                                 .withIcon(R
@@ -130,6 +129,9 @@ public class MainActivity extends AppCompatActivity implements
                                 case 2:
                                     break;
                                 case 3:
+                                    switchFragment(getString(R.string.fragment_profiles),
+                                            "ProfileFragment");
+                                    drawerSelected = 3;
                                     break;
                                 case 5:
                                     switchFragmentToLicenses(getString(R.string.nav_opensource),

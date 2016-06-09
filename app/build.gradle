@@ -70,4 +70,10 @@ dependencies {
     compile('com.mikepenz:aboutlibraries:5.6.7@aar') {
         transitive = true
     }
+
+    // EditText
+    compile 'com.alimuzaffar.lib:animated-edit-text:0.0.8'
+
+    // FAB Speed Dial
+    compile 'io.github.yavski:fab-speed-dial:1.0.4'
 }

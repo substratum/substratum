@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
+    <!-- http://def-builder.mikepenz.com/ -->
+
+    <!-- AnimatedEditText -->
+    <string name="define_animatededittext"/>
+    <!-- Author section -->
+    <string name="library_animatededittext_author">Ali Muzaffar</string>
+    <string name="library_animatededittext_authorWebsite">http://alimuzaffar.com/</string>
+    <!-- Library section -->
+    <string name="library_animatededittext_libraryName">AnimatedEditText</string>
+    <string name="library_animatededittext_libraryDescription">This repository contains AnimatedEditText and TextDrawable all of which extend the behaviour of EditText and implement features that are otherwise not available.</string>
+    <string name="library_animatededittext_libraryWebsite">https://github.com/alphamu/AnimatedEditText</string>
+    <string name="library_animatededittext_libraryVersion">1.0</string>
+    <!-- OpenSource section -->
+    <string name="library_animatededittext_isOpenSource">true</string>
+    <string name="library_animatededittext_repositoryLink">https://github.com/alphamu/AnimatedEditText</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_animatededittext_classPath">com.alimuzaffar.lib:animated-edit-text</string>
+    <!-- License section -->
+    <string name="library_animatededittext_licenseId">apache_2_0</string>
+
     <!-- commons-io -->
     <string name="define_commons_io"/>
     <!-- Author section -->
@@ -18,6 +38,24 @@
     <string name="library_commons_io_classPath">commons-io</string>
     <!-- License section -->
     <string name="library_commons_io_licenseId">apache_2_0</string>
+
+    <!-- FAB Speed Dial -->
+    <string name="define_fab_speed_dial"/>
+    <!-- Author section -->
+    <string name="library_fab_speed_dial_author">Yavor Ivanov</string>
+    <string name="library_fab_speed_dial_authorWebsite">https://github.com/yavski</string>
+    <!-- Library section -->
+    <string name="library_fab_speed_dial_libraryName">fab-speed-dial</string>
+    <string name="library_fab_speed_dial_libraryDescription">A simple library marrying together FAB + menu resources + Speed dial metaphor from Material Design.</string>
+    <string name="library_fab_speed_dial_libraryWebsite">https://github.com/yavski/fab-speed-dial</string>
+    <string name="library_fab_speed_dial_libraryVersion">1.0.4</string>
+    <!-- OpenSource section -->
+    <string name="library_fab_speed_dial_isOpenSource">true</string>
+    <string name="library_fab_speed_dial_repositoryLink">https://github.com/yavski/fab-speed-dial</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_fab_speed_dial_classPath">io.github.yavski:fab-speed-dial</string>
+    <!-- License section -->
+    <string name="library_fab_speed_dial_licenseId">apache_2_0</string>
 
     <!-- libsuperuser -->
     <string name="define_libsuperuser"/>

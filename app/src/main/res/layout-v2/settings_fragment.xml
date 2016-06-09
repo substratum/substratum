@@ -4,48 +4,5 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/purge_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/settings_title_2"
-        android:textColor="@color/settings_title_color"
-        android:textStyle="bold"/>
 
-    <TextView
-        android:id="@+id/purge_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/purge_title"
-        android:layout_marginBottom="5dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="5dp"
-        android:text="@string/purge_information"/>
-
-    <Button
-        android:id="@+id/purge"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/purge_description"
-        android:layout_marginEnd="30dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/purge_button"
-        android:text="@string/purge_button_text"
-        android:textColor="@color/purge_button_text_color"/>
-
-    <Button
-        android:id="@+id/purge2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/purge"
-        android:layout_marginEnd="30dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/purge2_button"
-        android:text="@string/purge2_button_text"
-        android:textColor="@color/purge_button_text_color"/>
 </RelativeLayout>

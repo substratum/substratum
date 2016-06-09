@@ -4,7 +4,13 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+    <color name="backup_button">@color/colorPrimary</color>
+    <color name="backup_button_text_color">@android:color/white</color>
+    <color name="restore_button">@color/colorPrimary</color>
+    <color name="restore_button_text_color">@android:color/white</color>
+
     <color name="splashscreen_background">#fffafafa</color>
+    <color name="fab_speed_dial_icon">#ff000000</color>
 
     <color name="main_screen_card_background">#fffafafa</color>
     <color name="main_screen_card_theme_title">#ff000000</color>

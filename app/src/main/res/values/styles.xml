@@ -29,7 +29,7 @@
     <style name="SplashScreen.ActivityTheme" parent="Theme.AppCompat">
         <item name="android:navigationBarColor">@color/splashscreen_background</item>
         <item name="android:statusBarColor">@color/splashscreen_background</item>
-        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightStatusBar">@bool/SplashscreenWindowLightStatusBar</item>
     </style>
 
     <style name="Widget.MaterialSheetFab.Sheet" parent="">

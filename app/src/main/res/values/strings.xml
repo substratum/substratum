@@ -33,8 +33,15 @@
 
     <string name="backup">Backup Card</string>
     <string name="backup_card_content">This function makes a copy of your currently enabled overlays list and places it in \"/storage/emulated/0/substratum/profiles/\" for safekeeping.</string>
+    <string name="delete_dialog_cancel">Cancel</string>
+    <string name="delete_dialog_okay">Delete</string>
+    <string name="delete_dialog_title">Delete profile</string>
+    <string name="delete_dialog_text">Are you sure you want to delete \"%s\"?</string>
     <string name="restore">Restore Card</string>
     <string name="restore_card_content">When a profile is loaded, your current setup is completely wiped and \"restore theme\" would take on the updated changes.</string>
+    <string name="restore_dialog_cancel">Cancel</string>
+    <string name="restore_dialog_okay">Continue</string>
+    <string name="restore_dialog_title">Please install these overlays to restore your profile completely:</string>
     <string name="backup_button">BACKUP CURRENT STATE</string>
     <string name="restore_button">RESTORE PROFILE</string>
     <string name="restore_button_none_selected_toast">Please select a profile from the dropdown list before trying to restore a profile!</string>

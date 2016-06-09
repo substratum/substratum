@@ -1,9 +1,13 @@
 package projekt.substratum.fragments;
 
+import android.content.DialogInterface;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -20,7 +24,6 @@ import com.alimuzaffar.lib.widgets.AnimatedEditText;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import io.github.yavski.fabspeeddial.FabSpeedDial;
@@ -41,8 +44,8 @@ public class ProfileFragment extends Fragment {
     private String aet_getText;
     private String to_be_run_commands;
     private ArrayAdapter<String> adapter;
-    private List<String> uninstall_overlays;
-    private String final_commands;
+    private List<String> cannot_run_overlays, uninstall_overlays;
+    private String final_commands, dialog_message;
 
     public void RefreshSpinner() {
         list.clear();
@@ -130,9 +133,6 @@ public class ProfileFragment extends Fragment {
             }
         }
 
-        // Sort the profiles in alphabetical order
-        Collections.sort(list);
-
         adapter = new ArrayAdapter<>(getContext(),
                 android.R.layout.simple_spinner_item, list);
         // Specify the layout to use when the list of choices appears
@@ -143,11 +143,32 @@ public class ProfileFragment extends Fragment {
         imageButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (profile_selector.getSelectedItemPosition() > 0) {
-                    File f = new File(Environment.getExternalStorageDirectory().getAbsolutePath()
-                            + "/substratum/profiles/" + profile_selector.getSelectedItem() + "" +
-                            ".substratum");
-                    boolean deleted = f.delete();
-                    RefreshSpinner();
+                    String formatted = String.format(getString(R.string.delete_dialog_text),
+                            profile_selector.getSelectedItem());
+                    new AlertDialog.Builder(getContext())
+                            .setTitle(getString(R.string.delete_dialog_title))
+                            .setMessage(formatted)
+                            .setCancelable(false)
+                            .setPositiveButton(getString(R.string.delete_dialog_okay), new
+                                    DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            File f = new File(Environment
+                                                    .getExternalStorageDirectory().getAbsolutePath()
+                                                    + "/substratum/profiles/" + profile_selector
+                                                    .getSelectedItem() + "" +
+                                                    ".substratum");
+                                            boolean deleted = f.delete();
+                                            RefreshSpinner();
+                                        }
+                                    })
+                            .setNegativeButton(getString(R.string.delete_dialog_cancel), new
+                                    DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                        }
+                                    })
+                            .create().show();
                 } else {
                     Toast toast = Toast.makeText(getContext(), getString(R.string
                                     .profile_delete_button_none_selected_toast),
@@ -356,8 +377,31 @@ public class ProfileFragment extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            headerProgress.setVisibility(View.GONE);
-            eu.chainfire.libsuperuser.Shell.SU.run(to_be_run_commands);
+            if (cannot_run_overlays.size() > 0) {
+                new AlertDialog.Builder(getContext())
+                        .setTitle(getString(R.string.restore_dialog_title))
+                        .setMessage(dialog_message)
+                        .setCancelable(false)
+                        .setPositiveButton(getString(R.string.restore_dialog_okay), new
+                                DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        headerProgress.setVisibility(View.GONE);
+                                        eu.chainfire.libsuperuser.Shell.SU.run(to_be_run_commands);
+                                    }
+                                })
+                        .setNegativeButton(getString(R.string.restore_dialog_cancel), new
+                                DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        headerProgress.setVisibility(View.GONE);
+                                    }
+                                })
+                        .create().show();
+            } else {
+                headerProgress.setVisibility(View.GONE);
+                eu.chainfire.libsuperuser.Shell.SU.run(to_be_run_commands);
+            }
         }
 
         @Override
@@ -406,9 +450,46 @@ public class ProfileFragment extends Fragment {
 
             // Now process the overlays to be enabled
 
+            cannot_run_overlays = new ArrayList<>();
             for (int i = 0; i < profile.size(); i++) {
                 if (system.contains(profile.get(i))) {
                     to_be_run.add(profile.get(i));
+                } else {
+                    cannot_run_overlays.add(profile.get(i));
+                }
+            }
+            dialog_message = "";
+            for (int i = 0; i < cannot_run_overlays.size(); i++) {
+                String not_split = cannot_run_overlays.get(i);
+                String[] split = not_split.split("\\.");
+                String theme_name = split[split.length - 1];
+                String package_id = not_split.substring(0, not_split.length() - theme_name.length
+                        () - 1);
+                String package_name = "";
+
+                try {
+                    ApplicationInfo applicationInfo = getContext().getPackageManager()
+                            .getApplicationInfo
+                                    (package_id, 0);
+                    String packageTitle = getContext().getPackageManager().getApplicationLabel
+                            (applicationInfo).toString();
+                    package_name = packageTitle;
+                } catch (PackageManager.NameNotFoundException nnfe) {
+                    Log.e("SubstratumLogger", "Could not find explicit package identifier" +
+                            " in package manager list.");
+                }
+
+                if (i == 0) {
+                    dialog_message = dialog_message + "\u2022 " + theme_name + " [" +
+                            package_name + "]";
+                } else {
+                    if (i > 0 && dialog_message.length() == 0) {
+                        dialog_message = dialog_message + "\u2022 " + theme_name + " [" +
+                                package_name + "]";
+                    } else {
+                        dialog_message = dialog_message + "\n" + "\u2022 " + theme_name + " [" +
+                                package_name + "]";
+                    }
                 }
             }
 

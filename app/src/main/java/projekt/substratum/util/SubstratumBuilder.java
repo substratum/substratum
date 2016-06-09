@@ -274,7 +274,7 @@ public class SubstratumBuilder {
                             "aapt p -M " + work_area + "/AndroidManifest.xml " +
                                     "-S " + work_area + "/res/ " +
                                     "-I /system/framework/framework-res.apk " +
-                                    "-x 96 " +
+                                    "-x 60 " +
                                     "-F " + work_area + "/" + overlay_package + "." +
                                     parse2_themeName + "-unsigned.apk -f --include-meta-data\n");
                     OutputStream stdin = nativeApp.getOutputStream();
@@ -321,7 +321,7 @@ public class SubstratumBuilder {
                             "aapt p -M " + work_area + "/AndroidManifest.xml " +
                                     "-S " + work_area + "/res/ " +
                                     "-I /system/framework/framework-res.apk " +
-                                    "-x 96 " +
+                                    "-x 61 " +
                                     "-F " + work_area + "/" + overlay_package + "." +
                                     parse2_themeName + "-unsigned.apk -f --include-meta-data\n");
                     OutputStream stdin = nativeApp.getOutputStream();

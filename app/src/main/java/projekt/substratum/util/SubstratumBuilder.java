@@ -269,99 +269,52 @@ public class SubstratumBuilder {
         if (!has_errored_out) {
             try {
                 String line;
-                if (overlay_package.equals("android")) {
-                    Process nativeApp = Runtime.getRuntime().exec(
-                            "aapt p -M " + work_area + "/AndroidManifest.xml " +
-                                    "-S " + work_area + "/res/ " +
-                                    "-I /system/framework/framework-res.apk " +
-                                    "-x 60 " +
-                                    "-F " + work_area + "/" + overlay_package + "." +
-                                    parse2_themeName + "-unsigned.apk -f --include-meta-data\n");
-                    OutputStream stdin = nativeApp.getOutputStream();
-                    InputStream stderr = nativeApp.getErrorStream();
-                    InputStream stdout = nativeApp.getInputStream();
-                    stdin.write(("ls\n").getBytes());
-                    stdin.write("exit\n".getBytes());
-                    stdin.flush();
-                    stdin.close();
-                    BufferedReader br = new BufferedReader(new InputStreamReader(stdout));
-                    while ((line = br.readLine()) != null) {
-                        Log.d("OverlayOptimizer", line);
-                    }
-                    br.close();
-                    br = new BufferedReader(new InputStreamReader(stderr));
-                    while ((line = br.readLine()) != null) {
-                        Log.e("SubstratumBuilder", line);
+                Process nativeApp = Runtime.getRuntime().exec(
+                        "aapt p -M " + work_area +
+                                "/AndroidManifest.xml -S " +
+                                work_area +
+                                "/res/ -I " +
+                                "/system/framework/framework-res.apk -F " +
+                                work_area +
+                                "/" + overlay_package + "." + parse2_themeName + "-unsigned.apk " +
+                                "-f --include-meta-data\n");
+
+                OutputStream stdin = nativeApp.getOutputStream();
+                InputStream stderr = nativeApp.getErrorStream();
+                InputStream stdout = nativeApp.getInputStream();
+                stdin.write(("ls\n").getBytes());
+                stdin.write("exit\n".getBytes());
+                stdin.flush();
+                stdin.close();
+
+                BufferedReader br = new BufferedReader(new InputStreamReader(stdout));
+                while ((line = br.readLine()) != null) {
+                    Log.d("OverlayOptimizer", line);
+                }
+                br.close();
+                br = new BufferedReader(new InputStreamReader(stderr));
+                while ((line = br.readLine()) != null) {
+                    Log.e("SubstratumBuilder", line);
+                    has_errored_out = true;
+                    Log.e("SubstratumBuilder", "Installation of \"" + overlay_package + "\" has " +
+                            "failed.");
+                }
+                br.close();
+
+                if (!has_errored_out) {
+                    // We need this Process to be waited for before moving on to the next function.
+                    Log.d("Phase 3", "Overlay APK creation is running now...");
+                    nativeApp.waitFor();
+                    File unsignedAPK = new File(work_area + "/" + overlay_package + "." +
+                            parse2_themeName + "-unsigned.apk");
+                    if (unsignedAPK.exists()) {
+                        Log.d("Phase 3", "Overlay APK creation has completed!");
+                    } else {
+                        Log.e("Phase 3", "Overlay APK creation has failed!");
                         has_errored_out = true;
                         Log.e("SubstratumBuilder", "Installation of \"" + overlay_package + "\" " +
-                                "has " +
-                                "failed.");
-                    }
-                    br.close();
-                    if (!has_errored_out) {
-                        // We need this Process to be waited for before moving on to the next
-                        // function.
-                        Log.d("Phase 3", "Overlay APK creation is running now...");
-                        nativeApp.waitFor();
-                        File unsignedAPK = new File(work_area + "/" + overlay_package + "." +
-                                parse2_themeName + "-unsigned.apk");
-                        if (unsignedAPK.exists()) {
-                            Log.d("Phase 3", "Overlay APK creation has completed!");
-                        } else {
-                            Log.e("Phase 3", "Overlay APK creation has failed!");
-                            has_errored_out = true;
-                            Log.e("SubstratumBuilder", "Installation of \"" + overlay_package +
-                                    "\" " +
-                                    "overlay has failed.");
+                                "overlay has failed.");
 
-                        }
-                    }
-                } else {
-                    Process nativeApp = Runtime.getRuntime().exec(
-                            "aapt p -M " + work_area + "/AndroidManifest.xml " +
-                                    "-S " + work_area + "/res/ " +
-                                    "-I /system/framework/framework-res.apk " +
-                                    "-x 61 " +
-                                    "-F " + work_area + "/" + overlay_package + "." +
-                                    parse2_themeName + "-unsigned.apk -f --include-meta-data\n");
-                    OutputStream stdin = nativeApp.getOutputStream();
-                    InputStream stderr = nativeApp.getErrorStream();
-                    InputStream stdout = nativeApp.getInputStream();
-                    stdin.write(("ls\n").getBytes());
-                    stdin.write("exit\n".getBytes());
-                    stdin.flush();
-                    stdin.close();
-                    BufferedReader br = new BufferedReader(new InputStreamReader(stdout));
-                    while ((line = br.readLine()) != null) {
-                        Log.d("OverlayOptimizer", line);
-                    }
-                    br.close();
-                    br = new BufferedReader(new InputStreamReader(stderr));
-                    while ((line = br.readLine()) != null) {
-                        Log.e("SubstratumBuilder", line);
-                        has_errored_out = true;
-                        Log.e("SubstratumBuilder", "Installation of \"" + overlay_package + "\" " +
-                                "has " +
-                                "failed.");
-                    }
-                    br.close();
-                    if (!has_errored_out) {
-                        // We need this Process to be waited for before moving on to the next
-                        // function.
-                        Log.d("Phase 3", "Overlay APK creation is running now...");
-                        nativeApp.waitFor();
-                        File unsignedAPK = new File(work_area + "/" + overlay_package + "." +
-                                parse2_themeName + "-unsigned.apk");
-                        if (unsignedAPK.exists()) {
-                            Log.d("Phase 3", "Overlay APK creation has completed!");
-                        } else {
-                            Log.e("Phase 3", "Overlay APK creation has failed!");
-                            has_errored_out = true;
-                            Log.e("SubstratumBuilder", "Installation of \"" + overlay_package +
-                                    "\" " +
-                                    "overlay has failed.");
-
-                        }
                     }
                 }
             } catch (Exception e) {

@@ -41,9 +41,6 @@ public class RestoreActivity extends AppCompatActivity {
                 }
                 Log.d("RestoreActivity", "Restoring overlay \"" + enabled_overlays.get(i) + "\"");
             }
-            if (final_commands.contains("com.android.systemui")) {
-                final_commands = final_commands + " && pkill com.android.systemui";
-            }
             eu.chainfire.libsuperuser.Shell.SU.run(final_commands);
         } else {
             Toast toast = Toast.makeText(getApplicationContext(), getString(R.string

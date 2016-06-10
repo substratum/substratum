@@ -346,9 +346,6 @@ public class ProfileFragment extends Fragment {
                 Log.d("Settings", "Disabling overlay \"" + enabled_overlays
                         .get(i) + "\"");
             }
-            if (final_commands.contains("com.android.systemui")) {
-                final_commands = final_commands + " && pkill com.android.systemui";
-            }
             eu.chainfire.libsuperuser.Shell.SU.run(final_commands);
             return null;
         }
@@ -526,9 +523,6 @@ public class ProfileFragment extends Fragment {
                 to_be_run_commands = to_be_run_commands + " && cp /data/system/overlays.xml " +
                         Environment.getExternalStorageDirectory().getAbsolutePath() +
                         "/.substratum/current_overlays.xml";
-            }
-            if (to_be_run_commands.contains("systemui")) {
-                to_be_run_commands = to_be_run_commands + " && pkill com.android.systemui";
             }
 
             if (to_be_disabled.length() > 0) {

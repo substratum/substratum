@@ -449,9 +449,6 @@ public class InformationActivity extends AppCompatActivity {
                                             all_overlays.get(i);
                                 }
                             }
-                            if (commands2.contains("systemui")) {
-                                commands2 = commands2 + " && pkill com.android.systemui";
-                            }
 
                             Toast toast = Toast.makeText(getApplicationContext(),
                                     getString(R.string
@@ -529,9 +526,6 @@ public class InformationActivity extends AppCompatActivity {
                                             all_overlays.get(i);
                                 }
                             }
-                            if (commands2.contains("systemui")) {
-                                commands2 = commands2 + " && pkill com.android.systemui";
-                            }
 
                             Toast toast = Toast.makeText(getApplicationContext(),
                                     getString(R.string
@@ -608,9 +602,6 @@ public class InformationActivity extends AppCompatActivity {
                                     commands2 = commands2 + " && om enable " +
                                             all_overlays.get(i);
                                 }
-                            }
-                            if (commands2.contains("systemui")) {
-                                commands2 = commands2 + " && pkill com.android.systemui";
                             }
 
                             Toast toast = Toast.makeText(getApplicationContext(),
@@ -697,9 +688,6 @@ public class InformationActivity extends AppCompatActivity {
                                     commands2 = commands2 + " && pm uninstall " +
                                             all_overlays.get(i);
                                 }
-                            }
-                            if (commands2.contains("systemui")) {
-                                commands2 = commands2 + " && pkill com.android.systemui";
                             }
 
                             Toast toast = Toast.makeText(getApplicationContext(),
@@ -1351,9 +1339,6 @@ public class InformationActivity extends AppCompatActivity {
                         }
                     }
                 }
-            }
-            if (final_commands.contains("systemui")) {
-                final_commands = final_commands + " && pkill com.android.systemui";
             }
             if (final_commands.length() > 0) {
                 if (!mixAndMatchMode) {

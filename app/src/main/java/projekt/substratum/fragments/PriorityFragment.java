@@ -106,6 +106,11 @@ public class PriorityFragment extends Fragment {
                             if (line.contains("[x]")) {
                                 prioritiesList.add(new Priorities(line.substring(8), grabAppIcon
                                         (current_header)));
+                            } else {
+                                if (!line.contains("[ ]")) {
+                                    break;
+                                }
+
                             }
                         }
                     }

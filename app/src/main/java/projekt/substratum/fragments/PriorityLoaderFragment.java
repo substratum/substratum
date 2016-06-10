@@ -79,7 +79,6 @@ public class PriorityLoaderFragment extends Fragment {
             stdin.close();
 
             int checked_count = 0;
-            List<String> current_overlays_list = new ArrayList<>();
             BufferedReader br = new BufferedReader(new InputStreamReader(stdout));
             String current_header = "";
             while ((line = br.readLine()) != null) {
@@ -97,9 +96,19 @@ public class PriorityLoaderFragment extends Fragment {
                         }
                     } else {
                         if (line.contains("[x]")) {
-                            current_overlays_list.add(line.substring(8));
                             checked_count += 1;
                         }
+                    }
+                } else {
+                    if (checked_count > 1) {
+                        prioritiesList.add(new Priorities(current_header, grabAppIcon
+                                (current_header)));
+                        app_list.add(current_header);
+                        current_header = line;
+                        checked_count = 0;
+                    } else {
+                        current_header = line;
+                        checked_count = 0;
                     }
                 }
             }

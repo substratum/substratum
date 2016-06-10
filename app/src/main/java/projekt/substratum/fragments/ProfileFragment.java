@@ -228,11 +228,19 @@ public class ProfileFragment extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            Toast toast = Toast.makeText(getContext(), getString(R.string
-                            .abort_overlay_toast_success),
-                    Toast.LENGTH_SHORT);
-            toast.show();
-            headerProgress.setVisibility(View.GONE);
+            try {
+                Toast toast = Toast.makeText(getContext(), getString(R.string
+                                .abort_overlay_toast_success),
+                        Toast.LENGTH_SHORT);
+                toast.show();
+                headerProgress.setVisibility(View.GONE);
+            } catch (Exception e) {
+                // At this point the window is refreshed too many times causing an unattached
+                // Activity
+                Log.e("SubstratumLogger", "Profile window refreshed too " +
+                        "many times, restarting current activity to preserve app " +
+                        "integrity.");
+            }
             eu.chainfire.libsuperuser.Shell.SU.run(final_commands);
         }
 
@@ -299,11 +307,19 @@ public class ProfileFragment extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            Toast toast = Toast.makeText(getContext(), getString(R.string
-                            .disable_overlay_toast_success),
-                    Toast.LENGTH_SHORT);
-            toast.show();
-            headerProgress.setVisibility(View.GONE);
+            try {
+                Toast toast = Toast.makeText(getContext(), getString(R.string
+                                .disable_overlay_toast_success),
+                        Toast.LENGTH_SHORT);
+                toast.show();
+                headerProgress.setVisibility(View.GONE);
+            } catch (Exception e) {
+                // At this point the window is refreshed too many times causing an unattached
+                // Activity
+                Log.e("SubstratumLogger", "Profile window refreshed too " +
+                        "many times, restarting current activity to preserve app " +
+                        "integrity.");
+            }
             eu.chainfire.libsuperuser.Shell.SU.run(to_be_run_commands);
         }
 

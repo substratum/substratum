@@ -21,6 +21,7 @@
     <string name="menu_uninstall">Uninstall</string>
 
     <string name="fragment_team">@string/nav_team</string>
+    <string name="fragment_priorities">@string/nav_priorities</string>
     <string name="fragment_profiles">@string/nav_backup_restore</string>
     <string name="fragment_settings">@string/nav_settings</string>
 
@@ -28,8 +29,11 @@
     <string name="nav_priorities">Priorities</string>
     <string name="nav_backup_restore">Profiles</string>
     <string name="nav_settings">Settings</string>
-    <string name="nav_opensource">Open Source Licenses</string>
-    <string name="nav_team">Team &amp; Contributors</string>
+    <string name="nav_opensource">Licenses</string>
+    <string name="nav_team">Contributors</string>
+
+    <string name="priority_card_title">Dynamic Priority System (DPS)</string>
+    <string name="priority_card_content">The Dynamic Priority System is an advanced procedure allowing for theme overlays to be organized with different priorities, ignoring the default OMS system-applied priorities.\n\nAn example when this would be of use would be wanting to structure a specific overlay on top of another overlay targeting the same application.\n\nWith the introduction of the Overlay Manager Service, the priorities are reversed, and the top most overlay resides at the bottom of each list.</string>
 
     <string name="backup">Backup Card</string>
     <string name="backup_card_content">This function makes a copy of your currently enabled overlays list and places it in \"/storage/emulated/0/substratum/profiles/\" for safekeeping.</string>
@@ -162,10 +166,10 @@
     <string name="team_syko_content">I give ideas and created Layers!</string>
     <string name="team_syko_link">https://plus.google.com/u/0/+SykoPompos/</string>
     <string name="team_george">George Gian</string>
-    <string name="team_george_content">Need something added into the ROM? I got you fam!</string>
+    <string name="team_george_content">What do you need to change in Android? I got your back!</string>
     <string name="team_george_link">https://plus.google.com/u/0/+GeorgeGian/</string>
     <string name="team_cory">Cory Collins</string>
-    <string name="team_cory_content">Got something to fix on the ROM? No problem!</string>
+    <string name="team_cory_content">What\'s a \"problem\"?</string>
     <string name="team_cory_link">https://plus.google.com/u/0/107213348284084753883/</string>
     <string name="team_jimmy">Jimmy Setiawan (setiawanjimmy)</string>
     <string name="team_jimmy_content">I break shit before you get a chance to!</string>

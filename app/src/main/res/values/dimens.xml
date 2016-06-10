@@ -23,4 +23,28 @@
     <dimen name="sheet_item_textsize">16sp</dimen>
     <dimen name="sheet_spacing">10dp</dimen>
     <dimen name="sheet_width">210dp</dimen>
+
+    <!-- Misc -->
+    <dimen name="logo_size">200dp</dimen>
+    <dimen name="main_text_size">36sp</dimen>
+    <dimen name="main_btn_height">80dp</dimen>
+    <dimen name="card_corner_radius">4dp</dimen>
+    <dimen name="card_elevation">6dp</dimen>
+
+    <!-- Drag view -->
+    <dimen name="drag_view_size">30dp</dimen>
+    <dimen name="drag_view_margin">10dp</dimen>
+
+    <!-- Header item -->
+    <dimen name="header_item_padding">6dp</dimen>
+    <dimen name="header_background_height">2dp</dimen>
+
+    <!-- Linear item -->
+    <dimen name="linear_item_height">80dp</dimen>
+    <dimen name="linear_text_width">80dp</dimen>
+    <dimen name="linear_text_padding">20dp</dimen>
+
+    <!-- Grid item -->
+    <dimen name="grid_image_height">180dp</dimen>
+    <dimen name="grid_text_padding">10dp</dimen>
 </resources>

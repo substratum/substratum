@@ -101,18 +101,17 @@ public class MainActivity extends AppCompatActivity implements
                         new PrimaryDrawerItem().withName(R.string.nav_home).withIcon(R.drawable
                                 .nav_drawer_home),
                         new PrimaryDrawerItem().withName(R.string.nav_priorities).withIcon(R
-                                .drawable.nav_drawer_priorities).withBadge("WIP ★").withEnabled
-                                (false),
+                                .drawable.nav_drawer_priorities),
                         new PrimaryDrawerItem().withName(R.string.nav_backup_restore).withIcon(R
                                 .drawable.nav_drawer_profiles),
                         new DividerDrawerItem(),
+                        new SecondaryDrawerItem().withName(R.string.nav_team).withIcon(R
+                                .drawable.nav_drawer_team),
                         new SecondaryDrawerItem().withName(getString(R.string.nav_opensource))
                                 .withIcon(R
                                         .drawable.nav_drawer_licenses),
-                        new SecondaryDrawerItem().withName(R.string.nav_team).withIcon(R
-                                .drawable.nav_drawer_team),
                         new SecondaryDrawerItem().withName(R.string.nav_settings).withIcon(R
-                                .drawable.nav_drawer_settings)
+                                .drawable.nav_drawer_settings).withEnabled(false)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -127,6 +126,9 @@ public class MainActivity extends AppCompatActivity implements
                                     }
                                     break;
                                 case 2:
+                                    switchFragment(getString(R.string.fragment_priorities),
+                                            "PriorityLoaderFragment");
+                                    drawerSelected = 2;
                                     break;
                                 case 3:
                                     switchFragment(getString(R.string.fragment_profiles),
@@ -134,16 +136,16 @@ public class MainActivity extends AppCompatActivity implements
                                     drawerSelected = 3;
                                     break;
                                 case 5:
-                                    switchFragmentToLicenses(getString(R.string.nav_opensource),
-                                            fragment);
-                                    drawerSelected = 5;
-                                    break;
-                                case 6:
                                     if (drawerSelected != position) {
                                         switchFragment(getString(R.string.fragment_team),
                                                 "TeamFragment");
-                                        drawerSelected = 6;
+                                        drawerSelected = 5;
                                     }
+                                    break;
+                                case 6:
+                                    switchFragmentToLicenses(getString(R.string.nav_opensource),
+                                            fragment);
+                                    drawerSelected = 6;
                                     break;
                                 case 7:
                                     if (drawerSelected != position) {

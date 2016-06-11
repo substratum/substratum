@@ -25,10 +25,10 @@ import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
-import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
+import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 import java.io.File;
@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements
                                 .drawable.nav_drawer_priorities),
                         new PrimaryDrawerItem().withName(R.string.nav_backup_restore).withIcon(R
                                 .drawable.nav_drawer_profiles),
-                        new DividerDrawerItem(),
+                        new SectionDrawerItem().withName(R.string.nav_divider_more),
                         new SecondaryDrawerItem().withName(R.string.nav_team).withIcon(R
                                 .drawable.nav_drawer_team),
                         new SecondaryDrawerItem().withName(getString(R.string.nav_opensource))

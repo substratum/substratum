@@ -28,6 +28,8 @@
     <string name="fragment_profiles">@string/nav_backup_restore</string>
     <string name="fragment_settings">@string/nav_settings</string>
 
+    <string name="nav_divider_more">More</string>
+
     <string name="nav_home">Themes</string>
     <string name="nav_priorities">Priorities</string>
     <string name="nav_backup_restore">Profiles</string>

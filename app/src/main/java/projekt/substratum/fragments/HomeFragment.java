@@ -61,7 +61,14 @@ public class HomeFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request we're responding to
         if (requestCode == THEME_INFORMATION_REQUEST_CODE) {
-            refreshLayout();
+            try {
+                Boolean uninstalled = data.getBooleanExtra("Uninstalled", false);
+                if (uninstalled) {
+                    refreshLayout();
+                }
+            } catch (Exception e) {
+                // Handle NPE when the window is refreshed too many times
+            }
         }
     }
 

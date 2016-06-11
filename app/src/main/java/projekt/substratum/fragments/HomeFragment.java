@@ -234,7 +234,7 @@ public class HomeFragment extends Fragment {
         return false;
     }
 
-    public void getLayersPackages(Context context, String package_name) {
+    private void getLayersPackages(Context context, String package_name) {
         // Simulate the Layers Plugin feature by filtering all installed apps and their metadata
         try {
             ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
@@ -246,11 +246,22 @@ public class HomeFragment extends Fragment {
                             String[] data = {appInfo.metaData.getString("Layers_Developer"),
                                     package_name};
                             layers_packages.put(appInfo.metaData.getString("Layers_Name"), data);
-                            Log.d("Substratum Ready Theme", package_name);
                             installed_themes.add(package_name);
+                            Log.d("Substratum Ready Theme", package_name);
                         }
                     }
                 }
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            Log.e("SubstratumLogger", "Unable to find package identifier (INDEX OUT OF BOUNDS)");
+        }
+    }
+
+    private void checkOverlayIntegrity(Context context, String package_name) {
+        try {
+            ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
+                    package_name, PackageManager.GET_META_DATA);
+            if (appInfo.metaData != null) {
                 if (appInfo.metaData.getString("Substratum_ID") != null) {
                     if (appInfo.metaData.getString("Substratum_ID").equals(Settings.
                             Secure.getString(context.getContentResolver(),
@@ -311,19 +322,9 @@ public class HomeFragment extends Fragment {
         for (ApplicationInfo packageInfo : list) {
             getLayersPackages(mContext, packageInfo.packageName);
         }
-        Set<String> installed = new HashSet<>();
-        installed.addAll(installed_themes);
-        SharedPreferences.Editor edit = prefs.edit();
-        edit.putStringSet("installed_themes", installed);
-        edit.apply();
 
-        if (unauthorized_packages.size() > 0) {
-            PurgeUnauthorizedOverlays purgeUnauthorizedOverlays = new PurgeUnauthorizedOverlays();
-            purgeUnauthorizedOverlays.execute("");
-        }
-
-        doCleanUp cleanUp = new doCleanUp();
-        cleanUp.execute("");
+        AntiPiracyCheck antiPiracyCheck = new AntiPiracyCheck();
+        antiPiracyCheck.execute("");
 
         if (layers_packages.size() == 0) {
             cardView.setVisibility(View.VISIBLE);
@@ -350,13 +351,20 @@ public class HomeFragment extends Fragment {
                         PurgeUnauthorizedOverlays();
                 purgeUnauthorizedOverlays.execute("");
             }
-
             doCleanUp cleanUp = new doCleanUp();
             cleanUp.execute("");
         }
 
         @Override
         protected String doInBackground(String... sUrl) {
+            try {
+                for (ApplicationInfo packageInfo : list) {
+                    checkOverlayIntegrity(mContext, packageInfo.packageName);
+                }
+            } catch (Exception e) {
+                Log.e("SubstratumLogger", "An attempt to run a concurrent job has been triggered " +
+                        "and will be ignored.");
+            }
             Set<String> installed = new HashSet<>();
             installed.addAll(installed_themes);
             SharedPreferences.Editor edit = prefs.edit();

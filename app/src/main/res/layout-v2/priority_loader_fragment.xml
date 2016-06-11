@@ -57,15 +57,15 @@
         android:id="@+id/no_priorities_found"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_below="@+id/introduction_card"
         android:gravity="center"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <ImageView
             android:id="@+id/no_themes_installed"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_centerInParent="true"
             android:src="@drawable/no_priorities_loaded"/>
 
         <TextView

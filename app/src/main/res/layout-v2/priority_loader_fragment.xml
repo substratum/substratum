@@ -59,7 +59,7 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/introduction_card"
         android:gravity="center"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/no_themes_installed"

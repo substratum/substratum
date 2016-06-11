@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.thesurix.gesturerecycler.DefaultItemClickListener;
 import com.thesurix.gesturerecycler.GestureManager;
@@ -55,11 +56,13 @@ public class PriorityLoaderFragment extends Fragment {
         final ViewGroup root = (ViewGroup) inflater.inflate(R.layout.priority_loader_fragment,
                 null);
 
-        final RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.recycler_view);
+        RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.recycler_view);
 
-        final LinearLayoutManager manager = new LinearLayoutManager(getContext());
+        LinearLayoutManager manager = new LinearLayoutManager(getContext());
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(manager);
+
+        RelativeLayout emptyView = (RelativeLayout) root.findViewById(R.id.no_priorities_found);
 
         // Begin loading up list
 
@@ -125,8 +128,14 @@ public class PriorityLoaderFragment extends Fragment {
 
         final PrioritiesAdapter adapter = new PrioritiesAdapter(getContext(), R.layout
                 .linear_loader_item);
-        adapter.setData(prioritiesList);
 
+        if (prioritiesList.isEmpty()) {
+            emptyView.setVisibility(View.VISIBLE);
+        } else {
+            emptyView.setVisibility(View.GONE);
+        }
+
+        adapter.setData(prioritiesList);
         recyclerView.setAdapter(adapter);
 
         new GestureManager.Builder(recyclerView)

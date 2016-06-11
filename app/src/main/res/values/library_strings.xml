@@ -57,6 +57,24 @@
     <!-- License section -->
     <string name="library_fab_speed_dial_licenseId">apache_2_0</string>
 
+    <!-- Gesture RecyclerView -->
+    <string name="define_gesturerecycler"/>
+    <!-- Author section -->
+    <string name="library_gesturerecycler_author">Paweł Surówka</string>
+    <string name="library_gesturerecycler_authorWebsite">https://github.com/thesurix/gesture-recycler</string>
+    <!-- Library section -->
+    <string name="library_gesturerecycler_libraryName">Gesture Recycler</string>
+    <string name="library_gesturerecycler_libraryDescription">This library provides swipe &amp; drag and drop support for RecyclerView.</string>
+    <string name="library_gesturerecycler_libraryWebsite">https://github.com/thesurix/gesture-recycler</string>
+    <string name="library_gesturerecycler_libraryVersion">1.3.1</string>
+    <!-- OpenSource section -->
+    <string name="library_gesturerecycler_isOpenSource">true</string>
+    <string name="library_gesturerecycler_repositoryLink">https://github.com/thesurix/gesture-recycler</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_gesturerecycler_classPath">com.thesurix.gesturerecycler:gesture-recycler</string>
+    <!-- License section -->
+    <string name="library_gesturerecycler_licenseId">apache_2_0</string>
+
     <!-- libsuperuser -->
     <string name="define_libsuperuser"/>
     <!-- Author section -->

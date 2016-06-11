@@ -25,17 +25,17 @@ import projekt.substratum.model.PrioritiesItem;
 
 public class PrioritiesAdapter extends GestureAdapter<PrioritiesItem, GestureViewHolder> {
 
-    private final Context mCtx;
+    private final Context mContext;
     private final int mItemResId;
 
     public PrioritiesAdapter(final Context ctx, @LayoutRes final int itemResId) {
-        mCtx = ctx;
+        mContext = ctx;
         mItemResId = itemResId;
     }
 
     @Override
     public GestureViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
-        if (viewType == PrioritiesItem.MonthItemType.MONTH.ordinal()) {
+        if (viewType == PrioritiesItem.PrioritiesItemType.CONTENT.ordinal()) {
             final View itemView = LayoutInflater.from(parent.getContext()).inflate(mItemResId,
                     parent, false);
             return new PrioritiesViewHolder(itemView);
@@ -51,20 +51,32 @@ public class PrioritiesAdapter extends GestureAdapter<PrioritiesItem, GestureVie
         super.onBindViewHolder(holder, position);
         final PrioritiesItem prioritiesItem = getData().get(position);
 
-        if (prioritiesItem.getType() == PrioritiesItem.MonthItemType.MONTH) {
+        if (prioritiesItem.getType() == PrioritiesItem.PrioritiesItemType.CONTENT) {
             final PrioritiesViewHolder prioritiesViewHolder = (PrioritiesViewHolder) holder;
             final Priorities priorities = (Priorities) prioritiesItem;
 
             try {
-
                 // Keep this value but do not display it to the user, instead, parse it
                 try {
-                    ApplicationInfo applicationInfo = mCtx.getPackageManager().getApplicationInfo
-                            (priorities.getName(), 0);
-                    String packageTitle = mCtx.getPackageManager().getApplicationLabel
+                    ApplicationInfo applicationInfo = mContext.getPackageManager()
+                            .getApplicationInfo
+                                    (priorities.getName(), PackageManager.GET_META_DATA);
+                    String packageTitle = mContext.getPackageManager().getApplicationLabel
                             (applicationInfo).toString();
-                    prioritiesViewHolder.mMonthText.setText(packageTitle + " (" + priorities.getName
-                            () + ")");
+                    if (applicationInfo.metaData != null) {
+                        if (applicationInfo.metaData.getString("Substratum_ID") != null) {
+                            String overlayParentName = priorities.getName().split("\\.")
+                                    [priorities.getName().split("\\.").length - 1];
+                            prioritiesViewHolder.mMonthText.setText(overlayParentName);
+                        } else {
+                            prioritiesViewHolder.mMonthText.setText(packageTitle + " (" +
+                                    priorities.getName() + ")");
+                        }
+                    } else {
+                        prioritiesViewHolder.mMonthText.setText(packageTitle + " (" + priorities
+                                .getName() + ")");
+                    }
+
                 } catch (PackageManager.NameNotFoundException nnfe) {
                     Log.e("SubstratumLogger", "Could not find explicit package identifier" +
                             " in package manager list.");
@@ -77,7 +89,8 @@ public class PrioritiesAdapter extends GestureAdapter<PrioritiesItem, GestureVie
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
                 byte[] bitmapdata = stream.toByteArray();
 
-                Glide.with(mCtx).load(bitmapdata).centerCrop().into(prioritiesViewHolder.mAppIcon);
+                Glide.with(mContext).load(bitmapdata).centerCrop().into(prioritiesViewHolder
+                        .mAppIcon);
             } catch (Exception e) {
             }
         } else {

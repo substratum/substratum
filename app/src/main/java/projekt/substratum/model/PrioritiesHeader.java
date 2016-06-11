@@ -13,7 +13,7 @@ public class PrioritiesHeader implements PrioritiesItem {
     }
 
     @Override
-    public MonthItemType getType() {
-        return MonthItemType.HEADER;
+    public PrioritiesItemType getType() {
+        return PrioritiesItemType.HEADER;
     }
 }

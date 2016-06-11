@@ -138,7 +138,7 @@ public class PriorityLoaderFragment extends Fragment {
                 DefaultItemClickListener() {
                     @Override
                     public boolean onItemClick(final View view, final int position) {
-                        Fragment fragment = new PriorityFragment();
+                        Fragment fragment = new PriorityListFragment();
 
                         Bundle bundle = new Bundle();
                         bundle.putString("package_name", app_list.get(position));

@@ -2,9 +2,9 @@ package projekt.substratum.model;
 
 public interface PrioritiesItem {
 
-    MonthItemType getType();
+    PrioritiesItemType getType();
 
-    enum MonthItemType {
-        HEADER, MONTH
+    enum PrioritiesItemType {
+        HEADER, CONTENT
     }
 }

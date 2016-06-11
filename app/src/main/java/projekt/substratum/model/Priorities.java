@@ -14,8 +14,8 @@ public class Priorities implements PrioritiesItem {
     }
 
     @Override
-    public MonthItemType getType() {
-        return MonthItemType.MONTH;
+    public PrioritiesItemType getType() {
+        return PrioritiesItemType.CONTENT;
     }
 
     public String getName() {

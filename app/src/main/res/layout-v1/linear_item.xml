@@ -33,7 +33,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/month_text"
+            android:id="@+id/card_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
@@ -45,7 +45,7 @@
             android:textColor="@color/main_screen_card_theme_title"/>
 
         <ImageView
-            android:id="@+id/month_drag"
+            android:id="@+id/card_drag"
             android:layout_width="@dimen/drag_view_size"
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"

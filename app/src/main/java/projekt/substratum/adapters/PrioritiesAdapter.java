@@ -28,8 +28,8 @@ public class PrioritiesAdapter extends GestureAdapter<PrioritiesItem, GestureVie
     private final Context mContext;
     private final int mItemResId;
 
-    public PrioritiesAdapter(final Context ctx, @LayoutRes final int itemResId) {
-        mContext = ctx;
+    public PrioritiesAdapter(final Context context, @LayoutRes final int itemResId) {
+        mContext = context;
         mItemResId = itemResId;
     }
 

@@ -3,19 +3,17 @@ package projekt.substratum.fragments;
 import android.content.ComponentName;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 
 import projekt.substratum.LaunchActivity;
 import projekt.substratum.R;
@@ -25,22 +23,24 @@ import projekt.substratum.R;
  */
 public class SettingsFragment extends Fragment {
 
-    private static String getProp(String propName) {
-        Process p;
-        String result = "";
+    String settingsPackageName = "com.android.settings";
+    String settingsSubstratumDrawableName = "ic_settings_substratum";
+
+    private boolean checkSettingsPackageSupport() {
         try {
-            p = new ProcessBuilder("/system/bin/getprop",
-                    propName).redirectErrorStream(true).start();
-            BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            String line = "";
-            while ((line = br.readLine()) != null) {
-                result = line;
+            Resources res = getContext().getApplicationContext().getPackageManager()
+                    .getResourcesForApplication(settingsPackageName);
+            int substratum_icon = res.getIdentifier(settingsPackageName + ":drawable/" +
+                    settingsSubstratumDrawableName, "drawable", settingsPackageName);
+            if (substratum_icon != 0) {
+                return true;
+            } else {
+                return false;
             }
-            br.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            Log.e("SubstratumLogger", "Could not load drawable from Settings.apk.");
         }
-        return result;
+        return false;
     }
 
     @Override
@@ -90,7 +90,7 @@ public class SettingsFragment extends Fragment {
                 }
             }
         });
-        if (getProp("ro.substratum.settings") != "") {
+        if (checkSettingsPackageSupport()) {
             hideAppIcon.setEnabled(true);
         }
         return root;

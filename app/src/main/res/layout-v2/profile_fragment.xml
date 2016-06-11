@@ -194,6 +194,7 @@
             app:fabMenu="@menu/profile_fab_menu"
             app:miniFabBackgroundTint="@color/fab_menu_background_card"
             app:miniFabDrawableTint="@color/fab_menu_icon_color"
+            app:miniFabTitleBackgroundTint="@color/fab_menu_background_card"
             app:miniFabTitleTextColor="@color/fab_menu_text_color"/>
 
     </FrameLayout>

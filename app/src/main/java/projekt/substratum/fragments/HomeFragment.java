@@ -258,6 +258,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void checkOverlayIntegrity(Context context, String package_name) {
+        // Check whether all overlay packages installed matches the current device's information
         try {
             ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
                     package_name, PackageManager.GET_META_DATA);

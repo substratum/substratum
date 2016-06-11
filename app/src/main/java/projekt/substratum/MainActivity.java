@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements
                                 .withIcon(R
                                         .drawable.nav_drawer_licenses),
                         new SecondaryDrawerItem().withName(R.string.nav_settings).withIcon(R
-                                .drawable.nav_drawer_settings).withEnabled(false)
+                                .drawable.nav_drawer_settings)
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override

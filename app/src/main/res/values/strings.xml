@@ -115,6 +115,11 @@
     <string name="notification_compiling_signing_installing">Creating and installing your overlays&#8230;</string>
 
     <string name="settings_title_1">App Options</string>
+    <string name="hide_app_icon">Hide App Icon\n</string>
+    <string name="hide_app_icon_toast_enabled">The app\'s icon has been removed from your launcher!</string>
+    <string name="hide_app_icon_toast_disabled">The app\'s icon has now been added to your launcher!</string>
+    <string name="hide_app_icon_not_supported">Not Supported</string>
+    <string name="hide_app_icon_supported">Supported</string>
     <string name="show_installed_packages_only">Only show installed packages in overlay picker</string>
     <string name="purge_completion">All overlays deactivated and removed</string>
     <string name="clean_completion">All overlays for this theme has been deactivated and removed</string>

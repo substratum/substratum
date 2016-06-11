@@ -38,7 +38,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
             android:layout_toEndOf="@+id/app_icon_container"
-            android:layout_toStartOf="@+id/month_drag"
+            android:layout_toStartOf="@+id/card_drag"
             android:gravity="center_vertical"
             android:paddingLeft="@dimen/linear_text_padding"
             android:paddingRight="@dimen/linear_text_padding"

@@ -1,8 +1,36 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/app_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/settings_title_1"
+        android:textColor="@color/settings_title_color"
+        android:textStyle="bold"/>
+
+    <Switch
+        android:id="@+id/hide_app_icon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/app_title"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/hide_app_icon"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/hide_app_icon_subtext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/hide_app_icon"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="-14dp"
+        android:text="@string/hide_app_icon_not_supported"/>
 
 </RelativeLayout>

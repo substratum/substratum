@@ -65,7 +65,11 @@ public class PriorityLoaderFragment extends Fragment {
         final ViewGroup root = (ViewGroup) inflater.inflate(R.layout.priority_loader_fragment,
                 null);
 
+        // Pre-initialize the adapter first so that it won't complain for skipping layout on logs
+        PrioritiesAdapter empty_adapter = new PrioritiesAdapter(getContext(), R.layout
+                .linear_loader_item);
         recyclerView = (RecyclerView) root.findViewById(R.id.recycler_view);
+        recyclerView.setAdapter(empty_adapter);
 
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         recyclerView.setHasFixedSize(true);

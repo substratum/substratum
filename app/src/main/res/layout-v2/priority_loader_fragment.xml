@@ -53,6 +53,16 @@
         android:paddingStart="15dp"
         android:paddingTop="10dp"/>
 
+    <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+        android:id="@+id/loading_priorities"
+        style="@style/Widget.MaterialProgressBar.ProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/introduction_card"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:indeterminate="true"/>
+
     <RelativeLayout
         android:id="@+id/no_priorities_found"
         android:layout_width="match_parent"

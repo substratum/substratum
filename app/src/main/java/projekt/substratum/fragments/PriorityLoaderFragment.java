@@ -2,6 +2,7 @@ package projekt.substratum.fragments;
 
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -27,6 +28,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.R;
 import projekt.substratum.adapters.PrioritiesAdapter;
 import projekt.substratum.model.Priorities;
@@ -37,6 +39,13 @@ import projekt.substratum.model.PrioritiesItem;
  */
 
 public class PriorityLoaderFragment extends Fragment {
+
+    private List<PrioritiesItem> prioritiesList;
+    private List<String> app_list;
+    private PrioritiesAdapter adapter;
+    private RelativeLayout emptyView;
+    private RecyclerView recyclerView;
+    private MaterialProgressBar materialProgressBar;
 
     public Drawable grabAppIcon(String package_name) {
         Drawable icon = null;
@@ -56,92 +65,24 @@ public class PriorityLoaderFragment extends Fragment {
         final ViewGroup root = (ViewGroup) inflater.inflate(R.layout.priority_loader_fragment,
                 null);
 
-        RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.recycler_view);
+        recyclerView = (RecyclerView) root.findViewById(R.id.recycler_view);
 
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(manager);
 
-        RelativeLayout emptyView = (RelativeLayout) root.findViewById(R.id.no_priorities_found);
+        materialProgressBar = (MaterialProgressBar) root.findViewById(R.id.loading_priorities);
+        emptyView = (RelativeLayout) root.findViewById(R.id.no_priorities_found);
 
         // Begin loading up list
 
-        final List<PrioritiesItem> prioritiesList = new ArrayList<>();
-        final List<String> app_list = new ArrayList<>();
-
-        try {
-            String line;
-            Process nativeApp = Runtime.getRuntime().exec("om list");
-
-            OutputStream stdin = nativeApp.getOutputStream();
-            InputStream stderr = nativeApp.getErrorStream();
-            InputStream stdout = nativeApp.getInputStream();
-            stdin.write(("ls\n").getBytes());
-            stdin.write("exit\n".getBytes());
-            stdin.flush();
-            stdin.close();
-
-            int checked_count = 0;
-            BufferedReader br = new BufferedReader(new InputStreamReader(stdout));
-            String current_header = "";
-            while ((line = br.readLine()) != null) {
-                if (line.length() > 0) {
-                    if (!line.contains("[")) {
-                        if (checked_count > 1) {
-                            prioritiesList.add(new Priorities(current_header, grabAppIcon
-                                    (current_header)));
-                            app_list.add(current_header);
-                            current_header = line;
-                            checked_count = 0;
-                        } else {
-                            current_header = line;
-                            checked_count = 0;
-                        }
-                    } else {
-                        if (line.contains("[x]")) {
-                            checked_count += 1;
-                        }
-                    }
-                } else {
-                    if (checked_count > 1) {
-                        prioritiesList.add(new Priorities(current_header, grabAppIcon
-                                (current_header)));
-                        app_list.add(current_header);
-                        current_header = line;
-                        checked_count = 0;
-                    } else {
-                        current_header = line;
-                        checked_count = 0;
-                    }
-                }
-            }
-            br.close();
-            br = new BufferedReader(new InputStreamReader(stderr));
-            while ((line = br.readLine()) != null) {
-                Log.e("SubstratumLogger", line);
-            }
-            br.close();
-        } catch (IOException ioe) {
-            Log.e("SubstratumLogger", "There was an issue regarding loading the priorities of " +
-                    "each overlay.");
-        }
-
-        final PrioritiesAdapter adapter = new PrioritiesAdapter(getContext(), R.layout
+        prioritiesList = new ArrayList<>();
+        app_list = new ArrayList<>();
+        adapter = new PrioritiesAdapter(getContext(), R.layout
                 .linear_loader_item);
 
-        if (prioritiesList.isEmpty()) {
-            emptyView.setVisibility(View.VISIBLE);
-        } else {
-            emptyView.setVisibility(View.GONE);
-        }
-
-        adapter.setData(prioritiesList);
-        recyclerView.setAdapter(adapter);
-
-        new GestureManager.Builder(recyclerView)
-                .setGestureFlags(ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT, ItemTouchHelper.UP
-                        | ItemTouchHelper.DOWN)
-                .build();
+        LoadPrioritizedOverlays loadPrioritizedOverlays = new LoadPrioritizedOverlays();
+        loadPrioritizedOverlays.execute("");
 
         recyclerView.addOnItemTouchListener(new RecyclerItemTouchListener(getActivity(), new
                 DefaultItemClickListener() {
@@ -165,5 +106,94 @@ public class PriorityLoaderFragment extends Fragment {
                 }));
 
         return root;
+    }
+
+    private class LoadPrioritizedOverlays extends AsyncTask<String, Integer, String> {
+
+        @Override
+        protected void onPreExecute() {
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            if (prioritiesList.isEmpty()) {
+                emptyView.setVisibility(View.VISIBLE);
+                materialProgressBar.setVisibility(View.GONE);
+            } else {
+                emptyView.setVisibility(View.GONE);
+                materialProgressBar.setVisibility(View.GONE);
+            }
+
+            adapter.setData(prioritiesList);
+            recyclerView.setAdapter(adapter);
+
+            new GestureManager.Builder(recyclerView)
+                    .setGestureFlags(ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT,
+                            ItemTouchHelper.UP
+                                    | ItemTouchHelper.DOWN)
+                    .build();
+        }
+
+        @Override
+        protected String doInBackground(String... sUrl) {
+            try {
+                String line;
+                Process nativeApp = Runtime.getRuntime().exec("om list");
+
+                OutputStream stdin = nativeApp.getOutputStream();
+                InputStream stderr = nativeApp.getErrorStream();
+                InputStream stdout = nativeApp.getInputStream();
+                stdin.write(("ls\n").getBytes());
+                stdin.write("exit\n".getBytes());
+                stdin.flush();
+                stdin.close();
+
+                int checked_count = 0;
+                BufferedReader br = new BufferedReader(new InputStreamReader(stdout));
+                String current_header = "";
+                while ((line = br.readLine()) != null) {
+                    if (line.length() > 0) {
+                        if (!line.contains("[")) {
+                            if (checked_count > 1) {
+                                prioritiesList.add(new Priorities(current_header, grabAppIcon
+                                        (current_header)));
+                                app_list.add(current_header);
+                                current_header = line;
+                                checked_count = 0;
+                            } else {
+                                current_header = line;
+                                checked_count = 0;
+                            }
+                        } else {
+                            if (line.contains("[x]")) {
+                                checked_count += 1;
+                            }
+                        }
+                    } else {
+                        if (checked_count > 1) {
+                            prioritiesList.add(new Priorities(current_header, grabAppIcon
+                                    (current_header)));
+                            app_list.add(current_header);
+                            current_header = line;
+                            checked_count = 0;
+                        } else {
+                            current_header = line;
+                            checked_count = 0;
+                        }
+                    }
+                }
+                br.close();
+                br = new BufferedReader(new InputStreamReader(stderr));
+                while ((line = br.readLine()) != null) {
+                    Log.e("SubstratumLogger", line);
+                }
+                br.close();
+            } catch (IOException ioe) {
+                Log.e("SubstratumLogger", "There was an issue regarding loading the priorities of" +
+                        " each overlay.");
+            }
+            return null;
+        }
     }
 }

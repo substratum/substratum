@@ -3,7 +3,7 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="navigationBarColor">@color/colorPrimary</color>
+    <color name="navigationBarColor">@android:color/black</color>
 
     <color name="priorities_switchbar">@color/colorPrimary</color>
 

@@ -29,7 +29,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="@dimen/drag_view_margin"
                 android:layout_marginStart="15dp"
-                android:src="@mipmap/main_launcher"/>
+                android:src="@drawable/default_overlay_icon"/>
         </LinearLayout>
 
         <TextView

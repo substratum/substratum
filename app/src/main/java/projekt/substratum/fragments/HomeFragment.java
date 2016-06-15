@@ -324,8 +324,8 @@ public class HomeFragment extends Fragment {
             getLayersPackages(mContext, packageInfo.packageName);
         }
 
-        AntiPiracyCheck antiPiracyCheck = new AntiPiracyCheck();
-        antiPiracyCheck.execute("");
+        doCleanUp cleanUp = new doCleanUp();
+        cleanUp.execute("");
 
         if (layers_packages.size() == 0) {
             cardView.setVisibility(View.VISIBLE);
@@ -376,10 +376,6 @@ public class HomeFragment extends Fragment {
     }
 
     private class doCleanUp extends AsyncTask<String, Integer, String> {
-
-        @Override
-        protected void onPreExecute() {
-        }
 
         @Override
         protected void onPostExecute(String result) {

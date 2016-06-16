@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import projekt.substratum.LaunchActivity;
@@ -51,6 +52,8 @@ public class SettingsFragment extends Fragment {
 
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
                 getContext());
+
+        TextView subtext = (TextView) root.findViewById(R.id.hide_app_icon_subtext);
 
         Switch hideAppIcon = (Switch) root.findViewById(R.id.hide_app_icon);
         hideAppIcon.setEnabled(false);
@@ -91,6 +94,7 @@ public class SettingsFragment extends Fragment {
             }
         });
         if (checkSettingsPackageSupport()) {
+            subtext.setText(getString(R.string.hide_app_icon_supported));
             hideAppIcon.setEnabled(true);
         }
         return root;

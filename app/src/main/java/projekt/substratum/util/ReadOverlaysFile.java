@@ -25,7 +25,7 @@ public class ReadOverlaysFile {
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             for (String line; (line = br.readLine()) != null; ) {
                 if (line.contains("state=\"" + state_count + "\"")) {
-                    String[] split = line.substring(26).split("\\s+");
+                    String[] split = line.substring(21).split("\\s+");
                     list.add(split[0].substring(1, split[0].length() - 1));
                 }
             }

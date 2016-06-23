@@ -124,11 +124,9 @@ public class ThemeDetector extends Service {
                     ApplicationInfo appInfo = getPackageManager().getApplicationInfo(
                             packageInfo.packageName, PackageManager.GET_META_DATA);
                     if (appInfo.metaData != null) {
-                        if (appInfo.metaData.getString("Layers_Name") != null) {
-                            if (appInfo.metaData.getString("Layers_Developer") != null) {
-                                if (appInfo.metaData.getString("Substratum_Enabled") != null) {
-                                    installed.add(packageInfo.packageName);
-                                }
+                        if (appInfo.metaData.getString("Substratum_Theme") != null) {
+                            if (appInfo.metaData.getString("Substratum_Author") != null) {
+                                installed.add(packageInfo.packageName);
                             }
                         }
                     }

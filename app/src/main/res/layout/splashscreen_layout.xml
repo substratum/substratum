@@ -8,10 +8,11 @@
                 android:orientation="vertical">
 
     <ImageView
+        android:id="@+id/splashscreen_image"
         android:layout_width="130dp"
         android:layout_height="130dp"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/substratum_icon"/>
+        android:src="@drawable/splashscreen_image_one"/>
 
 </RelativeLayout>

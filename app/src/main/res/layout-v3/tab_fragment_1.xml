@@ -1,0 +1,58 @@
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/animatedImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/theme_information_quick_apply_style"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"/>
+
+        <include
+            layout="@layout/home_tab_overlay_card"/>
+
+        <include
+            layout="@layout/home_tab_tp_overlay_card"/>
+
+        <TextView
+            android:id="@+id/bootAnimTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/theme_information_quick_apply_bootanimation"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"/>
+
+        <include
+            android:id="@+id/bootAnimCard"
+            layout="@layout/home_tab_bootanim_card"/>
+
+        <TextView
+            android:id="@+id/soundsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/theme_information_quick_apply_sounds"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"/>
+
+        <include
+            android:id="@+id/soundsCard"
+            layout="@layout/home_tab_sounds_card"/>
+
+    </LinearLayout>
+
+
+</android.support.v4.widget.NestedScrollView>

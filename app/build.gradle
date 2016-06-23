@@ -15,8 +15,8 @@ android {
         applicationId "projekt.substratum"
         minSdkVersion 23
         targetSdkVersion 23
-        versionCode 30
-        versionName "thirty"
+        versionCode 31
+        versionName "thirty one"
     }
     buildTypes {
         release {
@@ -81,4 +81,11 @@ dependencies {
 
     // Gesture RecyclerView
     compile 'com.thesurix.gesturerecycler:gesture-recycler:1.3.1'
+
+    // Animated ImageView
+    compile 'com.github.Q42:AndroidScrollingImageView:1.2'
+    compile 'com.flaviofaria:kenburnsview:1.0.7'
+
+    // ZT Zip
+    compile group: 'org.zeroturnaround', name: 'zt-zip', version: '1.8'
 }

@@ -54,6 +54,14 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".InformationActivityTabs"
+            android:screenOrientation="sensorPortrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".RestoreActivity"
             android:icon="@mipmap/restore_launcher"
             android:label="@string/restore_app_name"

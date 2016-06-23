@@ -48,7 +48,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.util.FloatingActionMenu;
 import projekt.substratum.util.ReadOverlaysFile;
 import projekt.substratum.util.SubstratumBuilder;
@@ -258,8 +257,12 @@ public class InformationActivity extends AppCompatActivity {
                         listStrings.add(listView
                                 .getItemAtPosition(i)
                                 .toString());
+                        Log.e("Selected", listView
+                                .getItemAtPosition(i)
+                                .toString());
                     }
                 }
+                Log.e("listStrings size", listStrings.size() + "");
                 // Run through phase two - initialize the cache for the specific theme
                 Phase2_InitializeCache phase2_initializeCache = new Phase2_InitializeCache();
                 phase2_initializeCache.execute("");
@@ -768,16 +771,8 @@ public class InformationActivity extends AppCompatActivity {
     private class LoadOverlays extends AsyncTask<String, Integer, String> {
 
         @Override
-        protected void onPreExecute() {
-        }
-
-        @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            MaterialProgressBar materialProgressBar = (MaterialProgressBar) findViewById(R.id
-                    .progress_bar);
-            if (materialProgressBar != null) materialProgressBar.setVisibility(View.GONE);
-
             TextView overlay_count = (TextView) findViewById(R.id.title_overlays);
             if (overlay_count != null)
                 overlay_count.setText(getString(R.string.list_of_overlays) + " (" + overlayCount
@@ -1232,7 +1227,7 @@ public class InformationActivity extends AppCompatActivity {
 
                         lb = new SubstratumBuilder();
                         lb.beginAction(getApplicationContext(), listStrings.get(i), theme_name,
-                                current_mode.equals("compile_enable") + "");
+                                current_mode.equals("compile_enable") + "", null, null, null);
                         if (lb.has_errored_out) {
                             problematicOverlays.add(listStrings.get(i));
                         } else {

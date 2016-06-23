@@ -32,7 +32,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-import projekt.substratum.InformationActivity;
+import projekt.substratum.InformationActivityTabs;
 import projekt.substratum.R;
 import projekt.substratum.adapters.DataAdapter;
 import projekt.substratum.util.ReadOverlaysFile;
@@ -45,7 +45,7 @@ import projekt.substratum.util.ThemeParser;
 public class HomeFragment extends Fragment {
 
     private final int THEME_INFORMATION_REQUEST_CODE = 1;
-    private HashMap<String, String[]> layers_packages;
+    private HashMap<String, String[]> substratum_packages;
     private RecyclerView recyclerView;
     private Map<String, String[]> map;
     private Context mContext;
@@ -84,7 +84,7 @@ public class HomeFragment extends Fragment {
 
         installed_themes = new ArrayList<>();
         unauthorized_packages = new ArrayList<>();
-        layers_packages = new HashMap<>();
+        substratum_packages = new HashMap<>();
         recyclerView = (RecyclerView) root.findViewById(R.id.theme_list);
         cardView = root.findViewById(R.id.no_entry_card_view);
         cardView.setOnClickListener(new View.OnClickListener() {
@@ -105,13 +105,13 @@ public class HomeFragment extends Fragment {
         list = packageManager.getInstalledApplications(PackageManager
                 .GET_META_DATA);
         for (ApplicationInfo packageInfo : list) {
-            getLayersPackages(mContext, packageInfo.packageName);
+            getSubstratumPackages(mContext, packageInfo.packageName);
         }
 
         AntiPiracyCheck antiPiracyCheck = new AntiPiracyCheck();
         antiPiracyCheck.execute("");
 
-        if (layers_packages.size() == 0) {
+        if (substratum_packages.size() == 0) {
             cardView.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.GONE);
         } else {
@@ -120,7 +120,7 @@ public class HomeFragment extends Fragment {
         }
 
         // Now we need to sort the buffered installed Layers themes
-        map = new TreeMap<>(layers_packages);
+        map = new TreeMap<>(substratum_packages);
 
         ArrayList<ThemeParser> themeParsers = prepareData();
         adapter = new DataAdapter(getContext(), themeParsers);
@@ -152,12 +152,14 @@ public class HomeFragment extends Fragment {
                     // Process fail case if user uninstalls an app and goes back an activity
                     if (isPackageInstalled(getContext(),
                             map.get(map.keySet().toArray()[position].toString())[1])) {
-                        Intent myIntent = new Intent(getContext(), InformationActivity.class);
+                        Intent myIntent = new Intent(getContext(), InformationActivityTabs.class);
                         //myIntent.putExtra("key", value); //Optional parameters
                         myIntent.putExtra("theme_name", map.keySet().toArray()[position].toString
                                 ());
                         myIntent.putExtra("theme_pid", map.get(map.keySet().toArray()[position]
                                 .toString())[1]);
+                        myIntent.putExtra("theme_mode", map.get(map.keySet().toArray()[position]
+                                .toString())[2]);
                         startActivityForResult(myIntent, THEME_INFORMATION_REQUEST_CODE);
                     } else {
                         Toast toast = Toast.makeText(getContext(), getString(R.string
@@ -209,7 +211,7 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    private boolean findOverlayParent(Context context, String theme_name_abbreviation) {
+    private boolean findOverlayParent(Context context, String theme_parent) {
         try {
             PackageManager packageManager = mContext.getPackageManager();
             List<ApplicationInfo> pm = packageManager.getInstalledApplications(PackageManager
@@ -218,12 +220,12 @@ public class HomeFragment extends Fragment {
                 ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
                         pm.get(i).packageName, PackageManager.GET_META_DATA);
                 if (appInfo.metaData != null) {
-                    if (appInfo.metaData.getString("Layers_Name") != null) {
-                        String parse1_themeName = appInfo.metaData.getString("Layers_Name")
+                    if (appInfo.metaData.getString("Substratum_Theme") != null) {
+                        String parse1_themeName = appInfo.metaData.getString("Substratum_Theme")
                                 .replaceAll("\\s+", "");
                         String parse2_themeName = parse1_themeName.replaceAll
                                 ("[^a-zA-Z0-9]+", "");
-                        if (parse2_themeName.equals(theme_name_abbreviation)) {
+                        if (parse2_themeName.equals(theme_parent)) {
                             return true;
                         }
                     }
@@ -234,21 +236,39 @@ public class HomeFragment extends Fragment {
         return false;
     }
 
-    private void getLayersPackages(Context context, String package_name) {
+    private void getSubstratumPackages(Context context, String package_name) {
         // Simulate the Layers Plugin feature by filtering all installed apps and their metadata
         try {
             ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
                     package_name, PackageManager.GET_META_DATA);
             if (appInfo.metaData != null) {
-                if (appInfo.metaData.getString("Layers_Name") != null) {
-                    if (appInfo.metaData.getString("Layers_Developer") != null) {
-                        if (appInfo.metaData.getString("Substratum_Enabled") != null) {
-                            String[] data = {appInfo.metaData.getString("Layers_Developer"),
-                                    package_name};
-                            layers_packages.put(appInfo.metaData.getString("Layers_Name"), data);
-                            installed_themes.add(package_name);
-                            Log.d("Substratum Ready Theme", package_name);
+                if (appInfo.metaData.getString("Substratum_Theme") != null) {
+                    if (appInfo.metaData.getString("Substratum_Author") != null) {
+                        if (appInfo.metaData.getString("Substratum_Mode") != null) {
+                            if (appInfo.metaData.getString("Substratum_Mode").equals("XML")) {
+                                String[] data = {appInfo.metaData.getString("Substratum_Author"),
+                                        package_name, "1"};
+                                substratum_packages.put(appInfo.metaData.getString
+                                        ("Substratum_Theme"), data);
+                            } else {
+                                if (appInfo.metaData.getString("Substratum_Mode").equals
+                                        ("Folders")) {
+                                    String[] data = {appInfo.metaData.getString
+                                            ("Substratum_Author"),
+                                            package_name, "2"};
+                                    substratum_packages.put(appInfo.metaData.getString
+                                            ("Substratum_Theme"), data);
+                                } else {
+                                    String[] data = {appInfo.metaData.getString
+                                            ("Substratum_Author"),
+                                            package_name, "0"};
+                                    substratum_packages.put(appInfo.metaData.getString
+                                            ("Substratum_Theme"), data);
+                                }
+                            }
                         }
+                        installed_themes.add(package_name);
+                        Log.d("Substratum Ready Theme", package_name);
                     }
                 }
             }
@@ -270,16 +290,20 @@ public class HomeFragment extends Fragment {
                         if (appInfo.metaData.getString("Substratum_IMEI") != null) {
                             if (appInfo.metaData.getString("Substratum_IMEI").equals("!" +
                                     getDeviceIMEI())) {
-                                if (!findOverlayParent(context, package_name.split("\\.")
-                                        [package_name.split("\\.").length - 1])) {
-                                    Log.d("OverlayVerification", package_name + " unauthorized to" +
-                                            " be" +
-                                            " used on this device.");
-                                    unauthorized_packages.add(package_name);
-                                } else {
-                                    Log.d("OverlayVerification", package_name + " verified to be " +
-                                            "used" +
-                                            " on this device.");
+                                if (appInfo.metaData.getString("Substratum_Parent") != null) {
+                                    if (!findOverlayParent(context, appInfo.metaData.getString
+                                            ("Substratum_Parent"))) {
+                                        Log.d("OverlayVerification", package_name + " " +
+                                                "unauthorized to" +
+                                                " be" +
+                                                " used on this device.");
+                                        unauthorized_packages.add(package_name);
+                                    } else {
+                                        Log.d("OverlayVerification", package_name + " verified to" +
+                                                " be " +
+                                                "used" +
+                                                " on this device.");
+                                    }
                                 }
                             } else {
                                 Log.d("OverlayVerification", package_name + " unauthorized to be" +
@@ -317,17 +341,17 @@ public class HomeFragment extends Fragment {
         installed_themes = new ArrayList<>();
         list.clear();
         recyclerView.setAdapter(null);
-        layers_packages = new HashMap<>();
+        substratum_packages = new HashMap<>();
         list = packageManager.getInstalledApplications(PackageManager
                 .GET_META_DATA);
         for (ApplicationInfo packageInfo : list) {
-            getLayersPackages(mContext, packageInfo.packageName);
+            getSubstratumPackages(mContext, packageInfo.packageName);
         }
 
         doCleanUp cleanUp = new doCleanUp();
         cleanUp.execute("");
 
-        if (layers_packages.size() == 0) {
+        if (substratum_packages.size() == 0) {
             cardView.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.GONE);
         } else {
@@ -336,7 +360,7 @@ public class HomeFragment extends Fragment {
         }
 
         // Now we need to sort the buffered installed Layers themes
-        map = new TreeMap<>(layers_packages);
+        map = new TreeMap<>(substratum_packages);
         ArrayList<ThemeParser> themeParsers = prepareData();
         adapter = new DataAdapter(mContext.getApplicationContext(), themeParsers);
         recyclerView.setAdapter(adapter);

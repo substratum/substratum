@@ -12,6 +12,34 @@
     <string name="restore_activity_toast">Backup file found! Now restoring&#8230;</string>
     <string name="restore_activity_toast_not_found">No overlay database backup found.</string>
 
+    <string name="overlays_variant_default_1a">type1a variant&#8230;</string>
+    <string name="overlays_variant_default_1b">type1b variant&#8230;</string>
+    <string name="overlays_variant_default_1c">type1c variant&#8230;</string>
+    <string name="overlays_variant_default_2">type2 variant&#8230;</string>
+    <string name="overlays_up_to_date">UP-TO-DATE</string>
+    <string name="overlays_update_available">Update available! Current installed version (%s)</string>
+    <string name="overlays_overlay_not_installed">Variant not installed</string>
+    <string name="overlays_compile_update_button">Compile/Update &amp; Install</string>
+
+    <string name="bootanimation_dialog_apply_text">Boot animation is processing&#8230;</string>
+    <string name="bootanimation_dialog_apply_success">Boot animation applied!</string>
+    <string name="bootanimation_dialog_apply_failed">Boot animation failed to apply&#8230;</string>
+
+    <string name="theme_information_tab_one">Quick Apply</string>
+    <string name="theme_information_tab_two">Compile/Update</string>
+    <string name="theme_information_tab_three">Bootanimation</string>
+    <string name="theme_information_quick_apply_style">Style</string>
+    <string name="theme_information_quick_apply_bootanimation_text">Custom Boot Animation</string>
+    <string name="theme_information_quick_apply_bootanimation_title">Applies a custom bootanimation to your device boot.</string>
+    <string name="theme_information_quick_apply_sounds_title">System Sounds</string>
+    <string name="theme_information_quick_apply_sounds_text">Applies all custom system sounds from this theme</string>
+    <string name="theme_information_quick_apply_system_overlay_title">System overlays</string>
+    <string name="theme_information_quick_apply_system_overlay_text">Applies all system overlays from this theme</string>
+    <string name="theme_information_quick_apply_thirdparty_overlay_title">Third-party overlays</string>
+    <string name="theme_information_quick_apply_thirdparty_overlay_text">Applies all installed third party overlays from this theme</string>
+    <string name="theme_information_quick_apply_bootanimation">Boot Animation</string>
+    <string name="theme_information_quick_apply_sounds">Sounds</string>
+
     <string name="priority_back_title">Back to overlays</string>
     <string name="priority_success_toast">Priorities have been changed and windows are refreshing&#8230;</string>
 
@@ -179,11 +207,11 @@
     <string name="team_syko">Mike Finnegan (Sykopompos)</string>
     <string name="team_syko_content">I give ideas and created Layers!</string>
     <string name="team_syko_link">https://plus.google.com/u/0/+SykoPompos/</string>
-    <string name="team_george">George Gian</string>
+    <string name="team_george">George Gian (KreAch3R)</string>
     <string name="team_george_content">What do you need to change in Android? I got your back!</string>
     <string name="team_george_link">https://plus.google.com/u/0/+GeorgeGian/</string>
-    <string name="team_cory">Cory Collins</string>
-    <string name="team_cory_content">What\'s a \"problem\"?</string>
+    <string name="team_cory">Cory Collins (camcory)</string>
+    <string name="team_cory_content">Need something added/fixed? No problem!</string>
     <string name="team_cory_link">https://plus.google.com/u/0/107213348284084753883/</string>
     <string name="team_jimmy">Jimmy Setiawan (setiawanjimmy)</string>
     <string name="team_jimmy_content">I break shit before you get a chance to!</string>

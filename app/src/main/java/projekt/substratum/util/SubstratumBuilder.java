@@ -1,7 +1,6 @@
 package projekt.substratum.util;
 
 import android.content.Context;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.os.Build;
@@ -23,9 +22,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -39,7 +35,7 @@ public class SubstratumBuilder {
 
     /*
 
-    How to use this class:
+    All public methods in this class:
 
     1. injectAAPT(Context) : initial check/injection for AAPT access on device
     2. initializeCache(Context, package_identifier) : extract assets for theme so no reuse needed
@@ -71,7 +67,8 @@ public class SubstratumBuilder {
                                 "/system/bin/aapt");
                 eu.chainfire.libsuperuser.Shell.SU.run("chmod 755 /system/bin/aapt");
                 eu.chainfire.libsuperuser.Shell.SU.run("mount -o remount,ro /system");
-                Log.d("Phase 1", "Android Assets Packaging Tool (ARM) has been injected into the " +
+                Log.d("SubstratumBuilder", "Android Assets Packaging Tool (ARM) has been injected" +
+                        " into the " +
                         "system partition.");
             } else {
                 // Take account for x86 devices
@@ -83,11 +80,13 @@ public class SubstratumBuilder {
                                 "/system/bin/aapt");
                 eu.chainfire.libsuperuser.Shell.SU.run("chmod 755 /system/bin/aapt");
                 eu.chainfire.libsuperuser.Shell.SU.run("mount -o remount,ro /system");
-                Log.d("Phase 1", "Android Assets Packaging Tool (x86) has been injected into the " +
+                Log.d("SubstratumBuilder", "Android Assets Packaging Tool (x86) has been injected" +
+                        " into the " +
                         "system partition.");
             }
         } else {
-            Log.d("Phase 1", "There is no need to inject AAPT into the system partition.");
+            Log.d("SubstratumBuilder", "The system partition already contains an existing AAPT " +
+                    "binary and Substratum is locked and loaded!");
         }
     }
 
@@ -95,7 +94,8 @@ public class SubstratumBuilder {
         mContext = context;
         try {
             unzip(package_identifier);
-            Log.d("Phase 2", "The cache has been built from the APK assets");
+            Log.d("SubstratumBuilder", "The theme's assets have been successfully expanded to the" +
+                    " work area!");
         } catch (IOException ioe) {
         }
     }
@@ -171,7 +171,7 @@ public class SubstratumBuilder {
                 inputStream.close();
             }
         } else {
-            Log.d("Unzip",
+            Log.e("SubstratumLogger",
                     "There is no valid package name under this abbreviated folder " +
                             "count.");
         }
@@ -191,15 +191,19 @@ public class SubstratumBuilder {
     }
 
     public void beginAction(Context context, String overlay_package, String theme_name, String
-            update_mode_input) {
+            update_mode_input, String variant, String additional_variant, String versionName) {
 
         has_errored_out = false;
         mContext = context;
         String work_area;
         Boolean update_mode = Boolean.valueOf(update_mode_input);
 
-        // 1. Set work area to asset chosen based on the parameter passed into this class
+        int typeMode = 1;
+        if (additional_variant != null) {
+            typeMode = 2;
+        }
 
+        // 1. Set work area to asset chosen based on the parameter passed into this class
 
         work_area = mContext.getCacheDir().getAbsolutePath() + "/SubstratumBuilder/assets/overlays/"
                 + overlay_package;
@@ -214,8 +218,13 @@ public class SubstratumBuilder {
         String parse1_themeName = theme_name.replaceAll("\\s+", "");
         parse2_themeName = parse1_themeName.replaceAll("[^a-zA-Z0-9]+", "");
 
+        String parse2_variantName = "";
+        if (variant != null) {
+            String parse1_variantName = variant.replaceAll("\\s+", "");
+            parse2_variantName = parse1_variantName.replaceAll("[^a-zA-Z0-9]+", "");
+        }
+
         if (parse2_themeName.equals("")) {
-            int inputNumber = 1;
             parse2_themeName = "no_name";
         }
         Log.d("PackageProcessor", "Processing package \"" + overlay_package + "." +
@@ -225,39 +234,58 @@ public class SubstratumBuilder {
 
         if (!has_errored_out) {
             try {
-                PackageInfo pInfo = mContext.getPackageManager().getPackageInfo(mContext
-                        .getPackageName(), 0);
-                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-                Date date = new Date();
-                String versionName = "Substratum (" + pInfo.versionName + ") [" + dateFormat
-                        .format(date) + "]";
-
                 root.createNewFile();
                 FileWriter fw = new FileWriter(root);
                 BufferedWriter bw = new BufferedWriter(fw);
                 PrintWriter pw = new PrintWriter(bw);
-                String manifest =
-                        "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?>\n" +
-                                "<manifest xmlns:android=\"http://schemas.android" +
-                                ".com/apk/res/android\" package=\"" + overlay_package + "." +
-                                parse2_themeName + "\"\n" +
-                                "        android:versionName=\"" + versionName + "\"> \n" +
-                                "    <overlay android:targetPackage=\"" + overlay_package + "\" " +
-                                "android:priority=\"100\"/>\n" +
-                                "    <application android:label=\"" + overlay_package + "." +
-                                parse2_themeName + "\">\n" +
-                                "        <meta-data android:name=\"Substratum_ID\" " +
-                                "android:value=\"" + getDeviceID() + "\"/>\n" +
-                                "        <meta-data android:name=\"Substratum_IMEI\" " +
-                                "android:value=\"!" + getDeviceIMEI() + "\"/>\n" +
-                                "    </application>\n" +
-                                "</manifest>\n";
-                pw.write(manifest);
+                if (variant != null) {
+                    String manifest =
+                            "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?>\n" +
+                                    "<manifest xmlns:android=\"http://schemas.android" +
+                                    ".com/apk/res/android\" package=\"" + overlay_package + "." +
+                                    parse2_themeName + "." + parse2_variantName + "\"\n" +
+                                    "        android:versionName=\"" + versionName + "\"> \n" +
+                                    "    <overlay android:targetPackage=\"" + overlay_package +
+                                    "\"/>\n" +
+                                    "    <application android:label=\"" + overlay_package + "." +
+                                    parse2_themeName + "." + parse2_variantName + "\">\n" +
+                                    "        <meta-data android:name=\"Substratum_ID\" " +
+                                    "android:value=\"" + getDeviceID() + "\"/>\n" +
+                                    "        <meta-data android:name=\"Substratum_IMEI\" " +
+                                    "android:value=\"!" + getDeviceIMEI() + "\"/>\n" +
+                                    "        <meta-data android:name=\"Substratum_Parent\" " +
+                                    "android:value=\"" + parse2_themeName + "\"/>\n" +
+                                    "        <meta-data android:name=\"Substratum_Variant\" " +
+                                    "android:value=\"" + parse2_variantName + "\"/>\n" +
+                                    "    </application>\n" +
+                                    "</manifest>\n";
+                    pw.write(manifest);
+                } else {
+                    String manifest =
+                            "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?>\n" +
+                                    "<manifest xmlns:android=\"http://schemas.android" +
+                                    ".com/apk/res/android\" package=\"" + overlay_package + "." +
+                                    parse2_themeName + "\"\n" +
+                                    "        android:versionName=\"" + versionName + "\"> \n" +
+                                    "    <overlay android:targetPackage=\"" + overlay_package +
+                                    "\"/>\n" +
+                                    "    <application android:label=\"" + overlay_package + "." +
+                                    parse2_themeName + "\">\n" +
+                                    "        <meta-data android:name=\"Substratum_ID\" " +
+                                    "android:value=\"" + getDeviceID() + "\"/>\n" +
+                                    "        <meta-data android:name=\"Substratum_IMEI\" " +
+                                    "android:value=\"!" + getDeviceIMEI() + "\"/>\n" +
+                                    "        <meta-data android:name=\"Substratum_Parent\" " +
+                                    "android:value=\"" + parse2_themeName + "\"/>\n" +
+                                    "    </application>\n" +
+                                    "</manifest>\n";
+                    pw.write(manifest);
+                }
                 pw.close();
                 bw.close();
                 fw.close();
             } catch (Exception e) {
-                Log.e("Phase 3", "There was an exception creating a new Manifest file!");
+                Log.e("SubstratumBuilder", "There was an exception creating a new Manifest file!");
                 has_errored_out = true;
                 Log.e("SubstratumBuilder", "Installation of \"" + overlay_package + "\" has " +
                         "failed.");
@@ -268,16 +296,47 @@ public class SubstratumBuilder {
 
         if (!has_errored_out) {
             try {
+                String commands = "";
+                if (typeMode == 1) {
+                    commands = "aapt p -M " + work_area +
+                            "/AndroidManifest.xml -S " +
+                            work_area +
+                            "/res/ -I " +
+                            "/system/framework/framework-res.apk -F " +
+                            work_area +
+                            "/" + overlay_package + "." + parse2_themeName + "-unsigned.apk " +
+                            "-f --include-meta-data\n";
+                } else {
+                    if (typeMode == 2) {
+                        if (variant != null) {
+                            commands = "aapt p -M " + work_area +
+                                    "/AndroidManifest.xml -S " +
+                                    work_area +
+                                    "/" + additional_variant + "/ -S " +
+                                    work_area +
+                                    "/res -I " +
+                                    "/system/framework/framework-res.apk -F " +
+                                    work_area +
+                                    "/" + overlay_package + "." + parse2_themeName + "-unsigned" +
+                                    ".apk " +
+
+                                    "-f --include-meta-data\n";
+                        } else {
+                            commands = "aapt p -M " + work_area +
+                                    "/AndroidManifest.xml -S " +
+                                    work_area +
+                                    "/res/ -I " +
+                                    "/system/framework/framework-res.apk -F " +
+                                    work_area +
+                                    "/" + overlay_package + "." + parse2_themeName + "-unsigned" +
+                                    ".apk " +
+                                    "-f --include-meta-data\n";
+                        }
+                    }
+                }
+
                 String line;
-                Process nativeApp = Runtime.getRuntime().exec(
-                        "aapt p -M " + work_area +
-                                "/AndroidManifest.xml -S " +
-                                work_area +
-                                "/res/ -I " +
-                                "/system/framework/framework-res.apk -F " +
-                                work_area +
-                                "/" + overlay_package + "." + parse2_themeName + "-unsigned.apk " +
-                                "-f --include-meta-data\n");
+                Process nativeApp = Runtime.getRuntime().exec(commands);
 
                 OutputStream stdin = nativeApp.getOutputStream();
                 InputStream stderr = nativeApp.getErrorStream();
@@ -296,6 +355,8 @@ public class SubstratumBuilder {
                 while ((line = br.readLine()) != null) {
                     Log.e("SubstratumBuilder", line);
                     has_errored_out = true;
+                }
+                if (has_errored_out) {
                     Log.e("SubstratumBuilder", "Installation of \"" + overlay_package + "\" has " +
                             "failed.");
                 }
@@ -303,14 +364,14 @@ public class SubstratumBuilder {
 
                 if (!has_errored_out) {
                     // We need this Process to be waited for before moving on to the next function.
-                    Log.d("Phase 3", "Overlay APK creation is running now...");
+                    Log.d("SubstratumBuilder", "Overlay APK creation is running now...");
                     nativeApp.waitFor();
                     File unsignedAPK = new File(work_area + "/" + overlay_package + "." +
                             parse2_themeName + "-unsigned.apk");
                     if (unsignedAPK.exists()) {
-                        Log.d("Phase 3", "Overlay APK creation has completed!");
+                        Log.d("SubstratumBuilder", "Overlay APK creation has completed!");
                     } else {
-                        Log.e("Phase 3", "Overlay APK creation has failed!");
+                        Log.e("SubstratumBuilder", "Overlay APK creation has failed!");
                         has_errored_out = true;
                         Log.e("SubstratumBuilder", "Installation of \"" + overlay_package + "\" " +
                                 "overlay has failed.");
@@ -318,7 +379,8 @@ public class SubstratumBuilder {
                     }
                 }
             } catch (Exception e) {
-                Log.e("Phase 3", "Unfortunately, there was an exception trying to create a new " +
+                Log.e("SubstratumBuilder", "Unfortunately, there was an exception trying to " +
+                        "create a new " +
                         "APK");
                 has_errored_out = true;
                 Log.e("SubstratumBuilder", "Installation of \"" + overlay_package + "\" has " +
@@ -346,9 +408,9 @@ public class SubstratumBuilder {
                 zipSigner.setKeymode("testkey");
                 zipSigner.signZip(source, destination);
 
-                Log.d("Phase 3", "APK successfully signed!");
+                Log.d("SubstratumBuilder", "APK successfully signed!");
             } catch (Throwable t) {
-                Log.e("Phase 3", "APK could not be signed. " + t.toString());
+                Log.e("SubstratumBuilder", "APK could not be signed. " + t.toString());
                 has_errored_out = true;
                 Log.e("SubstratumBuilder", "Installation of \"" + overlay_package + "\" has " +
                         "failed.");
@@ -361,26 +423,41 @@ public class SubstratumBuilder {
         if (!has_errored_out) {
             if (update_mode) {
                 try {
-                    eu.chainfire.libsuperuser.Shell.SU.run(
-                            "pm uninstall " + overlay_package + "." + parse2_themeName);
-                    eu.chainfire.libsuperuser.Shell.SU.run(
-                            "pm install " + Environment.getExternalStorageDirectory()
-                                    .getAbsolutePath
-                                            () +
+                    if (variant != null) {
+                        eu.chainfire.libsuperuser.Shell.SU.run(
+                                "pm install -r " + Environment.getExternalStorageDirectory()
+                                        .getAbsolutePath() +
+                                        "/.substratum/" + overlay_package + "." + parse2_themeName +
+                                        "-signed" +
+                                        ".apk");
 
-                                    "/.substratum/" + overlay_package + "." + parse2_themeName +
-                                    "-signed" +
-                                    ".apk");
-
-                    Log.d("Phase 3", "Silently installing APK...");
-                    if (checkIfPackageInstalled(overlay_package + "." + parse2_themeName,
-                            context)) {
-                        Log.d("Phase 3", "Overlay APK has successfully been installed!");
+                        Log.d("SubstratumBuilder", "Silently installing APK...");
+                        if (checkIfPackageInstalled(overlay_package + "." + parse2_themeName + "." +
+                                parse2_variantName, context)) {
+                            Log.d("SubstratumBuilder", "Overlay APK has successfully been " +
+                                    "installed!");
+                        } else {
+                            Log.e("SubstratumBuilder", "Overlay APK has failed to install!");
+                        }
                     } else {
-                        Log.e("Phase 3", "Overlay APK has failed to install!");
+                        eu.chainfire.libsuperuser.Shell.SU.run(
+                                "pm install -r " + Environment.getExternalStorageDirectory()
+                                        .getAbsolutePath() +
+                                        "/.substratum/" + overlay_package + "." + parse2_themeName +
+                                        "-signed" +
+                                        ".apk");
+
+                        Log.d("SubstratumBuilder", "Silently installing APK...");
+                        if (checkIfPackageInstalled(overlay_package + "." + parse2_themeName,
+                                context)) {
+                            Log.d("SubstratumBuilder", "Overlay APK has successfully been " +
+                                    "installed!");
+                        } else {
+                            Log.e("SubstratumBuilder", "Overlay APK has failed to install!");
+                        }
                     }
                 } catch (Exception e) {
-                    Log.e("Phase 3", "Overlay APK has failed to install! (Exception)");
+                    Log.e("SubstratumBuilder", "Overlay APK has failed to install! (Exception)");
                     has_errored_out = true;
                     Log.e("SubstratumBuilder", "Installation of \"" + overlay_package + "\" has " +
                             "failed.");
@@ -388,24 +465,21 @@ public class SubstratumBuilder {
             } else {
                 try {
                     eu.chainfire.libsuperuser.Shell.SU.run(
-                            "pm install " + Environment.getExternalStorageDirectory()
-                                    .getAbsolutePath
-
-                                            () +
-
+                            "pm install -r " + Environment.getExternalStorageDirectory()
+                                    .getAbsolutePath() +
                                     "/.substratum/" + overlay_package + "." + parse2_themeName +
                                     "-signed" +
                                     ".apk");
 
-                    Log.d("Phase 3", "Silently installing APK...");
+                    Log.d("SubstratumBuilder", "Silently installing APK...");
                     if (checkIfPackageInstalled(overlay_package + "." + parse2_themeName,
                             context)) {
-                        Log.d("Phase 3", "Overlay APK has successfully been installed!");
+                        Log.d("SubstratumBuilder", "Overlay APK has successfully been installed!");
                     } else {
-                        Log.e("Phase 3", "Overlay APK has failed to install!");
+                        Log.e("SubstratumBuilder", "Overlay APK has failed to install!");
                     }
                 } catch (Exception e) {
-                    Log.e("Phase 3", "Overlay APK has failed to install! (Exception)");
+                    Log.e("SubstratumBuilder", "Overlay APK has failed to install! (Exception)");
                     has_errored_out = true;
                     Log.e("SubstratumBuilder", "Installation of \"" + overlay_package + "\" has " +
                             "failed.");

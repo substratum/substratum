@@ -29,7 +29,7 @@
             android:textColor="@android:color/white"/>
 
         <ImageView
-            android:id="@+id/mont_drag"
+            android:id="@+id/priority_drag"
             android:layout_width="@dimen/drag_view_size"
             android:layout_height="@dimen/drag_view_size"
             android:layout_alignParentRight="true"

@@ -11,6 +11,8 @@ import android.util.Log;
 import android.widget.ArrayAdapter;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class OverlaysInfo implements Serializable {
 
@@ -36,6 +38,7 @@ public class OverlaysInfo implements Serializable {
     private String variantSelected4 = "";
     private String baseResources = "";
     private Context context;
+    private ArrayList<String> enabledOverlays;
 
     public OverlaysInfo(String theme_name, String name, String packageName, boolean isSelected,
                         ArrayAdapter<String>
@@ -43,7 +46,7 @@ public class OverlaysInfo implements Serializable {
                                 adapter2, ArrayAdapter<String>
                                 adapter3, ArrayAdapter<String>
                                 adapter4, Context context, String versionName,
-                        String baseResources) {
+                        String baseResources, List enabledOverlays) {
 
         this.theme_name = theme_name;
         this.name = name;
@@ -59,6 +62,7 @@ public class OverlaysInfo implements Serializable {
                 .replaceAll("[^a-zA-Z0-9]+", "");
         if (baseResources.length() > 0) this.baseResources = "." + baseResources;
         if (adapter != null) variant_mode = true;
+        this.enabledOverlays = new ArrayList(enabledOverlays);
     }
 
     public String getThemeName() {
@@ -227,6 +231,34 @@ public class OverlaysInfo implements Serializable {
             pm.getPackageInfo(package_name + baseResources, PackageManager.GET_ACTIVITIES);
             return true;
         } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+    }
+
+    public String getFullOverlayParameters() {
+        return getPackageName() + "." + getThemeName() +
+                ((getSelectedVariant() == 0) ? "" : getSelectedVariantName()) +
+                ((getSelectedVariant2() == 0) ? "" : getSelectedVariantName2()) +
+                ((getSelectedVariant3() == 0) ? "" : getSelectedVariantName3()) +
+                ((getSelectedVariant4() == 0) ? "" : getSelectedVariantName4()) +
+                ((baseResources.length() == 0) ? "" : "." + baseResources);
+    }
+
+    public boolean isOverlayEnabled() {
+        String package_name = getPackageName() + "." + getThemeName() +
+                ((getSelectedVariant() == 0) ? "" : getSelectedVariantName()) +
+                ((getSelectedVariant2() == 0) ? "" : getSelectedVariantName2()) +
+                ((getSelectedVariant3() == 0) ? "" : getSelectedVariantName3()) +
+                ((getSelectedVariant4() == 0) ? "" : getSelectedVariantName4()) +
+                ((baseResources.length() == 0) ? "" : "." + baseResources);
+
+        if (isPackageInstalled(package_name)) {
+            if (enabledOverlays.contains(package_name)) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
             return false;
         }
     }

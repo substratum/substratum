@@ -74,6 +74,7 @@ public class OverlaysList extends Fragment {
     private ArrayList<String> final_runner;
     private boolean enable_mode, disable_mode;
     private ArrayList<String> all_installed_overlays;
+    private List<String> state5overlays;
 
     private boolean isPackageInstalled(Context context, String package_name) {
         PackageManager pm = context.getPackageManager();
@@ -608,6 +609,18 @@ public class OverlaysList extends Fragment {
                                 boolean adapterThreeChecker = type1c.size() == 1;
                                 boolean adapterFourChecker = type2.size() == 1;
 
+                                eu.chainfire.libsuperuser.Shell.SU.run("cp /data/system/overlays" +
+                                        ".xml " +
+                                        Environment
+                                                .getExternalStorageDirectory().getAbsolutePath() +
+                                        "/.substratum/current_overlays.xml");
+
+                                String[] commands = {Environment.getExternalStorageDirectory()
+                                        .getAbsolutePath() +
+                                        "/.substratum/current_overlays.xml", "5"};
+
+                                state5overlays = ReadOverlaysFile.main(commands);
+
                                 OverlaysInfo overlaysInfo = new OverlaysInfo(parse2_themeName,
                                         parsed_name,
                                         package_name, false,
@@ -615,14 +628,14 @@ public class OverlaysList extends Fragment {
                                         (adapterTwoChecker ? null : adapter2),
                                         (adapterThreeChecker ? null : adapter3),
                                         (adapterFourChecker ? null : adapter4),
-                                        getContext(), versionName, sUrl[0]);
+                                        getContext(), versionName, sUrl[0], state5overlays);
                                 values2.add(overlaysInfo);
                             } else {
                                 // At this point, there is no spinner adapter, so it should be null
                                 OverlaysInfo overlaysInfo = new OverlaysInfo(parse2_themeName,
                                         parsed_name,
                                         package_name, false, null, null, null, null, getContext(),
-                                        versionName, sUrl[0]);
+                                        versionName, sUrl[0], state5overlays);
                                 values2.add(overlaysInfo);
                             }
                         } catch (Exception e) {

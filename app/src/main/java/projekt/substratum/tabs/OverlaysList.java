@@ -2,6 +2,7 @@ package projekt.substratum.tabs;
 
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,13 +19,11 @@ import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.Switch;
@@ -72,6 +71,9 @@ public class OverlaysList extends Fragment {
     private MaterialSheetFab materialSheetFab;
     private SharedPreferences prefs;
     private boolean mixAndMatchMode;
+    private ArrayList<String> final_runner;
+    private boolean enable_mode, disable_mode;
+    private ArrayList<String> all_installed_overlays;
 
     private boolean isPackageInstalled(Context context, String package_name) {
         PackageManager pm = context.getPackageManager();
@@ -88,8 +90,6 @@ public class OverlaysList extends Fragment {
             savedInstanceState) {
         root = (ViewGroup) inflater.inflate(R.layout.tab_fragment_2, container, false);
         prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-
-        //Button btnSelection = (Button) root.findViewById(R.id.btnShow);
 
         // Run through phase one - checking whether aapt exists on the device
         Phase1_AAPT_Check phase1_aapt_check = new Phase1_AAPT_Check();
@@ -147,7 +147,8 @@ public class OverlaysList extends Fragment {
             });
         }
 
-        TextView compile_enable_selected = (TextView) root.findViewById(R.id.compile_enable_selected);
+        TextView compile_enable_selected = (TextView) root.findViewById(R.id
+                .compile_enable_selected);
         if (compile_enable_selected != null)
             compile_enable_selected.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
@@ -167,7 +168,8 @@ public class OverlaysList extends Fragment {
                         }
                     }
 
-                    if (base_spinner.getSelectedItemPosition() != 0) {
+                    if (base_spinner.getSelectedItemPosition() != 0 &&
+                            base_spinner.getVisibility() == View.VISIBLE) {
                         Phase2_InitializeCache phase2_initializeCache = new
                                 Phase2_InitializeCache();
                         phase2_initializeCache.execute(base_spinner.getSelectedItem().toString());
@@ -176,7 +178,6 @@ public class OverlaysList extends Fragment {
                                 Phase2_InitializeCache();
                         phase2_initializeCache.execute("");
                     }
-
                 }
             });
 
@@ -184,14 +185,56 @@ public class OverlaysList extends Fragment {
         if (disable_selected != null)
             disable_selected.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
+                    disable_mode = true;
 
+                    overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
+                    checkedOverlays = new ArrayList<>();
+
+                    for (int i = 0; i < overlaysLists.size(); i++) {
+                        OverlaysInfo currentOverlay = overlaysLists.get(i);
+                        if (currentOverlay.isSelected()) {
+                            checkedOverlays.add(currentOverlay);
+                        }
+                    }
+
+                    if (base_spinner.getSelectedItemPosition() != 0 &&
+                            base_spinner.getVisibility() == View.VISIBLE) {
+                        Phase2_InitializeCache phase2_initializeCache = new
+                                Phase2_InitializeCache();
+                        phase2_initializeCache.execute(base_spinner.getSelectedItem().toString());
+                    } else {
+                        Phase2_InitializeCache phase2_initializeCache = new
+                                Phase2_InitializeCache();
+                        phase2_initializeCache.execute("");
+                    }
                 }
             });
 
         TextView enable_selected = (TextView) root.findViewById(R.id.enable_selected);
         if (enable_selected != null) enable_selected.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                enable_mode = true;
 
+                overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
+                checkedOverlays = new ArrayList<>();
+
+                for (int i = 0; i < overlaysLists.size(); i++) {
+                    OverlaysInfo currentOverlay = overlaysLists.get(i);
+                    if (currentOverlay.isSelected()) {
+                        checkedOverlays.add(currentOverlay);
+                    }
+                }
+
+                if (base_spinner.getSelectedItemPosition() != 0 &&
+                        base_spinner.getVisibility() == View.VISIBLE) {
+                    Phase2_InitializeCache phase2_initializeCache = new
+                            Phase2_InitializeCache();
+                    phase2_initializeCache.execute(base_spinner.getSelectedItem().toString());
+                } else {
+                    Phase2_InitializeCache phase2_initializeCache = new
+                            Phase2_InitializeCache();
+                    phase2_initializeCache.execute("");
+                }
             }
         });
 
@@ -298,6 +341,37 @@ public class OverlaysList extends Fragment {
                         "package manager list.");
             }
 
+            eu.chainfire.libsuperuser.Shell.SU.run("cp /data/system/overlays.xml " +
+                    Environment
+                            .getExternalStorageDirectory().getAbsolutePath() +
+                    "/.substratum/current_overlays.xml");
+            String[] commands5 = {Environment.getExternalStorageDirectory().getAbsolutePath() +
+                    "/.substratum/current_overlays.xml", "5"};
+
+            List<String> state5 = ReadOverlaysFile.main(commands5);
+            all_installed_overlays = new ArrayList<>(state5);
+
+            String parse1_themeName = theme_name.replaceAll("\\s+", "");
+            String parse2_themeName = parse1_themeName.replaceAll("[^a-zA-Z0-9]+", "");
+
+            for (int i = 0; i < all_installed_overlays.size(); i++) {
+                try {
+                    ApplicationInfo appInfo = getContext().getPackageManager().getApplicationInfo(
+                            all_installed_overlays.get(i), PackageManager.GET_META_DATA);
+                    if (appInfo.metaData != null) {
+                        if (appInfo.metaData.getString("Substratum_Parent") != null) {
+                            if (appInfo.metaData.getString("Substratum_Parent")
+                                    .equals(parse2_themeName)) {
+                                all_installed_overlays.remove(i);
+                            }
+                        }
+                    }
+                } catch (PackageManager.NameNotFoundException nnfe) {
+                    Log.e("SubstratumLogger", "Could not find explicit package name " +
+                            "from installed overlays list.");
+                }
+            }
+
             ArrayList<String> unsortedList = new ArrayList<>();
             ArrayList<String> unsortedListWithNames = new ArrayList<>();
             ArrayList<String> values = new ArrayList<>();
@@ -368,9 +442,6 @@ public class OverlaysList extends Fragment {
                                     (package_name, 0);
                     parsed_name = getContext().getPackageManager().getApplicationLabel
                             (applicationInfo).toString();
-
-                    String parse1_themeName = theme_name.replaceAll("\\s+", "");
-                    String parse2_themeName = parse1_themeName.replaceAll("[^a-zA-Z0-9]+", "");
 
                     if (pluginType <= 1) {
                         try {
@@ -590,21 +661,27 @@ public class OverlaysList extends Fragment {
 
         @Override
         protected void onPreExecute() {
-            Log.d("SubstratumBuilder", "Decompiling and initializing work area with the selected " +
-                    "theme's assets...");
-            int notification_priority = 2; // PRIORITY_MAX == 2
+            final_runner = new ArrayList<>();
 
-            // This is the time when the notification should be shown on the user's screen
-            mNotifyManager =
-                    (NotificationManager) getContext().getSystemService(
-                            Context.NOTIFICATION_SERVICE);
-            mBuilder = new NotificationCompat.Builder(getContext());
-            mBuilder.setContentTitle(getString(R.string.notification_initial_title))
-                    .setProgress(100, 0, true)
-                    .setSmallIcon(android.R.drawable.ic_popup_sync)
-                    .setPriority(notification_priority)
-                    .setOngoing(true);
-            mNotifyManager.notify(id, mBuilder.build());
+            if (!enable_mode && !disable_mode) {
+                Log.d("SubstratumBuilder", "Decompiling and initializing work area with the " +
+                        "selected " +
+
+                        "theme's assets...");
+                int notification_priority = 2; // PRIORITY_MAX == 2
+
+                // This is the time when the notification should be shown on the user's screen
+                mNotifyManager =
+                        (NotificationManager) getContext().getSystemService(
+                                Context.NOTIFICATION_SERVICE);
+                mBuilder = new NotificationCompat.Builder(getContext());
+                mBuilder.setContentTitle(getString(R.string.notification_initial_title))
+                        .setProgress(100, 0, true)
+                        .setSmallIcon(android.R.drawable.ic_popup_sync)
+                        .setPriority(notification_priority)
+                        .setOngoing(true);
+                mNotifyManager.notify(id, mBuilder.build());
+            }
             super.onPreExecute();
         }
 
@@ -622,19 +699,24 @@ public class OverlaysList extends Fragment {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            // Initialize Substratum cache with theme
-            if (!has_initialized_cache) {
-                sb = new SubstratumBuilder();
-                sb.initializeCache(getContext(), theme_pid);
-                has_initialized_cache = true;
-            } else {
-                Log.d("SubstratumBuilder", "Work area is ready with decompiled assets already!");
+            if (!enable_mode && !disable_mode) {
+                // Initialize Substratum cache with theme
+                if (!has_initialized_cache) {
+                    sb = new SubstratumBuilder();
+                    sb.initializeCache(getContext(), theme_pid);
+                    has_initialized_cache = true;
+                } else {
+                    Log.d("SubstratumBuilder", "Work area is ready with decompiled assets " +
+                            "already!");
+
+                }
+                if (sUrl[0].length() != 0) {
+                    return sUrl[0];
+                } else {
+                    return null;
+                }
             }
-            if (sUrl[0].length() != 0) {
-                return sUrl[0];
-            } else {
-                return null;
-            }
+            return null;
         }
     }
 
@@ -644,52 +726,128 @@ public class OverlaysList extends Fragment {
         protected void onPreExecute() {
             Log.d("Phase 3", "This phase has started it's asynchronous task.");
 
-            // Change title in preparation for loop to change subtext
-            mBuilder.setContentTitle(getString(R.string
-                    .notification_compiling_signing_installing))
-                    .setContentText(getString(R.string.notification_extracting_assets_text))
-                    .setProgress(100, 0, false);
-            mNotifyManager.notify(id, mBuilder.build());
+            if (!enable_mode && !disable_mode) {
+                // Change title in preparation for loop to change subtext
+                mBuilder.setContentTitle(getString(R.string
+                        .notification_compiling_signing_installing))
+                        .setContentText(getString(R.string.notification_extracting_assets_text))
+                        .setProgress(100, 0, false);
+                mNotifyManager.notify(id, mBuilder.build());
+            }
             super.onPreExecute();
         }
 
         @Override
         protected void onPostExecute(String result) {
+            super.onPostExecute(result);
 
-            if (base_spinner.getSelectedItemPosition() == 0) {
-                new LoadOverlays().execute("");
-            } else {
-                String[] commands = {base_spinner.getSelectedItem().toString()};
-                new LoadOverlays().execute(commands);
+            String final_commands = "";
+            for (int i = 0; i < final_runner.size(); i++) {
+                if (final_commands.length() == 0) {
+                    final_commands = final_commands + final_runner.get(i);
+                } else {
+                    final_commands = final_commands + " && " + final_runner.get(i);
+                }
             }
 
-            Intent notificationIntent = new Intent();
-            notificationIntent.putExtra("theme_name", theme_name);
-            notificationIntent.putExtra("theme_pid", theme_pid);
-            notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
-                    Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            /*
-            PendingIntent intent =
-                    PendingIntent.getActivity(getActivity(), 0, notificationIntent,
-                            PendingIntent.FLAG_CANCEL_CURRENT);*/
+            if (!enable_mode && !disable_mode) {
+                Intent notificationIntent = new Intent();
+                notificationIntent.putExtra("theme_name", theme_name);
+                notificationIntent.putExtra("theme_pid", theme_pid);
+                notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                        Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
-            // Closing off the persistent notification
-            mBuilder.setAutoCancel(true);
-            mBuilder.setProgress(0, 0, false);
-            mBuilder.setOngoing(false);
-            //mBuilder.setContentIntent(intent);
-            mBuilder.setSmallIcon(R.drawable.notification_success_icon);
-            mBuilder.setContentTitle(getString(R.string.notification_done_title));
-            mBuilder.setContentText(getString(R.string.notification_no_errors_found));
-            mBuilder.getNotification().flags |= Notification.FLAG_AUTO_CANCEL;
-            mNotifyManager.notify(id, mBuilder.build());
+                PendingIntent intent =
+                        PendingIntent.getActivity(getActivity(), 0, notificationIntent,
+                                PendingIntent.FLAG_CANCEL_CURRENT);
 
-            Toast toast = Toast.makeText(getContext(), getString(R
-                            .string.toast_compiled_updated),
-                    Toast.LENGTH_SHORT);
-            toast.show();
+                // Closing off the persistent notification
+                mBuilder.setAutoCancel(true);
+                mBuilder.setProgress(0, 0, false);
+                mBuilder.setOngoing(false);
+                mBuilder.setContentIntent(intent);
+                mBuilder.setSmallIcon(R.drawable.notification_success_icon);
+                mBuilder.setContentTitle(getString(R.string.notification_done_title));
+                mBuilder.setContentText(getString(R.string.notification_no_errors_found));
+                mBuilder.getNotification().flags |= Notification.FLAG_AUTO_CANCEL;
+                mNotifyManager.notify(id, mBuilder.build());
 
-            super.onPostExecute(result);
+                Toast toast = Toast.makeText(getContext(), getString(R
+                                .string.toast_compiled_updated),
+                        Toast.LENGTH_SHORT);
+                toast.show();
+            } else {
+                if (enable_mode) {
+                    if (final_commands.length() > 0) {
+                        String disableBeforeEnabling = "";
+                        if (mixAndMatchMode) {
+                            for (int i = 0; i < all_installed_overlays.size(); i++) {
+                                if (disableBeforeEnabling.length() == 0) {
+                                    disableBeforeEnabling = disableBeforeEnabling +
+                                            "om disable " + all_installed_overlays.get(i);
+                                } else {
+                                    disableBeforeEnabling = disableBeforeEnabling +
+                                            " && om disable " + all_installed_overlays.get(i);
+                                }
+                            }
+                        }
+
+                        Toast toast = Toast.makeText(getContext(), getString(R
+                                        .string.toast_enabled),
+                                Toast.LENGTH_SHORT);
+                        toast.show();
+                        enable_mode = false;
+                        if (mixAndMatchMode) {
+                            Log.e("eeee", disableBeforeEnabling +
+                                    " && " + final_commands);
+                            eu.chainfire.libsuperuser.Shell.SU.run(disableBeforeEnabling +
+                                    " && " + final_commands);
+                        } else {
+                            eu.chainfire.libsuperuser.Shell.SU.run(final_commands);
+                        }
+                    } else {
+                        Toast toast = Toast.makeText(getContext(), getString(R
+                                        .string.toast_disabled3),
+                                Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+                } else {
+                    if (disable_mode) {
+                        if (final_commands.length() > 0) {
+                            String disableBeforeEnabling = "";
+                            if (mixAndMatchMode) {
+                                for (int i = 0; i < all_installed_overlays.size(); i++) {
+                                    if (disableBeforeEnabling.length() == 0) {
+                                        disableBeforeEnabling = disableBeforeEnabling +
+                                                "om disable " + all_installed_overlays.get(i);
+                                    } else {
+                                        disableBeforeEnabling = disableBeforeEnabling +
+                                                " && om disable " + all_installed_overlays.get(i);
+                                    }
+                                }
+                            }
+                            Toast toast = Toast.makeText(getContext(), getString(R
+                                            .string.toast_disabled),
+                                    Toast.LENGTH_SHORT);
+                            toast.show();
+                            disable_mode = false;
+                            if (mixAndMatchMode) {
+                                Log.e("DJDJD", disableBeforeEnabling +
+                                        " && " + final_commands);
+                                eu.chainfire.libsuperuser.Shell.SU.run(disableBeforeEnabling +
+                                        " && " + final_commands);
+                            } else {
+                                eu.chainfire.libsuperuser.Shell.SU.run(final_commands);
+                            }
+                        } else {
+                            Toast toast = Toast.makeText(getContext(), getString(R
+                                            .string.toast_disabled4),
+                                    Toast.LENGTH_SHORT);
+                            toast.show();
+                        }
+                    }
+                }
+            }
         }
 
         @Override
@@ -699,134 +857,247 @@ public class OverlaysList extends Fragment {
                 String theme_name_parsed = theme_name.replaceAll("\\s+", "").replaceAll
                         ("[^a-zA-Z0-9]+", "");
                 String current_overlay = checkedOverlays.get(i).getPackageName();
-                try {
-                    ApplicationInfo applicationInfo = getContext().getPackageManager()
-                            .getApplicationInfo(current_overlay, 0);
-                    String packageTitle = getContext().getPackageManager().getApplicationLabel
-                            (applicationInfo).toString();
 
-                    // Initialize working notification
+                if (!enable_mode && !disable_mode) {
+                    try {
+                        ApplicationInfo applicationInfo = getContext().getPackageManager()
+                                .getApplicationInfo(current_overlay, 0);
+                        String packageTitle = getContext().getPackageManager().getApplicationLabel
+                                (applicationInfo).toString();
 
-                    mBuilder.setProgress(100, (int) (((double) (i + 1) / checkedOverlays.size()) *
-                            100), false);
-                    mBuilder.setContentText(getString(R.string.notification_processing) + " " +
-                            "\"" +
-                            packageTitle + "\"");
-                    mNotifyManager.notify(id, mBuilder.build());
+                        // Initialize working notification
 
-                    if (checkedOverlays.get(i).is_variant_chosen || sUrl[0].length() != 0) {
-                        String workingDirectory = getContext().getCacheDir().toString() +
-                                "/SubstratumBuilder/assets/overlays/" +
-                                current_overlay;
+                        mBuilder.setProgress(100, (int) (((double) (i + 1) / checkedOverlays.size
+                                ()) *
 
-                        // Type 1a
-                        if (checkedOverlays.get(i).is_variant_chosen1) {
-                            String sourceLocation = workingDirectory + "/type1a_" +
-                                    checkedOverlays.get(i).getSelectedVariantName() + ".xml";
+                                100), false);
+                        mBuilder.setContentText(getString(R.string.notification_processing) + " " +
+                                "\"" +
+                                packageTitle + "\"");
+                        mNotifyManager.notify(id, mBuilder.build());
 
-                            String targetLocation = workingDirectory +
-                                    "/res/values/type1a.xml";
+                        // With OMS3, overlay updating causes a configChange to happen, so we
+                        // check for
+                        // whatever is activated first and delay their installs to a one liner
 
-                            Log.d("SubstratumBuilder", "You have selected variant file \"" +
-                                    checkedOverlays.get(i).getSelectedVariantName() + "\"");
-                            Log.d("SubstratumBuilder", "Moving variant file to: " +
-                                    targetLocation);
+                        eu.chainfire.libsuperuser.Shell.SU.run("cp /data/system/overlays.xml " +
+                                Environment
+                                        .getExternalStorageDirectory().getAbsolutePath() +
+                                "/.substratum/current_overlays.xml");
+                        String[] commands1 = {Environment.getExternalStorageDirectory()
+                                .getAbsolutePath() +
+                                "/.substratum/current_overlays.xml", "5"};
 
-                            eu.chainfire.libsuperuser.Shell.SU.run(
-                                    "mv -f " + sourceLocation + " " + targetLocation);
+                        List<String> state5 = ReadOverlaysFile.main(commands1);
+                        ArrayList<String> activated_overlays = new ArrayList<>(state5);
+                        if (activated_overlays.size() > 0) {
+                            Log.d("SubstratumLogger", "There are activated overlays in this " +
+                                    "current " +
+                                    "device set up, so we will cherry pick whatever is enabled " +
+                                    "from " +
+                                    "this theme...");
+                        }
+                        ArrayList<String> activated_overlays_from_theme = new ArrayList<>();
+                        for (int j = 0; j < activated_overlays.size(); j++) {
+                            try {
+                                String current = activated_overlays.get(j);
+                                ApplicationInfo appInfo = getContext().getPackageManager()
+                                        .getApplicationInfo(
+                                                current, PackageManager.GET_META_DATA);
+                                if (appInfo.metaData != null) {
+                                    if (appInfo.metaData.getString("Substratum_Parent") != null) {
+                                        if (appInfo.metaData.getString("Substratum_Parent")
+                                                .equals(theme_name_parsed)) {
+                                            activated_overlays_from_theme.add(current);
+                                        }
+                                    }
+                                }
+                            } catch (PackageManager.NameNotFoundException nnfe) {
+                                Log.e("SubstratumLogger", "Could not find explicit package for " +
+                                        "this overlay...");
+                            }
                         }
 
-                        // Type 1b
-                        if (checkedOverlays.get(i).is_variant_chosen2) {
-                            String sourceLocation2 = workingDirectory + "/type1b_" +
-                                    checkedOverlays.get(i).getSelectedVariantName2() + ".xml";
+                        if (checkedOverlays.get(i).is_variant_chosen || sUrl[0].length() != 0) {
+                            String workingDirectory = getContext().getCacheDir().toString() +
+                                    "/SubstratumBuilder/assets/overlays/" +
+                                    current_overlay;
 
-                            String targetLocation2 = workingDirectory +
-                                    "/res/values/type1b.xml";
+                            // Type 1a
+                            if (checkedOverlays.get(i).is_variant_chosen1) {
+                                String sourceLocation = workingDirectory + "/type1a_" +
+                                        checkedOverlays.get(i).getSelectedVariantName() + ".xml";
 
-                            Log.d("SubstratumBuilder", "You have selected variant file \"" +
-                                    checkedOverlays.get(i).getSelectedVariantName2() + "\"");
-                            Log.d("SubstratumBuilder", "Moving variant file to: " +
-                                    targetLocation2);
+                                String targetLocation = workingDirectory +
+                                        "/res/values/type1a.xml";
 
-                            eu.chainfire.libsuperuser.Shell.SU.run(
-                                    "mv -f " + sourceLocation2 + " " + targetLocation2);
-                        }
-                        // Type 1c
-                        if (checkedOverlays.get(i).is_variant_chosen3) {
-                            String sourceLocation3 = workingDirectory + "/type1c_" +
-                                    checkedOverlays.get(i).getSelectedVariantName3() + ".xml";
+                                Log.d("SubstratumBuilder", "You have selected variant file \"" +
+                                        checkedOverlays.get(i).getSelectedVariantName() + "\"");
+                                Log.d("SubstratumBuilder", "Moving variant file to: " +
+                                        targetLocation);
 
-                            String targetLocation3 = workingDirectory +
-                                    "/res/values/type1c.xml";
+                                eu.chainfire.libsuperuser.Shell.SU.run(
+                                        "mv -f " + sourceLocation + " " + targetLocation);
+                            }
 
-                            Log.d("SubstratumBuilder", "You have selected variant file \"" +
-                                    checkedOverlays.get(i).getSelectedVariantName3() + "\"");
-                            Log.d("SubstratumBuilder", "Moving variant file to: " +
-                                    targetLocation3);
+                            // Type 1b
+                            if (checkedOverlays.get(i).is_variant_chosen2) {
+                                String sourceLocation2 = workingDirectory + "/type1b_" +
+                                        checkedOverlays.get(i).getSelectedVariantName2() + ".xml";
 
-                            eu.chainfire.libsuperuser.Shell.SU.run(
-                                    "mv -f " + sourceLocation3 + " " + targetLocation3);
-                        }
+                                String targetLocation2 = workingDirectory +
+                                        "/res/values/type1b.xml";
 
-                        String packageName =
-                                (checkedOverlays.get(i).is_variant_chosen1 ? checkedOverlays
-                                        .get(i).getSelectedVariantName() : "") +
-                                        (checkedOverlays.get(i).is_variant_chosen2 ?
-                                                checkedOverlays.get(i)
-                                                        .getSelectedVariantName2() : "") +
-                                        (checkedOverlays.get(i).is_variant_chosen3 ?
-                                                checkedOverlays.get(i)
-                                                        .getSelectedVariantName3() : "").
-                                                replaceAll("\\s+", "").replaceAll
-                                                ("[^a-zA-Z0-9]+", "");
+                                Log.d("SubstratumBuilder", "You have selected variant file \"" +
+                                        checkedOverlays.get(i).getSelectedVariantName2() + "\"");
+                                Log.d("SubstratumBuilder", "Moving variant file to: " +
+                                        targetLocation2);
 
-                        if (checkedOverlays.get(i).is_variant_chosen4) {
-                            packageName = (packageName + checkedOverlays.get(i)
-                                    .getSelectedVariantName4()).replaceAll("\\s+", "")
-                                    .replaceAll("[^a-zA-Z0-9]+", "");
-                            Log.d("SubstratumBuilder", "Currently processing package" +
-                                    " \"" + current_overlay + "." + packageName + "\"...");
+                                eu.chainfire.libsuperuser.Shell.SU.run(
+                                        "mv -f " + sourceLocation2 + " " + targetLocation2);
+                            }
+                            // Type 1c
+                            if (checkedOverlays.get(i).is_variant_chosen3) {
+                                String sourceLocation3 = workingDirectory + "/type1c_" +
+                                        checkedOverlays.get(i).getSelectedVariantName3() + ".xml";
 
-                            if (sUrl[0].length() != 0) {
-                                sb = new SubstratumBuilder();
-                                sb.beginAction(getContext(), current_overlay, theme_name,
-                                        "true",
-                                        packageName, checkedOverlays.get(i)
-                                                .getSelectedVariantName4(), sUrl[0],
-                                        versionName);
+                                String targetLocation3 = workingDirectory +
+                                        "/res/values/type1c.xml";
+
+                                Log.d("SubstratumBuilder", "You have selected variant file \"" +
+                                        checkedOverlays.get(i).getSelectedVariantName3() + "\"");
+                                Log.d("SubstratumBuilder", "Moving variant file to: " +
+                                        targetLocation3);
+
+                                eu.chainfire.libsuperuser.Shell.SU.run(
+                                        "mv -f " + sourceLocation3 + " " + targetLocation3);
+                            }
+
+                            String packageName =
+                                    (checkedOverlays.get(i).is_variant_chosen1 ? checkedOverlays
+                                            .get(i).getSelectedVariantName() : "") +
+                                            (checkedOverlays.get(i).is_variant_chosen2 ?
+                                                    checkedOverlays.get(i)
+                                                            .getSelectedVariantName2() : "") +
+                                            (checkedOverlays.get(i).is_variant_chosen3 ?
+                                                    checkedOverlays.get(i)
+                                                            .getSelectedVariantName3() : "").
+                                                    replaceAll("\\s+", "").replaceAll
+                                                    ("[^a-zA-Z0-9]+", "");
+
+                            String update_bool = "true";
+                            if (activated_overlays_from_theme.size() > 0) {
+                                for (int j = 0; j < activated_overlays_from_theme.size(); j++) {
+                                    if (activated_overlays_from_theme.get(j).equals
+                                            (current_overlay +
+                                                    "." + theme_name_parsed)) {
+                                        Log.d("SubstratumLogger", "The flag to update this " +
+                                                "overlay " +
+                                                "has been triggered.");
+                                        update_bool = "false";
+                                    }
+                                }
+                            }
+
+                            if (checkedOverlays.get(i).is_variant_chosen4) {
+                                packageName = (packageName + checkedOverlays.get(i)
+                                        .getSelectedVariantName4()).replaceAll("\\s+", "")
+                                        .replaceAll("[^a-zA-Z0-9]+", "");
+                                Log.d("SubstratumBuilder", "Currently processing package" +
+                                        " \"" + current_overlay + "." + packageName + "\"...");
+
+                                if (sUrl[0].length() != 0) {
+                                    sb = new SubstratumBuilder();
+                                    sb.beginAction(getContext(), current_overlay, theme_name,
+                                            update_bool,
+                                            packageName, checkedOverlays.get(i)
+                                                    .getSelectedVariantName4(), sUrl[0],
+                                            versionName);
+                                } else {
+                                    sb = new SubstratumBuilder();
+                                    sb.beginAction(getContext(), current_overlay, theme_name,
+                                            update_bool,
+                                            packageName, checkedOverlays.get(i)
+                                                    .getSelectedVariantName4(), null,
+                                            versionName);
+                                }
                             } else {
-                                sb = new SubstratumBuilder();
-                                sb.beginAction(getContext(), current_overlay, theme_name,
-                                        "true",
-                                        packageName, checkedOverlays.get(i)
-                                                .getSelectedVariantName4(), null,
-                                        versionName);
+                                if (sUrl[0].length() != 0) {
+                                    sb = new SubstratumBuilder();
+                                    sb.beginAction(getContext(), current_overlay, theme_name,
+                                            update_bool,
+                                            packageName, null, sUrl[0],
+                                            versionName);
+                                } else {
+                                    sb = new SubstratumBuilder();
+                                    sb.beginAction(getContext(), current_overlay, theme_name,
+                                            update_bool,
+                                            packageName, null, null,
+                                            versionName);
+                                }
+                            }
+                            if (update_bool.equals("false")) {
+                                final_runner.add(sb.no_install);
                             }
                         } else {
-                            if (sUrl[0].length() != 0) {
-                                sb = new SubstratumBuilder();
-                                sb.beginAction(getContext(), current_overlay, theme_name,
-                                        "true",
-                                        packageName, null, sUrl[0],
-                                        versionName);
-                            } else {
-                                sb = new SubstratumBuilder();
-                                sb.beginAction(getContext(), current_overlay, theme_name,
-                                        "true",
-                                        packageName, null, null,
-                                        versionName);
+                            String update_bool = "true";
+                            if (activated_overlays_from_theme.size() > 0) {
+                                for (int j = 0; j < activated_overlays_from_theme.size(); j++) {
+                                    if (activated_overlays_from_theme.get(j).equals
+                                            (current_overlay +
+                                                    "." + theme_name_parsed)) {
+                                        Log.d("SubstratumLogger", "The flag to update this " +
+                                                "overlay " +
+                                                "has been triggered.");
+                                        update_bool = "false";
+                                    }
+                                }
+                            }
+
+                            Log.d("SubstratumBuilder", "Currently processing package" +
+                                    " \"" + current_overlay + "." + theme_name_parsed + "\"...");
+                            sb = new SubstratumBuilder();
+                            sb.beginAction(getContext(), current_overlay, theme_name, update_bool,
+                                    null, null, null, versionName);
+
+                            if (update_bool.equals("false")) {
+                                final_runner.add(sb.no_install);
                             }
                         }
-                    } else {
-                        Log.d("SubstratumBuilder", "Currently processing package" +
-                                " \"" + current_overlay + "." + theme_name_parsed + "\"...");
-                        sb = new SubstratumBuilder();
-                        sb.beginAction(getContext(), current_overlay, theme_name, "true",
-                                null, null, null, versionName);
+                    } catch (Exception e) {
+                        Log.e("SubstratumLogger", "Main function has unexpectedly stopped!");
                     }
-                } catch (Exception e) {
-                    Log.e("SubstratumLogger", "Main function has unexpectedly stopped!");
+                } else {
+                    final_runner = new ArrayList<>();
+                    if (enable_mode) {
+                        String package_name = current_overlay + "." + theme_name_parsed +
+                                ((checkedOverlays.get(i).getSelectedVariant() == 0) ? "" :
+                                        checkedOverlays.get(i).getSelectedVariantName()) +
+                                ((checkedOverlays.get(i).getSelectedVariant2() == 0) ? "" :
+                                        checkedOverlays.get(i).getSelectedVariantName2()) +
+                                ((checkedOverlays.get(i).getSelectedVariant3() == 0) ? "" :
+                                        checkedOverlays.get(i).getSelectedVariantName3()) +
+                                ((checkedOverlays.get(i).getSelectedVariant4() == 0) ? "" :
+                                        checkedOverlays.get(i).getSelectedVariantName4()) +
+                                ((sUrl[0].length() == 0) ? "" : "." + sUrl[0]);
+                        if (isPackageInstalled(getContext(), package_name))
+                            final_runner.add("om enable " + package_name);
+                    } else {
+                        if (disable_mode) {
+                            String package_name = current_overlay + "." + theme_name_parsed +
+                                    ((checkedOverlays.get(i).getSelectedVariant() == 0) ? "" :
+                                            checkedOverlays.get(i).getSelectedVariantName()) +
+                                    ((checkedOverlays.get(i).getSelectedVariant2() == 0) ? "" :
+                                            checkedOverlays.get(i).getSelectedVariantName2()) +
+                                    ((checkedOverlays.get(i).getSelectedVariant3() == 0) ? "" :
+                                            checkedOverlays.get(i).getSelectedVariantName3()) +
+                                    ((checkedOverlays.get(i).getSelectedVariant4() == 0) ? "" :
+                                            checkedOverlays.get(i).getSelectedVariantName4()) +
+                                    ((sUrl[0].length() == 0) ? "" : "." + sUrl[0]);
+                            if (isPackageInstalled(getContext(), package_name))
+                                final_runner.add("om disable " + package_name);
+                        }
+                    }
                 }
             }
             return null;

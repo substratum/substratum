@@ -9,7 +9,7 @@
 
     <color name="bootanimation_checked">@color/colorAccent</color>
     <color name="bootanimation_unchecked">#ff777777</color>
-    <color name="bootanimation_spinner_background">@android:color/white</color>
+    <color name="bootanimation_spinner_background">@color/theme_information_background</color>
     <color name="bootanimation_window_background">@android:color/black</color>
 
     <color name="backup_button">@color/colorPrimary</color>
@@ -27,6 +27,8 @@
     <color name="theme_information_background">#ffeeeeee</color>
     <color name="theme_information_card_background">#fffafafa</color>
     <color name="theme_information_card_title">@color/colorAccent</color>
+    <color name="theme_information_card_text">@android:color/black</color>
+    <color name="theme_information_card_subtext">@android:color/darker_gray</color>
 
     <color name="settings_title_color">@color/colorAccent</color>
 

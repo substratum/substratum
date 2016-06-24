@@ -123,11 +123,11 @@
     <string name="toast_unapproved">This overlay has been rejected by the system</string>
     <string name="toast_compiled">Selected overlay(s) compiled!</string>
     <string name="toast_compiled_updated">Selected overlay(s) updated!</string>
-    <string name="toast_enabled">\"%s\" enabled!</string>
-    <string name="toast_disabled">\"%s\" disabled!</string>
+    <string name="toast_enabled">Selected overlay(s) enabled!</string>
+    <string name="toast_disabled">Selected overlay(s) disabled!</string>
     <string name="toast_disabled2">Selected overlay(s) disabled!</string>
     <string name="toast_disabled3">Please compile this overlay before applying!</string>
-    <string name="toast_disabled4">Please compile this overlay before disabling!</string>
+    <string name="toast_disabled4">You can\'t disable an overlay you don\'t have installed!</string>
     <string name="toast_disabled5">Please select a valid overlay before performing any action.</string>
     <string name="toast_installed">Selected overlay(s) applied!</string>
     <string name="toast_uninstalled">You just uninstalled this theme!</string>

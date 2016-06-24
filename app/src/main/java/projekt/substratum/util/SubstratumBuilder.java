@@ -47,6 +47,7 @@ public class SubstratumBuilder {
 
     public Boolean has_errored_out = false;
     public String parse2_themeName;
+    public String no_install = "";
     private Context mContext;
     private Boolean enable_signing = true;
 
@@ -234,7 +235,7 @@ public class SubstratumBuilder {
         if (parse2_themeName.equals("")) {
             parse2_themeName = "no_name";
         }
-        Log.d("PackageProcessor", "Processing package \"" + overlay_package +
+        Log.d("PackageProcessor", "Processing package \"" + overlay_package + "." +
                 parse2_themeName + ((variant != null || additional_variant != null ||
                 base_resources != null) ? "." + parse2_variantName : "") + "\"");
 
@@ -419,7 +420,6 @@ public class SubstratumBuilder {
                         has_errored_out = true;
                         Log.e("SubstratumBuilder", "Installation of \"" + overlay_package + "\" " +
                                 "overlay has failed.");
-
                     }
                 }
             } catch (Exception e) {
@@ -505,27 +505,13 @@ public class SubstratumBuilder {
                             "failed.");
                 }
             } else {
-                try {
-                    eu.chainfire.libsuperuser.Shell.SU.run(
-                            "pm install -r " + Environment.getExternalStorageDirectory()
-                                    .getAbsolutePath() +
-                                    "/.substratum/" + overlay_package + "." + parse2_themeName +
-                                    "-signed" +
-                                    ".apk");
-
-                    Log.d("SubstratumBuilder", "Silently installing APK...");
-                    if (checkIfPackageInstalled(overlay_package + "." + parse2_themeName,
-                            context)) {
-                        Log.d("SubstratumBuilder", "Overlay APK has successfully been installed!");
-                    } else {
-                        Log.e("SubstratumBuilder", "Overlay APK has failed to install!");
-                    }
-                } catch (Exception e) {
-                    Log.e("SubstratumBuilder", "Overlay APK has failed to install! (Exception)");
-                    has_errored_out = true;
-                    Log.e("SubstratumBuilder", "Installation of \"" + overlay_package + "\" has " +
-                            "failed.");
-                }
+                Log.d("SubstratumBuilder", "Update mode flag disabled, returning one-line " +
+                        "parsable command");
+                no_install = "pm install -r " + Environment.getExternalStorageDirectory()
+                        .getAbsolutePath() +
+                        "/.substratum/" + overlay_package + "." + parse2_themeName +
+                        "-signed" +
+                        ".apk";
             }
         }
     }

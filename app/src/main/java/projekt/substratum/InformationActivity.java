@@ -1227,7 +1227,7 @@ public class InformationActivity extends AppCompatActivity {
 
                         lb = new SubstratumBuilder();
                         lb.beginAction(getApplicationContext(), listStrings.get(i), theme_name,
-                                current_mode.equals("compile_enable") + "", null, null, null);
+                                current_mode.equals("compile_enable") + "", null, null, null, null);
                         if (lb.has_errored_out) {
                             problematicOverlays.add(listStrings.get(i));
                         } else {

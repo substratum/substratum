@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.lang.reflect.Method;
 import java.util.Arrays;
 
 import projekt.substratum.InformationActivityTabs;
@@ -57,6 +56,7 @@ public class MainScreenTab extends Fragment {
             Log.e("SubstratumLogger", "Could not refresh list of asset folders.");
         }
 
+        /*
         try {
             Class typeface = Class.forName("android.graphics.Typeface");
             Method recreateDefaults = typeface.getMethod("recreateDefaults");
@@ -72,7 +72,7 @@ public class MainScreenTab extends Fragment {
             e.printStackTrace();
             Log.e("Reflection", "I'm sorry, I could not reflect on this object at the given " +
                     "time...");
-        }
+        }*/
 
         return root;
     }

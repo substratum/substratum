@@ -83,8 +83,7 @@ public class MainActivity extends AppCompatActivity implements
                 .withProfileImagesVisible(false)
                 .withSelectionListEnabledForSingleProfile(false)
                 .addProfiles(
-                        new ProfileDrawerItem().withName(getString(R.string.app_name) + " " +
-                                "internal test").withEmail
+                        new ProfileDrawerItem().withName(getString(R.string.drawer_name)).withEmail
                                 (BuildConfig.VERSION_NAME))
                 .withCurrentProfileHiddenInList(true)
                 .build();

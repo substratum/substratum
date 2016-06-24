@@ -8,9 +8,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import projekt.substratum.tabs.BootAnimation;
 import projekt.substratum.tabs.MainScreenTab;
 import projekt.substratum.tabs.OverlaysList;
-import projekt.substratum.tabs.BootAnimation;
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
     int mNumOfTabs;

@@ -34,6 +34,7 @@ public class OverlaysInfo implements Serializable {
     private String variantSelected2 = "";
     private String variantSelected3 = "";
     private String variantSelected4 = "";
+    private String baseResources = "";
     private Context context;
 
     public OverlaysInfo(String theme_name, String name, String packageName, boolean isSelected,
@@ -41,7 +42,8 @@ public class OverlaysInfo implements Serializable {
                                 adapter, ArrayAdapter<String>
                                 adapter2, ArrayAdapter<String>
                                 adapter3, ArrayAdapter<String>
-                                adapter4, Context context, String versionName) {
+                                adapter4, Context context, String versionName,
+                        String baseResources) {
 
         this.theme_name = theme_name;
         this.name = name;
@@ -53,6 +55,9 @@ public class OverlaysInfo implements Serializable {
         this.array4 = adapter4;
         this.context = context;
         this.versionName = versionName;
+        if (baseResources != null) this.baseResources = baseResources.replaceAll("\\s+", "")
+                .replaceAll("[^a-zA-Z0-9]+", "");
+        if (baseResources.length() > 0) this.baseResources = "." + baseResources;
         if (adapter != null) variant_mode = true;
     }
 
@@ -207,7 +212,7 @@ public class OverlaysInfo implements Serializable {
     public boolean compareInstalledVariantOverlay(String variant) {
         try {
             PackageInfo pinfo = context.getPackageManager().getPackageInfo(
-                    getPackageName() + "." + theme_name + "." + variant, 0);
+                    getPackageName() + "." + theme_name + "." + variant + baseResources, 0);
             return pinfo.versionName.equals(versionName);
         } catch (PackageManager.NameNotFoundException nnfe) {
             Log.e("SubstratumLogger", "Could not find explicit package identifier in " +
@@ -219,7 +224,7 @@ public class OverlaysInfo implements Serializable {
     public boolean isPackageInstalled(String package_name) {
         PackageManager pm = context.getPackageManager();
         try {
-            pm.getPackageInfo(package_name, PackageManager.GET_ACTIVITIES);
+            pm.getPackageInfo(package_name + baseResources, PackageManager.GET_ACTIVITIES);
             return true;
         } catch (PackageManager.NameNotFoundException e) {
             return false;

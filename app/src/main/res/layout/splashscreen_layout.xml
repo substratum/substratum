@@ -13,6 +13,6 @@
         android:layout_height="130dp"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/splashscreen_image_one"/>
+        android:src="@drawable/substratum_icon"/>
 
 </RelativeLayout>

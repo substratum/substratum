@@ -25,6 +25,11 @@
             android:name=".services.ThemeDetector"
             android:enabled="true"/>
 
+        <activity android:name=".AppIntroActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
+        </activity>
         <activity android:name=".LaunchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -33,6 +38,13 @@
         </activity>
         <activity
             android:name=".SplashScreenActivity"
+            android:theme="@style/SplashScreen.ActivityTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".SplashScreenActivityFirstLaunch"
             android:theme="@style/SplashScreen.ActivityTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

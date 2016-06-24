@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">substratum</string>
+    <string name="drawer_name">projekt substratum</string>
     <string name="restore_app_name">restore theme</string>
 
     <string name="search_play_store_url" translatable="false">"https://play.google.com/store/search?q=Substratum%20Theme&amp;c=apps"</string>
@@ -12,12 +13,14 @@
     <string name="restore_activity_toast">Backup file found! Now restoring&#8230;</string>
     <string name="restore_activity_toast_not_found">No overlay database backup found.</string>
 
+    <string name="overlays_variant_substitute">%s variant&#8230;</string>
     <string name="overlays_variant_default_1a">type1a variant&#8230;</string>
     <string name="overlays_variant_default_1b">type1b variant&#8230;</string>
     <string name="overlays_variant_default_1c">type1c variant&#8230;</string>
     <string name="overlays_variant_default_2">type2 variant&#8230;</string>
+    <string name="overlays_variant_default_3">default base variant&#8230;</string>
     <string name="overlays_up_to_date">UP-TO-DATE</string>
-    <string name="overlays_update_available">Update available! Current installed version (%s)</string>
+    <string name="overlays_update_available">Update available!\nInstalled: (%s)</string>
     <string name="overlays_overlay_not_installed">Variant not installed</string>
     <string name="overlays_compile_update_button">Compile/Update &amp; Install</string>
 
@@ -166,6 +169,9 @@
 
     <string name="contributor_title_1">Substratum Contributors</string>
     <string name="contributor_text_1">Let these people be known that they have contributed greatly to Substratum in terms of design work and our team would like to thank them greatly!</string>
+    <string name="contributor_idan">Idan Shulman</string>
+    <string name="contributor_idan_content">I made all of Substratum\'s animated splashscreen drawables!</string>
+    <string name="contributor_idan_link">https://plus.google.com/u/0/+idanshulman/</string>
     <string name="contributor_travis">Travis Hall (notjustanotherdesigner)</string>
     <string name="contributor_travis_content">I made all of Substratum\'s app intro drawables!</string>
     <string name="contributor_travis_link">https://plus.google.com/+TravisHall/</string>

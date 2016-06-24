@@ -1,7 +1,6 @@
 package projekt.substratum.adapters;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,12 +26,6 @@ public class OverlaysAdapter extends
     public OverlaysAdapter(List<OverlaysInfo> overlayInfo) {
         this.overlayList = overlayInfo;
 
-    }
-
-    private String themeNameParser(String theme_name) {
-        String parse1_themeVariant = theme_name.replaceAll
-                ("\\s+", "");
-        return parse1_themeVariant.replaceAll("[^a-zA-Z0-9]+", "");
     }
 
     @Override
@@ -135,9 +128,18 @@ public class OverlaysAdapter extends
                             if (pos >= 1) {
                                 String packageName = "";
                                 packageName = packageName + arg0.getSelectedItem().toString();
-                                if (viewHolder.optionsSpinner2 != null) if (viewHolder.optionsSpinner2.getSelectedItemPosition() != 0) packageName = packageName + viewHolder.optionsSpinner2.getSelectedItem();
-                                if (viewHolder.optionsSpinner3 != null) if (viewHolder.optionsSpinner3.getSelectedItemPosition() != 0) packageName = packageName + viewHolder.optionsSpinner3.getSelectedItem();
-                                if (viewHolder.optionsSpinner4 != null) if (viewHolder.optionsSpinner4.getSelectedItemPosition() != 0) packageName = packageName + viewHolder.optionsSpinner4.getSelectedItem();
+                                if (viewHolder.optionsSpinner2 != null)
+                                    if (viewHolder.optionsSpinner2.getSelectedItemPosition() != 0)
+                                        packageName = packageName + viewHolder.optionsSpinner2
+                                                .getSelectedItem();
+                                if (viewHolder.optionsSpinner3 != null)
+                                    if (viewHolder.optionsSpinner3.getSelectedItemPosition() != 0)
+                                        packageName = packageName + viewHolder.optionsSpinner3
+                                                .getSelectedItem();
+                                if (viewHolder.optionsSpinner4 != null)
+                                    if (viewHolder.optionsSpinner4.getSelectedItemPosition() != 0)
+                                        packageName = packageName + viewHolder.optionsSpinner4
+                                                .getSelectedItem();
 
                                 if (current_object.isPackageInstalled(current_object
                                         .getPackageName() +
@@ -237,10 +239,19 @@ public class OverlaysAdapter extends
                         } else {
                             if (pos >= 1) {
                                 String packageName = "";
-                                if (viewHolder.optionsSpinner != null) if (viewHolder.optionsSpinner.getSelectedItemPosition() != 0) packageName = packageName + viewHolder.optionsSpinner.getSelectedItem();
+                                if (viewHolder.optionsSpinner != null)
+                                    if (viewHolder.optionsSpinner.getSelectedItemPosition() != 0)
+                                        packageName = packageName + viewHolder.optionsSpinner
+                                                .getSelectedItem();
                                 packageName = packageName + arg0.getSelectedItem().toString();
-                                if (viewHolder.optionsSpinner3 != null) if (viewHolder.optionsSpinner3.getSelectedItemPosition() != 0) packageName = packageName + viewHolder.optionsSpinner3.getSelectedItem();
-                                if (viewHolder.optionsSpinner4 != null) if (viewHolder.optionsSpinner4.getSelectedItemPosition() != 0) packageName = packageName + viewHolder.optionsSpinner4.getSelectedItem();
+                                if (viewHolder.optionsSpinner3 != null)
+                                    if (viewHolder.optionsSpinner3.getSelectedItemPosition() != 0)
+                                        packageName = packageName + viewHolder.optionsSpinner3
+                                                .getSelectedItem();
+                                if (viewHolder.optionsSpinner4 != null)
+                                    if (viewHolder.optionsSpinner4.getSelectedItemPosition() != 0)
+                                        packageName = packageName + viewHolder.optionsSpinner4
+                                                .getSelectedItem();
 
                                 if (current_object.isPackageInstalled(current_object
                                         .getPackageName() +
@@ -340,10 +351,19 @@ public class OverlaysAdapter extends
                         } else {
                             if (pos >= 1) {
                                 String packageName = "";
-                                if (viewHolder.optionsSpinner != null) if (viewHolder.optionsSpinner.getSelectedItemPosition() != 0) packageName = packageName + viewHolder.optionsSpinner.getSelectedItem();
-                                if (viewHolder.optionsSpinner2 != null) if (viewHolder.optionsSpinner2.getSelectedItemPosition() != 0) packageName = packageName + viewHolder.optionsSpinner2.getSelectedItem();
+                                if (viewHolder.optionsSpinner != null)
+                                    if (viewHolder.optionsSpinner.getSelectedItemPosition() != 0)
+                                        packageName = packageName + viewHolder.optionsSpinner
+                                                .getSelectedItem();
+                                if (viewHolder.optionsSpinner2 != null)
+                                    if (viewHolder.optionsSpinner2.getSelectedItemPosition() != 0)
+                                        packageName = packageName + viewHolder.optionsSpinner2
+                                                .getSelectedItem();
                                 packageName = packageName + arg0.getSelectedItem().toString();
-                                if (viewHolder.optionsSpinner4 != null) if (viewHolder.optionsSpinner4.getSelectedItemPosition() != 0) packageName = packageName + viewHolder.optionsSpinner4.getSelectedItem();
+                                if (viewHolder.optionsSpinner4 != null)
+                                    if (viewHolder.optionsSpinner4.getSelectedItemPosition() != 0)
+                                        packageName = packageName + viewHolder.optionsSpinner4
+                                                .getSelectedItem();
 
                                 if (current_object.isPackageInstalled(current_object
                                         .getPackageName() +
@@ -443,9 +463,18 @@ public class OverlaysAdapter extends
                         } else {
                             if (pos >= 1) {
                                 String packageName = "";
-                                if (viewHolder.optionsSpinner != null) if (viewHolder.optionsSpinner.getSelectedItemPosition() != 0) packageName = packageName + viewHolder.optionsSpinner.getSelectedItem();
-                                if (viewHolder.optionsSpinner2 != null) if (viewHolder.optionsSpinner2.getSelectedItemPosition() != 0) packageName = packageName + viewHolder.optionsSpinner2.getSelectedItem();
-                                if (viewHolder.optionsSpinner3 != null) if (viewHolder.optionsSpinner3.getSelectedItemPosition() != 0) packageName = packageName + viewHolder.optionsSpinner3.getSelectedItem();
+                                if (viewHolder.optionsSpinner != null)
+                                    if (viewHolder.optionsSpinner.getSelectedItemPosition() != 0)
+                                        packageName = packageName + viewHolder.optionsSpinner
+                                                .getSelectedItem();
+                                if (viewHolder.optionsSpinner2 != null)
+                                    if (viewHolder.optionsSpinner2.getSelectedItemPosition() != 0)
+                                        packageName = packageName + viewHolder.optionsSpinner2
+                                                .getSelectedItem();
+                                if (viewHolder.optionsSpinner3 != null)
+                                    if (viewHolder.optionsSpinner3.getSelectedItemPosition() != 0)
+                                        packageName = packageName + viewHolder.optionsSpinner3
+                                                .getSelectedItem();
                                 packageName = packageName + arg0.getSelectedItem().toString();
 
                                 if (current_object.isPackageInstalled(current_object

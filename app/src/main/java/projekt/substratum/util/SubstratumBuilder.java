@@ -137,8 +137,6 @@ public class SubstratumBuilder {
         if (folder_abbreviation != 0) {
             String source = "/data/app/" + package_identifier + "-" +
                     folder_abbreviation + "/base.apk";
-            File checkFile = new File(source);
-            long fileSize = checkFile.length();
             File myDir = new File(mContext.getCacheDir(), "SubstratumBuilder");
             if (!myDir.exists()) {
                 myDir.mkdir();
@@ -191,12 +189,14 @@ public class SubstratumBuilder {
     }
 
     public void beginAction(Context context, String overlay_package, String theme_name, String
-            update_mode_input, String variant, String additional_variant, String versionName) {
+            update_mode_input, String variant, String additional_variant, String base_variant,
+                            String versionName) {
 
         has_errored_out = false;
         mContext = context;
         String work_area;
         Boolean update_mode = Boolean.valueOf(update_mode_input);
+        String base_resources = base_variant;
 
         int typeMode = 1;
         if (additional_variant != null) {
@@ -207,7 +207,6 @@ public class SubstratumBuilder {
 
         work_area = mContext.getCacheDir().getAbsolutePath() + "/SubstratumBuilder/assets/overlays/"
                 + overlay_package;
-
 
         // 2. Create a modified Android Manifest for use with aapt
 
@@ -223,12 +222,21 @@ public class SubstratumBuilder {
             String parse1_variantName = variant.replaceAll("\\s+", "");
             parse2_variantName = parse1_variantName.replaceAll("[^a-zA-Z0-9]+", "");
         }
+        if (parse2_variantName.length() > 0) parse2_variantName = "." + parse2_variantName;
+
+        String parse2_baseName = "";
+        if (base_resources != null) {
+            String parse1_baseName = base_resources.replaceAll("\\s+", "");
+            parse2_baseName = parse1_baseName.replaceAll("[^a-zA-Z0-9]+", "");
+        }
+        if (parse2_baseName.length() > 0) parse2_baseName = "." + parse2_baseName;
 
         if (parse2_themeName.equals("")) {
             parse2_themeName = "no_name";
         }
-        Log.d("PackageProcessor", "Processing package \"" + overlay_package + "." +
-                parse2_themeName + "\"");
+        Log.d("PackageProcessor", "Processing package \"" + overlay_package +
+                parse2_themeName + ((variant != null || additional_variant != null ||
+                base_resources != null) ? "." + parse2_variantName : "") + "\"");
 
         // 2b. Create the manifest file based on the new parsed names
 
@@ -243,12 +251,14 @@ public class SubstratumBuilder {
                             "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?>\n" +
                                     "<manifest xmlns:android=\"http://schemas.android" +
                                     ".com/apk/res/android\" package=\"" + overlay_package + "." +
-                                    parse2_themeName + "." + parse2_variantName + "\"\n" +
+                                    parse2_themeName + parse2_variantName + parse2_baseName +
+                                    "\"\n" +
                                     "        android:versionName=\"" + versionName + "\"> \n" +
                                     "    <overlay android:targetPackage=\"" + overlay_package +
                                     "\"/>\n" +
                                     "    <application android:label=\"" + overlay_package + "." +
-                                    parse2_themeName + "." + parse2_variantName + "\">\n" +
+                                    parse2_themeName + parse2_variantName + parse2_baseName +
+                                    "\">\n" +
                                     "        <meta-data android:name=\"Substratum_ID\" " +
                                     "android:value=\"" + getDeviceID() + "\"/>\n" +
                                     "        <meta-data android:name=\"Substratum_IMEI\" " +
@@ -256,30 +266,63 @@ public class SubstratumBuilder {
                                     "        <meta-data android:name=\"Substratum_Parent\" " +
                                     "android:value=\"" + parse2_themeName + "\"/>\n" +
                                     "        <meta-data android:name=\"Substratum_Variant\" " +
-                                    "android:value=\"" + parse2_variantName + "\"/>\n" +
+                                    "android:value=\"" + parse2_variantName + parse2_baseName +
+                                    "\"/>\n" +
                                     "    </application>\n" +
                                     "</manifest>\n";
                     pw.write(manifest);
                 } else {
-                    String manifest =
-                            "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?>\n" +
-                                    "<manifest xmlns:android=\"http://schemas.android" +
-                                    ".com/apk/res/android\" package=\"" + overlay_package + "." +
-                                    parse2_themeName + "\"\n" +
-                                    "        android:versionName=\"" + versionName + "\"> \n" +
-                                    "    <overlay android:targetPackage=\"" + overlay_package +
-                                    "\"/>\n" +
-                                    "    <application android:label=\"" + overlay_package + "." +
-                                    parse2_themeName + "\">\n" +
-                                    "        <meta-data android:name=\"Substratum_ID\" " +
-                                    "android:value=\"" + getDeviceID() + "\"/>\n" +
-                                    "        <meta-data android:name=\"Substratum_IMEI\" " +
-                                    "android:value=\"!" + getDeviceIMEI() + "\"/>\n" +
-                                    "        <meta-data android:name=\"Substratum_Parent\" " +
-                                    "android:value=\"" + parse2_themeName + "\"/>\n" +
-                                    "    </application>\n" +
-                                    "</manifest>\n";
-                    pw.write(manifest);
+                    if (base_resources != null) {
+                        String manifest =
+                                "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?>\n" +
+                                        "<manifest xmlns:android=\"http://schemas.android" +
+                                        ".com/apk/res/android\" package=\"" + overlay_package + "" +
+                                        "." +
+                                        parse2_themeName + parse2_variantName + parse2_baseName +
+                                        "\"\n" +
+                                        "        android:versionName=\"" + versionName + "\"> \n" +
+                                        "    <overlay android:targetPackage=\"" + overlay_package +
+                                        "\"/>\n" +
+                                        "    <application android:label=\"" + overlay_package + "" +
+                                        "." +
+                                        parse2_themeName + parse2_variantName + parse2_baseName +
+                                        "\">\n" +
+                                        "        <meta-data android:name=\"Substratum_ID\" " +
+                                        "android:value=\"" + getDeviceID() + "\"/>\n" +
+                                        "        <meta-data android:name=\"Substratum_IMEI\" " +
+                                        "android:value=\"!" + getDeviceIMEI() + "\"/>\n" +
+                                        "        <meta-data android:name=\"Substratum_Parent\" " +
+                                        "android:value=\"" + parse2_themeName + "\"/>\n" +
+                                        "        <meta-data android:name=\"Substratum_Variant\" " +
+                                        "android:value=\"" + parse2_variantName + parse2_baseName
+                                        + "\"/>\n" +
+                                        "    </application>\n" +
+                                        "</manifest>\n";
+                        pw.write(manifest);
+                    } else {
+                        String manifest =
+                                "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?>\n" +
+                                        "<manifest xmlns:android=\"http://schemas.android" +
+                                        ".com/apk/res/android\" package=\"" + overlay_package + "" +
+                                        "." +
+
+                                        parse2_themeName + "\"\n" +
+                                        "        android:versionName=\"" + versionName + "\"> \n" +
+                                        "    <overlay android:targetPackage=\"" + overlay_package +
+                                        "\"/>\n" +
+                                        "    <application android:label=\"" + overlay_package + "" +
+                                        "." +
+                                        parse2_themeName + "\">\n" +
+                                        "        <meta-data android:name=\"Substratum_ID\" " +
+                                        "android:value=\"" + getDeviceID() + "\"/>\n" +
+                                        "        <meta-data android:name=\"Substratum_IMEI\" " +
+                                        "android:value=\"!" + getDeviceIMEI() + "\"/>\n" +
+                                        "        <meta-data android:name=\"Substratum_Parent\" " +
+                                        "android:value=\"" + parse2_themeName + "\"/>\n" +
+                                        "    </application>\n" +
+                                        "</manifest>\n";
+                        pw.write(manifest);
+                    }
                 }
                 pw.close();
                 bw.close();
@@ -296,42 +339,43 @@ public class SubstratumBuilder {
 
         if (!has_errored_out) {
             try {
-                String commands = "";
+                String commands;
                 if (typeMode == 1) {
                     commands = "aapt p -M " + work_area +
                             "/AndroidManifest.xml -S " +
                             work_area +
-                            "/res/ -I " +
+                            ((base_resources == null) ? "/res/ -I " : "/" + "type3_" +
+                                    base_resources + "/ -I ") +
                             "/system/framework/framework-res.apk -F " +
                             work_area +
                             "/" + overlay_package + "." + parse2_themeName + "-unsigned.apk " +
                             "-f --include-meta-data\n";
                 } else {
-                    if (typeMode == 2) {
-                        if (variant != null) {
-                            commands = "aapt p -M " + work_area +
-                                    "/AndroidManifest.xml -S " +
-                                    work_area +
-                                    "/" + additional_variant + "/ -S " +
-                                    work_area +
-                                    "/res -I " +
-                                    "/system/framework/framework-res.apk -F " +
-                                    work_area +
-                                    "/" + overlay_package + "." + parse2_themeName + "-unsigned" +
-                                    ".apk " +
+                    if (variant != null) {
+                        commands = "aapt p -M " + work_area +
+                                "/AndroidManifest.xml -S " +
+                                work_area +
+                                "/" + "type2_" + additional_variant + "/ -S " +
+                                work_area +
+                                ((base_resources == null) ? "/res/ -I " : "/" + "type3_" +
+                                        base_resources + "/ -I ") +
+                                "/system/framework/framework-res.apk -F " +
+                                work_area +
+                                "/" + overlay_package + "." + parse2_themeName + "-unsigned" +
+                                ".apk " +
 
-                                    "-f --include-meta-data\n";
-                        } else {
-                            commands = "aapt p -M " + work_area +
-                                    "/AndroidManifest.xml -S " +
-                                    work_area +
-                                    "/res/ -I " +
-                                    "/system/framework/framework-res.apk -F " +
-                                    work_area +
-                                    "/" + overlay_package + "." + parse2_themeName + "-unsigned" +
-                                    ".apk " +
-                                    "-f --include-meta-data\n";
-                        }
+                                "-f --include-meta-data\n";
+                    } else {
+                        commands = "aapt p -M " + work_area +
+                                "/AndroidManifest.xml -S " +
+                                work_area +
+                                ((base_resources == null) ? "/res/ -I " : "/" + "type3_" +
+                                        base_resources + "/ -I ") +
+                                "/system/framework/framework-res.apk -F " +
+                                work_area +
+                                "/" + overlay_package + "." + parse2_themeName + "-unsigned" +
+                                ".apk " +
+                                "-f --include-meta-data\n";
                     }
                 }
 
@@ -430,10 +474,9 @@ public class SubstratumBuilder {
                                         "/.substratum/" + overlay_package + "." + parse2_themeName +
                                         "-signed" +
                                         ".apk");
-
                         Log.d("SubstratumBuilder", "Silently installing APK...");
-                        if (checkIfPackageInstalled(overlay_package + "." + parse2_themeName + "." +
-                                parse2_variantName, context)) {
+                        if (checkIfPackageInstalled(overlay_package + "." + parse2_themeName +
+                                parse2_variantName + parse2_baseName, context)) {
                             Log.d("SubstratumBuilder", "Overlay APK has successfully been " +
                                     "installed!");
                         } else {
@@ -446,7 +489,6 @@ public class SubstratumBuilder {
                                         "/.substratum/" + overlay_package + "." + parse2_themeName +
                                         "-signed" +
                                         ".apk");
-
                         Log.d("SubstratumBuilder", "Silently installing APK...");
                         if (checkIfPackageInstalled(overlay_package + "." + parse2_themeName,
                                 context)) {

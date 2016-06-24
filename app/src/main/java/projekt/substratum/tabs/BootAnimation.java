@@ -121,7 +121,6 @@ public class BootAnimation extends Fragment {
             for (int i = 0; i < unparsedBootAnimations.length; i++) {
                 parsedBootAnimations.add(unparsedBootAnimations[i].substring(0,
                         unparsedBootAnimations[i].length() - 4));
-                Log.e("hello", parsedBootAnimations.get(i));
             }
             ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(getActivity(),
                     android.R.layout.simple_spinner_dropdown_item, parsedBootAnimations);

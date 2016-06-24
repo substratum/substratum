@@ -138,6 +138,7 @@ public class InformationActivityTabs extends AppCompatActivity {
         final PagerAdapter adapter = new PagerAdapter
                 (getSupportFragmentManager(), tabLayout.getTabCount());
         if (viewPager != null) {
+            viewPager.setOffscreenPageLimit(5);
             viewPager.setAdapter(adapter);
             viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener
                     (tabLayout));

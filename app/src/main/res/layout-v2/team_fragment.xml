@@ -98,6 +98,10 @@
             layout="@layout/contributor_card_idan"/>
 
         <include
+            android:id="@+id/mihir"
+            layout="@layout/contributor_card_mihir"/>
+
+        <include
             android:id="@+id/sajid"
             layout="@layout/contributor_card_sajid"/>
 

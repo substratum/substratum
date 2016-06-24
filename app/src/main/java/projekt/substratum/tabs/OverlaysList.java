@@ -789,6 +789,18 @@ public class OverlaysList extends Fragment {
                                 .string.toast_compiled_updated),
                         Toast.LENGTH_SHORT);
                 toast.show();
+
+                if (final_commands.length() == 0) {
+                    if (base_spinner.getSelectedItemPosition() == 0) {
+                        new LoadOverlays().execute("");
+                    } else {
+                        String[] commands = {base_spinner.getSelectedItem().toString()};
+                        new LoadOverlays().execute(commands);
+                    }
+                } else {
+                    eu.chainfire.libsuperuser.Shell.SU.run(final_commands);
+                }
+
             } else {
                 if (enable_mode) {
                     if (final_commands.length() > 0) {
@@ -811,8 +823,6 @@ public class OverlaysList extends Fragment {
                         toast.show();
                         enable_mode = false;
                         if (mixAndMatchMode) {
-                            Log.e("eeee", disableBeforeEnabling +
-                                    " && " + final_commands);
                             eu.chainfire.libsuperuser.Shell.SU.run(disableBeforeEnabling +
                                     " && " + final_commands);
                         } else {
@@ -845,8 +855,6 @@ public class OverlaysList extends Fragment {
                             toast.show();
                             disable_mode = false;
                             if (mixAndMatchMode) {
-                                Log.e("DJDJD", disableBeforeEnabling +
-                                        " && " + final_commands);
                                 eu.chainfire.libsuperuser.Shell.SU.run(disableBeforeEnabling +
                                         " && " + final_commands);
                             } else {

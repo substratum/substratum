@@ -1,350 +1,1044 @@
-<animation-list android:oneshot="false"
-                xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:duration="0" android:drawable="@drawable/splashscreen_003" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_004" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_005" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_006" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_007" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_008" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_009" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_010" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_011" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_012" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_013" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_014" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_015" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_016" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_017" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_018" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_019" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_020" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_021" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_022" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_023" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_024" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_025" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_026" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_027" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_028" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_029" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_030" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_031" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_032" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_033" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_034" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_035" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_036" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_037" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_038" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_039" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_040" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_041" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_042" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_043" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_044" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_045" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_046" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_047" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_048" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_049" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_050" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_051" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_052" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_053" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_054" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_055" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_056" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_057" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_058" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_059" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_060" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_061" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_062" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_063" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_064" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_065" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_066" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_067" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_068" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_069" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_070" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_071" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_072" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_073" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_074" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_075" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_076" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_077" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_078" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_079" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_080" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_081" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_082" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_083" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_084" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_085" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_086" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_087" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_088" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_089" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_090" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_091" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_092" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_093" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_094" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_095" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_096" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_097" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_098" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_099" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_100" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_101" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_102" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_103" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_104" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_105" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_106" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_107" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_108" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_109" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_110" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_111" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_112" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_113" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_114" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_115" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_116" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_117" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_118" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_119" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_120" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_121" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_122" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_123" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_124" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_125" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_126" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_127" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_128" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_129" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_130" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_131" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_132" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_133" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_134" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_135" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_136" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_137" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_138" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_139" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_140" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_141" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_142" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_143" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_144" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_145" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_146" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_147" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_148" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_149" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_150" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_151" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_152" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_153" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_154" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_155" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_156" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_157" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_158" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_159" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_160" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_161" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_162" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_163" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_164" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_165" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_166" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_167" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_168" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_169" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_170" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_171" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_172" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_173" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_174" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_175" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_176" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_177" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_178" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_179" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_180" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_181" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_182" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_183" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_184" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_185" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_186" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_187" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_188" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_189" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_190" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_191" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_192" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_193" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_194" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_195" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_196" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_197" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_198" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_199" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_200" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_201" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_202" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_203" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_204" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_205" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_206" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_207" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_208" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_209" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_210" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_211" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_212" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_213" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_214" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_215" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_216" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_217" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_218" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_219" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_220" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_221" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_222" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_223" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_224" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_225" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_226" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_227" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_228" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_229" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_230" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_231" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_232" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_233" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_234" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_235" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_236" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_237" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_238" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_239" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_240" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_241" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_242" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_243" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_244" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_245" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_246" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_247" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_248" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_249" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_250" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_251" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_252" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_253" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_254" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_255" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_256" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_257" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_258" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_259" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_260" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_261" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_262" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_263" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_264" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_265" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_266" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_267" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_268" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_269" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_270" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_271" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_272" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_273" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_274" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_275" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_276" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_277" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_278" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_279" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_280" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_281" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_282" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_283" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_284" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_285" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_286" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_287" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_288" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_289" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_290" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_291" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_292" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_293" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_294" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_295" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_296" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_297" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_298" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_299" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_300" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_301" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_302" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_303" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_304" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_305" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_306" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_307" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_308" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_309" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_310" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_311" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_312" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_313" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_314" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_315" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_316" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_317" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_318" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_319" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_320" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_321" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_322" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_323" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_324" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_325" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_326" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_327" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_328" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_329" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_330" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_331" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_332" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_333" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_334" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_335" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_336" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_337" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_338" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_339" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_340" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_341" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_342" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_343" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_344" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_345" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_346" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_347" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_348" />
-    <item android:duration="0" android:drawable="@drawable/splashscreen_349" />
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+                android:oneshot="false">
+    <item
+        android:drawable="@drawable/splashscreen_003"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_004"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_005"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_006"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_007"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_008"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_009"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_010"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_011"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_012"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_013"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_014"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_015"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_016"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_017"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_018"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_019"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_020"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_021"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_022"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_023"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_024"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_025"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_026"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_027"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_028"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_029"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_030"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_031"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_032"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_033"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_034"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_035"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_036"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_037"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_038"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_039"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_040"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_041"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_042"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_043"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_044"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_045"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_046"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_047"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_048"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_049"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_050"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_051"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_052"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_053"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_054"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_055"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_056"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_057"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_058"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_059"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_060"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_061"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_062"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_063"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_064"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_065"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_066"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_067"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_068"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_069"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_070"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_071"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_072"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_073"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_074"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_075"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_076"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_077"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_078"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_079"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_080"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_081"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_082"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_083"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_084"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_085"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_086"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_087"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_088"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_089"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_090"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_091"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_092"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_093"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_094"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_095"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_096"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_097"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_098"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_099"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_100"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_101"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_102"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_103"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_104"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_105"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_106"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_107"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_108"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_109"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_110"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_111"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_112"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_113"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_114"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_115"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_116"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_117"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_118"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_119"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_120"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_121"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_122"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_123"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_124"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_125"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_126"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_127"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_128"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_129"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_130"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_131"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_132"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_133"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_134"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_135"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_136"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_137"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_138"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_139"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_140"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_141"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_142"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_143"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_144"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_145"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_146"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_147"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_148"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_149"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_150"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_151"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_152"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_153"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_154"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_155"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_156"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_157"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_158"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_159"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_160"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_161"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_162"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_163"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_164"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_165"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_166"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_167"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_168"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_169"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_170"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_171"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_172"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_173"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_174"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_175"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_176"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_177"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_178"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_179"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_180"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_181"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_182"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_183"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_184"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_185"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_186"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_187"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_188"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_189"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_190"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_191"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_192"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_193"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_194"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_195"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_196"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_197"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_198"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_199"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_200"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_201"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_202"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_203"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_204"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_205"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_206"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_207"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_208"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_209"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_210"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_211"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_212"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_213"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_214"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_215"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_216"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_217"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_218"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_219"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_220"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_221"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_222"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_223"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_224"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_225"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_226"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_227"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_228"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_229"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_230"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_231"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_232"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_233"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_234"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_235"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_236"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_237"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_238"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_239"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_240"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_241"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_242"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_243"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_244"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_245"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_246"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_247"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_248"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_249"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_250"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_251"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_252"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_253"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_254"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_255"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_256"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_257"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_258"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_259"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_260"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_261"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_262"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_263"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_264"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_265"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_266"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_267"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_268"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_269"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_270"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_271"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_272"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_273"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_274"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_275"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_276"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_277"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_278"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_279"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_280"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_281"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_282"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_283"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_284"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_285"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_286"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_287"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_288"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_289"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_290"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_291"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_292"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_293"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_294"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_295"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_296"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_297"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_298"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_299"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_300"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_301"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_302"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_303"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_304"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_305"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_306"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_307"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_308"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_309"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_310"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_311"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_312"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_313"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_314"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_315"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_316"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_317"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_318"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_319"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_320"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_321"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_322"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_323"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_324"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_325"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_326"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_327"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_328"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_329"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_330"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_331"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_332"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_333"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_334"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_335"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_336"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_337"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_338"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_339"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_340"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_341"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_342"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_343"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_344"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_345"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_346"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_347"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_348"
+        android:duration="0"/>
+    <item
+        android:drawable="@drawable/splashscreen_349"
+        android:duration="0"/>
 </animation-list>

@@ -237,7 +237,7 @@ public class SubstratumBuilder {
         }
         Log.d("PackageProcessor", "Processing package \"" + overlay_package + "." +
                 parse2_themeName + ((variant != null || additional_variant != null ||
-                base_resources != null) ? "." + parse2_variantName : "") + "\"");
+                base_resources != null) ? "." + parse2_baseName : "") + "\"");
 
         // 2b. Create the manifest file based on the new parsed names
 
@@ -340,13 +340,15 @@ public class SubstratumBuilder {
 
         if (!has_errored_out) {
             try {
+                File type3directory = new File(work_area + "/type3_" + base_resources + "/");
                 String commands;
                 if (typeMode == 1) {
                     commands = "aapt p -M " + work_area +
                             "/AndroidManifest.xml -S " +
                             work_area +
-                            ((base_resources == null) ? "/res/ -I " : "/" + "type3_" +
-                                    base_resources + "/ -I ") +
+                            (((base_resources == null) || !type3directory.exists()) ? "/res/ -I " :
+                                    "/" + "type3_" +
+                                            base_resources + "/ -I ") +
                             "/system/framework/framework-res.apk -F " +
                             work_area +
                             "/" + overlay_package + "." + parse2_themeName + "-unsigned.apk " +
@@ -358,7 +360,8 @@ public class SubstratumBuilder {
                                 work_area +
                                 "/" + "type2_" + additional_variant + "/ -S " +
                                 work_area +
-                                ((base_resources == null) ? "/res/ -I " : "/" + "type3_" +
+                                (((base_resources == null) || !type3directory.exists()) ? "/res/ " +
+                                        "-I " : "/" + "type3_" +
                                         base_resources + "/ -I ") +
                                 "/system/framework/framework-res.apk -F " +
                                 work_area +
@@ -370,7 +373,8 @@ public class SubstratumBuilder {
                         commands = "aapt p -M " + work_area +
                                 "/AndroidManifest.xml -S " +
                                 work_area +
-                                ((base_resources == null) ? "/res/ -I " : "/" + "type3_" +
+                                (((base_resources == null) || !type3directory.exists()) ? "/res/ " +
+                                        "-I " : "/" + "type3_" +
                                         base_resources + "/ -I ") +
                                 "/system/framework/framework-res.apk -F " +
                                 work_area +

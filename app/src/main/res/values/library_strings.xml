@@ -75,6 +75,24 @@
     <!-- License section -->
     <string name="library_gesturerecycler_licenseId">apache_2_0</string>
 
+    <!-- KenBurnsView -->
+    <string name="define_kenburnsview"/>
+    <!-- Author section -->
+    <string name="library_kenburnsview_author" formatted="false">Flávio Faria</string>
+    <string name="library_kenburnsview_authorWebsite" formatted="false">https://plus.google.com/+Fl%C3%A1vioFaria1/posts</string>
+    <!-- Library section -->
+    <string name="library_kenburnsview_libraryName">KenBurnsView</string>
+    <string name="library_kenburnsview_libraryDescription">Android library that provides an extension to ImageView that creates an immersive experience by animating its drawable using the Ken Burns Effect.</string>
+    <string name="library_kenburnsview_libraryWebsite">https://github.com/flavioarfaria/KenBurnsView</string>
+    <string name="library_kenburnsview_libraryVersion">1.0.7</string>
+    <!-- OpenSource section -->
+    <string name="library_kenburnsview_isOpenSource">true</string>
+    <string name="library_kenburnsview_repositoryLink">https://github.com/flavioarfaria/KenBurnsView</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_kenburnsview_classPath">com.flaviofaria:kenburnsview</string>
+    <!-- License section -->
+    <string name="library_kenburnsview_licenseId">apache_2_0</string>
+
     <!-- libsuperuser -->
     <string name="define_libsuperuser"/>
     <!-- Author section -->
@@ -147,6 +165,24 @@
     <!-- License section -->
     <string name="library_materialsheetfab_licenseId">mit</string>
 
+    <!-- Scrolling Image View -->
+    <string name="define_androidscrollingimageview"/>
+    <!-- Author section -->
+    <string name="library_androidscrollingimageview_author">Q42</string>
+    <string name="library_androidscrollingimageview_authorWebsite">https://www.q42.com/</string>
+    <!-- Library section -->
+    <string name="library_androidscrollingimageview_libraryName">AndroidScrollingImageView</string>
+    <string name="library_androidscrollingimageview_libraryDescription">An Android view for displaying repeated continuous side scrolling images. This can be used to create a parallax animation effect.</string>
+    <string name="library_androidscrollingimageview_libraryWebsite">https://github.com/Q42/AndroidScrollingImageView</string>
+    <string name="library_androidscrollingimageview_libraryVersion">1.2</string>
+    <!-- OpenSource section -->
+    <string name="library_androidscrollingimageview_isOpenSource">true</string>
+    <string name="library_androidscrollingimageview_repositoryLink">https://github.com/Q42/AndroidScrollingImageView</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_androidscrollingimageview_classPath">An Android view for displaying repeated continuous side scrolling images. This can be used to create a parallax animation effect.</string>
+    <!-- License section -->
+    <string name="library_androidscrollingimageview_licenseId">apache_2_0</string>
+
     <!-- ZipSigner -->
     <string name="define_zipsigner"/>
     <!-- Author section -->
@@ -164,4 +200,22 @@
     <string name="library_zipsigner_classPath">kellinwood.security.zipsigner</string>
     <!-- License section -->
     <string name="library_zipsigner_licenseId">apache_2_0</string>
+
+    <!-- ZT-Zip -->
+    <string name="define_zt_zip"/>
+    <!-- Author section -->
+    <string name="library_zt_zip_author">ZeroTurnAround</string>
+    <string name="library_zt_zip_authorWebsite">http://zeroturnaround.com/</string>
+    <!-- Library section -->
+    <string name="library_zt_zip_libraryName">ZT-Zip</string>
+    <string name="library_zt_zip_libraryDescription"> The project is built using java.util.zip.* packages for stream based access. Most convenience methods for filesystem usage is also supported.</string>
+    <string name="library_zt_zip_libraryWebsite">https://github.com/zeroturnaround/zt-zip</string>
+    <string name="library_zt_zip_libraryVersion">1.9</string>
+    <!-- OpenSource section -->
+    <string name="library_zt_zip_isOpenSource">true</string>
+    <string name="library_zt_zip_repositoryLink">https://github.com/zeroturnaround/zt-zip</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_zt_zip_classPath">org.zeroturnaround.zt-zip</string>
+    <!-- License section -->
+    <string name="library_zt_zip_licenseId">apache_2_0</string>
 </resources>

@@ -53,15 +53,14 @@ public class OverlaysAdapter extends
                                 .getInheritedContext()
                                 .getString(R.string.overlays_update_available),
                         current_object.versionName);
-
                 viewHolder.overlayState.setText(format);
                 viewHolder.overlayState.setTextColor(current_object.getInheritedContext().
-                        getColor(R.color.overlay_not_enabled_list_entry));
+                        getColor(R.color.overlay_update_available));
             } else {
                 viewHolder.overlayState.setText(current_object.getInheritedContext()
                         .getString(R.string.overlays_up_to_date));
                 viewHolder.overlayState.setTextColor(current_object.getInheritedContext().
-                        getColor(R.color.overlay_installed_list_entry));
+                        getColor(R.color.overlay_update_not_needed));
             }
         } else {
             viewHolder.overlayState.setVisibility(View.GONE);
@@ -129,14 +128,14 @@ public class OverlaysAdapter extends
                                     viewHolder.overlayState.setTextColor(current_object
                                             .getInheritedContext().
                                                     getColor(R.color
-                                                            .overlay_not_enabled_list_entry));
+                                                            .overlay_update_available));
                                 } else {
                                     viewHolder.overlayState.setText(current_object
                                             .getInheritedContext()
                                             .getString(R.string.overlays_up_to_date));
                                     viewHolder.overlayState.setTextColor(current_object
                                             .getInheritedContext().
-                                                    getColor(R.color.overlay_installed_list_entry));
+                                                    getColor(R.color.overlay_update_not_needed));
                                 }
                                 if (current_object.isOverlayEnabled()) {
                                     viewHolder.overlayTargetPackageName.setTextColor(
@@ -194,14 +193,14 @@ public class OverlaysAdapter extends
                                         viewHolder.overlayState.setTextColor(current_object
                                                 .getInheritedContext()
                                                 .getColor(R.color
-                                                        .overlay_not_enabled_list_entry));
+                                                        .overlay_update_available));
                                     } else {
                                         viewHolder.overlayState.setText(current_object
                                                 .getInheritedContext()
                                                 .getString(R.string.overlays_up_to_date));
                                         viewHolder.overlayState.setTextColor(current_object
                                                 .getInheritedContext().getColor(R.color
-                                                        .overlay_installed_list_entry));
+                                                        .overlay_update_not_needed));
                                     }
                                     if (current_object.isOverlayEnabled()) {
                                         viewHolder.overlayTargetPackageName.setTextColor(

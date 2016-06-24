@@ -68,7 +68,6 @@ public class OverlaysList extends Fragment {
     private ArrayList<OverlaysInfo> values2;
     private RecyclerView mRecyclerView;
     private Spinner base_spinner;
-    private MaterialSheetFab materialSheetFab;
     private SharedPreferences prefs;
     private boolean mixAndMatchMode;
     private ArrayList<String> final_runner;
@@ -118,10 +117,8 @@ public class OverlaysList extends Fragment {
         floatingActionButton.show();
 
         // Create material sheet FAB
-        if (floatingActionButton != null && sheetView != null && overlay != null) {
-            materialSheetFab = new MaterialSheetFab<>(floatingActionButton,
-                    sheetView, overlay,
-                    sheetColor, fabColor);
+        if (sheetView != null && overlay != null) {
+            new MaterialSheetFab<>(floatingActionButton, sheetView, overlay, sheetColor, fabColor);
         }
 
         Switch enable_swap = (Switch) root.findViewById(R.id.enable_swap);
@@ -225,7 +222,6 @@ public class OverlaysList extends Fragment {
                         checkedOverlays.add(currentOverlay);
                     }
                 }
-
                 if (base_spinner.getSelectedItemPosition() != 0 &&
                         base_spinner.getVisibility() == View.VISIBLE) {
                     Phase2_InitializeCache phase2_initializeCache = new
@@ -794,8 +790,12 @@ public class OverlaysList extends Fragment {
                     if (base_spinner.getSelectedItemPosition() == 0) {
                         new LoadOverlays().execute("");
                     } else {
-                        String[] commands = {base_spinner.getSelectedItem().toString()};
-                        new LoadOverlays().execute(commands);
+                        if (base_spinner.getVisibility() == View.VISIBLE) {
+                            String[] commands = {base_spinner.getSelectedItem().toString()};
+                            new LoadOverlays().execute(commands);
+                        } else {
+                            new LoadOverlays().execute("");
+                        }
                     }
                 } else {
                     eu.chainfire.libsuperuser.Shell.SU.run(final_commands);
@@ -1092,6 +1092,7 @@ public class OverlaysList extends Fragment {
                     final_runner = new ArrayList<>();
                     if (enable_mode) {
                         String package_name = current_overlay + "." + theme_name_parsed +
+                                ((checkedOverlays.get(i).is_variant_chosen) ? "." : "") +
                                 ((checkedOverlays.get(i).getSelectedVariant() == 0) ? "" :
                                         checkedOverlays.get(i).getSelectedVariantName()) +
                                 ((checkedOverlays.get(i).getSelectedVariant2() == 0) ? "" :
@@ -1106,6 +1107,7 @@ public class OverlaysList extends Fragment {
                     } else {
                         if (disable_mode) {
                             String package_name = current_overlay + "." + theme_name_parsed +
+                                    ((checkedOverlays.get(i).is_variant_chosen) ? "." : "") +
                                     ((checkedOverlays.get(i).getSelectedVariant() == 0) ? "" :
                                             checkedOverlays.get(i).getSelectedVariantName()) +
                                     ((checkedOverlays.get(i).getSelectedVariant2() == 0) ? "" :

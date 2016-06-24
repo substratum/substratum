@@ -236,8 +236,9 @@ public class SubstratumBuilder {
             parse2_themeName = "no_name";
         }
         Log.d("PackageProcessor", "Processing package \"" + overlay_package + "." +
-                parse2_themeName + ((variant != null || additional_variant != null ||
-                base_resources != null) ? "." + parse2_baseName : "") + "\"");
+                parse2_themeName +
+                ((variant != null || additional_variant != null) ? parse2_variantName : "") +
+                ((base_resources != null) ? parse2_variantName : "") + "\"");
 
         // 2b. Create the manifest file based on the new parsed names
 

@@ -226,6 +226,7 @@ public class OverlaysInfo implements Serializable {
     }
 
     public boolean isPackageInstalled(String package_name) {
+
         PackageManager pm = context.getPackageManager();
         try {
             pm.getPackageInfo(package_name + baseResources, PackageManager.GET_ACTIVITIES);
@@ -237,6 +238,8 @@ public class OverlaysInfo implements Serializable {
 
     public String getFullOverlayParameters() {
         return getPackageName() + "." + getThemeName() +
+                (((is_variant_chosen1 || is_variant_chosen2 || is_variant_chosen ||
+                        is_variant_chosen4)) ? "." : "") +
                 ((getSelectedVariant() == 0) ? "" : getSelectedVariantName()) +
                 ((getSelectedVariant2() == 0) ? "" : getSelectedVariantName2()) +
                 ((getSelectedVariant3() == 0) ? "" : getSelectedVariantName3()) +
@@ -246,6 +249,8 @@ public class OverlaysInfo implements Serializable {
 
     public boolean isOverlayEnabled() {
         String package_name = getPackageName() + "." + getThemeName() +
+                (((is_variant_chosen1 || is_variant_chosen2 || is_variant_chosen ||
+                        is_variant_chosen4)) ? "." : "") +
                 ((getSelectedVariant() == 0) ? "" : getSelectedVariantName()) +
                 ((getSelectedVariant2() == 0) ? "" : getSelectedVariantName2()) +
                 ((getSelectedVariant3() == 0) ? "" : getSelectedVariantName3()) +

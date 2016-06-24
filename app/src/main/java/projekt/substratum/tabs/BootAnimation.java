@@ -179,7 +179,6 @@ public class BootAnimation extends Fragment {
         protected String doInBackground(String... sUrl) {
 
             has_failed = false;
-            progress.setProgress(20);
 
             // Move the file from assets folder to a new working area
 
@@ -223,6 +222,15 @@ public class BootAnimation extends Fragment {
                             "of this theme!");
                     has_failed = true;
                 }
+
+                // Rename the file
+
+                File workingDirectory = new File(getContext().getCacheDir()
+                        .getAbsolutePath() + "/BootAnimationCache/AnimationCreator/");
+                File from = new File(workingDirectory, bootanimation + ".zip");
+                bootanimation = bootanimation.replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "");
+                File to = new File(workingDirectory, bootanimation + ".zip");
+                from.renameTo(to);
             }
 
             if (!has_failed) {

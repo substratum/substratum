@@ -1,7 +1,6 @@
 package projekt.substratum.adapters;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -301,12 +300,14 @@ public class OverlaysAdapter extends
                                     .optionsSpinner3.getVisibility() == View.VISIBLE)
                                 if (viewHolder.optionsSpinner3.getSelectedItemPosition() != 0)
                                     packageName = packageName + viewHolder.optionsSpinner3
-                                            .getSelectedItem().toString().replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "");
+                                            .getSelectedItem().toString().replaceAll("\\s+", "")
+                                            .replaceAll("[^a-zA-Z0-9]+", "");
                             if (viewHolder.optionsSpinner4 != null && viewHolder
                                     .optionsSpinner4.getVisibility() == View.VISIBLE)
                                 if (viewHolder.optionsSpinner4.getSelectedItemPosition() != 0)
                                     packageName = packageName + viewHolder.optionsSpinner4
-                                            .getSelectedItem().toString().replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "");
+                                            .getSelectedItem().toString().replaceAll("\\s+", "")
+                                            .replaceAll("[^a-zA-Z0-9]+", "");
                             commitChanges(current_object, viewHolder, packageName);
                         }
                     }
@@ -418,6 +419,24 @@ public class OverlaysAdapter extends
             viewHolder.optionsSpinner2.setVisibility(View.GONE);
             viewHolder.optionsSpinner3.setVisibility(View.GONE);
             viewHolder.optionsSpinner4.setVisibility(View.GONE);
+            if (current_object.isOverlayEnabled()) {
+                viewHolder.overlayTargetPackageName.setTextColor(
+                        current_object.getInheritedContext().getColor
+                                (R.color.overlay_installed_list_entry));
+            } else {
+                if (current_object.isPackageInstalled(current_object
+                        .getFullOverlayParameters())) {
+                    viewHolder.overlayTargetPackageName.setTextColor(
+                            current_object.getInheritedContext()
+                                    .getColor(R.color
+                                            .overlay_not_enabled_list_entry));
+                } else {
+                    viewHolder.overlayTargetPackageName.setTextColor(
+                            current_object.getInheritedContext()
+                                    .getColor(R.color
+                                            .overlay_not_installed_list_entry));
+                }
+            }
         }
     }
 

@@ -256,9 +256,9 @@ public class OverlaysInfo implements Serializable {
                         () == 0 &&
                         getSelectedVariant4() == 0)) ? "" : ".") +
                 (((getSelectedVariant() == 0) ? "" : getSelectedVariantName()) +
-                ((getSelectedVariant2() == 0) ? "" : getSelectedVariantName2()) +
-                ((getSelectedVariant3() == 0) ? "" : getSelectedVariantName3()) +
-                ((getSelectedVariant4() == 0) ? "" : getSelectedVariantName4()))
+                        ((getSelectedVariant2() == 0) ? "" : getSelectedVariantName2()) +
+                        ((getSelectedVariant3() == 0) ? "" : getSelectedVariantName3()) +
+                        ((getSelectedVariant4() == 0) ? "" : getSelectedVariantName4()))
                         .replaceAll("\\s", "").replaceAll("[^a-zA-Z0-9]+", "") +
                 ((baseResources.length() == 0) ? "" : "." + baseResources);
     }
@@ -269,9 +269,9 @@ public class OverlaysInfo implements Serializable {
                         () == 0 &&
                         getSelectedVariant4() == 0)) ? "" : ".") +
                 (((getSelectedVariant() == 0) ? "" : getSelectedVariantName()) +
-                ((getSelectedVariant2() == 0) ? "" : getSelectedVariantName2()) +
-                ((getSelectedVariant3() == 0) ? "" : getSelectedVariantName3()) +
-                ((getSelectedVariant4() == 0) ? "" : getSelectedVariantName4()))
+                        ((getSelectedVariant2() == 0) ? "" : getSelectedVariantName2()) +
+                        ((getSelectedVariant3() == 0) ? "" : getSelectedVariantName3()) +
+                        ((getSelectedVariant4() == 0) ? "" : getSelectedVariantName4()))
                         .replaceAll("\\s", "").replaceAll("[^a-zA-Z0-9]+", "") +
                 ((baseResources.length() == 0) ? "" : "." + baseResources);
         if (isPackageInstalled(package_name)) {

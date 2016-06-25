@@ -33,6 +33,7 @@ import android.widget.Toast;
 import com.gordonwong.materialsheetfab.MaterialSheetFab;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -980,6 +981,13 @@ public class OverlaysList extends Fragment {
 
                                 String targetLocation = workingDirectory +
                                         "/res/values/type1a.xml";
+                                String targetLocation1a = workingDirectory + "/" + sUrl[0] +
+                                        "/values/type1a.xml";
+
+                                File checker = new File(targetLocation1a);
+                                if (checker.exists()) {
+                                    targetLocation = targetLocation1a;
+                                }
 
                                 Log.d("SubstratumBuilder", "You have selected variant file \"" +
                                         checkedOverlays.get(i).getSelectedVariantName() + "\"");
@@ -997,6 +1005,13 @@ public class OverlaysList extends Fragment {
 
                                 String targetLocation2 = workingDirectory +
                                         "/res/values/type1b.xml";
+                                String targetLocation1b = workingDirectory + "/" + sUrl[0] +
+                                        "/values/type1b.xml";
+
+                                File checker = new File(targetLocation1b);
+                                if (checker.exists()) {
+                                    targetLocation2 = targetLocation1b;
+                                }
 
                                 Log.d("SubstratumBuilder", "You have selected variant file \"" +
                                         checkedOverlays.get(i).getSelectedVariantName2() + "\"");
@@ -1012,7 +1027,14 @@ public class OverlaysList extends Fragment {
                                         checkedOverlays.get(i).getSelectedVariantName3() + ".xml";
 
                                 String targetLocation3 = workingDirectory +
-                                        "/res/values/type1c.xml";
+                                        "/res/values/type1b.xml";
+                                String targetLocation1c = workingDirectory + "/" + sUrl[0] +
+                                        "/values/type1b.xml";
+
+                                File checker = new File(targetLocation1c);
+                                if (checker.exists()) {
+                                    targetLocation3 = targetLocation1c;
+                                }
 
                                 Log.d("SubstratumBuilder", "You have selected variant file \"" +
                                         checkedOverlays.get(i).getSelectedVariantName3() + "\"");
@@ -1053,8 +1075,9 @@ public class OverlaysList extends Fragment {
                                 packageName = (packageName + checkedOverlays.get(i)
                                         .getSelectedVariantName4()).replaceAll("\\s+", "")
                                         .replaceAll("[^a-zA-Z0-9]+", "");
-                                Log.d("SubstratumBuilder", "Currently processing package" +
-                                        " \"" + current_overlay + "." + packageName + "\"...");
+                                Log.d("PackageProcessor", "Currently processing package" +
+                                        " \"" + checkedOverlays.get(i).getFullOverlayParameters() +
+                                        "\"...");
 
                                 if (sUrl[0].length() != 0) {
                                     sb = new SubstratumBuilder();
@@ -1072,6 +1095,10 @@ public class OverlaysList extends Fragment {
                                             versionName);
                                 }
                             } else {
+                                Log.d("PackageProcessor", "Currently processing package" +
+                                        " \"" + checkedOverlays.get(i).getFullOverlayParameters() +
+                                        "\"...");
+
                                 if (sUrl[0].length() != 0) {
                                     sb = new SubstratumBuilder();
                                     sb.beginAction(getContext(), current_overlay, theme_name,
@@ -1121,7 +1148,6 @@ public class OverlaysList extends Fragment {
                     if (final_runner == null) final_runner = new ArrayList<>();
                     if (enable_mode) {
                         String package_name = checkedOverlays.get(i).getFullOverlayParameters();
-                        Log.e("DJJD", package_name);
                         if (isPackageInstalled(getContext(), package_name))
                             final_runner.add("om enable " + package_name);
                     } else {

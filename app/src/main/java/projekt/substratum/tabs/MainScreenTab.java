@@ -56,24 +56,6 @@ public class MainScreenTab extends Fragment {
             Log.e("SubstratumLogger", "Could not refresh list of asset folders.");
         }
 
-        /*
-        try {
-            Class typeface = Class.forName("android.graphics.Typeface");
-            Method recreateDefaults = typeface.getMethod("recreateDefaults");
-            recreateDefaults.invoke(null, null);
-
-            Class canvas = Class.forName("android.graphics.Canvas");
-            Method freeTextLayoutCaches = canvas.getMethod("freeTextLayoutCaches");
-            freeTextLayoutCaches.invoke(null, null);
-
-            Log.e("Reflection", "Mom, I have reflected on my decisions and have decided to be a " +
-                    "good kid from now on.");
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.e("Reflection", "I'm sorry, I could not reflect on this object at the given " +
-                    "time...");
-        }*/
-
         return root;
     }
 }

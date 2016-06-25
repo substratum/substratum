@@ -447,7 +447,7 @@ public class SubstratumBuilder {
                                 "/.substratum/" + overlay_package + "." + parse2_themeName +
                                 "-unsigned.apk");
 
-                // Sign with the built-in auto-test key/certificate.
+                // Sign with the built-in test key/certificate.
                 String source = work_area + "/" + overlay_package + "." + parse2_themeName +
                         "-unsigned.apk";
                 String destination = Environment.getExternalStorageDirectory().getAbsolutePath() +

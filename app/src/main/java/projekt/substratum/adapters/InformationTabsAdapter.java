@@ -9,13 +9,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import projekt.substratum.tabs.BootAnimation;
+import projekt.substratum.tabs.FontInstaller;
 import projekt.substratum.tabs.MainScreenTab;
 import projekt.substratum.tabs.OverlaysList;
 
-public class PagerAdapter extends FragmentStatePagerAdapter {
+public class InformationTabsAdapter extends FragmentStatePagerAdapter {
     int mNumOfTabs;
 
-    public PagerAdapter(FragmentManager fm, int NumOfTabs) {
+    public InformationTabsAdapter(FragmentManager fm, int NumOfTabs) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
     }
@@ -33,6 +34,9 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
             case 2:
                 BootAnimation tab3 = new BootAnimation();
                 return tab3;
+            case 3:
+                FontInstaller tab4 = new FontInstaller();
+                return tab4;
             default:
                 return null;
         }

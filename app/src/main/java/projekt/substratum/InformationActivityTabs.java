@@ -123,6 +123,10 @@ public class InformationActivityTabs extends AppCompatActivity {
                     tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
                             .theme_information_tab_three)));
                 }
+                if (Arrays.asList(am.list("")).contains("fonts")) {
+                    tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
+                            .theme_information_tab_four)));
+                }
             } catch (Exception e) {
                 Log.e("SubstratumLogger", "Could not refresh list of asset folders.");
             }

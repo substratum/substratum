@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">substratum</string>
+    <string name="helper_name">substratum overlay helper</string>
     <string name="drawer_name">projekt substratum</string>
     <string name="restore_app_name">restore theme</string>
 
@@ -28,9 +29,14 @@
     <string name="bootanimation_dialog_apply_success">Boot animation applied!</string>
     <string name="bootanimation_dialog_apply_failed">Boot animation failed to apply&#8230;</string>
 
+    <string name="font_dialog_apply_text">Font pack is processing&#8230;</string>
+    <string name="font_dialog_apply_success">Font pack has been applied!</string>
+    <string name="font_dialog_apply_failed">Font pack has failed to apply&#8230;</string>
+
     <string name="theme_information_tab_one">Quick Apply</string>
-    <string name="theme_information_tab_two">Compile/Update</string>
-    <string name="theme_information_tab_three">Bootanimation</string>
+    <string name="theme_information_tab_two">Overlay Manager</string>
+    <string name="theme_information_tab_three">Boot animation</string>
+    <string name="theme_information_tab_four">Fonts</string>
     <string name="theme_information_quick_apply_style">Style</string>
     <string name="theme_information_quick_apply_bootanimation_text">Custom Boot Animation</string>
     <string name="theme_information_quick_apply_bootanimation_title">Applies a custom bootanimation to your device boot.</string>

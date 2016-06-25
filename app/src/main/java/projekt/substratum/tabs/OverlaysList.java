@@ -334,7 +334,7 @@ public class OverlaysList extends Fragment {
                         theme_pid, 0);
                 versionName = pinfo.versionName;
             } catch (Exception e) {
-                Log.e("SubstratumLogger", "Window was destroyed before AsyncTask could perform " +
+                Log.e("OverlaysList", "Window was destroyed before AsyncTask could perform " +
                         "postExecute()");
             }
 
@@ -364,7 +364,7 @@ public class OverlaysList extends Fragment {
                         }
                     }
                 } catch (Exception e) {
-                    Log.e("SubstratumLogger", "Window was destroyed before AsyncTask could " +
+                    Log.e("OverlaysList", "Window was destroyed before AsyncTask could " +
                             "perform postExecute()");
                 }
             }
@@ -641,7 +641,7 @@ public class OverlaysList extends Fragment {
                         }
                     }
                 } catch (Exception e) {
-                    Log.e("SubstratumLogger", "Window was destroyed before AsyncTask could " +
+                    Log.e("OverlaysList", "Window was destroyed before AsyncTask could " +
                             "perform postExecute()");
                 }
             }

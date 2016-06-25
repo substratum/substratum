@@ -173,6 +173,9 @@ public class BootAnimation extends Fragment {
                         getString(R.string.bootanimation_dialog_apply_failed), Toast.LENGTH_LONG);
                 toast.show();
             }
+            eu.chainfire.libsuperuser.Shell.SU.run("mount -o remount,ro /");
+            eu.chainfire.libsuperuser.Shell.SU.run("mount -o remount,ro /data");
+            eu.chainfire.libsuperuser.Shell.SU.run("mount -o remount,ro /system");
         }
 
         @Override
@@ -228,7 +231,8 @@ public class BootAnimation extends Fragment {
                 File workingDirectory = new File(getContext().getCacheDir()
                         .getAbsolutePath() + "/BootAnimationCache/AnimationCreator/");
                 File from = new File(workingDirectory, bootanimation + ".zip");
-                bootanimation = bootanimation.replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "");
+                bootanimation = bootanimation.replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+",
+                        "");
                 File to = new File(workingDirectory, bootanimation + ".zip");
                 from.renameTo(to);
             }
@@ -458,7 +462,8 @@ public class BootAnimation extends Fragment {
                 imageButton.setClickable(true);
                 progressBar.setVisibility(View.GONE);
             } catch (Exception e) {
-                Log.e("SubstratumLogger", "Window was destroyed before AsyncTask could perform postExecute()");
+                Log.e("BootAnimation", "Window was destroyed before AsyncTask could perform " +
+                        "postExecute()");
             }
         }
 
@@ -492,7 +497,8 @@ public class BootAnimation extends Fragment {
                             .getAbsolutePath() + "/BootAnimationCache/" + source);
                     CopyStream(inputStream, outputStream);
                 } catch (Exception e) {
-                    Log.e("SubstratumLogger", "There is no bootanimation.zip found within the assets " +
+                    Log.e("SubstratumLogger", "There is no bootanimation.zip found within the " +
+                            "assets " +
 
                             "of this theme!");
                 }
@@ -533,7 +539,8 @@ public class BootAnimation extends Fragment {
                     animation.addFrame(frame, duration);
                 }
             } catch (Exception e) {
-                Log.e("BootAnimationHelper", "Unexpectedly lost connection to the application host");
+                Log.e("BootAnimationHelper", "Unexpectedly lost connection to the application " +
+                        "host");
             }
             return null;
         }

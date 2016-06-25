@@ -333,9 +333,9 @@ public class OverlaysList extends Fragment {
                 PackageInfo pinfo = getContext().getPackageManager().getPackageInfo(
                         theme_pid, 0);
                 versionName = pinfo.versionName;
-            } catch (PackageManager.NameNotFoundException nnfe) {
-                Log.e("SubstratumLogger", "Could not find explicit package identifier in " +
-                        "package manager list.");
+            } catch (Exception e) {
+                Log.e("SubstratumLogger", "Window was destroyed before AsyncTask could perform " +
+                        "postExecute()");
             }
 
             eu.chainfire.libsuperuser.Shell.SU.run("cp /data/system/overlays.xml " +
@@ -363,9 +363,9 @@ public class OverlaysList extends Fragment {
                             }
                         }
                     }
-                } catch (PackageManager.NameNotFoundException nnfe) {
-                    Log.e("SubstratumLogger", "Could not find explicit package name " +
-                            "from installed overlays list.");
+                } catch (Exception e) {
+                    Log.e("SubstratumLogger", "Window was destroyed before AsyncTask could " +
+                            "perform postExecute()");
                 }
             }
 
@@ -640,9 +640,9 @@ public class OverlaysList extends Fragment {
                                     "listing");
                         }
                     }
-                } catch (PackageManager.NameNotFoundException nnfe) {
-                    Log.e("SubstratumLogger", "Could not find explicit package identifier" +
-                            " in package manager list.");
+                } catch (Exception e) {
+                    Log.e("SubstratumLogger", "Window was destroyed before AsyncTask could " +
+                            "perform postExecute()");
                 }
             }
             return null;

@@ -166,7 +166,7 @@ public class OverlaysInfo implements Serializable {
     }
 
     public String getSelectedVariantName() {
-        return variantSelected;
+        return variantSelected.replaceAll("\\s+", "");
     }
 
     public void setSelectedVariantName(String variantName) {
@@ -174,7 +174,7 @@ public class OverlaysInfo implements Serializable {
     }
 
     public String getSelectedVariantName2() {
-        return variantSelected2;
+        return variantSelected2.replaceAll("\\s+", "");
     }
 
     public void setSelectedVariantName2(String variantName) {
@@ -182,7 +182,7 @@ public class OverlaysInfo implements Serializable {
     }
 
     public String getSelectedVariantName3() {
-        return variantSelected3;
+        return variantSelected3.replaceAll("\\s+", "");
     }
 
     public void setSelectedVariantName3(String variantName) {
@@ -190,7 +190,7 @@ public class OverlaysInfo implements Serializable {
     }
 
     public String getSelectedVariantName4() {
-        return variantSelected4;
+        return variantSelected4.replaceAll("\\s+", "");
     }
 
     public void setSelectedVariantName4(String variantName) {
@@ -226,7 +226,6 @@ public class OverlaysInfo implements Serializable {
     }
 
     public boolean isPackageInstalled(String package_name) {
-
         PackageManager pm = context.getPackageManager();
         try {
             pm.getPackageInfo(package_name + baseResources, PackageManager.GET_ACTIVITIES);

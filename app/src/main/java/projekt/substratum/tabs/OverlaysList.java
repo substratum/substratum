@@ -1120,32 +1120,13 @@ public class OverlaysList extends Fragment {
                 } else {
                     if (final_runner == null) final_runner = new ArrayList<>();
                     if (enable_mode) {
-                        String package_name = current_overlay + "." + theme_name_parsed +
-                                ((checkedOverlays.get(i).is_variant_chosen) ? "." : "") +
-                                ((checkedOverlays.get(i).getSelectedVariant() == 0) ? "" :
-                                        checkedOverlays.get(i).getSelectedVariantName()) +
-                                ((checkedOverlays.get(i).getSelectedVariant2() == 0) ? "" :
-                                        checkedOverlays.get(i).getSelectedVariantName2()) +
-                                ((checkedOverlays.get(i).getSelectedVariant3() == 0) ? "" :
-                                        checkedOverlays.get(i).getSelectedVariantName3()) +
-                                ((checkedOverlays.get(i).getSelectedVariant4() == 0) ? "" :
-                                        checkedOverlays.get(i).getSelectedVariantName4()) +
-                                ((sUrl[0].length() == 0) ? "" : "." + sUrl[0]);
+                        String package_name = checkedOverlays.get(i).getFullOverlayParameters();
+                        Log.e("DJJD", package_name);
                         if (isPackageInstalled(getContext(), package_name))
                             final_runner.add("om enable " + package_name);
                     } else {
                         if (disable_mode) {
-                            String package_name = current_overlay + "." + theme_name_parsed +
-                                    ((checkedOverlays.get(i).is_variant_chosen) ? "." : "") +
-                                    ((checkedOverlays.get(i).getSelectedVariant() == 0) ? "" :
-                                            checkedOverlays.get(i).getSelectedVariantName()) +
-                                    ((checkedOverlays.get(i).getSelectedVariant2() == 0) ? "" :
-                                            checkedOverlays.get(i).getSelectedVariantName2()) +
-                                    ((checkedOverlays.get(i).getSelectedVariant3() == 0) ? "" :
-                                            checkedOverlays.get(i).getSelectedVariantName3()) +
-                                    ((checkedOverlays.get(i).getSelectedVariant4() == 0) ? "" :
-                                            checkedOverlays.get(i).getSelectedVariantName4()) +
-                                    ((sUrl[0].length() == 0) ? "" : "." + sUrl[0]);
+                            String package_name = checkedOverlays.get(i).getFullOverlayParameters();
                             if (isPackageInstalled(getContext(), package_name))
                                 final_runner.add("om disable " + package_name);
                         }

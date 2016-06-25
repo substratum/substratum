@@ -14,7 +14,7 @@
     <string name="restore_activity_toast">Backup file found! Now restoring&#8230;</string>
     <string name="restore_activity_toast_not_found">No overlay database backup found.</string>
 
-    <string name="overlays_variant_substitute">%s variant&#8230;</string>
+    <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">type1a variant&#8230;</string>
     <string name="overlays_variant_default_1b">type1b variant&#8230;</string>
     <string name="overlays_variant_default_1c">type1c variant&#8230;</string>
@@ -35,8 +35,8 @@
 
     <string name="theme_information_tab_one">Quick Apply</string>
     <string name="theme_information_tab_two">Overlay Manager</string>
-    <string name="theme_information_tab_three">Boot animation</string>
-    <string name="theme_information_tab_four">Fonts</string>
+    <string name="theme_information_tab_three">Boot animations</string>
+    <string name="theme_information_tab_four">Font Packs</string>
     <string name="theme_information_quick_apply_style">Style</string>
     <string name="theme_information_quick_apply_fonts">System Fonts</string>
     <string name="theme_information_quick_apply_bootanimation_text">Custom Boot Animation</string>

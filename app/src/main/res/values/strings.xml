@@ -38,8 +38,11 @@
     <string name="theme_information_tab_three">Boot animation</string>
     <string name="theme_information_tab_four">Fonts</string>
     <string name="theme_information_quick_apply_style">Style</string>
+    <string name="theme_information_quick_apply_fonts">System Fonts</string>
     <string name="theme_information_quick_apply_bootanimation_text">Custom Boot Animation</string>
     <string name="theme_information_quick_apply_bootanimation_title">Applies a custom bootanimation to your device boot.</string>
+    <string name="theme_information_quick_apply_fonts_title">Fonts</string>
+    <string name="theme_information_quick_apply_fonts_text">Applies a custom font to your device on the fly.</string>
     <string name="theme_information_quick_apply_sounds_title">System Sounds</string>
     <string name="theme_information_quick_apply_sounds_text">Applies all custom system sounds from this theme</string>
     <string name="theme_information_quick_apply_system_overlay_title">System overlays</string>

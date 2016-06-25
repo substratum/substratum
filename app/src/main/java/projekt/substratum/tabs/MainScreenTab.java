@@ -32,6 +32,8 @@ public class MainScreenTab extends Fragment {
 
         TextView bootAnimTitle = (TextView) root.findViewById(R.id.bootAnimTitle);
         CardView bootAnimCard = (CardView) root.findViewById(R.id.bootAnimCard);
+        TextView fontsTitle = (TextView) root.findViewById(R.id.fontsTitle);
+        CardView fontsText = (CardView) root.findViewById(R.id.fontsCard);
         TextView soundsTitle = (TextView) root.findViewById(R.id.soundsTitle);
         CardView soundsCard = (CardView) root.findViewById(R.id.soundsCard);
 
@@ -44,6 +46,13 @@ public class MainScreenTab extends Fragment {
             } else {
                 bootAnimTitle.setVisibility(View.GONE);
                 bootAnimCard.setVisibility(View.GONE);
+            }
+            if (Arrays.asList(am.list("")).contains("fonts")) {
+                fontsTitle.setVisibility(View.VISIBLE);
+                fontsText.setVisibility(View.VISIBLE);
+            } else {
+                fontsTitle.setVisibility(View.GONE);
+                fontsText.setVisibility(View.GONE);
             }
             if (Arrays.asList(am.list("")).contains("system_sounds")) {
                 soundsTitle.setVisibility(View.VISIBLE);

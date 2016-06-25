@@ -25,6 +25,7 @@
     <string name="overlays_overlay_not_installed">Variant not installed</string>
     <string name="overlays_compile_update_button">Compile/Update &amp; Install</string>
 
+    <string name="bootanimation_vm_exploded">Rendering of boot animation has been terminated due to insufficient memory allocation.\n\nInstallation of this boot animation is still possible without a rendered preview.</string>
     <string name="bootanimation_dialog_apply_text">Boot animation is processing&#8230;</string>
     <string name="bootanimation_dialog_apply_success">Boot animation applied!</string>
     <string name="bootanimation_dialog_apply_failed">Boot animation failed to apply&#8230;</string>

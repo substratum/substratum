@@ -22,6 +22,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.zeroturnaround.zip.FileSource;
@@ -68,6 +69,7 @@ public class BootAnimation extends Fragment {
     private ColorStateList unchecked, checked;
     private ProgressDialog progress;
     private boolean has_failed;
+    private TextView vm_blown;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
@@ -81,6 +83,8 @@ public class BootAnimation extends Fragment {
         animation.setOneShot(false);
 
         progressBar = (MaterialProgressBar) root.findViewById(R.id.progress_bar_loader);
+
+        vm_blown = (TextView) root.findViewById(R.id.vm_blown);
 
         imageButton = (ImageButton) root.findViewById(R.id.checkBox);
         imageButton.setClickable(false);
@@ -419,7 +423,6 @@ public class BootAnimation extends Fragment {
                         "rm -r " + getContext().getCacheDir().getAbsolutePath() +
                                 "/BootAnimationCache/AnimationCreator/");
             }
-
             return null;
         }
 
@@ -446,10 +449,12 @@ public class BootAnimation extends Fragment {
             bootAnimationPreview.setImageDrawable(null);
             images.clear();
             progressBar.setVisibility(View.VISIBLE);
+            if (vm_blown.getVisibility() == View.VISIBLE) vm_blown.setVisibility(View.GONE);
         }
 
         @Override
         protected void onPostExecute(String result) {
+            if (result == "true") vm_blown.setVisibility(View.VISIBLE);
             try {
                 Log.d("SubstratumLogger", "Loaded boot animation contains " + images.size() + " " +
                         "frames.");
@@ -510,36 +515,44 @@ public class BootAnimation extends Fragment {
                                 "/BootAnimationCache/animation_preview/");
 
                 // Begin creating the animated drawable
-                int counter = 0;
-                boolean has_stopped = false;
-                while (!has_stopped) {
-                    File current_directory = new File(getContext().getCacheDir(),
-                            "/BootAnimationCache/" +
-                                    "animation_preview/part" + counter);
-                    String directory = getContext().getCacheDir().getAbsolutePath() +
-                            "/BootAnimationCache/" +
-                            "animation_preview/part" + counter + "/";
-                    if (current_directory.exists()) {
-                        String[] dirObjects = current_directory.list();
-                        for (int j = 0; j < dirObjects.length && images.size() <= 200; j++) {
-                            Bitmap bitmap = BitmapFactory.decodeFile(directory + dirObjects[j]);
-                            images.add(bitmap);
+                try {
+                    int counter = 0;
+                    boolean has_stopped = false;
+                    while (!has_stopped) {
+                        File current_directory = new File(getContext().getCacheDir(),
+                                "/BootAnimationCache/" +
+                                        "animation_preview/part" + counter);
+                        String directory = getContext().getCacheDir().getAbsolutePath() +
+                                "/BootAnimationCache/" +
+                                "animation_preview/part" + counter + "/";
+                        if (current_directory.exists()) {
+                            String[] dirObjects = current_directory.list();
+                            for (int j = 0; j < dirObjects.length && images.size() <= 200; j++) {
+                                Bitmap bitmap = BitmapFactory.decodeFile(directory + dirObjects[j]);
+                                images.add(bitmap);
+                            }
+                        } else {
+                            has_stopped = true;
                         }
-                    } else {
-                        has_stopped = true;
+                        counter += 1;
                     }
-                    counter += 1;
 
-                }
+                    int duration = 40;
 
-                int duration = 40;
-
-                for (Bitmap image : images) {
-                    BitmapDrawable frame = new BitmapDrawable(image);
-                    animation.addFrame(frame, duration);
+                    for (Bitmap image : images) {
+                        BitmapDrawable frame = new BitmapDrawable(image);
+                        animation.addFrame(frame, duration);
+                    }
+                } catch (OutOfMemoryError oome) {
+                    Log.e("BootAnimationHandler", "The VM has been blown up and the rendering of " +
+                            "this bootanimation has been cancelled.");
+                    animation = new AnimationDrawable();
+                    animation.setOneShot(false);
+                    images.clear();
+                    return "true";
                 }
             } catch (Exception e) {
-                Log.e("BootAnimationHelper", "Unexpectedly lost connection to the application " +
+                Log.e("BootAnimationHandler", "Unexpectedly lost connection to the application " +
                         "host");
             }
             return null;

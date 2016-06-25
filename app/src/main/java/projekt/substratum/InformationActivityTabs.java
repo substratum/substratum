@@ -22,7 +22,7 @@ import com.flaviofaria.kenburnsview.KenBurnsView;
 
 import java.util.Arrays;
 
-import projekt.substratum.adapters.PagerAdapter;
+import projekt.substratum.adapters.InformationTabsAdapter;
 
 /**
  * @author Nicholas Chum (nicholaschum)
@@ -135,10 +135,10 @@ public class InformationActivityTabs extends AppCompatActivity {
             collapsingToolbarLayout.setContentScrimColor(dominantColor);
         }
 
-        final PagerAdapter adapter = new PagerAdapter
+        final InformationTabsAdapter adapter = new InformationTabsAdapter
                 (getSupportFragmentManager(), tabLayout.getTabCount());
         if (viewPager != null) {
-            viewPager.setOffscreenPageLimit(5);
+            viewPager.setOffscreenPageLimit(tabLayout.getTabCount());
             viewPager.setAdapter(adapter);
             viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener
                     (tabLayout));

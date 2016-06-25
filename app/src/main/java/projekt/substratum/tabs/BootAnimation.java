@@ -446,85 +446,94 @@ public class BootAnimation extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
-            Log.d("SubstratumLogger", "Loaded boot animation contains " + images.size() + " " +
-                    "frames.");
-            bootAnimationPreview.setImageDrawable(animation);
-            animation.start();
-            eu.chainfire.libsuperuser.Shell.SU.run(
-                    "rm -r " + getContext().getCacheDir().getAbsolutePath() +
-                            "/BootAnimationCache/animation_preview/");
-            imageButton.setImageTintList(checked);
-            imageButton.setClickable(true);
-            progressBar.setVisibility(View.GONE);
+            try {
+                Log.d("SubstratumLogger", "Loaded boot animation contains " + images.size() + " " +
+                        "frames.");
+                bootAnimationPreview.setImageDrawable(animation);
+                animation.start();
+                eu.chainfire.libsuperuser.Shell.SU.run(
+                        "rm -r " + getContext().getCacheDir().getAbsolutePath() +
+                                "/BootAnimationCache/animation_preview/");
+                imageButton.setImageTintList(checked);
+                imageButton.setClickable(true);
+                progressBar.setVisibility(View.GONE);
+            } catch (Exception e) {
+                Log.e("SubstratumLogger", "Window was destroyed before AsyncTask could perform postExecute()");
+            }
         }
 
         @Override
         protected String doInBackground(String... sUrl) {
-            File cacheDirectory = new File(getContext().getCacheDir(), "/BootAnimationCache/");
-            if (!cacheDirectory.exists()) {
-                cacheDirectory.mkdirs();
-            }
-            File cacheDirectory2 = new File(getContext().getCacheDir(), "/BootAnimationCache/" +
-                    "animation_preview/");
-            if (!cacheDirectory2.exists()) {
-                cacheDirectory2.mkdirs();
-            } else {
-                eu.chainfire.libsuperuser.Shell.SU.run(
-                        "rm -r " + getContext().getCacheDir().getAbsolutePath() +
-                                "/BootAnimationCache/animation_preview/");
-                cacheDirectory2.mkdirs();
-            }
-
-            // Copy the bootanimation.zip from assets/bootanimation of the theme's assets
-
-            String source = sUrl[0] + ".zip";
-
             try {
-                Context otherContext = getContext().createPackageContext(theme_pid, 0);
-                AssetManager am = otherContext.getAssets();
-                InputStream inputStream = am.open("bootanimation/" + source);
-                OutputStream outputStream = new FileOutputStream(getContext().getCacheDir()
-                        .getAbsolutePath() + "/BootAnimationCache/" + source);
-                CopyStream(inputStream, outputStream);
-            } catch (Exception e) {
-                Log.e("SubstratumLogger", "There is no bootanimation.zip found within the assets " +
-                        "of this theme!");
-            }
-
-            // Unzip the boot animation to get it prepared for the preview
-            unzip(getContext().getCacheDir().getAbsolutePath() +
-                            "/BootAnimationCache/" + source,
-                    getContext().getCacheDir().getAbsolutePath() +
-                            "/BootAnimationCache/animation_preview/");
-
-            // Begin creating the animated drawable
-            int counter = 0;
-            boolean has_stopped = false;
-            while (!has_stopped) {
-                File current_directory = new File(getContext().getCacheDir(),
-                        "/BootAnimationCache/" +
-                                "animation_preview/part" + counter);
-                String directory = getContext().getCacheDir().getAbsolutePath() +
-                        "/BootAnimationCache/" +
-                        "animation_preview/part" + counter + "/";
-                if (current_directory.exists()) {
-                    String[] dirObjects = current_directory.list();
-                    for (int j = 0; j < dirObjects.length && images.size() <= 200; j++) {
-                        Bitmap bitmap = BitmapFactory.decodeFile(directory + dirObjects[j]);
-                        images.add(bitmap);
-                    }
-                } else {
-                    has_stopped = true;
+                File cacheDirectory = new File(getContext().getCacheDir(), "/BootAnimationCache/");
+                if (!cacheDirectory.exists()) {
+                    cacheDirectory.mkdirs();
                 }
-                counter += 1;
+                File cacheDirectory2 = new File(getContext().getCacheDir(), "/BootAnimationCache/" +
+                        "animation_preview/");
+                if (!cacheDirectory2.exists()) {
+                    cacheDirectory2.mkdirs();
+                } else {
+                    eu.chainfire.libsuperuser.Shell.SU.run(
+                            "rm -r " + getContext().getCacheDir().getAbsolutePath() +
+                                    "/BootAnimationCache/animation_preview/");
+                    cacheDirectory2.mkdirs();
+                }
 
-            }
+                // Copy the bootanimation.zip from assets/bootanimation of the theme's assets
 
-            int duration = 40;
+                String source = sUrl[0] + ".zip";
 
-            for (Bitmap image : images) {
-                BitmapDrawable frame = new BitmapDrawable(image);
-                animation.addFrame(frame, duration);
+                try {
+                    Context otherContext = getContext().createPackageContext(theme_pid, 0);
+                    AssetManager am = otherContext.getAssets();
+                    InputStream inputStream = am.open("bootanimation/" + source);
+                    OutputStream outputStream = new FileOutputStream(getContext().getCacheDir()
+                            .getAbsolutePath() + "/BootAnimationCache/" + source);
+                    CopyStream(inputStream, outputStream);
+                } catch (Exception e) {
+                    Log.e("SubstratumLogger", "There is no bootanimation.zip found within the assets " +
+
+                            "of this theme!");
+                }
+
+                // Unzip the boot animation to get it prepared for the preview
+                unzip(getContext().getCacheDir().getAbsolutePath() +
+                                "/BootAnimationCache/" + source,
+                        getContext().getCacheDir().getAbsolutePath() +
+                                "/BootAnimationCache/animation_preview/");
+
+                // Begin creating the animated drawable
+                int counter = 0;
+                boolean has_stopped = false;
+                while (!has_stopped) {
+                    File current_directory = new File(getContext().getCacheDir(),
+                            "/BootAnimationCache/" +
+                                    "animation_preview/part" + counter);
+                    String directory = getContext().getCacheDir().getAbsolutePath() +
+                            "/BootAnimationCache/" +
+                            "animation_preview/part" + counter + "/";
+                    if (current_directory.exists()) {
+                        String[] dirObjects = current_directory.list();
+                        for (int j = 0; j < dirObjects.length && images.size() <= 200; j++) {
+                            Bitmap bitmap = BitmapFactory.decodeFile(directory + dirObjects[j]);
+                            images.add(bitmap);
+                        }
+                    } else {
+                        has_stopped = true;
+                    }
+                    counter += 1;
+
+                }
+
+                int duration = 40;
+
+                for (Bitmap image : images) {
+                    BitmapDrawable frame = new BitmapDrawable(image);
+                    animation.addFrame(frame, duration);
+                }
+            } catch (Exception e) {
+                Log.e("BootAnimationHelper", "Unexpectedly lost connection to the application host");
             }
             return null;
         }

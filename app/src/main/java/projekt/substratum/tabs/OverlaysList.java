@@ -282,15 +282,10 @@ public class OverlaysList extends Fragment {
                 }
                 ArrayAdapter<String> adapter1 = new ArrayAdapter<>(getActivity(),
                         android.R.layout.simple_spinner_dropdown_item, type3);
-
-                boolean adapterOneChecker = type3.size() == 1;
-
-                if (adapterOneChecker) {
-                    base_spinner.setVisibility(View.GONE);
-                } else {
-                    base_spinner.setVisibility(View.VISIBLE);
-                    base_spinner.setAdapter(adapter1);
-                }
+                base_spinner.setVisibility(View.VISIBLE);
+                base_spinner.setAdapter(adapter1);
+            } else {
+                base_spinner.setVisibility(View.GONE);
             }
         } catch (Exception e) {
             if (base_spinner.getVisibility() == View.VISIBLE) base_spinner.setVisibility(View.GONE);
@@ -440,7 +435,6 @@ public class OverlaysList extends Fragment {
                     parsed_name = getContext().getPackageManager().getApplicationLabel
                             (applicationInfo).toString();
 
-                    if (pluginType <= 1) {
                         try {
                             Context otherContext = getContext().createPackageContext(theme_pid, 0);
                             AssetManager am = otherContext.getAssets();
@@ -627,6 +621,18 @@ public class OverlaysList extends Fragment {
                                         getContext(), versionName, sUrl[0], state5overlays);
                                 values2.add(overlaysInfo);
                             } else {
+                                eu.chainfire.libsuperuser.Shell.SU.run("cp /data/system/overlays" +
+                                        ".xml " +
+                                        Environment
+                                                .getExternalStorageDirectory().getAbsolutePath() +
+                                        "/.substratum/current_overlays.xml");
+
+                                String[] commands = {Environment.getExternalStorageDirectory()
+                                        .getAbsolutePath() +
+                                        "/.substratum/current_overlays.xml", "5"};
+
+                                state5overlays = ReadOverlaysFile.main(commands);
+
                                 // At this point, there is no spinner adapter, so it should be null
                                 OverlaysInfo overlaysInfo = new OverlaysInfo(parse2_themeName,
                                         parsed_name,
@@ -639,7 +645,6 @@ public class OverlaysList extends Fragment {
                             Log.e("SubstratumLogger", "Could not properly buffer AssetManager " +
                                     "listing");
                         }
-                    }
                 } catch (Exception e) {
                     Log.e("OverlaysList", "Window was destroyed before AsyncTask could " +
                             "perform postExecute()");

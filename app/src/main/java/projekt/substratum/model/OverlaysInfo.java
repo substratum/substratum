@@ -38,7 +38,7 @@ public class OverlaysInfo implements Serializable {
     private String variantSelected4 = "";
     private String baseResources = "";
     private Context context;
-    private ArrayList<String> enabledOverlays;
+    private ArrayList<Object> enabledOverlays;
 
     public OverlaysInfo(String theme_name, String name, String packageName, boolean isSelected,
                         ArrayAdapter<String>
@@ -60,9 +60,11 @@ public class OverlaysInfo implements Serializable {
         this.versionName = versionName;
         if (baseResources != null) this.baseResources = baseResources.replaceAll("\\s+", "")
                 .replaceAll("[^a-zA-Z0-9]+", "");
-        if (baseResources.length() > 0) this.baseResources = "." + baseResources;
         if (adapter != null) variant_mode = true;
-        this.enabledOverlays = new ArrayList(enabledOverlays);
+        this.enabledOverlays = new ArrayList<>();
+        for (int i = 0; i < enabledOverlays.size(); i++) {
+            this.enabledOverlays.add(enabledOverlays.get(i));
+        }
     }
 
     public String getThemeName() {

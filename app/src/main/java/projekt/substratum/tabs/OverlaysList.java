@@ -264,8 +264,32 @@ public class OverlaysList extends Fragment {
             ArrayList<String> type3 = new ArrayList<>();
 
             String[] stringArray = am.list("overlays/android");
-
-            type3.add(getString(R.string.overlays_variant_default_3));
+            if (Arrays.asList(stringArray).contains("type3")) {
+                BufferedReader reader = null;
+                try {
+                    reader = new BufferedReader(
+                            new InputStreamReader(am.open("overlays/android/type3"), "UTF-8"));
+                    String formatter = String.format(getString(R.string
+                            .overlays_variant_substitute), reader.readLine());
+                    type3.add(formatter);
+                } catch (IOException e) {
+                    Log.e("SubstratumLogger", "There was an error parsing asset " +
+                            "file!");
+                } finally {
+                    if (reader != null) {
+                        try {
+                            reader.close();
+                        } catch (IOException e) {
+                            Log.e("SubstratumLogger", "Could not read type3 file" +
+                                    " properly, falling back to default string...");
+                            type3.add(getString(R.string
+                                    .overlays_variant_default_3));
+                        }
+                    }
+                }
+            } else {
+                type3.add(getString(R.string.overlays_variant_default_3));
+            }
 
             if (stringArray.length > 1) {
                 for (int i = 0; i < stringArray.length; i++) {
@@ -435,216 +459,216 @@ public class OverlaysList extends Fragment {
                     parsed_name = getContext().getPackageManager().getApplicationLabel
                             (applicationInfo).toString();
 
-                        try {
-                            Context otherContext = getContext().createPackageContext(theme_pid, 0);
-                            AssetManager am = otherContext.getAssets();
+                    try {
+                        Context otherContext = getContext().createPackageContext(theme_pid, 0);
+                        AssetManager am = otherContext.getAssets();
 
-                            ArrayList<String> type1a = new ArrayList<>();
-                            ArrayList<String> type1b = new ArrayList<>();
-                            ArrayList<String> type1c = new ArrayList<>();
-                            ArrayList<String> type2 = new ArrayList<>();
+                        ArrayList<String> type1a = new ArrayList<>();
+                        ArrayList<String> type1b = new ArrayList<>();
+                        ArrayList<String> type1c = new ArrayList<>();
+                        ArrayList<String> type2 = new ArrayList<>();
 
-                            String[] stringArray = am.list("overlays/" + package_name);
-                            if (Arrays.asList(stringArray).contains("type1a")) {
-                                BufferedReader reader = null;
-                                try {
-                                    reader = new BufferedReader(
-                                            new InputStreamReader(am.open("overlays/" +
-                                                    package_name + "/type1a"), "UTF-8"));
-                                    String formatter = String.format(getString(R.string
-                                            .overlays_variant_substitute), reader.readLine());
-                                    type1a.add(formatter);
-                                } catch (IOException e) {
-                                    Log.e("SubstratumLogger", "There was an error parsing asset " +
-                                            "file!");
-                                } finally {
-                                    if (reader != null) {
-                                        try {
-                                            reader.close();
-                                        } catch (IOException e) {
-                                            Log.e("SubstratumLogger", "Could not read type1a file" +
-                                                    " properly, falling back to default string...");
-                                            type1a.add(getString(R.string
-                                                    .overlays_variant_default_1a));
-                                        }
+                        String[] stringArray = am.list("overlays/" + package_name);
+                        if (Arrays.asList(stringArray).contains("type1a")) {
+                            BufferedReader reader = null;
+                            try {
+                                reader = new BufferedReader(
+                                        new InputStreamReader(am.open("overlays/" +
+                                                package_name + "/type1a"), "UTF-8"));
+                                String formatter = String.format(getString(R.string
+                                        .overlays_variant_substitute), reader.readLine());
+                                type1a.add(formatter);
+                            } catch (IOException e) {
+                                Log.e("SubstratumLogger", "There was an error parsing asset " +
+                                        "file!");
+                            } finally {
+                                if (reader != null) {
+                                    try {
+                                        reader.close();
+                                    } catch (IOException e) {
+                                        Log.e("SubstratumLogger", "Could not read type1a file" +
+                                                " properly, falling back to default string...");
+                                        type1a.add(getString(R.string
+                                                .overlays_variant_default_1a));
                                     }
                                 }
-                            } else {
-                                type1a.add(getString(R.string.overlays_variant_default_1a));
                             }
+                        } else {
+                            type1a.add(getString(R.string.overlays_variant_default_1a));
+                        }
 
-                            if (Arrays.asList(stringArray).contains("type1b")) {
-                                BufferedReader reader = null;
-                                try {
-                                    reader = new BufferedReader(
-                                            new InputStreamReader(am.open("overlays/" +
-                                                    package_name + "/type1b"), "UTF-8"));
-                                    String formatter = String.format(getString(R.string
-                                            .overlays_variant_substitute), reader.readLine());
-                                    type1b.add(formatter);
-                                } catch (IOException e) {
-                                    Log.e("SubstratumLogger", "There was an error parsing asset " +
-                                            "file!");
-                                } finally {
-                                    if (reader != null) {
-                                        try {
-                                            reader.close();
-                                        } catch (IOException e) {
-                                            Log.e("SubstratumLogger", "Could not read type1b file" +
-                                                    " properly, falling back to default string...");
-                                            type1b.add(getString(R.string
-                                                    .overlays_variant_default_1b));
-                                        }
+                        if (Arrays.asList(stringArray).contains("type1b")) {
+                            BufferedReader reader = null;
+                            try {
+                                reader = new BufferedReader(
+                                        new InputStreamReader(am.open("overlays/" +
+                                                package_name + "/type1b"), "UTF-8"));
+                                String formatter = String.format(getString(R.string
+                                        .overlays_variant_substitute), reader.readLine());
+                                type1b.add(formatter);
+                            } catch (IOException e) {
+                                Log.e("SubstratumLogger", "There was an error parsing asset " +
+                                        "file!");
+                            } finally {
+                                if (reader != null) {
+                                    try {
+                                        reader.close();
+                                    } catch (IOException e) {
+                                        Log.e("SubstratumLogger", "Could not read type1b file" +
+                                                " properly, falling back to default string...");
+                                        type1b.add(getString(R.string
+                                                .overlays_variant_default_1b));
                                     }
                                 }
-                            } else {
-                                type1b.add(getString(R.string.overlays_variant_default_1b));
                             }
+                        } else {
+                            type1b.add(getString(R.string.overlays_variant_default_1b));
+                        }
 
-                            if (Arrays.asList(stringArray).contains("type1c")) {
-                                BufferedReader reader = null;
-                                try {
-                                    reader = new BufferedReader(
-                                            new InputStreamReader(am.open("overlays/" +
-                                                    package_name + "/type1c"), "UTF-8"));
-                                    String formatter = String.format(getString(R.string
-                                            .overlays_variant_substitute), reader.readLine());
-                                    type1c.add(formatter);
-                                } catch (IOException e) {
-                                    Log.e("SubstratumLogger", "There was an error parsing asset " +
-                                            "file!");
-                                } finally {
-                                    if (reader != null) {
-                                        try {
-                                            reader.close();
-                                        } catch (IOException e) {
-                                            Log.e("SubstratumLogger", "Could not read type1c file" +
-                                                    " properly, falling back to default string...");
-                                            type1c.add(getString(R.string
-                                                    .overlays_variant_default_1c));
-                                        }
+                        if (Arrays.asList(stringArray).contains("type1c")) {
+                            BufferedReader reader = null;
+                            try {
+                                reader = new BufferedReader(
+                                        new InputStreamReader(am.open("overlays/" +
+                                                package_name + "/type1c"), "UTF-8"));
+                                String formatter = String.format(getString(R.string
+                                        .overlays_variant_substitute), reader.readLine());
+                                type1c.add(formatter);
+                            } catch (IOException e) {
+                                Log.e("SubstratumLogger", "There was an error parsing asset " +
+                                        "file!");
+                            } finally {
+                                if (reader != null) {
+                                    try {
+                                        reader.close();
+                                    } catch (IOException e) {
+                                        Log.e("SubstratumLogger", "Could not read type1c file" +
+                                                " properly, falling back to default string...");
+                                        type1c.add(getString(R.string
+                                                .overlays_variant_default_1c));
                                     }
                                 }
-                            } else {
-                                type1c.add(getString(R.string.overlays_variant_default_1c));
                             }
+                        } else {
+                            type1c.add(getString(R.string.overlays_variant_default_1c));
+                        }
 
-                            if (Arrays.asList(stringArray).contains("type2")) {
-                                BufferedReader reader = null;
-                                try {
-                                    reader = new BufferedReader(
-                                            new InputStreamReader(am.open("overlays/" +
-                                                    package_name + "/type2"), "UTF-8"));
-                                    String formatter = String.format(getString(R.string
-                                            .overlays_variant_substitute), reader.readLine());
-                                    type2.add(formatter);
-                                } catch (IOException e) {
-                                    Log.e("SubstratumLogger", "There was an error parsing asset " +
-                                            "file!");
-                                } finally {
-                                    if (reader != null) {
-                                        try {
-                                            reader.close();
-                                        } catch (IOException e) {
-                                            Log.e("SubstratumLogger", "Could not read type2 file " +
-                                                    "properly, falling back to default string...");
-                                            type2.add(getString(R.string
-                                                    .overlays_variant_default_2));
-                                        }
+                        if (Arrays.asList(stringArray).contains("type2")) {
+                            BufferedReader reader = null;
+                            try {
+                                reader = new BufferedReader(
+                                        new InputStreamReader(am.open("overlays/" +
+                                                package_name + "/type2"), "UTF-8"));
+                                String formatter = String.format(getString(R.string
+                                        .overlays_variant_substitute), reader.readLine());
+                                type2.add(formatter);
+                            } catch (IOException e) {
+                                Log.e("SubstratumLogger", "There was an error parsing asset " +
+                                        "file!");
+                            } finally {
+                                if (reader != null) {
+                                    try {
+                                        reader.close();
+                                    } catch (IOException e) {
+                                        Log.e("SubstratumLogger", "Could not read type2 file " +
+                                                "properly, falling back to default string...");
+                                        type2.add(getString(R.string
+                                                .overlays_variant_default_2));
                                     }
                                 }
-                            } else {
-                                type2.add(getString(R.string.overlays_variant_default_2));
                             }
+                        } else {
+                            type2.add(getString(R.string.overlays_variant_default_2));
+                        }
 
-                            if (stringArray.length > 1) {
-                                for (int i = 0; i < stringArray.length; i++) {
-                                    String current = stringArray[i];
-                                    if (!current.equals("res")) {
-                                        if (current.contains(".xml")) {
-                                            if (current.substring(0, 7).equals("type1a_")) {
-                                                type1a.add(current.substring(7, current.length()
-                                                        - 4));
-                                            }
-                                            if (current.substring(0, 7).equals("type1b_")) {
-                                                type1b.add(current.substring(7, current.length()
-                                                        - 4));
-                                            }
-                                            if (current.substring(0, 7).equals("type1c_")) {
-                                                type1c.add(current.substring(7, current.length()
-                                                        - 4));
-                                            }
-                                        } else {
-                                            if (!current.contains(".")) {
-                                                if (current.length() > 5) {
-                                                    if (current.substring(0, 6).equals("type2_")) {
-                                                        type2.add(current.substring(6));
-                                                    }
+                        if (stringArray.length > 1) {
+                            for (int i = 0; i < stringArray.length; i++) {
+                                String current = stringArray[i];
+                                if (!current.equals("res")) {
+                                    if (current.contains(".xml")) {
+                                        if (current.substring(0, 7).equals("type1a_")) {
+                                            type1a.add(current.substring(7, current.length()
+                                                    - 4));
+                                        }
+                                        if (current.substring(0, 7).equals("type1b_")) {
+                                            type1b.add(current.substring(7, current.length()
+                                                    - 4));
+                                        }
+                                        if (current.substring(0, 7).equals("type1c_")) {
+                                            type1c.add(current.substring(7, current.length()
+                                                    - 4));
+                                        }
+                                    } else {
+                                        if (!current.contains(".")) {
+                                            if (current.length() > 5) {
+                                                if (current.substring(0, 6).equals("type2_")) {
+                                                    type2.add(current.substring(6));
                                                 }
                                             }
                                         }
                                     }
                                 }
-                                ArrayAdapter<String> adapter1 = new ArrayAdapter<>(getActivity(),
-                                        android.R.layout.simple_spinner_dropdown_item, type1a);
-                                ArrayAdapter<String> adapter2 = new ArrayAdapter<>(getActivity(),
-                                        android.R.layout.simple_spinner_dropdown_item, type1b);
-                                ArrayAdapter<String> adapter3 = new ArrayAdapter<>(getActivity(),
-                                        android.R.layout.simple_spinner_dropdown_item, type1c);
-                                ArrayAdapter<String> adapter4 = new ArrayAdapter<>(getActivity(),
-                                        android.R.layout.simple_spinner_dropdown_item, type2);
-
-                                boolean adapterOneChecker = type1a.size() == 1;
-                                boolean adapterTwoChecker = type1b.size() == 1;
-                                boolean adapterThreeChecker = type1c.size() == 1;
-                                boolean adapterFourChecker = type2.size() == 1;
-
-                                eu.chainfire.libsuperuser.Shell.SU.run("cp /data/system/overlays" +
-                                        ".xml " +
-                                        Environment
-                                                .getExternalStorageDirectory().getAbsolutePath() +
-                                        "/.substratum/current_overlays.xml");
-
-                                String[] commands = {Environment.getExternalStorageDirectory()
-                                        .getAbsolutePath() +
-                                        "/.substratum/current_overlays.xml", "5"};
-
-                                state5overlays = ReadOverlaysFile.main(commands);
-
-                                OverlaysInfo overlaysInfo = new OverlaysInfo(parse2_themeName,
-                                        parsed_name,
-                                        package_name, false,
-                                        (adapterOneChecker ? null : adapter1),
-                                        (adapterTwoChecker ? null : adapter2),
-                                        (adapterThreeChecker ? null : adapter3),
-                                        (adapterFourChecker ? null : adapter4),
-                                        getContext(), versionName, sUrl[0], state5overlays);
-                                values2.add(overlaysInfo);
-                            } else {
-                                eu.chainfire.libsuperuser.Shell.SU.run("cp /data/system/overlays" +
-                                        ".xml " +
-                                        Environment
-                                                .getExternalStorageDirectory().getAbsolutePath() +
-                                        "/.substratum/current_overlays.xml");
-
-                                String[] commands = {Environment.getExternalStorageDirectory()
-                                        .getAbsolutePath() +
-                                        "/.substratum/current_overlays.xml", "5"};
-
-                                state5overlays = ReadOverlaysFile.main(commands);
-
-                                // At this point, there is no spinner adapter, so it should be null
-                                OverlaysInfo overlaysInfo = new OverlaysInfo(parse2_themeName,
-                                        parsed_name,
-                                        package_name, false, null, null, null, null, getContext(),
-                                        versionName, sUrl[0], state5overlays);
-                                values2.add(overlaysInfo);
                             }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            Log.e("SubstratumLogger", "Could not properly buffer AssetManager " +
-                                    "listing");
+                            ArrayAdapter<String> adapter1 = new ArrayAdapter<>(getActivity(),
+                                    android.R.layout.simple_spinner_dropdown_item, type1a);
+                            ArrayAdapter<String> adapter2 = new ArrayAdapter<>(getActivity(),
+                                    android.R.layout.simple_spinner_dropdown_item, type1b);
+                            ArrayAdapter<String> adapter3 = new ArrayAdapter<>(getActivity(),
+                                    android.R.layout.simple_spinner_dropdown_item, type1c);
+                            ArrayAdapter<String> adapter4 = new ArrayAdapter<>(getActivity(),
+                                    android.R.layout.simple_spinner_dropdown_item, type2);
+
+                            boolean adapterOneChecker = type1a.size() == 1;
+                            boolean adapterTwoChecker = type1b.size() == 1;
+                            boolean adapterThreeChecker = type1c.size() == 1;
+                            boolean adapterFourChecker = type2.size() == 1;
+
+                            eu.chainfire.libsuperuser.Shell.SU.run("cp /data/system/overlays" +
+                                    ".xml " +
+                                    Environment
+                                            .getExternalStorageDirectory().getAbsolutePath() +
+                                    "/.substratum/current_overlays.xml");
+
+                            String[] commands = {Environment.getExternalStorageDirectory()
+                                    .getAbsolutePath() +
+                                    "/.substratum/current_overlays.xml", "5"};
+
+                            state5overlays = ReadOverlaysFile.main(commands);
+
+                            OverlaysInfo overlaysInfo = new OverlaysInfo(parse2_themeName,
+                                    parsed_name,
+                                    package_name, false,
+                                    (adapterOneChecker ? null : adapter1),
+                                    (adapterTwoChecker ? null : adapter2),
+                                    (adapterThreeChecker ? null : adapter3),
+                                    (adapterFourChecker ? null : adapter4),
+                                    getContext(), versionName, sUrl[0], state5overlays);
+                            values2.add(overlaysInfo);
+                        } else {
+                            eu.chainfire.libsuperuser.Shell.SU.run("cp /data/system/overlays" +
+                                    ".xml " +
+                                    Environment
+                                            .getExternalStorageDirectory().getAbsolutePath() +
+                                    "/.substratum/current_overlays.xml");
+
+                            String[] commands = {Environment.getExternalStorageDirectory()
+                                    .getAbsolutePath() +
+                                    "/.substratum/current_overlays.xml", "5"};
+
+                            state5overlays = ReadOverlaysFile.main(commands);
+
+                            // At this point, there is no spinner adapter, so it should be null
+                            OverlaysInfo overlaysInfo = new OverlaysInfo(parse2_themeName,
+                                    parsed_name,
+                                    package_name, false, null, null, null, null, getContext(),
+                                    versionName, sUrl[0], state5overlays);
+                            values2.add(overlaysInfo);
                         }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Log.e("SubstratumLogger", "Could not properly buffer AssetManager " +
+                                "listing");
+                    }
                 } catch (Exception e) {
                     Log.e("OverlaysList", "Window was destroyed before AsyncTask could " +
                             "perform postExecute()");
@@ -1094,7 +1118,7 @@ public class OverlaysList extends Fragment {
                         Log.e("SubstratumLogger", "Main function has unexpectedly stopped!");
                     }
                 } else {
-                    final_runner = new ArrayList<>();
+                    if (final_runner == null) final_runner = new ArrayList<>();
                     if (enable_mode) {
                         String package_name = current_overlay + "." + theme_name_parsed +
                                 ((checkedOverlays.get(i).is_variant_chosen) ? "." : "") +

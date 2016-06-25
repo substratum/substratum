@@ -242,6 +242,8 @@ public class SubstratumBuilder {
 
         // 2b. Create the manifest file based on the new parsed names
 
+        String varianter = parse2_variantName + parse2_baseName;
+        varianter.replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "");
         if (!has_errored_out) {
             try {
                 root.createNewFile();
@@ -268,7 +270,7 @@ public class SubstratumBuilder {
                                     "        <meta-data android:name=\"Substratum_Parent\" " +
                                     "android:value=\"" + parse2_themeName + "\"/>\n" +
                                     "        <meta-data android:name=\"Substratum_Variant\" " +
-                                    "android:value=\"" + parse2_variantName + parse2_baseName +
+                                    "android:value=\"" + varianter +
                                     "\"/>\n" +
                                     "    </application>\n" +
                                     "</manifest>\n";
@@ -296,7 +298,7 @@ public class SubstratumBuilder {
                                         "        <meta-data android:name=\"Substratum_Parent\" " +
                                         "android:value=\"" + parse2_themeName + "\"/>\n" +
                                         "        <meta-data android:name=\"Substratum_Variant\" " +
-                                        "android:value=\"" + parse2_variantName + parse2_baseName
+                                        "android:value=\"" + varianter
                                         + "\"/>\n" +
                                         "    </application>\n" +
                                         "</manifest>\n";

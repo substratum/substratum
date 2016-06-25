@@ -7,6 +7,7 @@
 
     <color name="priorities_switchbar">@color/colorPrimary</color>
 
+    <color name="bootanimation_vm_text">@android:color/white</color>
     <color name="bootanimation_checked">@color/colorAccent</color>
     <color name="bootanimation_unchecked">#ff777777</color>
     <color name="bootanimation_spinner_background">@color/theme_information_background</color>

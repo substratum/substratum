@@ -83,6 +83,10 @@ public class OverlaysInfo implements Serializable {
         return package_name;
     }
 
+    public String getBaseResources() {
+        return baseResources;
+    }
+
     public boolean isSelected() {
         return isSelected;
     }
@@ -209,6 +213,7 @@ public class OverlaysInfo implements Serializable {
                     getPackageName() + "." + theme_name, 0);
             return pinfo.versionName.equals(versionName);
         } catch (PackageManager.NameNotFoundException nnfe) {
+            nnfe.printStackTrace();
             Log.e("SubstratumLogger", "Could not find explicit package identifier in " +
                     "package manager list.");
         }
@@ -216,11 +221,17 @@ public class OverlaysInfo implements Serializable {
     }
 
     public boolean compareInstalledVariantOverlay(String variant) {
+        if (!variant.substring(0, 1).equals(".")) variant = "." + variant;
+        String base = baseResources;
+        if (!baseResources.substring(0, 1).equals(".")) {
+            base = "." + base;
+        }
         try {
             PackageInfo pinfo = context.getPackageManager().getPackageInfo(
-                    getPackageName() + "." + theme_name + "." + variant + baseResources, 0);
+                    getPackageName() + "." + theme_name + variant + base, 0);
             return pinfo.versionName.equals(versionName);
         } catch (PackageManager.NameNotFoundException nnfe) {
+            nnfe.printStackTrace();
             Log.e("SubstratumLogger", "Could not find explicit package identifier in " +
                     "package manager list.");
         }
@@ -230,7 +241,7 @@ public class OverlaysInfo implements Serializable {
     public boolean isPackageInstalled(String package_name) {
         PackageManager pm = context.getPackageManager();
         try {
-            pm.getPackageInfo(package_name + baseResources, PackageManager.GET_ACTIVITIES);
+            pm.getPackageInfo(package_name, PackageManager.GET_ACTIVITIES);
             return true;
         } catch (PackageManager.NameNotFoundException e) {
             return false;
@@ -239,8 +250,9 @@ public class OverlaysInfo implements Serializable {
 
     public String getFullOverlayParameters() {
         return getPackageName() + "." + getThemeName() +
-                (((is_variant_chosen1 || is_variant_chosen2 || is_variant_chosen ||
-                        is_variant_chosen4)) ? "." : "") +
+                (((getSelectedVariant() == 0 && getSelectedVariant2() == 0 && getSelectedVariant3
+                        () == 0 &&
+                        getSelectedVariant4() == 0)) ? "" : ".") +
                 ((getSelectedVariant() == 0) ? "" : getSelectedVariantName()) +
                 ((getSelectedVariant2() == 0) ? "" : getSelectedVariantName2()) +
                 ((getSelectedVariant3() == 0) ? "" : getSelectedVariantName3()) +
@@ -250,14 +262,14 @@ public class OverlaysInfo implements Serializable {
 
     public boolean isOverlayEnabled() {
         String package_name = getPackageName() + "." + getThemeName() +
-                (((is_variant_chosen1 || is_variant_chosen2 || is_variant_chosen ||
-                        is_variant_chosen4)) ? "." : "") +
+                (((getSelectedVariant() == 0 && getSelectedVariant2() == 0 && getSelectedVariant3
+                        () == 0 &&
+                        getSelectedVariant4() == 0)) ? "" : ".") +
                 ((getSelectedVariant() == 0) ? "" : getSelectedVariantName()) +
                 ((getSelectedVariant2() == 0) ? "" : getSelectedVariantName2()) +
                 ((getSelectedVariant3() == 0) ? "" : getSelectedVariantName3()) +
                 ((getSelectedVariant4() == 0) ? "" : getSelectedVariantName4()) +
                 ((baseResources.length() == 0) ? "" : "." + baseResources);
-
         if (isPackageInstalled(package_name)) {
             if (enabledOverlays.contains(package_name)) {
                 return true;

@@ -55,10 +55,10 @@
                 android:layout_height="match_parent"
                 android:layout_margin="15dp"
                 android:gravity="center"
-                android:textSize="20sp"
-                android:visibility="gone"
+                android:text="@string/bootanimation_vm_exploded"
                 android:textColor="@color/bootanimation_vm_text"
-                android:text="@string/bootanimation_vm_exploded"/>
+                android:textSize="20sp"
+                android:visibility="gone"/>
 
             <ImageView
                 android:id="@+id/bootAnimationPreview"

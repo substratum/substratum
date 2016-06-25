@@ -223,8 +223,10 @@ public class OverlaysInfo implements Serializable {
     public boolean compareInstalledVariantOverlay(String variant) {
         if (!variant.substring(0, 1).equals(".")) variant = "." + variant;
         String base = baseResources;
-        if (!baseResources.substring(0, 1).equals(".")) {
-            base = "." + base;
+        if (baseResources.length() > 0) {
+            if (!baseResources.substring(0, 1).equals(".")) {
+                base = "." + base;
+            }
         }
         try {
             PackageInfo pinfo = context.getPackageManager().getPackageInfo(

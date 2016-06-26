@@ -69,6 +69,12 @@ public class FontInstaller extends Fragment {
     private RelativeLayout font_holder;
     private String final_commands;
 
+    private boolean checkChangeConfigurationPermissions() {
+        String permission = "android.permission.CHANGE_CONFIGURATION";
+        int res = getContext().checkCallingOrSelfPermission(permission);
+        return (res == PackageManager.PERMISSION_GRANTED);
+    }
+
     private boolean isPackageInstalled(Context context, String package_name) {
         PackageManager pm = context.getPackageManager();
         try {
@@ -164,6 +170,14 @@ public class FontInstaller extends Fragment {
 
         @Override
         protected void onPreExecute() {
+            if (!checkChangeConfigurationPermissions()) {
+                Log.e("FontHandler", "Substratum was not granted " +
+                        "CHANGE_CONFIGURATION permissions, allowing now...");
+                eu.chainfire.libsuperuser.Shell.SU.run("pm grant projekt.substratum " +
+                        "android.permission.CHANGE_CONFIGURATION");
+            } else {
+                Log.d("FontHandler", "Substratum was granted CHANGE_CONFIGURATION permissions!");
+            }
             progress = new ProgressDialog(getContext(), android.R.style
                     .Theme_DeviceDefault_Dialog_Alert);
             progress.setMessage(getString(R.string.font_dialog_apply_text));
@@ -186,28 +200,7 @@ public class FontInstaller extends Fragment {
 
             if (final_commands.length() > 0 && result == null) {
 
-                // Path 1: Reflect and use recreateDefaults() and freeTextLayoutCaches()
-
-                try {
-                    Class typeface = Class.forName("android.graphics.Typeface");
-                    Method recreateDefaults = typeface.getMethod("recreateDefaults");
-                    recreateDefaults.invoke(null, null);
-
-                    Class canvas = Class.forName("android.graphics.Canvas");
-                    Method freeTextLayoutCaches = canvas.getMethod("freeTextLayoutCaches");
-                    freeTextLayoutCaches.invoke(null, null);
-
-                    Log.e("Reflection", "Mom, I have reflected on my decisions and have decided " +
-                            "to be a " +
-                            "good kid from now on.");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Log.e("Reflection", "I'm sorry, I could not reflect on this object at the " +
-                            "given " +
-                            "time...");
-                }
-
-                // Path 2: Reflect back to Settings and updateConfiguration() run on locale change
+                // Reflect back to Settings and updateConfiguration() run on simulated locale change
 
                 try {
                     Class<?> activityManagerNative = Class.forName("android.app" +
@@ -215,17 +208,13 @@ public class FontInstaller extends Fragment {
                     Object am = activityManagerNative.getMethod("getDefault").invoke
                             (activityManagerNative);
                     Object config = am.getClass().getMethod("getConfiguration").invoke(am);
-                    config.getClass().getDeclaredField("locale").set(config, Locale.US);
-                    config.getClass().getDeclaredField("userSetLocale").setBoolean(config, true);
-
                     am.getClass().getMethod("updateConfiguration", android.content.res
                             .Configuration.class).invoke(am, config);
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
 
-                // Path 3: Finally, enable/disable the SystemUI dummy overlay
+                // Finally, enable/disable the SystemUI dummy overlay
 
                 eu.chainfire.libsuperuser.Shell.SU.run(final_commands);
             }
@@ -244,20 +233,20 @@ public class FontInstaller extends Fragment {
                 File cacheDirectory = new File(getContext().getCacheDir(), "/FontCache/");
                 if (!cacheDirectory.exists()) {
                     boolean created = cacheDirectory.mkdirs();
-                    if (created) Log.e("FontHandler", "Successfully created cache folder!");
+                    if (created) Log.d("FontHandler", "Successfully created cache folder!");
                 }
                 File cacheDirectory2 = new File(getContext().getCacheDir(), "/FontCache/" +
                         "FontCreator/");
                 if (!cacheDirectory2.exists()) {
                     boolean created = cacheDirectory2.mkdirs();
-                    if (created) Log.e("FontHandler", "Successfully created cache folder work " +
+                    if (created) Log.d("FontHandler", "Successfully created cache folder work " +
                             "directory!");
                 } else {
                     eu.chainfire.libsuperuser.Shell.SU.run(
                             "rm -r " + getContext().getCacheDir().getAbsolutePath() +
                                     "/FontCache/FontCreator/");
                     boolean created = cacheDirectory2.mkdirs();
-                    if (created) Log.e("FontHandler", "Successfully recreated cache folder work " +
+                    if (created) Log.d("FontHandler", "Successfully recreated cache folder work " +
                             "directory!");
                 }
 

@@ -26,15 +26,12 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                MainScreenTab tab1 = new MainScreenTab();
-                return tab1;
-            case 1:
                 OverlaysList tab2 = new OverlaysList();
                 return tab2;
-            case 2:
+            case 1:
                 BootAnimation tab3 = new BootAnimation();
                 return tab3;
-            case 3:
+            case 2:
                 FontInstaller tab4 = new FontInstaller();
                 return tab4;
             default:

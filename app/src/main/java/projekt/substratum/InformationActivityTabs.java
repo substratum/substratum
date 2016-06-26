@@ -112,8 +112,8 @@ public class InformationActivityTabs extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         if (tabLayout != null) {
-            tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
-                    .theme_information_tab_one)));
+            //tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
+            //        .theme_information_tab_one)));
             tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
                     .theme_information_tab_two)));
             try {

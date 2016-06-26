@@ -414,6 +414,24 @@ public class OverlaysAdapter extends
             } else {
                 viewHolder.optionsSpinner4.setVisibility(View.GONE);
             }
+            if (current_object.isOverlayEnabled()) {
+                viewHolder.overlayTargetPackageName.setTextColor(
+                        current_object.getInheritedContext().getColor
+                                (R.color.overlay_installed_list_entry));
+            } else {
+                if (current_object.isPackageInstalled(current_object
+                        .getFullOverlayParameters())) {
+                    viewHolder.overlayTargetPackageName.setTextColor(
+                            current_object.getInheritedContext()
+                                    .getColor(R.color
+                                            .overlay_not_enabled_list_entry));
+                } else {
+                    viewHolder.overlayTargetPackageName.setTextColor(
+                            current_object.getInheritedContext()
+                                    .getColor(R.color
+                                            .overlay_not_installed_list_entry));
+                }
+            }
         } else {
             viewHolder.optionsSpinner.setVisibility(View.GONE);
             viewHolder.optionsSpinner2.setVisibility(View.GONE);

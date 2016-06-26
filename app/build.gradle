@@ -15,8 +15,8 @@ android {
         applicationId "projekt.substratum"
         minSdkVersion 23
         targetSdkVersion 23
-        versionCode 37
-        versionName "thirty seven"
+        versionCode 39
+        versionName "thirty nine"
     }
     buildTypes {
         release {

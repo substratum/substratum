@@ -61,7 +61,6 @@ public class FontInstaller extends Fragment {
 
     private String theme_pid;
     private ViewGroup root;
-    private List<Bitmap> images = new ArrayList<>();
     private MaterialProgressBar progressBar;
     private ImageButton imageButton;
     private Spinner bootAnimationSelector;
@@ -79,7 +78,6 @@ public class FontInstaller extends Fragment {
             return false;
         }
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
@@ -155,7 +153,7 @@ public class FontInstaller extends Fragment {
             });
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e("SubstratumLogger", "There is no font.zip found within the assets " +
+            Log.e("FontHandler", "There is no font.zip found within the assets " +
                     "of this theme!");
         }
 
@@ -245,17 +243,22 @@ public class FontInstaller extends Fragment {
 
                 File cacheDirectory = new File(getContext().getCacheDir(), "/FontCache/");
                 if (!cacheDirectory.exists()) {
-                    cacheDirectory.mkdirs();
+                    boolean created = cacheDirectory.mkdirs();
+                    if (created) Log.e("FontHandler", "Successfully created cache folder!");
                 }
                 File cacheDirectory2 = new File(getContext().getCacheDir(), "/FontCache/" +
                         "FontCreator/");
                 if (!cacheDirectory2.exists()) {
-                    cacheDirectory2.mkdirs();
+                    boolean created = cacheDirectory2.mkdirs();
+                    if (created) Log.e("FontHandler", "Successfully created cache folder work " +
+                            "directory!");
                 } else {
                     eu.chainfire.libsuperuser.Shell.SU.run(
                             "rm -r " + getContext().getCacheDir().getAbsolutePath() +
                                     "/FontCache/FontCreator/");
-                    cacheDirectory2.mkdirs();
+                    boolean created = cacheDirectory2.mkdirs();
+                    if (created) Log.e("FontHandler", "Successfully recreated cache folder work " +
+                            "directory!");
                 }
 
                 // Copy the font.zip from assets/fonts of the theme's assets
@@ -270,7 +273,7 @@ public class FontInstaller extends Fragment {
                             .getAbsolutePath() + "/FontCache/" + source);
                     CopyStream(inputStream, outputStream);
                 } catch (Exception e) {
-                    Log.e("SubstratumLogger", "There is no fonts.zip found within the assets " +
+                    Log.e("FontHandler", "There is no fonts.zip found within the assets " +
                             "of this theme!");
                 }
 
@@ -323,23 +326,27 @@ public class FontInstaller extends Fragment {
                             "/FontCache/helper/");
 
                     if (!helperDirectory.exists()) {
-                        helperDirectory.mkdirs();
+                        boolean created = helperDirectory.mkdirs();
+                        if (created) Log.d("FontHandler", "Helper folder created");
                     }
                     File helperDirectoryRes = new File(getContext().getCacheDir(),
                             "/FontCache/helper/res/");
                     if (!helperDirectoryRes.exists()) {
-                        helperDirectoryRes.mkdirs();
+                        boolean created = helperDirectoryRes.mkdirs();
+                        if (created) Log.d("FontHandler", "Helper resources folder created");
                     }
                     File helperDirectoryResDrawable =
                             new File(getContext().getCacheDir(),
                                     "/FontCache/helper/res/drawable-xxhdpi/");
                     if (!helperDirectoryResDrawable.exists()) {
-                        helperDirectoryResDrawable.mkdirs();
+                        boolean created = helperDirectoryResDrawable.mkdirs();
+                        if (created) Log.d("FontHandler", "Helper drawable folder created");
                     }
                     File helperDirectoryResValues =
                             new File(getContext().getCacheDir(), "/FontCache/helper/res/values/");
                     if (!helperDirectoryResValues.exists()) {
-                        helperDirectoryResValues.mkdirs();
+                        boolean created = helperDirectoryResValues.mkdirs();
+                        if (created) Log.d("FontHandler", "Helper values folder created");
                     }
 
                     // Create new icon in /res/drawable-xxhdpi from Substratum's mipmap-xxhdpi
@@ -358,23 +365,26 @@ public class FontInstaller extends Fragment {
                         e.printStackTrace();
                     }
 
-                    Bitmap bmp = ((BitmapDrawable) hero).getBitmap();
-
-                    FileOutputStream out = null;
                     try {
-                        out = new FileOutputStream(new File(getContext().getCacheDir(),
-                                "/FontCache/helper/res/drawable-xxhdpi/app_icon.png"));
-                        bmp.compress(Bitmap.CompressFormat.PNG, 100, out);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    } finally {
+                        Bitmap bmp = ((BitmapDrawable) hero).getBitmap();
+                        FileOutputStream out = null;
                         try {
-                            if (out != null) {
-                                out.close();
-                            }
-                        } catch (IOException e) {
+                            out = new FileOutputStream(new File(getContext().getCacheDir(),
+                                    "/FontCache/helper/res/drawable-xxhdpi/app_icon.png"));
+                            bmp.compress(Bitmap.CompressFormat.PNG, 100, out);
+                        } catch (Exception e) {
                             e.printStackTrace();
+                        } finally {
+                            try {
+                                if (out != null) {
+                                    out.close();
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
+                    } catch (NullPointerException npe) {
+                        Log.e("FontHandler", "Could not create bitmap drawable of app icon!");
                     }
 
                     // Create new EXISTING boolean file based on MM6.0+ to surpass non-dangerous
@@ -383,7 +393,9 @@ public class FontInstaller extends Fragment {
                     File root = new File(getContext().getCacheDir(),
                             "/FontCache/helper/res/values/bools.xml");
                     try {
-                        root.createNewFile();
+                        boolean created = root.createNewFile();
+                        if (created) Log.d("FontHandler", "Allowing handler overlay take on " +
+                                "resources from SystemUI");
                         FileWriter fw = new FileWriter(root);
                         BufferedWriter bw = new BufferedWriter(fw);
                         PrintWriter pw = new PrintWriter(bw);
@@ -405,7 +417,8 @@ public class FontInstaller extends Fragment {
                     File root2 = new File(getContext().getCacheDir(),
                             "/FontCache/helper/AndroidManifest.xml");
                     try {
-                        root2.createNewFile();
+                        boolean created = root2.createNewFile();
+                        if (created) Log.d("FontHandler", "AndroidManifest file created");
                         FileWriter fw2 = new FileWriter(root2);
                         BufferedWriter bw2 = new BufferedWriter(fw2);
                         PrintWriter pw2 = new PrintWriter(bw2);
@@ -567,9 +580,8 @@ public class FontInstaller extends Fragment {
 
         private void copyAssets() {
             AssetManager assetManager = getContext().getAssets();
-            String[] files = null;
-            InputStream in = null;
-            OutputStream out = null;
+            InputStream in;
+            OutputStream out;
             String filename = "fonts.xml";
             try {
                 in = assetManager.open(filename);
@@ -599,32 +611,26 @@ public class FontInstaller extends Fragment {
             try {
                 ZipInputStream inputStream = new ZipInputStream(
                         new BufferedInputStream(new FileInputStream(source)));
-                try {
-                    ZipEntry zipEntry;
-                    int count;
-                    byte[] buffer = new byte[8192];
-                    while ((zipEntry = inputStream.getNextEntry()) != null) {
-                        File file = new File(destination, zipEntry.getName());
-                        File dir = zipEntry.isDirectory() ? file : file.getParentFile();
-                        if (!dir.isDirectory() && !dir.mkdirs())
-                            throw new FileNotFoundException("Failed to ensure directory: " +
-                                    dir.getAbsolutePath());
-                        if (zipEntry.isDirectory())
-                            continue;
-                        FileOutputStream outputStream = new FileOutputStream(file);
-                        try {
-                            while ((count = inputStream.read(buffer)) != -1)
-                                outputStream.write(buffer, 0, count);
-                        } finally {
-                            outputStream.close();
-                        }
-                    }
-                } finally {
-                    inputStream.close();
+                ZipEntry zipEntry;
+                int count;
+                byte[] buffer = new byte[8192];
+                while ((zipEntry = inputStream.getNextEntry()) != null) {
+                    File file = new File(destination, zipEntry.getName());
+                    File dir = zipEntry.isDirectory() ? file : file.getParentFile();
+                    if (!dir.isDirectory() && !dir.mkdirs())
+                        throw new FileNotFoundException("Failed to ensure directory: " +
+                                dir.getAbsolutePath());
+                    if (zipEntry.isDirectory())
+                        continue;
+                    FileOutputStream outputStream = new FileOutputStream(file);
+                    while ((count = inputStream.read(buffer)) != -1)
+                        outputStream.write(buffer, 0, count);
+                    outputStream.close();
                 }
+                inputStream.close();
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.e("SubstratumLogger",
+                Log.e("FontHandler",
                         "An issue has occurred while attempting to decompress this archive.");
             }
         }
@@ -653,26 +659,50 @@ public class FontInstaller extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             try {
-                Log.d("SubstratumLogger", "Loaded boot animation contains " + images.size() + " " +
-                        "frames.");
+                Log.d("FontHandler", "Fonts have been loaded on the drawing panel.");
 
                 String work_directory = getContext().getCacheDir().getAbsolutePath() +
                         "/FontCache/font_preview/";
 
-                Typeface normal_tf = Typeface.createFromFile(work_directory + "Roboto-Regular.ttf");
-                Typeface bold_tf = Typeface.createFromFile(work_directory + "Roboto-Black.ttf");
-                Typeface italics_tf = Typeface.createFromFile(work_directory + "Roboto-Italic.ttf");
-                Typeface italics_bold_tf = Typeface.createFromFile(work_directory +
-                        "Roboto-BoldItalic.ttf");
+                try {
+                    Typeface normal_tf = Typeface.createFromFile(work_directory + "Roboto-Regular" +
+                            ".ttf");
+                    TextView normal = (TextView) root.findViewById(R.id.text_normal);
+                    normal.setTypeface(normal_tf);
+                } catch (Exception e) {
+                    Log.e("FontHandler", "Could not load font from directory for normal template." +
+                            " Maybe it wasn't themed?");
+                }
 
-                TextView normal = (TextView) root.findViewById(R.id.text_normal);
-                normal.setTypeface(normal_tf);
-                TextView normal_bold = (TextView) root.findViewById(R.id.text_bold);
-                normal_bold.setTypeface(bold_tf);
-                TextView italics = (TextView) root.findViewById(R.id.text_normal_italics);
-                italics.setTypeface(italics_tf);
-                TextView italics_bold = (TextView) root.findViewById(R.id.text_normal_bold_italics);
-                italics_bold.setTypeface(italics_bold_tf);
+                try {
+                    Typeface bold_tf = Typeface.createFromFile(work_directory + "Roboto-Black.ttf");
+                    TextView normal_bold = (TextView) root.findViewById(R.id.text_bold);
+                    normal_bold.setTypeface(bold_tf);
+                } catch (Exception e) {
+                    Log.e("FontHandler", "Could not load font from directory for normal-bold " +
+                            "template. Maybe it wasn't themed?");
+                }
+
+                try {
+                    Typeface italics_tf = Typeface.createFromFile(work_directory + "Roboto-Italic" +
+                            ".ttf");
+                    TextView italics = (TextView) root.findViewById(R.id.text_normal_italics);
+                    italics.setTypeface(italics_tf);
+                } catch (Exception e) {
+                    Log.e("FontHandler", "Could not load font from directory for italic template." +
+                            " Maybe it wasn't themed?");
+                }
+
+                try {
+                    Typeface italics_bold_tf = Typeface.createFromFile(work_directory +
+                            "Roboto-BoldItalic.ttf");
+                    TextView italics_bold = (TextView) root.findViewById(R.id
+                            .text_normal_bold_italics);
+                    italics_bold.setTypeface(italics_bold_tf);
+                } catch (Exception e) {
+                    Log.e("FontHandler", "Could not load font from directory for italic-bold " +
+                            "template. Maybe it wasn't themed?");
+                }
 
                 eu.chainfire.libsuperuser.Shell.SU.run(
                         "rm -r " + getContext().getCacheDir().getAbsolutePath() +
@@ -692,17 +722,20 @@ public class FontInstaller extends Fragment {
             try {
                 File cacheDirectory = new File(getContext().getCacheDir(), "/FontCache/");
                 if (!cacheDirectory.exists()) {
-                    cacheDirectory.mkdirs();
+                    boolean created = cacheDirectory.mkdirs();
+                    if (created) Log.d("FontHandler", "FontCache folder created");
                 }
                 File cacheDirectory2 = new File(getContext().getCacheDir(), "/FontCache/" +
                         "font_preview/");
                 if (!cacheDirectory2.exists()) {
-                    cacheDirectory2.mkdirs();
+                    boolean created = cacheDirectory2.mkdirs();
+                    if (created) Log.d("FontHandler", "FontCache work folder created");
                 } else {
                     eu.chainfire.libsuperuser.Shell.SU.run(
                             "rm -r " + getContext().getCacheDir().getAbsolutePath() +
                                     "/FontCache/font_preview/");
-                    cacheDirectory2.mkdirs();
+                    boolean created = cacheDirectory2.mkdirs();
+                    if (created) Log.d("FontHandler", "FontCache folder recreated");
                 }
 
                 // Copy the font.zip from assets/fonts of the theme's assets
@@ -717,7 +750,7 @@ public class FontInstaller extends Fragment {
                             .getAbsolutePath() + "/FontCache/" + source);
                     CopyStream(inputStream, outputStream);
                 } catch (Exception e) {
-                    Log.e("SubstratumLogger", "There is no fonts.zip found within the assets " +
+                    Log.e("FontHandler", "There is no fonts.zip found within the assets " +
                             "of this theme!");
                 }
 
@@ -727,7 +760,7 @@ public class FontInstaller extends Fragment {
                         getContext().getCacheDir().getAbsolutePath() +
                                 "/FontCache/font_preview/");
             } catch (Exception e) {
-                Log.e("FontHelper", "Unexpectedly lost connection to the application host");
+                Log.e("FontHandler", "Unexpectedly lost connection to the application host");
             }
             return null;
         }
@@ -736,32 +769,26 @@ public class FontInstaller extends Fragment {
             try {
                 ZipInputStream inputStream = new ZipInputStream(
                         new BufferedInputStream(new FileInputStream(source)));
-                try {
-                    ZipEntry zipEntry;
-                    int count;
-                    byte[] buffer = new byte[8192];
-                    while ((zipEntry = inputStream.getNextEntry()) != null) {
-                        File file = new File(destination, zipEntry.getName());
-                        File dir = zipEntry.isDirectory() ? file : file.getParentFile();
-                        if (!dir.isDirectory() && !dir.mkdirs())
-                            throw new FileNotFoundException("Failed to ensure directory: " +
-                                    dir.getAbsolutePath());
-                        if (zipEntry.isDirectory())
-                            continue;
-                        FileOutputStream outputStream = new FileOutputStream(file);
-                        try {
-                            while ((count = inputStream.read(buffer)) != -1)
-                                outputStream.write(buffer, 0, count);
-                        } finally {
-                            outputStream.close();
-                        }
-                    }
-                } finally {
-                    inputStream.close();
+                ZipEntry zipEntry;
+                int count;
+                byte[] buffer = new byte[8192];
+                while ((zipEntry = inputStream.getNextEntry()) != null) {
+                    File file = new File(destination, zipEntry.getName());
+                    File dir = zipEntry.isDirectory() ? file : file.getParentFile();
+                    if (!dir.isDirectory() && !dir.mkdirs())
+                        throw new FileNotFoundException("Failed to ensure directory: " +
+                                dir.getAbsolutePath());
+                    if (zipEntry.isDirectory())
+                        continue;
+                    FileOutputStream outputStream = new FileOutputStream(file);
+                    while ((count = inputStream.read(buffer)) != -1)
+                        outputStream.write(buffer, 0, count);
+                    outputStream.close();
                 }
+                inputStream.close();
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.e("SubstratumLogger",
+                Log.e("FontHandler",
                         "An issue has occurred while attempting to decompress this archive.");
             }
         }

@@ -147,7 +147,7 @@ public class BootAnimation extends Fragment {
             });
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e("SubstratumLogger", "There is no bootanimation.zip found within the assets " +
+            Log.e("BootAnimationHandler", "There is no bootanimation.zip found within the assets " +
                     "of this theme!");
         }
 
@@ -194,17 +194,20 @@ public class BootAnimation extends Fragment {
 
             File cacheDirectory = new File(getContext().getCacheDir(), "/BootAnimationCache/");
             if (!cacheDirectory.exists()) {
-                cacheDirectory.mkdirs();
+                boolean created = cacheDirectory.mkdirs();
+                if (created) Log.d("BootAnimationHandler", "Bootanimation folder created");
             }
             File cacheDirectory2 = new File(getContext().getCacheDir(), "/BootAnimationCache/" +
                     "AnimationCreator/");
             if (!cacheDirectory2.exists()) {
-                cacheDirectory2.mkdirs();
+                boolean created = cacheDirectory2.mkdirs();
+                if (created) Log.d("BootAnimationHandler", "Bootanimation work folder created");
             } else {
                 eu.chainfire.libsuperuser.Shell.SU.run(
                         "rm -r " + getContext().getCacheDir().getAbsolutePath() +
                                 "/BootAnimationCache/AnimationCreator/");
-                cacheDirectory2.mkdirs();
+                boolean created = cacheDirectory2.mkdirs();
+                if (created) Log.d("BootAnimationHandler", "Bootanimation folder recreated");
             }
 
             String bootanimation = sUrl[0];
@@ -224,7 +227,8 @@ public class BootAnimation extends Fragment {
 
                     CopyStream(inputStream, outputStream);
                 } catch (Exception e) {
-                    Log.e("SubstratumLogger", "There is no bootanimation.zip found within the " +
+                    Log.e("BootAnimationHandler", "There is no bootanimation.zip found within the" +
+                            " " +
                             "assets " +
                             "of this theme!");
                     has_failed = true;
@@ -238,7 +242,10 @@ public class BootAnimation extends Fragment {
                 bootanimation = bootanimation.replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+",
                         "");
                 File to = new File(workingDirectory, bootanimation + ".zip");
-                from.renameTo(to);
+                boolean rename = from.renameTo(to);
+                if (rename)
+                    Log.d("BootAnimationHandler", "Boot Animation successfully moved to new " +
+                            "directory");
             }
 
             if (!has_failed) {
@@ -456,7 +463,8 @@ public class BootAnimation extends Fragment {
         protected void onPostExecute(String result) {
             if (result == "true") vm_blown.setVisibility(View.VISIBLE);
             try {
-                Log.d("SubstratumLogger", "Loaded boot animation contains " + images.size() + " " +
+                Log.d("BootAnimationHandler", "Loaded boot animation contains " + images.size() +
+                        " " +
                         "frames.");
                 bootAnimationPreview.setImageDrawable(animation);
                 animation.start();
@@ -467,7 +475,8 @@ public class BootAnimation extends Fragment {
                 imageButton.setClickable(true);
                 progressBar.setVisibility(View.GONE);
             } catch (Exception e) {
-                Log.e("BootAnimation", "Window was destroyed before AsyncTask could perform " +
+                Log.e("BootAnimationHandler", "Window was destroyed before AsyncTask could " +
+                        "perform " +
                         "postExecute()");
             }
         }
@@ -477,17 +486,20 @@ public class BootAnimation extends Fragment {
             try {
                 File cacheDirectory = new File(getContext().getCacheDir(), "/BootAnimationCache/");
                 if (!cacheDirectory.exists()) {
-                    cacheDirectory.mkdirs();
+                    boolean created = cacheDirectory.mkdirs();
+                    if (created) Log.d("BootAnimationHandler", "Bootanimation folder created");
                 }
                 File cacheDirectory2 = new File(getContext().getCacheDir(), "/BootAnimationCache/" +
                         "animation_preview/");
                 if (!cacheDirectory2.exists()) {
-                    cacheDirectory2.mkdirs();
+                    boolean created = cacheDirectory2.mkdirs();
+                    if (created) Log.d("BootAnimationHandler", "Bootanimation work folder created");
                 } else {
                     eu.chainfire.libsuperuser.Shell.SU.run(
                             "rm -r " + getContext().getCacheDir().getAbsolutePath() +
                                     "/BootAnimationCache/animation_preview/");
-                    cacheDirectory2.mkdirs();
+                    boolean created = cacheDirectory2.mkdirs();
+                    if (created) Log.d("BootAnimationHandler", "Bootanimation folder recreated");
                 }
 
                 // Copy the bootanimation.zip from assets/bootanimation of the theme's assets
@@ -502,7 +514,8 @@ public class BootAnimation extends Fragment {
                             .getAbsolutePath() + "/BootAnimationCache/" + source);
                     CopyStream(inputStream, outputStream);
                 } catch (Exception e) {
-                    Log.e("SubstratumLogger", "There is no bootanimation.zip found within the " +
+                    Log.e("BootAnimationHandler", "There is no bootanimation.zip found within the" +
+                            " " +
                             "assets " +
 
                             "of this theme!");
@@ -562,32 +575,26 @@ public class BootAnimation extends Fragment {
             try {
                 ZipInputStream inputStream = new ZipInputStream(
                         new BufferedInputStream(new FileInputStream(source)));
-                try {
-                    ZipEntry zipEntry;
-                    int count;
-                    byte[] buffer = new byte[8192];
-                    while ((zipEntry = inputStream.getNextEntry()) != null) {
-                        File file = new File(destination, zipEntry.getName());
-                        File dir = zipEntry.isDirectory() ? file : file.getParentFile();
-                        if (!dir.isDirectory() && !dir.mkdirs())
-                            throw new FileNotFoundException("Failed to ensure directory: " +
-                                    dir.getAbsolutePath());
-                        if (zipEntry.isDirectory())
-                            continue;
-                        FileOutputStream outputStream = new FileOutputStream(file);
-                        try {
-                            while ((count = inputStream.read(buffer)) != -1)
-                                outputStream.write(buffer, 0, count);
-                        } finally {
-                            outputStream.close();
-                        }
-                    }
-                } finally {
-                    inputStream.close();
+                ZipEntry zipEntry;
+                int count;
+                byte[] buffer = new byte[8192];
+                while ((zipEntry = inputStream.getNextEntry()) != null) {
+                    File file = new File(destination, zipEntry.getName());
+                    File dir = zipEntry.isDirectory() ? file : file.getParentFile();
+                    if (!dir.isDirectory() && !dir.mkdirs())
+                        throw new FileNotFoundException("Failed to ensure directory: " +
+                                dir.getAbsolutePath());
+                    if (zipEntry.isDirectory())
+                        continue;
+                    FileOutputStream outputStream = new FileOutputStream(file);
+                    while ((count = inputStream.read(buffer)) != -1)
+                        outputStream.write(buffer, 0, count);
+                    outputStream.close();
                 }
+                inputStream.close();
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.e("SubstratumLogger",
+                Log.e("BootAnimationHandler",
                         "An issue has occurred while attempting to decompress this archive.");
             }
         }

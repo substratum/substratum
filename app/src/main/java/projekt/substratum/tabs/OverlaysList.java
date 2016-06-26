@@ -305,8 +305,12 @@ public class OverlaysList extends Fragment {
                 }
                 ArrayAdapter<String> adapter1 = new ArrayAdapter<>(getActivity(),
                         android.R.layout.simple_spinner_dropdown_item, type3);
-                base_spinner.setVisibility(View.VISIBLE);
-                base_spinner.setAdapter(adapter1);
+                if (type3.size() > 1) {
+                    base_spinner.setVisibility(View.VISIBLE);
+                    base_spinner.setAdapter(adapter1);
+                } else {
+                    base_spinner.setVisibility(View.GONE);
+                }
             } else {
                 base_spinner.setVisibility(View.GONE);
             }

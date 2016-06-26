@@ -21,7 +21,7 @@
     <string name="overlays_variant_default_2">type2 variant&#8230;</string>
     <string name="overlays_variant_default_3">default base variant&#8230;</string>
     <string name="overlays_up_to_date">UP-TO-DATE</string>
-    <string name="overlays_update_available">Update available!\nInstalled: (%s)</string>
+    <string name="overlays_update_available">Update available!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Variant not installed</string>
     <string name="overlays_compile_update_button">Compile/Update &amp; Install</string>
 

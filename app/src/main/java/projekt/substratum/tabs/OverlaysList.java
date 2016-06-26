@@ -984,11 +984,10 @@ public class OverlaysList extends Fragment {
 
                                 String targetLocation = workingDirectory +
                                         "/res/values/type1a.xml";
-                                String targetLocation1a = workingDirectory + "/" + "type3_" +
-                                        sUrl[0] + "/values/";
+                                String targetLocation1a = workingDirectory + "/type3_" + sUrl[0] +
+                                        "/values/";
 
                                 File checker = new File(targetLocation1a);
-                                Log.e("SJSJS", checker.exists()+"");
                                 if (checker.exists()) {
                                     targetLocation = targetLocation1a + "type1a.xml";
                                 }
@@ -1009,7 +1008,7 @@ public class OverlaysList extends Fragment {
 
                                 String targetLocation2 = workingDirectory +
                                         "/res/values/type1b.xml";
-                                String targetLocation1b = workingDirectory + "/" + sUrl[0] +
+                                String targetLocation1b = workingDirectory + "/type3_" + sUrl[0] +
                                         "/values/";
 
                                 File checker = new File(targetLocation1b);
@@ -1032,7 +1031,7 @@ public class OverlaysList extends Fragment {
 
                                 String targetLocation3 = workingDirectory +
                                         "/res/values/type1c.xml";
-                                String targetLocation1c = workingDirectory + "/" + sUrl[0] +
+                                String targetLocation1c = workingDirectory + "/type3_" + sUrl[0] +
                                         "/values/";
 
                                 File checker = new File(targetLocation1c);

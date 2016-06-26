@@ -158,8 +158,6 @@ public class HomeFragment extends Fragment {
                                 ());
                         myIntent.putExtra("theme_pid", map.get(map.keySet().toArray()[position]
                                 .toString())[1]);
-                        myIntent.putExtra("theme_mode", map.get(map.keySet().toArray()[position]
-                                .toString())[2]);
                         startActivityForResult(myIntent, THEME_INFORMATION_REQUEST_CODE);
                     } else {
                         Toast toast = Toast.makeText(getContext(), getString(R.string
@@ -244,29 +242,11 @@ public class HomeFragment extends Fragment {
             if (appInfo.metaData != null) {
                 if (appInfo.metaData.getString("Substratum_Theme") != null) {
                     if (appInfo.metaData.getString("Substratum_Author") != null) {
-                        if (appInfo.metaData.getString("Substratum_Mode") != null) {
-                            if (appInfo.metaData.getString("Substratum_Mode").equals("XML")) {
-                                String[] data = {appInfo.metaData.getString("Substratum_Author"),
-                                        package_name, "1"};
-                                substratum_packages.put(appInfo.metaData.getString
-                                        ("Substratum_Theme"), data);
-                            } else {
-                                if (appInfo.metaData.getString("Substratum_Mode").equals
-                                        ("Folders")) {
-                                    String[] data = {appInfo.metaData.getString
-                                            ("Substratum_Author"),
-                                            package_name, "2"};
-                                    substratum_packages.put(appInfo.metaData.getString
-                                            ("Substratum_Theme"), data);
-                                } else {
-                                    String[] data = {appInfo.metaData.getString
-                                            ("Substratum_Author"),
-                                            package_name, "0"};
-                                    substratum_packages.put(appInfo.metaData.getString
-                                            ("Substratum_Theme"), data);
-                                }
-                            }
-                        }
+                        String[] data = {appInfo.metaData.getString
+                                ("Substratum_Author"),
+                                package_name};
+                        substratum_packages.put(appInfo.metaData.getString
+                                ("Substratum_Theme"), data);
                         installed_themes.add(package_name);
                         Log.d("Substratum Ready Theme", package_name);
                     }

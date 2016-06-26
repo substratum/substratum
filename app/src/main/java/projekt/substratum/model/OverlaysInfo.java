@@ -60,7 +60,7 @@ public class OverlaysInfo implements Serializable {
         this.versionName = versionName;
         if (baseResources != null) this.baseResources = baseResources.replaceAll("\\s+", "")
                 .replaceAll("[^a-zA-Z0-9]+", "");
-        if (adapter != null) variant_mode = true;
+        variant_mode = true;
         this.enabledOverlays = new ArrayList<>();
         for (int i = 0; i < enabledOverlays.size(); i++) {
             this.enabledOverlays.add(enabledOverlays.get(i));

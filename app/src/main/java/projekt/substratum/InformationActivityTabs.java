@@ -32,18 +32,12 @@ public class InformationActivityTabs extends AppCompatActivity {
 
     public static String theme_name, theme_pid;
 
-    public static int theme_mode;
-
     public static String getThemeName() {
         return theme_name;
     }
 
     public static String getThemePID() {
         return theme_pid;
-    }
-
-    public static int getThemeMode() {
-        return theme_mode;
     }
 
     public static int getDominantColor(Bitmap bitmap) {
@@ -79,7 +73,6 @@ public class InformationActivityTabs extends AppCompatActivity {
         Intent currentIntent = getIntent();
         theme_name = currentIntent.getStringExtra("theme_name");
         theme_pid = currentIntent.getStringExtra("theme_pid");
-        theme_mode = Integer.parseInt(currentIntent.getStringExtra("theme_mode"));
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) toolbar.setTitle(theme_name);

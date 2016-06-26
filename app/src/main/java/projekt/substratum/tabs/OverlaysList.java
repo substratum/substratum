@@ -64,7 +64,6 @@ public class OverlaysList extends Fragment {
     private NotificationCompat.Builder mBuilder;
     private boolean has_initialized_cache = false;
     private int id = 1;
-    private int pluginType;
     private ViewGroup root;
     private ArrayList<OverlaysInfo> values2;
     private RecyclerView mRecyclerView;
@@ -98,7 +97,6 @@ public class OverlaysList extends Fragment {
 
         theme_name = InformationActivityTabs.getThemeName();
         theme_pid = InformationActivityTabs.getThemePID();
-        pluginType = InformationActivityTabs.getThemeMode();
 
         // Pre-initialize the adapter first so that it won't complain for skipping layout on logs
         mRecyclerView = (RecyclerView) root.findViewById(R.id.overlayRecyclerView);
@@ -610,6 +608,7 @@ public class OverlaysList extends Fragment {
                                     }
                                 }
                             }
+
                             ArrayAdapter<String> adapter1 = new ArrayAdapter<>(getActivity(),
                                     android.R.layout.simple_spinner_dropdown_item, type1a);
                             ArrayAdapter<String> adapter2 = new ArrayAdapter<>(getActivity(),
@@ -981,12 +980,13 @@ public class OverlaysList extends Fragment {
 
                                 String targetLocation = workingDirectory +
                                         "/res/values/type1a.xml";
-                                String targetLocation1a = workingDirectory + "/" + sUrl[0] +
-                                        "/values/type1a.xml";
+                                String targetLocation1a = workingDirectory + "/" + "type3_" +
+                                        sUrl[0] + "/values/";
 
                                 File checker = new File(targetLocation1a);
+                                Log.e("SJSJS", checker.exists()+"");
                                 if (checker.exists()) {
-                                    targetLocation = targetLocation1a;
+                                    targetLocation = targetLocation1a + "type1a.xml";
                                 }
 
                                 Log.d("SubstratumBuilder", "You have selected variant file \"" +
@@ -1006,11 +1006,11 @@ public class OverlaysList extends Fragment {
                                 String targetLocation2 = workingDirectory +
                                         "/res/values/type1b.xml";
                                 String targetLocation1b = workingDirectory + "/" + sUrl[0] +
-                                        "/values/type1b.xml";
+                                        "/values/";
 
                                 File checker = new File(targetLocation1b);
                                 if (checker.exists()) {
-                                    targetLocation2 = targetLocation1b;
+                                    targetLocation2 = targetLocation1b + "type1b.xml";;
                                 }
 
                                 Log.d("SubstratumBuilder", "You have selected variant file \"" +
@@ -1027,13 +1027,13 @@ public class OverlaysList extends Fragment {
                                         checkedOverlays.get(i).getSelectedVariantName3() + ".xml";
 
                                 String targetLocation3 = workingDirectory +
-                                        "/res/values/type1b.xml";
+                                        "/res/values/type1c.xml";
                                 String targetLocation1c = workingDirectory + "/" + sUrl[0] +
-                                        "/values/type1b.xml";
+                                        "/values/";
 
                                 File checker = new File(targetLocation1c);
                                 if (checker.exists()) {
-                                    targetLocation3 = targetLocation1c;
+                                    targetLocation3 = targetLocation1c + "type1c.xml";;
                                 }
 
                                 Log.d("SubstratumBuilder", "You have selected variant file \"" +

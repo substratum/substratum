@@ -153,7 +153,6 @@ public class HomeFragment extends Fragment {
                     if (isPackageInstalled(getContext(),
                             map.get(map.keySet().toArray()[position].toString())[1])) {
                         Intent myIntent = new Intent(getContext(), InformationActivityTabs.class);
-                        //myIntent.putExtra("key", value); //Optional parameters
                         myIntent.putExtra("theme_name", map.keySet().toArray()[position].toString
                                 ());
                         myIntent.putExtra("theme_pid", map.get(map.keySet().toArray()[position]

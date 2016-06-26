@@ -345,12 +345,12 @@ public class SubstratumBuilder {
                             "/AndroidManifest.xml -S " +
                             work_area +
                             (((base_resources == null) || !type3directory.exists()) ? "/res/ -I " :
-                                    "/" + "type3_" +
-                                            base_resources + "/ -I ") +
+                                    "/" + "type3_" + base_resources + "/ -I ") +
                             "/system/framework/framework-res.apk -F " +
                             work_area +
                             "/" + overlay_package + "." + parse2_themeName + "-unsigned.apk " +
                             "-f --include-meta-data\n";
+                    Log.e("Print1", commands);
                 } else {
                     if (variant != null) {
                         commands = "aapt p -M " + work_area +
@@ -359,14 +359,14 @@ public class SubstratumBuilder {
                                 "/" + "type2_" + additional_variant + "/ -S " +
                                 work_area +
                                 (((base_resources == null) || !type3directory.exists()) ? "/res/ " +
-                                        "-I " : "/" + "type3_" +
-                                        base_resources + "/ -I ") +
+                                        "-I " : "/" + "type3_" + base_resources + "/ -I ") +
                                 "/system/framework/framework-res.apk -F " +
                                 work_area +
                                 "/" + overlay_package + "." + parse2_themeName + "-unsigned" +
                                 ".apk " +
 
                                 "-f --include-meta-data\n";
+                        Log.e("Print2", commands);
                     } else {
                         commands = "aapt p -M " + work_area +
                                 "/AndroidManifest.xml -S " +
@@ -379,6 +379,7 @@ public class SubstratumBuilder {
                                 "/" + overlay_package + "." + parse2_themeName + "-unsigned" +
                                 ".apk " +
                                 "-f --include-meta-data\n";
+                        Log.e("Print3", commands);
                     }
                 }
 

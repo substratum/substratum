@@ -182,6 +182,7 @@ public class FontInstaller extends Fragment {
                     .Theme_DeviceDefault_Dialog_Alert);
             progress.setMessage(getString(R.string.font_dialog_apply_text));
             progress.setIndeterminate(false);
+            progress.setCancelable(false);
             progress.show();
         }
 

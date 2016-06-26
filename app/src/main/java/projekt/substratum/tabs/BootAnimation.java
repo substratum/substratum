@@ -162,6 +162,7 @@ public class BootAnimation extends Fragment {
                     .Theme_DeviceDefault_Dialog_Alert);
             progress.setMessage(getString(R.string.bootanimation_dialog_apply_text));
             progress.setIndeterminate(false);
+            progress.setCancelable(false);
             progress.show();
         }
 

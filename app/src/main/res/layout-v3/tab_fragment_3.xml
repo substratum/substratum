@@ -49,6 +49,32 @@
                 android:layout_marginTop="50dp"
                 android:indeterminate="true"/>
 
+            <RelativeLayout
+                android:id="@+id/bootanimation_placeholder"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/image_placeholder"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="30dp"
+                    android:src="@drawable/bootanimation_placeholder"/>
+
+                <TextView
+                    android:id="@+id/placeholder_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/image_placeholder"
+                    android:layout_margin="15dp"
+                    android:gravity="center"
+                    android:text="@string/bootanimation_placeholder_text"
+                    android:textColor="@color/font_text"
+                    android:textSize="20dp"
+                    android:textStyle="italic"/>
+
+            </RelativeLayout>
+
             <TextView
                 android:id="@+id/vm_blown"
                 android:layout_width="match_parent"

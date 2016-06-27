@@ -51,6 +51,32 @@
                 android:indeterminate="true"/>
 
             <RelativeLayout
+                android:id="@+id/font_placeholder"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/image_placeholder"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/font_placeholder"/>
+
+                <TextView
+                    android:id="@+id/placeholder_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/image_placeholder"
+                    android:layout_margin="15dp"
+                    android:gravity="center"
+                    android:text="@string/font_placeholder_text"
+                    android:textColor="@color/font_text"
+                    android:textSize="20dp"
+                    android:textStyle="italic"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:id="@+id/font_holder"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">

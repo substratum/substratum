@@ -66,6 +66,7 @@ public class FontInstaller extends Fragment {
     private ProgressDialog progress;
     private RelativeLayout font_holder;
     private String final_commands;
+    private RelativeLayout font_placeholder;
 
     private boolean checkChangeConfigurationPermissions() {
         String permission = "android.permission.CHANGE_CONFIGURATION";
@@ -94,6 +95,7 @@ public class FontInstaller extends Fragment {
         progressBar = (MaterialProgressBar) root.findViewById(R.id.progress_bar_loader);
 
         font_holder = (RelativeLayout) root.findViewById(R.id.font_holder);
+        font_placeholder = (RelativeLayout) root.findViewById(R.id.font_placeholder);
 
         imageButton = (ImageButton) root.findViewById(R.id.checkBox);
         imageButton.setClickable(false);
@@ -146,11 +148,13 @@ public class FontInstaller extends Fragment {
                 public void onItemSelected(AdapterView<?> arg0, View arg1,
                                            int pos, long id) {
                     if (pos == 0) {
+                        font_placeholder.setVisibility(View.VISIBLE);
                         imageButton.setClickable(false);
                         imageButton.setImageTintList(unchecked);
                         font_holder.setVisibility(View.GONE);
                         progressBar.setVisibility(View.GONE);
                     } else {
+                        font_placeholder.setVisibility(View.GONE);
                         String[] commands = {arg0.getSelectedItem().toString()};
                         new FontPreview().execute(commands);
                     }

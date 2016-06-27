@@ -21,6 +21,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -70,6 +71,7 @@ public class BootAnimation extends Fragment {
     private ProgressDialog progress;
     private boolean has_failed;
     private TextView vm_blown;
+    private RelativeLayout bootanimation_placeholder;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
@@ -85,6 +87,8 @@ public class BootAnimation extends Fragment {
         progressBar = (MaterialProgressBar) root.findViewById(R.id.progress_bar_loader);
 
         vm_blown = (TextView) root.findViewById(R.id.vm_blown);
+        bootanimation_placeholder = (RelativeLayout) root.findViewById(R.id
+                .bootanimation_placeholder);
 
         imageButton = (ImageButton) root.findViewById(R.id.checkBox);
         imageButton.setClickable(false);
@@ -137,6 +141,7 @@ public class BootAnimation extends Fragment {
                 public void onItemSelected(AdapterView<?> arg0, View arg1,
                                            int pos, long id) {
                     if (pos == 0) {
+                        bootanimation_placeholder.setVisibility(View.VISIBLE);
                         imageButton.setClickable(false);
                         imageButton.setImageTintList(unchecked);
                         animation = new AnimationDrawable();
@@ -147,6 +152,7 @@ public class BootAnimation extends Fragment {
                         images.clear();
                         progressBar.setVisibility(View.GONE);
                     } else {
+                        bootanimation_placeholder.setVisibility(View.GONE);
                         String[] commands = {arg0.getSelectedItem().toString()};
                         new BootAnimationPreview().execute(commands);
                     }

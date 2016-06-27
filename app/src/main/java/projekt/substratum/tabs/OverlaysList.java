@@ -811,6 +811,16 @@ public class OverlaysList extends Fragment {
                         }
                     }
                 } else {
+                    if (base_spinner.getSelectedItemPosition() == 0) {
+                        new LoadOverlays().execute("");
+                    } else {
+                        if (base_spinner.getVisibility() == View.VISIBLE) {
+                            String[] commands = {base_spinner.getSelectedItem().toString()};
+                            new LoadOverlays().execute(commands);
+                        } else {
+                            new LoadOverlays().execute("");
+                        }
+                    }
                     Root.runCommand(final_commands);
                 }
 

@@ -252,7 +252,6 @@ public class OverlaysList extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
-                new LoadOverlays().execute("");
             }
         });
 
@@ -318,10 +317,6 @@ public class OverlaysList extends Fragment {
             if (base_spinner.getVisibility() == View.VISIBLE) base_spinner.setVisibility(View.GONE);
             Log.e("SubstratumLogger", "Could not parse list of base options for this theme!");
         }
-
-        // Buffer the recyclerView for the information required
-        LoadOverlays loadOverlays = new LoadOverlays();
-        loadOverlays.execute("");
         return root;
     }
 
@@ -858,37 +853,35 @@ public class OverlaysList extends Fragment {
                         toast.show();
                     }
                 } else {
-                    if (disable_mode) {
-                        if (final_commands.length() > 0) {
-                            String disableBeforeEnabling = "";
-                            if (mixAndMatchMode) {
-                                for (int i = 0; i < all_installed_overlays.size(); i++) {
-                                    if (disableBeforeEnabling.length() == 0) {
-                                        disableBeforeEnabling = disableBeforeEnabling +
-                                                "om disable " + all_installed_overlays.get(i);
-                                    } else {
-                                        disableBeforeEnabling = disableBeforeEnabling +
-                                                " && om disable " + all_installed_overlays.get(i);
-                                    }
+                    if (final_commands.length() > 0) {
+                        String disableBeforeEnabling = "";
+                        if (mixAndMatchMode) {
+                            for (int i = 0; i < all_installed_overlays.size(); i++) {
+                                if (disableBeforeEnabling.length() == 0) {
+                                    disableBeforeEnabling = disableBeforeEnabling +
+                                            "om disable " + all_installed_overlays.get(i);
+                                } else {
+                                    disableBeforeEnabling = disableBeforeEnabling +
+                                            " && om disable " + all_installed_overlays.get(i);
                                 }
                             }
-                            Toast toast = Toast.makeText(getContext(), getString(R
-                                            .string.toast_disabled),
-                                    Toast.LENGTH_SHORT);
-                            toast.show();
-                            disable_mode = false;
-                            if (mixAndMatchMode) {
-                                eu.chainfire.libsuperuser.Shell.SU.run(disableBeforeEnabling +
-                                        " && " + final_commands);
-                            } else {
-                                eu.chainfire.libsuperuser.Shell.SU.run(final_commands);
-                            }
-                        } else {
-                            Toast toast = Toast.makeText(getContext(), getString(R
-                                            .string.toast_disabled4),
-                                    Toast.LENGTH_SHORT);
-                            toast.show();
                         }
+                        Toast toast = Toast.makeText(getContext(), getString(R
+                                        .string.toast_disabled),
+                                Toast.LENGTH_SHORT);
+                        toast.show();
+                        disable_mode = false;
+                        if (mixAndMatchMode) {
+                            eu.chainfire.libsuperuser.Shell.SU.run(disableBeforeEnabling +
+                                    " && " + final_commands);
+                        } else {
+                            eu.chainfire.libsuperuser.Shell.SU.run(final_commands);
+                        }
+                    } else {
+                        Toast toast = Toast.makeText(getContext(), getString(R
+                                        .string.toast_disabled4),
+                                Toast.LENGTH_SHORT);
+                        toast.show();
                     }
                 }
             }

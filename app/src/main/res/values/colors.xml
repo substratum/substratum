@@ -13,6 +13,12 @@
     <color name="bootanimation_spinner_background">@color/theme_information_background</color>
     <color name="bootanimation_window_background">@android:color/black</color>
 
+    <color name="font_text">@android:color/white</color>
+    <color name="font_checked">@color/colorAccent</color>
+    <color name="font_unchecked">#ff777777</color>
+    <color name="font_spinner_background">@color/theme_information_background</color>
+    <color name="font_window_background">@android:color/black</color>
+
     <color name="backup_button">@color/colorPrimary</color>
     <color name="backup_button_text_color">@android:color/white</color>
     <color name="restore_button">@color/colorPrimary</color>

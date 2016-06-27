@@ -40,10 +40,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -63,7 +61,7 @@ public class FontInstaller extends Fragment {
     private ViewGroup root;
     private MaterialProgressBar progressBar;
     private ImageButton imageButton;
-    private Spinner bootAnimationSelector;
+    private Spinner fontSelector;
     private ColorStateList unchecked, checked;
     private ProgressDialog progress;
     private RelativeLayout font_holder;
@@ -102,7 +100,7 @@ public class FontInstaller extends Fragment {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new FontHandler().execute(bootAnimationSelector.getSelectedItem()
+                new FontHandler().execute(fontSelector.getSelectedItem()
                         .toString());
             }
         });
@@ -113,8 +111,8 @@ public class FontInstaller extends Fragment {
                         new int[]{}
                 },
                 new int[]{
-                        getContext().getColor(R.color.bootanimation_unchecked),
-                        getContext().getColor(R.color.bootanimation_unchecked)
+                        getContext().getColor(R.color.font_unchecked),
+                        getContext().getColor(R.color.font_unchecked)
                 }
         );
         checked = new ColorStateList(
@@ -123,38 +121,43 @@ public class FontInstaller extends Fragment {
                         new int[]{}
                 },
                 new int[]{
-                        getContext().getColor(R.color.bootanimation_checked),
-                        getContext().getColor(R.color.bootanimation_checked)
+                        getContext().getColor(R.color.font_checked),
+                        getContext().getColor(R.color.font_checked)
                 }
         );
-
 
         try {
             Context otherContext = getContext().createPackageContext(theme_pid, 0);
             AssetManager am = otherContext.getAssets();
-            String[] unparsedBootAnimations = am.list("fonts");
-            ArrayList<String> parsedBootAnimations = new ArrayList<>();
-            for (int i = 0; i < unparsedBootAnimations.length; i++) {
-                parsedBootAnimations.add(unparsedBootAnimations[i].substring(0,
-                        unparsedBootAnimations[i].length() - 4));
+            String[] fontsToParse = am.list("fonts");
+            ArrayList<String> fonts = new ArrayList<>();
+            fonts.add(getString(R.string.font_default_spinner));
+            for (int i = 0; i < fontsToParse.length; i++) {
+                fonts.add(fontsToParse[i].substring(0,
+                        fontsToParse[i].length() - 4));
             }
             ArrayAdapter<String> adapter1 = new ArrayAdapter<>(getActivity(),
-                    android.R.layout.simple_spinner_dropdown_item, parsedBootAnimations);
-            bootAnimationSelector = (Spinner) root.findViewById(R.id.bootAnimationSelection);
-            bootAnimationSelector.setAdapter(adapter1);
-            bootAnimationSelector.setOnItemSelectedListener(new AdapterView
+                    android.R.layout.simple_spinner_dropdown_item, fonts);
+            fontSelector = (Spinner) root.findViewById(R.id.fontSelection);
+            fontSelector.setAdapter(adapter1);
+            fontSelector.setOnItemSelectedListener(new AdapterView
                     .OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> arg0, View arg1,
                                            int pos, long id) {
-                    String[] commands = {arg0.getSelectedItem().toString()};
-                    new FontPreview().execute(commands);
+                    if (pos == 0) {
+                        imageButton.setClickable(false);
+                        imageButton.setImageTintList(unchecked);
+                        font_holder.setVisibility(View.GONE);
+                        progressBar.setVisibility(View.GONE);
+                    } else {
+                        String[] commands = {arg0.getSelectedItem().toString()};
+                        new FontPreview().execute(commands);
+                    }
                 }
 
                 @Override
                 public void onNothingSelected(AdapterView<?> arg0) {
-                    String[] commands = {arg0.getSelectedItem().toString()};
-                    new FontPreview().execute(commands);
                 }
             });
         } catch (Exception e) {
@@ -225,7 +228,6 @@ public class FontInstaller extends Fragment {
         protected String doInBackground(String... sUrl) {
 
             try {
-
                 // Move the file from assets folder to a new working area
 
                 Log.d("FontHandler", "Copying over the selected fonts to working " +

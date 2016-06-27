@@ -1,7 +1,7 @@
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
                                             android:layout_width="match_parent"
                                             android:layout_height="match_parent"
-                                            android:background="@color/bootanimation_window_background">
+                                            android:background="@color/font_window_background">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -11,10 +11,10 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/bootanimation_spinner_background">
+            android:background="@color/font_spinner_background">
 
             <Spinner
-                android:id="@+id/bootAnimationSelection"
+                android:id="@+id/fontSelection"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
@@ -30,7 +30,7 @@
                 android:background="@android:color/transparent"
                 android:clickable="true"
                 android:foreground="?android:selectableItemBackground"
-                android:src="@drawable/bootanimation_check"/>
+                android:src="@drawable/font_check"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -38,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
-            android:background="@android:color/black"
+            android:background="@color/font_window_background"
             android:orientation="vertical">
 
             <me.zhanghai.android.materialprogressbar.MaterialProgressBar
@@ -61,7 +61,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="AaBbCcDd123"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/font_text"
                     android:textSize="50dp"/>
 
                 <TextView
@@ -71,7 +71,7 @@
                     android:layout_below="@+id/text_normal"
                     android:gravity="center"
                     android:text="AaBbCcDd123"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/font_text"
                     android:textSize="50dp"
                     android:textStyle="bold"/>
 
@@ -82,7 +82,7 @@
                     android:layout_below="@+id/text_bold"
                     android:gravity="center"
                     android:text="AaBbCcDd123"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/font_text"
                     android:textSize="50dp"
                     android:textStyle="italic"/>
 
@@ -93,11 +93,10 @@
                     android:layout_below="@+id/text_normal_italics"
                     android:gravity="center"
                     android:text="AaBbCcDd123"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/font_text"
                     android:textSize="50dp"
                     android:textStyle="italic|bold"/>
             </RelativeLayout>
         </RelativeLayout>
-
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

@@ -990,7 +990,8 @@ public class OverlaysList extends Fragment {
 
                                 File checker = new File(targetLocation1b);
                                 if (checker.exists()) {
-                                    targetLocation2 = targetLocation1b + "type1b.xml";;
+                                    targetLocation2 = targetLocation1b + "type1b.xml";
+                                    ;
                                 }
 
                                 Log.d("SubstratumBuilder", "You have selected variant file \"" +
@@ -1013,7 +1014,8 @@ public class OverlaysList extends Fragment {
 
                                 File checker = new File(targetLocation1c);
                                 if (checker.exists()) {
-                                    targetLocation3 = targetLocation1c + "type1c.xml";;
+                                    targetLocation3 = targetLocation1c + "type1c.xml";
+                                    ;
                                 }
 
                                 Log.d("SubstratumBuilder", "You have selected variant file \"" +

@@ -122,6 +122,7 @@ public class BootAnimation extends Fragment {
             AssetManager am = otherContext.getAssets();
             String[] unparsedBootAnimations = am.list("bootanimation");
             ArrayList<String> parsedBootAnimations = new ArrayList<>();
+            parsedBootAnimations.add(getString(R.string.bootanimation_default_spinner));
             for (int i = 0; i < unparsedBootAnimations.length; i++) {
                 parsedBootAnimations.add(unparsedBootAnimations[i].substring(0,
                         unparsedBootAnimations[i].length() - 4));
@@ -135,14 +136,24 @@ public class BootAnimation extends Fragment {
                 @Override
                 public void onItemSelected(AdapterView<?> arg0, View arg1,
                                            int pos, long id) {
-                    String[] commands = {arg0.getSelectedItem().toString()};
-                    new BootAnimationPreview().execute(commands);
+                    if (pos == 0) {
+                        imageButton.setClickable(false);
+                        imageButton.setImageTintList(unchecked);
+                        animation = new AnimationDrawable();
+                        animation.setOneShot(false);
+                        bootAnimationPreview = (ImageView) root.findViewById(
+                                R.id.bootAnimationPreview);
+                        bootAnimationPreview.setImageDrawable(null);
+                        images.clear();
+                        progressBar.setVisibility(View.GONE);
+                    } else {
+                        String[] commands = {arg0.getSelectedItem().toString()};
+                        new BootAnimationPreview().execute(commands);
+                    }
                 }
 
                 @Override
                 public void onNothingSelected(AdapterView<?> arg0) {
-                    String[] commands = {arg0.getSelectedItem().toString()};
-                    new BootAnimationPreview().execute(commands);
                 }
             });
         } catch (Exception e) {

@@ -26,10 +26,12 @@
     <string name="overlays_compile_update_button">Compile/Update &amp; Install</string>
 
     <string name="bootanimation_vm_exploded">Rendering of boot animation has been terminated due to insufficient memory allocation.\n\nInstallation of this boot animation is still possible without a rendered preview.</string>
+    <string name="bootanimation_default_spinner">please select a boot animation&#8230;</string>
     <string name="bootanimation_dialog_apply_text">Boot animation is processing&#8230;</string>
     <string name="bootanimation_dialog_apply_success">Boot animation applied!</string>
     <string name="bootanimation_dialog_apply_failed">Boot animation failed to apply&#8230;</string>
 
+    <string name="font_default_spinner">please select a font pack&#8230;</string>
     <string name="font_dialog_apply_text">Font pack is processing&#8230;</string>
     <string name="font_dialog_apply_success">Font pack has been applied!</string>
     <string name="font_dialog_apply_failed">Font pack has failed to apply&#8230;</string>

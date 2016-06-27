@@ -451,6 +451,20 @@ public class OverlaysList extends Fragment {
                 }
             }
 
+            // Keep a record of what overlays are activated on the system
+
+            eu.chainfire.libsuperuser.Shell.SU.run("cp /data/system/overlays" +
+                    ".xml " +
+                    Environment
+                            .getExternalStorageDirectory().getAbsolutePath() +
+                    "/.substratum/current_overlays.xml");
+
+            String[] commands = {Environment.getExternalStorageDirectory()
+                    .getAbsolutePath() +
+                    "/.substratum/current_overlays.xml", "5"};
+
+            state5overlays = ReadOverlaysFile.main(commands);
+
             // Now let's add the new information so that the adapter can recognize custom method
             // calls
             for (String package_name : values) {
@@ -627,18 +641,6 @@ public class OverlaysList extends Fragment {
                             boolean adapterThreeChecker = type1c.size() == 1;
                             boolean adapterFourChecker = type2.size() == 1;
 
-                            eu.chainfire.libsuperuser.Shell.SU.run("cp /data/system/overlays" +
-                                    ".xml " +
-                                    Environment
-                                            .getExternalStorageDirectory().getAbsolutePath() +
-                                    "/.substratum/current_overlays.xml");
-
-                            String[] commands = {Environment.getExternalStorageDirectory()
-                                    .getAbsolutePath() +
-                                    "/.substratum/current_overlays.xml", "5"};
-
-                            state5overlays = ReadOverlaysFile.main(commands);
-
                             OverlaysInfo overlaysInfo = new OverlaysInfo(parse2_themeName,
                                     parsed_name,
                                     package_name, false,
@@ -649,18 +651,6 @@ public class OverlaysList extends Fragment {
                                     getContext(), versionName, sUrl[0], state5overlays);
                             values2.add(overlaysInfo);
                         } else {
-                            eu.chainfire.libsuperuser.Shell.SU.run("cp /data/system/overlays" +
-                                    ".xml " +
-                                    Environment
-                                            .getExternalStorageDirectory().getAbsolutePath() +
-                                    "/.substratum/current_overlays.xml");
-
-                            String[] commands = {Environment.getExternalStorageDirectory()
-                                    .getAbsolutePath() +
-                                    "/.substratum/current_overlays.xml", "5"};
-
-                            state5overlays = ReadOverlaysFile.main(commands);
-
                             // At this point, there is no spinner adapter, so it should be null
                             OverlaysInfo overlaysInfo = new OverlaysInfo(parse2_themeName,
                                     parsed_name,

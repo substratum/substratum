@@ -349,7 +349,7 @@ public class SubstratumBuilder {
                             "/system/framework/framework-res.apk -F " +
                             work_area +
                             "/" + overlay_package + "." + parse2_themeName + "-unsigned.apk " +
-                            "-f --include-meta-data\n";
+                            "-f --include-meta-data --auto-add-overlay\n";
                     Log.e("Print1", commands);
                 } else {
                     if (variant != null) {
@@ -365,7 +365,7 @@ public class SubstratumBuilder {
                                 "/" + overlay_package + "." + parse2_themeName + "-unsigned" +
                                 ".apk " +
 
-                                "-f --include-meta-data\n";
+                                "-f --include-meta-data --auto-add-overlay\n";
                         Log.e("Print2", commands);
                     } else {
                         commands = "aapt p -M " + work_area +
@@ -378,7 +378,7 @@ public class SubstratumBuilder {
                                 work_area +
                                 "/" + overlay_package + "." + parse2_themeName + "-unsigned" +
                                 ".apk " +
-                                "-f --include-meta-data\n";
+                                "-f --include-meta-data --auto-add-overlay\n";
                         Log.e("Print3", commands);
                     }
                 }

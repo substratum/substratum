@@ -48,6 +48,7 @@ import projekt.substratum.adapters.OverlaysAdapter;
 import projekt.substratum.model.OverlaysInfo;
 import projekt.substratum.util.FloatingActionMenu;
 import projekt.substratum.util.ReadOverlaysFile;
+import projekt.substratum.util.Root;
 import projekt.substratum.util.SubstratumBuilder;
 
 /**
@@ -362,7 +363,7 @@ public class OverlaysList extends Fragment {
                         "postExecute()");
             }
 
-            eu.chainfire.libsuperuser.Shell.SU.run("cp /data/system/overlays.xml " +
+            Root.runCommand("cp /data/system/overlays.xml " +
                     Environment
                             .getExternalStorageDirectory().getAbsolutePath() +
                     "/.substratum/current_overlays.xml");
@@ -810,7 +811,7 @@ public class OverlaysList extends Fragment {
                         }
                     }
                 } else {
-                    eu.chainfire.libsuperuser.Shell.SU.run(final_commands);
+                    Root.runCommand(final_commands);
                 }
 
             } else {
@@ -835,10 +836,10 @@ public class OverlaysList extends Fragment {
                         toast.show();
                         enable_mode = false;
                         if (mixAndMatchMode) {
-                            eu.chainfire.libsuperuser.Shell.SU.run(disableBeforeEnabling +
+                            Root.runCommand(disableBeforeEnabling +
                                     " && " + final_commands);
                         } else {
-                            eu.chainfire.libsuperuser.Shell.SU.run(final_commands);
+                            Root.runCommand(final_commands);
                         }
                     } else {
                         Toast toast = Toast.makeText(getContext(), getString(R
@@ -866,10 +867,10 @@ public class OverlaysList extends Fragment {
                         toast.show();
                         disable_mode = false;
                         if (mixAndMatchMode) {
-                            eu.chainfire.libsuperuser.Shell.SU.run(disableBeforeEnabling +
+                            Root.runCommand(disableBeforeEnabling +
                                     " && " + final_commands);
                         } else {
-                            eu.chainfire.libsuperuser.Shell.SU.run(final_commands);
+                            Root.runCommand(final_commands);
                         }
                     } else {
                         Toast toast = Toast.makeText(getContext(), getString(R
@@ -911,7 +912,7 @@ public class OverlaysList extends Fragment {
                         // check for
                         // whatever is activated first and delay their installs to a one liner
 
-                        eu.chainfire.libsuperuser.Shell.SU.run("cp /data/system/overlays.xml " +
+                        Root.runCommand("cp /data/system/overlays.xml " +
                                 Environment
                                         .getExternalStorageDirectory().getAbsolutePath() +
                                 "/.substratum/current_overlays.xml");
@@ -974,7 +975,7 @@ public class OverlaysList extends Fragment {
                                 Log.d("SubstratumBuilder", "Moving variant file to: " +
                                         targetLocation);
 
-                                eu.chainfire.libsuperuser.Shell.SU.run(
+                                Root.runCommand(
                                         "mv -f " + sourceLocation + " " + targetLocation);
                             }
 
@@ -999,7 +1000,7 @@ public class OverlaysList extends Fragment {
                                 Log.d("SubstratumBuilder", "Moving variant file to: " +
                                         targetLocation2);
 
-                                eu.chainfire.libsuperuser.Shell.SU.run(
+                                Root.runCommand(
                                         "mv -f " + sourceLocation2 + " " + targetLocation2);
                             }
                             // Type 1c
@@ -1023,7 +1024,7 @@ public class OverlaysList extends Fragment {
                                 Log.d("SubstratumBuilder", "Moving variant file to: " +
                                         targetLocation3);
 
-                                eu.chainfire.libsuperuser.Shell.SU.run(
+                                Root.runCommand(
                                         "mv -f " + sourceLocation3 + " " + targetLocation3);
                             }
 

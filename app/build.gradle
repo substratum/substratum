@@ -41,9 +41,6 @@ dependencies {
     // Image Downloading and Caching
     compile 'com.squareup.picasso:picasso:2.5.2'
 
-    // Superuser and Root Utilities
-    compile 'eu.chainfire:libsuperuser:1.0.0.+'
-
     // Commons IO
     compile "commons-io:commons-io:+"
 

@@ -52,6 +52,7 @@ import java.util.zip.ZipOutputStream;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.InformationActivityTabs;
 import projekt.substratum.R;
+import projekt.substratum.util.Root;
 
 /**
  * @author Nicholas Chum (nicholaschum)
@@ -195,9 +196,9 @@ public class BootAnimation extends Fragment {
                         getString(R.string.bootanimation_dialog_apply_failed), Toast.LENGTH_LONG);
                 toast.show();
             }
-            eu.chainfire.libsuperuser.Shell.SU.run("mount -o remount,ro /");
-            eu.chainfire.libsuperuser.Shell.SU.run("mount -o remount,ro /data");
-            eu.chainfire.libsuperuser.Shell.SU.run("mount -o remount,ro /system");
+            Root.runCommand("mount -o remount,ro /");
+            Root.runCommand("mount -o remount,ro /data");
+            Root.runCommand("mount -o remount,ro /system");
         }
 
         @Override
@@ -221,7 +222,7 @@ public class BootAnimation extends Fragment {
                 boolean created = cacheDirectory2.mkdirs();
                 if (created) Log.d("BootAnimationHandler", "Bootanimation work folder created");
             } else {
-                eu.chainfire.libsuperuser.Shell.SU.run(
+                Root.runCommand(
                         "rm -r " + getContext().getCacheDir().getAbsolutePath() +
                                 "/BootAnimationCache/AnimationCreator/");
                 boolean created = cacheDirectory2.mkdirs();
@@ -399,8 +400,8 @@ public class BootAnimation extends Fragment {
 
                 File themeDirectory = new File("/data/system/theme/");
                 if (!themeDirectory.exists()) {
-                    eu.chainfire.libsuperuser.Shell.SU.run("mount -o remount,rw /data");
-                    eu.chainfire.libsuperuser.Shell.SU.run("mkdir /data/system/theme/");
+                    Root.runCommand("mount -o remount,rw /data");
+                    Root.runCommand("mkdir /data/system/theme/");
                 }
 
                 File scaledBootAnimCheck = new File(getContext().getCacheDir()
@@ -416,35 +417,35 @@ public class BootAnimation extends Fragment {
                 }
 
                 if (!has_failed) {
-                    eu.chainfire.libsuperuser.Shell.SU.run("mount -o remount,rw /system");
-                    eu.chainfire.libsuperuser.Shell.SU.run("chmod 755 /data/system/theme/");
+                    Root.runCommand("mount -o remount,rw /system");
+                    Root.runCommand("chmod 755 /data/system/theme/");
 
-                    eu.chainfire.libsuperuser.Shell.SU.run("mount -o remount,rw /system");
-                    eu.chainfire.libsuperuser.Shell.SU.run(
+                    Root.runCommand("mount -o remount,rw /system");
+                    Root.runCommand(
                             "mv -f " + getContext().getCacheDir()
                                     .getAbsolutePath() + "/BootAnimationCache/AnimationCreator/"
                                     + "scaled-" + bootanimation + ".zip " +
 
                                     "/data/system/theme/bootanimation.zip");
 
-                    eu.chainfire.libsuperuser.Shell.SU.run("mount -o remount,rw /system");
-                    eu.chainfire.libsuperuser.Shell.SU.run("chmod 644 " +
+                    Root.runCommand("mount -o remount,rw /system");
+                    Root.runCommand("chmod 644 " +
                             "/data/system/theme/bootanimation.zip");
 
-                    eu.chainfire.libsuperuser.Shell.SU.run("mount -o remount,rw /data");
-                    eu.chainfire.libsuperuser.Shell.SU.run("chcon -R u:object_r:system_file:s0 " +
+                    Root.runCommand("mount -o remount,rw /data");
+                    Root.runCommand("chcon -R u:object_r:system_file:s0 " +
                             "/data/system/theme");
                 }
             }
 
             if (!has_failed) {
                 Log.d("BootAnimationHandler", "Boot animation installed!");
-                eu.chainfire.libsuperuser.Shell.SU.run(
+                Root.runCommand(
                         "rm -r " + getContext().getCacheDir().getAbsolutePath() +
                                 "/BootAnimationCache/AnimationCreator/");
             } else {
                 Log.e("BootAnimationHandler", "Boot animation installation aborted!");
-                eu.chainfire.libsuperuser.Shell.SU.run(
+                Root.runCommand(
                         "rm -r " + getContext().getCacheDir().getAbsolutePath() +
                                 "/BootAnimationCache/AnimationCreator/");
             }
@@ -486,7 +487,7 @@ public class BootAnimation extends Fragment {
                         "frames.");
                 bootAnimationPreview.setImageDrawable(animation);
                 animation.start();
-                eu.chainfire.libsuperuser.Shell.SU.run(
+                Root.runCommand(
                         "rm -r " + getContext().getCacheDir().getAbsolutePath() +
                                 "/BootAnimationCache/animation_preview/");
                 imageButton.setImageTintList(checked);
@@ -513,7 +514,7 @@ public class BootAnimation extends Fragment {
                     boolean created = cacheDirectory2.mkdirs();
                     if (created) Log.d("BootAnimationHandler", "Bootanimation work folder created");
                 } else {
-                    eu.chainfire.libsuperuser.Shell.SU.run(
+                    Root.runCommand(
                             "rm -r " + getContext().getCacheDir().getAbsolutePath() +
                                     "/BootAnimationCache/animation_preview/");
                     boolean created = cacheDirectory2.mkdirs();

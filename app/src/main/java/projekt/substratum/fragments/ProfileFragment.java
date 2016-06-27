@@ -30,6 +30,7 @@ import io.github.yavski.fabspeeddial.FabSpeedDial;
 import io.github.yavski.fabspeeddial.SimpleMenuListenerAdapter;
 import projekt.substratum.R;
 import projekt.substratum.util.ReadOverlaysFile;
+import projekt.substratum.util.Root;
 
 /**
  * @author Nicholas Chum (nicholaschum)
@@ -241,12 +242,12 @@ public class ProfileFragment extends Fragment {
                         "many times, restarting current activity to preserve app " +
                         "integrity.");
             }
-            eu.chainfire.libsuperuser.Shell.SU.run(final_commands);
+            Root.runCommand(final_commands);
         }
 
         @Override
         protected String doInBackground(String... sUrl) {
-            eu.chainfire.libsuperuser.Shell.SU.run("cp /data/system/overlays.xml " +
+            Root.runCommand("cp /data/system/overlays.xml " +
                     Environment
                             .getExternalStorageDirectory().getAbsolutePath() +
                     "/.substratum/current_overlays.xml");
@@ -320,12 +321,12 @@ public class ProfileFragment extends Fragment {
                         "many times, restarting current activity to preserve app " +
                         "integrity.");
             }
-            eu.chainfire.libsuperuser.Shell.SU.run(to_be_run_commands);
+            Root.runCommand(to_be_run_commands);
         }
 
         @Override
         protected String doInBackground(String... sUrl) {
-            eu.chainfire.libsuperuser.Shell.SU.run("cp /data/system/overlays.xml " +
+            Root.runCommand("cp /data/system/overlays.xml " +
                     Environment.getExternalStorageDirectory().getAbsolutePath() +
                     "/.substratum/current_overlays.xml");
 
@@ -346,7 +347,7 @@ public class ProfileFragment extends Fragment {
                 Log.d("Settings", "Disabling overlay \"" + enabled_overlays
                         .get(i) + "\"");
             }
-            eu.chainfire.libsuperuser.Shell.SU.run(final_commands);
+            Root.runCommand(final_commands);
             return null;
         }
     }
@@ -371,7 +372,7 @@ public class ProfileFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            eu.chainfire.libsuperuser.Shell.SU.run("cp /data/system/overlays.xml " +
+            Root.runCommand("cp /data/system/overlays.xml " +
                     Environment
                             .getExternalStorageDirectory().getAbsolutePath() +
                     "/substratum/profiles/" + aet_getText + ".substratum");
@@ -400,7 +401,7 @@ public class ProfileFragment extends Fragment {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         headerProgress.setVisibility(View.GONE);
-                                        eu.chainfire.libsuperuser.Shell.SU.run(to_be_run_commands);
+                                        Root.runCommand(to_be_run_commands);
                                     }
                                 })
                         .setNegativeButton(getString(R.string.restore_dialog_cancel), new
@@ -413,7 +414,7 @@ public class ProfileFragment extends Fragment {
                         .create().show();
             } else {
                 headerProgress.setVisibility(View.GONE);
-                eu.chainfire.libsuperuser.Shell.SU.run(to_be_run_commands);
+                Root.runCommand(to_be_run_commands);
             }
         }
 
@@ -421,7 +422,7 @@ public class ProfileFragment extends Fragment {
         protected String doInBackground(String... sUrl) {
             String profile_name = sUrl[0];
 
-            eu.chainfire.libsuperuser.Shell.SU.run("cp /data/system/overlays" +
+            Root.runCommand("cp /data/system/overlays" +
                     ".xml " +
                     Environment
                             .getExternalStorageDirectory().getAbsolutePath() +

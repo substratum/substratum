@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import projekt.substratum.util.Root;
+
 /**
  * @author Nicholas Chum (nicholaschum)
  */
@@ -14,6 +16,7 @@ public class SplashScreenActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splashscreen_layout);
+        Root.requestRootAccess();
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override

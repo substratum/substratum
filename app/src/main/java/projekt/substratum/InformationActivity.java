@@ -50,6 +50,7 @@ import java.util.List;
 
 import projekt.substratum.util.FloatingActionMenu;
 import projekt.substratum.util.ReadOverlaysFile;
+import projekt.substratum.util.Root;
 import projekt.substratum.util.SubstratumBuilder;
 
 /**
@@ -187,7 +188,7 @@ public class InformationActivity extends AppCompatActivity {
                                     .toast_updating),
                             Toast.LENGTH_LONG);
                     toast.show();
-                    eu.chainfire.libsuperuser.Shell.SU.run("cp /data/system/overlays.xml " +
+                    Root.runCommand("cp /data/system/overlays.xml " +
                             Environment
                                     .getExternalStorageDirectory().getAbsolutePath() +
                             "/.substratum/current_overlays.xml");
@@ -414,7 +415,7 @@ public class InformationActivity extends AppCompatActivity {
                                     ("[^a-zA-Z0-9]+", "");
 
                             // Begin uninstalling all overlays based on this package
-                            eu.chainfire.libsuperuser.Shell.SU.run("cp /data/system/overlays" +
+                            Root.runCommand("cp /data/system/overlays" +
                                     ".xml " +
                                     Environment
                                             .getExternalStorageDirectory().getAbsolutePath() +
@@ -460,7 +461,7 @@ public class InformationActivity extends AppCompatActivity {
                                     Toast.LENGTH_LONG);
                             toast.show();
 
-                            eu.chainfire.libsuperuser.Shell.SU.run(commands2);
+                            Root.runCommand(commands2);
 
                             // Finally refresh the listView adapter
                             adapter.notifyDataSetChanged();
@@ -491,7 +492,7 @@ public class InformationActivity extends AppCompatActivity {
                                     ("[^a-zA-Z0-9]+", "");
 
                             // Begin disabling all overlays based on this package
-                            eu.chainfire.libsuperuser.Shell.SU.run("cp /data/system/overlays" +
+                            Root.runCommand("cp /data/system/overlays" +
                                     ".xml " +
                                     Environment
                                             .getExternalStorageDirectory().getAbsolutePath() +
@@ -537,7 +538,7 @@ public class InformationActivity extends AppCompatActivity {
                                     Toast.LENGTH_LONG);
                             toast.show();
 
-                            eu.chainfire.libsuperuser.Shell.SU.run(commands2);
+                            Root.runCommand(commands2);
 
                             // Finally refresh the listView adapter
                             adapter.notifyDataSetChanged();
@@ -568,7 +569,7 @@ public class InformationActivity extends AppCompatActivity {
                                     ("[^a-zA-Z0-9]+", "");
 
                             // Begin enabling all overlays based on this package
-                            eu.chainfire.libsuperuser.Shell.SU.run("cp /data/system/overlays" +
+                            Root.runCommand("cp /data/system/overlays" +
                                     ".xml " +
                                     Environment
                                             .getExternalStorageDirectory().getAbsolutePath() +
@@ -614,7 +615,7 @@ public class InformationActivity extends AppCompatActivity {
                                     Toast.LENGTH_LONG);
                             toast.show();
 
-                            eu.chainfire.libsuperuser.Shell.SU.run(commands2);
+                            Root.runCommand(commands2);
 
                             // Finally refresh the listView adapter
                             adapter.notifyDataSetChanged();
@@ -646,7 +647,7 @@ public class InformationActivity extends AppCompatActivity {
                     .setPositiveButton(R.string.uninstall_dialog_okay, new DialogInterface
                             .OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            eu.chainfire.libsuperuser.Shell.SU.run("pm uninstall " + theme_pid);
+                            Root.runCommand("pm uninstall " + theme_pid);
 
                             // Quickly parse theme_name
                             String parse1_themeName = theme_name.replaceAll("\\s+", "");
@@ -654,7 +655,7 @@ public class InformationActivity extends AppCompatActivity {
                                     ("[^a-zA-Z0-9]+", "");
 
                             // Begin uninstalling all overlays based on this package
-                            eu.chainfire.libsuperuser.Shell.SU.run("cp /data/system/overlays" +
+                            Root.runCommand("cp /data/system/overlays" +
                                     ".xml " +
                                     Environment
                                             .getExternalStorageDirectory().getAbsolutePath() +
@@ -700,7 +701,7 @@ public class InformationActivity extends AppCompatActivity {
                                     Toast.LENGTH_LONG);
                             toast.show();
 
-                            eu.chainfire.libsuperuser.Shell.SU.run(commands2);
+                            Root.runCommand(commands2);
 
                             // Finally close out of the window
                             uninstalled = true;
@@ -878,7 +879,7 @@ public class InformationActivity extends AppCompatActivity {
 
             // Filter out state 0-3 overlays before enabling them
 
-            eu.chainfire.libsuperuser.Shell.SU.run("cp /data/system/overlays.xml " +
+            Root.runCommand("cp /data/system/overlays.xml " +
                     Environment
                             .getExternalStorageDirectory().getAbsolutePath() +
                     "/.substratum/current_overlays.xml");
@@ -918,7 +919,7 @@ public class InformationActivity extends AppCompatActivity {
                 Log.e("SubstratumLogger", "Could not refresh list of overlay folders.");
             }
             // Check enabled overlays
-            eu.chainfire.libsuperuser.Shell.SU.run("cp /data/system/overlays.xml " +
+            Root.runCommand("cp /data/system/overlays.xml " +
                     Environment
                             .getExternalStorageDirectory().getAbsolutePath() +
                     "/.substratum/current_overlays.xml");
@@ -949,7 +950,7 @@ public class InformationActivity extends AppCompatActivity {
             // Superuser is used due to some files being held hostage by the system
             File cacheFolder = new File(getCacheDir().getAbsolutePath() + "/SubstratumBuilder/");
             if (cacheFolder.exists()) {
-                eu.chainfire.libsuperuser.Shell.SU.run(
+                Root.runCommand(
                         "rm -r " + getCacheDir().getAbsolutePath() +
                                 "/SubstratumBuilder/");
             }
@@ -1162,7 +1163,7 @@ public class InformationActivity extends AppCompatActivity {
                                 final_commands = mixAndMatchCommands + " && " + final_commands;
                             }
                             Log.e("Substratum4", final_commands);
-                            eu.chainfire.libsuperuser.Shell.SU.run(final_commands);
+                            Root.runCommand(final_commands);
                             adapter.notifyDataSetChanged();
                         } else {
                             Toast toast = Toast.makeText(getApplicationContext(),
@@ -1191,7 +1192,7 @@ public class InformationActivity extends AppCompatActivity {
                                 final_commands = mixAndMatchCommands + " && " + final_commands;
                             }
                             Log.e("Substratum5", final_commands);
-                            eu.chainfire.libsuperuser.Shell.SU.run(final_commands);
+                            Root.runCommand(final_commands);
                             adapter.notifyDataSetChanged();
                         } else {
                             Toast toast = Toast.makeText(getApplicationContext(),
@@ -1240,7 +1241,7 @@ public class InformationActivity extends AppCompatActivity {
                 }
             }
             // Process the current overlays whether they are enabled or disabled
-            eu.chainfire.libsuperuser.Shell.SU.run("cp /data/system/overlays.xml " +
+            Root.runCommand("cp /data/system/overlays.xml " +
                     Environment
                             .getExternalStorageDirectory().getAbsolutePath() +
                     "/.substratum/current_overlays.xml");
@@ -1345,7 +1346,7 @@ public class InformationActivity extends AppCompatActivity {
             if (final_commands.length() > 0) {
                 if (!mixAndMatchMode) {
                     // Begin uninstalling all overlays based on this package
-                    eu.chainfire.libsuperuser.Shell.SU.run("cp /data/system/overlays.xml " +
+                    Root.runCommand("cp /data/system/overlays.xml " +
                             Environment
                                     .getExternalStorageDirectory().getAbsolutePath() +
                             "/.substratum/current_overlays.xml");
@@ -1373,7 +1374,7 @@ public class InformationActivity extends AppCompatActivity {
                     mixAndMatch = new ArrayList<>();
                     mixAndMatchCommands = "";
 
-                    eu.chainfire.libsuperuser.Shell.SU.run("cp /data/system/overlays.xml " +
+                    Root.runCommand("cp /data/system/overlays.xml " +
                             Environment
                                     .getExternalStorageDirectory().getAbsolutePath() +
                             "/.substratum/current_overlays.xml");

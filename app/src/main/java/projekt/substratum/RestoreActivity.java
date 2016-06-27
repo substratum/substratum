@@ -10,6 +10,7 @@ import java.io.File;
 import java.util.List;
 
 import projekt.substratum.util.ReadOverlaysFile;
+import projekt.substratum.util.Root;
 
 /**
  * @author Nicholas Chum (nicholaschum)
@@ -41,7 +42,7 @@ public class RestoreActivity extends AppCompatActivity {
                 }
                 Log.d("RestoreActivity", "Restoring overlay \"" + enabled_overlays.get(i) + "\"");
             }
-            eu.chainfire.libsuperuser.Shell.SU.run(final_commands);
+            Root.runCommand(final_commands);
         } else {
             Toast toast = Toast.makeText(getApplicationContext(), getString(R.string
                             .restore_activity_toast_not_found),

@@ -61,26 +61,26 @@ public class SubstratumBuilder {
             if (!Build.SUPPORTED_ABIS.toString().contains("86")) {
                 // Take account for ARM/ARM64 devices
                 copyAAPT("aapt");
-                eu.chainfire.libsuperuser.Shell.SU.run("mount -o remount,rw /system");
-                eu.chainfire.libsuperuser.Shell.SU.run(
+                Root.runCommand("mount -o remount,rw /system");
+                Root.runCommand(
                         "cp " + context.getFilesDir().getAbsolutePath() +
                                 "/aapt " +
                                 "/system/bin/aapt");
-                eu.chainfire.libsuperuser.Shell.SU.run("chmod 755 /system/bin/aapt");
-                eu.chainfire.libsuperuser.Shell.SU.run("mount -o remount,ro /system");
+                Root.runCommand("chmod 755 /system/bin/aapt");
+                Root.runCommand("mount -o remount,ro /system");
                 Log.d("SubstratumBuilder", "Android Assets Packaging Tool (ARM) has been injected" +
                         " into the " +
                         "system partition.");
             } else {
                 // Take account for x86 devices
                 copyAAPT("aapt-x86");
-                eu.chainfire.libsuperuser.Shell.SU.run("mount -o remount,rw /system");
-                eu.chainfire.libsuperuser.Shell.SU.run(
+                Root.runCommand("mount -o remount,rw /system");
+                Root.runCommand(
                         "cp " + context.getFilesDir().getAbsolutePath() +
                                 "/aapt-x86 " +
                                 "/system/bin/aapt");
-                eu.chainfire.libsuperuser.Shell.SU.run("chmod 755 /system/bin/aapt");
-                eu.chainfire.libsuperuser.Shell.SU.run("mount -o remount,ro /system");
+                Root.runCommand("chmod 755 /system/bin/aapt");
+                Root.runCommand("mount -o remount,ro /system");
                 Log.d("SubstratumBuilder", "Android Assets Packaging Tool (x86) has been injected" +
                         " into the " +
                         "system partition.");
@@ -182,7 +182,7 @@ public class SubstratumBuilder {
                 "/SubstratumBuilder/").listFiles();
         for (int i = 0; i < fileList.length; i++) {
             if (!fileList[i].getName().equals("assets")) {
-                eu.chainfire.libsuperuser.Shell.SU.run(
+                Root.runCommand(
                         "rm -r " + mContext.getCacheDir().getAbsolutePath() +
                                 "/SubstratumBuilder/" + fileList[i].getName());
             }
@@ -440,7 +440,7 @@ public class SubstratumBuilder {
         if (!has_errored_out && enable_signing) {
             try {
                 // Delete the previous APK if it exists in the dashboard folder
-                eu.chainfire.libsuperuser.Shell.SU.run(
+                Root.runCommand(
                         "rm -r " + Environment.getExternalStorageDirectory().getAbsolutePath() +
                                 "/.substratum/" + overlay_package + "." + parse2_themeName +
                                 "-unsigned.apk");
@@ -471,7 +471,7 @@ public class SubstratumBuilder {
             if (update_mode) {
                 try {
                     if (variant != null) {
-                        eu.chainfire.libsuperuser.Shell.SU.run(
+                        Root.runCommand(
                                 "pm install -r " + Environment.getExternalStorageDirectory()
                                         .getAbsolutePath() +
                                         "/.substratum/" + overlay_package + "." + parse2_themeName +
@@ -486,7 +486,7 @@ public class SubstratumBuilder {
                             Log.e("SubstratumBuilder", "Overlay APK has failed to install!");
                         }
                     } else {
-                        eu.chainfire.libsuperuser.Shell.SU.run(
+                        Root.runCommand(
                                 "pm install -r " + Environment.getExternalStorageDirectory()
                                         .getAbsolutePath() +
                                         "/.substratum/" + overlay_package + "." + parse2_themeName +

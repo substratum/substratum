@@ -33,6 +33,7 @@ import projekt.substratum.R;
 import projekt.substratum.adapters.PrioritiesAdapter;
 import projekt.substratum.model.Priorities;
 import projekt.substratum.model.PrioritiesItem;
+import projekt.substratum.util.Root;
 
 /**
  * @author Nicholas Chum (nicholaschum)
@@ -216,7 +217,7 @@ public class PriorityListFragment extends Fragment {
                         new java.util.TimerTask() {
                             @Override
                             public void run() {
-                                eu.chainfire.libsuperuser.Shell.SU.run(commands);
+                                Root.runCommand(commands);
                             }
                         },
                         500

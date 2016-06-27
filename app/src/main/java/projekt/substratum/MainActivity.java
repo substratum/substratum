@@ -34,6 +34,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import java.io.File;
 
 import projekt.substratum.services.ThemeDetector;
+import projekt.substratum.util.Root;
 
 /**
  * @author Nicholas Chum (nicholaschum)
@@ -182,7 +183,7 @@ public class MainActivity extends AppCompatActivity implements
             File[] fileList = new File(getCacheDir().getAbsolutePath() +
                     "/SubstratumBuilder/").listFiles();
             for (int i = 0; i < fileList.length; i++) {
-                eu.chainfire.libsuperuser.Shell.SU.run(
+                Root.runCommand(
                         "rm -r " + getCacheDir().getAbsolutePath() +
                                 "/SubstratumBuilder/" + fileList[i].getName());
             }
@@ -232,7 +233,7 @@ public class MainActivity extends AppCompatActivity implements
                 startActivity(i);
                 return true;
             case R.id.restart_systemui:
-                eu.chainfire.libsuperuser.Shell.SU.run("pkill com.android.systemui");
+                Root.runCommand("pkill com.android.systemui");
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -275,7 +276,7 @@ public class MainActivity extends AppCompatActivity implements
                     File[] fileList = new File(getCacheDir().getAbsolutePath() +
                             "/SubstratumBuilder/").listFiles();
                     for (int i = 0; i < fileList.length; i++) {
-                        eu.chainfire.libsuperuser.Shell.SU.run(
+                        Root.runCommand(
                                 "rm -r " + getCacheDir().getAbsolutePath() +
                                         "/SubstratumBuilder/" + fileList[i].getName());
                     }

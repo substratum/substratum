@@ -36,6 +36,7 @@ import projekt.substratum.InformationActivityTabs;
 import projekt.substratum.R;
 import projekt.substratum.adapters.DataAdapter;
 import projekt.substratum.util.ReadOverlaysFile;
+import projekt.substratum.util.Root;
 import projekt.substratum.util.ThemeParser;
 
 /**
@@ -387,9 +388,10 @@ public class HomeFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            eu.chainfire.libsuperuser.Shell.SU.run("cp /data/system/overlays.xml " +
+            Root.runCommand("cp /data/system/overlays.xml " +
                     Environment.getExternalStorageDirectory().getAbsolutePath() +
                     "/.substratum/current_overlays.xml");
+
             String[] commands = {Environment.getExternalStorageDirectory()
                     .getAbsolutePath() +
                     "/.substratum/current_overlays.xml", "1"};
@@ -399,7 +401,7 @@ public class HomeFragment extends Fragment {
                 Log.e("OverlayCleaner", "Target APK not found for \"" + state1.get(i) + "\" and " +
                         "will " +
                         "be removed.");
-                eu.chainfire.libsuperuser.Shell.SU.run("pm uninstall " + state1.get(i));
+                Root.runCommand("pm uninstall " + state1.get(i));
             }
             return null;
         }
@@ -431,8 +433,7 @@ public class HomeFragment extends Fragment {
         @Override
         protected String doInBackground(String... sUrl) {
             for (int i = 0; i < unauthorized_packages.size(); i++) {
-                eu.chainfire.libsuperuser.Shell.SU.run("pm uninstall " + unauthorized_packages
-                        .get(i));
+                Root.runCommand("pm uninstall " + unauthorized_packages.get(i));
             }
             return null;
         }

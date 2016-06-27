@@ -50,6 +50,7 @@ import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.InformationActivityTabs;
 import projekt.substratum.R;
 import projekt.substratum.util.ReadOverlaysFile;
+import projekt.substratum.util.Root;
 
 /**
  * @author Nicholas Chum (nicholaschum)
@@ -180,7 +181,7 @@ public class FontInstaller extends Fragment {
             if (!checkChangeConfigurationPermissions()) {
                 Log.e("FontHandler", "Substratum was not granted " +
                         "CHANGE_CONFIGURATION permissions, allowing now...");
-                eu.chainfire.libsuperuser.Shell.SU.run("pm grant projekt.substratum " +
+                Root.runCommand("pm grant projekt.substratum " +
                         "android.permission.CHANGE_CONFIGURATION");
             } else {
                 Log.d("FontHandler", "Substratum was granted CHANGE_CONFIGURATION permissions!");
@@ -224,7 +225,7 @@ public class FontInstaller extends Fragment {
 
                 // Finally, enable/disable the SystemUI dummy overlay
 
-                eu.chainfire.libsuperuser.Shell.SU.run(final_commands);
+                Root.runCommand(final_commands);
             }
         }
 
@@ -249,7 +250,7 @@ public class FontInstaller extends Fragment {
                     if (created) Log.d("FontHandler", "Successfully created cache folder work " +
                             "directory!");
                 } else {
-                    eu.chainfire.libsuperuser.Shell.SU.run(
+                    Root.runCommand(
                             "rm -r " + getContext().getCacheDir().getAbsolutePath() +
                                     "/FontCache/FontCreator/");
                     boolean created = cacheDirectory2.mkdirs();
@@ -283,32 +284,32 @@ public class FontInstaller extends Fragment {
 
                 File dataSystemThemeDir = new File("/data/system/theme");
                 if (!dataSystemThemeDir.exists()) {
-                    eu.chainfire.libsuperuser.Shell.SU.run("mount -o remount,rw /data");
-                    eu.chainfire.libsuperuser.Shell.SU.run(
+                    Root.runCommand("mount -o remount,rw /data");
+                    Root.runCommand(
                             "mkdir /data/system/theme/");
                 } else {
-                    eu.chainfire.libsuperuser.Shell.SU.run("mount -o remount,rw /data");
-                    eu.chainfire.libsuperuser.Shell.SU.run(
+                    Root.runCommand("mount -o remount,rw /data");
+                    Root.runCommand(
                             "rm -r /data/system/theme/");
-                    eu.chainfire.libsuperuser.Shell.SU.run(
+                    Root.runCommand(
                             "mkdir /data/system/theme/");
                 }
                 File dataSystemThemeFontsDir = new File("/data/system/theme/fonts");
                 if (!dataSystemThemeFontsDir.exists()) {
-                    eu.chainfire.libsuperuser.Shell.SU.run("mount -o remount,rw /data");
-                    eu.chainfire.libsuperuser.Shell.SU.run(
+                    Root.runCommand("mount -o remount,rw /data");
+                    Root.runCommand(
                             "mkdir /data/system/theme/fonts");
                 }
 
                 // Copy font configuration file (fonts.xml) to the working directory
                 copyAssets();
 
-                eu.chainfire.libsuperuser.Shell.SU.run(
+                Root.runCommand(
                         "cp /system/fonts/* /data/system/theme/fonts/");
 
                 // Copy all the files from work directory to /data/system/theme/fonts
 
-                eu.chainfire.libsuperuser.Shell.SU.run(
+                Root.runCommand(
                         "cp -F " + getContext().getCacheDir().getAbsolutePath() +
                                 "/FontCache/FontCreator/*" + " /data/system/theme/fonts/");
 
@@ -510,7 +511,7 @@ public class FontInstaller extends Fragment {
 
                     // Install the Helper
 
-                    eu.chainfire.libsuperuser.Shell.SU.run(
+                    Root.runCommand(
                             "pm install -r " + Environment.getExternalStorageDirectory()
                                     .getAbsolutePath() + "/.substratum/substratum.helper-signed" +
                                     ".apk");
@@ -518,13 +519,13 @@ public class FontInstaller extends Fragment {
                     // Bruteforce the cache folder out of here due to possible MAJOR access
                     // permissions denial
 
-                    eu.chainfire.libsuperuser.Shell.SU.run(
+                    Root.runCommand(
                             "rm -r " + getContext().getCacheDir().getAbsolutePath() +
                                     "/FontCache/");
 
                     final_commands = "om enable substratum.helper";
                 } else {
-                    eu.chainfire.libsuperuser.Shell.SU.run("cp /data/system/overlays" +
+                    Root.runCommand("cp /data/system/overlays" +
                             ".xml " +
                             Environment
                                     .getExternalStorageDirectory().getAbsolutePath() +
@@ -553,19 +554,19 @@ public class FontInstaller extends Fragment {
                 // permissions
                 // and system file context integrity.
 
-                eu.chainfire.libsuperuser.Shell.SU.run("mount -o remount,rw /system");
-                eu.chainfire.libsuperuser.Shell.SU.run("chmod 755 /data/system/theme/");
+                Root.runCommand("mount -o remount,rw /system");
+                Root.runCommand("chmod 755 /data/system/theme/");
 
-                eu.chainfire.libsuperuser.Shell.SU.run("mount -o remount,rw /system");
-                eu.chainfire.libsuperuser.Shell.SU.run("chmod -R 747 " +
+                Root.runCommand("mount -o remount,rw /system");
+                Root.runCommand("chmod -R 747 " +
                         "/data/system/theme/fonts/");
 
-                eu.chainfire.libsuperuser.Shell.SU.run("mount -o remount,rw /system");
-                eu.chainfire.libsuperuser.Shell.SU.run("chmod 775 " +
+                Root.runCommand("mount -o remount,rw /system");
+                Root.runCommand("chmod 775 " +
                         "/data/system/theme/fonts/");
 
-                eu.chainfire.libsuperuser.Shell.SU.run("mount -o remount,rw /data");
-                eu.chainfire.libsuperuser.Shell.SU.run("chcon -R u:object_r:system_file:s0 " +
+                Root.runCommand("mount -o remount,rw /data");
+                Root.runCommand("chcon -R u:object_r:system_file:s0 " +
                         "/data/system/theme");
             } catch (Exception e) {
                 e.printStackTrace();
@@ -700,7 +701,7 @@ public class FontInstaller extends Fragment {
                             "template. Maybe it wasn't themed?");
                 }
 
-                eu.chainfire.libsuperuser.Shell.SU.run(
+                Root.runCommand(
                         "rm -r " + getContext().getCacheDir().getAbsolutePath() +
                                 "/FontCache/font_preview/");
                 imageButton.setImageTintList(checked);
@@ -727,7 +728,7 @@ public class FontInstaller extends Fragment {
                     boolean created = cacheDirectory2.mkdirs();
                     if (created) Log.d("FontHandler", "FontCache work folder created");
                 } else {
-                    eu.chainfire.libsuperuser.Shell.SU.run(
+                    Root.runCommand(
                             "rm -r " + getContext().getCacheDir().getAbsolutePath() +
                                     "/FontCache/font_preview/");
                     boolean created = cacheDirectory2.mkdirs();

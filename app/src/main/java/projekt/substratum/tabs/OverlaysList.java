@@ -73,15 +73,16 @@ public class OverlaysList extends Fragment {
     private ArrayList<String> final_runner;
     private boolean enable_mode, disable_mode;
     private ArrayList<String> all_installed_overlays;
+    private Context mContext;
+    private List<ApplicationInfo> packages;
 
-    private boolean isPackageInstalled(Context context, String package_name) {
-        PackageManager pm = context.getPackageManager();
-        try {
-            pm.getPackageInfo(package_name, PackageManager.GET_ACTIVITIES);
-            return true;
-        } catch (PackageManager.NameNotFoundException e) {
-            return false;
+    private boolean isPackageInstalled(String package_name) {
+        for (ApplicationInfo packageInfo : packages) {
+            if (packageInfo.packageName.equals(package_name)) {
+                return true;
+            }
         }
+        return false;
     }
 
     @Override
@@ -89,6 +90,11 @@ public class OverlaysList extends Fragment {
             savedInstanceState) {
         root = (ViewGroup) inflater.inflate(R.layout.tab_fragment_2, container, false);
         prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+
+        mContext = getContext();
+
+        PackageManager pm = mContext.getPackageManager();
+        packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
 
         // Run through phase one - checking whether aapt exists on the device
         Phase1_AAPT_Check phase1_aapt_check = new Phase1_AAPT_Check();
@@ -312,6 +318,7 @@ public class OverlaysList extends Fragment {
                 }
             } else {
                 base_spinner.setVisibility(View.GONE);
+                new LoadOverlays().execute("");
             }
         } catch (Exception e) {
             if (base_spinner.getVisibility() == View.VISIBLE) base_spinner.setVisibility(View.GONE);
@@ -364,6 +371,7 @@ public class OverlaysList extends Fragment {
 
             List<String> state5 = ReadOverlaysFile.main(commands5);
             all_installed_overlays = new ArrayList<>(state5);
+            List<String> state5overlays = new ArrayList<>(all_installed_overlays);
 
             String parse1_themeName = theme_name.replaceAll("\\s+", "");
             String parse2_themeName = parse1_themeName.replaceAll("[^a-zA-Z0-9]+", "");
@@ -397,13 +405,13 @@ public class OverlaysList extends Fragment {
                 Context otherContext = getContext().createPackageContext(theme_pid, 0);
                 AssetManager am = otherContext.getAssets();
                 String[] am_list = am.list("overlays");
-
                 for (String package_name : am_list) {
-                    if (isPackageInstalled(getContext(), package_name)) {
+                    if (isPackageInstalled(package_name)) {
                         values.add(package_name);
                     }
                 }
             } catch (Exception e) {
+                e.printStackTrace();
                 Log.e("SubstratumLogger", "Could not refresh list of overlay folders.");
             }
 
@@ -445,20 +453,6 @@ public class OverlaysList extends Fragment {
                             (i) + "\" for sorted values list.");
                 }
             }
-
-            // Keep a record of what overlays are activated on the system
-
-            eu.chainfire.libsuperuser.Shell.SU.run("cp /data/system/overlays" +
-                    ".xml " +
-                    Environment
-                            .getExternalStorageDirectory().getAbsolutePath() +
-                    "/.substratum/current_overlays.xml");
-
-            String[] commands = {Environment.getExternalStorageDirectory()
-                    .getAbsolutePath() +
-                    "/.substratum/current_overlays.xml", "5"};
-
-            List<String> state5overlays = ReadOverlaysFile.main(commands);
 
             // Now let's add the new information so that the adapter can recognize custom method
             // calls
@@ -1134,12 +1128,12 @@ public class OverlaysList extends Fragment {
                     if (final_runner == null) final_runner = new ArrayList<>();
                     if (enable_mode) {
                         String package_name = checkedOverlays.get(i).getFullOverlayParameters();
-                        if (isPackageInstalled(getContext(), package_name))
+                        if (isPackageInstalled(package_name))
                             final_runner.add("om enable " + package_name);
                     } else {
                         if (disable_mode) {
                             String package_name = checkedOverlays.get(i).getFullOverlayParameters();
-                            if (isPackageInstalled(getContext(), package_name))
+                            if (isPackageInstalled(package_name))
                                 final_runner.add("om disable " + package_name);
                         }
                     }

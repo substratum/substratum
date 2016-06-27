@@ -23,6 +23,7 @@ import com.flaviofaria.kenburnsview.KenBurnsView;
 import java.util.Arrays;
 
 import projekt.substratum.adapters.InformationTabsAdapter;
+import projekt.substratum.util.Root;
 
 /**
  * @author Nicholas Chum (nicholaschum)
@@ -131,6 +132,8 @@ public class InformationActivityTabs extends AppCompatActivity {
             collapsingToolbarLayout.setStatusBarScrimColor(dominantColor);
             collapsingToolbarLayout.setContentScrimColor(dominantColor);
         }
+
+        Root.requestRootAccess();
 
         final InformationTabsAdapter adapter = new InformationTabsAdapter
                 (getSupportFragmentManager(), tabLayout.getTabCount());

@@ -73,7 +73,6 @@ public class OverlaysList extends Fragment {
     private ArrayList<String> final_runner;
     private boolean enable_mode, disable_mode;
     private ArrayList<String> all_installed_overlays;
-    private List<String> state5overlays;
 
     private boolean isPackageInstalled(Context context, String package_name) {
         PackageManager pm = context.getPackageManager();
@@ -309,6 +308,7 @@ public class OverlaysList extends Fragment {
                     base_spinner.setAdapter(adapter1);
                 } else {
                     base_spinner.setVisibility(View.GONE);
+                    new LoadOverlays().execute("");
                 }
             } else {
                 base_spinner.setVisibility(View.GONE);
@@ -458,7 +458,7 @@ public class OverlaysList extends Fragment {
                     .getAbsolutePath() +
                     "/.substratum/current_overlays.xml", "5"};
 
-            state5overlays = ReadOverlaysFile.main(commands);
+            List<String> state5overlays = ReadOverlaysFile.main(commands);
 
             // Now let's add the new information so that the adapter can recognize custom method
             // calls

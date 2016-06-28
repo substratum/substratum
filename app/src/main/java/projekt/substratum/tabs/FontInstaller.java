@@ -568,6 +568,8 @@ public class FontInstaller extends Fragment {
                 Root.runCommand("mount -o remount,rw /data");
                 Root.runCommand("chcon -R u:object_r:system_file:s0 " +
                         "/data/system/theme");
+
+                Root.runCommand("setprop sys.refresh_theme 1");
             } catch (Exception e) {
                 e.printStackTrace();
                 return "failed";

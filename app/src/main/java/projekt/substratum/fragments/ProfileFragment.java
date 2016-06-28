@@ -200,8 +200,7 @@ public class ProfileFragment extends Fragment {
             public boolean onMenuItemSelected(MenuItem menuItem) {
                 if (menuItem.getTitle().toString().equals(getString(R.string
                         .purge2_button_text))) {
-                    DisableFunction disableFunction = new DisableFunction();
-                    disableFunction.execute("");
+                    Root.runCommand("om disable-all");
                 } else {
                     if (menuItem.getTitle().toString().equals(getString(R.string
                             .purge_button_text))) {
@@ -290,64 +289,6 @@ public class ProfileFragment extends Fragment {
                 Log.d("SubstratumLogger", "Found overlay \"" + uninstall_overlays.get(i) + "\"");
             }
 
-            return null;
-        }
-    }
-
-    private class DisableFunction extends AsyncTask<String, Integer, String> {
-
-        @Override
-        protected void onPreExecute() {
-            headerProgress.setVisibility(View.VISIBLE);
-            Toast toast = Toast.makeText(getContext(), getString(R.string
-                            .disable_overlay_toast),
-                    Toast.LENGTH_SHORT);
-            toast.show();
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-            try {
-                Toast toast = Toast.makeText(getContext(), getString(R.string
-                                .disable_overlay_toast_success),
-                        Toast.LENGTH_SHORT);
-                toast.show();
-                headerProgress.setVisibility(View.GONE);
-            } catch (Exception e) {
-                // At this point the window is refreshed too many times causing an unattached
-                // Activity
-                Log.e("SubstratumLogger", "Profile window refreshed too " +
-                        "many times, restarting current activity to preserve app " +
-                        "integrity.");
-            }
-            Root.runCommand(to_be_run_commands);
-        }
-
-        @Override
-        protected String doInBackground(String... sUrl) {
-            Root.runCommand("cp /data/system/overlays.xml " +
-                    Environment.getExternalStorageDirectory().getAbsolutePath() +
-                    "/.substratum/current_overlays.xml");
-
-            String final_commands = "";
-            String[] commands = {Environment.getExternalStorageDirectory()
-                    .getAbsolutePath() +
-                    "/.substratum/current_overlays.xml", "5"};
-            List<String> enabled_overlays = ReadOverlaysFile.main(commands);
-
-            for (int i = 0; i < enabled_overlays.size(); i++) {
-                if (i == 0) {
-                    final_commands = final_commands + "om disable " +
-                            enabled_overlays.get(i);
-                } else {
-                    final_commands = final_commands + " && om disable " +
-                            enabled_overlays.get(i);
-                }
-                Log.d("Settings", "Disabling overlay \"" + enabled_overlays
-                        .get(i) + "\"");
-            }
-            Root.runCommand(final_commands);
             return null;
         }
     }

@@ -764,13 +764,17 @@ public class OverlaysList extends Fragment {
             super.onPostExecute(result);
 
             String final_commands = "";
-            for (int i = 0; i < final_runner.size(); i++) {
-                if (final_commands.length() == 0) {
-                    final_commands = final_commands + final_runner.get(i);
-                } else {
-                    final_commands = final_commands + " && " + final_runner.get(i);
+            if (enable_mode) {
+                final_commands = "om enable ";
+            } else {
+                if (disable_mode) {
+                    final_commands = "om disable ";
                 }
             }
+            for (int i = 0; i < final_runner.size(); i++) {
+                final_commands = final_commands + final_runner.get(i) + " ";
+            }
+            Log.e("finalCommands", final_commands);
 
             if (!enable_mode && !disable_mode) {
                 Intent notificationIntent = new Intent();
@@ -827,16 +831,11 @@ public class OverlaysList extends Fragment {
             } else {
                 if (enable_mode) {
                     if (final_commands.length() > 0) {
-                        String disableBeforeEnabling = "";
+                        String disableBeforeEnabling = "om disable ";
                         if (mixAndMatchMode) {
                             for (int i = 0; i < all_installed_overlays.size(); i++) {
-                                if (disableBeforeEnabling.length() == 0) {
-                                    disableBeforeEnabling = disableBeforeEnabling +
-                                            "om disable " + all_installed_overlays.get(i);
-                                } else {
-                                    disableBeforeEnabling = disableBeforeEnabling +
-                                            " && om disable " + all_installed_overlays.get(i);
-                                }
+                                disableBeforeEnabling = disableBeforeEnabling +
+                                        all_installed_overlays.get(i) + " ";
                             }
                         }
 
@@ -859,16 +858,11 @@ public class OverlaysList extends Fragment {
                     }
                 } else {
                     if (final_commands.length() > 0) {
-                        String disableBeforeEnabling = "";
+                        String disableBeforeEnabling = "om disable ";
                         if (mixAndMatchMode) {
                             for (int i = 0; i < all_installed_overlays.size(); i++) {
-                                if (disableBeforeEnabling.length() == 0) {
-                                    disableBeforeEnabling = disableBeforeEnabling +
-                                            "om disable " + all_installed_overlays.get(i);
-                                } else {
-                                    disableBeforeEnabling = disableBeforeEnabling +
-                                            " && om disable " + all_installed_overlays.get(i);
-                                }
+                                disableBeforeEnabling = disableBeforeEnabling +
+                                        all_installed_overlays.get(i) + " ";
                             }
                         }
                         Toast toast = Toast.makeText(getContext(), getString(R
@@ -1142,12 +1136,12 @@ public class OverlaysList extends Fragment {
                     if (enable_mode) {
                         String package_name = checkedOverlays.get(i).getFullOverlayParameters();
                         if (isPackageInstalled(package_name))
-                            final_runner.add("om enable " + package_name);
+                            final_runner.add(package_name);
                     } else {
                         if (disable_mode) {
                             String package_name = checkedOverlays.get(i).getFullOverlayParameters();
                             if (isPackageInstalled(package_name))
-                                final_runner.add("om disable " + package_name);
+                                final_runner.add(package_name);
                         }
                     }
                 }

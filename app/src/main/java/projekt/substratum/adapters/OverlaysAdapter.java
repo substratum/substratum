@@ -1,5 +1,6 @@
 package projekt.substratum.adapters;
 
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -216,6 +217,18 @@ public class OverlaysAdapter extends
         viewHolder.checkBox.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 CheckBox cb = (CheckBox) v;
+                OverlaysInfo contact = (OverlaysInfo) cb.getTag();
+
+                contact.setSelected(cb.isChecked());
+                current_object.setSelected(cb.isChecked());
+            }
+        });
+
+        viewHolder.card.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                viewHolder.checkBox.setChecked(!viewHolder.checkBox.isChecked());
+
+                CheckBox cb = viewHolder.checkBox;
                 OverlaysInfo contact = (OverlaysInfo) cb.getTag();
 
                 contact.setSelected(cb.isChecked());
@@ -469,6 +482,7 @@ public class OverlaysAdapter extends
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
+        public CardView card;
         public TextView overlayTargetPackageName;
         public TextView overlayTargetPackage;
         public TextView overlayState;
@@ -481,6 +495,7 @@ public class OverlaysAdapter extends
         public ViewHolder(View itemLayoutView) {
             super(itemLayoutView);
 
+            card = (CardView) itemLayoutView.findViewById(R.id.card);
             overlayTargetPackageName = (TextView) itemLayoutView.findViewById(R.id
                     .overlayTargetPackageName);
             overlayTargetPackage = (TextView) itemLayoutView.findViewById(R.id

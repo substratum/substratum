@@ -164,7 +164,8 @@ public class InformationActivity extends AppCompatActivity {
         Root.requestRootAccess();
 
         final InformationTabsAdapter adapter = new InformationTabsAdapter
-                (getSupportFragmentManager(), tabLayout.getTabCount());
+                (getSupportFragmentManager(), tabLayout.getTabCount(), getApplicationContext(),
+                        theme_pid);
         if (viewPager != null) {
             viewPager.setOffscreenPageLimit(tabLayout.getTabCount());
             viewPager.setAdapter(adapter);

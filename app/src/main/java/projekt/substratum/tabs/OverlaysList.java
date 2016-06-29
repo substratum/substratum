@@ -75,6 +75,7 @@ public class OverlaysList extends Fragment {
     private boolean enable_mode, disable_mode;
     private ArrayList<String> all_installed_overlays;
     private Context mContext;
+    private Switch toggle_all;
     private List<ApplicationInfo> packages;
 
     private boolean isPackageInstalled(String package_name) {
@@ -112,7 +113,7 @@ public class OverlaysList extends Fragment {
         RecyclerView.Adapter empty_adapter = new OverlaysAdapter(empty_array);
         mRecyclerView.setAdapter(empty_adapter);
 
-        Switch toggle_all = (Switch) root.findViewById(R.id.toggle_all_overlays);
+        toggle_all = (Switch) root.findViewById(R.id.toggle_all_overlays);
         toggle_all.setOnCheckedChangeListener(
                 new CompoundButton.OnCheckedChangeListener() {
                     @Override
@@ -341,11 +342,11 @@ public class OverlaysList extends Fragment {
                     base_spinner.setAdapter(adapter1);
                 } else {
                     base_spinner.setVisibility(View.GONE);
-                    new LoadOverlays().execute("");
+                    mAdapter.notifyDataSetChanged();
                 }
             } else {
                 base_spinner.setVisibility(View.GONE);
-                new LoadOverlays().execute("");
+                mAdapter.notifyDataSetChanged();
             }
         } catch (Exception e) {
             if (base_spinner.getVisibility() == View.VISIBLE) base_spinner.setVisibility(View.GONE);
@@ -362,6 +363,7 @@ public class OverlaysList extends Fragment {
                     .progress_bar_loader);
             if (materialProgressBar != null) materialProgressBar.setVisibility(View.VISIBLE);
             mRecyclerView.setVisibility(View.INVISIBLE);
+            toggle_all.setClickable(false);
         }
 
         @Override
@@ -369,7 +371,7 @@ public class OverlaysList extends Fragment {
             MaterialProgressBar materialProgressBar = (MaterialProgressBar) root.findViewById(R.id
                     .progress_bar_loader);
             if (materialProgressBar != null) materialProgressBar.setVisibility(View.GONE);
-
+            toggle_all.setClickable(true);
             mAdapter = new OverlaysAdapter(values2);
             mRecyclerView.setAdapter(mAdapter);
             mAdapter.notifyDataSetChanged();
@@ -831,26 +833,12 @@ public class OverlaysList extends Fragment {
 
                 if (final_commands.length() == 0) {
                     if (base_spinner.getSelectedItemPosition() == 0) {
-                        new LoadOverlays().execute("");
+                        mAdapter.notifyDataSetChanged();
                     } else {
-                        if (base_spinner.getVisibility() == View.VISIBLE) {
-                            String[] commands = {base_spinner.getSelectedItem().toString()};
-                            new LoadOverlays().execute(commands);
-                        } else {
-                            new LoadOverlays().execute("");
-                        }
+                        mAdapter.notifyDataSetChanged();
                     }
                 } else {
-                    if (base_spinner.getSelectedItemPosition() == 0) {
-                        new LoadOverlays().execute("");
-                    } else {
-                        if (base_spinner.getVisibility() == View.VISIBLE) {
-                            String[] commands = {base_spinner.getSelectedItem().toString()};
-                            new LoadOverlays().execute(commands);
-                        } else {
-                            new LoadOverlays().execute("");
-                        }
-                    }
+                    mAdapter.notifyDataSetChanged();
                     Root.runCommand(final_commands);
                 }
 

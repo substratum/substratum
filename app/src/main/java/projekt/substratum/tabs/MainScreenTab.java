@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import java.util.Arrays;
 
-import projekt.substratum.InformationActivityTabs;
+import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
 
 /**
@@ -28,7 +28,7 @@ public class MainScreenTab extends Fragment {
         super.onCreate(savedInstanceState);
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.tab_fragment_1, null);
 
-        String theme_pid = InformationActivityTabs.getThemePID();
+        String theme_pid = InformationActivity.getThemePID();
 
         TextView bootAnimTitle = (TextView) root.findViewById(R.id.bootAnimTitle);
         CardView bootAnimCard = (CardView) root.findViewById(R.id.bootAnimCard);

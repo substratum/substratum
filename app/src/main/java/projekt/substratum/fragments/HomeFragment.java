@@ -32,7 +32,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-import projekt.substratum.InformationActivityTabs;
+import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
 import projekt.substratum.adapters.DataAdapter;
 import projekt.substratum.util.ReadOverlaysFile;
@@ -153,7 +153,7 @@ public class HomeFragment extends Fragment {
                     // Process fail case if user uninstalls an app and goes back an activity
                     if (isPackageInstalled(getContext(),
                             map.get(map.keySet().toArray()[position].toString())[1])) {
-                        Intent myIntent = new Intent(getContext(), InformationActivityTabs.class);
+                        Intent myIntent = new Intent(getContext(), InformationActivity.class);
                         myIntent.putExtra("theme_name", map.keySet().toArray()[position].toString
                                 ());
                         myIntent.putExtra("theme_pid", map.get(map.keySet().toArray()[position]

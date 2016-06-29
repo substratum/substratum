@@ -48,7 +48,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
-import projekt.substratum.InformationActivityTabs;
+import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
 import projekt.substratum.adapters.SoundsAdapter;
 import projekt.substratum.model.SoundsInfo;
@@ -216,7 +216,7 @@ public class SoundPackager extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
 
-        theme_pid = InformationActivityTabs.getThemePID();
+        theme_pid = InformationActivity.getThemePID();
 
         root = (ViewGroup) inflater.inflate(R.layout.tab_fragment_5, container, false);
 

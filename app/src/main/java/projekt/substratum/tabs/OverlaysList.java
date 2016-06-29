@@ -42,7 +42,7 @@ import java.util.Collections;
 import java.util.List;
 
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
-import projekt.substratum.InformationActivityTabs;
+import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
 import projekt.substratum.adapters.OverlaysAdapter;
 import projekt.substratum.model.OverlaysInfo;
@@ -102,8 +102,8 @@ public class OverlaysList extends Fragment {
         Phase1_AAPT_Check phase1_aapt_check = new Phase1_AAPT_Check();
         phase1_aapt_check.execute("");
 
-        theme_name = InformationActivityTabs.getThemeName();
-        theme_pid = InformationActivityTabs.getThemePID();
+        theme_name = InformationActivity.getThemeName();
+        theme_pid = InformationActivity.getThemePID();
 
         // Pre-initialize the adapter first so that it won't complain for skipping layout on logs
         mRecyclerView = (RecyclerView) root.findViewById(R.id.overlayRecyclerView);
@@ -461,6 +461,9 @@ public class OverlaysList extends Fragment {
                 } catch (PackageManager.NameNotFoundException nnfe) {
                     Log.e("SubstratumLogger", "Could not find explicit package identifier in " +
                             "package manager list.");
+                } catch (Exception e) {
+                    Log.e("OverlaysList", "Window was destroyed before AsyncTask could " +
+                            "perform postExecute()");
                 }
             }
 

@@ -47,7 +47,7 @@ import java.util.zip.ZipInputStream;
 
 import kellinwood.security.zipsigner.ZipSigner;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
-import projekt.substratum.InformationActivityTabs;
+import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
 import projekt.substratum.util.ReadOverlaysFile;
 import projekt.substratum.util.Root;
@@ -89,7 +89,7 @@ public class FontInstaller extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
 
-        theme_pid = InformationActivityTabs.getThemePID();
+        theme_pid = InformationActivity.getThemePID();
 
         root = (ViewGroup) inflater.inflate(R.layout.tab_fragment_4, container, false);
 

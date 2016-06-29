@@ -1,57 +1,41 @@
 package projekt.substratum;
 
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
-import android.text.SpannableString;
-import android.text.style.StrikethroughSpan;
 import android.util.Log;
-import android.util.SparseBooleanArray;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.CompoundButton;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.Switch;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.gordonwong.materialsheetfab.MaterialSheetFab;
+import com.flaviofaria.kenburnsview.KenBurnsView;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 
-import projekt.substratum.util.FloatingActionMenu;
+import projekt.substratum.adapters.InformationTabsAdapter;
 import projekt.substratum.util.ReadOverlaysFile;
 import projekt.substratum.util.Root;
-import projekt.substratum.util.SubstratumBuilder;
 
 /**
  * @author Nicholas Chum (nicholaschum)
@@ -59,53 +43,22 @@ import projekt.substratum.util.SubstratumBuilder;
 
 public class InformationActivity extends AppCompatActivity {
 
-    private final int THEME_INFORMATION_REQUEST_CODE = 1;
-    public ListView listView;
-    public String theme_name, theme_pid;
-    public AssetManager am;
-    public ArrayList<String> values;
-    public Boolean has_extracted_cache;
-    public SubstratumBuilder lb;
-    public List<String> listStrings, problematicOverlays, mixAndMatch;
-    public Switch toggle_overlays;
-    public ProgressBar progressBar;
-    private ArrayList<String> enabled_overlays;
-    private ArrayAdapter<String> adapter;
-    private String final_commands;
-    private List<String> unapproved_overlays;
-    private SharedPreferences prefs;
-    private String current_mode;
-    private Boolean mixAndMatchMode;
-    private MaterialSheetFab materialSheetFab;
-    private String mixAndMatchCommands;
-    private int overlayCount;
-    private NotificationManager mNotifyManager;
-    private NotificationCompat.Builder mBuilder;
-    private Boolean is_building = false;
-    private Boolean app_paused = false;
-    private Boolean app_resumed = false;
-    private Boolean uninstalled = false;
-    private int id = 1;
+    public static String theme_name, theme_pid;
 
-    private boolean isPackageInstalled(Context context, String package_name) {
-        PackageManager pm = context.getPackageManager();
-        try {
-            pm.getPackageInfo(package_name, PackageManager.GET_ACTIVITIES);
-            return true;
-        } catch (PackageManager.NameNotFoundException e) {
-            return false;
-        }
+    private final int THEME_INFORMATION_REQUEST_CODE = 1;
+
+    private Boolean uninstalled = false;
+
+    public static String getThemeName() {
+        return theme_name;
     }
 
-    public Drawable grabAppIcon(String package_name) {
-        Drawable icon = null;
-        try {
-            icon = getPackageManager().getApplicationIcon(package_name);
-        } catch (PackageManager.NameNotFoundException nnfe) {
-            Log.e("SubstratumLogger", "Could not grab the application icon for \"" + package_name
-                    + "\"");
-        }
-        return icon;
+    public static String getThemePID() {
+        return theme_pid;
+    }
+
+    public static int getDominantColor(Bitmap bitmap) {
+        return bitmap.getPixel(0, 0);
     }
 
     public Drawable grabPackageHeroImage(String package_name) {
@@ -124,168 +77,36 @@ public class InformationActivity extends AppCompatActivity {
         return null;
     }
 
+    public Drawable grabAppIcon(String package_name) {
+        Drawable icon = null;
+        try {
+            icon = getPackageManager().getApplicationIcon(package_name);
+        } catch (PackageManager.NameNotFoundException nnfe) {
+            Log.e("SubstratumLogger", "Could not grab the application icon for \"" + package_name
+                    + "\"");
+        }
+        return icon;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.information_activity);
-        prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        setContentView(R.layout.information_activity_tabs);
 
-        enabled_overlays = new ArrayList<>();
-        has_extracted_cache = false;
-
-        // Handle collapsible toolbar with theme name
+        boolean dynamicActionBarColors = getResources().getBoolean(R.bool.dynamicActionBarColors);
 
         Intent currentIntent = getIntent();
         theme_name = currentIntent.getStringExtra("theme_name");
         theme_pid = currentIntent.getStringExtra("theme_pid");
 
-        View sheetView = findViewById(R.id.fab_sheet);
-        View overlay = findViewById(R.id.overlay);
-        int sheetColor = getColor(R.color.fab_menu_background_card);
-        int fabColor = getColor(R.color.colorAccent);
-
-        final FloatingActionMenu floatingActionButton = (FloatingActionMenu) findViewById(R
-                .id.apply_fab);
-        floatingActionButton.hide();
-
-        // Create material sheet FAB
-        if (floatingActionButton != null && sheetView != null && overlay != null) {
-            materialSheetFab = new MaterialSheetFab<>(floatingActionButton,
-                    sheetView, overlay,
-                    sheetColor, fabColor);
-        }
-
-        Switch enable_swap = (Switch) findViewById(R.id.enable_swap);
-        if (enable_swap != null) {
-            if (prefs.getBoolean("enable_swapping_overlays", true)) {
-                mixAndMatchMode = true;
-                enable_swap.setChecked(true);
-            } else {
-                mixAndMatchMode = false;
-                enable_swap.setChecked(false);
-            }
-            enable_swap.setOnCheckedChangeListener(new CompoundButton
-                    .OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked) {
-                        prefs.edit().putBoolean("enable_swapping_overlays", true).apply();
-                        mixAndMatchMode = true;
-                    } else {
-                        prefs.edit().putBoolean("enable_swapping_overlays", false).apply();
-                        mixAndMatchMode = false;
-                    }
-                }
-            });
-        }
-
-        TextView compile_enable_selected = (TextView) findViewById(R.id.compile_enable_selected);
-        if (compile_enable_selected != null)
-            compile_enable_selected.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    Toast toast = Toast.makeText(getApplicationContext(),
-                            getString(R.string
-                                    .toast_updating),
-                            Toast.LENGTH_LONG);
-                    toast.show();
-                    Root.runCommand("cp /data/system/overlays.xml " +
-                            Environment
-                                    .getExternalStorageDirectory().getAbsolutePath() +
-                            "/.substratum/current_overlays.xml");
-                    String[] commands0 = {Environment.getExternalStorageDirectory()
-                            .getAbsolutePath() +
-                            "/.substratum/current_overlays.xml", "4"};
-                    String[] commands1 = {Environment.getExternalStorageDirectory()
-                            .getAbsolutePath() +
-                            "/.substratum/current_overlays.xml", "5"};
-
-                    List<String> state4 = ReadOverlaysFile.main(commands0);
-                    List<String> state5 = ReadOverlaysFile.main(commands1);
-
-                    unapproved_overlays = new ArrayList<>(state4);
-                    unapproved_overlays.addAll(state5);
-
-                    current_mode = "compile_enable";
-                    progressBar.setVisibility(View.VISIBLE);
-                    SparseBooleanArray checked = listView.getCheckedItemPositions();
-                    listStrings = new ArrayList<>();
-                    for (int i = 0; i < listView.getAdapter()
-                            .getCount(); i++) {
-                        if (checked.get(i)) {
-                            listStrings.add(listView
-                                    .getItemAtPosition(i)
-                                    .toString());
-                        }
-                    }
-                    // Run through phase two - initialize the cache for the specific theme
-                    Phase2_InitializeCache phase2_initializeCache = new Phase2_InitializeCache();
-                    phase2_initializeCache.execute("");
-                }
-            });
-
-        TextView disable_selected = (TextView) findViewById(R.id.disable_selected);
-        if (disable_selected != null)
-            disable_selected.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    current_mode = "disable";
-                    progressBar.setVisibility(View.VISIBLE);
-                    SparseBooleanArray checked = listView.getCheckedItemPositions();
-                    listStrings = new ArrayList<>();
-                    for (int i = 0; i < listView.getAdapter()
-                            .getCount(); i++) {
-                        if (checked.get(i)) {
-                            listStrings.add(listView
-                                    .getItemAtPosition(i)
-                                    .toString());
-                        }
-                    }
-                    // Run through phase two - initialize the cache for the specific theme
-                    Phase2_InitializeCache phase2_initializeCache = new Phase2_InitializeCache();
-                    phase2_initializeCache.execute("");
-                }
-            });
-
-        TextView enable_selected = (TextView) findViewById(R.id.enable_selected);
-        if (enable_selected != null) enable_selected.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                current_mode = "enable";
-                progressBar.setVisibility(View.VISIBLE);
-                SparseBooleanArray checked = listView.getCheckedItemPositions();
-                listStrings = new ArrayList<>();
-                for (int i = 0; i < listView.getAdapter()
-                        .getCount(); i++) {
-                    if (checked.get(i)) {
-                        listStrings.add(listView
-                                .getItemAtPosition(i)
-                                .toString());
-                        Log.e("Selected", listView
-                                .getItemAtPosition(i)
-                                .toString());
-                    }
-                }
-                Log.e("listStrings size", listStrings.size() + "");
-                // Run through phase two - initialize the cache for the specific theme
-                Phase2_InitializeCache phase2_initializeCache = new Phase2_InitializeCache();
-                phase2_initializeCache.execute("");
-            }
-        });
-
-        progressBar = (ProgressBar) findViewById(R.id.loading_bar);
-        if (progressBar != null) progressBar.setVisibility(View.GONE);
-
-        ImageView imageView = (ImageView) findViewById(R.id.preview_image);
-        if (imageView != null) imageView.setImageDrawable(grabPackageHeroImage(theme_pid));
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) toolbar.setTitle(theme_name);
 
         CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById
-                (R.id.collapsingToolbarLayout);
+                (R.id.collapsing_toolbar_tabbed_layout);
         if (collapsingToolbarLayout != null) collapsingToolbarLayout.setTitle(theme_name);
 
-        // From now on parse the theme_name as a package_identifier ready version
-        String parse1_themeName = theme_name.replaceAll("\\s+", "");
-        theme_name = parse1_themeName.replaceAll("[^a-zA-Z0-9]+", "");
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
 
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
@@ -299,96 +120,71 @@ public class InformationActivity extends AppCompatActivity {
             }
         });
 
-        // Handle all overlays that are located in the APK
-        listView = (ListView) findViewById(R.id.overlay_picker);
+        Drawable heroImage = grabPackageHeroImage(theme_pid);
+        Bitmap heroImageBitmap = ((BitmapDrawable) heroImage).getBitmap();
 
-        LoadOverlays loadOverlays = new LoadOverlays();
-        loadOverlays.execute("");
+        int dominantColor = getDominantColor(heroImageBitmap);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                int counter = 0;
-                SparseBooleanArray checked = listView.getCheckedItemPositions();
-                for (int i = 0; i < listView.getAdapter()
-                        .getCount(); i++) {
-                    if (checked.get(i)) {
-                        counter += 1;
-                    }
+        KenBurnsView kenBurnsView = (KenBurnsView) findViewById(R.id.kenburnsView);
+        if (kenBurnsView != null) kenBurnsView.setImageDrawable(heroImage);
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        if (tabLayout != null) {
+            tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
+                    .theme_information_tab_one)));
+            tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
+                    .theme_information_tab_two)));
+            try {
+                Context otherContext = getApplicationContext().createPackageContext(theme_pid, 0);
+                AssetManager am = otherContext.getAssets();
+                if (Arrays.asList(am.list("")).contains("bootanimation")) {
+                    tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
+                            .theme_information_tab_three)));
                 }
-                if (counter > 0) {
-                    if (counter == listView.getCount()) {
-                        if (!toggle_overlays.isChecked()) {
-                            toggle_overlays.setChecked(true);
-                        }
-                    }
-                    if (floatingActionButton != null) {
-                        floatingActionButton.show();
-                    }
-                } else {
-                    if (toggle_overlays.isChecked()) {
-                        toggle_overlays.setChecked(false);
-                    }
-                    if (floatingActionButton != null) {
-                        floatingActionButton.hide();
-                    }
+                if (Arrays.asList(am.list("")).contains("fonts")) {
+                    tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
+                            .theme_information_tab_four)));
                 }
+                if (Arrays.asList(am.list("")).contains("audio")) {
+                    tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
+                            .theme_information_tab_five)));
+                }
+            } catch (Exception e) {
+                Log.e("SubstratumLogger", "Could not refresh list of asset folders.");
             }
-        });
-
-        // Handle the logic for selecting all overlays or not
-
-        toggle_overlays = (Switch) findViewById(R.id.toggle_all_overlays);
-        if (toggle_overlays != null) {
-            toggle_overlays.setOnCheckedChangeListener(
-                    new CompoundButton.OnCheckedChangeListener() {
-                        @Override
-                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                            try {
-                                SparseBooleanArray checked = listView.getCheckedItemPositions();
-                                for (int i = 0; i < listView.getAdapter().getCount(); i++) {
-                                    if (checked.get(i)) {
-                                        if (!isChecked == listView.isItemChecked(i)) {
-                                            if (floatingActionButton != null) {
-                                                floatingActionButton.hide();
-                                            }
-                                            listView.setItemChecked(i, false);
-                                        } else {
-                                            if (floatingActionButton != null) {
-                                                floatingActionButton.show();
-                                            }
-                                            listView.setItemChecked(i, true);
-                                        }
-                                    } else {
-                                        if (!isChecked == listView.isItemChecked(i)) {
-                                            if (floatingActionButton != null) {
-                                                floatingActionButton.show();
-                                            }
-                                            listView.setItemChecked(i, true);
-                                        } else {
-                                            if (floatingActionButton != null) {
-                                                floatingActionButton.hide();
-                                            }
-                                            listView.setItemChecked(i, false);
-                                        }
-                                    }
-                                }
-                            } catch (Exception e) {
-                                // Deal with app force closing after too many window refreshes
-                                Log.e("SubstratumLogger", "Information window refreshed too " +
-                                        "many times, restarting current activity to preserve app " +
-                                        "integrity.");
-                                Intent intent = getIntent();
-                                finish();
-                                startActivity(intent);
-                            }
-                        }
-                    });
+            tabLayout.setTabGravity(TabLayout.MODE_SCROLLABLE);
+            if (dynamicActionBarColors) tabLayout.setBackgroundColor(dominantColor);
         }
 
-        // Run through phase one - checking whether aapt exists on the device
-        Phase1_AAPT_Check phase1_aapt_check = new Phase1_AAPT_Check();
-        phase1_aapt_check.execute("");
+        if (collapsingToolbarLayout != null && dynamicActionBarColors) {
+            collapsingToolbarLayout.setStatusBarScrimColor(dominantColor);
+            collapsingToolbarLayout.setContentScrimColor(dominantColor);
+        }
+
+        Root.requestRootAccess();
+
+        final InformationTabsAdapter adapter = new InformationTabsAdapter
+                (getSupportFragmentManager(), tabLayout.getTabCount());
+        if (viewPager != null) {
+            viewPager.setOffscreenPageLimit(tabLayout.getTabCount());
+            viewPager.setAdapter(adapter);
+            viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener
+                    (tabLayout));
+            tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                @Override
+                public void onTabSelected(TabLayout.Tab tab) {
+                    viewPager.setCurrentItem(tab.getPosition());
+                }
+
+                @Override
+                public void onTabUnselected(TabLayout.Tab tab) {
+                }
+
+                @Override
+                public void onTabReselected(TabLayout.Tab tab) {
+                }
+            });
+        }
     }
 
     @Override
@@ -432,19 +228,31 @@ public class InformationActivity extends AppCompatActivity {
                             List<String> stateAll = ReadOverlaysFile.main(commands);
                             stateAll.addAll(ReadOverlaysFile.main(commands1));
 
-                            String commands2 = "";
                             ArrayList<String> all_overlays = new ArrayList<>();
-                            for (int i = 0; i < stateAll.size(); i++) {
-                                String current_item = stateAll.get(i);
-                                String[] packageNameParsed = current_item.split
-                                        ("\\.");
-                                if (packageNameParsed[packageNameParsed.length - 1]
-                                        .equals(parse2_themeName)) {
-                                    Log.d("OverlayDisabler", "Uninstalling overlay \"" +
-                                            current_item + "\"");
-                                    all_overlays.add(current_item);
+                            for (int j = 0; j < stateAll.size(); j++) {
+                                try {
+                                    String current = stateAll.get(j);
+                                    ApplicationInfo appInfo = getApplicationContext()
+                                            .getPackageManager()
+                                            .getApplicationInfo(
+                                                    current, PackageManager.GET_META_DATA);
+                                    if (appInfo.metaData != null) {
+                                        if (appInfo.metaData.getString("Substratum_Parent") !=
+                                                null) {
+                                            if (appInfo.metaData.getString("Substratum_Parent")
+                                                    .equals(parse2_themeName)) {
+                                                all_overlays.add(current);
+                                            }
+                                        }
+                                    }
+                                } catch (PackageManager.NameNotFoundException nnfe) {
+                                    Log.e("SubstratumLogger", "Could not find explicit package " +
+                                            "for " +
+                                            "this overlay...");
                                 }
                             }
+
+                            String commands2 = "";
                             for (int i = 0; i < all_overlays.size(); i++) {
                                 if (i == 0) {
                                     commands2 = commands2 + "pm uninstall " + all_overlays
@@ -462,9 +270,6 @@ public class InformationActivity extends AppCompatActivity {
                             toast.show();
 
                             Root.runCommand(commands2);
-
-                            // Finally refresh the listView adapter
-                            adapter.notifyDataSetChanged();
                         }
                     })
                     .setNegativeButton(R.string.uninstall_dialog_cancel, new DialogInterface
@@ -509,27 +314,33 @@ public class InformationActivity extends AppCompatActivity {
                             List<String> stateAll = ReadOverlaysFile.main(commands);
                             stateAll.addAll(ReadOverlaysFile.main(commands1));
 
-                            String commands2 = "";
                             ArrayList<String> all_overlays = new ArrayList<>();
-                            for (int i = 0; i < stateAll.size(); i++) {
-                                String current_item = stateAll.get(i);
-                                String[] packageNameParsed = current_item.split
-                                        ("\\.");
-                                if (packageNameParsed[packageNameParsed.length - 1]
-                                        .equals(parse2_themeName)) {
-                                    Log.d("OverlayDisabler", "Disabling overlay \"" +
-                                            current_item + "\"");
-                                    all_overlays.add(current_item);
+                            for (int j = 0; j < stateAll.size(); j++) {
+                                try {
+                                    String current = stateAll.get(j);
+                                    ApplicationInfo appInfo = getApplicationContext()
+                                            .getPackageManager()
+                                            .getApplicationInfo(
+                                                    current, PackageManager.GET_META_DATA);
+                                    if (appInfo.metaData != null) {
+                                        if (appInfo.metaData.getString("Substratum_Parent") !=
+                                                null) {
+                                            if (appInfo.metaData.getString("Substratum_Parent")
+                                                    .equals(parse2_themeName)) {
+                                                all_overlays.add(current);
+                                            }
+                                        }
+                                    }
+                                } catch (PackageManager.NameNotFoundException nnfe) {
+                                    Log.e("SubstratumLogger", "Could not find explicit package " +
+                                            "for " +
+                                            "this overlay...");
                                 }
                             }
+
+                            String commands2 = "om disable ";
                             for (int i = 0; i < all_overlays.size(); i++) {
-                                if (i == 0) {
-                                    commands2 = commands2 + "om disable " + all_overlays
-                                            .get(i);
-                                } else {
-                                    commands2 = commands2 + " && om disable " +
-                                            all_overlays.get(i);
-                                }
+                                commands2 = commands2 + all_overlays.get(i) + " ";
                             }
 
                             Toast toast = Toast.makeText(getApplicationContext(),
@@ -538,10 +349,9 @@ public class InformationActivity extends AppCompatActivity {
                                     Toast.LENGTH_LONG);
                             toast.show();
 
-                            Root.runCommand(commands2);
+                            Log.e("commands", commands2);
 
-                            // Finally refresh the listView adapter
-                            adapter.notifyDataSetChanged();
+                            Root.runCommand(commands2);
                         }
                     })
                     .setNegativeButton(R.string.uninstall_dialog_cancel, new DialogInterface
@@ -586,27 +396,33 @@ public class InformationActivity extends AppCompatActivity {
                             List<String> stateAll = ReadOverlaysFile.main(commands);
                             stateAll.addAll(ReadOverlaysFile.main(commands1));
 
-                            String commands2 = "";
                             ArrayList<String> all_overlays = new ArrayList<>();
-                            for (int i = 0; i < stateAll.size(); i++) {
-                                String current_item = stateAll.get(i);
-                                String[] packageNameParsed = current_item.split
-                                        ("\\.");
-                                if (packageNameParsed[packageNameParsed.length - 1]
-                                        .equals(parse2_themeName)) {
-                                    Log.d("OverlayEnabler", "Enabling overlay \"" +
-                                            current_item + "\"");
-                                    all_overlays.add(current_item);
+                            for (int j = 0; j < stateAll.size(); j++) {
+                                try {
+                                    String current = stateAll.get(j);
+                                    ApplicationInfo appInfo = getApplicationContext()
+                                            .getPackageManager()
+                                            .getApplicationInfo(
+                                                    current, PackageManager.GET_META_DATA);
+                                    if (appInfo.metaData != null) {
+                                        if (appInfo.metaData.getString("Substratum_Parent") !=
+                                                null) {
+                                            if (appInfo.metaData.getString("Substratum_Parent")
+                                                    .equals(parse2_themeName)) {
+                                                all_overlays.add(current);
+                                            }
+                                        }
+                                    }
+                                } catch (PackageManager.NameNotFoundException nnfe) {
+                                    Log.e("SubstratumLogger", "Could not find explicit package " +
+                                            "for " +
+                                            "this overlay...");
                                 }
                             }
+
+                            String commands2 = "om enable ";
                             for (int i = 0; i < all_overlays.size(); i++) {
-                                if (i == 0) {
-                                    commands2 = commands2 + "om enable " + all_overlays
-                                            .get(i);
-                                } else {
-                                    commands2 = commands2 + " && om enable " +
-                                            all_overlays.get(i);
-                                }
+                                commands2 = commands2 + all_overlays.get(i) + " ";
                             }
 
                             Toast toast = Toast.makeText(getApplicationContext(),
@@ -615,10 +431,9 @@ public class InformationActivity extends AppCompatActivity {
                                     Toast.LENGTH_LONG);
                             toast.show();
 
-                            Root.runCommand(commands2);
+                            Log.e("commands", commands2);
 
-                            // Finally refresh the listView adapter
-                            adapter.notifyDataSetChanged();
+                            Root.runCommand(commands2);
                         }
                     })
                     .setNegativeButton(R.string.uninstall_dialog_cancel, new DialogInterface
@@ -672,19 +487,31 @@ public class InformationActivity extends AppCompatActivity {
                             List<String> stateAll = ReadOverlaysFile.main(commands);
                             stateAll.addAll(ReadOverlaysFile.main(commands1));
 
-                            String commands2 = "";
                             ArrayList<String> all_overlays = new ArrayList<>();
-                            for (int i = 0; i < stateAll.size(); i++) {
-                                String current_item = stateAll.get(i);
-                                String[] packageNameParsed = current_item.split
-                                        ("\\.");
-                                if (packageNameParsed[packageNameParsed.length - 1]
-                                        .equals(parse2_themeName)) {
-                                    Log.d("OverlayDisabler", "Uninstalling overlay \"" +
-                                            current_item + "\"");
-                                    all_overlays.add(current_item);
+                            for (int j = 0; j < stateAll.size(); j++) {
+                                try {
+                                    String current = stateAll.get(j);
+                                    ApplicationInfo appInfo = getApplicationContext()
+                                            .getPackageManager()
+                                            .getApplicationInfo(
+                                                    current, PackageManager.GET_META_DATA);
+                                    if (appInfo.metaData != null) {
+                                        if (appInfo.metaData.getString("Substratum_Parent") !=
+                                                null) {
+                                            if (appInfo.metaData.getString("Substratum_Parent")
+                                                    .equals(parse2_themeName)) {
+                                                all_overlays.add(current);
+                                            }
+                                        }
+                                    }
+                                } catch (PackageManager.NameNotFoundException nnfe) {
+                                    Log.e("SubstratumLogger", "Could not find explicit package " +
+                                            "for " +
+                                            "this overlay...");
                                 }
                             }
+
+                            String commands2 = "";
                             for (int i = 0; i < all_overlays.size(); i++) {
                                 if (i == 0) {
                                     commands2 = commands2 + "pm uninstall " + all_overlays
@@ -724,213 +551,17 @@ public class InformationActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (materialSheetFab.isSheetVisible()) {
-            materialSheetFab.hideSheet();
+        Intent intent = new Intent();
+        if (uninstalled) {
+            intent.putExtra("Uninstalled", true);
         } else {
-            if (!is_building) {
-                Intent intent = new Intent();
-                if (uninstalled) {
-                    intent.putExtra("Uninstalled", true);
-                } else {
-                    intent.putExtra("Uninstalled", false);
-                }
-                setResult(THEME_INFORMATION_REQUEST_CODE, intent);
-                // Destroy the cache if the user leaves the activity
-                super.onBackPressed();
-                clearCache clear = new clearCache();
-                clear.execute("");
-            } else {
-                Toast toast = Toast.makeText(getApplicationContext(),
-                        getString(R.string
-                                .toast_on_back_press_compiling),
-                        Toast.LENGTH_LONG);
-                toast.show();
-            }
+            intent.putExtra("Uninstalled", false);
         }
-    }
-
-    @Override
-    public void onPause() {
-        app_paused = true;
-        super.onPause();
-    }
-
-    @Override
-    public void onResume() {
-        if (app_resumed) {
-            if (!is_building) {
-                Intent intent = getIntent();
-                finish();
-                startActivity(intent);
-            }
-        } else {
-            app_paused = false;
-        }
-        super.onResume();
-    }
-
-    private class LoadOverlays extends AsyncTask<String, Integer, String> {
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-            TextView overlay_count = (TextView) findViewById(R.id.title_overlays);
-            if (overlay_count != null)
-                overlay_count.setText(getString(R.string.list_of_overlays) + " (" + overlayCount
-                        + ")");
-
-            // Let's start sorting the overlay list alphabetically with proper package names
-            List<String> unsortedList = new ArrayList<String>();
-            List<String> unsortedListWithNames = new ArrayList<String>();
-
-            // Let's convert the values list to package names first
-            for (int i = 0; i < values.size(); i++) {
-                try {
-                    ApplicationInfo applicationInfo = getPackageManager().getApplicationInfo
-                            (values.get(i), 0);
-                    String packageTitle = getPackageManager().getApplicationLabel
-                            (applicationInfo).toString();
-
-                    // Organized list of packages
-                    unsortedList.add(values.get(i));  // Add this to be parsed later
-                    unsortedListWithNames.add(packageTitle);  // Add this to be parsed later
-
-                    values.set(i, packageTitle);
-                } catch (PackageManager.NameNotFoundException nnfe) {
-                    Log.e("SubstratumLogger", "Could not find explicit package identifier in " +
-                            "package manager list.");
-                }
-            }
-
-            // Sort the values list
-            Collections.sort(values);
-
-            // Change the names of each of the values back into package identifiers
-            for (int i = 0; i < values.size(); i++) {
-                int counter = -1;
-                for (int j = 0; j < unsortedList.size(); j++) {
-                    if (unsortedListWithNames.get(j).equals(values.get(i))) {
-                        counter = j;
-                    }
-                }
-                if (counter > -1) {
-                    values.set(i, unsortedList.get(counter));
-                } else {
-                    Log.e("SubstratumLogger", "Could not assign specific index \"" + values.get
-                            (i) + "\" for sorted values list.");
-                }
-            }
-
-            if (listView != null) {
-                listView.setNestedScrollingEnabled(true);
-                listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-                adapter = new ArrayAdapter<String>(InformationActivity.this, android.R.layout
-                        .simple_list_item_multiple_choice, values) {
-                    @Override
-                    public View getView(final int position, View convertView, ViewGroup parent) {
-                        TextView textView = (TextView) super.getView(position, convertView, parent);
-                        try {
-                            ApplicationInfo applicationInfo = getPackageManager().getApplicationInfo
-                                    (listView.getItemAtPosition
-                                            (position).toString(), 0);
-                            String packageTitle = getPackageManager().getApplicationLabel
-                                    (applicationInfo).toString();
-                            textView.setText(packageTitle);
-                        } catch (PackageManager.NameNotFoundException nnfe) {
-                            Log.e("SubstratumLogger", "Could not find explicit package identifier" +
-                                    " in package manager list.");
-                        }
-                        if (isPackageInstalled(InformationActivity.this, listView.getItemAtPosition
-                                (position).toString() + "." + theme_name)) {
-                            if (enabled_overlays.contains(listView.getItemAtPosition(position)
-                                    .toString() + "." + theme_name)) {
-                                textView.setTextColor(getColor(R.color
-                                        .overlay_installed_list_entry));
-                            } else {
-                                if (unapproved_overlays.contains(listView.getItemAtPosition
-                                        (position).toString() + "." + theme_name)) {
-                                    SpannableString string = new SpannableString(textView.getText
-                                            ());
-                                    string.setSpan(new StrikethroughSpan(), 0, string.length(), 0);
-                                    textView.setText(string);
-                                    textView.setTextColor(getColor(R.color
-                                            .overlay_not_approved_list_entry));
-                                } else {
-                                    textView.setTextColor(getColor(R.color
-                                            .overlay_not_enabled_list_entry));
-                                }
-                            }
-                        } else {
-                            textView.setTextColor(getColor(R.color
-                                    .overlay_not_installed_list_entry));
-                        }
-                        return textView;
-                    }
-                };
-                listView.setAdapter(adapter);
-            }
-            toggle_overlays.setClickable(true);
-        }
-
-        @Override
-        protected String doInBackground(String... sUrl) {
-            final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
-                    getApplicationContext());
-
-            // Filter out state 0-3 overlays before enabling them
-
-            Root.runCommand("cp /data/system/overlays.xml " +
-                    Environment
-                            .getExternalStorageDirectory().getAbsolutePath() +
-                    "/.substratum/current_overlays.xml");
-            String[] commands0 = {Environment.getExternalStorageDirectory().getAbsolutePath() +
-                    "/.substratum/current_overlays.xml", "0"};
-            String[] commands1 = {Environment.getExternalStorageDirectory().getAbsolutePath() +
-                    "/.substratum/current_overlays.xml", "1"};
-            String[] commands2 = {Environment.getExternalStorageDirectory().getAbsolutePath() +
-                    "/.substratum/current_overlays.xml", "2"};
-            String[] commands3 = {Environment.getExternalStorageDirectory().getAbsolutePath() +
-                    "/.substratum/current_overlays.xml", "3"};
-
-            List<String> state0 = ReadOverlaysFile.main(commands0);
-            List<String> state1 = ReadOverlaysFile.main(commands1);
-            List<String> state2 = ReadOverlaysFile.main(commands2);
-            List<String> state3 = ReadOverlaysFile.main(commands3);
-
-            unapproved_overlays = new ArrayList<>(state0);
-            unapproved_overlays.addAll(state1);
-            unapproved_overlays.addAll(state2);
-            unapproved_overlays.addAll(state3);
-
-            // Parse the list of overlay folders inside assets/overlays
-            try {
-                values = new ArrayList<>();
-                Context otherContext = createPackageContext(theme_pid, 0);
-                am = otherContext.getAssets();
-                String[] am_list = am.list("overlays");
-
-                for (String package_name : am_list) {
-                    if (isPackageInstalled(InformationActivity.this, package_name)) {
-                        values.add(package_name);
-                    }
-                }
-                overlayCount = values.size();
-            } catch (Exception e) {
-                Log.e("SubstratumLogger", "Could not refresh list of overlay folders.");
-            }
-            // Check enabled overlays
-            Root.runCommand("cp /data/system/overlays.xml " +
-                    Environment
-                            .getExternalStorageDirectory().getAbsolutePath() +
-                    "/.substratum/current_overlays.xml");
-            String[] commands = {Environment.getExternalStorageDirectory().getAbsolutePath() +
-                    "/.substratum/current_overlays.xml", "5"};
-            List<String> state5 = ReadOverlaysFile.main(commands);
-            for (int i = 0; i < state5.size(); i++) {
-                enabled_overlays.add(state5.get(i));
-            }
-            return null;
-        }
+        setResult(THEME_INFORMATION_REQUEST_CODE, intent);
+        // Destroy the cache if the user leaves the activity
+        super.onBackPressed();
+        clearCache clear = new clearCache();
+        clear.execute("");
     }
 
     private class clearCache extends AsyncTask<String, Integer, String> {
@@ -953,460 +584,6 @@ public class InformationActivity extends AppCompatActivity {
                 Root.runCommand(
                         "rm -r " + getCacheDir().getAbsolutePath() +
                                 "/SubstratumBuilder/");
-            }
-            return null;
-        }
-    }
-
-    private class Phase1_AAPT_Check extends AsyncTask<String, Integer, String> {
-
-        @Override
-        protected void onPreExecute() {
-            Log.d("Phase 1", "This phase has started it's asynchronous task.");
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-        }
-
-        @Override
-        protected String doInBackground(String... sUrl) {
-            // Check whether device has AAPT installed
-            SubstratumBuilder aaptCheck = new SubstratumBuilder();
-            aaptCheck.injectAAPT(getApplicationContext());
-            return null;
-        }
-    }
-
-    private class Phase2_InitializeCache extends AsyncTask<String, Integer, String> {
-
-        @Override
-        protected void onPreExecute() {
-            Log.d("Phase 2", "This phase has started it's asynchronous task.");
-            int notification_priority = 2; // PRIORITY_MAX == 2
-
-            // This is the time when the notification should be shown on the user's screen
-            if (!current_mode.equals("enable") && !current_mode.equals("disable")) {
-                mNotifyManager =
-                        (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                mBuilder = new NotificationCompat.Builder(InformationActivity.this);
-                mBuilder.setContentTitle(getString(R.string.notification_initial_title))
-                        .setProgress(100, 0, true)
-                        .setSmallIcon(android.R.drawable.ic_popup_sync)
-                        .setPriority(notification_priority)
-                        .setOngoing(true);
-                mNotifyManager.notify(id, mBuilder.build());
-            }
-            is_building = true;
-            super.onPreExecute();
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-            Phase3_mainFunction phase3_mainFunction = new Phase3_mainFunction();
-            phase3_mainFunction.execute("");
-        }
-
-        @Override
-        protected String doInBackground(String... sUrl) {
-            // Initialize the cache for this specific app
-            if (!current_mode.equals("enable") && !current_mode.equals("disable")) {
-                if (!has_extracted_cache) {
-                    lb = new SubstratumBuilder();
-                    lb.initializeCache(getApplicationContext(), theme_pid);
-                    has_extracted_cache = true;
-                }
-            }
-            return null;
-        }
-    }
-
-    private class Phase3_mainFunction extends AsyncTask<String, Integer, String> {
-
-        @Override
-        protected void onPreExecute() {
-            Log.d("Phase 3", "This phase has started it's asynchronous task.");
-
-            if (!current_mode.equals("enable") && !current_mode.equals("disable")) {
-                // Change title in preparation for loop to change subtext
-                mBuilder.setContentTitle(getString(R.string
-                        .notification_compiling_signing_installing))
-                        .setContentText(getString(R.string.notification_extracting_assets_text))
-                        .setProgress(100, 0, false);
-                mNotifyManager.notify(id, mBuilder.build());
-            }
-
-            problematicOverlays = new ArrayList<>();
-            super.onPreExecute();
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-
-            // On non-compiling dialogs, we have the progress bar shown
-            progressBar.setVisibility(View.GONE);
-
-            if (current_mode.equals("compile_enable") && problematicOverlays.size() == 0) {
-                Intent notificationIntent = new Intent(InformationActivity.this, InformationActivity
-                        .class);
-                notificationIntent.putExtra("theme_name", theme_name);
-                notificationIntent.putExtra("theme_pid", theme_pid);
-                notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
-                        Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                PendingIntent intent =
-                        PendingIntent.getActivity(InformationActivity.this, 0, notificationIntent,
-                                PendingIntent.FLAG_CANCEL_CURRENT);
-
-                // Closing off the persistent notification
-                mBuilder.setAutoCancel(true);
-                mBuilder.setProgress(0, 0, false);
-                mBuilder.setOngoing(false);
-                mBuilder.setContentIntent(intent);
-                mBuilder.setSmallIcon(R.drawable.notification_success_icon);
-                mBuilder.setContentTitle(getString(R.string.notification_done_title));
-                mBuilder.setContentText(getString(R.string.notification_no_errors_found));
-                mBuilder.getNotification().flags |= Notification.FLAG_AUTO_CANCEL;
-                mNotifyManager.notify(id, mBuilder.build());
-                is_building = false;
-
-                Toast toast = Toast.makeText(getApplicationContext(), getString(R
-                                .string.toast_compiled_updated),
-                        Toast.LENGTH_SHORT);
-                toast.show();
-
-                if (!app_paused) {
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            Intent intent = getIntent();
-                            finish();
-                            startActivity(intent);
-                        }
-                    }, 2000);
-                } else {
-                    // Named this way because it will assume the next time the app is loaded, it
-                    // will most definitely restart the activity
-                    app_resumed = true;
-                }
-
-            } else {
-                if (problematicOverlays.size() > 0) {
-                    if (current_mode.equals("compile_enable")) {
-                        // Closing off the persistent notification
-                        mBuilder.setProgress(0, 0, false);
-                        mBuilder.setOngoing(false);
-                        mBuilder.setSmallIcon(R.drawable.notification_warning_icon);
-                        mBuilder.setContentTitle(getString(R.string.notification_done_title));
-                        mBuilder.setContentText(getString(R.string.notification_some_errors_found));
-                        mNotifyManager.notify(id, mBuilder.build());
-                        is_building = false;
-
-                        for (int i = 0; i < problematicOverlays.size(); i++) {
-                            String toast_text = String.format(getApplicationContext().getResources()
-                                            .getString(
-                                                    R.string.failed_to_install_overlay_toast),
-                                    problematicOverlays.get(i));
-                            Toast toast = Toast.makeText(getApplicationContext(), toast_text,
-                                    Toast.LENGTH_SHORT);
-                            toast.show();
-                        }
-
-                        if (!app_paused) {
-                            Handler handler = new Handler();
-                            handler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Intent intent = getIntent();
-                                    finish();
-                                    startActivity(intent);
-                                }
-                            }, 2000);
-                        } else {
-                            // Named this way because it will assume the next time the app is
-                            // loaded, it will most definitely restart the activity
-                            app_resumed = true;
-                        }
-                    } else {
-                        for (int i = 0; i < problematicOverlays.size(); i++) {
-                            String toast_text = String.format(getApplicationContext().getResources()
-                                            .getString(
-                                                    R.string.failed_to_install_overlay_toast),
-                                    problematicOverlays.get(i));
-                            Toast toast = Toast.makeText(getApplicationContext(), toast_text,
-                                    Toast.LENGTH_SHORT);
-                            toast.show();
-                            adapter.notifyDataSetChanged();
-                        }
-                    }
-                } else {
-                    if (!current_mode.equals("disable")) {
-                        if (final_commands.length() > 0) {
-                            Toast toast = Toast.makeText(getApplicationContext(),
-                                    getString(R
-                                            .string.toast_installed),
-                                    Toast.LENGTH_SHORT);
-                            toast.show();
-                            final_commands = final_commands + " && cp /data/system" +
-                                    "/overlays" +
-                                    ".xml " +
-                                    Environment
-                                            .getExternalStorageDirectory().getAbsolutePath()
-                                    + "/" +
-                                    ".substratum" +
-                                    "/overlays" +
-                                    ".xml";
-                            if (mixAndMatchMode && mixAndMatchCommands.length() != 0) {
-                                final_commands = mixAndMatchCommands + " && " + final_commands;
-                            }
-                            Log.e("Substratum4", final_commands);
-                            Root.runCommand(final_commands);
-                            adapter.notifyDataSetChanged();
-                        } else {
-                            Toast toast = Toast.makeText(getApplicationContext(),
-                                    getString(R
-                                            .string.toast_disabled3),
-                                    Toast.LENGTH_SHORT);
-                            toast.show();
-                        }
-                    } else {
-                        if (final_commands.length() > 0) {
-                            Toast toast = Toast.makeText(getApplicationContext(),
-                                    getString(R
-                                            .string.toast_disabled2),
-                                    Toast.LENGTH_SHORT);
-                            toast.show();
-                            final_commands = final_commands + " && cp /data/system" +
-                                    "/overlays" +
-                                    ".xml " +
-                                    Environment
-                                            .getExternalStorageDirectory().getAbsolutePath()
-                                    + "/" +
-                                    ".substratum" +
-                                    "/overlays" +
-                                    ".xml";
-                            if (mixAndMatchMode && mixAndMatchCommands.length() != 0) {
-                                final_commands = mixAndMatchCommands + " && " + final_commands;
-                            }
-                            Log.e("Substratum5", final_commands);
-                            Root.runCommand(final_commands);
-                            adapter.notifyDataSetChanged();
-                        } else {
-                            Toast toast = Toast.makeText(getApplicationContext(),
-                                    getString(R
-                                            .string.toast_disabled4),
-                                    Toast.LENGTH_SHORT);
-                            toast.show();
-                        }
-                    }
-                }
-            }
-        }
-
-        @Override
-        protected String doInBackground(String... sUrl) {
-            // Filter out state 4 overlays before programming them to enable
-            ArrayList<String> approved_overlays = new ArrayList<>();
-
-            if (!current_mode.equals("enable") && !current_mode.equals("disable")) {
-                for (int i = 0; i < listStrings.size(); i++) {
-                    try {
-                        // Process notification while compiling
-                        ApplicationInfo applicationInfo = getPackageManager().getApplicationInfo
-                                (listStrings.get(i), 0);
-                        String packageTitle = getPackageManager().getApplicationLabel
-                                (applicationInfo).toString();
-                        mBuilder.setProgress(100, (int) (((double) (i + 1) / listStrings.size()) *
-                                100), false);
-                        mBuilder.setContentText(getString(R.string.notification_processing) + " " +
-                                "\"" +
-                                packageTitle + "\"");
-                        mNotifyManager.notify(id, mBuilder.build());
-
-                        lb = new SubstratumBuilder();
-                        lb.beginAction(getApplicationContext(), listStrings.get(i), theme_name,
-                                current_mode.equals("compile_enable") + "", null, null, null, null);
-                        if (lb.has_errored_out) {
-                            problematicOverlays.add(listStrings.get(i));
-                        } else {
-                            approved_overlays.add(listStrings.get(i) + "." + lb.parse2_themeName);
-                        }
-                    } catch (PackageManager.NameNotFoundException nnfe) {
-                        Log.e("SubstratumLogger", "Could not find explicit package identifier in " +
-                                "package manager list.");
-                    }
-                }
-            }
-            // Process the current overlays whether they are enabled or disabled
-            Root.runCommand("cp /data/system/overlays.xml " +
-                    Environment
-                            .getExternalStorageDirectory().getAbsolutePath() +
-                    "/.substratum/current_overlays.xml");
-
-            List<String> approved_disabled_overlays;
-            if (current_mode.equals("compile_enable")) {
-                String[] commands = {Environment.getExternalStorageDirectory().getAbsolutePath() +
-                        "/.substratum/current_overlays.xml", "4"};
-                String[] commands1 = {Environment.getExternalStorageDirectory().getAbsolutePath() +
-                        "/.substratum/current_overlays.xml", "5"};
-                approved_disabled_overlays = ReadOverlaysFile.main(commands);
-                approved_disabled_overlays.addAll(ReadOverlaysFile.main(commands1));
-            } else {
-                String[] commands = {Environment.getExternalStorageDirectory().getAbsolutePath() +
-                        "/.substratum/current_overlays.xml", "4"};
-                approved_disabled_overlays = ReadOverlaysFile.main(commands);
-            }
-
-            String swap_mode_commands = "";
-
-            if (!current_mode.equals("enable") && !current_mode.equals("disable") &&
-                    !current_mode.equals("compile_enable")) {
-                final_commands = "";
-
-                for (int i = 0; i < approved_overlays.size(); i++) {
-                    if (i == 0 && approved_disabled_overlays.contains(approved_overlays.get(i))) {
-                        final_commands = final_commands + "om enable " + approved_overlays.get(i);
-                    } else {
-                        if (i != 0 && final_commands.length() == 0 && approved_disabled_overlays
-                                .contains(approved_overlays.get(i))) {
-                            final_commands = final_commands + "om enable " + approved_overlays
-                                    .get(i);
-                        } else {
-                            if (approved_disabled_overlays.contains(approved_overlays.get(i))) {
-                                final_commands = final_commands + " && om enable " +
-                                        approved_overlays.get(i);
-                            }
-                        }
-                    }
-                }
-            } else {
-                // Quickly parse theme_name
-                String parse1_themeName = theme_name.replaceAll("\\s+", "");
-                String parse2_themeName = parse1_themeName.replaceAll
-                        ("[^a-zA-Z0-9]+", "");
-
-                // Process the current overlays whether they are enabled or disabled
-                String[] disabled = {Environment.getExternalStorageDirectory().getAbsolutePath() +
-                        "/.substratum/current_overlays.xml", "4"};
-                String[] enabled = {Environment.getExternalStorageDirectory().getAbsolutePath() +
-                        "/.substratum/current_overlays.xml", "5"};
-                List<String> enabled_disabled_overlays = ReadOverlaysFile.main(disabled);
-                enabled_disabled_overlays.addAll(ReadOverlaysFile.main(enabled));
-
-                final_commands = "";
-
-                if (current_mode.equals("enable")) {
-                    for (int i = 0; i < listStrings.size(); i++) {
-                        if (i == 0 && enabled_disabled_overlays.contains(listStrings.get(i) + "."
-                                + parse2_themeName)) {
-                            final_commands = final_commands + "om enable " +
-                                    listStrings.get(i) + "." + parse2_themeName;
-                        } else {
-                            if (i != 0 && final_commands.length() == 0 &&
-                                    enabled_disabled_overlays.contains(listStrings.get(i) + "." +
-                                            parse2_themeName)) {
-                                final_commands = final_commands + "om enable " +
-                                        listStrings.get(i) + "." + parse2_themeName;
-                            } else {
-                                if (enabled_disabled_overlays.contains(listStrings.get(i) + "." +
-                                        parse2_themeName)) {
-                                    final_commands = final_commands + " && om enable " +
-                                            listStrings.get(i) + "." + parse2_themeName;
-                                }
-                            }
-                        }
-                    }
-                }
-                if (current_mode.equals("disable")) {
-                    for (int i = 0; i < listStrings.size(); i++) {
-                        if (i == 0 && enabled_disabled_overlays.contains(listStrings.get(i) + "."
-                                + parse2_themeName)) {
-                            final_commands = final_commands + "om disable " +
-                                    listStrings.get(i) + "." + parse2_themeName;
-                        } else {
-                            if (i != 0 && final_commands.length() == 0 &&
-                                    enabled_disabled_overlays.contains(listStrings.get(i) + "." +
-                                            parse2_themeName)) {
-                                final_commands = final_commands + "om disable " +
-                                        listStrings.get(i) + "." + parse2_themeName;
-                            } else {
-                                if (enabled_disabled_overlays.contains(listStrings.get(i) + "." +
-                                        parse2_themeName)) {
-                                    final_commands = final_commands + " && om disable " +
-                                            listStrings.get(i) + "." + parse2_themeName;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            if (final_commands.length() > 0) {
-                if (!mixAndMatchMode) {
-                    // Begin uninstalling all overlays based on this package
-                    Root.runCommand("cp /data/system/overlays.xml " +
-                            Environment
-                                    .getExternalStorageDirectory().getAbsolutePath() +
-                            "/.substratum/current_overlays.xml");
-
-                    String[] commands = {Environment.getExternalStorageDirectory()
-                            .getAbsolutePath() +
-                            "/.substratum/current_overlays.xml", "5"};
-
-                    List<String> state5 = ReadOverlaysFile.main(commands);
-
-                    for (int i = 0; i < state5.size(); i++) {
-                        if (i == 0) {
-                            swap_mode_commands = swap_mode_commands + "om disable " +
-                                    state5.get(i);
-                        } else {
-                            swap_mode_commands = swap_mode_commands + " && om disable " +
-                                    state5.get(i);
-                        }
-                    }
-                } else {
-                    String parse1_themeName = theme_name.replaceAll("\\s+", "");
-                    String parse2_themeName = parse1_themeName.replaceAll
-                            ("[^a-zA-Z0-9]+", "");
-
-                    mixAndMatch = new ArrayList<>();
-                    mixAndMatchCommands = "";
-
-                    Root.runCommand("cp /data/system/overlays.xml " +
-                            Environment
-                                    .getExternalStorageDirectory().getAbsolutePath() +
-                            "/.substratum/current_overlays.xml");
-
-                    String[] commands = {Environment.getExternalStorageDirectory()
-                            .getAbsolutePath() +
-                            "/.substratum/current_overlays.xml", "5"};
-                    List<String> mixAndMatch1 = ReadOverlaysFile.main(commands);
-
-                    for (int i = 0; i < mixAndMatch1.size(); i++) {
-                        String packageNameParsed = mixAndMatch1.get(i);
-                        if (!packageNameParsed.substring(8).split
-                                ("\\.")[packageNameParsed.substring(8).split
-                                ("\\.").length - 1].equals(parse2_themeName)) {
-                            mixAndMatch.add(packageNameParsed);
-                        }
-                    }
-                    for (int i = 0; i < mixAndMatch.size(); i++) {
-                        if (i == 0) {
-                            mixAndMatchCommands = mixAndMatchCommands + "om disable " +
-                                    mixAndMatch.get(i);
-                        } else {
-                            if (mixAndMatchCommands.length() == 0) {
-                                mixAndMatchCommands = mixAndMatchCommands + "om disable " +
-                                        mixAndMatch.get(i);
-                            } else {
-                                mixAndMatchCommands = mixAndMatchCommands + " && om disable " +
-                                        mixAndMatch.get(i);
-                            }
-                        }
-                    }
-                }
             }
             return null;
         }

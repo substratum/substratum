@@ -125,6 +125,10 @@ public class InformationActivityTabs extends AppCompatActivity {
                     tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
                             .theme_information_tab_four)));
                 }
+                if (Arrays.asList(am.list("")).contains("audio")) {
+                    tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
+                            .theme_information_tab_five)));
+                }
             } catch (Exception e) {
                 Log.e("SubstratumLogger", "Could not refresh list of asset folders.");
             }

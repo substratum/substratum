@@ -38,10 +38,19 @@
     <string name="font_dialog_apply_success">Font pack has been applied!</string>
     <string name="font_dialog_apply_failed">Font pack has failed to apply&#8230;</string>
 
+    <string name="sounds_placeholder_text">please select a sound pack from the dropdown list&#8230;</string>
+    <string name="sounds_dialog_apply_text">Sound pack is processing&#8230;</string>
+    <string name="sounds_dialog_apply_success">Sound pack applied!</string>
+    <string name="sounds_dialog_apply_failed">Sound pack failed to apply&#8230;</string>
+    <string name="sounds_default_spinner">please select a sound pack&#8230;</string>
+    <string name="sounds_dialog_permissions_title">Ringtones Configuration Alert</string>
+    <string name="sounds_dialog_permissions_text">This theme\'s ringtones have been inserted into the MediaProvider, but this app cannot grant itself "android.permission.WRITE_SETTINGS" since it is not a privileged app. However, Alarms, Sounds and Ringtones are selectable from the MediaProvider dialog in Settings manually!\n\nFor UI sound effects, please perform a soft reboot to take effect!</string>
+
     <string name="theme_information_tab_one">Quick Apply</string>
     <string name="theme_information_tab_two">Overlay Manager</string>
     <string name="theme_information_tab_three">Boot animations</string>
     <string name="theme_information_tab_four">Font Packs</string>
+    <string name="theme_information_tab_five">Sound Packs</string>
     <string name="theme_information_quick_apply_style">Style</string>
     <string name="theme_information_quick_apply_fonts">System Fonts</string>
     <string name="theme_information_quick_apply_bootanimation_text">Custom Boot Animation</string>

@@ -54,7 +54,7 @@ public class MainScreenTab extends Fragment {
                 fontsTitle.setVisibility(View.GONE);
                 fontsText.setVisibility(View.GONE);
             }
-            if (Arrays.asList(am.list("")).contains("system_sounds")) {
+            if (Arrays.asList(am.list("")).contains("audio")) {
                 soundsTitle.setVisibility(View.VISIBLE);
                 soundsCard.setVisibility(View.VISIBLE);
             } else {
@@ -64,7 +64,6 @@ public class MainScreenTab extends Fragment {
         } catch (Exception e) {
             Log.e("SubstratumLogger", "Could not refresh list of asset folders.");
         }
-
         return root;
     }
 }

@@ -12,6 +12,7 @@ import projekt.substratum.tabs.BootAnimation;
 import projekt.substratum.tabs.FontInstaller;
 import projekt.substratum.tabs.MainScreenTab;
 import projekt.substratum.tabs.OverlaysList;
+import projekt.substratum.tabs.SoundPackager;
 
 public class InformationTabsAdapter extends FragmentStatePagerAdapter {
     int mNumOfTabs;
@@ -37,6 +38,9 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
             case 3:
                 FontInstaller tab4 = new FontInstaller();
                 return tab4;
+            case 4:
+                SoundPackager tab5 = new SoundPackager();
+                return tab5;
             default:
                 return null;
         }

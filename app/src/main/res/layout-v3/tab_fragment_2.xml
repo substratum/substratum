@@ -16,8 +16,18 @@
             android:id="@+id/type3_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp">
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_toStartOf="@+id/toggle_all_overlays">
         </Spinner>
+
+        <Switch
+            android:id="@+id/toggle_all_overlays"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="12dp"/>
 
         <me.zhanghai.android.materialprogressbar.MaterialProgressBar
             android:id="@+id/progress_bar_loader"

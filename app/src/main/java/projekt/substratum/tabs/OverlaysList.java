@@ -112,6 +112,32 @@ public class OverlaysList extends Fragment {
         RecyclerView.Adapter empty_adapter = new OverlaysAdapter(empty_array);
         mRecyclerView.setAdapter(empty_adapter);
 
+        Switch toggle_all = (Switch) root.findViewById(R.id.toggle_all_overlays);
+        toggle_all.setOnCheckedChangeListener(
+                new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
+                        if (isChecked) {
+                            for (int i = 0; i < overlaysLists.size(); i++) {
+                                OverlaysInfo currentOverlay = overlaysLists.get(i);
+                                if (!currentOverlay.isSelected()) {
+                                    currentOverlay.setSelected(true);
+                                }
+                                mAdapter.notifyDataSetChanged();
+                            }
+                        } else {
+                            for (int i = 0; i < overlaysLists.size(); i++) {
+                                OverlaysInfo currentOverlay = overlaysLists.get(i);
+                                if (currentOverlay.isSelected()) {
+                                    currentOverlay.setSelected(false);
+                                }
+                            }
+                            mAdapter.notifyDataSetChanged();
+                        }
+                    }
+                });
+
         View sheetView = root.findViewById(R.id.fab_sheet);
         View overlay = root.findViewById(R.id.overlay);
         int sheetColor = getContext().getColor(R.color.fab_menu_background_card);

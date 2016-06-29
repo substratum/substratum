@@ -43,13 +43,7 @@ public class InformationActivityTabs extends AppCompatActivity {
     }
 
     public static int getDominantColor(Bitmap bitmap) {
-        Bitmap newBitmap = Bitmap.createScaledBitmap(bitmap, 1, 1, true);
-        final int color = newBitmap.getPixel(0, 0);
-        newBitmap.recycle();
-        if (color == Color.WHITE) {
-            return Color.BLACK;
-        }
-        return color;
+        return bitmap.getPixel(0, 0);
     }
 
     public Drawable grabPackageHeroImage(String package_name) {

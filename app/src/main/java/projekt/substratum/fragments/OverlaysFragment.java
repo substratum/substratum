@@ -28,10 +28,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.TreeMap;
 
 import projekt.substratum.InformationActivity;
@@ -110,9 +108,6 @@ public class OverlaysFragment extends Fragment {
         for (ApplicationInfo packageInfo : list) {
             getSubstratumPackages(mContext, packageInfo.packageName);
         }
-
-        AntiPiracyCheck antiPiracyCheck = new AntiPiracyCheck();
-        antiPiracyCheck.execute("");
 
         if (substratum_packages.size() == 0) {
             cardView.setVisibility(View.VISIBLE);
@@ -357,38 +352,6 @@ public class OverlaysFragment extends Fragment {
         adapter = new DataAdapter(mContext.getApplicationContext(), themeParsers);
         recyclerView.setAdapter(adapter);
         swipeRefreshLayout.setRefreshing(false);
-    }
-
-    private class AntiPiracyCheck extends AsyncTask<String, Integer, String> {
-
-        @Override
-        protected void onPostExecute(String result) {
-            if (unauthorized_packages.size() > 0) {
-                PurgeUnauthorizedOverlays purgeUnauthorizedOverlays = new
-                        PurgeUnauthorizedOverlays();
-                purgeUnauthorizedOverlays.execute("");
-            }
-            doCleanUp cleanUp = new doCleanUp();
-            cleanUp.execute("");
-        }
-
-        @Override
-        protected String doInBackground(String... sUrl) {
-            try {
-                for (ApplicationInfo packageInfo : list) {
-                    checkOverlayIntegrity(mContext, packageInfo.packageName);
-                }
-            } catch (Exception e) {
-                Log.e("SubstratumLogger", "An attempt to run a concurrent job has been triggered " +
-                        "and will be ignored.");
-            }
-            Set<String> installed = new HashSet<>();
-            installed.addAll(installed_themes);
-            SharedPreferences.Editor edit = prefs.edit();
-            edit.putStringSet("installed_themes", installed);
-            edit.apply();
-            return null;
-        }
     }
 
     private class doCleanUp extends AsyncTask<String, Integer, String> {

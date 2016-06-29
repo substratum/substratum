@@ -171,30 +171,30 @@ public class MainActivity extends AppCompatActivity implements
                                 case 7:
                                     switchFragment(getString(R.string.nav_priorities),
                                             "PriorityLoaderFragment");
-                                    drawerSelected = 2;
+                                    drawerSelected = 7;
                                     break;
                                 case 8:
                                     switchFragment(getString(R.string.nav_backup_restore),
                                             "ProfileFragment");
-                                    drawerSelected = 3;
-                                    break;
-                                case 9:
-                                    if (drawerSelected != position) {
-                                        switchFragment(getString(R.string.nav_backup_restore),
-                                                "TeamFragment");
-                                        drawerSelected = 5;
-                                    }
+                                    drawerSelected = 8;
                                     break;
                                 case 10:
-                                    switchFragmentToLicenses(getString(R.string.nav_opensource),
-                                            fragment);
-                                    drawerSelected = 6;
+                                    if (drawerSelected != position) {
+                                        switchFragment(getString(R.string.nav_team),
+                                                "TeamFragment");
+                                        drawerSelected = 10;
+                                    }
                                     break;
                                 case 11:
+                                    switchFragmentToLicenses(getString(R.string.nav_opensource),
+                                            fragment);
+                                    drawerSelected = 11;
+                                    break;
+                                case 12:
                                     if (drawerSelected != position) {
                                         switchFragment(getString(R.string.nav_settings),
                                                 "SettingsFragment");
-                                        drawerSelected = 7;
+                                        drawerSelected = 12;
                                     }
                                     break;
                             }

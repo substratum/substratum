@@ -342,11 +342,11 @@ public class OverlaysList extends Fragment {
                     base_spinner.setAdapter(adapter1);
                 } else {
                     base_spinner.setVisibility(View.GONE);
-                    mAdapter.notifyDataSetChanged();
+                    new LoadOverlays().execute("");
                 }
             } else {
                 base_spinner.setVisibility(View.GONE);
-                mAdapter.notifyDataSetChanged();
+                new LoadOverlays().execute("");
             }
         } catch (Exception e) {
             if (base_spinner.getVisibility() == View.VISIBLE) base_spinner.setVisibility(View.GONE);

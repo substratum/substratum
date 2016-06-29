@@ -24,13 +24,17 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
     int mNumOfTabs;
     Context mContext;
     String theme_pid;
+    Boolean allow_quick_apply;
+    String theme_mode;
 
     public InformationTabsAdapter(FragmentManager fm, int NumOfTabs, Context context,
-                                  String theme_pid) {
+                                  String theme_pid, Boolean allow_quick_apply, String theme_mode) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
         this.mContext = context;
         this.theme_pid = theme_pid;
+        this.allow_quick_apply = allow_quick_apply;
+        this.theme_mode = theme_mode;
     }
 
     @Override
@@ -46,9 +50,34 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                return new MainScreenTab();
+                if (allow_quick_apply) {
+                    return new MainScreenTab();
+                }
+                if (theme_mode.equals("overlays")) {
+                    return new OverlaysList();
+                }
+                if (theme_mode.equals("bootanimation")) {
+                    return new BootAnimation();
+                }
+                if (theme_mode.equals("fonts")) {
+                    return new FontInstaller();
+                }
+                if (theme_mode.equals("sounds")) {
+                    return new SoundPackager();
+                }
             case 1:
-                return new OverlaysList();
+                if (Arrays.asList(package_checker).contains("overlays")) {
+                    return new OverlaysList();
+                }
+                if (Arrays.asList(package_checker).contains("bootanimation")) {
+                    return new BootAnimation();
+                }
+                if (Arrays.asList(package_checker).contains("fonts")) {
+                    return new FontInstaller();
+                }
+                if (Arrays.asList(package_checker).contains("audio")) {
+                    return new SoundPackager();
+                }
             case 2:
                 if (Arrays.asList(package_checker).contains("bootanimation")) {
                     return new BootAnimation();

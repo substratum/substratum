@@ -43,7 +43,7 @@ import projekt.substratum.util.Root;
 
 public class InformationActivity extends AppCompatActivity {
 
-    public static String theme_name, theme_pid;
+    public static String theme_name, theme_pid, theme_mode;
 
     private final int THEME_INFORMATION_REQUEST_CODE = 1;
 
@@ -98,6 +98,10 @@ public class InformationActivity extends AppCompatActivity {
         Intent currentIntent = getIntent();
         theme_name = currentIntent.getStringExtra("theme_name");
         theme_pid = currentIntent.getStringExtra("theme_pid");
+        theme_mode = currentIntent.getStringExtra("theme_mode");
+        if (theme_mode == null) {
+            theme_mode = "";
+        }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) toolbar.setTitle(theme_name);
@@ -130,28 +134,52 @@ public class InformationActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         if (tabLayout != null) {
-            tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
-                    .theme_information_tab_one)));
-            tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
-                    .theme_information_tab_two)));
-            try {
-                Context otherContext = getApplicationContext().createPackageContext(theme_pid, 0);
-                AssetManager am = otherContext.getAssets();
-                if (Arrays.asList(am.list("")).contains("bootanimation")) {
-                    tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
-                            .theme_information_tab_three)));
+            if (theme_mode.equals("")) {
+                tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
+                        .theme_information_tab_one)));
+                tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
+                        .theme_information_tab_two)));
+                try {
+                    Context otherContext = getApplicationContext().createPackageContext
+                            (theme_pid, 0);
+                    AssetManager am = otherContext.getAssets();
+                    if (Arrays.asList(am.list("")).contains("bootanimation")) {
+                        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
+                                .theme_information_tab_three)));
+                    }
+                    if (Arrays.asList(am.list("")).contains("fonts")) {
+                        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
+                                .theme_information_tab_four)));
+                    }
+                    if (Arrays.asList(am.list("")).contains("audio")) {
+                        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
+                                .theme_information_tab_five)));
+                    }
+                } catch (Exception e) {
+                    Log.e("SubstratumLogger", "Could not refresh list of asset folders.");
                 }
-                if (Arrays.asList(am.list("")).contains("fonts")) {
+            } else {
+                if (theme_mode.equals("overlays")) {
                     tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
-                            .theme_information_tab_four)));
+                            .theme_information_tab_two)));
+                } else {
+                    if (theme_mode.equals("bootanimation")) {
+                        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
+                                .theme_information_tab_three)));
+                    } else {
+                        if (theme_mode.equals("fonts")) {
+                            tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
+                                    .theme_information_tab_four)));
+                        } else {
+                            if (theme_mode.equals("sounds")) {
+                                tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
+                                        .theme_information_tab_five)));
+                            }
+                        }
+                    }
                 }
-                if (Arrays.asList(am.list("")).contains("audio")) {
-                    tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
-                            .theme_information_tab_five)));
-                }
-            } catch (Exception e) {
-                Log.e("SubstratumLogger", "Could not refresh list of asset folders.");
             }
+
             tabLayout.setTabGravity(TabLayout.MODE_SCROLLABLE);
             if (dynamicActionBarColors) tabLayout.setBackgroundColor(dominantColor);
         }
@@ -165,7 +193,7 @@ public class InformationActivity extends AppCompatActivity {
 
         final InformationTabsAdapter adapter = new InformationTabsAdapter
                 (getSupportFragmentManager(), tabLayout.getTabCount(), getApplicationContext(),
-                        theme_pid);
+                        theme_pid, (theme_mode.equals("")), theme_mode);
         if (viewPager != null) {
             viewPager.setOffscreenPageLimit(tabLayout.getTabCount());
             viewPager.setAdapter(adapter);

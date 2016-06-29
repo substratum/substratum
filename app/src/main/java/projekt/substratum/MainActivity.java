@@ -99,12 +99,27 @@ public class MainActivity extends AppCompatActivity implements
                 .withActionBarDrawerToggleAnimated(true)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.nav_home).withIcon(R.drawable
-                                .nav_drawer_home),
+                                .nav_theme_packs),
+
+                        new PrimaryDrawerItem().withName(R.string.nav_overlays).withIcon(R.drawable
+                                .nav_overlays),
+
+                        new PrimaryDrawerItem().withName(R.string.nav_bootanim).withIcon(R.drawable
+                                .nav_bootanim),
+
+                        new PrimaryDrawerItem().withName(R.string.nav_fonts).withIcon(R.drawable
+                                .nav_fonts),
+
+                        new PrimaryDrawerItem().withName(R.string.nav_sounds).withIcon(R.drawable
+                                .nav_sounds),
+
+                        new SectionDrawerItem().withName(R.string.nav_section_header_utilities),
+
                         new PrimaryDrawerItem().withName(R.string.nav_priorities).withIcon(R
                                 .drawable.nav_drawer_priorities),
                         new PrimaryDrawerItem().withName(R.string.nav_backup_restore).withIcon(R
                                 .drawable.nav_drawer_profiles),
-                        new SectionDrawerItem().withName(R.string.nav_divider_more),
+                        new SectionDrawerItem().withName(R.string.nav_section_header_more),
                         new SecondaryDrawerItem().withName(R.string.nav_team).withIcon(R
                                 .drawable.nav_drawer_team),
                         new SecondaryDrawerItem().withName(getString(R.string.nav_opensource))
@@ -126,30 +141,58 @@ public class MainActivity extends AppCompatActivity implements
                                     }
                                     break;
                                 case 2:
-                                    switchFragment(getString(R.string.fragment_priorities),
-                                            "PriorityLoaderFragment");
-                                    drawerSelected = 2;
+                                    if (drawerSelected != position) {
+                                        switchFragment(getString(R.string.nav_overlays),
+                                                "OverlaysFragment");
+                                        drawerSelected = 2;
+                                    }
                                     break;
                                 case 3:
-                                    switchFragment(getString(R.string.fragment_profiles),
-                                            "ProfileFragment");
-                                    drawerSelected = 3;
+                                    if (drawerSelected != position) {
+                                        switchFragment(getString(R.string.nav_bootanim),
+                                                "BootAnimationsFragment");
+                                        drawerSelected = 3;
+                                    }
+                                    break;
+                                case 4:
+                                    if (drawerSelected != position) {
+                                        switchFragment(getString(R.string.nav_fonts),
+                                                "FontsFragment");
+                                        drawerSelected = 4;
+                                    }
                                     break;
                                 case 5:
                                     if (drawerSelected != position) {
-                                        switchFragment(getString(R.string.fragment_team),
+                                        switchFragment(getString(R.string.nav_sounds),
+                                                "SoundsFragment");
+                                        drawerSelected = 5;
+                                    }
+                                    break;
+                                case 7:
+                                    switchFragment(getString(R.string.nav_priorities),
+                                            "PriorityLoaderFragment");
+                                    drawerSelected = 2;
+                                    break;
+                                case 8:
+                                    switchFragment(getString(R.string.nav_backup_restore),
+                                            "ProfileFragment");
+                                    drawerSelected = 3;
+                                    break;
+                                case 9:
+                                    if (drawerSelected != position) {
+                                        switchFragment(getString(R.string.nav_backup_restore),
                                                 "TeamFragment");
                                         drawerSelected = 5;
                                     }
                                     break;
-                                case 6:
+                                case 10:
                                     switchFragmentToLicenses(getString(R.string.nav_opensource),
                                             fragment);
                                     drawerSelected = 6;
                                     break;
-                                case 7:
+                                case 11:
                                     if (drawerSelected != position) {
-                                        switchFragment(getString(R.string.fragment_settings),
+                                        switchFragment(getString(R.string.nav_settings),
                                                 "SettingsFragment");
                                         drawerSelected = 7;
                                     }

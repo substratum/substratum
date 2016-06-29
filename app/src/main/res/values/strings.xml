@@ -77,14 +77,18 @@
     <string name="menu_search">Play Store Themes</string>
     <string name="menu_uninstall">Uninstall</string>
 
-    <string name="fragment_team">@string/nav_team</string>
-    <string name="fragment_priorities">@string/nav_priorities</string>
-    <string name="fragment_profiles">@string/nav_backup_restore</string>
-    <string name="fragment_settings">@string/nav_settings</string>
 
-    <string name="nav_divider_more">More</string>
 
-    <string name="nav_home">Themes</string>
+    <string name="nav_home">Theme Packs</string>
+    <string name="nav_overlays">Overlays</string>
+    <string name="nav_bootanim">Boot Animations</string>
+    <string name="nav_fonts">Font Packs</string>
+    <string name="nav_sounds">Sound Packs</string>
+    <string name="nav_wallpapers">Wallpapers</string>
+
+    <string name="nav_section_header_utilities">Utilities</string>
+    <string name="nav_section_header_more">More</string>
+
     <string name="nav_priorities">Priorities</string>
     <string name="nav_backup_restore">Profiles</string>
     <string name="nav_settings">Settings</string>

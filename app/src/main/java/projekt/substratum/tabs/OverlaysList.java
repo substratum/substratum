@@ -880,6 +880,15 @@ public class OverlaysList extends Fragment {
                 final_commands = final_commands + final_runner.get(i) + " ";
             }
 
+            // Untick all options in the adapter after compiling
+            overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
+            for (int i = 0; i < overlaysLists.size(); i++) {
+                OverlaysInfo currentOverlay = overlaysLists.get(i);
+                if (currentOverlay.isSelected()) {
+                    currentOverlay.setSelected(false);
+                }
+            }
+
             if (!enable_mode && !disable_mode) {
                 mWakeLock.release();
                 mProgressDialog.dismiss();

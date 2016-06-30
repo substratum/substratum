@@ -131,6 +131,7 @@ public class BootAnimation extends Fragment {
                                            int pos, long id) {
                     if (pos == 0) {
                         bootanimation_placeholder.setVisibility(View.VISIBLE);
+                        vm_blown.setVisibility(View.GONE);
                         imageButton.setClickable(false);
                         imageButton.setImageTintList(unchecked);
                         animation = new AnimationDrawable();

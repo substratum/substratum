@@ -391,15 +391,16 @@ public class OverlaysList extends Fragment {
                     base_spinner.setVisibility(View.VISIBLE);
                     base_spinner.setAdapter(adapter1);
                 } else {
-                    base_spinner.setVisibility(View.GONE);
+                    base_spinner.setVisibility(View.INVISIBLE);
                     new LoadOverlays().execute("");
                 }
             } else {
-                base_spinner.setVisibility(View.GONE);
+                base_spinner.setVisibility(View.INVISIBLE);
                 new LoadOverlays().execute("");
             }
         } catch (Exception e) {
-            if (base_spinner.getVisibility() == View.VISIBLE) base_spinner.setVisibility(View.GONE);
+            if (base_spinner.getVisibility() == View.VISIBLE)
+                base_spinner.setVisibility(View.INVISIBLE);
             Log.e("SubstratumLogger", "Could not parse list of base options for this theme!");
         }
         return root;

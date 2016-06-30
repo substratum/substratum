@@ -8,27 +8,33 @@
                                                  android:fitsSystemWindows="true"
                                                  tools:context=".MainActivity">
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <Spinner
-            android:id="@+id/type3_spinner"
+        <RelativeLayout
+            android:id="@+id/toggle_zone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="2dp"
-            android:layout_marginStart="15dp"
-            android:layout_toStartOf="@+id/toggle_all_overlays">
-        </Spinner>
+            android:layout_marginBottom="5dp">
 
-        <Switch
-            android:id="@+id/toggle_all_overlays"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginEnd="7dp"
-            android:layout_marginTop="12dp"/>
+            <Spinner
+                android:id="@+id/type3_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="2dp"
+                android:layout_marginStart="15dp"
+                android:layout_toStartOf="@+id/toggle_all_overlays"/>
+
+            <Switch
+                android:id="@+id/toggle_all_overlays"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginEnd="7dp"
+                android:layout_marginTop="12dp"/>
+
+        </RelativeLayout>
 
         <me.zhanghai.android.materialprogressbar.MaterialProgressBar
             android:id="@+id/progress_bar_loader"
@@ -44,7 +50,7 @@
             android:id="@+id/swipeRefreshLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/type3_spinner">
+            android:layout_below="@+id/toggle_zone">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/overlayRecyclerView"

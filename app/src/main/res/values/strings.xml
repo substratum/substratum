@@ -77,8 +77,6 @@
     <string name="menu_search">Play Store Themes</string>
     <string name="menu_uninstall">Uninstall</string>
 
-
-
     <string name="nav_home">Theme Packs</string>
     <string name="nav_overlays">Overlays</string>
     <string name="nav_bootanim">Boot Animations</string>
@@ -155,7 +153,7 @@
     <string name="toast_disabled2">Selected overlay(s) disabled!</string>
     <string name="toast_disabled3">Please compile this overlay before applying!</string>
     <string name="toast_disabled4">You can\'t disable an overlay you don\'t have installed!</string>
-    <string name="toast_disabled5">Please select a valid overlay before performing any action.</string>
+    <string name="toast_disabled5">Please select a valid overlay before performing this action.</string>
     <string name="toast_installed">Selected overlay(s) applied!</string>
     <string name="toast_uninstalled">You just uninstalled this theme!</string>
     <string name="toast_updating">Compiling/updating in the notification panel, you can use other apps by clicking Home/Recents!</string>

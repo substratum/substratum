@@ -192,12 +192,6 @@ public class OverlaysList extends Fragment {
         if (compile_enable_selected != null)
             compile_enable_selected.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    Toast toast = Toast.makeText(getContext(),
-                            getString(R.string
-                                    .toast_updating),
-                            Toast.LENGTH_LONG);
-                    toast.show();
-
                     overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
                     checkedOverlays = new ArrayList<>();
 
@@ -207,16 +201,29 @@ public class OverlaysList extends Fragment {
                             checkedOverlays.add(currentOverlay);
                         }
                     }
+                    if (!checkedOverlays.isEmpty()) {
+                        Toast toast = Toast.makeText(getContext(),
+                                getString(R.string
+                                        .toast_updating),
+                                Toast.LENGTH_LONG);
+                        toast.show();
 
-                    if (base_spinner.getSelectedItemPosition() != 0 &&
-                            base_spinner.getVisibility() == View.VISIBLE) {
-                        Phase2_InitializeCache phase2_initializeCache = new
-                                Phase2_InitializeCache();
-                        phase2_initializeCache.execute(base_spinner.getSelectedItem().toString());
+                        if (base_spinner.getSelectedItemPosition() != 0 &&
+                                base_spinner.getVisibility() == View.VISIBLE) {
+                            Phase2_InitializeCache phase2_initializeCache = new
+                                    Phase2_InitializeCache();
+                            phase2_initializeCache.execute(base_spinner.getSelectedItem()
+                                    .toString());
+                        } else {
+                            Phase2_InitializeCache phase2_initializeCache = new
+                                    Phase2_InitializeCache();
+                            phase2_initializeCache.execute("");
+                        }
                     } else {
-                        Phase2_InitializeCache phase2_initializeCache = new
-                                Phase2_InitializeCache();
-                        phase2_initializeCache.execute("");
+                        Toast toast2 = Toast.makeText(getContext(), getString(R
+                                        .string.toast_disabled5),
+                                Toast.LENGTH_SHORT);
+                        toast2.show();
                     }
                 }
             });
@@ -817,7 +824,6 @@ public class OverlaysList extends Fragment {
             for (int i = 0; i < final_runner.size(); i++) {
                 final_commands = final_commands + final_runner.get(i) + " ";
             }
-            Log.e("finalCommands", final_commands);
 
             if (!enable_mode && !disable_mode) {
                 Intent notificationIntent = new Intent();
@@ -846,7 +852,7 @@ public class OverlaysList extends Fragment {
                         Toast.LENGTH_SHORT);
                 toast.show();
 
-                if (final_commands.length() == 0) {
+                if (final_runner.size() == 0) {
                     if (base_spinner.getSelectedItemPosition() == 0) {
                         mAdapter.notifyDataSetChanged();
                     } else {
@@ -858,7 +864,7 @@ public class OverlaysList extends Fragment {
                 }
             } else {
                 if (enable_mode) {
-                    if (final_commands.length() > 0) {
+                    if (final_runner.size() > 0) {
                         String disableBeforeEnabling = "om disable ";
                         if (mixAndMatchMode) {
                             for (int i = 0; i < all_installed_overlays.size(); i++) {
@@ -879,13 +885,14 @@ public class OverlaysList extends Fragment {
                             Root.runCommand(final_commands);
                         }
                     } else {
+                        enable_mode = false;
                         Toast toast = Toast.makeText(getContext(), getString(R
                                         .string.toast_disabled3),
                                 Toast.LENGTH_SHORT);
                         toast.show();
                     }
                 } else {
-                    if (final_commands.length() > 0) {
+                    if (final_runner.size() > 0) {
                         String disableBeforeEnabling = "om disable ";
                         if (mixAndMatchMode) {
                             for (int i = 0; i < all_installed_overlays.size(); i++) {
@@ -905,6 +912,7 @@ public class OverlaysList extends Fragment {
                             Root.runCommand(final_commands);
                         }
                     } else {
+                        disable_mode = false;
                         Toast toast = Toast.makeText(getContext(), getString(R
                                         .string.toast_disabled4),
                                 Toast.LENGTH_SHORT);

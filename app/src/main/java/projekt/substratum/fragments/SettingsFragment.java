@@ -56,12 +56,19 @@ public class SettingsFragment extends Fragment {
         TextView subtext = (TextView) root.findViewById(R.id.hide_app_icon_subtext);
 
         Switch hideAppIcon = (Switch) root.findViewById(R.id.hide_app_icon);
+        Switch systemUIRestart = (Switch) root.findViewById(R.id.restart_systemui);
         hideAppIcon.setEnabled(false);
 
         if (prefs.getBoolean("hide_app_icon", true)) {
-            hideAppIcon.setChecked(false);
-        } else {
             hideAppIcon.setChecked(true);
+        } else {
+            hideAppIcon.setChecked(false);
+        }
+
+        if (prefs.getBoolean("automatic_systemui_restart", true)) {
+            systemUIRestart.setChecked(true);
+        } else {
+            systemUIRestart.setChecked(false);
         }
 
         hideAppIcon.setOnCheckedChangeListener(new CompoundButton
@@ -88,6 +95,26 @@ public class SettingsFragment extends Fragment {
                             .COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
                     Toast toast = Toast.makeText(getContext(), getString(R.string
                                     .hide_app_icon_toast_disabled),
+                            Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            }
+        });
+
+        systemUIRestart.setOnCheckedChangeListener(new CompoundButton
+                .OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    prefs.edit().putBoolean("automatic_systemui_restart", true).apply();
+                    Toast toast = Toast.makeText(getContext(), getString(R.string
+                                    .restart_systemui_toast_enabled),
+                            Toast.LENGTH_SHORT);
+                    toast.show();
+                } else {
+                    prefs.edit().putBoolean("automatic_systemui_restart", false).apply();
+                    Toast toast = Toast.makeText(getContext(), getString(R.string
+                                    .restart_systemui_toast_disabled),
                             Toast.LENGTH_SHORT);
                     toast.show();
                 }

@@ -179,6 +179,10 @@
     <string name="notification_compiling_signing_installing">Creating and installing your overlays&#8230;</string>
 
     <string name="settings_title_1">App Options</string>
+    <string name="restart_systemui">Post-enable SystemUI Restart\n</string>
+    <string name="restart_systemui_subtext">Automatically restart the SystemUI after enabling/disabling a SystemUI overlay</string>
+    <string name="restart_systemui_toast_enabled">SystemUI will restart automatically instead of recreating now!</string>
+    <string name="restart_systemui_toast_disabled">SystemUI will recreate dynamically instead of restarting now!</string>
     <string name="hide_app_icon">Hide App Icon\n</string>
     <string name="hide_app_icon_toast_enabled">The app\'s icon has been removed from your launcher!</string>
     <string name="hide_app_icon_toast_disabled">The app\'s icon has now been added to your launcher!</string>

@@ -925,6 +925,11 @@ public class OverlaysList extends Fragment {
                         Toast.LENGTH_SHORT);
                 toast.show();
 
+                if (prefs.getBoolean("automatic_systemui_restart", true) && final_commands
+                        .contains("systemui")) {
+                    final_commands = final_commands + " && pkill com.android.systemui";
+                }
+
                 if (final_runner.size() == 0) {
                     if (base_spinner.getSelectedItemPosition() == 0) {
                         mAdapter.notifyDataSetChanged();
@@ -951,6 +956,12 @@ public class OverlaysList extends Fragment {
                                 Toast.LENGTH_SHORT);
                         toast.show();
                         enable_mode = false;
+
+                        if (prefs.getBoolean("automatic_systemui_restart", true) &&
+                                final_commands.contains("systemui")) {
+                            final_commands = final_commands + " && pkill com.android.systemui";
+                        }
+
                         if (mixAndMatchMode) {
                             Root.runCommand(disableBeforeEnabling +
                                     " && " + final_commands);
@@ -978,6 +989,12 @@ public class OverlaysList extends Fragment {
                                 Toast.LENGTH_SHORT);
                         toast.show();
                         disable_mode = false;
+
+                        if (prefs.getBoolean("automatic_systemui_restart", true) &&
+                                final_commands.contains("systemui")) {
+                            final_commands = final_commands + " && pkill com.android.systemui";
+                        }
+
                         if (mixAndMatchMode) {
                             Root.runCommand(disableBeforeEnabling +
                                     " && " + final_commands);

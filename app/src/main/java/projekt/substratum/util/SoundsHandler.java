@@ -100,6 +100,8 @@ public class SoundsHandler {
                         .setIcon(mContext.getDrawable(R.drawable.sounds_dialog_alert))
                         .show();
             }
+
+            Root.runCommand("pkill com.android.systemui");
         }
 
         @Override

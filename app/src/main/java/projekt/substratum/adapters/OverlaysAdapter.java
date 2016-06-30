@@ -198,8 +198,12 @@ public class OverlaysAdapter extends
 
         final OverlaysInfo current_object = overlayList.get(position);
 
-        viewHolder.app_icon.setImageDrawable(grabAppIcon(current_object.getInheritedContext(),
-                current_object.getPackageName()));
+        if (current_object.getAppIcon() == null) {
+            current_object.setAppIcon(grabAppIcon(current_object.getInheritedContext(),
+                    current_object.getPackageName()));
+        }
+
+        viewHolder.app_icon.setImageDrawable(current_object.getAppIcon());
 
         viewHolder.overlayTargetPackageName.setText(current_object.getName());
 

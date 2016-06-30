@@ -7,6 +7,7 @@ package projekt.substratum.model;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 
@@ -39,6 +40,7 @@ public class OverlaysInfo implements Serializable {
     private String baseResources = "";
     private Context context;
     private ArrayList<Object> enabledOverlays;
+    private Drawable app_icon;
 
     public OverlaysInfo(String theme_name, String name, String packageName, boolean isSelected,
                         ArrayAdapter<String>
@@ -77,6 +79,14 @@ public class OverlaysInfo implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Drawable getAppIcon() {
+        return app_icon;
+    }
+
+    public void setAppIcon(Drawable drawable) {
+        this.app_icon = drawable;
     }
 
     public String getPackageName() {

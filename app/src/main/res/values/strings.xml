@@ -126,6 +126,8 @@
     <string name="purge_button_text">UNINSTALL ALL OVERLAYS</string>
     <string name="purge2_button_text">DISABLE ALL ENABLED OVERLAYS</string>
 
+    <string name="select_to_toggle_all_overlays">Select to toggle all overlays</string>
+
     <string name="permission_not_granted_dialog_title">Permissions not granted</string>
     <string name="permission_not_granted_dialog_message1">Please grant substratum storage permissions
         or the app will not function properly!</string>

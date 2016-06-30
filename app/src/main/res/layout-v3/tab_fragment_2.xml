@@ -18,6 +18,18 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp">
 
+            <TextView
+                android:id="@+id/toggle_all_overlays_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="12dp"
+                android:paddingTop="5dp"
+                android:text="@string/select_to_toggle_all_overlays"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="18sp"/>
+
             <Spinner
                 android:id="@+id/type3_spinner"
                 android:layout_width="match_parent"

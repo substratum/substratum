@@ -86,6 +86,7 @@ public class OverlaysList extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
     private PowerManager.WakeLock mWakeLock;
     private MaterialSheetFab materialSheetFab;
+    private TextView toggle_all_overlays_text;
 
     private boolean isPackageInstalled(String package_name) {
         PackageManager pm = mContext.getPackageManager();
@@ -120,6 +121,9 @@ public class OverlaysList extends Fragment {
         ArrayList<OverlaysInfo> empty_array = new ArrayList<>();
         RecyclerView.Adapter empty_adapter = new OverlaysAdapter(empty_array);
         mRecyclerView.setAdapter(empty_adapter);
+
+        toggle_all_overlays_text = (TextView) root.findViewById(R.id.toggle_all_overlays_text);
+        toggle_all_overlays_text.setVisibility(View.VISIBLE);
 
         toggle_all = (Switch) root.findViewById(R.id.toggle_all_overlays);
         toggle_all.setOnCheckedChangeListener(
@@ -388,19 +392,24 @@ public class OverlaysList extends Fragment {
                 ArrayAdapter<String> adapter1 = new ArrayAdapter<>(getActivity(),
                         android.R.layout.simple_spinner_dropdown_item, type3);
                 if (type3.size() > 1) {
+                    toggle_all_overlays_text.setVisibility(View.GONE);
                     base_spinner.setVisibility(View.VISIBLE);
                     base_spinner.setAdapter(adapter1);
                 } else {
+                    toggle_all_overlays_text.setVisibility(View.VISIBLE);
                     base_spinner.setVisibility(View.INVISIBLE);
                     new LoadOverlays().execute("");
                 }
             } else {
+                toggle_all_overlays_text.setVisibility(View.GONE);
                 base_spinner.setVisibility(View.INVISIBLE);
                 new LoadOverlays().execute("");
             }
         } catch (Exception e) {
-            if (base_spinner.getVisibility() == View.VISIBLE)
+            if (base_spinner.getVisibility() == View.VISIBLE) {
+                toggle_all_overlays_text.setVisibility(View.VISIBLE);
                 base_spinner.setVisibility(View.INVISIBLE);
+            }
             Log.e("SubstratumLogger", "Could not parse list of base options for this theme!");
         }
         return root;

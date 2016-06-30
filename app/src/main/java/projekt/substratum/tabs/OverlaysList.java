@@ -76,9 +76,10 @@ public class OverlaysList extends Fragment {
     private ArrayList<String> all_installed_overlays;
     private Context mContext;
     private Switch toggle_all;
-    private List<ApplicationInfo> packages;
 
     private boolean isPackageInstalled(String package_name) {
+        PackageManager pm = mContext.getPackageManager();
+        List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
         for (ApplicationInfo packageInfo : packages) {
             if (packageInfo.packageName.equals(package_name)) {
                 return true;
@@ -94,9 +95,6 @@ public class OverlaysList extends Fragment {
         prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 
         mContext = getContext();
-
-        PackageManager pm = mContext.getPackageManager();
-        packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
 
         // Run through phase one - checking whether aapt exists on the device
         Phase1_AAPT_Check phase1_aapt_check = new Phase1_AAPT_Check();
@@ -844,10 +842,6 @@ public class OverlaysList extends Fragment {
                     mAdapter.notifyDataSetChanged();
                     Root.runCommand(final_commands);
                 }
-
-                PackageManager pm = mContext.getPackageManager();
-                packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
-
             } else {
                 if (enable_mode) {
                     if (final_commands.length() > 0) {

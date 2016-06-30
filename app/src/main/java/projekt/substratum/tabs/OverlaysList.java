@@ -845,6 +845,9 @@ public class OverlaysList extends Fragment {
                     Root.runCommand(final_commands);
                 }
 
+                PackageManager pm = mContext.getPackageManager();
+                packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
+
             } else {
                 if (enable_mode) {
                     if (final_commands.length() > 0) {

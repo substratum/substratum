@@ -34,7 +34,7 @@
                     android:layout_height="200dp"
                     android:layout_gravity="bottom"
                     scrolling_image_view:speed="1dp"
-                    scrolling_image_view:src="@drawable/scrolling_background"/>
+                    scrolling_image_view:src="@drawable/theme_information_bootanimation_image"/>
             </FrameLayout>
         </LinearLayout>
 

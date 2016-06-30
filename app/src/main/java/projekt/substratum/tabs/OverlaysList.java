@@ -256,16 +256,23 @@ public class OverlaysList extends Fragment {
                             checkedOverlays.add(currentOverlay);
                         }
                     }
-
-                    if (base_spinner.getSelectedItemPosition() != 0 &&
-                            base_spinner.getVisibility() == View.VISIBLE) {
-                        Phase2_InitializeCache phase2_initializeCache = new
-                                Phase2_InitializeCache();
-                        phase2_initializeCache.execute(base_spinner.getSelectedItem().toString());
+                    if (!checkedOverlays.isEmpty()) {
+                        if (base_spinner.getSelectedItemPosition() != 0 &&
+                                base_spinner.getVisibility() == View.VISIBLE) {
+                            Phase2_InitializeCache phase2_initializeCache = new
+                                    Phase2_InitializeCache();
+                            phase2_initializeCache.execute(base_spinner.getSelectedItem()
+                                    .toString());
+                        } else {
+                            Phase2_InitializeCache phase2_initializeCache = new
+                                    Phase2_InitializeCache();
+                            phase2_initializeCache.execute("");
+                        }
                     } else {
-                        Phase2_InitializeCache phase2_initializeCache = new
-                                Phase2_InitializeCache();
-                        phase2_initializeCache.execute("");
+                        Toast toast2 = Toast.makeText(getContext(), getString(R
+                                        .string.toast_disabled5),
+                                Toast.LENGTH_SHORT);
+                        toast2.show();
                     }
                 }
             });
@@ -286,15 +293,22 @@ public class OverlaysList extends Fragment {
                         checkedOverlays.add(currentOverlay);
                     }
                 }
-                if (base_spinner.getSelectedItemPosition() != 0 &&
-                        base_spinner.getVisibility() == View.VISIBLE) {
-                    Phase2_InitializeCache phase2_initializeCache = new
-                            Phase2_InitializeCache();
-                    phase2_initializeCache.execute(base_spinner.getSelectedItem().toString());
+                if (!checkedOverlays.isEmpty()) {
+                    if (base_spinner.getSelectedItemPosition() != 0 &&
+                            base_spinner.getVisibility() == View.VISIBLE) {
+                        Phase2_InitializeCache phase2_initializeCache = new
+                                Phase2_InitializeCache();
+                        phase2_initializeCache.execute(base_spinner.getSelectedItem().toString());
+                    } else {
+                        Phase2_InitializeCache phase2_initializeCache = new
+                                Phase2_InitializeCache();
+                        phase2_initializeCache.execute("");
+                    }
                 } else {
-                    Phase2_InitializeCache phase2_initializeCache = new
-                            Phase2_InitializeCache();
-                    phase2_initializeCache.execute("");
+                    Toast toast2 = Toast.makeText(getContext(), getString(R
+                                    .string.toast_disabled5),
+                            Toast.LENGTH_SHORT);
+                    toast2.show();
                 }
             }
         });
@@ -866,10 +880,10 @@ public class OverlaysList extends Fragment {
                 final_commands = final_commands + final_runner.get(i) + " ";
             }
 
-            mWakeLock.release();
-            mProgressDialog.dismiss();
-
             if (!enable_mode && !disable_mode) {
+                mWakeLock.release();
+                mProgressDialog.dismiss();
+
                 Intent notificationIntent = new Intent();
                 notificationIntent.putExtra("theme_name", theme_name);
                 notificationIntent.putExtra("theme_pid", theme_pid);

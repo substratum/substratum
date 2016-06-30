@@ -8,6 +8,7 @@
                                                  android:fitsSystemWindows="true"
                                                  tools:context=".MainActivity">
 
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -39,17 +40,25 @@
             android:layout_marginTop="50dp"
             android:indeterminate="true"/>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/overlayRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/type3_spinner"
-            android:layout_marginEnd="5dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:clipToPadding="false"
-            android:paddingBottom="90dp"
-            android:scrollbars="vertical"/>
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/type3_spinner">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/overlayRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/type3_spinner"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:clipToPadding="false"
+                android:paddingBottom="90dp"
+                android:scrollbars="vertical"/>
+
+        </android.support.v4.widget.SwipeRefreshLayout>
 
     </RelativeLayout>
 

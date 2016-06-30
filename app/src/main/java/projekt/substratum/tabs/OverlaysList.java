@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -76,6 +77,7 @@ public class OverlaysList extends Fragment {
     private ArrayList<String> all_installed_overlays;
     private Context mContext;
     private Switch toggle_all;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     private boolean isPackageInstalled(String package_name) {
         PackageManager pm = mContext.getPackageManager();
@@ -136,6 +138,16 @@ public class OverlaysList extends Fragment {
                         }
                     }
                 });
+
+        swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mAdapter.notifyDataSetChanged();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+        swipeRefreshLayout.setVisibility(View.GONE);
 
         View sheetView = root.findViewById(R.id.fab_sheet);
         View overlay = root.findViewById(R.id.overlay);
@@ -361,6 +373,7 @@ public class OverlaysList extends Fragment {
                     .progress_bar_loader);
             if (materialProgressBar != null) materialProgressBar.setVisibility(View.VISIBLE);
             mRecyclerView.setVisibility(View.INVISIBLE);
+            swipeRefreshLayout.setVisibility(View.GONE);
             toggle_all.setClickable(false);
         }
 
@@ -374,6 +387,7 @@ public class OverlaysList extends Fragment {
             mRecyclerView.setAdapter(mAdapter);
             mAdapter.notifyDataSetChanged();
             mRecyclerView.setVisibility(View.VISIBLE);
+            swipeRefreshLayout.setVisibility(View.VISIBLE);
             super.onPostExecute(result);
         }
 

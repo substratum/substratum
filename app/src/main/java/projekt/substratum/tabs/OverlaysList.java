@@ -126,23 +126,27 @@ public class OverlaysList extends Fragment {
                 new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
-                        if (isChecked) {
-                            for (int i = 0; i < overlaysLists.size(); i++) {
-                                OverlaysInfo currentOverlay = overlaysLists.get(i);
-                                if (!currentOverlay.isSelected()) {
-                                    currentOverlay.setSelected(true);
+                        try {
+                            overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
+                            if (isChecked) {
+                                for (int i = 0; i < overlaysLists.size(); i++) {
+                                    OverlaysInfo currentOverlay = overlaysLists.get(i);
+                                    if (!currentOverlay.isSelected()) {
+                                        currentOverlay.setSelected(true);
+                                    }
+                                    mAdapter.notifyDataSetChanged();
+                                }
+                            } else {
+                                for (int i = 0; i < overlaysLists.size(); i++) {
+                                    OverlaysInfo currentOverlay = overlaysLists.get(i);
+                                    if (currentOverlay.isSelected()) {
+                                        currentOverlay.setSelected(false);
+                                    }
                                 }
                                 mAdapter.notifyDataSetChanged();
                             }
-                        } else {
-                            for (int i = 0; i < overlaysLists.size(); i++) {
-                                OverlaysInfo currentOverlay = overlaysLists.get(i);
-                                if (currentOverlay.isSelected()) {
-                                    currentOverlay.setSelected(false);
-                                }
-                            }
-                            mAdapter.notifyDataSetChanged();
+                        } catch (Exception e) {
+                            Log.e("OverlaysList", "Window has lost connection with the host.");
                         }
                     }
                 });
@@ -881,6 +885,7 @@ public class OverlaysList extends Fragment {
             }
 
             // Untick all options in the adapter after compiling
+            toggle_all.setChecked(false);
             overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
             for (int i = 0; i < overlaysLists.size(); i++) {
                 OverlaysInfo currentOverlay = overlaysLists.get(i);

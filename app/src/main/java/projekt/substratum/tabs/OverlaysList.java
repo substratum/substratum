@@ -85,6 +85,7 @@ public class OverlaysList extends Fragment {
     private Switch toggle_all;
     private SwipeRefreshLayout swipeRefreshLayout;
     private PowerManager.WakeLock mWakeLock;
+    private MaterialSheetFab materialSheetFab;
 
     private boolean isPackageInstalled(String package_name) {
         PackageManager pm = mContext.getPackageManager();
@@ -167,7 +168,8 @@ public class OverlaysList extends Fragment {
 
         // Create material sheet FAB
         if (sheetView != null && overlay != null) {
-            new MaterialSheetFab<>(floatingActionButton, sheetView, overlay, sheetColor, fabColor);
+            materialSheetFab = new MaterialSheetFab<>(floatingActionButton, sheetView, overlay,
+                    sheetColor, fabColor);
         }
 
         Switch enable_swap = (Switch) root.findViewById(R.id.enable_swap);
@@ -199,6 +201,8 @@ public class OverlaysList extends Fragment {
         if (compile_enable_selected != null)
             compile_enable_selected.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
+                    materialSheetFab.hideSheet();
+
                     overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
                     checkedOverlays = new ArrayList<>();
 
@@ -239,6 +243,8 @@ public class OverlaysList extends Fragment {
         if (disable_selected != null)
             disable_selected.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
+                    materialSheetFab.hideSheet();
+
                     disable_mode = true;
 
                     overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
@@ -267,6 +273,8 @@ public class OverlaysList extends Fragment {
         TextView enable_selected = (TextView) root.findViewById(R.id.enable_selected);
         if (enable_selected != null) enable_selected.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                materialSheetFab.hideSheet();
+
                 enable_mode = true;
 
                 overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();

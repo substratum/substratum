@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.util.Log;
 
 import java.util.Arrays;
+import java.util.List;
 
 import projekt.substratum.tabs.BootAnimation;
 import projekt.substratum.tabs.FontInstaller;
@@ -20,7 +21,7 @@ import projekt.substratum.tabs.OverlaysList;
 import projekt.substratum.tabs.SoundPackager;
 
 public class InformationTabsAdapter extends FragmentStatePagerAdapter {
-    public String[] package_checker;
+    public List package_checker;
     int mNumOfTabs;
     Context mContext;
     String theme_pid;
@@ -28,26 +29,19 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
     String theme_mode;
 
     public InformationTabsAdapter(FragmentManager fm, int NumOfTabs, Context context,
-                                  String theme_pid, Boolean allow_quick_apply, String theme_mode) {
+                                  String theme_pid, Boolean allow_quick_apply, String theme_mode,
+                                  List package_checker) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
         this.mContext = context;
         this.theme_pid = theme_pid;
         this.allow_quick_apply = allow_quick_apply;
         this.theme_mode = theme_mode;
+        this.package_checker = package_checker;
     }
 
     @Override
     public Fragment getItem(int position) {
-
-        try {
-            Context otherContext = mContext.createPackageContext(theme_pid, 0);
-            AssetManager am = otherContext.getAssets();
-            package_checker = am.list("");
-        } catch (Exception e) {
-            Log.e("SubstratumLogger", "Could not refresh list of asset folders.");
-        }
-
         switch (position) {
             case 0:
                 if (allow_quick_apply) {
@@ -66,37 +60,37 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
                     return new SoundPackager();
                 }
             case 1:
-                if (Arrays.asList(package_checker).contains("overlays")) {
+                if (package_checker.contains("overlays")) {
                     return new OverlaysList();
                 }
-                if (Arrays.asList(package_checker).contains("bootanimation")) {
+                if (package_checker.contains("bootanimation")) {
                     return new BootAnimation();
                 }
-                if (Arrays.asList(package_checker).contains("fonts")) {
+                if (package_checker.contains("fonts")) {
                     return new FontInstaller();
                 }
-                if (Arrays.asList(package_checker).contains("audio")) {
+                if (package_checker.contains("audio")) {
                     return new SoundPackager();
                 }
             case 2:
-                if (Arrays.asList(package_checker).contains("bootanimation")) {
+                if (package_checker.contains("bootanimation")) {
                     return new BootAnimation();
                 }
-                if (Arrays.asList(package_checker).contains("fonts")) {
+                if (package_checker.contains("fonts")) {
                     return new FontInstaller();
                 }
-                if (Arrays.asList(package_checker).contains("audio")) {
+                if (package_checker.contains("audio")) {
                     return new SoundPackager();
                 }
             case 3:
-                if (Arrays.asList(package_checker).contains("fonts")) {
+                if (package_checker.contains("fonts")) {
                     return new FontInstaller();
                 }
-                if (Arrays.asList(package_checker).contains("audio")) {
+                if (package_checker.contains("audio")) {
                     return new SoundPackager();
                 }
             case 4:
-                if (Arrays.asList(package_checker).contains("audio")) {
+                if (package_checker.contains("audio")) {
                     return new SoundPackager();
                 }
             default:

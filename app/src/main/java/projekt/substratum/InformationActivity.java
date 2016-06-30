@@ -45,6 +45,8 @@ public class InformationActivity extends AppCompatActivity {
 
     public static String theme_name, theme_pid, theme_mode;
 
+    private static List tab_checker;
+
     private final int THEME_INFORMATION_REQUEST_CODE = 1;
 
     private Boolean uninstalled = false;
@@ -59,6 +61,10 @@ public class InformationActivity extends AppCompatActivity {
 
     public static int getDominantColor(Bitmap bitmap) {
         return bitmap.getPixel(0, 0);
+    }
+
+    public static List getListOfFolders() {
+        return tab_checker;
     }
 
     public Drawable grabPackageHeroImage(String package_name) {
@@ -143,15 +149,16 @@ public class InformationActivity extends AppCompatActivity {
                     Context otherContext = getApplicationContext().createPackageContext
                             (theme_pid, 0);
                     AssetManager am = otherContext.getAssets();
-                    if (Arrays.asList(am.list("")).contains("bootanimation")) {
+                    tab_checker = Arrays.asList(am.list(""));
+                    if (tab_checker.contains("bootanimation")) {
                         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
                                 .theme_information_tab_three)));
                     }
-                    if (Arrays.asList(am.list("")).contains("fonts")) {
+                    if (tab_checker.contains("fonts")) {
                         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
                                 .theme_information_tab_four)));
                     }
-                    if (Arrays.asList(am.list("")).contains("audio")) {
+                    if (tab_checker.contains("audio")) {
                         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
                                 .theme_information_tab_five)));
                     }
@@ -193,7 +200,7 @@ public class InformationActivity extends AppCompatActivity {
 
         final InformationTabsAdapter adapter = new InformationTabsAdapter
                 (getSupportFragmentManager(), tabLayout.getTabCount(), getApplicationContext(),
-                        theme_pid, (theme_mode.equals("")), theme_mode);
+                        theme_pid, (theme_mode.equals("")), theme_mode, tab_checker);
         if (viewPager != null) {
             viewPager.setOffscreenPageLimit(tabLayout.getTabCount());
             viewPager.setAdapter(adapter);

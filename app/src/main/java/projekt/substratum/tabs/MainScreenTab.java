@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
@@ -36,6 +37,7 @@ public class MainScreenTab extends Fragment {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.tab_fragment_1, null);
 
         final String theme_pid = InformationActivity.getThemePID();
+        final List tab_checker = InformationActivity.getListOfFolders();
 
         TextView bootAnimTitle = (TextView) root.findViewById(R.id.bootAnimTitle);
         CardView bootAnimCard = (CardView) root.findViewById(R.id.bootAnimCard);
@@ -44,32 +46,26 @@ public class MainScreenTab extends Fragment {
         TextView soundsTitle = (TextView) root.findViewById(R.id.soundsTitle);
         CardView soundsCard = (CardView) root.findViewById(R.id.soundsCard);
 
-        try {
-            Context otherContext = getContext().createPackageContext(theme_pid, 0);
-            AssetManager am = otherContext.getAssets();
-            if (Arrays.asList(am.list("")).contains("bootanimation")) {
-                bootAnimTitle.setVisibility(View.VISIBLE);
-                bootAnimCard.setVisibility(View.VISIBLE);
-            } else {
-                bootAnimTitle.setVisibility(View.GONE);
-                bootAnimCard.setVisibility(View.GONE);
-            }
-            if (Arrays.asList(am.list("")).contains("fonts")) {
-                fontsTitle.setVisibility(View.VISIBLE);
-                fontsCard.setVisibility(View.VISIBLE);
-            } else {
-                fontsTitle.setVisibility(View.GONE);
-                fontsCard.setVisibility(View.GONE);
-            }
-            if (Arrays.asList(am.list("")).contains("audio")) {
-                soundsTitle.setVisibility(View.VISIBLE);
-                soundsCard.setVisibility(View.VISIBLE);
-            } else {
-                soundsTitle.setVisibility(View.GONE);
-                soundsCard.setVisibility(View.GONE);
-            }
-        } catch (Exception e) {
-            Log.e("SubstratumLogger", "Could not refresh list of asset folders.");
+        if (tab_checker.contains("bootanimation")) {
+            bootAnimTitle.setVisibility(View.VISIBLE);
+            bootAnimCard.setVisibility(View.VISIBLE);
+        } else {
+            bootAnimTitle.setVisibility(View.GONE);
+            bootAnimCard.setVisibility(View.GONE);
+        }
+        if (tab_checker.contains("fonts")) {
+            fontsTitle.setVisibility(View.VISIBLE);
+            fontsCard.setVisibility(View.VISIBLE);
+        } else {
+            fontsTitle.setVisibility(View.GONE);
+            fontsCard.setVisibility(View.GONE);
+        }
+        if (tab_checker.contains("audio")) {
+            soundsTitle.setVisibility(View.VISIBLE);
+            soundsCard.setVisibility(View.VISIBLE);
+        } else {
+            soundsTitle.setVisibility(View.GONE);
+            soundsCard.setVisibility(View.GONE);
         }
 
         // Boot Animation Dialog

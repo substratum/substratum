@@ -57,7 +57,6 @@ public class BootAnimation extends Fragment {
     private ImageButton imageButton;
     private Spinner bootAnimationSelector;
     private ColorStateList unchecked, checked;
-    private ProgressDialog progress;
     private TextView vm_blown;
     private RelativeLayout bootanimation_placeholder;
 

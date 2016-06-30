@@ -144,6 +144,9 @@
 
     <string name="failed_to_install_overlay_toast">Failed to compile \"%s\" overlay</string>
 
+    <string name="sb_phase_1_loader">extracting assets from theme</string>
+    <string name="sb_phase_2_loader">creating and signing overlay</string>
+
     <string name="list_of_overlays">List of installable overlays</string>
     <string name="toast_unapproved">This overlay has been rejected by the system</string>
     <string name="toast_compiled">Selected overlay(s) compiled!</string>

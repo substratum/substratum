@@ -85,4 +85,7 @@ dependencies {
 
     // ZT Zip
     compile group: 'org.zeroturnaround', name: 'zt-zip', version: '1.8'
+
+    // Dialogs
+    compile 'com.mikhaellopez:circularfillableloaders:1.2.0'
 }

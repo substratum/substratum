@@ -3,6 +3,7 @@ package projekt.substratum.tabs;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,6 +14,7 @@ import android.content.res.AssetManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -32,6 +34,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gordonwong.materialsheetfab.MaterialSheetFab;
+import com.mikhaellopez.circularfillableloaders.CircularFillableLoaders;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -58,6 +61,9 @@ import projekt.substratum.util.SubstratumBuilder;
 
 public class OverlaysList extends Fragment {
 
+    public CircularFillableLoaders loader;
+    public TextView loader_string;
+    ProgressDialog mProgressDialog;
     private SubstratumBuilder sb;
     private List<OverlaysInfo> overlaysLists, checkedOverlays;
     private RecyclerView.Adapter mAdapter;
@@ -78,6 +84,7 @@ public class OverlaysList extends Fragment {
     private Context mContext;
     private Switch toggle_all;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private PowerManager.WakeLock mWakeLock;
 
     private boolean isPackageInstalled(String package_name) {
         PackageManager pm = mContext.getPackageManager();
@@ -753,6 +760,28 @@ public class OverlaysList extends Fragment {
                         .setPriority(notification_priority)
                         .setOngoing(true);
                 mNotifyManager.notify(id, mBuilder.build());
+
+                PowerManager pm = (PowerManager)
+                        mContext.getApplicationContext().getSystemService(Context.POWER_SERVICE);
+                mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
+                        getClass().getName());
+                mWakeLock.acquire();
+
+                mProgressDialog = null;
+                mProgressDialog = new ProgressDialog(getActivity(), R.style
+                        .SubstratumBuilder_ActivityTheme);
+                mProgressDialog.setIndeterminate(false);
+                mProgressDialog.setCancelable(false);
+                mProgressDialog.show();
+                mProgressDialog.setContentView(R.layout.compile_dialog_loader);
+
+                loader_string = (TextView) mProgressDialog.findViewById(R.id
+                        .loadingTextCreativeMode);
+                loader_string.setText(getContext().getResources().getString(
+                        R.string.sb_phase_1_loader));
+                loader = (CircularFillableLoaders) mProgressDialog.findViewById(
+                        R.id.circularFillableLoader);
+                loader.setProgress(60);
             }
             super.onPreExecute();
         }
@@ -805,6 +834,10 @@ public class OverlaysList extends Fragment {
                         .setContentText(getString(R.string.notification_extracting_assets_text))
                         .setProgress(100, 0, false);
                 mNotifyManager.notify(id, mBuilder.build());
+
+                loader_string.setText(getContext().getResources().getString(
+                        R.string.sb_phase_2_loader));
+                loader.setProgress(20);
             }
             super.onPreExecute();
         }
@@ -824,6 +857,9 @@ public class OverlaysList extends Fragment {
             for (int i = 0; i < final_runner.size(); i++) {
                 final_commands = final_commands + final_runner.get(i) + " ";
             }
+
+            mWakeLock.release();
+            mProgressDialog.dismiss();
 
             if (!enable_mode && !disable_mode) {
                 Intent notificationIntent = new Intent();

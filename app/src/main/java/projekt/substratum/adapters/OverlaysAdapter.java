@@ -1,12 +1,17 @@
 package projekt.substratum.adapters;
 
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -177,10 +182,24 @@ public class OverlaysAdapter extends
         }
     }
 
+    public Drawable grabAppIcon(Context context, String package_name) {
+        Drawable icon = null;
+        try {
+            icon = context.getPackageManager().getApplicationIcon(package_name);
+        } catch (PackageManager.NameNotFoundException nnfe) {
+            Log.e("SubstratumLogger", "Could not grab the application icon for \"" + package_name
+                    + "\"");
+        }
+        return icon;
+    }
+
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, int position) {
 
         final OverlaysInfo current_object = overlayList.get(position);
+
+        viewHolder.app_icon.setImageDrawable(grabAppIcon(current_object.getInheritedContext(),
+                current_object.getPackageName()));
 
         viewHolder.overlayTargetPackageName.setText(current_object.getName());
 
@@ -491,6 +510,7 @@ public class OverlaysAdapter extends
         public Spinner optionsSpinner2;
         public Spinner optionsSpinner3;
         public Spinner optionsSpinner4;
+        public ImageView app_icon;
 
         public ViewHolder(View itemLayoutView) {
             super(itemLayoutView);
@@ -507,6 +527,7 @@ public class OverlaysAdapter extends
             optionsSpinner2 = (Spinner) itemLayoutView.findViewById(R.id.optionsSpinner2);
             optionsSpinner3 = (Spinner) itemLayoutView.findViewById(R.id.optionsSpinner3);
             optionsSpinner4 = (Spinner) itemLayoutView.findViewById(R.id.optionsSpinner4);
+            app_icon = (ImageView) itemLayoutView.findViewById(R.id.app_icon);
         }
     }
 }

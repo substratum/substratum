@@ -51,6 +51,7 @@
     <string name="theme_information_tab_three">Boot animations</string>
     <string name="theme_information_tab_four">Font Packs</string>
     <string name="theme_information_tab_five">Sound Packs</string>
+    <string name="theme_information_quick_apply_dialog_negative_button">Cancel</string>
     <string name="theme_information_quick_apply_style">Style</string>
     <string name="theme_information_quick_apply_fonts">System Fonts</string>
     <string name="theme_information_quick_apply_bootanimation_text">Custom Boot Animation</string>

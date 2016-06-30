@@ -29,9 +29,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/circularFillableLoader"
         android:layout_centerHorizontal="true"
-        android:gravity="center"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="50dp"
+        android:gravity="center"
         android:text="PLACEHOLDER_LOADING_TEXT"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textStyle="italic"/>

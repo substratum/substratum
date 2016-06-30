@@ -210,10 +210,9 @@ public class OverlaysInfo implements Serializable {
     public boolean compareInstalledOverlay() {
         try {
             PackageInfo pinfo = context.getPackageManager().getPackageInfo(
-                    getPackageName() + "." + theme_name, 0);
+                    getFullOverlayParameters(), 0);
             return pinfo.versionName.equals(versionName);
         } catch (PackageManager.NameNotFoundException nnfe) {
-            nnfe.printStackTrace();
             Log.e("SubstratumLogger", "Could not find explicit package identifier in " +
                     "package manager list.");
         }
@@ -233,7 +232,6 @@ public class OverlaysInfo implements Serializable {
                     getPackageName() + "." + theme_name + variant + base, 0);
             return pinfo.versionName.equals(versionName);
         } catch (PackageManager.NameNotFoundException nnfe) {
-            nnfe.printStackTrace();
             Log.e("SubstratumLogger", "Could not find explicit package identifier in " +
                     "package manager list.");
         }

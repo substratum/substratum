@@ -728,9 +728,9 @@ public class SoundsHandler {
 
             if (!has_failed) {
                 Log.d("SoundsHandler", "Sound pack installed!");
-                /*Root.runCommand(
+                Root.runCommand(
                         "rm -r " + mContext.getCacheDir().getAbsolutePath() +
-                                "/SoundsCache/SoundsInjector/");*/
+                                "/SoundsCache/SoundsInjector/");
             } else {
                 Log.e("SoundsHandler", "Sound installation aborted!");
                 Root.runCommand(

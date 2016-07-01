@@ -80,7 +80,7 @@
     <string name="manage_sounds_text">Restores the default system sounds on your device</string>
     <string name="manage_system_overlay_dialog_title">Overlay Cleaning Manager</string>
     <string name="manage_system_overlay_disable">Disable all enabled overlays</string>
-    <string name="manage_system_overlay_uninstall">Clean up all overlays</string>
+    <string name="manage_system_overlay_uninstall">Uninstall all installed overlays</string>
     <string name="manage_system_overlay_title">Restore System Theme</string>
     <string name="manage_system_overlay_toast">System theme restored successfully!</string>
     <string name="manage_system_overlay_uninstall_toast">All overlays uninstalled successfully!</string>

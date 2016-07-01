@@ -54,8 +54,8 @@ public class ManageFragment extends Fragment {
                 final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getContext(),
                         R.layout.dialog_listview);
 
-                arrayAdapter.add(getString(R.string.manage_system_overlay_uninstall));
                 arrayAdapter.add(getString(R.string.manage_system_overlay_disable));
+                arrayAdapter.add(getString(R.string.manage_system_overlay_uninstall));
 
                 builderSingle.setNegativeButton(
                         android.R.string.cancel,
@@ -72,14 +72,14 @@ public class ManageFragment extends Fragment {
                             public void onClick(DialogInterface dialog, int which) {
                                 switch (which) {
                                     case 0:
-                                        new AbortFunction().execute("");
-                                        break;
-                                    case 1:
                                         Toast toast = Toast.makeText(getContext(), getString(R
                                                         .string.manage_system_overlay_toast),
                                                 Toast.LENGTH_SHORT);
                                         toast.show();
                                         Root.runCommand("om disable-all");
+                                        break;
+                                    case 1:
+                                        new AbortFunction().execute("");
                                         break;
                                 }
                             }
@@ -318,6 +318,8 @@ public class ManageFragment extends Fragment {
         @Override
         protected String doInBackground(String... sUrl) {
             final_commands = "";
+
+            Root.runCommand("rm -r /data/system/theme/fonts/");
 
             Root.runCommand("cp /data/system/overlays" +
                     ".xml " +

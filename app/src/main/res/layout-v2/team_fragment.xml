@@ -45,6 +45,10 @@
             android:id="@+id/cory"
             layout="@layout/team_card_cory"/>
 
+        <include
+            android:id="@+id/jacob"
+            layout="@layout/team_card_jacob"/>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

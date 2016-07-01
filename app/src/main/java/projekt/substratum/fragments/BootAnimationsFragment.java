@@ -2,7 +2,6 @@ package projekt.substratum.fragments;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
@@ -10,13 +9,10 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
-import android.preference.PreferenceManager;
-import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -32,6 +28,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
 import projekt.substratum.adapters.DataAdapter;
@@ -54,9 +51,7 @@ public class BootAnimationsFragment extends Fragment {
     private List<ApplicationInfo> list;
     private DataAdapter adapter;
     private View cardView;
-    private SharedPreferences prefs;
-    private List<String> unauthorized_packages;
-    private List<String> installed_themes;
+    private ViewGroup root;
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -77,14 +72,10 @@ public class BootAnimationsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.home_fragment, null);
+        root = (ViewGroup) inflater.inflate(R.layout.home_fragment, null);
 
         mContext = getActivity();
-        prefs = PreferenceManager.getDefaultSharedPreferences(
-                getContext());
 
-        installed_themes = new ArrayList<>();
-        unauthorized_packages = new ArrayList<>();
         substratum_packages = new HashMap<>();
         recyclerView = (RecyclerView) root.findViewById(R.id.theme_list);
         cardView = root.findViewById(R.id.no_entry_card_view);
@@ -105,17 +96,9 @@ public class BootAnimationsFragment extends Fragment {
         PackageManager packageManager = mContext.getPackageManager();
         list = packageManager.getInstalledApplications(PackageManager
                 .GET_META_DATA);
-        for (ApplicationInfo packageInfo : list) {
-            getSubstratumPackages(mContext, packageInfo.packageName);
-        }
 
-        if (substratum_packages.size() == 0) {
-            cardView.setVisibility(View.VISIBLE);
-            recyclerView.setVisibility(View.GONE);
-        } else {
-            cardView.setVisibility(View.GONE);
-            recyclerView.setVisibility(View.VISIBLE);
-        }
+        LayoutLoader layoutLoader = new LayoutLoader();
+        layoutLoader.execute("");
 
         // Now we need to sort the buffered installed Layers themes
         map = new TreeMap<>(substratum_packages);
@@ -132,12 +115,10 @@ public class BootAnimationsFragment extends Fragment {
         recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
             GestureDetector gestureDetector = new GestureDetector(getContext(),
                     new GestureDetector.SimpleOnGestureListener() {
-
                         @Override
                         public boolean onSingleTapUp(MotionEvent e) {
                             return true;
                         }
-
                     });
 
             @Override
@@ -171,12 +152,10 @@ public class BootAnimationsFragment extends Fragment {
 
             @Override
             public void onTouchEvent(RecyclerView rv, MotionEvent e) {
-
             }
 
             @Override
             public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-
             }
         });
 
@@ -191,12 +170,6 @@ public class BootAnimationsFragment extends Fragment {
         return root;
     }
 
-    private String getDeviceIMEI() {
-        TelephonyManager telephonyManager = (TelephonyManager) mContext.getSystemService(Context
-                .TELEPHONY_SERVICE);
-        return telephonyManager.getDeviceId();
-    }
-
     private boolean isPackageInstalled(Context context, String package_name) {
         PackageManager pm = context.getPackageManager();
         try {
@@ -205,31 +178,6 @@ public class BootAnimationsFragment extends Fragment {
         } catch (PackageManager.NameNotFoundException e) {
             return false;
         }
-    }
-
-    private boolean findOverlayParent(Context context, String theme_parent) {
-        try {
-            PackageManager packageManager = mContext.getPackageManager();
-            List<ApplicationInfo> pm = packageManager.getInstalledApplications(PackageManager
-                    .GET_META_DATA);
-            for (int i = 0; i < pm.size(); i++) {
-                ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
-                        pm.get(i).packageName, PackageManager.GET_META_DATA);
-                if (appInfo.metaData != null) {
-                    if (appInfo.metaData.getString("Substratum_Theme") != null) {
-                        String parse1_themeName = appInfo.metaData.getString("Substratum_Theme")
-                                .replaceAll("\\s+", "");
-                        String parse2_themeName = parse1_themeName.replaceAll
-                                ("[^a-zA-Z0-9]+", "");
-                        if (parse2_themeName.equals(theme_parent)) {
-                            return true;
-                        }
-                    }
-                }
-            }
-        } catch (PackageManager.NameNotFoundException nnfe) {
-        }
-        return false;
     }
 
     private void getSubstratumPackages(Context context, String package_name) {
@@ -251,57 +199,10 @@ public class BootAnimationsFragment extends Fragment {
                                         package_name};
                                 substratum_packages.put(appInfo.metaData.getString
                                         ("Substratum_Theme"), data);
-                                installed_themes.add(package_name);
-                                Log.d("Substratum Ready Theme", package_name);
                             }
                         } catch (Exception e) {
+                            Log.e("SubstratumLogger", "Unable to find package identifier");
                         }
-                    }
-                }
-            }
-        } catch (PackageManager.NameNotFoundException e) {
-            Log.e("SubstratumLogger", "Unable to find package identifier (INDEX OUT OF BOUNDS)");
-        }
-    }
-
-    private void checkOverlayIntegrity(Context context, String package_name) {
-        // Check whether all overlay packages installed matches the current device's information
-        try {
-            ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
-                    package_name, PackageManager.GET_META_DATA);
-            if (appInfo.metaData != null) {
-                if (appInfo.metaData.getString("Substratum_ID") != null) {
-                    if (appInfo.metaData.getString("Substratum_ID").equals(Settings.
-                            Secure.getString(context.getContentResolver(),
-                            Settings.Secure.ANDROID_ID))) {
-                        if (appInfo.metaData.getString("Substratum_IMEI") != null) {
-                            if (appInfo.metaData.getString("Substratum_IMEI").equals("!" +
-                                    getDeviceIMEI())) {
-                                if (appInfo.metaData.getString("Substratum_Parent") != null) {
-                                    if (!findOverlayParent(context, appInfo.metaData.getString
-                                            ("Substratum_Parent"))) {
-                                        Log.d("OverlayVerification", package_name + " " +
-                                                "unauthorized to" +
-                                                " be" +
-                                                " used on this device.");
-                                        unauthorized_packages.add(package_name);
-                                    } else {
-                                        Log.d("OverlayVerification", package_name + " verified to" +
-                                                " be " +
-                                                "used" +
-                                                " on this device.");
-                                    }
-                                }
-                            } else {
-                                Log.d("OverlayVerification", package_name + " unauthorized to be" +
-                                        " used on this device.");
-                                unauthorized_packages.add(package_name);
-                            }
-                        }
-                    } else {
-                        Log.d("OverlayVerification", package_name + " unauthorized to be" +
-                                " used on this device.");
-                        unauthorized_packages.add(package_name);
                     }
                 }
             }
@@ -324,8 +225,10 @@ public class BootAnimationsFragment extends Fragment {
     }
 
     private void refreshLayout() {
+        MaterialProgressBar materialProgressBar = (MaterialProgressBar) root.findViewById(R.id
+                .progress_bar_loader);
+        materialProgressBar.setVisibility(View.VISIBLE);
         PackageManager packageManager = mContext.getPackageManager();
-        installed_themes = new ArrayList<>();
         list.clear();
         recyclerView.setAdapter(null);
         substratum_packages = new HashMap<>();
@@ -352,6 +255,31 @@ public class BootAnimationsFragment extends Fragment {
         adapter = new DataAdapter(mContext.getApplicationContext(), themeParsers);
         recyclerView.setAdapter(adapter);
         swipeRefreshLayout.setRefreshing(false);
+        materialProgressBar.setVisibility(View.GONE);
+    }
+
+    private class LayoutLoader extends AsyncTask<String, Integer, String> {
+
+        @Override
+        protected void onPostExecute(String result) {
+            refreshLayout();
+            if (substratum_packages.size() == 0) {
+                cardView.setVisibility(View.VISIBLE);
+                recyclerView.setVisibility(View.GONE);
+            } else {
+                cardView.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.VISIBLE);
+            }
+            super.onPostExecute(result);
+        }
+
+        @Override
+        protected String doInBackground(String... sUrl) {
+            for (ApplicationInfo packageInfo : list) {
+                getSubstratumPackages(mContext, packageInfo.packageName);
+            }
+            return null;
+        }
     }
 
     private class doCleanUp extends AsyncTask<String, Integer, String> {
@@ -377,38 +305,6 @@ public class BootAnimationsFragment extends Fragment {
                         "will " +
                         "be removed.");
                 Root.runCommand("pm uninstall " + state1.get(i));
-            }
-            return null;
-        }
-    }
-
-    private class PurgeUnauthorizedOverlays extends AsyncTask<String, Integer, String> {
-
-        @Override
-        protected void onPreExecute() {
-            Log.d("SubstratumAntiPiracy", "The device has found unauthorized overlays created by " +
-                    "another device.");
-            Toast toast = Toast.makeText(mContext.getApplicationContext(),
-                    getString(R.string
-                            .antipiracy_toast),
-                    Toast.LENGTH_LONG);
-            toast.show();
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-            Toast toast = Toast.makeText(mContext.getApplicationContext(),
-                    getString(R.string
-                            .antipiracy_toast_complete),
-                    Toast.LENGTH_LONG);
-            toast.show();
-        }
-
-        @Override
-        protected String doInBackground(String... sUrl) {
-            for (int i = 0; i < unauthorized_packages.size(); i++) {
-                Root.runCommand("pm uninstall " + unauthorized_packages.get(i));
             }
             return null;
         }

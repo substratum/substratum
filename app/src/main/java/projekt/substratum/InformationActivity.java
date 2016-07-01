@@ -97,7 +97,7 @@ public class InformationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.information_activity_tabs);
+        setContentView(R.layout.information_activity);
 
         boolean dynamicActionBarColors = getResources().getBoolean(R.bool.dynamicActionBarColors);
 

@@ -32,6 +32,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
+import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
 import projekt.substratum.adapters.DataAdapter;
@@ -57,6 +58,7 @@ public class HomeFragment extends Fragment {
     private SharedPreferences prefs;
     private List<String> unauthorized_packages;
     private List<String> installed_themes;
+    private ViewGroup root;
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -77,7 +79,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.home_fragment, null);
+        root = (ViewGroup) inflater.inflate(R.layout.home_fragment, null);
 
         mContext = getActivity();
         prefs = PreferenceManager.getDefaultSharedPreferences(
@@ -105,20 +107,9 @@ public class HomeFragment extends Fragment {
         PackageManager packageManager = mContext.getPackageManager();
         list = packageManager.getInstalledApplications(PackageManager
                 .GET_META_DATA);
-        for (ApplicationInfo packageInfo : list) {
-            getSubstratumPackages(mContext, packageInfo.packageName);
-        }
 
-        AntiPiracyCheck antiPiracyCheck = new AntiPiracyCheck();
-        antiPiracyCheck.execute("");
-
-        if (substratum_packages.size() == 0) {
-            cardView.setVisibility(View.VISIBLE);
-            recyclerView.setVisibility(View.GONE);
-        } else {
-            cardView.setVisibility(View.GONE);
-            recyclerView.setVisibility(View.VISIBLE);
-        }
+        LayoutLoader layoutLoader = new LayoutLoader();
+        layoutLoader.execute("");
 
         // Now we need to sort the buffered installed Layers themes
         map = new TreeMap<>(substratum_packages);
@@ -317,6 +308,8 @@ public class HomeFragment extends Fragment {
     }
 
     private void refreshLayout() {
+        MaterialProgressBar materialProgressBar = (MaterialProgressBar) root.findViewById(R.id
+                .progress_bar_loader);
         PackageManager packageManager = mContext.getPackageManager();
         installed_themes = new ArrayList<>();
         list.clear();
@@ -345,6 +338,33 @@ public class HomeFragment extends Fragment {
         adapter = new DataAdapter(mContext.getApplicationContext(), themeParsers);
         recyclerView.setAdapter(adapter);
         swipeRefreshLayout.setRefreshing(false);
+        materialProgressBar.setVisibility(View.GONE);
+    }
+
+    private class LayoutLoader extends AsyncTask<String, Integer, String> {
+
+        @Override
+        protected void onPostExecute(String result) {
+            refreshLayout();
+            if (substratum_packages.size() == 0) {
+                cardView.setVisibility(View.VISIBLE);
+                recyclerView.setVisibility(View.GONE);
+            } else {
+                cardView.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.VISIBLE);
+            }
+            AntiPiracyCheck antiPiracyCheck = new AntiPiracyCheck();
+            antiPiracyCheck.execute("");
+            super.onPostExecute(result);
+        }
+
+        @Override
+        protected String doInBackground(String... sUrl) {
+            for (ApplicationInfo packageInfo : list) {
+                getSubstratumPackages(mContext, packageInfo.packageName);
+            }
+            return null;
+        }
     }
 
     private class AntiPiracyCheck extends AsyncTask<String, Integer, String> {

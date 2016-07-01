@@ -53,7 +53,6 @@
             style="@style/Widget.MaterialProgressBar.ProgressBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/title_overlays"
             android:layout_gravity="center_horizontal|center_vertical"
             android:layout_marginTop="50dp"
             android:indeterminate="true"/>

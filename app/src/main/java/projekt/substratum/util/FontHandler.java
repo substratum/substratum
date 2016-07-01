@@ -195,7 +195,9 @@ public class FontHandler {
                 }
 
                 // Copy font configuration file (fonts.xml) to the working directory
-                copyAssets();
+                File fontsConfig = new File(mContext.getCacheDir().getAbsolutePath() +
+                        "/FontCache/FontCreator/fonts.xml");
+                if (!fontsConfig.exists()) copyAssets();
 
                 Root.runCommand(
                         "cp /system/fonts/* /data/system/theme/fonts/");

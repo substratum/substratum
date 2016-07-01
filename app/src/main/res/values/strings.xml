@@ -44,7 +44,7 @@
     <string name="sounds_dialog_apply_failed">Sound pack failed to apply&#8230;</string>
     <string name="sounds_default_spinner">please select a sound pack&#8230;</string>
     <string name="sounds_dialog_permissions_title">Ringtones Configuration Alert</string>
-    <string name="sounds_dialog_permissions_text">Alarms/Notifications/Ringtones are now selectable from Settings manually!\n\nHowever, Substratum cannot grant itself "android.permission.WRITE_SETTINGS" as it is not a privileged app, so it is not able to set them as your current sounds automatically.</string>
+    <string name="sounds_dialog_permissions_text">Alarms/Notifications/Ringtones are now selectable from Settings manually!\n\nHowever, Substratum cannot grant itself "android.permission.WRITE_SETTINGS", so it is not able to set them as your current sounds automatically.</string>
 
     <string name="theme_information_tab_one">Quick Apply</string>
     <string name="theme_information_tab_two">Overlay Manager</string>

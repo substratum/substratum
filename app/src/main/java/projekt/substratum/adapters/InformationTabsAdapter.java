@@ -5,13 +5,10 @@ package projekt.substratum.adapters;
  */
 
 import android.content.Context;
-import android.content.res.AssetManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.util.Log;
 
-import java.util.Arrays;
 import java.util.List;
 
 import projekt.substratum.tabs.BootAnimation;

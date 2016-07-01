@@ -10,7 +10,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -26,8 +25,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.github.yavski.fabspeeddial.FabSpeedDial;
-import io.github.yavski.fabspeeddial.SimpleMenuListenerAdapter;
 import projekt.substratum.R;
 import projekt.substratum.util.ReadOverlaysFile;
 import projekt.substratum.util.Root;
@@ -45,8 +42,8 @@ public class ProfileFragment extends Fragment {
     private String aet_getText;
     private String to_be_run_commands;
     private ArrayAdapter<String> adapter;
-    private List<String> cannot_run_overlays, uninstall_overlays;
-    private String final_commands, dialog_message;
+    private List<String> cannot_run_overlays;
+    private String dialog_message;
 
     public void RefreshSpinner() {
         list.clear();
@@ -193,104 +190,7 @@ public class ProfileFragment extends Fragment {
                 }
             }
         });
-
-        FabSpeedDial fabSpeedDial = (FabSpeedDial) root.findViewById(R.id.fab_speed_dial);
-        fabSpeedDial.setMenuListener(new SimpleMenuListenerAdapter() {
-            @Override
-            public boolean onMenuItemSelected(MenuItem menuItem) {
-                if (menuItem.getTitle().toString().equals(getString(R.string
-                        .purge2_button_text))) {
-                    Root.runCommand("om disable-all");
-                } else {
-                    if (menuItem.getTitle().toString().equals(getString(R.string
-                            .purge_button_text))) {
-                        AbortFunction abortFunction = new AbortFunction();
-                        abortFunction.execute("");
-                    }
-                }
-                return false;
-            }
-        });
         return root;
-    }
-
-    private class AbortFunction extends AsyncTask<String, Integer, String> {
-
-        @Override
-        protected void onPreExecute() {
-            headerProgress.setVisibility(View.VISIBLE);
-            Toast toast = Toast.makeText(getContext(), getString(R.string
-                            .abort_overlay_toast),
-                    Toast.LENGTH_SHORT);
-            toast.show();
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-            try {
-                Toast toast = Toast.makeText(getContext(), getString(R.string
-                                .abort_overlay_toast_success),
-                        Toast.LENGTH_SHORT);
-                toast.show();
-                headerProgress.setVisibility(View.GONE);
-            } catch (Exception e) {
-                // At this point the window is refreshed too many times causing an unattached
-                // Activity
-                Log.e("SubstratumLogger", "Profile window refreshed too " +
-                        "many times, restarting current activity to preserve app " +
-                        "integrity.");
-            }
-            Root.runCommand(final_commands);
-        }
-
-        @Override
-        protected String doInBackground(String... sUrl) {
-            Root.runCommand("cp /data/system/overlays.xml " +
-                    Environment
-                            .getExternalStorageDirectory().getAbsolutePath() +
-                    "/.substratum/current_overlays.xml");
-            String[] commands0 = {Environment.getExternalStorageDirectory().getAbsolutePath() +
-                    "/.substratum/current_overlays.xml", "0"};
-            String[] commands1 = {Environment.getExternalStorageDirectory().getAbsolutePath() +
-                    "/.substratum/current_overlays.xml", "1"};
-            String[] commands2 = {Environment.getExternalStorageDirectory().getAbsolutePath() +
-                    "/.substratum/current_overlays.xml", "2"};
-            String[] commands3 = {Environment.getExternalStorageDirectory().getAbsolutePath() +
-                    "/.substratum/current_overlays.xml", "3"};
-            String[] commands4 = {Environment.getExternalStorageDirectory().getAbsolutePath() +
-                    "/.substratum/current_overlays.xml", "4"};
-            String[] commands5 = {Environment.getExternalStorageDirectory().getAbsolutePath() +
-                    "/.substratum/current_overlays.xml", "5"};
-
-            List<String> state0 = ReadOverlaysFile.main(commands0);
-            List<String> state1 = ReadOverlaysFile.main(commands1);
-            List<String> state2 = ReadOverlaysFile.main(commands2);
-            List<String> state3 = ReadOverlaysFile.main(commands3);
-            List<String> state4 = ReadOverlaysFile.main(commands4);
-            List<String> state5 = ReadOverlaysFile.main(commands5);
-
-            uninstall_overlays = new ArrayList<>(state0);
-            uninstall_overlays.addAll(state1);
-            uninstall_overlays.addAll(state2);
-            uninstall_overlays.addAll(state3);
-            uninstall_overlays.addAll(state4);
-            uninstall_overlays.addAll(state5);
-
-            final_commands = "";
-            for (int i = 0; i < uninstall_overlays.size(); i++) {
-                if (i == 0) {
-                    final_commands = final_commands + "pm uninstall " +
-                            uninstall_overlays.get(i);
-                } else {
-                    final_commands = final_commands + " && pm uninstall " +
-                            uninstall_overlays.get(i);
-                }
-                Log.d("SubstratumLogger", "Found overlay \"" + uninstall_overlays.get(i) + "\"");
-            }
-
-            return null;
-        }
     }
 
     private class BackupFunction extends AsyncTask<String, Integer, String> {

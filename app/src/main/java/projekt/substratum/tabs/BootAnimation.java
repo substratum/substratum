@@ -1,6 +1,5 @@
 package projekt.substratum.tabs;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.content.res.ColorStateList;

@@ -73,9 +73,6 @@ dependencies {
     // EditText
     compile 'com.alimuzaffar.lib:animated-edit-text:0.0.8'
 
-    // FAB Speed Dial
-    compile 'io.github.yavski:fab-speed-dial:1.0.4'
-
     // Gesture RecyclerView
     compile 'com.thesurix.gesturerecycler:gesture-recycler:1.3.1'
 

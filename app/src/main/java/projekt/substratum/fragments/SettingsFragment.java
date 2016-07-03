@@ -60,15 +60,15 @@ public class SettingsFragment extends Fragment {
         hideAppIcon.setEnabled(false);
 
         if (prefs.getBoolean("hide_app_icon", true)) {
-            hideAppIcon.setChecked(true);
-        } else {
             hideAppIcon.setChecked(false);
+        } else {
+            hideAppIcon.setChecked(true);
         }
 
         if (prefs.getBoolean("automatic_systemui_restart", true)) {
-            systemUIRestart.setChecked(true);
-        } else {
             systemUIRestart.setChecked(false);
+        } else {
+            systemUIRestart.setChecked(true);
         }
 
         hideAppIcon.setOnCheckedChangeListener(new CompoundButton

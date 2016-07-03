@@ -6,8 +6,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -114,12 +116,16 @@ public class MainActivity extends AppCompatActivity implements
                                 .nav_sounds),
 
                         new SectionDrawerItem().withName(R.string.nav_section_header_utilities),
-
+                        new PrimaryDrawerItem().withName(R.string.nav_manage).withIcon(R
+                                .drawable.nav_manage),
                         new PrimaryDrawerItem().withName(R.string.nav_priorities).withIcon(R
                                 .drawable.nav_drawer_priorities),
                         new PrimaryDrawerItem().withName(R.string.nav_backup_restore).withIcon(R
                                 .drawable.nav_drawer_profiles),
+
                         new SectionDrawerItem().withName(R.string.nav_section_header_more),
+                        new SecondaryDrawerItem().withName(R.string.nav_troubleshooting).withIcon(R
+                                .drawable.nav_troubleshooting),
                         new SecondaryDrawerItem().withName(R.string.nav_team).withIcon(R
                                 .drawable.nav_drawer_team),
                         new SecondaryDrawerItem().withName(getString(R.string.nav_opensource))
@@ -169,32 +175,44 @@ public class MainActivity extends AppCompatActivity implements
                                     }
                                     break;
                                 case 7:
-                                    switchFragment(getString(R.string.nav_priorities),
-                                            "PriorityLoaderFragment");
+                                    switchFragment(getString(R.string.nav_manage),
+                                            "ManageFragment");
                                     drawerSelected = 7;
                                     break;
                                 case 8:
-                                    switchFragment(getString(R.string.nav_backup_restore),
-                                            "ProfileFragment");
+                                    switchFragment(getString(R.string.nav_priorities),
+                                            "PriorityLoaderFragment");
                                     drawerSelected = 8;
                                     break;
-                                case 10:
-                                    if (drawerSelected != position) {
-                                        switchFragment(getString(R.string.nav_team),
-                                                "TeamFragment");
-                                        drawerSelected = 10;
-                                    }
+                                case 9:
+                                    switchFragment(getString(R.string.nav_backup_restore),
+                                            "ProfileFragment");
+                                    drawerSelected = 9;
                                     break;
                                 case 11:
-                                    switchFragmentToLicenses(getString(R.string.nav_opensource),
-                                            fragment);
-                                    drawerSelected = 11;
+                                    if (drawerSelected != position) {
+                                        switchFragment(getString(R.string.nav_troubleshooting),
+                                                "TroubleshootingFragment");
+                                        drawerSelected = 11;
+                                    }
                                     break;
                                 case 12:
                                     if (drawerSelected != position) {
+                                        switchFragment(getString(R.string.nav_team),
+                                                "TeamFragment");
+                                        drawerSelected = 12;
+                                    }
+                                    break;
+                                case 13:
+                                    switchFragmentToLicenses(getString(R.string.nav_opensource),
+                                            fragment);
+                                    drawerSelected = 13;
+                                    break;
+                                case 14:
+                                    if (drawerSelected != position) {
                                         switchFragment(getString(R.string.nav_settings),
                                                 "SettingsFragment");
-                                        drawerSelected = 12;
+                                        drawerSelected = 14;
                                     }
                                     break;
                             }
@@ -210,6 +228,19 @@ public class MainActivity extends AppCompatActivity implements
                 Manifest.permission.WRITE_EXTERNAL_STORAGE);
         permissionCheck2 = ContextCompat.checkSelfPermission(getApplicationContext(),
                 Manifest.permission.READ_PHONE_STATE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (!Settings.System.canWrite(getApplicationContext())) {
+                Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_WRITE_SETTINGS);
+                intent.setData(Uri.parse("package:" + MainActivity.this.getPackageName()));
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            } else {
+                Log.d("SubstratumLogger", "Substratum was granted " +
+                        "'android.permission.WRITE_SETTINGS' " +
+                        "permissions for system runtime code execution.");
+            }
+        }
 
         if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
             // permission already granted, allow the program to continue running

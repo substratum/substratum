@@ -22,6 +22,8 @@
 
     <style name="RestoreActivity.ActivityTheme" parent="@android:style/Theme.NoDisplay"/>
 
+    <style name="RestoreDialog" parent="@android:style/Theme.DeviceDefault.Light.Dialog.Alert"/>
+
     <style name="TextAppearance.ExpandedTitle"
            parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textSize">26sp</item>

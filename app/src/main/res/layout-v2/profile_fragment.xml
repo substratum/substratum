@@ -179,23 +179,4 @@
 
         </RelativeLayout>
     </ScrollView>
-
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                 android:layout_width="match_parent"
-                 android:layout_height="match_parent">
-
-        <io.github.yavski.fabspeeddial.FabSpeedDial
-            android:id="@+id/fab_speed_dial"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            app:fabGravity="bottom_end"
-            app:fabMenu="@menu/profile_fab_menu"
-            app:miniFabBackgroundTint="@color/fab_menu_background_card"
-            app:miniFabDrawableTint="@color/fab_menu_icon_color"
-            app:miniFabTitleBackgroundTint="@color/fab_menu_background_card"
-            app:miniFabTitleTextColor="@color/fab_menu_text_color"/>
-
-    </FrameLayout>
 </RelativeLayout>

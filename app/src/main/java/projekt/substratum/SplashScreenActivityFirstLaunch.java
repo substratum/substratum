@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.widget.ImageView;
 
 /**
@@ -19,15 +20,21 @@ public class SplashScreenActivityFirstLaunch extends Activity {
 
         // Load the ImageView that will host the animation and
         // set its background to our AnimationDrawable XML resource.
-        ImageView img = (ImageView) findViewById(R.id.splashscreen_image);
-        img.setImageDrawable(getDrawable(R.drawable.splashscreen_intro));
 
-        // Get the background, which has been compiled to an AnimationDrawable object.
-        AnimationDrawable frameAnimation = (AnimationDrawable) img.getDrawable();
+        try {
+            ImageView img = (ImageView) findViewById(R.id.splashscreen_image);
+            img.setImageDrawable(getDrawable(R.drawable.splashscreen_intro));
 
-        // Start the animation
-        frameAnimation.setOneShot(true);
-        frameAnimation.run();
+            // Get the background, which has been compiled to an AnimationDrawable object.
+            AnimationDrawable frameAnimation = (AnimationDrawable) img.getDrawable();
+
+            // Start the animation
+            frameAnimation.setOneShot(true);
+            frameAnimation.run();
+        } catch (OutOfMemoryError oome) {
+            Log.e("SubstratumLogger", "The VM has been blown up and the rendering of " +
+                    "the splash screen animated icon has been cancelled.");
+        }
 
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {

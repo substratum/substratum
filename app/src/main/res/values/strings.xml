@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">substratum</string>
-    <string name="helper_name">substratum overlay helper</string>
-    <string name="drawer_name">projekt substratum</string>
-    <string name="restore_app_name">restore theme</string>
+    <string name="app_name">Substratum</string>
+    <string name="helper_name">Substratum Overlay helper</string>
+    <string name="drawer_name">Projekt Substratum</string>
+    <string name="restore_app_name">Restore Theme</string>
 
     <string name="search_play_store_url" translatable="false">"https://play.google.com/store/search?q=Substratum%20Theme&amp;c=apps"</string>
 
@@ -26,23 +26,23 @@
     <string name="overlays_compile_update_button">Compile/Update &amp; Install</string>
 
     <string name="bootanimation_vm_exploded">Rendering of boot animation has been terminated due to insufficient memory allocation.\n\nInstallation of this boot animation is still possible without a rendered preview.</string>
-    <string name="bootanimation_placeholder_text">please select a boot animation from the dropdown list&#8230;</string>
-    <string name="bootanimation_default_spinner">please select a boot animation&#8230;</string>
+    <string name="bootanimation_placeholder_text">Please select a boot animation from the dropdown list&#8230;</string>
+    <string name="bootanimation_default_spinner">Please select a boot animation&#8230;</string>
     <string name="bootanimation_dialog_apply_text">Boot animation is processing&#8230;</string>
     <string name="bootanimation_dialog_apply_success">Boot animation applied!</string>
     <string name="bootanimation_dialog_apply_failed">Boot animation failed to apply&#8230;</string>
 
-    <string name="font_placeholder_text">please select a font pack from the dropdown list&#8230;</string>
-    <string name="font_default_spinner">please select a font pack&#8230;</string>
+    <string name="font_placeholder_text">Please select a font pack from the dropdown list&#8230;</string>
+    <string name="font_default_spinner">Please select a font pack&#8230;</string>
     <string name="font_dialog_apply_text">Font pack is processing&#8230;</string>
     <string name="font_dialog_apply_success">Font pack has been applied!</string>
     <string name="font_dialog_apply_failed">Font pack has failed to apply&#8230;</string>
 
-    <string name="sounds_placeholder_text">please select a sound pack from the dropdown list&#8230;</string>
+    <string name="sounds_placeholder_text">Please select a sound pack from the dropdown list&#8230;</string>
     <string name="sounds_dialog_apply_text">Sound pack is processing&#8230;</string>
     <string name="sounds_dialog_apply_success">Sound pack applied!</string>
     <string name="sounds_dialog_apply_failed">Sound pack failed to apply&#8230;</string>
-    <string name="sounds_default_spinner">please select a sound pack&#8230;</string>
+    <string name="sounds_default_spinner">Please select a sound pack&#8230;</string>
     <string name="sounds_dialog_permissions_title">Ringtones Configuration Alert</string>
     <string name="sounds_dialog_permissions_text">Alarms/Notifications/Ringtones are now selectable from Settings manually!\n\nHowever, Substratum cannot grant itself "android.permission.WRITE_SETTINGS", so it is not able to set them as your current sounds automatically.</string>
 
@@ -119,8 +119,8 @@
     <string name="priority_card_content">The Dynamic Priority System is an advanced procedure allowing for theme overlays to be organized with different priorities, ignoring the default OMS system-applied priorities.\n\nAn example when this would be of use would be wanting to structure a specific overlay on top of another overlay targeting the same application.\n\nWith the introduction of the Overlay Manager Service, the priorities are reversed, and the top most overlay resides at the bottom of each list.</string>
     <string name="priority_card_title2">Instructions</string>
     <string name="priority_card_content2">With the way OverlayManagerService works, all overlay priorities are laid out in an inverted order.\n\nhighest priority = bottom of list\nlowest priority = top of list</string>
-    <string name="priority_no_multiple_overlays_title">no apps with multiple overlays&#8230;</string>
-    <string name="priority_no_multiple_overlays_text">enable two or more overlays on one app to use me!</string>
+    <string name="priority_no_multiple_overlays_title">No apps with multiple overlays&#8230;</string>
+    <string name="priority_no_multiple_overlays_text">Enable two or more overlays on one app to use me!</string>
 
     <string name="backup">Backup Card</string>
     <string name="backup_card_content">This function makes a copy of your currently enabled overlays list and places it in \"/storage/emulated/0/substratum/profiles/\" for safekeeping.</string>
@@ -137,7 +137,7 @@
     <string name="restore_button">RESTORE PROFILE</string>
     <string name="restore_button_none_selected_toast">Please select a profile from the dropdown list before trying to restore a profile!</string>
     <string name="profile_delete_button_none_selected_toast">Please select a profile from the dropdown list before trying to delete a profile!</string>
-    <string name="profile_edittext_hint">please type a name for your profile&#8230;</string>
+    <string name="profile_edittext_hint">Please type a name for your profile&#8230;</string>
     <string name="profile_edittext_empty_toast">Please enter a name for your profile before backing up!</string>
     <string name="profile_edittext_title">New Profile:</string>
     <string name="toast_backup_success">Current overlay list saved to \"/storage/emulated/0/substratum/profiles/%s\"</string>
@@ -168,8 +168,8 @@
 
     <string name="failed_to_install_overlay_toast">Failed to compile \"%s\" overlay</string>
 
-    <string name="sb_phase_1_loader">extracting assets from theme</string>
-    <string name="sb_phase_2_loader">creating and signing overlay</string>
+    <string name="sb_phase_1_loader">Extracting assets from theme</string>
+    <string name="sb_phase_2_loader">Creating and signing overlay</string>
 
     <string name="list_of_overlays">List of installable overlays</string>
     <string name="toast_unapproved">This overlay has been rejected by the system</string>
@@ -184,12 +184,12 @@
     <string name="toast_installed">Selected overlay(s) applied!</string>
     <string name="toast_uninstalled">You just uninstalled this theme!</string>
     <string name="toast_updating">Compiling/updating in the notification panel, you can use other apps by clicking Home/Recents!</string>
-    <string name="no_themes_title">no themes installed&#8230;</string>
+    <string name="no_themes_title">No themes installed&#8230;</string>
     <string name="no_themes_description">please install a compatible theme!</string>
 
     <string name="toast_on_back_press_compiling">You can use other apps during compile by clicking Home/Recents buttons.</string>
 
-    <string name="notification_theme_installed">installed</string>
+    <string name="notification_theme_installed">Installed</string>
     <string name="notification_theme_installed_content">Theme successfully installed.</string>
 
     <string name="notification_initial_title">Substratum is running</string>
@@ -291,16 +291,16 @@
     <string name="team_branden_content">Try to find the unicorn called Sublime Mint!</string>
     <string name="team_branden_link">https://plus.google.com/u/0/101729058057775926785/</string>
 
-    <string name="slide_1_title">welcome to substratum</string>
-    <string name="slide_1_text">a minimal yet powerful theme engine based on Sony\'s overlay manager service</string>
-    <string name="slide_2_title">a brand new user interface</string>
-    <string name="slide_2_text">do you love your themes? introducing a gorgeous card view interface to showcase each of your theme\'s preview images installed on your device!</string>
-    <string name="slide_3_title">per-app theming to its finest</string>
-    <string name="slide_3_text">not sure whether you want your Google+ themed? that\'s okay, just pick whatever you want themed from the overlay list!</string>
-    <string name="slide_4_title">compile? enable? disable? where?</string>
-    <string name="slide_4_text">by clicking on the floating action button after selecting overlays, you could compile (do this first!), enable and disable each overlay directly on your phone to begin using your theme.</string>
-    <string name="slide_5_title">while compiling your overlays&#8230;</string>
-    <string name="slide_5_text">you can switch over to your own apps and allow the overlays to compile in the background as this process may take a while. just check your notification panel for the progress!</string>
-    <string name="slide_6_title">we hope you enjoy our creation!</string>
-    <string name="slide_6_text">thank you for reading the introduction and we hope you enjoy using substratum as much as we did while developing for it!</string>
+    <string name="slide_1_title">Welcome to Substratum</string>
+    <string name="slide_1_text">A minimal yet powerful theme engine based on Sony\'s overlay manager service</string>
+    <string name="slide_2_title">A brand new user interface</string>
+    <string name="slide_2_text">Do you love your themes? Introducing a gorgeous card view interface to showcase each of your theme\'s preview images installed on your device!</string>
+    <string name="slide_3_title">Per-app theming to its finest</string>
+    <string name="slide_3_text">Not sure whether you want your Google+ themed? that\'s okay, just pick whatever you want themed from the overlay list!</string>
+    <string name="slide_4_title">Compile? Enable? Disable? Where?</string>
+    <string name="slide_4_text">By clicking on the floating action button after selecting overlays, you could compile (do this first!), enable and disable each overlay directly on your phone to begin using your theme.</string>
+    <string name="slide_5_title">While compiling your overlays&#8230;</string>
+    <string name="slide_5_text">You can switch over to your own apps and allow the overlays to compile in the background as this process may take a while. just check your notification panel for the progress!</string>
+    <string name="slide_6_title">We hope you enjoy our creation!</string>
+    <string name="slide_6_text">Thank you for reading the introduction and we hope you enjoy using substratum as much as we did while developing for it!</string>
 </resources>

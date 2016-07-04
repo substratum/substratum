@@ -59,13 +59,13 @@ public class SettingsFragment extends Fragment {
         Switch systemUIRestart = (Switch) root.findViewById(R.id.restart_systemui);
         hideAppIcon.setEnabled(false);
 
-        if (prefs.getBoolean("hide_app_icon", true)) {
+        if (prefs.getBoolean("hide_app_icon", false)) {
             hideAppIcon.setChecked(false);
         } else {
             hideAppIcon.setChecked(true);
         }
 
-        if (prefs.getBoolean("automatic_systemui_restart", true)) {
+        if (prefs.getBoolean("automatic_systemui_restart", false)) {
             systemUIRestart.setChecked(false);
         } else {
             systemUIRestart.setChecked(true);

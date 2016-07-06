@@ -20,8 +20,9 @@ import projekt.substratum.LaunchActivity;
 import projekt.substratum.R;
 
 /**
- * Created by Nicholas on 2016-03-31.
+ * @author Nicholas Chum (nicholaschum)
  */
+
 public class SettingsFragment extends Fragment {
 
     String settingsPackageName = "com.android.settings";
@@ -59,16 +60,16 @@ public class SettingsFragment extends Fragment {
         Switch systemUIRestart = (Switch) root.findViewById(R.id.restart_systemui);
         hideAppIcon.setEnabled(false);
 
-        if (prefs.getBoolean("hide_app_icon", false)) {
-            hideAppIcon.setChecked(false);
-        } else {
+        if (prefs.getBoolean("show_app_icon", true)) {
             hideAppIcon.setChecked(true);
+        } else {
+            hideAppIcon.setChecked(false);
         }
 
-        if (prefs.getBoolean("automatic_systemui_restart", false)) {
-            systemUIRestart.setChecked(false);
-        } else {
+        if (prefs.getBoolean("systemui_recreate", true)) {
             systemUIRestart.setChecked(true);
+        } else {
+            systemUIRestart.setChecked(false);
         }
 
         hideAppIcon.setOnCheckedChangeListener(new CompoundButton
@@ -76,7 +77,7 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    prefs.edit().putBoolean("hide_app_icon", true).apply();
+                    prefs.edit().putBoolean("show_app_icon", true).apply();
                     PackageManager p = getContext().getPackageManager();
                     ComponentName componentName = new ComponentName(getContext(), LaunchActivity
                             .class);
@@ -87,7 +88,7 @@ public class SettingsFragment extends Fragment {
                             Toast.LENGTH_SHORT);
                     toast.show();
                 } else {
-                    prefs.edit().putBoolean("hide_app_icon", false).apply();
+                    prefs.edit().putBoolean("show_app_icon", false).apply();
                     PackageManager p = getContext().getPackageManager();
                     ComponentName componentName = new ComponentName(getContext(), LaunchActivity
                             .class);
@@ -106,13 +107,13 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    prefs.edit().putBoolean("automatic_systemui_restart", true).apply();
+                    prefs.edit().putBoolean("systemui_recreate", true).apply();
                     Toast toast = Toast.makeText(getContext(), getString(R.string
                                     .restart_systemui_toast_enabled),
                             Toast.LENGTH_SHORT);
                     toast.show();
                 } else {
-                    prefs.edit().putBoolean("automatic_systemui_restart", false).apply();
+                    prefs.edit().putBoolean("systemui_recreate", false).apply();
                     Toast toast = Toast.makeText(getContext(), getString(R.string
                                     .restart_systemui_toast_disabled),
                             Toast.LENGTH_SHORT);

@@ -12,17 +12,16 @@ import android.support.v7.app.AppCompatActivity;
 
 public class LaunchActivity extends AppCompatActivity {
 
-    private SharedPreferences prefs;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        prefs = PreferenceManager.getDefaultSharedPreferences(
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
                 getApplicationContext());
 
         if (prefs.getBoolean("first_run", true)) {
-            prefs.edit().putBoolean("automatic_systemui_restart", false).apply();
+            prefs.edit().putBoolean("show_app_icon", true).apply();
+            prefs.edit().putBoolean("systemui_recreate", true).apply();
             Intent intent = new Intent(this, SplashScreenActivityFirstLaunch.class);
             startActivity(intent);
             this.finish();

@@ -73,10 +73,6 @@ public class ManageFragment extends Fragment {
                             public void onClick(DialogInterface dialog, int which) {
                                 switch (which) {
                                     case 0:
-                                        Toast toast = Toast.makeText(getContext(), getString(R
-                                                        .string.manage_system_overlay_toast),
-                                                Toast.LENGTH_SHORT);
-                                        toast.show();
                                         Root.runCommand("om disable-all");
                                         break;
                                     case 1:

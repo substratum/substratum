@@ -16,7 +16,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import projekt.substratum.LaunchActivity;
+import projekt.substratum.LauncherActivity;
 import projekt.substratum.R;
 
 /**
@@ -79,7 +79,7 @@ public class SettingsFragment extends Fragment {
                 if (isChecked) {
                     prefs.edit().putBoolean("show_app_icon", true).apply();
                     PackageManager p = getContext().getPackageManager();
-                    ComponentName componentName = new ComponentName(getContext(), LaunchActivity
+                    ComponentName componentName = new ComponentName(getContext(), LauncherActivity
                             .class);
                     p.setComponentEnabledSetting(componentName, PackageManager
                             .COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
@@ -90,7 +90,7 @@ public class SettingsFragment extends Fragment {
                 } else {
                     prefs.edit().putBoolean("show_app_icon", false).apply();
                     PackageManager p = getContext().getPackageManager();
-                    ComponentName componentName = new ComponentName(getContext(), LaunchActivity
+                    ComponentName componentName = new ComponentName(getContext(), LauncherActivity
                             .class);
                     p.setComponentEnabledSetting(componentName, PackageManager
                             .COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);

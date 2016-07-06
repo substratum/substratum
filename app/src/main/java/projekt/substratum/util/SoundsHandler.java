@@ -249,139 +249,6 @@ public class SoundsHandler {
                 setDefaultUISounds("unlock_sound", "Unlock.ogg");
             }
 
-            File new_car_undock_mp3 = new File(mContext.getCacheDir().getAbsolutePath
-                    () +
-                    "/SoundsCache/SoundsInjector/ui/Undock.mp3");
-            File new_car_undock_ogg = new File(mContext.getCacheDir().getAbsolutePath
-                    () +
-                    "/SoundsCache/SoundsInjector/ui/Undock.ogg");
-            if (new_car_undock_mp3.exists() || new_car_undock_ogg.exists()) {
-                boolean mp3 = new_car_undock_mp3.exists();
-                boolean ogg = new_car_undock_ogg.exists();
-                if (mp3) {
-                    Root.runCommand(
-                            "mv -f " + mContext.getCacheDir().getAbsolutePath() +
-                                    "/SoundsCache/SoundsInjector/ui/Undock.mp3 " +
-                                    "/data/system/theme/audio/ui/Undock.mp3");
-                    setUISounds("car_undock_sound", "/data/system/theme/audio/ui/Undock" +
-                            ".mp3");
-                }
-                if (ogg) {
-                    Root.runCommand(
-                            "mv -f " + mContext.getCacheDir().getAbsolutePath() +
-                                    "/SoundsCache/SoundsInjector/ui/Undock.ogg " +
-                                    "/data/system/theme/audio/ui/Undock.ogg");
-                    setUISounds("car_undock_sound", "/data/system/theme/audio/ui/Undock" +
-                            ".ogg");
-                }
-            } else {
-                setDefaultUISounds("car_undock_sound", "Undock.ogg");
-            }
-
-            File new_car_dock_mp3 = new File(mContext.getCacheDir().getAbsolutePath() +
-                    "/SoundsCache/SoundsInjector/ui/Dock.mp3");
-            File new_car_dock_ogg = new File(mContext.getCacheDir().getAbsolutePath() +
-                    "/SoundsCache/SoundsInjector/ui/Dock.ogg");
-            if (new_car_dock_mp3.exists() || new_car_dock_ogg.exists()) {
-                boolean mp3 = new_car_dock_mp3.exists();
-                boolean ogg = new_car_dock_ogg.exists();
-                if (mp3) {
-                    Root.runCommand(
-                            "mv -f " + mContext.getCacheDir().getAbsolutePath() +
-                                    "/SoundsCache/SoundsInjector/ui/Dock.mp3 " +
-                                    "/data/system/theme/audio/ui/Dock.mp3");
-                    setUISounds("car_dock_sound", "/data/system/theme/audio/ui/Dock.mp3");
-                }
-                if (ogg) {
-                    Root.runCommand(
-                            "mv -f " + mContext.getCacheDir().getAbsolutePath() +
-                                    "/SoundsCache/SoundsInjector/ui/Dock.ogg " +
-                                    "/data/system/theme/audio/ui/Dock.ogg");
-                    setUISounds("car_dock_sound", "/data/system/theme/audio/ui/Dock.ogg");
-                }
-            } else {
-                setDefaultUISounds("car_dock_sound", "Dock.ogg");
-            }
-
-            File new_desk_undock_mp3 = new File(mContext.getCacheDir()
-                    .getAbsolutePath() +
-                    "/SoundsCache/SoundsInjector/ui/Undock.mp3");
-            File new_desk_undock_ogg = new File(mContext.getCacheDir()
-                    .getAbsolutePath() +
-                    "/SoundsCache/SoundsInjector/ui/Undock.ogg");
-            if (new_desk_undock_mp3.exists() || new_desk_undock_ogg.exists()) {
-                boolean mp3 = new_desk_undock_mp3.exists();
-                boolean ogg = new_desk_undock_ogg.exists();
-                if (mp3) {
-                    Root.runCommand(
-                            "mv -f " + mContext.getCacheDir().getAbsolutePath() +
-                                    "/SoundsCache/SoundsInjector/ui/Undock.mp3 " +
-                                    "/data/system/theme/audio/ui/Undock.mp3");
-                    setUISounds("desk_undock_sound", "/data/system/theme/audio/ui/Undock" +
-                            ".mp3");
-                }
-                if (ogg) {
-                    Root.runCommand(
-                            "mv -f " + mContext.getCacheDir().getAbsolutePath() +
-                                    "/SoundsCache/SoundsInjector/ui/Undock.ogg " +
-                                    "/data/system/theme/audio/ui/Undock.ogg");
-                    setUISounds("desk_undock_sound", "/data/system/theme/audio/ui/Undock" +
-                            ".ogg");
-                }
-            } else {
-                setDefaultUISounds("desk_undock_sound", "Undock.ogg");
-            }
-
-            File new_desk_dock_mp3 = new File(mContext.getCacheDir().getAbsolutePath() +
-                    "/SoundsCache/SoundsInjector/ui/Dock.mp3");
-            File new_desk_dock_ogg = new File(mContext.getCacheDir().getAbsolutePath() +
-                    "/SoundsCache/SoundsInjector/ui/Dock.ogg");
-            if (new_desk_dock_mp3.exists() || new_desk_dock_ogg.exists()) {
-                boolean mp3 = new_desk_dock_mp3.exists();
-                boolean ogg = new_desk_dock_ogg.exists();
-                if (mp3) {
-                    Root.runCommand(
-                            "mv -f " + mContext.getCacheDir().getAbsolutePath() +
-                                    "/SoundsCache/SoundsInjector/ui/Dock.mp3 " +
-                                    "/data/system/theme/audio/ui/Dock.mp3");
-                    setUISounds("desk_dock_sound", "/data/system/theme/audio/ui/Dock.mp3");
-                }
-                if (ogg) {
-                    Root.runCommand(
-                            "mv -f " + mContext.getCacheDir().getAbsolutePath() +
-                                    "/SoundsCache/SoundsInjector/ui/Dock.ogg " +
-                                    "/data/system/theme/audio/ui/Dock.ogg");
-                    setUISounds("desk_dock_sound", "/data/system/theme/audio/ui/Dock.ogg");
-                }
-            } else {
-                setDefaultUISounds("desk_dock_sound", "Dock.ogg");
-            }
-
-            File new_trusted_mp3 = new File(mContext.getCacheDir().getAbsolutePath() +
-                    "/SoundsCache/SoundsInjector/ui/Trusted.mp3");
-            File new_trusted_ogg = new File(mContext.getCacheDir().getAbsolutePath() +
-                    "/SoundsCache/SoundsInjector/ui/Trusted.ogg");
-            if (new_trusted_mp3.exists() || new_trusted_ogg.exists()) {
-                boolean mp3 = new_trusted_mp3.exists();
-                boolean ogg = new_trusted_ogg.exists();
-                if (mp3) {
-                    Root.runCommand(
-                            "mv -f " + mContext.getCacheDir().getAbsolutePath() +
-                                    "/SoundsCache/SoundsInjector/ui/Trusted.mp3 " +
-                                    "/data/system/theme/audio/ui/Trusted.mp3");
-                    setUISounds("trusted_sound", "/data/system/theme/audio/ui/Trusted.mp3");
-                }
-                if (ogg) {
-                    Root.runCommand(
-                            "mv -f " + mContext.getCacheDir().getAbsolutePath() +
-                                    "/SoundsCache/SoundsInjector/ui/Trusted.ogg " +
-                                    "/data/system/theme/audio/ui/Trusted.ogg");
-                    setUISounds("trusted_sound", "/data/system/theme/audio/ui/Trusted.ogg");
-                }
-            } else {
-                setDefaultUISounds("trusted_sound", "Trusted.ogg");
-            }
-
             File new_lowbattery_mp3 = new File(mContext.getCacheDir().getAbsolutePath
                     () +
                     "/SoundsCache/SoundsInjector/ui/LowBattery.mp3");
@@ -411,41 +278,6 @@ public class SoundsHandler {
                 setDefaultUISounds("low_battery_sound", "LowBattery.ogg");
             }
 
-            File new_wireless_charging_started_mp3 = new File(mContext.getCacheDir()
-                    .getAbsolutePath() +
-                    "/SoundsCache/SoundsInjector/ui/WirelessChargingStarted.mp3");
-            File new_wireless_charging_started_ogg = new File(mContext.getCacheDir()
-                    .getAbsolutePath() +
-                    "/SoundsCache/SoundsInjector/ui/WirelessChargingStarted.ogg");
-            if (new_wireless_charging_started_mp3.exists() ||
-                    new_wireless_charging_started_ogg.exists()) {
-                boolean mp3 = new_wireless_charging_started_mp3.exists();
-                boolean ogg = new_wireless_charging_started_ogg.exists();
-                if (mp3) {
-                    Root.runCommand(
-                            "mv -f " + mContext.getCacheDir().getAbsolutePath() +
-                                    "/SoundsCache/SoundsInjector/ui/WirelessChargingStarted.mp3 " +
-
-                                    "/data/system/theme/audio/ui/WirelessChargingStarted" +
-                                    ".mp3");
-                    setUISounds("wireless_charging_started_sound",
-                            "/data/system/theme/audio/ui/WirelessChargingStarted.mp3");
-                }
-                if (ogg) {
-                    Root.runCommand(
-                            "mv -f " + mContext.getCacheDir().getAbsolutePath() +
-                                    "/SoundsCache/SoundsInjector/ui" +
-                                    "/WirelessChargingStarted.ogg " +
-                                    "/data/system/theme/audio/ui/WirelessChargingStarted" +
-                                    ".ogg");
-                    setUISounds("wireless_charging_started_sound",
-                            "/data/system/theme/audio/ui/WirelessChargingStarted.ogg");
-                }
-            } else {
-                setDefaultUISounds("wireless_charging_started_sound",
-                        "WirelessChargingStarted.ogg");
-            }
-
             Root.runCommand("chmod -R 644 /data/system/theme/audio/ui/");
             Root.runCommand("chmod 755 /data/system/theme/audio/ui/");
             Root.runCommand("chmod 755 /data/system/theme/audio/");
@@ -455,10 +287,7 @@ public class SoundsHandler {
     }
 
     private boolean isAllowedUI(String targetValue) {
-        String[] allowed_themable = new String[]{"lock_sound", "unlock_sound",
-                "car_undock_sound",
-                "trusted_sound", "desk_undock_sound", "car_dock_sound", "low_battery_sound",
-                "wireless_charging_started_sound", "desk_dock_sound"};
+        String[] allowed_themable = new String[]{"lock_sound", "unlock_sound", "low_battery_sound"};
         return Arrays.asList(allowed_themable).contains(targetValue);
     }
 

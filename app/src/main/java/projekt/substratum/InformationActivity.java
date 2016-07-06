@@ -282,9 +282,7 @@ public class InformationActivity extends AppCompatActivity {
                                         }
                                     }
                                 } catch (PackageManager.NameNotFoundException nnfe) {
-                                    Log.e("SubstratumLogger", "Could not find explicit package " +
-                                            "for " +
-                                            "this overlay...");
+                                    // NameNotFound
                                 }
                             }
 
@@ -368,9 +366,7 @@ public class InformationActivity extends AppCompatActivity {
                                         }
                                     }
                                 } catch (PackageManager.NameNotFoundException nnfe) {
-                                    Log.e("SubstratumLogger", "Could not find explicit package " +
-                                            "for " +
-                                            "this overlay...");
+                                    // NameNotFound
                                 }
                             }
 
@@ -450,9 +446,7 @@ public class InformationActivity extends AppCompatActivity {
                                         }
                                     }
                                 } catch (PackageManager.NameNotFoundException nnfe) {
-                                    Log.e("SubstratumLogger", "Could not find explicit package " +
-                                            "for " +
-                                            "this overlay...");
+                                    // NameNotFound
                                 }
                             }
 
@@ -541,9 +535,7 @@ public class InformationActivity extends AppCompatActivity {
                                         }
                                     }
                                 } catch (PackageManager.NameNotFoundException nnfe) {
-                                    Log.e("SubstratumLogger", "Could not find explicit package " +
-                                            "for " +
-                                            "this overlay...");
+                                    // NameNotFound
                                 }
                             }
 

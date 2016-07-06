@@ -5,7 +5,7 @@
     <string name="restore_app_name">restore theme</string>
 
     <string name="om_check_failed_toast">Substratum was installed on a NON-OMS based ROM. The app will not function.</string>
-    
+
     <string name="search_play_store_url" translatable="false">"https://play.google.com/store/search?q=Substratum%20Theme&amp;c=apps"</string>
 
     <string name="abort_overlay_toast">Now uninstalling all overlays&#8230;</string>
@@ -177,6 +177,7 @@
     <string name="toast_unapproved">This overlay has been rejected by the system</string>
     <string name="toast_compiled">Selected overlay(s) compiled!</string>
     <string name="toast_compiled_updated">Selected overlay(s) updated!</string>
+    <string name="toast_compiled_updated_with_errors">Selected overlay(s) updated with some errors!</string>
     <string name="toast_enabled">Selected overlay(s) enabled!</string>
     <string name="toast_disabled">Selected overlay(s) disabled!</string>
     <string name="toast_disabled2">Selected overlay(s) disabled!</string>

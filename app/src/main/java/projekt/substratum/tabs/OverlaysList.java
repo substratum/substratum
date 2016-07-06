@@ -71,6 +71,7 @@ public class OverlaysList extends Fragment {
     private NotificationManager mNotifyManager;
     private NotificationCompat.Builder mBuilder;
     private boolean has_initialized_cache = false;
+    private boolean has_failed = false;
     private int id = 1;
     private ViewGroup root;
     private ArrayList<OverlaysInfo> values2;
@@ -449,8 +450,7 @@ public class OverlaysList extends Fragment {
                         theme_pid, 0);
                 versionName = pinfo.versionName;
             } catch (Exception e) {
-                Log.e("OverlaysList", "Window was destroyed before AsyncTask could perform " +
-                        "postExecute()");
+                // Exception
             }
 
             Root.runCommand("cp /data/system/overlays.xml " +
@@ -480,8 +480,7 @@ public class OverlaysList extends Fragment {
                         }
                     }
                 } catch (Exception e) {
-                    Log.e("OverlaysList", "Window was destroyed before AsyncTask could " +
-                            "perform postExecute()");
+                    // Exception
                 }
             }
 
@@ -524,8 +523,7 @@ public class OverlaysList extends Fragment {
                     Log.e("SubstratumLogger", "Could not find explicit package identifier in " +
                             "package manager list.");
                 } catch (Exception e) {
-                    Log.e("OverlaysList", "Window was destroyed before AsyncTask could " +
-                            "perform postExecute()");
+                    // Exception
                 }
             }
 
@@ -747,8 +745,7 @@ public class OverlaysList extends Fragment {
                                 "listing");
                     }
                 } catch (Exception e) {
-                    Log.e("OverlaysList", "Window was destroyed before AsyncTask could " +
-                            "perform postExecute()");
+                    // Exception
                 }
             }
             return null;
@@ -845,7 +842,6 @@ public class OverlaysList extends Fragment {
                 } else {
                     Log.d("SubstratumBuilder", "Work area is ready with decompiled assets " +
                             "already!");
-
                 }
                 if (sUrl[0].length() != 0) {
                     return sUrl[0];
@@ -862,6 +858,8 @@ public class OverlaysList extends Fragment {
         @Override
         protected void onPreExecute() {
             Log.d("Phase 3", "This phase has started it's asynchronous task.");
+
+            has_failed = false;
 
             if (!enable_mode && !disable_mode) {
                 // Change title in preparation for loop to change subtext
@@ -918,21 +916,39 @@ public class OverlaysList extends Fragment {
                         PendingIntent.getActivity(getActivity(), 0, notificationIntent,
                                 PendingIntent.FLAG_CANCEL_CURRENT);
 
-                // Closing off the persistent notification
-                mBuilder.setAutoCancel(true);
-                mBuilder.setProgress(0, 0, false);
-                mBuilder.setOngoing(false);
-                mBuilder.setContentIntent(intent);
-                mBuilder.setSmallIcon(R.drawable.notification_success_icon);
-                mBuilder.setContentTitle(getString(R.string.notification_done_title));
-                mBuilder.setContentText(getString(R.string.notification_no_errors_found));
-                mBuilder.getNotification().flags |= Notification.FLAG_AUTO_CANCEL;
-                mNotifyManager.notify(id, mBuilder.build());
+                if (!has_failed) {
+                    // Closing off the persistent notification
+                    mBuilder.setAutoCancel(true);
+                    mBuilder.setProgress(0, 0, false);
+                    mBuilder.setOngoing(false);
+                    mBuilder.setContentIntent(intent);
+                    mBuilder.setSmallIcon(R.drawable.notification_success_icon);
+                    mBuilder.setContentTitle(getString(R.string.notification_done_title));
+                    mBuilder.setContentText(getString(R.string.notification_no_errors_found));
+                    mBuilder.getNotification().flags |= Notification.FLAG_AUTO_CANCEL;
+                    mNotifyManager.notify(id, mBuilder.build());
 
-                Toast toast = Toast.makeText(getContext(), getString(R
-                                .string.toast_compiled_updated),
-                        Toast.LENGTH_SHORT);
-                toast.show();
+                    Toast toast = Toast.makeText(getContext(), getString(R
+                                    .string.toast_compiled_updated),
+                            Toast.LENGTH_SHORT);
+                    toast.show();
+                } else {
+                    // Closing off the persistent notification
+                    mBuilder.setAutoCancel(true);
+                    mBuilder.setProgress(0, 0, false);
+                    mBuilder.setOngoing(false);
+                    mBuilder.setContentIntent(intent);
+                    mBuilder.setSmallIcon(R.drawable.notification_warning_icon);
+                    mBuilder.setContentTitle(getString(R.string.notification_done_title));
+                    mBuilder.setContentText(getString(R.string.notification_some_errors_found));
+                    mBuilder.getNotification().flags |= Notification.FLAG_AUTO_CANCEL;
+                    mNotifyManager.notify(id, mBuilder.build());
+
+                    Toast toast = Toast.makeText(getContext(), getString(R
+                                    .string.toast_compiled_updated_with_errors),
+                            Toast.LENGTH_SHORT);
+                    toast.show();
+                }
 
                 if (prefs.getBoolean("systemui_recreate", false) && final_commands
                         .contains("systemui")) {
@@ -1084,8 +1100,7 @@ public class OverlaysList extends Fragment {
                                     }
                                 }
                             } catch (PackageManager.NameNotFoundException nnfe) {
-                                Log.e("SubstratumLogger", "Could not find explicit package for " +
-                                        "this overlay...");
+                                  // NameNotFound
                             }
                         }
 
@@ -1155,7 +1170,6 @@ public class OverlaysList extends Fragment {
                                 File checker = new File(targetLocation1c);
                                 if (checker.exists()) {
                                     targetLocation3 = targetLocation1c + "type1c.xml";
-                                    ;
                                 }
 
                                 Log.d("SubstratumBuilder", "You have selected variant file \"" +
@@ -1238,6 +1252,9 @@ public class OverlaysList extends Fragment {
                             if (update_bool.equals("false")) {
                                 final_runner.add(sb.no_install);
                             }
+                            if (sb.has_errored_out) {
+                                has_failed = true;
+                            }
                         } else {
                             String update_bool = "true";
                             if (activated_overlays_from_theme.size() > 0) {
@@ -1261,6 +1278,9 @@ public class OverlaysList extends Fragment {
 
                             if (update_bool.equals("false")) {
                                 final_runner.add(sb.no_install);
+                            }
+                            if (sb.has_errored_out) {
+                                has_failed = true;
                             }
                         }
                     } catch (Exception e) {

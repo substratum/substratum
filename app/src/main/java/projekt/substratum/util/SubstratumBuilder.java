@@ -350,7 +350,6 @@ public class SubstratumBuilder {
                             work_area +
                             "/" + overlay_package + "." + parse2_themeName + "-unsigned.apk " +
                             "-f --include-meta-data --auto-add-overlay\n";
-                    Log.e("Print1", commands);
                 } else {
                     if (variant != null) {
                         commands = "aapt p -M " + work_area +
@@ -366,7 +365,6 @@ public class SubstratumBuilder {
                                 ".apk " +
 
                                 "-f --include-meta-data --auto-add-overlay\n";
-                        Log.e("Print2", commands);
                     } else {
                         commands = "aapt p -M " + work_area +
                                 "/AndroidManifest.xml -S " +
@@ -379,7 +377,6 @@ public class SubstratumBuilder {
                                 "/" + overlay_package + "." + parse2_themeName + "-unsigned" +
                                 ".apk " +
                                 "-f --include-meta-data --auto-add-overlay\n";
-                        Log.e("Print3", commands);
                     }
                 }
 

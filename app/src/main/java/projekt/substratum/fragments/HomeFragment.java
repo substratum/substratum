@@ -24,6 +24,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -116,6 +117,14 @@ public class HomeFragment extends Fragment {
 
         ArrayList<ThemeParser> themeParsers = prepareData();
         adapter = new DataAdapter(getContext(), themeParsers);
+
+        File om = new File("/system/bin/om");
+        if (!om.exists()) {
+            Toast toast = Toast.makeText(getContext(), getString(R.string
+                            .om_check_failed_toast),
+                    Toast.LENGTH_LONG);
+            toast.show();
+        }
 
         // Assign adapter to RecyclerView
         recyclerView.setAdapter(adapter);

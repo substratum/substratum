@@ -48,7 +48,7 @@ public class ManageFragment extends Fragment {
         overlaysCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builderSingle = new AlertDialog.Builder(getContext());
+                final AlertDialog.Builder builderSingle = new AlertDialog.Builder(getContext());
                 builderSingle.setTitle(R.string.manage_system_overlay_dialog_title);
                 builderSingle.setCancelable(false);
 
@@ -73,9 +73,11 @@ public class ManageFragment extends Fragment {
                             public void onClick(DialogInterface dialog, int which) {
                                 switch (which) {
                                     case 0:
+                                        dialog.dismiss();
                                         Root.runCommand("om disable-all");
                                         break;
                                     case 1:
+                                        dialog.dismiss();
                                         new AbortFunction().execute("");
                                         break;
                                 }

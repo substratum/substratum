@@ -50,6 +50,7 @@ public class MainScreenTab extends Fragment {
     private final String theme_name = InformationActivity.getThemeName();
     private final String theme_pid = InformationActivity.getThemePID();
     private final List tab_checker = InformationActivity.getListOfFolders();
+    private int ALLOWED_AMOUNT_OF_OVERLAYS_TO_TRIGGER_QUICK_APPLY = 5;
     private String versionName;
     private SubstratumBuilder sb;
     private CircularFillableLoaders loader;
@@ -66,6 +67,7 @@ public class MainScreenTab extends Fragment {
     private ArrayList<String> type3overlays;
     private ProgressDialog progress;
     private AlertDialog.Builder builderSingle;
+    private String[] overlayList;
 
     private boolean isSystemPackage(PackageInfo pkgInfo) {
         return ((pkgInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0);
@@ -100,15 +102,42 @@ public class MainScreenTab extends Fragment {
         super.onCreate(savedInstanceState);
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.tab_fragment_1, null);
 
+        int overlayCount = 0;
+
+        try {
+            Context otherContext = getContext().createPackageContext(theme_pid, 0);
+            AssetManager am = otherContext.getAssets();
+            overlayList = am.list("overlays");
+            overlayCount = overlayList.length;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        CardView quickApplyNoneView = (CardView) root.findViewById(R.id.quickApplyNoneView);
+        TextView styleTitle = (TextView) root.findViewById(R.id.styleTitle);
         CardView systemOverlaysCard = (CardView) root.findViewById(R.id.systemOverlayCard);
         CardView tpOverlaysCard = (CardView) root.findViewById(R.id.tpOverlayCard);
-
         TextView bootAnimTitle = (TextView) root.findViewById(R.id.bootAnimTitle);
         CardView bootAnimCard = (CardView) root.findViewById(R.id.bootAnimCard);
         TextView fontsTitle = (TextView) root.findViewById(R.id.fontsTitle);
         CardView fontsCard = (CardView) root.findViewById(R.id.fontsCard);
         TextView soundsTitle = (TextView) root.findViewById(R.id.soundsTitle);
         CardView soundsCard = (CardView) root.findViewById(R.id.soundsCard);
+        quickApplyNoneView.setVisibility(View.GONE);
+
+        int sections_invisible = 0;
+
+        if (overlayCount >= ALLOWED_AMOUNT_OF_OVERLAYS_TO_TRIGGER_QUICK_APPLY && overlayList[0]
+                .equals("android")) {
+            styleTitle.setVisibility(View.VISIBLE);
+            systemOverlaysCard.setVisibility(View.VISIBLE);
+            tpOverlaysCard.setVisibility(View.VISIBLE);
+        } else {
+            styleTitle.setVisibility(View.GONE);
+            systemOverlaysCard.setVisibility(View.GONE);
+            tpOverlaysCard.setVisibility(View.GONE);
+            sections_invisible += 1;
+        }
 
         if (tab_checker.contains("bootanimation")) {
             bootAnimTitle.setVisibility(View.VISIBLE);
@@ -116,6 +145,7 @@ public class MainScreenTab extends Fragment {
         } else {
             bootAnimTitle.setVisibility(View.GONE);
             bootAnimCard.setVisibility(View.GONE);
+            sections_invisible += 1;
         }
         if (tab_checker.contains("fonts")) {
             fontsTitle.setVisibility(View.VISIBLE);
@@ -123,6 +153,7 @@ public class MainScreenTab extends Fragment {
         } else {
             fontsTitle.setVisibility(View.GONE);
             fontsCard.setVisibility(View.GONE);
+            sections_invisible += 1;
         }
         if (tab_checker.contains("audio")) {
             soundsTitle.setVisibility(View.VISIBLE);
@@ -130,6 +161,11 @@ public class MainScreenTab extends Fragment {
         } else {
             soundsTitle.setVisibility(View.GONE);
             soundsCard.setVisibility(View.GONE);
+            sections_invisible += 1;
+        }
+
+        if (sections_invisible == 4) {
+            quickApplyNoneView.setVisibility(View.VISIBLE);
         }
 
         // System Overlays Dialog

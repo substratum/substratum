@@ -9,7 +9,12 @@
         android:orientation="vertical"
         android:paddingBottom="@dimen/activity_vertical_margin">
 
+        <include
+            android:id="@+id/quickApplyNoneView"
+            layout="@layout/home_tab_no_views"/>
+
         <TextView
+            android:id="@+id/styleTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"

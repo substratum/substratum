@@ -1102,7 +1102,7 @@ public class OverlaysList extends Fragment {
                                     }
                                 }
                             } catch (PackageManager.NameNotFoundException nnfe) {
-                                  // NameNotFound
+                                // NameNotFound
                             }
                         }
 

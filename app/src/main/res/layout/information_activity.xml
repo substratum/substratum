@@ -16,7 +16,7 @@
         app:layout_anchor="@+id/appbar"
         app:layout_anchorGravity="bottom"
         app:tabGravity="fill"
-        app:tabMode="fixed"
+        app:tabMode="scrollable"
         app:tabSelectedTextColor="@android:color/white"
         app:tabTextColor="@android:color/white"/>
 

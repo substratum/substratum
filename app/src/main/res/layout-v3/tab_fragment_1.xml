@@ -19,9 +19,11 @@
             android:textStyle="bold"/>
 
         <include
+            android:id="@+id/systemOverlayCard"
             layout="@layout/home_tab_overlay_card"/>
 
         <include
+            android:id="@+id/tpOverlayCard"
             layout="@layout/home_tab_tp_overlay_card"/>
 
         <TextView

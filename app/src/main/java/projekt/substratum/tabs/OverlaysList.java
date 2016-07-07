@@ -742,9 +742,7 @@ public class OverlaysList extends Fragment {
                             values2.add(overlaysInfo);
                         }
                     } catch (Exception e) {
-                        e.printStackTrace();
-                        Log.e("SubstratumLogger", "Could not properly buffer AssetManager " +
-                                "listing");
+                        // Exception
                     }
                 } catch (Exception e) {
                     // Exception

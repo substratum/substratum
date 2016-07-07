@@ -952,7 +952,7 @@ public class OverlaysList extends Fragment {
                     toast.show();
                 }
 
-                if (prefs.getBoolean("systemui_recreate", false) && final_commands
+                if (!prefs.getBoolean("systemui_recreate", false) && final_commands
                         .contains("systemui")) {
                     final_commands = final_commands + " && pkill com.android.systemui";
                 }
@@ -984,7 +984,7 @@ public class OverlaysList extends Fragment {
                         toast.show();
                         enable_mode = false;
 
-                        if (prefs.getBoolean("systemui_recreate", false) &&
+                        if (!prefs.getBoolean("systemui_recreate", false) &&
                                 final_commands.contains("systemui")) {
                             final_commands = final_commands + " && pkill com.android.systemui";
                         }
@@ -1017,7 +1017,7 @@ public class OverlaysList extends Fragment {
                         toast.show();
                         disable_mode = false;
 
-                        if (prefs.getBoolean("systemui_recreate", false) &&
+                        if (!prefs.getBoolean("systemui_recreate", false) &&
                                 final_commands.contains("systemui")) {
                             final_commands = final_commands + " && pkill com.android.systemui";
                         }

@@ -715,7 +715,8 @@ public class MainScreenTab extends Fragment {
                     if (appInfo.metaData != null) {
                         if (appInfo.metaData.getString("Substratum_Variant") != null) {
                             if (appInfo.metaData.getString("Substratum_Variant")
-                                    .equals("")) {
+                                    .equals(((base3overlay.length() == 0) ? "" : "." +
+                                            base3overlay))) {
                                 if (appInfo.metaData.getString("Substratum_Parent") != null) {
                                     if (appInfo.metaData.getString("Substratum_Parent")
                                             .equals(parse2_themeName)) {

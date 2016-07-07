@@ -33,7 +33,6 @@ public class AntiPiracyCheck {
         this.mContext = context;
         prefs = PreferenceManager.getDefaultSharedPreferences(
                 mContext);
-        Log.d("SubstratumLogger", "Checking all installed overlays for structural integrity...");
         new AntiPiracyChecker().execute("");
     }
 

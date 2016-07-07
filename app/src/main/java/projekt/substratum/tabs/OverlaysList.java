@@ -405,7 +405,7 @@ public class OverlaysList extends Fragment {
                     new LoadOverlays().execute("");
                 }
             } else {
-                toggle_all_overlays_text.setVisibility(View.GONE);
+                toggle_all_overlays_text.setVisibility(View.VISIBLE);
                 base_spinner.setVisibility(View.INVISIBLE);
                 new LoadOverlays().execute("");
             }

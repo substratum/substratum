@@ -28,7 +28,7 @@
                 android:paddingTop="5dp"
                 android:text="@string/select_to_toggle_all_overlays"
                 android:textColor="?android:attr/textColorPrimary"
-                android:textSize="18sp"/>
+                android:textSize="15sp"/>
 
             <Spinner
                 android:id="@+id/type3_spinner"
@@ -54,7 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center_vertical"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="100dp"
             android:indeterminate="true"/>
 
         <android.support.v4.widget.SwipeRefreshLayout

@@ -344,6 +344,7 @@ public class OverlaysList extends Fragment {
             public void onNothingSelected(AdapterView<?> arg0) {
             }
         });
+        base_spinner.setEnabled(false);
 
         try {
             Context otherContext = getContext().createPackageContext(theme_pid, 0);
@@ -427,7 +428,8 @@ public class OverlaysList extends Fragment {
             if (materialProgressBar != null) materialProgressBar.setVisibility(View.VISIBLE);
             mRecyclerView.setVisibility(View.INVISIBLE);
             swipeRefreshLayout.setVisibility(View.GONE);
-            toggle_all.setClickable(false);
+            toggle_all.setEnabled(false);
+            base_spinner.setEnabled(false);
         }
 
         @Override
@@ -435,7 +437,8 @@ public class OverlaysList extends Fragment {
             MaterialProgressBar materialProgressBar = (MaterialProgressBar) root.findViewById(R.id
                     .progress_bar_loader);
             if (materialProgressBar != null) materialProgressBar.setVisibility(View.GONE);
-            toggle_all.setClickable(true);
+            toggle_all.setEnabled(true);
+            base_spinner.setEnabled(true);
             mAdapter = new OverlaysAdapter(values2);
             mRecyclerView.setAdapter(mAdapter);
             mAdapter.notifyDataSetChanged();

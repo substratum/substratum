@@ -51,10 +51,10 @@ public class ThemeDetector extends Service {
             public void run() {
                 MainFunction mainFunction = new MainFunction();
                 mainFunction.execute("");
-                handler.postDelayed(runnable, 0);
+                handler.postDelayed(runnable, 2500);
             }
         };
-        handler.postDelayed(runnable, 0);
+        handler.postDelayed(runnable, 2500);
     }
 
     private class MainFunction extends AsyncTask<String, Integer, String> {

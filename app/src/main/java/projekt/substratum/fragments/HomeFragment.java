@@ -2,20 +2,15 @@ package projekt.substratum.fragments;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
-import android.preference.PreferenceManager;
-import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -27,18 +22,14 @@ import android.widget.Toast;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.TreeMap;
 
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
 import projekt.substratum.adapters.DataAdapter;
-import projekt.substratum.util.ReadOverlaysFile;
-import projekt.substratum.util.Root;
 import projekt.substratum.util.ThemeParser;
 
 /**
@@ -56,8 +47,6 @@ public class HomeFragment extends Fragment {
     private List<ApplicationInfo> list;
     private DataAdapter adapter;
     private View cardView;
-    private SharedPreferences prefs;
-    private List<String> unauthorized_packages;
     private List<String> installed_themes;
     private ViewGroup root;
 
@@ -83,11 +72,8 @@ public class HomeFragment extends Fragment {
         root = (ViewGroup) inflater.inflate(R.layout.home_fragment, null);
 
         mContext = getActivity();
-        prefs = PreferenceManager.getDefaultSharedPreferences(
-                getContext());
 
         installed_themes = new ArrayList<>();
-        unauthorized_packages = new ArrayList<>();
         substratum_packages = new HashMap<>();
         recyclerView = (RecyclerView) root.findViewById(R.id.theme_list);
         cardView = root.findViewById(R.id.no_entry_card_view);
@@ -193,12 +179,6 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
-    private String getDeviceIMEI() {
-        TelephonyManager telephonyManager = (TelephonyManager) mContext.getSystemService(Context
-                .TELEPHONY_SERVICE);
-        return telephonyManager.getDeviceId();
-    }
-
     private boolean isPackageInstalled(Context context, String package_name) {
         PackageManager pm = context.getPackageManager();
         try {
@@ -207,31 +187,6 @@ public class HomeFragment extends Fragment {
         } catch (PackageManager.NameNotFoundException e) {
             return false;
         }
-    }
-
-    private boolean findOverlayParent(Context context, String theme_parent) {
-        try {
-            PackageManager packageManager = mContext.getPackageManager();
-            List<ApplicationInfo> pm = packageManager.getInstalledApplications(PackageManager
-                    .GET_META_DATA);
-            for (int i = 0; i < pm.size(); i++) {
-                ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
-                        pm.get(i).packageName, PackageManager.GET_META_DATA);
-                if (appInfo.metaData != null) {
-                    if (appInfo.metaData.getString("Substratum_Theme") != null) {
-                        String parse1_themeName = appInfo.metaData.getString("Substratum_Theme")
-                                .replaceAll("\\s+", "");
-                        String parse2_themeName = parse1_themeName.replaceAll
-                                ("[^a-zA-Z0-9]+", "");
-                        if (parse2_themeName.equals(theme_parent)) {
-                            return true;
-                        }
-                    }
-                }
-            }
-        } catch (PackageManager.NameNotFoundException nnfe) {
-        }
-        return false;
     }
 
     private void getSubstratumPackages(Context context, String package_name) {
@@ -249,52 +204,6 @@ public class HomeFragment extends Fragment {
                                 ("Substratum_Theme"), data);
                         installed_themes.add(package_name);
                         Log.d("Substratum Ready Theme", package_name);
-                    }
-                }
-            }
-        } catch (PackageManager.NameNotFoundException e) {
-            Log.e("SubstratumLogger", "Unable to find package identifier (INDEX OUT OF BOUNDS)");
-        }
-    }
-
-    private void checkOverlayIntegrity(Context context, String package_name) {
-        // Check whether all overlay packages installed matches the current device's information
-        try {
-            ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
-                    package_name, PackageManager.GET_META_DATA);
-            if (appInfo.metaData != null) {
-                if (appInfo.metaData.getString("Substratum_ID") != null) {
-                    if (appInfo.metaData.getString("Substratum_ID").equals(Settings.
-                            Secure.getString(context.getContentResolver(),
-                            Settings.Secure.ANDROID_ID))) {
-                        if (appInfo.metaData.getString("Substratum_IMEI") != null) {
-                            if (appInfo.metaData.getString("Substratum_IMEI").equals("!" +
-                                    getDeviceIMEI())) {
-                                if (appInfo.metaData.getString("Substratum_Parent") != null) {
-                                    if (!findOverlayParent(context, appInfo.metaData.getString
-                                            ("Substratum_Parent"))) {
-                                        Log.d("OverlayVerification", package_name + " " +
-                                                "unauthorized to" +
-                                                " be" +
-                                                " used on this device.");
-                                        unauthorized_packages.add(package_name);
-                                    } else {
-                                        Log.d("OverlayVerification", package_name + " verified to" +
-                                                " be " +
-                                                "used" +
-                                                " on this device.");
-                                    }
-                                }
-                            } else {
-                                Log.d("OverlayVerification", package_name + " unauthorized to be" +
-                                        " used on this device.");
-                                unauthorized_packages.add(package_name);
-                            }
-                        }
-                    } else {
-                        Log.d("OverlayVerification", package_name + " unauthorized to be" +
-                                " used on this device.");
-                        unauthorized_packages.add(package_name);
                     }
                 }
             }
@@ -330,9 +239,6 @@ public class HomeFragment extends Fragment {
             getSubstratumPackages(mContext, packageInfo.packageName);
         }
 
-        doCleanUp cleanUp = new doCleanUp();
-        cleanUp.execute("");
-
         if (substratum_packages.size() == 0) {
             cardView.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.GONE);
@@ -362,8 +268,6 @@ public class HomeFragment extends Fragment {
                 cardView.setVisibility(View.GONE);
                 recyclerView.setVisibility(View.VISIBLE);
             }
-            AntiPiracyCheck antiPiracyCheck = new AntiPiracyCheck();
-            antiPiracyCheck.execute("");
             super.onPostExecute(result);
         }
 
@@ -371,98 +275,6 @@ public class HomeFragment extends Fragment {
         protected String doInBackground(String... sUrl) {
             for (ApplicationInfo packageInfo : list) {
                 getSubstratumPackages(mContext, packageInfo.packageName);
-            }
-            return null;
-        }
-    }
-
-    private class AntiPiracyCheck extends AsyncTask<String, Integer, String> {
-
-        @Override
-        protected void onPostExecute(String result) {
-            if (unauthorized_packages.size() > 0) {
-                PurgeUnauthorizedOverlays purgeUnauthorizedOverlays = new
-                        PurgeUnauthorizedOverlays();
-                purgeUnauthorizedOverlays.execute("");
-            }
-            doCleanUp cleanUp = new doCleanUp();
-            cleanUp.execute("");
-        }
-
-        @Override
-        protected String doInBackground(String... sUrl) {
-            try {
-                for (ApplicationInfo packageInfo : list) {
-                    checkOverlayIntegrity(mContext, packageInfo.packageName);
-                }
-            } catch (Exception e) {
-                Log.e("SubstratumLogger", "An attempt to run a concurrent job has been triggered " +
-                        "and will be ignored.");
-            }
-            Set<String> installed = new HashSet<>();
-            installed.addAll(installed_themes);
-            SharedPreferences.Editor edit = prefs.edit();
-            edit.putStringSet("installed_themes", installed);
-            edit.apply();
-            return null;
-        }
-    }
-
-    private class doCleanUp extends AsyncTask<String, Integer, String> {
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-        }
-
-        @Override
-        protected String doInBackground(String... sUrl) {
-            Root.runCommand("cp /data/system/overlays.xml " +
-                    Environment.getExternalStorageDirectory().getAbsolutePath() +
-                    "/.substratum/current_overlays.xml");
-
-            String[] commands = {Environment.getExternalStorageDirectory()
-                    .getAbsolutePath() +
-                    "/.substratum/current_overlays.xml", "1"};
-            List<String> state1 = ReadOverlaysFile.main(commands);  // Overlays with non-existent
-            // targets
-            for (int i = 0; i < state1.size(); i++) {
-                Log.e("OverlayCleaner", "Target APK not found for \"" + state1.get(i) + "\" and " +
-                        "will " +
-                        "be removed.");
-                Root.runCommand("pm uninstall " + state1.get(i));
-            }
-            return null;
-        }
-    }
-
-    private class PurgeUnauthorizedOverlays extends AsyncTask<String, Integer, String> {
-
-        @Override
-        protected void onPreExecute() {
-            Log.d("SubstratumAntiPiracy", "The device has found unauthorized overlays created by " +
-                    "another device.");
-            Toast toast = Toast.makeText(mContext.getApplicationContext(),
-                    getString(R.string
-                            .antipiracy_toast),
-                    Toast.LENGTH_LONG);
-            toast.show();
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-            Toast toast = Toast.makeText(mContext.getApplicationContext(),
-                    getString(R.string
-                            .antipiracy_toast_complete),
-                    Toast.LENGTH_LONG);
-            toast.show();
-        }
-
-        @Override
-        protected String doInBackground(String... sUrl) {
-            for (int i = 0; i < unauthorized_packages.size(); i++) {
-                Root.runCommand("pm uninstall " + unauthorized_packages.get(i));
             }
             return null;
         }

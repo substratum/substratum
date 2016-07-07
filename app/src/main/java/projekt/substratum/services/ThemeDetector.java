@@ -26,6 +26,7 @@ import java.util.TreeSet;
 
 import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
+import projekt.substratum.util.AntiPiracyCheck;
 
 /**
  * @author Nicholas Chum (nicholaschum)
@@ -33,11 +34,15 @@ import projekt.substratum.R;
 
 public class ThemeDetector extends Service {
 
-    public static Runnable runnable = null;
-    public Context context = this;
-    public Handler handler = null;
+    private static Runnable runnable = null;
+    private static Runnable runnable2 = null;
+    private Context context = this;
+    private Handler handler = null;
+    private Handler handler2 = null;
     private String new_theme_name;
     private Boolean new_theme = false;
+    private int CONFIG_TIME_PIRACY_CHECKER = 60000; // 1 sec == 1000ms
+    private int CONFIG_TIME_THEME_CHECKER = 2500; // 1 sec == 1000ms
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -51,10 +56,18 @@ public class ThemeDetector extends Service {
             public void run() {
                 MainFunction mainFunction = new MainFunction();
                 mainFunction.execute("");
-                handler.postDelayed(runnable, 2500);
+                handler.postDelayed(runnable, CONFIG_TIME_THEME_CHECKER);
             }
         };
-        handler.postDelayed(runnable, 2500);
+        handler.postDelayed(runnable, CONFIG_TIME_THEME_CHECKER);
+        handler2 = new Handler();
+        runnable2 = new Runnable() {
+            public void run() {
+                new AntiPiracyCheck().AntiPiracyCheck(context);
+                handler2.postDelayed(runnable2, CONFIG_TIME_PIRACY_CHECKER);
+            }
+        };
+        handler2.postDelayed(runnable2, CONFIG_TIME_PIRACY_CHECKER);
     }
 
     private class MainFunction extends AsyncTask<String, Integer, String> {

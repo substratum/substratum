@@ -331,8 +331,10 @@ public class OverlaysList extends Fragment {
             public void onItemSelected(AdapterView<?> arg0, View arg1,
                                        int pos, long id) {
                 if (pos == 0) {
+                    toggle_all.setChecked(false);
                     new LoadOverlays().execute("");
                 } else {
+                    toggle_all.setChecked(false);
                     String[] commands = {arg0.getSelectedItem().toString()};
                     new LoadOverlays().execute(commands);
                 }

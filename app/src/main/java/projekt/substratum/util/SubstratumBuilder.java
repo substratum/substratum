@@ -98,7 +98,6 @@ public class SubstratumBuilder {
         // 2. Create a modified Android Manifest for use with aapt
 
         File root = new File(work_area + "/AndroidManifest.xml");
-        Log.e("Filer", root.getAbsolutePath());
 
         // 2a. Parse the theme's name before adding it into the new manifest to prevent any issues
 

@@ -28,6 +28,8 @@ import android.widget.Toast;
 
 import com.mikhaellopez.circularfillableloaders.CircularFillableLoaders;
 
+import org.apache.commons.io.FileUtils;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -718,6 +720,18 @@ public class MainScreenTab extends Fragment {
 
                     if (isPackageInstalled(package_name)) {
                         if (!isPackageUpToDate(package_name)) {
+                            String workingDirectory = getContext().getCacheDir().toString() +
+                                    "/SubstratumBuilder/" + getThemeName(theme_pid)
+                                    .replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "") +
+                                    "/assets/overlays/" + current_overlay;
+
+                            File srcDir = new File(workingDirectory + "/res");
+                            File destDir = new File(workingDirectory + "/workdir");
+                            if (destDir.exists()) {
+                                Root.runCommand("rm -r " + destDir.getAbsolutePath());
+                            }
+                            FileUtils.copyDirectory(srcDir, destDir);
+
                             sb.beginAction(getContext(), theme_pid, filteredDirectory.get(i),
                                     theme_name,
                                     "false", "", null,
@@ -729,6 +743,18 @@ public class MainScreenTab extends Fragment {
                         }
                         to_be_enabled.add(package_name);
                     } else {
+                        String workingDirectory = getContext().getCacheDir().toString() +
+                                "/SubstratumBuilder/" + getThemeName(theme_pid)
+                                .replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "") +
+                                "/assets/overlays/" + current_overlay;
+
+                        File srcDir = new File(workingDirectory + "/res");
+                        File destDir = new File(workingDirectory + "/workdir");
+                        if (destDir.exists()) {
+                            Root.runCommand("rm -r " + destDir.getAbsolutePath());
+                        }
+                        FileUtils.copyDirectory(srcDir, destDir);
+
                         sb.beginAction(getContext(), theme_pid, filteredDirectory.get(i),
                                 theme_name,
                                 "true", "", null,

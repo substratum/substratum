@@ -122,7 +122,7 @@ public class SoundPackager extends Fragment {
                 archivedSounds.add(fileArray[i].getName());
             }
             ArrayList<String> unarchivedSounds = new ArrayList<>();
-            unarchivedSounds.add(getString(R.string.bootanimation_default_spinner));
+            unarchivedSounds.add(getString(R.string.sounds_default_spinner));
             for (int i = 0; i < archivedSounds.size(); i++) {
                 unarchivedSounds.add(archivedSounds.get(i).substring(0,
                         archivedSounds.get(i).length() - 4));

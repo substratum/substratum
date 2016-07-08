@@ -105,7 +105,7 @@ public class FontInstaller extends Fragment {
                 unparsedFonts.add(fileArray[i].getName());
             }
             ArrayList<String> fonts = new ArrayList<>();
-            fonts.add(getString(R.string.bootanimation_default_spinner));
+            fonts.add(getString(R.string.font_default_spinner));
             for (int i = 0; i < unparsedFonts.size(); i++) {
                 fonts.add(unparsedFonts.get(i).substring(0,
                         unparsedFonts.get(i).length() - 4));

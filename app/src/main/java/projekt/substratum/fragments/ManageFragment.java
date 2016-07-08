@@ -49,9 +49,6 @@ public class ManageFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 final AlertDialog.Builder builderSingle = new AlertDialog.Builder(getContext());
-                builderSingle.setTitle(R.string.manage_system_overlay_dialog_title);
-                builderSingle.setCancelable(false);
-
                 final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getContext(),
                         R.layout.dialog_listview);
 

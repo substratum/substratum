@@ -25,7 +25,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.ThreadLocalRandom;
 
-import projekt.substratum.InformationActivity;
+import projekt.substratum.MainActivity;
 import projekt.substratum.R;
 import projekt.substratum.util.AntiPiracyCheck;
 
@@ -87,10 +87,7 @@ public class ThemeDetector extends Service {
 
                 // Everything below will only run as long as the PackageManager changes
                 if (new_theme && !new_setup) {
-                    Intent notificationIntent = new Intent(ThemeDetector.this, InformationActivity
-                            .class);
-                    notificationIntent.putExtra("theme_name", packageTitle);
-                    notificationIntent.putExtra("theme_pid", new_theme_name);
+                    Intent notificationIntent = new Intent(ThemeDetector.this, MainActivity.class);
                     notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
                             Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     PendingIntent intent =

@@ -142,6 +142,8 @@ public class HomeFragment extends Fragment {
                     // RecyclerView Clicked item value
                     SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences
                             (mContext);
+                    if (!prefs.contains("is_updating")) prefs.edit()
+                            .putBoolean("is_updating", false).apply();
                     if (!prefs.getBoolean("is_updating", true)) {
                         int position = rv.getChildAdapterPosition(child);
 

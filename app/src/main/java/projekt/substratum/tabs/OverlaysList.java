@@ -359,7 +359,7 @@ public class OverlaysList extends Fragment {
                 stringArray.add(fileArray[i].getName());
             }
 
-            if (Arrays.asList(stringArray).contains("type3")) {
+            if (stringArray.contains("type3")) {
                 BufferedReader reader = null;
                 try {
                     reader = new BufferedReader(
@@ -609,12 +609,12 @@ public class OverlaysList extends Fragment {
                             typeArray.add(fileArray[i].getName());
                         }
 
-                        if (Arrays.asList(typeArray).contains("type1a")) {
+                        if (typeArray.contains("type1a")) {
                             BufferedReader reader = null;
                             try {
                                 reader = new BufferedReader(
                                         new InputStreamReader(new FileInputStream(
-                                                new File(overlaysDirectory.getAbsolutePath() +
+                                                new File(typeArrayRaw.getAbsolutePath() +
                                                         "/type1a"))));
                                 String formatter = String.format(getString(R.string
                                         .overlays_variant_substitute), reader.readLine());
@@ -638,12 +638,12 @@ public class OverlaysList extends Fragment {
                             type1a.add(getString(R.string.overlays_variant_default_1a));
                         }
 
-                        if (Arrays.asList(typeArray).contains("type1b")) {
+                        if (typeArray.contains("type1b")) {
                             BufferedReader reader = null;
                             try {
                                 reader = new BufferedReader(
                                         new InputStreamReader(new FileInputStream(
-                                                new File(overlaysDirectory.getAbsolutePath() +
+                                                new File(typeArrayRaw.getAbsolutePath() +
                                                         "/type1b"))));
                                 String formatter = String.format(getString(R.string
                                         .overlays_variant_substitute), reader.readLine());
@@ -667,12 +667,12 @@ public class OverlaysList extends Fragment {
                             type1b.add(getString(R.string.overlays_variant_default_1b));
                         }
 
-                        if (Arrays.asList(typeArray).contains("type1c")) {
+                        if (typeArray.contains("type1c")) {
                             BufferedReader reader = null;
                             try {
                                 reader = new BufferedReader(
                                         new InputStreamReader(new FileInputStream(
-                                                new File(overlaysDirectory.getAbsolutePath() +
+                                                new File(typeArrayRaw.getAbsolutePath() +
                                                         "/type1c"))));
                                 String formatter = String.format(getString(R.string
                                         .overlays_variant_substitute), reader.readLine());
@@ -696,12 +696,12 @@ public class OverlaysList extends Fragment {
                             type1c.add(getString(R.string.overlays_variant_default_1c));
                         }
 
-                        if (Arrays.asList(typeArray).contains("type2")) {
+                        if (typeArray.contains("type2")) {
                             BufferedReader reader = null;
                             try {
                                 reader = new BufferedReader(
                                         new InputStreamReader(new FileInputStream(
-                                                new File(overlaysDirectory.getAbsolutePath() +
+                                                new File(typeArrayRaw.getAbsolutePath() +
                                                         "/type2"))));
                                 String formatter = String.format(getString(R.string
                                         .overlays_variant_substitute), reader.readLine());

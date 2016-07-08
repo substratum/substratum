@@ -195,7 +195,7 @@ public class InformationActivity extends AppCompatActivity {
             collapsingToolbarLayout.setContentScrimColor(dominantColor);
         }
 
-        if (getResources().getBoolean(R.bool.dynamicActionBarColors)) {
+        if (getResources().getBoolean(R.bool.dynamicNavigationBarColors)) {
             if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 getWindow().setNavigationBarColor(dominantColor);
             }

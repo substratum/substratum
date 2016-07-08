@@ -244,6 +244,11 @@ public class BootAnimation extends Fragment {
 
                 // Begin creating the animated drawable
                 try {
+                    int inSampleSize = previewDeterminator(getContext().getCacheDir()
+                            .getAbsolutePath() +
+                            "/BootAnimationCache/" + source);
+                    Log.d("BootAnimationHandler", "Resampling bootanimation for preview at scale " +
+                            "" + inSampleSize);
                     int counter = 0;
                     boolean has_stopped = false;
                     while (!has_stopped) {
@@ -255,8 +260,11 @@ public class BootAnimation extends Fragment {
                                 "animation_preview/part" + counter + "/";
                         if (current_directory.exists()) {
                             String[] dirObjects = current_directory.list();
-                            for (int j = 0; j < dirObjects.length && images.size() <= 200; j++) {
-                                Bitmap bitmap = BitmapFactory.decodeFile(directory + dirObjects[j]);
+                            for (int j = 0; j < dirObjects.length; j++) {
+                                BitmapFactory.Options options = new BitmapFactory.Options();
+                                options.inSampleSize = inSampleSize;
+                                Bitmap bitmap = BitmapFactory.decodeFile(directory +
+                                        dirObjects[j], options);
                                 images.add(bitmap);
                             }
                         } else {
@@ -284,6 +292,25 @@ public class BootAnimation extends Fragment {
                         "host");
             }
             return null;
+        }
+
+        private int previewDeterminator(String file_location) {
+            File checkFile = new File(file_location);
+            int file_size = Integer.parseInt(String.valueOf(checkFile.length() / 1024 / 1024));
+            Log.d("BootAnimationHandler", "Managing bootanimation with size: " + file_size + "MB");
+
+            if (file_size <= 5) {
+                return 1;
+            } else {
+                if (file_size > 5) {
+                    if (file_size >= 10) {
+                        return 5;
+                    } else {
+                        return 4;
+                    }
+                }
+            }
+            return 1;
         }
 
         private void unzip(String source, String destination) {

@@ -1,7 +1,7 @@
 package projekt.substratum.tabs;
 
-import android.content.Context;
-import android.content.res.AssetManager;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
@@ -96,15 +96,21 @@ public class FontInstaller extends Fragment {
         );
 
         try {
-            Context otherContext = getContext().createPackageContext(theme_pid, 0);
-            AssetManager am = otherContext.getAssets();
-            String[] fontsToParse = am.list("fonts");
-            ArrayList<String> fonts = new ArrayList<>();
-            fonts.add(getString(R.string.font_default_spinner));
-            for (int i = 0; i < fontsToParse.length; i++) {
-                fonts.add(fontsToParse[i].substring(0,
-                        fontsToParse[i].length() - 4));
+            File f = new File(getContext().getCacheDir().getAbsoluteFile() + "/SubstratumBuilder/" +
+                    getThemeName(theme_pid).replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "")
+                    + "/assets/fonts");
+            File[] fileArray = f.listFiles();
+            ArrayList<String> unparsedFonts = new ArrayList<>();
+            for (int i = 0; i < fileArray.length; i++) {
+                unparsedFonts.add(fileArray[i].getName());
             }
+            ArrayList<String> fonts = new ArrayList<>();
+            fonts.add(getString(R.string.bootanimation_default_spinner));
+            for (int i = 0; i < unparsedFonts.size(); i++) {
+                fonts.add(unparsedFonts.get(i).substring(0,
+                        unparsedFonts.get(i).length() - 4));
+            }
+
             ArrayAdapter<String> adapter1 = new ArrayAdapter<>(getActivity(),
                     android.R.layout.simple_spinner_dropdown_item, fonts);
             fontSelector = (Spinner) root.findViewById(R.id.fontSelection);
@@ -138,6 +144,24 @@ public class FontInstaller extends Fragment {
         }
 
         return root;
+    }
+
+    private String getThemeName(String package_name) {
+        // Simulate the Layers Plugin feature by filtering all installed apps and their metadata
+        try {
+            ApplicationInfo appInfo = getContext().getPackageManager().getApplicationInfo(
+                    package_name, PackageManager.GET_META_DATA);
+            if (appInfo.metaData != null) {
+                if (appInfo.metaData.getString("Substratum_Theme") != null) {
+                    if (appInfo.metaData.getString("Substratum_Author") != null) {
+                        return appInfo.metaData.getString("Substratum_Theme");
+                    }
+                }
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            Log.e("SubstratumLogger", "Unable to find package identifier (INDEX OUT OF BOUNDS)");
+        }
+        return null;
     }
 
     private class FontPreview extends AsyncTask<String, Integer, String> {
@@ -237,9 +261,11 @@ public class FontInstaller extends Fragment {
                 String source = sUrl[0] + ".zip";
 
                 try {
-                    Context otherContext = getContext().createPackageContext(theme_pid, 0);
-                    AssetManager am = otherContext.getAssets();
-                    InputStream inputStream = am.open("fonts/" + source);
+                    File f = new File(getContext().getCacheDir().getAbsoluteFile() +
+                            "/SubstratumBuilder/" +
+                            getThemeName(theme_pid).replaceAll("\\s+", "").replaceAll
+                                    ("[^a-zA-Z0-9]+", "") + "/assets/fonts/" + source);
+                    InputStream inputStream = new FileInputStream(f);
                     OutputStream outputStream = new FileOutputStream(getContext().getCacheDir()
                             .getAbsolutePath() + "/FontCache/" + source);
                     CopyStream(inputStream, outputStream);

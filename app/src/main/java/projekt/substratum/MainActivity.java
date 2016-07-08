@@ -254,14 +254,6 @@ public class MainActivity extends AppCompatActivity implements
             if (!cacheDirectory.exists()) {
                 cacheDirectory.mkdirs();
             }
-            File[] fileList = new File(getCacheDir().getAbsolutePath() +
-                    "/SubstratumBuilder/").listFiles();
-            for (int i = 0; i < fileList.length; i++) {
-                Root.runCommand(
-                        "rm -r " + getCacheDir().getAbsolutePath() +
-                                "/SubstratumBuilder/" + fileList[i].getName());
-            }
-            Log.d("SubstratumBuilder", "The cache has been flushed!");
             if (permissionCheck2 == PackageManager.PERMISSION_GRANTED) {
                 // permission already granted, allow the program to continue running
                 // Set the first option to start at app boot

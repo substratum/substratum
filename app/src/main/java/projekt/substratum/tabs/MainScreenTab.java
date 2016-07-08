@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.res.AssetManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -29,12 +28,14 @@ import android.widget.Toast;
 
 import com.mikhaellopez.circularfillableloaders.CircularFillableLoaders;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
 import projekt.substratum.util.BootAnimationHandler;
+import projekt.substratum.util.CacheCreator;
 import projekt.substratum.util.FontHandler;
 import projekt.substratum.util.ReadOverlaysFile;
 import projekt.substratum.util.Root;
@@ -67,7 +68,7 @@ public class MainScreenTab extends Fragment {
     private ArrayList<String> type3overlays;
     private ProgressDialog progress;
     private AlertDialog.Builder builderSingle;
-    private String[] overlayList;
+    private ArrayList<String> overlayList;
 
     private boolean isSystemPackage(PackageInfo pkgInfo) {
         return ((pkgInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0);
@@ -96,6 +97,24 @@ public class MainScreenTab extends Fragment {
         return false;
     }
 
+    private String getThemeName(String package_name) {
+        // Simulate the Layers Plugin feature by filtering all installed apps and their metadata
+        try {
+            ApplicationInfo appInfo = getContext().getPackageManager().getApplicationInfo(
+                    package_name, PackageManager.GET_META_DATA);
+            if (appInfo.metaData != null) {
+                if (appInfo.metaData.getString("Substratum_Theme") != null) {
+                    if (appInfo.metaData.getString("Substratum_Author") != null) {
+                        return appInfo.metaData.getString("Substratum_Theme");
+                    }
+                }
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            Log.e("SubstratumLogger", "Unable to find package identifier (INDEX OUT OF BOUNDS)");
+        }
+        return null;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
@@ -105,10 +124,15 @@ public class MainScreenTab extends Fragment {
         int overlayCount = 0;
 
         try {
-            Context otherContext = getContext().createPackageContext(theme_pid, 0);
-            AssetManager am = otherContext.getAssets();
-            overlayList = am.list("overlays");
-            overlayCount = overlayList.length;
+            File f = new File(getContext().getCacheDir().getAbsoluteFile() + "/SubstratumBuilder/" +
+                    getThemeName(theme_pid).replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "")
+                    + "/assets/overlays");
+            File[] fileArray = f.listFiles();
+            overlayList = new ArrayList<>();
+            for (int i = 0; i < fileArray.length; i++) {
+                overlayList.add(fileArray[i].getName());
+            }
+            overlayCount = overlayList.size();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -127,7 +151,7 @@ public class MainScreenTab extends Fragment {
 
         int sections_invisible = 0;
 
-        if (overlayCount >= ALLOWED_AMOUNT_OF_OVERLAYS_TO_TRIGGER_QUICK_APPLY && overlayList[0]
+        if (overlayCount >= ALLOWED_AMOUNT_OF_OVERLAYS_TO_TRIGGER_QUICK_APPLY && overlayList.get(0)
                 .equals("android")) {
             styleTitle.setVisibility(View.VISIBLE);
             systemOverlaysCard.setVisibility(View.VISIBLE);
@@ -209,12 +233,14 @@ public class MainScreenTab extends Fragment {
                 ArrayList<String> parsedBootAnimations = new ArrayList<>();
 
                 try {
-                    Context otherContext = getContext().createPackageContext(theme_pid, 0);
-                    AssetManager am = otherContext.getAssets();
-                    String[] unparsedBootAnimations = am.list("bootanimation");
-                    for (int i = 0; i < unparsedBootAnimations.length; i++) {
-                        parsedBootAnimations.add(unparsedBootAnimations[i].substring(0,
-                                unparsedBootAnimations[i].length() - 4));
+                    File f = new File(getContext().getCacheDir().getAbsoluteFile() +
+                            "/SubstratumBuilder/" +
+                            getThemeName(theme_pid).replaceAll("\\s+", "").replaceAll
+                                    ("[^a-zA-Z0-9]+", "")
+                            + "/assets/bootanimation");
+                    File[] fileArray = f.listFiles();
+                    for (int i = 0; i < fileArray.length; i++) {
+                        parsedBootAnimations.add(fileArray[i].getName());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -259,12 +285,14 @@ public class MainScreenTab extends Fragment {
                 ArrayList<String> unarchivedFonts = new ArrayList<>();
 
                 try {
-                    Context otherContext = getContext().createPackageContext(theme_pid, 0);
-                    AssetManager am = otherContext.getAssets();
-                    String[] archivedFonts = am.list("fonts");
-                    for (int i = 0; i < archivedFonts.length; i++) {
-                        unarchivedFonts.add(archivedFonts[i].substring(0,
-                                archivedFonts[i].length() - 4));
+                    File f = new File(getContext().getCacheDir().getAbsoluteFile() +
+                            "/SubstratumBuilder/" +
+                            getThemeName(theme_pid).replaceAll("\\s+", "").replaceAll
+                                    ("[^a-zA-Z0-9]+", "")
+                            + "/assets/fonts");
+                    File[] fileArray = f.listFiles();
+                    for (int i = 0; i < fileArray.length; i++) {
+                        unarchivedFonts.add(fileArray[i].getName());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -308,12 +336,14 @@ public class MainScreenTab extends Fragment {
                 ArrayList<String> unarchivedSounds = new ArrayList<>();
 
                 try {
-                    Context otherContext = getContext().createPackageContext(theme_pid, 0);
-                    AssetManager am = otherContext.getAssets();
-                    String[] archivedSounds = am.list("audio");
-                    for (int i = 0; i < archivedSounds.length; i++) {
-                        unarchivedSounds.add(archivedSounds[i].substring(0,
-                                archivedSounds[i].length() - 4));
+                    File f = new File(getContext().getCacheDir().getAbsoluteFile() +
+                            "/SubstratumBuilder/" +
+                            getThemeName(theme_pid).replaceAll("\\s+", "").replaceAll
+                                    ("[^a-zA-Z0-9]+", "")
+                            + "/assets/audio");
+                    File[] fileArray = f.listFiles();
+                    for (int i = 0; i < fileArray.length; i++) {
+                        unarchivedSounds.add(fileArray[i].getName());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -416,12 +446,22 @@ public class MainScreenTab extends Fragment {
             }
 
             try {
-                Context otherContext = getContext().createPackageContext(theme_pid, 0);
-                AssetManager am = otherContext.getAssets();
-                String[] unfilteredDirectory = am.list("overlays");
-                String[] type3Directory = am.list("overlays/android");
+                File f = new File(getContext().getCacheDir().getAbsoluteFile() +
+                        "/SubstratumBuilder/" +
+                        getThemeName(theme_pid).replaceAll("\\s+", "").replaceAll
+                                ("[^a-zA-Z0-9]+", "")
+                        + "/assets/overlays/");
+                File f2 = new File(getContext().getCacheDir().getAbsoluteFile() +
+                        "/SubstratumBuilder/" +
+                        getThemeName(theme_pid).replaceAll("\\s+", "").replaceAll
+                                ("[^a-zA-Z0-9]+", "")
+                        + "/assets/overlays/android");
+                File[] unfilteredDirectory = f.listFiles();
+                File[] type3Directory = f2.listFiles();
+
+                Log.d("SubstratumLogger", "Loading resources from " + theme_name);
                 for (int i = 0; i < unfilteredDirectory.length; i++) {
-                    String current = unfilteredDirectory[i];
+                    String current = unfilteredDirectory[i].getName();
                     if (!tp_enabled) {
                         if (systemPackages.contains(current)) {
                             if (isPackageInstalled(current)) {
@@ -439,7 +479,7 @@ public class MainScreenTab extends Fragment {
                     }
                 }
                 for (int j = 0; j < type3Directory.length; j++) {
-                    String current = type3Directory[j];
+                    String current = type3Directory[j].getName();
                     if (!current.equals("res")) {
                         if (current.length() > 5) {
                             if (current.substring(0, 6).equals("type3_")) {
@@ -528,8 +568,17 @@ public class MainScreenTab extends Fragment {
             // Initialize Substratum cache with theme
             if (!has_initialized_cache) {
                 sb = new SubstratumBuilder();
-                sb.initializeCache(getContext(), theme_pid);
-                has_initialized_cache = true;
+
+                File versioning = new File(getContext().getCacheDir().getAbsoluteFile() +
+                        "/SubstratumBuilder/" +
+                        getThemeName(theme_pid).replaceAll("\\s+", "")
+                                .replaceAll("[^a-zA-Z0-9]+", "") + "/substratum.xml");
+                if (versioning.exists()) {
+                    has_initialized_cache = true;
+                } else {
+                    new CacheCreator().initializeCache(getContext(), theme_pid);
+                    has_initialized_cache = true;
+                }
             } else {
                 Log.d("SubstratumBuilder", "Work area is ready with decompiled assets " +
                         "already!");
@@ -669,7 +718,8 @@ public class MainScreenTab extends Fragment {
 
                     if (isPackageInstalled(package_name)) {
                         if (!isPackageUpToDate(package_name)) {
-                            sb.beginAction(getContext(), filteredDirectory.get(i), theme_name,
+                            sb.beginAction(getContext(), theme_pid, filteredDirectory.get(i),
+                                    theme_name,
                                     "false", "", null,
                                     ((base3overlay.length() == 0) ? null : base3overlay),
                                     versionName);
@@ -679,7 +729,8 @@ public class MainScreenTab extends Fragment {
                         }
                         to_be_enabled.add(package_name);
                     } else {
-                        sb.beginAction(getContext(), filteredDirectory.get(i), theme_name,
+                        sb.beginAction(getContext(), theme_pid, filteredDirectory.get(i),
+                                theme_name,
                                 "true", "", null,
                                 ((base3overlay.length() == 0) ? null : base3overlay),
                                 versionName);

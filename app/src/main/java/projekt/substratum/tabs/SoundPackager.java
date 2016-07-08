@@ -1,7 +1,7 @@
 package projekt.substratum.tabs;
 
-import android.content.Context;
-import android.content.res.AssetManager;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
@@ -113,15 +113,21 @@ public class SoundPackager extends Fragment {
         );
 
         try {
-            Context otherContext = getContext().createPackageContext(theme_pid, 0);
-            AssetManager am = otherContext.getAssets();
-            String[] archivedSounds = am.list("audio");
-            ArrayList<String> unarchivedSounds = new ArrayList<>();
-            unarchivedSounds.add(getString(R.string.sounds_default_spinner));
-            for (int i = 0; i < archivedSounds.length; i++) {
-                unarchivedSounds.add(archivedSounds[i].substring(0,
-                        archivedSounds[i].length() - 4));
+            File f = new File(getContext().getCacheDir().getAbsoluteFile() + "/SubstratumBuilder/" +
+                    getThemeName(theme_pid).replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "")
+                    + "/assets/audio");
+            File[] fileArray = f.listFiles();
+            ArrayList<String> archivedSounds = new ArrayList<>();
+            for (int i = 0; i < fileArray.length; i++) {
+                archivedSounds.add(fileArray[i].getName());
             }
+            ArrayList<String> unarchivedSounds = new ArrayList<>();
+            unarchivedSounds.add(getString(R.string.bootanimation_default_spinner));
+            for (int i = 0; i < archivedSounds.size(); i++) {
+                unarchivedSounds.add(archivedSounds.get(i).substring(0,
+                        archivedSounds.get(i).length() - 4));
+            }
+
             ArrayAdapter<String> adapter1 = new ArrayAdapter<>(getActivity(),
                     android.R.layout.simple_spinner_dropdown_item, unarchivedSounds);
             soundsSelector = (Spinner) root.findViewById(R.id.soundsSelection);
@@ -180,6 +186,24 @@ public class SoundPackager extends Fragment {
         return root;
     }
 
+    private String getThemeName(String package_name) {
+        // Simulate the Layers Plugin feature by filtering all installed apps and their metadata
+        try {
+            ApplicationInfo appInfo = getContext().getPackageManager().getApplicationInfo(
+                    package_name, PackageManager.GET_META_DATA);
+            if (appInfo.metaData != null) {
+                if (appInfo.metaData.getString("Substratum_Theme") != null) {
+                    if (appInfo.metaData.getString("Substratum_Author") != null) {
+                        return appInfo.metaData.getString("Substratum_Theme");
+                    }
+                }
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            Log.e("SubstratumLogger", "Unable to find package identifier (INDEX OUT OF BOUNDS)");
+        }
+        return null;
+    }
+
     private class SoundsPreview extends AsyncTask<String, Integer, String> {
 
         @Override
@@ -236,12 +260,12 @@ public class SoundPackager extends Fragment {
 
                 String source = sUrl[0] + ".zip";
 
-                final AssetManager am;
-
                 try {
-                    Context otherContext = getContext().createPackageContext(theme_pid, 0);
-                    am = otherContext.getAssets();
-                    InputStream inputStream = am.open("audio/" + source);
+                    File f = new File(getContext().getCacheDir().getAbsoluteFile() +
+                            "/SubstratumBuilder/" +
+                            getThemeName(theme_pid).replaceAll("\\s+", "").replaceAll
+                                    ("[^a-zA-Z0-9]+", "") + "/assets/audio/" + source);
+                    InputStream inputStream = new FileInputStream(f);
                     OutputStream outputStream = new FileOutputStream(getContext().getCacheDir()
                             .getAbsolutePath() + "/SoundsCache/" + source);
                     CopyStream(inputStream, outputStream);

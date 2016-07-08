@@ -1,29 +1,21 @@
 package projekt.substratum.util;
 
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.content.res.AssetManager;
-import android.os.Build;
 import android.os.Environment;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
 
 import kellinwood.security.zipsigner.ZipSigner;
 
@@ -51,75 +43,6 @@ public class SubstratumBuilder {
     private Context mContext;
     private Boolean enable_signing = true;
 
-    public void injectAAPT(Context context) {
-        mContext = context;
-
-        // aaptChecker: Check if aapt is installed on the device
-
-        File aapt = new File("/system/bin/aapt");
-        if (!aapt.exists()) {
-            if (!Build.SUPPORTED_ABIS.toString().contains("86")) {
-                // Take account for ARM/ARM64 devices
-                copyAAPT("aapt");
-                Root.runCommand("mount -o remount,rw /system");
-                Root.runCommand(
-                        "cp " + context.getFilesDir().getAbsolutePath() +
-                                "/aapt " +
-                                "/system/bin/aapt");
-                Root.runCommand("chmod 755 /system/bin/aapt");
-                Root.runCommand("mount -o remount,ro /system");
-                Log.d("SubstratumBuilder", "Android Assets Packaging Tool (ARM) has been injected" +
-                        " into the " +
-                        "system partition.");
-            } else {
-                // Take account for x86 devices
-                copyAAPT("aapt-x86");
-                Root.runCommand("mount -o remount,rw /system");
-                Root.runCommand(
-                        "cp " + context.getFilesDir().getAbsolutePath() +
-                                "/aapt-x86 " +
-                                "/system/bin/aapt");
-                Root.runCommand("chmod 755 /system/bin/aapt");
-                Root.runCommand("mount -o remount,ro /system");
-                Log.d("SubstratumBuilder", "Android Assets Packaging Tool (x86) has been injected" +
-                        " into the " +
-                        "system partition.");
-            }
-        } else {
-            Log.d("SubstratumBuilder", "The system partition already contains an existing AAPT " +
-                    "binary and Substratum is locked and loaded!");
-        }
-    }
-
-    public void initializeCache(Context context, String package_identifier) {
-        mContext = context;
-        try {
-            unzip(package_identifier);
-            Log.d("SubstratumBuilder", "The theme's assets have been successfully expanded to the" +
-                    " work area!");
-        } catch (IOException ioe) {
-        }
-    }
-
-    private int checkCurrentThemeSelectionLocation(String packageName) {
-        try {
-            mContext.getPackageManager().getApplicationInfo(packageName, 0);
-            File directory1 = new File("/data/app/" + packageName + "-1/base.apk");
-            if (directory1.exists()) {
-                return 1;
-            } else {
-                File directory2 = new File("/data/app/" + packageName + "-2/base.apk");
-                if (directory2.exists()) {
-                    return 2;
-                } else {
-                    return 0;
-                }
-            }
-        } catch (PackageManager.NameNotFoundException e) {
-            return 0;
-        }
-    }
-
     private String getDeviceIMEI() {
         TelephonyManager telephonyManager = (TelephonyManager) mContext.getSystemService(Context
                 .TELEPHONY_SERVICE);
@@ -131,66 +54,28 @@ public class SubstratumBuilder {
                 Settings.Secure.ANDROID_ID);
     }
 
-    private void unzip(String package_identifier) throws IOException {
-        // First, extract the APK as a zip so we don't have to access the APK multiple times
-
-        int folder_abbreviation = checkCurrentThemeSelectionLocation(package_identifier);
-        if (folder_abbreviation != 0) {
-            String source = "/data/app/" + package_identifier + "-" +
-                    folder_abbreviation + "/base.apk";
-            File myDir = new File(mContext.getCacheDir(), "SubstratumBuilder");
-            if (!myDir.exists()) {
-                myDir.mkdir();
-            }
-            String destination = mContext.getCacheDir().getAbsolutePath() + "/SubstratumBuilder";
-
-            ZipInputStream inputStream = new ZipInputStream(
-                    new BufferedInputStream(new FileInputStream(source)));
-            try {
-                ZipEntry zipEntry;
-                int count;
-                byte[] buffer = new byte[8192];
-                while ((zipEntry = inputStream.getNextEntry()) != null) {
-                    File file = new File(destination, zipEntry.getName());
-                    File dir = zipEntry.isDirectory() ? file : file.getParentFile();
-                    if (!dir.isDirectory() && !dir.mkdirs())
-                        throw new FileNotFoundException("Failed to ensure directory: " +
-                                dir.getAbsolutePath());
-                    if (zipEntry.isDirectory())
-                        continue;
-                    FileOutputStream outputStream = new FileOutputStream(file);
-                    try {
-                        while ((count = inputStream.read(buffer)) != -1)
-                            outputStream.write(buffer, 0, count);
-                    } finally {
-                        outputStream.close();
+    private String getThemeName(String package_name) {
+        // Simulate the Layers Plugin feature by filtering all installed apps and their metadata
+        try {
+            ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
+                    package_name, PackageManager.GET_META_DATA);
+            if (appInfo.metaData != null) {
+                if (appInfo.metaData.getString("Substratum_Theme") != null) {
+                    if (appInfo.metaData.getString("Substratum_Author") != null) {
+                        return appInfo.metaData.getString("Substratum_Theme");
                     }
                 }
-            } finally {
-                inputStream.close();
             }
-        } else {
-            Log.e("SubstratumLogger",
-                    "There is no valid package name under this abbreviated folder " +
-                            "count.");
+        } catch (PackageManager.NameNotFoundException e) {
+            Log.e("SubstratumLogger", "Unable to find package identifier (INDEX OUT OF BOUNDS)");
         }
-
-        // Second, clean out the cache folder for files that aren't needed
-        // Superuser is used due to some files being held hostage by the system
-
-        File[] fileList = new File(mContext.getCacheDir().getAbsolutePath() +
-                "/SubstratumBuilder/").listFiles();
-        for (int i = 0; i < fileList.length; i++) {
-            if (!fileList[i].getName().equals("assets")) {
-                Root.runCommand(
-                        "rm -r " + mContext.getCacheDir().getAbsolutePath() +
-                                "/SubstratumBuilder/" + fileList[i].getName());
-            }
-        }
+        return null;
     }
 
-    public void beginAction(Context context, String overlay_package, String theme_name, String
-            update_mode_input, String variant, String additional_variant, String base_variant,
+    public void beginAction(Context context, String theme_pid, String overlay_package, String
+            theme_name, String
+                                    update_mode_input, String variant, String additional_variant,
+                            String base_variant,
                             String versionName) {
 
         has_errored_out = false;
@@ -206,12 +91,14 @@ public class SubstratumBuilder {
 
         // 1. Set work area to asset chosen based on the parameter passed into this class
 
-        work_area = mContext.getCacheDir().getAbsolutePath() + "/SubstratumBuilder/assets/overlays/"
-                + overlay_package;
+        work_area = mContext.getCacheDir().getAbsolutePath() + "/SubstratumBuilder/" +
+                getThemeName(theme_pid).replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "") +
+                "/assets/overlays/" + overlay_package;
 
         // 2. Create a modified Android Manifest for use with aapt
 
         File root = new File(work_area + "/AndroidManifest.xml");
+        Log.e("Filer", root.getAbsolutePath());
 
         // 2a. Parse the theme's name before adding it into the new manifest to prevent any issues
 
@@ -327,6 +214,7 @@ public class SubstratumBuilder {
                 bw.close();
                 fw.close();
             } catch (Exception e) {
+                e.printStackTrace();
                 Log.e("SubstratumBuilder", "There was an exception creating a new Manifest file!");
                 has_errored_out = true;
                 Log.e("SubstratumBuilder", "Installation of \"" + overlay_package + "\" has " +
@@ -344,7 +232,8 @@ public class SubstratumBuilder {
                     commands = "aapt p -M " + work_area +
                             "/AndroidManifest.xml -S " +
                             work_area +
-                            (((base_resources == null) || !type3directory.exists()) ? "/res/ -I " :
+                            (((base_resources == null) || !type3directory.exists()) ? "/workdir/ " +
+                                    "-I " :
                                     "/" + "type3_" + base_resources + "/ -I ") +
                             "/system/framework/framework-res.apk -F " +
                             work_area +
@@ -357,8 +246,9 @@ public class SubstratumBuilder {
                                 work_area +
                                 "/" + "type2_" + additional_variant + "/ -S " +
                                 work_area +
-                                (((base_resources == null) || !type3directory.exists()) ? "/res/ " +
-                                        "-I " : "/" + "type3_" + base_resources + "/ -I ") +
+                                (((base_resources == null) || !type3directory.exists()) ?
+                                        "/workdir/ " +
+                                                "-I " : "/" + "type3_" + base_resources + "/ -I ") +
                                 "/system/framework/framework-res.apk -F " +
                                 work_area +
                                 "/" + overlay_package + "." + parse2_themeName + "-unsigned" +
@@ -369,8 +259,9 @@ public class SubstratumBuilder {
                         commands = "aapt p -M " + work_area +
                                 "/AndroidManifest.xml -S " +
                                 work_area +
-                                (((base_resources == null) || !type3directory.exists()) ? "/res/ " +
-                                        "-I " : "/" + "type3_" +
+                                (((base_resources == null) || !type3directory.exists()) ?
+                                        "/workdir/ " +
+                                                "-I " : "/" + "type3_" +
                                         base_resources + "/ -I ") +
                                 "/system/framework/framework-res.apk -F " +
                                 work_area +
@@ -523,31 +414,6 @@ public class SubstratumBuilder {
             return true;
         } catch (PackageManager.NameNotFoundException e) {
             return false;
-        }
-    }
-
-    private void copyAAPT(String filename) {
-        AssetManager assetManager = mContext.getAssets();
-        String TARGET_BASE_PATH = mContext.getFilesDir().getAbsolutePath() + "/";
-
-        InputStream in;
-        OutputStream out;
-        String newFileName;
-        try {
-            in = assetManager.open(filename);
-            newFileName = TARGET_BASE_PATH + filename;
-            out = new FileOutputStream(newFileName);
-
-            byte[] buffer = new byte[1024];
-            int read;
-            while ((read = in.read(buffer)) != -1) {
-                out.write(buffer, 0, read);
-            }
-            in.close();
-            out.flush();
-            out.close();
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 }

@@ -23,6 +23,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.concurrent.ThreadLocalRandom;
 
 import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
@@ -75,7 +76,7 @@ public class ThemeDetector extends Service {
         @Override
         protected void onPostExecute(String result) {
             try {
-                int id = 1;
+                int id = ThreadLocalRandom.current().nextInt(0, 1000);
                 int notification_priority = 2; // PRIORITY_MAX == 2
 
                 ApplicationInfo applicationInfo = getPackageManager().getApplicationInfo

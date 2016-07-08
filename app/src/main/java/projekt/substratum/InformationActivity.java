@@ -11,7 +11,6 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -28,7 +27,6 @@ import android.widget.Toast;
 
 import com.flaviofaria.kenburnsview.KenBurnsView;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -588,32 +586,5 @@ public class InformationActivity extends AppCompatActivity {
         setResult(THEME_INFORMATION_REQUEST_CODE, intent);
         // Destroy the cache if the user leaves the activity
         super.onBackPressed();
-        clearCache clear = new clearCache();
-        clear.execute("");
-    }
-
-    private class clearCache extends AsyncTask<String, Integer, String> {
-
-        @Override
-        protected void onPreExecute() {
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-            Log.d("SubstratumBuilder", "The cache has been flushed!");
-        }
-
-        @Override
-        protected String doInBackground(String... sUrl) {
-            // Superuser is used due to some files being held hostage by the system
-            File cacheFolder = new File(getCacheDir().getAbsolutePath() + "/SubstratumBuilder/");
-            if (cacheFolder.exists()) {
-                Root.runCommand(
-                        "rm -r " + getCacheDir().getAbsolutePath() +
-                                "/SubstratumBuilder/");
-            }
-            return null;
-        }
     }
 }

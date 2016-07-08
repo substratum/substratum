@@ -1,0 +1,85 @@
+package projekt.substratum.util;
+
+import android.content.Context;
+import android.content.res.AssetManager;
+import android.os.Build;
+import android.util.Log;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+/**
+ * @author Nicholas Chum (nicholaschum)
+ */
+
+public class AAPTCheck {
+
+    private Context mContext;
+
+    public void injectAAPT(Context context) {
+        mContext = context;
+
+        // Check if aapt is installed on the device
+
+        File aapt = new File("/system/bin/aapt");
+        if (!aapt.exists()) {
+            if (!Build.SUPPORTED_ABIS.toString().contains("86")) {
+                // Take account for ARM/ARM64 devices
+                copyAAPT("aapt");
+                Root.runCommand("mount -o remount,rw /system");
+                Root.runCommand(
+                        "cp " + context.getFilesDir().getAbsolutePath() +
+                                "/aapt " +
+                                "/system/bin/aapt");
+                Root.runCommand("chmod 755 /system/bin/aapt");
+                Root.runCommand("mount -o remount,ro /system");
+                Log.d("SubstratumLogger", "Android Assets Packaging Tool (ARM) has been injected" +
+                        " into the " +
+                        "system partition.");
+            } else {
+                // Take account for x86 devices
+                copyAAPT("aapt-x86");
+                Root.runCommand("mount -o remount,rw /system");
+                Root.runCommand(
+                        "cp " + context.getFilesDir().getAbsolutePath() +
+                                "/aapt-x86 " +
+                                "/system/bin/aapt");
+                Root.runCommand("chmod 755 /system/bin/aapt");
+                Root.runCommand("mount -o remount,ro /system");
+                Log.d("SubstratumLogger", "Android Assets Packaging Tool (x86) has been injected" +
+                        " into the " +
+                        "system partition.");
+            }
+        } else {
+            Log.d("SubstratumLogger", "The system partition already contains an existing AAPT " +
+                    "binary and Substratum is locked and loaded!");
+        }
+    }
+
+    private void copyAAPT(String filename) {
+        AssetManager assetManager = mContext.getAssets();
+        String TARGET_BASE_PATH = mContext.getFilesDir().getAbsolutePath() + "/";
+
+        InputStream in;
+        OutputStream out;
+        String newFileName;
+        try {
+            in = assetManager.open(filename);
+            newFileName = TARGET_BASE_PATH + filename;
+            out = new FileOutputStream(newFileName);
+
+            byte[] buffer = new byte[1024];
+            int read;
+            while ((read = in.read(buffer)) != -1) {
+                out.write(buffer, 0, read);
+            }
+            in.close();
+            out.flush();
+            out.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

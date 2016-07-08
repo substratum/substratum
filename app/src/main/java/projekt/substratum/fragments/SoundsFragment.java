@@ -1,7 +1,9 @@
 package projekt.substratum.fragments;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
@@ -9,6 +11,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,6 +24,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -32,6 +36,7 @@ import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
 import projekt.substratum.adapters.DataAdapter;
+import projekt.substratum.util.CacheCreator;
 import projekt.substratum.util.ReadOverlaysFile;
 import projekt.substratum.util.Root;
 import projekt.substratum.util.ThemeParser;
@@ -52,6 +57,7 @@ public class SoundsFragment extends Fragment {
     private DataAdapter adapter;
     private View cardView;
     private ViewGroup root;
+    private String selected_theme_name;
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -126,27 +132,49 @@ public class SoundsFragment extends Fragment {
                 View child = rv.findChildViewUnder(e.getX(), e.getY());
                 if (child != null && gestureDetector.onTouchEvent(e)) {
                     // RecyclerView Clicked item value
-                    int position = rv.getChildAdapterPosition(child);
+                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences
+                            (mContext);
+                    if (!prefs.getBoolean("is_updating", true)) {
+                        int position = rv.getChildAdapterPosition(child);
 
-                    // Process fail case if user uninstalls an app and goes back an activity
-                    if (isPackageInstalled(getContext(),
-                            map.get(map.keySet().toArray()[position].toString())[1])) {
-                        Intent myIntent = new Intent(getContext(), InformationActivity.class);
-                        myIntent.putExtra("theme_name", map.keySet().toArray()[position].toString
-                                ());
-                        myIntent.putExtra("theme_pid", map.get(map.keySet().toArray()[position]
-                                .toString())[1]);
-                        myIntent.putExtra("theme_mode", "sounds");
-                        startActivityForResult(myIntent, THEME_INFORMATION_REQUEST_CODE);
+                        // Process fail case if user uninstalls an app and goes back an activity
+                        if (isPackageInstalled(getContext(),
+                                map.get(map.keySet().toArray()[position].toString())[1])) {
+
+                            File checkSubstratumVerity = new File(getContext().getCacheDir()
+                                    .getAbsoluteFile() + "/SubstratumBuilder/" +
+                                    getThemeName(map.get(map.keySet().toArray()[position]
+                                            .toString())[1]).replaceAll("\\s+", "")
+                                            .replaceAll("[^a-zA-Z0-9]+", "") + "/substratum.xml");
+                            if (checkSubstratumVerity.exists()) {
+                                Intent myIntent = new Intent(
+                                        getContext(), InformationActivity.class);
+                                myIntent.putExtra("theme_name", map.keySet().toArray()[position]
+                                        .toString());
+                                myIntent.putExtra("theme_pid", map.get(
+                                        map.keySet().toArray()[position].toString())[1]);
+                                myIntent.putExtra("theme_mode", "sounds");
+                                startActivityForResult(myIntent, THEME_INFORMATION_REQUEST_CODE);
+                            } else {
+                                selected_theme_name = map.get(
+                                        map.keySet().toArray()[position].toString())[1];
+                                new SubstratumThemeUpdate().execute(map.get(map.keySet().toArray()
+                                        [position].toString())[1]);
+                            }
+                        } else {
+                            Toast toast = Toast.makeText(getContext(), getString(R.string
+                                            .toast_uninstalled),
+                                    Toast.LENGTH_SHORT);
+                            toast.show();
+                            refreshLayout();
+                        }
                     } else {
                         Toast toast = Toast.makeText(getContext(), getString(R.string
-                                        .toast_uninstalled),
+                                        .background_updating_toast),
                                 Toast.LENGTH_SHORT);
                         toast.show();
-                        refreshLayout();
                     }
                 }
-
                 return false;
             }
 
@@ -168,6 +196,24 @@ public class SoundsFragment extends Fragment {
             }
         });
         return root;
+    }
+
+    private String getThemeName(String package_name) {
+        // Simulate the Layers Plugin feature by filtering all installed apps and their metadata
+        try {
+            ApplicationInfo appInfo = getContext().getPackageManager().getApplicationInfo(
+                    package_name, PackageManager.GET_META_DATA);
+            if (appInfo.metaData != null) {
+                if (appInfo.metaData.getString("Substratum_Theme") != null) {
+                    if (appInfo.metaData.getString("Substratum_Author") != null) {
+                        return appInfo.metaData.getString("Substratum_Theme");
+                    }
+                }
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            Log.e("SubstratumLogger", "Unable to find package identifier (INDEX OUT OF BOUNDS)");
+        }
+        return null;
     }
 
     private boolean isPackageInstalled(Context context, String package_name) {
@@ -306,6 +352,41 @@ public class SoundsFragment extends Fragment {
                         "be removed.");
                 Root.runCommand("pm uninstall " + state1.get(i));
             }
+            return null;
+        }
+    }
+
+    private class SubstratumThemeUpdate extends AsyncTask<String, Integer, String> {
+
+        private ProgressDialog progress;
+
+        @Override
+        protected void onPreExecute() {
+            progress = new ProgressDialog(mContext, android.R.style
+                    .Theme_DeviceDefault_Dialog_Alert);
+
+            String parse = String.format(mContext.getString(R.string.on_demand_updating_text),
+                    getThemeName(selected_theme_name));
+
+            progress.setTitle(mContext.getString(R.string.on_demand_updating_title));
+            progress.setMessage(parse);
+            progress.setIndeterminate(false);
+            progress.setCancelable(false);
+            progress.show();
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            progress.dismiss();
+            Toast toast = Toast.makeText(getContext(), getString(R.string
+                            .background_updated_toast),
+                    Toast.LENGTH_SHORT);
+            toast.show();
+        }
+
+        @Override
+        protected String doInBackground(String... sUrl) {
+            new CacheCreator().initializeCache(mContext, sUrl[0]);
             return null;
         }
     }

@@ -1,7 +1,7 @@
 package projekt.substratum.tabs;
 
-import android.content.Context;
-import android.content.res.AssetManager;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -109,15 +109,21 @@ public class BootAnimation extends Fragment {
         );
 
         try {
-            Context otherContext = getContext().createPackageContext(theme_pid, 0);
-            AssetManager am = otherContext.getAssets();
-            String[] unparsedBootAnimations = am.list("bootanimation");
+            File f = new File(getContext().getCacheDir().getAbsoluteFile() + "/SubstratumBuilder/" +
+                    getThemeName(theme_pid).replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "")
+                    + "/assets/bootanimation");
+            File[] fileArray = f.listFiles();
+            ArrayList<String> unparsedBootAnimations = new ArrayList<>();
+            for (int i = 0; i < fileArray.length; i++) {
+                unparsedBootAnimations.add(fileArray[i].getName());
+            }
             ArrayList<String> parsedBootAnimations = new ArrayList<>();
             parsedBootAnimations.add(getString(R.string.bootanimation_default_spinner));
-            for (int i = 0; i < unparsedBootAnimations.length; i++) {
-                parsedBootAnimations.add(unparsedBootAnimations[i].substring(0,
-                        unparsedBootAnimations[i].length() - 4));
+            for (int i = 0; i < unparsedBootAnimations.size(); i++) {
+                parsedBootAnimations.add(unparsedBootAnimations.get(i).substring(0,
+                        unparsedBootAnimations.get(i).length() - 4));
             }
+
             ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(getActivity(),
                     android.R.layout.simple_spinner_dropdown_item, parsedBootAnimations);
             bootAnimationSelector = (Spinner) root.findViewById(R.id.bootAnimationSelection);
@@ -157,6 +163,24 @@ public class BootAnimation extends Fragment {
         }
 
         return root;
+    }
+
+    private String getThemeName(String package_name) {
+        // Simulate the Layers Plugin feature by filtering all installed apps and their metadata
+        try {
+            ApplicationInfo appInfo = getContext().getPackageManager().getApplicationInfo(
+                    package_name, PackageManager.GET_META_DATA);
+            if (appInfo.metaData != null) {
+                if (appInfo.metaData.getString("Substratum_Theme") != null) {
+                    if (appInfo.metaData.getString("Substratum_Author") != null) {
+                        return appInfo.metaData.getString("Substratum_Theme");
+                    }
+                }
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            Log.e("SubstratumLogger", "Unable to find package identifier (INDEX OUT OF BOUNDS)");
+        }
+        return null;
     }
 
     private class BootAnimationPreview extends AsyncTask<String, Integer, String> {
@@ -222,18 +246,17 @@ public class BootAnimation extends Fragment {
                 String source = sUrl[0] + ".zip";
 
                 try {
-                    Context otherContext = getContext().createPackageContext(theme_pid, 0);
-                    AssetManager am = otherContext.getAssets();
-                    InputStream inputStream = am.open("bootanimation/" + source);
+                    File f = new File(getContext().getCacheDir().getAbsoluteFile() +
+                            "/SubstratumBuilder/" +
+                            getThemeName(theme_pid).replaceAll("\\s+", "").replaceAll
+                                    ("[^a-zA-Z0-9]+", "") + "/assets/bootanimation/" + source);
+                    InputStream inputStream = new FileInputStream(f);
                     OutputStream outputStream = new FileOutputStream(getContext().getCacheDir()
                             .getAbsolutePath() + "/BootAnimationCache/" + source);
                     CopyStream(inputStream, outputStream);
                 } catch (Exception e) {
                     Log.e("BootAnimationHandler", "There is no bootanimation.zip found within the" +
-                            " " +
-                            "assets " +
-
-                            "of this theme!");
+                            " assets of this theme!");
                 }
 
                 // Unzip the boot animation to get it prepared for the preview

@@ -10,7 +10,6 @@ import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.res.AssetManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -36,8 +35,11 @@ import android.widget.Toast;
 import com.gordonwong.materialsheetfab.MaterialSheetFab;
 import com.mikhaellopez.circularfillableloaders.CircularFillableLoaders;
 
+import org.apache.commons.io.FileUtils;
+
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -50,6 +52,7 @@ import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
 import projekt.substratum.adapters.OverlaysAdapter;
 import projekt.substratum.model.OverlaysInfo;
+import projekt.substratum.util.CacheCreator;
 import projekt.substratum.util.FloatingActionMenu;
 import projekt.substratum.util.ReadOverlaysFile;
 import projekt.substratum.util.Root;
@@ -88,6 +91,8 @@ public class OverlaysList extends Fragment {
     private PowerManager.WakeLock mWakeLock;
     private MaterialSheetFab materialSheetFab;
     private TextView toggle_all_overlays_text;
+    private ArrayList<String> overlaysFolder;
+    private File overlaysDirectory;
 
     private boolean isPackageInstalled(String package_name) {
         PackageManager pm = mContext.getPackageManager();
@@ -107,10 +112,6 @@ public class OverlaysList extends Fragment {
         prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 
         mContext = getContext();
-
-        // Run through phase one - checking whether aapt exists on the device
-        Phase1_AAPT_Check phase1_aapt_check = new Phase1_AAPT_Check();
-        phase1_aapt_check.execute("");
 
         theme_name = InformationActivity.getThemeName();
         theme_pid = InformationActivity.getThemePID();
@@ -347,17 +348,23 @@ public class OverlaysList extends Fragment {
         base_spinner.setEnabled(false);
 
         try {
-            Context otherContext = getContext().createPackageContext(theme_pid, 0);
-            AssetManager am = otherContext.getAssets();
-
             ArrayList<String> type3 = new ArrayList<>();
 
-            String[] stringArray = am.list("overlays/android");
+            File f = new File(mContext.getCacheDir().getAbsoluteFile() + "/SubstratumBuilder/" +
+                    getThemeName(theme_pid).replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "")
+                    + "/assets/overlays/android");
+            File[] fileArray = f.listFiles();
+            ArrayList<String> stringArray = new ArrayList<>();
+            for (int i = 0; i < fileArray.length; i++) {
+                stringArray.add(fileArray[i].getName());
+            }
+
             if (Arrays.asList(stringArray).contains("type3")) {
                 BufferedReader reader = null;
                 try {
                     reader = new BufferedReader(
-                            new InputStreamReader(am.open("overlays/android/type3"), "UTF-8"));
+                            new InputStreamReader(new FileInputStream(
+                                    new File(f.getAbsolutePath() + "/type3"))));
                     String formatter = String.format(getString(R.string
                             .overlays_variant_substitute), reader.readLine());
                     type3.add(formatter);
@@ -380,9 +387,9 @@ public class OverlaysList extends Fragment {
                 type3.add(getString(R.string.overlays_variant_default_3));
             }
 
-            if (stringArray.length > 1) {
-                for (int i = 0; i < stringArray.length; i++) {
-                    String current = stringArray[i];
+            if (stringArray.size() > 1) {
+                for (int i = 0; i < stringArray.size(); i++) {
+                    String current = stringArray.get(i);
                     if (!current.equals("res")) {
                         if (!current.contains(".")) {
                             if (current.length() >= 6) {
@@ -414,9 +421,28 @@ public class OverlaysList extends Fragment {
                 toggle_all_overlays_text.setVisibility(View.VISIBLE);
                 base_spinner.setVisibility(View.INVISIBLE);
             }
+            e.printStackTrace();
             Log.e("SubstratumLogger", "Could not parse list of base options for this theme!");
         }
         return root;
+    }
+
+    private String getThemeName(String package_name) {
+        // Simulate the Layers Plugin feature by filtering all installed apps and their metadata
+        try {
+            ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
+                    package_name, PackageManager.GET_META_DATA);
+            if (appInfo.metaData != null) {
+                if (appInfo.metaData.getString("Substratum_Theme") != null) {
+                    if (appInfo.metaData.getString("Substratum_Author") != null) {
+                        return appInfo.metaData.getString("Substratum_Theme");
+                    }
+                }
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            Log.e("SubstratumLogger", "Unable to find package identifier (INDEX OUT OF BOUNDS)");
+        }
+        return null;
     }
 
     private class LoadOverlays extends AsyncTask<String, Integer, String> {
@@ -497,10 +523,17 @@ public class OverlaysList extends Fragment {
             // Buffer the initial values list so that we get the list of packages inside this theme
             try {
                 values = new ArrayList<>();
-                Context otherContext = getContext().createPackageContext(theme_pid, 0);
-                AssetManager am = otherContext.getAssets();
-                String[] am_list = am.list("overlays");
-                for (String package_name : am_list) {
+                overlaysFolder = new ArrayList<>();
+                overlaysDirectory = new File(mContext.getCacheDir().getAbsoluteFile() +
+                        "/SubstratumBuilder/" +
+                        getThemeName(theme_pid).replaceAll("\\s+", "").replaceAll
+                                ("[^a-zA-Z0-9]+", "")
+                        + "/assets/overlays");
+                File[] fileArray = overlaysDirectory.listFiles();
+                for (int i = 0; i < fileArray.length; i++) {
+                    overlaysFolder.add(fileArray[i].getName());
+                }
+                for (String package_name : overlaysFolder) {
                     if (isPackageInstalled(package_name)) {
                         values.add(package_name);
                     }
@@ -545,9 +578,6 @@ public class OverlaysList extends Fragment {
                 }
                 if (counter > -1) {
                     values.set(i, unsortedList.get(counter));
-                } else {
-                    Log.e("SubstratumLogger", "Could not assign specific index \"" + values.get
-                            (i) + "\" for sorted values list.");
                 }
             }
 
@@ -563,21 +593,18 @@ public class OverlaysList extends Fragment {
                             (applicationInfo).toString();
 
                     try {
-                        Context otherContext = getContext().createPackageContext(theme_pid, 0);
-                        AssetManager am = otherContext.getAssets();
-
                         ArrayList<String> type1a = new ArrayList<>();
                         ArrayList<String> type1b = new ArrayList<>();
                         ArrayList<String> type1c = new ArrayList<>();
                         ArrayList<String> type2 = new ArrayList<>();
 
-                        String[] stringArray = am.list("overlays/" + package_name);
-                        if (Arrays.asList(stringArray).contains("type1a")) {
+                        if (Arrays.asList(overlaysFolder).contains("type1a")) {
                             BufferedReader reader = null;
                             try {
                                 reader = new BufferedReader(
-                                        new InputStreamReader(am.open("overlays/" +
-                                                package_name + "/type1a"), "UTF-8"));
+                                        new InputStreamReader(new FileInputStream(
+                                                new File(overlaysDirectory.getAbsolutePath() +
+                                                        "/type1a"))));
                                 String formatter = String.format(getString(R.string
                                         .overlays_variant_substitute), reader.readLine());
                                 type1a.add(formatter);
@@ -600,12 +627,13 @@ public class OverlaysList extends Fragment {
                             type1a.add(getString(R.string.overlays_variant_default_1a));
                         }
 
-                        if (Arrays.asList(stringArray).contains("type1b")) {
+                        if (Arrays.asList(overlaysFolder).contains("type1b")) {
                             BufferedReader reader = null;
                             try {
                                 reader = new BufferedReader(
-                                        new InputStreamReader(am.open("overlays/" +
-                                                package_name + "/type1b"), "UTF-8"));
+                                        new InputStreamReader(new FileInputStream(
+                                                new File(overlaysDirectory.getAbsolutePath() +
+                                                        "/type1b"))));
                                 String formatter = String.format(getString(R.string
                                         .overlays_variant_substitute), reader.readLine());
                                 type1b.add(formatter);
@@ -628,12 +656,13 @@ public class OverlaysList extends Fragment {
                             type1b.add(getString(R.string.overlays_variant_default_1b));
                         }
 
-                        if (Arrays.asList(stringArray).contains("type1c")) {
+                        if (Arrays.asList(overlaysFolder).contains("type1c")) {
                             BufferedReader reader = null;
                             try {
                                 reader = new BufferedReader(
-                                        new InputStreamReader(am.open("overlays/" +
-                                                package_name + "/type1c"), "UTF-8"));
+                                        new InputStreamReader(new FileInputStream(
+                                                new File(overlaysDirectory.getAbsolutePath() +
+                                                        "/type1c"))));
                                 String formatter = String.format(getString(R.string
                                         .overlays_variant_substitute), reader.readLine());
                                 type1c.add(formatter);
@@ -656,12 +685,13 @@ public class OverlaysList extends Fragment {
                             type1c.add(getString(R.string.overlays_variant_default_1c));
                         }
 
-                        if (Arrays.asList(stringArray).contains("type2")) {
+                        if (Arrays.asList(overlaysFolder).contains("type2")) {
                             BufferedReader reader = null;
                             try {
                                 reader = new BufferedReader(
-                                        new InputStreamReader(am.open("overlays/" +
-                                                package_name + "/type2"), "UTF-8"));
+                                        new InputStreamReader(new FileInputStream(
+                                                new File(overlaysDirectory.getAbsolutePath() +
+                                                        "/type2"))));
                                 String formatter = String.format(getString(R.string
                                         .overlays_variant_substitute), reader.readLine());
                                 type2.add(formatter);
@@ -684,9 +714,9 @@ public class OverlaysList extends Fragment {
                             type2.add(getString(R.string.overlays_variant_default_2));
                         }
 
-                        if (stringArray.length > 1) {
-                            for (int i = 0; i < stringArray.length; i++) {
-                                String current = stringArray[i];
+                        if (overlaysFolder.size() > 1) {
+                            for (int i = 0; i < overlaysFolder.size(); i++) {
+                                String current = overlaysFolder.get(i);
                                 if (!current.equals("res")) {
                                     if (current.contains(".xml")) {
                                         if (current.substring(0, 7).equals("type1a_")) {
@@ -751,23 +781,6 @@ public class OverlaysList extends Fragment {
                     // Exception
                 }
             }
-            return null;
-        }
-    }
-
-    private class Phase1_AAPT_Check extends AsyncTask<String, Integer, String> {
-
-        @Override
-        protected void onPreExecute() {
-            Log.d("SubstratumBuilder", "Substratum is now checking for AAPT system binary " +
-                    "integrity...");
-        }
-
-        @Override
-        protected String doInBackground(String... sUrl) {
-            // Check whether device has AAPT installed
-            SubstratumBuilder aaptCheck = new SubstratumBuilder();
-            aaptCheck.injectAAPT(getContext());
             return null;
         }
     }
@@ -840,8 +853,17 @@ public class OverlaysList extends Fragment {
                 // Initialize Substratum cache with theme
                 if (!has_initialized_cache) {
                     sb = new SubstratumBuilder();
-                    sb.initializeCache(getContext(), theme_pid);
-                    has_initialized_cache = true;
+
+                    File versioning = new File(mContext.getCacheDir().getAbsoluteFile() +
+                            "/SubstratumBuilder/" +
+                            getThemeName(theme_pid).replaceAll("\\s+", "")
+                                    .replaceAll("[^a-zA-Z0-9]+", "") + "/substratum.xml");
+                    if (versioning.exists()) {
+                        has_initialized_cache = true;
+                    } else {
+                        new CacheCreator().initializeCache(mContext, theme_pid);
+                        has_initialized_cache = true;
+                    }
                 } else {
                     Log.d("SubstratumBuilder", "Work area is ready with decompiled assets " +
                             "already!");
@@ -1107,18 +1129,26 @@ public class OverlaysList extends Fragment {
                             }
                         }
 
-                        if (checkedOverlays.get(i).is_variant_chosen || sUrl[0].length() != 0) {
-                            String workingDirectory = getContext().getCacheDir().toString() +
-                                    "/SubstratumBuilder/assets/overlays/" +
-                                    current_overlay;
+                        String workingDirectory = getContext().getCacheDir().toString() +
+                                "/SubstratumBuilder/" + getThemeName(theme_pid)
+                                .replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "") +
+                                "/assets/overlays/" + current_overlay;
 
+                        File srcDir = new File(workingDirectory + "/res");
+                        File destDir = new File(workingDirectory + "/workdir");
+                        if (destDir.exists()) {
+                            Root.runCommand("rm -r " + destDir.getAbsolutePath());
+                        }
+                        FileUtils.copyDirectory(srcDir, destDir);
+
+                        if (checkedOverlays.get(i).is_variant_chosen || sUrl[0].length() != 0) {
                             // Type 1a
                             if (checkedOverlays.get(i).is_variant_chosen1) {
                                 String sourceLocation = workingDirectory + "/type1a_" +
                                         checkedOverlays.get(i).getSelectedVariantName() + ".xml";
 
                                 String targetLocation = workingDirectory +
-                                        "/res/values/type1a.xml";
+                                        "/workdir/values/type1a.xml";
                                 String targetLocation1a = workingDirectory + "/type3_" + sUrl[0] +
                                         "/values/";
 
@@ -1142,7 +1172,7 @@ public class OverlaysList extends Fragment {
                                         checkedOverlays.get(i).getSelectedVariantName2() + ".xml";
 
                                 String targetLocation2 = workingDirectory +
-                                        "/res/values/type1b.xml";
+                                        "/workdir/values/type1b.xml";
                                 String targetLocation1b = workingDirectory + "/type3_" + sUrl[0] +
                                         "/values/";
 
@@ -1166,7 +1196,7 @@ public class OverlaysList extends Fragment {
                                         checkedOverlays.get(i).getSelectedVariantName3() + ".xml";
 
                                 String targetLocation3 = workingDirectory +
-                                        "/res/values/type1c.xml";
+                                        "/workdir/values/type1c.xml";
                                 String targetLocation1c = workingDirectory + "/type3_" + sUrl[0] +
                                         "/values/";
 
@@ -1220,14 +1250,16 @@ public class OverlaysList extends Fragment {
 
                                 if (sUrl[0].length() != 0) {
                                     sb = new SubstratumBuilder();
-                                    sb.beginAction(getContext(), current_overlay, theme_name,
+                                    sb.beginAction(getContext(), theme_pid, current_overlay,
+                                            theme_name,
                                             update_bool,
                                             packageName, checkedOverlays.get(i)
                                                     .getSelectedVariantName4(), sUrl[0],
                                             versionName);
                                 } else {
                                     sb = new SubstratumBuilder();
-                                    sb.beginAction(getContext(), current_overlay, theme_name,
+                                    sb.beginAction(getContext(), theme_pid, current_overlay,
+                                            theme_name,
                                             update_bool,
                                             packageName, checkedOverlays.get(i)
                                                     .getSelectedVariantName4(), null,
@@ -1240,13 +1272,15 @@ public class OverlaysList extends Fragment {
 
                                 if (sUrl[0].length() != 0) {
                                     sb = new SubstratumBuilder();
-                                    sb.beginAction(getContext(), current_overlay, theme_name,
+                                    sb.beginAction(getContext(), theme_pid, current_overlay,
+                                            theme_name,
                                             update_bool,
                                             packageName, null, sUrl[0],
                                             versionName);
                                 } else {
                                     sb = new SubstratumBuilder();
-                                    sb.beginAction(getContext(), current_overlay, theme_name,
+                                    sb.beginAction(getContext(), theme_pid, current_overlay,
+                                            theme_name,
                                             update_bool,
                                             packageName, null, null,
                                             versionName);
@@ -1276,7 +1310,8 @@ public class OverlaysList extends Fragment {
                             Log.d("SubstratumBuilder", "Currently processing package" +
                                     " \"" + current_overlay + "." + theme_name_parsed + "\"...");
                             sb = new SubstratumBuilder();
-                            sb.beginAction(getContext(), current_overlay, theme_name, update_bool,
+                            sb.beginAction(getContext(), theme_pid, current_overlay, theme_name,
+                                    update_bool,
                                     null, null, null, versionName);
 
                             if (update_bool.equals("false")) {
@@ -1287,6 +1322,7 @@ public class OverlaysList extends Fragment {
                             }
                         }
                     } catch (Exception e) {
+                        e.printStackTrace();
                         Log.e("SubstratumLogger", "Main function has unexpectedly stopped!");
                     }
                 } else {

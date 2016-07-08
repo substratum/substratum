@@ -8,6 +8,11 @@
 
     <string name="search_play_store_url" translatable="false">"https://play.google.com/store/search?q=Substratum%20Theme&amp;c=apps"</string>
 
+    <string name="on_demand_updating_title">Emergency Resource Cache Rebuild</string>
+    <string name="on_demand_updating_text">%s\'s cache is now rebuilding&#8230;</string>
+    <string name="background_updating_toast">A theme is upgrading in the background, please wait for this to finish!</string>
+    <string name="background_updated_toast">Resource cache has been built!</string>
+
     <string name="abort_overlay_toast">Now uninstalling all overlays&#8230;</string>
     <string name="abort_overlay_toast_success">All overlays uninstalled!</string>
     <string name="disable_overlay_toast">Now disabling all enabled overlays&#8230;</string>
@@ -200,7 +205,9 @@
     <string name="toast_on_back_press_compiling">You can use other apps during compile by clicking Home/Recents buttons.</string>
 
     <string name="notification_theme_installed">installed</string>
+    <string name="notification_theme_updated">updated</string>
     <string name="notification_theme_installed_content">Theme successfully installed.</string>
+    <string name="notification_theme_updated_content">Resources successfully updated.</string>
 
     <string name="notification_initial_title">Substratum is running</string>
     <string name="notification_done_title">Theme compilation has completed</string>

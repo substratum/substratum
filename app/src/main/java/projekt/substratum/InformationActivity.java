@@ -561,6 +561,10 @@ public class InformationActivity extends AppCompatActivity {
                                     Toast.LENGTH_LONG);
                             toast.show();
 
+                            Root.runCommand("rm -r " + getCacheDir().getAbsolutePath() +
+                                    "/SubstratumBuilder/" + getThemeName().replaceAll("\\s+", "")
+                                    .replaceAll("[^a-zA-Z0-9]+", ""));
+
                             Root.runCommand(commands2);
 
                             // Finally close out of the window

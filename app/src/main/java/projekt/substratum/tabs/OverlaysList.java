@@ -598,7 +598,18 @@ public class OverlaysList extends Fragment {
                         ArrayList<String> type1c = new ArrayList<>();
                         ArrayList<String> type2 = new ArrayList<>();
 
-                        if (Arrays.asList(overlaysFolder).contains("type1a")) {
+                        ArrayList<String> typeArray = new ArrayList<>();
+                        File typeArrayRaw = new File(mContext.getCacheDir().getAbsoluteFile() +
+                                "/SubstratumBuilder/" +
+                                getThemeName(theme_pid).replaceAll("\\s+", "").replaceAll
+                                        ("[^a-zA-Z0-9]+", "")
+                                + "/assets/overlays/" + package_name);
+                        File[] fileArray = typeArrayRaw.listFiles();
+                        for (int i = 0; i < fileArray.length; i++) {
+                            typeArray.add(fileArray[i].getName());
+                        }
+
+                        if (Arrays.asList(typeArray).contains("type1a")) {
                             BufferedReader reader = null;
                             try {
                                 reader = new BufferedReader(
@@ -627,7 +638,7 @@ public class OverlaysList extends Fragment {
                             type1a.add(getString(R.string.overlays_variant_default_1a));
                         }
 
-                        if (Arrays.asList(overlaysFolder).contains("type1b")) {
+                        if (Arrays.asList(typeArray).contains("type1b")) {
                             BufferedReader reader = null;
                             try {
                                 reader = new BufferedReader(
@@ -656,7 +667,7 @@ public class OverlaysList extends Fragment {
                             type1b.add(getString(R.string.overlays_variant_default_1b));
                         }
 
-                        if (Arrays.asList(overlaysFolder).contains("type1c")) {
+                        if (Arrays.asList(typeArray).contains("type1c")) {
                             BufferedReader reader = null;
                             try {
                                 reader = new BufferedReader(
@@ -685,7 +696,7 @@ public class OverlaysList extends Fragment {
                             type1c.add(getString(R.string.overlays_variant_default_1c));
                         }
 
-                        if (Arrays.asList(overlaysFolder).contains("type2")) {
+                        if (Arrays.asList(typeArray).contains("type2")) {
                             BufferedReader reader = null;
                             try {
                                 reader = new BufferedReader(
@@ -714,9 +725,9 @@ public class OverlaysList extends Fragment {
                             type2.add(getString(R.string.overlays_variant_default_2));
                         }
 
-                        if (overlaysFolder.size() > 1) {
-                            for (int i = 0; i < overlaysFolder.size(); i++) {
-                                String current = overlaysFolder.get(i);
+                        if (typeArray.size() > 1) {
+                            for (int i = 0; i < typeArray.size(); i++) {
+                                String current = typeArray.get(i);
                                 if (!current.equals("res")) {
                                     if (current.contains(".xml")) {
                                         if (current.substring(0, 7).equals("type1a_")) {

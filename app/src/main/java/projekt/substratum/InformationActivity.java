@@ -11,6 +11,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -192,6 +193,12 @@ public class InformationActivity extends AppCompatActivity {
         if (collapsingToolbarLayout != null && dynamicActionBarColors) {
             collapsingToolbarLayout.setStatusBarScrimColor(dominantColor);
             collapsingToolbarLayout.setContentScrimColor(dominantColor);
+        }
+
+        if (getResources().getBoolean(R.bool.dynamicActionBarColors)) {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                getWindow().setNavigationBarColor(dominantColor);
+            }
         }
 
         Root.requestRootAccess();

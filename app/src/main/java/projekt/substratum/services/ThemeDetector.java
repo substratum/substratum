@@ -44,6 +44,7 @@ public class ThemeDetector extends Service {
     private Boolean new_theme = false;
     private int CONFIG_TIME_PIRACY_CHECKER = 60000; // 1 sec == 1000ms
     private int CONFIG_TIME_THEME_CHECKER = 2500; // 1 sec == 1000ms
+    private Boolean new_setup = false;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -85,8 +86,7 @@ public class ThemeDetector extends Service {
                         (applicationInfo).toString();
 
                 // Everything below will only run as long as the PackageManager changes
-
-                if (new_theme) {
+                if (new_theme && !new_setup) {
                     Intent notificationIntent = new Intent(ThemeDetector.this, InformationActivity
                             .class);
                     notificationIntent.putExtra("theme_name", packageTitle);
@@ -118,6 +118,9 @@ public class ThemeDetector extends Service {
                     new_theme = false;
 
                     super.onPostExecute(result);
+                } else {
+                    new_theme = false;
+                    new_setup = false;
                 }
             } catch (PackageManager.NameNotFoundException nnfe) {
                 // We will automatically assume that the service ran and there are no new themes
@@ -150,6 +153,7 @@ public class ThemeDetector extends Service {
                 }
             }
             // Check for SharedPreferences Set and sort it
+            if (!prefs.contains("installed_themes")) new_setup = true;
             Set<String> setString = prefs.getStringSet("installed_themes", new HashSet<String>());
             Set<String> setStringSorted = new TreeSet<>();
             Iterator<String> it = setString.iterator();

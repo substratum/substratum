@@ -1,6 +1,7 @@
 package projekt.substratum.fragments;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
@@ -65,6 +66,17 @@ public class ProfileFragment extends Fragment {
             }
         }
         adapter.notifyDataSetChanged();
+    }
+
+    private boolean isPackageInstalled(String package_name) {
+        PackageManager pm = getContext().getPackageManager();
+        List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
+        for (ApplicationInfo packageInfo : packages) {
+            if (packageInfo.packageName.equals(package_name)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -242,7 +254,17 @@ public class ProfileFragment extends Fragment {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         headerProgress.setVisibility(View.GONE);
-                                        Root.runCommand(to_be_run_commands);
+                                        if (isPackageInstalled("projekt.substratum.helper")) {
+                                            Intent runCommand = new Intent();
+                                            runCommand.addFlags(Intent
+                                                    .FLAG_INCLUDE_STOPPED_PACKAGES);
+                                            runCommand.setAction("projekt.substratum.helper" +
+                                                    ".COMMANDS");
+                                            runCommand.putExtra("om-commands", to_be_run_commands);
+                                            getContext().sendBroadcast(runCommand);
+                                        } else {
+                                            Root.runCommand(to_be_run_commands);
+                                        }
                                     }
                                 })
                         .setNegativeButton(getString(R.string.restore_dialog_cancel), new
@@ -255,7 +277,15 @@ public class ProfileFragment extends Fragment {
                         .create().show();
             } else {
                 headerProgress.setVisibility(View.GONE);
-                Root.runCommand(to_be_run_commands);
+                if (isPackageInstalled("projekt.substratum.helper")) {
+                    Intent runCommand = new Intent();
+                    runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                    runCommand.setAction("projekt.substratum.helper.COMMANDS");
+                    runCommand.putExtra("om-commands", to_be_run_commands);
+                    getContext().sendBroadcast(runCommand);
+                } else {
+                    Root.runCommand(to_be_run_commands);
+                }
             }
         }
 

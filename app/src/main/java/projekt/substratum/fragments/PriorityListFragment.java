@@ -1,5 +1,7 @@
 package projekt.substratum.fragments;
 
+import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -52,6 +54,17 @@ public class PriorityListFragment extends Fragment {
                     + "\"");
         }
         return icon;
+    }
+
+    private boolean isPackageInstalled(String package_name) {
+        PackageManager pm = getContext().getPackageManager();
+        List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
+        for (ApplicationInfo packageInfo : packages) {
+            if (packageInfo.packageName.equals(package_name)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -217,7 +230,15 @@ public class PriorityListFragment extends Fragment {
                         new java.util.TimerTask() {
                             @Override
                             public void run() {
-                                Root.runCommand(commands);
+                                if (isPackageInstalled("projekt.substratum.helper")) {
+                                    Intent runCommand = new Intent();
+                                    runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                                    runCommand.setAction("projekt.substratum.helper.COMMANDS");
+                                    runCommand.putExtra("om-commands", commands);
+                                    getContext().sendBroadcast(runCommand);
+                                } else {
+                                    Root.runCommand(commands);
+                                }
                             }
                         },
                         500

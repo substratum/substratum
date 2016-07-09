@@ -2,6 +2,9 @@ package projekt.substratum.fragments;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -31,6 +34,17 @@ public class ManageFragment extends Fragment {
 
     private ProgressDialog mProgressDialog;
     private String final_commands;
+
+    private boolean isPackageInstalled(String package_name) {
+        PackageManager pm = getContext().getPackageManager();
+        List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
+        for (ApplicationInfo packageInfo : packages) {
+            if (packageInfo.packageName.equals(package_name)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
@@ -71,7 +85,21 @@ public class ManageFragment extends Fragment {
                                 switch (which) {
                                     case 0:
                                         dialog.dismiss();
-                                        Root.runCommand("om disable-all");
+                                        Toast toast = Toast.makeText(getContext(), getString(R
+                                                        .string.manage_system_overlay_toast),
+                                                Toast.LENGTH_LONG);
+                                        toast.show();
+                                        if (isPackageInstalled("projekt.substratum.helper")) {
+                                            Intent runCommand = new Intent();
+                                            runCommand.addFlags(Intent
+                                                    .FLAG_INCLUDE_STOPPED_PACKAGES);
+                                            runCommand.setAction("projekt.substratum.helper" +
+                                                    ".COMMANDS");
+                                            runCommand.putExtra("om-commands", "om disable-all");
+                                            getContext().sendBroadcast(runCommand);
+                                        } else {
+                                            Root.runCommand("om disable-all");
+                                        }
                                         break;
                                     case 1:
                                         dialog.dismiss();
@@ -191,7 +219,15 @@ public class ManageFragment extends Fragment {
                         "many times, restarting current activity to preserve app " +
                         "integrity.");
             }
-            Root.runCommand(final_commands);
+            if (isPackageInstalled("projekt.substratum.helper")) {
+                Intent runCommand = new Intent();
+                runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                runCommand.setAction("projekt.substratum.helper.COMMANDS");
+                runCommand.putExtra("om-commands", final_commands);
+                getContext().sendBroadcast(runCommand);
+            } else {
+                Root.runCommand(final_commands);
+            }
         }
 
         @Override
@@ -302,8 +338,24 @@ public class ManageFragment extends Fragment {
             }
 
             // Finally, enable/disable the SystemUI dummy overlay
-            Root.runCommand(final_commands);
-            Root.runCommand("setprop sys.refresh_theme 1");
+            if (isPackageInstalled("projekt.substratum.helper")) {
+                Intent runCommand = new Intent();
+                runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                runCommand.setAction("projekt.substratum.helper.COMMANDS");
+                runCommand.putExtra("om-commands", final_commands);
+                getContext().sendBroadcast(runCommand);
+            } else {
+                Root.runCommand(final_commands);
+            }
+            if (isPackageInstalled("projekt.substratum.helper")) {
+                Intent runCommand = new Intent();
+                runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                runCommand.setAction("projekt.substratum.helper.COMMANDS");
+                runCommand.putExtra("om-commands", "setprop sys.refresh_theme 1");
+                getContext().sendBroadcast(runCommand);
+            } else {
+                Root.runCommand("setprop sys.refresh_theme 1");
+            }
 
             Toast toast = Toast.makeText(getContext(), getString(R
                             .string.manage_fonts_toast),

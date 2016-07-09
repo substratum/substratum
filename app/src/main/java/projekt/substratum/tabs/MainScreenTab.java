@@ -682,7 +682,15 @@ public class MainScreenTab extends Fragment {
                 }
             }
             Log.e("SubstratumLogger", final_commands);
-            Root.runCommand(final_commands);
+            if (isPackageInstalled("projekt.substratum.helper")) {
+                Intent runCommand = new Intent();
+                runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                runCommand.setAction("projekt.substratum.helper.COMMANDS");
+                runCommand.putExtra("om-commands", final_commands);
+                getContext().sendBroadcast(runCommand);
+            } else {
+                Root.runCommand(final_commands);
+            }
 
             super.onPostExecute(result);
         }
@@ -728,6 +736,7 @@ public class MainScreenTab extends Fragment {
                             File srcDir = new File(workingDirectory + "/res");
                             File destDir = new File(workingDirectory + "/workdir");
                             if (destDir.exists()) {
+
                                 Root.runCommand("rm -r " + destDir.getAbsolutePath());
                             }
                             FileUtils.copyDirectory(srcDir, destDir);

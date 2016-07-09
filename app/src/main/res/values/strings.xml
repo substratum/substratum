@@ -9,7 +9,7 @@
     <string name="search_play_store_url" translatable="false">"https://play.google.com/store/search?q=Substratum%20Theme&amp;c=apps"</string>
 
     <string name="on_demand_updating_title">Resource Cache Initializer</string>
-    <string name="on_demand_updating_text">%s\'s cache is now building&#8230;</string>
+    <string name="on_demand_updating_text">%s\'s cache is now rebuilding&#8230;</string>
     <string name="background_updating_toast">A theme is upgrading in the background, please wait for this to finish!</string>
     <string name="background_updated_toast">Resource cache has been built!</string>
 
@@ -91,7 +91,7 @@
     <string name="manage_system_overlay_disable">Disable all enabled overlays</string>
     <string name="manage_system_overlay_uninstall">Uninstall all installed overlays</string>
     <string name="manage_system_overlay_title">Restore System Theme</string>
-    <string name="manage_system_overlay_toast">System theme restored successfully!</string>
+    <string name="manage_system_overlay_toast">System theme is now restoring&#8230;</string>
     <string name="manage_system_overlay_uninstall_toast">All overlays uninstalled successfully!</string>
     <string name="manage_system_overlay_text">Disables all enabled overlays and restores the stock theme</string>
 
@@ -190,9 +190,9 @@
     <string name="toast_compiled">Selected overlay(s) compiled!</string>
     <string name="toast_compiled_updated">Selected overlay(s) updated!</string>
     <string name="toast_compiled_updated_with_errors">Selected overlay(s) updated with some errors!</string>
-    <string name="toast_enabled">Selected overlay(s) enabled!</string>
-    <string name="toast_disabled">Selected overlay(s) disabled!</string>
-    <string name="toast_disabled2">Selected overlay(s) disabled!</string>
+    <string name="toast_enabled">Selected overlay(s) enabling&#8230;</string>
+    <string name="toast_disabled">Selected overlay(s) disabling&#8230;</string>
+    <string name="toast_disabled2">Selected overlay(s) disabling&#8230;</string>
     <string name="toast_disabled3">Please compile this overlay before applying!</string>
     <string name="toast_disabled4">You can\'t disable an overlay you don\'t have compiled!</string>
     <string name="toast_disabled5">Please select a valid overlay before performing this action.</string>

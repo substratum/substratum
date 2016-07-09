@@ -2,6 +2,7 @@ package projekt.substratum.util;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
@@ -118,7 +119,15 @@ public class FontHandler {
 
                 // Finally, enable/disable the SystemUI dummy overlay
 
-                Root.runCommand(final_commands);
+                if (isPackageInstalled(mContext, "projekt.substratum.helper")) {
+                    Intent runCommand = new Intent();
+                    runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                    runCommand.setAction("projekt.substratum.helper.COMMANDS");
+                    runCommand.putExtra("om-commands", final_commands);
+                    mContext.sendBroadcast(runCommand);
+                } else {
+                    Root.runCommand(final_commands);
+                }
             }
         }
 

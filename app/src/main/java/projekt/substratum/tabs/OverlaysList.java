@@ -43,7 +43,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -966,7 +965,7 @@ public class OverlaysList extends Fragment {
 
                     Toast toast = Toast.makeText(getContext(), getString(R
                                     .string.toast_compiled_updated),
-                            Toast.LENGTH_SHORT);
+                            Toast.LENGTH_LONG);
                     toast.show();
                 } else {
                     // Closing off the persistent notification
@@ -982,7 +981,7 @@ public class OverlaysList extends Fragment {
 
                     Toast toast = Toast.makeText(getContext(), getString(R
                                     .string.toast_compiled_updated_with_errors),
-                            Toast.LENGTH_SHORT);
+                            Toast.LENGTH_LONG);
                     toast.show();
                 }
 
@@ -999,7 +998,16 @@ public class OverlaysList extends Fragment {
                     }
                 } else {
                     mAdapter.notifyDataSetChanged();
-                    Root.runCommand(final_commands);
+
+                    if (isPackageInstalled("projekt.substratum.helper")) {
+                        Intent runCommand = new Intent();
+                        runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                        runCommand.setAction("projekt.substratum.helper.COMMANDS");
+                        runCommand.putExtra("om-commands", final_commands);
+                        getContext().sendBroadcast(runCommand);
+                    } else {
+                        Root.runCommand(final_commands);
+                    }
                 }
             } else {
                 if (enable_mode) {
@@ -1014,7 +1022,7 @@ public class OverlaysList extends Fragment {
 
                         Toast toast = Toast.makeText(getContext(), getString(R
                                         .string.toast_enabled),
-                                Toast.LENGTH_SHORT);
+                                Toast.LENGTH_LONG);
                         toast.show();
                         enable_mode = false;
 
@@ -1024,10 +1032,27 @@ public class OverlaysList extends Fragment {
                         }
 
                         if (mixAndMatchMode) {
-                            Root.runCommand(disableBeforeEnabling +
-                                    " && " + final_commands);
+                            if (isPackageInstalled("projekt.substratum.helper")) {
+                                Intent runCommand = new Intent();
+                                runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                                runCommand.setAction("projekt.substratum.helper.COMMANDS");
+                                runCommand.putExtra("om-commands", disableBeforeEnabling +
+                                        " && " + final_commands);
+                                getContext().sendBroadcast(runCommand);
+                            } else {
+                                Root.runCommand(disableBeforeEnabling +
+                                        " && " + final_commands);
+                            }
                         } else {
-                            Root.runCommand(final_commands);
+                            if (isPackageInstalled("projekt.substratum.helper")) {
+                                Intent runCommand = new Intent();
+                                runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                                runCommand.setAction("projekt.substratum.helper.COMMANDS");
+                                runCommand.putExtra("om-commands", final_commands);
+                                getContext().sendBroadcast(runCommand);
+                            } else {
+                                Root.runCommand(final_commands);
+                            }
                         }
                     } else {
                         enable_mode = false;
@@ -1047,7 +1072,7 @@ public class OverlaysList extends Fragment {
                         }
                         Toast toast = Toast.makeText(getContext(), getString(R
                                         .string.toast_disabled),
-                                Toast.LENGTH_SHORT);
+                                Toast.LENGTH_LONG);
                         toast.show();
                         disable_mode = false;
 
@@ -1057,10 +1082,27 @@ public class OverlaysList extends Fragment {
                         }
 
                         if (mixAndMatchMode) {
-                            Root.runCommand(disableBeforeEnabling +
-                                    " && " + final_commands);
+                            if (isPackageInstalled("projekt.substratum.helper")) {
+                                Intent runCommand = new Intent();
+                                runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                                runCommand.setAction("projekt.substratum.helper.COMMANDS");
+                                runCommand.putExtra("om-commands", disableBeforeEnabling +
+                                        " && " + final_commands);
+                                getContext().sendBroadcast(runCommand);
+                            } else {
+                                Root.runCommand(disableBeforeEnabling +
+                                        " && " + final_commands);
+                            }
                         } else {
-                            Root.runCommand(final_commands);
+                            if (isPackageInstalled("projekt.substratum.helper")) {
+                                Intent runCommand = new Intent();
+                                runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                                runCommand.setAction("projekt.substratum.helper.COMMANDS");
+                                runCommand.putExtra("om-commands", final_commands);
+                                getContext().sendBroadcast(runCommand);
+                            } else {
+                                Root.runCommand(final_commands);
+                            }
                         }
                     } else {
                         disable_mode = false;

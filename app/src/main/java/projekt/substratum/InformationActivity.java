@@ -93,6 +93,17 @@ public class InformationActivity extends AppCompatActivity {
         return icon;
     }
 
+    private boolean isPackageInstalled(String package_name) {
+        PackageManager pm = getApplicationContext().getPackageManager();
+        List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
+        for (ApplicationInfo packageInfo : packages) {
+            if (packageInfo.packageName.equals(package_name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -308,7 +319,15 @@ public class InformationActivity extends AppCompatActivity {
                                     Toast.LENGTH_LONG);
                             toast.show();
 
-                            Root.runCommand(commands2);
+                            if (isPackageInstalled("projekt.substratum.helper")) {
+                                Intent runCommand = new Intent();
+                                runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                                runCommand.setAction("projekt.substratum.helper.COMMANDS");
+                                runCommand.putExtra("om-commands", commands2);
+                                getApplicationContext().sendBroadcast(runCommand);
+                            } else {
+                                Root.runCommand(commands2);
+                            }
                         }
                     })
                     .setNegativeButton(R.string.uninstall_dialog_cancel, new DialogInterface
@@ -386,9 +405,15 @@ public class InformationActivity extends AppCompatActivity {
                                     Toast.LENGTH_LONG);
                             toast.show();
 
-                            Log.e("commands", commands2);
-
-                            Root.runCommand(commands2);
+                            if (isPackageInstalled("projekt.substratum.helper")) {
+                                Intent runCommand = new Intent();
+                                runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                                runCommand.setAction("projekt.substratum.helper.COMMANDS");
+                                runCommand.putExtra("om-commands", commands2);
+                                getApplicationContext().sendBroadcast(runCommand);
+                            } else {
+                                Root.runCommand(commands2);
+                            }
                         }
                     })
                     .setNegativeButton(R.string.uninstall_dialog_cancel, new DialogInterface
@@ -466,9 +491,15 @@ public class InformationActivity extends AppCompatActivity {
                                     Toast.LENGTH_LONG);
                             toast.show();
 
-                            Log.e("commands", commands2);
-
-                            Root.runCommand(commands2);
+                            if (isPackageInstalled("projekt.substratum.helper")) {
+                                Intent runCommand = new Intent();
+                                runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                                runCommand.setAction("projekt.substratum.helper.COMMANDS");
+                                runCommand.putExtra("om-commands", commands2);
+                                getApplicationContext().sendBroadcast(runCommand);
+                            } else {
+                                Root.runCommand(commands2);
+                            }
                         }
                     })
                     .setNegativeButton(R.string.uninstall_dialog_cancel, new DialogInterface
@@ -565,7 +596,15 @@ public class InformationActivity extends AppCompatActivity {
                                     "/SubstratumBuilder/" + getThemeName().replaceAll("\\s+", "")
                                     .replaceAll("[^a-zA-Z0-9]+", ""));
 
-                            Root.runCommand(commands2);
+                            if (isPackageInstalled("projekt.substratum.helper")) {
+                                Intent runCommand = new Intent();
+                                runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                                runCommand.setAction("projekt.substratum.helper.COMMANDS");
+                                runCommand.putExtra("om-commands", commands2);
+                                getApplicationContext().sendBroadcast(runCommand);
+                            } else {
+                                Root.runCommand(commands2);
+                            }
 
                             // Finally close out of the window
                             uninstalled = true;

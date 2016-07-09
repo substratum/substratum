@@ -231,8 +231,8 @@
     <string name="show_installed_packages_only">Only show installed packages in overlay picker</string>
     <string name="purge_completion">All overlays deactivated and removed</string>
     <string name="clean_completion">All overlays for this theme has been deactivated and removed</string>
-    <string name="disable_completion">All overlays for this theme has been deactivated</string>
-    <string name="enable_completion">All installed overlays for this theme has been activated</string>
+    <string name="disable_completion">All overlays for this theme are now deactivating&#8230;</string>
+    <string name="enable_completion">All installed overlays for this theme are now activating&#8230;</string>
 
     <string name="fab_menu_compile">Compile Selected</string>
     <string name="fab_menu_compile_enable">Compile/Update</string>

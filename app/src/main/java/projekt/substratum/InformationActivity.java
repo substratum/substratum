@@ -212,8 +212,6 @@ public class InformationActivity extends AppCompatActivity {
             }
         }
 
-        Root.requestRootAccess();
-
         final InformationTabsAdapter adapter = new InformationTabsAdapter
                 (getSupportFragmentManager(), tabLayout.getTabCount(), getApplicationContext(),
                         theme_pid, (theme_mode.equals("")), theme_mode, tab_checker);
@@ -236,6 +234,15 @@ public class InformationActivity extends AppCompatActivity {
                 public void onTabReselected(TabLayout.Tab tab) {
                 }
             });
+        }
+
+        // All Root Requests will now reside within this scope
+        Root.requestRootAccess();
+        if (isPackageInstalled("projekt.substratum.helper")) {
+            Intent runCommand = new Intent();
+            runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+            runCommand.setAction("projekt.substratum.helper.INITIALIZE");
+            getApplicationContext().sendBroadcast(runCommand);
         }
     }
 

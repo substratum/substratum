@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gordonwong.materialsheetfab.MaterialSheetFab;
 
@@ -126,7 +127,10 @@ public class OverlayManagerFragment extends Fragment {
                             data = data + " " + overlay.getName();
                         }
                     }
-
+                    Toast toast = Toast.makeText(getContext(), getString(R
+                                    .string.toast_disabled),
+                            Toast.LENGTH_LONG);
+                    toast.show();
                     if (isPackageInstalled("projekt.substratum.helper")) {
                         Intent runCommand = new Intent();
                         runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
@@ -152,7 +156,10 @@ public class OverlayManagerFragment extends Fragment {
                         data = data + " " + overlay.getName();
                     }
                 }
-
+                Toast toast = Toast.makeText(getContext(), getString(R
+                                .string.toast_enabled),
+                        Toast.LENGTH_LONG);
+                toast.show();
                 if (isPackageInstalled("projekt.substratum.helper")) {
                     Intent runCommand = new Intent();
                     runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);

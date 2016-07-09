@@ -653,8 +653,8 @@ public class MainScreenTab extends Fragment {
                 mNotifyManager.notify(id, mBuilder.build());
 
                 Toast toast = Toast.makeText(getContext(), getString(R
-                                .string.toast_compiled_updated),
-                        Toast.LENGTH_SHORT);
+                                .string.toast_enabled),
+                        Toast.LENGTH_LONG);
                 toast.show();
             } else {
                 // Closing off the persistent notification
@@ -670,7 +670,7 @@ public class MainScreenTab extends Fragment {
 
                 Toast toast = Toast.makeText(getContext(), getString(R
                                 .string.toast_compiled_updated_with_errors),
-                        Toast.LENGTH_SHORT);
+                        Toast.LENGTH_LONG);
                 toast.show();
             }
 

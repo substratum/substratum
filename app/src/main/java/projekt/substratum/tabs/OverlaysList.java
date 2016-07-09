@@ -1187,7 +1187,8 @@ public class OverlaysList extends Fragment {
                                 .replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "") +
                                 "/assets/overlays/" + current_overlay;
 
-                        File srcDir = new File(workingDirectory + "/res");
+                        File srcDir = new File(workingDirectory +
+                                ((sUrl[0].length() != 0) ? "/type3_" + sUrl[0] : "/res"));
                         File destDir = new File(workingDirectory + "/workdir");
                         if (destDir.exists()) {
                             Root.runCommand("rm -r " + destDir.getAbsolutePath());
@@ -1202,13 +1203,6 @@ public class OverlaysList extends Fragment {
 
                                 String targetLocation = workingDirectory +
                                         "/workdir/values/type1a.xml";
-                                String targetLocation1a = workingDirectory + "/type3_" + sUrl[0] +
-                                        "/values/";
-
-                                File checker = new File(targetLocation1a);
-                                if (checker.exists()) {
-                                    targetLocation = targetLocation1a + "type1a.xml";
-                                }
 
                                 Log.d("SubstratumBuilder", "You have selected variant file \"" +
                                         checkedOverlays.get(i).getSelectedVariantName() + "\"");
@@ -1216,7 +1210,7 @@ public class OverlaysList extends Fragment {
                                         targetLocation);
 
                                 Root.runCommand(
-                                        "mv -f " + sourceLocation + " " + targetLocation);
+                                        "cp -rf " + sourceLocation + " " + targetLocation);
                             }
 
                             // Type 1b
@@ -1226,14 +1220,6 @@ public class OverlaysList extends Fragment {
 
                                 String targetLocation2 = workingDirectory +
                                         "/workdir/values/type1b.xml";
-                                String targetLocation1b = workingDirectory + "/type3_" + sUrl[0] +
-                                        "/values/";
-
-                                File checker = new File(targetLocation1b);
-                                if (checker.exists()) {
-                                    targetLocation2 = targetLocation1b + "type1b.xml";
-                                    ;
-                                }
 
                                 Log.d("SubstratumBuilder", "You have selected variant file \"" +
                                         checkedOverlays.get(i).getSelectedVariantName2() + "\"");
@@ -1241,7 +1227,7 @@ public class OverlaysList extends Fragment {
                                         targetLocation2);
 
                                 Root.runCommand(
-                                        "mv -f " + sourceLocation2 + " " + targetLocation2);
+                                        "cp -rf " + sourceLocation2 + " " + targetLocation2);
                             }
                             // Type 1c
                             if (checkedOverlays.get(i).is_variant_chosen3) {
@@ -1250,13 +1236,6 @@ public class OverlaysList extends Fragment {
 
                                 String targetLocation3 = workingDirectory +
                                         "/workdir/values/type1c.xml";
-                                String targetLocation1c = workingDirectory + "/type3_" + sUrl[0] +
-                                        "/values/";
-
-                                File checker = new File(targetLocation1c);
-                                if (checker.exists()) {
-                                    targetLocation3 = targetLocation1c + "type1c.xml";
-                                }
 
                                 Log.d("SubstratumBuilder", "You have selected variant file \"" +
                                         checkedOverlays.get(i).getSelectedVariantName3() + "\"");
@@ -1264,7 +1243,7 @@ public class OverlaysList extends Fragment {
                                         targetLocation3);
 
                                 Root.runCommand(
-                                        "mv -f " + sourceLocation3 + " " + targetLocation3);
+                                        "cp -rf " + sourceLocation3 + " " + targetLocation3);
                             }
 
                             String packageName =

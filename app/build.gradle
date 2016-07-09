@@ -38,6 +38,7 @@ dependencies {
     compile 'com.jakewharton:butterknife:7.0.1'
 
     // Image Downloading and Caching
+    compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
 
     // Commons IO
@@ -54,7 +55,7 @@ dependencies {
     compile 'me.zhanghai.android.materialprogressbar:library:1.1.6'
 
     // App Intro
-    compile 'za.co.riggaroo:materialhelptutorial:1.+'
+    compile 'com.stephentuso:welcome:0.7.0'
 
     // Floating Action Button Sheet Menu
     compile 'com.gordonwong:material-sheet-fab:1.2.1'

@@ -90,7 +90,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="za.co.riggaroo.materialhelptutorial.tutorial.MaterialTutorialActivity"
-            android:theme="@style/AppIntro.ActivityTheme"/>
+            android:name=".util.AppIntro"
+            android:theme="@style/WelcomeScreenTheme"/>
     </application>
 </manifest>

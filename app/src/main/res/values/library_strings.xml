@@ -129,24 +129,6 @@
     <!-- License section -->
     <string name="library_materialprogressbar_licenseId">apache_2_0</string>
 
-    <!-- Material Intro Tutorial -->
-    <string name="define_materialintrotutorial"/>
-    <!-- Author section -->
-    <string name="library_materialintrotutorial_author">Rebecca Franks</string>
-    <string name="library_materialintrotutorial_authorWebsite">http://riggaroo.co.za/</string>
-    <!-- Library section -->
-    <string name="library_materialintrotutorial_libraryName">MaterialIntroTutorial</string>
-    <string name="library_materialintrotutorial_libraryDescription">An Android library demonstrating a material intro tutorial much like the ones on Google Sheets.  This library creates an introduction screen for your application. The help tutorial takes the background colour set for each page and when scrolling between the two pages, the two colours will fade into one another.</string>
-    <string name="library_materialintrotutorial_libraryWebsite">https://github.com/riggaroo/MaterialIntroTutorial</string>
-    <string name="library_materialintrotutorial_libraryVersion">1.1.0</string>
-    <!-- OpenSource section -->
-    <string name="library_materialintrotutorial_isOpenSource">true</string>
-    <string name="library_materialintrotutorial_repositoryLink">https://github.com/riggaroo/MaterialIntroTutorial</string>
-    <!-- ClassPath for autoDetect section -->
-    <string name="library_materialintrotutorial_classPath">za.co.riggaroo:materialhelptutorial</string>
-    <!-- License section -->
-    <string name="library_materialintrotutorial_licenseId">mit</string>
-
     <!-- Material Sheet Fab -->
     <string name="define_materialsheetfab"/>
     <!-- Author section -->
@@ -182,6 +164,24 @@
     <string name="library_androidscrollingimageview_classPath">An Android view for displaying repeated continuous side scrolling images. This can be used to create a parallax animation effect.</string>
     <!-- License section -->
     <string name="library_androidscrollingimageview_licenseId">apache_2_0</string>
+
+    <!-- Welcome -->
+    <string name="define_welcome_android"/>
+    <!-- Author section -->
+    <string name="library_welcome_android_author">Stephen Tuso</string>
+    <string name="library_welcome_android_authorWebsite">https://github.com/stephentuso</string>
+    <!-- Library section -->
+    <string name="library_welcome_android_libraryName">Welcome</string>
+    <string name="library_welcome_android_libraryDescription">An easy to use and customizable welcome screen for Android apps.</string>
+    <string name="library_welcome_android_libraryWebsite">https://github.com/stephentuso/welcome-android</string>
+    <string name="library_welcome_android_libraryVersion">0.7.2</string>
+    <!-- OpenSource section -->
+    <string name="library_welcome_android_isOpenSource">true</string>
+    <string name="library_welcome_android_repositoryLink">https://github.com/stephentuso/welcome-android</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_welcome_android_classPath">com.stephentuso:welcome</string>
+    <!-- License section -->
+    <string name="library_welcome_android_licenseId">apache_2_0</string>
 
     <!-- ZipSigner -->
     <string name="define_zipsigner"/>

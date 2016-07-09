@@ -354,8 +354,10 @@ public class OverlaysList extends Fragment {
                     + "/assets/overlays/android");
             File[] fileArray = f.listFiles();
             ArrayList<String> stringArray = new ArrayList<>();
-            for (int i = 0; i < fileArray.length; i++) {
-                stringArray.add(fileArray[i].getName());
+            if (fileArray != null && fileArray.length > 0) {
+                for (int i = 0; i < fileArray.length; i++) {
+                    stringArray.add(fileArray[i].getName());
+                }
             }
 
             if (stringArray.contains("type3")) {
@@ -529,8 +531,10 @@ public class OverlaysList extends Fragment {
                                 ("[^a-zA-Z0-9]+", "")
                         + "/assets/overlays");
                 File[] fileArray = overlaysDirectory.listFiles();
-                for (int i = 0; i < fileArray.length; i++) {
-                    overlaysFolder.add(fileArray[i].getName());
+                if (fileArray != null && fileArray.length > 0) {
+                    for (int i = 0; i < fileArray.length; i++) {
+                        overlaysFolder.add(fileArray[i].getName());
+                    }
                 }
                 for (String package_name : overlaysFolder) {
                     if (isPackageInstalled(package_name)) {
@@ -604,8 +608,10 @@ public class OverlaysList extends Fragment {
                                         ("[^a-zA-Z0-9]+", "")
                                 + "/assets/overlays/" + package_name);
                         File[] fileArray = typeArrayRaw.listFiles();
-                        for (int i = 0; i < fileArray.length; i++) {
-                            typeArray.add(fileArray[i].getName());
+                        if (fileArray != null && fileArray.length > 0) {
+                            for (int i = 0; i < fileArray.length; i++) {
+                                typeArray.add(fileArray[i].getName());
+                            }
                         }
 
                         if (typeArray.contains("type1a")) {

@@ -20,8 +20,8 @@ android {
         applicationId "projekt.substratum"
         minSdkVersion 23
         targetSdkVersion 24
-        versionCode 77
-        versionName "seventy seven (masquerade)"
+        versionCode 78
+        versionName "seventy eight (masquerade)"
     }
 }
 
@@ -57,7 +57,7 @@ dependencies {
     // App Intro
     compile 'com.stephentuso:welcome:0.7.0'
 
-    // Floating Action Button Sheet Menu
+    // Floating Action Buttons
     compile 'com.gordonwong:material-sheet-fab:1.2.1'
 
     // Material Drawer
@@ -70,7 +70,7 @@ dependencies {
         transitive = true
     }
 
-    // EditText
+    // EditTexts
     compile 'com.alimuzaffar.lib:animated-edit-text:0.0.8'
 
     // Gesture RecyclerView

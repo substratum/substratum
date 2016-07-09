@@ -219,6 +219,7 @@ public class ManageFragment extends Fragment {
                         "many times, restarting current activity to preserve app " +
                         "integrity.");
             }
+            final_commands = final_commands + " && rm -rf /data/system/overlays.xml";
             if (isPackageInstalled("projekt.substratum.helper")) {
                 Intent runCommand = new Intent();
                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);

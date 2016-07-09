@@ -106,6 +106,7 @@
     <string name="menu_search">Play Store Themes</string>
     <string name="menu_uninstall">Uninstall</string>
 
+    <string name="nav_overlay_manager">Advanced Manager</string>
     <string name="nav_home">Theme Packs</string>
     <string name="nav_overlays">Overlays</string>
     <string name="nav_bootanim">Boot Animations</string>
@@ -116,7 +117,7 @@
     <string name="nav_section_header_utilities">Utilities</string>
     <string name="nav_section_header_more">More</string>
 
-    <string name="nav_manage">Manage</string>
+    <string name="nav_manage">Defaults Manager</string>
     <string name="nav_priorities">Priorities</string>
     <string name="nav_backup_restore">Profiles</string>
     <string name="nav_settings">Settings</string>
@@ -127,9 +128,12 @@
     <string name="priority_card_title">Dynamic Priority System (DPS)</string>
     <string name="priority_card_content">The Dynamic Priority System is an advanced procedure allowing for theme overlays to be organized with different priorities, ignoring the default OMS system-applied priorities.\n\nAn example when this would be of use would be wanting to structure a specific overlay on top of another overlay targeting the same application.\n\nWith the introduction of the Overlay Manager Service, the priorities are reversed, and the top most overlay resides at the bottom of each list.</string>
     <string name="priority_card_title2">Instructions</string>
-    <string name="priority_card_content2">With the way OverlayManagerService works, all overlay priorities are laid out in an inverted order.\n\nhighest priority = bottom of list\nlowest priority = top of list</string>
+    <string name="priority_card_content2">With the way OverlayManagerService works, all overlay priorities are laid out in an inverted order where the bottom is the highest priority (initial resource lookup) and the top is the lowest priority (final resource lookup).</string>
     <string name="priority_no_multiple_overlays_title">no apps with multiple overlays&#8230;</string>
     <string name="priority_no_multiple_overlays_text">enable two or more overlays on one app to use me!</string>
+
+    <string name="manager_no_overlays_title">no overlays installed&#8230;</string>
+    <string name="manager_no_overlays_text">compile one overlay to be able to use me!</string>
 
     <string name="backup">Backup Card</string>
     <string name="backup_card_content">This function makes a copy of your currently enabled overlays list and places it in \"/storage/emulated/0/substratum/profiles/\" for safekeeping.</string>

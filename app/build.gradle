@@ -19,7 +19,7 @@ android {
     defaultConfig {
         applicationId "projekt.substratum"
         minSdkVersion 23
-        targetSdkVersion 23
+        targetSdkVersion 24
         versionCode 77
         versionName "seventy seven (masquerade)"
     }

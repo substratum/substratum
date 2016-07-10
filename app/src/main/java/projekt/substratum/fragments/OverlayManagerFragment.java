@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.gordonwong.materialsheetfab.MaterialSheetFab;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -47,9 +48,14 @@ public class OverlayManagerFragment extends Fragment {
 
         List<OverlayManager> overlaysList = new ArrayList<>();
 
-        Root.runCommand("rm " + Environment
+        File current_overlays = new File(Environment
                 .getExternalStorageDirectory().getAbsolutePath() +
                 "/.substratum/current_overlays.xml");
+        if (current_overlays.exists()) {
+            Root.runCommand("rm " + Environment
+                    .getExternalStorageDirectory().getAbsolutePath() +
+                    "/.substratum/current_overlays.xml");
+        }
         Root.runCommand("cp /data/system/overlays.xml " +
                 Environment
                         .getExternalStorageDirectory().getAbsolutePath() +

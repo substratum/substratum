@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -233,6 +234,14 @@ public class ManageFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... sUrl) {
+            File current_overlays = new File(Environment
+                    .getExternalStorageDirectory().getAbsolutePath() +
+                    "/.substratum/current_overlays.xml");
+            if (current_overlays.exists()) {
+                Root.runCommand("rm " + Environment
+                        .getExternalStorageDirectory().getAbsolutePath() +
+                        "/.substratum/current_overlays.xml");
+            }
             Root.runCommand("cp /data/system/overlays.xml " +
                     Environment
                             .getExternalStorageDirectory().getAbsolutePath() +
@@ -358,6 +367,14 @@ public class ManageFragment extends Fragment {
 
             Root.runCommand("rm -r /data/system/theme/fonts/");
 
+            File current_overlays = new File(Environment
+                    .getExternalStorageDirectory().getAbsolutePath() +
+                    "/.substratum/current_overlays.xml");
+            if (current_overlays.exists()) {
+                Root.runCommand("rm " + Environment
+                        .getExternalStorageDirectory().getAbsolutePath() +
+                        "/.substratum/current_overlays.xml");
+            }
             Root.runCommand("cp /data/system/overlays" +
                     ".xml " +
                     Environment

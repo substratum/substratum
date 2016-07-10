@@ -429,6 +429,14 @@ public class FontHandler {
 
                     final_commands = "om enable substratum.helper";
                 } else {
+                    File current_overlays = new File(Environment
+                            .getExternalStorageDirectory().getAbsolutePath() +
+                            "/.substratum/current_overlays.xml");
+                    if (current_overlays.exists()) {
+                        Root.runCommand("rm " + Environment
+                                .getExternalStorageDirectory().getAbsolutePath() +
+                                "/.substratum/current_overlays.xml");
+                    }
                     Root.runCommand("cp /data/system/overlays" +
                             ".xml " +
                             Environment

@@ -484,7 +484,14 @@ public class OverlaysList extends Fragment {
             } catch (Exception e) {
                 // Exception
             }
-
+            File current_overlays = new File(Environment
+                    .getExternalStorageDirectory().getAbsolutePath() +
+                    "/.substratum/current_overlays.xml");
+            if (current_overlays.exists()) {
+                Root.runCommand("rm " + Environment
+                        .getExternalStorageDirectory().getAbsolutePath() +
+                        "/.substratum/current_overlays.xml");
+            }
             Root.runCommand("cp /data/system/overlays.xml " +
                     Environment
                             .getExternalStorageDirectory().getAbsolutePath() +
@@ -1151,6 +1158,14 @@ public class OverlaysList extends Fragment {
                         // check for
                         // whatever is activated first and delay their installs to a one liner
 
+                        File current_overlays = new File(Environment
+                                .getExternalStorageDirectory().getAbsolutePath() +
+                                "/.substratum/current_overlays.xml");
+                        if (current_overlays.exists()) {
+                            Root.runCommand("rm " + Environment
+                                    .getExternalStorageDirectory().getAbsolutePath() +
+                                    "/.substratum/current_overlays.xml");
+                        }
                         Root.runCommand("cp /data/system/overlays.xml " +
                                 Environment
                                         .getExternalStorageDirectory().getAbsolutePath() +

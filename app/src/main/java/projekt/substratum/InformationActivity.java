@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import com.flaviofaria.kenburnsview.KenBurnsView;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -264,6 +265,14 @@ public class InformationActivity extends AppCompatActivity {
                                     ("[^a-zA-Z0-9]+", "");
 
                             // Begin uninstalling all overlays based on this package
+                            File current_overlays = new File(Environment
+                                    .getExternalStorageDirectory().getAbsolutePath() +
+                                    "/.substratum/current_overlays.xml");
+                            if (current_overlays.exists()) {
+                                Root.runCommand("rm " + Environment
+                                        .getExternalStorageDirectory().getAbsolutePath() +
+                                        "/.substratum/current_overlays.xml");
+                            }
                             Root.runCommand("cp /data/system/overlays" +
                                     ".xml " +
                                     Environment
@@ -356,6 +365,14 @@ public class InformationActivity extends AppCompatActivity {
                                     ("[^a-zA-Z0-9]+", "");
 
                             // Begin disabling all overlays based on this package
+                            File current_overlays = new File(Environment
+                                    .getExternalStorageDirectory().getAbsolutePath() +
+                                    "/.substratum/current_overlays.xml");
+                            if (current_overlays.exists()) {
+                                Root.runCommand("rm " + Environment
+                                        .getExternalStorageDirectory().getAbsolutePath() +
+                                        "/.substratum/current_overlays.xml");
+                            }
                             Root.runCommand("cp /data/system/overlays" +
                                     ".xml " +
                                     Environment
@@ -442,6 +459,14 @@ public class InformationActivity extends AppCompatActivity {
                                     ("[^a-zA-Z0-9]+", "");
 
                             // Begin enabling all overlays based on this package
+                            File current_overlays = new File(Environment
+                                    .getExternalStorageDirectory().getAbsolutePath() +
+                                    "/.substratum/current_overlays.xml");
+                            if (current_overlays.exists()) {
+                                Root.runCommand("rm " + Environment
+                                        .getExternalStorageDirectory().getAbsolutePath() +
+                                        "/.substratum/current_overlays.xml");
+                            }
                             Root.runCommand("cp /data/system/overlays" +
                                     ".xml " +
                                     Environment
@@ -537,6 +562,14 @@ public class InformationActivity extends AppCompatActivity {
                                     ("[^a-zA-Z0-9]+", "");
 
                             // Begin uninstalling all overlays based on this package
+                            File current_overlays = new File(Environment
+                                    .getExternalStorageDirectory().getAbsolutePath() +
+                                    "/.substratum/current_overlays.xml");
+                            if (current_overlays.exists()) {
+                                Root.runCommand("rm " + Environment
+                                        .getExternalStorageDirectory().getAbsolutePath() +
+                                        "/.substratum/current_overlays.xml");
+                            }
                             Root.runCommand("cp /data/system/overlays" +
                                     ".xml " +
                                     Environment

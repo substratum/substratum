@@ -68,7 +68,7 @@ public class OverlayManagerFragment extends Fragment {
 
         Collections.sort(activated_overlays);
 
-        for (int i = 1; i < activated_overlays.size(); i++) {
+        for (int i = 0; i < activated_overlays.size(); i++) {
             if (state4.contains(activated_overlays.get(i))) {
                 OverlayManager st = new OverlayManager(getContext(), activated_overlays.get(i),
                         false);

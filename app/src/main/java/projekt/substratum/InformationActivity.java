@@ -49,6 +49,8 @@ public class InformationActivity extends AppCompatActivity {
 
     private final int THEME_INFORMATION_REQUEST_CODE = 1;
 
+    private Boolean refresh_mode = false;
+
     private Boolean uninstalled = false;
 
     public static String getThemeName() {
@@ -116,6 +118,7 @@ public class InformationActivity extends AppCompatActivity {
         theme_name = currentIntent.getStringExtra("theme_name");
         theme_pid = currentIntent.getStringExtra("theme_pid");
         theme_mode = currentIntent.getStringExtra("theme_mode");
+        refresh_mode = currentIntent.getBooleanExtra("refresh_mode", false);
         if (theme_mode == null) {
             theme_mode = "";
         }
@@ -662,7 +665,7 @@ public class InformationActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Intent intent = new Intent();
-        if (uninstalled) {
+        if (uninstalled || refresh_mode) {
             intent.putExtra("Uninstalled", true);
         } else {
             intent.putExtra("Uninstalled", false);

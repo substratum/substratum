@@ -16,6 +16,7 @@ import android.util.Log;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
 
 /**
@@ -67,8 +68,10 @@ public class SubstratumThemeUpdater {
             final int notification_priority = 2; // PRIORITY_MAX == 2
 
             if (showNotification) {
-                // Add dummy intent to be able to close the notification on click
-                Intent notificationIntent = new Intent();
+                Intent notificationIntent = new Intent(mContext, InformationActivity.class);
+                notificationIntent.putExtra("theme_name", getThemeName(packageName));
+                notificationIntent.putExtra("theme_pid", packageName);
+                notificationIntent.putExtra("refresh_back", true);
                 notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
                         Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 PendingIntent intent =
@@ -92,6 +95,37 @@ public class SubstratumThemeUpdater {
                         .setLargeIcon(BitmapFactory.decodeResource(
                                 mContext.getResources(), R.mipmap
                                         .restore_launcher))
+                        .setPriority(notification_priority);
+                mNotifyManager.notify(id, mBuilder.build());
+            } else {
+                Intent notificationIntent = new Intent(mContext, InformationActivity.class);
+                notificationIntent.putExtra("theme_name", getThemeName(packageName));
+                notificationIntent.putExtra("theme_pid", packageName);
+                notificationIntent.putExtra("refresh_back", true);
+                notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                        Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                PendingIntent intent =
+                        PendingIntent.getActivity(mContext, 0, notificationIntent,
+                                PendingIntent.FLAG_CANCEL_CURRENT);
+
+                // This is the time when the notification should be shown on the user's screen
+                NotificationManager mNotifyManager =
+                        (NotificationManager) mContext.getSystemService(
+                                Context.NOTIFICATION_SERVICE);
+                NotificationCompat.Builder mBuilder = new NotificationCompat.Builder
+                        (mContext);
+                mBuilder.getNotification().flags |= Notification.FLAG_AUTO_CANCEL;
+                mBuilder.setContentTitle(getThemeName(packageName) + " " +
+                        mContext.getString(R.string
+                                .notification_theme_installed))
+                        .setContentIntent(intent)
+                        .setContentText(mContext.getString(R.string
+                                .notification_theme_installed_content))
+                        .setAutoCancel(true)
+                        .setSmallIcon(R.drawable.notification_icon)
+                        .setLargeIcon(BitmapFactory.decodeResource(
+                                mContext.getResources(), R.mipmap
+                                        .main_launcher))
                         .setPriority(notification_priority);
                 mNotifyManager.notify(id, mBuilder.build());
             }

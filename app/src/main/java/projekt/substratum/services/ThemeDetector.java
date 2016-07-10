@@ -1,20 +1,15 @@
 package projekt.substratum.services;
 
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
-import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -23,10 +18,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.concurrent.ThreadLocalRandom;
 
-import projekt.substratum.MainActivity;
-import projekt.substratum.R;
 import projekt.substratum.util.AntiPiracyCheck;
 import projekt.substratum.util.SubstratumThemeUpdater;
 
@@ -77,54 +69,16 @@ public class ThemeDetector extends Service {
 
         @Override
         protected void onPostExecute(String result) {
-            try {
-                int id = ThreadLocalRandom.current().nextInt(0, 1000);
-                int notification_priority = 2; // PRIORITY_MAX == 2
-
-                ApplicationInfo applicationInfo = getPackageManager().getApplicationInfo
-                        (new_theme_name, 0);
-                String packageTitle = getPackageManager().getApplicationLabel
-                        (applicationInfo).toString();
-
-                // Everything below will only run as long as the PackageManager changes
-                if (new_theme && !new_setup) {
-                    Intent notificationIntent = new Intent(ThemeDetector.this, MainActivity.class);
-                    notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
-                            Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                    PendingIntent intent =
-                            PendingIntent.getActivity(ThemeDetector.this, 0, notificationIntent,
-                                    PendingIntent.FLAG_CANCEL_CURRENT);
-
-                    new SubstratumThemeUpdater().initialize(context, new_theme_name, false);
-
-                    // This is the time when the notification should be shown on the user's screen
-                    NotificationManager mNotifyManager =
-                            (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                    NotificationCompat.Builder mBuilder = new NotificationCompat.Builder
-                            (getApplicationContext());
-                    mBuilder.getNotification().flags |= Notification.FLAG_AUTO_CANCEL;
-                    mBuilder.setContentTitle(packageTitle + " " + getString(R.string
-                            .notification_theme_installed))
-                            .setContentIntent(intent)
-                            .setContentText(getString(R.string
-                                    .notification_theme_installed_content))
-                            .setAutoCancel(true)
-                            .setSmallIcon(R.drawable.notification_icon)
-                            .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap
-                                    .main_launcher))
-                            .setPriority(notification_priority);
-                    mNotifyManager.notify(id, mBuilder.build());
-
-                    new_theme = false;
-
-                    super.onPostExecute(result);
-                } else {
-                    new_theme = false;
-                    new_setup = false;
-                }
-            } catch (PackageManager.NameNotFoundException nnfe) {
-                // We will automatically assume that the service ran and there are no new themes
+            // Everything below will only run as long as the PackageManager changes
+            if (new_theme && !new_setup) {
+                new SubstratumThemeUpdater().initialize(
+                        getApplicationContext(), new_theme_name, false);
+                new_theme = false;
+            } else {
+                new_theme = false;
+                new_setup = false;
             }
+            super.onPostExecute(result);
         }
 
         @Override

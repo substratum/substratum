@@ -1,6 +1,7 @@
 package projekt.substratum.util;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -46,7 +47,6 @@ public class AntiPiracyCheck {
         @Override
         protected void onPostExecute(String result) {
             if (unauthorized_packages.size() > 0) {
-                Root.runCommand("om disable-all");
                 PurgeUnauthorizedOverlays purgeUnauthorizedOverlays = new
                         PurgeUnauthorizedOverlays();
                 purgeUnauthorizedOverlays.execute("");
@@ -158,6 +158,18 @@ public class AntiPiracyCheck {
             }
         }
 
+        private boolean isPackageInstalled(String package_name) {
+            PackageManager pm = mContext.getPackageManager();
+            List<ApplicationInfo> packages = pm.getInstalledApplications(
+                    PackageManager.GET_META_DATA);
+            for (ApplicationInfo packageInfo : packages) {
+                if (packageInfo.packageName.equals(package_name)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         private class PurgeUnauthorizedOverlays extends AsyncTask<String, Integer, String> {
 
             @Override
@@ -184,8 +196,21 @@ public class AntiPiracyCheck {
 
             @Override
             protected String doInBackground(String... sUrl) {
+                ArrayList<String> final_commands_array = new ArrayList<>();
                 for (int i = 0; i < unauthorized_packages.size(); i++) {
-                    Root.runCommand("pm uninstall " + unauthorized_packages.get(i));
+                    final_commands_array.add(unauthorized_packages.get(i));
+                }
+                if (isPackageInstalled("projekt.substratum.helper")) {
+                    Intent runCommand = new Intent();
+                    runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                    runCommand.setAction("projekt.substratum.helper.COMMANDS");
+                    runCommand.putStringArrayListExtra("pm-uninstall-specific",
+                            final_commands_array);
+                    mContext.sendBroadcast(runCommand);
+                } else {
+                    for (int i = 0; i < unauthorized_packages.size(); i++) {
+                        Root.runCommand("pm uninstall " + unauthorized_packages.get(i));
+                    }
                 }
                 return null;
             }

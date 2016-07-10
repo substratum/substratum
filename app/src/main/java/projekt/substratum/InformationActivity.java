@@ -77,8 +77,8 @@ public class InformationActivity extends AppCompatActivity {
                 hero = getPackageManager().getDrawable(package_name, resourceId, null);
             }
             return hero;
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            // Exception
         }
         return null;
     }

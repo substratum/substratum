@@ -34,6 +34,7 @@ public class ManageFragment extends Fragment {
 
     private ProgressDialog mProgressDialog;
     private String final_commands;
+    private ArrayList<String> final_commands_array;
 
     private boolean isPackageInstalled(String package_name) {
         PackageManager pm = getContext().getPackageManager();
@@ -219,12 +220,11 @@ public class ManageFragment extends Fragment {
                         "many times, restarting current activity to preserve app " +
                         "integrity.");
             }
-            final_commands = final_commands + " && rm -rf /data/system/overlays.xml";
             if (isPackageInstalled("projekt.substratum.helper")) {
                 Intent runCommand = new Intent();
                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                 runCommand.setAction("projekt.substratum.helper.COMMANDS");
-                runCommand.putExtra("om-commands", final_commands);
+                runCommand.putStringArrayListExtra("pm-uninstall", final_commands_array);
                 getContext().sendBroadcast(runCommand);
             } else {
                 Root.runCommand(final_commands);
@@ -257,24 +257,12 @@ public class ManageFragment extends Fragment {
             List<String> state4 = ReadOverlaysFile.main(commands4);
             List<String> state5 = ReadOverlaysFile.main(commands5);
 
-            List<String> uninstall_overlays = new ArrayList<>(state0);
-            uninstall_overlays.addAll(state1);
-            uninstall_overlays.addAll(state2);
-            uninstall_overlays.addAll(state3);
-            uninstall_overlays.addAll(state4);
-            uninstall_overlays.addAll(state5);
-
-            final_commands = "";
-            for (int i = 0; i < uninstall_overlays.size(); i++) {
-                if (i == 0) {
-                    final_commands = final_commands + "pm uninstall " +
-                            uninstall_overlays.get(i);
-                } else {
-                    final_commands = final_commands + " && pm uninstall " +
-                            uninstall_overlays.get(i);
-                }
-                Log.d("SubstratumLogger", "Found overlay \"" + uninstall_overlays.get(i) + "\"");
-            }
+            final_commands_array = new ArrayList<>(state0);
+            final_commands_array.addAll(state1);
+            final_commands_array.addAll(state2);
+            final_commands_array.addAll(state3);
+            final_commands_array.addAll(state4);
+            final_commands_array.addAll(state5);
             return null;
         }
     }

@@ -21,6 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerInParent="true"
+            android:layout_toStartOf="@+id/chkSelected"
             android:textColor="@color/main_screen_card_theme_title"
             android:textSize="18sp"/>
 

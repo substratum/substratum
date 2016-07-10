@@ -238,12 +238,6 @@ public class InformationActivity extends AppCompatActivity {
 
         // All Root Requests will now reside within this scope
         Root.requestRootAccess();
-        if (isPackageInstalled("projekt.substratum.helper")) {
-            Intent runCommand = new Intent();
-            runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-            runCommand.setAction("projekt.substratum.helper.INITIALIZE");
-            getApplicationContext().sendBroadcast(runCommand);
-        }
     }
 
     @Override

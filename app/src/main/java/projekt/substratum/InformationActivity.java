@@ -312,17 +312,6 @@ public class InformationActivity extends AppCompatActivity {
                                 }
                             }
 
-                            String commands2 = "";
-                            for (int i = 0; i < all_overlays.size(); i++) {
-                                if (i == 0) {
-                                    commands2 = commands2 + "pm uninstall " + all_overlays
-                                            .get(i);
-                                } else {
-                                    commands2 = commands2 + " && pm uninstall " +
-                                            all_overlays.get(i);
-                                }
-                            }
-
                             Toast toast = Toast.makeText(getApplicationContext(),
                                     getString(R.string
                                             .clean_completion),
@@ -333,9 +322,20 @@ public class InformationActivity extends AppCompatActivity {
                                 Intent runCommand = new Intent();
                                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                                 runCommand.setAction("projekt.substratum.helper.COMMANDS");
-                                runCommand.putExtra("om-commands", commands2);
+                                runCommand.putStringArrayListExtra("pm-uninstall-specific",
+                                        all_overlays);
                                 getApplicationContext().sendBroadcast(runCommand);
                             } else {
+                                String commands2 = "";
+                                for (int i = 0; i < all_overlays.size(); i++) {
+                                    if (i == 0) {
+                                        commands2 = commands2 + "pm uninstall " +
+                                                all_overlays.get(i);
+                                    } else {
+                                        commands2 = commands2 + " && pm uninstall " +
+                                                all_overlays.get(i);
+                                    }
+                                }
                                 Root.runCommand(commands2);
                             }
                         }
@@ -609,17 +609,6 @@ public class InformationActivity extends AppCompatActivity {
                                 }
                             }
 
-                            String commands2 = "";
-                            for (int i = 0; i < all_overlays.size(); i++) {
-                                if (i == 0) {
-                                    commands2 = commands2 + "pm uninstall " + all_overlays
-                                            .get(i);
-                                } else {
-                                    commands2 = commands2 + " && pm uninstall " +
-                                            all_overlays.get(i);
-                                }
-                            }
-
                             Toast toast = Toast.makeText(getApplicationContext(),
                                     getString(R.string
                                             .clean_completion),
@@ -634,9 +623,20 @@ public class InformationActivity extends AppCompatActivity {
                                 Intent runCommand = new Intent();
                                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                                 runCommand.setAction("projekt.substratum.helper.COMMANDS");
-                                runCommand.putExtra("om-commands", commands2);
+                                runCommand.putStringArrayListExtra("pm-uninstall-specific",
+                                        all_overlays);
                                 getApplicationContext().sendBroadcast(runCommand);
                             } else {
+                                String commands2 = "";
+                                for (int i = 0; i < all_overlays.size(); i++) {
+                                    if (i == 0) {
+                                        commands2 = commands2 + "pm uninstall " +
+                                                all_overlays.get(i);
+                                    } else {
+                                        commands2 = commands2 + " && pm uninstall " +
+                                                all_overlays.get(i);
+                                    }
+                                }
                                 Root.runCommand(commands2);
                             }
 

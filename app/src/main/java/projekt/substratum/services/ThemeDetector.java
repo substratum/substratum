@@ -28,6 +28,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import projekt.substratum.MainActivity;
 import projekt.substratum.R;
 import projekt.substratum.util.AntiPiracyCheck;
+import projekt.substratum.util.SubstratumThemeUpdater;
 
 /**
  * @author Nicholas Chum (nicholaschum)
@@ -93,6 +94,8 @@ public class ThemeDetector extends Service {
                     PendingIntent intent =
                             PendingIntent.getActivity(ThemeDetector.this, 0, notificationIntent,
                                     PendingIntent.FLAG_CANCEL_CURRENT);
+
+                    new SubstratumThemeUpdater().initialize(context, new_theme_name, false);
 
                     // This is the time when the notification should be shown on the user's screen
                     NotificationManager mNotifyManager =

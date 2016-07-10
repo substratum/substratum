@@ -954,12 +954,10 @@ public class OverlaysList extends Fragment {
                 mWakeLock.release();
                 mProgressDialog.dismiss();
 
+                // Add dummy intent to be able to close the notification on click
                 Intent notificationIntent = new Intent();
-                notificationIntent.putExtra("theme_name", theme_name);
-                notificationIntent.putExtra("theme_pid", theme_pid);
                 notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
                         Intent.FLAG_ACTIVITY_SINGLE_TOP);
-
                 PendingIntent intent =
                         PendingIntent.getActivity(getActivity(), 0, notificationIntent,
                                 PendingIntent.FLAG_CANCEL_CURRENT);

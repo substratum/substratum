@@ -440,8 +440,8 @@ public class OverlaysList extends Fragment {
                     }
                 }
             }
-        } catch (PackageManager.NameNotFoundException e) {
-            Log.e("SubstratumLogger", "Unable to find package identifier (INDEX OUT OF BOUNDS)");
+        } catch (Exception e) {
+            // Exception
         }
         return null;
     }

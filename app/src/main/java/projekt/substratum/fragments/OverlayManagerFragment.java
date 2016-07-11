@@ -1,16 +1,19 @@
 package projekt.substratum.fragments;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,6 +49,9 @@ public class OverlayManagerFragment extends Fragment {
         RelativeLayout relativeLayout = (RelativeLayout) root.findViewById(R.id
                 .no_overlays_enabled);
 
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
+                getContext());
+
         List<OverlayManager> overlaysList = new ArrayList<>();
 
         File current_overlays = new File(Environment
@@ -67,19 +73,36 @@ public class OverlayManagerFragment extends Fragment {
                 .getAbsolutePath() +
                 "/.substratum/current_overlays.xml", "5"};
 
-        List<String> state4 = ReadOverlaysFile.main(commands);
-        List<String> state5 = ReadOverlaysFile.main(commands1);
-        ArrayList<String> activated_overlays = new ArrayList<>(state4);
-        activated_overlays.addAll(state5);
+        ArrayList<String> activated_overlays;
 
-        Collections.sort(activated_overlays);
+        if (prefs.getBoolean("manager_disabled_overlays", true)) {
+            List<String> state4 = ReadOverlaysFile.main(commands);
+            List<String> state5 = ReadOverlaysFile.main(commands1);
+            activated_overlays = new ArrayList<>(state4);
+            activated_overlays.addAll(state5);
 
-        for (int i = 0; i < activated_overlays.size(); i++) {
-            if (state4.contains(activated_overlays.get(i))) {
-                OverlayManager st = new OverlayManager(getContext(), activated_overlays.get(i),
-                        false);
-                overlaysList.add(st);
-            } else {
+            Collections.sort(activated_overlays);
+
+            for (int i = 0; i < activated_overlays.size(); i++) {
+                if (state4.contains(activated_overlays.get(i))) {
+                    OverlayManager st = new OverlayManager(getContext(), activated_overlays.get(i),
+                            false);
+                    overlaysList.add(st);
+                } else {
+                    if (state5.contains(activated_overlays.get(i))) {
+                        OverlayManager st = new OverlayManager(getContext(), activated_overlays.get
+                                (i), true);
+                        overlaysList.add(st);
+                    }
+                }
+            }
+        } else {
+            List<String> state5 = ReadOverlaysFile.main(commands1);
+            activated_overlays = new ArrayList<>(state5);
+
+            Collections.sort(activated_overlays);
+
+            for (int i = 0; i < activated_overlays.size(); i++) {
                 if (state5.contains(activated_overlays.get(i))) {
                     OverlayManager st = new OverlayManager(getContext(), activated_overlays.get
                             (i), true);
@@ -177,6 +200,10 @@ public class OverlayManagerFragment extends Fragment {
                 }
             }
         });
+        if (!prefs.getBoolean("manager_disabled_overlays", true)) {
+            LinearLayout enable_view = (LinearLayout) root.findViewById(R.id.enable);
+            enable_view.setVisibility(View.GONE);
+        }
         return root;
     }
 

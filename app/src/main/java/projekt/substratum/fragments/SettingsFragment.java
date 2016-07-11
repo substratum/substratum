@@ -128,6 +128,29 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     }
                 });
 
+        final CheckBoxPreference manager_disabled_overlays = (CheckBoxPreference)
+                getPreferenceManager().findPreference("manager_disabled_overlays");
+        if (prefs.getBoolean("manager_disabled_overlays", true)) {
+            manager_disabled_overlays.setChecked(true);
+        } else {
+            manager_disabled_overlays.setChecked(false);
+        }
+        manager_disabled_overlays.setOnPreferenceChangeListener(
+                new Preference.OnPreferenceChangeListener() {
+                    @Override
+                    public boolean onPreferenceChange(Preference preference, Object newValue) {
+                        boolean isChecked = (Boolean) newValue;
+                        if (isChecked) {
+                            prefs.edit().putBoolean("manager_disabled_overlays", true).apply();
+                            manager_disabled_overlays.setChecked(true);
+                        } else {
+                            prefs.edit().putBoolean("manager_disabled_overlays", false).apply();
+                            manager_disabled_overlays.setChecked(false);
+                        }
+                        return false;
+                    }
+                });
+
         final CheckBoxPreference dynamic_actionbar = (CheckBoxPreference)
                 getPreferenceManager().findPreference("dynamic_actionbar");
         if (prefs.getBoolean("dynamic_actionbar", true)) {

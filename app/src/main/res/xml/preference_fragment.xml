@@ -33,6 +33,20 @@
         <CheckBoxPreference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:key="manager_disabled_overlays"
+            android:summary="@string/manager_subtext"
+            android:title="@string/manager_title"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:title="@string/settings_title_3">
+
+        <CheckBoxPreference
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:key="dynamic_actionbar"
             android:summary="@string/dynamic_actionbar_colors_subtext"
             android:title="@string/dynamic_actionbar_colors"/>

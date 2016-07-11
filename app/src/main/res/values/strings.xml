@@ -219,7 +219,8 @@
     <string name="notification_compiling_signing_installing">Creating and installing your overlays&#8230;</string>
 
     <string name="settings_title_1">App Options</string>
-    <string name="settings_title_2">Theming</string>
+    <string name="settings_title_2">Manager Options</string>
+    <string name="settings_title_3">Theming</string>
     <string name="restart_systemui">Post-enable SystemUI recreate\n</string>
     <string name="restart_systemui_subtext">Automatically recreate the SystemUI after enabling/disabling a SystemUI overlay</string>
     <string name="restart_systemui_toast_enabled">SystemUI will recreate dynamically instead of restarting!</string>
@@ -241,6 +242,8 @@
     <string name="dynamic_actionbar_colors_subtext">In the theme information window, Substratum will adapt the collapsible actionbar to the hero image\'s dominating color.</string>
     <string name="dynamic_navbar_colors">Dynamic Navigation Bar Colors</string>
     <string name="dynamic_navbar_colors_subtext">In the theme information window, Substratum will adapt the navigation bar to the hero image\'s dominating color.</string>
+    <string name="manager_title">Show disabled overlays in the list</string>
+    <string name="manager_subtext">In the Advanced Manager window, show all disabled overlays with their enabled counterparts.</string>
 
     <string name="fab_menu_compile">Compile Selected</string>
     <string name="fab_menu_compile_enable">Compile/Update</string>

@@ -23,28 +23,9 @@ import projekt.substratum.model.ThemeInfo;
 
 public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
     private ArrayList<ThemeInfo> information;
-    private Context context;
 
-    public DataAdapter(Context context, ArrayList<ThemeInfo> information) {
-        this.context = context;
+    public DataAdapter(ArrayList<ThemeInfo> information) {
         this.information = information;
-
-    }
-
-    public Drawable grabPackageHeroImage(String package_name) {
-        Resources res;
-        Drawable hero = null;
-        try {
-            res = context.getPackageManager().getResourcesForApplication(package_name);
-            int resourceId = res.getIdentifier(package_name + ":drawable/heroimage", null, null);
-            if (0 != resourceId) {
-                hero = context.getPackageManager().getDrawable(package_name, resourceId, null);
-            }
-            return hero;
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        return hero;
     }
 
     @Override

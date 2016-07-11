@@ -112,7 +112,7 @@ public class BootAnimationsFragment extends Fragment {
         map = new TreeMap<>(substratum_packages);
 
         ArrayList<ThemeInfo> themeInfos = prepareData();
-        adapter = new DataAdapter(getContext(), themeInfos);
+        adapter = new DataAdapter(themeInfos);
 
         // Assign adapter to RecyclerView
         recyclerView.setAdapter(adapter);
@@ -320,7 +320,7 @@ public class BootAnimationsFragment extends Fragment {
         // Now we need to sort the buffered installed Layers themes
         map = new TreeMap<>(substratum_packages);
         ArrayList<ThemeInfo> themeInfos = prepareData();
-        adapter = new DataAdapter(mContext.getApplicationContext(), themeInfos);
+        adapter = new DataAdapter(themeInfos);
         recyclerView.setAdapter(adapter);
         swipeRefreshLayout.setRefreshing(false);
         materialProgressBar.setVisibility(View.GONE);

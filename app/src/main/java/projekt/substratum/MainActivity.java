@@ -289,6 +289,7 @@ public class MainActivity extends AppCompatActivity implements
                     new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
         }
+        Root.requestRootAccess();
     }
 
     @Override

@@ -76,6 +76,10 @@
             layout="@layout/team_card_dave"/>
 
         <include
+            android:id="@+id/jeremy"
+            layout="@layout/team_card_jeremy"/>
+
+        <include
             android:id="@+id/jimmy"
             layout="@layout/team_card_jimmy"/>
 

@@ -92,6 +92,16 @@ public class TeamFragment extends Fragment {
             }
         });
 
+        CardView jeremy = (CardView) root.findViewById(R.id.jeremy);
+        jeremy.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                String playURL = getString(R.string.team_jeremy_link);
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(playURL));
+                startActivity(i);
+            }
+        });
+
         CardView jimmy = (CardView) root.findViewById(R.id.jimmy);
         jimmy.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

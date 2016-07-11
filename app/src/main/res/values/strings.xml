@@ -318,6 +318,9 @@
     <string name="team_branden">Branden Manibusan (BrandenM)</string>
     <string name="team_branden_content">Try to find the unicorn called Sublime Mint!</string>
     <string name="team_branden_link">https://plus.google.com/u/0/101729058057775926785/</string>
+    <string name="team_jeremy">Jeremy Beck (jerbeck24)</string>
+    <string name="team_jeremy_content">If you can dream up the theme, I\'ve already created it!</string>
+    <string name="team_jeremy_link">https://plus.google.com/u/0/+JeremyBeck24/</string>
 
     <string name="slide_1_title">welcome to substratum</string>
     <string name="slide_1_text">a minimal yet powerful theme engine based on Sony\'s overlay manager service</string>

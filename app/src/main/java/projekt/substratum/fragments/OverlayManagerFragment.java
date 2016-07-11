@@ -160,7 +160,7 @@ public class OverlayManagerFragment extends Fragment {
                                     .string.toast_disabled),
                             Toast.LENGTH_LONG);
                     toast.show();
-                    if (isPackageInstalled("projekt.substratum.helper")) {
+                    if (isPackageInstalled("masquerade.substratum")) {
                         Intent runCommand = new Intent();
                         runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                         runCommand.setAction("projekt.substratum.helper.COMMANDS");
@@ -189,7 +189,7 @@ public class OverlayManagerFragment extends Fragment {
                                 .string.toast_enabled),
                         Toast.LENGTH_LONG);
                 toast.show();
-                if (isPackageInstalled("projekt.substratum.helper")) {
+                if (isPackageInstalled("masquerade.substratum")) {
                     Intent runCommand = new Intent();
                     runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                     runCommand.setAction("projekt.substratum.helper.COMMANDS");

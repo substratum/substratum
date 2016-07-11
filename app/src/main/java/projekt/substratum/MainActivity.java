@@ -2,6 +2,7 @@ package projekt.substratum;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -72,6 +73,18 @@ public class MainActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
+
+        // If the helper is found, then launch it to hide it from the launcher
+        Intent launchIntent = getPackageManager()
+                .getLaunchIntentForPackage("masquerade.substratum");
+        if (launchIntent != null) {
+            startActivity(launchIntent);
+        }
+
+        // Now, let's grab root on the helper
+        Intent rootIntent = new Intent(Intent.ACTION_MAIN);
+        rootIntent.setAction("masquerade.substratum.INITIALIZE");
+        startActivity(rootIntent);
 
         startService(new Intent(this, ThemeDetector.class));
 

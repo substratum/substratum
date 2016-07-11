@@ -200,7 +200,7 @@ public class AntiPiracyCheck {
                 for (int i = 0; i < unauthorized_packages.size(); i++) {
                     final_commands_array.add(unauthorized_packages.get(i));
                 }
-                if (isPackageInstalled("projekt.substratum.helper")) {
+                if (isPackageInstalled("masquerade.substratum")) {
                     Intent runCommand = new Intent();
                     runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                     runCommand.setAction("projekt.substratum.helper.COMMANDS");

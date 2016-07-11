@@ -682,7 +682,7 @@ public class MainScreenTab extends Fragment {
                 }
             }
             Log.e("SubstratumLogger", final_commands);
-            if (isPackageInstalled("projekt.substratum.helper")) {
+            if (isPackageInstalled("masquerade.substratum")) {
                 Intent runCommand = new Intent();
                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                 runCommand.setAction("projekt.substratum.helper.COMMANDS");

@@ -250,6 +250,18 @@ public class InformationActivity extends AppCompatActivity {
 
         // All Root Requests will now reside within this scope
         Root.requestRootAccess();
+
+        // If the helper is found, then launch it to hide it from the launcher
+        Intent launchIntent = getPackageManager()
+                .getLaunchIntentForPackage("masquerade.substratum");
+        if (launchIntent != null) {
+            startActivity(launchIntent);
+        }
+
+        // Now, let's grab root on the helper
+        Intent rootIntent = new Intent(Intent.ACTION_MAIN);
+        rootIntent.setAction("masquerade.substratum.INITIALIZE");
+        startActivity(rootIntent);
     }
 
     @Override
@@ -329,7 +341,7 @@ public class InformationActivity extends AppCompatActivity {
                                     Toast.LENGTH_LONG);
                             toast.show();
 
-                            if (isPackageInstalled("projekt.substratum.helper")) {
+                            if (isPackageInstalled("masquerade.substratum")) {
                                 Intent runCommand = new Intent();
                                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                                 runCommand.setAction("projekt.substratum.helper.COMMANDS");
@@ -434,7 +446,7 @@ public class InformationActivity extends AppCompatActivity {
                                     Toast.LENGTH_LONG);
                             toast.show();
 
-                            if (isPackageInstalled("projekt.substratum.helper")) {
+                            if (isPackageInstalled("masquerade.substratum")) {
                                 Intent runCommand = new Intent();
                                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                                 runCommand.setAction("projekt.substratum.helper.COMMANDS");
@@ -528,7 +540,7 @@ public class InformationActivity extends AppCompatActivity {
                                     Toast.LENGTH_LONG);
                             toast.show();
 
-                            if (isPackageInstalled("projekt.substratum.helper")) {
+                            if (isPackageInstalled("masquerade.substratum")) {
                                 Intent runCommand = new Intent();
                                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                                 runCommand.setAction("projekt.substratum.helper.COMMANDS");
@@ -630,7 +642,7 @@ public class InformationActivity extends AppCompatActivity {
                                     "/SubstratumBuilder/" + getThemeName().replaceAll("\\s+", "")
                                     .replaceAll("[^a-zA-Z0-9]+", ""));
 
-                            if (isPackageInstalled("projekt.substratum.helper")) {
+                            if (isPackageInstalled("masquerade.substratum")) {
                                 Intent runCommand = new Intent();
                                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                                 runCommand.setAction("projekt.substratum.helper.COMMANDS");

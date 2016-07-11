@@ -91,7 +91,7 @@ public class ManageFragment extends Fragment {
                                                         .string.manage_system_overlay_toast),
                                                 Toast.LENGTH_LONG);
                                         toast.show();
-                                        if (isPackageInstalled("projekt.substratum.helper")) {
+                                        if (isPackageInstalled("masquerade.substratum")) {
                                             Intent runCommand = new Intent();
                                             runCommand.addFlags(Intent
                                                     .FLAG_INCLUDE_STOPPED_PACKAGES);
@@ -221,7 +221,7 @@ public class ManageFragment extends Fragment {
                         "many times, restarting current activity to preserve app " +
                         "integrity.");
             }
-            if (isPackageInstalled("projekt.substratum.helper")) {
+            if (isPackageInstalled("masquerade.substratum")) {
                 Intent runCommand = new Intent();
                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                 runCommand.setAction("projekt.substratum.helper.COMMANDS");
@@ -336,7 +336,7 @@ public class ManageFragment extends Fragment {
             }
 
             // Finally, enable/disable the SystemUI dummy overlay
-            if (isPackageInstalled("projekt.substratum.helper")) {
+            if (isPackageInstalled("masquerade.substratum")) {
                 Intent runCommand = new Intent();
                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                 runCommand.setAction("projekt.substratum.helper.COMMANDS");
@@ -345,7 +345,7 @@ public class ManageFragment extends Fragment {
             } else {
                 Root.runCommand(final_commands);
             }
-            if (isPackageInstalled("projekt.substratum.helper")) {
+            if (isPackageInstalled("masquerade.substratum")) {
                 Intent runCommand = new Intent();
                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                 runCommand.setAction("projekt.substratum.helper.COMMANDS");

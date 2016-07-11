@@ -230,7 +230,7 @@ public class PriorityListFragment extends Fragment {
                         new java.util.TimerTask() {
                             @Override
                             public void run() {
-                                if (isPackageInstalled("projekt.substratum.helper")) {
+                                if (isPackageInstalled("masquerade.substratum")) {
                                     Intent runCommand = new Intent();
                                     runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                                     runCommand.setAction("projekt.substratum.helper.COMMANDS");

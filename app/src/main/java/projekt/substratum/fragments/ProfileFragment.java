@@ -254,7 +254,7 @@ public class ProfileFragment extends Fragment {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         headerProgress.setVisibility(View.GONE);
-                                        if (isPackageInstalled("projekt.substratum.helper")) {
+                                        if (isPackageInstalled("masquerade.substratum")) {
                                             Intent runCommand = new Intent();
                                             runCommand.addFlags(Intent
                                                     .FLAG_INCLUDE_STOPPED_PACKAGES);
@@ -277,7 +277,7 @@ public class ProfileFragment extends Fragment {
                         .create().show();
             } else {
                 headerProgress.setVisibility(View.GONE);
-                if (isPackageInstalled("projekt.substratum.helper")) {
+                if (isPackageInstalled("masquerade.substratum")) {
                     Intent runCommand = new Intent();
                     runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                     runCommand.setAction("projekt.substratum.helper.COMMANDS");

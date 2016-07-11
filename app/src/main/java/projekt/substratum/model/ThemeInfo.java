@@ -36,7 +36,7 @@ public class ThemeInfo {
         this.themePackage = themePackage;
     }
 
-    public void setDrawable(Drawable drawable) {
+    public void setThemeDrawable(Drawable drawable) {
         this.themeDrawable = drawable;
     }
 

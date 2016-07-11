@@ -5,6 +5,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,18 +56,9 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
-
         viewHolder.theme_name.setText(information.get(i).getThemeName());
         viewHolder.theme_author.setText(information.get(i).getThemeAuthor());
-
-        if (information.get(i).getThemeDrawable() != null) {
-            viewHolder.imageView.setImageDrawable(information.get(i).getThemeDrawable());
-        } else {
-            information.get(i).setDrawable(grabPackageHeroImage(information.get(i)
-                    .getThemePackage()));
-            viewHolder.imageView.setImageDrawable(information.get(i).getThemeDrawable());
-        }
-
+        viewHolder.imageView.setImageDrawable(information.get(i).getThemeDrawable());
     }
 
     @Override

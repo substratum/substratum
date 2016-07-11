@@ -7,6 +7,8 @@ import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -36,10 +38,10 @@ import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
 import projekt.substratum.adapters.DataAdapter;
+import projekt.substratum.model.ThemeInfo;
 import projekt.substratum.util.CacheCreator;
 import projekt.substratum.util.ReadOverlaysFile;
 import projekt.substratum.util.Root;
-import projekt.substratum.model.ThemeInfo;
 
 /**
  * @author Nicholas Chum (nicholaschum)
@@ -267,9 +269,27 @@ public class BootAnimationsFragment extends Fragment {
             themeInfo.setThemeName(map.keySet().toArray()[i].toString());
             themeInfo.setThemeAuthor(map.get(map.keySet().toArray()[i].toString())[0]);
             themeInfo.setThemePackage(map.get(map.keySet().toArray()[i].toString())[1]);
+            themeInfo.setThemeDrawable(grabPackageHeroImage(map.get(map.keySet().toArray()[i]
+                    .toString())[1]));
             themes.add(themeInfo);
         }
         return themes;
+    }
+
+    public Drawable grabPackageHeroImage(String package_name) {
+        Resources res;
+        Drawable hero = null;
+        try {
+            res = mContext.getPackageManager().getResourcesForApplication(package_name);
+            int resourceId = res.getIdentifier(package_name + ":drawable/heroimage", null, null);
+            if (0 != resourceId) {
+                hero = mContext.getPackageManager().getDrawable(package_name, resourceId, null);
+            }
+            return hero;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return hero;
     }
 
     private void refreshLayout() {

@@ -1,5 +1,6 @@
 package projekt.substratum;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,6 +10,8 @@ import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -21,11 +24,14 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.Toast;
 
 import com.flaviofaria.kenburnsview.KenBurnsView;
@@ -69,6 +75,38 @@ public class InformationActivity extends AppCompatActivity {
 
     public static List getListOfFolders() {
         return tab_checker;
+    }
+
+    public static void setOverflowButtonColor(final Activity activity) {
+        final String overflowDescription =
+                activity.getString(R.string.abc_action_menu_overflow_description);
+        final ViewGroup decorView = (ViewGroup) activity.getWindow().getDecorView();
+        final ViewTreeObserver viewTreeObserver = decorView.getViewTreeObserver();
+        viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                final ArrayList<View> outViews = new ArrayList<>();
+                decorView.findViewsWithText(outViews, overflowDescription,
+                        View.FIND_VIEWS_WITH_CONTENT_DESCRIPTION);
+                if (outViews.isEmpty()) {
+                    return;
+                }
+                AppCompatImageView overflow = (AppCompatImageView) outViews.get(0);
+                overflow.setImageResource(
+                        activity.getResources().getIdentifier(
+                                "information_activity_overflow_dark",
+                                "drawable",
+                                activity.getPackageName()));
+            }
+        });
+    }
+
+    public boolean checkColorDarkness(int color) {
+        double darkness =
+                1 - (0.299 * Color.red(color) +
+                        0.587 * Color.green(color) +
+                        0.114 * Color.blue(color)) / 255;
+        return darkness < 0.5;
     }
 
     public Drawable grabPackageHeroImage(String package_name) {
@@ -118,6 +156,7 @@ public class InformationActivity extends AppCompatActivity {
                 getApplicationContext());
 
         boolean dynamicActionBarColors = getResources().getBoolean(R.bool.dynamicActionBarColors);
+        boolean dynamicNavBarColors = getResources().getBoolean(R.bool.dynamicNavigationBarColors);
 
         Intent currentIntent = getIntent();
         theme_name = currentIntent.getStringExtra("theme_name");
@@ -209,6 +248,24 @@ public class InformationActivity extends AppCompatActivity {
             tabLayout.setTabGravity(TabLayout.MODE_SCROLLABLE);
             if (dynamicActionBarColors && prefs.getBoolean("dynamic_actionbar", true))
                 tabLayout.setBackgroundColor(dominantColor);
+
+            if (collapsingToolbarLayout != null && checkColorDarkness(dominantColor) &&
+                    dynamicActionBarColors && prefs.getBoolean("dynamic_actionbar", true)) {
+                collapsingToolbarLayout.setCollapsedTitleTextColor(
+                        getColor(R.color.information_activity_dark_icon_mode));
+                collapsingToolbarLayout.setExpandedTitleColor(
+                        getColor(R.color.information_activity_dark_icon_mode));
+                tabLayout.setTabTextColors(
+                        getColor(R.color.information_activity_dark_icon_mode),
+                        getColor(R.color.information_activity_dark_icon_mode));
+
+                Drawable upArrow = getDrawable(R.drawable.information_activity_back_dark);
+                if (upArrow != null)
+                    upArrow.setColorFilter(getColor(R.color.information_activity_dark_icon_mode),
+                            PorterDuff.Mode.SRC_ATOP);
+                getSupportActionBar().setHomeAsUpIndicator(upArrow);
+                setOverflowButtonColor(this);
+            }
         }
 
         if (collapsingToolbarLayout != null && dynamicActionBarColors &&
@@ -217,10 +274,13 @@ public class InformationActivity extends AppCompatActivity {
             collapsingToolbarLayout.setContentScrimColor(dominantColor);
         }
 
-        if (getResources().getBoolean(R.bool.dynamicNavigationBarColors) &&
-                prefs.getBoolean("dynamic_navbar", true)) {
+        if (dynamicNavBarColors && prefs.getBoolean("dynamic_navbar", true)) {
             if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 getWindow().setNavigationBarColor(dominantColor);
+                if (checkColorDarkness(dominantColor)) {
+                    getWindow().setNavigationBarColor(
+                            getColor(R.color.theme_information_background));
+                }
             }
         }
 

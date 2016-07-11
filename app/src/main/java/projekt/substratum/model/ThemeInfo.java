@@ -36,11 +36,11 @@ public class ThemeInfo {
         this.themePackage = themePackage;
     }
 
-    public void setThemeDrawable(Drawable drawable) {
-        this.themeDrawable = drawable;
-    }
-
     public Drawable getThemeDrawable() {
         return this.themeDrawable;
+    }
+
+    public void setThemeDrawable(Drawable drawable) {
+        this.themeDrawable = drawable;
     }
 }

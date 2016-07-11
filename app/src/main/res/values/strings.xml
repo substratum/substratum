@@ -155,10 +155,6 @@
     <string name="profile_edittext_title">New Profile:</string>
     <string name="toast_backup_success">Current overlay list saved to \"/storage/emulated/0/substratum/profiles/%s\"</string>
     <string name="spinner_default_item">select a profile to restore&#8230;</string>
-    <string name="settings_title_2">Theme Utilities</string>
-    <string name="purge_information">Removing all overlays at once is a potentially dangerous action causing multiple force closes during the action.</string>
-    <string name="purge_button_text">UNINSTALL ALL OVERLAYS</string>
-    <string name="purge2_button_text">DISABLE ALL ENABLED OVERLAYS</string>
 
     <string name="select_to_toggle_all_overlays">Select to toggle all overlays</string>
 
@@ -223,20 +219,28 @@
     <string name="notification_compiling_signing_installing">Creating and installing your overlays&#8230;</string>
 
     <string name="settings_title_1">App Options</string>
+    <string name="settings_title_2">Theming</string>
     <string name="restart_systemui">Post-enable SystemUI recreate\n</string>
     <string name="restart_systemui_subtext">Automatically recreate the SystemUI after enabling/disabling a SystemUI overlay</string>
     <string name="restart_systemui_toast_enabled">SystemUI will recreate dynamically instead of restarting!</string>
     <string name="restart_systemui_toast_disabled">SystemUI will restart automatically instead of recreating!</string>
-    <string name="hide_app_icon">Show App Icon\n</string>
+    <string name="hide_app_icon">Show App Icon</string>
     <string name="hide_app_icon_toast_enabled">The app\'s icon has been removed from your launcher!</string>
     <string name="hide_app_icon_toast_disabled">The app\'s icon has now been added to your launcher!</string>
-    <string name="hide_app_icon_not_supported">Not Supported</string>
+    <string name="hide_app_icon_not_supported">Change Not Supported</string>
     <string name="hide_app_icon_supported">Supported</string>
     <string name="show_installed_packages_only">Only show installed packages in overlay picker</string>
     <string name="purge_completion">All overlays deactivated and removed</string>
     <string name="clean_completion">All overlays for this theme has been deactivated and removed</string>
     <string name="disable_completion">All overlays for this theme are now deactivating&#8230;</string>
     <string name="enable_completion">All installed overlays for this theme are now activating&#8230;</string>
+    <string name="purge_information">Removing all overlays at once is a potentially dangerous action causing multiple force closes during the action.</string>
+    <string name="purge_button_text">UNINSTALL ALL OVERLAYS</string>
+    <string name="purge2_button_text">DISABLE ALL ENABLED OVERLAYS</string>
+    <string name="dynamic_actionbar_colors">Dynamic Action Bar Colors</string>
+    <string name="dynamic_actionbar_colors_subtext">In the theme information window, Substratum will adapt the collapsible actionbar to the hero image\'s dominating color.</string>
+    <string name="dynamic_navbar_colors">Dynamic Navigation Bar Colors</string>
+    <string name="dynamic_navbar_colors_subtext">In the theme information window, Substratum will adapt the navigation bar to the hero image\'s dominating color.</string>
 
     <string name="fab_menu_compile">Compile Selected</string>
     <string name="fab_menu_compile_enable">Compile/Update</string>

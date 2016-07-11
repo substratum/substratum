@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <PreferenceCategory
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:title="@string/settings_title_1">
+
+        <CheckBoxPreference
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:key="hide_app_checkbox"
+            android:summary="@string/hide_app_icon_not_supported"
+            android:title="@string/hide_app_icon"/>
+
+        <CheckBoxPreference
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:key="restart_systemui"
+            android:summary="@string/restart_systemui_subtext"
+            android:title="@string/restart_systemui"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:title="@string/settings_title_2">
+
+        <CheckBoxPreference
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:key="dynamic_actionbar"
+            android:summary="@string/dynamic_actionbar_colors_subtext"
+            android:title="@string/dynamic_actionbar_colors"/>
+
+        <CheckBoxPreference
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:key="dynamic_navbar"
+            android:summary="@string/dynamic_navbar_colors_subtext"
+            android:title="@string/dynamic_navbar_colors"/>
+
+    </PreferenceCategory>
+</PreferenceScreen>

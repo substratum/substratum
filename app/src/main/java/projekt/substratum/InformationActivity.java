@@ -3,6 +3,7 @@ package projekt.substratum;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
@@ -14,6 +15,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -112,6 +114,9 @@ public class InformationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.information_activity);
 
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
+                getApplicationContext());
+
         boolean dynamicActionBarColors = getResources().getBoolean(R.bool.dynamicActionBarColors);
 
         Intent currentIntent = getIntent();
@@ -202,15 +207,18 @@ public class InformationActivity extends AppCompatActivity {
             }
 
             tabLayout.setTabGravity(TabLayout.MODE_SCROLLABLE);
-            if (dynamicActionBarColors) tabLayout.setBackgroundColor(dominantColor);
+            if (dynamicActionBarColors && prefs.getBoolean("dynamic_actionbar", true))
+                tabLayout.setBackgroundColor(dominantColor);
         }
 
-        if (collapsingToolbarLayout != null && dynamicActionBarColors) {
+        if (collapsingToolbarLayout != null && dynamicActionBarColors &&
+                prefs.getBoolean("dynamic_actionbar", true)) {
             collapsingToolbarLayout.setStatusBarScrimColor(dominantColor);
             collapsingToolbarLayout.setContentScrimColor(dominantColor);
         }
 
-        if (getResources().getBoolean(R.bool.dynamicNavigationBarColors)) {
+        if (getResources().getBoolean(R.bool.dynamicNavigationBarColors) &&
+                prefs.getBoolean("dynamic_navbar", true)) {
             if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 getWindow().setNavigationBarColor(dominantColor);
             }

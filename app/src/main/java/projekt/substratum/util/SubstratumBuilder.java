@@ -225,15 +225,12 @@ public class SubstratumBuilder {
 
         if (!has_errored_out) {
             try {
-                File type3directory = new File(work_area + "/type3_" + base_resources + "/");
                 String commands;
                 if (typeMode == 1) {
                     commands = "aapt p -M " + work_area +
                             "/AndroidManifest.xml -S " +
                             work_area +
-                            (((base_resources == null) || !type3directory.exists()) ? "/workdir/ " +
-                                    "-I " :
-                                    "/" + "type3_" + base_resources + "/ -I ") +
+                            "/workdir/ -I " +
                             "/system/framework/framework-res.apk -F " +
                             work_area +
                             "/" + overlay_package + "." + parse2_themeName + "-unsigned.apk " +
@@ -245,9 +242,7 @@ public class SubstratumBuilder {
                                 work_area +
                                 "/" + "type2_" + additional_variant + "/ -S " +
                                 work_area +
-                                (((base_resources == null) || !type3directory.exists()) ?
-                                        "/workdir/ " +
-                                                "-I " : "/" + "type3_" + base_resources + "/ -I ") +
+                                "/workdir/ -I " +
                                 "/system/framework/framework-res.apk -F " +
                                 work_area +
                                 "/" + overlay_package + "." + parse2_themeName + "-unsigned" +
@@ -258,10 +253,7 @@ public class SubstratumBuilder {
                         commands = "aapt p -M " + work_area +
                                 "/AndroidManifest.xml -S " +
                                 work_area +
-                                (((base_resources == null) || !type3directory.exists()) ?
-                                        "/workdir/ " +
-                                                "-I " : "/" + "type3_" +
-                                        base_resources + "/ -I ") +
+                                "/workdir/ -I " +
                                 "/system/framework/framework-res.apk -F " +
                                 work_area +
                                 "/" + overlay_package + "." + parse2_themeName + "-unsigned" +

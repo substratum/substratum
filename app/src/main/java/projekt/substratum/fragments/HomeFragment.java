@@ -35,7 +35,7 @@ import projekt.substratum.R;
 import projekt.substratum.adapters.DataAdapter;
 import projekt.substratum.util.AAPTCheck;
 import projekt.substratum.util.CacheCreator;
-import projekt.substratum.util.ThemeParser;
+import projekt.substratum.model.ThemeInfo;
 
 /**
  * @author Nicholas Chum (nicholaschum)
@@ -107,8 +107,8 @@ public class HomeFragment extends Fragment {
         // Now we need to sort the buffered installed Layers themes
         map = new TreeMap<>(substratum_packages);
 
-        ArrayList<ThemeParser> themeParsers = prepareData();
-        adapter = new DataAdapter(getContext(), themeParsers);
+        ArrayList<ThemeInfo> themeInfos = prepareData();
+        adapter = new DataAdapter(getContext(), themeInfos);
 
         File om = new File("/system/bin/om");
         if (!om.exists()) {
@@ -260,15 +260,15 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    private ArrayList<ThemeParser> prepareData() {
+    private ArrayList<ThemeInfo> prepareData() {
 
-        ArrayList<ThemeParser> themes = new ArrayList<>();
+        ArrayList<ThemeInfo> themes = new ArrayList<>();
         for (int i = 0; i < map.size(); i++) {
-            ThemeParser themeParser = new ThemeParser();
-            themeParser.setThemeName(map.keySet().toArray()[i].toString());
-            themeParser.setThemeAuthor(map.get(map.keySet().toArray()[i].toString())[0]);
-            themeParser.setThemePackage(map.get(map.keySet().toArray()[i].toString())[1]);
-            themes.add(themeParser);
+            ThemeInfo themeInfo = new ThemeInfo();
+            themeInfo.setThemeName(map.keySet().toArray()[i].toString());
+            themeInfo.setThemeAuthor(map.get(map.keySet().toArray()[i].toString())[0]);
+            themeInfo.setThemePackage(map.get(map.keySet().toArray()[i].toString())[1]);
+            themes.add(themeInfo);
         }
         return themes;
     }
@@ -300,8 +300,8 @@ public class HomeFragment extends Fragment {
 
         // Now we need to sort the buffered installed Layers themes
         map = new TreeMap<>(substratum_packages);
-        ArrayList<ThemeParser> themeParsers = prepareData();
-        adapter = new DataAdapter(mContext.getApplicationContext(), themeParsers);
+        ArrayList<ThemeInfo> themeInfos = prepareData();
+        adapter = new DataAdapter(mContext.getApplicationContext(), themeInfos);
         recyclerView.setAdapter(adapter);
         swipeRefreshLayout.setRefreshing(false);
         materialProgressBar.setVisibility(View.GONE);

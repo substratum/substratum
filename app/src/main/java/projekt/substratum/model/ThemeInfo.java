@@ -1,13 +1,16 @@
-package projekt.substratum.util;
+package projekt.substratum.model;
+
+import android.graphics.drawable.Drawable;
 
 /**
  * @author Nicholas Chum (nicholaschum)
  */
-public class ThemeParser {
+public class ThemeInfo {
 
     private String themeName;
     private String themeAuthor;
     private String themePackage;
+    private Drawable themeDrawable;
 
     public String getThemeName() {
         return themeName;
@@ -31,5 +34,13 @@ public class ThemeParser {
 
     public void setThemePackage(String themePackage) {
         this.themePackage = themePackage;
+    }
+
+    public void setDrawable(Drawable drawable) {
+        this.themeDrawable = drawable;
+    }
+
+    public Drawable getThemeDrawable() {
+        return this.themeDrawable;
     }
 }

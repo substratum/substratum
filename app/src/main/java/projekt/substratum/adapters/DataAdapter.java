@@ -14,17 +14,17 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import projekt.substratum.R;
-import projekt.substratum.util.ThemeParser;
+import projekt.substratum.model.ThemeInfo;
 
 /**
  * @author Nicholas Chum (nicholaschum)
  */
 
 public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
-    private ArrayList<ThemeParser> information;
+    private ArrayList<ThemeInfo> information;
     private Context context;
 
-    public DataAdapter(Context context, ArrayList<ThemeParser> information) {
+    public DataAdapter(Context context, ArrayList<ThemeInfo> information) {
         this.context = context;
         this.information = information;
 
@@ -34,7 +34,6 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
         Resources res;
         Drawable hero = null;
         try {
-            //I want to use the clear_activities string in Package com.android.settings
             res = context.getPackageManager().getResourcesForApplication(package_name);
             int resourceId = res.getIdentifier(package_name + ":drawable/heroimage", null, null);
             if (0 != resourceId) {
@@ -59,9 +58,14 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
 
         viewHolder.theme_name.setText(information.get(i).getThemeName());
         viewHolder.theme_author.setText(information.get(i).getThemeAuthor());
-        viewHolder.imageView.setImageDrawable(grabPackageHeroImage(information.get(i)
-                .getThemePackage
-                        ()));
+
+        if (information.get(i).getThemeDrawable() != null) {
+            viewHolder.imageView.setImageDrawable(information.get(i).getThemeDrawable());
+        } else {
+            information.get(i).setDrawable(grabPackageHeroImage(information.get(i)
+                    .getThemePackage()));
+            viewHolder.imageView.setImageDrawable(information.get(i).getThemeDrawable());
+        }
 
     }
 

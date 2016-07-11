@@ -189,15 +189,15 @@ public class FontHandler {
                     Root.runCommand("mount -o remount,rw /data");
                     Root.runCommand(
                             "mkdir /data/system/theme/");
-                } else {
-                    Root.runCommand("mount -o remount,rw /data");
-                    Root.runCommand(
-                            "rm -r /data/system/theme/");
-                    Root.runCommand(
-                            "mkdir /data/system/theme/");
                 }
                 File dataSystemThemeFontsDir = new File("/data/system/theme/fonts");
                 if (!dataSystemThemeFontsDir.exists()) {
+                    Root.runCommand("mount -o remount,rw /data");
+                    Root.runCommand(
+                            "mkdir /data/system/theme/fonts");
+                } else {
+                    Root.runCommand(
+                            "rm -r /data/system/theme/fonts/");
                     Root.runCommand("mount -o remount,rw /data");
                     Root.runCommand(
                             "mkdir /data/system/theme/fonts");

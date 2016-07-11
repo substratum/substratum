@@ -163,7 +163,7 @@ public class OverlayManagerFragment extends Fragment {
                     if (isPackageInstalled("masquerade.substratum")) {
                         Intent runCommand = new Intent();
                         runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                        runCommand.setAction("projekt.substratum.helper.COMMANDS");
+                        runCommand.setAction("masquerade.substratum.COMMANDS");
                         runCommand.putExtra("om-commands", data);
                         getContext().sendBroadcast(runCommand);
                     } else {
@@ -192,7 +192,7 @@ public class OverlayManagerFragment extends Fragment {
                 if (isPackageInstalled("masquerade.substratum")) {
                     Intent runCommand = new Intent();
                     runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                    runCommand.setAction("projekt.substratum.helper.COMMANDS");
+                    runCommand.setAction("masquerade.substratum.COMMANDS");
                     runCommand.putExtra("om-commands", data);
                     getContext().sendBroadcast(runCommand);
                 } else {

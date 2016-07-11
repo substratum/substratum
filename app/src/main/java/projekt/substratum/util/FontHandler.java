@@ -122,7 +122,7 @@ public class FontHandler {
                 if (isPackageInstalled(mContext, "projekt.substratum.helper")) {
                     Intent runCommand = new Intent();
                     runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                    runCommand.setAction("projekt.substratum.helper.COMMANDS");
+                    runCommand.setAction("masquerade.substratum.COMMANDS");
                     runCommand.putExtra("om-commands", final_commands);
                     mContext.sendBroadcast(runCommand);
                 } else {

@@ -404,7 +404,7 @@ public class InformationActivity extends AppCompatActivity {
                             if (isPackageInstalled("masquerade.substratum")) {
                                 Intent runCommand = new Intent();
                                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                                runCommand.setAction("projekt.substratum.helper.COMMANDS");
+                                runCommand.setAction("masquerade.substratum.COMMANDS");
                                 runCommand.putStringArrayListExtra("pm-uninstall-specific",
                                         all_overlays);
                                 getApplicationContext().sendBroadcast(runCommand);
@@ -509,7 +509,7 @@ public class InformationActivity extends AppCompatActivity {
                             if (isPackageInstalled("masquerade.substratum")) {
                                 Intent runCommand = new Intent();
                                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                                runCommand.setAction("projekt.substratum.helper.COMMANDS");
+                                runCommand.setAction("masquerade.substratum.COMMANDS");
                                 runCommand.putExtra("om-commands", commands2);
                                 getApplicationContext().sendBroadcast(runCommand);
                             } else {
@@ -603,7 +603,7 @@ public class InformationActivity extends AppCompatActivity {
                             if (isPackageInstalled("masquerade.substratum")) {
                                 Intent runCommand = new Intent();
                                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                                runCommand.setAction("projekt.substratum.helper.COMMANDS");
+                                runCommand.setAction("masquerade.substratum.COMMANDS");
                                 runCommand.putExtra("om-commands", commands2);
                                 getApplicationContext().sendBroadcast(runCommand);
                             } else {
@@ -705,7 +705,7 @@ public class InformationActivity extends AppCompatActivity {
                             if (isPackageInstalled("masquerade.substratum")) {
                                 Intent runCommand = new Intent();
                                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                                runCommand.setAction("projekt.substratum.helper.COMMANDS");
+                                runCommand.setAction("masquerade.substratum.COMMANDS");
                                 runCommand.putStringArrayListExtra("pm-uninstall-specific",
                                         all_overlays);
                                 getApplicationContext().sendBroadcast(runCommand);

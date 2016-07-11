@@ -5,9 +5,11 @@ import android.content.res.AssetManager;
 import android.os.Build;
 import android.util.Log;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 
 /**
@@ -53,8 +55,43 @@ public class AAPTCheck {
                         "system partition.");
             }
         } else {
-            Log.d("SubstratumLogger", "The system partition already contains an existing AAPT " +
-                    "binary and Substratum is locked and loaded!");
+            String integrityCheck = checkAAPTIntegrity();
+
+            if (integrityCheck != null && integrityCheck.equals("Android Asset Packaging Tool")) {
+                Log.d("SubstratumLogger", "The system partition already contains an existing " +
+                        "AAPT binary and Substratum is locked and loaded!");
+            } else {
+                Log.e("SubstratumLogger",
+                        "The system partition already contains an existing AAPT " +
+                                "binary, however it does not match Substratum integrity.");
+                if (!Build.SUPPORTED_ABIS.toString().contains("86")) {
+                    // Take account for ARM/ARM64 devices
+                    copyAAPT("aapt");
+                    Root.runCommand("mount -o remount,rw /system");
+                    Root.runCommand("rm -rf /system/bin/aapt");
+                    Root.runCommand(
+                            "cp " + context.getFilesDir().getAbsolutePath() +
+                                    "/aapt " +
+                                    "/system/bin/aapt");
+                    Root.runCommand("chmod 755 /system/bin/aapt");
+                    Root.runCommand("mount -o remount,ro /system");
+                    Log.d("SubstratumLogger", "Android Assets Packaging Tool (ARM) has been " +
+                            "injected into the system partition.");
+                } else {
+                    // Take account for x86 devices
+                    copyAAPT("aapt-x86");
+                    Root.runCommand("mount -o remount,rw /system");
+                    Root.runCommand("rm -rf /system/bin/aapt");
+                    Root.runCommand(
+                            "cp " + context.getFilesDir().getAbsolutePath() +
+                                    "/aapt-x86 " +
+                                    "/system/bin/aapt");
+                    Root.runCommand("chmod 755 /system/bin/aapt");
+                    Root.runCommand("mount -o remount,ro /system");
+                    Log.d("SubstratumLogger", "Android Assets Packaging Tool (x86) has been " +
+                            "injected into the system partition.");
+                }
+            }
         }
     }
 
@@ -81,5 +118,19 @@ public class AAPTCheck {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public String checkAAPTIntegrity() {
+        try {
+            Runtime rt = Runtime.getRuntime();
+            String[] commands = {"aapt"};
+            Process proc = rt.exec(commands);
+            BufferedReader stdError = new BufferedReader(new
+                    InputStreamReader(proc.getErrorStream()));
+            return stdError.readLine();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

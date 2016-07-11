@@ -272,6 +272,8 @@ public class ManageFragment extends Fragment {
             final_commands_array.addAll(state3);
             final_commands_array.addAll(state4);
             final_commands_array.addAll(state5);
+            if (final_commands_array.size() > 0)
+                final_commands_array.add(" && pkill com.android.systemui");
             return null;
         }
     }

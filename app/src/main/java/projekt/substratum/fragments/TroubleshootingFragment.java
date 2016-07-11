@@ -9,17 +9,15 @@ import android.view.ViewGroup;
 import projekt.substratum.R;
 
 /**
- * Created by Nicholas on 2016-03-31.
+ * @author Nicholas Chum (nicholaschum)yea
  */
+
 public class TroubleshootingFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.troubleshooting_fragment, null);
-
-
-        return root;
+        return inflater.inflate(R.layout.troubleshooting_fragment, null);
     }
 }

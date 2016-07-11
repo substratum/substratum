@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="question_one">What is Substratum?</string>
+    <string name="answer_one">Substratum is an app that takes advantage of Sony\'s Overlay Manager Service (OMS). This is similar to Layers in terms of stability and customization but features such things as no reboots to apply, boot animations, fonts and priority switching.</string>
+
+    <string name="question_two">What is the Masquerade System?</string>
+    <string name="answer_two">The Masquerade System is the base of what allows Substratum to run like a Theme Engine. The idea of a masquerade is to simulate the “server/client” technicalities and Substratum communicates with the Masquerade handlers to signal commands directly on the system.</string>
+
+    <string name="question_three">What do I need in order for this to work?</string>
+    <string name="answer_three">You will need a ROM that has support for the OMS system (ask them, they should know), root access, this app, and a compatible theme (check its Play Store description or ask the developer)</string>
+
+    <string name="question_four">How do I apply a theme?</string>
+    <string name="answer_four">The application of a theme is a two part process: compilation of the overlays and application of the overlays. If you want to compile and apply in one step, use the Quick Apply tab and choose one or both of the options. If you want to compile then apply, go into the theme, click the Overlay Manager tab, select the overlays and options you want, hit the FAB and choose Compile/Update, then chose those same overlays, and hit Enable Selected.</string>
+
+    <string name="question_five">I\'m bootlooping! How do I fix it?</string>
+    <string name="answer_five">Delete the file /data/system/overlays.xml in TWRP\'s file manager or adb shell and reboot. Additionally, if you have security set up on your phone, you will need to delete the /data/resource-cache folder.</string>
+
+    <string name="question_six">Some elements look janky after I applied a theme, what happened?</string>
+    <string name="answer_six">
+        1. Restart SystemUI if it didn\'t do so automatically.\n2. Reboot the phone.\n3. Unapply the overlays, recompile, and reapply.
+    </string>
+
+    <string name="question_seven">My overlays did not compile, what happened?</string>
+    <string name="answer_seven">Delete your /system/bin/aapt file and relaunch the application.</string>
+
+    <string name="question_eight">Where are overlays installed?</string>
+    <string name="answer_eight">Overlays are installed in the /data/app folder, which means each overlay getting its own folder.</string>
+
+    <string name="question_nine">Can I use my Layers themes with Substratum?</string>
+    <string name="answer_nine">Not yet</string>
+
+</resources>

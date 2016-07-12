@@ -92,8 +92,7 @@ public class OverlaysList extends Fragment {
     private TextView toggle_all_overlays_text;
     private ArrayList<String> overlaysFolder;
     private File overlaysDirectory;
-
-    private Boolean DEBUG = getResources().getBoolean(R.bool.debugging_mode);
+    private Boolean DEBUG = false;
 
     private boolean isPackageInstalled(String package_name) {
         PackageManager pm = mContext.getPackageManager();

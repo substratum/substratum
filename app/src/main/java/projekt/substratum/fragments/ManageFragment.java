@@ -36,7 +36,7 @@ public class ManageFragment extends Fragment {
     private ProgressDialog mProgressDialog;
     private String final_commands;
     private ArrayList<String> final_commands_array;
-    private Boolean DEBUG = getResources().getBoolean(R.bool.debugging_mode);
+    private Boolean DEBUG = false;
 
     private boolean isPackageInstalled(String package_name) {
         PackageManager pm = getContext().getPackageManager();

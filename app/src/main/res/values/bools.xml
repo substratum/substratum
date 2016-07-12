@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <bool name="debugging_mode">true</bool>
     <bool name="dynamicActionBarColors">true</bool>
     <bool name="dynamicNavigationBarColors">true</bool>
     <bool name="SplashscreenWindowLightStatusBar">true</bool>

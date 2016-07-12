@@ -93,6 +93,8 @@ public class OverlaysList extends Fragment {
     private ArrayList<String> overlaysFolder;
     private File overlaysDirectory;
 
+    private Boolean DEBUG = getResources().getBoolean(R.bool.debugging_mode);
+
     private boolean isPackageInstalled(String package_name) {
         PackageManager pm = mContext.getPackageManager();
         List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
@@ -1011,12 +1013,18 @@ public class OverlaysList extends Fragment {
                     mAdapter.notifyDataSetChanged();
 
                     if (isPackageInstalled("masquerade.substratum")) {
+                        if (DEBUG)
+                            Log.e("SubstratumLogger", "Initializing the Masquerade theme " +
+                                    "provider...");
                         Intent runCommand = new Intent();
                         runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                         runCommand.setAction("masquerade.substratum.COMMANDS");
                         runCommand.putExtra("om-commands", final_commands);
                         getContext().sendBroadcast(runCommand);
                     } else {
+                        if (DEBUG)
+                            Log.e("SubstratumLogger", "Masquerade was not found, falling back to " +
+                                    "Substratum theme provider...");
                         Root.runCommand(final_commands);
                     }
                 }
@@ -1044,6 +1052,9 @@ public class OverlaysList extends Fragment {
 
                         if (mixAndMatchMode) {
                             if (isPackageInstalled("masquerade.substratum")) {
+                                if (DEBUG)
+                                    Log.e("SubstratumLogger", "Initializing the Masquerade theme " +
+                                            "provider...");
                                 Intent runCommand = new Intent();
                                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                                 runCommand.setAction("masquerade.substratum.COMMANDS");
@@ -1051,17 +1062,26 @@ public class OverlaysList extends Fragment {
                                         " && " + final_commands);
                                 getContext().sendBroadcast(runCommand);
                             } else {
+                                if (DEBUG)
+                                    Log.e("SubstratumLogger", "Masquerade was not found, falling " +
+                                            "back to Substratum theme provider...");
                                 Root.runCommand(disableBeforeEnabling +
                                         " && " + final_commands);
                             }
                         } else {
                             if (isPackageInstalled("masquerade.substratum")) {
+                                if (DEBUG)
+                                    Log.e("SubstratumLogger", "Initializing the Masquerade theme " +
+                                            "provider...");
                                 Intent runCommand = new Intent();
                                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                                 runCommand.setAction("masquerade.substratum.COMMANDS");
                                 runCommand.putExtra("om-commands", final_commands);
                                 getContext().sendBroadcast(runCommand);
                             } else {
+                                if (DEBUG)
+                                    Log.e("SubstratumLogger", "Masquerade was not found, falling " +
+                                            "back to Substratum theme provider...");
                                 Root.runCommand(final_commands);
                             }
                         }
@@ -1094,6 +1114,9 @@ public class OverlaysList extends Fragment {
 
                         if (mixAndMatchMode) {
                             if (isPackageInstalled("masquerade.substratum")) {
+                                if (DEBUG)
+                                    Log.e("SubstratumLogger", "Initializing the Masquerade theme " +
+                                            "provider...");
                                 Intent runCommand = new Intent();
                                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                                 runCommand.setAction("masquerade.substratum.COMMANDS");
@@ -1101,17 +1124,26 @@ public class OverlaysList extends Fragment {
                                         " && " + final_commands);
                                 getContext().sendBroadcast(runCommand);
                             } else {
+                                if (DEBUG)
+                                    Log.e("SubstratumLogger", "Masquerade was not found, falling " +
+                                            "back to Substratum theme provider...");
                                 Root.runCommand(disableBeforeEnabling +
                                         " && " + final_commands);
                             }
                         } else {
                             if (isPackageInstalled("masquerade.substratum")) {
+                                if (DEBUG)
+                                    Log.e("SubstratumLogger", "Initializing the Masquerade theme " +
+                                            "provider...");
                                 Intent runCommand = new Intent();
                                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                                 runCommand.setAction("masquerade.substratum.COMMANDS");
                                 runCommand.putExtra("om-commands", final_commands);
                                 getContext().sendBroadcast(runCommand);
                             } else {
+                                if (DEBUG)
+                                    Log.e("SubstratumLogger", "Masquerade was not found, falling " +
+                                            "back to Substratum theme provider...");
                                 Root.runCommand(final_commands);
                             }
                         }

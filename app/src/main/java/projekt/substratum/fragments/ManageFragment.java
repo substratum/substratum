@@ -36,6 +36,7 @@ public class ManageFragment extends Fragment {
     private ProgressDialog mProgressDialog;
     private String final_commands;
     private ArrayList<String> final_commands_array;
+    private Boolean DEBUG = getResources().getBoolean(R.bool.debugging_mode);
 
     private boolean isPackageInstalled(String package_name) {
         PackageManager pm = getContext().getPackageManager();
@@ -92,6 +93,9 @@ public class ManageFragment extends Fragment {
                                                 Toast.LENGTH_LONG);
                                         toast.show();
                                         if (isPackageInstalled("masquerade.substratum")) {
+                                            if (DEBUG)
+                                                Log.e("SubstratumLogger", "Initializing the " +
+                                                        "Masquerade theme provider...");
                                             Intent runCommand = new Intent();
                                             runCommand.addFlags(Intent
                                                     .FLAG_INCLUDE_STOPPED_PACKAGES);
@@ -100,6 +104,10 @@ public class ManageFragment extends Fragment {
                                             runCommand.putExtra("om-commands", "om disable-all");
                                             getContext().sendBroadcast(runCommand);
                                         } else {
+                                            if (DEBUG)
+                                                Log.e("SubstratumLogger", "Masquerade was not " +
+                                                        "found, falling back to Substratum theme " +
+                                                        "provider...");
                                             Root.runCommand("om disable-all");
                                         }
                                         break;
@@ -222,12 +230,17 @@ public class ManageFragment extends Fragment {
                         "integrity.");
             }
             if (isPackageInstalled("masquerade.substratum")) {
+                if (DEBUG)
+                    Log.e("SubstratumLogger", "Initializing the Masquerade theme provider...");
                 Intent runCommand = new Intent();
                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                 runCommand.setAction("masquerade.substratum.COMMANDS");
                 runCommand.putStringArrayListExtra("pm-uninstall", final_commands_array);
                 getContext().sendBroadcast(runCommand);
             } else {
+                if (DEBUG)
+                    Log.e("SubstratumLogger", "Masquerade was not found, falling back to " +
+                            "Substratum theme provider...");
                 Root.runCommand(final_commands);
             }
         }
@@ -339,21 +352,31 @@ public class ManageFragment extends Fragment {
 
             // Finally, enable/disable the SystemUI dummy overlay
             if (isPackageInstalled("masquerade.substratum")) {
+                if (DEBUG)
+                    Log.e("SubstratumLogger", "Initializing the Masquerade theme provider...");
                 Intent runCommand = new Intent();
                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                 runCommand.setAction("masquerade.substratum.COMMANDS");
                 runCommand.putExtra("om-commands", final_commands);
                 getContext().sendBroadcast(runCommand);
             } else {
+                if (DEBUG)
+                    Log.e("SubstratumLogger", "Masquerade was not found, falling back to " +
+                            "Substratum theme provider...");
                 Root.runCommand(final_commands);
             }
             if (isPackageInstalled("masquerade.substratum")) {
+                if (DEBUG)
+                    Log.e("SubstratumLogger", "Initializing the Masquerade theme provider...");
                 Intent runCommand = new Intent();
                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                 runCommand.setAction("masquerade.substratum.COMMANDS");
                 runCommand.putExtra("om-commands", "setprop sys.refresh_theme 1");
                 getContext().sendBroadcast(runCommand);
             } else {
+                if (DEBUG)
+                    Log.e("SubstratumLogger", "Masquerade was not found, falling back to " +
+                            "Substratum theme provider...");
                 Root.runCommand("setprop sys.refresh_theme 1");
             }
 

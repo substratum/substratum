@@ -83,7 +83,11 @@ public class MainActivity extends AppCompatActivity implements
         // Now, let's grab root on the helper
         Intent rootIntent = new Intent(Intent.ACTION_MAIN);
         rootIntent.setAction("masquerade.substratum.INITIALIZE");
-        startActivity(rootIntent);
+        try {
+            startActivity(rootIntent);
+        } catch (RuntimeException re) {
+            // Exception: At this point, Masquerade is not installed at all.
+        }
 
         startService(new Intent(this, ThemeDetector.class));
 

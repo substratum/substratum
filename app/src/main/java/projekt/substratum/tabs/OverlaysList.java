@@ -28,6 +28,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -95,6 +96,7 @@ public class OverlaysList extends Fragment {
     private TextView toggle_all_overlays_text;
     private ArrayList<String> overlaysFolder;
     private File overlaysDirectory;
+    private ProgressBar progressBar;
     private Boolean DEBUG = false;
 
     private String[] allowed_systemui_overlays = {
@@ -122,6 +124,9 @@ public class OverlaysList extends Fragment {
 
         theme_name = InformationActivity.getThemeName();
         theme_pid = InformationActivity.getThemePID();
+
+        progressBar = (ProgressBar) root.findViewById(R.id.header_loading_bar);
+        progressBar.setVisibility(View.GONE);
 
         // Pre-initialize the adapter first so that it won't complain for skipping layout on logs
         mRecyclerView = (RecyclerView) root.findViewById(R.id.overlayRecyclerView);
@@ -269,8 +274,11 @@ public class OverlaysList extends Fragment {
 
                     for (int i = 0; i < overlaysLists.size(); i++) {
                         OverlaysInfo currentOverlay = overlaysLists.get(i);
-                        if (currentOverlay.isSelected()) {
+                        if (currentOverlay.isSelected() && currentOverlay.isOverlayEnabled()) {
                             checkedOverlays.add(currentOverlay);
+                        } else {
+                            currentOverlay.setSelected(false);
+                            mAdapter.notifyDataSetChanged();
                         }
                     }
                     if (!checkedOverlays.isEmpty()) {
@@ -306,8 +314,11 @@ public class OverlaysList extends Fragment {
 
                 for (int i = 0; i < overlaysLists.size(); i++) {
                     OverlaysInfo currentOverlay = overlaysLists.get(i);
-                    if (currentOverlay.isSelected()) {
+                    if (currentOverlay.isSelected() && !currentOverlay.isOverlayEnabled()) {
                         checkedOverlays.add(currentOverlay);
+                    } else {
+                        currentOverlay.setSelected(false);
+                        mAdapter.notifyDataSetChanged();
                     }
                 }
                 if (!checkedOverlays.isEmpty()) {
@@ -589,9 +600,6 @@ public class OverlaysList extends Fragment {
                     unsortedListWithNames.add(packageTitle);  // Add this to be parsed later
 
                     values.set(i, packageTitle);
-                } catch (PackageManager.NameNotFoundException nnfe) {
-                    Log.e("SubstratumLogger", "Could not find explicit package identifier in " +
-                            "package manager list.");
                 } catch (Exception e) {
                     // Exception
                 }
@@ -989,16 +997,6 @@ public class OverlaysList extends Fragment {
                 final_commands = final_commands + final_runner.get(i) + " ";
             }
 
-            // Untick all options in the adapter after compiling
-            toggle_all.setChecked(false);
-            overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
-            for (int i = 0; i < overlaysLists.size(); i++) {
-                OverlaysInfo currentOverlay = overlaysLists.get(i);
-                if (currentOverlay.isSelected()) {
-                    currentOverlay.setSelected(false);
-                }
-            }
-
             if (!enable_mode && !disable_mode) {
                 mWakeLock.release();
                 mProgressDialog.dismiss();
@@ -1068,7 +1066,7 @@ public class OverlaysList extends Fragment {
                     }
                 } else {
                     mAdapter.notifyDataSetChanged();
-
+                    progressBar.setVisibility(View.VISIBLE);
                     if (isPackageInstalled("masquerade.substratum")) {
                         if (DEBUG)
                             Log.e("SubstratumLogger", "Initializing the Masquerade theme " +
@@ -1108,6 +1106,7 @@ public class OverlaysList extends Fragment {
                         }
 
                         if (mixAndMatchMode) {
+                            progressBar.setVisibility(View.VISIBLE);
                             if (isPackageInstalled("masquerade.substratum")) {
                                 if (DEBUG)
                                     Log.e("SubstratumLogger", "Initializing the Masquerade theme " +
@@ -1126,6 +1125,7 @@ public class OverlaysList extends Fragment {
                                         " && " + final_commands);
                             }
                         } else {
+                            progressBar.setVisibility(View.VISIBLE);
                             if (isPackageInstalled("masquerade.substratum")) {
                                 if (DEBUG)
                                     Log.e("SubstratumLogger", "Initializing the Masquerade theme " +
@@ -1170,6 +1170,7 @@ public class OverlaysList extends Fragment {
                         }
 
                         if (mixAndMatchMode) {
+                            progressBar.setVisibility(View.VISIBLE);
                             if (isPackageInstalled("masquerade.substratum")) {
                                 if (DEBUG)
                                     Log.e("SubstratumLogger", "Initializing the Masquerade theme " +
@@ -1188,6 +1189,7 @@ public class OverlaysList extends Fragment {
                                         " && " + final_commands);
                             }
                         } else {
+                            progressBar.setVisibility(View.VISIBLE);
                             if (isPackageInstalled("masquerade.substratum")) {
                                 if (DEBUG)
                                     Log.e("SubstratumLogger", "Initializing the Masquerade theme " +

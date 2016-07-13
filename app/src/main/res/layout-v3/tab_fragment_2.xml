@@ -12,6 +12,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <ProgressBar
+            android:id="@+id/header_loading_bar"
+            style="?android:progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-3dp"
+            android:indeterminate="true"/>
+
         <RelativeLayout
             android:id="@+id/toggle_zone"
             android:layout_width="match_parent"

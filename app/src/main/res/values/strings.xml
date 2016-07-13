@@ -56,6 +56,10 @@
     <string name="sounds_dialog_permissions_title">Ringtones Configuration Alert</string>
     <string name="sounds_dialog_permissions_text">Alarms/Notifications/Ringtones are now selectable from Settings manually!\n\nHowever, Substratum cannot grant itself "android.permission.WRITE_SETTINGS", so it is not able to set them as your current sounds automatically.</string>
 
+    <string name="settings_about_substratum">substratum version</string>
+    <string name="settings_about_masquerade">masquerade version</string>
+    <string name="settings_about_masquerade_not_installed">masquerade not installed</string>
+
     <string name="theme_information_tab_one">Quick Apply</string>
     <string name="theme_information_tab_two">Overlay Manager</string>
     <string name="theme_information_tab_three">Boot animations</string>
@@ -222,6 +226,7 @@
     <string name="notification_processing">Processing overlay for</string>
     <string name="notification_compiling_signing_installing">Creating and installing your overlays&#8230;</string>
 
+    <string name="settings_title">About</string>
     <string name="settings_title_1">App Options</string>
     <string name="settings_title_2">Manager Options</string>
     <string name="settings_title_3">Theming</string>

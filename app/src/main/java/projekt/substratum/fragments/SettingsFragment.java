@@ -3,6 +3,7 @@ package projekt.substratum.fragments;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.support.v7.preference.PreferenceFragmentCompat;
 import android.util.Log;
 import android.widget.Toast;
 
+import projekt.substratum.BuildConfig;
 import projekt.substratum.LauncherActivity;
 import projekt.substratum.R;
 
@@ -58,6 +60,26 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
                 getContext());
+
+        Preference aboutSubstratum = getPreferenceManager().findPreference
+                ("about_substratum");
+        aboutSubstratum.setSummary(BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE +
+                ")");
+        aboutSubstratum.setIcon(getResources().getDrawable(R.mipmap.main_launcher));
+
+        Preference aboutMasquerade = getPreferenceManager().findPreference
+                ("about_masquerade");
+        aboutMasquerade.setIcon(getResources().getDrawable(R.mipmap.restore_launcher));
+        try {
+            PackageInfo pinfo;
+            pinfo = getContext().getPackageManager().getPackageInfo("masquerade.substratum", 0);
+            String versionName = pinfo.versionName;
+            int versionCode = pinfo.versionCode;
+            aboutMasquerade.setSummary(
+                    versionName + " (" + versionCode + ")");
+        } catch (PackageManager.NameNotFoundException nnfe) {
+            // Masquerade was not installed
+        }
 
         final Preference masqueradeCheck = getPreferenceManager().findPreference
                 ("masquerade_check");

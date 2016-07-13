@@ -159,6 +159,7 @@
     <string name="profile_delete_button_none_selected_toast">Please select a profile from the dropdown list before trying to delete a profile!</string>
     <string name="profile_edittext_hint">please type a name for your profile&#8230;</string>
     <string name="profile_edittext_empty_toast">Please enter a name for your profile before backing up!</string>
+    <string name="profile_edittext_empty_toast_sysui">Substratum Font Helper was not found, please apply a font to install the helper and regain dynamic font swapping!</string>
     <string name="profile_edittext_title">New Profile:</string>
     <string name="toast_backup_success">Current overlay list saved to \"/storage/emulated/0/substratum/profiles/%s\"</string>
     <string name="spinner_default_item">select a profile to restore&#8230;</string>

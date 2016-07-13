@@ -3,6 +3,7 @@ package projekt.substratum.util;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
@@ -12,6 +13,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -45,8 +47,10 @@ public class FontHandler {
     private ProgressDialog progress;
     private String theme_pid;
     private String final_commands;
+    private SharedPreferences prefs;
 
     public void FontHandler(String arguments, Context context, String theme_pid) {
+        prefs = PreferenceManager.getDefaultSharedPreferences(context);
         this.mContext = context;
         this.theme_pid = theme_pid;
         new FontHandlerAsync().execute(arguments);
@@ -120,6 +124,9 @@ public class FontHandler {
                 // Finally, enable/disable the SystemUI dummy overlay
 
                 if (isPackageInstalled(mContext, "projekt.substratum.helper")) {
+                    if (!prefs.getBoolean("systemui_recreate", false)) {
+                        final_commands = final_commands + " && pkill com.android.systemui";
+                    }
                     Intent runCommand = new Intent();
                     runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                     runCommand.setAction("masquerade.substratum.COMMANDS");
@@ -127,6 +134,9 @@ public class FontHandler {
                     mContext.sendBroadcast(runCommand);
                 } else {
                     Root.runCommand(final_commands);
+                    if (!prefs.getBoolean("systemui_recreate", false)) {
+                        Root.runCommand("pkill com.android.systemui");
+                    }
                 }
             }
         }

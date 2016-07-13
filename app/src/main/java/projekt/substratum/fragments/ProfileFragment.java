@@ -2,11 +2,13 @@ package projekt.substratum.fragments;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -45,6 +47,8 @@ public class ProfileFragment extends Fragment {
     private ArrayAdapter<String> adapter;
     private List<String> cannot_run_overlays;
     private String dialog_message;
+    private boolean helper_exists = true;
+    private SharedPreferences prefs;
 
     public void RefreshSpinner() {
         list.clear();
@@ -84,6 +88,9 @@ public class ProfileFragment extends Fragment {
             savedInstanceState) {
         super.onCreate(savedInstanceState);
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.profile_fragment, null);
+
+        prefs = PreferenceManager.getDefaultSharedPreferences(
+                getContext());
 
         headerProgress = (ProgressBar) root.findViewById(R.id.header_loading_bar);
         headerProgress.setVisibility(View.GONE);
@@ -230,6 +237,23 @@ public class ProfileFragment extends Fragment {
                             .getExternalStorageDirectory().getAbsolutePath() +
                     "/substratum/profiles/" + aet_getText + ".substratum");
 
+            File makeProfileDir = new File(Environment
+                    .getExternalStorageDirectory().getAbsolutePath() +
+                    "/substratum/profiles/" + aet_getText + "/");
+            if (makeProfileDir.exists()) {
+                Root.runCommand("rm -r " +
+                        Environment.getExternalStorageDirectory().getAbsolutePath() +
+                        "/substratum/profiles/" + aet_getText);
+                boolean created = makeProfileDir.mkdir();
+            } else {
+                boolean created = makeProfileDir.mkdir();
+            }
+
+            // Backup the entire /data/system/theme/ folder
+
+            Root.runCommand("cp -rf /data/system/theme/fonts/ " +
+                    Environment.getExternalStorageDirectory().getAbsolutePath() +
+                    "/substratum/profiles/" + aet_getText);
             return null;
         }
     }
@@ -253,7 +277,6 @@ public class ProfileFragment extends Fragment {
                                 DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        headerProgress.setVisibility(View.GONE);
                                         if (isPackageInstalled("masquerade.substratum")) {
                                             Intent runCommand = new Intent();
                                             runCommand.addFlags(Intent
@@ -262,8 +285,22 @@ public class ProfileFragment extends Fragment {
                                                     ".COMMANDS");
                                             runCommand.putExtra("om-commands", to_be_run_commands);
                                             getContext().sendBroadcast(runCommand);
+                                            if (!helper_exists) {
+                                                Toast toast = Toast.makeText(getContext(),
+                                                        getString(R.string
+                                                                .profile_edittext_empty_toast_sysui),
+                                                        Toast.LENGTH_SHORT);
+                                                toast.show();
+                                            }
                                         } else {
                                             Root.runCommand(to_be_run_commands);
+                                            if (!helper_exists) {
+                                                Toast toast = Toast.makeText(getContext(),
+                                                        getString(R.string
+                                                                .profile_edittext_empty_toast_sysui),
+                                                        Toast.LENGTH_SHORT);
+                                                toast.show();
+                                            }
                                         }
                                     }
                                 })
@@ -276,15 +313,26 @@ public class ProfileFragment extends Fragment {
                                 })
                         .create().show();
             } else {
-                headerProgress.setVisibility(View.GONE);
                 if (isPackageInstalled("masquerade.substratum")) {
                     Intent runCommand = new Intent();
                     runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                     runCommand.setAction("masquerade.substratum.COMMANDS");
                     runCommand.putExtra("om-commands", to_be_run_commands);
                     getContext().sendBroadcast(runCommand);
+                    if (!helper_exists) {
+                        Toast toast = Toast.makeText(getContext(), getString(R.string
+                                        .profile_edittext_empty_toast_sysui),
+                                Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
                 } else {
                     Root.runCommand(to_be_run_commands);
+                    if (!helper_exists) {
+                        Toast toast = Toast.makeText(getContext(), getString(R.string
+                                        .profile_edittext_empty_toast_sysui),
+                                Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
                 }
             }
         }
@@ -292,6 +340,7 @@ public class ProfileFragment extends Fragment {
         @Override
         protected String doInBackground(String... sUrl) {
             String profile_name = sUrl[0];
+            helper_exists = true;
 
             File current_overlays = new File(Environment
                     .getExternalStorageDirectory().getAbsolutePath() +
@@ -321,25 +370,12 @@ public class ProfileFragment extends Fragment {
 
             List<String> profile = ReadOverlaysFile.main(commands);
             List<String> system = ReadOverlaysFile.main(commandsSystem4);
+            List<String> system_active = ReadOverlaysFile.main(commandsSystem5);
             system.addAll(ReadOverlaysFile.main(commandsSystem5));
             List<String> to_be_run = new ArrayList<>();
 
             // Disable everything enabled first
-
-            List<String> system5 = ReadOverlaysFile.main(commandsSystem5);
-
-            String to_be_disabled = "";
-            for (int i = 0; i < system5.size(); i++) {
-                if (i == 0) {
-                    to_be_disabled = "om disable " + system5.get(i);
-                } else {
-                    if (i > 0 && to_be_disabled.length() == 0) {
-                        to_be_disabled = "om disable " + system5.get(i);
-                    } else {
-                        to_be_disabled = to_be_disabled + " && om disable " + system5.get(i);
-                    }
-                }
-            }
+            String to_be_disabled = "om disable-all";
 
             // Now process the overlays to be enabled
 
@@ -359,7 +395,6 @@ public class ProfileFragment extends Fragment {
                 String package_id = not_split.substring(0, not_split.length() - theme_name.length
                         () - 1);
                 String package_name = "";
-
                 try {
                     ApplicationInfo applicationInfo = getContext().getPackageManager()
                             .getApplicationInfo
@@ -388,14 +423,16 @@ public class ProfileFragment extends Fragment {
 
             to_be_run_commands = "";
             for (int i = 0; i < to_be_run.size(); i++) {
-                if (i == 0) {
-                    to_be_run_commands = "om enable " + to_be_run.get(i);
-                } else {
-                    if (i > 0 && to_be_run_commands.length() == 0) {
+                if (!to_be_run.get(i).equals("substratum.helper")) {
+                    if (i == 0) {
                         to_be_run_commands = "om enable " + to_be_run.get(i);
                     } else {
-                        to_be_run_commands = to_be_run_commands + " && om enable " + to_be_run
-                                .get(i);
+                        if (i > 0 && to_be_run_commands.length() == 0) {
+                            to_be_run_commands = "om enable " + to_be_run.get(i);
+                        } else {
+                            to_be_run_commands = to_be_run_commands + " " + to_be_run
+                                    .get(i);
+                        }
                     }
                 }
             }
@@ -409,6 +446,109 @@ public class ProfileFragment extends Fragment {
                 to_be_run_commands = to_be_disabled + " && " + to_be_run_commands;
             }
 
+            File theme = new File(Environment.getExternalStorageDirectory().getAbsolutePath() +
+                    "/substratum/profiles/" + profile_name + "/");
+            if (theme.length() > 0) {
+                // Restore the whole backed up profile back to /data/system/theme/
+                to_be_run_commands = to_be_run_commands + " && rm -r " + "/data/system/theme";
+
+                // Set up work directory again
+
+                to_be_run_commands = to_be_run_commands + " && cp -rf " +
+                        Environment.getExternalStorageDirectory().getAbsolutePath() +
+                        "/substratum/profiles/" + profile_name + "/ /data/system/theme/";
+                to_be_run_commands = to_be_run_commands + " && chmod 755 /data/system/theme/";
+
+                // Boot Animation
+                File bootanimations = new File(Environment.getExternalStorageDirectory()
+                        .getAbsolutePath() +
+
+                        "/substratum/profiles/" + profile_name + "/bootanimation.zip");
+                if (bootanimations.exists()) {
+                    to_be_run_commands = to_be_run_commands +
+                            " && chmod 644 /data/system/theme/bootanimation.zip";
+                }
+
+                // Fonts
+                File fonts = new File(Environment.getExternalStorageDirectory().getAbsolutePath() +
+                        "/substratum/profiles/" + profile_name + "/fonts/");
+                if (fonts.exists()) {
+                    to_be_run_commands = to_be_run_commands + " && chmod -R 747 /data/system" +
+                            "/theme/fonts/";
+                    to_be_run_commands = to_be_run_commands + " && chmod 775 /data/system/theme" +
+                            "/fonts/";
+                }
+
+                // Sounds
+                File sounds = new File(Environment.getExternalStorageDirectory().getAbsolutePath() +
+                        "/substratum/profiles/" + profile_name + "/audio/");
+                if (sounds.exists()) {
+                    File alarms = new File(Environment.getExternalStorageDirectory()
+                            .getAbsolutePath() +
+                            "/substratum/profiles/" + profile_name + "/audio/alarms/");
+                    if (alarms.exists()) {
+                        to_be_run_commands = to_be_run_commands +
+                                " && chmod -R 644 /data/system/theme/audio/alarms/";
+                        to_be_run_commands = to_be_run_commands +
+                                " && chmod 755 /data/system/theme/audio/alarms/";
+                    }
+
+                    File notifications = new File(Environment.getExternalStorageDirectory()
+                            .getAbsolutePath() +
+                            "/substratum/profiles/" + profile_name + "/audio/notifications/");
+                    if (notifications.exists()) {
+                        to_be_run_commands = to_be_run_commands +
+                                " && chmod -R 644 /data/system/theme/audio/notifications/";
+                        to_be_run_commands = to_be_run_commands +
+                                " && chmod 755 /data/system/theme/audio/notifications/";
+                    }
+
+                    File ringtones = new File(Environment.getExternalStorageDirectory()
+                            .getAbsolutePath() +
+
+                            "/substratum/profiles/" + profile_name + "/audio/ringtones/");
+                    if (ringtones.exists()) {
+                        to_be_run_commands = to_be_run_commands +
+                                " && chmod -R 644 /data/system/theme/audio/ringtones/";
+                        to_be_run_commands = to_be_run_commands +
+                                " && chmod 755 /data/system/theme/audio/ringtones/";
+                    }
+
+                    File ui = new File(Environment.getExternalStorageDirectory().getAbsolutePath() +
+                            "/substratum/profiles/" + profile_name + "/audio/ui/");
+                    if (ui.exists()) {
+                        to_be_run_commands = to_be_run_commands +
+                                " && chmod -R 644 /data/system/theme/audio/ui/";
+                        to_be_run_commands = to_be_run_commands +
+                                " && chmod 755 /data/system/theme/audio/ui/";
+                    }
+
+                    to_be_run_commands = to_be_run_commands +
+                            " && chmod 755 /data/system/theme/audio/";
+                }
+
+                // Final touch ups
+                to_be_run_commands = to_be_run_commands + " && chcon -R u:object_r:system_file:s0" +
+                        " " +
+                        "/data/system/theme";
+                to_be_run_commands = to_be_run_commands + " && setprop sys.refresh_theme 1";
+
+                if (fonts.exists()) {
+                    if (system.contains("substratum.helper")) {
+                        to_be_run_commands = to_be_run_commands + " && om enable substratum.helper";
+                    } else {
+                        if (system_active.contains("substratum.helper")) {
+                            to_be_run_commands = to_be_run_commands + " && om disable substratum" +
+                                    ".helper";
+                        } else {
+                            helper_exists = false;
+                        }
+                    }
+                }
+            }
+            if (!prefs.getBoolean("systemui_recreate", false)) {
+                to_be_run_commands = to_be_run_commands + " && pkill com.android.systemui";
+            }
             Log.e("SubstratumRestore", to_be_run_commands);
             return null;
         }

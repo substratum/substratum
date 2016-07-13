@@ -3,11 +3,13 @@ package projekt.substratum.fragments;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
@@ -37,6 +39,7 @@ public class ManageFragment extends Fragment {
     private String final_commands;
     private ArrayList<String> final_commands_array;
     private Boolean DEBUG = false;
+    private SharedPreferences prefs;
 
     private boolean isPackageInstalled(String package_name) {
         PackageManager pm = getContext().getPackageManager();
@@ -54,6 +57,8 @@ public class ManageFragment extends Fragment {
             savedInstanceState) {
         super.onCreate(savedInstanceState);
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.manage_fragment, null);
+
+        prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 
         CardView overlaysCard = (CardView) root.findViewById(R.id.overlaysCard);
         CardView bootAnimCard = (CardView) root.findViewById(R.id.bootAnimCard);
@@ -378,6 +383,10 @@ public class ManageFragment extends Fragment {
                     Log.e("SubstratumLogger", "Masquerade was not found, falling back to " +
                             "Substratum theme provider...");
                 Root.runCommand("setprop sys.refresh_theme 1");
+            }
+
+            if (!prefs.getBoolean("systemui_recreate", false)) {
+                Root.runCommand("pkill com.android.systemui");
             }
 
             Toast toast = Toast.makeText(getContext(), getString(R

@@ -1,6 +1,7 @@
 package projekt.substratum.fragments;
 
 import android.content.ComponentName;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -41,12 +42,44 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         return false;
     }
 
+    private boolean isPackageInstalled(String package_name) {
+        PackageManager pm = getContext().getPackageManager();
+        try {
+            pm.getPackageInfo(package_name, PackageManager.GET_ACTIVITIES);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+    }
+
     @Override
     public void onCreatePreferences(Bundle bundle, String s) {
         addPreferencesFromResource(R.xml.preference_fragment);
 
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
                 getContext());
+
+        final Preference masqueradeCheck = getPreferenceManager().findPreference
+                ("masquerade_check");
+        masqueradeCheck.setOnPreferenceClickListener(
+                new Preference.OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        if (isPackageInstalled("masquerade.substratum")) {
+                            Intent runCommand = new Intent();
+                            runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                            runCommand.setAction("masquerade.substratum.COMMANDS");
+                            runCommand.putExtra("substratum-check", "masquerade-ball");
+                            getContext().sendBroadcast(runCommand);
+                        } else {
+                            Toast toast = Toast.makeText(getContext(), getString(R.string
+                                            .masquerade_check_not_installed),
+                                    Toast.LENGTH_SHORT);
+                            toast.show();
+                        }
+                        return false;
+                    }
+                });
 
         final CheckBoxPreference hide_app_checkbox = (CheckBoxPreference)
                 getPreferenceManager().findPreference("hide_app_checkbox");

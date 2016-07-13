@@ -9,6 +9,13 @@
         android:layout_height="match_parent"
         android:title="@string/settings_title_1">
 
+        <Preference
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:key="masquerade_check"
+            android:summary="@string/masquerade_check_subtext"
+            android:title="@string/masquerade_check_title"/>
+
         <CheckBoxPreference
             android:layout_width="match_parent"
             android:layout_height="match_parent"

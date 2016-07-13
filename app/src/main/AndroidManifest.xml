@@ -23,6 +23,11 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
         </receiver>
+        <receiver android:name=".services.MasqueradeBall">
+            <intent-filter>
+                <action android:name="projekt.substratum.MASQUERADE_BALL"/>
+            </intent-filter>
+        </receiver>
         <receiver android:name=".services.ThemeCacher">
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_REPLACED"/>

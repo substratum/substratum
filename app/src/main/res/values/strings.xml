@@ -221,6 +221,10 @@
     <string name="settings_title_1">App Options</string>
     <string name="settings_title_2">Manager Options</string>
     <string name="settings_title_3">Theming</string>
+    <string name="masquerade_check_title">Let\'s dance the masquerade ball!</string>
+    <string name="masquerade_check_subtext">Ensure presence of the Masquerade Theme System</string>
+    <string name="masquerade_check_installed">The Masquerade Ball is ready to begin!</string>
+    <string name="masquerade_check_not_installed">Masquerade is not installed.</string>
     <string name="restart_systemui">Post-enable SystemUI recreate\n</string>
     <string name="restart_systemui_subtext">Automatically recreate the SystemUI after enabling/disabling a SystemUI overlay</string>
     <string name="restart_systemui_toast_enabled">SystemUI will recreate dynamically instead of restarting!</string>

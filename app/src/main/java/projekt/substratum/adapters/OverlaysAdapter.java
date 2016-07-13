@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.Arrays;
 import java.util.List;
 
 import projekt.substratum.R;
@@ -26,6 +27,10 @@ import projekt.substratum.model.OverlaysInfo;
 
 public class OverlaysAdapter extends
         RecyclerView.Adapter<OverlaysAdapter.ViewHolder> {
+
+    private String[] allowed_systemui_overlays = {
+            "com.android.systemui.headers",
+            "com.android.systemui.navbars"};
 
     private List<OverlaysInfo> overlayList;
 
@@ -185,7 +190,11 @@ public class OverlaysAdapter extends
     public Drawable grabAppIcon(Context context, String package_name) {
         Drawable icon = null;
         try {
-            icon = context.getPackageManager().getApplicationIcon(package_name);
+            if (Arrays.asList(allowed_systemui_overlays).contains(package_name)) {
+                icon = context.getPackageManager().getApplicationIcon("com.android.systemui");
+            } else {
+                icon = context.getPackageManager().getApplicationIcon(package_name);
+            }
         } catch (PackageManager.NameNotFoundException nnfe) {
             Log.e("SubstratumLogger", "Could not grab the application icon for \"" + package_name
                     + "\"");

@@ -16,6 +16,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.Arrays;
 
 import kellinwood.security.zipsigner.ZipSigner;
 
@@ -42,6 +43,10 @@ public class SubstratumBuilder {
     public String no_install = "";
     private Context mContext;
     private Boolean enable_signing = true;
+
+    private String[] allowed_systemui_overlays = {
+            "com.android.systemui.headers",
+            "com.android.systemui.navbars"};
 
     private String getDeviceIMEI() {
         TelephonyManager telephonyManager = (TelephonyManager) mContext.getSystemService(Context
@@ -126,6 +131,10 @@ public class SubstratumBuilder {
 
         String varianter = parse2_variantName + parse2_baseName;
         varianter.replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "");
+
+        String targetPackage = ((Arrays.asList(allowed_systemui_overlays).contains(
+                overlay_package)) ? "com.android.systemui" : overlay_package);
+
         if (!has_errored_out) {
             try {
                 root.createNewFile();
@@ -140,7 +149,7 @@ public class SubstratumBuilder {
                                     parse2_themeName + parse2_variantName + parse2_baseName +
                                     "\"\n" +
                                     "        android:versionName=\"" + versionName + "\"> \n" +
-                                    "    <overlay android:targetPackage=\"" + overlay_package +
+                                    "    <overlay android:targetPackage=\"" + targetPackage +
                                     "\"/>\n" +
                                     "    <application android:label=\"" + overlay_package + "." +
                                     parse2_themeName + parse2_variantName + parse2_baseName +
@@ -167,7 +176,7 @@ public class SubstratumBuilder {
                                         parse2_themeName + parse2_variantName + parse2_baseName +
                                         "\"\n" +
                                         "        android:versionName=\"" + versionName + "\"> \n" +
-                                        "    <overlay android:targetPackage=\"" + overlay_package +
+                                        "    <overlay android:targetPackage=\"" + targetPackage +
                                         "\"/>\n" +
                                         "    <application android:label=\"" + overlay_package + "" +
                                         "." +
@@ -193,7 +202,7 @@ public class SubstratumBuilder {
                                         "." +
                                         parse2_themeName + "\"\n" +
                                         "        android:versionName=\"" + versionName + "\"> \n" +
-                                        "    <overlay android:targetPackage=\"" + overlay_package +
+                                        "    <overlay android:targetPackage=\"" + targetPackage +
                                         "\"/>\n" +
                                         "    <application android:label=\"" + overlay_package + "" +
                                         "." +

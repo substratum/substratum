@@ -32,6 +32,7 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import projekt.substratum.InformationActivity;
@@ -71,6 +72,11 @@ public class MainScreenTab extends Fragment {
     private ProgressDialog progress;
     private AlertDialog.Builder builderSingle;
     private ArrayList<String> overlayList;
+
+    private String[] allowed_systemui_overlays = {
+            "com.android.systemui.headers",
+            "com.android.systemui.navbars"};
+
 
     private boolean isSystemPackage(PackageInfo pkgInfo) {
         return ((pkgInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0);
@@ -465,8 +471,10 @@ public class MainScreenTab extends Fragment {
                 for (int i = 0; i < unfilteredDirectory.length; i++) {
                     String current = unfilteredDirectory[i].getName();
                     if (!tp_enabled) {
-                        if (systemPackages.contains(current)) {
-                            if (isPackageInstalled(current)) {
+                        if (systemPackages.contains(current) ||
+                                Arrays.asList(allowed_systemui_overlays).contains(current)) {
+                            if (isPackageInstalled(current) ||
+                                    Arrays.asList(allowed_systemui_overlays).contains(current)) {
                                 filteredDirectory.add(current);
                                 Log.d("SubstratumLogger", "System Overlay: " + current);
                             }

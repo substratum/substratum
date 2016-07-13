@@ -44,6 +44,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -95,6 +96,10 @@ public class OverlaysList extends Fragment {
     private ArrayList<String> overlaysFolder;
     private File overlaysDirectory;
     private Boolean DEBUG = false;
+
+    private String[] allowed_systemui_overlays = {
+            "com.android.systemui.headers",
+            "com.android.systemui.navbars"};
 
     private boolean isPackageInstalled(String package_name) {
         PackageManager pm = mContext.getPackageManager();
@@ -558,8 +563,10 @@ public class OverlaysList extends Fragment {
                         overlaysFolder.add(fileArray[i].getName());
                     }
                 }
+
                 for (String package_name : overlaysFolder) {
-                    if (isPackageInstalled(package_name)) {
+                    if (isPackageInstalled(package_name) ||
+                            Arrays.asList(allowed_systemui_overlays).contains(package_name)) {
                         values.add(package_name);
                     }
                 }
@@ -610,12 +617,23 @@ public class OverlaysList extends Fragment {
             // calls
             for (String package_name : values) {
                 try {
-                    String parsed_name;
-                    ApplicationInfo applicationInfo = getContext().getPackageManager()
-                            .getApplicationInfo
-                                    (package_name, 0);
-                    parsed_name = getContext().getPackageManager().getApplicationLabel
-                            (applicationInfo).toString();
+                    String parsed_name = "";
+                    if (Arrays.asList(allowed_systemui_overlays).contains(package_name)) {
+                        switch (package_name) {
+                            case "com.android.systemui.headers":
+                                parsed_name = getString(R.string.systemui_headers);
+                                break;
+                            case "com.android.systemui.navbars":
+                                parsed_name = getString(R.string.systemui_navigation);
+                                break;
+                        }
+                    } else {
+                        ApplicationInfo applicationInfo = getContext().getPackageManager()
+                                .getApplicationInfo
+                                        (package_name, 0);
+                        parsed_name = getContext().getPackageManager().getApplicationLabel
+                                (applicationInfo).toString();
+                    }
 
                     try {
                         ArrayList<String> type1a = new ArrayList<>();
@@ -797,7 +815,8 @@ public class OverlaysList extends Fragment {
 
                             OverlaysInfo overlaysInfo = new OverlaysInfo(parse2_themeName,
                                     parsed_name,
-                                    package_name, false,
+                                    package_name,
+                                    false,
                                     (adapterOneChecker ? null : adapter1),
                                     (adapterTwoChecker ? null : adapter2),
                                     (adapterThreeChecker ? null : adapter3),
@@ -808,7 +827,8 @@ public class OverlaysList extends Fragment {
                             // At this point, there is no spinner adapter, so it should be null
                             OverlaysInfo overlaysInfo = new OverlaysInfo(parse2_themeName,
                                     parsed_name,
-                                    package_name, false, null, null, null, null, getContext(),
+                                    package_name,
+                                    false, null, null, null, null, getContext(),
                                     versionName, sUrl[0], state5overlays);
                             values2.add(overlaysInfo);
                         }
@@ -1205,10 +1225,23 @@ public class OverlaysList extends Fragment {
 
                 if (!enable_mode && !disable_mode) {
                     try {
-                        ApplicationInfo applicationInfo = getContext().getPackageManager()
-                                .getApplicationInfo(current_overlay, 0);
-                        String packageTitle = getContext().getPackageManager().getApplicationLabel
-                                (applicationInfo).toString();
+                        String packageTitle = "";
+                        if (Arrays.asList(allowed_systemui_overlays).contains(current_overlay)) {
+                            switch (current_overlay) {
+                                case "com.android.systemui.headers":
+                                    packageTitle = getString(R.string.systemui_headers);
+                                    break;
+                                case "com.android.systemui.navbars":
+                                    packageTitle = getString(R.string.systemui_navigation);
+                                    break;
+                            }
+                        } else {
+                            ApplicationInfo applicationInfo = getContext().getPackageManager()
+                                    .getApplicationInfo
+                                            (current_overlay, 0);
+                            packageTitle = getContext().getPackageManager().getApplicationLabel
+                                    (applicationInfo).toString();
+                        }
 
                         // Initialize working notification
 

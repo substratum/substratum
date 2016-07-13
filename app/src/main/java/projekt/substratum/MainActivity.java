@@ -195,7 +195,7 @@ public class MainActivity extends AppCompatActivity implements
                                     break;
                                 case 7:
                                     switchFragment(getString(R.string.nav_overlay_manager),
-                                            "OverlayManagerFragment");
+                                            "AdvancedManagerFragment");
                                     drawerSelected = 7;
                                     break;
                                 case 8:

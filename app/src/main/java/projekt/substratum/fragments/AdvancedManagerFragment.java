@@ -36,7 +36,7 @@ import projekt.substratum.util.Root;
  * @author Nicholas Chum (nicholaschum)
  */
 
-public class OverlayManagerFragment extends Fragment {
+public class AdvancedManagerFragment extends Fragment {
 
     private RecyclerView.Adapter mAdapter;
     private MaterialSheetFab materialSheetFab;
@@ -156,6 +156,10 @@ public class OverlayManagerFragment extends Fragment {
                             data = data + " " + overlay.getName();
                         }
                     }
+                    if (!prefs.getBoolean("systemui_recreate", false) &&
+                            data.contains("systemui")) {
+                        data = data + " && pkill com.android.systemui";
+                    }
                     Toast toast = Toast.makeText(getContext(), getString(R
                                     .string.toast_disabled),
                             Toast.LENGTH_LONG);
@@ -184,6 +188,10 @@ public class OverlayManagerFragment extends Fragment {
                     if (overlay.isSelected()) {
                         data = data + " " + overlay.getName();
                     }
+                }
+                if (!prefs.getBoolean("systemui_recreate", false) &&
+                        data.contains("systemui")) {
+                    data = data + " && pkill com.android.systemui";
                 }
                 Toast toast = Toast.makeText(getContext(), getString(R
                                 .string.toast_enabled),

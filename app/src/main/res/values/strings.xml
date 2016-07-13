@@ -209,6 +209,7 @@
     <string name="notification_theme_installed_content">Theme successfully installed.</string>
     <string name="notification_theme_updated_content">Resources successfully updated.</string>
 
+    <string name="notification_hide">Dismiss</string>
     <string name="notification_initial_title">Substratum is running</string>
     <string name="notification_done_title">Theme compilation has completed</string>
     <string name="notification_extracting_assets">Extracting assets from theme package&#8230;</string>

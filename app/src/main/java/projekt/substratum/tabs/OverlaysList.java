@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
+import android.service.notification.StatusBarNotification;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.NotificationCompat;
@@ -51,6 +52,7 @@ import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
 import projekt.substratum.adapters.OverlaysAdapter;
 import projekt.substratum.model.OverlaysInfo;
+import projekt.substratum.services.NotificationButtonReceiver;
 import projekt.substratum.util.CacheCreator;
 import projekt.substratum.util.FloatingActionMenu;
 import projekt.substratum.util.ReadOverlaysFile;
@@ -74,7 +76,7 @@ public class OverlaysList extends Fragment {
     private NotificationCompat.Builder mBuilder;
     private boolean has_initialized_cache = false;
     private boolean has_failed = false;
-    private int id = 1;
+    private int id = 2486;
     private ViewGroup root;
     private ArrayList<OverlaysInfo> values2;
     private RecyclerView mRecyclerView;
@@ -445,6 +447,18 @@ public class OverlaysList extends Fragment {
             // Exception
         }
         return null;
+    }
+
+    private boolean checkActiveNotifications() {
+        StatusBarNotification[] activeNotifications = mNotifyManager
+                .getActiveNotifications();
+
+        for (int i = 0; i < activeNotifications.length; i++) {
+            if (activeNotifications[i].getPackageName().equals("projekt.substratum")) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private class LoadOverlays extends AsyncTask<String, Integer, String> {
@@ -822,6 +836,15 @@ public class OverlaysList extends Fragment {
                         "theme's assets...");
                 int notification_priority = 2; // PRIORITY_MAX == 2
 
+                // Create an Intent for the BroadcastReceiver
+                Intent buttonIntent = new Intent(getContext(), NotificationButtonReceiver.class);
+
+                // Create the PendingIntent
+                PendingIntent btPendingIntent = PendingIntent.getBroadcast(
+                        getContext(), 0, buttonIntent, 0);
+                PendingIntent resultPendingIntent = PendingIntent.getActivity(
+                        getContext(), 0, new Intent(), 0);
+
                 // This is the time when the notification should be shown on the user's screen
                 mNotifyManager =
                         (NotificationManager) getContext().getSystemService(
@@ -829,8 +852,11 @@ public class OverlaysList extends Fragment {
                 mBuilder = new NotificationCompat.Builder(getContext());
                 mBuilder.setContentTitle(getString(R.string.notification_initial_title))
                         .setProgress(100, 0, true)
+                        .addAction(R.drawable.notification_dismiss_icon,
+                                getString(R.string.notification_hide), btPendingIntent)
                         .setSmallIcon(android.R.drawable.ic_popup_sync)
                         .setPriority(notification_priority)
+                        .setContentIntent(resultPendingIntent)
                         .setOngoing(true);
                 mNotifyManager.notify(id, mBuilder.build());
 
@@ -912,11 +938,13 @@ public class OverlaysList extends Fragment {
 
             if (!enable_mode && !disable_mode) {
                 // Change title in preparation for loop to change subtext
-                mBuilder.setContentTitle(getString(R.string
-                        .notification_compiling_signing_installing))
-                        .setContentText(getString(R.string.notification_extracting_assets_text))
-                        .setProgress(100, 0, false);
-                mNotifyManager.notify(id, mBuilder.build());
+                if (checkActiveNotifications()) {
+                    mBuilder.setContentTitle(getString(R.string
+                            .notification_compiling_signing_installing))
+                            .setContentText(getString(R.string.notification_extracting_assets_text))
+                            .setProgress(100, 0, false);
+                    mNotifyManager.notify(id, mBuilder.build());
+                }
 
                 loader_string.setText(getContext().getResources().getString(
                         R.string.sb_phase_2_loader));
@@ -956,7 +984,9 @@ public class OverlaysList extends Fragment {
                 mProgressDialog.dismiss();
 
                 // Add dummy intent to be able to close the notification on click
-                Intent notificationIntent = new Intent();
+                Intent notificationIntent = new Intent(getContext(), InformationActivity.class);
+                notificationIntent.putExtra("theme_name", theme_name);
+                notificationIntent.putExtra("theme_pid", theme_pid);
                 notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
                         Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 PendingIntent intent =
@@ -965,15 +995,19 @@ public class OverlaysList extends Fragment {
 
                 if (!has_failed) {
                     // Closing off the persistent notification
-                    mBuilder.setAutoCancel(true);
-                    mBuilder.setProgress(0, 0, false);
-                    mBuilder.setOngoing(false);
-                    mBuilder.setContentIntent(intent);
-                    mBuilder.setSmallIcon(R.drawable.notification_success_icon);
-                    mBuilder.setContentTitle(getString(R.string.notification_done_title));
-                    mBuilder.setContentText(getString(R.string.notification_no_errors_found));
-                    mBuilder.getNotification().flags |= Notification.FLAG_AUTO_CANCEL;
-                    mNotifyManager.notify(id, mBuilder.build());
+                    if (checkActiveNotifications()) {
+                        mNotifyManager.cancel(id);
+                        mBuilder = new NotificationCompat.Builder(getContext());
+                        mBuilder.setAutoCancel(true);
+                        mBuilder.setProgress(0, 0, false);
+                        mBuilder.setOngoing(false);
+                        mBuilder.setContentIntent(intent);
+                        mBuilder.setSmallIcon(R.drawable.notification_success_icon);
+                        mBuilder.setContentTitle(getString(R.string.notification_done_title));
+                        mBuilder.setContentText(getString(R.string.notification_no_errors_found));
+                        mBuilder.getNotification().flags |= Notification.FLAG_AUTO_CANCEL;
+                        mNotifyManager.notify(id, mBuilder.build());
+                    }
 
                     Toast toast = Toast.makeText(getContext(), getString(R
                                     .string.toast_compiled_updated),
@@ -981,15 +1015,19 @@ public class OverlaysList extends Fragment {
                     toast.show();
                 } else {
                     // Closing off the persistent notification
-                    mBuilder.setAutoCancel(true);
-                    mBuilder.setProgress(0, 0, false);
-                    mBuilder.setOngoing(false);
-                    mBuilder.setContentIntent(intent);
-                    mBuilder.setSmallIcon(R.drawable.notification_warning_icon);
-                    mBuilder.setContentTitle(getString(R.string.notification_done_title));
-                    mBuilder.setContentText(getString(R.string.notification_some_errors_found));
-                    mBuilder.getNotification().flags |= Notification.FLAG_AUTO_CANCEL;
-                    mNotifyManager.notify(id, mBuilder.build());
+                    if (checkActiveNotifications()) {
+                        mNotifyManager.cancel(id);
+                        mBuilder = new NotificationCompat.Builder(getContext());
+                        mBuilder.setAutoCancel(true);
+                        mBuilder.setProgress(0, 0, false);
+                        mBuilder.setOngoing(false);
+                        mBuilder.setContentIntent(intent);
+                        mBuilder.setSmallIcon(R.drawable.notification_warning_icon);
+                        mBuilder.setContentTitle(getString(R.string.notification_done_title));
+                        mBuilder.setContentText(getString(R.string.notification_some_errors_found));
+                        mBuilder.getNotification().flags |= Notification.FLAG_AUTO_CANCEL;
+                        mNotifyManager.notify(id, mBuilder.build());
+                    }
 
                     Toast toast = Toast.makeText(getContext(), getString(R
                                     .string.toast_compiled_updated_with_errors),
@@ -1174,14 +1212,19 @@ public class OverlaysList extends Fragment {
 
                         // Initialize working notification
 
-                        mBuilder.setProgress(100, (int) (((double) (i + 1) / checkedOverlays.size
-                                ()) *
+                        if (checkActiveNotifications()) {
+                            mBuilder.setProgress(100, (int) (((double) (i + 1) / checkedOverlays
+                                    .size
 
-                                100), false);
-                        mBuilder.setContentText(getString(R.string.notification_processing) + " " +
-                                "\"" +
-                                packageTitle + "\"");
-                        mNotifyManager.notify(id, mBuilder.build());
+                                            ()) *
+
+                                    100), false);
+                            mBuilder.setContentText(getString(R.string.notification_processing) +
+                                    " " +
+                                    "\"" +
+                                    packageTitle + "\"");
+                            mNotifyManager.notify(id, mBuilder.build());
+                        }
 
                         // With OMS3, overlay updating causes a configChange to happen, so we
                         // check for

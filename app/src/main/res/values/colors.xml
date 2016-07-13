@@ -9,6 +9,7 @@
 
     <color name="quick_apply_icon_tint">@color/main_screen_card_theme_title</color>
     <color name="sounds_play_pause_button_tint">@android:color/black</color>
+    <color name="notification_dismiss_icon_tint">@color/main_screen_card_theme_title</color>
 
     <color name="bootanimation_placeholder_tint">@android:color/white</color>
     <color name="bootanimation_vm_text">@android:color/white</color>

@@ -19,16 +19,16 @@
         <CheckBoxPreference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:key="hide_app_checkbox"
-            android:summary="@string/hide_app_icon_not_supported"
-            android:title="@string/hide_app_icon"/>
+            android:key="restart_systemui"
+            android:summary="@string/restart_systemui_subtext"
+            android:title="@string/restart_systemui"/>
 
         <CheckBoxPreference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:key="restart_systemui"
-            android:summary="@string/restart_systemui_subtext"
-            android:title="@string/restart_systemui"/>
+            android:key="hide_app_checkbox"
+            android:summary="@string/hide_app_icon_not_supported"
+            android:title="@string/hide_app_icon"/>
 
     </PreferenceCategory>
 

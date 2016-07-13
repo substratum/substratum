@@ -16,7 +16,7 @@ import projekt.substratum.R;
 public class PrioritiesViewHolder extends GestureViewHolder {
 
     @Bind(R.id.card_text)
-    TextView mMonthText;
+    TextView mCardText;
     @Bind(R.id.card_drag)
     ImageView mItemDrag;
     @Bind(R.id.app_icon)

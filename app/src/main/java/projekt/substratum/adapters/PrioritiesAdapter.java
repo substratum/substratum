@@ -65,15 +65,13 @@ public class PrioritiesAdapter extends GestureAdapter<PrioritiesItem, GestureVie
                             (applicationInfo).toString();
                     if (applicationInfo.metaData != null) {
                         if (applicationInfo.metaData.getString("Substratum_ID") != null) {
-                            String overlayParentName = priorities.getName().split("\\.")
-                                    [priorities.getName().split("\\.").length - 1];
-                            prioritiesViewHolder.mMonthText.setText(overlayParentName);
+                            prioritiesViewHolder.mCardText.setText(priorities.getName());
                         } else {
-                            prioritiesViewHolder.mMonthText.setText(packageTitle + " (" +
+                            prioritiesViewHolder.mCardText.setText(packageTitle + " (" +
                                     priorities.getName() + ")");
                         }
                     } else {
-                        prioritiesViewHolder.mMonthText.setText(packageTitle + " (" + priorities
+                        prioritiesViewHolder.mCardText.setText(packageTitle + " (" + priorities
                                 .getName() + ")");
                     }
 

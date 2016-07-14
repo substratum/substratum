@@ -521,18 +521,6 @@ public class OverlaysList extends Fragment {
             } catch (Exception e) {
                 // Exception
             }
-            File current_overlays = new File(Environment
-                    .getExternalStorageDirectory().getAbsolutePath() +
-                    "/.substratum/current_overlays.xml");
-            if (current_overlays.exists()) {
-                Root.runCommand("rm " + Environment
-                        .getExternalStorageDirectory().getAbsolutePath() +
-                        "/.substratum/current_overlays.xml");
-            }
-            Root.runCommand("cp /data/system/overlays.xml " +
-                    Environment
-                            .getExternalStorageDirectory().getAbsolutePath() +
-                    "/.substratum/current_overlays.xml");
             String[] commands5 = {Environment.getExternalStorageDirectory().getAbsolutePath() +
                     "/.substratum/current_overlays.xml", "5"};
             List<String> state5 = ReadOverlaysFile.main(commands5);
@@ -1294,19 +1282,6 @@ public class OverlaysList extends Fragment {
                         // With OMS3, overlay updating causes a configChange to happen, so we
                         // check for
                         // whatever is activated first and delay their installs to a one liner
-
-                        File current_overlays = new File(Environment
-                                .getExternalStorageDirectory().getAbsolutePath() +
-                                "/.substratum/current_overlays.xml");
-                        if (current_overlays.exists()) {
-                            Root.runCommand("rm " + Environment
-                                    .getExternalStorageDirectory().getAbsolutePath() +
-                                    "/.substratum/current_overlays.xml");
-                        }
-                        Root.runCommand("cp /data/system/overlays.xml " +
-                                Environment
-                                        .getExternalStorageDirectory().getAbsolutePath() +
-                                "/.substratum/current_overlays.xml");
                         String[] commands1 = {Environment.getExternalStorageDirectory()
                                 .getAbsolutePath() +
                                 "/.substratum/current_overlays.xml", "5"};

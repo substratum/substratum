@@ -54,18 +54,6 @@ public class AdvancedManagerFragment extends Fragment {
 
         List<OverlayManager> overlaysList = new ArrayList<>();
 
-        File current_overlays = new File(Environment
-                .getExternalStorageDirectory().getAbsolutePath() +
-                "/.substratum/current_overlays.xml");
-        if (current_overlays.exists()) {
-            Root.runCommand("rm " + Environment
-                    .getExternalStorageDirectory().getAbsolutePath() +
-                    "/.substratum/current_overlays.xml");
-        }
-        Root.runCommand("cp /data/system/overlays.xml " +
-                Environment
-                        .getExternalStorageDirectory().getAbsolutePath() +
-                "/.substratum/current_overlays.xml");
         String[] commands = {Environment.getExternalStorageDirectory()
                 .getAbsolutePath() +
                 "/.substratum/current_overlays.xml", "4"};

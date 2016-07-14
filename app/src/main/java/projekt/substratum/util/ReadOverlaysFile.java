@@ -1,5 +1,7 @@
 package projekt.substratum.util;
 
+import android.os.Environment;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -14,6 +16,19 @@ import java.util.List;
 public class ReadOverlaysFile {
 
     public static List<String> main(String argv[]) {
+
+        File current_overlays = new File(Environment
+                .getExternalStorageDirectory().getAbsolutePath() +
+                "/.substratum/current_overlays.xml");
+        if (current_overlays.exists()) {
+            Root.runCommand("rm " + Environment
+                    .getExternalStorageDirectory().getAbsolutePath() +
+                    "/.substratum/current_overlays.xml");
+        }
+        Root.runCommand("cp /data/system/overlays.xml " +
+                Environment
+                        .getExternalStorageDirectory().getAbsolutePath() +
+                "/.substratum/current_overlays.xml");
 
         File file = new File(argv[0]);
         int state_count = Integer.parseInt(argv[1]);

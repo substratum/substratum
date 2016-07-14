@@ -253,6 +253,7 @@ public class OverlaysList extends Fragment {
                             phase2_initializeCache.execute("");
                         }
                     } else {
+                        if (toggle_all.isChecked()) toggle_all.setChecked(false);
                         Toast toast2 = Toast.makeText(getContext(), getString(R
                                         .string.toast_disabled5),
                                 Toast.LENGTH_SHORT);
@@ -267,6 +268,7 @@ public class OverlaysList extends Fragment {
                 public void onClick(View v) {
                     materialSheetFab.hideSheet();
 
+                    enable_mode = false;
                     disable_mode = true;
 
                     overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
@@ -294,6 +296,7 @@ public class OverlaysList extends Fragment {
                             phase2_initializeCache.execute("");
                         }
                     } else {
+                        if (toggle_all.isChecked()) toggle_all.setChecked(false);
                         Toast toast2 = Toast.makeText(getContext(), getString(R
                                         .string.toast_disabled5),
                                 Toast.LENGTH_SHORT);
@@ -308,6 +311,7 @@ public class OverlaysList extends Fragment {
                 materialSheetFab.hideSheet();
 
                 enable_mode = true;
+                disable_mode = false;
 
                 overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
                 checkedOverlays = new ArrayList<>();
@@ -333,6 +337,7 @@ public class OverlaysList extends Fragment {
                         phase2_initializeCache.execute("");
                     }
                 } else {
+                    if (toggle_all.isChecked()) toggle_all.setChecked(false);
                     Toast toast2 = Toast.makeText(getContext(), getString(R
                                     .string.toast_disabled5),
                             Toast.LENGTH_SHORT);
@@ -1067,6 +1072,7 @@ public class OverlaysList extends Fragment {
                 } else {
                     mAdapter.notifyDataSetChanged();
                     progressBar.setVisibility(View.VISIBLE);
+                    if (toggle_all.isChecked()) toggle_all.setChecked(false);
                     if (isPackageInstalled("masquerade.substratum")) {
                         if (DEBUG)
                             Log.e("SubstratumLogger", "Initializing the Masquerade theme " +
@@ -1107,6 +1113,7 @@ public class OverlaysList extends Fragment {
 
                         if (mixAndMatchMode) {
                             progressBar.setVisibility(View.VISIBLE);
+                            if (toggle_all.isChecked()) toggle_all.setChecked(false);
                             if (isPackageInstalled("masquerade.substratum")) {
                                 if (DEBUG)
                                     Log.e("SubstratumLogger", "Initializing the Masquerade theme " +
@@ -1126,6 +1133,7 @@ public class OverlaysList extends Fragment {
                             }
                         } else {
                             progressBar.setVisibility(View.VISIBLE);
+                            if (toggle_all.isChecked()) toggle_all.setChecked(false);
                             if (isPackageInstalled("masquerade.substratum")) {
                                 if (DEBUG)
                                     Log.e("SubstratumLogger", "Initializing the Masquerade theme " +
@@ -1171,6 +1179,7 @@ public class OverlaysList extends Fragment {
 
                         if (mixAndMatchMode) {
                             progressBar.setVisibility(View.VISIBLE);
+                            if (toggle_all.isChecked()) toggle_all.setChecked(false);
                             if (isPackageInstalled("masquerade.substratum")) {
                                 if (DEBUG)
                                     Log.e("SubstratumLogger", "Initializing the Masquerade theme " +
@@ -1190,6 +1199,7 @@ public class OverlaysList extends Fragment {
                             }
                         } else {
                             progressBar.setVisibility(View.VISIBLE);
+                            if (toggle_all.isChecked()) toggle_all.setChecked(false);
                             if (isPackageInstalled("masquerade.substratum")) {
                                 if (DEBUG)
                                     Log.e("SubstratumLogger", "Initializing the Masquerade theme " +

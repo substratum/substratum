@@ -993,14 +993,14 @@ public class OverlaysList extends Fragment {
 
             String final_commands = "";
             if (enable_mode) {
-                final_commands = "om enable ";
+                final_commands = "om enable";
             } else {
                 if (disable_mode) {
-                    final_commands = "om disable ";
+                    final_commands = "om disable";
                 }
             }
             for (int i = 0; i < final_runner.size(); i++) {
-                final_commands = final_commands + final_runner.get(i) + " ";
+                final_commands = final_commands + " " + final_runner.get(i);
             }
 
             if (!enable_mode && !disable_mode) {
@@ -1097,12 +1097,12 @@ public class OverlaysList extends Fragment {
                         if (mixAndMatchMode) {
                             if (all_installed_overlays.size() - current_theme_overlays.size() !=
                                     0) {
-                                disableBeforeEnabling = "om disable ";
+                                disableBeforeEnabling = "om disable";
                                 for (int i = 0; i < all_installed_overlays.size(); i++) {
                                     if (!current_theme_overlays.contains(
                                             all_installed_overlays.get(i))) {
-                                        disableBeforeEnabling = disableBeforeEnabling +
-                                                all_installed_overlays.get(i) + " ";
+                                        disableBeforeEnabling = disableBeforeEnabling + " " +
+                                                all_installed_overlays.get(i);
                                     }
                                 }
                             }
@@ -1173,12 +1173,12 @@ public class OverlaysList extends Fragment {
                         if (mixAndMatchMode) {
                             if (all_installed_overlays.size() - current_theme_overlays.size() !=
                                     0) {
-                                disableBeforeEnabling = "om disable ";
+                                disableBeforeEnabling = "om disable";
                                 for (int i = 0; i < all_installed_overlays.size(); i++) {
                                     if (!current_theme_overlays.contains(
                                             all_installed_overlays.get(i))) {
-                                        disableBeforeEnabling = disableBeforeEnabling +
-                                                all_installed_overlays.get(i) + " ";
+                                        disableBeforeEnabling = disableBeforeEnabling + " " +
+                                                all_installed_overlays.get(i);
                                     }
                                 }
                             }

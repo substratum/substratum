@@ -97,6 +97,7 @@ public class OverlaysList extends Fragment {
     private ArrayList<String> overlaysFolder;
     private File overlaysDirectory;
     private ProgressBar progressBar;
+    private ArrayList<String> current_theme_overlays;
     private Boolean DEBUG = false;
 
     private String[] allowed_systemui_overlays = {
@@ -534,7 +535,6 @@ public class OverlaysList extends Fragment {
                     "/.substratum/current_overlays.xml");
             String[] commands5 = {Environment.getExternalStorageDirectory().getAbsolutePath() +
                     "/.substratum/current_overlays.xml", "5"};
-
             List<String> state5 = ReadOverlaysFile.main(commands5);
             all_installed_overlays = new ArrayList<>(state5);
             List<String> state5overlays = new ArrayList<>(all_installed_overlays);
@@ -542,6 +542,7 @@ public class OverlaysList extends Fragment {
             String parse1_themeName = theme_name.replaceAll("\\s+", "");
             String parse2_themeName = parse1_themeName.replaceAll("[^a-zA-Z0-9]+", "");
 
+            current_theme_overlays = new ArrayList<>();
             for (int i = 0; i < all_installed_overlays.size(); i++) {
                 try {
                     ApplicationInfo appInfo = getContext().getPackageManager().getApplicationInfo(
@@ -550,7 +551,7 @@ public class OverlaysList extends Fragment {
                         if (appInfo.metaData.getString("Substratum_Parent") != null) {
                             if (appInfo.metaData.getString("Substratum_Parent")
                                     .equals(parse2_themeName)) {
-                                all_installed_overlays.remove(i);
+                                current_theme_overlays.add(all_installed_overlays.get(i));
                             }
                         }
                     }
@@ -1092,14 +1093,20 @@ public class OverlaysList extends Fragment {
             } else {
                 if (enable_mode) {
                     if (final_runner.size() > 0) {
-                        String disableBeforeEnabling = "om disable ";
+                        String disableBeforeEnabling = "";
                         if (mixAndMatchMode) {
-                            for (int i = 0; i < all_installed_overlays.size(); i++) {
-                                disableBeforeEnabling = disableBeforeEnabling +
-                                        all_installed_overlays.get(i) + " ";
+                            if (all_installed_overlays.size() - current_theme_overlays.size() !=
+                                    0) {
+                                disableBeforeEnabling = "om disable ";
+                                for (int i = 0; i < all_installed_overlays.size(); i++) {
+                                    if (!current_theme_overlays.contains(
+                                            all_installed_overlays.get(i))) {
+                                        disableBeforeEnabling = disableBeforeEnabling +
+                                                all_installed_overlays.get(i) + " ";
+                                    }
+                                }
                             }
                         }
-
                         Toast toast = Toast.makeText(getContext(), getString(R
                                         .string.toast_enabled),
                                 Toast.LENGTH_LONG);
@@ -1121,15 +1128,18 @@ public class OverlaysList extends Fragment {
                                 Intent runCommand = new Intent();
                                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                                 runCommand.setAction("masquerade.substratum.COMMANDS");
-                                runCommand.putExtra("om-commands", disableBeforeEnabling +
-                                        " && " + final_commands);
+                                runCommand.putExtra("om-commands",
+                                        ((disableBeforeEnabling.length() > 0) ?
+                                                disableBeforeEnabling +
+                                                        " && " + final_commands : final_commands));
                                 getContext().sendBroadcast(runCommand);
                             } else {
                                 if (DEBUG)
                                     Log.e("SubstratumLogger", "Masquerade was not found, falling " +
                                             "back to Substratum theme provider...");
-                                Root.runCommand(disableBeforeEnabling +
-                                        " && " + final_commands);
+                                Root.runCommand(((disableBeforeEnabling.length() > 0) ?
+                                        disableBeforeEnabling +
+                                                " && " + final_commands : final_commands));
                             }
                         } else {
                             progressBar.setVisibility(View.VISIBLE);
@@ -1159,11 +1169,18 @@ public class OverlaysList extends Fragment {
                     }
                 } else {
                     if (final_runner.size() > 0) {
-                        String disableBeforeEnabling = "om disable ";
+                        String disableBeforeEnabling = "";
                         if (mixAndMatchMode) {
-                            for (int i = 0; i < all_installed_overlays.size(); i++) {
-                                disableBeforeEnabling = disableBeforeEnabling +
-                                        all_installed_overlays.get(i) + " ";
+                            if (all_installed_overlays.size() - current_theme_overlays.size() !=
+                                    0) {
+                                disableBeforeEnabling = "om disable ";
+                                for (int i = 0; i < all_installed_overlays.size(); i++) {
+                                    if (!current_theme_overlays.contains(
+                                            all_installed_overlays.get(i))) {
+                                        disableBeforeEnabling = disableBeforeEnabling +
+                                                all_installed_overlays.get(i) + " ";
+                                    }
+                                }
                             }
                         }
                         Toast toast = Toast.makeText(getContext(), getString(R
@@ -1187,15 +1204,18 @@ public class OverlaysList extends Fragment {
                                 Intent runCommand = new Intent();
                                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                                 runCommand.setAction("masquerade.substratum.COMMANDS");
-                                runCommand.putExtra("om-commands", disableBeforeEnabling +
-                                        " && " + final_commands);
+                                runCommand.putExtra("om-commands",
+                                        ((disableBeforeEnabling.length() > 0) ?
+                                                disableBeforeEnabling +
+                                                        " && " + final_commands : final_commands));
                                 getContext().sendBroadcast(runCommand);
                             } else {
                                 if (DEBUG)
                                     Log.e("SubstratumLogger", "Masquerade was not found, falling " +
                                             "back to Substratum theme provider...");
-                                Root.runCommand(disableBeforeEnabling +
-                                        " && " + final_commands);
+                                Root.runCommand(((disableBeforeEnabling.length() > 0) ?
+                                        disableBeforeEnabling +
+                                                " && " + final_commands : final_commands));
                             }
                         } else {
                             progressBar.setVisibility(View.VISIBLE);

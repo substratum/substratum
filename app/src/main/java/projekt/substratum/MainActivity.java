@@ -27,6 +27,7 @@ import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
+import com.mikepenz.materialdrawer.model.ExpandableDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
@@ -131,6 +132,14 @@ public class MainActivity extends AppCompatActivity implements
                         new PrimaryDrawerItem().withName(R.string.nav_sounds).withIcon(R.drawable
                                 .nav_sounds),
 
+                        new ExpandableDrawerItem()
+                                .withName("Extras")
+                                .withIcon(R.drawable.nav_drawer_compatibility)
+                                .withSelectable(false)
+                                .withSubItems(
+                                new SecondaryDrawerItem().withName("Layers Mode").withLevel(2).withIcon(R.drawable.nav_drawer_layers).withIdentifier(2000)
+                        ),
+
                         new SectionDrawerItem().withName(R.string.nav_section_header_utilities),
                         new PrimaryDrawerItem().withName(R.string.nav_overlay_manager).withIcon(R
                                 .drawable
@@ -194,49 +203,54 @@ public class MainActivity extends AppCompatActivity implements
                                     }
                                     break;
                                 case 7:
-                                    switchFragment(getString(R.string.nav_overlay_manager),
-                                            "AdvancedManagerFragment");
+                                    switchFragment(getString(R.string.nav_legacy),
+                                            "LegacyFragment");
                                     drawerSelected = 7;
                                     break;
                                 case 8:
-                                    switchFragment(getString(R.string.nav_manage),
-                                            "ManageFragment");
+                                    switchFragment(getString(R.string.nav_overlay_manager),
+                                            "AdvancedManagerFragment");
                                     drawerSelected = 8;
                                     break;
                                 case 9:
-                                    switchFragment(getString(R.string.nav_priorities),
-                                            "PriorityLoaderFragment");
+                                    switchFragment(getString(R.string.nav_manage),
+                                            "ManageFragment");
                                     drawerSelected = 9;
                                     break;
                                 case 10:
-                                    switchFragment(getString(R.string.nav_backup_restore),
-                                            "ProfileFragment");
+                                    switchFragment(getString(R.string.nav_priorities),
+                                            "PriorityLoaderFragment");
                                     drawerSelected = 10;
                                     break;
-                                case 12:
-                                    if (drawerSelected != position) {
-                                        switchFragment(getString(R.string.nav_troubleshooting),
-                                                "TroubleshootingFragment");
-                                        drawerSelected = 12;
-                                    }
+                                case 11:
+                                    switchFragment(getString(R.string.nav_backup_restore),
+                                            "ProfileFragment");
+                                    drawerSelected = 11;
                                     break;
                                 case 13:
                                     if (drawerSelected != position) {
-                                        switchFragment(getString(R.string.nav_team),
-                                                "TeamFragment");
+                                        switchFragment(getString(R.string.nav_troubleshooting),
+                                                "TroubleshootingFragment");
                                         drawerSelected = 13;
                                     }
                                     break;
                                 case 14:
-                                    switchFragmentToLicenses(getString(R.string.nav_opensource),
-                                            fragment);
-                                    drawerSelected = 14;
+                                    if (drawerSelected != position) {
+                                        switchFragment(getString(R.string.nav_team),
+                                                "TeamFragment");
+                                        drawerSelected = 14;
+                                    }
                                     break;
                                 case 15:
+                                    switchFragmentToLicenses(getString(R.string.nav_opensource),
+                                            fragment);
+                                    drawerSelected = 15;
+                                    break;
+                                case 16:
                                     if (drawerSelected != position) {
                                         switchFragment(getString(R.string.nav_settings),
                                                 "SettingsFragment");
-                                        drawerSelected = 15;
+                                        drawerSelected = 16;
                                     }
                                     break;
                             }

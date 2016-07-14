@@ -52,7 +52,6 @@ public class SoundsHandler {
     private ProgressDialog progress;
     private String theme_pid;
     private boolean has_failed;
-    private boolean clear_mode = false;
 
     public void SoundsHandler(String arguments, Context context, String theme_pid) {
         this.mContext = context;
@@ -62,48 +61,50 @@ public class SoundsHandler {
 
     public void SoundsClearer(Context context) {
         this.mContext = context;
-        this.clear_mode = true;
-        perform_action();
+        setDefaultAudible(mContext, RingtoneManager.TYPE_ALARM);
+        setDefaultAudible(mContext, RingtoneManager.TYPE_NOTIFICATION);
+        setDefaultAudible(mContext, RingtoneManager.TYPE_RINGTONE);
+        setDefaultUISounds("lock_sound", "Lock.ogg");
+        setDefaultUISounds("unlock_sound", "Unlock.ogg");
+        setDefaultUISounds("low_battery_sound", "LowBattery.ogg");
     }
 
     private void perform_action() {
         // Move all the assets to the finalized folders
 
-        if (!clear_mode) {
-            File alarms = new File(mContext.getCacheDir().getAbsolutePath() +
-                    "/SoundsCache/SoundsInjector/alarms/");
-            File alarms_temp = new File("/data/system/theme/audio/alarms/");
-            if (alarms_temp.exists()) Root.runCommand("rm -r /data/system/theme/audio/alarms/");
-            if (alarms.exists()) {
-                File new_alarm_mp3 = new File(mContext.getCacheDir().getAbsolutePath() +
-                        "/SoundsCache/SoundsInjector/alarms/" + "/alarm.mp3");
-                File new_alarm_ogg = new File(mContext.getCacheDir().getAbsolutePath() +
-                        "/SoundsCache/SoundsInjector/alarms/" + "/alarm.ogg");
-                if (new_alarm_mp3.exists() || new_alarm_ogg.exists()) {
-                    boolean mp3 = new_alarm_mp3.exists();
-                    boolean ogg = new_alarm_ogg.exists();
+        File alarms = new File(mContext.getCacheDir().getAbsolutePath() +
+                "/SoundsCache/SoundsInjector/alarms/");
+        File alarms_temp = new File("/data/system/theme/audio/alarms/");
+        if (alarms_temp.exists()) Root.runCommand("rm -r /data/system/theme/audio/alarms/");
+        if (alarms.exists()) {
+            File new_alarm_mp3 = new File(mContext.getCacheDir().getAbsolutePath() +
+                    "/SoundsCache/SoundsInjector/alarms/" + "/alarm.mp3");
+            File new_alarm_ogg = new File(mContext.getCacheDir().getAbsolutePath() +
+                    "/SoundsCache/SoundsInjector/alarms/" + "/alarm.ogg");
+            if (new_alarm_mp3.exists() || new_alarm_ogg.exists()) {
+                boolean mp3 = new_alarm_mp3.exists();
+                boolean ogg = new_alarm_ogg.exists();
 
-                    Root.runCommand(
-                            "mv -f " + mContext.getCacheDir().getAbsolutePath() +
-                                    "/SoundsCache/SoundsInjector/alarms/ " +
-                                    "/data/system/theme/audio/");
-                    Root.runCommand("chmod -R 644 /data/system/theme/audio/alarms/");
-                    Root.runCommand("chmod 755 /data/system/theme/audio/alarms/");
+                Root.runCommand(
+                        "mv -f " + mContext.getCacheDir().getAbsolutePath() +
+                                "/SoundsCache/SoundsInjector/alarms/ " +
+                                "/data/system/theme/audio/");
+                Root.runCommand("chmod -R 644 /data/system/theme/audio/alarms/");
+                Root.runCommand("chmod 755 /data/system/theme/audio/alarms/");
 
-                    clearAudibles(mContext, "/data/system/theme/audio/alarms/alarm.mp3");
-                    clearAudibles(mContext, "/data/system/theme/audio/alarms/alarm.ogg");
+                clearAudibles(mContext, "/data/system/theme/audio/alarms/alarm.mp3");
+                clearAudibles(mContext, "/data/system/theme/audio/alarms/alarm.ogg");
 
-                    if (mp3)
-                        setAudible(mContext, new File
-                                        ("/data/system/theme/audio/alarms/alarm.mp3"),
-                                RingtoneManager.TYPE_ALARM, "alarm.mp3");
-                    if (ogg)
-                        setAudible(mContext, new File
-                                        ("/data/system/theme/audio/alarms/alarm.ogg"),
-                                RingtoneManager.TYPE_ALARM, "alarm.ogg");
-                } else {
-                    setDefaultAudible(mContext, RingtoneManager.TYPE_ALARM);
-                }
+                if (mp3)
+                    setAudible(mContext, new File
+                                    ("/data/system/theme/audio/alarms/alarm.mp3"),
+                            RingtoneManager.TYPE_ALARM, "alarm.mp3");
+                if (ogg)
+                    setAudible(mContext, new File
+                                    ("/data/system/theme/audio/alarms/alarm.ogg"),
+                            RingtoneManager.TYPE_ALARM, "alarm.ogg");
+            } else {
+                setDefaultAudible(mContext, RingtoneManager.TYPE_ALARM);
             }
         }
 

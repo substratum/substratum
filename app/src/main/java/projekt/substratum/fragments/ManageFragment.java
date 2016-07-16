@@ -40,7 +40,7 @@ public class ManageFragment extends Fragment {
     private ProgressDialog mProgressDialog;
     private String final_commands;
     private ArrayList<String> final_commands_array;
-    private Boolean DEBUG = false;
+    private Boolean DEBUG = ProjectWideClasses.DEBUG;
     private SharedPreferences prefs;
 
     private boolean isPackageInstalled(String package_name) {

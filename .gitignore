@@ -8,3 +8,5 @@
 /captures
 
 *.apk
+
+.idea/misc.xml

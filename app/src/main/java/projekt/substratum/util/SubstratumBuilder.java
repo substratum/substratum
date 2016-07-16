@@ -40,7 +40,7 @@ public class SubstratumBuilder {
         - this will create an AndroidManifest based on selected package
         - then it will compile using the new work zone
 
-     */
+    */
 
     public Boolean has_errored_out = false;
     public String parse2_themeName;
@@ -49,14 +49,14 @@ public class SubstratumBuilder {
     private Boolean enable_signing = true;
 
     private String getDeviceIMEI() {
-        TelephonyManager telephonyManager = (TelephonyManager) mContext.getSystemService(Context
-                .TELEPHONY_SERVICE);
+        TelephonyManager telephonyManager =
+                (TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE);
         return telephonyManager.getDeviceId();
     }
 
     private String getDeviceID() {
-        return Settings.Secure.getString(mContext.getContentResolver(),
-                Settings.Secure.ANDROID_ID);
+        return Settings.Secure.getString(
+                mContext.getContentResolver(), Settings.Secure.ANDROID_ID);
     }
 
     @Nullable
@@ -134,7 +134,7 @@ public class SubstratumBuilder {
         String targetPackage = ((ProjectWideClasses.allowedSystemUIOverlay(overlay_package)) ?
                 "com.android.systemui" : overlay_package);
 
-        int legacy_priority = -1;
+        int legacy_priority = ProjectWideClasses.DEFAULT_PRIORITY;
         if (!ProjectWideClasses.checkOMS()) {
             File work_area_array = new File(work_area);
 
@@ -149,7 +149,7 @@ public class SubstratumBuilder {
                     legacy_priority = Integer.parseInt(reader.readLine());
                 } catch (IOException e) {
                     Log.e("SubstratumBuilder", "There was an error parsing priority file!");
-                    legacy_priority = 50;
+                    legacy_priority = ProjectWideClasses.DEFAULT_PRIORITY;
                 } finally {
                     if (reader != null) {
                         try {
@@ -157,12 +157,12 @@ public class SubstratumBuilder {
                         } catch (IOException e) {
                             Log.e("SubstratumBuilder", "Could not read priority file" +
                                     " properly, falling back to default integer...");
-                            legacy_priority = 50;
+                            legacy_priority = ProjectWideClasses.DEFAULT_PRIORITY;
                         }
                     }
                 }
             } else {
-                legacy_priority = 50;
+                legacy_priority = ProjectWideClasses.DEFAULT_PRIORITY;
             }
             Log.d("SubstratumBuilder", "The priority for this overlay is " + legacy_priority);
         }

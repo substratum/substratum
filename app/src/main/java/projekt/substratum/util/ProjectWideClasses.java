@@ -42,4 +42,16 @@ public class ProjectWideClasses {
                 "low_battery_sound"};
         return Arrays.asList(allowed_themable).contains(targetValue);
     }
+
+    // This int controls the notification identifier
+
+    public static int notification_id = 2486;
+
+    // This boolean controls the DEBUG level of the application
+
+    public static Boolean DEBUG = false;
+
+    // This int controls the default priority level for legacy overlays
+
+    public static int DEFAULT_PRIORITY = 50;
 }

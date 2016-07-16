@@ -68,7 +68,7 @@ public class InformationActivity extends AppCompatActivity {
         return theme_pid;
     }
 
-    public static int getDominantColor(Bitmap bitmap) {
+    private static int getDominantColor(Bitmap bitmap) {
         return bitmap.getPixel(0, 0);
     }
 
@@ -76,7 +76,7 @@ public class InformationActivity extends AppCompatActivity {
         return tab_checker;
     }
 
-    public static void setOverflowButtonColor(final Activity activity) {
+    private static void setOverflowButtonColor(final Activity activity) {
         final String overflowDescription =
                 activity.getString(R.string.abc_action_menu_overflow_description);
         final ViewGroup decorView = (ViewGroup) activity.getWindow().getDecorView();
@@ -100,7 +100,7 @@ public class InformationActivity extends AppCompatActivity {
         });
     }
 
-    public boolean checkColorDarkness(int color) {
+    private boolean checkColorDarkness(int color) {
         double darkness =
                 1 - (0.299 * Color.red(color) +
                         0.587 * Color.green(color) +
@@ -108,7 +108,7 @@ public class InformationActivity extends AppCompatActivity {
         return darkness < 0.5;
     }
 
-    public Drawable grabPackageHeroImage(String package_name) {
+    private Drawable grabPackageHeroImage(String package_name) {
         Resources res;
         Drawable hero = null;
         try {

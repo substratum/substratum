@@ -61,6 +61,14 @@ public class SoundsHandler {
     }
 
     public void SoundsClearer(Context context) {
+
+        // ATTENTION (to developers):
+        //
+        // Sounds that aren't cleared (for testing purposes), but removed from the folder
+        // are cleared on the next reboot. The way the ContentResolver SQL database works is that it
+        // checks the file integrity of _data (file path), and if the file is missing, the database
+        // entry is removed.
+
         this.mContext = context;
         setDefaultAudible(mContext, RingtoneManager.TYPE_ALARM);
         setDefaultAudible(mContext, RingtoneManager.TYPE_NOTIFICATION);

@@ -35,9 +35,8 @@ public class SubstratumBuilder {
 
     All public methods in this class:
 
-    1. injectAAPT(Context) : initial check/injection for AAPT access on device
-    2. initializeCache(Context, package_identifier) : extract assets for theme so no reuse needed
-    3. beginAction(Context, package_name, theme_package) : start SubstratumBuilder function
+    1. initializeCache(Context, package_identifier) : extract assets for theme so no reuse needed
+    2. beginAction(Context, package_name, theme_package) : start SubstratumBuilder function
         - this will create an AndroidManifest based on selected package
         - then it will compile using the new work zone
 

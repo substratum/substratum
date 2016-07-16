@@ -37,8 +37,8 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 import java.io.File;
 
-import projekt.substratum.services.ThemeDetector;
 import projekt.substratum.config.References;
+import projekt.substratum.services.ThemeDetector;
 import projekt.substratum.util.Root;
 
 /**
@@ -75,22 +75,6 @@ public class MainActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
-
-        // If the helper is found, then launch it to hide it from the launcher
-        Intent launchIntent = getPackageManager()
-                .getLaunchIntentForPackage("masquerade.substratum");
-        if (launchIntent != null) {
-            startActivity(launchIntent);
-        }
-
-        // Now, let's grab root on the helper
-        Intent rootIntent = new Intent(Intent.ACTION_MAIN);
-        rootIntent.setAction("masquerade.substratum.INITIALIZE");
-        try {
-            startActivity(rootIntent);
-        } catch (RuntimeException re) {
-            // Exception: At this point, Masquerade is not installed at all.
-        }
 
         startService(new Intent(this, ThemeDetector.class));
 
@@ -416,6 +400,23 @@ public class MainActivity extends AppCompatActivity implements
                     new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
         }
+
+        // If the helper is found, then launch it to hide it from the launcher
+        Intent launchIntent = getPackageManager()
+                .getLaunchIntentForPackage("masquerade.substratum");
+        if (launchIntent != null) {
+            startActivity(launchIntent);
+        }
+
+        // Now, let's grab root on the helper
+        Intent rootIntent = new Intent(Intent.ACTION_MAIN);
+        rootIntent.setAction("masquerade.substratum.INITIALIZE");
+        try {
+            startActivity(rootIntent);
+        } catch (RuntimeException re) {
+            // Exception: At this point, Masquerade is not installed at all.
+        }
+
         Root.requestRootAccess();
 
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(

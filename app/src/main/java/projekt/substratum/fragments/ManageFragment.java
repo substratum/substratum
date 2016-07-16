@@ -43,17 +43,6 @@ public class ManageFragment extends Fragment {
     private Boolean DEBUG = References.DEBUG;
     private SharedPreferences prefs;
 
-    private boolean isPackageInstalled(String package_name) {
-        PackageManager pm = getContext().getPackageManager();
-        List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
-        for (ApplicationInfo packageInfo : packages) {
-            if (packageInfo.packageName.equals(package_name)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
@@ -111,7 +100,8 @@ public class ManageFragment extends Fragment {
                                                             .string.manage_system_overlay_toast),
                                                     Toast.LENGTH_LONG);
                                             toast.show();
-                                            if (isPackageInstalled("masquerade.substratum")) {
+                                            if (References.isPackageInstalled(getContext(),
+                                                    "masquerade.substratum")) {
                                                 if (DEBUG)
                                                     Log.e("SubstratumLogger", "Initializing the " +
                                                             "Masquerade theme provider...");
@@ -291,7 +281,7 @@ public class ManageFragment extends Fragment {
                         "many times, restarting current activity to preserve app " +
                         "integrity.");
             }
-            if (isPackageInstalled("masquerade.substratum")) {
+            if (References.isPackageInstalled(getContext(), "masquerade.substratum")) {
                 if (DEBUG)
                     Log.e("SubstratumLogger", "Initializing the Masquerade theme provider...");
                 Intent runCommand = new Intent();
@@ -401,7 +391,7 @@ public class ManageFragment extends Fragment {
             }
 
             // Finally, enable/disable the SystemUI dummy overlay
-            if (isPackageInstalled("masquerade.substratum")) {
+            if (References.isPackageInstalled(getContext(), "masquerade.substratum")) {
                 if (DEBUG)
                     Log.e("SubstratumLogger", "Initializing the Masquerade theme provider...");
                 Intent runCommand = new Intent();
@@ -415,7 +405,7 @@ public class ManageFragment extends Fragment {
                             "Substratum theme provider...");
                 Root.runCommand(final_commands);
             }
-            if (isPackageInstalled("masquerade.substratum")) {
+            if (References.isPackageInstalled(getContext(), "masquerade.substratum")) {
                 if (DEBUG)
                     Log.e("SubstratumLogger", "Initializing the Masquerade theme provider...");
                 Intent runCommand = new Intent();

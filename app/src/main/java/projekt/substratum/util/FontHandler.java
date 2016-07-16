@@ -30,12 +30,14 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.sql.Ref;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 import kellinwood.security.zipsigner.ZipSigner;
 import projekt.substratum.R;
+import projekt.substratum.config.References;
 
 /**
  * @author Nicholas Chum (nicholaschum)
@@ -60,16 +62,6 @@ public class FontHandler {
         String permission = "android.permission.CHANGE_CONFIGURATION";
         int res = mContext.checkCallingOrSelfPermission(permission);
         return (res == PackageManager.PERMISSION_GRANTED);
-    }
-
-    private boolean isPackageInstalled(Context context, String package_name) {
-        PackageManager pm = context.getPackageManager();
-        try {
-            pm.getPackageInfo(package_name, PackageManager.GET_ACTIVITIES);
-            return true;
-        } catch (PackageManager.NameNotFoundException e) {
-            return false;
-        }
     }
 
     private class FontHandlerAsync extends AsyncTask<String, Integer, String> {
@@ -123,7 +115,7 @@ public class FontHandler {
 
                 // Finally, enable/disable the SystemUI dummy overlay
 
-                if (isPackageInstalled(mContext, "projekt.substratum.helper")) {
+                if (References.isPackageInstalled(mContext, "projekt.substratum.helper")) {
                     if (!prefs.getBoolean("systemui_recreate", false)) {
                         final_commands = final_commands + " && pkill com.android.systemui";
                     }
@@ -229,7 +221,7 @@ public class FontHandler {
 
                 // Check if substratum_helper overlay installed, if not, create it
 
-                if (!isPackageInstalled(mContext, "substratum.helper")) {
+                if (!References.isPackageInstalled(mContext, "substratum.helper")) {
                     Log.e("FontHandler", "Substratum Helper Overlay not installed, compiling and " +
                             "installing now...");
 

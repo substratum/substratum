@@ -190,7 +190,7 @@ public class AdvancedManagerFragment extends Fragment {
                                         .string.toast_disabled),
                                 Toast.LENGTH_LONG);
                         toast.show();
-                        if (isPackageInstalled("masquerade.substratum")) {
+                        if (References.isPackageInstalled(getContext(), "masquerade.substratum")) {
                             Intent runCommand = new Intent();
                             runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                             runCommand.setAction("masquerade.substratum.COMMANDS");
@@ -291,7 +291,7 @@ public class AdvancedManagerFragment extends Fragment {
                                 .string.toast_enabled),
                         Toast.LENGTH_LONG);
                 toast.show();
-                if (isPackageInstalled("masquerade.substratum")) {
+                if (References.isPackageInstalled(getContext(), "masquerade.substratum")) {
                     Intent runCommand = new Intent();
                     runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                     runCommand.setAction("masquerade.substratum.COMMANDS");
@@ -309,16 +309,4 @@ public class AdvancedManagerFragment extends Fragment {
         }
         return root;
     }
-
-    private boolean isPackageInstalled(String package_name) {
-        PackageManager pm = getContext().getPackageManager();
-        List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
-        for (ApplicationInfo packageInfo : packages) {
-            if (packageInfo.packageName.equals(package_name)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
 }

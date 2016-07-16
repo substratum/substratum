@@ -80,18 +80,7 @@ public class ProfileFragment extends Fragment {
         }
         adapter.notifyDataSetChanged();
     }
-
-    private boolean isPackageInstalled(String package_name) {
-        PackageManager pm = getContext().getPackageManager();
-        List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
-        for (ApplicationInfo packageInfo : packages) {
-            if (packageInfo.packageName.equals(package_name)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
+    
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
@@ -336,7 +325,8 @@ public class ProfileFragment extends Fragment {
                                     DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
-                                            if (isPackageInstalled("masquerade.substratum")) {
+                                            if (References.isPackageInstalled(getContext(),
+                                                    "masquerade.substratum")) {
                                                 Intent runCommand = new Intent();
                                                 runCommand.addFlags(Intent
                                                         .FLAG_INCLUDE_STOPPED_PACKAGES);
@@ -374,7 +364,7 @@ public class ProfileFragment extends Fragment {
                                     })
                             .create().show();
                 } else {
-                    if (isPackageInstalled("masquerade.substratum")) {
+                    if (References.isPackageInstalled(getContext(), "masquerade.substratum")) {
                         Intent runCommand = new Intent();
                         runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                         runCommand.setAction("masquerade.substratum.COMMANDS");

@@ -102,17 +102,6 @@ public class OverlaysList extends Fragment {
     private ArrayList<String> current_theme_overlays;
     private Boolean DEBUG = References.DEBUG;
 
-    private boolean isPackageInstalled(String package_name) {
-        PackageManager pm = mContext.getPackageManager();
-        List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
-        for (ApplicationInfo packageInfo : packages) {
-            if (packageInfo.packageName.equals(package_name)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
@@ -649,7 +638,7 @@ public class OverlaysList extends Fragment {
                 }
 
                 for (String package_name : overlaysFolder) {
-                    if (isPackageInstalled(package_name) ||
+                    if (References.isPackageInstalled(getContext(), package_name) ||
                             References.allowedSystemUIOverlay(package_name)) {
                         values.add(package_name);
                     }
@@ -1155,7 +1144,7 @@ public class OverlaysList extends Fragment {
                     mAdapter.notifyDataSetChanged();
                     progressBar.setVisibility(View.VISIBLE);
                     if (toggle_all.isChecked()) toggle_all.setChecked(false);
-                    if (isPackageInstalled("masquerade.substratum")) {
+                    if (References.isPackageInstalled(getContext(), "masquerade.substratum")) {
                         if (DEBUG)
                             Log.e("SubstratumLogger", "Initializing the Masquerade theme " +
                                     "provider...");
@@ -1202,7 +1191,8 @@ public class OverlaysList extends Fragment {
                         if (mixAndMatchMode) {
                             progressBar.setVisibility(View.VISIBLE);
                             if (toggle_all.isChecked()) toggle_all.setChecked(false);
-                            if (isPackageInstalled("masquerade.substratum")) {
+                            if (References.isPackageInstalled(getContext(),
+                                    "masquerade.substratum")) {
                                 if (DEBUG)
                                     Log.e("SubstratumLogger", "Initializing the Masquerade theme " +
                                             "provider...");
@@ -1225,7 +1215,8 @@ public class OverlaysList extends Fragment {
                         } else {
                             progressBar.setVisibility(View.VISIBLE);
                             if (toggle_all.isChecked()) toggle_all.setChecked(false);
-                            if (isPackageInstalled("masquerade.substratum")) {
+                            if (References.isPackageInstalled(getContext(),
+                                    "masquerade.substratum")) {
                                 if (DEBUG)
                                     Log.e("SubstratumLogger", "Initializing the Masquerade theme " +
                                             "provider...");
@@ -1278,7 +1269,8 @@ public class OverlaysList extends Fragment {
                         if (mixAndMatchMode) {
                             progressBar.setVisibility(View.VISIBLE);
                             if (toggle_all.isChecked()) toggle_all.setChecked(false);
-                            if (isPackageInstalled("masquerade.substratum")) {
+                            if (References.isPackageInstalled(getContext(),
+                                    "masquerade.substratum")) {
                                 if (DEBUG)
                                     Log.e("SubstratumLogger", "Initializing the Masquerade theme " +
                                             "provider...");
@@ -1301,7 +1293,8 @@ public class OverlaysList extends Fragment {
                         } else {
                             progressBar.setVisibility(View.VISIBLE);
                             if (toggle_all.isChecked()) toggle_all.setChecked(false);
-                            if (isPackageInstalled("masquerade.substratum")) {
+                            if (References.isPackageInstalled(getContext(),
+                                    "masquerade.substratum")) {
                                 if (DEBUG)
                                     Log.e("SubstratumLogger", "Initializing the Masquerade theme " +
                                             "provider...");
@@ -1598,8 +1591,7 @@ public class OverlaysList extends Fragment {
                                             (current_overlay +
                                                     "." + theme_name_parsed)) {
                                         Log.d("SubstratumLogger", "The flag to update this " +
-                                                "overlay " +
-                                                "has been triggered.");
+                                                "overlay has been triggered.");
                                         update_bool = "false";
                                     }
                                 }
@@ -1634,11 +1626,11 @@ public class OverlaysList extends Fragment {
                     if (final_runner == null) final_runner = new ArrayList<>();
                     if (enable_mode) {
                         String package_name = checkedOverlays.get(i).getFullOverlayParameters();
-                        if (isPackageInstalled(package_name))
+                        if (References.isPackageInstalled(getContext(), package_name))
                             final_runner.add(package_name);
                     } else if (disable_mode) {
                             String package_name = checkedOverlays.get(i).getFullOverlayParameters();
-                            if (isPackageInstalled(package_name))
+                            if (References.isPackageInstalled(getContext(), package_name))
                                 final_runner.add(package_name);
                     }
                 }

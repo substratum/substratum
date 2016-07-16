@@ -38,6 +38,7 @@ import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
 import projekt.substratum.adapters.DataAdapter;
+import projekt.substratum.config.References;
 import projekt.substratum.model.ThemeInfo;
 import projekt.substratum.util.CacheCreator;
 import projekt.substratum.util.ReadOverlaysFile;
@@ -142,7 +143,7 @@ public class BootAnimationsFragment extends Fragment {
                         int position = rv.getChildAdapterPosition(child);
 
                         // Process fail case if user uninstalls an app and goes back an activity
-                        if (isPackageInstalled(getContext(),
+                        if (References.isPackageInstalled(getContext(),
                                 map.get(map.keySet().toArray()[position].toString())[1])) {
 
                             File checkSubstratumVerity = new File(getContext().getCacheDir()
@@ -218,16 +219,6 @@ public class BootAnimationsFragment extends Fragment {
             Log.e("SubstratumLogger", "Unable to find package identifier (INDEX OUT OF BOUNDS)");
         }
         return null;
-    }
-
-    private boolean isPackageInstalled(Context context, String package_name) {
-        PackageManager pm = context.getPackageManager();
-        try {
-            pm.getPackageInfo(package_name, PackageManager.GET_ACTIVITIES);
-            return true;
-        } catch (PackageManager.NameNotFoundException e) {
-            return false;
-        }
     }
 
     private void getSubstratumPackages(Context context, String package_name) {

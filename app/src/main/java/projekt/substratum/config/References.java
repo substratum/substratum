@@ -1,9 +1,13 @@
 package projekt.substratum.config;
 
+import android.content.Context;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.os.Build;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author Nicholas Chum (nicholaschum)
@@ -11,14 +15,14 @@ import java.util.Arrays;
 
 public class References {
 
-    // This class is used to determine whether there the system is initiated with OMS
+    // This method is used to determine whether there the system is initiated with OMS
 
     public static Boolean checkOMS() {
         File om = new File("/system/bin/om");
         return om.exists();
     }
 
-    // This class configures the new devices and their configuration of their vendor folders
+    // This method configures the new devices and their configuration of their vendor folders
 
     public static Boolean inNexusFilter() {
         String[] nexus_filter = {"angler", "bullhead", "flounder", "marlin", "sailfish"};
@@ -54,4 +58,16 @@ public class References {
     // This int controls the default priority level for legacy overlays
 
     public static int DEFAULT_PRIORITY = 50;
+
+    // This method determines whether a specified package is installed
+
+    public static boolean isPackageInstalled(Context context, String package_name) {
+        PackageManager pm = context.getPackageManager();
+        try {
+            pm.getPackageInfo(package_name, PackageManager.GET_ACTIVITIES);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+    }
 }

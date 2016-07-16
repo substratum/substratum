@@ -33,6 +33,7 @@ import java.util.List;
 
 import projekt.substratum.R;
 import projekt.substratum.adapters.PrioritiesAdapter;
+import projekt.substratum.config.References;
 import projekt.substratum.model.Priorities;
 import projekt.substratum.model.PrioritiesItem;
 import projekt.substratum.util.Root;
@@ -54,17 +55,6 @@ public class PriorityListFragment extends Fragment {
                     + "\"");
         }
         return icon;
-    }
-
-    private boolean isPackageInstalled(String package_name) {
-        PackageManager pm = getContext().getPackageManager();
-        List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
-        for (ApplicationInfo packageInfo : packages) {
-            if (packageInfo.packageName.equals(package_name)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     @Override
@@ -230,7 +220,8 @@ public class PriorityListFragment extends Fragment {
                         new java.util.TimerTask() {
                             @Override
                             public void run() {
-                                if (isPackageInstalled("masquerade.substratum")) {
+                                if (References.isPackageInstalled(getContext(),
+                                        "masquerade.substratum")) {
                                     Intent runCommand = new Intent();
                                     runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                                     runCommand.setAction("masquerade.substratum.COMMANDS");

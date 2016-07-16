@@ -159,18 +159,6 @@ public class AntiPiracyCheck {
             }
         }
 
-        private boolean isPackageInstalled(String package_name) {
-            PackageManager pm = mContext.getPackageManager();
-            List<ApplicationInfo> packages = pm.getInstalledApplications(
-                    PackageManager.GET_META_DATA);
-            for (ApplicationInfo packageInfo : packages) {
-                if (packageInfo.packageName.equals(package_name)) {
-                    return true;
-                }
-            }
-            return false;
-        }
-
         private class PurgeUnauthorizedOverlays extends AsyncTask<String, Integer, String> {
 
             @Override
@@ -202,7 +190,7 @@ public class AntiPiracyCheck {
                     final_commands_array.add(unauthorized_packages.get(i));
                 }
                 if (References.checkOMS()) {
-                    if (isPackageInstalled("masquerade.substratum")) {
+                    if (References.isPackageInstalled(mContext, "masquerade.substratum")) {
                         Intent runCommand = new Intent();
                         runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                         runCommand.setAction("masquerade.substratum.COMMANDS");

@@ -77,18 +77,6 @@ public class MainScreenTab extends Fragment {
         return ((pkgInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0);
     }
 
-    private boolean isPackageInstalled(String package_name) {
-        PackageManager pm = getContext().getPackageManager();
-        List<ApplicationInfo> packages = pm.getInstalledApplications(
-                PackageManager.GET_META_DATA);
-        for (ApplicationInfo packageInfo : packages) {
-            if (packageInfo.packageName.equals(package_name)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public boolean isPackageUpToDate(String package_name) {
         try {
             PackageInfo pinfo = getContext().getPackageManager().getPackageInfo(package_name, 0);
@@ -468,7 +456,7 @@ public class MainScreenTab extends Fragment {
                     if (!tp_enabled) {
                         if (systemPackages.contains(current) ||
                                 References.allowedSystemUIOverlay(current)) {
-                            if (isPackageInstalled(current) ||
+                            if (References.isPackageInstalled(getContext(), current) ||
                                     References.allowedSystemUIOverlay(current)) {
                                 filteredDirectory.add(current);
                                 Log.d("SubstratumLogger", "System Overlay: " + current);
@@ -476,7 +464,7 @@ public class MainScreenTab extends Fragment {
                         }
                     } else {
                         if (!systemPackages.contains(current)) {
-                            if (isPackageInstalled(current)) {
+                            if (References.isPackageInstalled(getContext(), current)) {
                                 filteredDirectory.add(current);
                                 Log.d("SubstratumLogger", "Third-party Overlay: " + current);
                             }
@@ -685,7 +673,7 @@ public class MainScreenTab extends Fragment {
                 }
             }
             Log.e("SubstratumLogger", final_commands);
-            if (isPackageInstalled("masquerade.substratum")) {
+            if (References.isPackageInstalled(getContext(), "masquerade.substratum")) {
                 Intent runCommand = new Intent();
                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                 runCommand.setAction("masquerade.substratum.COMMANDS");
@@ -729,7 +717,7 @@ public class MainScreenTab extends Fragment {
                             theme_name.replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "") +
                             ((base.length() == 0) ? "" : "." + base);
 
-                    if (isPackageInstalled(package_name)) {
+                    if (References.isPackageInstalled(getContext(), package_name)) {
                         if (!isPackageUpToDate(package_name)) {
                             String workingDirectory = getContext().getCacheDir().toString() +
                                     "/SubstratumBuilder/" + getThemeName(theme_pid)

@@ -136,17 +136,6 @@ public class InformationActivity extends AppCompatActivity {
         return icon;
     }
 
-    private boolean isPackageInstalled(String package_name) {
-        PackageManager pm = getApplicationContext().getPackageManager();
-        List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
-        for (ApplicationInfo packageInfo : packages) {
-            if (packageInfo.packageName.equals(package_name)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -397,7 +386,8 @@ public class InformationActivity extends AppCompatActivity {
                                     Toast.LENGTH_LONG);
                             toast.show();
 
-                            if (isPackageInstalled("masquerade.substratum")) {
+                            if (References.isPackageInstalled(getApplicationContext(),
+                                    "masquerade.substratum")) {
                                 Intent runCommand = new Intent();
                                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                                 runCommand.setAction("masquerade.substratum.COMMANDS");
@@ -502,7 +492,8 @@ public class InformationActivity extends AppCompatActivity {
                                     Toast.LENGTH_LONG);
                             toast.show();
 
-                            if (isPackageInstalled("masquerade.substratum")) {
+                            if (References.isPackageInstalled(getApplicationContext(),
+                                    "masquerade.substratum")) {
                                 Intent runCommand = new Intent();
                                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                                 runCommand.setAction("masquerade.substratum.COMMANDS");
@@ -582,7 +573,8 @@ public class InformationActivity extends AppCompatActivity {
                                     Toast.LENGTH_LONG);
                             toast.show();
 
-                            if (isPackageInstalled("masquerade.substratum")) {
+                            if (References.isPackageInstalled(getApplicationContext(),
+                                    "masquerade.substratum")) {
                                 Intent runCommand = new Intent();
                                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                                 runCommand.setAction("masquerade.substratum.COMMANDS");
@@ -684,7 +676,8 @@ public class InformationActivity extends AppCompatActivity {
                                     "/SubstratumBuilder/" + getThemeName().replaceAll("\\s+", "")
                                     .replaceAll("[^a-zA-Z0-9]+", ""));
 
-                            if (isPackageInstalled("masquerade.substratum")) {
+                            if (References.isPackageInstalled(getApplicationContext(),
+                                    "masquerade.substratum")) {
                                 Intent runCommand = new Intent();
                                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                                 runCommand.setAction("masquerade.substratum.COMMANDS");

@@ -45,16 +45,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         return false;
     }
 
-    private boolean isPackageInstalled(String package_name) {
-        PackageManager pm = getContext().getPackageManager();
-        try {
-            pm.getPackageInfo(package_name, PackageManager.GET_ACTIVITIES);
-            return true;
-        } catch (PackageManager.NameNotFoundException e) {
-            return false;
-        }
-    }
-
     @Override
     public void onCreatePreferences(Bundle bundle, String s) {
         if (References.checkOMS()) {
@@ -92,7 +82,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     new Preference.OnPreferenceClickListener() {
                         @Override
                         public boolean onPreferenceClick(Preference preference) {
-                            if (isPackageInstalled("masquerade.substratum")) {
+                            if (References.isPackageInstalled(getContext(),
+                                    "masquerade.substratum")) {
                                 Intent runCommand = new Intent();
                                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                                 runCommand.setAction("masquerade.substratum.COMMANDS");

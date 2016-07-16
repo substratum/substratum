@@ -184,28 +184,13 @@ public class OverlaysAdapter extends
         }
     }
 
-    public Drawable grabAppIcon(Context context, String package_name) {
-        Drawable icon = null;
-        try {
-            if (References.allowedSystemUIOverlay(package_name)) {
-                icon = context.getPackageManager().getApplicationIcon("com.android.systemui");
-            } else {
-                icon = context.getPackageManager().getApplicationIcon(package_name);
-            }
-        } catch (PackageManager.NameNotFoundException nnfe) {
-            Log.e("SubstratumLogger", "Could not grab the application icon for \"" + package_name
-                    + "\"");
-        }
-        return icon;
-    }
-
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, int position) {
 
         final OverlaysInfo current_object = overlayList.get(position);
 
         if (current_object.getAppIcon() == null) {
-            current_object.setAppIcon(grabAppIcon(current_object.getInheritedContext(),
+            current_object.setAppIcon(References.grabAppIcon(current_object.getInheritedContext(),
                     current_object.getPackageName()));
         }
 

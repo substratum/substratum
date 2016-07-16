@@ -31,6 +31,7 @@ import java.util.List;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.R;
 import projekt.substratum.adapters.PrioritiesAdapter;
+import projekt.substratum.config.References;
 import projekt.substratum.model.Priorities;
 import projekt.substratum.model.PrioritiesItem;
 
@@ -46,17 +47,6 @@ public class PriorityLoaderFragment extends Fragment {
     private RelativeLayout emptyView;
     private RecyclerView recyclerView;
     private MaterialProgressBar materialProgressBar;
-
-    public Drawable grabAppIcon(String package_name) {
-        Drawable icon = null;
-        try {
-            icon = getContext().getPackageManager().getApplicationIcon(package_name);
-        } catch (PackageManager.NameNotFoundException nnfe) {
-            Log.e("SubstratumLogger", "Could not grab the application icon for \"" + package_name
-                    + "\"");
-        }
-        return icon;
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
@@ -160,8 +150,8 @@ public class PriorityLoaderFragment extends Fragment {
                     if (line.length() > 0) {
                         if (!line.contains("[")) {
                             if (checked_count > 1) {
-                                prioritiesList.add(new Priorities(current_header, grabAppIcon
-                                        (current_header)));
+                                prioritiesList.add(new Priorities(current_header,
+                                        References.grabAppIcon(getContext(), current_header)));
                                 app_list.add(current_header);
                                 current_header = line;
                                 checked_count = 0;
@@ -176,8 +166,8 @@ public class PriorityLoaderFragment extends Fragment {
                         }
                     } else {
                         if (checked_count > 1) {
-                            prioritiesList.add(new Priorities(current_header, grabAppIcon
-                                    (current_header)));
+                            prioritiesList.add(new Priorities(current_header,
+                                    References.grabAppIcon(getContext(), current_header)));
                             app_list.add(current_header);
                             current_header = line;
                             checked_count = 0;

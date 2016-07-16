@@ -46,17 +46,6 @@ public class PriorityListFragment extends Fragment {
 
     private String commands;
 
-    public Drawable grabAppIcon(String package_name) {
-        Drawable icon = null;
-        try {
-            icon = getContext().getPackageManager().getApplicationIcon(package_name);
-        } catch (PackageManager.NameNotFoundException nnfe) {
-            Log.e("SubstratumLogger", "Could not grab the application icon for \"" + package_name
-                    + "\"");
-        }
-        return icon;
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
@@ -125,8 +114,8 @@ public class PriorityListFragment extends Fragment {
                     } else {
                         if (current_header.equals(obtained_key)) {
                             if (line.contains("[x]")) {
-                                prioritiesList.add(new Priorities(line.substring(8), grabAppIcon
-                                        (current_header)));
+                                prioritiesList.add(new Priorities(line.substring(8),
+                                        References.grabAppIcon(getContext(), current_header)));
                                 workable_list.add(line.substring(8));
                             } else {
                                 if (!line.contains("[ ]")) {

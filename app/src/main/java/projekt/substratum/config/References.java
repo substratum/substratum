@@ -3,7 +3,9 @@ package projekt.substratum.config;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.util.Log;
 
 import java.io.File;
 import java.util.Arrays;
@@ -69,5 +71,22 @@ public class References {
         } catch (PackageManager.NameNotFoundException e) {
             return false;
         }
+    }
+
+    // This method obtains the application icon for a specified package
+
+    public static Drawable grabAppIcon(Context context, String package_name) {
+        Drawable icon = null;
+        try {
+            if (References.allowedSystemUIOverlay(package_name)) {
+                icon = context.getPackageManager().getApplicationIcon("com.android.systemui");
+            } else {
+                icon = context.getPackageManager().getApplicationIcon(package_name);
+            }
+        } catch (PackageManager.NameNotFoundException nnfe) {
+            Log.e("SubstratumLogger", "Could not grab the application icon for \"" + package_name
+                    + "\"");
+        }
+        return icon;
     }
 }

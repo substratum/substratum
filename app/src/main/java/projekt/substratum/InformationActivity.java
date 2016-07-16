@@ -124,17 +124,6 @@ public class InformationActivity extends AppCompatActivity {
         return null;
     }
 
-    public Drawable grabAppIcon(String package_name) {
-        Drawable icon = null;
-        try {
-            icon = getPackageManager().getApplicationIcon(package_name);
-        } catch (PackageManager.NameNotFoundException nnfe) {
-            Log.e("SubstratumLogger", "Could not grab the application icon for \"" + package_name
-                    + "\"");
-        }
-        return icon;
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -335,7 +324,7 @@ public class InformationActivity extends AppCompatActivity {
         if (id == R.id.clean) {
             AlertDialog.Builder builder = new AlertDialog.Builder(InformationActivity.this);
             builder.setTitle(theme_name);
-            builder.setIcon(grabAppIcon(theme_pid));
+            builder.setIcon(References.grabAppIcon(getApplicationContext(), theme_pid));
             builder.setMessage(R.string.clean_dialog_body)
                     .setPositiveButton(R.string.uninstall_dialog_okay, new DialogInterface
                             .OnClickListener() {
@@ -422,7 +411,7 @@ public class InformationActivity extends AppCompatActivity {
         if (id == R.id.disable) {
             AlertDialog.Builder builder = new AlertDialog.Builder(InformationActivity.this);
             builder.setTitle(theme_name);
-            builder.setIcon(grabAppIcon(theme_pid));
+            builder.setIcon(References.grabAppIcon(getApplicationContext(), theme_pid));
             builder.setMessage(R.string.disable_dialog_body)
                     .setPositiveButton(R.string.uninstall_dialog_okay, new DialogInterface
                             .OnClickListener() {
@@ -517,7 +506,7 @@ public class InformationActivity extends AppCompatActivity {
         if (id == R.id.enable) {
             AlertDialog.Builder builder = new AlertDialog.Builder(InformationActivity.this);
             builder.setTitle(theme_name);
-            builder.setIcon(grabAppIcon(theme_pid));
+            builder.setIcon(References.grabAppIcon(getApplicationContext(), theme_pid));
             builder.setMessage(R.string.enable_dialog_body)
                     .setPositiveButton(R.string.uninstall_dialog_okay, new DialogInterface
                             .OnClickListener() {
@@ -605,7 +594,7 @@ public class InformationActivity extends AppCompatActivity {
         if (id == R.id.uninstall) {
             AlertDialog.Builder builder = new AlertDialog.Builder(InformationActivity.this);
             builder.setTitle(theme_name);
-            builder.setIcon(grabAppIcon(theme_pid));
+            builder.setIcon(References.grabAppIcon(getApplicationContext(), theme_pid));
             builder.setMessage(R.string.uninstall_dialog_body)
                     .setPositiveButton(R.string.uninstall_dialog_okay, new DialogInterface
                             .OnClickListener() {

@@ -38,12 +38,12 @@ import projekt.substratum.R;
 
 public class SoundsHandler {
 
-    public static final String SYSTEM_MEDIA_PATH = "/system/media/audio";
-    public static final String SYSTEM_ALARMS_PATH = SYSTEM_MEDIA_PATH + File.separator
+    private static final String SYSTEM_MEDIA_PATH = "/system/media/audio";
+    private static final String SYSTEM_ALARMS_PATH = SYSTEM_MEDIA_PATH + File.separator
             + "alarms";
-    public static final String SYSTEM_RINGTONES_PATH = SYSTEM_MEDIA_PATH + File.separator
+    private static final String SYSTEM_RINGTONES_PATH = SYSTEM_MEDIA_PATH + File.separator
             + "ringtones";
-    public static final String SYSTEM_NOTIFICATIONS_PATH = SYSTEM_MEDIA_PATH + File.separator
+    private static final String SYSTEM_NOTIFICATIONS_PATH = SYSTEM_MEDIA_PATH + File.separator
             + "notifications";
     private static final String MEDIA_CONTENT_URI = "content://media/internal/audio/media";
     private static final String SYSTEM_CONTENT_URI = "content://settings/global";
@@ -52,6 +52,7 @@ public class SoundsHandler {
     private ProgressDialog progress;
     private String theme_pid;
     private boolean has_failed;
+    private boolean ringtone = false;
 
     public void SoundsHandler(String arguments, Context context, String theme_pid) {
         this.mContext = context;
@@ -115,6 +116,7 @@ public class SoundsHandler {
         if (notifications_temp.exists())
             Root.runCommand("rm -r /data/system/theme/audio/notifications/");
         if (notifications.exists()) {
+            ringtone = true;
             File new_notifications_mp3 = new File(mContext.getCacheDir()
                     .getAbsolutePath() +
                     "/SoundsCache/SoundsInjector/notifications/" + "/notification.mp3");
@@ -150,6 +152,8 @@ public class SoundsHandler {
             } else {
                 setDefaultAudible(mContext, RingtoneManager.TYPE_NOTIFICATION);
             }
+        } else {
+            ringtone = false;
         }
 
         File ringtones = new File(mContext.getCacheDir().getAbsolutePath() +
@@ -158,6 +162,7 @@ public class SoundsHandler {
         if (ringtones_temp.exists())
             Root.runCommand("rm -r /data/system/theme/audio/ringtones/");
         if (ringtones.exists()) {
+            ringtone = true;
             File new_ringtones_mp3 = new File(mContext.getCacheDir().getAbsolutePath() +
                     "/SoundsCache/SoundsInjector/ringtones/" + "/ringtone.mp3");
             File new_ringtones_ogg = new File(mContext.getCacheDir().getAbsolutePath() +
@@ -189,6 +194,8 @@ public class SoundsHandler {
             } else {
                 setDefaultAudible(mContext, RingtoneManager.TYPE_RINGTONE);
             }
+        } else {
+            ringtone = false;
         }
 
         File ui = new File(mContext.getCacheDir().getAbsolutePath() +
@@ -455,17 +462,20 @@ public class SoundsHandler {
             Root.runCommand("mount -o ro,remount /data");
             Root.runCommand("mount -o ro,remount /system");
 
-            if (!checkWriteSettingsPermissions()) {
-                new AlertDialog.Builder(mContext)
-                        .setTitle(mContext.getString(R.string.sounds_dialog_permissions_title))
-                        .setMessage(mContext.getString(R.string.sounds_dialog_permissions_text))
-                        .setPositiveButton(android.R.string.yes,
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                    }
-                                })
-                        .setIcon(mContext.getDrawable(R.drawable.sounds_dialog_alert))
-                        .show();
+            if (ringtone) {
+                ringtone = false;
+                if (!checkWriteSettingsPermissions()) {
+                    new AlertDialog.Builder(mContext)
+                            .setTitle(mContext.getString(R.string.sounds_dialog_permissions_title))
+                            .setMessage(mContext.getString(R.string.sounds_dialog_permissions_text))
+                            .setPositiveButton(android.R.string.yes,
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                        }
+                                    })
+                            .setIcon(mContext.getDrawable(R.drawable.sounds_dialog_alert))
+                            .show();
+                }
             }
 
             Root.runCommand("pkill com.android.systemui");

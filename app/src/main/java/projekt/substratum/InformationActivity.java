@@ -42,7 +42,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import projekt.substratum.adapters.InformationTabsAdapter;
-import projekt.substratum.util.ProjectWideClasses;
+import projekt.substratum.config.References;
 import projekt.substratum.util.ReadOverlaysFile;
 import projekt.substratum.util.Root;
 
@@ -332,7 +332,7 @@ public class InformationActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (ProjectWideClasses.checkOMS()) {
+        if (References.checkOMS()) {
             getMenuInflater().inflate(R.menu.theme_information_menu, menu);
         } else {
             getMenuInflater().inflate(R.menu.theme_information_menu_legacy, menu);

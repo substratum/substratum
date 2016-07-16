@@ -32,7 +32,7 @@ import projekt.substratum.R;
 import projekt.substratum.adapters.OverlayManagerAdapter;
 import projekt.substratum.model.OverlayManager;
 import projekt.substratum.util.FloatingActionMenu;
-import projekt.substratum.util.ProjectWideClasses;
+import projekt.substratum.config.References;
 import projekt.substratum.util.ReadOverlaysFile;
 import projekt.substratum.util.Root;
 
@@ -60,7 +60,7 @@ public class AdvancedManagerFragment extends Fragment {
         final List<OverlayManager> overlaysList = new ArrayList<>();
         activated_overlays = new ArrayList<>();
 
-        if (ProjectWideClasses.checkOMS()) {
+        if (References.checkOMS()) {
             String[] commands = {Environment.getExternalStorageDirectory()
                     .getAbsolutePath() +
                     "/.substratum/current_overlays.xml", "4"};
@@ -110,7 +110,7 @@ public class AdvancedManagerFragment extends Fragment {
             // At this point, the object is an RRO formatted check
 
             String current_directory;
-            if (ProjectWideClasses.inNexusFilter()) {
+            if (References.inNexusFilter()) {
                 current_directory = "/system/overlay/";
             } else {
                 current_directory = "/system/vendor/overlay/";
@@ -166,13 +166,13 @@ public class AdvancedManagerFragment extends Fragment {
 
         Log.e("Overlays", overlaysList.size() + "");
         TextView disable_selected = (TextView) root.findViewById(R.id.disable_selected);
-        if (!ProjectWideClasses.checkOMS())
+        if (!References.checkOMS())
             disable_selected.setText(getString(R.string.fab_menu_uninstall));
         if (disable_selected != null)
             disable_selected.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     materialSheetFab.hideSheet();
-                    if (ProjectWideClasses.checkOMS()) {
+                    if (References.checkOMS()) {
                         String data = "om disable";
                         List<OverlayManager> overlayList = ((OverlayManagerAdapter) mAdapter)
                                 .getOverlayManagerList();
@@ -201,7 +201,7 @@ public class AdvancedManagerFragment extends Fragment {
                         }
                     } else {
                         String current_directory;
-                        if (ProjectWideClasses.inNexusFilter()) {
+                        if (References.inNexusFilter()) {
                             current_directory = "/system/overlay/";
                         } else {
                             current_directory = "/system/vendor/overlay/";
@@ -221,7 +221,7 @@ public class AdvancedManagerFragment extends Fragment {
 
                         activated_overlays.clear();
                         overlaysList.clear();
-                        if (ProjectWideClasses.inNexusFilter()) {
+                        if (References.inNexusFilter()) {
                             current_directory = "/system/overlay/";
                         } else {
                             current_directory = "/system/vendor/overlay/";
@@ -302,7 +302,7 @@ public class AdvancedManagerFragment extends Fragment {
                 }
             }
         });
-        if (!prefs.getBoolean("manager_disabled_overlays", true) || !ProjectWideClasses.checkOMS
+        if (!prefs.getBoolean("manager_disabled_overlays", true) || !References.checkOMS
                 ()) {
             LinearLayout enable_view = (LinearLayout) root.findViewById(R.id.enable);
             enable_view.setVisibility(View.GONE);

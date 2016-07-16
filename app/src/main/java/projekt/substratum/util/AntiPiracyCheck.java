@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Set;
 
 import projekt.substratum.R;
+import projekt.substratum.config.References;
 
 /**
  * @author Nicholas Chum (nicholaschum)
@@ -200,7 +201,7 @@ public class AntiPiracyCheck {
                 for (int i = 0; i < unauthorized_packages.size(); i++) {
                     final_commands_array.add(unauthorized_packages.get(i));
                 }
-                if (ProjectWideClasses.checkOMS()) {
+                if (References.checkOMS()) {
                     if (isPackageInstalled("masquerade.substratum")) {
                         Intent runCommand = new Intent();
                         runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
@@ -216,7 +217,7 @@ public class AntiPiracyCheck {
                 } else {
                     Root.runCommand("mount -o rw,remount /system");
                     String current;
-                    if (ProjectWideClasses.inNexusFilter()) {
+                    if (References.inNexusFilter()) {
                         current = "/system/overlay/";
                     } else {
                         current = "/system/vendor/overlay/";

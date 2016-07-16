@@ -5,7 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import projekt.substratum.util.ProjectWideClasses;
+import projekt.substratum.config.References;
 
 /**
  * @author Nicholas Chum (nicholaschum)
@@ -17,6 +17,6 @@ public class NotificationButtonReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         NotificationManager manager = (NotificationManager)
                 context.getSystemService(Context.NOTIFICATION_SERVICE);
-        manager.cancel(ProjectWideClasses.notification_id);
+        manager.cancel(References.notification_id);
     }
 }

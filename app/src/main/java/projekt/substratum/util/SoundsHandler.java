@@ -30,6 +30,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 import projekt.substratum.R;
+import projekt.substratum.config.References;
 
 /**
  * @author Nicholas Chum (nicholaschum)
@@ -336,7 +337,7 @@ public class SoundsHandler {
     }
 
     private boolean setUISounds(String sound_name, String location) {
-        if (ProjectWideClasses.allowedUISound(sound_name)) {
+        if (References.allowedUISound(sound_name)) {
             Root.runCommand("content insert --uri " + SYSTEM_CONTENT_URI + " " +
                     "--bind name:s:" + sound_name + " --bind value:s:" + location);
             return true;

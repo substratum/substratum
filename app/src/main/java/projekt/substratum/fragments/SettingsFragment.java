@@ -17,7 +17,7 @@ import android.widget.Toast;
 import projekt.substratum.BuildConfig;
 import projekt.substratum.LauncherActivity;
 import projekt.substratum.R;
-import projekt.substratum.util.ProjectWideClasses;
+import projekt.substratum.config.References;
 
 /**
  * @author Nicholas Chum (nicholaschum)
@@ -57,7 +57,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
     @Override
     public void onCreatePreferences(Bundle bundle, String s) {
-        if (ProjectWideClasses.checkOMS()) {
+        if (References.checkOMS()) {
             addPreferencesFromResource(R.xml.preference_fragment);
         } else {
             addPreferencesFromResource(R.xml.legacy_preference_fragment);
@@ -72,7 +72,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 ")");
         aboutSubstratum.setIcon(getResources().getDrawable(R.mipmap.main_launcher));
 
-        if (ProjectWideClasses.checkOMS()) {
+        if (References.checkOMS()) {
             Preference aboutMasquerade = getPreferenceManager().findPreference
                     ("about_masquerade");
             aboutMasquerade.setIcon(getResources().getDrawable(R.mipmap.restore_launcher));

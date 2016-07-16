@@ -19,6 +19,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import projekt.substratum.InformationActivity;
 import projekt.substratum.MainActivity;
 import projekt.substratum.R;
+import projekt.substratum.config.References;
 
 /**
  * @author Nicholas Chum (nicholaschum)
@@ -48,7 +49,7 @@ public class SubstratumThemeUpdater {
             ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
                     package_name, PackageManager.GET_META_DATA);
             if (appInfo.metaData != null) {
-                if (ProjectWideClasses.checkOMS()) {
+                if (References.checkOMS()) {
                     if (appInfo.metaData.getString("Substratum_Theme") != null) {
                         if (appInfo.metaData.getString("Substratum_Author") != null) {
                             return appInfo.metaData.getString("Substratum_Theme");
@@ -82,7 +83,7 @@ public class SubstratumThemeUpdater {
             if (showNotification) {
                 Intent notificationIntent;
                 PendingIntent intent;
-                if (ProjectWideClasses.checkOMS()) {
+                if (References.checkOMS()) {
                     notificationIntent = new Intent(mContext, InformationActivity.class);
                     notificationIntent.putExtra("theme_name", getThemeName(packageName));
                     notificationIntent.putExtra("theme_pid", packageName);
@@ -119,7 +120,7 @@ public class SubstratumThemeUpdater {
             } else {
                 Intent notificationIntent;
                 PendingIntent intent;
-                if (ProjectWideClasses.checkOMS()) {
+                if (References.checkOMS()) {
                     notificationIntent = new Intent(mContext, InformationActivity.class);
                     notificationIntent.putExtra("theme_name", getThemeName(packageName));
                     notificationIntent.putExtra("theme_pid", packageName);

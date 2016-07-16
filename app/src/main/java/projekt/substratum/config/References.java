@@ -1,4 +1,4 @@
-package projekt.substratum.util;
+package projekt.substratum.config;
 
 import android.os.Build;
 
@@ -9,7 +9,7 @@ import java.util.Arrays;
  * @author Nicholas Chum (nicholaschum)
  */
 
-public class ProjectWideClasses {
+public class References {
 
     // This class is used to determine whether there the system is initiated with OMS
 

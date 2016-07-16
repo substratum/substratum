@@ -23,6 +23,7 @@ import java.io.PrintWriter;
 import java.util.Arrays;
 
 import kellinwood.security.zipsigner.ZipSigner;
+import projekt.substratum.config.References;
 
 /**
  * @author Nicholas Chum (nicholaschum)
@@ -131,11 +132,11 @@ public class SubstratumBuilder {
         String varianter = parse2_variantName + parse2_baseName;
         varianter.replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "");
 
-        String targetPackage = ((ProjectWideClasses.allowedSystemUIOverlay(overlay_package)) ?
+        String targetPackage = ((References.allowedSystemUIOverlay(overlay_package)) ?
                 "com.android.systemui" : overlay_package);
 
-        int legacy_priority = ProjectWideClasses.DEFAULT_PRIORITY;
-        if (!ProjectWideClasses.checkOMS()) {
+        int legacy_priority = References.DEFAULT_PRIORITY;
+        if (!References.checkOMS()) {
             File work_area_array = new File(work_area);
 
             if (Arrays.asList(work_area_array.list()).contains("priority")) {
@@ -149,7 +150,7 @@ public class SubstratumBuilder {
                     legacy_priority = Integer.parseInt(reader.readLine());
                 } catch (IOException e) {
                     Log.e("SubstratumBuilder", "There was an error parsing priority file!");
-                    legacy_priority = ProjectWideClasses.DEFAULT_PRIORITY;
+                    legacy_priority = References.DEFAULT_PRIORITY;
                 } finally {
                     if (reader != null) {
                         try {
@@ -157,12 +158,12 @@ public class SubstratumBuilder {
                         } catch (IOException e) {
                             Log.e("SubstratumBuilder", "Could not read priority file" +
                                     " properly, falling back to default integer...");
-                            legacy_priority = ProjectWideClasses.DEFAULT_PRIORITY;
+                            legacy_priority = References.DEFAULT_PRIORITY;
                         }
                     }
                 }
             } else {
-                legacy_priority = ProjectWideClasses.DEFAULT_PRIORITY;
+                legacy_priority = References.DEFAULT_PRIORITY;
             }
             Log.d("SubstratumBuilder", "The priority for this overlay is " + legacy_priority);
         }
@@ -444,7 +445,7 @@ public class SubstratumBuilder {
                     String vendor_partition = "/vendor/overlay/";
                     String vendor_symlink = "/system/overlay/";
                     String current_vendor =
-                            ((ProjectWideClasses.inNexusFilter()) ? vendor_partition :
+                            ((References.inNexusFilter()) ? vendor_partition :
                                     vendor_location);
 
                     Root.runCommand("mount -o rw,remount /system");

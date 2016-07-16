@@ -38,7 +38,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import java.io.File;
 
 import projekt.substratum.services.ThemeDetector;
-import projekt.substratum.util.ProjectWideClasses;
+import projekt.substratum.config.References;
 import projekt.substratum.util.Root;
 
 /**
@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements
 
         final LibsSupportFragment fragment = new LibsBuilder().supportFragment();
 
-        if (ProjectWideClasses.checkOMS()) {
+        if (References.checkOMS()) {
             drawer = new DrawerBuilder()
                     .withActivity(this)
                     .withToolbar(toolbar)
@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements
                                 switch (position) {
                                     case 1:
                                         if (drawerSelected != position) {
-                                            switchFragment(((ProjectWideClasses.checkOMS()) ?
+                                            switchFragment(((References.checkOMS()) ?
                                                             getString(R.string.app_name) :
                                                             getString(R.string.legacy_app_name)),
                                                     "HomeFragment");
@@ -300,7 +300,7 @@ public class MainActivity extends AppCompatActivity implements
                                 switch (position) {
                                     case 1:
                                         if (drawerSelected != position) {
-                                            switchFragment(((ProjectWideClasses.checkOMS()) ?
+                                            switchFragment(((References.checkOMS()) ?
                                                             getString(R.string.app_name) :
                                                             getString(R.string.legacy_app_name)),
                                                     "HomeFragment");
@@ -420,7 +420,7 @@ public class MainActivity extends AppCompatActivity implements
 
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
                 getApplicationContext());
-        if (ProjectWideClasses.checkOMS()) {
+        if (References.checkOMS()) {
             if (!prefs.getBoolean("substratum_oms", true)) {
                 Root.runCommand("rm -r " + Environment.getExternalStorageDirectory()
                         .getAbsolutePath() + "/.substratum/");

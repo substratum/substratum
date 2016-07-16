@@ -38,7 +38,7 @@ import projekt.substratum.adapters.DataAdapter;
 import projekt.substratum.model.ThemeInfo;
 import projekt.substratum.util.AAPTCheck;
 import projekt.substratum.util.CacheCreator;
-import projekt.substratum.util.ProjectWideClasses;
+import projekt.substratum.config.References;
 
 /**
  * @author Nicholas Chum (nicholaschum)
@@ -155,7 +155,7 @@ public class HomeFragment extends Fragment {
                                         .toString());
                                 myIntent.putExtra("theme_pid", map.get(
                                         map.keySet().toArray()[position].toString())[1]);
-                                if (!ProjectWideClasses.checkOMS())
+                                if (!References.checkOMS())
                                     myIntent.putExtra("theme_legacy", true);
                                 startActivityForResult(myIntent, THEME_INFORMATION_REQUEST_CODE);
                             } else {
@@ -237,7 +237,7 @@ public class HomeFragment extends Fragment {
             ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
                     package_name, PackageManager.GET_META_DATA);
             if (appInfo.metaData != null) {
-                if (!ProjectWideClasses.checkOMS()) {
+                if (!References.checkOMS()) {
                     if (appInfo.metaData.getBoolean("Substratum_Legacy", false)) {
                         if (appInfo.metaData.getString("Substratum_Theme") != null) {
                             if (appInfo.metaData.getString("Substratum_Author") != null) {

@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import projekt.substratum.R;
-import projekt.substratum.util.ProjectWideClasses;
+import projekt.substratum.config.References;
 import projekt.substratum.util.ReadOverlaysFile;
 import projekt.substratum.util.Root;
 import projekt.substratum.util.SoundsHandler;
@@ -40,7 +40,7 @@ public class ManageFragment extends Fragment {
     private ProgressDialog mProgressDialog;
     private String final_commands;
     private ArrayList<String> final_commands_array;
-    private Boolean DEBUG = ProjectWideClasses.DEBUG;
+    private Boolean DEBUG = References.DEBUG;
     private SharedPreferences prefs;
 
     private boolean isPackageInstalled(String package_name) {
@@ -70,7 +70,7 @@ public class ManageFragment extends Fragment {
         TextView bootAnimTitle = (TextView) root.findViewById(R.id.bootAnimTitle);
         TextView fontsCardTitle = (TextView) root.findViewById(R.id.fontsTitle);
 
-        if (!ProjectWideClasses.checkOMS()) {
+        if (!References.checkOMS()) {
             bootAnimCard.setVisibility(View.GONE);
             bootAnimTitle.setVisibility(View.GONE);
             fontsCard.setVisibility(View.GONE);
@@ -86,7 +86,7 @@ public class ManageFragment extends Fragment {
                 final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getContext(),
                         R.layout.dialog_listview);
 
-                if (ProjectWideClasses.checkOMS()) arrayAdapter.add(getString(
+                if (References.checkOMS()) arrayAdapter.add(getString(
                         R.string.manage_system_overlay_disable));
                 arrayAdapter.add(getString(R.string.manage_system_overlay_uninstall));
 
@@ -106,7 +106,7 @@ public class ManageFragment extends Fragment {
                                 switch (which) {
                                     case 0:
                                         dialog.dismiss();
-                                        if (ProjectWideClasses.checkOMS()) {
+                                        if (References.checkOMS()) {
                                             Toast toast = Toast.makeText(getContext(), getString(R
                                                             .string.manage_system_overlay_toast),
                                                     Toast.LENGTH_LONG);
@@ -135,7 +135,7 @@ public class ManageFragment extends Fragment {
                                             }
                                         } else {
                                             String current_directory;
-                                            if (ProjectWideClasses.inNexusFilter()) {
+                                            if (References.inNexusFilter()) {
                                                 current_directory = "/system/overlay/";
                                             } else {
                                                 current_directory = "/system/vendor/overlay/";

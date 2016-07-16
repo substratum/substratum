@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import projekt.substratum.R;
-import projekt.substratum.util.ProjectWideClasses;
+import projekt.substratum.config.References;
 import projekt.substratum.util.ReadOverlaysFile;
 import projekt.substratum.util.Root;
 
@@ -62,7 +62,7 @@ public class ProfileFragment extends Fragment {
         File[] files = f.listFiles();
         if (files != null) {
             for (File inFile : files) {
-                if (ProjectWideClasses.checkOMS()) {
+                if (References.checkOMS()) {
                     if (!inFile.isDirectory()) {
                         if (inFile.getName().split("\\.")[inFile.getName().split("\\.").length - 1]
                                 .equals("substratum")) {
@@ -150,7 +150,7 @@ public class ProfileFragment extends Fragment {
         File[] files = f.listFiles();
         if (files != null) {
             for (File inFile : files) {
-                if (ProjectWideClasses.checkOMS()) {
+                if (References.checkOMS()) {
                     if (!inFile.isDirectory()) {
                         if (inFile.getName().split("\\.")[inFile.getName().split("\\.").length - 1]
                                 .equals("substratum")) {
@@ -245,7 +245,7 @@ public class ProfileFragment extends Fragment {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             headerProgress.setVisibility(View.GONE);
-            if (ProjectWideClasses.checkOMS()) {
+            if (References.checkOMS()) {
                 String directory_parse = String.format(getString(R.string.toast_backup_success),
                         aet_getText + ".substratum");
                 Toast toast = Toast.makeText(getContext(), directory_parse, Toast.LENGTH_LONG);
@@ -261,7 +261,7 @@ public class ProfileFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            if (ProjectWideClasses.checkOMS()) {
+            if (References.checkOMS()) {
                 Root.runCommand("cp /data/system/overlays.xml " +
                         Environment.getExternalStorageDirectory().getAbsolutePath() +
                         "/substratum/profiles/" + aet_getText + ".substratum");
@@ -284,7 +284,7 @@ public class ProfileFragment extends Fragment {
                         "/substratum/profiles/" + aet_getText);
             } else {
                 String current_directory;
-                if (ProjectWideClasses.inNexusFilter()) {
+                if (References.inNexusFilter()) {
                     current_directory = "/system/overlay/";
                 } else {
                     current_directory = "/system/vendor/overlay/";
@@ -326,7 +326,7 @@ public class ProfileFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
-            if (ProjectWideClasses.checkOMS()) {
+            if (References.checkOMS()) {
                 if (cannot_run_overlays.size() > 0) {
                     new AlertDialog.Builder(getContext())
                             .setTitle(getString(R.string.restore_dialog_title))
@@ -398,7 +398,7 @@ public class ProfileFragment extends Fragment {
                 }
             } else {
                 String current_directory;
-                if (ProjectWideClasses.inNexusFilter()) {
+                if (References.inNexusFilter()) {
                     current_directory = "/system/overlay/";
                 } else {
                     current_directory = "/system/vendor/overlay/";
@@ -442,7 +442,7 @@ public class ProfileFragment extends Fragment {
                     String vendor_partition = "/vendor/overlay/";
                     String vendor_symlink = "/system/overlay/";
                     String current_vendor =
-                            ((ProjectWideClasses.inNexusFilter()) ? vendor_partition :
+                            ((References.inNexusFilter()) ? vendor_partition :
                                     vendor_location);
 
                     Root.runCommand("mount -o rw,remount /system");
@@ -516,7 +516,7 @@ public class ProfileFragment extends Fragment {
         @Override
         protected String doInBackground(String... sUrl) {
 
-            if (ProjectWideClasses.checkOMS()) {  // RRO doesn't need any of this
+            if (References.checkOMS()) {  // RRO doesn't need any of this
                 String profile_name = sUrl[0];
                 helper_exists = true;
 

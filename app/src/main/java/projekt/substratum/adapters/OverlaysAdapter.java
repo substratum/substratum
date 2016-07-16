@@ -20,7 +20,7 @@ import java.util.List;
 
 import projekt.substratum.R;
 import projekt.substratum.model.OverlaysInfo;
-import projekt.substratum.util.ProjectWideClasses;
+import projekt.substratum.config.References;
 
 /**
  * @author Nicholas Chum (nicholaschum)
@@ -187,7 +187,7 @@ public class OverlaysAdapter extends
     public Drawable grabAppIcon(Context context, String package_name) {
         Drawable icon = null;
         try {
-            if (ProjectWideClasses.allowedSystemUIOverlay(package_name)) {
+            if (References.allowedSystemUIOverlay(package_name)) {
                 icon = context.getPackageManager().getApplicationIcon("com.android.systemui");
             } else {
                 icon = context.getPackageManager().getApplicationIcon(package_name);
@@ -509,7 +509,7 @@ public class OverlaysAdapter extends
                 // At this point, the object is an RRO formatted check
 
                 String current_directory;
-                if (ProjectWideClasses.inNexusFilter()) {
+                if (References.inNexusFilter()) {
                     current_directory = "/system/overlay/";
                 } else {
                     current_directory = "/system/vendor/overlay/";

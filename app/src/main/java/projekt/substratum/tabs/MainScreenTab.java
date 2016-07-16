@@ -39,7 +39,7 @@ import projekt.substratum.R;
 import projekt.substratum.util.BootAnimationHandler;
 import projekt.substratum.util.CacheCreator;
 import projekt.substratum.util.FontHandler;
-import projekt.substratum.util.ProjectWideClasses;
+import projekt.substratum.config.References;
 import projekt.substratum.util.ReadOverlaysFile;
 import projekt.substratum.util.Root;
 import projekt.substratum.util.SoundsHandler;
@@ -467,9 +467,9 @@ public class MainScreenTab extends Fragment {
                     String current = unfilteredDirectory[i].getName();
                     if (!tp_enabled) {
                         if (systemPackages.contains(current) ||
-                                ProjectWideClasses.allowedSystemUIOverlay(current)) {
+                                References.allowedSystemUIOverlay(current)) {
                             if (isPackageInstalled(current) ||
-                                    ProjectWideClasses.allowedSystemUIOverlay(current)) {
+                                    References.allowedSystemUIOverlay(current)) {
                                 filteredDirectory.add(current);
                                 Log.d("SubstratumLogger", "System Overlay: " + current);
                             }
@@ -748,7 +748,7 @@ public class MainScreenTab extends Fragment {
                                     theme_name,
                                     "false", "", null,
                                     ((base3overlay.length() == 0) ? null : base3overlay),
-                                    versionName, ProjectWideClasses.checkOMS());
+                                    versionName, References.checkOMS());
                             if (sb.no_install.length() > 0) {
                                 final_runner.add(sb.no_install);
                             }
@@ -771,7 +771,7 @@ public class MainScreenTab extends Fragment {
                                 theme_name,
                                 "true", "", null,
                                 ((base3overlay.length() == 0) ? null : base3overlay),
-                                versionName, ProjectWideClasses.checkOMS());
+                                versionName, References.checkOMS());
                         to_be_enabled.add(package_name);
                     }
                     if (sb.has_errored_out) {

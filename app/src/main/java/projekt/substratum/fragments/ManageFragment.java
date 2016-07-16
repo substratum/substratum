@@ -100,82 +100,86 @@ public class ManageFragment extends Fragment {
                         });
                 builderSingle.setAdapter(
                         arrayAdapter,
-                    new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            switch (which) {
-                                case 0:
-                                    dialog.dismiss();
-                                    if (ProjectWideClasses.checkOMS()) {
-                                        Toast toast = Toast.makeText(getContext(), getString(R
-                                                        .string.manage_system_overlay_toast),
-                                                Toast.LENGTH_LONG);
-                                        toast.show();
-                                        if (isPackageInstalled("masquerade.substratum")) {
-                                            if (DEBUG)
-                                                Log.e("SubstratumLogger", "Initializing the " +
-                                                        "Masquerade theme provider...");
-                                            Intent runCommand = new Intent();
-                                            runCommand.addFlags(Intent
-                                                    .FLAG_INCLUDE_STOPPED_PACKAGES);
-                                            runCommand.setAction("projekt.substratum.helper" +
-                                                    ".COMMANDS");
-                                            runCommand.putExtra("om-commands", "om disable-all");
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                switch (which) {
+                                    case 0:
+                                        dialog.dismiss();
+                                        if (ProjectWideClasses.checkOMS()) {
+                                            Toast toast = Toast.makeText(getContext(), getString(R
+                                                            .string.manage_system_overlay_toast),
+                                                    Toast.LENGTH_LONG);
+                                            toast.show();
+                                            if (isPackageInstalled("masquerade.substratum")) {
+                                                if (DEBUG)
+                                                    Log.e("SubstratumLogger", "Initializing the " +
+                                                            "Masquerade theme provider...");
+                                                Intent runCommand = new Intent();
+                                                runCommand.addFlags(Intent
+                                                        .FLAG_INCLUDE_STOPPED_PACKAGES);
+                                                runCommand.setAction("projekt.substratum.helper" +
+                                                        ".COMMANDS");
+                                                runCommand.putExtra("om-commands", "om " +
+                                                        "disable-all");
 
-                                            getContext().sendBroadcast(runCommand);
+                                                getContext().sendBroadcast(runCommand);
+                                            } else {
+                                                if (DEBUG)
+                                                    Log.e("SubstratumLogger", "Masquerade was not" +
+                                                            " " +
+                                                            "found, falling back to Substratum " +
+                                                            "theme " +
+                                                            "provider...");
+                                                Root.runCommand("om disable-all");
+                                            }
                                         } else {
-                                            if (DEBUG)
-                                                Log.e("SubstratumLogger", "Masquerade was not" +
-                                                        " " +
-                                                        "found, falling back to Substratum " +
-                                                        "theme " +
-                                                        "provider...");
-                                            Root.runCommand("om disable-all");
+                                            String current_directory;
+                                            if (ProjectWideClasses.inNexusFilter()) {
+                                                current_directory = "/system/overlay/";
+                                            } else {
+                                                current_directory = "/system/vendor/overlay/";
+                                            }
+                                            File file = new File(current_directory);
+                                            if (file.exists()) {
+                                                Root.runCommand("mount -o rw,remount /system");
+                                                Root.runCommand("rm -r " + current_directory);
+                                            }
+                                            Toast toast2 = Toast.makeText(getContext(), getString(R
+                                                            .string.abort_overlay_toast_success),
+                                                    Toast.LENGTH_SHORT);
+                                            toast2.show();
+                                            AlertDialog.Builder alertDialogBuilder =
+                                                    new AlertDialog.Builder(getContext());
+                                            alertDialogBuilder
+                                                    .setTitle(getString(
+                                                            R.string.legacy_dialog_soft_reboot_title));
+                                            alertDialogBuilder
+                                                    .setMessage(getString(
+                                                            R.string.legacy_dialog_soft_reboot_text));
+                                            alertDialogBuilder
+                                                    .setPositiveButton(
+                                                            android.R.string.ok, new DialogInterface
+                                                                    .OnClickListener() {
+                                                                public void onClick
+                                                                        (DialogInterface dialog,
+                                                                         int id) {
+                                                                    Root.runCommand("killall " +
+                                                                            "zygote");
+                                                                }
+                                                            });
+                                            alertDialogBuilder.setCancelable(false);
+                                            AlertDialog alertDialog = alertDialogBuilder.create();
+                                            alertDialog.show();
                                         }
-                                    } else {
-                                        String current_directory;
-                                        if (ProjectWideClasses.inNexusFilter()) {
-                                            current_directory = "/system/overlay/";
-                                        } else {
-                                            current_directory = "/system/vendor/overlay/";
-                                        }
-                                        File file = new File(current_directory);
-                                        if (file.exists()) {
-                                            Root.runCommand("mount -o rw,remount /system");
-                                            Root.runCommand("rm -r " + current_directory);
-                                        }
-                                        Toast toast2 = Toast.makeText(getContext(), getString(R
-                                                        .string.abort_overlay_toast_success),
-                                                Toast.LENGTH_SHORT);
-                                        toast2.show();
-                                        AlertDialog.Builder alertDialogBuilder =
-                                                new AlertDialog.Builder(getContext());
-                                        alertDialogBuilder
-                                                .setTitle(getString(
-                                                        R.string.legacy_dialog_soft_reboot_title));
-                                        alertDialogBuilder
-                                                .setMessage(getString(
-                                                        R.string.legacy_dialog_soft_reboot_text));
-                                        alertDialogBuilder
-                                                .setPositiveButton(
-                                                        android.R.string.ok, new DialogInterface
-                                                                .OnClickListener() {
-                                                            public void onClick(DialogInterface dialog, int id) {
-                                                                Root.runCommand("killall zygote");
-                                                            }
-                                                        });
-                                        alertDialogBuilder.setCancelable(false);
-                                        AlertDialog alertDialog = alertDialogBuilder.create();
-                                        alertDialog.show();
-                                    }
-                                    break;
-                                case 1:
-                                    dialog.dismiss();
-                                    new AbortFunction().execute("");
-                                    break;
+                                        break;
+                                    case 1:
+                                        dialog.dismiss();
+                                        new AbortFunction().execute("");
+                                        break;
+                                }
                             }
-                        }
-                    });
+                        });
                 builderSingle.show();
             }
         });

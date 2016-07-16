@@ -48,11 +48,22 @@ public class SubstratumThemeUpdater {
             ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
                     package_name, PackageManager.GET_META_DATA);
             if (appInfo.metaData != null) {
-                if (appInfo.metaData.getString("Substratum_Theme") != null) {
-                    if (appInfo.metaData.getString("Substratum_Author") != null) {
-                        return appInfo.metaData.getString("Substratum_Theme");
+                if (ProjectWideClasses.checkOMS()) {
+                    if (appInfo.metaData.getString("Substratum_Theme") != null) {
+                        if (appInfo.metaData.getString("Substratum_Author") != null) {
+                            return appInfo.metaData.getString("Substratum_Theme");
+                        }
+                    }
+                } else {
+                    if (appInfo.metaData.getBoolean("Substratum_Legacy", false)) {
+                        if (appInfo.metaData.getString("Substratum_Theme") != null) {
+                            if (appInfo.metaData.getString("Substratum_Author") != null) {
+                                return appInfo.metaData.getString("Substratum_Theme");
+                            }
+                        }
                     }
                 }
+
             }
         } catch (PackageManager.NameNotFoundException e) {
             Log.e("SubstratumLogger", "Unable to find package identifier (INDEX OUT OF BOUNDS)");
@@ -79,11 +90,11 @@ public class SubstratumThemeUpdater {
                     notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
                             Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     intent = PendingIntent.getActivity(mContext, 0, notificationIntent,
-                                    PendingIntent.FLAG_CANCEL_CURRENT);
+                            PendingIntent.FLAG_CANCEL_CURRENT);
                 } else {
                     notificationIntent = new Intent(mContext, MainActivity.class);
                     intent = PendingIntent.getActivity(mContext, 0, notificationIntent,
-                                    PendingIntent.FLAG_CANCEL_CURRENT);
+                            PendingIntent.FLAG_CANCEL_CURRENT);
                 }
 
                 // This is the time when the notification should be shown on the user's screen

@@ -13,11 +13,14 @@ import android.util.Log;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.Arrays;
 
 import kellinwood.security.zipsigner.ZipSigner;
 
@@ -131,7 +134,38 @@ public class SubstratumBuilder {
         String targetPackage = ((ProjectWideClasses.allowedSystemUIOverlay(overlay_package)) ?
                 "com.android.systemui" : overlay_package);
 
-        int legacy_priority = 95; // TODO: Add proper priority assignment
+        int legacy_priority = -1;
+        if (!ProjectWideClasses.checkOMS()) {
+            File work_area_array = new File(work_area);
+
+            if (Arrays.asList(work_area_array.list()).contains("priority")) {
+                Log.d("SubstratumBuilder",
+                        "A specified priority file has been found for this overlay!");
+                BufferedReader reader = null;
+                try {
+                    reader = new BufferedReader(
+                            new InputStreamReader(new FileInputStream(
+                                    new File(work_area_array.getAbsolutePath() + "/priority"))));
+                    legacy_priority = Integer.parseInt(reader.readLine());
+                } catch (IOException e) {
+                    Log.e("SubstratumBuilder", "There was an error parsing priority file!");
+                    legacy_priority = 50;
+                } finally {
+                    if (reader != null) {
+                        try {
+                            reader.close();
+                        } catch (IOException e) {
+                            Log.e("SubstratumBuilder", "Could not read priority file" +
+                                    " properly, falling back to default integer...");
+                            legacy_priority = 50;
+                        }
+                    }
+                }
+            } else {
+                legacy_priority = 50;
+            }
+            Log.d("SubstratumBuilder", "The priority for this overlay is " + legacy_priority);
+        }
 
         if (!has_errored_out) {
             try {

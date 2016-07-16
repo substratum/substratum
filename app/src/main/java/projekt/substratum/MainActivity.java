@@ -426,6 +426,11 @@ public class MainActivity extends AppCompatActivity implements
                         .getAbsolutePath() + "/.substratum/");
                 Root.runCommand("rm -r " + Environment.getExternalStorageDirectory()
                         .getAbsolutePath() + "/substratum/");
+                File directory = new File(Environment.getExternalStorageDirectory(),
+                        "/.substratum/");
+                if (!directory.exists()) {
+                    directory.mkdirs();
+                }
             }
         } else {
             if (prefs.getBoolean("substratum_oms", true)) {
@@ -433,6 +438,11 @@ public class MainActivity extends AppCompatActivity implements
                         .getAbsolutePath() + "/.substratum/");
                 Root.runCommand("rm -r " + Environment.getExternalStorageDirectory()
                         .getAbsolutePath() + "/substratum/");
+                File directory = new File(Environment.getExternalStorageDirectory(),
+                        "/.substratum/");
+                if (!directory.exists()) {
+                    directory.mkdirs();
+                }
             }
         }
     }

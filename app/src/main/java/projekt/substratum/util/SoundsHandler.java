@@ -295,11 +295,6 @@ public class SoundsHandler {
         }
     }
 
-    private boolean isAllowedUI(String targetValue) {
-        String[] allowed_themable = new String[]{"lock_sound", "unlock_sound", "low_battery_sound"};
-        return Arrays.asList(allowed_themable).contains(targetValue);
-    }
-
     private String getDefaultAudiblePath(int type) {
         final String name;
         final String path;
@@ -342,7 +337,7 @@ public class SoundsHandler {
     }
 
     private boolean setUISounds(String sound_name, String location) {
-        if (isAllowedUI(sound_name)) {
+        if (ProjectWideClasses.allowedUISound(sound_name)) {
             Root.runCommand("content insert --uri " + SYSTEM_CONTENT_URI + " " +
                     "--bind name:s:" + sound_name + " --bind value:s:" + location);
             return true;

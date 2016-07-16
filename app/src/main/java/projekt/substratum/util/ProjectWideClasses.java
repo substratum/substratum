@@ -33,4 +33,13 @@ public class ProjectWideClasses {
         };
         return Arrays.asList(allowed_overlays).contains(current);
     }
+
+    // This string array contains all the SystemUI acceptable sound files
+    public static Boolean allowedUISound(String targetValue) {
+        String[] allowed_themable = {
+                "lock_sound",
+                "unlock_sound",
+                "low_battery_sound"};
+        return Arrays.asList(allowed_themable).contains(targetValue);
+    }
 }

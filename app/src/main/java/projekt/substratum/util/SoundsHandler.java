@@ -282,6 +282,7 @@ public class SoundsHandler {
             Root.runCommand("chmod -R 644 /data/system/theme/audio/ui/");
             Root.runCommand("chmod 755 /data/system/theme/audio/ui/");
             Root.runCommand("chmod 755 /data/system/theme/audio/");
+            Root.runCommand("chmod 755 /data/system/theme/");
             Root.runCommand("chcon -R u:object_r:system_file:s0 " +
                     "/data/system/theme");
         }

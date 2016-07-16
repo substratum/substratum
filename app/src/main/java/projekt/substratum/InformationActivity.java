@@ -55,9 +55,8 @@ public class InformationActivity extends AppCompatActivity {
     public static String theme_name, theme_pid, theme_mode;
 
     private static List tab_checker;
-
     private final int THEME_INFORMATION_REQUEST_CODE = 1;
-    public Boolean theme_legacy = false;
+    private Boolean theme_legacy = false;
     private Boolean refresh_mode = false;
     private Boolean uninstalled = false;
 

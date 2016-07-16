@@ -455,8 +455,8 @@ public class OverlaysList extends Fragment {
 
             File f = new File(mContext.getCacheDir().getAbsoluteFile() + "/SubstratumBuilder/" +
                     getThemeName(theme_pid).replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "")
-                    + ((!ProjectWideClasses.checkOMS()) ? "/assets/overlays_legacy/android" :
-                    "/assets/overlays/android"));
+                    + ((!ProjectWideClasses.checkOMS()) ? "/assets/overlays_legacy/android/" :
+                    "/assets/overlays/android/"));
             File[] fileArray = f.listFiles();
             ArrayList<String> stringArray = new ArrayList<>();
             if (fileArray != null && fileArray.length > 0) {
@@ -641,8 +641,8 @@ public class OverlaysList extends Fragment {
                         "/SubstratumBuilder/" +
                         getThemeName(theme_pid).replaceAll("\\s+", "").replaceAll
                                 ("[^a-zA-Z0-9]+", "")
-                        + ((!ProjectWideClasses.checkOMS()) ? "/assets/overlays_legacy" :
-                        "/assets/overlays"));
+                        + ((!ProjectWideClasses.checkOMS()) ? "/assets/overlays_legacy/" :
+                        "/assets/overlays/"));
                 File[] fileArray = overlaysDirectory.listFiles();
                 if (fileArray != null && fileArray.length > 0) {
                     for (int i = 0; i < fileArray.length; i++) {
@@ -729,8 +729,8 @@ public class OverlaysList extends Fragment {
                                 "/SubstratumBuilder/" +
                                 getThemeName(theme_pid).replaceAll("\\s+", "").replaceAll
                                         ("[^a-zA-Z0-9]+", "")
-                                + ((!ProjectWideClasses.checkOMS()) ? "/assets/overlays_legacy" :
-                                "/assets/overlays") +
+                                + ((!ProjectWideClasses.checkOMS()) ? "/assets/overlays_legacy/" :
+                                "/assets/overlays/") +
                                 package_name);
                         File[] fileArray = typeArrayRaw.listFiles();
                         if (fileArray != null && fileArray.length > 0) {

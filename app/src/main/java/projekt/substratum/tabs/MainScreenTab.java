@@ -32,7 +32,6 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import projekt.substratum.InformationActivity;
@@ -40,6 +39,7 @@ import projekt.substratum.R;
 import projekt.substratum.util.BootAnimationHandler;
 import projekt.substratum.util.CacheCreator;
 import projekt.substratum.util.FontHandler;
+import projekt.substratum.util.ProjectWideClasses;
 import projekt.substratum.util.ReadOverlaysFile;
 import projekt.substratum.util.Root;
 import projekt.substratum.util.SoundsHandler;
@@ -72,11 +72,6 @@ public class MainScreenTab extends Fragment {
     private ProgressDialog progress;
     private AlertDialog.Builder builderSingle;
     private ArrayList<String> overlayList;
-
-    private String[] allowed_systemui_overlays = {
-            "com.android.systemui.headers",
-            "com.android.systemui.navbars"};
-
 
     private boolean isSystemPackage(PackageInfo pkgInfo) {
         return ((pkgInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0);
@@ -472,9 +467,9 @@ public class MainScreenTab extends Fragment {
                     String current = unfilteredDirectory[i].getName();
                     if (!tp_enabled) {
                         if (systemPackages.contains(current) ||
-                                Arrays.asList(allowed_systemui_overlays).contains(current)) {
+                                ProjectWideClasses.allowedSystemUIOverlay(current)) {
                             if (isPackageInstalled(current) ||
-                                    Arrays.asList(allowed_systemui_overlays).contains(current)) {
+                                    ProjectWideClasses.allowedSystemUIOverlay(current)) {
                                 filteredDirectory.add(current);
                                 Log.d("SubstratumLogger", "System Overlay: " + current);
                             }
@@ -753,7 +748,7 @@ public class MainScreenTab extends Fragment {
                                     theme_name,
                                     "false", "", null,
                                     ((base3overlay.length() == 0) ? null : base3overlay),
-                                    versionName);
+                                    versionName, ProjectWideClasses.checkOMS());
                             if (sb.no_install.length() > 0) {
                                 final_runner.add(sb.no_install);
                             }
@@ -776,7 +771,7 @@ public class MainScreenTab extends Fragment {
                                 theme_name,
                                 "true", "", null,
                                 ((base3overlay.length() == 0) ? null : base3overlay),
-                                versionName);
+                                versionName, ProjectWideClasses.checkOMS());
                         to_be_enabled.add(package_name);
                     }
                     if (sb.has_errored_out) {

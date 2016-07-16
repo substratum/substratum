@@ -200,17 +200,31 @@ public class AntiPiracyCheck {
                 for (int i = 0; i < unauthorized_packages.size(); i++) {
                     final_commands_array.add(unauthorized_packages.get(i));
                 }
-                if (isPackageInstalled("masquerade.substratum")) {
-                    Intent runCommand = new Intent();
-                    runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                    runCommand.setAction("masquerade.substratum.COMMANDS");
-                    runCommand.putStringArrayListExtra("pm-uninstall-specific",
-                            final_commands_array);
-                    mContext.sendBroadcast(runCommand);
-                } else {
-                    for (int i = 0; i < unauthorized_packages.size(); i++) {
-                        Root.runCommand("pm uninstall " + unauthorized_packages.get(i));
+                if (ProjectWideClasses.checkOMS()) {
+                    if (isPackageInstalled("masquerade.substratum")) {
+                        Intent runCommand = new Intent();
+                        runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                        runCommand.setAction("masquerade.substratum.COMMANDS");
+                        runCommand.putStringArrayListExtra("pm-uninstall-specific",
+                                final_commands_array);
+                        mContext.sendBroadcast(runCommand);
+                    } else {
+                        for (int i = 0; i < unauthorized_packages.size(); i++) {
+                            Root.runCommand("pm uninstall " + unauthorized_packages.get(i));
+                        }
                     }
+                } else {
+                    Root.runCommand("mount -o rw,remount /system");
+                    String current;
+                    if (ProjectWideClasses.inNexusFilter()) {
+                        current = "/system/overlay/";
+                    } else {
+                        current = "/system/vendor/overlay/";
+                    }
+                    for (int i = 0; i < final_commands_array.size(); i++) {
+                        Root.runCommand("rm -r " + current + final_commands_array + ".apk");
+                    }
+                    Root.runCommand("mount -o ro,remount /system");
                 }
                 return null;
             }

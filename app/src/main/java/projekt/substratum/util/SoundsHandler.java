@@ -450,9 +450,9 @@ public class SoundsHandler {
                         mContext.getString(R.string.sounds_dialog_apply_failed), Toast.LENGTH_LONG);
                 toast.show();
             }
-            Root.runCommand("mount -o remount,ro /");
-            Root.runCommand("mount -o remount,ro /data");
-            Root.runCommand("mount -o remount,ro /system");
+            Root.runCommand("mount -o ro,remount /");
+            Root.runCommand("mount -o ro,remount /data");
+            Root.runCommand("mount -o ro,remount /system");
 
             if (!checkWriteSettingsPermissions()) {
                 new AlertDialog.Builder(mContext)
@@ -543,12 +543,12 @@ public class SoundsHandler {
 
                 File themeDirectory = new File("/data/system/theme/");
                 if (!themeDirectory.exists()) {
-                    Root.runCommand("mount -o remount,rw /data");
+                    Root.runCommand("mount -o rw,remount /data");
                     Root.runCommand("mkdir /data/system/theme/");
                 }
                 File audioDirectory = new File("/data/system/theme/audio/");
                 if (!audioDirectory.exists()) {
-                    Root.runCommand("mount -o remount,rw /data");
+                    Root.runCommand("mount -o rw,remount /data");
                     Root.runCommand("mkdir /data/system/theme/audio/");
                 }
 

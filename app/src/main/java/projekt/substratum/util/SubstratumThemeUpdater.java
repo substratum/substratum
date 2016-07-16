@@ -17,6 +17,7 @@ import android.util.Log;
 import java.util.concurrent.ThreadLocalRandom;
 
 import projekt.substratum.InformationActivity;
+import projekt.substratum.MainActivity;
 import projekt.substratum.R;
 
 /**
@@ -68,15 +69,22 @@ public class SubstratumThemeUpdater {
             final int notification_priority = 2; // PRIORITY_MAX == 2
 
             if (showNotification) {
-                Intent notificationIntent = new Intent(mContext, InformationActivity.class);
-                notificationIntent.putExtra("theme_name", getThemeName(packageName));
-                notificationIntent.putExtra("theme_pid", packageName);
-                notificationIntent.putExtra("refresh_back", true);
-                notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
-                        Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                PendingIntent intent =
-                        PendingIntent.getActivity(mContext, 0, notificationIntent,
-                                PendingIntent.FLAG_CANCEL_CURRENT);
+                Intent notificationIntent;
+                PendingIntent intent;
+                if (ProjectWideClasses.checkOMS()) {
+                    notificationIntent = new Intent(mContext, InformationActivity.class);
+                    notificationIntent.putExtra("theme_name", getThemeName(packageName));
+                    notificationIntent.putExtra("theme_pid", packageName);
+                    notificationIntent.putExtra("refresh_back", true);
+                    notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                            Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    intent = PendingIntent.getActivity(mContext, 0, notificationIntent,
+                                    PendingIntent.FLAG_CANCEL_CURRENT);
+                } else {
+                    notificationIntent = new Intent(mContext, MainActivity.class);
+                    intent = PendingIntent.getActivity(mContext, 0, notificationIntent,
+                                    PendingIntent.FLAG_CANCEL_CURRENT);
+                }
 
                 // This is the time when the notification should be shown on the user's screen
                 NotificationManager mNotifyManager =
@@ -98,15 +106,22 @@ public class SubstratumThemeUpdater {
                         .setPriority(notification_priority);
                 mNotifyManager.notify(id, mBuilder.build());
             } else {
-                Intent notificationIntent = new Intent(mContext, InformationActivity.class);
-                notificationIntent.putExtra("theme_name", getThemeName(packageName));
-                notificationIntent.putExtra("theme_pid", packageName);
-                notificationIntent.putExtra("refresh_back", true);
-                notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
-                        Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                PendingIntent intent =
-                        PendingIntent.getActivity(mContext, 0, notificationIntent,
-                                PendingIntent.FLAG_CANCEL_CURRENT);
+                Intent notificationIntent;
+                PendingIntent intent;
+                if (ProjectWideClasses.checkOMS()) {
+                    notificationIntent = new Intent(mContext, InformationActivity.class);
+                    notificationIntent.putExtra("theme_name", getThemeName(packageName));
+                    notificationIntent.putExtra("theme_pid", packageName);
+                    notificationIntent.putExtra("refresh_back", true);
+                    notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                            Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    intent = PendingIntent.getActivity(mContext, 0, notificationIntent,
+                            PendingIntent.FLAG_CANCEL_CURRENT);
+                } else {
+                    notificationIntent = new Intent(mContext, MainActivity.class);
+                    intent = PendingIntent.getActivity(mContext, 0, notificationIntent,
+                            PendingIntent.FLAG_CANCEL_CURRENT);
+                }
 
                 // This is the time when the notification should be shown on the user's screen
                 NotificationManager mNotifyManager =

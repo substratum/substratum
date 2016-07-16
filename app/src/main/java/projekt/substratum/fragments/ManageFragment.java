@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import projekt.substratum.R;
+import projekt.substratum.util.ProjectWideClasses;
 import projekt.substratum.util.ReadOverlaysFile;
 import projekt.substratum.util.Root;
 import projekt.substratum.util.SoundsHandler;
@@ -65,6 +67,16 @@ public class ManageFragment extends Fragment {
         CardView fontsCard = (CardView) root.findViewById(R.id.fontsCard);
         CardView soundsCard = (CardView) root.findViewById(R.id.soundsCard);
 
+        TextView bootAnimTitle = (TextView) root.findViewById(R.id.bootAnimTitle);
+        TextView fontsCardTitle = (TextView) root.findViewById(R.id.fontsTitle);
+
+        if (!ProjectWideClasses.checkOMS()) {
+            bootAnimCard.setVisibility(View.GONE);
+            bootAnimTitle.setVisibility(View.GONE);
+            fontsCard.setVisibility(View.GONE);
+            fontsCardTitle.setVisibility(View.GONE);
+        }
+
         // Overlays Dialog
 
         overlaysCard.setOnClickListener(new View.OnClickListener() {
@@ -74,7 +86,8 @@ public class ManageFragment extends Fragment {
                 final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getContext(),
                         R.layout.dialog_listview);
 
-                arrayAdapter.add(getString(R.string.manage_system_overlay_disable));
+                if (ProjectWideClasses.checkOMS()) arrayAdapter.add(getString(
+                        R.string.manage_system_overlay_disable));
                 arrayAdapter.add(getString(R.string.manage_system_overlay_uninstall));
 
                 builderSingle.setNegativeButton(
@@ -87,12 +100,13 @@ public class ManageFragment extends Fragment {
                         });
                 builderSingle.setAdapter(
                         arrayAdapter,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                switch (which) {
-                                    case 0:
-                                        dialog.dismiss();
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            switch (which) {
+                                case 0:
+                                    dialog.dismiss();
+                                    if (ProjectWideClasses.checkOMS()) {
                                         Toast toast = Toast.makeText(getContext(), getString(R
                                                         .string.manage_system_overlay_toast),
                                                 Toast.LENGTH_LONG);
@@ -107,22 +121,61 @@ public class ManageFragment extends Fragment {
                                             runCommand.setAction("projekt.substratum.helper" +
                                                     ".COMMANDS");
                                             runCommand.putExtra("om-commands", "om disable-all");
+
                                             getContext().sendBroadcast(runCommand);
                                         } else {
                                             if (DEBUG)
-                                                Log.e("SubstratumLogger", "Masquerade was not " +
-                                                        "found, falling back to Substratum theme " +
+                                                Log.e("SubstratumLogger", "Masquerade was not" +
+                                                        " " +
+                                                        "found, falling back to Substratum " +
+                                                        "theme " +
                                                         "provider...");
                                             Root.runCommand("om disable-all");
                                         }
-                                        break;
-                                    case 1:
-                                        dialog.dismiss();
-                                        new AbortFunction().execute("");
-                                        break;
-                                }
+                                    } else {
+                                        String current_directory;
+                                        if (ProjectWideClasses.inNexusFilter()) {
+                                            current_directory = "/system/overlay/";
+                                        } else {
+                                            current_directory = "/system/vendor/overlay/";
+                                        }
+                                        File file = new File(current_directory);
+                                        if (file.exists()) {
+                                            Root.runCommand("mount -o rw,remount /system");
+                                            Root.runCommand("rm -r " + current_directory);
+                                        }
+                                        Toast toast2 = Toast.makeText(getContext(), getString(R
+                                                        .string.abort_overlay_toast_success),
+                                                Toast.LENGTH_SHORT);
+                                        toast2.show();
+                                        AlertDialog.Builder alertDialogBuilder =
+                                                new AlertDialog.Builder(getContext());
+                                        alertDialogBuilder
+                                                .setTitle(getString(
+                                                        R.string.legacy_dialog_soft_reboot_title));
+                                        alertDialogBuilder
+                                                .setMessage(getString(
+                                                        R.string.legacy_dialog_soft_reboot_text));
+                                        alertDialogBuilder
+                                                .setPositiveButton(
+                                                        android.R.string.ok, new DialogInterface
+                                                                .OnClickListener() {
+                                                            public void onClick(DialogInterface dialog, int id) {
+                                                                Root.runCommand("killall zygote");
+                                                            }
+                                                        });
+                                        alertDialogBuilder.setCancelable(false);
+                                        AlertDialog alertDialog = alertDialogBuilder.create();
+                                        alertDialog.show();
+                                    }
+                                    break;
+                                case 1:
+                                    dialog.dismiss();
+                                    new AbortFunction().execute("");
+                                    break;
                             }
-                        });
+                        }
+                    });
                 builderSingle.show();
             }
         });

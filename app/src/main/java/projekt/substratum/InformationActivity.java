@@ -42,6 +42,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import projekt.substratum.adapters.InformationTabsAdapter;
+import projekt.substratum.util.ProjectWideClasses;
 import projekt.substratum.util.ReadOverlaysFile;
 import projekt.substratum.util.Root;
 
@@ -56,9 +57,8 @@ public class InformationActivity extends AppCompatActivity {
     private static List tab_checker;
 
     private final int THEME_INFORMATION_REQUEST_CODE = 1;
-
+    public Boolean theme_legacy = false;
     private Boolean refresh_mode = false;
-
     private Boolean uninstalled = false;
 
     public static String getThemeName() {
@@ -162,6 +162,7 @@ public class InformationActivity extends AppCompatActivity {
         theme_name = currentIntent.getStringExtra("theme_name");
         theme_pid = currentIntent.getStringExtra("theme_pid");
         theme_mode = currentIntent.getStringExtra("theme_mode");
+        theme_legacy = currentIntent.getBooleanExtra("theme_legacy", false);
         refresh_mode = currentIntent.getBooleanExtra("refresh_mode", false);
         if (theme_mode == null) {
             theme_mode = "";
@@ -199,7 +200,7 @@ public class InformationActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         if (tabLayout != null) {
             if (theme_mode.equals("")) {
-                tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
+                if (!theme_legacy) tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
                         .theme_information_tab_one)));
                 tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
                         .theme_information_tab_two)));
@@ -224,7 +225,7 @@ public class InformationActivity extends AppCompatActivity {
                     Log.e("SubstratumLogger", "Could not refresh list of asset folders.");
                 }
             } else {
-                if (theme_mode.equals("overlays")) {
+                if (theme_mode.equals("overlays") && !theme_legacy) {
                     tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
                             .theme_information_tab_two)));
                 } else {
@@ -286,7 +287,8 @@ public class InformationActivity extends AppCompatActivity {
 
         final InformationTabsAdapter adapter = new InformationTabsAdapter
                 (getSupportFragmentManager(), tabLayout.getTabCount(), getApplicationContext(),
-                        theme_pid, (theme_mode.equals("")), theme_mode, tab_checker);
+                        theme_pid, (theme_mode.equals("") && !theme_legacy), theme_mode,
+                        tab_checker);
         if (viewPager != null) {
             viewPager.setOffscreenPageLimit(tabLayout.getTabCount());
             viewPager.setAdapter(adapter);
@@ -330,7 +332,11 @@ public class InformationActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.theme_information_menu, menu);
+        if (ProjectWideClasses.checkOMS()) {
+            getMenuInflater().inflate(R.menu.theme_information_menu, menu);
+        } else {
+            getMenuInflater().inflate(R.menu.theme_information_menu_legacy, menu);
+        }
         return true;
     }
 
@@ -352,20 +358,6 @@ public class InformationActivity extends AppCompatActivity {
                                     ("[^a-zA-Z0-9]+", "");
 
                             // Begin uninstalling all overlays based on this package
-                            File current_overlays = new File(Environment
-                                    .getExternalStorageDirectory().getAbsolutePath() +
-                                    "/.substratum/current_overlays.xml");
-                            if (current_overlays.exists()) {
-                                Root.runCommand("rm " + Environment
-                                        .getExternalStorageDirectory().getAbsolutePath() +
-                                        "/.substratum/current_overlays.xml");
-                            }
-                            Root.runCommand("cp /data/system/overlays" +
-                                    ".xml " +
-                                    Environment
-                                            .getExternalStorageDirectory().getAbsolutePath() +
-                                    "/.substratum/current_overlays.xml");
-
                             String[] commands = {Environment.getExternalStorageDirectory()
                                     .getAbsolutePath() +
                                     "/.substratum/current_overlays.xml", "4"};
@@ -546,20 +538,6 @@ public class InformationActivity extends AppCompatActivity {
                                     ("[^a-zA-Z0-9]+", "");
 
                             // Begin enabling all overlays based on this package
-                            File current_overlays = new File(Environment
-                                    .getExternalStorageDirectory().getAbsolutePath() +
-                                    "/.substratum/current_overlays.xml");
-                            if (current_overlays.exists()) {
-                                Root.runCommand("rm " + Environment
-                                        .getExternalStorageDirectory().getAbsolutePath() +
-                                        "/.substratum/current_overlays.xml");
-                            }
-                            Root.runCommand("cp /data/system/overlays" +
-                                    ".xml " +
-                                    Environment
-                                            .getExternalStorageDirectory().getAbsolutePath() +
-                                    "/.substratum/current_overlays.xml");
-
                             String[] commands = {Environment.getExternalStorageDirectory()
                                     .getAbsolutePath() +
                                     "/.substratum/current_overlays.xml", "4"};

@@ -147,6 +147,7 @@
                     android:text="@string/fab_menu_disable"/>
 
                 <LinearLayout
+                    android:id="@+id/enable"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 

@@ -40,6 +40,7 @@ import projekt.substratum.R;
 import projekt.substratum.adapters.DataAdapter;
 import projekt.substratum.model.ThemeInfo;
 import projekt.substratum.util.CacheCreator;
+import projekt.substratum.util.ProjectWideClasses;
 import projekt.substratum.util.ReadOverlaysFile;
 import projekt.substratum.util.Root;
 
@@ -158,6 +159,8 @@ public class OverlaysFragment extends Fragment {
                                 myIntent.putExtra("theme_pid", map.get(
                                         map.keySet().toArray()[position].toString())[1]);
                                 myIntent.putExtra("theme_mode", "overlays");
+                                if (!ProjectWideClasses.checkOMS())
+                                    myIntent.putExtra("theme_legacy", true);
                                 startActivityForResult(myIntent, THEME_INFORMATION_REQUEST_CODE);
                             } else {
                                 selected_theme_name = map.get(
@@ -239,19 +242,40 @@ public class OverlaysFragment extends Fragment {
             Context otherContext = getContext().createPackageContext(package_name, 0);
             AssetManager am = otherContext.getAssets();
             if (appInfo.metaData != null) {
-                if (appInfo.metaData.getString("Substratum_Theme") != null) {
-                    if (appInfo.metaData.getString("Substratum_Author") != null) {
-                        try {
-                            String[] stringArray = am.list("");
-                            if (Arrays.asList(stringArray).contains("overlays")) {
-                                String[] data = {appInfo.metaData.getString
-                                        ("Substratum_Author"),
-                                        package_name};
-                                substratum_packages.put(appInfo.metaData.getString
-                                        ("Substratum_Theme"), data);
+                if (!ProjectWideClasses.checkOMS()) {
+                    if (appInfo.metaData.getBoolean("Substratum_Legacy", false)) {
+                        if (appInfo.metaData.getString("Substratum_Theme") != null) {
+                            if (appInfo.metaData.getString("Substratum_Author") != null) {
+                                try {
+                                    String[] stringArray = am.list("");
+                                    if (Arrays.asList(stringArray).contains("overlays")) {
+                                        String[] data = {appInfo.metaData.getString
+                                                ("Substratum_Author"),
+                                                package_name};
+                                        substratum_packages.put(appInfo.metaData.getString
+                                                ("Substratum_Theme"), data);
+                                    }
+                                } catch (Exception e) {
+                                    Log.e("SubstratumLogger", "Unable to find package identifier");
+                                }
                             }
-                        } catch (Exception e) {
-                            Log.e("SubstratumLogger", "Unable to find package identifier");
+                        }
+                    }
+                } else {
+                    if (appInfo.metaData.getString("Substratum_Theme") != null) {
+                        if (appInfo.metaData.getString("Substratum_Author") != null) {
+                            try {
+                                String[] stringArray = am.list("");
+                                if (Arrays.asList(stringArray).contains("overlays")) {
+                                    String[] data = {appInfo.metaData.getString
+                                            ("Substratum_Author"),
+                                            package_name};
+                                    substratum_packages.put(appInfo.metaData.getString
+                                            ("Substratum_Theme"), data);
+                                }
+                            } catch (Exception e) {
+                                Log.e("SubstratumLogger", "Unable to find package identifier");
+                            }
                         }
                     }
                 }

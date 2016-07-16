@@ -74,9 +74,9 @@ public class BootAnimationHandler {
                                 .LENGTH_LONG);
                 toast.show();
             }
-            Root.runCommand("mount -o remount,ro /");
-            Root.runCommand("mount -o remount,ro /data");
-            Root.runCommand("mount -o remount,ro /system");
+            Root.runCommand("mount -o ro,remount /");
+            Root.runCommand("mount -o ro,remount /data");
+            Root.runCommand("mount -o ro,remount /system");
         }
 
         @Override
@@ -278,7 +278,7 @@ public class BootAnimationHandler {
 
                 File themeDirectory = new File("/data/system/theme/");
                 if (!themeDirectory.exists()) {
-                    Root.runCommand("mount -o remount,rw /data");
+                    Root.runCommand("mount -o rw,remount /data");
                     Root.runCommand("mkdir /data/system/theme/");
                 }
 
@@ -295,10 +295,10 @@ public class BootAnimationHandler {
                 }
 
                 if (!has_failed) {
-                    Root.runCommand("mount -o remount,rw /system");
+                    Root.runCommand("mount -o rw,remount /system");
                     Root.runCommand("chmod 755 /data/system/theme/");
 
-                    Root.runCommand("mount -o remount,rw /system");
+                    Root.runCommand("mount -o rw,remount /system");
                     Root.runCommand(
                             "mv -f " + mContext.getCacheDir()
                                     .getAbsolutePath() + "/BootAnimationCache/AnimationCreator/"
@@ -306,11 +306,11 @@ public class BootAnimationHandler {
 
                                     "/data/system/theme/bootanimation.zip");
 
-                    Root.runCommand("mount -o remount,rw /system");
+                    Root.runCommand("mount -o rw,remount /system");
                     Root.runCommand("chmod 644 " +
                             "/data/system/theme/bootanimation.zip");
 
-                    Root.runCommand("mount -o remount,rw /data");
+                    Root.runCommand("mount -o rw,remount /data");
                     Root.runCommand("chcon -R u:object_r:system_file:s0 " +
                             "/data/system/theme");
                 }

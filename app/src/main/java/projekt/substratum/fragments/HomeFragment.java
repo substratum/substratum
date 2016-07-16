@@ -38,6 +38,7 @@ import projekt.substratum.adapters.DataAdapter;
 import projekt.substratum.model.ThemeInfo;
 import projekt.substratum.util.AAPTCheck;
 import projekt.substratum.util.CacheCreator;
+import projekt.substratum.util.ProjectWideClasses;
 
 /**
  * @author Nicholas Chum (nicholaschum)
@@ -54,7 +55,6 @@ public class HomeFragment extends Fragment {
     private List<ApplicationInfo> list;
     private DataAdapter adapter;
     private View cardView;
-    private List<String> installed_themes;
     private ViewGroup root;
     private String selected_theme_name;
 
@@ -81,7 +81,6 @@ public class HomeFragment extends Fragment {
 
         mContext = getActivity();
 
-        installed_themes = new ArrayList<>();
         substratum_packages = new HashMap<>();
         recyclerView = (RecyclerView) root.findViewById(R.id.theme_list);
         cardView = root.findViewById(R.id.no_entry_card_view);
@@ -111,14 +110,6 @@ public class HomeFragment extends Fragment {
 
         ArrayList<ThemeInfo> themeInfos = prepareData();
         adapter = new DataAdapter(themeInfos);
-
-        File om = new File("/system/bin/om");
-        if (!om.exists()) {
-            Toast toast = Toast.makeText(getContext(), getString(R.string
-                            .om_check_failed_toast),
-                    Toast.LENGTH_LONG);
-            toast.show();
-        }
 
         // Assign adapter to RecyclerView
         recyclerView.setAdapter(adapter);
@@ -152,7 +143,6 @@ public class HomeFragment extends Fragment {
                         // Process fail case if user uninstalls an app and goes back an activity
                         if (isPackageInstalled(getContext(),
                                 map.get(map.keySet().toArray()[position].toString())[1])) {
-
                             File checkSubstratumVerity = new File(getContext().getCacheDir()
                                     .getAbsoluteFile() + "/SubstratumBuilder/" +
                                     getThemeName(map.get(map.keySet().toArray()[position]
@@ -165,6 +155,8 @@ public class HomeFragment extends Fragment {
                                         .toString());
                                 myIntent.putExtra("theme_pid", map.get(
                                         map.keySet().toArray()[position].toString())[1]);
+                                if (!ProjectWideClasses.checkOMS())
+                                    myIntent.putExtra("theme_legacy", true);
                                 startActivityForResult(myIntent, THEME_INFORMATION_REQUEST_CODE);
                             } else {
                                 selected_theme_name = map.get(
@@ -245,17 +237,32 @@ public class HomeFragment extends Fragment {
             ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
                     package_name, PackageManager.GET_META_DATA);
             if (appInfo.metaData != null) {
-                if (appInfo.metaData.getString("Substratum_Theme") != null) {
-                    if (appInfo.metaData.getString("Substratum_Author") != null) {
-                        String[] data = {appInfo.metaData.getString
-                                ("Substratum_Author"),
-                                package_name};
-                        substratum_packages.put(appInfo.metaData.getString
-                                ("Substratum_Theme"), data);
-                        installed_themes.add(package_name);
-                        Log.d("Substratum Ready Theme", package_name);
+                if (!ProjectWideClasses.checkOMS()) {
+                    if (appInfo.metaData.getBoolean("Substratum_Legacy", false)) {
+                        if (appInfo.metaData.getString("Substratum_Theme") != null) {
+                            if (appInfo.metaData.getString("Substratum_Author") != null) {
+                                String[] data = {appInfo.metaData.getString
+                                        ("Substratum_Author"),
+                                        package_name};
+                                substratum_packages.put(appInfo.metaData.getString
+                                        ("Substratum_Theme"), data);
+                                Log.d("Substratum Ready Theme", package_name);
+                            }
+                        }
+                    }
+                } else {
+                    if (appInfo.metaData.getString("Substratum_Theme") != null) {
+                        if (appInfo.metaData.getString("Substratum_Author") != null) {
+                            String[] data = {appInfo.metaData.getString
+                                    ("Substratum_Author"),
+                                    package_name};
+                            substratum_packages.put(appInfo.metaData.getString
+                                    ("Substratum_Theme"), data);
+                            Log.d("Substratum Ready Theme", package_name);
+                        }
                     }
                 }
+
             }
         } catch (PackageManager.NameNotFoundException e) {
             Log.e("SubstratumLogger", "Unable to find package identifier (INDEX OUT OF BOUNDS)");
@@ -300,7 +307,6 @@ public class HomeFragment extends Fragment {
 
         new AAPTCheck().injectAAPT(getContext());
 
-        installed_themes = new ArrayList<>();
         list.clear();
         recyclerView.setAdapter(null);
         substratum_packages = new HashMap<>();

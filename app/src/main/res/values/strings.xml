@@ -1,10 +1,9 @@
 <resources>
     <string name="app_name">substratum</string>
+    <string name="legacy_app_name">substratum legacy</string>
     <string name="helper_name">substratum overlay helper</string>
     <string name="drawer_name">projekt substratum</string>
     <string name="restore_app_name">restore theme</string>
-
-    <string name="om_check_failed_toast">Substratum was installed on a NON-OMS based ROM. The app will not function.</string>
 
     <string name="search_play_store_url" translatable="false">"https://play.google.com/store/search?q=Substratum%20Theme&amp;c=apps"</string>
 
@@ -15,6 +14,9 @@
 
     <string name="systemui_headers">System UI Headers</string>
     <string name="systemui_navigation">System UI Navigation</string>
+
+    <string name="legacy_dialog_soft_reboot_title">Soft reboot required!</string>
+    <string name="legacy_dialog_soft_reboot_text">Running on the Resource Runtime Overlay system, it is required to perform a soft reboot after adding or removing overlays.\n\nProceeding with this dialog would automatically soft reboot your device, so please be sure to have saved your work before continuing.</string>
 
     <string name="abort_overlay_toast">Now uninstalling all overlays&#8230;</string>
     <string name="abort_overlay_toast_success">All overlays uninstalled!</string>
@@ -113,7 +115,6 @@
     <string name="menu_search">Play Store Themes</string>
     <string name="menu_uninstall">Uninstall</string>
 
-    <string name="nav_legacy">Substratum Legacy</string>
     <string name="nav_overlay_manager">Advanced Manager</string>
     <string name="nav_home">Theme Packs</string>
     <string name="nav_overlays">Overlays</string>
@@ -151,10 +152,12 @@
     <string name="delete_dialog_text">Are you sure you want to delete \"%s\"?</string>
     <string name="restore">Restore Card</string>
     <string name="restore_card_content">When a profile is loaded, your current setup is completely wiped and \"restore theme\" would take on the updated changes.</string>
+    <string name="remove_dialog_later">Later</string>
     <string name="restore_dialog_cancel">Cancel</string>
     <string name="restore_dialog_okay">Continue</string>
     <string name="restore_dialog_title">Please install these overlays to restore your profile completely:</string>
     <string name="backup_button">BACKUP CURRENT STATE</string>
+    <string name="backup_no_overlays">There are no overlays in your current set up.</string>
     <string name="restore_button">RESTORE PROFILE</string>
     <string name="restore_button_none_selected_toast">Please select a profile from the dropdown list before trying to restore a profile!</string>
     <string name="profile_delete_button_none_selected_toast">Please select a profile from the dropdown list before trying to delete a profile!</string>
@@ -205,6 +208,7 @@
     <string name="toast_disabled3">Please compile this overlay before applying!</string>
     <string name="toast_disabled4">You can\'t disable an overlay you don\'t have compiled!</string>
     <string name="toast_disabled5">Please select a valid overlay before performing this action.</string>
+    <string name="toast_disabled6">Selected overlay(s) removed!</string>
     <string name="toast_installed">Selected overlay(s) applied!</string>
     <string name="toast_uninstalled">You just uninstalled this theme!</string>
     <string name="toast_updating">Compiling/updating in the notification panel, you can use other apps by clicking Home/Recents!</string>
@@ -262,9 +266,12 @@
 
     <string name="fab_menu_compile">Compile Selected</string>
     <string name="fab_menu_compile_enable">Compile/Update</string>
+    <string name="fab_menu_compile_install">Install Selected</string>
+    <string name="fab_menu_uninstall">Uninstall Selected</string>
     <string name="fab_menu_disable">Disable Selected</string>
     <string name="fab_menu_enable">Enable Selected</string>
     <string name="fab_menu_swap_toggle">Disable other themes</string>
+    <string name="fab_menu_swap_toggle_legacy">Remove all existing</string>
 
     <string name="contributor_title_1">Substratum Contributors</string>
     <string name="contributor_text_1">Let these people be known that they have contributed greatly to Substratum in terms of design work and our team would like to thank them greatly!</string>

@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
@@ -18,6 +19,7 @@ import android.preference.PreferenceManager;
 import android.service.notification.StatusBarNotification;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,6 +30,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Switch;
@@ -45,7 +48,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -57,6 +59,7 @@ import projekt.substratum.model.OverlaysInfo;
 import projekt.substratum.services.NotificationButtonReceiver;
 import projekt.substratum.util.CacheCreator;
 import projekt.substratum.util.FloatingActionMenu;
+import projekt.substratum.util.ProjectWideClasses;
 import projekt.substratum.util.ReadOverlaysFile;
 import projekt.substratum.util.Root;
 import projekt.substratum.util.SubstratumBuilder;
@@ -99,10 +102,6 @@ public class OverlaysList extends Fragment {
     private ProgressBar progressBar;
     private ArrayList<String> current_theme_overlays;
     private Boolean DEBUG = false;
-
-    private String[] allowed_systemui_overlays = {
-            "com.android.systemui.headers",
-            "com.android.systemui.navbars"};
 
     private boolean isPackageInstalled(String package_name) {
         PackageManager pm = mContext.getPackageManager();
@@ -196,6 +195,8 @@ public class OverlaysList extends Fragment {
         }
 
         Switch enable_swap = (Switch) root.findViewById(R.id.enable_swap);
+        if (!ProjectWideClasses.checkOMS())
+            enable_swap.setText(getString(R.string.fab_menu_swap_toggle_legacy));
         if (enable_swap != null) {
             if (prefs.getBoolean("enable_swapping_overlays", true)) {
                 mixAndMatchMode = true;
@@ -221,6 +222,8 @@ public class OverlaysList extends Fragment {
 
         TextView compile_enable_selected = (TextView) root.findViewById(R.id
                 .compile_enable_selected);
+        if (!ProjectWideClasses.checkOMS())
+            compile_enable_selected.setText(getString(R.string.fab_menu_compile_install));
         if (compile_enable_selected != null)
             compile_enable_selected.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
@@ -264,48 +267,124 @@ public class OverlaysList extends Fragment {
             });
 
         TextView disable_selected = (TextView) root.findViewById(R.id.disable_selected);
+        if (!ProjectWideClasses.checkOMS())
+            disable_selected.setText(getString(R.string.fab_menu_uninstall));
         if (disable_selected != null)
             disable_selected.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     materialSheetFab.hideSheet();
 
-                    enable_mode = false;
-                    disable_mode = true;
-
                     overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
                     checkedOverlays = new ArrayList<>();
 
-                    for (int i = 0; i < overlaysLists.size(); i++) {
-                        OverlaysInfo currentOverlay = overlaysLists.get(i);
-                        if (currentOverlay.isSelected() && currentOverlay.isOverlayEnabled()) {
-                            checkedOverlays.add(currentOverlay);
-                        } else {
-                            currentOverlay.setSelected(false);
-                            mAdapter.notifyDataSetChanged();
+                    if (ProjectWideClasses.checkOMS()) {
+                        enable_mode = false;
+                        disable_mode = true;
+
+                        for (int i = 0; i < overlaysLists.size(); i++) {
+                            OverlaysInfo currentOverlay = overlaysLists.get(i);
+                            if (currentOverlay.isSelected() && currentOverlay.isOverlayEnabled()) {
+                                checkedOverlays.add(currentOverlay);
+                            } else {
+                                currentOverlay.setSelected(false);
+                                mAdapter.notifyDataSetChanged();
+                            }
                         }
-                    }
-                    if (!checkedOverlays.isEmpty()) {
-                        if (base_spinner.getSelectedItemPosition() != 0 &&
-                                base_spinner.getVisibility() == View.VISIBLE) {
-                            Phase2_InitializeCache phase2_initializeCache = new
-                                    Phase2_InitializeCache();
-                            phase2_initializeCache.execute(base_spinner.getSelectedItem()
-                                    .toString());
+                        if (!checkedOverlays.isEmpty()) {
+                            if (base_spinner.getSelectedItemPosition() != 0 &&
+                                    base_spinner.getVisibility() == View.VISIBLE) {
+                                Phase2_InitializeCache phase2_initializeCache = new
+                                        Phase2_InitializeCache();
+                                phase2_initializeCache.execute(base_spinner.getSelectedItem()
+                                        .toString());
+                            } else {
+                                Phase2_InitializeCache phase2_initializeCache = new
+                                        Phase2_InitializeCache();
+                                phase2_initializeCache.execute("");
+                            }
                         } else {
-                            Phase2_InitializeCache phase2_initializeCache = new
-                                    Phase2_InitializeCache();
-                            phase2_initializeCache.execute("");
+                            if (toggle_all.isChecked()) toggle_all.setChecked(false);
+                            Toast toast2 = Toast.makeText(getContext(), getString(R
+                                            .string.toast_disabled5),
+                                    Toast.LENGTH_SHORT);
+                            toast2.show();
                         }
                     } else {
-                        if (toggle_all.isChecked()) toggle_all.setChecked(false);
-                        Toast toast2 = Toast.makeText(getContext(), getString(R
-                                        .string.toast_disabled5),
-                                Toast.LENGTH_SHORT);
-                        toast2.show();
+                        for (int i = 0; i < overlaysLists.size(); i++) {
+                            OverlaysInfo currentOverlay = overlaysLists.get(i);
+                            if (currentOverlay.isSelected()) {
+                                checkedOverlays.add(currentOverlay);
+                            } else {
+                                currentOverlay.setSelected(false);
+                                mAdapter.notifyDataSetChanged();
+                            }
+                        }
+
+                        String current_directory;
+                        if (ProjectWideClasses.inNexusFilter()) {
+                            current_directory = "/system/overlay/";
+                        } else {
+                            current_directory = "/system/vendor/overlay/";
+                        }
+
+                        if (!checkedOverlays.isEmpty()) {
+                            for (int i = 0; i < checkedOverlays.size(); i++) {
+                                Root.runCommand("mount -o rw,remount /system");
+                                Root.runCommand("rm -r " + current_directory +
+                                        checkedOverlays.get(i).getPackageName() + "." +
+                                        checkedOverlays.get(i).getThemeName() + ".apk");
+                                mAdapter.notifyDataSetChanged();
+                            }
+                            // Untick all options in the adapter after compiling
+                            toggle_all.setChecked(false);
+                            overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
+                            for (int i = 0; i < overlaysLists.size(); i++) {
+                                OverlaysInfo currentOverlay = overlaysLists.get(i);
+                                if (currentOverlay.isSelected()) {
+                                    currentOverlay.setSelected(false);
+                                }
+                            }
+                            Toast toast2 = Toast.makeText(getContext(), getString(R
+                                            .string.toast_disabled6),
+                                    Toast.LENGTH_SHORT);
+                            toast2.show();
+                            AlertDialog.Builder alertDialogBuilder =
+                                    new AlertDialog.Builder(getContext());
+                            alertDialogBuilder
+                                    .setTitle(getString(R.string.legacy_dialog_soft_reboot_title));
+                            alertDialogBuilder
+                                    .setMessage(getString(R.string.legacy_dialog_soft_reboot_text));
+                            alertDialogBuilder
+                                    .setPositiveButton(android.R.string.ok, new DialogInterface
+                                            .OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            Root.runCommand("killall zygote");
+                                        }
+                                    });
+                            alertDialogBuilder
+                                    .setNegativeButton(R.string.remove_dialog_later, new
+                                            DialogInterface
+                                                    .OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int
+                                                        id) {
+                                                    dialog.dismiss();
+                                                }
+                                            });
+                            AlertDialog alertDialog = alertDialogBuilder.create();
+                            alertDialog.show();
+                        } else {
+                            if (toggle_all.isChecked()) toggle_all.setChecked(false);
+                            Toast toast2 = Toast.makeText(getContext(), getString(R
+                                            .string.toast_disabled5),
+                                    Toast.LENGTH_SHORT);
+                            toast2.show();
+                        }
                     }
                 }
             });
 
+        LinearLayout enable_zone = (LinearLayout) root.findViewById(R.id.enable);
+        if (!ProjectWideClasses.checkOMS()) enable_zone.setVisibility(View.GONE);
         TextView enable_selected = (TextView) root.findViewById(R.id.enable_selected);
         if (enable_selected != null) enable_selected.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -376,7 +455,8 @@ public class OverlaysList extends Fragment {
 
             File f = new File(mContext.getCacheDir().getAbsoluteFile() + "/SubstratumBuilder/" +
                     getThemeName(theme_pid).replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "")
-                    + "/assets/overlays/android");
+                    + ((!ProjectWideClasses.checkOMS()) ? "/assets/overlays_legacy/android" :
+                    "/assets/overlays/android"));
             File[] fileArray = f.listFiles();
             ArrayList<String> stringArray = new ArrayList<>();
             if (fileArray != null && fileArray.length > 0) {
@@ -561,7 +641,8 @@ public class OverlaysList extends Fragment {
                         "/SubstratumBuilder/" +
                         getThemeName(theme_pid).replaceAll("\\s+", "").replaceAll
                                 ("[^a-zA-Z0-9]+", "")
-                        + "/assets/overlays");
+                        + ((!ProjectWideClasses.checkOMS()) ? "/assets/overlays_legacy" :
+                        "/assets/overlays"));
                 File[] fileArray = overlaysDirectory.listFiles();
                 if (fileArray != null && fileArray.length > 0) {
                     for (int i = 0; i < fileArray.length; i++) {
@@ -571,7 +652,7 @@ public class OverlaysList extends Fragment {
 
                 for (String package_name : overlaysFolder) {
                     if (isPackageInstalled(package_name) ||
-                            Arrays.asList(allowed_systemui_overlays).contains(package_name)) {
+                            ProjectWideClasses.allowedSystemUIOverlay(package_name)) {
                         values.add(package_name);
                     }
                 }
@@ -620,7 +701,7 @@ public class OverlaysList extends Fragment {
             for (String package_name : values) {
                 try {
                     String parsed_name = "";
-                    if (Arrays.asList(allowed_systemui_overlays).contains(package_name)) {
+                    if (ProjectWideClasses.allowedSystemUIOverlay(package_name)) {
                         switch (package_name) {
                             case "com.android.systemui.headers":
                                 parsed_name = getString(R.string.systemui_headers);
@@ -648,7 +729,9 @@ public class OverlaysList extends Fragment {
                                 "/SubstratumBuilder/" +
                                 getThemeName(theme_pid).replaceAll("\\s+", "").replaceAll
                                         ("[^a-zA-Z0-9]+", "")
-                                + "/assets/overlays/" + package_name);
+                                + ((!ProjectWideClasses.checkOMS()) ? "/assets/overlays_legacy" :
+                                "/assets/overlays") +
+                                package_name);
                         File[] fileArray = typeArrayRaw.listFiles();
                         if (fileArray != null && fileArray.length > 0) {
                             for (int i = 0; i < fileArray.length; i++) {
@@ -823,7 +906,8 @@ public class OverlaysList extends Fragment {
                                     (adapterTwoChecker ? null : adapter2),
                                     (adapterThreeChecker ? null : adapter3),
                                     (adapterFourChecker ? null : adapter4),
-                                    getContext(), versionName, sUrl[0], state5overlays);
+                                    getContext(), versionName, sUrl[0], state5overlays,
+                                    ProjectWideClasses.checkOMS());
                             values2.add(overlaysInfo);
                         } else {
                             // At this point, there is no spinner adapter, so it should be null
@@ -831,7 +915,8 @@ public class OverlaysList extends Fragment {
                                     parsed_name,
                                     package_name,
                                     false, null, null, null, null, getContext(),
-                                    versionName, sUrl[0], state5overlays);
+                                    versionName, sUrl[0], state5overlays, ProjectWideClasses
+                                    .checkOMS());
                             values2.add(overlaysInfo);
                         }
                     } catch (Exception e) {
@@ -1233,10 +1318,42 @@ public class OverlaysList extends Fragment {
                     }
                 }
             }
+            if (!ProjectWideClasses.checkOMS()) {
+                AlertDialog.Builder alertDialogBuilder =
+                        new AlertDialog.Builder(getContext());
+                alertDialogBuilder
+                        .setTitle(getString(R.string.legacy_dialog_soft_reboot_title));
+                alertDialogBuilder
+                        .setMessage(getString(R.string.legacy_dialog_soft_reboot_text));
+                alertDialogBuilder
+                        .setPositiveButton(android.R.string.ok, new DialogInterface
+                                .OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                Root.runCommand("killall zygote");
+                            }
+                        });
+                alertDialogBuilder.setCancelable(false);
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+            }
         }
 
         @Override
         protected String doInBackground(String... sUrl) {
+
+            if (mixAndMatchMode && !ProjectWideClasses.checkOMS()) {
+                String current_directory;
+                if (ProjectWideClasses.inNexusFilter()) {
+                    current_directory = "/system/overlay/";
+                } else {
+                    current_directory = "/system/vendor/overlay/";
+                }
+                File file = new File(current_directory);
+                if (file.exists()) {
+                    Root.runCommand("mount -o rw,remount /system");
+                    Root.runCommand("rm -r " + current_directory);
+                }
+            }
 
             for (int i = 0; i < checkedOverlays.size(); i++) {
                 String theme_name_parsed = theme_name.replaceAll("\\s+", "").replaceAll
@@ -1246,7 +1363,7 @@ public class OverlaysList extends Fragment {
                 if (!enable_mode && !disable_mode) {
                     try {
                         String packageTitle = "";
-                        if (Arrays.asList(allowed_systemui_overlays).contains(current_overlay)) {
+                        if (ProjectWideClasses.allowedSystemUIOverlay(current_overlay)) {
                             switch (current_overlay) {
                                 case "com.android.systemui.headers":
                                     packageTitle = getString(R.string.systemui_headers);
@@ -1318,7 +1435,9 @@ public class OverlaysList extends Fragment {
                         String workingDirectory = getContext().getCacheDir().toString() +
                                 "/SubstratumBuilder/" + getThemeName(theme_pid)
                                 .replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "") +
-                                "/assets/overlays/" + current_overlay;
+                                ((!ProjectWideClasses.checkOMS()) ? "/assets/overlays_legacy/" :
+                                        "/assets/overlays/") +
+                                current_overlay;
 
                         File srcDir = new File(workingDirectory +
                                 ((sUrl[0].length() != 0) ? "/type3_" + sUrl[0] : "/res"));
@@ -1420,7 +1539,7 @@ public class OverlaysList extends Fragment {
                                             update_bool,
                                             packageName, checkedOverlays.get(i)
                                                     .getSelectedVariantName4(), sUrl[0],
-                                            versionName);
+                                            versionName, ProjectWideClasses.checkOMS());
                                 } else {
                                     sb = new SubstratumBuilder();
                                     sb.beginAction(getContext(), theme_pid, current_overlay,
@@ -1428,7 +1547,7 @@ public class OverlaysList extends Fragment {
                                             update_bool,
                                             packageName, checkedOverlays.get(i)
                                                     .getSelectedVariantName4(), null,
-                                            versionName);
+                                            versionName, ProjectWideClasses.checkOMS());
                                 }
                             } else {
                                 Log.d("PackageProcessor", "Currently processing package" +
@@ -1441,14 +1560,14 @@ public class OverlaysList extends Fragment {
                                             theme_name,
                                             update_bool,
                                             packageName, null, sUrl[0],
-                                            versionName);
+                                            versionName, ProjectWideClasses.checkOMS());
                                 } else {
                                     sb = new SubstratumBuilder();
                                     sb.beginAction(getContext(), theme_pid, current_overlay,
                                             theme_name,
                                             update_bool,
                                             packageName, null, null,
-                                            versionName);
+                                            versionName, ProjectWideClasses.checkOMS());
                                 }
                             }
                             if (update_bool.equals("false")) {
@@ -1477,7 +1596,7 @@ public class OverlaysList extends Fragment {
                             sb = new SubstratumBuilder();
                             sb.beginAction(getContext(), theme_pid, current_overlay, theme_name,
                                     update_bool,
-                                    null, null, null, versionName);
+                                    null, null, null, versionName, ProjectWideClasses.checkOMS());
 
                             if (update_bool.equals("false")) {
                                 final_runner.add(sb.no_install);

@@ -15,11 +15,12 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import java.util.Arrays;
+import java.io.File;
 import java.util.List;
 
 import projekt.substratum.R;
 import projekt.substratum.model.OverlaysInfo;
+import projekt.substratum.util.ProjectWideClasses;
 
 /**
  * @author Nicholas Chum (nicholaschum)
@@ -27,10 +28,6 @@ import projekt.substratum.model.OverlaysInfo;
 
 public class OverlaysAdapter extends
         RecyclerView.Adapter<OverlaysAdapter.ViewHolder> {
-
-    private String[] allowed_systemui_overlays = {
-            "com.android.systemui.headers",
-            "com.android.systemui.navbars"};
 
     private List<OverlaysInfo> overlayList;
 
@@ -190,7 +187,7 @@ public class OverlaysAdapter extends
     public Drawable grabAppIcon(Context context, String package_name) {
         Drawable icon = null;
         try {
-            if (Arrays.asList(allowed_systemui_overlays).contains(package_name)) {
+            if (ProjectWideClasses.allowedSystemUIOverlay(package_name)) {
                 icon = context.getPackageManager().getApplicationIcon("com.android.systemui");
             } else {
                 icon = context.getPackageManager().getApplicationIcon(package_name);
@@ -218,10 +215,12 @@ public class OverlaysAdapter extends
 
         viewHolder.overlayTargetPackage.setText(current_object.getPackageName());
 
+        if (!current_object.isDeviceOMS()) viewHolder.overlayState.setVisibility(View.GONE);
+
         if (current_object.isPackageInstalled((current_object.getPackageName()) +
                 "." + current_object.getThemeName() + ((current_object
                 .getBaseResources().length() > 0) ? "." + current_object
-                .getBaseResources() : ""))) {
+                .getBaseResources() : "")) && current_object.isDeviceOMS()) {
             viewHolder.overlayState.setVisibility(View.VISIBLE);
             // Check whether currently installed overlay is up to date with theme_pid's versionName
             if (!current_object.compareInstalledOverlay()) {
@@ -268,7 +267,7 @@ public class OverlaysAdapter extends
             }
         });
 
-        if (current_object.variant_mode) {
+        if (current_object.variant_mode && current_object.isDeviceOMS()) {
             if (current_object.getSpinnerArray() != null) {
                 viewHolder.optionsSpinner.setVisibility(View.VISIBLE);
                 viewHolder.optionsSpinner.setAdapter(current_object.getSpinnerArray());
@@ -478,26 +477,57 @@ public class OverlaysAdapter extends
                 }
             }
         } else {
-            viewHolder.optionsSpinner.setVisibility(View.GONE);
-            viewHolder.optionsSpinner2.setVisibility(View.GONE);
-            viewHolder.optionsSpinner3.setVisibility(View.GONE);
-            viewHolder.optionsSpinner4.setVisibility(View.GONE);
-            if (current_object.isOverlayEnabled()) {
-                viewHolder.overlayTargetPackageName.setTextColor(
-                        current_object.getInheritedContext().getColor
-                                (R.color.overlay_installed_list_entry));
-            } else {
-                if (current_object.isPackageInstalled(current_object
-                        .getFullOverlayParameters())) {
+            if (current_object.isDeviceOMS()) {
+                viewHolder.optionsSpinner.setVisibility(View.GONE);
+                viewHolder.optionsSpinner2.setVisibility(View.GONE);
+                viewHolder.optionsSpinner3.setVisibility(View.GONE);
+                viewHolder.optionsSpinner4.setVisibility(View.GONE);
+                if (current_object.isOverlayEnabled()) {
                     viewHolder.overlayTargetPackageName.setTextColor(
-                            current_object.getInheritedContext()
-                                    .getColor(R.color
-                                            .overlay_not_enabled_list_entry));
+                            current_object.getInheritedContext().getColor
+                                    (R.color.overlay_installed_list_entry));
                 } else {
-                    viewHolder.overlayTargetPackageName.setTextColor(
-                            current_object.getInheritedContext()
-                                    .getColor(R.color
-                                            .overlay_not_installed_list_entry));
+                    if (current_object.isPackageInstalled(current_object
+                            .getFullOverlayParameters())) {
+                        viewHolder.overlayTargetPackageName.setTextColor(
+                                current_object.getInheritedContext()
+                                        .getColor(R.color
+                                                .overlay_not_enabled_list_entry));
+                    } else {
+                        viewHolder.overlayTargetPackageName.setTextColor(
+                                current_object.getInheritedContext()
+                                        .getColor(R.color
+                                                .overlay_not_installed_list_entry));
+                    }
+                }
+            } else {
+                viewHolder.optionsSpinner.setVisibility(View.GONE);
+                viewHolder.optionsSpinner2.setVisibility(View.GONE);
+                viewHolder.optionsSpinner3.setVisibility(View.GONE);
+                viewHolder.optionsSpinner4.setVisibility(View.GONE);
+
+                // At this point, the object is an RRO formatted check
+
+                String current_directory;
+                if (ProjectWideClasses.inNexusFilter()) {
+                    current_directory = "/system/overlay/";
+                } else {
+                    current_directory = "/system/vendor/overlay/";
+                }
+                File file = new File(current_directory);
+                if (file.exists()) {
+                    File file2 = new File(current_directory +
+                            current_object.getPackageName() + "." +
+                            current_object.getThemeName() + ".apk");
+                    if (file2.exists()) {
+                        viewHolder.overlayTargetPackageName.setTextColor(
+                                current_object.getInheritedContext().getColor(
+                                        R.color.overlay_installed_list_entry));
+                    } else {
+                        viewHolder.overlayTargetPackageName.setTextColor(
+                                current_object.getInheritedContext().getColor(
+                                        R.color.overlay_not_installed_list_entry));
+                    }
                 }
             }
         }

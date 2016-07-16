@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <PreferenceCategory
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:title="@string/settings_title">
+
+        <Preference
+            android:key="about_substratum"
+            android:summary="SUBSTRATUM_VERSION"
+            android:title="@string/settings_about_substratum"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:title="@string/settings_title_3">
+
+        <CheckBoxPreference
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:key="dynamic_actionbar"
+            android:summary="@string/dynamic_actionbar_colors_subtext"
+            android:title="@string/dynamic_actionbar_colors"/>
+
+        <CheckBoxPreference
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:key="dynamic_navbar"
+            android:summary="@string/dynamic_navbar_colors_subtext"
+            android:title="@string/dynamic_navbar_colors"/>
+
+    </PreferenceCategory>
+</PreferenceScreen>

@@ -135,7 +135,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                         .COMPONENT_ENABLED_STATE_DISABLED, PackageManager
                                         .DONT_KILL_APP);
                                 Toast toast = Toast.makeText(getContext(), getString(R.string
-                                                .hide_app_icon_toast_enabled),
+                                                .hide_app_icon_toast_disabled),
                                         Toast.LENGTH_SHORT);
                                 toast.show();
                                 hide_app_checkbox.setChecked(true);
@@ -150,7 +150,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                         .DONT_KILL_APP);
 
                                 Toast toast = Toast.makeText(getContext(), getString(R.string
-                                                .hide_app_icon_toast_disabled),
+                                                .hide_app_icon_toast_enabled),
                                         Toast.LENGTH_SHORT);
                                 toast.show();
                                 hide_app_checkbox.setChecked(false);

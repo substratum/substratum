@@ -4,11 +4,13 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -415,6 +417,24 @@ public class MainActivity extends AppCompatActivity implements
                     PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
         }
         Root.requestRootAccess();
+
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
+                getApplicationContext());
+        if (ProjectWideClasses.checkOMS()) {
+            if (!prefs.getBoolean("substratum_oms", true)) {
+                Root.runCommand("rm -r " + Environment.getExternalStorageDirectory()
+                        .getAbsolutePath() + "/.substratum/");
+                Root.runCommand("rm -r " + Environment.getExternalStorageDirectory()
+                        .getAbsolutePath() + "/substratum/");
+            }
+        } else {
+            if (prefs.getBoolean("substratum_oms", true)) {
+                Root.runCommand("rm -r " + Environment.getExternalStorageDirectory()
+                        .getAbsolutePath() + "/.substratum/");
+                Root.runCommand("rm -r " + Environment.getExternalStorageDirectory()
+                        .getAbsolutePath() + "/substratum/");
+            }
+        }
     }
 
     @Override

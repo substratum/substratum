@@ -443,7 +443,7 @@ public class OverlaysList extends Fragment {
                     getThemeName(theme_pid).replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "")
                     + "/assets/overlays/android/");
 
-            if (References.checkOMS()) {
+            if (!References.checkOMS()) {
                 File check_file = new File(mContext.getCacheDir().getAbsoluteFile() +
                         "/SubstratumBuilder/" + getThemeName(theme_pid).replaceAll("\\s+", "")
                         .replaceAll("[^a-zA-Z0-9]+", "") + "/assets/overlays_legacy/android/");

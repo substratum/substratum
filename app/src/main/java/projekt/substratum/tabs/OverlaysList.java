@@ -55,11 +55,11 @@ import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
 import projekt.substratum.adapters.OverlaysAdapter;
+import projekt.substratum.config.References;
 import projekt.substratum.model.OverlaysInfo;
 import projekt.substratum.services.NotificationButtonReceiver;
 import projekt.substratum.util.CacheCreator;
 import projekt.substratum.util.FloatingActionMenu;
-import projekt.substratum.config.References;
 import projekt.substratum.util.ReadOverlaysFile;
 import projekt.substratum.util.Root;
 import projekt.substratum.util.SubstratumBuilder;
@@ -439,11 +439,18 @@ public class OverlaysList extends Fragment {
 
         try {
             ArrayList<String> type3 = new ArrayList<>();
-
             File f = new File(mContext.getCacheDir().getAbsoluteFile() + "/SubstratumBuilder/" +
                     getThemeName(theme_pid).replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "")
-                    + ((!References.checkOMS()) ? "/assets/overlays_legacy/android/" :
-                    "/assets/overlays/android/"));
+                    + "/assets/overlays/android/");
+
+            if (References.checkOMS()) {
+                File check_file = new File(mContext.getCacheDir().getAbsoluteFile() +
+                        "/SubstratumBuilder/" + getThemeName(theme_pid).replaceAll("\\s+", "")
+                        .replaceAll("[^a-zA-Z0-9]+", "") + "/assets/overlays_legacy/android/");
+                if (!check_file.exists()) {
+                    f = check_file;
+                }
+            }
             File[] fileArray = f.listFiles();
             ArrayList<String> stringArray = new ArrayList<>();
             if (fileArray != null && fileArray.length > 0) {
@@ -627,9 +634,18 @@ public class OverlaysList extends Fragment {
                 overlaysDirectory = new File(mContext.getCacheDir().getAbsoluteFile() +
                         "/SubstratumBuilder/" +
                         getThemeName(theme_pid).replaceAll("\\s+", "").replaceAll
-                                ("[^a-zA-Z0-9]+", "")
-                        + ((!References.checkOMS()) ? "/assets/overlays_legacy/" :
-                        "/assets/overlays/"));
+                                ("[^a-zA-Z0-9]+", "") + "/assets/overlays/");
+
+                if (!References.checkOMS()) {
+                    File check_file = new File(mContext.getCacheDir().getAbsoluteFile() +
+                            "/SubstratumBuilder/" +
+                            getThemeName(theme_pid).replaceAll("\\s+", "").replaceAll
+                                    ("[^a-zA-Z0-9]+", "") + "/assets/overlays_legacy/");
+                    if (check_file.exists()) {
+                        overlaysDirectory = check_file;
+                    }
+                }
+
                 File[] fileArray = overlaysDirectory.listFiles();
                 if (fileArray != null && fileArray.length > 0) {
                     for (int i = 0; i < fileArray.length; i++) {
@@ -716,9 +732,19 @@ public class OverlaysList extends Fragment {
                                 "/SubstratumBuilder/" +
                                 getThemeName(theme_pid).replaceAll("\\s+", "").replaceAll
                                         ("[^a-zA-Z0-9]+", "")
-                                + ((!References.checkOMS()) ? "/assets/overlays_legacy/" :
-                                "/assets/overlays/") +
-                                package_name);
+                                + "/assets/overlays/" + package_name);
+
+                        if (!References.checkOMS()) {
+                            File check_file = new File(mContext.getCacheDir().getAbsoluteFile() +
+                                    "/SubstratumBuilder/" +
+                                    getThemeName(theme_pid).replaceAll("\\s+", "").replaceAll
+                                            ("[^a-zA-Z0-9]+", "")
+                                    + "/assets/overlays_legacy/" + package_name);
+                            if (!check_file.exists()) {
+                                typeArrayRaw = check_file;
+                            }
+                        }
+
                         File[] fileArray = typeArrayRaw.listFiles();
                         if (fileArray != null && fileArray.length > 0) {
                             for (int i = 0; i < fileArray.length; i++) {
@@ -1431,12 +1457,22 @@ public class OverlaysList extends Fragment {
                             }
                         }
 
-                        String workingDirectory = getContext().getCacheDir().toString() +
+                        String workingDirectory = getContext().getCacheDir().getAbsolutePath() +
                                 "/SubstratumBuilder/" + getThemeName(theme_pid)
                                 .replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "") +
-                                ((!References.checkOMS()) ? "/assets/overlays_legacy/" :
-                                        "/assets/overlays/") +
-                                current_overlay;
+                                "/assets/overlays/" + current_overlay;
+
+                        if (!References.checkOMS()) {
+                            File check_legacy = new File(getContext().getCacheDir()
+                                    .getAbsolutePath() + "/SubstratumBuilder/" +
+                                    getThemeName(theme_pid).replaceAll("\\s+", "")
+                                            .replaceAll("[^a-zA-Z0-9]+", "") +
+                                    "/assets/overlays_legacy/" +
+                                    current_overlay);
+                            if (check_legacy.exists()) {
+                                workingDirectory = check_legacy.getAbsolutePath();
+                            }
+                        }
 
                         File srcDir = new File(workingDirectory +
                                 ((sUrl[0].length() != 0) ? "/type3_" + sUrl[0] : "/res"));
@@ -1629,9 +1665,9 @@ public class OverlaysList extends Fragment {
                         if (References.isPackageInstalled(getContext(), package_name))
                             final_runner.add(package_name);
                     } else if (disable_mode) {
-                            String package_name = checkedOverlays.get(i).getFullOverlayParameters();
-                            if (References.isPackageInstalled(getContext(), package_name))
-                                final_runner.add(package_name);
+                        String package_name = checkedOverlays.get(i).getFullOverlayParameters();
+                        if (References.isPackageInstalled(getContext(), package_name))
+                            final_runner.add(package_name);
                     }
                 }
             }

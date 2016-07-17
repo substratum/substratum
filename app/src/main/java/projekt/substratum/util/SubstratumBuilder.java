@@ -97,7 +97,17 @@ public class SubstratumBuilder {
 
         work_area = mContext.getCacheDir().getAbsolutePath() + "/SubstratumBuilder/" +
                 getThemeName(theme_pid).replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "") +
-                ((!theme_oms) ? "/assets/overlays_legacy/" : "/assets/overlays/") + overlay_package;
+                "/assets/overlays/" + overlay_package;
+
+        if (!theme_oms) {
+            File check_legacy = new File(mContext.getCacheDir().getAbsolutePath() +
+                    "/SubstratumBuilder/" + getThemeName(theme_pid).replaceAll("\\s+", "")
+                    .replaceAll("[^a-zA-Z0-9]+", "") + "/assets/overlays_legacy/" +
+                    overlay_package);
+            if (check_legacy.exists()) {
+                work_area = check_legacy.getAbsolutePath();
+            }
+        }
 
         // 2. Create a modified Android Manifest for use with aapt
 

@@ -70,7 +70,8 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
                     return new SoundPackager();
                 }
             case 2:
-                if (package_checker.contains("bootanimation")) {
+                if (package_checker.contains("bootanimation")
+                        && package_checker.contains("overlays")) {
                     return new BootAnimation();
                 }
                 if (package_checker.contains("fonts")) {
@@ -80,14 +81,16 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
                     return new SoundPackager();
                 }
             case 3:
-                if (package_checker.contains("fonts")) {
+                if (package_checker.contains("fonts")
+                        && package_checker.contains("bootanimation")) {
                     return new FontInstaller();
                 }
                 if (package_checker.contains("audio")) {
                     return new SoundPackager();
                 }
             case 4:
-                if (package_checker.contains("audio")) {
+                if (package_checker.contains("audio")
+                        && package_checker.contains("fonts")) {
                     return new SoundPackager();
                 }
             default:

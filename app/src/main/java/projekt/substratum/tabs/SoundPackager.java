@@ -251,7 +251,7 @@ public class SoundPackager extends Fragment {
                 } else {
                     Root.runCommand(
                             "rm -r " + getContext().getCacheDir().getAbsolutePath() +
-                                    "/SoundCache/sounds_preview/");
+                                    "/SoundsCache/sounds_preview/");
                     boolean created = cacheDirectory2.mkdirs();
                     if (created) Log.d("SoundsHandler", "Sounds folder recreated");
                 }

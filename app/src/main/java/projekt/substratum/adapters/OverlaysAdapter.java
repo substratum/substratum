@@ -1,11 +1,7 @@
 package projekt.substratum.adapters;
 
-import android.content.Context;
-import android.content.pm.PackageManager;
-import android.graphics.drawable.Drawable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +15,8 @@ import java.io.File;
 import java.util.List;
 
 import projekt.substratum.R;
-import projekt.substratum.model.OverlaysInfo;
 import projekt.substratum.config.References;
+import projekt.substratum.model.OverlaysInfo;
 
 /**
  * @author Nicholas Chum (nicholaschum)
@@ -252,7 +248,7 @@ public class OverlaysAdapter extends
             }
         });
 
-        if (current_object.variant_mode && current_object.isDeviceOMS()) {
+        if (current_object.variant_mode) {
             if (current_object.getSpinnerArray() != null) {
                 viewHolder.optionsSpinner.setVisibility(View.VISIBLE);
                 viewHolder.optionsSpinner.setAdapter(current_object.getSpinnerArray());
@@ -443,30 +439,7 @@ public class OverlaysAdapter extends
             } else {
                 viewHolder.optionsSpinner4.setVisibility(View.GONE);
             }
-            if (current_object.isOverlayEnabled()) {
-                viewHolder.overlayTargetPackageName.setTextColor(
-                        current_object.getInheritedContext().getColor
-                                (R.color.overlay_installed_list_entry));
-            } else {
-                if (current_object.isPackageInstalled(current_object
-                        .getFullOverlayParameters())) {
-                    viewHolder.overlayTargetPackageName.setTextColor(
-                            current_object.getInheritedContext()
-                                    .getColor(R.color
-                                            .overlay_not_enabled_list_entry));
-                } else {
-                    viewHolder.overlayTargetPackageName.setTextColor(
-                            current_object.getInheritedContext()
-                                    .getColor(R.color
-                                            .overlay_not_installed_list_entry));
-                }
-            }
-        } else {
             if (current_object.isDeviceOMS()) {
-                viewHolder.optionsSpinner.setVisibility(View.GONE);
-                viewHolder.optionsSpinner2.setVisibility(View.GONE);
-                viewHolder.optionsSpinner3.setVisibility(View.GONE);
-                viewHolder.optionsSpinner4.setVisibility(View.GONE);
                 if (current_object.isOverlayEnabled()) {
                     viewHolder.overlayTargetPackageName.setTextColor(
                             current_object.getInheritedContext().getColor
@@ -486,13 +459,7 @@ public class OverlaysAdapter extends
                     }
                 }
             } else {
-                viewHolder.optionsSpinner.setVisibility(View.GONE);
-                viewHolder.optionsSpinner2.setVisibility(View.GONE);
-                viewHolder.optionsSpinner3.setVisibility(View.GONE);
-                viewHolder.optionsSpinner4.setVisibility(View.GONE);
-
                 // At this point, the object is an RRO formatted check
-
                 String current_directory;
                 if (References.inNexusFilter()) {
                     current_directory = "/system/overlay/";
@@ -512,6 +479,31 @@ public class OverlaysAdapter extends
                         viewHolder.overlayTargetPackageName.setTextColor(
                                 current_object.getInheritedContext().getColor(
                                         R.color.overlay_not_installed_list_entry));
+                    }
+                }
+            }
+        } else {
+            viewHolder.optionsSpinner.setVisibility(View.GONE);
+            viewHolder.optionsSpinner2.setVisibility(View.GONE);
+            viewHolder.optionsSpinner3.setVisibility(View.GONE);
+            viewHolder.optionsSpinner4.setVisibility(View.GONE);
+            if (current_object.isDeviceOMS()) {
+                if (current_object.isOverlayEnabled()) {
+                    viewHolder.overlayTargetPackageName.setTextColor(
+                            current_object.getInheritedContext().getColor
+                                    (R.color.overlay_installed_list_entry));
+                } else {
+                    if (current_object.isPackageInstalled(current_object
+                            .getFullOverlayParameters())) {
+                        viewHolder.overlayTargetPackageName.setTextColor(
+                                current_object.getInheritedContext()
+                                        .getColor(R.color
+                                                .overlay_not_enabled_list_entry));
+                    } else {
+                        viewHolder.overlayTargetPackageName.setTextColor(
+                                current_object.getInheritedContext()
+                                        .getColor(R.color
+                                                .overlay_not_installed_list_entry));
                     }
                 }
             }

@@ -22,10 +22,7 @@ public class LaunchActivity extends AppCompatActivity {
                 getApplicationContext());
 
         if (prefs.getBoolean("first_run", true)) {
-            prefs.edit().putBoolean("show_app_icon", true).apply();
-            prefs.edit().putBoolean("systemui_recreate", true).apply();
-            prefs.edit().putBoolean("is_updating", false).apply();
-            prefs.edit().putBoolean("substratum_oms", References.checkOMS()).apply();
+            References.loadDefaultConfig(getApplicationContext());
             Intent intent = new Intent(this, SplashScreenActivityFirstLaunch.class);
             startActivity(intent);
             this.finish();

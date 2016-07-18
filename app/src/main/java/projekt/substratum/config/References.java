@@ -1,10 +1,12 @@
 package projekt.substratum.config;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import java.io.File;
@@ -22,6 +24,16 @@ public class References {
     public static Boolean checkOMS() {
         File om = new File("/system/bin/om");
         return om.exists();
+    }
+
+    // Load SharedPreference defaults
+
+    public static void loadDefaultConfig(Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        prefs.edit().putBoolean("show_app_icon", true).apply();
+        prefs.edit().putBoolean("systemui_recreate", false).apply();
+        prefs.edit().putBoolean("is_updating", false).apply();
+        prefs.edit().putBoolean("substratum_oms", References.checkOMS()).apply();
     }
 
     // This method configures the new devices and their configuration of their vendor folders

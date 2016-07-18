@@ -5,6 +5,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="navigationBarColor">@android:color/black</color>
 
+    <color name="priorities_drag_handle">@color/main_screen_card_theme_title</color>
     <color name="priorities_switchbar">@color/colorPrimary</color>
 
     <color name="quick_apply_icon_tint">@color/main_screen_card_theme_title</color>

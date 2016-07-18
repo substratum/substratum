@@ -123,7 +123,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                         LauncherActivity
                                                 .class);
                                 p.setComponentEnabledSetting(componentName, PackageManager
-                                        .COMPONENT_ENABLED_STATE_DISABLED, PackageManager
+                                        .COMPONENT_ENABLED_STATE_ENABLED, PackageManager
                                         .DONT_KILL_APP);
                                 Toast toast = Toast.makeText(getContext(), getString(R.string
                                                 .hide_app_icon_toast_disabled),
@@ -137,7 +137,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                         LauncherActivity
                                                 .class);
                                 p.setComponentEnabledSetting(componentName, PackageManager
-                                        .COMPONENT_ENABLED_STATE_ENABLED, PackageManager
+                                        .COMPONENT_ENABLED_STATE_DISABLED, PackageManager
                                         .DONT_KILL_APP);
 
                                 Toast toast = Toast.makeText(getContext(), getString(R.string

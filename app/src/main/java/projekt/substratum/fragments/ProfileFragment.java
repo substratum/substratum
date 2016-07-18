@@ -492,7 +492,7 @@ public class ProfileFragment extends Fragment {
                                 android.R.string.ok, new DialogInterface
                                         .OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
-                                        Root.runCommand("killall zygote");
+                                        Root.runCommand("reboot");
                                     }
                                 });
                 alertDialogBuilder.setCancelable(false);

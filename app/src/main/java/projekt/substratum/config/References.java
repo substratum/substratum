@@ -49,6 +49,15 @@ public class References {
         return Arrays.asList(allowed_themable).contains(targetValue);
     }
 
+    // This string array contains all the legacy allowed folders
+    public static Boolean allowedForLegacy(String targetValue) {
+        String[] allowed_themable = {
+                "overlays",
+                "overlays_legacy",
+                "sounds"};
+        return Arrays.asList(allowed_themable).contains(targetValue);
+    }
+
     // This int controls the notification identifier
 
     public static int notification_id = 2486;

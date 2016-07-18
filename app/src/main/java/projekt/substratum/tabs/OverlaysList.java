@@ -346,7 +346,7 @@ public class OverlaysList extends Fragment {
                                     .setPositiveButton(android.R.string.ok, new DialogInterface
                                             .OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
-                                            Root.runCommand("killall zygote");
+                                            Root.runCommand("reboot");
                                         }
                                     });
                             alertDialogBuilder
@@ -1346,7 +1346,7 @@ public class OverlaysList extends Fragment {
                 }
             }
             if (!References.checkOMS()) {
-                AlertDialog.Builder alertDialogBuilder =
+                final AlertDialog.Builder alertDialogBuilder =
                         new AlertDialog.Builder(getContext());
                 alertDialogBuilder
                         .setTitle(getString(R.string.legacy_dialog_soft_reboot_title));
@@ -1356,7 +1356,14 @@ public class OverlaysList extends Fragment {
                         .setPositiveButton(android.R.string.ok, new DialogInterface
                                 .OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                Root.runCommand("killall zygote");
+                                Root.runCommand("reboot");
+                            }
+                        });
+                alertDialogBuilder
+                        .setNegativeButton(R.string.remove_dialog_later, new DialogInterface
+                                .OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.dismiss();
                             }
                         });
                 alertDialogBuilder.setCancelable(false);

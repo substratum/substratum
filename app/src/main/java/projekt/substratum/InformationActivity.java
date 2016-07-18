@@ -185,7 +185,19 @@ public class InformationActivity extends AppCompatActivity {
                     Context otherContext = getApplicationContext().createPackageContext
                             (theme_pid, 0);
                     AssetManager am = otherContext.getAssets();
-                    tab_checker = Arrays.asList(am.list(""));
+                    List found_folders = Arrays.asList(am.list(""));
+                    tab_checker = new ArrayList<>();
+
+                    if (!References.checkOMS()) {
+                        for (int i = 0; i < found_folders.size(); i++) {
+                            if (References.allowedForLegacy(found_folders.get(i).toString())) {
+                                tab_checker.add(found_folders.get(i).toString());
+                            }
+                        }
+                    } else {
+                        tab_checker = Arrays.asList(am.list(""));
+                    }
+
                     if (tab_checker.contains("bootanimation")) {
                         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
                                 .theme_information_tab_three)));

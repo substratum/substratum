@@ -41,9 +41,6 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                if (allow_quick_apply) {
-                    return new MainScreenTab();
-                }
                 if (theme_mode.equals("overlays")) {
                     return new OverlaysList();
                 }
@@ -56,8 +53,13 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
                 if (theme_mode.equals("sounds")) {
                     return new SoundPackager();
                 }
+                if (allow_quick_apply) {
+                    return new MainScreenTab();
+                } else {
+                    return new OverlaysList();
+                }
             case 1:
-                if (package_checker.contains("overlays")) {
+                if (package_checker.contains("overlays") && allow_quick_apply) {
                     return new OverlaysList();
                 }
                 if (package_checker.contains("bootanimation")) {
@@ -71,7 +73,7 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
                 }
             case 2:
                 if (package_checker.contains("bootanimation")
-                        && package_checker.contains("overlays")) {
+                        && package_checker.contains("overlays") && allow_quick_apply) {
                     return new BootAnimation();
                 }
                 if (package_checker.contains("fonts")) {
@@ -82,7 +84,7 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
                 }
             case 3:
                 if (package_checker.contains("fonts")
-                        && package_checker.contains("bootanimation")) {
+                        && package_checker.contains("bootanimation") && allow_quick_apply) {
                     return new FontInstaller();
                 }
                 if (package_checker.contains("audio")) {
@@ -90,7 +92,7 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
                 }
             case 4:
                 if (package_checker.contains("audio")
-                        && package_checker.contains("fonts")) {
+                        && package_checker.contains("fonts") && allow_quick_apply) {
                     return new SoundPackager();
                 }
             default:

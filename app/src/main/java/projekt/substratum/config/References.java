@@ -47,7 +47,8 @@ public class References {
     public static Boolean allowedSystemUIOverlay(String current) {
         String[] allowed_overlays = {
                 "com.android.systemui.headers",
-                "com.android.systemui.navbars"
+                "com.android.systemui.navbars",
+                "com.android.systemui.statusbars"
         };
         return Arrays.asList(allowed_overlays).contains(current);
     }

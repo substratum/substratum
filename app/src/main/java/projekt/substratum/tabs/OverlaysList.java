@@ -712,6 +712,9 @@ public class OverlaysList extends Fragment {
                             case "com.android.systemui.navbars":
                                 parsed_name = getString(R.string.systemui_navigation);
                                 break;
+                            case "com.android.systemui.statusbars":
+                                parsed_name = getString(R.string.systemui_statusbar);
+                                break;
                         }
                     } else {
                         ApplicationInfo applicationInfo = getContext().getPackageManager()

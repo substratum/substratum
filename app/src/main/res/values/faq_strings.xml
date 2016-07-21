@@ -20,7 +20,7 @@
     <string name="answer_six">Delete your /system/bin/aapt file, relaunch the application, and try the above process again.</string>
 
     <string name="question_seven">My theme did not apply, what happened?</string>
-    <string name="answer_seven">If you are applying a theme for the first time or from the stock theme, make sure you do not have the Disable </string>
+    <string name="answer_seven">If you are applying a theme for the first time or from the stock theme, make sure you do not have the Disable other themes option checked.</string>
 
     <string name="question_eight">I\'m bootlooping! How do I fix it?</string>
     <string name="answer_eight">Delete the file /data/system/overlays.xml in TWRP\'s file manager or adb shell and reboot. Additionally, if you have security set up on your phone, you will need to delete the /data/resource-cache folder.</string>
@@ -33,7 +33,10 @@
     <string name="question_ten">Where are overlays installed?</string>
     <string name="answer_ten">Overlays are installed in the /data/app folder, which means each overlay getting its own folder.</string>
 
-    <string name="question_eleven">Who do I contact if I have a serious issue not resolved by reading these steps?</string>
-    <string name="answer_eleven">Please make a post in <url href="https://plus.google.com/communities/102261717366580091389">the BitSyko Google+ community</url>. Please provide the following information: Substratum version, ROM, theme (if issues applying one), and, if possible, a logcat.</string>
+    <string name="question_eleven">I\'m getting an error when trying to update a theme on the Play Store.</string>
+    <string name="answer_eleven">Uninstall the theme and reinstall it.</string>
+
+    <string name="question_twelve">Who do I contact if I have a serious issue not resolved by reading these steps?</string>
+    <string name="answer_twelve">Please make a post in the BitSyko Google+ community. Please provide the following information: Substratum version, ROM, theme (if issues applying one), and, if possible, a logcat.</string>
 
 </resources>

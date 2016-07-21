@@ -44,5 +44,8 @@
         <include
             layout="@layout/question_11_card"/>
 
+        <include
+            layout="@layout/question_12_card"/>
+
     </LinearLayout>
 </ScrollView>

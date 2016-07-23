@@ -1099,7 +1099,19 @@ public class OverlaysList extends Fragment {
                 }
             }
             for (int i = 0; i < final_runner.size(); i++) {
-                final_commands = final_commands + " " + final_runner.get(i);
+                // With the OM command to multi enable/disable, we don't need to use && anymore
+                if (enable_mode || disable_mode) {
+                    final_commands = final_commands + " " + final_runner.get(i);
+                } else {
+                    // The case where we need to use && to perform multiple commands, for example
+                    // when upgrading packages.
+                    if (final_commands.length() == 0) {
+                        final_commands = final_runner.get(i);
+                    } else {
+                        final_commands = final_commands + " && " + final_runner.get(i);
+                    }
+                }
+
             }
 
             if (!enable_mode && !disable_mode) {

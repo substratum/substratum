@@ -447,8 +447,8 @@ public class OverlaysList extends Fragment {
                 File check_file = new File(mContext.getCacheDir().getAbsoluteFile() +
                         "/SubstratumBuilder/" + getThemeName(theme_pid).replaceAll("\\s+", "")
                         .replaceAll("[^a-zA-Z0-9]+", "") + "/assets/overlays_legacy/android/");
-                if (!check_file.exists()) {
-                    f = check_file;
+                if (check_file.exists() && check_file.isDirectory()) {
+                    f = new File(check_file.getAbsolutePath());
                 }
             }
             File[] fileArray = f.listFiles();
@@ -641,8 +641,8 @@ public class OverlaysList extends Fragment {
                             "/SubstratumBuilder/" +
                             getThemeName(theme_pid).replaceAll("\\s+", "").replaceAll
                                     ("[^a-zA-Z0-9]+", "") + "/assets/overlays_legacy/");
-                    if (check_file.exists()) {
-                        overlaysDirectory = check_file;
+                    if (check_file.exists() && check_file.isDirectory()) {
+                        overlaysDirectory = new File(check_file.getAbsolutePath());
                     }
                 }
 
@@ -742,9 +742,9 @@ public class OverlaysList extends Fragment {
                                     "/SubstratumBuilder/" +
                                     getThemeName(theme_pid).replaceAll("\\s+", "").replaceAll
                                             ("[^a-zA-Z0-9]+", "")
-                                    + "/assets/overlays_legacy/" + package_name);
-                            if (!check_file.exists()) {
-                                typeArrayRaw = check_file;
+                                    + "/assets/overlays_legacy/" + package_name + "/");
+                            if (check_file.exists() && check_file.isDirectory()) {
+                                typeArrayRaw = new File(check_file.getAbsolutePath());
                             }
                         }
 

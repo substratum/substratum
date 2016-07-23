@@ -673,13 +673,30 @@ public class OverlaysList extends Fragment {
 
             // Then let's convert all the package names to their app names
             for (int i = 0; i < values.size(); i++) {
+                Log.e("values", values.get(i));
                 try {
-                    ApplicationInfo applicationInfo = getContext().getPackageManager()
-                            .getApplicationInfo
-                                    (values.get(i), 0);
-                    String packageTitle = getContext().getPackageManager().getApplicationLabel
-                            (applicationInfo).toString();
-                    unsortedMap.put(values.get(i), packageTitle);
+                    if (References.allowedSystemUIOverlay(values.get(i))) {
+                        String package_name = "";
+                        switch (values.get(i)) {
+                            case "com.android.systemui.headers":
+                                package_name = getString(R.string.systemui_headers);
+                                break;
+                            case "com.android.systemui.navbars":
+                                package_name = getString(R.string.systemui_navigation);
+                                break;
+                            case "com.android.systemui.statusbars":
+                                package_name = getString(R.string.systemui_statusbar);
+                                break;
+                        }
+                        unsortedMap.put(values.get(i), package_name);
+                    } else {
+                        ApplicationInfo applicationInfo = getContext().getPackageManager()
+                                .getApplicationInfo
+                                        (values.get(i), 0);
+                        String packageTitle = getContext().getPackageManager().getApplicationLabel
+                                (applicationInfo).toString();
+                        unsortedMap.put(values.get(i), packageTitle);
+                    }
                 } catch (Exception e) {
                     // Exception
                 }
@@ -695,20 +712,6 @@ public class OverlaysList extends Fragment {
                 String package_identifier = entry.getKey();
 
                 try {
-                    if (References.allowedSystemUIOverlay(package_identifier)) {
-                        switch (package_identifier) {
-                            case "com.android.systemui.headers":
-                                package_name = getString(R.string.systemui_headers);
-                                break;
-                            case "com.android.systemui.navbars":
-                                package_name = getString(R.string.systemui_navigation);
-                                break;
-                            case "com.android.systemui.statusbars":
-                                package_name = getString(R.string.systemui_statusbar);
-                                break;
-                        }
-                    }
-
                     try {
                         ArrayList<String> type1a = new ArrayList<>();
                         ArrayList<String> type1b = new ArrayList<>();

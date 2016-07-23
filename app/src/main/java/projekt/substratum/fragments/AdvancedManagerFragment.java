@@ -3,8 +3,6 @@ package projekt.substratum.fragments;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
@@ -30,9 +28,9 @@ import java.util.List;
 
 import projekt.substratum.R;
 import projekt.substratum.adapters.OverlayManagerAdapter;
+import projekt.substratum.config.References;
 import projekt.substratum.model.OverlayManager;
 import projekt.substratum.util.FloatingActionMenu;
-import projekt.substratum.config.References;
 import projekt.substratum.util.ReadOverlaysFile;
 import projekt.substratum.util.Root;
 

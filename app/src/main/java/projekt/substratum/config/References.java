@@ -2,7 +2,6 @@ package projekt.substratum.config;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -11,7 +10,6 @@ import android.util.Log;
 
 import java.io.File;
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * @author Nicholas Chum (nicholaschum)
@@ -21,12 +19,18 @@ public class References {
 
     // This method is used to determine whether there the system is initiated with OMS
 
+    public static int notification_id = 2486;
+
+    // Load SharedPreference defaults
+    public static Boolean DEBUG = false;
+
+    // This method configures the new devices and their configuration of their vendor folders
+    public static int DEFAULT_PRIORITY = 50;
+
     public static Boolean checkOMS() {
         File om = new File("/system/bin/om");
         return om.exists();
     }
-
-    // Load SharedPreference defaults
 
     public static void loadDefaultConfig(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
@@ -36,12 +40,12 @@ public class References {
         prefs.edit().putBoolean("substratum_oms", References.checkOMS()).apply();
     }
 
-    // This method configures the new devices and their configuration of their vendor folders
-
     public static Boolean inNexusFilter() {
         String[] nexus_filter = {"angler", "bullhead", "flounder", "marlin", "sailfish"};
         return Arrays.asList(nexus_filter).contains(Build.DEVICE);
     }
+
+    // This int controls the notification identifier
 
     // This string array contains all the SystemUI acceptable overlay packs
     public static Boolean allowedSystemUIOverlay(String current) {
@@ -53,6 +57,8 @@ public class References {
         return Arrays.asList(allowed_overlays).contains(current);
     }
 
+    // This boolean controls the DEBUG level of the application
+
     // This string array contains all the SystemUI acceptable sound files
     public static Boolean allowedUISound(String targetValue) {
         String[] allowed_themable = {
@@ -62,6 +68,8 @@ public class References {
         return Arrays.asList(allowed_themable).contains(targetValue);
     }
 
+    // This int controls the default priority level for legacy overlays
+
     // This string array contains all the legacy allowed folders
     public static Boolean allowedForLegacy(String targetValue) {
         String[] allowed_themable = {
@@ -70,18 +78,6 @@ public class References {
                 "sounds"};
         return Arrays.asList(allowed_themable).contains(targetValue);
     }
-
-    // This int controls the notification identifier
-
-    public static int notification_id = 2486;
-
-    // This boolean controls the DEBUG level of the application
-
-    public static Boolean DEBUG = false;
-
-    // This int controls the default priority level for legacy overlays
-
-    public static int DEFAULT_PRIORITY = 50;
 
     // This method determines whether a specified package is installed
 

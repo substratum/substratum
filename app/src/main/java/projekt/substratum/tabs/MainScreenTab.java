@@ -36,10 +36,10 @@ import java.util.List;
 
 import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
+import projekt.substratum.config.References;
 import projekt.substratum.util.BootAnimationHandler;
 import projekt.substratum.util.CacheCreator;
 import projekt.substratum.util.FontHandler;
-import projekt.substratum.config.References;
 import projekt.substratum.util.ReadOverlaysFile;
 import projekt.substratum.util.Root;
 import projekt.substratum.util.SoundsHandler;
@@ -699,10 +699,26 @@ public class MainScreenTab extends Fragment {
 
                 // Initialize working notification
                 try {
-                    ApplicationInfo applicationInfo = getContext().getPackageManager()
-                            .getApplicationInfo(current_overlay, 0);
-                    String packageTitle = getContext().getPackageManager().getApplicationLabel
-                            (applicationInfo).toString();
+                    String packageTitle = "";
+                    if (References.allowedSystemUIOverlay(current_overlay)) {
+                        switch (current_overlay) {
+                            case "com.android.systemui.headers":
+                                packageTitle = getString(R.string.systemui_headers);
+                                break;
+                            case "com.android.systemui.navbars":
+                                packageTitle = getString(R.string.systemui_navigation);
+                                break;
+                            case "com.android.systemui.statusbars":
+                                packageTitle = getString(R.string.systemui_statusbar);
+                                break;
+                        }
+                    } else {
+                        ApplicationInfo applicationInfo = getContext().getPackageManager()
+                                .getApplicationInfo
+                                        (current_overlay, 0);
+                        packageTitle = getContext().getPackageManager().getApplicationLabel
+                                (applicationInfo).toString();
+                    }
 
                     mBuilder.setProgress(100, (int) (((double) (i + 1) / filteredDirectory.size
                             ()) * 100), false);
@@ -718,6 +734,7 @@ public class MainScreenTab extends Fragment {
                             ((base.length() == 0) ? "" : "." + base);
 
                     if (References.isPackageInstalled(getContext(), package_name)) {
+                        Log.e("packageName", package_name);
                         if (!isPackageUpToDate(package_name)) {
                             String workingDirectory = getContext().getCacheDir().toString() +
                                     "/SubstratumBuilder/" + getThemeName(theme_pid)
@@ -766,6 +783,7 @@ public class MainScreenTab extends Fragment {
                         has_failed = true;
                     }
                 } catch (Exception e) {
+                    e.printStackTrace();
                     Log.e("SubstratumLogger", "There was an error trying to run " +
                             "SubstratumBuilder.");
                 }

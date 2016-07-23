@@ -673,7 +673,6 @@ public class OverlaysList extends Fragment {
 
             // Then let's convert all the package names to their app names
             for (int i = 0; i < values.size(); i++) {
-                Log.e("values", values.get(i));
                 try {
                     if (References.allowedSystemUIOverlay(values.get(i))) {
                         String package_name = "";

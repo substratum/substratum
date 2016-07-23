@@ -35,10 +35,10 @@ import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
 import projekt.substratum.adapters.DataAdapter;
+import projekt.substratum.config.References;
 import projekt.substratum.model.ThemeInfo;
 import projekt.substratum.util.AAPTCheck;
 import projekt.substratum.util.CacheCreator;
-import projekt.substratum.config.References;
 
 /**
  * @author Nicholas Chum (nicholaschum)

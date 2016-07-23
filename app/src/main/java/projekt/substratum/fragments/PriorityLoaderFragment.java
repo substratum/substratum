@@ -1,7 +1,5 @@
 package projekt.substratum.fragments;
 
-import android.content.pm.PackageManager;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

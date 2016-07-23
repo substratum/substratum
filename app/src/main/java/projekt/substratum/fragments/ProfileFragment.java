@@ -80,7 +80,7 @@ public class ProfileFragment extends Fragment {
         }
         adapter.notifyDataSetChanged();
     }
-    
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {

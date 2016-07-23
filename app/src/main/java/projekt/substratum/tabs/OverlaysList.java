@@ -49,7 +49,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.InformationActivity;
@@ -622,8 +628,6 @@ public class OverlaysList extends Fragment {
                 }
             }
 
-            ArrayList<String> unsortedList = new ArrayList<>();
-            ArrayList<String> unsortedListWithNames = new ArrayList<>();
             ArrayList<String> values = new ArrayList<>();
             values2 = new ArrayList<>();
 
@@ -664,6 +668,9 @@ public class OverlaysList extends Fragment {
                 Log.e("SubstratumLogger", "Could not refresh list of overlay folders.");
             }
 
+            // Create the map for {package name: package identifier}
+            HashMap<String, String> unsortedMap = new HashMap<>();
+
             // Then let's convert all the package names to their app names
             for (int i = 0; i < values.size(); i++) {
                 try {
@@ -672,56 +679,34 @@ public class OverlaysList extends Fragment {
                                     (values.get(i), 0);
                     String packageTitle = getContext().getPackageManager().getApplicationLabel
                             (applicationInfo).toString();
-
-                    // Organized list of packages
-                    unsortedList.add(values.get(i));  // Add this to be parsed later
-                    unsortedListWithNames.add(packageTitle);  // Add this to be parsed later
-
-                    values.set(i, packageTitle);
+                    unsortedMap.put(values.get(i), packageTitle);
                 } catch (Exception e) {
                     // Exception
                 }
             }
 
             // Sort the values list
-            Collections.sort(values);
-
-            // Change the names of each of the values back into package identifiers
-            for (int i = 0; i < values.size(); i++) {
-                int counter = -1;
-                for (int j = 0; j < unsortedList.size(); j++) {
-                    if (unsortedListWithNames.get(j).equals(values.get(i))) {
-                        counter = j;
-                    }
-                }
-                if (counter > -1) {
-                    values.set(i, unsortedList.get(counter));
-                }
-            }
+            Map<String, String> sortedMap = sortByValues(unsortedMap);
 
             // Now let's add the new information so that the adapter can recognize custom method
             // calls
-            for (String package_name : values) {
+            for (Map.Entry<String, String> entry : sortedMap.entrySet()) {
+                String package_name = entry.getValue();
+                String package_identifier = entry.getKey();
+
                 try {
-                    String parsed_name = "";
-                    if (References.allowedSystemUIOverlay(package_name)) {
-                        switch (package_name) {
+                    if (References.allowedSystemUIOverlay(package_identifier)) {
+                        switch (package_identifier) {
                             case "com.android.systemui.headers":
-                                parsed_name = getString(R.string.systemui_headers);
+                                package_name = getString(R.string.systemui_headers);
                                 break;
                             case "com.android.systemui.navbars":
-                                parsed_name = getString(R.string.systemui_navigation);
+                                package_name = getString(R.string.systemui_navigation);
                                 break;
                             case "com.android.systemui.statusbars":
-                                parsed_name = getString(R.string.systemui_statusbar);
+                                package_name = getString(R.string.systemui_statusbar);
                                 break;
                         }
-                    } else {
-                        ApplicationInfo applicationInfo = getContext().getPackageManager()
-                                .getApplicationInfo
-                                        (package_name, 0);
-                        parsed_name = getContext().getPackageManager().getApplicationLabel
-                                (applicationInfo).toString();
                     }
 
                     try {
@@ -735,14 +720,14 @@ public class OverlaysList extends Fragment {
                                 "/SubstratumBuilder/" +
                                 getThemeName(theme_pid).replaceAll("\\s+", "").replaceAll
                                         ("[^a-zA-Z0-9]+", "")
-                                + "/assets/overlays/" + package_name);
+                                + "/assets/overlays/" + package_identifier);
 
                         if (!References.checkOMS()) {
                             File check_file = new File(mContext.getCacheDir().getAbsoluteFile() +
                                     "/SubstratumBuilder/" +
                                     getThemeName(theme_pid).replaceAll("\\s+", "").replaceAll
                                             ("[^a-zA-Z0-9]+", "")
-                                    + "/assets/overlays_legacy/" + package_name + "/");
+                                    + "/assets/overlays_legacy/" + package_identifier + "/");
                             if (check_file.exists() && check_file.isDirectory()) {
                                 typeArrayRaw = new File(check_file.getAbsolutePath());
                             }
@@ -915,8 +900,8 @@ public class OverlaysList extends Fragment {
                             boolean adapterFourChecker = type2.size() == 1;
 
                             OverlaysInfo overlaysInfo = new OverlaysInfo(parse2_themeName,
-                                    parsed_name,
                                     package_name,
+                                    package_identifier,
                                     false,
                                     (adapterOneChecker ? null : adapter1),
                                     (adapterTwoChecker ? null : adapter2),
@@ -931,8 +916,8 @@ public class OverlaysList extends Fragment {
                         } else {
                             // At this point, there is no spinner adapter, so it should be null
                             OverlaysInfo overlaysInfo = new OverlaysInfo(parse2_themeName,
-                                    parsed_name,
                                     package_name,
+                                    package_identifier,
                                     false,
                                     null,
                                     null,
@@ -953,6 +938,22 @@ public class OverlaysList extends Fragment {
                 }
             }
             return null;
+        }
+
+        private HashMap sortByValues(HashMap map) {
+            List list = new LinkedList(map.entrySet());
+            Collections.sort(list, new Comparator() {
+                public int compare(Object o1, Object o2) {
+                    return ((Comparable) ((Map.Entry) (o1)).getValue())
+                            .compareTo(((Map.Entry) (o2)).getValue());
+                }
+            });
+            HashMap sortedHashMap = new LinkedHashMap();
+            for (Iterator it = list.iterator(); it.hasNext(); ) {
+                Map.Entry entry = (Map.Entry) it.next();
+                sortedHashMap.put(entry.getKey(), entry.getValue());
+            }
+            return sortedHashMap;
         }
     }
 
@@ -1098,6 +1099,7 @@ public class OverlaysList extends Fragment {
                     final_commands = "om disable";
                 }
             }
+
             for (int i = 0; i < final_runner.size(); i++) {
                 // With the OM command to multi enable/disable, we don't need to use && anymore
                 if (enable_mode || disable_mode) {
@@ -1111,7 +1113,6 @@ public class OverlaysList extends Fragment {
                         final_commands = final_commands + " && " + final_runner.get(i);
                     }
                 }
-
             }
 
             if (!enable_mode && !disable_mode) {

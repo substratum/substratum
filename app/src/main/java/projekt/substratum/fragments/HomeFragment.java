@@ -144,7 +144,7 @@ public class HomeFragment extends Fragment {
                         if (References.isPackageInstalled(getContext(),
                                 map.get(map.keySet().toArray()[position].toString())[1])) {
                             File checkSubstratumVerity = new File(getContext().getCacheDir()
-                                    .getAbsoluteFile() + "/SubstratumBuilder/" +
+                                    .getAbsolutePath() + "/SubstratumBuilder/" +
                                     getThemeName(map.get(map.keySet().toArray()[position]
                                             .toString())[1]).replaceAll("\\s+", "")
                                             .replaceAll("[^a-zA-Z0-9]+", "") + "/substratum.xml");

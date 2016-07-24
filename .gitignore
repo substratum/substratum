@@ -10,3 +10,4 @@
 *.apk
 
 .idea/misc.xml
+app/google-services.json

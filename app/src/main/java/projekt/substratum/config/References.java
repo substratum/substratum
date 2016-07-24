@@ -19,6 +19,7 @@ public class References {
 
     // This method is used to determine whether there the system is initiated with OMS
 
+    public static int firebase_notification_id = 24862486;
     public static int notification_id = 2486;
 
     // Load SharedPreference defaults

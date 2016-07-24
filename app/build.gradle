@@ -20,8 +20,8 @@ android {
         applicationId "projekt.substratum"
         minSdkVersion 23
         targetSdkVersion 24
-        versionCode 138
-        versionName "one hundred thirty eight"
+        versionCode 141
+        versionName "one hundred fourty one"
     }
 }
 
@@ -35,6 +35,7 @@ dependencies {
     compile 'com.android.support:design:24.0.0'
     compile 'com.android.support:palette-v7:24.0.0'
     compile 'com.android.support:preference-v14:24.0.0'
+    compile 'com.google.firebase:firebase-messaging:9.2.1'
 
     compile 'com.jakewharton:butterknife:7.0.1'
 
@@ -87,3 +88,5 @@ dependencies {
     // Dialogs
     compile 'com.mikhaellopez:circularfillableloaders:1.2.0'
 }
+
+apply plugin: 'com.google.gms.google-services'

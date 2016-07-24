@@ -106,7 +106,6 @@ public class AdvancedManagerFragment extends Fragment {
             }
         } else {
             // At this point, the object is an RRO formatted check
-
             String current_directory;
             if (References.inNexusFilter()) {
                 current_directory = "/system/overlay/";
@@ -115,19 +114,19 @@ public class AdvancedManagerFragment extends Fragment {
             }
 
             File currentDir = new File(current_directory);
-            String[] listed = currentDir.list();
-            for (int i = 0; i < listed.length; i++) {
-                if (listed[i].substring(listed[i].length() - 4).equals(".apk")) {
-                    activated_overlays.add(listed[i].substring(0, listed[i].length() - 4));
+            if (currentDir.exists() && currentDir.isDirectory()) {
+                String[] listed = currentDir.list();
+                for (int i = 0; i < listed.length; i++) {
+                    if (listed[i].substring(listed[i].length() - 4).equals(".apk")) {
+                        activated_overlays.add(listed[i].substring(0, listed[i].length() - 4));
+                    }
                 }
-            }
-
-            Collections.sort(activated_overlays);
-
-            for (int i = 0; i < activated_overlays.size(); i++) {
-                OverlayManager st = new OverlayManager(getContext(), activated_overlays.get
-                        (i), true);
-                overlaysList.add(st);
+                Collections.sort(activated_overlays);
+                for (int i = 0; i < activated_overlays.size(); i++) {
+                    OverlayManager st = new OverlayManager(getContext(), activated_overlays.get
+                            (i), true);
+                    overlaysList.add(st);
+                }
             }
         }
 

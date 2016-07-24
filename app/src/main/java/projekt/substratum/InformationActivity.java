@@ -185,11 +185,6 @@ public class InformationActivity extends AppCompatActivity {
                     AssetManager am = otherContext.getAssets();
                     List found_folders = Arrays.asList(am.list(""));
                     tab_checker = new ArrayList<>();
-                    if (tab_checker.contains("overlays") ||
-                            tab_checker.contains("overlays_legacy")) {
-                        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
-                                .theme_information_tab_two)));
-                    }
                     if (!References.checkOMS()) {
                         for (int i = 0; i < found_folders.size(); i++) {
                             if (References.allowedForLegacy(found_folders.get(i).toString())) {
@@ -198,6 +193,11 @@ public class InformationActivity extends AppCompatActivity {
                         }
                     } else {
                         tab_checker = Arrays.asList(am.list(""));
+                    }
+                    if (tab_checker.contains("overlays") ||
+                            tab_checker.contains("overlays_legacy")) {
+                        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
+                                .theme_information_tab_two)));
                     }
                     if (tab_checker.contains("bootanimation")) {
                         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string

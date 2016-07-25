@@ -19,7 +19,7 @@ public class MasqueradeBall extends BroadcastReceiver {
             if (intent.getStringExtra("substratum-check").equals("masquerade-ball")) {
                 Toast toast = Toast.makeText(context, context.getString(R.string
                                 .masquerade_check_installed),
-                        Toast.LENGTH_SHORT);
+                        Toast.LENGTH_LONG);
                 toast.show();
             }
         }

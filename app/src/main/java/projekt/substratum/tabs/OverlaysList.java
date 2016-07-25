@@ -1175,7 +1175,7 @@ public class OverlaysList extends Fragment {
 
                 if (!prefs.getBoolean("systemui_recreate", false) && final_commands
                         .contains("systemui")) {
-                    final_commands = final_commands + "&& pkill com.android.systemui";
+                    final_commands = final_commands + " && pkill com.android.systemui";
                 }
 
                 if (final_runner.size() == 0) {
@@ -1229,7 +1229,7 @@ public class OverlaysList extends Fragment {
 
                         if (!prefs.getBoolean("systemui_recreate", false) &&
                                 final_commands.contains("systemui")) {
-                            final_commands = final_commands + "&& pkill com.android.systemui";
+                            final_commands = final_commands + " && pkill com.android.systemui";
                         }
 
                         if (mixAndMatchMode) {
@@ -1307,7 +1307,7 @@ public class OverlaysList extends Fragment {
 
                         if (!prefs.getBoolean("systemui_recreate", false) &&
                                 final_commands.contains("systemui")) {
-                            final_commands = final_commands + "&& pkill com.android.systemui";
+                            final_commands = final_commands + " && pkill com.android.systemui";
                         }
 
                         if (mixAndMatchMode) {

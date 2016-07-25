@@ -114,7 +114,7 @@ public class ThemeDetector extends Service {
                                     if (appInfo.metaData.getBoolean("Substratum_Legacy", false)) {
                                         installed.add(packageInfo.packageName);
                                     } else {
-                                        Log.d("SubstratumCacher", "Device is non-OMS, while an " +
+                                        Log.e("SubstratumCacher", "Device is non-OMS, while an " +
                                                 "OMS theme " +
                                                 "is installed, aborting operation!");
 

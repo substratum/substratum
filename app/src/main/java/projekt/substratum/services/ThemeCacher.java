@@ -50,7 +50,7 @@ public class ThemeCacher extends BroadcastReceiver {
                                         package_name + "\"");
                                 return true;
                             } else {
-                                Log.d("SubstratumCacher", "Device is non-OMS, while an OMS theme " +
+                                Log.e("SubstratumCacher", "Device is non-OMS, while an OMS theme " +
                                         "is installed, aborting operation!");
 
                                 Intent showIntent = new Intent();

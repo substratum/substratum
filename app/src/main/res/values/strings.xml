@@ -237,9 +237,9 @@
     <string name="settings_title_1">App Options</string>
     <string name="settings_title_2">Manager Options</string>
     <string name="settings_title_3">Theming</string>
-    <string name="masquerade_check_title">Dance the masquerade ball</string>
-    <string name="masquerade_check_subtext">Ensure the system presence and integrity of the Masquerade theme system. If Masquerade does not report back positively, please perform a soft/hard reboot and try again!</string>
-    <string name="masquerade_check_installed">The Masquerade Ball is ready to begin!</string>
+    <string name="masquerade_check_title">Would thou honor this masquerade with a dance?</string>
+    <string name="masquerade_check_subtext">Ensure the system\'s presence and integrity of the Masquerade theme system. If Masquerade does not report back positively, please perform a soft/hard reboot and try again!</string>
+    <string name="masquerade_check_installed">Put on your mask, take my hand and lead the way!</string>
     <string name="masquerade_check_not_installed">Masquerade is not installed.</string>
     <string name="restart_systemui">Post-enable SystemUI recreate\n</string>
     <string name="restart_systemui_subtext">Automatically recreate the SystemUI after enabling/disabling a SystemUI overlay</string>
@@ -249,7 +249,7 @@
     <string name="hide_app_icon_toast_enabled">The app\'s icon has been removed from your launcher!</string>
     <string name="hide_app_icon_toast_disabled">The app\'s icon has now been added to your launcher!</string>
     <string name="hide_app_icon_not_supported">Change not supported</string>
-    <string name="hide_app_icon_supported">Supported</string>
+    <string name="hide_app_icon_supported">This will allow you to toggle between having the launcher icon visible or invisible on your home screen.</string>
     <string name="show_installed_packages_only">Only show installed packages in overlay picker</string>
     <string name="purge_completion">All overlays deactivated and removed</string>
     <string name="clean_completion">All overlays for this theme has been deactivated and removed</string>
@@ -259,7 +259,7 @@
     <string name="purge_button_text">UNINSTALL ALL OVERLAYS</string>
     <string name="purge2_button_text">DISABLE ALL ENABLED OVERLAYS</string>
     <string name="dynamic_actionbar_colors">Dynamic Action Bar Colors</string>
-    <string name="dynamic_actionbar_colors_subtext">In the theme information window, Substratum will adapt the collapsible actionbar to the hero image\'s dominating color.</string>
+    <string name="dynamic_actionbar_colors_subtext">In the theme information window, Substratum will adapt the collapsible action bar to the hero image\'s dominating color.</string>
     <string name="dynamic_navbar_colors">Dynamic Navigation Bar Colors</string>
     <string name="dynamic_navbar_colors_subtext">In the theme information window, Substratum will adapt the navigation bar to the hero image\'s dominating color.</string>
     <string name="manager_title">Show disabled overlays in the list</string>

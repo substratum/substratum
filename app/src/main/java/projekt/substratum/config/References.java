@@ -8,7 +8,6 @@ import android.os.Build;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-import java.io.File;
 import java.util.Arrays;
 
 /**
@@ -29,8 +28,9 @@ public class References {
     public static int DEFAULT_PRIORITY = 50;
 
     public static Boolean checkOMS() {
-        File om = new File("/system/bin/om");
-        return om.exists();
+        /*File om = new File("/system/bin/om");
+        return om.exists();*/
+        return false;
     }
 
     public static void loadDefaultConfig(Context context) {

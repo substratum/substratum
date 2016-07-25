@@ -18,7 +18,7 @@ android {
 
     defaultConfig {
         applicationId "projekt.substratum"
-        minSdkVersion 23
+        minSdkVersion 21
         targetSdkVersion 24
         versionCode 142
         versionName "one hundred fourty two"

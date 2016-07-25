@@ -161,7 +161,6 @@ public class AdvancedManagerFragment extends Fragment {
             mRecyclerView.setVisibility(View.VISIBLE);
         }
 
-        Log.e("Overlays", overlaysList.size() + "");
         TextView disable_selected = (TextView) root.findViewById(R.id.disable_selected);
         if (!References.checkOMS())
             disable_selected.setText(getString(R.string.fab_menu_uninstall));

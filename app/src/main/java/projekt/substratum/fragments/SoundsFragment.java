@@ -242,7 +242,7 @@ public class SoundsFragment extends Fragment {
                                         ("Substratum_Theme"), data);
                             }
                         } catch (Exception e) {
-                            Log.e("SubstratumLogger", "Unable to find package identifier");
+                            // Exception
                         }
                     }
                 }

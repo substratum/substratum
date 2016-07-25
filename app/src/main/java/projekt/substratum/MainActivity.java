@@ -23,6 +23,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.mikepenz.aboutlibraries.LibsBuilder;
 import com.mikepenz.aboutlibraries.ui.LibsSupportFragment;
 import com.mikepenz.materialdrawer.AccountHeader;
@@ -69,6 +70,11 @@ public class MainActivity extends AppCompatActivity implements
         tx.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         tx.replace(R.id.main, fragment);
         tx.commit();
+    }
+
+    private void printFCMtoken() {
+        String token = FirebaseInstanceId.getInstance().getToken();
+        Log.d("SubstratumLogger", "FCM Registration Token: " + token);
     }
 
     @Override
@@ -446,6 +452,8 @@ public class MainActivity extends AppCompatActivity implements
                 }
             }
         }
+
+        printFCMtoken();
     }
 
     @Override

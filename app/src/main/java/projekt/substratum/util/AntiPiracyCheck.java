@@ -123,7 +123,7 @@ public class AntiPiracyCheck {
                         }
                     }
                 }
-            } catch (PackageManager.NameNotFoundException e) {
+            } catch (Exception e) {
                 // Exception
             }
         }

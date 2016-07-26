@@ -72,7 +72,7 @@ public class SubstratumBuilder {
                     }
                 }
             }
-        } catch (PackageManager.NameNotFoundException e) {
+        } catch (Exception e) {
             Log.e("SubstratumLogger", "Unable to find package identifier (INDEX OUT OF BOUNDS)");
         }
         return null;
@@ -509,7 +509,7 @@ public class SubstratumBuilder {
         try {
             pm.getPackageInfo(packagename, PackageManager.GET_ACTIVITIES);
             return true;
-        } catch (PackageManager.NameNotFoundException e) {
+        } catch (Exception e) {
             return false;
         }
     }

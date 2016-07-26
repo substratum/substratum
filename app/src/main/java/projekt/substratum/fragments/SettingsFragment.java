@@ -95,7 +95,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 int versionCode = pinfo.versionCode;
                 aboutMasquerade.setSummary(
                         versionName + " (" + versionCode + ")");
-            } catch (PackageManager.NameNotFoundException nnfe) {
+            } catch (Exception e) {
                 // Masquerade was not installed
             }
             final Preference masqueradeCheck = getPreferenceManager().findPreference

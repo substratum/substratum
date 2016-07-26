@@ -215,7 +215,7 @@ public class HomeFragment extends Fragment {
                     }
                 }
             }
-        } catch (PackageManager.NameNotFoundException e) {
+        } catch (Exception e) {
             Log.e("SubstratumLogger", "Unable to find package identifier (INDEX OUT OF BOUNDS)");
         }
         return null;
@@ -284,7 +284,7 @@ public class HomeFragment extends Fragment {
                 hero = mContext.getPackageManager().getDrawable(package_name, resourceId, null);
             }
             return hero;
-        } catch (PackageManager.NameNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return hero;

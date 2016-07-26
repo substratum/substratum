@@ -75,7 +75,7 @@ public class PrioritiesAdapter extends GestureAdapter<PrioritiesItem, GestureVie
                                 .getName() + ")");
                     }
 
-                } catch (PackageManager.NameNotFoundException nnfe) {
+                } catch (Exception e) {
                     Log.e("SubstratumLogger", "Could not find explicit package identifier" +
                             " in package manager list.");
                 }

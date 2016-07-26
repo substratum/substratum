@@ -52,7 +52,7 @@ public class CacheCreator {
                     }
                 }
             }
-        } catch (PackageManager.NameNotFoundException e) {
+        } catch (Exception e) {
             Log.e("SubstratumLogger", "Unable to find package identifier (INDEX OUT OF BOUNDS)");
         }
         return null;
@@ -82,7 +82,7 @@ public class CacheCreator {
                     return 0;
                 }
             }
-        } catch (PackageManager.NameNotFoundException e) {
+        } catch (Exception e) {
             return 0;
         }
     }

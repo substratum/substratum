@@ -102,7 +102,7 @@ public class References {
             } else {
                 icon = context.getPackageManager().getApplicationIcon(package_name);
             }
-        } catch (Exception nnfe) {
+        } catch (Exception e) {
             Log.e("SubstratumLogger", "Could not grab the application icon for \"" + package_name
                     + "\"");
         }

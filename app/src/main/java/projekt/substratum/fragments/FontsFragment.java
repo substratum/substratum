@@ -277,7 +277,7 @@ public class FontsFragment extends Fragment {
                 hero = mContext.getPackageManager().getDrawable(package_name, resourceId, null);
             }
             return hero;
-        } catch (PackageManager.NameNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return hero;

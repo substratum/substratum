@@ -376,7 +376,7 @@ public class InformationActivity extends AppCompatActivity {
                                             }
                                         }
                                     }
-                                } catch (PackageManager.NameNotFoundException nnfe) {
+                                } catch (Exception e) {
                                     // NameNotFound
                                 }
                             }
@@ -477,7 +477,7 @@ public class InformationActivity extends AppCompatActivity {
                                             }
                                         }
                                     }
-                                } catch (PackageManager.NameNotFoundException nnfe) {
+                                } catch (Exception e) {
                                     // NameNotFound
                                 }
                             }
@@ -558,7 +558,7 @@ public class InformationActivity extends AppCompatActivity {
                                             }
                                         }
                                     }
-                                } catch (PackageManager.NameNotFoundException nnfe) {
+                                } catch (Exception e) {
                                     // NameNotFound
                                 }
                             }
@@ -662,7 +662,7 @@ public class InformationActivity extends AppCompatActivity {
                                             }
                                         }
                                     }
-                                } catch (PackageManager.NameNotFoundException nnfe) {
+                                } catch (Exception e) {
                                     // NameNotFound
                                 }
                             }
@@ -727,7 +727,6 @@ public class InformationActivity extends AppCompatActivity {
             intent.putExtra("Uninstalled", false);
         }
         setResult(THEME_INFORMATION_REQUEST_CODE, intent);
-        // Destroy the cache if the user leaves the activity
         super.onBackPressed();
     }
 }

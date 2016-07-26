@@ -81,7 +81,7 @@ public class MainScreenTab extends Fragment {
         try {
             PackageInfo pinfo = getContext().getPackageManager().getPackageInfo(package_name, 0);
             return pinfo.versionName.equals(versionName);
-        } catch (PackageManager.NameNotFoundException nnfe) {
+        } catch (Exception e) {
             Log.e("SubstratumLogger", "Could not find explicit package identifier in " +
                     "package manager list.");
         }

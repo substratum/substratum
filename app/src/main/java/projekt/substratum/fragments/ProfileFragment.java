@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -570,7 +569,7 @@ public class ProfileFragment extends Fragment {
                         String packageTitle = getContext().getPackageManager().getApplicationLabel
                                 (applicationInfo).toString();
                         package_name = packageTitle;
-                    } catch (PackageManager.NameNotFoundException nnfe) {
+                    } catch (Exception e) {
                         Log.e("SubstratumLogger", "Could not find explicit package identifier" +
                                 " in package manager list.");
                     }

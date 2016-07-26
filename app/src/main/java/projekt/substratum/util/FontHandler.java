@@ -263,7 +263,7 @@ public class FontHandler {
                             hero = mContext.getPackageManager().getDrawable(mContext
                                     .getApplicationContext().getPackageName(), resourceId, null);
                         }
-                    } catch (PackageManager.NameNotFoundException e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
 

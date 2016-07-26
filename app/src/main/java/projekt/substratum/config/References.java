@@ -87,7 +87,7 @@ public class References {
         try {
             pm.getPackageInfo(package_name, PackageManager.GET_ACTIVITIES);
             return true;
-        } catch (PackageManager.NameNotFoundException e) {
+        } catch (Exception e) {
             return false;
         }
     }
@@ -102,7 +102,7 @@ public class References {
             } else {
                 icon = context.getPackageManager().getApplicationIcon(package_name);
             }
-        } catch (PackageManager.NameNotFoundException nnfe) {
+        } catch (Exception nnfe) {
             Log.e("SubstratumLogger", "Could not grab the application icon for \"" + package_name
                     + "\"");
         }

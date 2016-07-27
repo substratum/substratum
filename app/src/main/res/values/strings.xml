@@ -318,10 +318,12 @@
     <string name="contributor_denis_content">I started the Layers Showcase!</string>
     <string name="contributor_denis_link">https://plus.google.com/u/0/+DenisSuarez98/</string>
 
-    <string name="team_title_1">Substratum Developers</string>
+    <string name="team_title_1">Substratum Team Leaders</string>
     <string name="team_text_1">Not only did we create something that works for the users, but we worked in conjunction with themers to make it a wonderful theming engine for the community!</string>
-    <string name="team_title_2">Substratum Themers</string>
-    <string name="team_text_2">These core themers got Substratum ready, as well as aided the developers closely to provide features geared towards other themers such as anti-piracy and a more definitive UI!</string>
+    <string name="team_title_2">Substratum Development Contributors</string>
+    <string name="team_text_2">These developers came when we needed help and aided the cause to create the OMS scene a much better place!</string>
+    <string name="team_title_3">Substratum Themers</string>
+    <string name="team_text_3">These core themers got Substratum ready, as well as aided the developers closely to provide features geared towards other themers such as anti-piracy and a more definitive UI!</string>
     <string name="team_nicholas">Nicholas Chum (nicholaschum)</string>
     <string name="team_nicholas_content">I wrote the app and incorporated the app engine!</string>
     <string name="team_nicholas_link">https://plus.google.com/u/0/+NicholasChumCDT/</string>

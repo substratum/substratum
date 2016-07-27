@@ -2,6 +2,7 @@ package projekt.substratum.config;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -90,6 +91,21 @@ public class References {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    // This method determines the installed directory of the overlay for legacy mode
+
+    public static String getInstalledDirectory(Context context, String package_name) {
+        PackageManager pm = context.getPackageManager();
+        for (ApplicationInfo app : pm.getInstalledApplications(0)) {
+            if (app.packageName.equals(package_name)) {
+                // The way this works is that Android will traverse within the SYMLINK and not the
+                // actual directory. e.g.:
+                // rm -r /vendor/overlay/com.android.systemui.navbars.Mono.apk (ON NEXUS FILTER)
+                return app.sourceDir;
+            }
+        }
+        return null;
     }
 
     // This method obtains the application icon for a specified package

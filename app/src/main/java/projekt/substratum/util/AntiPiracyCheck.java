@@ -204,14 +204,10 @@ public class AntiPiracyCheck {
                     }
                 } else {
                     Root.runCommand("mount -o rw,remount /system");
-                    String current;
-                    if (References.inNexusFilter()) {
-                        current = "/system/overlay/";
-                    } else {
-                        current = "/system/vendor/overlay/";
-                    }
                     for (int i = 0; i < final_commands_array.size(); i++) {
-                        Root.runCommand("rm -r " + current + final_commands_array + ".apk");
+                        Root.runCommand("rm -r " +
+                                References.getInstalledDirectory(mContext,
+                                        final_commands_array.get(i)));
                     }
                     Root.runCommand("mount -o ro,remount /system");
                 }

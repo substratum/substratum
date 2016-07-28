@@ -1,5 +1,8 @@
 package projekt.substratum.fragments;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +16,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,9 +31,13 @@ import android.widget.Toast;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.InformationActivity;
@@ -39,6 +47,7 @@ import projekt.substratum.config.References;
 import projekt.substratum.model.ThemeInfo;
 import projekt.substratum.util.AAPTCheck;
 import projekt.substratum.util.CacheCreator;
+import projekt.substratum.util.Root;
 
 /**
  * @author Nicholas Chum (nicholaschum)
@@ -319,6 +328,7 @@ public class HomeFragment extends Fragment {
         ArrayList<ThemeInfo> themeInfos = prepareData();
         adapter = new DataAdapter(themeInfos);
         recyclerView.setAdapter(adapter);
+        new ThemeCollection().execute("");
         swipeRefreshLayout.setRefreshing(false);
         materialProgressBar.setVisibility(View.GONE);
     }
@@ -335,6 +345,7 @@ public class HomeFragment extends Fragment {
                 cardView.setVisibility(View.GONE);
                 recyclerView.setVisibility(View.VISIBLE);
             }
+            new ThemeCollection().execute("");
             super.onPostExecute(result);
         }
 
@@ -343,6 +354,102 @@ public class HomeFragment extends Fragment {
             for (ApplicationInfo packageInfo : list) {
                 getSubstratumPackages(mContext, packageInfo.packageName);
             }
+            return null;
+        }
+    }
+
+    private class ThemeCollection extends AsyncTask<String, Integer, String> {
+
+        @Override
+        protected String doInBackground(String... sUrl) {
+            PackageManager packageManager = mContext.getPackageManager();
+            List<ApplicationInfo> list = packageManager.getInstalledApplications(PackageManager
+                    .GET_META_DATA);
+            List<String> installed = new ArrayList<>();
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+
+            for (ApplicationInfo packageInfo : list) {
+                try {
+                    ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
+                            packageInfo.packageName, PackageManager.GET_META_DATA);
+                    if (appInfo.metaData != null) {
+                        if (References.checkOMS()) {
+                            if (appInfo.metaData.getString("Substratum_Theme") != null) {
+                                if (appInfo.metaData.getString("Substratum_Author") != null) {
+                                    installed.add(packageInfo.packageName);
+                                }
+                            }
+                        } else {
+                            if (appInfo.metaData.getString("Substratum_Theme") != null) {
+                                if (appInfo.metaData.getString("Substratum_Author") != null) {
+                                    if (appInfo.metaData.getBoolean("Substratum_Legacy", false)) {
+                                        installed.add(packageInfo.packageName);
+                                    } else {
+                                        Log.e("SubstratumCacher", "Device is non-OMS, while an " +
+                                                "OMS theme is installed, aborting operation!");
+
+                                        Intent showIntent = new Intent();
+                                        PendingIntent contentIntent = PendingIntent.getActivity(
+                                                mContext, 0, showIntent, 0);
+
+                                        String parse = String.format(mContext.getString(
+                                                R.string.failed_to_install_text_notification),
+                                                appInfo.metaData.getString("Substratum_Theme"));
+
+                                        NotificationManager notificationManager =
+                                                (NotificationManager) mContext.getSystemService(
+                                                        Context.NOTIFICATION_SERVICE);
+                                        NotificationCompat.Builder mBuilder =
+                                                new NotificationCompat.Builder(mContext)
+                                                        .setContentIntent(contentIntent)
+                                                        .setAutoCancel(true)
+                                                        .setSmallIcon(
+                                                                R.drawable
+                                                                        .notification_warning_icon)
+                                                        .setContentTitle(mContext.getString(
+                                                                R.string.failed_to_install_title_notification))
+                                                        .setContentText(parse);
+                                        Notification notification = mBuilder.build();
+                                        notificationManager.notify(
+                                                References.notification_id, notification);
+
+                                        String final_commands = "pm uninstall " +
+                                                packageInfo.packageName;
+
+                                        if (References.isPackageInstalled(mContext,
+                                                "masquerade.substratum")) {
+                                            Intent runCommand = new Intent();
+                                            runCommand.addFlags(Intent
+                                                    .FLAG_INCLUDE_STOPPED_PACKAGES);
+                                            runCommand.setAction("masquerade.substratum.COMMANDS");
+                                            runCommand.putExtra("om-commands", final_commands);
+                                            mContext.sendBroadcast(runCommand);
+                                        } else {
+                                            Root.runCommand(final_commands);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } catch (Exception e) {
+                    Log.e("SubstratumLogger", "Unable to find package identifier (INDEX OUT OF " +
+                            "BOUNDS)");
+                }
+            }
+
+            // Check for current installed set created just now and sort it
+            Set<String> installed_set = new HashSet<>();
+            installed_set.addAll(installed);
+            Set<String> installed_setStringSorted = new TreeSet<>();
+            Iterator<String> it2 = installed_set.iterator();
+            while (it2.hasNext()) {
+                installed_setStringSorted.add(it2.next());
+            }
+
+            SharedPreferences.Editor edit = prefs.edit();
+            edit.putStringSet("installed_themes", installed_set);
+            edit.apply();
             return null;
         }
     }

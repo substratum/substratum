@@ -3,15 +3,14 @@ package projekt.substratum.services;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Handler;
-import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
@@ -25,7 +24,6 @@ import java.util.TreeSet;
 
 import projekt.substratum.R;
 import projekt.substratum.config.References;
-import projekt.substratum.util.AntiPiracyCheck;
 import projekt.substratum.util.Root;
 import projekt.substratum.util.SubstratumThemeUpdater;
 
@@ -33,43 +31,50 @@ import projekt.substratum.util.SubstratumThemeUpdater;
  * @author Nicholas Chum (nicholaschum)
  */
 
-public class ThemeDetector extends Service {
+public class DetectionReceiver extends BroadcastReceiver {
 
-    private static Runnable runnable = null;
-    private static Runnable runnable2 = null;
-    private Context context = this;
-    private Handler handler = null;
-    private Handler handler2 = null;
+    private Context mContext;
     private String new_theme_name;
     private Boolean new_theme = false;
-    private int CONFIG_TIME_PIRACY_CHECKER = 60000; // 1 sec == 1000ms
-    private int CONFIG_TIME_THEME_CHECKER = 2500; // 1 sec == 1000ms
     private Boolean new_setup = false;
+    private SharedPreferences universalPrefs;
 
     @Override
-    public IBinder onBind(Intent intent) {
-        return null;
-    }
-
-    @Override
-    public void onCreate() {
-        handler = new Handler();
-        runnable = new Runnable() {
-            public void run() {
-                MainFunction mainFunction = new MainFunction();
-                mainFunction.execute("");
-                handler.postDelayed(runnable, CONFIG_TIME_THEME_CHECKER);
+    public void onReceive(Context context, Intent intent) {
+        this.mContext = context;
+        Uri packageName = intent.getData();
+        String package_name = packageName.toString().substring(8);
+        try {
+            ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
+                    package_name, PackageManager.GET_META_DATA);
+            if (appInfo.metaData != null) {
+                if (!References.checkOMS()) {
+                    if (appInfo.metaData.getBoolean("Substratum_Legacy", false)) {
+                        if (appInfo.metaData.getString("Substratum_Theme") != null) {
+                            if (appInfo.metaData.getString("Substratum_Author") != null) {
+                                universalPrefs = mContext.getSharedPreferences("substratum_state",
+                                        Context.MODE_WORLD_READABLE);
+                                universalPrefs.edit().putBoolean("is_updating", true).apply();
+                                MainFunction mainFunction = new MainFunction();
+                                mainFunction.execute("");
+                            }
+                        }
+                    }
+                } else {
+                    if (appInfo.metaData.getString("Substratum_Theme") != null) {
+                        if (appInfo.metaData.getString("Substratum_Author") != null) {
+                            universalPrefs = mContext.getSharedPreferences("substratum_state",
+                                    Context.MODE_WORLD_READABLE);
+                            universalPrefs.edit().putBoolean("is_updating", true).apply();
+                            MainFunction mainFunction = new MainFunction();
+                            mainFunction.execute("");
+                        }
+                    }
+                }
             }
-        };
-        handler.postDelayed(runnable, CONFIG_TIME_THEME_CHECKER);
-        handler2 = new Handler();
-        runnable2 = new Runnable() {
-            public void run() {
-                new AntiPiracyCheck().AntiPiracyCheck(context);
-                handler2.postDelayed(runnable2, CONFIG_TIME_PIRACY_CHECKER);
-            }
-        };
-        handler2.postDelayed(runnable2, CONFIG_TIME_PIRACY_CHECKER);
+        } catch (Exception e) {
+            // Exception
+        }
     }
 
     private class MainFunction extends AsyncTask<String, Integer, String> {
@@ -79,7 +84,7 @@ public class ThemeDetector extends Service {
             // Everything below will only run as long as the PackageManager changes
             if (new_theme && !new_setup) {
                 new SubstratumThemeUpdater().initialize(
-                        getApplicationContext(), new_theme_name, false);
+                        mContext, new_theme_name, false);
                 new_theme = false;
             } else {
                 new_theme = false;
@@ -90,16 +95,16 @@ public class ThemeDetector extends Service {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            PackageManager packageManager = getPackageManager();
+            PackageManager packageManager = mContext.getPackageManager();
             List<ApplicationInfo> list = packageManager.getInstalledApplications(PackageManager
                     .GET_META_DATA);
             List<String> installed = new ArrayList<>();
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences
-                    (getApplicationContext());
+                    (mContext);
 
             for (ApplicationInfo packageInfo : list) {
                 try {
-                    ApplicationInfo appInfo = getPackageManager().getApplicationInfo(
+                    ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
                             packageInfo.packageName, PackageManager.GET_META_DATA);
                     if (appInfo.metaData != null) {
                         if (References.checkOMS()) {
@@ -120,23 +125,23 @@ public class ThemeDetector extends Service {
 
                                         Intent showIntent = new Intent();
                                         PendingIntent contentIntent = PendingIntent.getActivity(
-                                                context, 0, showIntent, 0);
+                                                mContext, 0, showIntent, 0);
 
-                                        String parse = String.format(context.getString(
+                                        String parse = String.format(mContext.getString(
                                                 R.string.failed_to_install_text_notification),
                                                 appInfo.metaData.getString("Substratum_Theme"));
 
                                         NotificationManager notificationManager =
-                                                (NotificationManager) context.getSystemService(
+                                                (NotificationManager) mContext.getSystemService(
                                                         Context.NOTIFICATION_SERVICE);
                                         NotificationCompat.Builder mBuilder =
-                                                new NotificationCompat.Builder(context)
+                                                new NotificationCompat.Builder(mContext)
                                                         .setContentIntent(contentIntent)
                                                         .setAutoCancel(true)
                                                         .setSmallIcon(
                                                                 R.drawable
                                                                         .notification_warning_icon)
-                                                        .setContentTitle(context.getString(
+                                                        .setContentTitle(mContext.getString(
                                                                 R.string.failed_to_install_title_notification))
                                                         .setContentText(parse);
                                         Notification notification = mBuilder.build();
@@ -146,14 +151,14 @@ public class ThemeDetector extends Service {
                                         String final_commands = "pm uninstall " +
                                                 packageInfo.packageName;
 
-                                        if (References.isPackageInstalled(context,
+                                        if (References.isPackageInstalled(mContext,
                                                 "masquerade.substratum")) {
                                             Intent runCommand = new Intent();
                                             runCommand.addFlags(Intent
                                                     .FLAG_INCLUDE_STOPPED_PACKAGES);
                                             runCommand.setAction("masquerade.substratum.COMMANDS");
                                             runCommand.putExtra("om-commands", final_commands);
-                                            context.sendBroadcast(runCommand);
+                                            mContext.sendBroadcast(runCommand);
                                         } else {
                                             Root.runCommand(final_commands);
                                         }

@@ -39,7 +39,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import java.io.File;
 
 import projekt.substratum.config.References;
-import projekt.substratum.services.ThemeDetector;
+import projekt.substratum.services.ThemeService;
 import projekt.substratum.util.Root;
 
 /**
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
-        startService(new Intent(this, ThemeDetector.class));
+        startService(new Intent(this, ThemeService.class));
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

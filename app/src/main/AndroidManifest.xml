@@ -23,6 +23,12 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
         </receiver>
+        <receiver android:name=".services.DetectionReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED"/>
+                <data android:scheme="package"/>
+            </intent-filter>
+        </receiver>
         <receiver android:name=".services.MasqueradeBall">
             <intent-filter>
                 <action android:name="projekt.substratum.MASQUERADE_BALL"/>
@@ -43,7 +49,7 @@
             </intent-filter>
         </service>
         <service
-            android:name=".services.ThemeDetector"
+            android:name=".services.ThemeService"
             android:enabled="true"/>
 
         <activity android:name=".AppIntroActivity">

@@ -12,7 +12,7 @@ public class BootCompletedDetector extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if ("android.intent.action.BOOT_COMPLETED".equals(intent.getAction())) {
-            Intent pushIntent = new Intent(context, ThemeDetector.class);
+            Intent pushIntent = new Intent(context, ThemeService.class);
             context.startService(pushIntent);
         }
     }

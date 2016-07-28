@@ -57,7 +57,7 @@ dependencies {
     compile 'me.zhanghai.android.materialprogressbar:library:1.1.6'
 
     // App Intro
-    compile 'com.stephentuso:welcome:0.7.0'
+    compile 'com.stephentuso:welcome:0.7.2'
 
     // Floating Action Buttons
     compile 'com.gordonwong:material-sheet-fab:1.2.1'

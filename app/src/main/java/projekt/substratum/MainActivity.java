@@ -392,6 +392,8 @@ public class MainActivity extends AppCompatActivity implements
             if (!cacheDirectory.exists()) {
                 cacheDirectory.mkdirs();
             }
+            // Ensure permissions are set on the SharedPreference for WORLD_READABLE
+            References.restoreSharedPrefWorldReadable(getApplicationContext());
             if (permissionCheck2 == PackageManager.PERMISSION_GRANTED) {
                 // permission already granted, allow the program to continue running
                 // Set the first option to start at app boot

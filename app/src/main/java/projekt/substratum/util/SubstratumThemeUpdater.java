@@ -37,7 +37,7 @@ public class SubstratumThemeUpdater {
         this.packageName = packageName;
         this.showNotification = notification;
 
-        prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        prefs = mContext.getSharedPreferences("substratum_state", Context.MODE_WORLD_READABLE);
         prefs.edit().putBoolean("is_updating", true).apply();
 
         new SubstratumThemeUpdate().execute("");

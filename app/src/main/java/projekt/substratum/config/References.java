@@ -38,8 +38,9 @@ public class References {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         prefs.edit().putBoolean("show_app_icon", true).apply();
         prefs.edit().putBoolean("systemui_recreate", false).apply();
-        prefs.edit().putBoolean("is_updating", false).apply();
         prefs.edit().putBoolean("substratum_oms", References.checkOMS()).apply();
+        prefs = context.getSharedPreferences("substratum_state", Context.MODE_WORLD_READABLE);
+        prefs.edit().putBoolean("is_updating", false).apply();
     }
 
     public static Boolean inNexusFilter() {

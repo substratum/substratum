@@ -106,7 +106,7 @@ public class ManageFragment extends Fragment {
                                                 Intent runCommand = new Intent();
                                                 runCommand.addFlags(Intent
                                                         .FLAG_INCLUDE_STOPPED_PACKAGES);
-                                                runCommand.setAction("projekt.substratum.helper" +
+                                                runCommand.setAction("masquerade.substratum" +
                                                         ".COMMANDS");
                                                 runCommand.putExtra("om-commands", "om " +
                                                         "disable-all");

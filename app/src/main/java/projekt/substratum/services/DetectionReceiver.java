@@ -37,7 +37,6 @@ public class DetectionReceiver extends BroadcastReceiver {
     private String new_theme_name;
     private Boolean new_theme = false;
     private Boolean new_setup = false;
-    private SharedPreferences universalPrefs;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -52,9 +51,8 @@ public class DetectionReceiver extends BroadcastReceiver {
                     if (appInfo.metaData.getBoolean("Substratum_Legacy", false)) {
                         if (appInfo.metaData.getString("Substratum_Theme") != null) {
                             if (appInfo.metaData.getString("Substratum_Author") != null) {
-                                universalPrefs = mContext.getSharedPreferences("substratum_state",
-                                        Context.MODE_WORLD_READABLE);
-                                universalPrefs.edit().putBoolean("is_updating", true).apply();
+                                Log.d("SubstratumDetector", "Substratum is now initializing: " +
+                                        package_name);
                                 MainFunction mainFunction = new MainFunction();
                                 mainFunction.execute("");
                             }
@@ -63,9 +61,8 @@ public class DetectionReceiver extends BroadcastReceiver {
                 } else {
                     if (appInfo.metaData.getString("Substratum_Theme") != null) {
                         if (appInfo.metaData.getString("Substratum_Author") != null) {
-                            universalPrefs = mContext.getSharedPreferences("substratum_state",
-                                    Context.MODE_WORLD_READABLE);
-                            universalPrefs.edit().putBoolean("is_updating", true).apply();
+                            Log.d("SubstratumDetector", "Substratum is now initializing: " +
+                                    package_name);
                             MainFunction mainFunction = new MainFunction();
                             mainFunction.execute("");
                         }
@@ -83,8 +80,7 @@ public class DetectionReceiver extends BroadcastReceiver {
         protected void onPostExecute(String result) {
             // Everything below will only run as long as the PackageManager changes
             if (new_theme && !new_setup) {
-                new SubstratumThemeUpdater().initialize(
-                        mContext, new_theme_name, false);
+                new SubstratumThemeUpdater().initialize(mContext, new_theme_name, false);
                 new_theme = false;
             } else {
                 new_theme = false;

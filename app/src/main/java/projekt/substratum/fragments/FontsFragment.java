@@ -1,6 +1,7 @@
 package projekt.substratum.fragments;
 
 import android.app.ProgressDialog;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -35,7 +36,6 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
-import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
 import projekt.substratum.adapters.DataAdapter;
 import projekt.substratum.config.References;
@@ -152,14 +152,25 @@ public class FontsFragment extends Fragment {
                                             .toString())[1]).replaceAll("\\s+", "")
                                             .replaceAll("[^a-zA-Z0-9]+", "") + "/substratum.xml");
                             if (checkSubstratumVerity.exists()) {
-                                Intent myIntent = new Intent(
-                                        getContext(), InformationActivity.class);
-                                myIntent.putExtra("theme_name", map.keySet().toArray()[position]
-                                        .toString());
-                                myIntent.putExtra("theme_pid", map.get(
-                                        map.keySet().toArray()[position].toString())[1]);
-                                myIntent.putExtra("theme_mode", "fonts");
-                                startActivityForResult(myIntent, THEME_INFORMATION_REQUEST_CODE);
+                                try {
+                                    Intent myIntent = new Intent(Intent.ACTION_MAIN);
+                                    myIntent.setComponent(ComponentName.unflattenFromString(
+                                            map.get(map.keySet().toArray()[position].toString())
+                                                    [1] +
+                                                    "/" + map.get(map.keySet().toArray()
+                                                    [position].toString())[1] + "" +
+                                                    ".SubstratumLauncher"));
+                                    if (!References.checkOMS())
+                                        myIntent.putExtra("theme_legacy", true);
+                                    myIntent.putExtra("theme_mode", "fonts");
+                                    startActivityForResult(myIntent,
+                                            THEME_INFORMATION_REQUEST_CODE);
+                                } catch (Exception ex) {
+                                    Toast toast = Toast.makeText(getContext(), getString(R.string
+                                                    .information_activity_upgrade_toast),
+                                            Toast.LENGTH_LONG);
+                                    toast.show();
+                                }
                             } else {
                                 selected_theme_name = map.get(
                                         map.keySet().toArray()[position].toString())[1];

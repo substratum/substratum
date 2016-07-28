@@ -40,7 +40,7 @@ public class SubstratumThemeUpdater {
         prefs = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
         File prefsFile = new File(context.getFilesDir() + "/../shared_prefs/" +
                 "substratum_state" + ".xml");
-        prefs.edit().putBoolean("is_updating", false).apply();
+        prefs.edit().putBoolean("is_updating", true).apply();
         prefsFile.setReadable(true, false);
 
         new SubstratumThemeUpdate().execute("");

@@ -13,7 +13,7 @@ import android.os.AsyncTask;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
-import java.sql.Ref;
+import java.io.File;
 import java.util.concurrent.ThreadLocalRandom;
 
 import projekt.substratum.InformationActivity;
@@ -38,9 +38,10 @@ public class SubstratumThemeUpdater {
         this.showNotification = notification;
 
         prefs = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
+        File prefsFile = new File(context.getFilesDir() + "/../shared_prefs/" +
+                "substratum_state" + ".xml");
         prefs.edit().putBoolean("is_updating", true).apply();
-        // Ensure permissions are set on the SharedPreference for WORLD_READABLE
-        References.restoreSharedPrefWorldReadable(context);
+        prefsFile.setReadable(true, false);
 
         new SubstratumThemeUpdate().execute("");
     }
@@ -159,7 +160,6 @@ public class SubstratumThemeUpdater {
                 mNotifyManager.notify(id, mBuilder.build());
             }
             prefs.edit().putBoolean("is_updating", false).apply();
-            References.restoreSharedPrefWorldReadable(mContext);
         }
 
         @Override

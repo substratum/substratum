@@ -40,19 +40,10 @@ public class References {
         prefs.edit().putBoolean("systemui_recreate", false).apply();
         prefs.edit().putBoolean("substratum_oms", References.checkOMS()).apply();
         prefs = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
-        prefs.edit().putBoolean("is_updating", false).apply();
-        restoreSharedPrefWorldReadable(context);
-    }
-
-    public static void restoreSharedPrefWorldReadable(Context context) {
         File prefsFile = new File(context.getFilesDir() + "/../shared_prefs/" +
                 "substratum_state" + ".xml");
-        if (prefsFile.exists()) {
-            prefsFile.setReadable(true, false);
-            Log.e("restoreSharedPrefWorldReadable", "Restored!");
-        } else {
-            Log.e("restoreSharedPrefWorldReadable", "Improper use of this function!");
-        }
+        prefs.edit().putBoolean("is_updating", false).apply();
+        prefsFile.setReadable(true, false);
     }
 
     public static Boolean inNexusFilter() {

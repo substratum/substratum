@@ -162,10 +162,7 @@ public class HomeFragment extends Fragment {
                                     Intent myIntent = new Intent(Intent.ACTION_MAIN);
                                     myIntent.setComponent(ComponentName.unflattenFromString(
                                             map.get(map.keySet().toArray()[position].toString())
-                                                    [1] +
-                                                    "/" + map.get(map.keySet().toArray()
-                                                    [position].toString())[1] + "" +
-                                                    ".SubstratumLauncher"));
+                                                    [1] + "/" + ".SubstratumLauncher"));
                                     if (!References.checkOMS())
                                         myIntent.putExtra("theme_legacy", true);
                                     startActivityForResult(myIntent,

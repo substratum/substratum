@@ -231,9 +231,9 @@ public class BootAnimationsFragment extends Fragment {
             ApplicationInfo appInfo = getContext().getPackageManager().getApplicationInfo(
                     package_name, PackageManager.GET_META_DATA);
             if (appInfo.metaData != null) {
-                if (appInfo.metaData.getString("Substratum_Theme") != null) {
-                    if (appInfo.metaData.getString("Substratum_Author") != null) {
-                        return appInfo.metaData.getString("Substratum_Theme");
+                if (appInfo.metaData.getString(References.metadataName) != null) {
+                    if (appInfo.metaData.getString(References.metadataAuthor) != null) {
+                        return appInfo.metaData.getString(References.metadataName);
                     }
                 }
             }
@@ -252,16 +252,16 @@ public class BootAnimationsFragment extends Fragment {
             Context otherContext = getContext().createPackageContext(package_name, 0);
             AssetManager am = otherContext.getAssets();
             if (appInfo.metaData != null) {
-                if (appInfo.metaData.getString("Substratum_Theme") != null) {
-                    if (appInfo.metaData.getString("Substratum_Author") != null) {
+                if (appInfo.metaData.getString(References.metadataName) != null) {
+                    if (appInfo.metaData.getString(References.metadataAuthor) != null) {
                         try {
                             String[] stringArray = am.list("");
                             if (Arrays.asList(stringArray).contains("bootanimation")) {
                                 String[] data = {appInfo.metaData.getString
-                                        ("Substratum_Author"),
+                                        (References.metadataAuthor),
                                         package_name};
                                 substratum_packages.put(appInfo.metaData.getString
-                                        ("Substratum_Theme"), data);
+                                        (References.metadataName), data);
                             }
                         } catch (Exception e) {
                             Log.e("SubstratumLogger", "Unable to find package identifier");

@@ -238,9 +238,9 @@ public class HomeFragment extends Fragment {
             ApplicationInfo appInfo = getContext().getPackageManager().getApplicationInfo(
                     package_name, PackageManager.GET_META_DATA);
             if (appInfo.metaData != null) {
-                if (appInfo.metaData.getString("Substratum_Theme") != null) {
-                    if (appInfo.metaData.getString("Substratum_Author") != null) {
-                        return appInfo.metaData.getString("Substratum_Theme");
+                if (appInfo.metaData.getString(References.metadataName) != null) {
+                    if (appInfo.metaData.getString(References.metadataAuthor) != null) {
+                        return appInfo.metaData.getString(References.metadataName);
                     }
                 }
             }
@@ -257,26 +257,26 @@ public class HomeFragment extends Fragment {
                     package_name, PackageManager.GET_META_DATA);
             if (appInfo.metaData != null) {
                 if (!References.checkOMS()) {
-                    if (appInfo.metaData.getBoolean("Substratum_Legacy", false)) {
-                        if (appInfo.metaData.getString("Substratum_Theme") != null) {
-                            if (appInfo.metaData.getString("Substratum_Author") != null) {
+                    if (appInfo.metaData.getBoolean(References.metadataLegacy, false)) {
+                        if (appInfo.metaData.getString(References.metadataName) != null) {
+                            if (appInfo.metaData.getString(References.metadataAuthor) != null) {
                                 String[] data = {appInfo.metaData.getString
-                                        ("Substratum_Author"),
+                                        (References.metadataAuthor),
                                         package_name};
                                 substratum_packages.put(appInfo.metaData.getString
-                                        ("Substratum_Theme"), data);
+                                        (References.metadataName), data);
                                 Log.d("Substratum Ready Theme", package_name);
                             }
                         }
                     }
                 } else {
-                    if (appInfo.metaData.getString("Substratum_Theme") != null) {
-                        if (appInfo.metaData.getString("Substratum_Author") != null) {
+                    if (appInfo.metaData.getString(References.metadataName) != null) {
+                        if (appInfo.metaData.getString(References.metadataAuthor) != null) {
                             String[] data = {appInfo.metaData.getString
-                                    ("Substratum_Author"),
+                                    (References.metadataAuthor),
                                     package_name};
                             substratum_packages.put(appInfo.metaData.getString
-                                    ("Substratum_Theme"), data);
+                                    (References.metadataName), data);
                             Log.d("Substratum Ready Theme", package_name);
                         }
                     }
@@ -394,15 +394,16 @@ public class HomeFragment extends Fragment {
                             packageInfo.packageName, PackageManager.GET_META_DATA);
                     if (appInfo.metaData != null) {
                         if (References.checkOMS()) {
-                            if (appInfo.metaData.getString("Substratum_Theme") != null) {
-                                if (appInfo.metaData.getString("Substratum_Author") != null) {
+                            if (appInfo.metaData.getString(References.metadataName) != null) {
+                                if (appInfo.metaData.getString(References.metadataAuthor) != null) {
                                     installed.add(packageInfo.packageName);
                                 }
                             }
                         } else {
-                            if (appInfo.metaData.getString("Substratum_Theme") != null) {
-                                if (appInfo.metaData.getString("Substratum_Author") != null) {
-                                    if (appInfo.metaData.getBoolean("Substratum_Legacy", false)) {
+                            if (appInfo.metaData.getString(References.metadataName) != null) {
+                                if (appInfo.metaData.getString(References.metadataAuthor) != null) {
+                                    if (appInfo.metaData.getBoolean(References.metadataLegacy,
+                                            false)) {
                                         installed.add(packageInfo.packageName);
                                     } else {
                                         Log.e("SubstratumCacher", "Device is non-OMS, while an " +
@@ -414,7 +415,8 @@ public class HomeFragment extends Fragment {
 
                                         String parse = String.format(mContext.getString(
                                                 R.string.failed_to_install_text_notification),
-                                                appInfo.metaData.getString("Substratum_Theme"));
+                                                appInfo.metaData.getString(References
+                                                        .metadataName));
 
                                         NotificationManager notificationManager =
                                                 (NotificationManager) mContext.getSystemService(

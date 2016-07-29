@@ -18,6 +18,8 @@ import java.io.PrintWriter;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import projekt.substratum.config.References;
+
 /**
  * @author Nicholas Chum (nicholaschum)
  */
@@ -46,9 +48,9 @@ public class CacheCreator {
             ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
                     package_name, PackageManager.GET_META_DATA);
             if (appInfo.metaData != null) {
-                if (appInfo.metaData.getString("Substratum_Theme") != null) {
-                    if (appInfo.metaData.getString("Substratum_Author") != null) {
-                        return appInfo.metaData.getString("Substratum_Theme");
+                if (appInfo.metaData.getString(References.metadataName) != null) {
+                    if (appInfo.metaData.getString(References.metadataAuthor) != null) {
+                        return appInfo.metaData.getString(References.metadataName);
                     }
                 }
             }

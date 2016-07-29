@@ -26,6 +26,12 @@ public class References {
     // Load SharedPreference defaults
     public static Boolean DEBUG = false;
 
+    // These strings control the current filter for themes
+
+    public static String metadataName = "Substratum_Name";
+    public static String metadataAuthor = "Substratum_Author";
+    public static String metadataLegacy = "Substratum_Legacy";
+
     // This method configures the new devices and their configuration of their vendor folders
     public static int DEFAULT_PRIORITY = 50;
 

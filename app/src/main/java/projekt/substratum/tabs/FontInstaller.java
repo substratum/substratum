@@ -33,6 +33,7 @@ import java.util.zip.ZipInputStream;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
+import projekt.substratum.config.References;
 import projekt.substratum.util.FontHandler;
 import projekt.substratum.util.Root;
 
@@ -152,9 +153,9 @@ public class FontInstaller extends Fragment {
             ApplicationInfo appInfo = getContext().getPackageManager().getApplicationInfo(
                     package_name, PackageManager.GET_META_DATA);
             if (appInfo.metaData != null) {
-                if (appInfo.metaData.getString("Substratum_Theme") != null) {
-                    if (appInfo.metaData.getString("Substratum_Author") != null) {
-                        return appInfo.metaData.getString("Substratum_Theme");
+                if (appInfo.metaData.getString(References.metadataName) != null) {
+                    if (appInfo.metaData.getString(References.metadataAuthor) != null) {
+                        return appInfo.metaData.getString(References.metadataName);
                     }
                 }
             }

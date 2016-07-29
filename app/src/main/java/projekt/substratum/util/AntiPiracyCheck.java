@@ -94,8 +94,9 @@ public class AntiPiracyCheck {
                     ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
                             pm.get(i).packageName, PackageManager.GET_META_DATA);
                     if (appInfo.metaData != null) {
-                        if (appInfo.metaData.getString("Substratum_Theme") != null) {
-                            String parse1_themeName = appInfo.metaData.getString("Substratum_Theme")
+                        if (appInfo.metaData.getString(References.metadataName) != null) {
+                            String parse1_themeName = appInfo.metaData.getString(References
+                                    .metadataName)
                                     .replaceAll("\\s+", "");
                             String parse2_themeName = parse1_themeName.replaceAll
                                     ("[^a-zA-Z0-9]+", "");
@@ -117,8 +118,8 @@ public class AntiPiracyCheck {
                 ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
                         package_name, PackageManager.GET_META_DATA);
                 if (appInfo.metaData != null) {
-                    if (appInfo.metaData.getString("Substratum_Theme") != null) {
-                        if (appInfo.metaData.getString("Substratum_Author") != null) {
+                    if (appInfo.metaData.getString(References.metadataName) != null) {
+                        if (appInfo.metaData.getString(References.metadataAuthor) != null) {
                             installed_themes.add(package_name);
                         }
                     }

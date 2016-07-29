@@ -13,7 +13,6 @@ import android.os.AsyncTask;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
-import java.io.File;
 import java.util.concurrent.ThreadLocalRandom;
 
 import projekt.substratum.InformationActivity;
@@ -50,16 +49,16 @@ public class SubstratumThemeUpdater {
                     package_name, PackageManager.GET_META_DATA);
             if (appInfo.metaData != null) {
                 if (References.checkOMS()) {
-                    if (appInfo.metaData.getString("Substratum_Theme") != null) {
-                        if (appInfo.metaData.getString("Substratum_Author") != null) {
-                            return appInfo.metaData.getString("Substratum_Theme");
+                    if (appInfo.metaData.getString(References.metadataName) != null) {
+                        if (appInfo.metaData.getString(References.metadataAuthor) != null) {
+                            return appInfo.metaData.getString(References.metadataName);
                         }
                     }
                 } else {
-                    if (appInfo.metaData.getBoolean("Substratum_Legacy", false)) {
-                        if (appInfo.metaData.getString("Substratum_Theme") != null) {
-                            if (appInfo.metaData.getString("Substratum_Author") != null) {
-                                return appInfo.metaData.getString("Substratum_Theme");
+                    if (appInfo.metaData.getBoolean(References.metadataLegacy, false)) {
+                        if (appInfo.metaData.getString(References.metadataName) != null) {
+                            if (appInfo.metaData.getString(References.metadataAuthor) != null) {
+                                return appInfo.metaData.getString(References.metadataName);
                             }
                         }
                     }

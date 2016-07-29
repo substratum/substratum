@@ -48,9 +48,9 @@ public class DetectionReceiver extends BroadcastReceiver {
                     package_name, PackageManager.GET_META_DATA);
             if (appInfo.metaData != null) {
                 if (!References.checkOMS()) {
-                    if (appInfo.metaData.getBoolean("Substratum_Legacy", false)) {
-                        if (appInfo.metaData.getString("Substratum_Theme") != null) {
-                            if (appInfo.metaData.getString("Substratum_Author") != null) {
+                    if (appInfo.metaData.getBoolean(References.metadataLegacy, false)) {
+                        if (appInfo.metaData.getString(References.metadataName) != null) {
+                            if (appInfo.metaData.getString(References.metadataAuthor) != null) {
                                 Log.d("SubstratumDetector", "Substratum is now initializing: " +
                                         package_name);
                                 MainFunction mainFunction = new MainFunction();
@@ -59,8 +59,8 @@ public class DetectionReceiver extends BroadcastReceiver {
                         }
                     }
                 } else {
-                    if (appInfo.metaData.getString("Substratum_Theme") != null) {
-                        if (appInfo.metaData.getString("Substratum_Author") != null) {
+                    if (appInfo.metaData.getString(References.metadataName) != null) {
+                        if (appInfo.metaData.getString(References.metadataAuthor) != null) {
                             Log.d("SubstratumDetector", "Substratum is now initializing: " +
                                     package_name);
                             MainFunction mainFunction = new MainFunction();
@@ -103,15 +103,16 @@ public class DetectionReceiver extends BroadcastReceiver {
                             packageInfo.packageName, PackageManager.GET_META_DATA);
                     if (appInfo.metaData != null) {
                         if (References.checkOMS()) {
-                            if (appInfo.metaData.getString("Substratum_Theme") != null) {
-                                if (appInfo.metaData.getString("Substratum_Author") != null) {
+                            if (appInfo.metaData.getString(References.metadataName) != null) {
+                                if (appInfo.metaData.getString(References.metadataAuthor) != null) {
                                     installed.add(packageInfo.packageName);
                                 }
                             }
                         } else {
-                            if (appInfo.metaData.getString("Substratum_Theme") != null) {
-                                if (appInfo.metaData.getString("Substratum_Author") != null) {
-                                    if (appInfo.metaData.getBoolean("Substratum_Legacy", false)) {
+                            if (appInfo.metaData.getString(References.metadataName) != null) {
+                                if (appInfo.metaData.getString(References.metadataAuthor) != null) {
+                                    if (appInfo.metaData.getBoolean(References.metadataLegacy,
+                                            false)) {
                                         installed.add(packageInfo.packageName);
                                     } else {
                                         Log.e("SubstratumCacher", "Device is non-OMS, while an " +
@@ -123,7 +124,8 @@ public class DetectionReceiver extends BroadcastReceiver {
 
                                         String parse = String.format(mContext.getString(
                                                 R.string.failed_to_install_text_notification),
-                                                appInfo.metaData.getString("Substratum_Theme"));
+                                                appInfo.metaData.getString(References
+                                                        .metadataName));
 
                                         NotificationManager notificationManager =
                                                 (NotificationManager) mContext.getSystemService(

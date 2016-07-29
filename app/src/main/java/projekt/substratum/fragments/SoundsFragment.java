@@ -155,17 +155,32 @@ public class SoundsFragment extends Fragment {
                                     Intent myIntent = new Intent(Intent.ACTION_MAIN);
                                     myIntent.setComponent(ComponentName.unflattenFromString(
                                             map.get(map.keySet().toArray()[position].toString())
-                                                    [1] + "/" + ".SubstratumLauncher"));
+                                                    [1] + "/" + "substratum.theme.template" +
+                                                    ".SubstratumLauncher"));
                                     if (!References.checkOMS())
                                         myIntent.putExtra("theme_legacy", true);
                                     myIntent.putExtra("theme_mode", "sounds");
                                     startActivityForResult(myIntent,
                                             THEME_INFORMATION_REQUEST_CODE);
                                 } catch (Exception ex) {
-                                    Toast toast = Toast.makeText(getContext(), getString(R.string
-                                                    .information_activity_upgrade_toast),
-                                            Toast.LENGTH_LONG);
-                                    toast.show();
+                                    try {
+                                        Intent myIntent = new Intent(Intent.ACTION_MAIN);
+                                        myIntent.setComponent(ComponentName.unflattenFromString(
+                                                map.get(map.keySet().toArray()[position].toString())
+                                                        [1] + "/" + ".SubstratumLauncher"));
+                                        if (!References.checkOMS())
+                                            myIntent.putExtra("theme_legacy", true);
+                                        myIntent.putExtra("theme_mode", "sounds");
+                                        startActivityForResult(myIntent,
+                                                THEME_INFORMATION_REQUEST_CODE);
+                                    } catch (Exception ex2) {
+                                        ex.printStackTrace();
+                                        Toast toast = Toast.makeText(getContext(),
+                                                getString(R.string
+                                                        .information_activity_upgrade_toast),
+                                                Toast.LENGTH_LONG);
+                                        toast.show();
+                                    }
                                 }
                             } else {
                                 selected_theme_name = map.get(

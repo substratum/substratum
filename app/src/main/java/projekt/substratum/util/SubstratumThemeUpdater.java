@@ -3,6 +3,7 @@ package projekt.substratum.util;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,10 +13,10 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-import projekt.substratum.InformationActivity;
 import projekt.substratum.MainActivity;
 import projekt.substratum.R;
 import projekt.substratum.config.References;
@@ -82,78 +83,170 @@ public class SubstratumThemeUpdater {
             if (showNotification) {
                 Intent notificationIntent;
                 PendingIntent intent;
-                if (References.checkOMS()) {
-                    notificationIntent = new Intent(mContext, InformationActivity.class);
-                    notificationIntent.putExtra("theme_name", getThemeName(packageName));
-                    notificationIntent.putExtra("theme_pid", packageName);
-                    notificationIntent.putExtra("refresh_back", true);
-                    notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                try {
+                    Intent myIntent = new Intent(Intent.ACTION_MAIN);
+                    myIntent.setComponent(ComponentName.unflattenFromString(
+                            packageName + "/" + "substratum.theme.template" +
+                                    ".SubstratumLauncher"));
+                    myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
                             Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                    intent = PendingIntent.getActivity(mContext, 0, notificationIntent,
-                            PendingIntent.FLAG_CANCEL_CURRENT);
-                } else {
-                    notificationIntent = new Intent(mContext, MainActivity.class);
-                    intent = PendingIntent.getActivity(mContext, 0, notificationIntent,
-                            PendingIntent.FLAG_CANCEL_CURRENT);
-                }
+                    if (!References.checkOMS()) {
+                        notificationIntent = new Intent(mContext, MainActivity.class);
+                        intent = PendingIntent.getActivity(mContext, 0, notificationIntent,
+                                PendingIntent.FLAG_CANCEL_CURRENT);
+                    } else {
+                        intent = PendingIntent.getActivity(mContext, 0, myIntent,
+                                PendingIntent.FLAG_CANCEL_CURRENT);
+                    }
 
-                // This is the time when the notification should be shown on the user's screen
-                NotificationManager mNotifyManager =
-                        (NotificationManager) mContext.getSystemService(
-                                Context.NOTIFICATION_SERVICE);
-                NotificationCompat.Builder mBuilder = new NotificationCompat.Builder
-                        (mContext);
-                mBuilder.getNotification().flags |= Notification.FLAG_AUTO_CANCEL;
-                mBuilder.setContentTitle(getThemeName(packageName) + " " + mContext.getString(
-                        R.string.notification_theme_updated))
-                        .setContentText(mContext.getString(R.string
-                                .notification_theme_updated_content))
-                        .setAutoCancel(true)
-                        .setContentIntent(intent)
-                        .setSmallIcon(R.drawable.notification_updated)
-                        .setLargeIcon(BitmapFactory.decodeResource(
-                                mContext.getResources(), R.mipmap
-                                        .restore_launcher))
-                        .setPriority(notification_priority);
-                mNotifyManager.notify(id, mBuilder.build());
+                    // This is the time when the notification should be shown on the user's screen
+                    NotificationManager mNotifyManager =
+                            (NotificationManager) mContext.getSystemService(
+                                    Context.NOTIFICATION_SERVICE);
+                    NotificationCompat.Builder mBuilder = new NotificationCompat.Builder
+                            (mContext);
+                    mBuilder.getNotification().flags |= Notification.FLAG_AUTO_CANCEL;
+                    mBuilder.setContentTitle(getThemeName(packageName) + " " + mContext.getString(
+                            R.string.notification_theme_updated))
+                            .setContentText(mContext.getString(R.string
+                                    .notification_theme_updated_content))
+                            .setAutoCancel(true)
+                            .setContentIntent(intent)
+                            .setSmallIcon(R.drawable.notification_updated)
+                            .setLargeIcon(BitmapFactory.decodeResource(
+                                    mContext.getResources(), R.mipmap
+                                            .restore_launcher))
+                            .setPriority(notification_priority);
+                    mNotifyManager.notify(id, mBuilder.build());
+                } catch (Exception ex) {
+                    try {
+                        Intent myIntent = new Intent(Intent.ACTION_MAIN);
+                        myIntent.setComponent(ComponentName.unflattenFromString(
+                                packageName + "/" + ".SubstratumLauncher"));
+                        myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                                Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        if (!References.checkOMS()) {
+                            notificationIntent = new Intent(mContext, MainActivity.class);
+                            intent = PendingIntent.getActivity(mContext, 0, notificationIntent,
+                                    PendingIntent.FLAG_CANCEL_CURRENT);
+                        } else {
+                            intent = PendingIntent.getActivity(mContext, 0, myIntent,
+                                    PendingIntent.FLAG_CANCEL_CURRENT);
+                        }
+
+                        // This is the time when the notification should be shown on the user's
+                        // screen
+                        NotificationManager mNotifyManager =
+                                (NotificationManager) mContext.getSystemService(
+                                        Context.NOTIFICATION_SERVICE);
+                        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder
+                                (mContext);
+                        mBuilder.getNotification().flags |= Notification.FLAG_AUTO_CANCEL;
+                        mBuilder.setContentTitle(getThemeName(packageName) + " " +
+                                mContext.getString(R.string.notification_theme_updated))
+                                .setContentText(mContext.getString(R.string
+                                        .notification_theme_updated_content))
+                                .setAutoCancel(true)
+                                .setContentIntent(intent)
+                                .setSmallIcon(R.drawable.notification_updated)
+                                .setLargeIcon(BitmapFactory.decodeResource(
+                                        mContext.getResources(), R.mipmap
+                                                .restore_launcher))
+                                .setPriority(notification_priority);
+                        mNotifyManager.notify(id, mBuilder.build());
+                    } catch (Exception ex2) {
+                        Toast toast = Toast.makeText(mContext,
+                                mContext.getString(R.string
+                                        .information_activity_upgrade_toast),
+                                Toast.LENGTH_LONG);
+                        toast.show();
+                    }
+                }
             } else {
                 Intent notificationIntent;
                 PendingIntent intent;
-                if (References.checkOMS()) {
-                    notificationIntent = new Intent(mContext, InformationActivity.class);
-                    notificationIntent.putExtra("theme_name", getThemeName(packageName));
-                    notificationIntent.putExtra("theme_pid", packageName);
-                    notificationIntent.putExtra("refresh_back", true);
-                    notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
-                            Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                    intent = PendingIntent.getActivity(mContext, 0, notificationIntent,
-                            PendingIntent.FLAG_CANCEL_CURRENT);
-                } else {
-                    notificationIntent = new Intent(mContext, MainActivity.class);
-                    intent = PendingIntent.getActivity(mContext, 0, notificationIntent,
-                            PendingIntent.FLAG_CANCEL_CURRENT);
-                }
 
-                // This is the time when the notification should be shown on the user's screen
-                NotificationManager mNotifyManager =
-                        (NotificationManager) mContext.getSystemService(
-                                Context.NOTIFICATION_SERVICE);
-                NotificationCompat.Builder mBuilder = new NotificationCompat.Builder
-                        (mContext);
-                mBuilder.getNotification().flags |= Notification.FLAG_AUTO_CANCEL;
-                mBuilder.setContentTitle(getThemeName(packageName) + " " +
-                        mContext.getString(R.string
-                                .notification_theme_installed))
-                        .setContentIntent(intent)
-                        .setContentText(mContext.getString(R.string
-                                .notification_theme_installed_content))
-                        .setAutoCancel(true)
-                        .setSmallIcon(R.drawable.notification_icon)
-                        .setLargeIcon(BitmapFactory.decodeResource(
-                                mContext.getResources(), R.mipmap
-                                        .main_launcher))
-                        .setPriority(notification_priority);
-                mNotifyManager.notify(id, mBuilder.build());
+                try {
+                    Intent myIntent = new Intent(Intent.ACTION_MAIN);
+                    myIntent.setComponent(ComponentName.unflattenFromString(
+                            packageName + "/" + "substratum.theme.template" +
+                                    ".SubstratumLauncher"));
+                    myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                            Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    if (!References.checkOMS()) {
+                        notificationIntent = new Intent(mContext, MainActivity.class);
+                        intent = PendingIntent.getActivity(mContext, 0, notificationIntent,
+                                PendingIntent.FLAG_CANCEL_CURRENT);
+                    } else {
+                        intent = PendingIntent.getActivity(mContext, 0, myIntent,
+                                PendingIntent.FLAG_CANCEL_CURRENT);
+                    }
+
+                    // This is the time when the notification should be shown on the user's screen
+                    NotificationManager mNotifyManager =
+                            (NotificationManager) mContext.getSystemService(
+                                    Context.NOTIFICATION_SERVICE);
+                    NotificationCompat.Builder mBuilder = new NotificationCompat.Builder
+                            (mContext);
+                    mBuilder.getNotification().flags |= Notification.FLAG_AUTO_CANCEL;
+                    mBuilder.setContentTitle(getThemeName(packageName) + " " +
+                            mContext.getString(R.string
+                                    .notification_theme_installed))
+                            .setContentIntent(intent)
+                            .setContentText(mContext.getString(R.string
+                                    .notification_theme_installed_content))
+                            .setAutoCancel(true)
+                            .setSmallIcon(R.drawable.notification_icon)
+                            .setLargeIcon(BitmapFactory.decodeResource(
+                                    mContext.getResources(), R.mipmap
+                                            .main_launcher))
+                            .setPriority(notification_priority);
+                    mNotifyManager.notify(id, mBuilder.build());
+                } catch (Exception ex) {
+                    try {
+                        Intent myIntent = new Intent(Intent.ACTION_MAIN);
+                        myIntent.setComponent(ComponentName.unflattenFromString(
+                                packageName + "/" + ".SubstratumLauncher"));
+                        myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                                Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        if (!References.checkOMS()) {
+                            notificationIntent = new Intent(mContext, MainActivity.class);
+                            intent = PendingIntent.getActivity(mContext, 0, notificationIntent,
+                                    PendingIntent.FLAG_CANCEL_CURRENT);
+                        } else {
+                            intent = PendingIntent.getActivity(mContext, 0, myIntent,
+                                    PendingIntent.FLAG_CANCEL_CURRENT);
+                        }
+
+                        // This is the time when the notification should be shown on the user's
+                        // screen
+                        NotificationManager mNotifyManager =
+                                (NotificationManager) mContext.getSystemService(
+                                        Context.NOTIFICATION_SERVICE);
+                        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder
+                                (mContext);
+                        mBuilder.getNotification().flags |= Notification.FLAG_AUTO_CANCEL;
+                        mBuilder.setContentTitle(getThemeName(packageName) + " " +
+                                mContext.getString(R.string
+                                        .notification_theme_installed))
+                                .setContentIntent(intent)
+                                .setContentText(mContext.getString(R.string
+                                        .notification_theme_installed_content))
+                                .setAutoCancel(true)
+                                .setSmallIcon(R.drawable.notification_icon)
+                                .setLargeIcon(BitmapFactory.decodeResource(
+                                        mContext.getResources(), R.mipmap
+                                                .main_launcher))
+                                .setPriority(notification_priority);
+                        mNotifyManager.notify(id, mBuilder.build());
+                    } catch (Exception ex2) {
+                        Toast toast = Toast.makeText(mContext,
+                                mContext.getString(R.string
+                                        .information_activity_upgrade_toast),
+                                Toast.LENGTH_LONG);
+                        toast.show();
+                    }
+                }
             }
             prefs.edit().putBoolean("is_updating", false).apply();
         }

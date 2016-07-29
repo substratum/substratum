@@ -95,8 +95,7 @@ public class DetectionReceiver extends BroadcastReceiver {
             List<ApplicationInfo> list = packageManager.getInstalledApplications(PackageManager
                     .GET_META_DATA);
             List<String> installed = new ArrayList<>();
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences
-                    (mContext);
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
 
             for (ApplicationInfo packageInfo : list) {
                 try {
@@ -116,8 +115,7 @@ public class DetectionReceiver extends BroadcastReceiver {
                                         installed.add(packageInfo.packageName);
                                     } else {
                                         Log.e("SubstratumCacher", "Device is non-OMS, while an " +
-                                                "OMS theme " +
-                                                "is installed, aborting operation!");
+                                                "OMS theme is installed, aborting operation!");
 
                                         Intent showIntent = new Intent();
                                         PendingIntent contentIntent = PendingIntent.getActivity(

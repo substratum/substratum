@@ -142,8 +142,8 @@ public class HomeFragment extends Fragment {
                 View child = rv.findChildViewUnder(e.getX(), e.getY());
                 if (child != null && gestureDetector.onTouchEvent(e)) {
                     // RecyclerView Clicked item value
-                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences
-                            (mContext);
+                    SharedPreferences prefs = getContext().getSharedPreferences(
+                            "substratum_state", Context.MODE_PRIVATE);
                     if (!prefs.contains("is_updating")) prefs.edit()
                             .putBoolean("is_updating", false).apply();
                     if (!prefs.getBoolean("is_updating", true)) {

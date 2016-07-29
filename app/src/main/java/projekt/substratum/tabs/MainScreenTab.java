@@ -231,7 +231,8 @@ public class MainScreenTab extends Fragment {
                             + "/assets/bootanimation");
                     File[] fileArray = f.listFiles();
                     for (int i = 0; i < fileArray.length; i++) {
-                        parsedBootAnimations.add(fileArray[i].getName());
+                        parsedBootAnimations.add(fileArray[i].getName().substring(0,
+                                fileArray[i].getName().length() - 4));
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -283,7 +284,8 @@ public class MainScreenTab extends Fragment {
                             + "/assets/fonts");
                     File[] fileArray = f.listFiles();
                     for (int i = 0; i < fileArray.length; i++) {
-                        unarchivedFonts.add(fileArray[i].getName());
+                        unarchivedFonts.add(fileArray[i].getName().substring(0,
+                                fileArray[i].getName().length() - 4));
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -334,7 +336,8 @@ public class MainScreenTab extends Fragment {
                             + "/assets/audio");
                     File[] fileArray = f.listFiles();
                     for (int i = 0; i < fileArray.length; i++) {
-                        unarchivedSounds.add(fileArray[i].getName());
+                        unarchivedSounds.add(fileArray[i].getName().substring(0,
+                                fileArray[i].getName().length() - 4));
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

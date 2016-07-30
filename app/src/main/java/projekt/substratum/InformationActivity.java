@@ -215,7 +215,7 @@ public class InformationActivity extends AppCompatActivity {
                     Log.e("SubstratumLogger", "Could not refresh list of asset folders.");
                 }
             } else {
-                if (theme_mode.equals("overlays") && !theme_legacy) {
+                if (theme_mode.equals("overlays")) {
                     tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
                             .theme_information_tab_two)));
                 } else {

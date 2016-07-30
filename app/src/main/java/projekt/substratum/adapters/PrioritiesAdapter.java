@@ -83,13 +83,15 @@ public class PrioritiesAdapter extends GestureAdapter<PrioritiesItem, GestureVie
                 // Grab app icon from PackageInstaller and convert it to a BitmapDrawable in bytes
                 Drawable icon = priorities.getDrawableId();
                 Bitmap bitmap = ((BitmapDrawable) icon).getBitmap();
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                byte[] bitmapdata = stream.toByteArray();
+                try (ByteArrayOutputStream stream = new ByteArrayOutputStream()) {
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                    byte[] bitmapdata = stream.toByteArray();
 
-                Glide.with(mContext).load(bitmapdata).centerCrop().into(prioritiesViewHolder
-                        .mAppIcon);
+                    Glide.with(mContext).load(bitmapdata).centerCrop().into(prioritiesViewHolder
+                            .mAppIcon);
+                }
             } catch (Exception e) {
+                //eat it !
             }
         } else {
             final HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;

@@ -129,24 +129,37 @@ public class PriorityLoaderFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... sUrl) {
+            Process nativeApp = null;
             try {
-                String line;
-                Process nativeApp = Runtime.getRuntime().exec("om list");
+                nativeApp = Runtime.getRuntime().exec("om list");
+                try (OutputStream stdin = nativeApp.getOutputStream();
+                     InputStream stderr = nativeApp.getErrorStream();
+                     InputStream stdout = nativeApp.getInputStream();
+                     BufferedReader br = new BufferedReader(new InputStreamReader(stdout))) {
+                    String line;
+                    stdin.write(("ls\n").getBytes());
+                    stdin.write("exit\n".getBytes());
 
-                OutputStream stdin = nativeApp.getOutputStream();
-                InputStream stderr = nativeApp.getErrorStream();
-                InputStream stdout = nativeApp.getInputStream();
-                stdin.write(("ls\n").getBytes());
-                stdin.write("exit\n".getBytes());
-                stdin.flush();
-                stdin.close();
+                    int checked_count = 0;
 
-                int checked_count = 0;
-                BufferedReader br = new BufferedReader(new InputStreamReader(stdout));
-                String current_header = "";
-                while ((line = br.readLine()) != null) {
-                    if (line.length() > 0) {
-                        if (!line.contains("[")) {
+                    String current_header = "";
+                    while ((line = br.readLine()) != null) {
+                        if (line.length() > 0) {
+                            if (!line.contains("[")) {
+                                if (checked_count > 1) {
+                                    prioritiesList.add(new Priorities(current_header,
+                                            References.grabAppIcon(getContext(), current_header)));
+                                    app_list.add(current_header);
+                                    current_header = line;
+                                    checked_count = 0;
+                                } else {
+                                    current_header = line;
+                                    checked_count = 0;
+                                }
+                            } else  if (line.contains("[x]")) {
+                                checked_count += 1;
+                            }
+                        } else {
                             if (checked_count > 1) {
                                 prioritiesList.add(new Priorities(current_header,
                                         References.grabAppIcon(getContext(), current_header)));
@@ -157,33 +170,22 @@ public class PriorityLoaderFragment extends Fragment {
                                 current_header = line;
                                 checked_count = 0;
                             }
-                        } else {
-                            if (line.contains("[x]")) {
-                                checked_count += 1;
-                            }
                         }
-                    } else {
-                        if (checked_count > 1) {
-                            prioritiesList.add(new Priorities(current_header,
-                                    References.grabAppIcon(getContext(), current_header)));
-                            app_list.add(current_header);
-                            current_header = line;
-                            checked_count = 0;
-                        } else {
-                            current_header = line;
-                            checked_count = 0;
+                    }
+
+                    try (BufferedReader br1 = new BufferedReader(new InputStreamReader(stderr))) {
+                        while ((line = br1.readLine()) != null) {
+                            Log.e("PriorityLoaderFragment", line);
                         }
                     }
                 }
-                br.close();
-                br = new BufferedReader(new InputStreamReader(stderr));
-                while ((line = br.readLine()) != null) {
-                    Log.e("SubstratumLogger", line);
-                }
-                br.close();
             } catch (IOException ioe) {
-                Log.e("SubstratumLogger", "There was an issue regarding loading the priorities of" +
+                Log.e("PriorityLoaderFragment", "There was an issue regarding loading the priorities of" +
                         " each overlay.");
+            } finally {
+                if(nativeApp != null){
+                    nativeApp.destroy();
+                }
             }
             return null;
         }

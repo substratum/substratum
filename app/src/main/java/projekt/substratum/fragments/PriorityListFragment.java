@@ -89,49 +89,53 @@ public class PriorityListFragment extends Fragment {
         final List<PrioritiesItem> prioritiesList = new ArrayList<>();
         final List<String> workable_list = new ArrayList<>();
         commands = "";
-
+        Process nativeApp = null;
         try {
-            String line;
-            Process nativeApp = Runtime.getRuntime().exec("om list");
+            nativeApp = Runtime.getRuntime().exec("om list");
 
-            OutputStream stdin = nativeApp.getOutputStream();
-            InputStream stderr = nativeApp.getErrorStream();
-            InputStream stdout = nativeApp.getInputStream();
-            stdin.write(("ls\n").getBytes());
-            stdin.write("exit\n".getBytes());
-            stdin.flush();
-            stdin.close();
+            try (OutputStream stdin = nativeApp.getOutputStream();
+                 InputStream stderr = nativeApp.getErrorStream();
+                 InputStream stdout = nativeApp.getInputStream();
+                 BufferedReader br = new BufferedReader(new InputStreamReader(stdout))) {
+                String line;
 
-            BufferedReader br = new BufferedReader(new InputStreamReader(stdout));
-            String current_header = "";
-            while ((line = br.readLine()) != null) {
-                if (line.length() > 0) {
-                    if (line.equals(obtained_key)) {
-                        current_header = line;
-                    } else {
-                        if (current_header.equals(obtained_key)) {
-                            if (line.contains("[x]")) {
-                                prioritiesList.add(new Priorities(line.substring(8),
-                                        References.grabAppIcon(getContext(), current_header)));
-                                workable_list.add(line.substring(8));
-                            } else {
-                                if (!line.contains("[ ]")) {
+                stdin.write(("ls\n").getBytes());
+                stdin.write("exit\n".getBytes());
+
+                String current_header = "";
+                while ((line = br.readLine()) != null) {
+                    if (line.length() > 0) {
+                        if (line.equals(obtained_key)) {
+                            current_header = line;
+                        } else {
+                            if (current_header.equals(obtained_key)) {
+                                if (line.contains("[x]")) {
+                                    prioritiesList.add(new Priorities(line.substring(8),
+                                            References.grabAppIcon(getContext(),
+                                                    current_header)));
+                                    workable_list.add(line.substring(8));
+                                } else  if (!line.contains("[ ]")) {
                                     break;
                                 }
                             }
                         }
                     }
                 }
+
+                try (BufferedReader br1 = new BufferedReader(new InputStreamReader(stderr))) {
+                    while ((line = br1.readLine()) != null) {
+                        Log.e("PriorityListFragment", line);
+                    }
+                }
             }
-            br.close();
-            br = new BufferedReader(new InputStreamReader(stderr));
-            while ((line = br.readLine()) != null) {
-                Log.e("SubstratumLogger", line);
-            }
-            br.close();
         } catch (IOException ioe) {
-            Log.e("SubstratumLogger", "There was an issue regarding loading the priorities of " +
+            Log.e("PriorityListFragment", "There was an issue regarding loading the priorities of " +
                     "each overlay.");
+        } finally {
+            if(nativeApp != null ) {
+                // destroy the Process explicitly
+                nativeApp.destroy();
+            }
         }
 
         final PrioritiesAdapter adapter = new PrioritiesAdapter(getContext(), R.layout.linear_item);

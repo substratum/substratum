@@ -1,5 +1,6 @@
 package projekt.substratum.model;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 
 /**
@@ -10,7 +11,9 @@ public class ThemeInfo {
     private String themeName;
     private String themeAuthor;
     private String themePackage;
+    private String themeVersion;
     private Drawable themeDrawable;
+    private Context themeContext;
 
     public String getThemeName() {
         return themeName;
@@ -36,11 +39,27 @@ public class ThemeInfo {
         this.themePackage = themePackage;
     }
 
+    public String getThemeVersion() {
+        return themeVersion;
+    }
+
+    public void setThemeVersion(String themeVersion) {
+        this.themeVersion = themeVersion;
+    }
+
     public Drawable getThemeDrawable() {
         return this.themeDrawable;
     }
 
     public void setThemeDrawable(Drawable drawable) {
         this.themeDrawable = drawable;
+    }
+
+    public Context getContext() {
+        return themeContext;
+    }
+
+    public void setContext(Context context) {
+        this.themeContext = context;
     }
 }

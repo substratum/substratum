@@ -298,9 +298,32 @@ public class HomeFragment extends Fragment {
             themeInfo.setThemePackage(map.get(map.keySet().toArray()[i].toString())[1]);
             themeInfo.setThemeDrawable(grabPackageHeroImage(map.get(map.keySet().toArray()[i]
                     .toString())[1]));
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+            if (prefs.getBoolean("show_template_version", false)) {
+                themeInfo.setThemeVersion(grabPackageTemplateVersion(
+                        map.get(map.keySet().toArray()[i].toString())[1]));
+            } else {
+                themeInfo.setThemeVersion(null);
+            }
+            themeInfo.setContext(mContext);
             themes.add(themeInfo);
         }
         return themes;
+    }
+
+    private String grabPackageTemplateVersion(String package_name) {
+        try {
+            ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
+                    package_name, PackageManager.GET_META_DATA);
+            if (appInfo.metaData != null) {
+                if (appInfo.metaData.getString(References.metadataVersion) != null) {
+                    return appInfo.metaData.getString(References.metadataVersion);
+                }
+            }
+        } catch (Exception e) {
+            //
+        }
+        return null;
     }
 
     public Drawable grabPackageHeroImage(String package_name) {

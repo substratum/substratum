@@ -39,7 +39,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             p = new ProcessBuilder("/system/bin/getprop",
                     propName).redirectErrorStream(true).start();
             BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            String line = "";
+            String line;
             while ((line = br.readLine()) != null) {
                 result = line;
             }
@@ -156,8 +156,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 prefs.edit().putBoolean("show_app_icon", false).apply();
                                 PackageManager p = getContext().getPackageManager();
                                 ComponentName componentName = new ComponentName(getContext(),
-                                        LauncherActivity
-                                                .class);
+                                        LauncherActivity.class);
                                 p.setComponentEnabledSetting(componentName, PackageManager
                                         .COMPONENT_ENABLED_STATE_DISABLED, PackageManager
                                         .DONT_KILL_APP);
@@ -228,6 +227,29 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         }
                     });
         }
+
+        final CheckBoxPreference show_template_version = (CheckBoxPreference)
+                getPreferenceManager().findPreference("show_template_version");
+        if (prefs.getBoolean("show_template_version", true)) {
+            show_template_version.setChecked(true);
+        } else {
+            show_template_version.setChecked(false);
+        }
+        show_template_version.setOnPreferenceChangeListener(
+                new Preference.OnPreferenceChangeListener() {
+                    @Override
+                    public boolean onPreferenceChange(Preference preference, Object newValue) {
+                        boolean isChecked = (Boolean) newValue;
+                        if (isChecked) {
+                            prefs.edit().putBoolean("show_template_version", true).apply();
+                            show_template_version.setChecked(true);
+                        } else {
+                            prefs.edit().putBoolean("show_template_version", false).apply();
+                            show_template_version.setChecked(false);
+                        }
+                        return false;
+                    }
+                });
 
         final CheckBoxPreference dynamic_actionbar = (CheckBoxPreference)
                 getPreferenceManager().findPreference("dynamic_actionbar");

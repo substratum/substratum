@@ -34,6 +34,10 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         viewHolder.theme_name.setText(information.get(i).getThemeName());
         viewHolder.theme_author.setText(information.get(i).getThemeAuthor());
+        if (information.get(i).getThemeVersion() != null) {
+            viewHolder.theme_version.setText(information.get(i).getThemeVersion());
+        }
+        viewHolder.theme_author.setText(information.get(i).getThemeAuthor());
         viewHolder.imageView.setImageDrawable(information.get(i).getThemeDrawable());
     }
 
@@ -45,12 +49,14 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView theme_name;
         TextView theme_author;
+        TextView theme_version;
         ImageView imageView;
 
         public ViewHolder(View view) {
             super(view);
             theme_name = (TextView) view.findViewById(R.id.theme_name);
             theme_author = (TextView) view.findViewById(R.id.theme_author);
+            theme_version = (TextView) view.findViewById(R.id.theme_version);
             imageView = (ImageView) view.findViewById(R.id.theme_preview_image);
         }
     }

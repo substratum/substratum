@@ -31,6 +31,7 @@ public class References {
     public static String metadataName = "Substratum_Name";
     public static String metadataAuthor = "Substratum_Author";
     public static String metadataLegacy = "Substratum_Legacy";
+    public static String metadataVersion = "Substratum_Plugin";
 
     // This method configures the new devices and their configuration of their vendor folders
     public static int DEFAULT_PRIORITY = 50;
@@ -45,6 +46,7 @@ public class References {
         prefs.edit().putBoolean("show_app_icon", true).apply();
         prefs.edit().putBoolean("systemui_recreate", false).apply();
         prefs.edit().putBoolean("substratum_oms", References.checkOMS()).apply();
+        prefs.edit().putBoolean("show_template_version", false).apply();
         prefs = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
         prefs.edit().putBoolean("is_updating", false).apply();
     }

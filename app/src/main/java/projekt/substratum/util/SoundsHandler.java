@@ -327,19 +327,23 @@ public class SoundsHandler {
     }
 
     private String getProp(String propName) {
-        Process p;
+        Process p = null;
         String result = "";
         try {
             p = new ProcessBuilder("/system/bin/getprop",
                     propName).redirectErrorStream(true).start();
-            BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            String line;
-            while ((line = br.readLine()) != null) {
-                result = line;
+            try(BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()))) {
+                String line;
+                while ((line = br.readLine()) != null) {
+                    result = line;
+                }
             }
-            br.close();
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            if(p != null){
+                p.destroy();
+            }
         }
         return result;
     }
@@ -518,12 +522,12 @@ public class SoundsHandler {
                 try {
                     Context otherContext = mContext.createPackageContext(theme_pid, 0);
                     AssetManager am = otherContext.getAssets();
-                    InputStream inputStream = am.open("audio/" + sounds + ".zip");
-                    OutputStream outputStream = new FileOutputStream(mContext.getCacheDir()
-                            .getAbsolutePath() + "/SoundsCache/SoundsInjector/" +
-                            sounds + ".zip");
-
-                    CopyStream(inputStream, outputStream);
+                    try (InputStream inputStream = am.open("audio/" + sounds + ".zip");
+                         OutputStream outputStream = new FileOutputStream(mContext.getCacheDir()
+                                 .getAbsolutePath() + "/SoundsCache/SoundsInjector/" +
+                                 sounds + ".zip")) {
+                        CopyStream(inputStream, outputStream);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                     Log.e("SoundsHandler", "There is no sounds.zip found within the assets " +
@@ -594,9 +598,8 @@ public class SoundsHandler {
         }
 
         private void unzip(String source, String destination) {
-            try {
-                ZipInputStream inputStream = new ZipInputStream(
-                        new BufferedInputStream(new FileInputStream(source)));
+            try (ZipInputStream inputStream = new ZipInputStream(
+                    new BufferedInputStream(new FileInputStream(source)))){
                 ZipEntry zipEntry;
                 int count;
                 byte[] buffer = new byte[8192];
@@ -608,12 +611,12 @@ public class SoundsHandler {
                                 dir.getAbsolutePath());
                     if (zipEntry.isDirectory())
                         continue;
-                    FileOutputStream outputStream = new FileOutputStream(file);
-                    while ((count = inputStream.read(buffer)) != -1)
-                        outputStream.write(buffer, 0, count);
-                    outputStream.close();
+                    try(FileOutputStream outputStream = new FileOutputStream(file)) {
+                        while ((count = inputStream.read(buffer)) != -1) {
+                            outputStream.write(buffer, 0, count);
+                        }
+                    }
                 }
-                inputStream.close();
             } catch (Exception e) {
                 e.printStackTrace();
                 Log.e("SoundsHandler",

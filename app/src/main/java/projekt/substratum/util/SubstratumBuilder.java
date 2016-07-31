@@ -323,29 +323,28 @@ public class SubstratumBuilder {
                 String line;
                 Process nativeApp = Runtime.getRuntime().exec(commands);
 
-                OutputStream stdin = nativeApp.getOutputStream();
-                InputStream stderr = nativeApp.getErrorStream();
-                InputStream stdout = nativeApp.getInputStream();
-                stdin.write(("ls\n").getBytes());
-                stdin.write("exit\n".getBytes());
-                stdin.flush();
-                stdin.close();
+                try (OutputStream stdin = nativeApp.getOutputStream();
+                     InputStream stderr = nativeApp.getErrorStream();
+                     InputStream stdout = nativeApp.getInputStream()) {
+                    stdin.write(("ls\n").getBytes());
+                    stdin.write("exit\n".getBytes());
 
-                BufferedReader br = new BufferedReader(new InputStreamReader(stdout));
-                while ((line = br.readLine()) != null) {
-                    Log.d("OverlayOptimizer", line);
+                    try(BufferedReader br = new BufferedReader(new InputStreamReader(stdout))) {
+                        while ((line = br.readLine()) != null) {
+                            Log.d("OverlayOptimizer", line);
+                        }
+                    }
+                    try(BufferedReader br = new BufferedReader(new InputStreamReader(stderr))) {
+                        while ((line = br.readLine()) != null) {
+                            Log.e("SubstratumBuilder", line);
+                            has_errored_out = true;
+                        }
+                    }
+                    if (has_errored_out) {
+                        Log.e("SubstratumBuilder", "Installation of \"" + overlay_package + "\" has " +
+                                "failed.");
+                    }
                 }
-                br.close();
-                br = new BufferedReader(new InputStreamReader(stderr));
-                while ((line = br.readLine()) != null) {
-                    Log.e("SubstratumBuilder", line);
-                    has_errored_out = true;
-                }
-                if (has_errored_out) {
-                    Log.e("SubstratumBuilder", "Installation of \"" + overlay_package + "\" has " +
-                            "failed.");
-                }
-                br.close();
 
                 if (!has_errored_out) {
                     // We need this Process to be waited for before moving on to the next function.

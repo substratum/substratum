@@ -134,24 +134,19 @@ public class AntiPiracyCheck {
             try {
                 ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
                         package_name, PackageManager.GET_META_DATA);
-                if (appInfo.metaData != null) {
-                    if (appInfo.metaData.getString("Substratum_ID") != null) {
-                        if (appInfo.metaData.getString("Substratum_ID").equals(Settings.
-                                Secure.getString(context.getContentResolver(),
+                if (appInfo.metaData != null && appInfo.metaData.getString("Substratum_ID") != null
+                        && appInfo.metaData.getString("Substratum_ID")
+                        .equals(Settings.Secure.getString(context.getContentResolver(),
                                 Settings.Secure.ANDROID_ID))) {
-                            if (appInfo.metaData.getString("Substratum_IMEI") != null) {
-                                if (appInfo.metaData.getString("Substratum_IMEI").equals("!" +
-                                        getDeviceIMEI())) {
-                                    if (appInfo.metaData.getString("Substratum_Parent") != null) {
-                                        if (!findOverlayParent(context, appInfo.metaData.getString
-                                                ("Substratum_Parent"))) {
-                                            Log.d("OverlayVerification", package_name + " " +
-                                                    "unauthorized to be used on this device.");
-                                            unauthorized_packages.add(package_name);
-                                        }
-                                    }
-                                }
-                            }
+                    if (appInfo.metaData.getString("Substratum_IMEI") != null
+                            && appInfo.metaData.getString("Substratum_IMEI").equals("!" +
+                            getDeviceIMEI())) {
+                        if (appInfo.metaData.getString("Substratum_Parent") != null
+                                && !findOverlayParent(context,
+                                appInfo.metaData.getString("Substratum_Parent"))) {
+                            Log.d("OverlayVerification", package_name + " " +
+                                    "unauthorized to be used on this device.");
+                            unauthorized_packages.add(package_name);
                         }
                     }
                 }

@@ -113,9 +113,9 @@ public class CacheCreator {
             String destination = mContext.getCacheDir().getAbsolutePath() + "/SubstratumBuilder/"
                     + directory_name;
 
-            ZipInputStream inputStream = new ZipInputStream(
-                    new BufferedInputStream(new FileInputStream(source)));
-            try {
+
+            try (ZipInputStream inputStream = new ZipInputStream(
+                    new BufferedInputStream(new FileInputStream(source)))){
                 ZipEntry zipEntry;
                 int count;
                 byte[] buffer = new byte[8192];
@@ -127,17 +127,12 @@ public class CacheCreator {
                                 dir.getAbsolutePath());
                     if (zipEntry.isDirectory())
                         continue;
-                    FileOutputStream outputStream = new FileOutputStream(file);
-                    try {
+                    try(FileOutputStream outputStream = new FileOutputStream(file)) {
                         while ((count = inputStream.read(buffer)) != -1)
                             outputStream.write(buffer, 0, count);
-                    } finally {
-                        outputStream.close();
                     }
                 }
                 createVersioningPlaceholderFile(package_identifier, directory_name);
-            } finally {
-                inputStream.close();
             }
         } else {
             Log.e("SubstratumLogger",

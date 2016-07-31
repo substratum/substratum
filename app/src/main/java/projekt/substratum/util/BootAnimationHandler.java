@@ -117,12 +117,13 @@ public class BootAnimationHandler {
                 try {
                     Context otherContext = mContext.createPackageContext(theme_pid, 0);
                     AssetManager am = otherContext.getAssets();
-                    InputStream inputStream = am.open("bootanimation/" + bootanimation + ".zip");
-                    OutputStream outputStream = new FileOutputStream(mContext.getCacheDir()
-                            .getAbsolutePath() + "/BootAnimationCache/AnimationCreator/" +
-                            bootanimation + ".zip");
+                    try (InputStream inputStream = am.open("bootanimation/" + bootanimation + ".zip");
+                         OutputStream outputStream = new FileOutputStream(mContext.getCacheDir()
+                                 .getAbsolutePath() + "/BootAnimationCache/AnimationCreator/" +
+                                 bootanimation + ".zip")) {
 
-                    CopyStream(inputStream, outputStream);
+                        CopyStream(inputStream, outputStream);
+                    }
                 } catch (Exception e) {
                     Log.e("BootAnimationHandler", "There is no bootanimation.zip found within the" +
                             " " +
@@ -167,15 +168,15 @@ public class BootAnimationHandler {
             if (!has_failed) {
                 Log.d("BootAnimationHandler", "Calculating hardware display density metrics and " +
                         "resizing the bootanimation...");
-                try {
-                    final OutputStream os = new FileOutputStream(mContext.getCacheDir()
-                            .getAbsolutePath() + "/BootAnimationCache/AnimationCreator/" +
-                            "scaled-" + bootanimation + ".zip");
-                    final ZipOutputStream zos = new ZipOutputStream(new BufferedOutputStream(os));
-                    final ZipInputStream bootAni = new ZipInputStream(new BufferedInputStream(new
-                            FileInputStream(mContext.getCacheDir()
-                            .getAbsolutePath() + "/BootAnimationCache/AnimationCreator/" +
-                            bootanimation + ".zip")));
+                BufferedReader reader = null;
+                try (final OutputStream os = new FileOutputStream(mContext.getCacheDir()
+                        .getAbsolutePath() + "/BootAnimationCache/AnimationCreator/" +
+                        "scaled-" + bootanimation + ".zip");
+                     final ZipOutputStream zos = new ZipOutputStream(new BufferedOutputStream(os));
+                     final ZipInputStream bootAni = new ZipInputStream(new BufferedInputStream(new
+                             FileInputStream(mContext.getCacheDir()
+                             .getAbsolutePath() + "/BootAnimationCache/AnimationCreator/" +
+                             bootanimation + ".zip")))) {
                     ZipEntry ze;
 
                     zos.setMethod(ZipOutputStream.STORED);
@@ -195,7 +196,7 @@ public class BootAnimationHandler {
                             }
                         } else {
                             String line;
-                            BufferedReader reader = new BufferedReader(new InputStreamReader
+                            reader = new BufferedReader(new InputStreamReader
                                     (bootAni));
                             final String[] info = reader.readLine().split(" ");
 
@@ -244,17 +245,24 @@ public class BootAnimationHandler {
                             entry.setCrc(crc32.getValue());
                             entry.setSize(size);
                             entry.setCompressedSize(size);
+
                             zos.putNextEntry(entry);
                             zos.write(buffer.array(), 0, size);
                         }
-                        zos.closeEntry();
                     }
-                    zos.close();
                 } catch (Exception e) {
                     e.printStackTrace();
                     Log.e("BootAnimationHandler", "The boot animation descriptor file (desc.txt) " +
                             "could not be parsed properly!");
                     has_failed = true;
+                } finally {
+                    if(reader != null){
+                        try {
+                            reader.close();
+                        } catch (IOException e) {
+                            //eat it
+                        }
+                    }
                 }
             }
 

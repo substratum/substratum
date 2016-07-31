@@ -139,10 +139,11 @@ public class FontHandler {
                 try {
                     Context otherContext = mContext.createPackageContext(theme_pid, 0);
                     AssetManager am = otherContext.getAssets();
-                    InputStream inputStream = am.open("fonts/" + source);
-                    OutputStream outputStream = new FileOutputStream(mContext.getCacheDir()
-                            .getAbsolutePath() + "/FontCache/" + source);
-                    CopyStream(inputStream, outputStream);
+                    try (InputStream inputStream = am.open("fonts/" + source);
+                         OutputStream outputStream = new FileOutputStream(mContext.getCacheDir()
+                                 .getAbsolutePath() + "/FontCache/" + source)) {
+                        CopyStream(inputStream, outputStream);
+                    }
                 } catch (Exception e) {
                     Log.e("FontHandler", "There is no fonts.zip found within the assets " +
                             "of this theme!");
@@ -215,19 +216,11 @@ public class FontHandler {
 
         private void copyAssets() {
             AssetManager assetManager = mContext.getAssets();
-            InputStream in;
-            OutputStream out;
-            String filename = "fonts.xml";
-            try {
-                in = assetManager.open(filename);
-                out = new FileOutputStream(mContext.getCacheDir().getAbsolutePath() +
-                        "/FontCache/FontCreator/" + filename);
+            final String filename = "fonts.xml";
+            try (InputStream in = assetManager.open(filename);
+                 OutputStream out = new FileOutputStream(mContext.getCacheDir().getAbsolutePath() +
+                         "/FontCache/FontCreator/" + filename)) {
                 copyFile(in, out);
-                in.close();
-                in = null;
-                out.flush();
-                out.close();
-                out = null;
             } catch (IOException e) {
                 Log.e("FontHandler", "Failed to move font configuration file to working " +
                         "directory!");
@@ -243,9 +236,8 @@ public class FontHandler {
         }
 
         private void unzip(String source, String destination) {
-            try {
-                ZipInputStream inputStream = new ZipInputStream(
-                        new BufferedInputStream(new FileInputStream(source)));
+            try (ZipInputStream inputStream = new ZipInputStream(
+                    new BufferedInputStream(new FileInputStream(source)))){
                 ZipEntry zipEntry;
                 int count;
                 byte[] buffer = new byte[8192];
@@ -257,12 +249,11 @@ public class FontHandler {
                                 dir.getAbsolutePath());
                     if (zipEntry.isDirectory())
                         continue;
-                    FileOutputStream outputStream = new FileOutputStream(file);
-                    while ((count = inputStream.read(buffer)) != -1)
-                        outputStream.write(buffer, 0, count);
-                    outputStream.close();
+                    try(FileOutputStream outputStream = new FileOutputStream(file)) {
+                        while ((count = inputStream.read(buffer)) != -1)
+                            outputStream.write(buffer, 0, count);
+                    }
                 }
-                inputStream.close();
             } catch (Exception e) {
                 e.printStackTrace();
                 Log.e("FontHandler",
@@ -270,6 +261,12 @@ public class FontHandler {
             }
         }
 
+        /**
+         * Dont close streams here calling method must take care.
+         * @param Input
+         * @param Output
+         * @throws IOException
+         */
         private void CopyStream(InputStream Input, OutputStream Output) throws IOException {
             byte[] buffer = new byte[5120];
             int length = Input.read(buffer);

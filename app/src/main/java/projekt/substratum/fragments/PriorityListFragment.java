@@ -1,7 +1,9 @@
 package projekt.substratum.fragments;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -177,7 +179,7 @@ public class PriorityListFragment extends Fragment {
                 5. com.android.systemui.Beltz will be a HIGHER priority than
                 com.android.systemui.Domination
 
-                 */
+                */
 
                 if (commands.length() == 0) {
                     String move_package = workable_list.get(fromPos);
@@ -213,6 +215,14 @@ public class PriorityListFragment extends Fragment {
                             public void run() {
                                 if (References.isPackageInstalled(getContext(),
                                         "masquerade.substratum")) {
+                                    final SharedPreferences prefs =
+                                            PreferenceManager.getDefaultSharedPreferences(
+                                                    getContext());
+                                    if (!prefs.getBoolean("systemui_recreate", false)) {
+                                        if (commands.contains("systemui")) {
+                                            commands = commands + " && pkill com.android.systemui";
+                                        }
+                                    }
                                     Intent runCommand = new Intent();
                                     runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                                     runCommand.setAction("masquerade.substratum.COMMANDS");

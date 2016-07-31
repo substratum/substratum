@@ -159,8 +159,31 @@ public class FontsFragment extends Fragment {
                                     if (!References.checkOMS())
                                         myIntent.putExtra("theme_legacy", true);
                                     myIntent.putExtra("theme_mode", "fonts");
-                                    startActivityForResult(myIntent,
-                                            THEME_INFORMATION_REQUEST_CODE);
+                                    Context otherAppContext = getContext().createPackageContext(
+                                            map.get(map.keySet().toArray()[position]
+                                                    .toString())[1],
+                                            Context.CONTEXT_IGNORE_SECURITY);
+                                    boolean is_valid = true;
+                                    String[] classes = References.getClassesOfPackage(
+                                            otherAppContext);
+                                    for (int i = 0; i < classes.length; i++) {
+                                        if (!References.isAllowedPackageClass(classes[i],
+                                                map.get(map.keySet().toArray()[position]
+                                                        .toString())[1])) {
+                                            is_valid = false;
+                                            break;
+                                        }
+                                    }
+                                    if (is_valid) {
+                                        startActivityForResult(myIntent,
+                                                THEME_INFORMATION_REQUEST_CODE);
+                                    } else {
+                                        Toast toast = Toast.makeText(getContext(),
+                                                getString(R.string
+                                                        .information_activity_pirated_toast),
+                                                Toast.LENGTH_LONG);
+                                        toast.show();
+                                    }
                                 } catch (Exception ex) {
                                     try {
                                         Intent myIntent = new Intent(Intent.ACTION_MAIN);
@@ -170,8 +193,31 @@ public class FontsFragment extends Fragment {
                                         if (!References.checkOMS())
                                             myIntent.putExtra("theme_legacy", true);
                                         myIntent.putExtra("theme_mode", "fonts");
-                                        startActivityForResult(myIntent,
-                                                THEME_INFORMATION_REQUEST_CODE);
+                                        Context otherAppContext = getContext().createPackageContext(
+                                                map.get(map.keySet().toArray()[position]
+                                                        .toString())[1],
+                                                Context.CONTEXT_IGNORE_SECURITY);
+                                        boolean is_valid = true;
+                                        String[] classes = References.getClassesOfPackage(
+                                                otherAppContext);
+                                        for (int i = 0; i < classes.length; i++) {
+                                            if (!References.isAllowedPackageClass(classes[i],
+                                                    map.get(map.keySet().toArray()[position]
+                                                            .toString())[1])) {
+                                                is_valid = false;
+                                                break;
+                                            }
+                                        }
+                                        if (is_valid) {
+                                            startActivityForResult(myIntent,
+                                                    THEME_INFORMATION_REQUEST_CODE);
+                                        } else {
+                                            Toast toast = Toast.makeText(getContext(),
+                                                    getString(R.string
+                                                            .information_activity_pirated_toast),
+                                                    Toast.LENGTH_LONG);
+                                            toast.show();
+                                        }
                                     } catch (Exception ex2) {
                                         ex.printStackTrace();
                                         Toast toast = Toast.makeText(getContext(),

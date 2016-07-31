@@ -12,8 +12,12 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Enumeration;
 
+import dalvik.system.DexFile;
 import projekt.substratum.R;
 
 /**
@@ -22,8 +26,7 @@ import projekt.substratum.R;
 
 public class References {
 
-    // This method is used to determine whether there the system is initiated with OMS
-
+    // This int controls the notification identifier
     public static int firebase_notification_id = 24862486;
     public static int notification_id = 2486;
 
@@ -31,7 +34,6 @@ public class References {
     public static Boolean DEBUG = false;
 
     // These strings control the current filter for themes
-
     public static String metadataName = "Substratum_Name";
     public static String metadataAuthor = "Substratum_Author";
     public static String metadataLegacy = "Substratum_Legacy";
@@ -40,6 +42,7 @@ public class References {
     // This method configures the new devices and their configuration of their vendor folders
     public static int DEFAULT_PRIORITY = 50;
 
+    // This method is used to determine whether there the system is initiated with OMS
     public static Boolean checkOMS() {
         File om = new File("/system/bin/om");
         return om.exists();
@@ -60,7 +63,39 @@ public class References {
         return Arrays.asList(nexus_filter).contains(Build.DEVICE);
     }
 
-    // This int controls the notification identifier
+    // These methods determine whether the package's class is allowed
+    public static Boolean isAllowedPackageClass(String current, String packageName) {
+        String[] allowed_package_name = {
+                "android.support",
+                "com.a.a.a",
+                "com.google.android.vending.licensing",
+                "substratum.theme.template",
+                packageName
+        };
+        for (int i = 0; i < allowed_package_name.length; i++) {
+            if (current.contains(allowed_package_name[i])) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static String[] getClassesOfPackage(Context context) {
+        ArrayList<String> classes = new ArrayList<>();
+        try {
+            String packageCodePath = context.getPackageCodePath();
+            Log.e("packageCodePath", packageCodePath);
+            DexFile df = new DexFile(packageCodePath);
+            Log.e("DexFile", df.getName());
+            for (Enumeration<String> iter = df.entries(); iter.hasMoreElements(); ) {
+                String className = iter.nextElement();
+                classes.add(className);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return classes.toArray(new String[classes.size()]);
+    }
 
     // This string array contains all the SystemUI acceptable overlay packs
     public static Boolean allowedSystemUIOverlay(String current) {

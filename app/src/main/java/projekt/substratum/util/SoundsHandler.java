@@ -332,7 +332,8 @@ public class SoundsHandler {
         try {
             p = new ProcessBuilder("/system/bin/getprop",
                     propName).redirectErrorStream(true).start();
-            try(BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()))) {
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream())
+            )) {
                 String line;
                 while ((line = br.readLine()) != null) {
                     result = line;
@@ -341,7 +342,7 @@ public class SoundsHandler {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            if(p != null){
+            if (p != null) {
                 p.destroy();
             }
         }
@@ -599,7 +600,7 @@ public class SoundsHandler {
 
         private void unzip(String source, String destination) {
             try (ZipInputStream inputStream = new ZipInputStream(
-                    new BufferedInputStream(new FileInputStream(source)))){
+                    new BufferedInputStream(new FileInputStream(source)))) {
                 ZipEntry zipEntry;
                 int count;
                 byte[] buffer = new byte[8192];
@@ -611,7 +612,7 @@ public class SoundsHandler {
                                 dir.getAbsolutePath());
                     if (zipEntry.isDirectory())
                         continue;
-                    try(FileOutputStream outputStream = new FileOutputStream(file)) {
+                    try (FileOutputStream outputStream = new FileOutputStream(file)) {
                         while ((count = inputStream.read(buffer)) != -1) {
                             outputStream.write(buffer, 0, count);
                         }

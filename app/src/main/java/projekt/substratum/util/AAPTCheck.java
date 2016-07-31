@@ -99,8 +99,8 @@ public class AAPTCheck {
         AssetManager assetManager = mContext.getAssets();
         String TARGET_BASE_PATH = mContext.getFilesDir().getAbsolutePath() + "/";
         String newFileName = TARGET_BASE_PATH + filename;
-        try(InputStream in = assetManager.open(filename);
-            OutputStream out = new FileOutputStream(newFileName) ) {
+        try (InputStream in = assetManager.open(filename);
+             OutputStream out = new FileOutputStream(newFileName)) {
             byte[] buffer = new byte[1024];
             int read;
             while ((read = in.read(buffer)) != -1) {
@@ -124,7 +124,7 @@ public class AAPTCheck {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if(proc != null) {
+            if (proc != null) {
                 proc.destroy();
             }
         }

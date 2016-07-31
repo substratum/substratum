@@ -340,7 +340,7 @@ public class BootAnimation extends Fragment {
 
         private void unzip(String source, String destination) {
             try (ZipInputStream inputStream = new ZipInputStream(
-                    new BufferedInputStream(new FileInputStream(source)))){
+                    new BufferedInputStream(new FileInputStream(source)))) {
                 ZipEntry zipEntry;
                 int count;
                 byte[] buffer = new byte[8192];

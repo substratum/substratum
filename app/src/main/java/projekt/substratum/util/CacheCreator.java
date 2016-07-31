@@ -115,7 +115,7 @@ public class CacheCreator {
 
 
             try (ZipInputStream inputStream = new ZipInputStream(
-                    new BufferedInputStream(new FileInputStream(source)))){
+                    new BufferedInputStream(new FileInputStream(source)))) {
                 ZipEntry zipEntry;
                 int count;
                 byte[] buffer = new byte[8192];
@@ -127,7 +127,7 @@ public class CacheCreator {
                                 dir.getAbsolutePath());
                     if (zipEntry.isDirectory())
                         continue;
-                    try(FileOutputStream outputStream = new FileOutputStream(file)) {
+                    try (FileOutputStream outputStream = new FileOutputStream(file)) {
                         while ((count = inputStream.read(buffer)) != -1)
                             outputStream.write(buffer, 0, count);
                     }

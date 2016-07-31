@@ -180,7 +180,7 @@ public class SubstratumBuilder {
         if (!has_errored_out) {
             try (FileWriter fw = new FileWriter(root);
                  BufferedWriter bw = new BufferedWriter(fw);
-                 PrintWriter pw = new PrintWriter(bw)){
+                 PrintWriter pw = new PrintWriter(bw)) {
                 root.createNewFile();
                 if (variant != null) {
                     String manifest =
@@ -326,19 +326,20 @@ public class SubstratumBuilder {
                     stdin.write(("ls\n").getBytes());
                     stdin.write("exit\n".getBytes());
 
-                    try(BufferedReader br = new BufferedReader(new InputStreamReader(stdout))) {
+                    try (BufferedReader br = new BufferedReader(new InputStreamReader(stdout))) {
                         while ((line = br.readLine()) != null) {
                             Log.d("OverlayOptimizer", line);
                         }
                     }
-                    try(BufferedReader br = new BufferedReader(new InputStreamReader(stderr))) {
+                    try (BufferedReader br = new BufferedReader(new InputStreamReader(stderr))) {
                         while ((line = br.readLine()) != null) {
                             Log.e("SubstratumBuilder", line);
                             has_errored_out = true;
                         }
                     }
                     if (has_errored_out) {
-                        Log.e("SubstratumBuilder", "Installation of \"" + overlay_package + "\" has " +
+                        Log.e("SubstratumBuilder", "Installation of \"" + overlay_package + "\" " +
+                                "has " +
                                 "failed.");
                     }
                 }
@@ -366,7 +367,7 @@ public class SubstratumBuilder {
                 Log.e("SubstratumBuilder", "Installation of \"" + overlay_package + "\" has " +
                         "failed.");
             } finally {
-                if(nativeApp != null){
+                if (nativeApp != null) {
                     nativeApp.destroy();
                 }
             }

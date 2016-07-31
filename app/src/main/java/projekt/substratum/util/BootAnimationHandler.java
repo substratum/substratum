@@ -117,7 +117,8 @@ public class BootAnimationHandler {
                 try {
                     Context otherContext = mContext.createPackageContext(theme_pid, 0);
                     AssetManager am = otherContext.getAssets();
-                    try (InputStream inputStream = am.open("bootanimation/" + bootanimation + ".zip");
+                    try (InputStream inputStream = am.open("bootanimation/" + bootanimation + "" +
+                            ".zip");
                          OutputStream outputStream = new FileOutputStream(mContext.getCacheDir()
                                  .getAbsolutePath() + "/BootAnimationCache/AnimationCreator/" +
                                  bootanimation + ".zip")) {
@@ -256,7 +257,7 @@ public class BootAnimationHandler {
                             "could not be parsed properly!");
                     has_failed = true;
                 } finally {
-                    if(reader != null){
+                    if (reader != null) {
                         try {
                             reader.close();
                         } catch (IOException e) {

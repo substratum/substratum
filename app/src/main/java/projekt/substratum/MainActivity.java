@@ -484,6 +484,18 @@ public class MainActivity extends AppCompatActivity implements
                 i.setData(Uri.parse(playURL));
                 startActivity(i);
                 return true;
+            case R.id.refresh_windows:
+                if (References.isPackageInstalled(getApplicationContext(),
+                        "masquerade.substratum")) {
+                    Intent runCommand = new Intent();
+                    runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                    runCommand.setAction("masquerade.substratum.COMMANDS");
+                    runCommand.putExtra("om-commands", "om refresh");
+                    getApplicationContext().sendBroadcast(runCommand);
+                } else {
+                    Root.runCommand("om refresh");
+                }
+                return true;
             case R.id.restart_systemui:
                 Root.runCommand("pkill com.android.systemui");
                 return true;

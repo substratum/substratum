@@ -120,6 +120,7 @@
     <string name="menu_disable">Disable installed overlays</string>
     <string name="menu_enable">Enable installed overlays</string>
     <string name="menu_rate">Rate theme</string>
+    <string name="menu_refresh_windows">Refresh Windows</string>
     <string name="menu_restart_systemui">Restart SystemUI</string>
     <string name="menu_search">Play Store Themes</string>
     <string name="menu_uninstall">Uninstall</string>

@@ -266,10 +266,11 @@ public class SoundPackager extends Fragment {
                             "/SubstratumBuilder/" +
                             getThemeName(theme_pid).replaceAll("\\s+", "").replaceAll
                                     ("[^a-zA-Z0-9]+", "") + "/assets/audio/" + source);
-                    InputStream inputStream = new FileInputStream(f);
-                    OutputStream outputStream = new FileOutputStream(getContext().getCacheDir()
-                            .getAbsolutePath() + "/SoundsCache/" + source);
-                    CopyStream(inputStream, outputStream);
+                    try (InputStream inputStream = new FileInputStream(f);
+                         OutputStream outputStream = new FileOutputStream(getContext().getCacheDir()
+                                 .getAbsolutePath() + "/SoundsCache/" + source)) {
+                        CopyStream(inputStream, outputStream);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                     Log.e("SoundsHandler", "There is no sounds.zip found within the" +
@@ -308,9 +309,8 @@ public class SoundPackager extends Fragment {
         }
 
         private void unzip(String source, String destination) {
-            try {
-                ZipInputStream inputStream = new ZipInputStream(
-                        new BufferedInputStream(new FileInputStream(source)));
+            try ( ZipInputStream inputStream = new ZipInputStream(
+                    new BufferedInputStream(new FileInputStream(source)))){
                 ZipEntry zipEntry;
                 int count;
                 byte[] buffer = new byte[8192];
@@ -322,12 +322,12 @@ public class SoundPackager extends Fragment {
                                 dir.getAbsolutePath());
                     if (zipEntry.isDirectory())
                         continue;
-                    FileOutputStream outputStream = new FileOutputStream(file);
-                    while ((count = inputStream.read(buffer)) != -1)
-                        outputStream.write(buffer, 0, count);
-                    outputStream.close();
+                    try (FileOutputStream outputStream = new FileOutputStream(file)) {
+                        while ((count = inputStream.read(buffer)) != -1) {
+                            outputStream.write(buffer, 0, count);
+                        }
+                    }
                 }
-                inputStream.close();
             } catch (Exception e) {
                 e.printStackTrace();
                 Log.e("SoundsHandler",

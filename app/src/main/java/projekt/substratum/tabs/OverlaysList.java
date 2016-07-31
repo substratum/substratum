@@ -466,28 +466,17 @@ public class OverlaysList extends Fragment {
             }
 
             if (stringArray.contains("type3")) {
-                BufferedReader reader = null;
-                try {
-                    reader = new BufferedReader(
-                            new InputStreamReader(new FileInputStream(
-                                    new File(f.getAbsolutePath() + "/type3"))));
+                try (BufferedReader reader = new BufferedReader(
+                        new InputStreamReader(new FileInputStream(
+                                new File(f.getAbsolutePath() + "/type3"))))){
                     String formatter = String.format(getString(R.string
                             .overlays_variant_substitute), reader.readLine());
                     type3.add(formatter);
                 } catch (IOException e) {
                     Log.e("SubstratumLogger", "There was an error parsing asset " +
                             "file!");
-                } finally {
-                    if (reader != null) {
-                        try {
-                            reader.close();
-                        } catch (IOException e) {
-                            Log.e("SubstratumLogger", "Could not read type3 file" +
-                                    " properly, falling back to default string...");
-                            type3.add(getString(R.string
-                                    .overlays_variant_default_3));
-                        }
-                    }
+                    type3.add(getString(R.string
+                            .overlays_variant_default_3));
                 }
             } else {
                 type3.add(getString(R.string.overlays_variant_default_3));
@@ -743,116 +732,72 @@ public class OverlaysList extends Fragment {
                         }
 
                         if (typeArray.contains("type1a")) {
-                            BufferedReader reader = null;
-                            try {
-                                reader = new BufferedReader(
-                                        new InputStreamReader(new FileInputStream(
-                                                new File(typeArrayRaw.getAbsolutePath() +
-                                                        "/type1a"))));
+                            try (BufferedReader reader = new BufferedReader(
+                                    new InputStreamReader(new FileInputStream(
+                                    new File(typeArrayRaw.getAbsolutePath() +
+                                    "/type1a"))))) {
                                 String formatter = String.format(getString(R.string
                                         .overlays_variant_substitute), reader.readLine());
                                 type1a.add(formatter);
                             } catch (IOException e) {
                                 Log.e("SubstratumLogger", "There was an error parsing asset " +
                                         "file!");
-                            } finally {
-                                if (reader != null) {
-                                    try {
-                                        reader.close();
-                                    } catch (IOException e) {
-                                        Log.e("SubstratumLogger", "Could not read type1a file" +
-                                                " properly, falling back to default string...");
-                                        type1a.add(getString(R.string
-                                                .overlays_variant_default_1a));
-                                    }
-                                }
+                                type1a.add(getString(R.string
+                                        .overlays_variant_default_1a));
                             }
                         } else {
                             type1a.add(getString(R.string.overlays_variant_default_1a));
                         }
 
                         if (typeArray.contains("type1b")) {
-                            BufferedReader reader = null;
-                            try {
-                                reader = new BufferedReader(
-                                        new InputStreamReader(new FileInputStream(
-                                                new File(typeArrayRaw.getAbsolutePath() +
-                                                        "/type1b"))));
+                            try (BufferedReader reader = new BufferedReader(
+                                    new InputStreamReader(new FileInputStream(
+                                    new File(typeArrayRaw.getAbsolutePath() +
+                                    "/type1b"))))) {
                                 String formatter = String.format(getString(R.string
                                         .overlays_variant_substitute), reader.readLine());
                                 type1b.add(formatter);
                             } catch (IOException e) {
                                 Log.e("SubstratumLogger", "There was an error parsing asset " +
                                         "file!");
-                            } finally {
-                                if (reader != null) {
-                                    try {
-                                        reader.close();
-                                    } catch (IOException e) {
-                                        Log.e("SubstratumLogger", "Could not read type1b file" +
-                                                " properly, falling back to default string...");
-                                        type1b.add(getString(R.string
-                                                .overlays_variant_default_1b));
-                                    }
-                                }
+                                type1b.add(getString(R.string
+                                        .overlays_variant_default_1b));
                             }
                         } else {
                             type1b.add(getString(R.string.overlays_variant_default_1b));
                         }
 
                         if (typeArray.contains("type1c")) {
-                            BufferedReader reader = null;
-                            try {
-                                reader = new BufferedReader(
-                                        new InputStreamReader(new FileInputStream(
-                                                new File(typeArrayRaw.getAbsolutePath() +
-                                                        "/type1c"))));
+                            try (BufferedReader reader = new BufferedReader(
+                                    new InputStreamReader(new FileInputStream(
+                                    new File(typeArrayRaw.getAbsolutePath() +
+                                    "/type1c"))))) {
                                 String formatter = String.format(getString(R.string
                                         .overlays_variant_substitute), reader.readLine());
                                 type1c.add(formatter);
                             } catch (IOException e) {
                                 Log.e("SubstratumLogger", "There was an error parsing asset " +
                                         "file!");
-                            } finally {
-                                if (reader != null) {
-                                    try {
-                                        reader.close();
-                                    } catch (IOException e) {
-                                        Log.e("SubstratumLogger", "Could not read type1c file" +
-                                                " properly, falling back to default string...");
-                                        type1c.add(getString(R.string
-                                                .overlays_variant_default_1c));
-                                    }
-                                }
+                                type1c.add(getString(R.string
+                                        .overlays_variant_default_1c));
                             }
                         } else {
                             type1c.add(getString(R.string.overlays_variant_default_1c));
                         }
 
                         if (typeArray.contains("type2")) {
-                            BufferedReader reader = null;
-                            try {
-                                reader = new BufferedReader(
-                                        new InputStreamReader(new FileInputStream(
-                                                new File(typeArrayRaw.getAbsolutePath() +
-                                                        "/type2"))));
+                            try (BufferedReader reader = new BufferedReader(
+                                    new InputStreamReader(new FileInputStream(
+                                    new File(typeArrayRaw.getAbsolutePath() +
+                                    "/type2"))))) {
                                 String formatter = String.format(getString(R.string
                                         .overlays_variant_substitute), reader.readLine());
                                 type2.add(formatter);
                             } catch (IOException e) {
                                 Log.e("SubstratumLogger", "There was an error parsing asset " +
                                         "file!");
-                            } finally {
-                                if (reader != null) {
-                                    try {
-                                        reader.close();
-                                    } catch (IOException e) {
-                                        Log.e("SubstratumLogger", "Could not read type2 file " +
-                                                "properly, falling back to default string...");
-                                        type2.add(getString(R.string
-                                                .overlays_variant_default_2));
-                                    }
-                                }
+                                type2.add(getString(R.string
+                                        .overlays_variant_default_2));
                             }
                         } else {
                             type2.add(getString(R.string.overlays_variant_default_2));

@@ -98,38 +98,35 @@ public class AAPTCheck {
     private void copyAAPT(String filename) {
         AssetManager assetManager = mContext.getAssets();
         String TARGET_BASE_PATH = mContext.getFilesDir().getAbsolutePath() + "/";
-
-        InputStream in;
-        OutputStream out;
-        String newFileName;
-        try {
-            in = assetManager.open(filename);
-            newFileName = TARGET_BASE_PATH + filename;
-            out = new FileOutputStream(newFileName);
-
+        String newFileName = TARGET_BASE_PATH + filename;
+        try(InputStream in = assetManager.open(filename);
+            OutputStream out = new FileOutputStream(newFileName) ) {
             byte[] buffer = new byte[1024];
             int read;
             while ((read = in.read(buffer)) != -1) {
                 out.write(buffer, 0, read);
             }
-            in.close();
-            out.flush();
-            out.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public String checkAAPTIntegrity() {
+        Process proc = null;
         try {
             Runtime rt = Runtime.getRuntime();
             String[] commands = {"aapt"};
-            Process proc = rt.exec(commands);
-            BufferedReader stdError = new BufferedReader(new
-                    InputStreamReader(proc.getErrorStream()));
-            return stdError.readLine();
+            proc = rt.exec(commands);
+            try (BufferedReader stdError = new BufferedReader(new
+                    InputStreamReader(proc.getErrorStream()))) {
+                return stdError.readLine();
+            }
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            if(proc != null) {
+                proc.destroy();
+            }
         }
         return null;
     }

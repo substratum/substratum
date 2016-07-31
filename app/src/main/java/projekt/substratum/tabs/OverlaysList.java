@@ -468,7 +468,7 @@ public class OverlaysList extends Fragment {
             if (stringArray.contains("type3")) {
                 try (BufferedReader reader = new BufferedReader(
                         new InputStreamReader(new FileInputStream(
-                                new File(f.getAbsolutePath() + "/type3"))))){
+                                new File(f.getAbsolutePath() + "/type3"))))) {
                     String formatter = String.format(getString(R.string
                             .overlays_variant_substitute), reader.readLine());
                     type3.add(formatter);
@@ -734,8 +734,8 @@ public class OverlaysList extends Fragment {
                         if (typeArray.contains("type1a")) {
                             try (BufferedReader reader = new BufferedReader(
                                     new InputStreamReader(new FileInputStream(
-                                    new File(typeArrayRaw.getAbsolutePath() +
-                                    "/type1a"))))) {
+                                            new File(typeArrayRaw.getAbsolutePath() +
+                                                    "/type1a"))))) {
                                 String formatter = String.format(getString(R.string
                                         .overlays_variant_substitute), reader.readLine());
                                 type1a.add(formatter);
@@ -752,8 +752,8 @@ public class OverlaysList extends Fragment {
                         if (typeArray.contains("type1b")) {
                             try (BufferedReader reader = new BufferedReader(
                                     new InputStreamReader(new FileInputStream(
-                                    new File(typeArrayRaw.getAbsolutePath() +
-                                    "/type1b"))))) {
+                                            new File(typeArrayRaw.getAbsolutePath() +
+                                                    "/type1b"))))) {
                                 String formatter = String.format(getString(R.string
                                         .overlays_variant_substitute), reader.readLine());
                                 type1b.add(formatter);
@@ -770,8 +770,8 @@ public class OverlaysList extends Fragment {
                         if (typeArray.contains("type1c")) {
                             try (BufferedReader reader = new BufferedReader(
                                     new InputStreamReader(new FileInputStream(
-                                    new File(typeArrayRaw.getAbsolutePath() +
-                                    "/type1c"))))) {
+                                            new File(typeArrayRaw.getAbsolutePath() +
+                                                    "/type1c"))))) {
                                 String formatter = String.format(getString(R.string
                                         .overlays_variant_substitute), reader.readLine());
                                 type1c.add(formatter);
@@ -788,8 +788,8 @@ public class OverlaysList extends Fragment {
                         if (typeArray.contains("type2")) {
                             try (BufferedReader reader = new BufferedReader(
                                     new InputStreamReader(new FileInputStream(
-                                    new File(typeArrayRaw.getAbsolutePath() +
-                                    "/type2"))))) {
+                                            new File(typeArrayRaw.getAbsolutePath() +
+                                                    "/type2"))))) {
                                 String formatter = String.format(getString(R.string
                                         .overlays_variant_substitute), reader.readLine());
                                 type2.add(formatter);
@@ -1117,12 +1117,10 @@ public class OverlaysList extends Fragment {
                             Toast.LENGTH_LONG);
                     toast.show();
                 }
-
                 if (!prefs.getBoolean("systemui_recreate", false) && final_commands
                         .contains("systemui")) {
                     final_commands = final_commands + " && pkill com.android.systemui";
                 }
-
                 if (final_runner.size() == 0) {
                     if (base_spinner.getSelectedItemPosition() == 0) {
                         mAdapter.notifyDataSetChanged();
@@ -1137,6 +1135,10 @@ public class OverlaysList extends Fragment {
                         if (DEBUG)
                             Log.e("SubstratumLogger", "Initializing the Masquerade theme " +
                                     "provider...");
+                        if (final_commands.contains("pm install")) {
+                            final_commands = "om no-refresh && " + final_commands +
+                                    " && om refresh";
+                        }
                         Intent runCommand = new Intent();
                         runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                         runCommand.setAction("masquerade.substratum.COMMANDS");
@@ -1594,8 +1596,7 @@ public class OverlaysList extends Fragment {
                             if (activated_overlays_from_theme.size() > 0) {
                                 for (int j = 0; j < activated_overlays_from_theme.size(); j++) {
                                     if (activated_overlays_from_theme.get(j).equals
-                                            (current_overlay +
-                                                    "." + theme_name_parsed)) {
+                                            (current_overlay + "." + theme_name_parsed)) {
                                         Log.d("SubstratumLogger", "The flag to update this " +
                                                 "overlay has been triggered.");
                                         update_bool = "false";

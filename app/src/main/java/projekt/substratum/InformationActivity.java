@@ -392,6 +392,7 @@ public class InformationActivity extends AppCompatActivity {
                                 Intent runCommand = new Intent();
                                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                                 runCommand.setAction("masquerade.substratum.COMMANDS");
+                                runCommand.putExtra("restart_systemui", true);
                                 runCommand.putStringArrayListExtra("pm-uninstall-specific",
                                         all_overlays);
                                 getApplicationContext().sendBroadcast(runCommand);

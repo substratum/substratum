@@ -198,7 +198,6 @@ public class PriorityListFragment extends Fragment {
                     workable_list.remove(fromPos);
                     workable_list.add(toPos, move_package);
                 }
-                Log.e("PriorityHandler", commands);
             }
         });
 

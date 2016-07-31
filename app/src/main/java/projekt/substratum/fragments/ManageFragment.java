@@ -98,6 +98,14 @@ public class ManageFragment extends Fragment {
                                                             .string.manage_system_overlay_toast),
                                                     Toast.LENGTH_LONG);
                                             toast.show();
+                                            final SharedPreferences prefs =
+                                                    PreferenceManager.getDefaultSharedPreferences(
+                                                            getContext());
+                                            String commands = "om disable-all";
+                                            if (!prefs.getBoolean("systemui_recreate", false)) {
+                                                commands = commands +
+                                                        " && pkill com.android.systemui";
+                                            }
                                             if (References.isPackageInstalled(getContext(),
                                                     "masquerade.substratum")) {
                                                 if (DEBUG)
@@ -108,8 +116,7 @@ public class ManageFragment extends Fragment {
                                                         .FLAG_INCLUDE_STOPPED_PACKAGES);
                                                 runCommand.setAction("masquerade.substratum" +
                                                         ".COMMANDS");
-                                                runCommand.putExtra("om-commands", "om " +
-                                                        "disable-all");
+                                                runCommand.putExtra("om-commands", commands);
 
                                                 getContext().sendBroadcast(runCommand);
                                             } else {
@@ -119,7 +126,7 @@ public class ManageFragment extends Fragment {
                                                             "found, falling back to Substratum " +
                                                             "theme " +
                                                             "provider...");
-                                                Root.runCommand("om disable-all");
+                                                Root.runCommand(commands);
                                             }
                                         } else {
                                             String current_directory;
@@ -371,24 +378,7 @@ public class ManageFragment extends Fragment {
         protected void onPostExecute(String result) {
             mProgressDialog.dismiss();
 
-            // Reflect back to Settings and updateConfiguration() run on
-            // simulated locale change
-
-            try {
-                Class<?> activityManagerNative = Class.forName("android.app" +
-                        ".ActivityManagerNative");
-                Object am = activityManagerNative.getMethod("getDefault").invoke
-                        (activityManagerNative);
-                Object config = am.getClass().getMethod("getConfiguration")
-                        .invoke(am);
-                am.getClass().getMethod("updateConfiguration", android
-                        .content.res
-                        .Configuration.class).invoke(am, config);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            // Finally, enable/disable the SystemUI dummy overlay
+            // Finally, perform a window refresh
             if (References.isPackageInstalled(getContext(), "masquerade.substratum")) {
                 if (DEBUG)
                     Log.e("SubstratumLogger", "Initializing the Masquerade theme provider...");
@@ -430,43 +420,8 @@ public class ManageFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            final_commands = "";
-
             Root.runCommand("rm -r /data/system/theme/fonts/");
-
-            File current_overlays = new File(Environment
-                    .getExternalStorageDirectory().getAbsolutePath() +
-                    "/.substratum/current_overlays.xml");
-            if (current_overlays.exists()) {
-                Root.runCommand("rm " + Environment
-                        .getExternalStorageDirectory().getAbsolutePath() +
-                        "/.substratum/current_overlays.xml");
-            }
-            Root.runCommand("cp /data/system/overlays" +
-                    ".xml " +
-                    Environment
-                            .getExternalStorageDirectory().getAbsolutePath() +
-                    "/.substratum/current_overlays.xml");
-
-            String[] commands0 = {Environment.getExternalStorageDirectory()
-                    .getAbsolutePath() +
-                    "/.substratum/current_overlays.xml", "4"};
-            String[] commands1 = {Environment.getExternalStorageDirectory()
-                    .getAbsolutePath() +
-                    "/.substratum/current_overlays.xml", "5"};
-
-            List<String> state4overlays = ReadOverlaysFile.main(commands0);
-            List<String> state5overlays = ReadOverlaysFile.main(commands1);
-
-            if (state4overlays.contains("substratum.helper")) {
-                final_commands = "om enable substratum.helper";
-            } else {
-                if (state5overlays.contains("substratum.helper")) {
-                    final_commands = "om disable substratum.helper";
-                } else {
-                    final_commands = "pkill com.android.systemui";
-                }
-            }
+            final_commands = "om refresh";
             return null;
         }
     }

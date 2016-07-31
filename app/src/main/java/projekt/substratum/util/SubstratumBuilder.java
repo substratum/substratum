@@ -178,11 +178,10 @@ public class SubstratumBuilder {
         }
 
         if (!has_errored_out) {
-            try {
-                boolean created = root.createNewFile();
-                FileWriter fw = new FileWriter(root);
-                BufferedWriter bw = new BufferedWriter(fw);
-                PrintWriter pw = new PrintWriter(bw);
+            try (FileWriter fw = new FileWriter(root);
+                 BufferedWriter bw = new BufferedWriter(fw);
+                 PrintWriter pw = new PrintWriter(bw)){
+                root.createNewFile();
                 if (variant != null) {
                     String manifest =
                             "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?>\n" +
@@ -267,9 +266,6 @@ public class SubstratumBuilder {
                         pw.write(manifest);
                     }
                 }
-                pw.close();
-                bw.close();
-                fw.close();
             } catch (Exception e) {
                 e.printStackTrace();
                 Log.e("SubstratumBuilder", "There was an exception creating a new Manifest file!");
@@ -282,6 +278,7 @@ public class SubstratumBuilder {
         // Compile the new theme apk based on new manifest, framework-res.apk and extracted asset
 
         if (!has_errored_out) {
+            Process nativeApp = null;
             try {
                 String commands;
                 if (typeMode == 1) {
@@ -321,7 +318,7 @@ public class SubstratumBuilder {
                 }
 
                 String line;
-                Process nativeApp = Runtime.getRuntime().exec(commands);
+                nativeApp = Runtime.getRuntime().exec(commands);
 
                 try (OutputStream stdin = nativeApp.getOutputStream();
                      InputStream stderr = nativeApp.getErrorStream();
@@ -368,6 +365,10 @@ public class SubstratumBuilder {
                 has_errored_out = true;
                 Log.e("SubstratumBuilder", "Installation of \"" + overlay_package + "\" has " +
                         "failed.");
+            } finally {
+                if(nativeApp != null){
+                    nativeApp.destroy();
+                }
             }
         }
 

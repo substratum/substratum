@@ -114,7 +114,7 @@ public class PriorityListFragment extends Fragment {
                                             References.grabAppIcon(getContext(),
                                                     current_header)));
                                     workable_list.add(line.substring(8));
-                                } else  if (!line.contains("[ ]")) {
+                                } else if (!line.contains("[ ]")) {
                                     break;
                                 }
                             }
@@ -129,10 +129,11 @@ public class PriorityListFragment extends Fragment {
                 }
             }
         } catch (IOException ioe) {
-            Log.e("PriorityListFragment", "There was an issue regarding loading the priorities of " +
+            Log.e("PriorityListFragment", "There was an issue regarding loading the priorities of" +
+                    " " +
                     "each overlay.");
         } finally {
-            if(nativeApp != null ) {
+            if (nativeApp != null) {
                 // destroy the Process explicitly
                 nativeApp.destroy();
             }

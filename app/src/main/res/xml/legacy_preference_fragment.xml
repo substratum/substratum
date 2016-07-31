@@ -19,6 +19,20 @@
     <PreferenceCategory
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:title="@string/settings_title_1">
+
+        <CheckBoxPreference
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:key="show_template_version"
+            android:summary="@string/show_theme_template_version_description"
+            android:title="@string/show_theme_template_version"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:title="@string/settings_title_3">
 
         <CheckBoxPreference

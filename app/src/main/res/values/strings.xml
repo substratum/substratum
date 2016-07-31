@@ -108,6 +108,11 @@
     <string name="manage_system_overlay_uninstall_toast">Overlays are now uninstalling in the background&#8230;</string>
     <string name="manage_system_overlay_text">Disables all enabled overlays and restores the stock theme</string>
 
+    <string name="plugin_template">Plugin</string>
+    <string name="api_23">Marshmallow</string>
+    <string name="api_24">Nougat</string>
+    <string name="api_25">Oreo</string>
+
     <string name="priority_back_title">Back to overlays</string>
     <string name="priority_success_toast">Priorities have been changed and windows are refreshing&#8230;</string>
 
@@ -248,8 +253,8 @@
     <string name="restart_systemui_subtext">Automatically recreate the SystemUI after enabling/disabling a SystemUI overlay</string>
     <string name="restart_systemui_toast_enabled">SystemUI will recreate dynamically instead of restarting!</string>
     <string name="restart_systemui_toast_disabled">SystemUI will restart automatically instead of recreating!</string>
-    <string name="show_theme_template_version">Show theme\'s template version</string>
-    <string name="show_theme_template_version_description">Show each theme\'s template version as a tag on each of the theme cards.</string>
+    <string name="show_theme_template_version">Show advanced theme information</string>
+    <string name="show_theme_template_version_description">Show each theme\'s target SDK levels, theme version and plugin version as a tag on each of the theme cards.</string>
     <string name="hide_app_icon">Show app icon</string>
     <string name="hide_app_icon_toast_enabled">The app\'s icon has been removed from your launcher!</string>
     <string name="hide_app_icon_toast_disabled">The app\'s icon has now been added to your launcher!</string>

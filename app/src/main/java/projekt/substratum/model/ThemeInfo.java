@@ -12,6 +12,8 @@ public class ThemeInfo {
     private String themeAuthor;
     private String themePackage;
     private String themeVersion;
+    private String sdkLevels;
+    private String pluginVersion;
     private Drawable themeDrawable;
     private Context themeContext;
 
@@ -39,12 +41,12 @@ public class ThemeInfo {
         this.themePackage = themePackage;
     }
 
-    public String getThemeVersion() {
-        return themeVersion;
+    public String getPluginVersion() {
+        return pluginVersion;
     }
 
-    public void setThemeVersion(String themeVersion) {
-        this.themeVersion = themeVersion;
+    public void setPluginVersion(String pluginVersion) {
+        this.pluginVersion = pluginVersion;
     }
 
     public Drawable getThemeDrawable() {
@@ -61,5 +63,21 @@ public class ThemeInfo {
 
     public void setContext(Context context) {
         this.themeContext = context;
+    }
+
+    public String getSDKLevels() {
+        return sdkLevels;
+    }
+
+    public void setSDKLevels(String sdkLevels) {
+        this.sdkLevels = sdkLevels;
+    }
+
+    public String getThemeVersion() {
+        return themeVersion;
+    }
+
+    public void setThemeVersion(String themeVersion) {
+        this.themeVersion = themeVersion;
     }
 }

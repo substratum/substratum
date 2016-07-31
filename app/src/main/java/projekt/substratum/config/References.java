@@ -3,7 +3,9 @@ package projekt.substratum.config;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.preference.PreferenceManager;
@@ -11,6 +13,8 @@ import android.util.Log;
 
 import java.io.File;
 import java.util.Arrays;
+
+import projekt.substratum.R;
 
 /**
  * @author Nicholas Chum (nicholaschum)
@@ -132,5 +136,107 @@ public class References {
                     + "\"");
         }
         return icon;
+    }
+
+    // PackageName Crawling Methods
+
+    public static String grabThemeVersion(Context mContext, String package_name) {
+        try {
+            PackageInfo pInfo = mContext.getPackageManager().getPackageInfo(package_name, 0);
+            return pInfo.versionName + " (" + pInfo.versionCode + ")";
+        } catch (PackageManager.NameNotFoundException e) {
+            //
+        }
+        return null;
+    }
+
+    public static String grabThemeAPIs(Context mContext, String package_name) {
+        try {
+            ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
+                    package_name, PackageManager.GET_META_DATA);
+            if (appInfo.metaData != null) {
+                try {
+                    if (appInfo.minSdkVersion == appInfo.targetSdkVersion) {
+                        int target = appInfo.targetSdkVersion;
+                        if (target == 23) {
+                            return mContext.getString(R.string.api_23);
+                        } else if (target == 24) {
+                            return mContext.getString(R.string.api_24);
+                        } else if (target == 25) {
+                            return mContext.getString(R.string.api_25);
+                        }
+                    } else {
+                        String minSdk = "";
+                        int min = appInfo.minSdkVersion;
+                        if (min == 23) {
+                            minSdk = mContext.getString(R.string.api_23);
+                        } else if (min == 24) {
+                            minSdk = mContext.getString(R.string.api_24);
+                        } else if (min == 25) {
+                            minSdk = mContext.getString(R.string.api_25);
+                        }
+                        String targetSdk = "";
+                        int target = appInfo.targetSdkVersion;
+                        if (target == 23) {
+                            targetSdk = mContext.getString(R.string.api_23);
+                        } else if (target == 24) {
+                            targetSdk = mContext.getString(R.string.api_24);
+                        } else if (target == 25) {
+                            targetSdk = mContext.getString(R.string.api_25);
+                        }
+                        return minSdk + " - " + targetSdk;
+                    }
+                } catch (NoSuchFieldError nsfe) {
+                    // The device is API 23 if it throws a NoSuchFieldError
+                    if (appInfo.targetSdkVersion == 23) {
+                        return mContext.getString(R.string.api_23);
+                    } else {
+                        String targetAPI = "";
+                        int target = appInfo.targetSdkVersion;
+                        if (target == 24) {
+                            targetAPI = mContext.getString(R.string.api_24);
+                        } else if (target == 25) {
+                            targetAPI = mContext.getString(R.string.api_25);
+                        }
+                        return mContext.getString(R.string.api_23) + " - " + targetAPI;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            //
+        }
+        return null;
+    }
+
+    public static String grabPackageTemplateVersion(Context mContext, String package_name) {
+        try {
+            ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
+                    package_name, PackageManager.GET_META_DATA);
+            if (appInfo.metaData != null) {
+                if (appInfo.metaData.getString(References.metadataVersion) != null) {
+                    return mContext.getString(R.string.plugin_template) + ": " +
+                            appInfo.metaData.getString(References.metadataVersion);
+                }
+            }
+        } catch (Exception e) {
+            //
+        }
+        return null;
+    }
+
+    public static Drawable grabPackageHeroImage(Context mContext, String package_name) {
+        Resources res;
+        Drawable hero = null;
+        try {
+            res = mContext.getPackageManager().getResourcesForApplication(package_name);
+            int resourceId = res.getIdentifier(package_name + ":drawable/heroimage", null, null);
+            if (0 != resourceId) {
+                hero = mContext.getPackageManager().getDrawable(package_name, resourceId, null);
+            }
+            return hero;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return hero;
     }
 }

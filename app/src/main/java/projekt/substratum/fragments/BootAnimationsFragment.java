@@ -8,8 +8,6 @@ import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -283,50 +281,26 @@ public class BootAnimationsFragment extends Fragment {
             themeInfo.setThemeName(map.keySet().toArray()[i].toString());
             themeInfo.setThemeAuthor(map.get(map.keySet().toArray()[i].toString())[0]);
             themeInfo.setThemePackage(map.get(map.keySet().toArray()[i].toString())[1]);
-            themeInfo.setThemeDrawable(grabPackageHeroImage(map.get(map.keySet().toArray()[i]
-                    .toString())[1]));
+            themeInfo.setThemeDrawable(
+                    References.grabPackageHeroImage(mContext, map.get(map.keySet().toArray()[i]
+                            .toString())[1]));
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
             if (prefs.getBoolean("show_template_version", false)) {
-                themeInfo.setThemeVersion(grabPackageTemplateVersion(
+                themeInfo.setPluginVersion(References.grabPackageTemplateVersion(mContext,
+                        map.get(map.keySet().toArray()[i].toString())[1]));
+                themeInfo.setSDKLevels(References.grabThemeAPIs(mContext,
+                        map.get(map.keySet().toArray()[i].toString())[1]));
+                themeInfo.setThemeVersion(References.grabThemeVersion(mContext,
                         map.get(map.keySet().toArray()[i].toString())[1]));
             } else {
+                themeInfo.setPluginVersion(null);
+                themeInfo.setSDKLevels(null);
                 themeInfo.setThemeVersion(null);
             }
             themeInfo.setContext(mContext);
             themes.add(themeInfo);
         }
         return themes;
-    }
-
-    private String grabPackageTemplateVersion(String package_name) {
-        try {
-            ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
-                    package_name, PackageManager.GET_META_DATA);
-            if (appInfo.metaData != null) {
-                if (appInfo.metaData.getString(References.metadataVersion) != null) {
-                    return appInfo.metaData.getString(References.metadataVersion);
-                }
-            }
-        } catch (Exception e) {
-            //
-        }
-        return null;
-    }
-
-    public Drawable grabPackageHeroImage(String package_name) {
-        Resources res;
-        Drawable hero = null;
-        try {
-            res = mContext.getPackageManager().getResourcesForApplication(package_name);
-            int resourceId = res.getIdentifier(package_name + ":drawable/heroimage", null, null);
-            if (0 != resourceId) {
-                hero = mContext.getPackageManager().getDrawable(package_name, resourceId, null);
-            }
-            return hero;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return hero;
     }
 
     private void refreshLayout() {

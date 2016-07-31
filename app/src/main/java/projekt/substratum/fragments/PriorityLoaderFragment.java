@@ -156,7 +156,7 @@ public class PriorityLoaderFragment extends Fragment {
                                     current_header = line;
                                     checked_count = 0;
                                 }
-                            } else  if (line.contains("[x]")) {
+                            } else if (line.contains("[x]")) {
                                 checked_count += 1;
                             }
                         } else {
@@ -180,10 +180,11 @@ public class PriorityLoaderFragment extends Fragment {
                     }
                 }
             } catch (IOException ioe) {
-                Log.e("PriorityLoaderFragment", "There was an issue regarding loading the priorities of" +
+                Log.e("PriorityLoaderFragment", "There was an issue regarding loading the " +
+                        "priorities of" +
                         " each overlay.");
             } finally {
-                if(nativeApp != null){
+                if (nativeApp != null) {
                     nativeApp.destroy();
                 }
             }

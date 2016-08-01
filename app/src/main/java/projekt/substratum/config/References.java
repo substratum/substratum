@@ -64,7 +64,7 @@ public class References {
     }
 
     // These methods determine whether the package's class is allowed
-    public static Boolean isAllowedPackageClass(String current, String packageName) {
+    public static Boolean letUsDance(String current, String packageName) {
         return IsThisAMasquerade.believingIsJustTheBeginning(current, packageName);
     }
 

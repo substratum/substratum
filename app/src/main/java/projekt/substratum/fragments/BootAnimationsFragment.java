@@ -167,7 +167,7 @@ public class BootAnimationsFragment extends Fragment {
                                     String[] classes = References.getClassesOfPackage(
                                             otherAppContext);
                                     for (int i = 0; i < classes.length; i++) {
-                                        if (!References.isAllowedPackageClass(classes[i],
+                                        if (!References.letUsDance(classes[i],
                                                 map.get(map.keySet().toArray()[position]
                                                         .toString())[1])) {
                                             is_valid = false;
@@ -201,7 +201,7 @@ public class BootAnimationsFragment extends Fragment {
                                         String[] classes = References.getClassesOfPackage(
                                                 otherAppContext);
                                         for (int i = 0; i < classes.length; i++) {
-                                            if (!References.isAllowedPackageClass(classes[i],
+                                            if (!References.letUsDance(classes[i],
                                                     map.get(map.keySet().toArray()[position]
                                                             .toString())[1])) {
                                                 is_valid = false;

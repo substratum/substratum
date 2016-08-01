@@ -92,7 +92,7 @@ public class SubstratumThemeUpdater {
                     String[] classes = References.getClassesOfPackage(
                             otherAppContext);
                     for (int i = 0; i < classes.length; i++) {
-                        if (!References.isAllowedPackageClass(classes[i],
+                        if (!References.letUsDance(classes[i],
                                 packageName)) {
                             is_valid = false;
                             break;
@@ -151,7 +151,7 @@ public class SubstratumThemeUpdater {
                         String[] classes = References.getClassesOfPackage(
                                 otherAppContext);
                         for (int i = 0; i < classes.length; i++) {
-                            if (!References.isAllowedPackageClass(classes[i],
+                            if (!References.letUsDance(classes[i],
                                     packageName)) {
                                 is_valid = false;
                                 break;
@@ -221,7 +221,7 @@ public class SubstratumThemeUpdater {
                     String[] classes = References.getClassesOfPackage(
                             otherAppContext);
                     for (int i = 0; i < classes.length; i++) {
-                        if (!References.isAllowedPackageClass(classes[i],
+                        if (!References.letUsDance(classes[i],
                                 packageName)) {
                             is_valid = false;
                             break;
@@ -281,7 +281,7 @@ public class SubstratumThemeUpdater {
                         String[] classes = References.getClassesOfPackage(
                                 otherAppContext);
                         for (int i = 0; i < classes.length; i++) {
-                            if (!References.isAllowedPackageClass(classes[i],
+                            if (!References.letUsDance(classes[i],
                                     packageName)) {
                                 is_valid = false;
                                 break;

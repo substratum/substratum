@@ -95,7 +95,7 @@ public class SoundsHandler {
                 boolean ogg = new_alarm_ogg.exists();
 
                 Root.runCommand(
-                        "mv -f " + mContext.getCacheDir().getAbsolutePath() +
+                        "cp -rf " + mContext.getCacheDir().getAbsolutePath() +
                                 "/SoundsCache/SoundsInjector/alarms/ " +
                                 "/data/system/theme/audio/");
                 Root.runCommand("chmod -R 644 /data/system/theme/audio/alarms/");
@@ -107,10 +107,12 @@ public class SoundsHandler {
                 if (mp3)
                     setAudible(mContext, new File
                                     ("/data/system/theme/audio/alarms/alarm.mp3"),
+                            new File(alarms.getAbsolutePath(), "alarm.mp3"),
                             RingtoneManager.TYPE_ALARM, "alarm.mp3");
                 if (ogg)
                     setAudible(mContext, new File
                                     ("/data/system/theme/audio/alarms/alarm.ogg"),
+                            new File(alarms.getAbsolutePath(), "alarm.ogg"),
                             RingtoneManager.TYPE_ALARM, "alarm.ogg");
             } else {
                 setDefaultAudible(mContext, RingtoneManager.TYPE_ALARM);
@@ -136,7 +138,7 @@ public class SoundsHandler {
                 boolean ogg = new_notifications_ogg.exists();
 
                 Root.runCommand(
-                        "mv -f " + mContext.getCacheDir().getAbsolutePath() +
+                        "cp -rf " + mContext.getCacheDir().getAbsolutePath() +
                                 "/SoundsCache/SoundsInjector/notifications/ " +
                                 "/data/system/theme/audio/");
                 Root.runCommand("chmod -R 644 /data/system/theme/audio/notifications/");
@@ -150,12 +152,14 @@ public class SoundsHandler {
                 if (mp3)
                     setAudible(mContext, new File
                                     ("/data/system/theme/audio/notifications/notification" +
-                                            ".mp3"),
+                                            ".mp3"), new File(notifications.getAbsolutePath(),
+                                    "notification.mp3"),
                             RingtoneManager.TYPE_ALARM, "notification.mp3");
                 if (ogg)
                     setAudible(mContext, new File
                                     ("/data/system/theme/audio/notifications/notification" +
-                                            ".ogg"),
+                                            ".ogg"), new File(notifications.getAbsolutePath(),
+                                    "notification.ogg"),
                             RingtoneManager.TYPE_ALARM, "notification.ogg");
             } else {
                 setDefaultAudible(mContext, RingtoneManager.TYPE_NOTIFICATION);
@@ -180,7 +184,7 @@ public class SoundsHandler {
                 boolean ogg = new_ringtones_ogg.exists();
 
                 Root.runCommand(
-                        "mv -f " + mContext.getCacheDir().getAbsolutePath() +
+                        "cp -rf " + mContext.getCacheDir().getAbsolutePath() +
                                 "/SoundsCache/SoundsInjector/ringtones/ " +
                                 "/data/system/theme/audio/");
                 Root.runCommand("chmod -R 644 /data/system/theme/audio/ringtones/");
@@ -194,10 +198,12 @@ public class SoundsHandler {
                 if (mp3)
                     setAudible(mContext, new File
                                     ("/data/system/theme/audio/ringtones/ringtone.mp3"),
+                            new File(ringtones.getAbsolutePath(), "ringtone.mp3"),
                             RingtoneManager.TYPE_RINGTONE, "ringtone.mp3");
                 if (ogg)
                     setAudible(mContext, new File
                                     ("/data/system/theme/audio/ringtones/ringtone.ogg"),
+                            new File(ringtones.getAbsolutePath(), "ringtone.ogg"),
                             RingtoneManager.TYPE_RINGTONE, "ringtone.ogg");
             } else {
                 setDefaultAudible(mContext, RingtoneManager.TYPE_RINGTONE);
@@ -364,14 +370,15 @@ public class SoundsHandler {
                 "/system/media/audio/ui/" + sound_file);
     }
 
-    private boolean setAudible(Context context, File ringtone, int type, String name) {
+    private boolean setAudible(Context context, File ringtone, File ringtoneCache, int type,
+                               String name) {
         final String path = ringtone.getAbsolutePath();
-        final String mimeType = name.endsWith(".ogg") ? "audio/ogg" : "audio/mp3";
+        final String mimeType = name.endsWith(".ogg") ? "application/ogg" : "application/mp3";
         ContentValues values = new ContentValues();
         values.put(MediaStore.MediaColumns.DATA, path);
         values.put(MediaStore.MediaColumns.TITLE, name);
         values.put(MediaStore.MediaColumns.MIME_TYPE, mimeType);
-        values.put(MediaStore.MediaColumns.SIZE, ringtone.length());
+        values.put(MediaStore.MediaColumns.SIZE, ringtoneCache.length());
         values.put(MediaStore.Audio.Media.IS_RINGTONE, type == RingtoneManager.TYPE_RINGTONE);
         values.put(MediaStore.Audio.Media.IS_NOTIFICATION,
                 type == RingtoneManager.TYPE_NOTIFICATION);
@@ -427,7 +434,7 @@ public class SoundsHandler {
 
     private void clearAudibles(Context context, String audiblePath) {
         final File audibleDir = new File(audiblePath);
-        if (audibleDir.exists()) {
+        if (audibleDir.exists() && audibleDir.isDirectory()) {
             String[] files = audibleDir.list();
             final ContentResolver resolver = context.getContentResolver();
             for (String s : files) {
@@ -564,15 +571,17 @@ public class SoundsHandler {
                 if (!themeDirectory.exists()) {
                     Root.runCommand("mount -o rw,remount /data");
                     Root.runCommand("mkdir /data/system/theme/");
+                    Root.runCommand("chmod 755 /data/system/theme/");
+                    Root.runCommand("mount -o ro,remount /data");
                 }
                 File audioDirectory = new File("/data/system/theme/audio/");
                 if (!audioDirectory.exists()) {
                     Root.runCommand("mount -o rw,remount /data");
                     Root.runCommand("mkdir /data/system/theme/audio/");
+                    Root.runCommand("chmod 755 /data/system/theme/audio/");
+                    Root.runCommand("mount -o ro,remount /data");
                 }
-
                 perform_action();
-
             }
 
             if (!has_failed) {

@@ -191,21 +191,15 @@ public class FontHandler {
 
                 // Check for correct permissions and system file context integrity.
 
-                Root.runCommand("mount -o rw,remount /system");
+                Root.runCommand("mount -o rw,remount /data");
                 Root.runCommand("chmod 755 /data/system/theme/");
-
-                Root.runCommand("mount -o rw,remount /system");
                 Root.runCommand("chmod -R 747 " +
                         "/data/system/theme/fonts/");
-
-                Root.runCommand("mount -o rw,remount /system");
                 Root.runCommand("chmod 775 " +
                         "/data/system/theme/fonts/");
-
-                Root.runCommand("mount -o rw,remount /data");
+                Root.runCommand("mount -o ro,remount /data");
                 Root.runCommand("chcon -R u:object_r:system_file:s0 " +
                         "/data/system/theme");
-
                 Root.runCommand("setprop sys.refresh_theme 1");
             } catch (Exception e) {
                 e.printStackTrace();

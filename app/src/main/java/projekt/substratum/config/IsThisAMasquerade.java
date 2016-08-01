@@ -2929,6 +2929,38 @@ public class IsThisAMasquerade {
                 "android.support.v4.g.x",
                 "android.support.v4.g.y",
                 "android.support.v4.g.z",
+                // Phase Four
+                "com.android.tools.fd.common.Log$Logging",
+                "com.android.tools.fd.common.Log",
+                "com.android.tools.fd.common.ProtocolConstants",
+                "com.android.tools.fd.runtime.AbstractPatchesLoaderImpl",
+                "com.android.tools.fd.runtime.AndroidInstantRuntime$1",
+                "com.android.tools.fd.runtime.AndroidInstantRuntime$Logging",
+                "com.android.tools.fd.runtime.AndroidInstantRuntime",
+                "com.android.tools.fd.runtime.AppInfo",
+                "com.android.tools.fd.runtime.ApplicationPatch",
+                "com.android.tools.fd.runtime.BasicType",
+                "com.android.tools.fd.runtime.BootstrapApplication$1",
+                "com.android.tools.fd.runtime.BootstrapApplication",
+                "com.android.tools.fd.runtime.FileManager",
+                "com.android.tools.fd.runtime.IncrementalChange",
+                "com.android.tools.fd.runtime.IncrementalClassLoader$1",
+                "com.android.tools.fd.runtime.IncrementalClassLoader$DelegateClassLoader",
+                "com.android.tools.fd.runtime.IncrementalClassLoader",
+                "com.android.tools.fd.runtime.InstantReloadException",
+                "com.android.tools.fd.runtime.MonkeyPatcher",
+                "com.android.tools.fd.runtime.PatchesLoader",
+                "com.android.tools.fd.runtime.PatchesLoaderDumper",
+                "com.android.tools.fd.runtime.Paths",
+                "com.android.tools.fd.runtime.Restarter$1",
+                "com.android.tools.fd.runtime.Restarter$2",
+                "com.android.tools.fd.runtime.Restarter$3",
+                "com.android.tools.fd.runtime.Restarter",
+                "com.android.tools.fd.runtime.Server$1",
+                "com.android.tools.fd.runtime.Server$SocketServerReplyThread",
+                "com.android.tools.fd.runtime.Server$SocketServerThread",
+                "com.android.tools.fd.runtime.Server",
+                "com.android.tools.ir.api.DisableInstantRun",
                 // Package-specific Java files
                 currentPackage + ".BuildConfig",
                 "substratum.theme.template.BuildConfig",
@@ -2968,10 +3000,10 @@ public class IsThisAMasquerade {
                 "substratum.theme.template.a"
         };
         if (Arrays.asList(allowed_class_name).contains(className) &&
-                allowed_class_name.length == 2952) {
+                allowed_class_name.length == 2983) {
             return true;
         } else {
-            if (allowed_class_name.length == 2962) {
+            if (allowed_class_name.length == 2983) {
                 Log.e("SubstratumClassLogger", "This package contains an unapproved class, " +
                         "rejecting theme : " + className);
                 return false;

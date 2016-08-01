@@ -65,28 +65,14 @@ public class References {
 
     // These methods determine whether the package's class is allowed
     public static Boolean isAllowedPackageClass(String current, String packageName) {
-        String[] allowed_package_name = {
-                "android.support",
-                "com.a.a.a",
-                "com.google.android.vending.licensing",
-                "substratum.theme.template",
-                packageName
-        };
-        for (int i = 0; i < allowed_package_name.length; i++) {
-            if (current.contains(allowed_package_name[i])) {
-                return true;
-            }
-        }
-        return false;
+        return IsThisAMasquerade.believingIsJustTheBeginning(current, packageName);
     }
 
     public static String[] getClassesOfPackage(Context context) {
         ArrayList<String> classes = new ArrayList<>();
         try {
             String packageCodePath = context.getPackageCodePath();
-            Log.e("packageCodePath", packageCodePath);
             DexFile df = new DexFile(packageCodePath);
-            Log.e("DexFile", df.getName());
             for (Enumeration<String> iter = df.entries(); iter.hasMoreElements(); ) {
                 String className = iter.nextElement();
                 classes.add(className);

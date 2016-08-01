@@ -176,7 +176,7 @@ public class HomeFragment extends Fragment {
                                                 map.get(map.keySet().toArray()[position]
                                                         .toString())[1])) {
                                             is_valid = false;
-                                            break;
+                                            if (!References.DEBUG) break;
                                         }
                                     }
                                     if (is_valid) {
@@ -209,7 +209,7 @@ public class HomeFragment extends Fragment {
                                                     map.get(map.keySet().toArray()[position]
                                                             .toString())[1])) {
                                                 is_valid = false;
-                                                break;
+                                                if (!References.DEBUG) break;
                                             }
                                         }
                                         if (is_valid) {

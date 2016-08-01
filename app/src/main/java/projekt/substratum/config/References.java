@@ -30,8 +30,8 @@ public class References {
     public static int firebase_notification_id = 24862486;
     public static int notification_id = 2486;
 
-    // Load SharedPreference defaults
     public static Boolean DEBUG = false;
+    // Universal switch for Application-wide Debugging
 
     // These strings control the current filter for themes
     public static String metadataName = "Substratum_Name";
@@ -48,6 +48,7 @@ public class References {
         return om.exists();
     }
 
+    // Load SharedPreference defaults
     public static void loadDefaultConfig(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         prefs.edit().putBoolean("show_app_icon", true).apply();

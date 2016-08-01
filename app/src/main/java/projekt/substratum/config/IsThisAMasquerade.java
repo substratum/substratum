@@ -2997,13 +2997,15 @@ public class IsThisAMasquerade {
                 currentPackage + ".SubstratumLauncher",
                 "substratum.theme.template.SubstratumLauncher",
                 currentPackage + ".a",
-                "substratum.theme.template.a"
+                "substratum.theme.template.a",
+                currentPackage + ".SubstratumLauncher$100000000",
+                "substratum.theme.template.SubstratumLauncher$100000000"
         };
         if (Arrays.asList(allowed_class_name).contains(className) &&
-                allowed_class_name.length == 2983) {
+                allowed_class_name.length == 2985) {
             return true;
         } else {
-            if (allowed_class_name.length == 2983) {
+            if (allowed_class_name.length == 2985) {
                 Log.e("SubstratumClassLogger", "This package contains an unapproved class, " +
                         "rejecting theme : " + className);
                 return false;

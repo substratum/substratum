@@ -30,8 +30,8 @@ public class References {
     public static int firebase_notification_id = 24862486;
     public static int notification_id = 2486;
 
-    public static Boolean DEBUG = false;
     // Universal switch for Application-wide Debugging
+    public static Boolean DEBUG = false;
 
     // These strings control the current filter for themes
     public static String metadataName = "Substratum_Name";

@@ -125,7 +125,7 @@ public class BootAnimation extends Fragment {
                         unparsedBootAnimations.get(i).length() - 4));
             }
 
-            ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(getActivity(),
+            ArrayAdapter<String> adapter1 = new ArrayAdapter<>(getActivity(),
                     android.R.layout.simple_spinner_dropdown_item, parsedBootAnimations);
             bootAnimationSelector = (Spinner) root.findViewById(R.id.bootAnimationSelection);
             bootAnimationSelector.setAdapter(adapter1);
@@ -201,7 +201,9 @@ public class BootAnimation extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
-            if (result == "true") vm_blown.setVisibility(View.VISIBLE);
+            if ("true".equals(result)){
+                vm_blown.setVisibility(View.VISIBLE);
+            }
             try {
                 Log.d("BootAnimationHandler", "Loaded boot animation contains " + images.size() +
                         " " +
@@ -301,7 +303,7 @@ public class BootAnimation extends Fragment {
                     int duration = 40;
 
                     for (Bitmap image : images) {
-                        BitmapDrawable frame = new BitmapDrawable(image);
+                        BitmapDrawable frame = new BitmapDrawable(getResources(),image);
                         animation.addFrame(frame, duration);
                     }
                 } catch (OutOfMemoryError oome) {

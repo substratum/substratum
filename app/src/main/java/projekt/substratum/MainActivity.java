@@ -407,13 +407,6 @@ public class MainActivity extends AppCompatActivity implements
                     PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
         }
 
-        // If the helper is found, then launch it to hide it from the launcher
-        Intent launchIntent = getPackageManager()
-                .getLaunchIntentForPackage("masquerade.substratum");
-        if (launchIntent != null) {
-            startActivity(launchIntent);
-        }
-
         // Now, let's grab root on the helper
         Intent rootIntent = new Intent(Intent.ACTION_MAIN);
         rootIntent.setAction("masquerade.substratum.INITIALIZE");

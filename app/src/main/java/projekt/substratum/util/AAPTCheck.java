@@ -29,30 +29,36 @@ public class AAPTCheck {
         if (!aapt.exists()) {
             if (!Build.SUPPORTED_ABIS.toString().contains("86")) {
                 // Take account for ARM/ARM64 devices
-                copyAAPT("aapt");
-                Root.runCommand("mount -o rw,remount /system");
-                Root.runCommand(
-                        "cp " + context.getFilesDir().getAbsolutePath() +
-                                "/aapt " +
-                                "/system/bin/aapt");
-                Root.runCommand("chmod 755 /system/bin/aapt");
-                Root.runCommand("mount -o ro,remount /system");
-                Log.d("SubstratumLogger", "Android Assets Packaging Tool (ARM) has been injected" +
-                        " into the " +
-                        "system partition.");
+                try {
+                    copyAAPT("aapt");
+                    Root.runCommand("mount -o rw,remount /system");
+                    Root.runCommand(
+                            "cp " + context.getFilesDir().getAbsolutePath() +
+                                    "/aapt " +
+                                    "/system/bin/aapt");
+                    Root.runCommand("chmod 755 /system/bin/aapt");
+                    Root.runCommand("mount -o ro,remount /system");
+                    Log.d("SubstratumLogger", "Android Assets Packaging Tool (ARM) has been" +
+                            " injected into the system partition.");
+                } catch (Exception e) {
+                    //
+                }
             } else {
                 // Take account for x86 devices
-                copyAAPT("aapt-x86");
-                Root.runCommand("mount -o rw,remount /system");
-                Root.runCommand(
-                        "cp " + context.getFilesDir().getAbsolutePath() +
-                                "/aapt-x86 " +
-                                "/system/bin/aapt");
-                Root.runCommand("chmod 755 /system/bin/aapt");
-                Root.runCommand("mount -o ro,remount /system");
-                Log.d("SubstratumLogger", "Android Assets Packaging Tool (x86) has been injected" +
-                        " into the " +
-                        "system partition.");
+                try {
+                    copyAAPT("aapt-x86");
+                    Root.runCommand("mount -o rw,remount /system");
+                    Root.runCommand(
+                            "cp " + context.getFilesDir().getAbsolutePath() +
+                                    "/aapt-x86 " +
+                                    "/system/bin/aapt");
+                    Root.runCommand("chmod 755 /system/bin/aapt");
+                    Root.runCommand("mount -o ro,remount /system");
+                    Log.d("SubstratumLogger", "Android Assets Packaging Tool (x86) has been" +
+                            " injected into the system partition.");
+                } catch (Exception e) {
+                    //
+                }
             }
         } else {
             String integrityCheck = checkAAPTIntegrity();

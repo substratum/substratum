@@ -221,6 +221,35 @@ public class SoundsHandler {
         if (ui.exists()) {
             Root.runCommand("mkdir /data/system/theme/audio/ui/");
 
+            File effect_tick_mp3 = new File(mContext.getCacheDir().getAbsolutePath() +
+                    "/SoundsCache/SoundsInjector/ui/Effect_Tick.mp3");
+            File effect_tick_ogg = new File(mContext.getCacheDir().getAbsolutePath() +
+                    "/SoundsCache/SoundsInjector/ui/Effect_Tick.ogg");
+            if (effect_tick_mp3.exists() || effect_tick_ogg.exists()) {
+                boolean mp3 = effect_tick_mp3.exists();
+                boolean ogg = effect_tick_ogg.exists();
+                if (mp3) {
+                    Root.runCommand(
+                            "cp -rf " + mContext.getCacheDir().getAbsolutePath() +
+                                    "/SoundsCache/SoundsInjector/ui/Effect_Tick.mp3 " +
+                                    "/data/system/theme/audio/ui/Effect_Tick.mp3");
+                    setUIAudible(mContext, effect_tick_mp3, new File
+                            ("/data/system/theme/audio/ui/Effect_Tick.mp3"), RingtoneManager
+                            .TYPE_RINGTONE, "Effect_Tick");
+                }
+                if (ogg) {
+                    Root.runCommand(
+                            "cp -rf " + mContext.getCacheDir().getAbsolutePath() +
+                                    "/SoundsCache/SoundsInjector/ui/Effect_Tick.ogg " +
+                                    "/data/system/theme/audio/ui/Effect_Tick.ogg");
+                    setUIAudible(mContext, effect_tick_ogg, new File
+                            ("/data/system/theme/audio/ui/Effect_Tick.ogg"), RingtoneManager
+                            .TYPE_RINGTONE, "Effect_Tick");
+                }
+            } else {
+                setDefaultUISounds("lock_sound", "Lock.ogg");
+            }
+
             File new_lock_mp3 = new File(mContext.getCacheDir().getAbsolutePath() +
                     "/SoundsCache/SoundsInjector/ui/Lock.mp3");
             File new_lock_ogg = new File(mContext.getCacheDir().getAbsolutePath() +
@@ -394,6 +423,47 @@ public class SoundsHandler {
         if (c != null && c.getCount() > 0) {
             c.moveToFirst();
             long id = c.getLong(0);
+            c.close();
+            newUri = Uri.withAppendedPath(Uri.parse(MEDIA_CONTENT_URI), "" + id);
+            context.getContentResolver().update(uri, values,
+                    MediaStore.MediaColumns._ID + "=" + id, null);
+        }
+        if (newUri == null)
+            newUri = context.getContentResolver().insert(uri, values);
+        try {
+            RingtoneManager.setActualDefaultRingtoneUri(context, type, newUri);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean setUIAudible(Context context, File localized_ringtone,
+                                 File ringtone_file, int type, String name) {
+        final String path = ringtone_file.getAbsolutePath();
+
+        final String path_clone = "/system/media/audio/ui/" + name + ".ogg";
+
+        ContentValues values = new ContentValues();
+        values.put(MediaStore.MediaColumns.DATA, path);
+        values.put(MediaStore.MediaColumns.TITLE, name);
+        values.put(MediaStore.MediaColumns.MIME_TYPE, "application/ogg");
+        values.put(MediaStore.MediaColumns.SIZE, localized_ringtone.length());
+        values.put(MediaStore.Audio.Media.IS_RINGTONE, false);
+        values.put(MediaStore.Audio.Media.IS_NOTIFICATION, false);
+        values.put(MediaStore.Audio.Media.IS_ALARM, false);
+        values.put(MediaStore.Audio.Media.IS_MUSIC, true);
+
+        Uri uri = MediaStore.Audio.Media.getContentUriForPath(path);
+        Uri newUri = null;
+        Cursor c = context.getContentResolver().query(uri,
+                new String[]{MediaStore.MediaColumns._ID},
+                MediaStore.MediaColumns.DATA + "='" + path_clone + "'",
+                null, null);
+        if (c != null && c.getCount() > 0) {
+            c.moveToFirst();
+            long id = c.getLong(0);
+            Log.e("ContentResolver", id + "");
             c.close();
             newUri = Uri.withAppendedPath(Uri.parse(MEDIA_CONTENT_URI), "" + id);
             context.getContentResolver().update(uri, values,

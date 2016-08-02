@@ -86,8 +86,7 @@ public class SubstratumThemeUpdater {
                 try {
                     Intent myIntent = new Intent(Intent.ACTION_MAIN);
                     Context otherAppContext = mContext.createPackageContext(
-                            packageName,
-                            Context.CONTEXT_IGNORE_SECURITY);
+                            packageName, Context.CONTEXT_IGNORE_SECURITY);
                     boolean is_valid = true;
                     String[] classes = References.getClassesOfPackage(
                             otherAppContext);
@@ -99,25 +98,20 @@ public class SubstratumThemeUpdater {
                         }
                     }
                     if (is_valid) {
-                        myIntent.setComponent(ComponentName.unflattenFromString(
-                                packageName + "/" + "substratum.theme.template" +
-                                        ".SubstratumLauncher"));
-                        myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
-                                Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         if (!References.checkOMS()) {
                             notificationIntent = new Intent(mContext, MainActivity.class);
                             intent = PendingIntent.getActivity(mContext, 0, notificationIntent,
                                     PendingIntent.FLAG_CANCEL_CURRENT);
                         } else {
+                            myIntent.setComponent(ComponentName.unflattenFromString(
+                                    packageName + "/" + "substratum.theme.template" +
+                                            ".SubstratumLauncher"));
+                            myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                                    Intent.FLAG_ACTIVITY_SINGLE_TOP);
                             intent = PendingIntent.getActivity(mContext, 0, myIntent,
                                     PendingIntent.FLAG_CANCEL_CURRENT);
                         }
                     } else {
-                        Toast toast = Toast.makeText(mContext,
-                                mContext.getString(R.string
-                                        .information_activity_pirated_toast),
-                                Toast.LENGTH_LONG);
-                        toast.show();
                         intent = PendingIntent.getActivity(mContext, 0, myIntent,
                                 PendingIntent.FLAG_CANCEL_CURRENT);
                     }
@@ -145,8 +139,7 @@ public class SubstratumThemeUpdater {
                     try {
                         Intent myIntent = new Intent(Intent.ACTION_MAIN);
                         Context otherAppContext = mContext.createPackageContext(
-                                packageName,
-                                Context.CONTEXT_IGNORE_SECURITY);
+                                packageName, Context.CONTEXT_IGNORE_SECURITY);
                         boolean is_valid = true;
                         String[] classes = References.getClassesOfPackage(
                                 otherAppContext);
@@ -158,24 +151,19 @@ public class SubstratumThemeUpdater {
                             }
                         }
                         if (is_valid) {
-                            myIntent.setComponent(ComponentName.unflattenFromString(
-                                    packageName + "/" + ".SubstratumLauncher"));
-                            myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
-                                    Intent.FLAG_ACTIVITY_SINGLE_TOP);
                             if (!References.checkOMS()) {
                                 notificationIntent = new Intent(mContext, MainActivity.class);
                                 intent = PendingIntent.getActivity(mContext, 0, notificationIntent,
                                         PendingIntent.FLAG_CANCEL_CURRENT);
                             } else {
+                                myIntent.setComponent(ComponentName.unflattenFromString(
+                                        packageName + "/" + ".SubstratumLauncher"));
+                                myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                                        Intent.FLAG_ACTIVITY_SINGLE_TOP);
                                 intent = PendingIntent.getActivity(mContext, 0, myIntent,
                                         PendingIntent.FLAG_CANCEL_CURRENT);
                             }
                         } else {
-                            Toast toast = Toast.makeText(mContext,
-                                    mContext.getString(R.string
-                                            .information_activity_pirated_toast),
-                                    Toast.LENGTH_LONG);
-                            toast.show();
                             intent = PendingIntent.getActivity(mContext, 0, myIntent,
                                     PendingIntent.FLAG_CANCEL_CURRENT);
                         }
@@ -215,38 +203,30 @@ public class SubstratumThemeUpdater {
                 try {
                     Intent myIntent = new Intent(Intent.ACTION_MAIN);
                     Context otherAppContext = mContext.createPackageContext(
-                            packageName,
-                            Context.CONTEXT_IGNORE_SECURITY);
+                            packageName, Context.CONTEXT_IGNORE_SECURITY);
                     boolean is_valid = true;
                     String[] classes = References.getClassesOfPackage(
                             otherAppContext);
                     for (int i = 0; i < classes.length; i++) {
-                        if (!References.letUsDance(classes[i],
-                                packageName)) {
+                        if (!References.letUsDance(classes[i], packageName)) {
                             is_valid = false;
                             break;
                         }
                     }
                     if (is_valid) {
-                        myIntent.setComponent(ComponentName.unflattenFromString(
-                                packageName + "/" + "substratum.theme.template" +
-                                        ".SubstratumLauncher"));
-                        myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
-                                Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         if (!References.checkOMS()) {
                             notificationIntent = new Intent(mContext, MainActivity.class);
                             intent = PendingIntent.getActivity(mContext, 0, notificationIntent,
                                     PendingIntent.FLAG_CANCEL_CURRENT);
                         } else {
+                            myIntent.setComponent(ComponentName.unflattenFromString(
+                                    packageName + "/" + "substratum.theme.template" +
+                                            ".SubstratumLauncher"));
+                            myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             intent = PendingIntent.getActivity(mContext, 0, myIntent,
                                     PendingIntent.FLAG_CANCEL_CURRENT);
                         }
                     } else {
-                        Toast toast = Toast.makeText(mContext,
-                                mContext.getString(R.string
-                                        .information_activity_pirated_toast),
-                                Toast.LENGTH_LONG);
-                        toast.show();
                         intent = PendingIntent.getActivity(mContext, 0, myIntent,
                                 PendingIntent.FLAG_CANCEL_CURRENT);
                     }
@@ -288,24 +268,19 @@ public class SubstratumThemeUpdater {
                             }
                         }
                         if (is_valid) {
-                            myIntent.setComponent(ComponentName.unflattenFromString(
-                                    packageName + "/" + ".SubstratumLauncher"));
-                            myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
-                                    Intent.FLAG_ACTIVITY_SINGLE_TOP);
                             if (!References.checkOMS()) {
                                 notificationIntent = new Intent(mContext, MainActivity.class);
                                 intent = PendingIntent.getActivity(mContext, 0, notificationIntent,
                                         PendingIntent.FLAG_CANCEL_CURRENT);
                             } else {
+                                myIntent.setComponent(ComponentName.unflattenFromString(
+                                        packageName + "/" + ".SubstratumLauncher"));
+                                myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                                        Intent.FLAG_ACTIVITY_SINGLE_TOP);
                                 intent = PendingIntent.getActivity(mContext, 0, myIntent,
                                         PendingIntent.FLAG_CANCEL_CURRENT);
                             }
                         } else {
-                            Toast toast = Toast.makeText(mContext,
-                                    mContext.getString(R.string
-                                            .information_activity_pirated_toast),
-                                    Toast.LENGTH_LONG);
-                            toast.show();
                             intent = PendingIntent.getActivity(mContext, 0, myIntent,
                                     PendingIntent.FLAG_CANCEL_CURRENT);
                         }

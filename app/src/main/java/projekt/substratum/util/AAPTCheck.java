@@ -16,27 +16,27 @@ import java.io.OutputStream;
  * @author Nicholas Chum (nicholaschum)
  */
 
-public class AOPTCheck {
+public class AAPTCheck {
 
     private Context mContext;
 
-    public void injectAOPT(Context context) {
+    public void injectAAPT(Context context) {
         mContext = context;
 
-        // Check if aopt is installed on the device
+        // Check if aapt is installed on the device
 
-        File aopt = new File("/system/bin/aopt");
-        if (!aopt.exists()) {
+        File aapt = new File("/system/bin/aapt");
+        if (!aapt.exists()) {
             if (!Build.SUPPORTED_ABIS.toString().contains("86")) {
                 // Take account for ARM/ARM64 devices
                 try {
-                    copyAOPT("aopt");
+                    copyAAPT("aapt");
                     Root.runCommand("mount -o rw,remount /system");
                     Root.runCommand(
                             "cp " + context.getFilesDir().getAbsolutePath() +
-                                    "/aopt " +
-                                    "/system/bin/aopt");
-                    Root.runCommand("chmod 755 /system/bin/aopt");
+                                    "/aapt " +
+                                    "/system/bin/aapt");
+                    Root.runCommand("chmod 755 /system/bin/aapt");
                     Root.runCommand("mount -o ro,remount /system");
                     Log.d("SubstratumLogger", "Android Assets Packaging Tool (ARM) has been" +
                             " injected into the system partition.");
@@ -46,13 +46,13 @@ public class AOPTCheck {
             } else {
                 // Take account for x86 devices
                 try {
-                    copyAOPT("aopt-x86");
+                    copyAAPT("aapt-x86");
                     Root.runCommand("mount -o rw,remount /system");
                     Root.runCommand(
                             "cp " + context.getFilesDir().getAbsolutePath() +
-                                    "/aopt-x86 " +
-                                    "/system/bin/aopt");
-                    Root.runCommand("chmod 755 /system/bin/aopt");
+                                    "/aapt-x86 " +
+                                    "/system/bin/aapt");
+                    Root.runCommand("chmod 755 /system/bin/aapt");
                     Root.runCommand("mount -o ro,remount /system");
                     Log.d("SubstratumLogger", "Android Assets Packaging Tool (x86) has been" +
                             " injected into the system partition.");
@@ -61,38 +61,38 @@ public class AOPTCheck {
                 }
             }
         } else {
-            String integrityCheck = checkAOPTIntegrity();
+            String integrityCheck = checkAAPTIntegrity();
 
             if (integrityCheck != null && integrityCheck.equals("Android Asset Packaging Tool")) {
                 Log.d("SubstratumLogger", "The system partition already contains an existing " +
-                        "AOPT binary and Substratum is locked and loaded!");
+                        "AAPT binary and Substratum is locked and loaded!");
             } else {
                 Log.e("SubstratumLogger",
-                        "The system partition already contains an existing AOPT " +
+                        "The system partition already contains an existing AAPT " +
                                 "binary, however it does not match Substratum integrity.");
                 if (!Build.SUPPORTED_ABIS.toString().contains("86")) {
                     // Take account for ARM/ARM64 devices
-                    copyAOPT("aopt");
+                    copyAAPT("aapt");
                     Root.runCommand("mount -o rw,remount /system");
-                    Root.runCommand("rm -rf /system/bin/aopt");
+                    Root.runCommand("rm -rf /system/bin/aapt");
                     Root.runCommand(
                             "cp " + context.getFilesDir().getAbsolutePath() +
-                                    "/aopt " +
-                                    "/system/bin/aopt");
-                    Root.runCommand("chmod 755 /system/bin/aopt");
+                                    "/aapt " +
+                                    "/system/bin/aapt");
+                    Root.runCommand("chmod 755 /system/bin/aapt");
                     Root.runCommand("mount -o ro,remount /system");
                     Log.d("SubstratumLogger", "Android Assets Packaging Tool (ARM) has been " +
                             "injected into the system partition.");
                 } else {
                     // Take account for x86 devices
-                    copyAOPT("aopt-x86");
+                    copyAAPT("aapt-x86");
                     Root.runCommand("mount -o rw,remount /system");
-                    Root.runCommand("rm -rf /system/bin/aopt");
+                    Root.runCommand("rm -rf /system/bin/aapt");
                     Root.runCommand(
                             "cp " + context.getFilesDir().getAbsolutePath() +
-                                    "/aopt-x86 " +
-                                    "/system/bin/aopt");
-                    Root.runCommand("chmod 755 /system/bin/aopt");
+                                    "/aapt-x86 " +
+                                    "/system/bin/aapt");
+                    Root.runCommand("chmod 755 /system/bin/aapt");
                     Root.runCommand("mount -o ro,remount /system");
                     Log.d("SubstratumLogger", "Android Assets Packaging Tool (x86) has been " +
                             "injected into the system partition.");
@@ -101,7 +101,7 @@ public class AOPTCheck {
         }
     }
 
-    private void copyAOPT(String filename) {
+    private void copyAAPT(String filename) {
         AssetManager assetManager = mContext.getAssets();
         String TARGET_BASE_PATH = mContext.getFilesDir().getAbsolutePath() + "/";
         String newFileName = TARGET_BASE_PATH + filename;
@@ -117,11 +117,11 @@ public class AOPTCheck {
         }
     }
 
-    public String checkAOPTIntegrity() {
+    public String checkAAPTIntegrity() {
         Process proc = null;
         try {
             Runtime rt = Runtime.getRuntime();
-            String[] commands = {"aopt"};
+            String[] commands = {"aapt"};
             proc = rt.exec(commands);
             try (BufferedReader stdError = new BufferedReader(new
                     InputStreamReader(proc.getErrorStream()))) {

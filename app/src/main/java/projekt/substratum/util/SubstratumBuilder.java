@@ -109,7 +109,7 @@ public class SubstratumBuilder {
             }
         }
 
-        // 2. Create a modified Android Manifest for use with aopt
+        // 2. Create a modified Android Manifest for use with aapt
 
         File root = new File(work_area + "/AndroidManifest.xml");
 
@@ -282,7 +282,7 @@ public class SubstratumBuilder {
             try {
                 String commands;
                 if (typeMode == 1) {
-                    commands = "aopt p -M " + work_area +
+                    commands = "aapt p -M " + work_area +
                             "/AndroidManifest.xml -S " +
                             work_area +
                             "/workdir/ -I " +
@@ -292,7 +292,7 @@ public class SubstratumBuilder {
                             "-f --include-meta-data --auto-add-overlay\n";
                 } else {
                     if (variant != null) {
-                        commands = "aopt p -M " + work_area +
+                        commands = "aapt p -M " + work_area +
                                 "/AndroidManifest.xml -S " +
                                 work_area +
                                 "/" + "type2_" + additional_variant + "/ -S " +
@@ -305,7 +305,7 @@ public class SubstratumBuilder {
 
                                 "-f --include-meta-data --auto-add-overlay\n";
                     } else {
-                        commands = "aopt p -M " + work_area +
+                        commands = "aapt p -M " + work_area +
                                 "/AndroidManifest.xml -S " +
                                 work_area +
                                 "/workdir/ -I " +

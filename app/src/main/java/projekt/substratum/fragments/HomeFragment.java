@@ -43,7 +43,7 @@ import projekt.substratum.R;
 import projekt.substratum.adapters.DataAdapter;
 import projekt.substratum.config.References;
 import projekt.substratum.model.ThemeInfo;
-import projekt.substratum.util.AAPTCheck;
+import projekt.substratum.util.AOPTCheck;
 import projekt.substratum.util.CacheCreator;
 import projekt.substratum.util.Root;
 
@@ -367,7 +367,7 @@ public class HomeFragment extends Fragment {
                 .progress_bar_loader);
         PackageManager packageManager = mContext.getPackageManager();
 
-        new AAPTCheck().injectAAPT(getContext());
+        new AOPTCheck().injectAOPT(getContext());
 
         list.clear();
         recyclerView.setAdapter(null);

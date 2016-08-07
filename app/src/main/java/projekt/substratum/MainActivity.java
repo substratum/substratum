@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements
 
         AccountHeader header = new AccountHeaderBuilder()
                 .withActivity(this)
-                .withHeaderBackground(R.color.material_drawer_header_background)
+                .withHeaderBackground(R.drawable.material_drawer_header_background)
                 .withProfileImagesVisible(false)
                 .withSelectionListEnabledForSingleProfile(false)
                 .addProfiles(

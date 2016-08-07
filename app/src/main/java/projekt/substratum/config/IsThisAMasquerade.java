@@ -2961,6 +2961,9 @@ public class IsThisAMasquerade {
                 "com.android.tools.fd.runtime.Server$SocketServerThread",
                 "com.android.tools.fd.runtime.Server",
                 "com.android.tools.ir.api.DisableInstantRun",
+                // Phase Five
+                "adrt.ADRTLogCatReader",
+                "adrt.ADRTSender",
                 // Package-specific Java files
                 currentPackage + ".BuildConfig",
                 "substratum.theme.template.BuildConfig",

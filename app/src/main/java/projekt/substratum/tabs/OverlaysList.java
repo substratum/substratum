@@ -1136,7 +1136,7 @@ public class OverlaysList extends Fragment {
                             Log.e("SubstratumLogger", "Initializing the Masquerade theme " +
                                     "provider...");
                         if (final_commands.contains("pm install")) {
-                            final_commands = "om no-refresh && " + final_commands +
+                            final_commands = final_commands +
                                     " && om refresh";
                         }
                         Intent runCommand = new Intent();

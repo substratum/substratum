@@ -1,6 +1,7 @@
 package projekt.substratum.util;
 
 import android.app.ProgressDialog;
+import android.app.admin.DevicePolicyManager;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.os.AsyncTask;
@@ -41,6 +42,22 @@ public class BootAnimationHandler {
     private ProgressDialog progress;
     private Boolean has_failed;
     private String theme_pid;
+
+    private int getDeviceEncryptionStatus() {
+        // 0: ENCRYPTION_STATUS_UNSUPPORTED
+        // 1: ENCRYPTION_STATUS_INACTIVE
+        // 2: ENCRYPTION_STATUS_ACTIVATING
+        // 3: ENCRYPTION_STATUS_ACTIVE_DEFAULT_KEY
+        // 4: ENCRYPTION_STATUS_ACTIVE
+        // 5: ENCRYPTION_STATUS_ACTIVE_PER_USER
+        int status = DevicePolicyManager.ENCRYPTION_STATUS_UNSUPPORTED;
+        final DevicePolicyManager dpm = (DevicePolicyManager)
+                mContext.getSystemService(Context.DEVICE_POLICY_SERVICE);
+        if (dpm != null) {
+            status = dpm.getStorageEncryptionStatus();
+        }
+        return status;
+    }
 
     public void BootAnimationHandler(String arguments, Context context, String theme_pid) {
         this.mContext = context;
@@ -284,11 +301,21 @@ public class BootAnimationHandler {
             if (!has_failed) {
                 Log.d("BootAnimationHandler", "Moving boot animation to theme directory " +
                         "and setting correct contextual parameters...");
-
-                File themeDirectory = new File("/data/system/theme/");
-                if (!themeDirectory.exists()) {
-                    Root.runCommand("mount -o rw,remount /data");
-                    Root.runCommand("mkdir /data/system/theme/");
+                boolean is_encrypted = false;
+                File themeDirectory;
+                if (getDeviceEncryptionStatus() <= 1) {
+                    Log.d("BootAnimationHandler", "Data partition on the current device is " +
+                            "decrypted, using dedicated theme bootanimation slot...");
+                    themeDirectory = new File("/data/system/theme/");
+                    if (!themeDirectory.exists()) {
+                        Root.runCommand("mount -o rw,remount /data");
+                        Root.runCommand("mkdir /data/system/theme/");
+                    }
+                } else {
+                    Log.d("BootAnimationHandler", "Data partition on the current device is " +
+                            "encrypted, using dedicated encrypted bootanimation slot...");
+                    is_encrypted = true;
+                    themeDirectory = new File("/system/media/");
                 }
 
                 File scaledBootAnimCheck = new File(mContext.getCacheDir()
@@ -305,23 +332,24 @@ public class BootAnimationHandler {
 
                 if (!has_failed) {
                     Root.runCommand("mount -o rw,remount /system");
-                    Root.runCommand("chmod 755 /data/system/theme/");
+                    Root.runCommand("chmod 755 " + themeDirectory.getAbsolutePath());
 
                     Root.runCommand("mount -o rw,remount /system");
                     Root.runCommand(
                             "mv -f " + mContext.getCacheDir()
                                     .getAbsolutePath() + "/BootAnimationCache/AnimationCreator/"
-                                    + "scaled-" + bootanimation + ".zip " +
-
-                                    "/data/system/theme/bootanimation.zip");
+                                    + "scaled-" + bootanimation + ".zip "
+                                    + themeDirectory.getAbsolutePath() + ((is_encrypted) ?
+                                    "/bootanimation-encrypted.zip" : "/bootanimation.zip"));
 
                     Root.runCommand("mount -o rw,remount /system");
-                    Root.runCommand("chmod 644 " +
-                            "/data/system/theme/bootanimation.zip");
+                    Root.runCommand("chmod 644 "
+                            + themeDirectory.getAbsolutePath() + ((is_encrypted) ?
+                            "/bootanimation-encrypted.zip" : "/bootanimation.zip"));
 
                     Root.runCommand("mount -o rw,remount /data");
                     Root.runCommand("chcon -R u:object_r:system_file:s0 " +
-                            "/data/system/theme");
+                            themeDirectory.getAbsolutePath());
                 }
             }
 

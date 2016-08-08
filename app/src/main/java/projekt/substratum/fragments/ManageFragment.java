@@ -1,6 +1,8 @@
 package projekt.substratum.fragments;
 
 import android.app.ProgressDialog;
+import android.app.admin.DevicePolicyManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -40,6 +42,22 @@ public class ManageFragment extends Fragment {
     private ArrayList<String> final_commands_array;
     private Boolean DEBUG = References.DEBUG;
     private SharedPreferences prefs;
+
+    private int getDeviceEncryptionStatus() {
+        // 0: ENCRYPTION_STATUS_UNSUPPORTED
+        // 1: ENCRYPTION_STATUS_INACTIVE
+        // 2: ENCRYPTION_STATUS_ACTIVATING
+        // 3: ENCRYPTION_STATUS_ACTIVE_DEFAULT_KEY
+        // 4: ENCRYPTION_STATUS_ACTIVE
+        // 5: ENCRYPTION_STATUS_ACTIVE_PER_USER
+        int status = DevicePolicyManager.ENCRYPTION_STATUS_UNSUPPORTED;
+        final DevicePolicyManager dpm = (DevicePolicyManager)
+                getContext().getSystemService(Context.DEVICE_POLICY_SERVICE);
+        if (dpm != null) {
+            status = dpm.getStorageEncryptionStatus();
+        }
+        return status;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
@@ -358,7 +376,11 @@ public class ManageFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            Root.runCommand("rm -r /data/system/theme/bootanimation.zip");
+            if (getDeviceEncryptionStatus() <= 1) {
+                Root.runCommand("rm -r /data/system/theme/bootanimation.zip");
+            } else {
+                Root.runCommand("rm -r /system/media/bootanimation-encrypted.zip");
+            }
             return null;
         }
     }

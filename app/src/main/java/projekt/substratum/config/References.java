@@ -91,7 +91,8 @@ public class References {
 
     // These methods determine whether the package's class is allowed
     public static Boolean letUsDance(String current, String packageName) {
-        return IsThisAMasquerade.believingIsJustTheBeginning(current, packageName);
+        return IsThisAMasquerade.believingIsJustTheBeginning(current, packageName) ||
+                AreYouSure.areYouReadyForTheDanceOfYourLife(current, packageName);
     }
 
     public static String[] getClassesOfPackage(Context context) {

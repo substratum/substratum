@@ -3,10 +3,11 @@ package projekt.substratum.fragments;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,17 +22,22 @@ import android.widget.Toast;
 
 import com.gordonwong.materialsheetfab.MaterialSheetFab;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.R;
 import projekt.substratum.adapters.OverlayManagerAdapter;
 import projekt.substratum.config.References;
 import projekt.substratum.model.OverlayManager;
 import projekt.substratum.util.FloatingActionMenu;
-import projekt.substratum.util.ReadOverlaysFile;
 import projekt.substratum.util.Root;
 
 /**
@@ -42,108 +48,36 @@ public class AdvancedManagerFragment extends Fragment {
 
     private RecyclerView.Adapter mAdapter;
     private MaterialSheetFab materialSheetFab;
-    private ArrayList<String> activated_overlays;
+    private ArrayList<String> activated_overlays, disabled_overlays, all_overlays;
+    private SharedPreferences prefs;
+    private RelativeLayout relativeLayout;
+    private ViewGroup root;
+    private List<OverlayManager> overlaysList;
+    private FloatingActionMenu floatingActionButton;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private boolean swipeRefreshing;
+    private MaterialProgressBar progressBar;
+    private RecyclerView mRecyclerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.overlay_manager, null);
-        RelativeLayout relativeLayout = (RelativeLayout) root.findViewById(R.id
-                .no_overlays_enabled);
-
-        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
-                getContext());
-
-        final List<OverlayManager> overlaysList = new ArrayList<>();
-        activated_overlays = new ArrayList<>();
-
-        if (References.checkOMS()) {
-            String[] commands = {Environment.getExternalStorageDirectory()
-                    .getAbsolutePath() +
-                    "/.substratum/current_overlays.xml", "4"};
-            String[] commands1 = {Environment.getExternalStorageDirectory()
-                    .getAbsolutePath() +
-                    "/.substratum/current_overlays.xml", "5"};
-
-            if (prefs.getBoolean("manager_disabled_overlays", true)) {
-                List<String> state4 = ReadOverlaysFile.main(commands);
-                List<String> state5 = ReadOverlaysFile.main(commands1);
-                activated_overlays = new ArrayList<>(state4);
-                activated_overlays.addAll(state5);
-
-                Collections.sort(activated_overlays);
-
-                for (int i = 0; i < activated_overlays.size(); i++) {
-                    if (state4.contains(activated_overlays.get(i))) {
-                        OverlayManager st = new OverlayManager(getContext(), activated_overlays
-                                .get(i),
-
-                                false);
-                        overlaysList.add(st);
-                    } else {
-                        if (state5.contains(activated_overlays.get(i))) {
-                            OverlayManager st = new OverlayManager(getContext(),
-                                    activated_overlays.get
-                                            (i), true);
-                            overlaysList.add(st);
-                        }
-                    }
-                }
-            } else {
-                List<String> state5 = ReadOverlaysFile.main(commands1);
-                activated_overlays = new ArrayList<>(state5);
-
-                Collections.sort(activated_overlays);
-
-                for (int i = 0; i < activated_overlays.size(); i++) {
-                    if (state5.contains(activated_overlays.get(i))) {
-                        OverlayManager st = new OverlayManager(getContext(), activated_overlays.get
-                                (i), true);
-                        overlaysList.add(st);
-                    }
-                }
-            }
-        } else {
-            // At this point, the object is an RRO formatted check
-            String current_directory;
-            if (References.inNexusFilter()) {
-                current_directory = "/system/overlay/";
-            } else {
-                current_directory = "/system/vendor/overlay/";
-            }
-
-            File currentDir = new File(current_directory);
-            if (currentDir.exists() && currentDir.isDirectory()) {
-                String[] listed = currentDir.list();
-                for (int i = 0; i < listed.length; i++) {
-                    if (listed[i].substring(listed[i].length() - 4).equals(".apk")) {
-                        activated_overlays.add(listed[i].substring(0, listed[i].length() - 4));
-                    }
-                }
-                Collections.sort(activated_overlays);
-                for (int i = 0; i < activated_overlays.size(); i++) {
-                    OverlayManager st = new OverlayManager(getContext(), activated_overlays.get
-                            (i), true);
-                    overlaysList.add(st);
-                }
-            }
-        }
-
-        RecyclerView mRecyclerView = (RecyclerView) root.findViewById(R.id.overlays_recycler_view);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mAdapter = new OverlayManagerAdapter(overlaysList);
-        mRecyclerView.setAdapter(mAdapter);
+        prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        root = (ViewGroup) inflater.inflate(R.layout.advanced_manager_fragment, null);
+        relativeLayout = (RelativeLayout) root.findViewById(R.id.no_overlays_enabled);
+        mRecyclerView = (RecyclerView) root.findViewById(R.id.overlays_recycler_view);
 
         View sheetView = root.findViewById(R.id.fab_sheet);
         View overlay = root.findViewById(R.id.overlay);
         int sheetColor = getContext().getColor(R.color.fab_menu_background_card);
         int fabColor = getContext().getColor(R.color.colorAccent);
 
-        final FloatingActionMenu floatingActionButton = (FloatingActionMenu) root.findViewById(R
+        progressBar = (MaterialProgressBar) root.findViewById(R.id.progress_bar_loader);
+
+        floatingActionButton = (FloatingActionMenu) root.findViewById(R
                 .id.apply_fab);
-        floatingActionButton.show();
+        floatingActionButton.hide();
 
         // Create material sheet FAB
         if (sheetView != null && overlay != null) {
@@ -151,15 +85,18 @@ public class AdvancedManagerFragment extends Fragment {
                     sheetColor, fabColor);
         }
 
-        if (activated_overlays.size() == 0) {
-            floatingActionButton.hide();
-            relativeLayout.setVisibility(View.VISIBLE);
-            mRecyclerView.setVisibility(View.GONE);
-        } else {
-            floatingActionButton.show();
-            relativeLayout.setVisibility(View.GONE);
-            mRecyclerView.setVisibility(View.VISIBLE);
-        }
+        LayoutReloader layoutReloader = new LayoutReloader();
+        layoutReloader.execute("");
+
+        swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshing = true;
+                LayoutReloader layoutReloader = new LayoutReloader();
+                layoutReloader.execute("");
+            }
+        });
 
         TextView disable_selected = (TextView) root.findViewById(R.id.disable_selected);
         if (!References.checkOMS())
@@ -186,7 +123,8 @@ public class AdvancedManagerFragment extends Fragment {
                                         .string.toast_disabled),
                                 Toast.LENGTH_LONG);
                         toast.show();
-                        if (References.isPackageInstalled(getContext(), "masquerade.substratum")) {
+                        if (References.isPackageInstalled(getContext(),
+                                "masquerade.substratum")) {
                             Intent runCommand = new Intent();
                             runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                             runCommand.setAction("masquerade.substratum.COMMANDS");
@@ -267,42 +205,182 @@ public class AdvancedManagerFragment extends Fragment {
             });
 
         TextView enable_selected = (TextView) root.findViewById(R.id.enable_selected);
-        if (enable_selected != null) enable_selected.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                materialSheetFab.hideSheet();
-                String data = "om enable";
-                List<OverlayManager> overlayList = ((OverlayManagerAdapter) mAdapter)
-                        .getOverlayManagerList();
-                for (int i = 0; i < overlayList.size(); i++) {
-                    OverlayManager overlay = overlayList.get(i);
-                    if (overlay.isSelected()) {
-                        data = data + " " + overlay.getName();
+        if (enable_selected != null)
+            enable_selected.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    materialSheetFab.hideSheet();
+                    String data = "om enable";
+                    List<OverlayManager> overlayList = ((OverlayManagerAdapter) mAdapter)
+                            .getOverlayManagerList();
+                    for (int i = 0; i < overlayList.size(); i++) {
+                        OverlayManager overlay = overlayList.get(i);
+                        if (overlay.isSelected()) {
+                            data = data + " " + overlay.getName();
+                        }
+                    }
+                    if (!prefs.getBoolean("systemui_recreate", false) &&
+                            data.contains("systemui")) {
+                        data = data + " && pkill com.android.systemui";
+                    }
+                    Toast toast = Toast.makeText(getContext(), getString(R
+                                    .string.toast_enabled),
+                            Toast.LENGTH_LONG);
+                    toast.show();
+                    if (References.isPackageInstalled(getContext(), "masquerade.substratum")) {
+                        Intent runCommand = new Intent();
+                        runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                        runCommand.setAction("masquerade.substratum.COMMANDS");
+                        runCommand.putExtra("om-commands", data);
+                        getContext().sendBroadcast(runCommand);
+                    } else {
+                        Root.runCommand(data);
                     }
                 }
-                if (!prefs.getBoolean("systemui_recreate", false) &&
-                        data.contains("systemui")) {
-                    data = data + " && pkill com.android.systemui";
+            });
+
+        return root;
+    }
+
+    private class LayoutReloader extends AsyncTask<String, Integer, String> {
+
+        @Override
+        protected void onPreExecute() {
+            progressBar.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            progressBar.setVisibility(View.GONE);
+            mRecyclerView.setHasFixedSize(true);
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            mAdapter = new OverlayManagerAdapter(overlaysList);
+            mRecyclerView.setAdapter(mAdapter);
+
+            if (activated_overlays.size() == 0) {
+                floatingActionButton.hide();
+                relativeLayout.setVisibility(View.VISIBLE);
+                mRecyclerView.setVisibility(View.GONE);
+            } else {
+                floatingActionButton.show();
+                relativeLayout.setVisibility(View.GONE);
+                mRecyclerView.setVisibility(View.VISIBLE);
+            }
+            if (!prefs.getBoolean("manager_disabled_overlays", true) || !References.checkOMS()) {
+                LinearLayout enable_view = (LinearLayout) root.findViewById(R.id.enable);
+                enable_view.setVisibility(View.GONE);
+            }
+            if (swipeRefreshing) {
+                swipeRefreshing = false;
+                swipeRefreshLayout.setRefreshing(false);
+            }
+            super.onPostExecute(result);
+        }
+
+        @Override
+        protected String doInBackground(String... sUrl) {
+            overlaysList = new ArrayList<>();
+            activated_overlays = new ArrayList<>();
+            disabled_overlays = new ArrayList<>();
+            all_overlays = new ArrayList<>();
+
+            if (References.checkOMS()) {
+                Process nativeApp = null;
+                try {
+                    nativeApp = Runtime.getRuntime().exec("om list");
+
+                    try (OutputStream stdin = nativeApp.getOutputStream();
+                         InputStream stderr = nativeApp.getErrorStream();
+                         InputStream stdout = nativeApp.getInputStream();
+                         BufferedReader br = new BufferedReader(new InputStreamReader(stdout))) {
+                        String line;
+
+                        stdin.write(("ls\n").getBytes());
+                        stdin.write("exit\n".getBytes());
+
+                        while ((line = br.readLine()) != null) {
+                            if (line.length() > 0) {
+                                if (line.contains("[x]")) {
+                                    activated_overlays.add(line.substring(8));
+                                } else if (line.contains("[ ]")) {
+                                    disabled_overlays.add(line.substring(8));
+                                }
+                            }
+                        }
+
+                        try (BufferedReader br1 = new BufferedReader(
+                                new InputStreamReader(stderr))) {
+                            while ((line = br1.readLine()) != null) {
+                                Log.e("AdvancedManagerFragment", line);
+                            }
+                        }
+                    }
+                } catch (IOException ioe) {
+                    Log.e("PriorityListFragment", "There was an issue regarding loading the " +
+                            "priorities of each overlay.");
+                } finally {
+                    if (nativeApp != null) {
+                        // destroy the Process explicitly
+                        nativeApp.destroy();
+                    }
                 }
-                Toast toast = Toast.makeText(getContext(), getString(R
-                                .string.toast_enabled),
-                        Toast.LENGTH_LONG);
-                toast.show();
-                if (References.isPackageInstalled(getContext(), "masquerade.substratum")) {
-                    Intent runCommand = new Intent();
-                    runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                    runCommand.setAction("masquerade.substratum.COMMANDS");
-                    runCommand.putExtra("om-commands", data);
-                    getContext().sendBroadcast(runCommand);
+
+                if (prefs.getBoolean("manager_disabled_overlays", true)) {
+                    all_overlays = new ArrayList<>(activated_overlays);
+                    all_overlays.addAll(disabled_overlays);
+
+                    Collections.sort(all_overlays);
+
+                    for (int i = 0; i < all_overlays.size(); i++) {
+                        if (disabled_overlays.contains(all_overlays.get(i))) {
+                            OverlayManager st = new OverlayManager(getContext(),
+                                    all_overlays.get(i), false);
+                            overlaysList.add(st);
+                        } else if (activated_overlays.contains(all_overlays.get(i))) {
+                            OverlayManager st = new OverlayManager(getContext(),
+                                    all_overlays.get(i), true);
+                            overlaysList.add(st);
+                        }
+                    }
                 } else {
-                    Root.runCommand(data);
+                    all_overlays = new ArrayList<>(activated_overlays);
+                    all_overlays.addAll(disabled_overlays);
+
+                    Collections.sort(all_overlays);
+
+                    for (int i = 0; i < all_overlays.size(); i++) {
+                        if (activated_overlays.contains(all_overlays.get(i))) {
+                            OverlayManager st = new OverlayManager(getContext(),
+                                    all_overlays.get(i), true);
+                            overlaysList.add(st);
+                        }
+                    }
+                }
+            } else {
+                // At this point, the object is an RRO formatted check
+                String current_directory;
+                if (References.inNexusFilter()) {
+                    current_directory = "/system/overlay/";
+                } else {
+                    current_directory = "/system/vendor/overlay/";
+                }
+
+                File currentDir = new File(current_directory);
+                if (currentDir.exists() && currentDir.isDirectory()) {
+                    String[] listed = currentDir.list();
+                    for (int i = 0; i < listed.length; i++) {
+                        if (listed[i].substring(listed[i].length() - 4).equals(".apk")) {
+                            activated_overlays.add(listed[i].substring(0, listed[i].length() - 4));
+                        }
+                    }
+                    Collections.sort(activated_overlays);
+                    for (int i = 0; i < activated_overlays.size(); i++) {
+                        OverlayManager st = new OverlayManager(getContext(), activated_overlays.get
+                                (i), true);
+                        overlaysList.add(st);
+                    }
                 }
             }
-        });
-        if (!prefs.getBoolean("manager_disabled_overlays", true) || !References.checkOMS
-                ()) {
-            LinearLayout enable_view = (LinearLayout) root.findViewById(R.id.enable);
-            enable_view.setVisibility(View.GONE);
+            return null;
         }
-        return root;
     }
 }

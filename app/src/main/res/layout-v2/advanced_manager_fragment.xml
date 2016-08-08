@@ -46,16 +46,38 @@
             android:textSize="15sp"/>
     </RelativeLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/overlays_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginEnd="5dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:clipToPadding="false"
-        android:paddingBottom="90dp"
-        android:scrollbars="vertical"/>
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+                android:id="@+id/progress_bar_loader"
+                style="@style/Widget.MaterialProgressBar.ProgressBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_marginTop="20dp"
+                android:indeterminate="true"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/overlays_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:clipToPadding="false"
+                android:paddingBottom="90dp"
+                android:scrollbars="vertical"/>
+
+        </RelativeLayout>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <projekt.substratum.util.FloatingActionMenu
         android:id="@+id/apply_fab"
@@ -105,9 +127,7 @@
                         android:drawableStart="@drawable/fab_menu_enable"
                         android:text="@string/fab_menu_enable"/>
                 </LinearLayout>
-
             </LinearLayout>
-
         </android.support.v7.widget.CardView>
     </io.codetail.widget.RevealLinearLayout>
 </android.support.design.widget.CoordinatorLayout>

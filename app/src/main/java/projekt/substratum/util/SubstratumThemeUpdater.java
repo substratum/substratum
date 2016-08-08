@@ -88,15 +88,23 @@ public class SubstratumThemeUpdater {
                     Context otherAppContext = mContext.createPackageContext(
                             packageName, Context.CONTEXT_IGNORE_SECURITY);
                     boolean is_valid = true;
+
+                    // An easy way to check where the SubstratumLauncher class is located
+                    String intenter = "";
                     String[] classes = References.getClassesOfPackage(
                             otherAppContext);
                     for (int i = 0; i < classes.length; i++) {
+                        if (classes[i].contains("SubstratumLauncher")) intenter = classes[i];
                         if (!References.letUsDance(classes[i],
                                 packageName)) {
                             is_valid = false;
                             break;
                         }
                     }
+                    if (intenter.length() == 0) {
+                        intenter = "substratum.theme.template.SubstratumLauncher";
+                    }
+
                     if (is_valid) {
                         if (!References.checkOMS()) {
                             notificationIntent = new Intent(mContext, MainActivity.class);
@@ -104,8 +112,7 @@ public class SubstratumThemeUpdater {
                                     PendingIntent.FLAG_CANCEL_CURRENT);
                         } else {
                             myIntent.setComponent(ComponentName.unflattenFromString(
-                                    packageName + "/" + "substratum.theme.template" +
-                                            ".SubstratumLauncher"));
+                                    packageName + "/" + intenter));
                             myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
                                     Intent.FLAG_ACTIVITY_SINGLE_TOP);
                             intent = PendingIntent.getActivity(mContext, 0, myIntent,
@@ -136,83 +143,37 @@ public class SubstratumThemeUpdater {
                             .setPriority(notification_priority);
                     mNotifyManager.notify(id, mBuilder.build());
                 } catch (Exception ex) {
-                    try {
-                        Intent myIntent = new Intent(Intent.ACTION_MAIN);
-                        Context otherAppContext = mContext.createPackageContext(
-                                packageName, Context.CONTEXT_IGNORE_SECURITY);
-                        boolean is_valid = true;
-                        String[] classes = References.getClassesOfPackage(
-                                otherAppContext);
-                        for (int i = 0; i < classes.length; i++) {
-                            if (!References.letUsDance(classes[i],
-                                    packageName)) {
-                                is_valid = false;
-                                break;
-                            }
-                        }
-                        if (is_valid) {
-                            if (!References.checkOMS()) {
-                                notificationIntent = new Intent(mContext, MainActivity.class);
-                                intent = PendingIntent.getActivity(mContext, 0, notificationIntent,
-                                        PendingIntent.FLAG_CANCEL_CURRENT);
-                            } else {
-                                myIntent.setComponent(ComponentName.unflattenFromString(
-                                        packageName + "/" + ".SubstratumLauncher"));
-                                myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
-                                        Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                                intent = PendingIntent.getActivity(mContext, 0, myIntent,
-                                        PendingIntent.FLAG_CANCEL_CURRENT);
-                            }
-                        } else {
-                            intent = PendingIntent.getActivity(mContext, 0, myIntent,
-                                    PendingIntent.FLAG_CANCEL_CURRENT);
-                        }
-
-                        // This is the time when the notification should be shown on the user's
-                        // screen
-                        NotificationManager mNotifyManager =
-                                (NotificationManager) mContext.getSystemService(
-                                        Context.NOTIFICATION_SERVICE);
-                        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder
-                                (mContext);
-                        mBuilder.getNotification().flags |= Notification.FLAG_AUTO_CANCEL;
-                        mBuilder.setContentTitle(getThemeName(packageName) + " " +
-                                mContext.getString(R.string.notification_theme_updated))
-                                .setContentText(mContext.getString(R.string
-                                        .notification_theme_updated_content))
-                                .setAutoCancel(true)
-                                .setContentIntent(intent)
-                                .setSmallIcon(R.drawable.notification_updated)
-                                .setLargeIcon(BitmapFactory.decodeResource(
-                                        mContext.getResources(), R.mipmap
-                                                .restore_launcher))
-                                .setPriority(notification_priority);
-                        mNotifyManager.notify(id, mBuilder.build());
-                    } catch (Exception ex2) {
-                        Toast toast = Toast.makeText(mContext,
-                                mContext.getString(R.string
-                                        .information_activity_upgrade_toast),
-                                Toast.LENGTH_LONG);
-                        toast.show();
-                    }
+                    Toast toast = Toast.makeText(mContext,
+                            mContext.getString(R.string
+                                    .information_activity_upgrade_toast),
+                            Toast.LENGTH_LONG);
+                    toast.show();
                 }
             } else {
                 Intent notificationIntent;
                 PendingIntent intent;
-
                 try {
                     Intent myIntent = new Intent(Intent.ACTION_MAIN);
                     Context otherAppContext = mContext.createPackageContext(
                             packageName, Context.CONTEXT_IGNORE_SECURITY);
                     boolean is_valid = true;
+
+                    // An easy way to check where the SubstratumLauncher class is located
+                    String intenter = "";
                     String[] classes = References.getClassesOfPackage(
                             otherAppContext);
                     for (int i = 0; i < classes.length; i++) {
-                        if (!References.letUsDance(classes[i], packageName)) {
+                        if (classes[i].contains("SubstratumLauncher")) intenter = classes[i];
+                        if (!References.letUsDance(classes[i],
+                                packageName)) {
                             is_valid = false;
                             break;
                         }
                     }
+                    if (intenter.length() == 0) {
+                        intenter = "substratum.theme.template.SubstratumLauncher";
+                    }
+
                     if (is_valid) {
                         if (!References.checkOMS()) {
                             notificationIntent = new Intent(mContext, MainActivity.class);
@@ -220,9 +181,9 @@ public class SubstratumThemeUpdater {
                                     PendingIntent.FLAG_CANCEL_CURRENT);
                         } else {
                             myIntent.setComponent(ComponentName.unflattenFromString(
-                                    packageName + "/" + "substratum.theme.template" +
-                                            ".SubstratumLauncher"));
-                            myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    packageName + "/" + intenter));
+                            myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                                    Intent.FLAG_ACTIVITY_SINGLE_TOP);
                             intent = PendingIntent.getActivity(mContext, 0, myIntent,
                                     PendingIntent.FLAG_CANCEL_CURRENT);
                         }
@@ -238,13 +199,12 @@ public class SubstratumThemeUpdater {
                     NotificationCompat.Builder mBuilder = new NotificationCompat.Builder
                             (mContext);
                     mBuilder.getNotification().flags |= Notification.FLAG_AUTO_CANCEL;
-                    mBuilder.setContentTitle(getThemeName(packageName) + " " +
-                            mContext.getString(R.string
-                                    .notification_theme_installed))
-                            .setContentIntent(intent)
+                    mBuilder.setContentTitle(getThemeName(packageName) + " " + mContext.getString(
+                            R.string.notification_theme_installed))
                             .setContentText(mContext.getString(R.string
                                     .notification_theme_installed_content))
                             .setAutoCancel(true)
+                            .setContentIntent(intent)
                             .setSmallIcon(R.drawable.notification_icon)
                             .setLargeIcon(BitmapFactory.decodeResource(
                                     mContext.getResources(), R.mipmap
@@ -252,67 +212,11 @@ public class SubstratumThemeUpdater {
                             .setPriority(notification_priority);
                     mNotifyManager.notify(id, mBuilder.build());
                 } catch (Exception ex) {
-                    try {
-                        Intent myIntent = new Intent(Intent.ACTION_MAIN);
-                        Context otherAppContext = mContext.createPackageContext(
-                                packageName,
-                                Context.CONTEXT_IGNORE_SECURITY);
-                        boolean is_valid = true;
-                        String[] classes = References.getClassesOfPackage(
-                                otherAppContext);
-                        for (int i = 0; i < classes.length; i++) {
-                            if (!References.letUsDance(classes[i],
-                                    packageName)) {
-                                is_valid = false;
-                                break;
-                            }
-                        }
-                        if (is_valid) {
-                            if (!References.checkOMS()) {
-                                notificationIntent = new Intent(mContext, MainActivity.class);
-                                intent = PendingIntent.getActivity(mContext, 0, notificationIntent,
-                                        PendingIntent.FLAG_CANCEL_CURRENT);
-                            } else {
-                                myIntent.setComponent(ComponentName.unflattenFromString(
-                                        packageName + "/" + ".SubstratumLauncher"));
-                                myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
-                                        Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                                intent = PendingIntent.getActivity(mContext, 0, myIntent,
-                                        PendingIntent.FLAG_CANCEL_CURRENT);
-                            }
-                        } else {
-                            intent = PendingIntent.getActivity(mContext, 0, myIntent,
-                                    PendingIntent.FLAG_CANCEL_CURRENT);
-                        }
-
-                        // This is the time when the notification should be shown on the user's
-                        // screen
-                        NotificationManager mNotifyManager =
-                                (NotificationManager) mContext.getSystemService(
-                                        Context.NOTIFICATION_SERVICE);
-                        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder
-                                (mContext);
-                        mBuilder.getNotification().flags |= Notification.FLAG_AUTO_CANCEL;
-                        mBuilder.setContentTitle(getThemeName(packageName) + " " +
-                                mContext.getString(R.string
-                                        .notification_theme_installed))
-                                .setContentIntent(intent)
-                                .setContentText(mContext.getString(R.string
-                                        .notification_theme_installed_content))
-                                .setAutoCancel(true)
-                                .setSmallIcon(R.drawable.notification_icon)
-                                .setLargeIcon(BitmapFactory.decodeResource(
-                                        mContext.getResources(), R.mipmap
-                                                .main_launcher))
-                                .setPriority(notification_priority);
-                        mNotifyManager.notify(id, mBuilder.build());
-                    } catch (Exception ex2) {
-                        Toast toast = Toast.makeText(mContext,
-                                mContext.getString(R.string
-                                        .information_activity_upgrade_toast),
-                                Toast.LENGTH_LONG);
-                        toast.show();
-                    }
+                    Toast toast = Toast.makeText(mContext,
+                            mContext.getString(R.string
+                                    .information_activity_upgrade_toast),
+                            Toast.LENGTH_LONG);
+                    toast.show();
                 }
             }
             prefs.edit().putBoolean("is_updating", false).apply();

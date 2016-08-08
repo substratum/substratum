@@ -238,6 +238,48 @@ public class AdvancedManagerFragment extends Fragment {
                 }
             });
 
+        TextView uninstall_selected = (TextView) root.findViewById(R.id.uninstall);
+        if (uninstall_selected != null)
+            uninstall_selected.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    materialSheetFab.hideSheet();
+                    String data = "";
+                    List<OverlayManager> overlayList = ((OverlayManagerAdapter) mAdapter)
+                            .getOverlayManagerList();
+                    for (int i = 0; i < overlayList.size(); i++) {
+                        OverlayManager overlay = overlayList.get(i);
+                        if (data.length() == 0) {
+                            if (overlay.isSelected()) {
+                                data = "pm uninstall " + overlay.getName();
+                            }
+                        } else {
+                            if (overlay.isSelected()) {
+                                data = data + " && pm uninstall " + overlay.getName();
+                            }
+                        }
+                    }
+                    if (!prefs.getBoolean("systemui_recreate", false) &&
+                            data.contains("systemui")) {
+                        data = data + " && om refresh && pkill com.android.systemui";
+                    } else {
+                        data += " && om refresh";
+                    }
+                    Toast toast = Toast.makeText(getContext(), getString(R
+                                    .string.toast_uninstalling),
+                            Toast.LENGTH_LONG);
+                    toast.show();
+                    if (References.isPackageInstalled(getContext(), "masquerade.substratum")) {
+                        Intent runCommand = new Intent();
+                        runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                        runCommand.setAction("masquerade.substratum.COMMANDS");
+                        runCommand.putExtra("om-commands", data);
+                        getContext().sendBroadcast(runCommand);
+                    } else {
+                        Root.runCommand(data);
+                    }
+                }
+            });
+
         return root;
     }
 

@@ -127,6 +127,12 @@
                         android:drawableStart="@drawable/fab_menu_enable"
                         android:text="@string/fab_menu_enable"/>
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/uninstall"
+                    style="@style/TextAppearance.MaterialSheetFab.Sheet.Item"
+                    android:drawableStart="@drawable/fab_menu_uninstall"
+                    android:text="@string/fab_menu_uninstall"/>
             </LinearLayout>
         </android.support.v7.widget.CardView>
     </io.codetail.widget.RevealLinearLayout>

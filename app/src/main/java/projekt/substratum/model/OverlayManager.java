@@ -21,9 +21,13 @@ public class OverlayManager implements Serializable {
     public OverlayManager(Context context, String name, boolean isActivated) {
         this.name = name;
         this.isSelected = false;
-        this.activationValue =
-                ((isActivated) ? context.getColor(R.color.overlay_installed_list_entry) :
-                        context.getColor(R.color.overlay_not_enabled_list_entry));
+        try {
+            this.activationValue =
+                    ((isActivated) ? context.getColor(R.color.overlay_installed_list_entry) :
+                            context.getColor(R.color.overlay_not_enabled_list_entry));
+        } catch (Exception e) {
+            // Exception: Window refresh loves this guy!
+        }
     }
 
     public int getActivationValue() {

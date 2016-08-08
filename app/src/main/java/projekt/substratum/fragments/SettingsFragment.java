@@ -14,10 +14,6 @@ import android.support.v7.preference.PreferenceFragmentCompat;
 import android.util.Log;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
 import projekt.substratum.BuildConfig;
 import projekt.substratum.LauncherActivity;
 import projekt.substratum.R;
@@ -31,24 +27,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
     String settingsPackageName = "com.android.settings";
     String settingsSubstratumDrawableName = "ic_settings_substratum";
-
-    private static String getProp(String propName) {
-        Process p;
-        String result = "";
-        try {
-            p = new ProcessBuilder("/system/bin/getprop",
-                    propName).redirectErrorStream(true).start();
-            BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            String line;
-            while ((line = br.readLine()) != null) {
-                result = line;
-            }
-            br.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
 
     private boolean checkSettingsPackageSupport() {
         try {
@@ -201,7 +179,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                             return false;
                         }
                     });
-            if (!getProp("ro.substratum.recreate").equals("true"))
+            if (!References.getProp("ro.substratum.recreate").equals("true"))
                 systemUIRestart.setVisible(false);
 
             final CheckBoxPreference manager_disabled_overlays = (CheckBoxPreference)
@@ -219,11 +197,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                             if (isChecked) {
                                 prefs.edit().putBoolean("manager_disabled_overlays", true).apply();
                                 manager_disabled_overlays.setChecked(true);
+                                return true;
                             } else {
                                 prefs.edit().putBoolean("manager_disabled_overlays", false).apply();
                                 manager_disabled_overlays.setChecked(false);
+                                return false;
                             }
-                            return false;
                         }
                     });
         }

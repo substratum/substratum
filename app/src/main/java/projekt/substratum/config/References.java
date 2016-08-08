@@ -11,8 +11,10 @@ import android.os.Build;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
@@ -48,11 +50,34 @@ public class References {
         return om.exists();
     }
 
+    // This method is used to check whether a build.prop value is found
+    public static String getProp(String propName) {
+        Process p;
+        String result = "";
+        try {
+            p = new ProcessBuilder("/system/bin/getprop", propName)
+                    .redirectErrorStream(true).start();
+            BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            String line;
+            while ((line = br.readLine()) != null) {
+                result = line;
+            }
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
     // Load SharedPreference defaults
     public static void loadDefaultConfig(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         prefs.edit().putBoolean("show_app_icon", true).apply();
-        prefs.edit().putBoolean("systemui_recreate", false).apply();
+        if (References.getProp("ro.substratum.recreate").equals("true")) {
+            prefs.edit().putBoolean("systemui_recreate", true).apply();
+        } else {
+            prefs.edit().putBoolean("systemui_recreate", false).apply();
+        }
         prefs.edit().putBoolean("substratum_oms", References.checkOMS()).apply();
         prefs.edit().putBoolean("show_template_version", false).apply();
         prefs = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);

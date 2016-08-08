@@ -20,8 +20,8 @@ android {
         applicationId "projekt.substratum"
         minSdkVersion 23
         targetSdkVersion 24
-        versionCode 184
-        versionName "one hundred eighty four"
+        versionCode 186
+        versionName "one hundred eighty six"
     }
 }
 

@@ -117,7 +117,7 @@ public class AdvancedManagerFragment extends Fragment {
                         }
                         if (!prefs.getBoolean("systemui_recreate", false) &&
                                 data.contains("systemui")) {
-                            data = data + " && pkill com.android.systemui";
+                            data = data + " && pkill -f com.android.systemui";
                         }
                         Toast toast = Toast.makeText(getContext(), getString(R
                                         .string.toast_disabled),
@@ -220,7 +220,7 @@ public class AdvancedManagerFragment extends Fragment {
                     }
                     if (!prefs.getBoolean("systemui_recreate", false) &&
                             data.contains("systemui")) {
-                        data = data + " && pkill com.android.systemui";
+                        data = data + " && pkill -f com.android.systemui";
                     }
                     Toast toast = Toast.makeText(getContext(), getString(R
                                     .string.toast_enabled),
@@ -260,7 +260,7 @@ public class AdvancedManagerFragment extends Fragment {
                     }
                     if (!prefs.getBoolean("systemui_recreate", false) &&
                             data.contains("systemui")) {
-                        data = data + " && om refresh && pkill com.android.systemui";
+                        data = data + " && om refresh && pkill -f com.android.systemui";
                     } else {
                         data += " && om refresh";
                     }

@@ -219,7 +219,7 @@ public class PriorityListFragment extends Fragment {
                                                     getContext());
                                     if (!prefs.getBoolean("systemui_recreate", false)) {
                                         if (commands.contains("systemui")) {
-                                            commands = commands + " && pkill com.android.systemui";
+                                            commands = commands + " && pkill -f com.android.systemui";
                                         }
                                     }
                                     Intent runCommand = new Intent();

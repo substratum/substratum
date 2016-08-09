@@ -490,7 +490,7 @@ public class MainActivity extends AppCompatActivity implements
                 }
                 return true;
             case R.id.restart_systemui:
-                Root.runCommand("pkill com.android.systemui");
+                Root.runCommand("pkill -f com.android.systemui");
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

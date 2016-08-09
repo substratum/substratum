@@ -122,7 +122,7 @@ public class ManageFragment extends Fragment {
                                             String commands = "om disable-all";
                                             if (!prefs.getBoolean("systemui_recreate", false)) {
                                                 commands = commands +
-                                                        " && pkill com.android.systemui";
+                                                        " && pkill -f com.android.systemui";
                                             }
                                             if (References.isPackageInstalled(getContext(),
                                                     "masquerade.substratum")) {
@@ -349,7 +349,7 @@ public class ManageFragment extends Fragment {
             final_commands_array.addAll(state4);
             final_commands_array.addAll(state5);
             if (final_commands_array.size() > 0)
-                final_commands_array.add(" && pkill com.android.systemui");
+                final_commands_array.add(" && pkill -f com.android.systemui");
             return null;
         }
     }
@@ -431,7 +431,7 @@ public class ManageFragment extends Fragment {
             }
 
             if (!prefs.getBoolean("systemui_recreate", false)) {
-                Root.runCommand("pkill com.android.systemui");
+                Root.runCommand("pkill -f com.android.systemui");
             }
 
             Toast toast = Toast.makeText(getContext(), getString(R
@@ -466,7 +466,7 @@ public class ManageFragment extends Fragment {
                             .string.manage_sounds_toast),
                     Toast.LENGTH_SHORT);
             toast.show();
-            Root.runCommand("pkill com.android.systemui");
+            Root.runCommand("pkill -f com.android.systemui");
         }
 
         @Override

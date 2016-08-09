@@ -88,7 +88,7 @@ public class FontHandler {
 
                 String final_commands = "";
                 if (!prefs.getBoolean("systemui_recreate", false)) {
-                    final_commands = " && pkill com.android.systemui";
+                    final_commands = " && pkill -f com.android.systemui";
                 }
 
                 if (References.isPackageInstalled(mContext, "masquerade.substratum")) {

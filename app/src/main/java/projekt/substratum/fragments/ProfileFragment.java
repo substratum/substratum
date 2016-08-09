@@ -721,7 +721,7 @@ public class ProfileFragment extends Fragment {
                     }
                 }
                 if (!prefs.getBoolean("systemui_recreate", false)) {
-                    to_be_run_commands = to_be_run_commands + " && pkill com.android.systemui";
+                    to_be_run_commands = to_be_run_commands + " && pkill -f com.android.systemui";
                 }
                 Log.e("SubstratumRestore", to_be_run_commands);
             }

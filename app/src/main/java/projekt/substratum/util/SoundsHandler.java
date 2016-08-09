@@ -563,7 +563,7 @@ public class SoundsHandler {
                 }
             }
 
-            Root.runCommand("pkill com.android.systemui");
+            Root.runCommand("pkill -f com.android.systemui");
         }
 
         @Override

@@ -91,8 +91,7 @@ public class SubstratumThemeUpdater {
 
                     // An easy way to check where the SubstratumLauncher class is located
                     String intenter = "";
-                    String[] classes = References.getClassesOfPackage(
-                            otherAppContext);
+                    String[] classes = References.getClassesOfPackage(otherAppContext);
                     for (int i = 0; i < classes.length; i++) {
                         if (classes[i].contains("SubstratumLauncher")) intenter = classes[i];
                         if (!References.letUsDance(classes[i],
@@ -160,8 +159,7 @@ public class SubstratumThemeUpdater {
 
                     // An easy way to check where the SubstratumLauncher class is located
                     String intenter = "";
-                    String[] classes = References.getClassesOfPackage(
-                            otherAppContext);
+                    String[] classes = References.getClassesOfPackage(otherAppContext);
                     for (int i = 0; i < classes.length; i++) {
                         if (classes[i].contains("SubstratumLauncher")) intenter = classes[i];
                         if (!References.letUsDance(classes[i],

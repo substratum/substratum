@@ -152,10 +152,6 @@ public class FontsFragment extends Fragment {
                             if (checkSubstratumVerity.exists()) {
                                 try {
                                     Intent myIntent = new Intent(Intent.ACTION_MAIN);
-                                    myIntent.setComponent(ComponentName.unflattenFromString(
-                                            map.get(map.keySet().toArray()[position].toString())
-                                                    [1] + "/" + "substratum.theme.template" +
-                                                    ".SubstratumLauncher"));
                                     if (!References.checkOMS())
                                         myIntent.putExtra("theme_legacy", true);
                                     myIntent.putExtra("theme_mode", "fonts");
@@ -164,16 +160,25 @@ public class FontsFragment extends Fragment {
                                                     .toString())[1],
                                             Context.CONTEXT_IGNORE_SECURITY);
                                     boolean is_valid = true;
+                                    String intenter = "";
                                     String[] classes = References.getClassesOfPackage(
                                             otherAppContext);
                                     for (int i = 0; i < classes.length; i++) {
+                                        if (classes[i].contains("SubstratumLauncher"))
+                                            intenter = classes[i];
                                         if (!References.letUsDance(classes[i],
-                                                map.get(map.keySet().toArray()[position]
-                                                        .toString())[1])) {
+                                                map.get(map.keySet().toArray()[position].toString())
+                                                        [1])) {
                                             is_valid = false;
                                             if (!References.DEBUG) break;
                                         }
                                     }
+                                    if (intenter.length() == 0) {
+                                        intenter = "substratum.theme.template.SubstratumLauncher";
+                                    }
+                                    myIntent.setComponent(ComponentName.unflattenFromString(
+                                            map.get(map.keySet().toArray()[position].toString())
+                                                    [1] + "/" + intenter));
                                     if (is_valid) {
                                         startActivityForResult(myIntent,
                                                 THEME_INFORMATION_REQUEST_CODE);
@@ -185,47 +190,7 @@ public class FontsFragment extends Fragment {
                                         toast.show();
                                     }
                                 } catch (Exception ex) {
-                                    try {
-                                        Intent myIntent = new Intent(Intent.ACTION_MAIN);
-                                        myIntent.setComponent(ComponentName.unflattenFromString(
-                                                map.get(map.keySet().toArray()[position].toString())
-                                                        [1] + "/" + ".SubstratumLauncher"));
-                                        if (!References.checkOMS())
-                                            myIntent.putExtra("theme_legacy", true);
-                                        myIntent.putExtra("theme_mode", "fonts");
-                                        Context otherAppContext = getContext().createPackageContext(
-                                                map.get(map.keySet().toArray()[position]
-                                                        .toString())[1],
-                                                Context.CONTEXT_IGNORE_SECURITY);
-                                        boolean is_valid = true;
-                                        String[] classes = References.getClassesOfPackage(
-                                                otherAppContext);
-                                        for (int i = 0; i < classes.length; i++) {
-                                            if (!References.letUsDance(classes[i],
-                                                    map.get(map.keySet().toArray()[position]
-                                                            .toString())[1])) {
-                                                is_valid = false;
-                                                if (!References.DEBUG) break;
-                                            }
-                                        }
-                                        if (is_valid) {
-                                            startActivityForResult(myIntent,
-                                                    THEME_INFORMATION_REQUEST_CODE);
-                                        } else {
-                                            Toast toast = Toast.makeText(getContext(),
-                                                    getString(R.string
-                                                            .information_activity_pirated_toast),
-                                                    Toast.LENGTH_LONG);
-                                            toast.show();
-                                        }
-                                    } catch (Exception ex2) {
-                                        ex.printStackTrace();
-                                        Toast toast = Toast.makeText(getContext(),
-                                                getString(R.string
-                                                        .information_activity_upgrade_toast),
-                                                Toast.LENGTH_LONG);
-                                        toast.show();
-                                    }
+                                    // Exception
                                 }
                             } else {
                                 selected_theme_name = map.get(

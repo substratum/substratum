@@ -24,6 +24,13 @@
         <CheckBoxPreference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:key="vibrate_on_compiled"
+            android:summary="@string/vibrate_on_compiled_description"
+            android:title="@string/vibrate_on_compiled"/>
+
+        <CheckBoxPreference
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:key="show_template_version"
             android:summary="@string/show_theme_template_version_description"
             android:title="@string/show_theme_template_version"/>

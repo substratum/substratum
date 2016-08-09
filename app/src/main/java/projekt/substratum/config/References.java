@@ -80,6 +80,7 @@ public class References {
         }
         prefs.edit().putBoolean("substratum_oms", References.checkOMS()).apply();
         prefs.edit().putBoolean("show_template_version", false).apply();
+        prefs.edit().putBoolean("vibrate_on_compiled", false).apply();
         prefs = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
         prefs.edit().putBoolean("is_updating", false).apply();
     }

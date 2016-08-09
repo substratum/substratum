@@ -207,6 +207,30 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     });
         }
 
+        final CheckBoxPreference vibrate_on_compiled = (CheckBoxPreference)
+                getPreferenceManager().findPreference("vibrate_on_compiled");
+        if (prefs.getBoolean("vibrate_on_compiled", true)) {
+            vibrate_on_compiled.setChecked(true);
+        } else {
+            vibrate_on_compiled.setChecked(false);
+        }
+        vibrate_on_compiled.setOnPreferenceChangeListener(
+                new Preference.OnPreferenceChangeListener() {
+                    @Override
+                    public boolean onPreferenceChange(Preference preference, Object newValue) {
+                        boolean isChecked = (Boolean) newValue;
+                        if (isChecked) {
+                            prefs.edit().putBoolean("vibrate_on_compiled", true).apply();
+                            vibrate_on_compiled.setChecked(true);
+                            return true;
+                        } else {
+                            prefs.edit().putBoolean("vibrate_on_compiled", false).apply();
+                            vibrate_on_compiled.setChecked(false);
+                            return false;
+                        }
+                    }
+                });
+
         final CheckBoxPreference show_template_version = (CheckBoxPreference)
                 getPreferenceManager().findPreference("show_template_version");
         if (prefs.getBoolean("show_template_version", true)) {

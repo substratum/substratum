@@ -36,6 +36,13 @@
         <CheckBoxPreference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:key="vibrate_on_compiled"
+            android:summary="@string/vibrate_on_compiled_description"
+            android:title="@string/vibrate_on_compiled"/>
+
+        <CheckBoxPreference
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:key="restart_systemui"
             android:summary="@string/restart_systemui_subtext"
             android:title="@string/restart_systemui"/>

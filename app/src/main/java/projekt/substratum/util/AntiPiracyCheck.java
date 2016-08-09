@@ -10,14 +10,12 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import projekt.substratum.R;
 import projekt.substratum.config.References;
 
 /**
@@ -158,54 +156,34 @@ public class AntiPiracyCheck {
         private class PurgeUnauthorizedOverlays extends AsyncTask<String, Integer, String> {
 
             @Override
-            protected void onPreExecute() {
-                Log.d("SubstratumAntiPiracy", "The device has found unauthorized overlays created" +
-                        " by " +
-                        "another device.");
-                Toast toast = Toast.makeText(mContext.getApplicationContext(),
-                        mContext.getString(R.string
-                                .antipiracy_toast),
-                        Toast.LENGTH_LONG);
-                toast.show();
-            }
-
-            @Override
-            protected void onPostExecute(String result) {
-                super.onPostExecute(result);
-                Toast toast = Toast.makeText(mContext.getApplicationContext(),
-                        mContext.getString(R.string
-                                .antipiracy_toast_complete),
-                        Toast.LENGTH_LONG);
-                toast.show();
-            }
-
-            @Override
             protected String doInBackground(String... sUrl) {
                 ArrayList<String> final_commands_array = new ArrayList<>();
-                for (int i = 0; i < unauthorized_packages.size(); i++) {
-                    final_commands_array.add(unauthorized_packages.get(i));
-                }
-                if (References.checkOMS()) {
-                    if (References.isPackageInstalled(mContext, "masquerade.substratum")) {
-                        Intent runCommand = new Intent();
-                        runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                        runCommand.setAction("masquerade.substratum.COMMANDS");
-                        runCommand.putStringArrayListExtra("pm-uninstall-specific",
-                                final_commands_array);
-                        mContext.sendBroadcast(runCommand);
-                    } else {
-                        for (int i = 0; i < unauthorized_packages.size(); i++) {
-                            Root.runCommand("pm uninstall " + unauthorized_packages.get(i));
+                if (unauthorized_packages.size() > 0) {
+                    for (int i = 0; i < unauthorized_packages.size(); i++) {
+                        final_commands_array.add(unauthorized_packages.get(i));
+                    }
+                    if (References.checkOMS()) {
+                        if (References.isPackageInstalled(mContext, "masquerade.substratum")) {
+                            Intent runCommand = new Intent();
+                            runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                            runCommand.setAction("masquerade.substratum.COMMANDS");
+                            runCommand.putStringArrayListExtra("pm-uninstall-specific",
+                                    final_commands_array);
+                            mContext.sendBroadcast(runCommand);
+                        } else {
+                            for (int i = 0; i < unauthorized_packages.size(); i++) {
+                                Root.runCommand("pm uninstall " + unauthorized_packages.get(i));
+                            }
                         }
+                    } else {
+                        Root.runCommand("mount -o rw,remount /system");
+                        for (int i = 0; i < final_commands_array.size(); i++) {
+                            Root.runCommand("rm -r " +
+                                    References.getInstalledDirectory(mContext,
+                                            final_commands_array.get(i)));
+                        }
+                        Root.runCommand("mount -o ro,remount /system");
                     }
-                } else {
-                    Root.runCommand("mount -o rw,remount /system");
-                    for (int i = 0; i < final_commands_array.size(); i++) {
-                        Root.runCommand("rm -r " +
-                                References.getInstalledDirectory(mContext,
-                                        final_commands_array.get(i)));
-                    }
-                    Root.runCommand("mount -o ro,remount /system");
                 }
                 return null;
             }

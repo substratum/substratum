@@ -193,9 +193,6 @@
         or the app will not compile device dependent overlays properly!</string>
     <string name="dialog_ok">OK</string>
 
-    <string name="antipiracy_toast">Unauthorized overlay found on device, cleaning up&#8230;</string>
-    <string name="antipiracy_toast_complete">All unauthorized overlays have been purged from this device.</string>
-
     <string name="clean_dialog_body">Do you want to clean all overlays for this theme?</string>
     <string name="disable_dialog_body">Do you want to disable all overlays for this theme?</string>
     <string name="enable_dialog_body">Do you want to enable all installed overlays for this theme?</string>

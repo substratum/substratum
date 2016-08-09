@@ -48,7 +48,6 @@ import projekt.substratum.util.Root;
 
 public class OverlaysFragment extends Fragment {
 
-    private final int THEME_INFORMATION_REQUEST_CODE = 1;
     private HashMap<String, String[]> substratum_packages;
     private RecyclerView recyclerView;
     private Map<String, String[]> map;
@@ -59,21 +58,6 @@ public class OverlaysFragment extends Fragment {
     private View cardView;
     private ViewGroup root;
     private String selected_theme_name;
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // Check which request we're responding to
-        if (requestCode == THEME_INFORMATION_REQUEST_CODE) {
-            try {
-                Boolean uninstalled = data.getBooleanExtra("Uninstalled", false);
-                if (uninstalled) {
-                    refreshLayout();
-                }
-            } catch (Exception e) {
-                // Handle NPE when the window is refreshed too many times
-            }
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
@@ -180,8 +164,7 @@ public class OverlaysFragment extends Fragment {
                                             map.get(map.keySet().toArray()[position].toString())
                                                     [1] + "/" + intenter));
                                     if (is_valid) {
-                                        startActivityForResult(myIntent,
-                                                THEME_INFORMATION_REQUEST_CODE);
+                                        startActivity(myIntent);
                                     } else {
                                         Toast toast = Toast.makeText(getContext(),
                                                 getString(R.string

@@ -369,7 +369,6 @@ public class AdvancedManagerFragment extends Fragment {
                 if (prefs.getBoolean("manager_disabled_overlays", true)) {
                     all_overlays = new ArrayList<>(activated_overlays);
                     all_overlays.addAll(disabled_overlays);
-
                     Collections.sort(all_overlays);
 
                     for (int i = 0; i < all_overlays.size(); i++) {
@@ -385,8 +384,6 @@ public class AdvancedManagerFragment extends Fragment {
                     }
                 } else {
                     all_overlays = new ArrayList<>(activated_overlays);
-                    all_overlays.addAll(disabled_overlays);
-
                     Collections.sort(all_overlays);
 
                     for (int i = 0; i < all_overlays.size(); i++) {

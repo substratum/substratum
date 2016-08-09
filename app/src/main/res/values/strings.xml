@@ -39,7 +39,7 @@
     <string name="overlays_update_available">Update available!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Variant not installed</string>
     <string name="overlays_compile_update_button">Compile/Update &amp; Install</string>
-    <string name="information_activity_pirated_toast">I commend you for the attempt, but better luck next time!</string>
+    <string name="information_activity_pirated_toast">This theme\'s binary does not pass Substratum\'s integrity verification.</string>
     <string name="information_activity_upgrade_toast">This theme needs to be rebased on the new theme template to continue using it with Substratum!</string>
 
     <string name="bootanimation_vm_exploded">Rendering of boot animation has been terminated due to insufficient memory allocation.\n\nInstallation of this boot animation is still possible without a rendered preview.</string>

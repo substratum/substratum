@@ -173,7 +173,11 @@ public class BootAnimationsFragment extends Fragment {
                                         toast.show();
                                     }
                                 } catch (Exception ex) {
-                                    // Exception
+                                    Toast toast = Toast.makeText(getContext(),
+                                            getString(R.string
+                                                    .information_activity_upgrade_toast),
+                                            Toast.LENGTH_LONG);
+                                    toast.show();
                                 }
                             } else {
                                 selected_theme_name = map.get(

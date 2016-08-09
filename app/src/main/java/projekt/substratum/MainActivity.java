@@ -461,7 +461,11 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_menu, menu);
+        if (References.checkOMS()) {
+            getMenuInflater().inflate(R.menu.activity_menu, menu);
+        } else {
+            getMenuInflater().inflate(R.menu.activity_menu_legacy, menu);
+        }
         return true;
     }
 
@@ -472,11 +476,18 @@ public class MainActivity extends AppCompatActivity implements
                 onBackPressed();
                 return true;
             case R.id.search:
-                String playURL = getString(R.string.search_play_store_url);
+                String playURL;
+                if (References.checkOMS()) {
+                    playURL = getString(R.string.search_play_store_url);
+                } else {
+                    playURL = getString(R.string.search_play_store_url_legacy);
+                }
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(playURL));
                 startActivity(i);
                 return true;
+
+            // Begin OMS based options
             case R.id.refresh_windows:
                 if (References.isPackageInstalled(getApplicationContext(),
                         "masquerade.substratum")) {
@@ -492,6 +503,15 @@ public class MainActivity extends AppCompatActivity implements
             case R.id.restart_systemui:
                 Root.runCommand("pkill -f com.android.systemui");
                 return true;
+
+            // Begin RRO based options
+            case R.id.reboot_device:
+                Root.runCommand("reboot");
+                return true;
+            case R.id.soft_reboot:
+                Root.runCommand("pkill -f zygote");
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }

@@ -6,6 +6,7 @@
     <string name="restore_app_name">restore theme</string>
 
     <string name="search_play_store_url" translatable="false">"https://play.google.com/store/search?q=Substratum%20Theme&amp;c=apps"</string>
+    <string name="search_play_store_url_legacy" translatable="false">"https://play.google.com/store/search?q=Substratum%20Legacy%20Theme&amp;c=apps"</string>
 
     <string name="on_demand_updating_title">Resource Cache Initializer</string>
     <string name="on_demand_updating_text">%s\'s cache is now rebuilding&#8230;</string>
@@ -122,6 +123,8 @@
     <string name="menu_enable">Enable installed overlays</string>
     <string name="menu_rate">Rate theme</string>
     <string name="menu_refresh_windows">Refresh Windows</string>
+    <string name="menu_soft_reboot">Soft Reboot</string>
+    <string name="menu_reboot_device">Reboot Device</string>
     <string name="menu_restart_systemui">Restart SystemUI</string>
     <string name="menu_search">Play Store Themes</string>
     <string name="menu_uninstall">Uninstall</string>

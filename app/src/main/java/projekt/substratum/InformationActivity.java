@@ -716,6 +716,35 @@ public class InformationActivity extends AppCompatActivity {
             builder.show();
             return true;
         }
+
+        // Begin OMS based options
+        if (id == R.id.refresh_windows) {
+            if (References.isPackageInstalled(getApplicationContext(),
+                    "masquerade.substratum")) {
+                Intent runCommand = new Intent();
+                runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                runCommand.setAction("masquerade.substratum.COMMANDS");
+                runCommand.putExtra("om-commands", "om refresh");
+                getApplicationContext().sendBroadcast(runCommand);
+            } else {
+                Root.runCommand("om refresh");
+            }
+            return true;
+        }
+        if (id == R.id.restart_systemui) {
+            Root.runCommand("pkill -f com.android.systemui");
+            return true;
+        }
+
+        // Begin RRO based options
+        if (id == R.id.reboot_device) {
+            Root.runCommand("reboot");
+            return true;
+        }
+        if (id == R.id.soft_reboot) {
+            Root.runCommand("pkill -f zygote");
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 

@@ -13,6 +13,12 @@
         android:id="@+id/rate"
         android:title="@string/menu_rate"/>
     <item
+        android:id="@+id/refresh_windows"
+        android:title="@string/menu_refresh_windows"/>
+    <item
+        android:id="@+id/restart_systemui"
+        android:title="@string/menu_restart_systemui"/>
+    <item
         android:id="@+id/uninstall"
         android:title="@string/menu_uninstall"/>
 </menu>

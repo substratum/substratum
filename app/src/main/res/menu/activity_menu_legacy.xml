@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/rate"
-        android:title="@string/menu_rate"/>
+        android:id="@+id/search"
+        android:title="@string/menu_search"/>
     <item
         android:id="@+id/reboot_device"
         android:title="@string/menu_reboot_device"/>
     <item
         android:id="@+id/soft_reboot"
         android:title="@string/menu_soft_reboot"/>
-    <item
-        android:id="@+id/uninstall"
-        android:title="@string/menu_uninstall"/>
 </menu>

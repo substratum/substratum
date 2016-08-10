@@ -267,8 +267,8 @@
     <string name="hide_app_icon_not_supported">Change not supported</string>
     <string name="hide_app_icon_supported">This will allow you to toggle between having the launcher icon visible or invisible on your home screen.</string>
     <string name="show_installed_packages_only">Only show installed packages in overlay picker</string>
-    <string name="purge_completion">All overlays deactivated and removed</string>
-    <string name="clean_completion">All overlays for this theme has been deactivated and removed</string>
+    <string name="purge_completion">All overlays for this theme are now deactivating and removing&#8230;</string>
+    <string name="clean_completion">All overlays for this theme are now deactivating and removing&#8230;</string>
     <string name="disable_completion">All overlays for this theme are now deactivating&#8230;</string>
     <string name="enable_completion">All installed overlays for this theme are now activating&#8230;</string>
     <string name="purge_information">Removing all overlays at once is a potentially dangerous action causing multiple force closes during the action.</string>

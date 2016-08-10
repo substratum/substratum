@@ -181,22 +181,26 @@ public class PriorityListFragment extends Fragment {
 
                 */
 
-                if (commands.length() == 0) {
-                    String move_package = workable_list.get(fromPos);
-                    commands = "om set-priority " + move_package + " " + workable_list.get(toPos);
-                    // As workable list is a simulation of the priority list without object
-                    // values, we have to simulate the events such as adding above parents
-                    workable_list.remove(fromPos);
-                    workable_list.add(toPos, move_package);
-                    applyFab.show();
-                } else {
-                    String move_package = workable_list.get(fromPos);
-                    commands = commands + " && om set-priority " + move_package + " " +
-                            workable_list.get(toPos);
-                    // As workable list is a simulation of the priority list without object
-                    // values, we have to simulate the events such as adding above parents
-                    workable_list.remove(fromPos);
-                    workable_list.add(toPos, move_package);
+                if (fromPos != toPos) {
+                    if (commands.length() == 0) {
+                        String move_package = workable_list.get(fromPos);
+                        commands = "om set-priority " + move_package + " " +
+                                workable_list.get(toPos);
+
+                        // As workable list is a simulation of the priority list without object
+                        // values, we have to simulate the events such as adding above parents
+                        workable_list.remove(fromPos);
+                        workable_list.add(toPos, move_package);
+                        applyFab.show();
+                    } else {
+                        String move_package = workable_list.get(fromPos);
+                        commands = commands + " && om set-priority " + move_package + " " +
+                                workable_list.get(toPos);
+                        // As workable list is a simulation of the priority list without object
+                        // values, we have to simulate the events such as adding above parents
+                        workable_list.remove(fromPos);
+                        workable_list.add(toPos, move_package);
+                    }
                 }
             }
         });

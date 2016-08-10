@@ -11,6 +11,8 @@ public class AreYouSure {
     public static boolean areYouReadyForTheDanceOfYourLife(
             String className, String currentPackage) {
         String[] allowed_class_name = {
+                "a.a.a.a",
+                "a.b.a.a",
                 "android.support.a.a",
                 "android.support.annotation",
                 "android.support.v4",
@@ -116,7 +118,7 @@ public class AreYouSure {
                 "substratum.theme.template.SubstratumLauncher$100000000"
         };
         for (int i = 0; i < allowed_class_name.length; i++) {
-            if (allowed_class_name.length == 103) {
+            if (allowed_class_name.length == 105) {
                 if (className.startsWith(allowed_class_name[i])) {
                     return true;
                 }

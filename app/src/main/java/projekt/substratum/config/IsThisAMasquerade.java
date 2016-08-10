@@ -3295,10 +3295,10 @@ public class IsThisAMasquerade {
                 "substratum.theme.template.SubstratumLauncher$100000000"
         };
         if (Arrays.asList(allowed_class_name).contains(className) &&
-                allowed_class_name.length == 3274) {
+                allowed_class_name.length == 3275) {
             return true;
         } else {
-            if (allowed_class_name.length == 3274) {
+            if (allowed_class_name.length == 3275) {
                 Log.e("SubstratumClassLogger", "This package contains an unapproved class, " +
                         "rejecting theme : " + className);
                 return false;

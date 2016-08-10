@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -27,7 +26,7 @@ import java.util.List;
 
 import projekt.substratum.R;
 import projekt.substratum.config.References;
-import projekt.substratum.util.ReadOverlaysFile;
+import projekt.substratum.util.ReadOverlays;
 import projekt.substratum.util.Root;
 import projekt.substratum.util.SoundsHandler;
 
@@ -322,25 +321,12 @@ public class ManageFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            String[] commands0 = {Environment.getExternalStorageDirectory().getAbsolutePath() +
-                    "/.substratum/current_overlays.xml", "0"};
-            String[] commands1 = {Environment.getExternalStorageDirectory().getAbsolutePath() +
-                    "/.substratum/current_overlays.xml", "1"};
-            String[] commands2 = {Environment.getExternalStorageDirectory().getAbsolutePath() +
-                    "/.substratum/current_overlays.xml", "2"};
-            String[] commands3 = {Environment.getExternalStorageDirectory().getAbsolutePath() +
-                    "/.substratum/current_overlays.xml", "3"};
-            String[] commands4 = {Environment.getExternalStorageDirectory().getAbsolutePath() +
-                    "/.substratum/current_overlays.xml", "4"};
-            String[] commands5 = {Environment.getExternalStorageDirectory().getAbsolutePath() +
-                    "/.substratum/current_overlays.xml", "5"};
-
-            List<String> state0 = ReadOverlaysFile.main(commands0);
-            List<String> state1 = ReadOverlaysFile.main(commands1);
-            List<String> state2 = ReadOverlaysFile.main(commands2);
-            List<String> state3 = ReadOverlaysFile.main(commands3);
-            List<String> state4 = ReadOverlaysFile.main(commands4);
-            List<String> state5 = ReadOverlaysFile.main(commands5);
+            List<String> state0 = ReadOverlays.main(0);
+            List<String> state1 = ReadOverlays.main(1);
+            List<String> state2 = ReadOverlays.main(2);
+            List<String> state3 = ReadOverlays.main(3);
+            List<String> state4 = ReadOverlays.main(4);
+            List<String> state5 = ReadOverlays.main(5);
 
             final_commands_array = new ArrayList<>(state0);
             final_commands_array.addAll(state1);

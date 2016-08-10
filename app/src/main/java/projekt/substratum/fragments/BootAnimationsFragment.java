@@ -11,7 +11,6 @@ import android.content.res.AssetManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -39,7 +38,7 @@ import projekt.substratum.adapters.DataAdapter;
 import projekt.substratum.config.References;
 import projekt.substratum.model.ThemeInfo;
 import projekt.substratum.util.CacheCreator;
-import projekt.substratum.util.ReadOverlaysFile;
+import projekt.substratum.util.ReadOverlays;
 import projekt.substratum.util.Root;
 
 /**
@@ -368,11 +367,7 @@ public class BootAnimationsFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            String[] commands = {Environment.getExternalStorageDirectory()
-                    .getAbsolutePath() +
-                    "/.substratum/current_overlays.xml", "1"};
-            List<String> state1 = ReadOverlaysFile.main(commands);  // Overlays with non-existent
-            // targets
+            List<String> state1 = ReadOverlays.main(1);  // Overlays with non-existent targets
             for (int i = 0; i < state1.size(); i++) {
                 Log.e("OverlayCleaner", "Target APK not found for \"" + state1.get(i) + "\" and " +
                         "will " +

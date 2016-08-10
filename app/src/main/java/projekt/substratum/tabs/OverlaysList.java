@@ -13,7 +13,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.service.notification.StatusBarNotification;
@@ -66,7 +65,7 @@ import projekt.substratum.model.OverlaysInfo;
 import projekt.substratum.services.NotificationButtonReceiver;
 import projekt.substratum.util.CacheCreator;
 import projekt.substratum.util.FloatingActionMenu;
-import projekt.substratum.util.ReadOverlaysFile;
+import projekt.substratum.util.ReadOverlays;
 import projekt.substratum.util.Root;
 import projekt.substratum.util.SubstratumBuilder;
 
@@ -644,9 +643,7 @@ public class OverlaysList extends Fragment {
             } catch (Exception e) {
                 // Exception
             }
-            String[] commands5 = {Environment.getExternalStorageDirectory().getAbsolutePath() +
-                    "/.substratum/current_overlays.xml", "5"};
-            List<String> state5 = ReadOverlaysFile.main(commands5);
+            List<String> state5 = ReadOverlays.main(5);
             all_installed_overlays = new ArrayList<>(state5);
             List<String> state5overlays = new ArrayList<>(all_installed_overlays);
 
@@ -1497,11 +1494,7 @@ public class OverlaysList extends Fragment {
                         // With OMS3, overlay updating causes a configChange to happen, so we
                         // check for
                         // whatever is activated first and delay their installs to a one liner
-                        String[] commands1 = {Environment.getExternalStorageDirectory()
-                                .getAbsolutePath() +
-                                "/.substratum/current_overlays.xml", "5"};
-
-                        List<String> state5 = ReadOverlaysFile.main(commands1);
+                        List<String> state5 = ReadOverlays.main(5);
                         ArrayList<String> activated_overlays = new ArrayList<>(state5);
                         if (activated_overlays.size() > 0) {
                             Log.d("SubstratumLogger", "There are activated overlays in this " +

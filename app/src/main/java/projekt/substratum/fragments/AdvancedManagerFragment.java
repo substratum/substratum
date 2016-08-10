@@ -24,12 +24,7 @@ import android.widget.Toast;
 
 import com.gordonwong.materialsheetfab.MaterialSheetFab;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -40,6 +35,7 @@ import projekt.substratum.adapters.OverlayManagerAdapter;
 import projekt.substratum.config.References;
 import projekt.substratum.model.OverlayManager;
 import projekt.substratum.util.FloatingActionMenu;
+import projekt.substratum.util.ReadOverlays;
 import projekt.substratum.util.Root;
 
 /**
@@ -359,45 +355,8 @@ public class AdvancedManagerFragment extends Fragment {
             all_overlays = new ArrayList<>();
 
             if (References.checkOMS()) {
-                Process nativeApp = null;
-                try {
-                    nativeApp = Runtime.getRuntime().exec("om list");
-
-                    try (OutputStream stdin = nativeApp.getOutputStream();
-                         InputStream stderr = nativeApp.getErrorStream();
-                         InputStream stdout = nativeApp.getInputStream();
-                         BufferedReader br = new BufferedReader(new InputStreamReader(stdout))) {
-                        String line;
-
-                        stdin.write(("ls\n").getBytes());
-                        stdin.write("exit\n".getBytes());
-
-                        while ((line = br.readLine()) != null) {
-                            if (line.length() > 0) {
-                                if (line.contains("[x]")) {
-                                    activated_overlays.add(line.substring(8));
-                                } else if (line.contains("[ ]")) {
-                                    disabled_overlays.add(line.substring(8));
-                                }
-                            }
-                        }
-
-                        try (BufferedReader br1 = new BufferedReader(
-                                new InputStreamReader(stderr))) {
-                            while ((line = br1.readLine()) != null) {
-                                Log.e("AdvancedManagerFragment", line);
-                            }
-                        }
-                    }
-                } catch (IOException ioe) {
-                    Log.e("PriorityListFragment", "There was an issue regarding loading the " +
-                            "priorities of each overlay.");
-                } finally {
-                    if (nativeApp != null) {
-                        // destroy the Process explicitly
-                        nativeApp.destroy();
-                    }
-                }
+                activated_overlays = new ArrayList<>(ReadOverlays.main(5));
+                disabled_overlays = new ArrayList<>(ReadOverlays.main(4));
 
                 if (prefs.getBoolean("manager_disabled_overlays", true)) {
                     all_overlays = new ArrayList<>(activated_overlays);

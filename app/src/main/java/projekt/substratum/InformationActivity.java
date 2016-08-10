@@ -43,7 +43,7 @@ import java.util.List;
 
 import projekt.substratum.adapters.InformationTabsAdapter;
 import projekt.substratum.config.References;
-import projekt.substratum.util.ReadOverlaysFile;
+import projekt.substratum.util.ReadOverlays;
 import projekt.substratum.util.Root;
 
 /**
@@ -348,16 +348,8 @@ public class InformationActivity extends AppCompatActivity {
                                     ("[^a-zA-Z0-9]+", "");
 
                             // Begin uninstalling all overlays based on this package
-                            String[] commands = {Environment.getExternalStorageDirectory()
-                                    .getAbsolutePath() +
-                                    "/.substratum/current_overlays.xml", "4"};
-
-                            String[] commands1 = {Environment.getExternalStorageDirectory()
-                                    .getAbsolutePath() +
-                                    "/.substratum/current_overlays.xml", "5"};
-
-                            List<String> stateAll = ReadOverlaysFile.main(commands);
-                            stateAll.addAll(ReadOverlaysFile.main(commands1));
+                            List<String> stateAll = ReadOverlays.main(4);
+                            stateAll.addAll(ReadOverlays.main(5));
 
                             ArrayList<String> all_overlays = new ArrayList<>();
                             for (int j = 0; j < stateAll.size(); j++) {
@@ -450,16 +442,8 @@ public class InformationActivity extends AppCompatActivity {
                                             .getExternalStorageDirectory().getAbsolutePath() +
                                     "/.substratum/current_overlays.xml");
 
-                            String[] commands = {Environment.getExternalStorageDirectory()
-                                    .getAbsolutePath() +
-                                    "/.substratum/current_overlays.xml", "4"};
-
-                            String[] commands1 = {Environment.getExternalStorageDirectory()
-                                    .getAbsolutePath() +
-                                    "/.substratum/current_overlays.xml", "5"};
-
-                            List<String> stateAll = ReadOverlaysFile.main(commands);
-                            stateAll.addAll(ReadOverlaysFile.main(commands1));
+                            List<String> stateAll = ReadOverlays.main(4);
+                            stateAll.addAll(ReadOverlays.main(5));
 
                             ArrayList<String> all_overlays = new ArrayList<>();
                             for (int j = 0; j < stateAll.size(); j++) {
@@ -531,16 +515,8 @@ public class InformationActivity extends AppCompatActivity {
                                     ("[^a-zA-Z0-9]+", "");
 
                             // Begin enabling all overlays based on this package
-                            String[] commands = {Environment.getExternalStorageDirectory()
-                                    .getAbsolutePath() +
-                                    "/.substratum/current_overlays.xml", "4"};
-
-                            String[] commands1 = {Environment.getExternalStorageDirectory()
-                                    .getAbsolutePath() +
-                                    "/.substratum/current_overlays.xml", "5"};
-
-                            List<String> stateAll = ReadOverlaysFile.main(commands);
-                            stateAll.addAll(ReadOverlaysFile.main(commands1));
+                            List<String> stateAll = ReadOverlays.main(4);
+                            stateAll.addAll(ReadOverlays.main(5));
 
                             ArrayList<String> all_overlays = new ArrayList<>();
                             for (int j = 0; j < stateAll.size(); j++) {
@@ -635,16 +611,8 @@ public class InformationActivity extends AppCompatActivity {
                                             .getExternalStorageDirectory().getAbsolutePath() +
                                     "/.substratum/current_overlays.xml");
 
-                            String[] commands = {Environment.getExternalStorageDirectory()
-                                    .getAbsolutePath() +
-                                    "/.substratum/current_overlays.xml", "4"};
-
-                            String[] commands1 = {Environment.getExternalStorageDirectory()
-                                    .getAbsolutePath() +
-                                    "/.substratum/current_overlays.xml", "5"};
-
-                            List<String> stateAll = ReadOverlaysFile.main(commands);
-                            stateAll.addAll(ReadOverlaysFile.main(commands1));
+                            List<String> stateAll = ReadOverlays.main(4);
+                            stateAll.addAll(ReadOverlays.main(5));
 
                             ArrayList<String> all_overlays = new ArrayList<>();
                             for (int j = 0; j < stateAll.size(); j++) {

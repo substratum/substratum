@@ -12,7 +12,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.PowerManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -40,7 +39,7 @@ import projekt.substratum.config.References;
 import projekt.substratum.util.BootAnimationHandler;
 import projekt.substratum.util.CacheCreator;
 import projekt.substratum.util.FontHandler;
-import projekt.substratum.util.ReadOverlaysFile;
+import projekt.substratum.util.ReadOverlays;
 import projekt.substratum.util.Root;
 import projekt.substratum.util.SoundsHandler;
 import projekt.substratum.util.SubstratumBuilder;
@@ -791,13 +790,11 @@ public class MainScreenTab extends Fragment {
                             "SubstratumBuilder.");
                 }
             }
-            String[] commands5 = {Environment.getExternalStorageDirectory().getAbsolutePath() +
-                    "/.substratum/current_overlays.xml", "5"};
 
             String parse1_themeName = theme_name.replaceAll("\\s+", "");
             String parse2_themeName = parse1_themeName.replaceAll("[^a-zA-Z0-9]+", "");
 
-            List<String> state5 = ReadOverlaysFile.main(commands5);
+            List<String> state5 = ReadOverlays.main(5);
             ArrayList<String> all_installed_overlays = new ArrayList<>(state5);
             List<String> state5overlays = new ArrayList<>(all_installed_overlays);
 

@@ -29,7 +29,7 @@ import java.util.List;
 
 import projekt.substratum.R;
 import projekt.substratum.config.References;
-import projekt.substratum.util.ReadOverlaysFile;
+import projekt.substratum.util.ReadOverlays;
 import projekt.substratum.util.Root;
 
 /**
@@ -523,22 +523,10 @@ public class ProfileFragment extends Fragment {
                                 .getExternalStorageDirectory().getAbsolutePath() +
                         "/.substratum/current_overlays.xml");
 
-                String[] commandsSystem4 = {Environment
-                        .getExternalStorageDirectory().getAbsolutePath() +
-                        "/.substratum/current_overlays.xml", "4"};
-
-                String[] commandsSystem5 = {Environment
-                        .getExternalStorageDirectory().getAbsolutePath() +
-                        "/.substratum/current_overlays.xml", "5"};
-
-                String[] commands = {Environment.getExternalStorageDirectory()
-                        .getAbsolutePath() +
-                        "/substratum/profiles/" + profile_name + ".substratum", "5"};
-
-                List<String> profile = ReadOverlaysFile.main(commands);
-                List<String> system = ReadOverlaysFile.main(commandsSystem4);
-                List<String> system_active = ReadOverlaysFile.main(commandsSystem5);
-                system.addAll(ReadOverlaysFile.main(commandsSystem5));
+                List<String> profile = ReadOverlays.main(5);
+                List<String> system = ReadOverlays.main(4);
+                List<String> system_active = ReadOverlays.main(5);
+                system.addAll(ReadOverlays.main(5));
                 List<String> to_be_run = new ArrayList<>();
 
                 // Disable everything enabled first

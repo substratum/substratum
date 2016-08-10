@@ -56,6 +56,7 @@ public class AdvancedManagerFragment extends Fragment {
     private boolean swipeRefreshing;
     private MaterialProgressBar progressBar;
     private RecyclerView mRecyclerView;
+    private Boolean first_run = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
@@ -90,9 +91,15 @@ public class AdvancedManagerFragment extends Fragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                swipeRefreshing = true;
-                LayoutReloader layoutReloader = new LayoutReloader();
-                layoutReloader.execute("");
+                if (first_run != null) {
+                    if (mRecyclerView.isShown() && !first_run) {
+                        swipeRefreshing = true;
+                        LayoutReloader layoutReloader = new LayoutReloader();
+                        layoutReloader.execute("");
+                    } else {
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                }
             }
         });
 
@@ -327,7 +334,7 @@ public class AdvancedManagerFragment extends Fragment {
             mAdapter = new OverlayManagerAdapter(overlaysList);
             mRecyclerView.setAdapter(mAdapter);
 
-            if (all_overlays.size() == 0) {
+            if (all_overlays.size() == 0 && all_overlays != null) {
                 floatingActionButton.hide();
                 relativeLayout.setVisibility(View.VISIBLE);
                 mRecyclerView.setVisibility(View.GONE);
@@ -344,6 +351,7 @@ public class AdvancedManagerFragment extends Fragment {
                 swipeRefreshing = false;
                 swipeRefreshLayout.setRefreshing(false);
             }
+            if (first_run == null) first_run = false;
             super.onPostExecute(result);
         }
 

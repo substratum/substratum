@@ -281,8 +281,8 @@
     <string name="manager_subtext">In the Advanced Manager window, show all disabled overlays with their enabled counterparts.</string>
 
     <string name="fab_menu_compile">Compile Selected</string>
-    <string name="fab_menu_compile_enable">Compile/Enable</string>
-    <string name="fab_menu_compile_update">Compile/Update</string>
+    <string name="fab_menu_compile_enable">Build &amp; Enable</string>
+    <string name="fab_menu_compile_update">Build &amp; Update</string>
     <string name="fab_menu_compile_install">Install Selected</string>
     <string name="fab_menu_uninstall">Uninstall Selected</string>
     <string name="fab_menu_disable">Disable Selected</string>

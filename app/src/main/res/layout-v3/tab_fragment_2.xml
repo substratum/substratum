@@ -130,7 +130,7 @@
                     android:text="@string/fab_menu_swap_toggle"/>
 
                 <View
-                    android:layout_width="match_parent"
+                    android:layout_width="@dimen/sheet_width"
                     android:layout_height="1dp"
                     android:background="@color/fab_menu_divider"/>
 

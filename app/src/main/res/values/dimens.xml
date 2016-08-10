@@ -22,7 +22,7 @@
     <dimen name="sheet_item_spacing">@dimen/keyline_spacing</dimen>
     <dimen name="sheet_item_textsize">16sp</dimen>
     <dimen name="sheet_spacing">10dp</dimen>
-    <dimen name="sheet_width">210dp</dimen>
+    <dimen name="sheet_width">250dp</dimen>
 
     <!-- Misc -->
     <dimen name="logo_size">200dp</dimen>

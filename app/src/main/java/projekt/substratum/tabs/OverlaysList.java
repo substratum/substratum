@@ -1090,7 +1090,7 @@ public class OverlaysList extends Fragment {
                         mBuilder.setContentText(getString(R.string.notification_no_errors_found));
                         mBuilder.getNotification().flags |= Notification.FLAG_AUTO_CANCEL;
                         if (prefs.getBoolean("vibrate_on_compiled", false)) {
-                            mBuilder.setVibrate(new long[]{1000, 1000});
+                            mBuilder.setVibrate(new long[]{100, 200, 100, 500});
                         }
                         mNotifyManager.notify(id, mBuilder.build());
                     }
@@ -1113,7 +1113,7 @@ public class OverlaysList extends Fragment {
                         mBuilder.setContentText(getString(R.string.notification_some_errors_found));
                         mBuilder.getNotification().flags |= Notification.FLAG_AUTO_CANCEL;
                         if (prefs.getBoolean("vibrate_on_compiled", false)) {
-                            mBuilder.setVibrate(new long[]{1000, 1000});
+                            mBuilder.setVibrate(new long[]{100, 200, 100, 500});
                         }
                         mNotifyManager.notify(id, mBuilder.build());
                     }

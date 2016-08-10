@@ -114,6 +114,7 @@ public class SubstratumThemeUpdater {
                                     packageName + "/" + intenter));
                             myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
                                     Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            myIntent.putExtra("refresh_mode", true);
                             intent = PendingIntent.getActivity(mContext, 0, myIntent,
                                     PendingIntent.FLAG_CANCEL_CURRENT);
                         }
@@ -182,6 +183,7 @@ public class SubstratumThemeUpdater {
                                     packageName + "/" + intenter));
                             myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
                                     Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            myIntent.putExtra("refresh_mode", true);
                             intent = PendingIntent.getActivity(mContext, 0, myIntent,
                                     PendingIntent.FLAG_CANCEL_CURRENT);
                         }

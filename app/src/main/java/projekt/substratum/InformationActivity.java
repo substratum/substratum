@@ -15,10 +15,12 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -34,7 +36,10 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.flaviofaria.kenburnsview.KenBurnsView;
+
+import org.apache.commons.io.output.ByteArrayOutputStream;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -55,10 +60,10 @@ public class InformationActivity extends AppCompatActivity {
     public static String theme_name, theme_pid, theme_mode;
 
     private static List tab_checker;
-    private final int THEME_INFORMATION_REQUEST_CODE = 1;
     private Boolean theme_legacy = false;
-    private Boolean refresh_mode = false;
-    private Boolean uninstalled = false;
+    private KenBurnsView kenBurnsView;
+    private byte[] byteArray;
+    private Bitmap heroImageBitmap;
 
     public static String getThemeName() {
         return theme_name;
@@ -140,7 +145,6 @@ public class InformationActivity extends AppCompatActivity {
         theme_pid = currentIntent.getStringExtra("theme_pid");
         theme_mode = currentIntent.getStringExtra("theme_mode");
         theme_legacy = currentIntent.getBooleanExtra("theme_legacy", false);
-        refresh_mode = currentIntent.getBooleanExtra("refresh_mode", false);
         if (theme_mode == null) {
             theme_mode = "";
         }
@@ -167,12 +171,29 @@ public class InformationActivity extends AppCompatActivity {
         });
 
         Drawable heroImage = grabPackageHeroImage(theme_pid);
-        Bitmap heroImageBitmap = ((BitmapDrawable) heroImage).getBitmap();
-
+        heroImageBitmap = ((BitmapDrawable) heroImage).getBitmap();
         int dominantColor = getDominantColor(heroImageBitmap);
 
-        KenBurnsView kenBurnsView = (KenBurnsView) findViewById(R.id.kenburnsView);
-        if (kenBurnsView != null) kenBurnsView.setImageDrawable(heroImage);
+        AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
+        appBarLayout.setBackgroundColor(dominantColor);
+
+        if (collapsingToolbarLayout != null && dynamicActionBarColors &&
+                prefs.getBoolean("dynamic_actionbar", true)) {
+            collapsingToolbarLayout.setStatusBarScrimColor(dominantColor);
+            collapsingToolbarLayout.setContentScrimColor(dominantColor);
+        }
+
+        if (dynamicNavBarColors && prefs.getBoolean("dynamic_navbar", true)) {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                getWindow().setNavigationBarColor(dominantColor);
+                if (checkColorDarkness(dominantColor)) {
+                    getWindow().setNavigationBarColor(
+                            getColor(R.color.theme_information_background));
+                }
+            }
+        }
+
+        new LayoutLoader().execute("");
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         if (tabLayout != null) {
@@ -259,22 +280,6 @@ public class InformationActivity extends AppCompatActivity {
             }
         }
 
-        if (collapsingToolbarLayout != null && dynamicActionBarColors &&
-                prefs.getBoolean("dynamic_actionbar", true)) {
-            collapsingToolbarLayout.setStatusBarScrimColor(dominantColor);
-            collapsingToolbarLayout.setContentScrimColor(dominantColor);
-        }
-
-        if (dynamicNavBarColors && prefs.getBoolean("dynamic_navbar", true)) {
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                getWindow().setNavigationBarColor(dominantColor);
-                if (checkColorDarkness(dominantColor)) {
-                    getWindow().setNavigationBarColor(
-                            getColor(R.color.theme_information_background));
-                }
-            }
-        }
-
         final InformationTabsAdapter adapter = new InformationTabsAdapter
                 (getSupportFragmentManager(), tabLayout.getTabCount(), getApplicationContext(),
                         theme_pid, (theme_mode.equals("") && !theme_legacy), theme_mode,
@@ -298,25 +303,6 @@ public class InformationActivity extends AppCompatActivity {
                 public void onTabReselected(TabLayout.Tab tab) {
                 }
             });
-        }
-
-        // All Root Requests will now reside within this scope
-        Root.requestRootAccess();
-
-        // If the helper is found, then launch it to hide it from the launcher
-        Intent launchIntent = getPackageManager()
-                .getLaunchIntentForPackage("masquerade.substratum");
-        if (launchIntent != null) {
-            startActivity(launchIntent);
-        }
-
-        // Now, let's grab root on the helper
-        Intent rootIntent = new Intent(Intent.ACTION_MAIN);
-        rootIntent.setAction("masquerade.substratum.INITIALIZE");
-        try {
-            startActivity(rootIntent);
-        } catch (RuntimeException re) {
-            // Exception: At this point, Masquerade is not installed at all.
         }
     }
 
@@ -669,7 +655,6 @@ public class InformationActivity extends AppCompatActivity {
                             }
 
                             // Finally close out of the window
-                            uninstalled = true;
                             onBackPressed();
                         }
                     })
@@ -716,15 +701,34 @@ public class InformationActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onBackPressed() {
-        Intent intent = new Intent();
-        if (uninstalled || refresh_mode) {
-            intent.putExtra("Uninstalled", true);
-        } else {
-            intent.putExtra("Uninstalled", false);
+    private class LayoutLoader extends AsyncTask<String, Integer, String> {
+
+        @Override
+        protected void onPostExecute(String result) {
+            Glide.with(getApplicationContext()).load(byteArray).centerCrop().into(kenBurnsView);
+
+            // All Root Requests will now reside within this scope
+            Root.requestRootAccess();
+
+            // Now, let's grab root on the helper
+            Intent rootIntent = new Intent(Intent.ACTION_MAIN);
+            rootIntent.setAction("masquerade.substratum.INITIALIZE");
+            try {
+                startActivity(rootIntent);
+            } catch (RuntimeException re) {
+                // Exception: At this point, Masquerade is not installed at all.
+            }
+
+            super.onPostExecute(result);
         }
-        setResult(THEME_INFORMATION_REQUEST_CODE, intent);
-        super.onBackPressed();
+
+        @Override
+        protected String doInBackground(String... sUrl) {
+            kenBurnsView = (KenBurnsView) findViewById(R.id.kenburnsView);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            heroImageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byteArray = stream.toByteArray();
+            return null;
+        }
     }
 }

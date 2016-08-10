@@ -94,7 +94,7 @@ public class OverlaysList extends Fragment {
     private Spinner base_spinner;
     private SharedPreferences prefs;
     private ArrayList<String> final_runner;
-    private boolean mixAndMatchMode, enable_mode, disable_mode;
+    private boolean mixAndMatchMode, enable_mode, disable_mode, compile_enable_mode;
     private ArrayList<String> all_installed_overlays;
     private Context mContext;
     private Switch toggle_all;
@@ -214,14 +214,66 @@ public class OverlaysList extends Fragment {
             });
         }
 
-        TextView compile_enable_selected = (TextView) root.findViewById(R.id
+        final TextView compile_enable_selected = (TextView) root.findViewById(R.id
                 .compile_enable_selected);
         if (!References.checkOMS())
-            compile_enable_selected.setText(getString(R.string.fab_menu_compile_install));
+            compile_enable_selected.setVisibility(View.GONE);
         if (compile_enable_selected != null)
             compile_enable_selected.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     materialSheetFab.hideSheet();
+
+                    compile_enable_mode = true;
+                    enable_mode = false;
+                    disable_mode = false;
+
+                    overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
+                    checkedOverlays = new ArrayList<>();
+
+                    for (int i = 0; i < overlaysLists.size(); i++) {
+                        OverlaysInfo currentOverlay = overlaysLists.get(i);
+                        if (currentOverlay.isSelected()) {
+                            checkedOverlays.add(currentOverlay);
+                        }
+                    }
+                    if (!checkedOverlays.isEmpty()) {
+                        Toast toast = Toast.makeText(getContext(),
+                                getString(R.string
+                                        .toast_updating),
+                                Toast.LENGTH_LONG);
+                        toast.show();
+
+                        if (base_spinner.getSelectedItemPosition() != 0 &&
+                                base_spinner.getVisibility() == View.VISIBLE) {
+                            Phase2_InitializeCache phase2_initializeCache = new
+                                    Phase2_InitializeCache();
+                            phase2_initializeCache.execute(base_spinner.getSelectedItem()
+                                    .toString());
+                        } else {
+                            Phase2_InitializeCache phase2_initializeCache = new
+                                    Phase2_InitializeCache();
+                            phase2_initializeCache.execute("");
+                        }
+                    } else {
+                        if (toggle_all.isChecked()) toggle_all.setChecked(false);
+                        Toast toast2 = Toast.makeText(getContext(), getString(R
+                                        .string.toast_disabled5),
+                                Toast.LENGTH_SHORT);
+                        toast2.show();
+                    }
+                }
+            });
+
+        TextView compile_update_selected = (TextView) root.findViewById(R.id
+                .compile_update_selected);
+        if (!References.checkOMS())
+            compile_update_selected.setText(getString(R.string.fab_menu_compile_install));
+        if (compile_update_selected != null)
+            compile_update_selected.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    materialSheetFab.hideSheet();
+
+                    compile_enable_mode = false;
 
                     overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
                     checkedOverlays = new ArrayList<>();
@@ -272,6 +324,7 @@ public class OverlaysList extends Fragment {
                     checkedOverlays = new ArrayList<>();
 
                     if (References.checkOMS()) {
+                        compile_enable_mode = false;
                         enable_mode = false;
                         disable_mode = true;
 
@@ -384,6 +437,7 @@ public class OverlaysList extends Fragment {
             public void onClick(View v) {
                 materialSheetFab.hideSheet();
 
+                compile_enable_mode = false;
                 enable_mode = true;
                 disable_mode = false;
 
@@ -809,16 +863,13 @@ public class OverlaysList extends Fragment {
                                 if (!current.equals("res")) {
                                     if (current.contains(".xml")) {
                                         if (current.substring(0, 7).equals("type1a_")) {
-                                            type1a.add(current.substring(7, current.length()
-                                                    - 4));
+                                            type1a.add(current.substring(7, current.length() - 4));
                                         }
                                         if (current.substring(0, 7).equals("type1b_")) {
-                                            type1b.add(current.substring(7, current.length()
-                                                    - 4));
+                                            type1b.add(current.substring(7, current.length() - 4));
                                         }
                                         if (current.substring(0, 7).equals("type1c_")) {
-                                            type1c.add(current.substring(7, current.length()
-                                                    - 4));
+                                            type1c.add(current.substring(7, current.length() - 4));
                                         }
                                     } else {
                                         if (!current.contains(".")) {
@@ -912,9 +963,7 @@ public class OverlaysList extends Fragment {
 
             if (!enable_mode && !disable_mode) {
                 Log.d("SubstratumBuilder", "Decompiling and initializing work area with the " +
-                        "selected " +
-
-                        "theme's assets...");
+                        "selected theme's assets...");
                 int notification_priority = 2; // PRIORITY_MAX == 2
 
                 // Create an Intent for the BroadcastReceiver
@@ -1039,7 +1088,7 @@ public class OverlaysList extends Fragment {
             super.onPostExecute(result);
 
             String final_commands = "";
-            if (enable_mode) {
+            if (enable_mode || compile_enable_mode) {
                 final_commands = "om enable";
             } else {
                 if (disable_mode) {
@@ -1049,7 +1098,7 @@ public class OverlaysList extends Fragment {
 
             for (int i = 0; i < final_runner.size(); i++) {
                 // With the OM command to multi enable/disable, we don't need to use && anymore
-                if (enable_mode || disable_mode) {
+                if (enable_mode || disable_mode || compile_enable_mode) {
                     final_commands = final_commands + " " + final_runner.get(i);
                 } else {
                     // The case where we need to use && to perform multiple commands, for example
@@ -1123,6 +1172,45 @@ public class OverlaysList extends Fragment {
                             Toast.LENGTH_LONG);
                     toast.show();
                 }
+
+                String disableBeforeEnabling = "";
+                if (mixAndMatchMode) {
+                    if (all_installed_overlays.size() - current_theme_overlays.size()
+                            != 0) {
+                        disableBeforeEnabling = "om disable";
+                        for (int i = 0; i < all_installed_overlays.size(); i++) {
+                            if (!current_theme_overlays.contains(
+                                    all_installed_overlays.get(i))) {
+                                disableBeforeEnabling = disableBeforeEnabling + " " +
+                                        all_installed_overlays.get(i);
+                            }
+                        }
+                    }
+                    progressBar.setVisibility(View.VISIBLE);
+                    if (toggle_all.isChecked()) toggle_all.setChecked(false);
+                    if (References.isPackageInstalled(getContext(),
+                            "masquerade.substratum")) {
+                        if (DEBUG)
+                            Log.e("SubstratumLogger", "Initializing the Masquerade theme " +
+                                    "provider...");
+                        Intent runCommand = new Intent();
+                        runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                        runCommand.setAction("masquerade.substratum.COMMANDS");
+                        runCommand.putExtra("om-commands",
+                                ((disableBeforeEnabling.length() > 0) ?
+                                        disableBeforeEnabling +
+                                                " && " + final_commands : final_commands));
+                        getContext().sendBroadcast(runCommand);
+                    } else {
+                        if (DEBUG)
+                            Log.e("SubstratumLogger", "Masquerade was not found, falling " +
+                                    "back to Substratum theme provider...");
+                        Root.runCommand(((disableBeforeEnabling.length() > 0) ?
+                                disableBeforeEnabling +
+                                        " && " + final_commands : final_commands));
+                    }
+                }
+
                 if (!prefs.getBoolean("systemui_recreate", false) && final_commands
                         .contains("systemui")) {
                     final_commands = final_commands + " && pkill -f com.android.systemui";
@@ -1158,12 +1246,12 @@ public class OverlaysList extends Fragment {
                     }
                 }
             } else {
-                if (enable_mode) {
+                if (enable_mode || compile_enable_mode) {
                     if (final_runner.size() > 0) {
                         String disableBeforeEnabling = "";
                         if (mixAndMatchMode) {
-                            if (all_installed_overlays.size() - current_theme_overlays.size() !=
-                                    0) {
+                            if (all_installed_overlays.size() - current_theme_overlays.size()
+                                    != 0) {
                                 disableBeforeEnabling = "om disable";
                                 for (int i = 0; i < all_installed_overlays.size(); i++) {
                                     if (!current_theme_overlays.contains(
@@ -1230,6 +1318,7 @@ public class OverlaysList extends Fragment {
                             }
                         }
                     } else {
+                        compile_enable_mode = false;
                         enable_mode = false;
                         Toast toast = Toast.makeText(getContext(), getString(R
                                         .string.toast_disabled3),
@@ -1366,6 +1455,14 @@ public class OverlaysList extends Fragment {
                 String current_overlay = checkedOverlays.get(i).getPackageName();
 
                 if (!enable_mode && !disable_mode) {
+                    if (compile_enable_mode) {
+                        if (final_runner == null) final_runner = new ArrayList<>();
+                        String package_name = checkedOverlays.get(i).getFullOverlayParameters();
+                        if (References.isPackageInstalled(getContext(), package_name) ||
+                                compile_enable_mode) {
+                            final_runner.add(package_name);
+                        }
+                    }
                     try {
                         String packageTitle = "";
                         if (References.allowedSystemUIOverlay(current_overlay)) {
@@ -1389,11 +1486,7 @@ public class OverlaysList extends Fragment {
 
                         if (checkActiveNotifications()) {
                             mBuilder.setProgress(100, (int) (((double) (i + 1) / checkedOverlays
-                                    .size
-
-                                            ()) *
-
-                                    100), false);
+                                    .size()) * 100), false);
                             mBuilder.setContentText(getString(R.string.notification_processing) +
                                     " " +
                                     "\"" +
@@ -1637,7 +1730,7 @@ public class OverlaysList extends Fragment {
                     }
                 } else {
                     if (final_runner == null) final_runner = new ArrayList<>();
-                    if (enable_mode) {
+                    if (enable_mode || compile_enable_mode) {
                         String package_name = checkedOverlays.get(i).getFullOverlayParameters();
                         if (References.isPackageInstalled(getContext(), package_name))
                             final_runner.add(package_name);

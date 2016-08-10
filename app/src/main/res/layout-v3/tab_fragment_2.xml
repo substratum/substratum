@@ -137,8 +137,14 @@
                 <TextView
                     android:id="@+id/compile_enable_selected"
                     style="@style/TextAppearance.MaterialSheetFab.Sheet.Item"
-                    android:drawableStart="@drawable/fab_menu_compile_update"
+                    android:drawableStart="@drawable/fab_menu_compile_enable"
                     android:text="@string/fab_menu_compile_enable"/>
+
+                <TextView
+                    android:id="@+id/compile_update_selected"
+                    style="@style/TextAppearance.MaterialSheetFab.Sheet.Item"
+                    android:drawableStart="@drawable/fab_menu_compile_update"
+                    android:text="@string/fab_menu_compile_update"/>
 
                 <TextView
                     android:id="@+id/disable_selected"

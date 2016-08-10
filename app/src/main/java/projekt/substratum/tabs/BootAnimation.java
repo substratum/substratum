@@ -201,7 +201,7 @@ public class BootAnimation extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
-            if ("true".equals(result)){
+            if ("true".equals(result)) {
                 vm_blown.setVisibility(View.VISIBLE);
             }
             try {
@@ -303,7 +303,7 @@ public class BootAnimation extends Fragment {
                     int duration = 40;
 
                     for (Bitmap image : images) {
-                        BitmapDrawable frame = new BitmapDrawable(getResources(),image);
+                        BitmapDrawable frame = new BitmapDrawable(getResources(), image);
                         animation.addFrame(frame, duration);
                     }
                 } catch (OutOfMemoryError oome) {

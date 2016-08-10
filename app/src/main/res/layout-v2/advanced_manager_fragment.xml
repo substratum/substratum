@@ -110,6 +110,22 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <Switch
+                    android:id="@+id/select_all"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
+                    android:checked="false"
+                    android:text="@string/fab_menu_select_to_toggle_all_overlays"/>
+
+                <View
+                    android:layout_width="@dimen/sheet_width"
+                    android:layout_height="1dp"
+                    android:background="@color/fab_menu_divider"/>
+
                 <TextView
                     android:id="@+id/disable_selected"
                     style="@style/TextAppearance.MaterialSheetFab.Sheet.Item"

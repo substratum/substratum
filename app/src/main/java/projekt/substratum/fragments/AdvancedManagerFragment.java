@@ -15,8 +15,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -97,6 +99,37 @@ public class AdvancedManagerFragment extends Fragment {
                 layoutReloader.execute("");
             }
         });
+
+        Switch toggle_all = (Switch) root.findViewById(R.id.select_all);
+        toggle_all.setOnCheckedChangeListener(
+                new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        try {
+                            List<OverlayManager> overlayList = ((OverlayManagerAdapter) mAdapter)
+                                    .getOverlayManagerList();
+                            if (isChecked) {
+                                for (int i = 0; i < overlayList.size(); i++) {
+                                    OverlayManager currentOverlay = overlayList.get(i);
+                                    if (!currentOverlay.isSelected()) {
+                                        currentOverlay.setSelected(true);
+                                    }
+                                    mAdapter.notifyDataSetChanged();
+                                }
+                            } else {
+                                for (int i = 0; i < overlayList.size(); i++) {
+                                    OverlayManager currentOverlay = overlayList.get(i);
+                                    if (currentOverlay.isSelected()) {
+                                        currentOverlay.setSelected(false);
+                                    }
+                                }
+                                mAdapter.notifyDataSetChanged();
+                            }
+                        } catch (Exception e) {
+                            Log.e("OverlaysList", "Window has lost connection with the host.");
+                        }
+                    }
+                });
 
         TextView disable_selected = (TextView) root.findViewById(R.id.disable_selected);
         if (!References.checkOMS())

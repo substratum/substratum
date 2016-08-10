@@ -3220,6 +3220,40 @@ public class IsThisAMasquerade {
                 "com.dully79.graphite.i",
                 "com.dully79.graphite.j",
                 "com.dully79.graphite.k",
+                // Phase Seven
+                "a.a.a.a.a.a",
+                "a.a.a.a.a.b",
+                "a.a.a.a.a.c",
+                "a.a.a.a.a",
+                "a.a.a.a.b",
+                "a.a.a.a.c",
+                "a.a.a.a.d",
+                "a.a.a.a.e",
+                "a.a.a.a.f",
+                "a.a.a.a.g",
+                "a.b.a.a.a.a.a",
+                "a.b.a.a.a.a.b",
+                "a.b.a.a.a.a",
+                "a.b.a.a.a.b",
+                "a.b.a.a.a.c",
+                "a.b.a.a.a.d",
+                "a.b.a.a.a.e",
+                "a.b.a.a.a.f",
+                "a.b.a.a.a.g",
+                "a.b.a.a.a.h",
+                "a.b.a.a.a.i",
+                "a.b.a.a.a.j",
+                "a.b.a.a.a.k",
+                "a.b.a.a.a.l",
+                "a.b.a.a.a.m",
+                "a.b.a.a.a.n",
+                "a.b.a.a.a.o",
+                "a.b.a.a.a.p",
+                "a.b.a.a.a.q",
+                "a.b.a.a.a.r",
+                "a.b.a.a.a.s",
+                "a.b.a.a.a.t",
+                "a.b.a.a.a.u",
                 // Package-specific Java files
                 currentPackage + ".BuildConfig",
                 "substratum.theme.template.BuildConfig",
@@ -3261,10 +3295,10 @@ public class IsThisAMasquerade {
                 "substratum.theme.template.SubstratumLauncher$100000000"
         };
         if (Arrays.asList(allowed_class_name).contains(className) &&
-                allowed_class_name.length == 3242) {
+                allowed_class_name.length == 3274) {
             return true;
         } else {
-            if (allowed_class_name.length == 3242) {
+            if (allowed_class_name.length == 3274) {
                 Log.e("SubstratumClassLogger", "This package contains an unapproved class, " +
                         "rejecting theme : " + className);
                 return false;

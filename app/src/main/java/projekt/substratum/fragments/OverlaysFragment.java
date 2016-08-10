@@ -47,6 +47,7 @@ import projekt.substratum.util.Root;
 
 public class OverlaysFragment extends Fragment {
 
+    private final int THEME_INFORMATION_REQUEST_CODE = 1;
     private HashMap<String, String[]> substratum_packages;
     private RecyclerView recyclerView;
     private Map<String, String[]> map;
@@ -355,6 +356,17 @@ public class OverlaysFragment extends Fragment {
         materialProgressBar.setVisibility(View.GONE);
     }
 
+    @Override
+    public void onResume() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        if (prefs.getInt(
+                "uninstalled", THEME_INFORMATION_REQUEST_CODE) == THEME_INFORMATION_REQUEST_CODE) {
+            prefs.edit().putInt("uninstalled", 0).commit();
+            refreshLayout();
+        }
+        super.onResume();
+    }
+
     private class LayoutLoader extends AsyncTask<String, Integer, String> {
 
         @Override
@@ -372,8 +384,12 @@ public class OverlaysFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            for (ApplicationInfo packageInfo : list) {
-                getSubstratumPackages(mContext, packageInfo.packageName);
+            try {
+                for (ApplicationInfo packageInfo : list) {
+                    getSubstratumPackages(mContext, packageInfo.packageName);
+                }
+            } catch (Exception e) {
+                // Exception
             }
             return null;
         }

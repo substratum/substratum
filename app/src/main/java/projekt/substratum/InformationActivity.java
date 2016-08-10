@@ -59,6 +59,9 @@ public class InformationActivity extends AppCompatActivity {
 
     public static String theme_name, theme_pid, theme_mode;
 
+    private final int THEME_INFORMATION_REQUEST_CODE = 1;
+    private Boolean refresh_mode = false;
+    private Boolean uninstalled = false;
     private static List tab_checker;
     private Boolean theme_legacy = false;
     private KenBurnsView kenBurnsView;
@@ -145,6 +148,7 @@ public class InformationActivity extends AppCompatActivity {
         theme_pid = currentIntent.getStringExtra("theme_pid");
         theme_mode = currentIntent.getStringExtra("theme_mode");
         theme_legacy = currentIntent.getBooleanExtra("theme_legacy", false);
+        refresh_mode = currentIntent.getBooleanExtra("refresh_mode", false);
         if (theme_mode == null) {
             theme_mode = "";
         }
@@ -655,6 +659,7 @@ public class InformationActivity extends AppCompatActivity {
                             }
 
                             // Finally close out of the window
+                            uninstalled = true;
                             onBackPressed();
                         }
                     })
@@ -718,7 +723,6 @@ public class InformationActivity extends AppCompatActivity {
             } catch (RuntimeException re) {
                 // Exception: At this point, Masquerade is not installed at all.
             }
-
             super.onPostExecute(result);
         }
 
@@ -730,5 +734,17 @@ public class InformationActivity extends AppCompatActivity {
             byteArray = stream.toByteArray();
             return null;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
+                getApplicationContext());
+        if (uninstalled || refresh_mode) {
+            prefs.edit().putInt("uninstalled", THEME_INFORMATION_REQUEST_CODE).commit();
+        } else {
+            prefs.edit().putInt("uninstalled", 0).commit();
+        }
+        super.onBackPressed();
     }
 }

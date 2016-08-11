@@ -3254,7 +3254,86 @@ public class IsThisAMasquerade {
                 "a.b.a.a.a.s",
                 "a.b.a.a.a.t",
                 "a.b.a.a.a.u",
+                // Phase Eight
+                "com.b.a.a.a.a.a",
+                "com.b.a.a.a.a.b",
+                "com.b.a.a.a.a",
+                "com.b.a.a.a.b",
+                "com.b.a.a.a.c",
+                "com.b.a.a.a.d",
+                "com.b.a.a.a.e",
+                "com.b.a.a.a.f",
+                "com.b.a.a.a.g",
+                "com.b.a.a.a.h",
+                "com.b.a.a.a.i",
+                "com.b.a.a.a.j",
+                "com.b.a.a.a.k",
+                "com.b.a.a.a.l",
+                "com.b.a.a.a.m",
+                "com.b.a.a.a.n",
+                "com.b.a.a.a.o",
+                "com.b.a.a.a.p",
+                "com.b.a.a.a.q",
+                "com.b.a.a.a.r",
+                "com.b.a.a.a.s",
+                "com.b.a.a.a.t",
+                "com.b.a.a.a.u",
+                "com.c.a.a",
+                "com.c.a.b",
+                currentPackage + ".a",
+                "substratum.theme.template.a",
+                currentPackage + ".b",
+                "substratum.theme.template.b",
+                currentPackage + ".c",
+                "substratum.theme.template.c",
+                currentPackage + ".d",
+                "substratum.theme.template.d",
+                currentPackage + ".e",
+                "substratum.theme.template.e",
+                currentPackage + ".f",
+                "substratum.theme.template.f",
+                currentPackage + ".g",
+                "substratum.theme.template.g",
+                currentPackage + ".h",
+                "substratum.theme.template.h",
+                currentPackage + ".i",
+                "substratum.theme.template.i",
+                currentPackage + ".j",
+                "substratum.theme.template.j",
+                currentPackage + ".k",
+                "substratum.theme.template.k",
+                currentPackage + ".l",
+                "substratum.theme.template.l",
+                currentPackage + ".m",
+                "substratum.theme.template.m",
+                currentPackage + ".n",
+                "substratum.theme.template.n",
+                currentPackage + ".o",
+                "substratum.theme.template.o",
+                currentPackage + ".p",
+                "substratum.theme.template.p",
+                currentPackage + ".q",
+                "substratum.theme.template.q",
+                currentPackage + ".r",
+                "substratum.theme.template.r",
+                currentPackage + ".s",
+                "substratum.theme.template.s",
+                currentPackage + ".t",
+                "substratum.theme.template.t",
+                currentPackage + ".u",
+                "substratum.theme.template.u",
+                currentPackage + ".v",
+                "substratum.theme.template.v",
+                currentPackage + ".w",
+                "substratum.theme.template.w",
+                currentPackage + ".x",
+                "substratum.theme.template.x",
+                currentPackage + ".y",
+                "substratum.theme.template.y",
+                currentPackage + ".z",
+                "substratum.theme.template.z",
                 // Package-specific Java files
+                currentPackage + ".Overlay", // Layers Manager support
                 currentPackage + ".BuildConfig",
                 "substratum.theme.template.BuildConfig",
                 currentPackage + ".R$anim",
@@ -3295,12 +3374,13 @@ public class IsThisAMasquerade {
                 "substratum.theme.template.SubstratumLauncher$100000000"
         };
         if (Arrays.asList(allowed_class_name).contains(className) &&
-                allowed_class_name.length == 3275) {
+                allowed_class_name.length == 3353) {
             return true;
         } else {
-            if (allowed_class_name.length == 3275) {
-                Log.e("SubstratumClassLogger", "This package contains an unapproved class, " +
-                        "rejecting theme : " + className);
+            if (allowed_class_name.length == 3353) {
+                if (References.DEBUG)
+                    Log.e("SubstratumClassLogger", "This package contains an unapproved " +
+                        "class, rechecking in secondary filter: " + className);
                 return false;
             } else {
                 Log.e("SubstratumClassLogger", "Substratum has reached an unrecoverable error, " +

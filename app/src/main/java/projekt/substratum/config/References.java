@@ -33,7 +33,7 @@ public class References {
     public static int notification_id = 2486;
 
     // Universal switch for Application-wide Debugging
-    public static Boolean DEBUG = false;
+    public static Boolean DEBUG = true;
 
     // These strings control the current filter for themes
     public static String metadataName = "Substratum_Name";

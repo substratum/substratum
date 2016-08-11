@@ -117,16 +117,16 @@ public class AreYouSure {
                 currentPackage + ".SubstratumLauncher$100000000",
                 "substratum.theme.template.SubstratumLauncher$100000000"
         };
-        for (int i = 0; i < allowed_class_name.length; i++) {
-            if (allowed_class_name.length == 105) {
+        if (allowed_class_name.length == 105) {
+            for (int i = 0; i < allowed_class_name.length; i++) {
                 if (className.startsWith(allowed_class_name[i])) {
                     return true;
                 }
-            } else {
-                Log.e("SubstratumClassLogger", "Substratum has reached an unrecoverable error, " +
-                        "terminating responsibilities...");
-                return false;
             }
+        } else {
+            Log.e("SubstratumClassLogger", "Substratum has reached an unrecoverable error, " +
+                    "terminating responsibilities...");
+            return false;
         }
         return false;
     }

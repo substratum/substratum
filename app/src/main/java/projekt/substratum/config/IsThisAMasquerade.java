@@ -3373,20 +3373,19 @@ public class IsThisAMasquerade {
                 currentPackage + ".SubstratumLauncher$100000000",
                 "substratum.theme.template.SubstratumLauncher$100000000"
         };
-        if (Arrays.asList(allowed_class_name).contains(className) &&
-                allowed_class_name.length == 3353) {
-            return true;
-        } else {
-            if (allowed_class_name.length == 3353) {
+        if (allowed_class_name.length == 3353) {
+            if (Arrays.asList(allowed_class_name).contains(className)) {
+                return true;
+            } else {
                 if (References.DEBUG)
                     Log.e("SubstratumClassLogger", "This package contains an unapproved " +
-                        "class, rechecking in secondary filter: " + className);
-                return false;
-            } else {
-                Log.e("SubstratumClassLogger", "Substratum has reached an unrecoverable error, " +
-                        "terminating responsibilities...");
+                            "class, rechecking in secondary filter: " + className);
                 return false;
             }
+        } else {
+            Log.e("SubstratumClassLogger", "Substratum has reached an unrecoverable error, " +
+                    "terminating responsibilities...");
+            return false;
         }
     }
 }

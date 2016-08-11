@@ -144,12 +144,10 @@ public class BootAnimationsFragment extends Fragment {
                                                     .toString())[1],
                                             Context.CONTEXT_IGNORE_SECURITY);
                                     boolean is_valid = true;
-                                    String intenter = "";
+                                    String intenter;
                                     String[] classes = References.getClassesOfPackage(
                                             otherAppContext);
                                     for (int i = 0; i < classes.length; i++) {
-                                        if (classes[i].contains("SubstratumLauncher"))
-                                            intenter = classes[i];
                                         if (!References.letUsDance(classes[i],
                                                 map.get(map.keySet().toArray()[position].toString())
                                                         [1])) {
@@ -157,7 +155,12 @@ public class BootAnimationsFragment extends Fragment {
                                             if (!References.DEBUG) break;
                                         }
                                     }
-                                    if (intenter.length() == 0) {
+                                    if (Arrays.asList(classes).contains(map.get(map.keySet()
+                                            .toArray()[position]
+                                            .toString())[1] + ".SubstratumLauncher")) {
+                                        intenter = map.get(map.keySet().toArray()[position]
+                                                .toString())[1] + ".SubstratumLauncher";
+                                    } else {
                                         intenter = "substratum.theme.template.SubstratumLauncher";
                                     }
                                     myIntent.setComponent(ComponentName.unflattenFromString(

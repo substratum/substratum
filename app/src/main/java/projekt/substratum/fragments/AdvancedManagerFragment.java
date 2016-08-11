@@ -275,6 +275,8 @@ public class AdvancedManagerFragment extends Fragment {
             });
 
         TextView uninstall_selected = (TextView) root.findViewById(R.id.uninstall);
+        if (!References.checkOMS())
+            uninstall_selected.setVisibility(View.GONE);
         if (uninstall_selected != null)
             uninstall_selected.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {

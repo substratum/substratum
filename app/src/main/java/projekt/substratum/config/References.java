@@ -146,8 +146,8 @@ public class References {
     // This method determines whether a specified package is installed
 
     public static boolean isPackageInstalled(Context context, String package_name) {
-        PackageManager pm = context.getPackageManager();
         try {
+            PackageManager pm = context.getPackageManager();
             pm.getPackageInfo(package_name, PackageManager.GET_ACTIVITIES);
             return true;
         } catch (Exception e) {

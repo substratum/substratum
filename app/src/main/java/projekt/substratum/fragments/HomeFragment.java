@@ -95,8 +95,16 @@ public class HomeFragment extends Fragment {
         list = packageManager.getInstalledApplications(PackageManager
                 .GET_META_DATA);
 
-        LayoutLoader layoutLoader = new LayoutLoader();
-        layoutLoader.execute("");
+        swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Refresh items
+                refreshLayout();
+            }
+        });
+
+        refreshLayout();
 
         // Now we need to sort the buffered installed Layers themes
         map = new TreeMap<>(substratum_packages);
@@ -220,15 +228,6 @@ public class HomeFragment extends Fragment {
             @Override
             public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
 
-            }
-        });
-
-        swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipeRefreshLayout);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                // Refresh items
-                refreshLayout();
             }
         });
         return root;
@@ -363,35 +362,6 @@ public class HomeFragment extends Fragment {
             refreshLayout();
         }
         super.onResume();
-    }
-
-    private class LayoutLoader extends AsyncTask<String, Integer, String> {
-
-        @Override
-        protected void onPostExecute(String result) {
-            refreshLayout();
-            if (substratum_packages.size() == 0) {
-                cardView.setVisibility(View.VISIBLE);
-                recyclerView.setVisibility(View.GONE);
-            } else {
-                cardView.setVisibility(View.GONE);
-                recyclerView.setVisibility(View.VISIBLE);
-            }
-            new ThemeCollection().execute("");
-            super.onPostExecute(result);
-        }
-
-        @Override
-        protected String doInBackground(String... sUrl) {
-            try {
-                for (ApplicationInfo packageInfo : list) {
-                    getSubstratumPackages(mContext, packageInfo.packageName);
-                }
-            } catch (Exception e) {
-                // Exception
-            }
-            return null;
-        }
     }
 
     private class ThemeCollection extends AsyncTask<String, Integer, String> {

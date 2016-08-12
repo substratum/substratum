@@ -443,13 +443,12 @@ public class InformationActivity extends AppCompatActivity {
                                             .getPackageManager()
                                             .getApplicationInfo(
                                                     current, PackageManager.GET_META_DATA);
-                                    if (appInfo.metaData != null) {
-                                        if (appInfo.metaData.getString("Substratum_Parent") !=
+                                    if (appInfo.metaData != null
+                                            && appInfo.metaData.getString("Substratum_Parent") !=
                                                 null) {
-                                            if (appInfo.metaData.getString("Substratum_Parent")
-                                                    .equals(parse2_themeName)) {
-                                                all_overlays.add(current);
-                                            }
+                                        if (appInfo.metaData.getString("Substratum_Parent")
+                                                .equals(parse2_themeName)) {
+                                            all_overlays.add(current);
                                         }
                                     }
                                 } catch (Exception e) {
@@ -710,10 +709,9 @@ public class InformationActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result) {
-            Glide.with(getApplicationContext()).load(byteArray).centerCrop().into(kenBurnsView);
+            super.onPostExecute(result);
 
-            // All Root Requests will now reside within this scope
-            Root.requestRootAccess();
+            Glide.with(getApplicationContext()).load(byteArray).centerCrop().into(kenBurnsView);
 
             // Now, let's grab root on the helper
             Intent rootIntent = new Intent(Intent.ACTION_MAIN);
@@ -723,7 +721,6 @@ public class InformationActivity extends AppCompatActivity {
             } catch (RuntimeException re) {
                 // Exception: At this point, Masquerade is not installed at all.
             }
-            super.onPostExecute(result);
         }
 
         @Override
@@ -738,6 +735,7 @@ public class InformationActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        super.onBackPressed();
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
                 getApplicationContext());
         if (uninstalled || refresh_mode) {
@@ -745,6 +743,5 @@ public class InformationActivity extends AppCompatActivity {
         } else {
             prefs.edit().putInt("uninstalled", 0).commit();
         }
-        super.onBackPressed();
     }
 }

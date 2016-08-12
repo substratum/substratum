@@ -88,16 +88,8 @@ public class OverlaysFragment extends Fragment {
         list = packageManager.getInstalledApplications(PackageManager
                 .GET_META_DATA);
 
-        swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipeRefreshLayout);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                // Refresh items
-                refreshLayout();
-            }
-        });
-
-        refreshLayout();
+        LayoutLoader layoutLoader = new LayoutLoader();
+        layoutLoader.execute("");
 
         // Now we need to sort the buffered installed Layers themes
         map = new TreeMap<>(substratum_packages);
@@ -219,6 +211,15 @@ public class OverlaysFragment extends Fragment {
 
             @Override
             public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+            }
+        });
+
+        swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Refresh items
+                refreshLayout();
             }
         });
         return root;
@@ -367,6 +368,34 @@ public class OverlaysFragment extends Fragment {
             refreshLayout();
         }
         super.onResume();
+    }
+
+    private class LayoutLoader extends AsyncTask<String, Integer, String> {
+
+        @Override
+        protected void onPostExecute(String result) {
+            refreshLayout();
+            if (substratum_packages.size() == 0) {
+                cardView.setVisibility(View.VISIBLE);
+                recyclerView.setVisibility(View.GONE);
+            } else {
+                cardView.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.VISIBLE);
+            }
+            super.onPostExecute(result);
+        }
+
+        @Override
+        protected String doInBackground(String... sUrl) {
+            try {
+                for (ApplicationInfo packageInfo : list) {
+                    getSubstratumPackages(mContext, packageInfo.packageName);
+                }
+            } catch (Exception e) {
+                // Exception
+            }
+            return null;
+        }
     }
 
     private class doCleanUp extends AsyncTask<String, Integer, String> {

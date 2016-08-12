@@ -993,8 +993,7 @@ public class OverlaysList extends Fragment {
                 mBuilder = new NotificationCompat.Builder(getContext());
                 mBuilder.setContentTitle(getString(R.string.notification_initial_title))
                         .setProgress(100, 0, true)
-                        .addAction(R.drawable.notification_dismiss_icon,
-                                getString(R.string.notification_hide), btPendingIntent)
+                        .addAction(android.R.color.transparent, getString(R.string.notification_hide), btPendingIntent)
                         .setSmallIcon(android.R.drawable.ic_popup_sync)
                         .setPriority(notification_priority)
                         .setContentIntent(resultPendingIntent)

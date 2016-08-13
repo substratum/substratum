@@ -2,13 +2,16 @@ package projekt.substratum;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
@@ -22,6 +25,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.mikepenz.aboutlibraries.LibsBuilder;
@@ -38,6 +42,8 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 import java.io.File;
 
+import eightbitlab.com.blurview.BlurView;
+import eightbitlab.com.blurview.RenderScriptBlur;
 import projekt.substratum.config.References;
 import projekt.substratum.services.ThemeService;
 import projekt.substratum.util.Root;
@@ -360,6 +366,51 @@ public class MainActivity extends AppCompatActivity implements
                     .withSelectedItem(1)
                     .withSelectedItemByPosition(1)
                     .build();
+        }
+        if (!Root.requestRootAccess()) {
+            final ProgressDialog mProgressDialog = new ProgressDialog(this, R.style
+                    .SubstratumBuilder_ActivityTheme);
+            mProgressDialog.setIndeterminate(false);
+            mProgressDialog.setCancelable(false);
+            mProgressDialog.show();
+            mProgressDialog.setContentView(R.layout.root_rejected_loader);
+
+            final float radius = 5;
+
+            final View decorView = getWindow().getDecorView();
+            //Activity's root View. Can also be root View of your layout
+            final View rootView = decorView.findViewById(android.R.id.content);
+            //set background, if your root layout doesn't have one
+            final Drawable windowBackground = decorView.getBackground();
+
+            BlurView blurView = (BlurView) mProgressDialog.findViewById(R.id.blurView);
+
+            blurView.setupWith(rootView)
+                    .windowBackground(windowBackground)
+                    .blurAlgorithm(new RenderScriptBlur(this, true))
+                    .blurRadius(radius);
+
+            final TextView textView = (TextView) mProgressDialog.findViewById(R.id.timer);
+            CountDownTimer Count = new CountDownTimer(5000, 1000) {
+                public void onTick(long millisUntilFinished) {
+                    if ((millisUntilFinished / 1000) > 1) {
+                        textView.setText(String.format(
+                                getString(R.string.root_rejected_timer_plural),
+                                (millisUntilFinished / 1000) + ""));
+                    } else {
+                        textView.setText(String.format(
+                                getString(R.string.root_rejected_timer_singular),
+                                (millisUntilFinished / 1000) + ""));
+                    }
+
+                }
+
+                public void onFinish() {
+                    mProgressDialog.dismiss();
+                    finish();
+                }
+            };
+            Count.start();
         }
 
         permissionCheck = ContextCompat.checkSelfPermission(getApplicationContext(),

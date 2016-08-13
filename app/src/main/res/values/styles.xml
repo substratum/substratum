@@ -40,6 +40,7 @@
     </style>
 
     <style name="SubstratumBuilder.ActivityTheme" parent="Theme.AppCompat">
+        <item name="android:textColor">@color/dialog_text_color</item>
         <item name="android:windowAnimationStyle">@style/SubstratumBuilder.WindowAnimation</item>
         <item name="android:windowBackground">@color/window_bg_glass</item>
         <item name="android:windowTranslucentStatus">true</item>

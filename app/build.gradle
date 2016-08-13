@@ -20,8 +20,10 @@ android {
         applicationId "projekt.substratum"
         minSdkVersion 23
         targetSdkVersion 24
-        versionCode 210
-        versionName "two hundred ten"
+        versionCode 211
+        versionName "two hundred eleven"
+        renderscriptTargetApi 23
+        renderscriptSupportModeEnabled true
     }
 }
 
@@ -87,6 +89,8 @@ dependencies {
 
     // Dialogs
     compile 'com.mikhaellopez:circularfillableloaders:1.2.0'
-}
 
+    // Blur Effect
+    compile 'com.eightbitlab:blurview:1.1.2'
+}
 apply plugin: 'com.google.gms.google-services'

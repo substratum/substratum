@@ -376,11 +376,8 @@ public class MainActivity extends AppCompatActivity implements
             mProgressDialog.setContentView(R.layout.root_rejected_loader);
 
             final float radius = 5;
-
             final View decorView = getWindow().getDecorView();
-            //Activity's root View. Can also be root View of your layout
             final View rootView = decorView.findViewById(android.R.id.content);
-            //set background, if your root layout doesn't have one
             final Drawable windowBackground = decorView.getBackground();
 
             BlurView blurView = (BlurView) mProgressDialog.findViewById(R.id.blurView);

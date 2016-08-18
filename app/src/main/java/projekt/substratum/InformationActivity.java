@@ -59,11 +59,10 @@ import projekt.substratum.util.Root;
 public class InformationActivity extends AppCompatActivity {
 
     public static String theme_name, theme_pid, theme_mode;
-
+    private static List tab_checker;
     private final int THEME_INFORMATION_REQUEST_CODE = 1;
     private Boolean refresh_mode = false;
     private Boolean uninstalled = false;
-    private static List tab_checker;
     private Boolean theme_legacy = false;
     private KenBurnsView kenBurnsView;
     private byte[] byteArray;
@@ -463,7 +462,7 @@ public class InformationActivity extends AppCompatActivity {
                                                     current, PackageManager.GET_META_DATA);
                                     if (appInfo.metaData != null
                                             && appInfo.metaData.getString("Substratum_Parent") !=
-                                                null) {
+                                            null) {
                                         if (appInfo.metaData.getString("Substratum_Parent")
                                                 .equals(parse2_themeName)) {
                                             all_overlays.add(current);
@@ -678,7 +677,8 @@ public class InformationActivity extends AppCompatActivity {
 
                             //Remove applied font, sounds, and bootanimation
                             if (prefs.getString("sounds_applied", "").equals(theme_pid)) {
-                                Root.runCommand("rm -r /data/system/theme/audio/ && pkill -f com.android.systemui");
+                                Root.runCommand("rm -r /data/system/theme/audio/ && pkill -f com" +
+                                        ".android.systemui");
                                 editor.remove("sounds_applied");
                             }
                             if (prefs.getString("fonts_applied", "").equals(theme_pid)) {
@@ -688,17 +688,20 @@ public class InformationActivity extends AppCompatActivity {
                                     Intent runCommand = new Intent();
                                     runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                                     runCommand.setAction("masquerade.substratum.COMMANDS");
-                                    runCommand.putExtra("om-commands", "om refresh && setprop sys.refresh_theme 1");
+                                    runCommand.putExtra("om-commands", "om refresh && setprop sys" +
+                                            ".refresh_theme 1");
                                     getApplicationContext().sendBroadcast(runCommand);
                                 } else {
                                     Root.runCommand("om refresh && setprop sys.refresh_theme 1");
                                 }
                                 if (!prefs.getBoolean("systemui_recreate", false)) {
-                                    if (References.isPackageInstalled(getApplicationContext(), "masquerade.substratum")) {
+                                    if (References.isPackageInstalled(getApplicationContext(),
+                                            "masquerade.substratum")) {
                                         Intent runCommand = new Intent();
                                         runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                                         runCommand.setAction("masquerade.substratum.COMMANDS");
-                                        runCommand.putExtra("om-commands", "pkill -f com.android.systemui");
+                                        runCommand.putExtra("om-commands", "pkill -f com.android" +
+                                                ".systemui");
                                         getApplicationContext().sendBroadcast(runCommand);
                                     } else {
                                         Root.runCommand("pkill -f com.android.systemui");
@@ -710,7 +713,8 @@ public class InformationActivity extends AppCompatActivity {
                                 if (getDeviceEncryptionStatus() <= 1) {
                                     Root.runCommand("rm -r /data/system/theme/bootanimation.zip");
                                 } else {
-                                    Root.runCommand("rm -r /system/media/bootanimation-encrypted.zip");
+                                    Root.runCommand("rm -r /system/media/bootanimation-encrypted" +
+                                            ".zip");
                                 }
                                 editor.remove("bootanimation_applied");
                             }
@@ -764,6 +768,18 @@ public class InformationActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
+                getApplicationContext());
+        if (uninstalled || refresh_mode) {
+            prefs.edit().putInt("uninstalled", THEME_INFORMATION_REQUEST_CODE).commit();
+        } else {
+            prefs.edit().putInt("uninstalled", 0).commit();
+        }
+    }
+
     private class LayoutLoader extends AsyncTask<String, Integer, String> {
 
         @Override
@@ -789,18 +805,6 @@ public class InformationActivity extends AppCompatActivity {
             heroImageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
             byteArray = stream.toByteArray();
             return null;
-        }
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
-                getApplicationContext());
-        if (uninstalled || refresh_mode) {
-            prefs.edit().putInt("uninstalled", THEME_INFORMATION_REQUEST_CODE).commit();
-        } else {
-            prefs.edit().putInt("uninstalled", 0).commit();
         }
     }
 }

@@ -306,6 +306,7 @@ public class BootAnimationsFragment extends Fragment {
             Intent myIntent = new Intent(Intent.ACTION_MAIN);
             if (!References.checkOMS())
                 myIntent.putExtra("theme_legacy", true);
+            myIntent.putExtra("theme_mode", "bootanimation");
             Context otherAppContext = getContext().createPackageContext(
                     map.get(map.keySet().toArray()[position]
                             .toString())[1],

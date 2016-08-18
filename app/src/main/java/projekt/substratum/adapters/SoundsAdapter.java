@@ -34,7 +34,7 @@ public class SoundsAdapter extends RecyclerView.Adapter<SoundsAdapter.MyViewHold
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         SoundsInfo sounds = soundsList.get(position);
-        holder.title.setText(sounds.getTitle());
+        holder.title.setText(sounds.getTitle().substring(0, sounds.getTitle().length() - 4));
     }
 
     @Override

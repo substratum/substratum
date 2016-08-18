@@ -57,6 +57,8 @@ public class SoundPackager extends Fragment {
     private ColorStateList unchecked, checked;
     private ArrayList<SoundsInfo> wordList;
     private RecyclerView recyclerView;
+    private MediaPlayer mp = new MediaPlayer();
+    private int previous_position;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
@@ -169,14 +171,17 @@ public class SoundPackager extends Fragment {
                     public void onItemClick(View view, int position) {
                         wordList.get(position);
                         try {
-                            MediaPlayer mp = new MediaPlayer();
-                            mp.setDataSource(wordList.get(position).getAbsolutePath());
-                            mp.prepare();
-                            if (mp.isPlaying()) {
-                                mp.pause();
-                            } else {
+                            if (!mp.isPlaying() || position != previous_position) {
+                                stopPlayer();
+                                ((ImageButton) view.findViewById(R.id.play))
+                                        .setImageResource(R.drawable.sounds_preview_stop);
+                                mp.setDataSource(wordList.get(position).getAbsolutePath());
+                                mp.prepare();
                                 mp.start();
+                            } else {
+                                stopPlayer();
                             }
+                            previous_position = position;
                         } catch (IOException ioe) {
                             Log.e("SoundsHandler", "Playback has failed for " + wordList.get
                                     (position).getTitle());
@@ -184,7 +189,28 @@ public class SoundPackager extends Fragment {
                     }
                 })
         );
+        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                stopPlayer();
+            }
+        });
         return root;
+    }
+
+    @Override
+    public void onDestroy () {
+        super.onDestroy();
+        mp.release();
+    }
+
+    private void stopPlayer() {
+        final int childCount = recyclerView.getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            ((ImageButton) recyclerView.getChildAt(i).findViewById(R.id.play))
+                    .setImageResource(R.drawable.sounds_preview_play);
+        }
+        mp.reset();
     }
 
     private String getThemeName(String package_name) {

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:background="@color/window_bg_glass"
+                android:gravity="center|center_horizontal"
+                android:orientation="vertical">
+
+    <com.mikhaellopez.circularfillableloaders.CircularFillableLoaders
+        android:id="@+id/circularFillableLoader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="300dp"
+        android:layout_marginRight="300dp"
+        android:src="@drawable/loading_icon"
+        app:cfl_border="true"
+        app:cfl_border_width="5dp"
+        app:cfl_progress="100"
+        app:cfl_wave_amplitude="0.06"
+        app:cfl_wave_color="@color/compile_dialog_wave_color"/>
+
+    <TextView
+        android:id="@+id/loadingTextCreativeMode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/circularFillableLoader"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:text="PLACEHOLDER_LOADING_TEXT"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textStyle="italic"/>
+
+</RelativeLayout>

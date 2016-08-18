@@ -64,8 +64,16 @@
             android:text="@string/team_text_2"/>
 
         <include
+            android:id="@+id/ivan"
+            layout="@layout/team_card_ivan"/>
+
+        <include
             android:id="@+id/jacob"
             layout="@layout/team_card_jacob"/>
+
+        <include
+            android:id="@+id/raja"
+            layout="@layout/team_card_raja"/>
 
         <TextView
             android:layout_width="match_parent"

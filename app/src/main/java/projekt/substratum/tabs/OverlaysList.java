@@ -713,7 +713,8 @@ public class OverlaysList extends Fragment {
 
                 for (String package_name : overlaysFolder) {
                     if (References.isPackageInstalled(getContext(), package_name) ||
-                            References.allowedSystemUIOverlay(package_name)) {
+                            References.allowedSystemUIOverlay(package_name) ||
+                            References.allowedSettingsOverlay(package_name)) {
                         values.add(package_name);
                     }
                 }
@@ -740,15 +741,29 @@ public class OverlaysList extends Fragment {
                             case "com.android.systemui.statusbars":
                                 package_name = getString(R.string.systemui_statusbar);
                                 break;
+                            case "com.android.systemui.tiles":
+                                package_name = getString(R.string.systemui_qs_tiles);
+                                break;
                         }
                         unsortedMap.put(values.get(i), package_name);
                     } else {
-                        ApplicationInfo applicationInfo = getContext().getPackageManager()
-                                .getApplicationInfo
-                                        (values.get(i), 0);
-                        String packageTitle = getContext().getPackageManager().getApplicationLabel
-                                (applicationInfo).toString();
-                        unsortedMap.put(values.get(i), packageTitle);
+                        if (References.allowedSettingsOverlay(values.get(i))) {
+                            String package_name = "";
+                            switch (values.get(i)) {
+                                case "com.android.settings.icons":
+                                    package_name = getString(R.string.settings_icons);
+                                    break;
+                            }
+                            unsortedMap.put(values.get(i), package_name);
+                        } else {
+                            ApplicationInfo applicationInfo = getContext().getPackageManager()
+                                    .getApplicationInfo
+                                            (values.get(i), 0);
+                            String packageTitle = getContext().getPackageManager()
+                                    .getApplicationLabel
+                                            (applicationInfo).toString();
+                            unsortedMap.put(values.get(i), packageTitle);
+                        }
                     }
                 } catch (Exception e) {
                     // Exception
@@ -993,7 +1008,8 @@ public class OverlaysList extends Fragment {
                 mBuilder = new NotificationCompat.Builder(getContext());
                 mBuilder.setContentTitle(getString(R.string.notification_initial_title))
                         .setProgress(100, 0, true)
-                        .addAction(android.R.color.transparent, getString(R.string.notification_hide), btPendingIntent)
+                        .addAction(android.R.color.transparent, getString(R.string
+                                .notification_hide), btPendingIntent)
                         .setSmallIcon(android.R.drawable.ic_popup_sync)
                         .setPriority(notification_priority)
                         .setContentIntent(resultPendingIntent)
@@ -1484,13 +1500,27 @@ public class OverlaysList extends Fragment {
                                 case "com.android.systemui.navbars":
                                     packageTitle = getString(R.string.systemui_navigation);
                                     break;
+                                case "com.android.systemui.statusbars":
+                                    packageTitle = getString(R.string.systemui_statusbar);
+                                    break;
+                                case "com.android.systemui.tiles":
+                                    packageTitle = getString(R.string.systemui_qs_tiles);
+                                    break;
                             }
                         } else {
-                            ApplicationInfo applicationInfo = getContext().getPackageManager()
-                                    .getApplicationInfo
-                                            (current_overlay, 0);
-                            packageTitle = getContext().getPackageManager().getApplicationLabel
-                                    (applicationInfo).toString();
+                            if (References.allowedSettingsOverlay(current_overlay)) {
+                                switch (current_overlay) {
+                                    case "com.android.settings.icons":
+                                        packageTitle = getString(R.string.settings_icons);
+                                        break;
+                                }
+                            } else {
+                                ApplicationInfo applicationInfo = getContext().getPackageManager()
+                                        .getApplicationInfo
+                                                (current_overlay, 0);
+                                packageTitle = getContext().getPackageManager().getApplicationLabel
+                                        (applicationInfo).toString();
+                            }
                         }
 
                         // Initialize working notification

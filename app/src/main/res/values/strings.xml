@@ -15,8 +15,10 @@
     <string name="failed_to_install_title_notification">Failed to install OMS theme</string>
     <string name="failed_to_install_text_notification">%s failed to install</string>
 
+    <string name="settings_icons">Settings Icons</string>
     <string name="systemui_headers">System UI Headers</string>
     <string name="systemui_navigation">System UI Navigation</string>
+    <string name="systemui_qs_tiles">System UI QS Tile Icons</string>
     <string name="systemui_statusbar">System UI Status Bar Icons</string>
 
     <string name="legacy_dialog_soft_reboot_title">Reboot required!</string>

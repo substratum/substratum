@@ -141,8 +141,13 @@ public class SubstratumBuilder {
         String varianter = parse2_variantName + parse2_baseName;
         varianter.replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "");
 
-        String targetPackage = ((References.allowedSystemUIOverlay(overlay_package)) ?
-                "com.android.systemui" : overlay_package);
+        String targetPackage = overlay_package;
+        if (References.allowedSettingsOverlay(overlay_package)) {
+            targetPackage = "com.android.settings";
+        }
+        if (References.allowedSystemUIOverlay(overlay_package)) {
+            targetPackage = "com.android.systemui";
+        }
 
         int legacy_priority = References.DEFAULT_PRIORITY;
         if (!References.checkOMS()) {

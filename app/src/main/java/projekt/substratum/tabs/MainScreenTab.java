@@ -457,9 +457,11 @@ public class MainScreenTab extends Fragment {
                     String current = unfilteredDirectory[i].getName();
                     if (!tp_enabled) {
                         if (systemPackages.contains(current) ||
-                                References.allowedSystemUIOverlay(current)) {
+                                References.allowedSystemUIOverlay(current) ||
+                                References.allowedSettingsOverlay(current)) {
                             if (References.isPackageInstalled(getContext(), current) ||
-                                    References.allowedSystemUIOverlay(current)) {
+                                    References.allowedSystemUIOverlay(current) ||
+                                    References.allowedSettingsOverlay(current)) {
                                 filteredDirectory.add(current);
                                 Log.d("SubstratumLogger", "System Overlay: " + current);
                             }
@@ -713,13 +715,23 @@ public class MainScreenTab extends Fragment {
                             case "com.android.systemui.statusbars":
                                 packageTitle = getString(R.string.systemui_statusbar);
                                 break;
+                            case "com.android.systemui.tiles":
+                                packageTitle = getString(R.string.systemui_qs_tiles);
+                                break;
                         }
                     } else {
-                        ApplicationInfo applicationInfo = getContext().getPackageManager()
-                                .getApplicationInfo
-                                        (current_overlay, 0);
-                        packageTitle = getContext().getPackageManager().getApplicationLabel
-                                (applicationInfo).toString();
+                        if (References.allowedSettingsOverlay(current_overlay)) {
+                            switch (current_overlay) {
+                                case "com.android.settings.icons":
+                                    packageTitle = getString(R.string.settings_icons);
+                                    break;
+                            }
+                        } else {
+                            ApplicationInfo applicationInfo = getContext().getPackageManager()
+                                    .getApplicationInfo(current_overlay, 0);
+                            packageTitle = getContext().getPackageManager().getApplicationLabel
+                                    (applicationInfo).toString();
+                        }
                     }
 
                     mBuilder.setProgress(100, (int) (((double) (i + 1) / filteredDirectory.size

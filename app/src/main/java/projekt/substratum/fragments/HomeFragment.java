@@ -317,6 +317,56 @@ public class HomeFragment extends Fragment {
         super.onResume();
     }
 
+    private void launchTheme(int position) {
+        try {
+            Intent myIntent = new Intent(Intent.ACTION_MAIN);
+            if (!References.checkOMS())
+                myIntent.putExtra("theme_legacy", true);
+            Context otherAppContext = getContext().createPackageContext(
+                    map.get(map.keySet().toArray()[position]
+                            .toString())[1],
+                    Context.CONTEXT_IGNORE_SECURITY);
+            boolean is_valid = true;
+            String intenter;
+            String[] classes = References.getClassesOfPackage(
+                    otherAppContext);
+            for (int i = 0; i < classes.length; i++) {
+                if (!References.letUsDance(classes[i],
+                        map.get(map.keySet().toArray()[position].toString())
+                                [1])) {
+                    is_valid = false;
+                    if (!References.DEBUG) break;
+                }
+            }
+            if (Arrays.asList(classes).contains(map.get(map.keySet()
+                    .toArray()[position]
+                    .toString())[1] + ".SubstratumLauncher")) {
+                intenter = map.get(map.keySet().toArray()[position]
+                        .toString())[1] + ".SubstratumLauncher";
+            } else {
+                intenter = "substratum.theme.template.SubstratumLauncher";
+            }
+            myIntent.setComponent(ComponentName.unflattenFromString(
+                    map.get(map.keySet().toArray()[position].toString())
+                            [1] + "/" + intenter));
+            if (is_valid) {
+                startActivity(myIntent);
+            } else {
+                Toast toast = Toast.makeText(getContext(),
+                        getString(R.string
+                                .information_activity_pirated_toast),
+                        Toast.LENGTH_LONG);
+                toast.show();
+            }
+        } catch (Exception ex) {
+            Toast toast = Toast.makeText(getContext(),
+                    getString(R.string
+                            .information_activity_upgrade_toast),
+                    Toast.LENGTH_LONG);
+            toast.show();
+        }
+    }
+
     private class ThemeCollection extends AsyncTask<String, Integer, String> {
 
         @Override
@@ -421,7 +471,7 @@ public class HomeFragment extends Fragment {
         private int position;
         private String sUrl;
 
-        public SubstratumThemeUpdate(String strValue, int intValue){
+        public SubstratumThemeUpdate(String strValue, int intValue) {
             this.position = intValue;
             this.sUrl = strValue;
         }
@@ -455,56 +505,6 @@ public class HomeFragment extends Fragment {
         protected String doInBackground(Void... Params) {
             new CacheCreator().initializeCache(mContext, sUrl);
             return null;
-        }
-    }
-
-    private void launchTheme(int position) {
-        try {
-            Intent myIntent = new Intent(Intent.ACTION_MAIN);
-            if (!References.checkOMS())
-                myIntent.putExtra("theme_legacy", true);
-            Context otherAppContext = getContext().createPackageContext(
-                    map.get(map.keySet().toArray()[position]
-                            .toString())[1],
-                    Context.CONTEXT_IGNORE_SECURITY);
-            boolean is_valid = true;
-            String intenter;
-            String[] classes = References.getClassesOfPackage(
-                    otherAppContext);
-            for (int i = 0; i < classes.length; i++) {
-                if (!References.letUsDance(classes[i],
-                        map.get(map.keySet().toArray()[position].toString())
-                                [1])) {
-                    is_valid = false;
-                    if (!References.DEBUG) break;
-                }
-            }
-            if (Arrays.asList(classes).contains(map.get(map.keySet()
-                    .toArray()[position]
-                    .toString())[1] + ".SubstratumLauncher")) {
-                intenter = map.get(map.keySet().toArray()[position]
-                        .toString())[1] + ".SubstratumLauncher";
-            } else {
-                intenter = "substratum.theme.template.SubstratumLauncher";
-            }
-            myIntent.setComponent(ComponentName.unflattenFromString(
-                    map.get(map.keySet().toArray()[position].toString())
-                            [1] + "/" + intenter));
-            if (is_valid) {
-                startActivity(myIntent);
-            } else {
-                Toast toast = Toast.makeText(getContext(),
-                        getString(R.string
-                                .information_activity_pirated_toast),
-                        Toast.LENGTH_LONG);
-                toast.show();
-            }
-        } catch (Exception ex) {
-            Toast toast = Toast.makeText(getContext(),
-                    getString(R.string
-                            .information_activity_upgrade_toast),
-                    Toast.LENGTH_LONG);
-            toast.show();
         }
     }
 }

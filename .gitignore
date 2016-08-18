@@ -2,10 +2,10 @@
 .gradle
 /local.properties
 /.idea
+/projectFilesBackup
 .DS_Store
 /build
 /captures
 
 *.apk
-
 app/google-services.json

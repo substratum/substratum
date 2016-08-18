@@ -1,6 +1,7 @@
 package projekt.substratum;
 
 import android.app.Activity;
+import android.app.admin.DevicePolicyManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -67,6 +68,7 @@ public class InformationActivity extends AppCompatActivity {
     private KenBurnsView kenBurnsView;
     private byte[] byteArray;
     private Bitmap heroImageBitmap;
+    private SharedPreferences prefs;
 
     public static String getThemeName() {
         return theme_name;
@@ -132,12 +134,28 @@ public class InformationActivity extends AppCompatActivity {
         return null;
     }
 
+    private int getDeviceEncryptionStatus() {
+        // 0: ENCRYPTION_STATUS_UNSUPPORTED
+        // 1: ENCRYPTION_STATUS_INACTIVE
+        // 2: ENCRYPTION_STATUS_ACTIVATING
+        // 3: ENCRYPTION_STATUS_ACTIVE_DEFAULT_KEY
+        // 4: ENCRYPTION_STATUS_ACTIVE
+        // 5: ENCRYPTION_STATUS_ACTIVE_PER_USER
+        int status = DevicePolicyManager.ENCRYPTION_STATUS_UNSUPPORTED;
+        final DevicePolicyManager dpm = (DevicePolicyManager)
+                getApplicationContext().getSystemService(Context.DEVICE_POLICY_SERVICE);
+        if (dpm != null) {
+            status = dpm.getStorageEncryptionStatus();
+        }
+        return status;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.information_activity);
 
-        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
+        prefs = PreferenceManager.getDefaultSharedPreferences(
                 getApplicationContext());
 
         boolean dynamicActionBarColors = getResources().getBoolean(R.bool.dynamicActionBarColors);
@@ -571,6 +589,7 @@ public class InformationActivity extends AppCompatActivity {
             return true;
         }
         if (id == R.id.uninstall) {
+            final SharedPreferences.Editor editor = prefs.edit();
             AlertDialog.Builder builder = new AlertDialog.Builder(InformationActivity.this);
             builder.setTitle(theme_name);
             builder.setIcon(References.grabAppIcon(getApplicationContext(), theme_pid));
@@ -657,7 +676,47 @@ public class InformationActivity extends AppCompatActivity {
                                 Root.runCommand(commands2);
                             }
 
+                            //Remove applied font, sounds, and bootanimation
+                            if (prefs.getString("sounds_applied", "").equals(theme_pid)) {
+                                Root.runCommand("rm -r /data/system/theme/audio/ && pkill -f com.android.systemui");
+                                editor.remove("sounds_applied");
+                            }
+                            if (prefs.getString("fonts_applied", "").equals(theme_pid)) {
+                                Root.runCommand("rm -r /data/system/theme/fonts/");
+                                if (References.isPackageInstalled(getApplicationContext(),
+                                        "masquerade.substratum")) {
+                                    Intent runCommand = new Intent();
+                                    runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                                    runCommand.setAction("masquerade.substratum.COMMANDS");
+                                    runCommand.putExtra("om-commands", "om refresh && setprop sys.refresh_theme 1");
+                                    getApplicationContext().sendBroadcast(runCommand);
+                                } else {
+                                    Root.runCommand("om refresh && setprop sys.refresh_theme 1");
+                                }
+                                if (!prefs.getBoolean("systemui_recreate", false)) {
+                                    if (References.isPackageInstalled(getApplicationContext(), "masquerade.substratum")) {
+                                        Intent runCommand = new Intent();
+                                        runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                                        runCommand.setAction("masquerade.substratum.COMMANDS");
+                                        runCommand.putExtra("om-commands", "pkill -f com.android.systemui");
+                                        getApplicationContext().sendBroadcast(runCommand);
+                                    } else {
+                                        Root.runCommand("pkill -f com.android.systemui");
+                                    }
+                                }
+                                editor.remove("fonts_applied");
+                            }
+                            if (prefs.getString("bootanimation_applied", "").equals(theme_pid)) {
+                                if (getDeviceEncryptionStatus() <= 1) {
+                                    Root.runCommand("rm -r /data/system/theme/bootanimation.zip");
+                                } else {
+                                    Root.runCommand("rm -r /system/media/bootanimation-encrypted.zip");
+                                }
+                                editor.remove("bootanimation_applied");
+                            }
+
                             // Finally close out of the window
+                            editor.apply();
                             uninstalled = true;
                             onBackPressed();
                         }

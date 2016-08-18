@@ -3,8 +3,10 @@ package projekt.substratum.util;
 import android.app.ProgressDialog;
 import android.app.admin.DevicePolicyManager;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.WindowManager;
@@ -42,6 +44,7 @@ public class BootAnimationHandler {
     private ProgressDialog progress;
     private Boolean has_failed;
     private String theme_pid;
+    private SharedPreferences prefs;
 
     private int getDeviceEncryptionStatus() {
         // 0: ENCRYPTION_STATUS_UNSUPPORTED
@@ -63,6 +66,7 @@ public class BootAnimationHandler {
         this.mContext = context;
         this.theme_pid = theme_pid;
         new BootAnimationHandlerAsync().execute(arguments);
+        prefs = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
     private class BootAnimationHandlerAsync extends AsyncTask<String, Integer, String> {
@@ -354,6 +358,9 @@ public class BootAnimationHandler {
             }
 
             if (!has_failed) {
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putString("bootanimation_applied", theme_pid);
+                editor.apply();
                 Log.d("BootAnimationHandler", "Boot animation installed!");
                 Root.runCommand(
                         "rm -r " + mContext.getCacheDir().getAbsolutePath() +

@@ -73,6 +73,9 @@ public class FontHandler {
         protected void onPostExecute(String result) {
             progress.dismiss();
             if (result == null) {
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putString("fonts_applied", theme_pid);
+                editor.apply();
                 Toast toast = Toast.makeText(mContext,
                         mContext.getString(R.string.font_dialog_apply_success), Toast.LENGTH_LONG);
                 toast.show();

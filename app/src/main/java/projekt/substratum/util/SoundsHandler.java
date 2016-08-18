@@ -5,6 +5,7 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.database.Cursor;
@@ -13,6 +14,8 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.preference.Preference;
+import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -53,11 +56,13 @@ public class SoundsHandler {
     private String theme_pid;
     private boolean has_failed;
     private boolean ringtone = false;
+    private SharedPreferences prefs;
 
     public void SoundsHandler(String arguments, Context context, String theme_pid) {
         this.mContext = context;
         this.theme_pid = theme_pid;
         new SoundsHandlerAsync().execute(arguments);
+        prefs = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
     public void SoundsClearer(Context context) {
@@ -655,6 +660,9 @@ public class SoundsHandler {
             }
 
             if (!has_failed) {
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putString("sounds_applied", theme_pid);
+                editor.apply();
                 Log.d("SoundsHandler", "Sound pack installed!");
                 Root.runCommand(
                         "rm -r " + mContext.getCacheDir().getAbsolutePath() +

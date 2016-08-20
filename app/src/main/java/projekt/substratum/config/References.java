@@ -20,6 +20,8 @@ import java.util.Arrays;
 import java.util.Enumeration;
 
 import dalvik.system.DexFile;
+import projekt.substrate.HideYourTrueIdentity;
+import projekt.substrate.PutOnYourMask;
 import projekt.substratum.R;
 
 /**
@@ -84,11 +86,16 @@ public class References {
         prefs = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
         prefs.edit().putBoolean("is_updating", false).apply();
     }
-    
+
     // This method configures the new devices and their configuration of their vendor folders
     public static Boolean inNexusFilter() {
         String[] nexus_filter = {"angler", "bullhead", "flounder", "marlin", "sailfish"};
         return Arrays.asList(nexus_filter).contains(Build.DEVICE);
+    }
+
+    public static boolean hiddenBehindTheMask(String current, String packageName) {
+        return HideYourTrueIdentity.believingIsJustTheBeginning(current, packageName) ||
+                PutOnYourMask.areYouReadyForTheDanceOfYourLife(current, packageName);
     }
 
     public static String[] getClassesOfPackage(Context context) {

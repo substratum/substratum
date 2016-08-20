@@ -91,12 +91,6 @@ public class References {
         return Arrays.asList(nexus_filter).contains(Build.DEVICE);
     }
 
-    // These methods determine whether the package's class is allowed
-    public static Boolean letUsDance(String current, String packageName) {
-        return IsThisAMasquerade.believingIsJustTheBeginning(current, packageName) ||
-                AreYouSure.areYouReadyForTheDanceOfYourLife(current, packageName);
-    }
-
     public static String[] getClassesOfPackage(Context context) {
         ArrayList<String> classes = new ArrayList<>();
         try {

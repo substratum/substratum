@@ -3,7 +3,6 @@ package projekt.substratum.util;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,6 +16,7 @@ import android.widget.Toast;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+import projekt.substrate.LetsGetStarted;
 import projekt.substratum.MainActivity;
 import projekt.substratum.R;
 import projekt.substratum.config.References;
@@ -84,43 +84,21 @@ public class SubstratumThemeUpdater {
                 Intent notificationIntent;
                 PendingIntent intent;
                 try {
-                    Intent myIntent = new Intent(Intent.ACTION_MAIN);
-                    Context otherAppContext = mContext.createPackageContext(
-                            packageName, Context.CONTEXT_IGNORE_SECURITY);
-                    boolean is_valid = true;
-
-                    // An easy way to check where the SubstratumLauncher class is located
-                    String intenter = "";
-                    String[] classes = References.getClassesOfPackage(otherAppContext);
-                    for (int i = 0; i < classes.length; i++) {
-                        if (classes[i].contains("SubstratumLauncher")) intenter = classes[i];
-                        if (!References.hiddenBehindTheMask(classes[i],
-                                packageName)) {
-                            is_valid = false;
-                            break;
-                        }
-                    }
-                    if (intenter.length() == 0) {
-                        intenter = "substratum.theme.template.SubstratumLauncher";
-                    }
-
-                    if (is_valid) {
-                        if (!References.checkOMS()) {
+                    if (!References.checkOMS()) {
+                        notificationIntent = new Intent(mContext, MainActivity.class);
+                        intent = PendingIntent.getActivity(mContext, 0, notificationIntent,
+                                PendingIntent.FLAG_CANCEL_CURRENT);
+                    } else {
+                        Intent myIntent = LetsGetStarted.notifier(mContext, packageName,
+                                false, null, References.DEBUG);
+                        if (myIntent != null) {
+                            intent = PendingIntent.getActivity(mContext, 0, myIntent,
+                                    PendingIntent.FLAG_CANCEL_CURRENT);
+                        } else {
                             notificationIntent = new Intent(mContext, MainActivity.class);
                             intent = PendingIntent.getActivity(mContext, 0, notificationIntent,
                                     PendingIntent.FLAG_CANCEL_CURRENT);
-                        } else {
-                            myIntent.setComponent(ComponentName.unflattenFromString(
-                                    packageName + "/" + intenter));
-                            myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
-                                    Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                            myIntent.putExtra("refresh_mode", true);
-                            intent = PendingIntent.getActivity(mContext, 0, myIntent,
-                                    PendingIntent.FLAG_CANCEL_CURRENT);
                         }
-                    } else {
-                        intent = PendingIntent.getActivity(mContext, 0, myIntent,
-                                PendingIntent.FLAG_CANCEL_CURRENT);
                     }
 
                     // This is the time when the notification should be shown on the user's screen
@@ -153,43 +131,21 @@ public class SubstratumThemeUpdater {
                 Intent notificationIntent;
                 PendingIntent intent;
                 try {
-                    Intent myIntent = new Intent(Intent.ACTION_MAIN);
-                    Context otherAppContext = mContext.createPackageContext(
-                            packageName, Context.CONTEXT_IGNORE_SECURITY);
-                    boolean is_valid = true;
-
-                    // An easy way to check where the SubstratumLauncher class is located
-                    String intenter = "";
-                    String[] classes = References.getClassesOfPackage(otherAppContext);
-                    for (int i = 0; i < classes.length; i++) {
-                        if (classes[i].contains("SubstratumLauncher")) intenter = classes[i];
-                        if (!References.hiddenBehindTheMask(classes[i],
-                                packageName)) {
-                            is_valid = false;
-                            break;
-                        }
-                    }
-                    if (intenter.length() == 0) {
-                        intenter = "substratum.theme.template.SubstratumLauncher";
-                    }
-
-                    if (is_valid) {
-                        if (!References.checkOMS()) {
+                    if (!References.checkOMS()) {
+                        notificationIntent = new Intent(mContext, MainActivity.class);
+                        intent = PendingIntent.getActivity(mContext, 0, notificationIntent,
+                                PendingIntent.FLAG_CANCEL_CURRENT);
+                    } else {
+                        Intent myIntent = LetsGetStarted.notifier(mContext, packageName,
+                                false, null, References.DEBUG);
+                        if (myIntent != null) {
+                            intent = PendingIntent.getActivity(mContext, 0, myIntent,
+                                    PendingIntent.FLAG_CANCEL_CURRENT);
+                        } else {
                             notificationIntent = new Intent(mContext, MainActivity.class);
                             intent = PendingIntent.getActivity(mContext, 0, notificationIntent,
                                     PendingIntent.FLAG_CANCEL_CURRENT);
-                        } else {
-                            myIntent.setComponent(ComponentName.unflattenFromString(
-                                    packageName + "/" + intenter));
-                            myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
-                                    Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                            myIntent.putExtra("refresh_mode", true);
-                            intent = PendingIntent.getActivity(mContext, 0, myIntent,
-                                    PendingIntent.FLAG_CANCEL_CURRENT);
                         }
-                    } else {
-                        intent = PendingIntent.getActivity(mContext, 0, myIntent,
-                                PendingIntent.FLAG_CANCEL_CURRENT);
                     }
 
                     // This is the time when the notification should be shown on the user's screen

@@ -15,13 +15,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Enumeration;
 
-import dalvik.system.DexFile;
-import projekt.substrate.HideYourTrueIdentity;
-import projekt.substrate.PutOnYourMask;
 import projekt.substratum.R;
 
 /**
@@ -91,26 +86,6 @@ public class References {
     public static Boolean inNexusFilter() {
         String[] nexus_filter = {"angler", "bullhead", "flounder", "marlin", "sailfish"};
         return Arrays.asList(nexus_filter).contains(Build.DEVICE);
-    }
-
-    public static boolean hiddenBehindTheMask(String current, String packageName) {
-        return HideYourTrueIdentity.believingIsJustTheBeginning(current, packageName) ||
-                PutOnYourMask.areYouReadyForTheDanceOfYourLife(current, packageName);
-    }
-
-    public static String[] getClassesOfPackage(Context context) {
-        ArrayList<String> classes = new ArrayList<>();
-        try {
-            String packageCodePath = context.getPackageCodePath();
-            DexFile df = new DexFile(packageCodePath);
-            for (Enumeration<String> iter = df.entries(); iter.hasMoreElements(); ) {
-                String className = iter.nextElement();
-                classes.add(className);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return classes.toArray(new String[classes.size()]);
     }
 
     // This string array contains all the SystemUI acceptable overlay packs

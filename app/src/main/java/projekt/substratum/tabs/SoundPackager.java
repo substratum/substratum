@@ -199,7 +199,7 @@ public class SoundPackager extends Fragment {
     }
 
     @Override
-    public void onDestroy () {
+    public void onDestroy() {
         super.onDestroy();
         mp.release();
     }

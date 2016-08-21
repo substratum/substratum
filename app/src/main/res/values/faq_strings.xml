@@ -17,7 +17,7 @@
     <string name="answer_five">The application of a theme is a two part process: compilation of the overlays and application of the overlays. If you want to compile and apply in one step, use the Quick Apply tab and choose one or both of the options. If you want to compile then apply, go into the theme, click the Overlay Manager tab, select the overlays and options you want, hit the FAB and choose Compile/Update, then chose those same overlays, and hit the FAB and choose Enable Selected.</string>
 
     <string name="question_six">My overlays did not compile, what happened?</string>
-    <string name="answer_six">Delete your /system/bin/aapt file, relaunch the application, and try the above process again.</string>
+    <string name="answer_six">Delete your /system/bin/aopt file, relaunch the application, and try the above process again.</string>
 
     <string name="question_seven">My theme did not apply, what happened?</string>
     <string name="answer_seven">If you are applying a theme for the first time or from the stock theme, make sure you do not have the Disable other themes option checked.</string>

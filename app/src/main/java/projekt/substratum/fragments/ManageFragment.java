@@ -354,6 +354,9 @@ public class ManageFragment extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             mProgressDialog.dismiss();
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.remove("booatnimation_applied");
+            editor.apply();
             Toast toast = Toast.makeText(getContext(), getString(R
                             .string.manage_bootanimation_toast),
                     Toast.LENGTH_SHORT);
@@ -420,6 +423,9 @@ public class ManageFragment extends Fragment {
                 Root.runCommand("pkill -f com.android.systemui");
             }
 
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.remove("fonts_applied");
+            editor.apply();
             Toast toast = Toast.makeText(getContext(), getString(R
                             .string.manage_fonts_toast),
                     Toast.LENGTH_SHORT);
@@ -448,6 +454,9 @@ public class ManageFragment extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             mProgressDialog.dismiss();
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.remove("sounds_applied");
+            editor.apply();
             Toast toast = Toast.makeText(getContext(), getString(R
                             .string.manage_sounds_toast),
                     Toast.LENGTH_SHORT);

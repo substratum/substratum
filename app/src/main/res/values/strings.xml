@@ -7,6 +7,8 @@
 
     <string name="search_play_store_url" translatable="false">"https://play.google.com/store/search?q=Substratum%20Theme&amp;c=apps"</string>
     <string name="search_play_store_url_legacy" translatable="false">"https://play.google.com/store/search?q=Substratum%20Legacy%20Theme&amp;c=apps"</string>
+    <string name="substratum_github" translatable="false">"https://github.com/TeamSubstratum/substratum"</string>
+    <string name="masquerade_github" translatable="false">"https://github.com/TeamSubstratum/masquerade"</string>
 
     <string name="on_demand_updating_title">Resource Cache Initializer</string>
     <string name="on_demand_updating_text">%s\'s cache is now rebuilding&#8230;</string>

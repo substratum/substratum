@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.preference.CheckBoxPreference;
@@ -61,11 +62,33 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         aboutSubstratum.setSummary(BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE +
                 ")");
         aboutSubstratum.setIcon(getResources().getDrawable(R.mipmap.main_launcher));
+        aboutSubstratum.setOnPreferenceClickListener(
+                new Preference.OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        String sourceURL = getString(R.string.substratum_github);
+                        Intent i = new Intent(Intent.ACTION_VIEW);
+                        i.setData(Uri.parse(sourceURL));
+                        startActivity(i);
+                        return false;
+                    }
+                });
 
         if (References.checkOMS()) {
             Preference aboutMasquerade = getPreferenceManager().findPreference
                     ("about_masquerade");
             aboutMasquerade.setIcon(getResources().getDrawable(R.mipmap.restore_launcher));
+            aboutMasquerade.setOnPreferenceClickListener(
+                    new Preference.OnPreferenceClickListener() {
+                        @Override
+                        public boolean onPreferenceClick(Preference preference) {
+                            String sourceURL = getString(R.string.masquerade_github);
+                            Intent i = new Intent(Intent.ACTION_VIEW);
+                            i.setData(Uri.parse(sourceURL));
+                            startActivity(i);
+                            return false;
+                        }
+                    });
             try {
                 PackageInfo pinfo;
                 pinfo = getContext().getPackageManager().getPackageInfo("masquerade.substratum", 0);

@@ -5,6 +5,15 @@
                                                  android:layout_height="match_parent"
                                                  android:orientation="vertical">
 
+
+    <ProgressBar
+        android:id="@+id/header_loading_bar"
+        style="?android:progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-7dp"
+        android:indeterminate="true"/>
+
     <RelativeLayout
         android:id="@+id/no_overlays_enabled"
         android:layout_width="match_parent"
@@ -49,7 +58,8 @@
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp">
 
         <RelativeLayout
             android:layout_width="match_parent"

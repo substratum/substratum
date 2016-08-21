@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -57,6 +58,7 @@ public class AdvancedManagerFragment extends Fragment {
     private MaterialProgressBar progressBar;
     private RecyclerView mRecyclerView;
     private Boolean first_run = null;
+    private ProgressBar loadingBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
@@ -66,6 +68,9 @@ public class AdvancedManagerFragment extends Fragment {
         root = (ViewGroup) inflater.inflate(R.layout.advanced_manager_fragment, null);
         relativeLayout = (RelativeLayout) root.findViewById(R.id.no_overlays_enabled);
         mRecyclerView = (RecyclerView) root.findViewById(R.id.overlays_recycler_view);
+
+        loadingBar = (ProgressBar) root.findViewById(R.id.header_loading_bar);
+        loadingBar.setVisibility(View.GONE);
 
         View sheetView = root.findViewById(R.id.fab_sheet);
         View overlay = root.findViewById(R.id.overlay);
@@ -141,6 +146,7 @@ public class AdvancedManagerFragment extends Fragment {
             disable_selected.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     materialSheetFab.hideSheet();
+                    loadingBar.setVisibility(View.VISIBLE);
                     if (References.checkOMS()) {
                         String data = "om disable";
                         List<OverlayManager> overlayList = ((OverlayManagerAdapter) mAdapter)
@@ -245,6 +251,7 @@ public class AdvancedManagerFragment extends Fragment {
             enable_selected.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     materialSheetFab.hideSheet();
+                    loadingBar.setVisibility(View.VISIBLE);
                     String data = "om enable";
                     List<OverlayManager> overlayList = ((OverlayManagerAdapter) mAdapter)
                             .getOverlayManagerList();
@@ -281,6 +288,7 @@ public class AdvancedManagerFragment extends Fragment {
             uninstall_selected.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     materialSheetFab.hideSheet();
+                    loadingBar.setVisibility(View.VISIBLE);
                     String data = "";
                     List<OverlayManager> overlayList = ((OverlayManagerAdapter) mAdapter)
                             .getOverlayManagerList();

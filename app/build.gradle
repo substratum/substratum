@@ -51,14 +51,14 @@ dependencies {
     compile 'com.jakewharton:butterknife:7.0.1'
 
     // Image Downloading and Caching
-    compile project(':glide')
-    compile project(':picasso')
+    compile project(':libraries:glide')
+    compile project(':libraries:picasso')
 
     // Substrate Tools
-    compile project(':substrate')
+    compile project(':libraries:substrate')
 
     // Commons IO
-    compile project(':commons-io')
+    compile project(':libraries:commons-io')
 
     ///////////////////////////
     // Third Party Libraries //
@@ -70,28 +70,28 @@ dependencies {
     }
 
     // Animated ImageView
-    compile project(':scrollingimageview')
+    compile project(':libraries:scrollingimageview')
 
     // App Intro
-    compile project(':welcome')
+    compile project(':libraries:welcome')
 
     // Blur Effect
-    compile project(':blurview')
+    compile project(':libraries:blurview')
 
     // Circular Dialogs
-    compile project(':circularfillableloaders')
+    compile project(':libraries:circularfillableloaders')
 
     // EditTexts
-    compile project(':animatededittext')
+    compile project(':libraries:animatededittext')
 
     // Floating Action Buttons
-    compile project(':materialsheetfab')
+    compile project(':libraries:materialsheetfab')
 
     // Gesture RecyclerView
-    compile project(':gesturerecycler')
+    compile project(':libraries:gesturerecycler')
 
     // Ken Burns View Image Transitions
-    compile project(':kenburnsview')
+    compile project(':libraries:kenburnsview')
 
     // Material Drawer
     compile('com.mikepenz:materialdrawer:5.5.0@aar') {
@@ -99,7 +99,7 @@ dependencies {
     }
 
     // Material Progress Bars
-    compile project(':materialprogressbar')
+    compile project(':libraries:materialprogressbar')
 
     // ZipSigner
     compile files('src/main/libs/kellinwood-logging-android-1.4.jar')
@@ -109,7 +109,7 @@ dependencies {
     compile files('src/main/libs/zipsigner-lib-1.17.jar')
 
     // ZT Zip
-    compile project(':ztzip')
+    compile project(':libraries:ztzip')
 }
 
 apply plugin: 'com.google.gms.google-services'

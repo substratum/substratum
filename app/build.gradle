@@ -20,8 +20,8 @@ android {
         applicationId "projekt.substratum"
         minSdkVersion 23
         targetSdkVersion 24
-        versionCode 218
-        versionName "two hundred eighteen"
+        versionCode 219
+        versionName "two hundred nineteen"
         renderscriptTargetApi 23
         renderscriptSupportModeEnabled true
     }

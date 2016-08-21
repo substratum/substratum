@@ -257,6 +257,7 @@ public class OverlaysList extends Fragment {
                             }
                         } else {
                             if (toggle_all.isChecked()) toggle_all.setChecked(false);
+                            is_active = false;
                             Toast toast2 = Toast.makeText(getContext(), getString(R
                                             .string.toast_disabled5),
                                     Toast.LENGTH_SHORT);
@@ -306,6 +307,7 @@ public class OverlaysList extends Fragment {
                             }
                         } else {
                             if (toggle_all.isChecked()) toggle_all.setChecked(false);
+                            is_active = false;
                             Toast toast2 = Toast.makeText(getContext(), getString(R
                                             .string.toast_disabled5),
                                     Toast.LENGTH_SHORT);
@@ -357,6 +359,7 @@ public class OverlaysList extends Fragment {
                                 }
                             } else {
                                 if (toggle_all.isChecked()) toggle_all.setChecked(false);
+                                is_active = false;
                                 Toast toast2 = Toast.makeText(getContext(), getString(R
                                                 .string.toast_disabled5),
                                         Toast.LENGTH_SHORT);
@@ -429,6 +432,7 @@ public class OverlaysList extends Fragment {
                                 alertDialog.show();
                             } else {
                                 if (toggle_all.isChecked()) toggle_all.setChecked(false);
+                                is_active = false;
                                 Toast toast2 = Toast.makeText(getContext(), getString(R
                                                 .string.toast_disabled5),
                                         Toast.LENGTH_SHORT);
@@ -478,6 +482,7 @@ public class OverlaysList extends Fragment {
                         }
                     } else {
                         if (toggle_all.isChecked()) toggle_all.setChecked(false);
+                        is_active = false;
                         Toast toast2 = Toast.makeText(getContext(), getString(R
                                         .string.toast_disabled5),
                                 Toast.LENGTH_SHORT);

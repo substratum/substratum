@@ -109,7 +109,7 @@ dependencies {
     compile files('src/main/libs/zipsigner-lib-1.17.jar')
 
     // ZT Zip
-    compile group: 'org.zeroturnaround', name: 'zt-zip', version: '1.8'
+    compile project(':libraries:ztzip')
 }
 
 apply plugin: 'com.google.gms.google-services'

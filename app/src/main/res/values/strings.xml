@@ -26,6 +26,7 @@
     <string name="legacy_dialog_soft_reboot_title">Reboot required!</string>
     <string name="legacy_dialog_soft_reboot_text">Running on the Resource Runtime Overlay system, it is required to perform a reboot after adding or removing overlays.\n\nProceeding with this dialog would automatically reboot your device, so please be sure to have saved your work before continuing.</string>
 
+    <string name="activity_missing_toast">There were no applications found that could handle this request, sorry!</string>
     <string name="abort_overlay_toast">Now uninstalling all overlays&#8230;</string>
     <string name="abort_overlay_toast_success">All overlays uninstalled!</string>
     <string name="disable_overlay_toast">Now disabling all enabled overlays&#8230;</string>

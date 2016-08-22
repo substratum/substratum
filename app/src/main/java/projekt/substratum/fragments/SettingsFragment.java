@@ -1,5 +1,6 @@
 package projekt.substratum.fragments;
 
+import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -66,10 +67,14 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 new Preference.OnPreferenceClickListener() {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
-                        String sourceURL = getString(R.string.substratum_github);
-                        Intent i = new Intent(Intent.ACTION_VIEW);
-                        i.setData(Uri.parse(sourceURL));
-                        startActivity(i);
+                        try {
+                            String sourceURL = getString(R.string.substratum_github);
+                            Intent i = new Intent(Intent.ACTION_VIEW);
+                            i.setData(Uri.parse(sourceURL));
+                            startActivity(i);
+                        } catch (ActivityNotFoundException activityNotFoundException) {
+                            //
+                        }
                         return false;
                     }
                 });
@@ -82,10 +87,14 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     new Preference.OnPreferenceClickListener() {
                         @Override
                         public boolean onPreferenceClick(Preference preference) {
-                            String sourceURL = getString(R.string.masquerade_github);
-                            Intent i = new Intent(Intent.ACTION_VIEW);
-                            i.setData(Uri.parse(sourceURL));
-                            startActivity(i);
+                            try {
+                                String sourceURL = getString(R.string.masquerade_github);
+                                Intent i = new Intent(Intent.ACTION_VIEW);
+                                i.setData(Uri.parse(sourceURL));
+                                startActivity(i);
+                            } catch (ActivityNotFoundException activityNotFoundException) {
+                                //
+                            }
                             return false;
                         }
                     });

@@ -3,6 +3,7 @@ package projekt.substratum;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -26,6 +27,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.mikepenz.aboutlibraries.LibsBuilder;
@@ -522,15 +524,22 @@ public class MainActivity extends AppCompatActivity implements
                 onBackPressed();
                 return true;
             case R.id.search:
-                String playURL;
-                if (References.checkOMS()) {
-                    playURL = getString(R.string.search_play_store_url);
-                } else {
-                    playURL = getString(R.string.search_play_store_url_legacy);
+                try {
+                    String playURL;
+                    if (References.checkOMS()) {
+                        playURL = getString(R.string.search_play_store_url);
+                    } else {
+                        playURL = getString(R.string.search_play_store_url_legacy);
+                    }
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(playURL));
+                    startActivity(i);
+                } catch (ActivityNotFoundException activityNotFoundException) {
+                    Toast toast = Toast.makeText(getApplicationContext(), getString(R.string
+                                    .activity_missing_toast),
+                            Toast.LENGTH_SHORT);
+                    toast.show();
                 }
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(playURL));
-                startActivity(i);
                 return true;
 
             // Begin OMS based options

@@ -2,6 +2,7 @@ package projekt.substratum;
 
 import android.app.Activity;
 import android.app.admin.DevicePolicyManager;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -581,10 +582,17 @@ public class InformationActivity extends AppCompatActivity {
             return true;
         }
         if (id == R.id.rate) {
-            String playURL = "https://play.google.com/store/apps/details?id=" + theme_pid;
-            Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setData(Uri.parse(playURL));
-            startActivity(i);
+            try {
+                String playURL = "https://play.google.com/store/apps/details?id=" + theme_pid;
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(playURL));
+                startActivity(i);
+            } catch (ActivityNotFoundException activityNotFoundException) {
+                Toast toast = Toast.makeText(getApplicationContext(), getString(R.string
+                                .activity_missing_toast),
+                        Toast.LENGTH_SHORT);
+                toast.show();
+            }
             return true;
         }
         if (id == R.id.uninstall) {

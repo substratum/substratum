@@ -30,76 +30,23 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-
-    /////////////////////////////////////
-    // Crucial and Essential Libraries //
-    /////////////////////////////////////
-
-    // Google Support Libraries
-    compile 'com.android.support:appcompat-v7:24.2.0'
-    compile 'com.android.support:cardview-v7:24.2.0'
-    compile 'com.android.support:recyclerview-v7:24.2.0'
-    compile 'com.android.support:support-v13:24.2.0'
-    compile 'com.android.support:design:24.2.0'
-    compile 'com.android.support:palette-v7:24.2.0'
-    compile 'com.android.support:preference-v14:24.2.0'
-
-    // Google Firebase SDK
+    compile 'com.android.support:appcompat-v7:24.1.1'
+    compile 'com.android.support:cardview-v7:24.1.1'
+    compile 'com.android.support:recyclerview-v7:24.1.1'
+    compile 'com.android.support:support-v13:24.1.1'
+    compile 'com.android.support:design:24.1.1'
+    compile 'com.android.support:palette-v7:24.1.1'
+    compile 'com.android.support:preference-v14:24.1.1'
     compile 'com.google.firebase:firebase-messaging:9.4.0'
-
-    // Butter Knife (remain on 7.0.1 for standalone library)
     compile 'com.jakewharton:butterknife:7.0.1'
-
-    // Image Downloading and Caching
-    compile project(':glide')
-    compile project(':picasso')
-
-    // Substrate Tools
     compile project(':substrate')
 
+    // Image Downloading and Caching
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+
     // Commons IO
-    compile project(':commons-io')
-
-    ///////////////////////////
-    // Third Party Libraries //
-    ///////////////////////////
-
-    // About Libraries
-    compile('com.mikepenz:aboutlibraries:5.8.0@aar') {
-        transitive = true
-    }
-
-    // Animated ImageView
-    compile project(':scrollingimageview')
-
-    // App Intro
-    compile project(':welcome')
-
-    // Blur Effect
-    compile project(':blurview')
-
-    // Circular Dialogs
-    compile project(':circularfillableloaders')
-
-    // EditTexts
-    compile project(':animatededittext')
-
-    // Floating Action Buttons
-    compile project(':materialsheetfab')
-
-    // Gesture RecyclerView
-    compile project(':gesturerecycler')
-
-    // Ken Burns View Image Transitions
-    compile project(':kenburnsview')
-
-    // Material Drawer
-    compile('com.mikepenz:materialdrawer:5.5.0@aar') {
-        transitive = true
-    }
-
-    // Material Progress Bars
-    compile project(':materialprogressbar')
+    compile "commons-io:commons-io:2.5"
 
     // ZipSigner
     compile files('src/main/libs/kellinwood-logging-android-1.4.jar')
@@ -108,8 +55,42 @@ dependencies {
     compile files('src/main/libs/zipio-lib-1.8.jar')
     compile files('src/main/libs/zipsigner-lib-1.17.jar')
 
-    // ZT Zip
-    compile project(':ztzip')
-}
+    // Loading
+    compile 'me.zhanghai.android.materialprogressbar:library:1.1.6'
 
+    // App Intro
+    compile 'com.stephentuso:welcome:0.7.2'
+
+    // Floating Action Buttons
+    compile 'com.gordonwong:material-sheet-fab:1.2.1'
+
+    // Material Drawer
+    compile('com.mikepenz:materialdrawer:5.3.6@aar') {
+        transitive = true
+    }
+
+    // About Libraries
+    compile('com.mikepenz:aboutlibraries:5.7.1@aar') {
+        transitive = true
+    }
+
+    // EditTexts
+    compile 'com.alimuzaffar.lib:animated-edit-text:1.0'
+
+    // Gesture RecyclerView
+    compile 'com.thesurix.gesturerecycler:gesture-recycler:1.3.1'
+
+    // Animated ImageView
+    compile 'com.github.Q42:AndroidScrollingImageView:1.2'
+    compile 'com.flaviofaria:kenburnsview:1.0.7'
+
+    // ZT Zip
+    compile group: 'org.zeroturnaround', name: 'zt-zip', version: '1.8'
+
+    // Dialogs
+    compile 'com.mikhaellopez:circularfillableloaders:1.2.0'
+
+    // Blur Effect
+    compile 'com.eightbitlab:blurview:1.1.2'
+}
 apply plugin: 'com.google.gms.google-services'

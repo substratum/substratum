@@ -1,1 +1,1 @@
-include ':app', ':substrate', ':blurview', ':circularfillableloaders', ':kenburnsview', ':scrollingimageview', ':gesturerecycler', ':materialdrawer', ':materialsheetfab', ':animatededittext', ':welcome', ':materialprogressbar', ':picasso', ':glide', ':butterknife', ':commons-io', ':ztzip', ':firebase'
+include ':app', ':substrate'

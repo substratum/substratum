@@ -30,14 +30,17 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:24.1.1'
-    compile 'com.android.support:cardview-v7:24.1.1'
-    compile 'com.android.support:recyclerview-v7:24.1.1'
-    compile 'com.android.support:support-v13:24.1.1'
-    compile 'com.android.support:design:24.1.1'
-    compile 'com.android.support:palette-v7:24.1.1'
-    compile 'com.android.support:preference-v14:24.1.1'
+    compile 'com.android.support:appcompat-v7:24.2.0'
+    compile 'com.android.support:cardview-v7:24.2.0'
+    compile 'com.android.support:recyclerview-v7:24.2.0'
+    compile 'com.android.support:support-v13:24.2.0'
+    compile 'com.android.support:design:24.2.0'
+    compile 'com.android.support:palette-v7:24.2.0'
+    compile 'com.android.support:preference-v14:24.2.0'
     compile 'com.google.firebase:firebase-messaging:9.4.0'
+
+
+    // Butter Knife (remain on 7.0.1 for standalone library)
     compile 'com.jakewharton:butterknife:7.0.1'
     compile project(':substrate')
 
@@ -65,7 +68,7 @@ dependencies {
     compile 'com.gordonwong:material-sheet-fab:1.2.1'
 
     // Material Drawer
-    compile('com.mikepenz:materialdrawer:5.3.6@aar') {
+    compile('com.mikepenz:materialdrawer:5.5.0@aar') {
         transitive = true
     }
 

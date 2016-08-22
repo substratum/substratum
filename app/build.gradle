@@ -51,14 +51,14 @@ dependencies {
     compile 'com.jakewharton:butterknife:7.0.1'
 
     // Image Downloading and Caching
-    compile project(':libraries:glide')
-    compile project(':libraries:picasso')
+    compile project(':glide')
+    compile project(':picasso')
 
     // Substrate Tools
-    compile project(':libraries:substrate')
+    compile project(':substrate')
 
     // Commons IO
-    compile project(':libraries:commons-io')
+    compile project(':commons-io')
 
     ///////////////////////////
     // Third Party Libraries //
@@ -70,28 +70,28 @@ dependencies {
     }
 
     // Animated ImageView
-    compile project(':libraries:scrollingimageview')
+    compile project(':scrollingimageview')
 
     // App Intro
-    compile project(':libraries:welcome')
+    compile project(':welcome')
 
     // Blur Effect
-    compile project(':libraries:blurview')
+    compile project(':blurview')
 
     // Circular Dialogs
-    compile project(':libraries:circularfillableloaders')
+    compile project(':circularfillableloaders')
 
     // EditTexts
-    compile project(':libraries:animatededittext')
+    compile project(':animatededittext')
 
     // Floating Action Buttons
-    compile project(':libraries:materialsheetfab')
+    compile project(':materialsheetfab')
 
     // Gesture RecyclerView
-    compile project(':libraries:gesturerecycler')
+    compile project(':gesturerecycler')
 
     // Ken Burns View Image Transitions
-    compile project(':libraries:kenburnsview')
+    compile project(':kenburnsview')
 
     // Material Drawer
     compile('com.mikepenz:materialdrawer:5.5.0@aar') {
@@ -99,7 +99,7 @@ dependencies {
     }
 
     // Material Progress Bars
-    compile project(':libraries:materialprogressbar')
+    compile project(':materialprogressbar')
 
     // ZipSigner
     compile files('src/main/libs/kellinwood-logging-android-1.4.jar')
@@ -109,7 +109,7 @@ dependencies {
     compile files('src/main/libs/zipsigner-lib-1.17.jar')
 
     // ZT Zip
-    compile project(':libraries:ztzip')
+    compile project(':ztzip')
 }
 
 apply plugin: 'com.google.gms.google-services'

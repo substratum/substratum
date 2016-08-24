@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">substratum</string>
+    <string name="masquerade">masquerade</string>
     <string name="legacy_app_name">substratum legacy</string>
     <string name="helper_name">substratum overlay helper</string>
     <string name="drawer_name">projekt substratum</string>
@@ -260,7 +261,8 @@
     <string name="masquerade_check_title">Would thou honor this masquerade with a dance?</string>
     <string name="masquerade_check_subtext">Ensure the system\'s presence and integrity of the Masquerade theme system. If Masquerade does not report back positively, please perform a soft/hard reboot and try again!</string>
     <string name="masquerade_check_installed">Put on your mask, take my hand and lead the way!</string>
-    <string name="masquerade_check_not_installed">Masquerade is not installed.</string>
+    <string name="masquerade_check_not_installed">masquerade is not installed.</string>
+    <string name="masquerade_check_not_supported">masquerade is not supported on substratum legacy.</string>
     <string name="restart_systemui">Post-enable SystemUI recreate\n</string>
     <string name="restart_systemui_subtext">Automatically recreate the SystemUI after enabling/disabling a SystemUI overlay</string>
     <string name="restart_systemui_toast_enabled">SystemUI will recreate dynamically instead of restarting!</string>

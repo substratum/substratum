@@ -12,6 +12,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
@@ -1100,13 +1101,19 @@ public class OverlaysList extends Fragment {
             if (!enable_mode && !disable_mode) {
                 // Change title in preparation for loop to change subtext
                 if (checkActiveNotifications()) {
-                    mBuilder.setContentTitle(getString(R.string
-                            .notification_compiling_signing_installing))
-                            .setContentText(getString(R.string.notification_extracting_assets_text))
-                            .setProgress(100, 0, false);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        mBuilder.setContentTitle(getString(R.string
+                                .notification_processing_n))
+                                .setProgress(100, 0, false);
+                    } else {
+                        mBuilder.setContentTitle(getString(R.string
+                                .notification_compiling_signing_installing))
+                                .setContentText(getString(
+                                        R.string.notification_extracting_assets_text))
+                                .setProgress(100, 0, false);
+                    }
                     mNotifyManager.notify(id, mBuilder.build());
                 }
-
                 loader_string.setText(getContext().getResources().getString(
                         R.string.sb_phase_2_loader));
                 loader.setProgress(20);
@@ -1533,10 +1540,15 @@ public class OverlaysList extends Fragment {
                         if (checkActiveNotifications()) {
                             mBuilder.setProgress(100, (int) (((double) (i + 1) / checkedOverlays
                                     .size()) * 100), false);
-                            mBuilder.setContentText(getString(R.string.notification_processing) +
-                                    " " +
-                                    "\"" +
-                                    packageTitle + "\"");
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                mBuilder.setContentText("\"" + packageTitle + "\"");
+                            } else {
+                                mBuilder.setContentText(getString(R.string
+                                        .notification_processing) +
+                                        " " +
+                                        "\"" +
+                                        packageTitle + "\"");
+                            }
                             mNotifyManager.notify(id, mBuilder.build());
                         }
 

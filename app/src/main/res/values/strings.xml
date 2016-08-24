@@ -252,6 +252,7 @@
     <string name="notification_no_errors_found">No errors while installing any overlays</string>
     <string name="notification_some_errors_found">An error has occurred during overlay installation</string>
     <string name="notification_processing">Processing overlay for</string>
+    <string name="notification_processing_n">Creating and signing overlays&#8230;</string>
     <string name="notification_compiling_signing_installing">Creating and installing your overlays&#8230;</string>
 
     <string name="settings_title">About</string>

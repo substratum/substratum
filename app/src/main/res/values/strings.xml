@@ -255,6 +255,10 @@
     <string name="notification_processing_n">Creating and signing overlays&#8230;</string>
     <string name="notification_compiling_signing_installing">Creating and installing your overlays&#8230;</string>
 
+    <string name="one_bread">One slice of bread</string>
+    <string name="two_bread">Two slices of bread</string>
+    <string name="three_bread">Bread Sandwich!</string>
+
     <string name="settings_title">About</string>
     <string name="settings_title_1">App Options</string>
     <string name="settings_title_2">Manager Options</string>

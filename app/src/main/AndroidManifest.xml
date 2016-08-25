@@ -47,8 +47,8 @@
         <service
             android:name=".services.SandwichTile"
             android:enabled="true"
-            android:icon="@drawable/ic_one_bread"
-            android:label="@string/one_bread"
+            android:icon="@drawable/ic_three_breads"
+            android:label="@string/three_bread"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE"/>

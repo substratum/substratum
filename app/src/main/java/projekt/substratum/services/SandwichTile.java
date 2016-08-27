@@ -21,11 +21,20 @@ public class SandwichTile extends TileService {
     public void onTileAdded() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
                 getApplicationContext());
-        if (prefs.contains("sandwich_tile")) {
+        if (!prefs.contains("sandwich_tile")) {
             SharedPreferences.Editor editor = prefs.edit();
-            editor.putInt("sandwich_tile", 1).apply();
+            editor.putInt("sandwich_tile", 3).apply();
         }
         super.onTileAdded();
+    }
+
+    @Override
+    public void onTileRemoved() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
+                getApplicationContext());
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.remove("sandwich_tile").apply();
+        super.onTileRemoved();
     }
 
     @Override

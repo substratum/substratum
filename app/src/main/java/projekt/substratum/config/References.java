@@ -10,6 +10,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -18,6 +19,7 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 
 import projekt.substratum.R;
+import projekt.substratum.util.Root;
 
 /**
  * @author Nicholas Chum (nicholaschum)
@@ -64,6 +66,22 @@ public class References {
             e.printStackTrace();
         }
         return result;
+    }
+
+    // This method clears the app's cache
+    public static void clearAppCache(Context mContext) {
+        if (Root.requestRootAccess()) {
+            Root.runCommand("rm -rf " + mContext.getCacheDir().getAbsolutePath());
+            Toast toast = Toast.makeText(mContext, mContext.getString(R.string
+                            .char_success),
+                    Toast.LENGTH_SHORT);
+            toast.show();
+        } else {
+            Toast toast = Toast.makeText(mContext, mContext.getString(R.string
+                            .char_error),
+                    Toast.LENGTH_SHORT);
+            toast.show();
+        }
     }
 
     // Load SharedPreference defaults

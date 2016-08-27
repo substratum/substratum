@@ -258,6 +258,11 @@
     <string name="one_bread">One slice of bread</string>
     <string name="two_bread">Two slices of bread</string>
     <string name="three_bread">Bread Sandwich!</string>
+    <string name="cookie_non_bitten">Cookie?</string>
+    <string name="cookie_bitten">Char\'s Cookie!</string>
+    <string name="a_wild_char_has_appeared">It\'s Char! Run!</string>
+    <string name="char_success">Char stole all your cookies!</string>
+    <string name="char_error">Char couldn\'t steal your cookies!</string>
 
     <string name="settings_title">About</string>
     <string name="settings_title_1">App Options</string>

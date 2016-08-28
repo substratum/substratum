@@ -102,7 +102,7 @@ public class References {
 
     // This method configures the new devices and their configuration of their vendor folders
     public static Boolean inNexusFilter() {
-        String[] nexus_filter = {"angler", "bullhead", "flounder", "marlin", "sailfish"};
+        String[] nexus_filter = {"angler", "bullhead", "flounder", "dragon", "marlin", "sailfish"};
         return Arrays.asList(nexus_filter).contains(Build.DEVICE);
     }
 

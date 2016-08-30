@@ -194,8 +194,7 @@ public class SubstratumBuilder {
                                     ".com/apk/res/android\" package=\"" + overlay_package + "." +
                                     parse2_themeName + parse2_variantName + parse2_baseName +
                                     "\"\n" +
-                                    "        android:versionName=\"" + versionName + "\" " +
-                                    "android:hasCode=\"false\"> \n" +
+                                    "        android:versionName=\"" + versionName + "\"> \n" +
                                     "    <overlay " + ((!theme_oms) ? "android:priority=\"" +
                                     legacy_priority + "\" " : "") +
                                     "android:targetPackage=\"" + targetPackage + "\"/>\n" +
@@ -223,8 +222,7 @@ public class SubstratumBuilder {
                                         "." +
                                         parse2_themeName + parse2_variantName + parse2_baseName +
                                         "\"\n" +
-                                        "        android:versionName=\"" + versionName + "\" " +
-                                        "android:hasCode=\"false\"> \n" +
+                                        "        android:versionName=\"" + versionName + "\"> \n" +
                                         "    <overlay " + ((!theme_oms) ?
                                         "android:priority=\"" +
                                                 legacy_priority + "\" " : "") +
@@ -253,8 +251,7 @@ public class SubstratumBuilder {
                                         ".com/apk/res/android\" package=\"" + overlay_package + "" +
                                         "." +
                                         parse2_themeName + "\"\n" +
-                                        "        android:versionName=\"" + versionName + "\" " +
-                                        "android:hasCode=\"false\"> \n" +
+                                        "        android:versionName=\"" + versionName + "\"> \n" +
                                         "    <overlay " +
                                         ((!theme_oms) ?
                                                 "android:priority=\"" +

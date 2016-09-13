@@ -77,8 +77,6 @@ public class ManageFragment extends Fragment {
         if (!References.checkOMS()) {
             bootAnimCard.setVisibility(View.GONE);
             bootAnimTitle.setVisibility(View.GONE);
-            fontsCard.setVisibility(View.GONE);
-            fontsCardTitle.setVisibility(View.GONE);
         }
 
         // Overlays Dialog
@@ -419,17 +417,41 @@ public class ManageFragment extends Fragment {
                 Root.runCommand("setprop sys.refresh_theme 1");
             }
 
-            if (!prefs.getBoolean("systemui_recreate", false)) {
-                Root.runCommand("pkill -f com.android.systemui");
+            if (References.checkOMS()) {
+                Toast toast = Toast.makeText(getContext(), getString(R.string.manage_fonts_toast),
+                        Toast.LENGTH_SHORT);
+                toast.show();
+                if (!prefs.getBoolean("systemui_recreate", false)) {
+                    Root.runCommand("pkill -f com.android.systemui");
+                }
+            } else {
+                Toast toast = Toast.makeText(getContext(), getString(R.string.manage_fonts_toast),
+                        Toast.LENGTH_SHORT);
+                toast.show();
+                final AlertDialog.Builder alertDialogBuilder =
+                    new AlertDialog.Builder(getContext());
+                alertDialogBuilder.setTitle(getString(R.string.legacy_dialog_soft_reboot_title));
+                alertDialogBuilder.setMessage(getString(R.string.legacy_dialog_soft_reboot_text));
+                alertDialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface
+                        .OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Root.runCommand("reboot");
+                    }
+                });
+                alertDialogBuilder.setNegativeButton(R.string.remove_dialog_later,
+                        new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+                alertDialogBuilder.setCancelable(false);
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
             }
 
             SharedPreferences.Editor editor = prefs.edit();
             editor.remove("fonts_applied");
             editor.apply();
-            Toast toast = Toast.makeText(getContext(), getString(R
-                            .string.manage_fonts_toast),
-                    Toast.LENGTH_SHORT);
-            toast.show();
         }
 
         @Override

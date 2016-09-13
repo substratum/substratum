@@ -2,12 +2,14 @@ package projekt.substratum.util;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -24,6 +26,7 @@ import java.util.zip.ZipInputStream;
 
 import projekt.substratum.R;
 import projekt.substratum.config.References;
+import projekt.substratum.util.Root;
 
 /**
  * @author Nicholas Chum (nicholaschum)
@@ -90,18 +93,42 @@ public class FontHandler {
                 // Finally, refresh the window
 
                 String final_commands = "";
-                if (!prefs.getBoolean("systemui_recreate", false)) {
-                    final_commands = " && pkill -f com.android.systemui";
-                }
-
-                if (References.isPackageInstalled(mContext, "masquerade.substratum")) {
-                    Intent runCommand = new Intent();
-                    runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                    runCommand.setAction("masquerade.substratum.COMMANDS");
-                    runCommand.putExtra("om-commands", "om refresh" + final_commands);
-                    mContext.sendBroadcast(runCommand);
+                if (References.checkOMS()) {
+                    if (!prefs.getBoolean("systemui_recreate", false)) {
+                        final_commands = " && pkill -f com.android.systemui";
+                    }
+                    if (References.isPackageInstalled(mContext, "masquerade.substratum")) {
+                        Intent runCommand = new Intent();
+                        runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                        runCommand.setAction("masquerade.substratum.COMMANDS");
+                        runCommand.putExtra("om-commands", "om refresh" + final_commands);
+                        mContext.sendBroadcast(runCommand);
+                    } else {
+                        Root.runCommand("om refresh" + final_commands);
+                    }
                 } else {
-                    Root.runCommand("om refresh" + final_commands);
+                    final AlertDialog.Builder alertDialogBuilder =
+                        new AlertDialog.Builder(mContext);
+                    alertDialogBuilder.setTitle(mContext.getString(
+                            R.string.legacy_dialog_soft_reboot_title));
+                    alertDialogBuilder.setMessage(mContext.getString(
+                            R.string.legacy_dialog_soft_reboot_text));
+                    alertDialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface
+                                .OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            Root.runCommand("reboot");
+                        }
+                    });
+                    alertDialogBuilder.setNegativeButton(
+                            R.string.remove_dialog_later, new DialogInterface
+                                .OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.dismiss();
+                        }
+                    });
+                    alertDialogBuilder.setCancelable(false);
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
                 }
             }
         }

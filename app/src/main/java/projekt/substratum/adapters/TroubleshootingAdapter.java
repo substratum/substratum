@@ -12,7 +12,7 @@ import projekt.substratum.R;
 /**
  * Created by snowpuppet on 15/09/16.
  */
-public class TroubleShootAdapter extends BaseAdapter {
+public class TroubleshootingAdapter extends BaseAdapter {
 
     int[] tQues;
     int[] tAns;
@@ -22,7 +22,7 @@ public class TroubleShootAdapter extends BaseAdapter {
     TextView questionsTextView;
     TextView answersTextView;
 
-    public TroubleShootAdapter(int[] tQues, int[] tAns, Context context) {
+    public TroubleshootingAdapter(int[] tQues, int[] tAns, Context context) {
         this.tQues = tQues;
         this.tAns = tAns;
         this.context = context;
@@ -45,9 +45,10 @@ public class TroubleShootAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService
+                (Context.LAYOUT_INFLATER_SERVICE);
 
-        View v = inflater.inflate(R.layout.troubleshoot_row,viewGroup,false);
+        View v = inflater.inflate(R.layout.troubleshooting_row, viewGroup, false);
 
         questionsTextView = (TextView) v.findViewById(R.id.trouble_ques);
         answersTextView = (TextView) v.findViewById(R.id.trouble_ans);

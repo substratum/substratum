@@ -1,51 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <ListView
+        android:id="@+id/troubleshoot_list_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingEnd="15dp"
-        android:paddingStart="15dp">
+        android:layout_height="match_parent"/>
 
-        <include
-            layout="@layout/question_1_card"/>
-
-        <include
-            layout="@layout/question_2_card"/>
-
-        <include
-            layout="@layout/question_3_card"/>
-
-        <include
-            layout="@layout/question_4_card"/>
-
-        <include
-            layout="@layout/question_5_card"/>
-
-        <include
-            layout="@layout/question_6_card"/>
-
-        <include
-            layout="@layout/question_7_card"/>
-
-        <include
-            layout="@layout/question_8_card"/>
-
-        <include
-            layout="@layout/question_9_card"/>
-
-        <include
-            layout="@layout/question_10_card"/>
-
-        <include
-            layout="@layout/question_11_card"/>
-
-        <include
-            layout="@layout/question_12_card"/>
-
-    </LinearLayout>
-</ScrollView>
+</LinearLayout>

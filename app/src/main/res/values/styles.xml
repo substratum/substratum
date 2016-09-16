@@ -15,7 +15,7 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="MaterialTheme" parent="Theme.AppCompat" />
+    <style name="MaterialTheme" parent="Theme.AppCompat"/>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 

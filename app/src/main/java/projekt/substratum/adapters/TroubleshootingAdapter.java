@@ -10,8 +10,9 @@ import android.widget.TextView;
 import projekt.substratum.R;
 
 /**
- * Created by snowpuppet on 15/09/16.
+ * @author Ashish Shekar (snowpuppet)
  */
+
 public class TroubleshootingAdapter extends BaseAdapter {
 
     int[] tQues;

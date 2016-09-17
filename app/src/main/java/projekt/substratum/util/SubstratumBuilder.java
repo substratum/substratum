@@ -46,7 +46,7 @@ public class SubstratumBuilder {
     public String parse2_themeName;
     public String no_install = "";
     private Context mContext;
-    private Boolean enable_signing = true;
+    private static final Boolean enable_signing = true;
 
     private String getDeviceIMEI() {
         TelephonyManager telephonyManager =
@@ -380,7 +380,7 @@ public class SubstratumBuilder {
 
         // Sign the apk
 
-        if (!has_errored_out && enable_signing) {
+        if (!has_errored_out) {
             try {
                 // Delete the previous APK if it exists in the dashboard folder
                 Root.runCommand(
@@ -395,7 +395,11 @@ public class SubstratumBuilder {
                         "/.substratum/" + overlay_package + "." + parse2_themeName + "-signed.apk";
 
                 ZipSigner zipSigner = new ZipSigner();
-                zipSigner.setKeymode("testkey");
+                if (enable_signing) {
+                    zipSigner.setKeymode("testkey");
+                } else {
+                    zipSigner.setKeymode("none");
+                }
                 zipSigner.signZip(source, destination);
 
                 Log.d("SubstratumBuilder", "APK successfully signed!");

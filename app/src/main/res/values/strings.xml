@@ -119,7 +119,8 @@
     <string name="plugin_template">Plugin</string>
     <string name="api_23">Marshmallow</string>
     <string name="api_24">Nougat</string>
-    <string name="api_25">Oreo</string>
+    <string name="api_25">Pixel-N</string>
+    <string name="api_26">Oreo</string>
 
     <string name="priority_back_title">Back to overlays</string>
     <string name="priority_success_toast">Priorities have been changed and windows are refreshing&#8230;</string>

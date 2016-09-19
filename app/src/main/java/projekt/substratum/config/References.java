@@ -217,6 +217,8 @@ public class References {
                             return mContext.getString(R.string.api_24);
                         } else if (target == 25) {
                             return mContext.getString(R.string.api_25);
+                        } else if (target == 26) {
+                            return mContext.getString(R.string.api_26);
                         }
                     } else {
                         String minSdk = "";
@@ -227,6 +229,8 @@ public class References {
                             minSdk = mContext.getString(R.string.api_24);
                         } else if (min == 25) {
                             minSdk = mContext.getString(R.string.api_25);
+                        } else if (min == 26) {
+                            minSdk = mContext.getString(R.string.api_26);
                         }
                         String targetSdk = "";
                         int target = appInfo.targetSdkVersion;
@@ -236,6 +240,8 @@ public class References {
                             targetSdk = mContext.getString(R.string.api_24);
                         } else if (target == 25) {
                             targetSdk = mContext.getString(R.string.api_25);
+                        } else if (target == 26) {
+                            targetSdk = mContext.getString(R.string.api_26);
                         }
                         return minSdk + " - " + targetSdk;
                     }
@@ -250,6 +256,8 @@ public class References {
                             targetAPI = mContext.getString(R.string.api_24);
                         } else if (target == 25) {
                             targetAPI = mContext.getString(R.string.api_25);
+                        } else if (target == 26) {
+                            targetAPI = mContext.getString(R.string.api_26);
                         }
                         return mContext.getString(R.string.api_23) + " - " + targetAPI;
                     }

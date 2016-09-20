@@ -28,7 +28,9 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -154,11 +156,11 @@ public class HomeFragment extends Fragment {
                                     getThemeName(map.get(map.keySet().toArray()[position]
                                             .toString())[1]).replaceAll("\\s+", "")
                                             .replaceAll("[^a-zA-Z0-9]+", "") + "/substratum.xml");
+                            selected_theme_name = map.get(
+                                    map.keySet().toArray()[position].toString())[1];
                             if (checkSubstratumVerity.exists()) {
-                                launchTheme(position);
+                                launchTheme(getThemeName(selected_theme_name), position);
                             } else {
-                                selected_theme_name = map.get(
-                                        map.keySet().toArray()[position].toString())[1];
                                 new SubstratumThemeUpdate(selected_theme_name, position).execute();
                             }
                         } else {
@@ -322,16 +324,39 @@ public class HomeFragment extends Fragment {
         super.onResume();
     }
 
-    private void launchTheme(int position) {
+    private void launchTheme(String theme_name, int position) {
         try {
-            if (!LetsGetStarted.initialize(getContext(),
-                    map.get(map.keySet().toArray()[position].toString())[1],
-                    !References.checkOMS(), null, References.DEBUG)) {
-                Toast toast = Toast.makeText(getContext(),
-                        getString(R.string
-                                .information_activity_pirated_toast),
-                        Toast.LENGTH_LONG);
-                toast.show();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+            long currentDateAndTime = Long.parseLong(sdf.format(new Date()));
+
+            String parse1_themeName = theme_name.replaceAll("\\s+", "");
+            String parse2_themeName = parse1_themeName.replaceAll("[^a-zA-Z0-9]+", "");
+
+            SharedPreferences prefs = mContext.getSharedPreferences(
+                    "filter_state", Context.MODE_PRIVATE);
+            long saved_time = prefs.getLong(parse2_themeName + "_saved_time", 0);
+
+            if (currentDateAndTime > saved_time && String.valueOf(currentDateAndTime).length() ==
+                    String.valueOf(saved_time).length() && saved_time != 0 &&
+                    !References.isPackageInstalled(getContext(),
+                            References.lp_package_identifier)) {
+                LetsGetStarted.initialize(getContext(),
+                        map.get(map.keySet().toArray()[position].toString())[1],
+                        !References.checkOMS(), null, References.DEBUG, saved_time);
+            } else {
+                long checker = LetsGetStarted.initialize(getContext(),
+                        map.get(map.keySet().toArray()[position].toString())[1],
+                        !References.checkOMS(), null, References.DEBUG, saved_time);
+                if (checker > -1) {
+                    prefs.edit().putLong(
+                            parse2_themeName + "_saved_time", currentDateAndTime).apply();
+                } else {
+                    Toast toast = Toast.makeText(getContext(),
+                            getString(R.string
+                                    .information_activity_pirated_toast),
+                            Toast.LENGTH_LONG);
+                    toast.show();
+                }
             }
         } catch (Exception ex) {
             Toast toast = Toast.makeText(getContext(),
@@ -445,10 +470,14 @@ public class HomeFragment extends Fragment {
         private ProgressDialog progress;
         private int position;
         private String sUrl;
+        private String theme_name;
 
         public SubstratumThemeUpdate(String strValue, int intValue) {
             this.position = intValue;
             this.sUrl = strValue;
+            String parse1_themeName = strValue.replaceAll("\\s+", "");
+            String parse2_themeName = parse1_themeName.replaceAll("[^a-zA-Z0-9]+", "");
+            this.theme_name = parse2_themeName;
         }
 
         @Override
@@ -472,7 +501,7 @@ public class HomeFragment extends Fragment {
             Toast toast = Toast.makeText(getContext(), getString(R.string
                             .background_updated_toast),
                     Toast.LENGTH_SHORT);
-            launchTheme(position);
+            launchTheme(getThemeName(theme_name), position);
             toast.show();
         }
 

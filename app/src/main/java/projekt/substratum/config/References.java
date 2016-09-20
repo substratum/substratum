@@ -27,13 +27,14 @@ import projekt.substratum.util.Root;
 
 public class References {
 
+    // Lucky Patcher's Package Name
+    public static final String lp_package_identifier = "com.android.vending.billing" +
+            ".InAppBillingService.LOCK";
     // This int controls the notification identifier
     public static int firebase_notification_id = 24862486;
     public static int notification_id = 2486;
-
     // Universal switch for Application-wide Debugging
     public static Boolean DEBUG = true;
-
     // These strings control the current filter for themes
     public static String metadataName = "Substratum_Name";
     public static String metadataAuthor = "Substratum_Author";

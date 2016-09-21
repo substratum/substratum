@@ -157,10 +157,7 @@ public class CacheCreator {
                     Enumeration zipEntries = zipFile.entries();
                     while (zipEntries.hasMoreElements()) {
                         String fileName = ((ZipEntry) zipEntries.nextElement()).getName();
-                        // Filter to check whether each file is in assets/overlays, and only files.
-                        if (fileName.startsWith("assets/overlays/") && !fileName.endsWith("/")) {
-                            files += 1;
-                        }
+                        files += 1;
                     }
                 }
                 Log.d("SubstratumCacher", "Extracting \"" + package_identifier +
@@ -224,7 +221,7 @@ public class CacheCreator {
                                 }
                             }
                             file_count += 1;
-                            if (file_count % 1000 == 0) {
+                            if (file_count % 50 == 0) {
                                 mBuilder.setProgress(files, file_count, false);
                                 mNotifyManager.notify(id, mBuilder.build());
                             }

@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -519,6 +520,8 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        SharedPreferences prefs = context.getSharedPreferences(
+                "substratum_state", Context.MODE_PRIVATE);
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
@@ -544,6 +547,7 @@ public class MainActivity extends AppCompatActivity implements
 
             // Begin OMS based options
             case R.id.refresh_windows:
+                prefs.edit().clear().apply();
                 if (References.isPackageInstalled(getApplicationContext(),
                         "masquerade.substratum")) {
                     Intent runCommand = new Intent();
@@ -556,14 +560,17 @@ public class MainActivity extends AppCompatActivity implements
                 }
                 return true;
             case R.id.restart_systemui:
+                prefs.edit().clear().apply();
                 Root.runCommand("pkill -f com.android.systemui");
                 return true;
 
             // Begin RRO based options
             case R.id.reboot_device:
+                prefs.edit().clear().apply();
                 Root.runCommand("reboot");
                 return true;
             case R.id.soft_reboot:
+                prefs.edit().clear().apply();
                 Root.runCommand("pkill -f zygote");
                 return true;
 

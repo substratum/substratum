@@ -520,7 +520,7 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        SharedPreferences prefs = context.getSharedPreferences(
+        SharedPreferences prefs = getApplicationContext().getSharedPreferences(
                 "substratum_state", Context.MODE_PRIVATE);
         switch (item.getItemId()) {
             case android.R.id.home:

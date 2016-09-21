@@ -37,6 +37,7 @@
             </intent-filter>
         </receiver>
         <receiver android:name=".services.NotificationButtonReceiver"/>
+        <receiver android:name=".services.NotificationUpgradeReceiver"/>
         <receiver android:name=".services.ThemeCacher">
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_REPLACED"/>

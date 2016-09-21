@@ -1,9 +1,14 @@
 package projekt.substratum.util;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.service.notification.StatusBarNotification;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import java.io.BufferedInputStream;
@@ -15,10 +20,14 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Enumeration;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
 
+import projekt.substratum.R;
 import projekt.substratum.config.References;
+import projekt.substratum.services.NotificationUpgradeReceiver;
 
 /**
  * @author Nicholas Chum (nicholaschum)
@@ -29,17 +38,17 @@ public class CacheCreator {
     // Extract the files from the assets folder of the target theme
 
     private Context mContext;
+    private int id = References.notification_id_upgrade;
 
-    public void initializeCache(Context context, String package_identifier) {
+    public boolean initializeCache(Context context, String package_identifier) {
         mContext = context;
 
         try {
-            unzip(package_identifier);
-            Log.d("SubstratumCacher", "The theme's assets have been successfully expanded to the" +
-                    " work area!");
+            return unzip(package_identifier);
         } catch (IOException ioe) {
             // Exception
         }
+        return false;
     }
 
     private String getThemeName(String package_name) {
@@ -55,6 +64,7 @@ public class CacheCreator {
                 }
             }
         } catch (Exception e) {
+            e.printStackTrace();
             Log.e("SubstratumLogger", "Unable to find package identifier (INDEX OUT OF BOUNDS)");
         }
         return null;
@@ -89,7 +99,20 @@ public class CacheCreator {
         }
     }
 
-    private void unzip(String package_identifier) throws IOException {
+    public boolean wipeCache(Context context, String package_identifier) {
+        mContext = context;
+        String directory_name = getThemeName(package_identifier).replaceAll("\\s+", "")
+                .replaceAll("[^a-zA-Z0-9]+", "");
+        File myDir2 = new File(mContext.getCacheDir().getAbsoluteFile() +
+                "/SubstratumBuilder/" + directory_name);
+        if (myDir2.exists()) {
+            Root.runCommand("rm -r " + myDir2.getAbsolutePath());
+            return myDir2.mkdir();
+        }
+        return false;
+    }
+
+    private boolean unzip(String package_identifier) throws IOException {
         // First, extract the APK as a zip so we don't have to access the APK multiple times
 
         int folder_abbreviation = checkCurrentThemeSelectionLocation(package_identifier);
@@ -113,32 +136,119 @@ public class CacheCreator {
             String destination = mContext.getCacheDir().getAbsolutePath() + "/SubstratumBuilder/"
                     + directory_name;
 
+            // Initialize Notification
+
+            int notification_priority = 2; // PRIORITY_MAX == 2
+
+            // Create an Intent for the BroadcastReceiver
+            Intent buttonIntent = new Intent(mContext, NotificationUpgradeReceiver.class);
+
+            // Create the PendingIntent
+            PendingIntent btPendingIntent = PendingIntent.getBroadcast(
+                    mContext, 0, buttonIntent, 0);
+            PendingIntent resultPendingIntent = PendingIntent.getActivity(
+                    mContext, 0, new Intent(), 0);
+
+            // Now count the amount of files needed to be extracted
+            int files = 0;
+            try {
+                Context otherContext = mContext.createPackageContext(package_identifier, 0);
+                try (ZipFile zipFile = new ZipFile(otherContext.getPackageCodePath())) {
+                    Enumeration zipEntries = zipFile.entries();
+                    while (zipEntries.hasMoreElements()) {
+                        String fileName = ((ZipEntry) zipEntries.nextElement()).getName();
+                        // Filter to check whether each file is in assets/overlays, and only files.
+                        if (fileName.startsWith("assets/overlays/") && !fileName.endsWith("/")) {
+                            files += 1;
+                        }
+                    }
+                }
+                Log.d("SubstratumCacher", "Extracting \"" + package_identifier +
+                        "\" with " + files + " files...");
+            } catch (Exception e) {
+                Log.e("SubstratumCacher",
+                        "CacheCreator was not able to extract this theme's assets.");
+            }
+
+            NotificationManager mNotifyManager =
+                    (NotificationManager) mContext.getSystemService(
+                            Context.NOTIFICATION_SERVICE);
+            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(mContext);
+
+            // Buffer proper English and parse it (no 's after a name that ends with s)
+            String theme = getThemeName(package_identifier);
+            if (theme.substring(theme.length() - 1).equals("s")) {
+                theme = theme + "\'";
+            } else {
+                theme = theme + "\'s";
+            }
+            String theme_name = String.format(
+                    mContext.getString(R.string.notification_initial_title_upgrade), theme);
+
+            mBuilder.setContentTitle(theme_name)
+                    .setProgress(files, 0, true)
+                    .addAction(android.R.color.transparent, mContext.getString(R.string
+                            .notification_hide_upgrade), btPendingIntent)
+                    .setSmallIcon(android.R.drawable.ic_popup_sync)
+                    .setPriority(notification_priority)
+                    .setContentIntent(resultPendingIntent)
+                    .setOngoing(true);
+            mNotifyManager.notify(id, mBuilder.build());
 
             try (ZipInputStream inputStream = new ZipInputStream(
                     new BufferedInputStream(new FileInputStream(source)))) {
                 ZipEntry zipEntry;
                 int count;
                 byte[] buffer = new byte[8192];
+                int file_count = 0;
                 while ((zipEntry = inputStream.getNextEntry()) != null) {
-                    File file = new File(destination, zipEntry.getName());
-                    File dir = zipEntry.isDirectory() ? file : file.getParentFile();
-                    if (!dir.isDirectory() && !dir.mkdirs())
-                        throw new FileNotFoundException("Failed to ensure directory: " +
-                                dir.getAbsolutePath());
-                    if (zipEntry.isDirectory())
-                        continue;
-                    try (FileOutputStream outputStream = new FileOutputStream(file)) {
-                        while ((count = inputStream.read(buffer)) != -1)
-                            outputStream.write(buffer, 0, count);
+                    StatusBarNotification[] notifications = mNotifyManager.getActiveNotifications();
+                    for (StatusBarNotification notification : notifications) {
+                        if (notification.getId() == id) {
+                            File file = new File(destination, zipEntry.getName());
+                            File dir = zipEntry.isDirectory() ? file : file.getParentFile();
+                            if (!dir.isDirectory() && !dir.mkdirs())
+                                throw new FileNotFoundException("Failed to ensure directory: " +
+                                        dir.getAbsolutePath());
+                            if (zipEntry.isDirectory())
+                                continue;
+                            try (FileOutputStream outputStream = new FileOutputStream(file)) {
+                                while ((count = inputStream.read(buffer)) != -1) {
+                                    StatusBarNotification[] notifications_inner =
+                                            mNotifyManager.getActiveNotifications();
+                                    for (StatusBarNotification notif : notifications_inner) {
+                                        if (notif.getId() == id) {
+                                            outputStream.write(buffer, 0, count);
+                                        }
+                                    }
+                                }
+                            }
+                            file_count += 1;
+                            if (file_count % 1000 == 0) {
+                                mBuilder.setProgress(files, file_count, false);
+                                mNotifyManager.notify(id, mBuilder.build());
+                            }
+                        }
                     }
                 }
-                createVersioningPlaceholderFile(package_identifier, directory_name);
+                StatusBarNotification[] notifications = mNotifyManager.getActiveNotifications();
+                for (StatusBarNotification notification : notifications) {
+                    if (notification.getId() == id) {
+                        createVersioningPlaceholderFile(package_identifier, directory_name);
+                        mNotifyManager.cancel(id);
+                        Log.d("SubstratumCacher", "The theme's assets have been successfully " +
+                                "expanded to the work area!");
+                        return true;
+                    }
+                }
+                return false;
             }
         } else {
             Log.e("SubstratumLogger",
                     "There is no valid package name under this abbreviated folder " +
                             "count.");
         }
+        return false;
     }
 
     // Create a version.xml to take note of whether the cache needs to be rebuilt

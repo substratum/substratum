@@ -33,6 +33,7 @@ public class References {
     // This int controls the notification identifier
     public static int firebase_notification_id = 24862486;
     public static int notification_id = 2486;
+    public static int notification_id_upgrade = 0;
     // Universal switch for Application-wide Debugging
     public static Boolean DEBUG = true;
     // These strings control the current filter for themes

@@ -15,6 +15,8 @@
     <string name="on_demand_updating_text">%s\'s cache is now rebuilding&#8230;</string>
     <string name="background_updating_toast">A theme is upgrading in the background, please wait for this to finish!</string>
     <string name="background_updated_toast">Resource cache has been built!</string>
+    <string name="background_updated_toast_cancel">This theme needs to upgrade it\'s resource cache before it is functional!</string>
+    <string name="background_updated_toast_cleaning">Substratum is now clearing up this theme\'s resource cache&#8230;</string>
     <string name="failed_to_install_title_notification">Failed to install OMS theme</string>
     <string name="failed_to_install_text_notification">%s failed to install</string>
 
@@ -246,7 +248,9 @@
     <string name="notification_theme_updated_content">Resources successfully updated.</string>
 
     <string name="notification_hide">Dismiss</string>
+    <string name="notification_hide_upgrade">Cancel</string>
     <string name="notification_initial_title">Substratum is running</string>
+    <string name="notification_initial_title_upgrade">%s resources are now upgrading&#8230;</string>
     <string name="notification_done_title">Theme compilation has completed</string>
     <string name="notification_extracting_assets">Extracting assets from theme package&#8230;</string>
     <string name="notification_extracting_assets_text">Processing overlays&#8230;</string>

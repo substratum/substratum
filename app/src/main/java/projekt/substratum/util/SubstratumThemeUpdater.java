@@ -74,13 +74,15 @@ public class SubstratumThemeUpdater {
 
     private class SubstratumThemeUpdate extends AsyncTask<String, Integer, String> {
 
+        public Boolean success = false;
+
         @Override
         protected void onPostExecute(String result) {
 
             final int id = ThreadLocalRandom.current().nextInt(0, 1000);
             final int notification_priority = 2; // PRIORITY_MAX == 2
 
-            if (showNotification) {
+            if (showNotification && success) {
                 Intent notificationIntent;
                 PendingIntent intent;
                 try {
@@ -127,7 +129,7 @@ public class SubstratumThemeUpdater {
                             Toast.LENGTH_LONG);
                     toast.show();
                 }
-            } else {
+            } else if (success) {
                 Intent notificationIntent;
                 PendingIntent intent;
                 try {
@@ -174,13 +176,16 @@ public class SubstratumThemeUpdater {
                             Toast.LENGTH_LONG);
                     toast.show();
                 }
+            } else {
+                Log.d("SubstratumCacher",
+                        "Process was interrupted by the user, rolling back changes...");
             }
             prefs.edit().putBoolean("is_updating", false).apply();
         }
 
         @Override
         protected String doInBackground(String... sUrl) {
-            new CacheCreator().initializeCache(mContext, packageName);
+            success = new CacheCreator().initializeCache(mContext, packageName);
             return null;
         }
     }

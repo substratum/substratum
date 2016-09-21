@@ -404,15 +404,12 @@ public class SoundsFragment extends Fragment {
 
         private ProgressDialog progress;
         private int position;
-        private String sUrl;
         private String theme_name;
+        private Boolean launch;
 
         public SubstratumThemeUpdate(String strValue, int intValue) {
             this.position = intValue;
-            this.sUrl = strValue;
-            String parse1_themeName = strValue.replaceAll("\\s+", "");
-            String parse2_themeName = parse1_themeName.replaceAll("[^a-zA-Z0-9]+", "");
-            this.theme_name = parse2_themeName;
+            this.theme_name = strValue;
         }
 
         @Override
@@ -436,13 +433,23 @@ public class SoundsFragment extends Fragment {
             Toast toast = Toast.makeText(getContext(), getString(R.string
                             .background_updated_toast),
                     Toast.LENGTH_SHORT);
-            launchTheme(getThemeName(theme_name), position);
-            toast.show();
+            Toast toast2 = Toast.makeText(getContext(), getString(R.string
+                            .background_updated_toast_cancel),
+                    Toast.LENGTH_SHORT);
+            if (launch) {
+                toast.show();
+                // At this point, we can safely assume that the theme has successfully extracted
+                launchTheme(getThemeName(theme_name), position);
+            } else {
+                toast2.show();
+                // We don't want this cache anymore, delete it from the system completely
+                new CacheCreator().wipeCache(mContext, theme_name);
+            }
         }
 
         @Override
         protected String doInBackground(Void... Params) {
-            new CacheCreator().initializeCache(mContext, sUrl);
+            launch = new CacheCreator().initializeCache(mContext, theme_name);
             return null;
         }
     }

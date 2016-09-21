@@ -42,11 +42,11 @@ public class SubstratumBuilder {
 
     */
 
+    private static final Boolean enable_signing = true;
     public Boolean has_errored_out = false;
     public String parse2_themeName;
     public String no_install = "";
     private Context mContext;
-    private static final Boolean enable_signing = true;
 
     private String getDeviceIMEI() {
         TelephonyManager telephonyManager =

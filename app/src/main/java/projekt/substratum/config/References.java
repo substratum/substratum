@@ -225,7 +225,11 @@ public class References {
                     } else {
                         String minSdk = "";
                         int min = appInfo.minSdkVersion;
-                        if (min == 23) {
+                        if (min == 21) {
+                            minSdk = mContext.getString(R.string.api_21);
+                        } else if (min == 22) {
+                            minSdk = mContext.getString(R.string.api_22);
+                        } else if (min == 23) {
                             minSdk = mContext.getString(R.string.api_23);
                         } else if (min == 24) {
                             minSdk = mContext.getString(R.string.api_24);

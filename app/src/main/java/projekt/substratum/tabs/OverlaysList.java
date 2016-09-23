@@ -87,6 +87,7 @@ public class OverlaysList extends Fragment {
     private NotificationCompat.Builder mBuilder;
     private boolean has_initialized_cache = false;
     private boolean has_failed = false;
+    private int fail_count;
     private int id = References.notification_id;
     private ViewGroup root;
     private ArrayList<OverlaysInfo> values2;
@@ -1097,6 +1098,7 @@ public class OverlaysList extends Fragment {
             Log.d("Phase 3", "This phase has started it's asynchronous task.");
 
             has_failed = false;
+            fail_count = 0;
 
             if (!enable_mode && !disable_mode) {
                 // Change title in preparation for loop to change subtext
@@ -1211,76 +1213,78 @@ public class OverlaysList extends Fragment {
                     toast.show();
                 }
 
-                String disableBeforeEnabling = "";
-                if (mixAndMatchMode) {
-                    if (all_installed_overlays.size() - current_theme_overlays.size()
-                            != 0) {
-                        disableBeforeEnabling = "om disable";
-                        for (int i = 0; i < all_installed_overlays.size(); i++) {
-                            if (!current_theme_overlays.contains(
-                                    all_installed_overlays.get(i))) {
-                                disableBeforeEnabling = disableBeforeEnabling + " " +
-                                        all_installed_overlays.get(i);
+                if (!has_failed || final_runner.size() > fail_count) {
+                    String disableBeforeEnabling = "";
+                    if (mixAndMatchMode) {
+                        if (all_installed_overlays.size() - current_theme_overlays.size()
+                                != 0) {
+                            disableBeforeEnabling = "om disable";
+                            for (int i = 0; i < all_installed_overlays.size(); i++) {
+                                if (!current_theme_overlays.contains(
+                                        all_installed_overlays.get(i))) {
+                                    disableBeforeEnabling = disableBeforeEnabling + " " +
+                                            all_installed_overlays.get(i);
+                                }
                             }
                         }
-                    }
-                    progressBar.setVisibility(View.VISIBLE);
-                    if (toggle_all.isChecked()) toggle_all.setChecked(false);
-                    if (References.isPackageInstalled(getContext(),
-                            "masquerade.substratum")) {
-                        if (DEBUG)
-                            Log.e("SubstratumLogger", "Initializing the Masquerade theme " +
-                                    "provider...");
-                        Intent runCommand = new Intent();
-                        runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                        runCommand.setAction("masquerade.substratum.COMMANDS");
-                        runCommand.putExtra("om-commands",
-                                ((disableBeforeEnabling.length() > 0) ?
-                                        disableBeforeEnabling +
-                                                " && " + final_commands : final_commands));
-                        getContext().sendBroadcast(runCommand);
-                    } else {
-                        if (DEBUG)
-                            Log.e("SubstratumLogger", "Masquerade was not found, falling " +
-                                    "back to Substratum theme provider...");
-                        Root.runCommand(((disableBeforeEnabling.length() > 0) ?
-                                disableBeforeEnabling +
-                                        " && " + final_commands : final_commands));
-                    }
-                }
-
-                if (!prefs.getBoolean("systemui_recreate", false) && final_commands
-                        .contains("systemui")) {
-                    final_commands = final_commands + " && pkill -f com.android.systemui";
-                }
-                if (final_runner.size() == 0) {
-                    if (base_spinner.getSelectedItemPosition() == 0) {
-                        mAdapter.notifyDataSetChanged();
-                    } else {
-                        mAdapter.notifyDataSetChanged();
-                    }
-                } else {
-                    mAdapter.notifyDataSetChanged();
-                    progressBar.setVisibility(View.VISIBLE);
-                    if (toggle_all.isChecked()) toggle_all.setChecked(false);
-                    if (References.isPackageInstalled(getContext(), "masquerade.substratum")) {
-                        if (DEBUG)
-                            Log.e("SubstratumLogger", "Initializing the Masquerade theme " +
-                                    "provider...");
-                        if (final_commands.contains("pm install")) {
-                            final_commands = final_commands +
-                                    " && om refresh";
+                        progressBar.setVisibility(View.VISIBLE);
+                        if (toggle_all.isChecked()) toggle_all.setChecked(false);
+                        if (References.isPackageInstalled(getContext(),
+                                "masquerade.substratum")) {
+                            if (DEBUG)
+                                Log.e("SubstratumLogger", "Initializing the Masquerade theme " +
+                                        "provider...");
+                            Intent runCommand = new Intent();
+                            runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                            runCommand.setAction("masquerade.substratum.COMMANDS");
+                            runCommand.putExtra("om-commands",
+                                    ((disableBeforeEnabling.length() > 0) ?
+                                            disableBeforeEnabling +
+                                                    " && " + final_commands : final_commands));
+                            getContext().sendBroadcast(runCommand);
+                        } else {
+                            if (DEBUG)
+                                Log.e("SubstratumLogger", "Masquerade was not found, falling " +
+                                        "back to Substratum theme provider...");
+                            Root.runCommand(((disableBeforeEnabling.length() > 0) ?
+                                    disableBeforeEnabling +
+                                            " && " + final_commands : final_commands));
                         }
-                        Intent runCommand = new Intent();
-                        runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                        runCommand.setAction("masquerade.substratum.COMMANDS");
-                        runCommand.putExtra("om-commands", final_commands);
-                        getContext().sendBroadcast(runCommand);
+                    }
+
+                    if (!prefs.getBoolean("systemui_recreate", false) && final_commands
+                            .contains("systemui")) {
+                        final_commands = final_commands + " && pkill -f com.android.systemui";
+                    }
+                    if (final_runner.size() == 0) {
+                        if (base_spinner.getSelectedItemPosition() == 0) {
+                            mAdapter.notifyDataSetChanged();
+                        } else {
+                            mAdapter.notifyDataSetChanged();
+                        }
                     } else {
-                        if (DEBUG)
-                            Log.e("SubstratumLogger", "Masquerade was not found, falling back to " +
-                                    "Substratum theme provider...");
-                        Root.runCommand(final_commands);
+                        mAdapter.notifyDataSetChanged();
+                        progressBar.setVisibility(View.VISIBLE);
+                        if (toggle_all.isChecked()) toggle_all.setChecked(false);
+                        if (References.isPackageInstalled(getContext(), "masquerade.substratum")) {
+                            if (DEBUG)
+                                Log.e("SubstratumLogger", "Initializing the Masquerade theme " +
+                                        "provider...");
+                            if (final_commands.contains("pm install")) {
+                                final_commands = final_commands +
+                                        " && om refresh";
+                            }
+                            Intent runCommand = new Intent();
+                            runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                            runCommand.setAction("masquerade.substratum.COMMANDS");
+                            runCommand.putExtra("om-commands", final_commands);
+                            getContext().sendBroadcast(runCommand);
+                        } else {
+                            if (DEBUG)
+                                Log.e("SubstratumLogger", "Masquerade was not found, falling " +
+                                        "back to Substratum theme provider...");
+                            Root.runCommand(final_commands);
+                        }
                     }
                 }
             } else {
@@ -1742,6 +1746,7 @@ public class OverlaysList extends Fragment {
                                 final_runner.add(sb.no_install);
                             }
                             if (sb.has_errored_out) {
+                                fail_count += 1;
                                 has_failed = true;
                             }
                         } else {
@@ -1775,6 +1780,7 @@ public class OverlaysList extends Fragment {
                                 final_runner.add(sb.no_install);
                             }
                             if (sb.has_errored_out) {
+                                fail_count += 1;
                                 has_failed = true;
                             }
                         }

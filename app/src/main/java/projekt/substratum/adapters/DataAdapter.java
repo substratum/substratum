@@ -61,18 +61,23 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
             viewHolder.theme_version.setVisibility(View.INVISIBLE);
         }
         if (information.get(i).getThemeReadyVariable() == null) {
+            viewHolder.divider.setVisibility(View.GONE);
             viewHolder.tbo.setVisibility(View.GONE);
             viewHolder.two.setVisibility(View.GONE);
         } else if (information.get(i).getThemeReadyVariable().equals("all")) {
+            viewHolder.divider.setVisibility(View.VISIBLE);
             viewHolder.tbo.setVisibility(View.VISIBLE);
             viewHolder.two.setVisibility(View.VISIBLE);
         } else if (information.get(i).getThemeReadyVariable().equals("ready")) {
+            viewHolder.divider.setVisibility(View.VISIBLE);
             viewHolder.tbo.setVisibility(View.VISIBLE);
             viewHolder.two.setVisibility(View.GONE);
         } else if (information.get(i).getThemeReadyVariable().equals("stock")) {
+            viewHolder.divider.setVisibility(View.VISIBLE);
             viewHolder.tbo.setVisibility(View.GONE);
             viewHolder.two.setVisibility(View.VISIBLE);
         } else {
+            viewHolder.divider.setVisibility(View.GONE);
             viewHolder.tbo.setVisibility(View.GONE);
             viewHolder.two.setVisibility(View.GONE);
         }
@@ -191,6 +196,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
         TextView theme_version;
         TextView plugin_version;
         ImageView imageView;
+        View divider;
         ImageView tbo;
         ImageView two;
 
@@ -203,6 +209,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
             theme_version = (TextView) view.findViewById(R.id.theme_version);
             plugin_version = (TextView) view.findViewById(R.id.plugin_version);
             imageView = (ImageView) view.findViewById(R.id.theme_preview_image);
+            divider = view.findViewById(R.id.theme_ready_divider);
             tbo = (ImageView) view.findViewById(R.id.theme_ready_indicator);
             two = (ImageView) view.findViewById(R.id.theme_unready_indicator);
         }

@@ -51,6 +51,7 @@
     <color name="theme_information_card_background">#fffafafa</color>
     <color name="theme_information_card_title">@color/colorAccent</color>
     <color name="theme_information_card_text">@android:color/black</color>
+    <color name="theme_information_card_divider">#33777777</color>
     <color name="theme_information_card_subtext">@android:color/darker_gray</color>
 
     <color name="settings_title_color">@color/colorAccent</color>

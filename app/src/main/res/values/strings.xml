@@ -8,6 +8,7 @@
 
     <string name="search_play_store_url" translatable="false">"https://play.google.com/store/search?q=Substratum%20Theme&amp;c=apps"</string>
     <string name="search_play_store_url_legacy" translatable="false">"https://play.google.com/store/search?q=Substratum%20Legacy%20Theme&amp;c=apps"</string>
+    <string name="tbo_theme_ready_url" translatable="false">"http://forum.xda-developers.com/android/apps-games/apps-themeable-hangouts-layers-cmte-t3113192"</string>
     <string name="substratum_github" translatable="false">"https://github.com/TeamSubstratum/substratum"</string>
     <string name="masquerade_github" translatable="false">"https://github.com/TeamSubstratum/masquerade"</string>
 
@@ -25,6 +26,10 @@
     <string name="systemui_navigation">System UI Navigation</string>
     <string name="systemui_qs_tiles">System UI QS Tile Icons</string>
     <string name="systemui_statusbar">System UI Status Bar Icons</string>
+
+    <string name="tbo_description">This theme supports Team Black Out\'s Theme Ready Google Apps, if you do not have them, you can click Download to be redirected to their XDA thread, or Cancel if you already have them!</string>
+    <string name="two_description">This theme supports Google\'s stock apps, the way they were made! If you have Team Black Out\'s Google Apps installed, but would like to use this theme, please remove them to regain support from the themer!</string>
+    <string name="tbo_dialog_proceed">Download</string>
 
     <string name="legacy_dialog_soft_reboot_title">Reboot required!</string>
     <string name="legacy_dialog_soft_reboot_text">Running on the Resource Runtime Overlay system, it is required to perform a reboot after adding or removing overlays.\n\nProceeding with this dialog would automatically reboot your device, so please be sure to have saved your work before continuing.</string>
@@ -236,7 +241,7 @@
     <string name="toast_disabled5">Please select a valid overlay before performing this action.</string>
     <string name="toast_disabled6">Selected overlay(s) removed!</string>
     <string name="toast_installed">Selected overlay(s) applied!</string>
-    <string name="toast_uninstalled">You just uninstalled this theme!</string>
+    <string name="toast_uninstalled">You just uninstalled this theme! I\'ll be gone on your next refresh!</string>
     <string name="toast_uninstalling">Now uninstalling selected overlays, please wait&#8230;</string>
     <string name="toast_updating">Compiling/updating in the notification panel, you can use other apps by clicking Home/Recents!</string>
     <string name="no_themes_title">no themes installed&#8230;</string>

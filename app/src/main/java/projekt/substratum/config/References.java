@@ -1,5 +1,6 @@
 package projekt.substratum.config;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
@@ -7,6 +8,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -16,9 +18,13 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 
+import projekt.substrate.LetsGetStarted;
 import projekt.substratum.R;
+import projekt.substratum.util.CacheCreator;
 import projekt.substratum.util.Root;
 
 /**
@@ -41,6 +47,7 @@ public class References {
     public static String metadataAuthor = "Substratum_Author";
     public static String metadataLegacy = "Substratum_Legacy";
     public static String metadataVersion = "Substratum_Plugin";
+    public static String metadataThemeReady = "Substratum_ThemeReady";
 
     // This int controls the default priority level for legacy overlays
     public static int DEFAULT_PRIORITY = 50;
@@ -275,6 +282,21 @@ public class References {
         return null;
     }
 
+    public static String grabThemeReadyVisibility(Context mContext, String package_name) {
+        try {
+            ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
+                    package_name, PackageManager.GET_META_DATA);
+            if (appInfo.metaData != null) {
+                if (appInfo.metaData.getString(References.metadataThemeReady) != null) {
+                    return appInfo.metaData.getString(References.metadataThemeReady);
+                }
+            }
+        } catch (Exception e) {
+            //
+        }
+        return null;
+    }
+
     public static String grabPackageTemplateVersion(Context mContext, String package_name) {
         try {
             ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
@@ -305,5 +327,127 @@ public class References {
             e.printStackTrace();
         }
         return hero;
+    }
+
+    // Launch intent for a theme
+
+    public static boolean launchTheme(Context mContext, String theme_name, String package_name,
+                                      String theme_mode) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+            long currentDateAndTime = Long.parseLong(sdf.format(new Date()));
+
+            String parse1_themeName = theme_name.replaceAll("\\s+", "");
+            String parse2_themeName = parse1_themeName.replaceAll("[^a-zA-Z0-9]+", "");
+
+            SharedPreferences prefs = mContext.getSharedPreferences(
+                    "filter_state", Context.MODE_PRIVATE);
+            long saved_time = prefs.getLong(parse2_themeName + "_saved_time", 0);
+
+            if (currentDateAndTime > saved_time && String.valueOf(currentDateAndTime).length() ==
+                    String.valueOf(saved_time).length() && saved_time != 0 &&
+                    !References.isPackageInstalled(mContext, References.lp_package_identifier)) {
+                LetsGetStarted.initialize(mContext, package_name,
+                        !References.checkOMS(), theme_mode, References.DEBUG, saved_time);
+                return true;
+            } else {
+                long checker = LetsGetStarted.initialize(mContext,
+                        package_name,
+                        !References.checkOMS(), theme_mode, References.DEBUG, saved_time);
+                if (checker > -1) {
+                    prefs.edit().putLong(
+                            parse2_themeName + "_saved_time", currentDateAndTime).apply();
+                    return true;
+                } else {
+                    Toast toast = Toast.makeText(mContext,
+                            mContext.getString(R.string
+                                    .information_activity_pirated_toast),
+                            Toast.LENGTH_LONG);
+                    toast.show();
+                }
+            }
+        } catch (Exception ex) {
+            Toast toast = Toast.makeText(mContext,
+                    mContext.getString(R.string
+                            .information_activity_upgrade_toast),
+                    Toast.LENGTH_LONG);
+            toast.show();
+        }
+        return false;
+    }
+
+    private static String getThemeName(Context mContext, String package_name) {
+        // Simulate the Layers Plugin feature by filtering all installed apps and their metadata
+        try {
+            ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
+                    package_name, PackageManager.GET_META_DATA);
+            if (appInfo.metaData != null) {
+                if (appInfo.metaData.getString(References.metadataName) != null) {
+                    if (appInfo.metaData.getString(References.metadataAuthor) != null) {
+                        return appInfo.metaData.getString(References.metadataName);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            Log.e("SubstratumLogger", "Unable to find package identifier (INDEX OUT OF BOUNDS)");
+        }
+        return null;
+    }
+
+    public static class SubstratumThemeUpdate extends AsyncTask<Void, Integer, String> {
+
+        private ProgressDialog progress;
+        private String theme_name, theme_package, theme_mode;
+        private Boolean launch;
+        private Context mContext;
+
+        public SubstratumThemeUpdate(Context mContext, String theme_package, String theme_name,
+                                     String theme_mode) {
+            this.mContext = mContext;
+            this.theme_package = theme_package;
+            this.theme_name = theme_name;
+            this.theme_mode = theme_mode;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            progress = new ProgressDialog(mContext, android.R.style
+                    .Theme_DeviceDefault_Dialog_Alert);
+
+            String parse = String.format(mContext.getString(R.string.on_demand_updating_text),
+                    theme_name);
+
+            progress.setTitle(mContext.getString(R.string.on_demand_updating_title));
+            progress.setMessage(parse);
+            progress.setIndeterminate(false);
+            progress.setCancelable(false);
+            progress.show();
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            progress.dismiss();
+            Toast toast = Toast.makeText(mContext, mContext.getString(R.string
+                            .background_updated_toast),
+                    Toast.LENGTH_SHORT);
+            Toast toast2 = Toast.makeText(mContext, mContext.getString(R.string
+                            .background_updated_toast_cancel),
+                    Toast.LENGTH_SHORT);
+            if (launch) {
+                toast.show();
+                // At this point, we can safely assume that the theme has successfully extracted
+                launchTheme(mContext, theme_name, theme_package, theme_mode);
+            } else {
+                toast2.show();
+                // We don't want this cache anymore, delete it from the system completely
+                new CacheCreator().wipeCache(mContext, theme_package);
+            }
+        }
+
+        @Override
+        protected String doInBackground(Void... Params) {
+            launch = new CacheCreator().initializeCache(mContext, theme_package);
+            return null;
+        }
     }
 }

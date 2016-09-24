@@ -526,6 +526,16 @@ public class MainActivity extends AppCompatActivity implements
             case android.R.id.home:
                 onBackPressed();
                 return true;
+            case R.id.refresh:
+                Fragment f = getSupportFragmentManager().findFragmentById(R.id.main);
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                if (f instanceof Fragment)
+                    ft.detach(f).attach(f).commit();
+                Toast toast = Toast.makeText(getApplicationContext(),
+                        getApplicationContext().getString(R.string.refresh_fragment),
+                        Toast.LENGTH_SHORT);
+                toast.show();
+                return true;
             case R.id.search:
                 try {
                     String playURL;
@@ -538,10 +548,10 @@ public class MainActivity extends AppCompatActivity implements
                     i.setData(Uri.parse(playURL));
                     startActivity(i);
                 } catch (ActivityNotFoundException activityNotFoundException) {
-                    Toast toast = Toast.makeText(getApplicationContext(), getString(R.string
+                    Toast toaster = Toast.makeText(getApplicationContext(), getString(R.string
                                     .activity_missing_toast),
                             Toast.LENGTH_SHORT);
-                    toast.show();
+                    toaster.show();
                 }
                 return true;
 

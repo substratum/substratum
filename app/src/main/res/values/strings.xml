@@ -134,10 +134,13 @@
     <string name="priority_back_title">Back to overlays</string>
     <string name="priority_success_toast">Priorities have been changed and windows are refreshing&#8230;</string>
 
+    <string name="refresh_fragment">Content reloaded successfully!</string>
+
     <string name="menu_clean">Clean overlays</string>
     <string name="menu_disable">Disable installed overlays</string>
     <string name="menu_enable">Enable installed overlays</string>
     <string name="menu_rate">Rate theme</string>
+    <string name="menu_refresh">Refresh</string>
     <string name="menu_refresh_windows">Refresh Windows</string>
     <string name="menu_soft_reboot">Soft Reboot</string>
     <string name="menu_reboot_device">Reboot Device</string>

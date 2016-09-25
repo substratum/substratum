@@ -239,6 +239,39 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     });
         }
 
+        final CheckBoxPreference alternate_drawer_design = (CheckBoxPreference)
+                getPreferenceManager().findPreference("alternate_drawer_design");
+        if (prefs.getBoolean("alternate_drawer_design", true)) {
+            alternate_drawer_design.setChecked(true);
+        } else {
+            alternate_drawer_design.setChecked(false);
+        }
+        alternate_drawer_design.setOnPreferenceChangeListener(
+                new Preference.OnPreferenceChangeListener() {
+                    @Override
+                    public boolean onPreferenceChange(Preference preference, Object newValue) {
+                        boolean isChecked = (Boolean) newValue;
+                        if (isChecked) {
+                            prefs.edit().putBoolean("alternate_drawer_design", true).apply();
+                            alternate_drawer_design.setChecked(true);
+                            Toast toast = Toast.makeText(getContext(), getString(R.string
+                                            .substratum_restart_toast),
+                                    Toast.LENGTH_SHORT);
+                            toast.show();
+                            getActivity().recreate();
+                        } else {
+                            prefs.edit().putBoolean("alternate_drawer_design", false).apply();
+                            alternate_drawer_design.setChecked(false);
+                            Toast toast = Toast.makeText(getContext(), getString(R.string
+                                            .substratum_restart_toast),
+                                    Toast.LENGTH_SHORT);
+                            toast.show();
+                            getActivity().recreate();
+                        }
+                        return false;
+                    }
+                });
+
         final CheckBoxPreference vibrate_on_compiled = (CheckBoxPreference)
                 getPreferenceManager().findPreference("vibrate_on_compiled");
         if (prefs.getBoolean("vibrate_on_compiled", true)) {

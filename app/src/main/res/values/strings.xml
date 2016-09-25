@@ -283,6 +283,7 @@
     <string name="settings_title_1">App Options</string>
     <string name="settings_title_2">Manager Options</string>
     <string name="settings_title_3">Theming</string>
+    <string name="substratum_restart_toast">Substratum restarted automatically after a settings change.</string>
     <string name="masquerade_check_title">Would thou honor this masquerade with a dance?</string>
     <string name="masquerade_check_subtext">Ensure the system\'s presence and integrity of the Masquerade theme system. If Masquerade does not report back positively, please perform a soft/hard reboot and try again!</string>
     <string name="masquerade_check_installed">Put on your mask, take my hand and lead the way!</string>
@@ -315,6 +316,8 @@
     <string name="dynamic_navbar_colors_subtext">In the theme information window, Substratum will adapt the navigation bar to the hero image\'s dominating color.</string>
     <string name="manager_title">Show disabled overlays in the list</string>
     <string name="manager_subtext">In the Advanced Manager window, show all disabled overlays with their enabled counterparts.</string>
+    <string name="alternate_drawer_design_title">Secondary Drawer Design</string>
+    <string name="alternate_drawer_design_subtext">Uses an alternate navigation drawer design when navigating through the user interface.</string>
 
     <string name="fab_menu_compile">Compile Selected</string>
     <string name="fab_menu_compile_enable">Build &amp; Enable</string>

@@ -241,7 +241,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         final CheckBoxPreference alternate_drawer_design = (CheckBoxPreference)
                 getPreferenceManager().findPreference("alternate_drawer_design");
-        if (prefs.getBoolean("alternate_drawer_design", true)) {
+        if (prefs.getBoolean("alternate_drawer_design", false)) {
             alternate_drawer_design.setChecked(true);
         } else {
             alternate_drawer_design.setChecked(false);

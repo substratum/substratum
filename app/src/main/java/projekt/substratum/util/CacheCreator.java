@@ -39,6 +39,7 @@ public class CacheCreator {
 
     private Context mContext;
     private int id = References.notification_id_upgrade;
+    private NotificationManager mNotifyManager;
 
     public boolean initializeCache(Context context, String package_identifier) {
         mContext = context;
@@ -167,7 +168,7 @@ public class CacheCreator {
                         "CacheCreator was not able to extract this theme's assets.");
             }
 
-            NotificationManager mNotifyManager =
+            mNotifyManager =
                     (NotificationManager) mContext.getSystemService(
                             Context.NOTIFICATION_SERVICE);
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(mContext);
@@ -196,47 +197,34 @@ public class CacheCreator {
                     new BufferedInputStream(new FileInputStream(source)))) {
                 ZipEntry zipEntry;
                 int count;
-                byte[] buffer = new byte[8192];
+                byte[] buffer = new byte[65536];
                 int file_count = 0;
-                while ((zipEntry = inputStream.getNextEntry()) != null) {
-                    StatusBarNotification[] notifications = mNotifyManager.getActiveNotifications();
-                    for (StatusBarNotification notification : notifications) {
-                        if (notification.getId() == id) {
-                            File file = new File(destination, zipEntry.getName());
-                            File dir = zipEntry.isDirectory() ? file : file.getParentFile();
-                            if (!dir.isDirectory() && !dir.mkdirs())
-                                throw new FileNotFoundException("Failed to ensure directory: " +
-                                        dir.getAbsolutePath());
-                            if (zipEntry.isDirectory())
-                                continue;
-                            try (FileOutputStream outputStream = new FileOutputStream(file)) {
-                                while ((count = inputStream.read(buffer)) != -1) {
-                                    StatusBarNotification[] notifications_inner =
-                                            mNotifyManager.getActiveNotifications();
-                                    for (StatusBarNotification notif : notifications_inner) {
-                                        if (notif.getId() == id) {
-                                            outputStream.write(buffer, 0, count);
-                                        }
-                                    }
-                                }
-                            }
-                            file_count += 1;
-                            if (file_count % 50 == 0) {
-                                mBuilder.setProgress(files, file_count, false);
-                                mNotifyManager.notify(id, mBuilder.build());
-                            }
+                while ((zipEntry = inputStream.getNextEntry()) != null &&
+                        checkNotificationVisibility()) {
+                    File file = new File(destination, zipEntry.getName());
+                    File dir = zipEntry.isDirectory() ? file : file.getParentFile();
+                    if (!dir.isDirectory() && !dir.mkdirs())
+                        throw new FileNotFoundException("Failed to ensure directory: " +
+                                dir.getAbsolutePath());
+                    if (zipEntry.isDirectory())
+                        continue;
+                    try (FileOutputStream outputStream = new FileOutputStream(file)) {
+                        while ((count = inputStream.read(buffer)) != -1) {
+                            outputStream.write(buffer, 0, count);
                         }
                     }
-                }
-                StatusBarNotification[] notifications = mNotifyManager.getActiveNotifications();
-                for (StatusBarNotification notification : notifications) {
-                    if (notification.getId() == id) {
-                        createVersioningPlaceholderFile(package_identifier, directory_name);
-                        mNotifyManager.cancel(id);
-                        Log.d("SubstratumCacher", "The theme's assets have been successfully " +
-                                "expanded to the work area!");
-                        return true;
+                    file_count += 1;
+                    if (file_count % 50 == 0) {
+                        mBuilder.setProgress(files, file_count, false);
+                        mNotifyManager.notify(id, mBuilder.build());
                     }
+                }
+                if (checkNotificationVisibility()) {
+                    createVersioningPlaceholderFile(package_identifier, directory_name);
+                    mNotifyManager.cancel(id);
+                    Log.d("SubstratumCacher", "The theme's assets have been successfully " +
+                            "expanded to the work area!");
+                    return true;
                 }
                 return false;
             }
@@ -244,6 +232,16 @@ public class CacheCreator {
             Log.e("SubstratumLogger",
                     "There is no valid package name under this abbreviated folder " +
                             "count.");
+        }
+        return false;
+    }
+
+    private boolean checkNotificationVisibility() {
+        StatusBarNotification[] notifications = mNotifyManager.getActiveNotifications();
+        for (StatusBarNotification notification : notifications) {
+            if (notification.getId() == id) {
+                return true;
+            }
         }
         return false;
     }

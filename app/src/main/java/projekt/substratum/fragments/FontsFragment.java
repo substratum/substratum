@@ -189,7 +189,9 @@ public class FontsFragment extends Fragment {
         list = packageManager.getInstalledApplications(PackageManager
                 .GET_META_DATA);
         for (ApplicationInfo packageInfo : list) {
-            getSubstratumPackages(mContext, packageInfo.packageName);
+            if ((packageInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
+                getSubstratumPackages(mContext, packageInfo.packageName);
+            }
         }
 
         doCleanUp cleanUp = new doCleanUp();

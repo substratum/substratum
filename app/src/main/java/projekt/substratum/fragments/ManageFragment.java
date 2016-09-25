@@ -429,7 +429,7 @@ public class ManageFragment extends Fragment {
                         Toast.LENGTH_SHORT);
                 toast.show();
                 final AlertDialog.Builder alertDialogBuilder =
-                    new AlertDialog.Builder(getContext());
+                        new AlertDialog.Builder(getContext());
                 alertDialogBuilder.setTitle(getString(R.string.legacy_dialog_soft_reboot_title));
                 alertDialogBuilder.setMessage(getString(R.string.legacy_dialog_soft_reboot_text));
                 alertDialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface
@@ -440,10 +440,10 @@ public class ManageFragment extends Fragment {
                 });
                 alertDialogBuilder.setNegativeButton(R.string.remove_dialog_later,
                         new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.dismiss();
-                    }
-                });
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.dismiss();
+                            }
+                        });
                 alertDialogBuilder.setCancelable(false);
                 AlertDialog alertDialog = alertDialogBuilder.create();
                 alertDialog.show();

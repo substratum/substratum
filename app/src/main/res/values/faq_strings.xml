@@ -23,7 +23,7 @@
     <string name="answer_seven">If you are applying a theme for the first time or from the stock theme, make sure you do not have the \"Disable other themes\" option checked.</string>
 
     <string name="question_eight">I\'m bootlooping! How do I fix it?</string>
-    <string name="answer_eight">Delete the file /data/system/overlays.xml in TWRP\'s file manager or adb shell and reboot. Additionally, if you have security set up on your phone, you will need to delete the /data/resource-cache folder.</string>
+    <string name="answer_eight">Substratum has it\'s own recovery system called Substratum Rescue System (SRS), which is an automated system that dumps an archive into /storage/emulated/0/substratum/SubstratumRescue.zip. Flash this ZIP in recovery and reboot!</string>
 
     <string name="question_nine">Some elements look janky after I applied a theme, what happened?</string>
     <string name="answer_nine">

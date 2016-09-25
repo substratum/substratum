@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.AssetManager;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
@@ -44,6 +45,9 @@ import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 import eightbitlab.com.blurview.BlurView;
 import eightbitlab.com.blurview.RenderScriptBlur;
@@ -84,6 +88,35 @@ public class MainActivity extends AppCompatActivity implements
     private void printFCMtoken() {
         String token = FirebaseInstanceId.getInstance().getToken();
         Log.d("SubstratumLogger", "FCM Registration Token: " + token);
+    }
+
+    private boolean copyRescueFile(Context context, String sourceFileName, String destFileName) {
+        AssetManager assetManager = context.getAssets();
+
+        File destFile = new File(destFileName);
+        File destParentDir = destFile.getParentFile();
+        destParentDir.mkdir();
+
+        InputStream in;
+        OutputStream out;
+        try {
+            in = assetManager.open(sourceFileName);
+            out = new FileOutputStream(destFile);
+            byte[] buffer = new byte[1024];
+            int read;
+            while ((read = in.read(buffer)) != -1) {
+                out.write(buffer, 0, read);
+            }
+            in.close();
+            in = null;
+            out.flush();
+            out.close();
+            out = null;
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Override
@@ -597,6 +630,14 @@ public class MainActivity extends AppCompatActivity implements
                     "/SubstratumBuilder/");
             if (!cacheDirectory.exists()) {
                 cacheDirectory.mkdirs();
+            }
+            File rescueFile = new File(Environment.getExternalStorageDirectory() +
+                    java.io.File.separator + "rescue.dat");
+            if (!rescueFile.exists()) {
+                copyRescueFile(getApplicationContext(), "rescue.dat",
+                        Environment.getExternalStorageDirectory() +
+                                java.io.File.separator + "substratum" +
+                                java.io.File.separator + "SubstratumRescue.zip");
             }
             if (permissionCheck2 == PackageManager.PERMISSION_GRANTED) {
                 // permission already granted, allow the program to continue running

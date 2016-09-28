@@ -37,7 +37,8 @@ $(LOCAL_OUTPUT_APK):
 	@echo "Building Substratum..."
 	@echo "Entering directory $(LOCAL_PATH_)"
 	cd $(LOCAL_PATH_); \
-	./gradlew clean build assembleRelease
+	./gradlew clean build assembleRelease \
+        $(shell mv $(LOCAL_PATH)/app/build/outputs/apk/substratum_beta_testers*.apk $(LOCAL_PATH)/app/build/outputs/apk/app-release-unsigned.apk)
 
 # Add rule
 all_modules: $(LOCAL_OUTPUT_APK)

@@ -36,10 +36,10 @@ public class AOPTCheck {
                             "cp " + context.getFilesDir().getAbsolutePath() +
                                     "/aopt " +
                                     "/system/bin/aopt");
-                    Root.runCommand("chmod 755 /system/bin/aopt");
+                    Root.runCommand("chmod 777 /system/bin/aopt");
                     Root.runCommand("mount -o ro,remount /system");
                     Log.d("SubstratumLogger", "Android Overlay Packaging Tool (ARM) has been" +
-                            " injected into the system partition.");
+                            " added into the system partition.");
                 } catch (Exception e) {
                     //
                 }
@@ -52,10 +52,10 @@ public class AOPTCheck {
                             "cp " + context.getFilesDir().getAbsolutePath() +
                                     "/aopt-x86 " +
                                     "/system/bin/aopt");
-                    Root.runCommand("chmod 755 /system/bin/aopt");
+                    Root.runCommand("chmod 777 /system/bin/aopt");
                     Root.runCommand("mount -o ro,remount /system");
                     Log.d("SubstratumLogger", "Android Overlay Packaging Tool (x86) has been" +
-                            " injected into the system partition.");
+                            " added into the system partition.");
                 } catch (Exception e) {
                     //
                 }
@@ -63,39 +63,39 @@ public class AOPTCheck {
         } else {
             String integrityCheck = checkAOPTIntegrity();
                 // AOPT outputs different ui
-            if (integrityCheck != null && integrityCheck.equals("=================================== ")) {
+            if (integrityCheck != null && integrityCheck.equals("Android Overlay Packaging Tool, v0.2-android-7.0-userdebug")) {
                 Log.d("SubstratumLogger", "The system partition already contains an existing " +
                         "AOPT binary and Substratum is locked and loaded!");
             } else {
                 Log.e("SubstratumLogger",
                         "The system partition already contains an existing AOPT " +
                                 "binary, however it does not match Substratum integrity.");
-                if (!Build.SUPPORTED_ABIS.toString().contains("86")) {
-                    // Take account for ARM/ARM64 devices
-                    copyAOPT("aopt");
-                    Root.runCommand("mount -o rw,remount /system");
-                    Root.runCommand("rm /system/bin/aopt");
-                    Root.runCommand(
-                            "cp " + context.getFilesDir().getAbsolutePath() +
-                                    "/aopt " +
-                                    "/system/bin/aopt");
-                    Root.runCommand("chmod 755 /system/bin/aopt");
-                    Root.runCommand("mount -o ro,remount /system");
-                    Log.d("SubstratumLogger", "Android Overlay Packaging Tool (ARM) has been " +
-                            "injected into the system partition.");
-                } else {
-                    // Take account for x86 devices
-                    copyAOPT("aopt-x86");
-                    Root.runCommand("mount -o rw,remount /system");
-                    Root.runCommand("rm -rf /system/bin/aopt");
-                    Root.runCommand(
-                            "cp " + context.getFilesDir().getAbsolutePath() +
-                                    "/aopt-x86 " +
-                                    "/system/bin/aopt");
-                    Root.runCommand("chmod 755 /system/bin/aopt");
-                    Root.runCommand("mount -o ro,remount /system");
-                    Log.d("SubstratumLogger", "Android Overlay Packaging Tool (x86) has been " +
-                            "injected into the system partition.");
+            if (!Build.SUPPORTED_ABIS.toString().contains("86")) {
+                // Take account for ARM/ARM64 devices
+                copyAOPT("aopt");
+                Root.runCommand("mount -o rw,remount /system");
+                Root.runCommand("rm /system/bin/aopt");
+                Root.runCommand(
+                        "cp " + context.getFilesDir().getAbsolutePath() +
+                                "/aopt " +
+                                "/system/bin/aopt");
+                Root.runCommand("chmod 777 /system/bin/aopt");
+                Root.runCommand("mount -o ro,remount /system");
+                Log.d("SubstratumLogger", "Android Overlay Packaging Tool (ARM) has been " +
+                        "injected into the system partition.");
+            } else {
+                // Take account for x86 devices
+                copyAOPT("aopt-x86");
+                Root.runCommand("mount -o rw,remount /system");
+                Root.runCommand("rm -rf /system/bin/aopt");
+                Root.runCommand(
+                        "cp " + context.getFilesDir().getAbsolutePath() +
+                                "/aopt-x86 " +
+                                "/system/bin/aopt");
+                Root.runCommand("chmod 777 /system/bin/aopt");
+                Root.runCommand("mount -o ro,remount /system");
+                Log.d("SubstratumLogger", "Android Overlay Packaging Tool (x86) has been " +
+                        "injected into the system partition.");
                 }
             }
         }
@@ -121,11 +121,10 @@ public class AOPTCheck {
         Process proc = null;
         try {
             Runtime rt = Runtime.getRuntime();
-            String[] commands = {"aopt"};
-            proc = rt.exec(commands);
-            try (BufferedReader stdError = new BufferedReader(new
-                    InputStreamReader(proc.getErrorStream()))) {
-                return stdError.readLine();
+            proc = rt.exec(new String[]{"aopt", "version"});
+            try (BufferedReader stdInput = new BufferedReader(new
+                    InputStreamReader(proc.getInputStream()))) {
+                return stdInput.readLine();
             }
         } catch (Exception e) {
             e.printStackTrace();

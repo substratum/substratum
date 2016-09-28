@@ -38,7 +38,7 @@ public class AOPTCheck {
                                     "/system/bin/aopt");
                     Root.runCommand("chmod 755 /system/bin/aopt");
                     Root.runCommand("mount -o ro,remount /system");
-                    Log.d("SubstratumLogger", "Android Assets Packaging Tool (ARM) has been" +
+                    Log.d("SubstratumLogger", "Android Overlay Packaging Tool (ARM) has been" +
                             " injected into the system partition.");
                 } catch (Exception e) {
                     //
@@ -54,7 +54,7 @@ public class AOPTCheck {
                                     "/system/bin/aopt");
                     Root.runCommand("chmod 755 /system/bin/aopt");
                     Root.runCommand("mount -o ro,remount /system");
-                    Log.d("SubstratumLogger", "Android Assets Packaging Tool (x86) has been" +
+                    Log.d("SubstratumLogger", "Android Overlay Packaging Tool (x86) has been" +
                             " injected into the system partition.");
                 } catch (Exception e) {
                     //
@@ -62,8 +62,8 @@ public class AOPTCheck {
             }
         } else {
             String integrityCheck = checkAOPTIntegrity();
-
-            if (integrityCheck != null && integrityCheck.equals("Android Asset Packaging Tool")) {
+                // AOPT outputs different ui
+            if (integrityCheck != null && integrityCheck.equals("=================================== ")) {
                 Log.d("SubstratumLogger", "The system partition already contains an existing " +
                         "AOPT binary and Substratum is locked and loaded!");
             } else {
@@ -74,14 +74,14 @@ public class AOPTCheck {
                     // Take account for ARM/ARM64 devices
                     copyAOPT("aopt");
                     Root.runCommand("mount -o rw,remount /system");
-                    Root.runCommand("rm -rf /system/bin/aopt");
+                    Root.runCommand("rm /system/bin/aopt");
                     Root.runCommand(
                             "cp " + context.getFilesDir().getAbsolutePath() +
                                     "/aopt " +
                                     "/system/bin/aopt");
                     Root.runCommand("chmod 755 /system/bin/aopt");
                     Root.runCommand("mount -o ro,remount /system");
-                    Log.d("SubstratumLogger", "Android Assets Packaging Tool (ARM) has been " +
+                    Log.d("SubstratumLogger", "Android Overlay Packaging Tool (ARM) has been " +
                             "injected into the system partition.");
                 } else {
                     // Take account for x86 devices
@@ -94,7 +94,7 @@ public class AOPTCheck {
                                     "/system/bin/aopt");
                     Root.runCommand("chmod 755 /system/bin/aopt");
                     Root.runCommand("mount -o ro,remount /system");
-                    Log.d("SubstratumLogger", "Android Assets Packaging Tool (x86) has been " +
+                    Log.d("SubstratumLogger", "Android Overlay Packaging Tool (x86) has been " +
                             "injected into the system partition.");
                 }
             }

@@ -657,22 +657,16 @@ public class MainActivity extends AppCompatActivity implements
 
         if (References.checkOMS()) {
             if (!prefs.getBoolean("substratum_oms", true)) {
-                Root.runCommand("rm -r " + Environment.getExternalStorageDirectory()
-                        .getAbsolutePath() + "/.substratum/");
-                Root.runCommand("rm -r " + Environment.getExternalStorageDirectory()
-                        .getAbsolutePath() + "/substratum/");
-                File directory = new File(Environment.getExternalStorageDirectory(),
-                        "/.substratum/");
-                if (!directory.exists()) {
-                    directory.mkdirs();
+                if (!new File(Environment.getExternalStorageDirectory()
+                        .getAbsolutePath() + "/.substratum/").exists()) {
+                    Root.runCommand("rm -r " + Environment.getExternalStorageDirectory()
+                            .getAbsolutePath() + "/.substratum/");
                 }
-            }
-        } else {
-            if (prefs.getBoolean("substratum_oms", true)) {
-                Root.runCommand("rm -r " + Environment.getExternalStorageDirectory()
-                        .getAbsolutePath() + "/.substratum/");
-                Root.runCommand("rm -r " + Environment.getExternalStorageDirectory()
-                        .getAbsolutePath() + "/substratum/");
+                if (!new File(Environment.getExternalStorageDirectory()
+                        .getAbsolutePath() + "/substratum/").exists()) {
+                    Root.runCommand("rm -r " + Environment.getExternalStorageDirectory()
+                            .getAbsolutePath() + "/substratum/");
+                }
                 File directory = new File(Environment.getExternalStorageDirectory(),
                         "/.substratum/");
                 if (!directory.exists()) {

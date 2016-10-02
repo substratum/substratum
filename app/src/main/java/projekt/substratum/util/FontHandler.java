@@ -26,7 +26,6 @@ import java.util.zip.ZipInputStream;
 
 import projekt.substratum.R;
 import projekt.substratum.config.References;
-import projekt.substratum.util.Root;
 
 /**
  * @author Nicholas Chum (nicholaschum)
@@ -108,24 +107,24 @@ public class FontHandler {
                     }
                 } else {
                     final AlertDialog.Builder alertDialogBuilder =
-                        new AlertDialog.Builder(mContext);
+                            new AlertDialog.Builder(mContext);
                     alertDialogBuilder.setTitle(mContext.getString(
                             R.string.legacy_dialog_soft_reboot_title));
                     alertDialogBuilder.setMessage(mContext.getString(
                             R.string.legacy_dialog_soft_reboot_text));
                     alertDialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface
-                                .OnClickListener() {
+                            .OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             Root.runCommand("reboot");
                         }
                     });
                     alertDialogBuilder.setNegativeButton(
                             R.string.remove_dialog_later, new DialogInterface
-                                .OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.dismiss();
-                        }
-                    });
+                                    .OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.dismiss();
+                                }
+                            });
                     alertDialogBuilder.setCancelable(false);
                     AlertDialog alertDialog = alertDialogBuilder.create();
                     alertDialog.show();

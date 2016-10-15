@@ -75,6 +75,10 @@
             android:id="@+id/raja"
             layout="@layout/team_card_raja"/>
 
+        <include
+            android:id="@+id/surge"
+            layout="@layout/team_card_surge"/>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

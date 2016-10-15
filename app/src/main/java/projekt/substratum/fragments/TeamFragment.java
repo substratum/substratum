@@ -83,20 +83,6 @@ public class TeamFragment extends Fragment {
 
         // Begin Team Themers
 
-        CardView ivan = (CardView) root.findViewById(R.id.ivan);
-        ivan.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                try {
-                    String playURL = getString(R.string.team_ivan_link);
-                    Intent i = new Intent(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse(playURL));
-                    startActivity(i);
-                } catch (ActivityNotFoundException activityNotFoundException) {
-                    //
-                }
-            }
-        });
-
         CardView branden = (CardView) root.findViewById(R.id.branden);
         branden.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -155,6 +141,20 @@ public class TeamFragment extends Fragment {
 
         // Begin Development Contributors
 
+        CardView ivan = (CardView) root.findViewById(R.id.ivan);
+        ivan.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                try {
+                    String playURL = getString(R.string.team_ivan_link);
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(playURL));
+                    startActivity(i);
+                } catch (ActivityNotFoundException activityNotFoundException) {
+                    //
+                }
+            }
+        });
+
         CardView jacob = (CardView) root.findViewById(R.id.jacob);
         jacob.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -174,6 +174,20 @@ public class TeamFragment extends Fragment {
             public void onClick(View v) {
                 try {
                     String playURL = getString(R.string.team_raja_link);
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(playURL));
+                    startActivity(i);
+                } catch (ActivityNotFoundException activityNotFoundException) {
+                    //
+                }
+            }
+        });
+
+        CardView surge = (CardView) root.findViewById(R.id.surge);
+        surge.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                try {
+                    String playURL = getString(R.string.team_surge_link);
                     Intent i = new Intent(Intent.ACTION_VIEW);
                     i.setData(Uri.parse(playURL));
                     startActivity(i);

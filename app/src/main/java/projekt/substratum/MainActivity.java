@@ -624,12 +624,20 @@ public class MainActivity extends AppCompatActivity implements
                 cacheDirectory.mkdirs();
             }
             File rescueFile = new File(Environment.getExternalStorageDirectory() +
-                    java.io.File.separator + "rescue.dat");
+                    java.io.File.separator + "SubstratumRescue.zip");
+            File rescueFileLegacy = new File(Environment.getExternalStorageDirectory() +
+                    java.io.File.separator + "SubstratumRescue_Legacy.zip");
             if (!rescueFile.exists()) {
                 copyRescueFile(getApplicationContext(), "rescue.dat",
                         Environment.getExternalStorageDirectory() +
                                 java.io.File.separator + "substratum" +
                                 java.io.File.separator + "SubstratumRescue.zip");
+            }
+            if (!rescueFileLegacy.exists()) {
+                copyRescueFile(getApplicationContext(), "rescue_legacy.dat",
+                        Environment.getExternalStorageDirectory() +
+                                java.io.File.separator + "substratum" +
+                                java.io.File.separator + "SubstratumRescue_Legacy.zip");
             }
             if (permissionCheck2 == PackageManager.PERMISSION_GRANTED) {
                 // permission already granted, allow the program to continue running

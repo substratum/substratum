@@ -23,6 +23,8 @@ public class TeamFragment extends Fragment {
         super.onCreate(savedInstanceState);
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.team_fragment, null);
 
+        // Begin Team Leaders
+
         CardView nicholas = (CardView) root.findViewById(R.id.nicholas);
         nicholas.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -79,39 +81,13 @@ public class TeamFragment extends Fragment {
             }
         });
 
+        // Begin Team Themers
+
         CardView ivan = (CardView) root.findViewById(R.id.ivan);
         ivan.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 try {
                     String playURL = getString(R.string.team_ivan_link);
-                    Intent i = new Intent(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse(playURL));
-                    startActivity(i);
-                } catch (ActivityNotFoundException activityNotFoundException) {
-                    //
-                }
-            }
-        });
-
-        CardView jacob = (CardView) root.findViewById(R.id.jacob);
-        jacob.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                try {
-                    String playURL = getString(R.string.team_jacob_link);
-                    Intent i = new Intent(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse(playURL));
-                    startActivity(i);
-                } catch (ActivityNotFoundException activityNotFoundException) {
-                    //
-                }
-            }
-        });
-
-        CardView raja = (CardView) root.findViewById(R.id.raja);
-        raja.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                try {
-                    String playURL = getString(R.string.team_raja_link);
                     Intent i = new Intent(Intent.ACTION_VIEW);
                     i.setData(Uri.parse(playURL));
                     startActivity(i);
@@ -176,6 +152,38 @@ public class TeamFragment extends Fragment {
                 }
             }
         });
+
+        // Begin Development Contributors
+
+        CardView jacob = (CardView) root.findViewById(R.id.jacob);
+        jacob.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                try {
+                    String playURL = getString(R.string.team_jacob_link);
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(playURL));
+                    startActivity(i);
+                } catch (ActivityNotFoundException activityNotFoundException) {
+                    //
+                }
+            }
+        });
+
+        CardView raja = (CardView) root.findViewById(R.id.raja);
+        raja.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                try {
+                    String playURL = getString(R.string.team_raja_link);
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(playURL));
+                    startActivity(i);
+                } catch (ActivityNotFoundException activityNotFoundException) {
+                    //
+                }
+            }
+        });
+
+        // Begin Contributors
 
         CardView idan = (CardView) root.findViewById(R.id.idan);
         idan.setOnClickListener(new View.OnClickListener() {
@@ -246,6 +254,81 @@ public class TeamFragment extends Fragment {
                 }
             }
         });
+
+        // Begin Translators
+
+        CardView chrys = (CardView) root.findViewById(R.id.chrys);
+        chrys.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                try {
+                    String playURL = getString(R.string.translator_chrys_link);
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(playURL));
+                    startActivity(i);
+                } catch (ActivityNotFoundException activityNotFoundException) {
+                    //
+                }
+            }
+        });
+
+        CardView david = (CardView) root.findViewById(R.id.david);
+        david.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                try {
+                    String playURL = getString(R.string.translator_david_link);
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(playURL));
+                    startActivity(i);
+                } catch (ActivityNotFoundException activityNotFoundException) {
+                    //
+                }
+            }
+        });
+
+        CardView jorge = (CardView) root.findViewById(R.id.jorge);
+        jorge.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                try {
+                    String playURL = getString(R.string.translator_jorge_link);
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(playURL));
+                    startActivity(i);
+                } catch (ActivityNotFoundException activityNotFoundException) {
+                    //
+                }
+            }
+        });
+
+
+        CardView kevin = (CardView) root.findViewById(R.id.kevin);
+        kevin.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                try {
+                    String playURL = getString(R.string.translator_kevin_link);
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(playURL));
+                    startActivity(i);
+                } catch (ActivityNotFoundException activityNotFoundException) {
+                    //
+                }
+            }
+        });
+
+        CardView wasita = (CardView) root.findViewById(R.id.wasita);
+        wasita.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                try {
+                    String playURL = getString(R.string.translator_wasita_link);
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(playURL));
+                    startActivity(i);
+                } catch (ActivityNotFoundException activityNotFoundException) {
+                    //
+                }
+            }
+        });
+
+        // Begin Layers Crew
 
         CardView reinhard = (CardView) root.findViewById(R.id.reinhard);
         reinhard.setOnClickListener(new View.OnClickListener() {

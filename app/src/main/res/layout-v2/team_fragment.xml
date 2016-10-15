@@ -153,6 +153,44 @@
             android:layout_marginEnd="5dp"
             android:layout_marginStart="5dp"
             android:layout_marginTop="30dp"
+            android:text="@string/translator_title"
+            android:textColor="@color/settings_title_color"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/translator_text"/>
+
+        <include
+            android:id="@+id/kevin"
+            layout="@layout/translator_card_kevin"/>
+
+        <include
+            android:id="@+id/david"
+            layout="@layout/translator_card_david"/>
+
+        <include
+            android:id="@+id/wasita"
+            layout="@layout/translator_card_wasita"/>
+
+        <include
+            android:id="@+id/chrys"
+            layout="@layout/translator_card_chrys"/>
+
+        <include
+            android:id="@+id/jorge"
+            layout="@layout/translator_card_jorge"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="30dp"
             android:text="@string/contributor_title_2"
             android:textColor="@color/settings_title_color"
             android:textStyle="bold"/>

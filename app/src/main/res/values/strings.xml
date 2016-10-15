@@ -371,6 +371,24 @@
     <string name="contributor_denis_content">I started the Layers Showcase!</string>
     <string name="contributor_denis_link">https://plus.google.com/u/0/+DenisSuarez98/</string>
 
+    <string name="translator_title">Substratum Translators</string>
+    <string name="translator_text">A huge thank you to these translators for bringing Substratum to everyone around the world!</string>
+    <string name="translator_kevin">Kevin Minions</string>
+    <string name="translator_kevin_content">French Translations</string>
+    <string name="translator_kevin_link">https://plus.google.com/u/0/115610928059890728494/</string>
+    <string name="translator_jorge">Jorge Abel</string>
+    <string name="translator_jorge_content">Spanish Translations</string>
+    <string name="translator_jorge_link">https://plus.google.com/u/0/115528288956639124717/</string>
+    <string name="translator_chrys">Chrys</string>
+    <string name="translator_chrys_content">Portuguese Translations</string>
+    <string name="translator_chrys_link"></string>
+    <string name="translator_wasita">Wasita Bagus</string>
+    <string name="translator_wasita_content">Indonesian Translations</string>
+    <string name="translator_wasita_link">https://plus.google.com/u/0/+WasitaBagusNXS/</string>
+    <string name="translator_david">David Setiawan</string>
+    <string name="translator_david_content">Indonesian Translations</string>
+    <string name="translator_david_link">https://plus.google.com/u/0/112952657794170427447/</string>
+
     <string name="team_title_1">Substratum Team Leaders</string>
     <string name="team_text_1">Not only did we create something that works for the users, but we worked in conjunction with themers to make it a wonderful theming engine for the community!</string>
     <string name="team_title_2">Substratum Development Contributors</string>

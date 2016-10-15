@@ -148,6 +148,8 @@
     <string name="menu_search">Play Store Themes</string>
     <string name="menu_uninstall">Uninstall</string>
 
+    <string name="coming_soon">Stolen by Char!</string>
+
     <string name="nav_overlay_manager">Advanced Manager</string>
     <string name="nav_home">Theme Packs</string>
     <string name="nav_overlays">Overlays</string>

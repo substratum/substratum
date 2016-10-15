@@ -29,7 +29,7 @@ import java.util.TreeMap;
 
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.R;
-import projekt.substratum.adapters.DataAdapter;
+import projekt.substratum.adapters.ThemeEntryAdapter;
 import projekt.substratum.config.References;
 import projekt.substratum.model.ThemeInfo;
 import projekt.substratum.util.ReadOverlays;
@@ -48,7 +48,7 @@ public class SoundsFragment extends Fragment {
     private Context mContext;
     private SwipeRefreshLayout swipeRefreshLayout;
     private List<ApplicationInfo> list;
-    private DataAdapter adapter;
+    private ThemeEntryAdapter adapter;
     private View cardView;
     private ViewGroup root;
 
@@ -93,7 +93,7 @@ public class SoundsFragment extends Fragment {
         map = new TreeMap<>(substratum_packages);
 
         ArrayList<ThemeInfo> themeInfos = prepareData();
-        adapter = new DataAdapter(themeInfos);
+        adapter = new ThemeEntryAdapter(themeInfos);
 
         // Assign adapter to RecyclerView
         recyclerView.setAdapter(adapter);
@@ -208,7 +208,7 @@ public class SoundsFragment extends Fragment {
         // Now we need to sort the buffered installed Layers themes
         map = new TreeMap<>(substratum_packages);
         ArrayList<ThemeInfo> themeInfos = prepareData();
-        adapter = new DataAdapter(themeInfos);
+        adapter = new ThemeEntryAdapter(themeInfos);
         recyclerView.setAdapter(adapter);
         swipeRefreshLayout.setRefreshing(false);
         materialProgressBar.setVisibility(View.GONE);

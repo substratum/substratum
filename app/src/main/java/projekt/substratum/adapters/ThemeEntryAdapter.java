@@ -27,15 +27,15 @@ import projekt.substratum.model.ThemeInfo;
  * @author Nicholas Chum (nicholaschum)
  */
 
-public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
+public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.ViewHolder> {
     private ArrayList<ThemeInfo> information;
 
-    public DataAdapter(ArrayList<ThemeInfo> information) {
+    public ThemeEntryAdapter(ArrayList<ThemeInfo> information) {
         this.information = information;
     }
 
     @Override
-    public DataAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public ThemeEntryAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.theme_entry_card,
                 viewGroup, false);
         return new ViewHolder(view);

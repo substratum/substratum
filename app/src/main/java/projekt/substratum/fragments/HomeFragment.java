@@ -35,7 +35,7 @@ import java.util.TreeSet;
 
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.R;
-import projekt.substratum.adapters.DataAdapter;
+import projekt.substratum.adapters.ThemeEntryAdapter;
 import projekt.substratum.config.References;
 import projekt.substratum.model.ThemeInfo;
 import projekt.substratum.util.AOPTCheck;
@@ -54,7 +54,7 @@ public class HomeFragment extends Fragment {
     private Context mContext;
     private SwipeRefreshLayout swipeRefreshLayout;
     private List<ApplicationInfo> list;
-    private DataAdapter adapter;
+    private ThemeEntryAdapter adapter;
     private View cardView;
     private ViewGroup root;
 
@@ -107,7 +107,7 @@ public class HomeFragment extends Fragment {
         map = new TreeMap<>(substratum_packages);
 
         ArrayList<ThemeInfo> themeInfos = prepareData();
-        adapter = new DataAdapter(themeInfos);
+        adapter = new ThemeEntryAdapter(themeInfos);
 
         // Assign adapter to RecyclerView
         recyclerView.setAdapter(adapter);
@@ -220,7 +220,7 @@ public class HomeFragment extends Fragment {
         // Now we need to sort the buffered installed Layers themes
         map = new TreeMap<>(substratum_packages);
         ArrayList<ThemeInfo> themeInfos = prepareData();
-        adapter = new DataAdapter(themeInfos);
+        adapter = new ThemeEntryAdapter(themeInfos);
         recyclerView.setAdapter(adapter);
         new ThemeCollection().execute("");
         swipeRefreshLayout.setRefreshing(false);

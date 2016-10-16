@@ -39,6 +39,7 @@ public class Wallpapers extends Fragment {
     private RecyclerView.Adapter mAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
     private MaterialProgressBar materialProgressBar;
+    private View no_network;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
@@ -47,6 +48,7 @@ public class Wallpapers extends Fragment {
         wallpaperUrl = InformationActivity.getWallpaperUrl();
         root = (ViewGroup) inflater.inflate(R.layout.tab_fragment_6, container, false);
         materialProgressBar = (MaterialProgressBar) root.findViewById(R.id.progress_bar_loader);
+        no_network = root.findViewById(R.id.none_found);
 
         swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -71,6 +73,8 @@ public class Wallpapers extends Fragment {
         ArrayList<WallpaperEntries> empty_array = new ArrayList<>();
         RecyclerView.Adapter empty_adapter = new WallpaperAdapter(empty_array);
         mRecyclerView.setAdapter(empty_adapter);
+
+        no_network.setVisibility(View.GONE);
 
         downloadResources downloadTask = new downloadResources();
         downloadTask.execute(wallpaperUrl, "current_wallpapers.xml");
@@ -109,6 +113,8 @@ public class Wallpapers extends Fragment {
             }
             mAdapter = new WallpaperAdapter(wallpapers);
             mRecyclerView.setAdapter(mAdapter);
+
+            if (wallpapers.size() == 0) no_network.setVisibility(View.VISIBLE);
 
             mRecyclerView.setVisibility(View.VISIBLE);
             materialProgressBar.setVisibility(View.GONE);

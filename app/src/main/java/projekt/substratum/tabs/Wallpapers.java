@@ -3,12 +3,14 @@ package projekt.substratum.tabs;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,6 +20,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Map;
 
+import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
 import projekt.substratum.adapters.WallpaperAdapter;
@@ -34,6 +37,8 @@ public class Wallpapers extends Fragment {
     private String wallpaperUrl;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private MaterialProgressBar materialProgressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
@@ -41,7 +46,24 @@ public class Wallpapers extends Fragment {
 
         wallpaperUrl = InformationActivity.getWallpaperUrl();
         root = (ViewGroup) inflater.inflate(R.layout.tab_fragment_6, container, false);
+        materialProgressBar = (MaterialProgressBar) root.findViewById(R.id.progress_bar_loader);
 
+        swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshLayout();
+                mAdapter.notifyDataSetChanged();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
+        refreshLayout();
+
+        return root;
+    }
+
+    private void refreshLayout() {
         // Pre-initialize the adapter first so that it won't complain for skipping layout on logs
         mRecyclerView = (RecyclerView) root.findViewById(R.id.wallpaperRecyclerView);
         mRecyclerView.setHasFixedSize(true);
@@ -52,8 +74,6 @@ public class Wallpapers extends Fragment {
 
         downloadResources downloadTask = new downloadResources();
         downloadTask.execute(wallpaperUrl, "current_wallpapers.xml");
-
-        return root;
     }
 
     private class downloadResources extends AsyncTask<String, Integer, String> {
@@ -61,6 +81,8 @@ public class Wallpapers extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            mRecyclerView.setVisibility(View.GONE);
+            materialProgressBar.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -87,6 +109,9 @@ public class Wallpapers extends Fragment {
             }
             mAdapter = new WallpaperAdapter(wallpapers);
             mRecyclerView.setAdapter(mAdapter);
+
+            mRecyclerView.setVisibility(View.VISIBLE);
+            materialProgressBar.setVisibility(View.GONE);
         }
 
         @Override
@@ -94,6 +119,12 @@ public class Wallpapers extends Fragment {
             InputStream input = null;
             OutputStream output = null;
             HttpURLConnection connection = null;
+
+            File current_wallpapers = new File(getContext().getCacheDir() +
+                    "/current_wallpapers.xml");
+            if (current_wallpapers.exists()) {
+                current_wallpapers.delete();
+            }
 
             try {
                 URL url = new URL(sUrl[0]);

@@ -30,7 +30,7 @@ public class ReadCloudWallpaperFile {
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(fXmlFile);
             doc.getDocumentElement().normalize();
-            NodeList nList = doc.getElementsByTagName("addon");
+            NodeList nList = doc.getElementsByTagName("wallpaper");
 
             for (int temp = 0; temp < nList.getLength(); temp++) {
                 Node nNode = nList.item(temp);

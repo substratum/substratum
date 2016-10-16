@@ -63,6 +63,16 @@
     <string name="bootanimation_dialog_apply_success">Boot animation applied!</string>
     <string name="bootanimation_dialog_apply_failed">Boot animation failed to apply&#8230;</string>
 
+    <string name="wallpaper_dialog_wallpaper">Homescreen</string>
+    <string name="wallpaper_dialog_lockscreen">Lockscreen</string>
+    <string name="wallpaper_dialog_cancel">Cancel</string>
+    <string name="wallpaper_dialog_message">Apply this image to which background?</string>
+    <string name="wallpaper_downloading">Loading the image into the cache&#8230;</string>
+    <string name="wallpaper_homescreen_success">Homescreen wallpaper configured!</string>
+    <string name="wallpaper_homescreen_error">Unable to set homescreen wallpaper</string>
+    <string name="wallpaper_lockscreen_success">Lockscreen wallpaper configured!</string>
+    <string name="wallpaper_lockscreen_error">Unable to set lockscreen wallpaper</string>
+
     <string name="font_placeholder_text">please select a font pack from the dropdown list&#8230;</string>
     <string name="font_default_spinner">please select a font pack&#8230;</string>
     <string name="font_dialog_apply_text">Font pack is processing&#8230;</string>

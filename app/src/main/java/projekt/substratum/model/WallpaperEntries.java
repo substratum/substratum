@@ -1,5 +1,6 @@
 package projekt.substratum.model;
 
+import android.app.Activity;
 import android.content.Context;
 
 /**
@@ -11,6 +12,15 @@ public class WallpaperEntries {
     private String wallpaperName;
     private String wallpaperLink;
     private String wallpaperPreview;
+    private Activity mActivity;
+
+    public Activity getCallingActivity() {
+        return mActivity;
+    }
+
+    public void setCallingActivity(Activity mActivity) {
+        this.mActivity = mActivity;
+    }
 
     public Context getContext() {
         return mContext;

@@ -20,8 +20,8 @@ android {
         applicationId "projekt.substratum"
         minSdkVersion 23
         targetSdkVersion 24
-        versionCode 233
-        versionName "two hundred thirty three"
+        versionCode 234
+        versionName "two hundred thirty four"
         renderscriptTargetApi 23
         renderscriptSupportModeEnabled true
     }
@@ -95,5 +95,8 @@ dependencies {
 
     // Blur Effect
     compile 'com.eightbitlab:blurview:1.1.2'
+
+    // Image Processing
+    compile 'com.theartofdev.edmodo:android-image-cropper:2.3.+'
 }
 apply plugin: 'com.google.gms.google-services'

@@ -1,6 +1,7 @@
 package projekt.substratum;
 
 import android.app.Activity;
+import android.app.WallpaperManager;
 import android.app.admin.DevicePolicyManager;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -40,10 +41,13 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.flaviofaria.kenburnsview.KenBurnsView;
+import com.theartofdev.edmodo.cropper.CropImage;
 
 import org.apache.commons.io.output.ByteArrayOutputStream;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -153,6 +157,63 @@ public class InformationActivity extends AppCompatActivity {
             status = dpm.getStorageEncryptionStatus();
         }
         return status;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Image Cropper Request Capture
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            WallpaperManager myWallpaperManager
+                    = WallpaperManager.getInstance(getApplicationContext());
+            if (resultCode == RESULT_OK) {
+                Uri resultUri = result.getUri();
+                if (resultUri.toString().contains("homescreen_wallpaper")) {
+                    try {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                            myWallpaperManager.setStream(new FileInputStream(
+                                            resultUri.toString().substring(7)), null, true,
+                                    WallpaperManager.FLAG_SYSTEM);
+                        } else {
+                            myWallpaperManager.setStream(new FileInputStream(
+                                    resultUri.toString().substring(7)));
+                        }
+                        Toast toast = Toast.makeText(getApplicationContext(),
+                                getString(R.string.wallpaper_homescreen_success),
+                                Toast.LENGTH_LONG);
+                        toast.show();
+                    } catch (IOException e) {
+                        Toast toast = Toast.makeText(getApplicationContext(),
+                                getString(R.string.wallpaper_homescreen_error),
+                                Toast.LENGTH_LONG);
+                        toast.show();
+                        e.printStackTrace();
+                    }
+                } else if (resultUri.toString().contains("lockscreen_wallpaper")) {
+                    try {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                            myWallpaperManager.setStream(new FileInputStream(
+                                            resultUri.toString().substring(7)), null, true,
+                                    WallpaperManager.FLAG_LOCK);
+                        }
+                        Toast toast = Toast.makeText(getApplicationContext(),
+                                getString(R.string.wallpaper_lockscreen_success),
+                                Toast.LENGTH_LONG);
+                        toast.show();
+                    } catch (IOException e) {
+                        Toast toast = Toast.makeText(getApplicationContext(),
+                                getString(R.string.wallpaper_lockscreen_error),
+                                Toast.LENGTH_LONG);
+                        toast.show();
+                        e.printStackTrace();
+                    }
+                }
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Exception error = result.getError();
+                Log.e("SubstratumImageCropper",
+                        "There has been an error processing the image : " + error);
+            }
+        }
     }
 
     @Override

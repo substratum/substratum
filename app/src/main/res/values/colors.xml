@@ -88,6 +88,7 @@
     <color name="purge2_button">#ef6c00</color>
     <color name="purge_button_text_color">#ffffffff</color>
     <color name="window_bg_glass">#99000000</color>
+    <color name="cropper_bg_glass">#c8000000</color>
 
     <color name="slide_1">#5e98ce</color>
     <color name="slide_2">#fcb257</color>

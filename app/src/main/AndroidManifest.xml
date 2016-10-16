@@ -12,6 +12,7 @@
     <uses-permission android:name="android.permission.CHANGE_CONFIGURATION"/>
     <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
     <uses-permission android:name="android.permission.ACCESS_SUPERUSER"/>
+    <uses-permission android:name="android.permission.SET_WALLPAPER"/>
 
     <application
         android:allowBackup="true"
@@ -104,6 +105,8 @@
             android:name=".services.ThemeService"
             android:enabled="true"/>
 
+        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+                  android:theme="@style/PhotoCrop.ActivityTheme"/>
         <activity
             android:name=".easteregg.LLandActivity">
             <intent-filter>

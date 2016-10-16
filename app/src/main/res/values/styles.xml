@@ -24,6 +24,17 @@
         <item name="welcomeTitleTextStyle">@style/WelcomeScreenText.Title.Centered</item>
     </style>
 
+    <style name="PhotoCrop.ActivityTheme" parent="Theme.AppCompat">
+        <item name="colorPrimary">@android:color/transparent</item>
+        <item name="colorPrimaryDark">@android:color/transparent</item>
+        <item name="android:colorPrimary">@android:color/transparent</item>
+        <item name="android:colorPrimaryDark">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@color/cropper_bg_glass</item>
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
     <style name="RestoreActivity.ActivityTheme" parent="@android:style/Theme.NoDisplay"/>
 
     <style name="RestoreDialog" parent="@android:style/Theme.DeviceDefault.Light.Dialog.Alert"/>
@@ -49,6 +60,14 @@
     <style name="SubstratumBuilder.WindowAnimation" parent="Animation.AppCompat.Dialog">
         <item name="android:windowEnterAnimation">@anim/fade_in</item>
         <item name="android:windowExitAnimation">@anim/fade_out</item>
+    </style>
+
+    <style name="Theme.AppCompat.Translucent">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation</item>
     </style>
 
     <style name="WelcomeScreenPageIndicator.Custom">

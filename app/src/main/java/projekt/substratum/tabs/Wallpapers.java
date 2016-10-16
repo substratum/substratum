@@ -74,6 +74,7 @@ public class Wallpapers extends Fragment {
 
             for (String key : newArray.keySet()) {
                 if (!key.toLowerCase().contains("-preview".toLowerCase())) {
+                    newEntry.setCallingActivity(getActivity());
                     newEntry.setContext(getContext());
                     newEntry.setWallpaperName(key);
                     newEntry.setWallpaperLink(newArray.get(key));

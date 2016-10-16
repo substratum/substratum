@@ -65,7 +65,8 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
                     return new OverlaysList();
                 }
             case 1:
-                if (package_checker.contains("overlays") && allow_quick_apply) {
+                if (package_checker.contains("overlays") &&
+                        allow_quick_apply) {
                     return new OverlaysList();
                 }
                 if (package_checker.contains("bootanimation")) {
@@ -81,8 +82,9 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
                     return new Wallpapers();
                 }
             case 2:
-                if (package_checker.contains("bootanimation")
-                        && package_checker.contains("overlays") && allow_quick_apply) {
+                if (package_checker.contains("bootanimation") &&
+                        package_checker.contains("overlays") &&
+                        allow_quick_apply) {
                     return new BootAnimation();
                 }
                 if (package_checker.contains("fonts")) {
@@ -95,8 +97,10 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
                     return new Wallpapers();
                 }
             case 3:
-                if (package_checker.contains("fonts")
-                        && package_checker.contains("bootanimation") && allow_quick_apply) {
+                if (package_checker.contains("fonts") &&
+                        package_checker.contains("bootanimation") &&
+                        package_checker.contains("overlays") &&
+                        allow_quick_apply) {
                     return new FontInstaller();
                 }
                 if (package_checker.contains("audio")) {
@@ -106,15 +110,22 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
                     return new Wallpapers();
                 }
             case 4:
-                if (package_checker.contains("audio")
-                        && package_checker.contains("fonts") && allow_quick_apply) {
+                if (package_checker.contains("audio") &&
+                        package_checker.contains("fonts") &&
+                        package_checker.contains("bootanimation") &&
+                        package_checker.contains("overlays") &&
+                        allow_quick_apply) {
                     return new SoundPackager();
                 }
                 if (wallpaperUrl != null) {
                     return new Wallpapers();
                 }
             case 5:
-                if (wallpaperUrl != null && package_checker.contains("audio") &&
+                if (wallpaperUrl != null &&
+                        package_checker.contains("audio") &&
+                        package_checker.contains("fonts") &&
+                        package_checker.contains("bootanimation") &&
+                        package_checker.contains("overlays") &&
                         allow_quick_apply) {
                     return new Wallpapers();
                 }

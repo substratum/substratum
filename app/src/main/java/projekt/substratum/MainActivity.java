@@ -171,8 +171,7 @@ public class MainActivity extends AppCompatActivity implements
                     new PrimaryDrawerItem().withName(R.string.nav_sounds).withIcon(
                             R.drawable.nav_sounds),
                     new PrimaryDrawerItem().withName(R.string.nav_wallpapers).withIcon(
-                            R.drawable.nav_wallpapers).withBadge(R.string.coming_soon)
-                            .withEnabled(false),
+                            R.drawable.nav_wallpapers),
                     new SectionDrawerItem().withName(R.string.nav_section_header_utilities),
                     new PrimaryDrawerItem().withName(R.string.nav_overlay_manager)
                             .withIcon(R.drawable.nav_overlay_manager),
@@ -238,6 +237,11 @@ public class MainActivity extends AppCompatActivity implements
                                 }
                                 break;
                             case 6:
+                                if (drawerSelected != position) {
+                                    switchFragment(getString(R.string.nav_wallpapers),
+                                            "WallpaperFragment");
+                                    drawerSelected = 6;
+                                }
                                 break;
                             case 8:
                                 switchFragment(getString(R.string.nav_overlay_manager),

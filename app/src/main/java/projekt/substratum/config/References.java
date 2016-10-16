@@ -48,6 +48,7 @@ public class References {
     public static String metadataLegacy = "Substratum_Legacy";
     public static String metadataVersion = "Substratum_Plugin";
     public static String metadataThemeReady = "Substratum_ThemeReady";
+    public static String metadataWallpapers = "Substratum_Wallpapers";
 
     // This int controls the default priority level for legacy overlays
     public static int DEFAULT_PRIORITY = 50;

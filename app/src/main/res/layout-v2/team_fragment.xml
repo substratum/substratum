@@ -64,6 +64,10 @@
             android:text="@string/team_text_2"/>
 
         <include
+            android:id="@+id/ben"
+            layout="@layout/team_card_ben"/>
+
+        <include
             android:id="@+id/ivan"
             layout="@layout/team_card_ivan"/>
 

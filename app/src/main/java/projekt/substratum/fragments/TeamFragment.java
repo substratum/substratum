@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import projekt.substratum.R;
+import projekt.substratum.easteregg.LLandActivity;
 
 /**
  * Created by Nicholas on 2016-03-31.
@@ -140,6 +141,31 @@ public class TeamFragment extends Fragment {
         });
 
         // Begin Development Contributors
+
+        CardView ben = (CardView) root.findViewById(R.id.ben);
+        ben.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                try {
+                    String playURL = getString(R.string.team_ben_link);
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(playURL));
+                    startActivity(i);
+                } catch (ActivityNotFoundException activityNotFoundException) {
+                    //
+                }
+            }
+        });
+        ben.setOnLongClickListener(new View.OnLongClickListener() {
+            public boolean onLongClick(View v) {
+                try {
+                    Intent intent = new Intent(getActivity(), LLandActivity.class);
+                    startActivity(intent);
+                } catch (ActivityNotFoundException activityNotFoundException) {
+                    //
+                }
+                return true;
+            }
+        });
 
         CardView ivan = (CardView) root.findViewById(R.id.ivan);
         ivan.setOnClickListener(new View.OnClickListener() {

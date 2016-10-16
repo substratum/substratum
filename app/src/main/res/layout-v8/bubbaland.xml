@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="fill_parent"
+             android:layout_height="fill_parent"
+             android:orientation="vertical">
+
+    <projekt.substratum.easteregg.LLand
+        android:id="@+id/world"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
+
+    <TextView
+        android:id="@+id/welcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="@color/easteregg_welcome"
+        android:textSize="32.0sp"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|left|top"
+        android:layout_marginLeft="16.0dip"
+        android:layout_marginTop="32.0dip"
+        android:background="@drawable/scorecardold"
+        android:paddingBottom="8.0dip"
+        android:paddingLeft="16.0dip"
+        android:paddingRight="16.0dip"
+        android:paddingTop="8.0dip"
+        android:shadowColor="@color/easteregg_score_shadow"
+        android:shadowDx="3"
+        android:shadowDy="3"
+        android:shadowRadius="4"
+        android:textColor="@color/easteregg_score"
+        android:textSize="32.0sp"/>
+
+    <RelativeLayout
+        android:id="@+id/new_high_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|left|top"
+        android:layout_marginLeft="68.0dip"
+        android:layout_marginTop="34.0dip"
+        android:gravity="center_horizontal"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/new_high_score_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:shadowColor="@color/easter_egg_new_highscore_1_shadow"
+            android:shadowDx="-7"
+            android:shadowDy="8"
+            android:shadowRadius="1"
+            android:textColor="@color/easter_egg_new_highscore_1"
+            android:textSize="20.0sp"/>
+
+        <TextView
+            android:id="@+id/new_high_score_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="18dp"
+            android:shadowColor="@color/easter_egg_new_highscore_2_shadow"
+            android:shadowDx="-7"
+            android:shadowDy="8"
+            android:shadowRadius="1"
+            android:textColor="@color/easter_egg_new_highscore_2"
+            android:textSize="20.0sp"/>
+
+        <TextView
+            android:id="@+id/new_high_score_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="36dp"
+            android:shadowColor="@color/easter_egg_new_highscore_3_shadow"
+            android:shadowDx="-7"
+            android:shadowDy="8"
+            android:shadowRadius="1"
+            android:textColor="@color/easter_egg_new_highscore_3"
+            android:textSize="20.0sp"/>
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/blood"
+        android:layout_width="480dp"
+        android:layout_height="480dp"
+        android:layout_gravity="center"
+        android:src="@drawable/blood__0015"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/deadtext1"
+        android:layout_width="168dp"
+        android:layout_height="103dp"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_marginTop="120dp"
+        android:src="@drawable/dead1"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/deadtext2"
+        android:layout_width="228dp"
+        android:layout_height="115dp"
+        android:layout_gravity="center"
+        android:src="@drawable/dead2"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/deadtext3"
+        android:layout_width="310dp"
+        android:layout_height="103dp"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="120dp"
+        android:src="@drawable/dead3"
+        android:visibility="gone"/>
+
+    <FrameLayout
+        android:id="@+id/dummyview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
+</FrameLayout> 

@@ -99,6 +99,7 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
                                         mContext.getCacheDir().getAbsolutePath() +
                                                 "/" + "homescreen_wallpaper" + extension)))
                                         .setGuidelines(CropImageView.Guidelines.ON)
+                                        .setActivityTitle(information.get(i).getWallpaperName())
                                         .setOutputUri(Uri.fromFile(new File(
                                                 mContext.getCacheDir().getAbsolutePath() +
                                                         "/" + "homescreen_wallpaper" + extension)))
@@ -131,6 +132,7 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
                                             mContext.getCacheDir().getAbsolutePath() +
                                                     "/" + "lockscreen_wallpaper" + extension)))
                                             .setGuidelines(CropImageView.Guidelines.ON)
+                                            .setActivityTitle(information.get(i).getWallpaperName())
                                             .setOutputUri(Uri.fromFile(new File(
                                                     mContext.getCacheDir().getAbsolutePath() +
                                                             "/" + "lockscreen_wallpaper" +

@@ -16,6 +16,7 @@ import projekt.substratum.tabs.FontInstaller;
 import projekt.substratum.tabs.MainScreenTab;
 import projekt.substratum.tabs.OverlaysList;
 import projekt.substratum.tabs.SoundPackager;
+import projekt.substratum.tabs.Wallpapers;
 
 public class InformationTabsAdapter extends FragmentStatePagerAdapter {
     public List package_checker;
@@ -24,10 +25,11 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
     String theme_pid;
     Boolean allow_quick_apply;
     String theme_mode;
+    String wallpaperUrl;
 
     public InformationTabsAdapter(FragmentManager fm, int NumOfTabs, Context context,
                                   String theme_pid, Boolean allow_quick_apply, String theme_mode,
-                                  List package_checker) {
+                                  List package_checker, String wallpaperUrl) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
         this.mContext = context;
@@ -35,6 +37,7 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
         this.allow_quick_apply = allow_quick_apply;
         this.theme_mode = theme_mode;
         this.package_checker = package_checker;
+        this.wallpaperUrl = wallpaperUrl;
     }
 
     @Override
@@ -52,6 +55,9 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
                 }
                 if (theme_mode.equals("sounds")) {
                     return new SoundPackager();
+                }
+                if (theme_mode.equals("wallpapers")) {
+                    return new Wallpapers();
                 }
                 if (allow_quick_apply) {
                     return new MainScreenTab();
@@ -71,6 +77,9 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
                 if (package_checker.contains("audio")) {
                     return new SoundPackager();
                 }
+                if (wallpaperUrl != null) {
+                    return new Wallpapers();
+                }
             case 2:
                 if (package_checker.contains("bootanimation")
                         && package_checker.contains("overlays") && allow_quick_apply) {
@@ -82,6 +91,9 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
                 if (package_checker.contains("audio")) {
                     return new SoundPackager();
                 }
+                if (wallpaperUrl != null) {
+                    return new Wallpapers();
+                }
             case 3:
                 if (package_checker.contains("fonts")
                         && package_checker.contains("bootanimation") && allow_quick_apply) {
@@ -90,10 +102,21 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
                 if (package_checker.contains("audio")) {
                     return new SoundPackager();
                 }
+                if (wallpaperUrl != null) {
+                    return new Wallpapers();
+                }
             case 4:
                 if (package_checker.contains("audio")
                         && package_checker.contains("fonts") && allow_quick_apply) {
                     return new SoundPackager();
+                }
+                if (wallpaperUrl != null) {
+                    return new Wallpapers();
+                }
+            case 5:
+                if (wallpaperUrl != null && package_checker.contains("audio") &&
+                        allow_quick_apply) {
+                    return new Wallpapers();
                 }
             default:
                 return null;

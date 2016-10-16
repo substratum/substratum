@@ -61,6 +61,7 @@ public class InformationActivity extends AppCompatActivity {
 
     public static String theme_name, theme_pid, theme_mode;
     private static List tab_checker;
+    private static String wallpaperUrl;
     private final int THEME_INFORMATION_REQUEST_CODE = 1;
     private Boolean refresh_mode = false;
     private Boolean uninstalled = false;
@@ -76,6 +77,10 @@ public class InformationActivity extends AppCompatActivity {
 
     public static String getThemePID() {
         return theme_pid;
+    }
+
+    public static String getWallpaperUrl() {
+        return wallpaperUrl;
     }
 
     private static int getDominantColor(Bitmap bitmap) {
@@ -167,6 +172,20 @@ public class InformationActivity extends AppCompatActivity {
         theme_mode = currentIntent.getStringExtra("theme_mode");
         theme_legacy = currentIntent.getBooleanExtra("theme_legacy", false);
         refresh_mode = currentIntent.getBooleanExtra("refresh_mode", false);
+
+        try {
+            ApplicationInfo appInfo = getApplicationContext()
+                    .getPackageManager().getApplicationInfo(
+                            theme_pid, PackageManager.GET_META_DATA);
+            if (appInfo.metaData != null) {
+                if (appInfo.metaData.getString("Substratum_Wallpapers") != null) {
+                    wallpaperUrl = appInfo.metaData.getString("Substratum_Wallpapers");
+                }
+            }
+        } catch (Exception e) {
+            // NameNotFound
+        }
+
         if (theme_mode == null) {
             theme_mode = "";
         }
@@ -254,6 +273,10 @@ public class InformationActivity extends AppCompatActivity {
                         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
                                 .theme_information_tab_five)));
                     }
+                    if (wallpaperUrl != null) {
+                        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
+                                .theme_information_tab_six)));
+                    }
                 } catch (Exception e) {
                     Log.e("SubstratumLogger", "Could not refresh list of asset folders.");
                 }
@@ -273,6 +296,11 @@ public class InformationActivity extends AppCompatActivity {
                             if (theme_mode.equals("sounds")) {
                                 tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
                                         .theme_information_tab_five)));
+                            } else {
+                                if (theme_mode.equals("wallpapers")) {
+                                    tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
+                                            .theme_information_tab_six)));
+                                }
                             }
                         }
                     }
@@ -305,7 +333,7 @@ public class InformationActivity extends AppCompatActivity {
         final InformationTabsAdapter adapter = new InformationTabsAdapter
                 (getSupportFragmentManager(), tabLayout.getTabCount(), getApplicationContext(),
                         theme_pid, (theme_mode.equals("") && !theme_legacy), theme_mode,
-                        tab_checker);
+                        tab_checker, wallpaperUrl);
         if (viewPager != null) {
             viewPager.setOffscreenPageLimit(tabLayout.getTabCount());
             viewPager.setAdapter(adapter);

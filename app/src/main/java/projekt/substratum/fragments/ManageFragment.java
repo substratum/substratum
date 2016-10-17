@@ -348,7 +348,7 @@ public class ManageFragment extends Fragment {
         protected void onPostExecute(String result) {
             mProgressDialog.dismiss();
             SharedPreferences.Editor editor = prefs.edit();
-            editor.remove("booatnimation_applied");
+            editor.remove("bootanimation_applied");
             editor.apply();
             Toast toast = Toast.makeText(getContext(), getString(R
                             .string.manage_bootanimation_toast),

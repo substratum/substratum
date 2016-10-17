@@ -118,7 +118,6 @@
     <string name="theme_information_quick_apply_sounds">Sounds</string>
     <string name="theme_information_quick_apply_wallpaper">Wallpaper</string>
 
-
     <string name="manage_dialog_text">Are you sure you want to perform this action?</string>
     <string name="manage_dialog_performing">Restoring to default&#8230;</string>
     <string name="manage_bootanimation_text">Restore Boot Animation</string>

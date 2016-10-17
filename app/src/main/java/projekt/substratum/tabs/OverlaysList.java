@@ -520,13 +520,11 @@ public class OverlaysList extends Fragment {
         try {
             ArrayList<String> type3 = new ArrayList<>();
             File f = new File(mContext.getCacheDir().getAbsoluteFile() + "/SubstratumBuilder/" +
-                    getThemeName(theme_pid).replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "")
-                    + "/assets/overlays/android/");
+                    theme_pid + "/assets/overlays/android/");
 
             if (!References.checkOMS()) {
                 File check_file = new File(mContext.getCacheDir().getAbsoluteFile() +
-                        "/SubstratumBuilder/" + getThemeName(theme_pid).replaceAll("\\s+", "")
-                        .replaceAll("[^a-zA-Z0-9]+", "") + "/assets/overlays_legacy/android/");
+                        "/SubstratumBuilder/" + theme_pid + "/assets/overlays_legacy/android/");
                 if (check_file.exists() && check_file.isDirectory()) {
                     f = new File(check_file.getAbsolutePath());
                 }
@@ -697,15 +695,11 @@ public class OverlaysList extends Fragment {
                 values = new ArrayList<>();
                 overlaysFolder = new ArrayList<>();
                 overlaysDirectory = new File(mContext.getCacheDir().getAbsoluteFile() +
-                        "/SubstratumBuilder/" +
-                        getThemeName(theme_pid).replaceAll("\\s+", "").replaceAll
-                                ("[^a-zA-Z0-9]+", "") + "/assets/overlays/");
+                        "/SubstratumBuilder/" + theme_pid + "/assets/overlays/");
 
                 if (!References.checkOMS()) {
                     File check_file = new File(mContext.getCacheDir().getAbsoluteFile() +
-                            "/SubstratumBuilder/" +
-                            getThemeName(theme_pid).replaceAll("\\s+", "").replaceAll
-                                    ("[^a-zA-Z0-9]+", "") + "/assets/overlays_legacy/");
+                            "/SubstratumBuilder/" + theme_pid + "/assets/overlays_legacy/");
                     if (check_file.exists() && check_file.isDirectory()) {
                         overlaysDirectory = new File(check_file.getAbsolutePath());
                     }
@@ -795,16 +789,12 @@ public class OverlaysList extends Fragment {
 
                         ArrayList<String> typeArray = new ArrayList<>();
                         File typeArrayRaw = new File(mContext.getCacheDir().getAbsoluteFile() +
-                                "/SubstratumBuilder/" +
-                                getThemeName(theme_pid).replaceAll("\\s+", "").replaceAll
-                                        ("[^a-zA-Z0-9]+", "")
+                                "/SubstratumBuilder/" + theme_pid
                                 + "/assets/overlays/" + package_identifier);
 
                         if (!References.checkOMS()) {
                             File check_file = new File(mContext.getCacheDir().getAbsoluteFile() +
-                                    "/SubstratumBuilder/" +
-                                    getThemeName(theme_pid).replaceAll("\\s+", "").replaceAll
-                                            ("[^a-zA-Z0-9]+", "")
+                                    "/SubstratumBuilder/" + theme_pid
                                     + "/assets/overlays_legacy/" + package_identifier + "/");
                             if (check_file.exists() && check_file.isDirectory()) {
                                 typeArrayRaw = new File(check_file.getAbsolutePath());
@@ -1068,9 +1058,7 @@ public class OverlaysList extends Fragment {
                     sb = new SubstratumBuilder();
 
                     File versioning = new File(mContext.getCacheDir().getAbsoluteFile() +
-                            "/SubstratumBuilder/" +
-                            getThemeName(theme_pid).replaceAll("\\s+", "")
-                                    .replaceAll("[^a-zA-Z0-9]+", "") + "/substratum.xml");
+                            "/SubstratumBuilder/" + theme_pid + "/substratum.xml");
                     if (versioning.exists()) {
                         has_initialized_cache = true;
                     } else {
@@ -1587,16 +1575,13 @@ public class OverlaysList extends Fragment {
                         }
 
                         String workingDirectory = getContext().getCacheDir().getAbsolutePath() +
-                                "/SubstratumBuilder/" + getThemeName(theme_pid)
-                                .replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "") +
+                                "/SubstratumBuilder/" + theme_pid +
                                 "/assets/overlays/" + current_overlay;
 
                         if (!References.checkOMS()) {
                             File check_legacy = new File(getContext().getCacheDir()
                                     .getAbsolutePath() + "/SubstratumBuilder/" +
-                                    getThemeName(theme_pid).replaceAll("\\s+", "")
-                                            .replaceAll("[^a-zA-Z0-9]+", "") +
-                                    "/assets/overlays_legacy/" +
+                                    theme_pid + "/assets/overlays_legacy/" +
                                     current_overlay);
                             if (check_legacy.exists()) {
                                 workingDirectory = check_legacy.getAbsolutePath();

@@ -748,8 +748,7 @@ public class InformationActivity extends AppCompatActivity {
                             toast.show();
 
                             Root.runCommand("rm -r " + getCacheDir().getAbsolutePath() +
-                                    "/SubstratumBuilder/" + getThemeName().replaceAll("\\s+", "")
-                                    .replaceAll("[^a-zA-Z0-9]+", ""));
+                                    "/SubstratumBuilder/" + getThemePID());
 
                             if (References.isPackageInstalled(getApplicationContext(),
                                     "masquerade.substratum")) {

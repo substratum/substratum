@@ -115,8 +115,7 @@ public class MainScreenTab extends Fragment {
 
         try {
             File f = new File(getContext().getCacheDir().getAbsoluteFile() + "/SubstratumBuilder/" +
-                    getThemeName(theme_pid).replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "")
-                    + "/assets/overlays");
+                    theme_pid + "/assets/overlays");
             File[] fileArray = f.listFiles();
             overlayList = new ArrayList<>();
             for (int i = 0; i < fileArray.length; i++) {
@@ -224,9 +223,7 @@ public class MainScreenTab extends Fragment {
 
                 try {
                     File f = new File(getContext().getCacheDir().getAbsoluteFile() +
-                            "/SubstratumBuilder/" +
-                            getThemeName(theme_pid).replaceAll("\\s+", "").replaceAll
-                                    ("[^a-zA-Z0-9]+", "")
+                            "/SubstratumBuilder/" + theme_pid
                             + "/assets/bootanimation");
                     File[] fileArray = f.listFiles();
                     for (int i = 0; i < fileArray.length; i++) {
@@ -277,9 +274,7 @@ public class MainScreenTab extends Fragment {
 
                 try {
                     File f = new File(getContext().getCacheDir().getAbsoluteFile() +
-                            "/SubstratumBuilder/" +
-                            getThemeName(theme_pid).replaceAll("\\s+", "").replaceAll
-                                    ("[^a-zA-Z0-9]+", "")
+                            "/SubstratumBuilder/" + theme_pid
                             + "/assets/fonts");
                     File[] fileArray = f.listFiles();
                     for (int i = 0; i < fileArray.length; i++) {
@@ -329,9 +324,7 @@ public class MainScreenTab extends Fragment {
 
                 try {
                     File f = new File(getContext().getCacheDir().getAbsoluteFile() +
-                            "/SubstratumBuilder/" +
-                            getThemeName(theme_pid).replaceAll("\\s+", "").replaceAll
-                                    ("[^a-zA-Z0-9]+", "")
+                            "/SubstratumBuilder/" + theme_pid
                             + "/assets/audio");
                     File[] fileArray = f.listFiles();
                     for (int i = 0; i < fileArray.length; i++) {
@@ -440,14 +433,10 @@ public class MainScreenTab extends Fragment {
 
             try {
                 File f = new File(getContext().getCacheDir().getAbsoluteFile() +
-                        "/SubstratumBuilder/" +
-                        getThemeName(theme_pid).replaceAll("\\s+", "").replaceAll
-                                ("[^a-zA-Z0-9]+", "")
+                        "/SubstratumBuilder/" + theme_pid
                         + "/assets/overlays/");
                 File f2 = new File(getContext().getCacheDir().getAbsoluteFile() +
-                        "/SubstratumBuilder/" +
-                        getThemeName(theme_pid).replaceAll("\\s+", "").replaceAll
-                                ("[^a-zA-Z0-9]+", "")
+                        "/SubstratumBuilder/" + theme_pid
                         + "/assets/overlays/android");
                 File[] unfilteredDirectory = f.listFiles();
                 File[] type3Directory = f2.listFiles();
@@ -567,9 +556,7 @@ public class MainScreenTab extends Fragment {
                 sb = new SubstratumBuilder();
 
                 File versioning = new File(getContext().getCacheDir().getAbsoluteFile() +
-                        "/SubstratumBuilder/" +
-                        getThemeName(theme_pid).replaceAll("\\s+", "")
-                                .replaceAll("[^a-zA-Z0-9]+", "") + "/substratum.xml");
+                        "/SubstratumBuilder/" + theme_pid + "/substratum.xml");
                 if (versioning.exists()) {
                     has_initialized_cache = true;
                 } else {
@@ -751,8 +738,7 @@ public class MainScreenTab extends Fragment {
                         Log.e("packageName", package_name);
                         if (!isPackageUpToDate(package_name)) {
                             String workingDirectory = getContext().getCacheDir().toString() +
-                                    "/SubstratumBuilder/" + getThemeName(theme_pid)
-                                    .replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "") +
+                                    "/SubstratumBuilder/" + theme_pid +
                                     "/assets/overlays/" + current_overlay;
 
                             File srcDir = new File(workingDirectory + "/res");
@@ -775,8 +761,7 @@ public class MainScreenTab extends Fragment {
                         to_be_enabled.add(package_name);
                     } else {
                         String workingDirectory = getContext().getCacheDir().toString() +
-                                "/SubstratumBuilder/" + getThemeName(theme_pid)
-                                .replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "") +
+                                "/SubstratumBuilder/" + theme_pid +
                                 "/assets/overlays/" + current_overlay;
 
                         File srcDir = new File(workingDirectory + "/res");

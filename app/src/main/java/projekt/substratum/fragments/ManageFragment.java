@@ -252,8 +252,8 @@ public class ManageFragment extends Fragment {
                                 case 2:
                                     try {
                                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                            wm.clear(WallpaperManager.FLAG_LOCK);
                                             wm.clear(WallpaperManager.FLAG_SYSTEM);
+                                            wm.clear(WallpaperManager.FLAG_LOCK);
                                         }
                                         Toast toast = Toast.makeText(getContext(), getString(R
                                                         .string.manage_wallpaper_all_toast),

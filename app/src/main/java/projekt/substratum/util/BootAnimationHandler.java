@@ -343,6 +343,46 @@ public class BootAnimationHandler {
 
                 if (!has_failed && (is_encrypted || !References.checkOMS())) {
                     Root.runCommand("mount -o rw,remount /system");
+                    File backupScript = new File("/system/addon.d/81-subsboot.sh");
+
+                    if (!backupScript.exists()) {
+                        AssetManager assetManager = mContext.getAssets();
+                        String backupScriptPath = mContext.getFilesDir().getAbsolutePath() +
+                                "/81-subsboot.sh";
+                        OutputStream out = null;
+                        InputStream in = null;
+                        try {
+                            out = new FileOutputStream(backupScriptPath);
+                            in = assetManager.open("81-subsboot.sh");
+                            byte[] buffer = new byte[1024];
+                            int read;
+                            while ((read = in.read(buffer)) != -1) {
+                                out.write(buffer, 0, read);
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        } finally {
+                            if (in != null) {
+                                try {
+                                    in.close();
+                                } catch (IOException e) {
+                                    // hohoho
+                                }
+                            }
+                            if (out != null) {
+                                try {
+                                    out.close();
+                                } catch (IOException e) {
+                                    // hohoho
+                                }
+                            }
+                        }
+
+                        Root.runCommand("cp " + mContext.getFilesDir().getAbsolutePath() +
+                                "/81-substratum.sh " + backupScript.getAbsolutePath());
+                        Root.runCommand("chmod 755 " + backupScript.getAbsolutePath());
+                    }
+
                     File backupDirectory = new File(themeDirectory.getAbsolutePath() +
                             "/bootanimation-backup.zip");
                     if (!backupDirectory.exists()) {
@@ -350,11 +390,11 @@ public class BootAnimationHandler {
                                 + "/bootanimation.zip " + backupDirectory.getAbsolutePath());
                     }
 
-                    if (backupDirectory.exists()) {
+                    if (backupDirectory.exists() && backupScript.exists()) {
                         Log.d("BootAnimationHandler", "Old bootanimation is backuped, ready to go!");
                     } else {
                         Log.e("BootAnimationHandler", "Failed to backup bootanimation!");
-                        has_failed  = true;
+                        has_failed = true;
                     }
                 }
 

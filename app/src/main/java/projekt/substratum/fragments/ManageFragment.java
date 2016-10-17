@@ -364,6 +364,7 @@ public class ManageFragment extends Fragment {
                 Root.runCommand("mount -o rw,remount /system");
                 Root.runCommand("mv -f /system/media/bootanimation-backup.zip " +
                         "/system/media/bootanimation.zip");
+                Root.runCommand("rm -r /system/addon.d/81-subsboot.sh");
             }
             return null;
         }

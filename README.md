@@ -1,4 +1,4 @@
-![Alt text](http://i.imgur.com/i3mO2Ao.png)
+![Alt text](http://i.imgur.com/i3mO2Ao.png) [![Build Status](https://travis-ci.org/nicholaschum/substratum.svg?branch=dev)](https://travis-ci.org/nicholaschum/substratum)
 
 # substratum development branch
 A new overlaying manager based off Sony's OverlayManagerService. This is the official repository of the substratum theme engine.

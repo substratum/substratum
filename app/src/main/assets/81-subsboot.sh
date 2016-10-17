@@ -1,7 +1,7 @@
 #!/sbin/sh
 # 
 # /system/addon.d/81-substratum.sh
-# During a upgrade, this script backs up /system/media/bootanimation.zip,
+# During an upgrade, this script backs up /system/media/bootanimation.zip,
 # /system is formatted and reinstalled, then the file is restored.
 #
 

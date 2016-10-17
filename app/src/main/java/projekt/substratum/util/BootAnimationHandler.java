@@ -391,7 +391,8 @@ public class BootAnimationHandler {
                     }
 
                     if (backupDirectory.exists() && backupScript.exists()) {
-                        Log.d("BootAnimationHandler", "Old bootanimation is backuped, ready to go!");
+                        Log.d("BootAnimationHandler", "Old bootanimation is backed up, ready to " +
+                                "go!");
                     } else {
                         Log.e("BootAnimationHandler", "Failed to backup bootanimation!");
                         has_failed = true;

@@ -124,10 +124,8 @@ public class CacheCreator {
             if (!myDir.exists()) {
                 boolean created = myDir.mkdir();
             }
-            String directory_name = getThemeName(package_identifier).replaceAll("\\s+", "")
-                    .replaceAll("[^a-zA-Z0-9]+", "");
             File myDir2 = new File(mContext.getCacheDir().getAbsoluteFile() +
-                    "/SubstratumBuilder/" + directory_name);
+                    "/SubstratumBuilder/" + package_identifier);
             if (!myDir2.exists()) {
                 boolean created = myDir2.mkdir();
             } else {
@@ -135,7 +133,7 @@ public class CacheCreator {
                 boolean created = myDir2.mkdir();
             }
             String destination = mContext.getCacheDir().getAbsolutePath() + "/SubstratumBuilder/"
-                    + directory_name;
+                    + package_identifier;
 
             // Initialize Notification
 
@@ -220,7 +218,7 @@ public class CacheCreator {
                     }
                 }
                 if (checkNotificationVisibility()) {
-                    createVersioningPlaceholderFile(package_identifier, directory_name);
+                    createVersioningPlaceholderFile(package_identifier, package_identifier);
                     mNotifyManager.cancel(id);
                     Log.d("SubstratumCacher", "The theme's assets have been successfully " +
                             "expanded to the work area!");

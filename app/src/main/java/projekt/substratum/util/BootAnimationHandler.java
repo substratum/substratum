@@ -334,6 +334,23 @@ public class BootAnimationHandler {
                     has_failed = true;
                 }
 
+                if (!has_failed && is_encrypted) {
+                    Root.runCommand("mount -o rw,remount /system");
+                    File backupDirectory = new File(themeDirectory.getAbsolutePath() +
+                            "/bootanimation-backup.zip");
+                    if (!backupDirectory.exists()) {
+                        Root.runCommand("mv -f " + themeDirectory.getAbsolutePath()
+                                + "/bootanimation.zip " + backupDirectory.getAbsolutePath());
+                    }
+
+                    if (backupDirectory.exists()) {
+                        Log.d("BootAnimationHandler", "Old bootanimation is backuped, ready to go!");
+                    } else {
+                        Log.e("BootAnimationHandler", "Failed to backup bootanimation!");
+                        has_failed  = true;
+                    }
+                }
+
                 if (!has_failed) {
                     Root.runCommand("mount -o rw,remount /system");
                     Root.runCommand("chmod 755 " + themeDirectory.getAbsolutePath());
@@ -343,13 +360,11 @@ public class BootAnimationHandler {
                             "mv -f " + mContext.getCacheDir()
                                     .getAbsolutePath() + "/BootAnimationCache/AnimationCreator/"
                                     + "scaled-" + bootanimation + ".zip "
-                                    + themeDirectory.getAbsolutePath() + ((is_encrypted) ?
-                                    "/bootanimation-encrypted.zip" : "/bootanimation.zip"));
+                                    + themeDirectory.getAbsolutePath() + "/bootanimation.zip");
 
                     Root.runCommand("mount -o rw,remount /system");
                     Root.runCommand("chmod 644 "
-                            + themeDirectory.getAbsolutePath() + ((is_encrypted) ?
-                            "/bootanimation-encrypted.zip" : "/bootanimation.zip"));
+                            + themeDirectory.getAbsolutePath() + "/bootanimation.zip");
 
                     Root.runCommand("mount -o rw,remount /data");
                     Root.runCommand("chcon -R u:object_r:system_file:s0 " +

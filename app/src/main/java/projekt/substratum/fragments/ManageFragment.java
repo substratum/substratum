@@ -366,7 +366,9 @@ public class ManageFragment extends Fragment {
             if (getDeviceEncryptionStatus() <= 1) {
                 Root.runCommand("rm -r /data/system/theme/bootanimation.zip");
             } else {
-                Root.runCommand("rm -r /system/media/bootanimation-encrypted.zip");
+                Root.runCommand("mount -o rw,remount /system");
+                Root.runCommand("mv -f /system/media/bootanimation-backup.zip " +
+                        "/system/media/bootanimation.zip");
             }
             return null;
         }

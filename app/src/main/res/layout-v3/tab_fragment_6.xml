@@ -17,13 +17,40 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_marginTop="20dp"
-            android:src="@drawable/no_network"/>
+            android:src="@drawable/no_wallpapers_found"/>
 
         <TextView
             android:id="@+id/placeholder_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/image_placeholder"
+            android:layout_margin="15dp"
+            android:gravity="center"
+            android:text="@string/wallpaper_no_wallpapers"
+            android:textColor="@color/font_text"
+            android:textSize="20dp"
+            android:textStyle="italic"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/no_network"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="57dp">
+
+        <ImageView
+            android:id="@+id/image_placeholder2"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/no_network"/>
+
+        <TextView
+            android:id="@+id/placeholder_text2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/image_placeholder2"
             android:layout_margin="15dp"
             android:gravity="center"
             android:text="@string/wallpaper_no_connection"

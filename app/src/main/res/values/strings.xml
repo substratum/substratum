@@ -73,6 +73,7 @@
     <string name="wallpaper_lockscreen_success">Lockscreen wallpaper configured!</string>
     <string name="wallpaper_lockscreen_error">Unable to set lockscreen wallpaper</string>
     <string name="wallpaper_no_connection">to utilize theme wallpapers, an internet connection is required&#8230;</string>
+    <string name="wallpaper_no_wallpapers">seems like the loaded wallpaper database is empty&#8230;</string>
 
     <string name="font_placeholder_text">please select a font pack from the dropdown list&#8230;</string>
     <string name="font_default_spinner">please select a font pack&#8230;</string>

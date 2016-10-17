@@ -8,6 +8,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.preference.PreferenceManager;
@@ -114,6 +116,14 @@ public class References {
     public static Boolean inNexusFilter() {
         String[] nexus_filter = {"angler", "bullhead", "flounder", "dragon", "marlin", "sailfish"};
         return Arrays.asList(nexus_filter).contains(Build.DEVICE);
+    }
+
+    // This method checks whether there is any network available for Wallpapers
+    public static boolean isNetworkAvailable(Context mContext) {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
     // This string array contains all the SystemUI acceptable overlay packs

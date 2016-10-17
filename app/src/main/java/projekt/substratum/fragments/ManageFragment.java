@@ -74,11 +74,6 @@ public class ManageFragment extends Fragment {
         TextView bootAnimTitle = (TextView) root.findViewById(R.id.bootAnimTitle);
         TextView fontsCardTitle = (TextView) root.findViewById(R.id.fontsTitle);
 
-        if (!References.checkOMS()) {
-            bootAnimCard.setVisibility(View.GONE);
-            bootAnimTitle.setVisibility(View.GONE);
-        }
-
         // Overlays Dialog
 
         overlaysCard.setOnClickListener(new View.OnClickListener() {
@@ -363,7 +358,7 @@ public class ManageFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            if (getDeviceEncryptionStatus() <= 1) {
+            if (getDeviceEncryptionStatus() <= 1 && References.checkOMS()) {
                 Root.runCommand("rm -r /data/system/theme/bootanimation.zip");
             } else {
                 Root.runCommand("mount -o rw,remount /system");

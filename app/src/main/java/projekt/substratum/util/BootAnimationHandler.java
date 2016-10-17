@@ -33,6 +33,7 @@ import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 import projekt.substratum.R;
+import projekt.substratum.config.References;
 
 /**
  * @author Nicholas Chum (nicholaschum)
@@ -307,18 +308,24 @@ public class BootAnimationHandler {
                         "and setting correct contextual parameters...");
                 boolean is_encrypted = false;
                 File themeDirectory;
-                if (getDeviceEncryptionStatus() <= 1) {
-                    Log.d("BootAnimationHandler", "Data partition on the current device is " +
-                            "decrypted, using dedicated theme bootanimation slot...");
-                    themeDirectory = new File("/data/system/theme/");
-                    if (!themeDirectory.exists()) {
-                        Root.runCommand("mount -o rw,remount /data");
-                        Root.runCommand("mkdir /data/system/theme/");
+                if (References.checkOMS()) {
+                    if (getDeviceEncryptionStatus() <= 1) {
+                        Log.d("BootAnimationHandler", "Data partition on the current device is " +
+                                "decrypted, using dedicated theme bootanimation slot...");
+                        themeDirectory = new File("/data/system/theme/");
+                        if (!themeDirectory.exists()) {
+                            Root.runCommand("mount -o rw,remount /data");
+                            Root.runCommand("mkdir /data/system/theme/");
+                        }
+                    } else {
+                        Log.d("BootAnimationHandler", "Data partition on the current device is " +
+                                "encrypted, using dedicated encrypted bootanimation slot...");
+                        is_encrypted = true;
+                        themeDirectory = new File("/system/media/");
                     }
                 } else {
-                    Log.d("BootAnimationHandler", "Data partition on the current device is " +
-                            "encrypted, using dedicated encrypted bootanimation slot...");
-                    is_encrypted = true;
+                    Log.d("BootAnimationHandler", "Current device is on substratum legacy, " +
+                            "using system bootanimation slot...");
                     themeDirectory = new File("/system/media/");
                 }
 
@@ -334,7 +341,7 @@ public class BootAnimationHandler {
                     has_failed = true;
                 }
 
-                if (!has_failed && is_encrypted) {
+                if (!has_failed && (is_encrypted || !References.checkOMS())) {
                     Root.runCommand("mount -o rw,remount /system");
                     File backupDirectory = new File(themeDirectory.getAbsolutePath() +
                             "/bootanimation-backup.zip");

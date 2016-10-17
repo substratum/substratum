@@ -111,8 +111,7 @@ public class BootAnimation extends Fragment {
 
         try {
             File f = new File(getContext().getCacheDir().getAbsoluteFile() + "/SubstratumBuilder/" +
-                    getThemeName(theme_pid).replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "")
-                    + "/assets/bootanimation");
+                    theme_pid + "/assets/bootanimation");
             File[] fileArray = f.listFiles();
             ArrayList<String> unparsedBootAnimations = new ArrayList<>();
             for (int i = 0; i < fileArray.length; i++) {
@@ -250,9 +249,7 @@ public class BootAnimation extends Fragment {
 
                 try {
                     File f = new File(getContext().getCacheDir().getAbsoluteFile() +
-                            "/SubstratumBuilder/" +
-                            getThemeName(theme_pid).replaceAll("\\s+", "").replaceAll
-                                    ("[^a-zA-Z0-9]+", "") + "/assets/bootanimation/" + source);
+                            "/SubstratumBuilder/" + theme_pid + "/assets/bootanimation/" + source);
                     try (InputStream inputStream = new FileInputStream(f);
                          OutputStream outputStream = new FileOutputStream(getContext().getCacheDir()
                                  .getAbsolutePath() + "/BootAnimationCache/" + source)) {

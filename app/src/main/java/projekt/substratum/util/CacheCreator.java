@@ -102,10 +102,8 @@ public class CacheCreator {
 
     public boolean wipeCache(Context context, String package_identifier) {
         mContext = context;
-        String directory_name = getThemeName(package_identifier).replaceAll("\\s+", "")
-                .replaceAll("[^a-zA-Z0-9]+", "");
         File myDir2 = new File(mContext.getCacheDir().getAbsoluteFile() +
-                "/SubstratumBuilder/" + directory_name);
+                "/SubstratumBuilder/" + package_identifier);
         if (myDir2.exists()) {
             Root.runCommand("rm -r " + myDir2.getAbsolutePath());
             return myDir2.mkdir();

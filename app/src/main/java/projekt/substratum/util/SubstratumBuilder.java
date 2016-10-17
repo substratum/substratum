@@ -95,14 +95,12 @@ public class SubstratumBuilder {
 
         // 1. Set work area to asset chosen based on the parameter passed into this class
 
-        work_area = mContext.getCacheDir().getAbsolutePath() + "/SubstratumBuilder/" +
-                getThemeName(theme_pid).replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "") +
+        work_area = mContext.getCacheDir().getAbsolutePath() + "/SubstratumBuilder/" + theme_pid +
                 "/assets/overlays/" + overlay_package;
 
         if (!theme_oms) {
             File check_legacy = new File(mContext.getCacheDir().getAbsolutePath() +
-                    "/SubstratumBuilder/" + getThemeName(theme_pid).replaceAll("\\s+", "")
-                    .replaceAll("[^a-zA-Z0-9]+", "") + "/assets/overlays_legacy/" +
+                    "/SubstratumBuilder/" + theme_pid + "/assets/overlays_legacy/" +
                     overlay_package);
             if (check_legacy.exists()) {
                 work_area = check_legacy.getAbsolutePath();

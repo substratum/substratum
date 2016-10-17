@@ -98,9 +98,7 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
                                 File checkSubstratumVerity = new File(information.get(i)
                                         .getContext().getCacheDir()
                                         .getAbsoluteFile() + "/SubstratumBuilder/" +
-                                        information.get(i).getThemeName().replaceAll("\\s+", "")
-                                                .replaceAll("[^a-zA-Z0-9]+", "") +
-                                        "/substratum.xml");
+                                        information.get(i).getThemePackage() + "/substratum.xml");
                                 if (checkSubstratumVerity.exists()) {
                                     References.launchTheme(information.get(i).getContext(),
                                             information.get(i).getThemeName(), information.get(i)

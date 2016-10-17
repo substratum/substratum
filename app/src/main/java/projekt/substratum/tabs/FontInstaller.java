@@ -98,8 +98,7 @@ public class FontInstaller extends Fragment {
 
         try {
             File f = new File(getContext().getCacheDir().getAbsoluteFile() + "/SubstratumBuilder/" +
-                    getThemeName(theme_pid).replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "")
-                    + "/assets/fonts");
+                    theme_pid + "/assets/fonts");
             File[] fileArray = f.listFiles();
             ArrayList<String> unparsedFonts = new ArrayList<>();
             for (int i = 0; i < fileArray.length; i++) {
@@ -263,9 +262,7 @@ public class FontInstaller extends Fragment {
 
                 try {
                     File f = new File(getContext().getCacheDir().getAbsoluteFile() +
-                            "/SubstratumBuilder/" +
-                            getThemeName(theme_pid).replaceAll("\\s+", "").replaceAll
-                                    ("[^a-zA-Z0-9]+", "") + "/assets/fonts/" + source);
+                            "/SubstratumBuilder/" + theme_pid + "/assets/fonts/" + source);
                     InputStream inputStream = new FileInputStream(f);
                     OutputStream outputStream = new FileOutputStream(getContext().getCacheDir()
                             .getAbsolutePath() + "/FontCache/" + source);

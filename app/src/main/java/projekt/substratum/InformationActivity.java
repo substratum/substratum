@@ -233,6 +233,7 @@ public class InformationActivity extends AppCompatActivity {
         theme_mode = currentIntent.getStringExtra("theme_mode");
         theme_legacy = currentIntent.getBooleanExtra("theme_legacy", false);
         refresh_mode = currentIntent.getBooleanExtra("refresh_mode", false);
+        wallpaperUrl = null;
 
         try {
             ApplicationInfo appInfo = getApplicationContext()

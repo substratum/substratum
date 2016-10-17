@@ -25,6 +25,20 @@
             layout="@layout/manage_tab_overlay_card"/>
 
         <TextView
+            android:id="@+id/wallpaperTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/theme_information_quick_apply_wallpaper"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"/>
+
+        <include
+            android:id="@+id/wallpaperCard"
+            layout="@layout/manage_tab_wallpaper_card"/>
+
+        <TextView
             android:id="@+id/bootAnimTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

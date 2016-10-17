@@ -1,12 +1,14 @@
 package projekt.substratum.fragments;
 
 import android.app.ProgressDialog;
+import android.app.WallpaperManager;
 import android.app.admin.DevicePolicyManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -21,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,6 +70,7 @@ public class ManageFragment extends Fragment {
         prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 
         CardView overlaysCard = (CardView) root.findViewById(R.id.overlaysCard);
+        CardView wallpaperCard = (CardView) root.findViewById(R.id.wallpaperCard);
         CardView bootAnimCard = (CardView) root.findViewById(R.id.bootAnimCard);
         CardView fontsCard = (CardView) root.findViewById(R.id.fontsCard);
         CardView soundsCard = (CardView) root.findViewById(R.id.soundsCard);
@@ -188,6 +192,109 @@ public class ManageFragment extends Fragment {
                 builderSingle.show();
             }
         });
+
+        // Wallpaper  Dialog
+
+        wallpaperCard.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                     final AlertDialog.Builder builderSingle = new AlertDialog.Builder(getContext());
+                     final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getContext(),
+                             R.layout.dialog_listview);
+                     final WallpaperManager wm = WallpaperManager.getInstance(getContext());
+
+                     arrayAdapter.add(getString(R.string.manage_wallpaper_home));
+                     arrayAdapter.add(getString(R.string.manage_wallpaper_lock));
+                     arrayAdapter.add(getString(R.string.manage_wallpaper_all));
+
+                     builderSingle.setNegativeButton(
+                         android.R.string.cancel,
+                         new DialogInterface.OnClickListener() {
+                             @Override
+                             public void onClick(DialogInterface dialog, int which) {
+                                 dialog.dismiss();
+                             }
+                         });
+
+                     builderSingle.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
+                         @Override
+                         public void onClick(DialogInterface dialog, int which) {
+                             switch (which) {
+                                 case 0:
+                                     try {
+                                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                             wm.clear(WallpaperManager.FLAG_SYSTEM);
+                                         }
+                                         Toast toast = Toast.makeText(getContext(), getString(R
+                                                         .string.manage_wallpaper_home_toast),
+                                                 Toast.LENGTH_SHORT);
+                                         toast.show();
+                                     } catch (IOException e) {
+                                         Log.e("SubstratumLogger", "Failed to restore home screen wallpaper!");
+                                     }
+                                     break;
+                                 case 1:
+                                     try {
+                                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                             wm.clear(WallpaperManager.FLAG_LOCK);
+                                         }
+                                         Toast toast = Toast.makeText(getContext(), getString(R
+                                                         .string.manage_wallpaper_lock_toast),
+                                                 Toast.LENGTH_SHORT);
+                                         toast.show();
+                                     } catch (IOException e) {
+                                         Log.e("SubstratumLogger", "Failed to restore lock screen wallpaper!");
+                                     }
+                                     break;
+                                 case 2:
+                                     try {
+                                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                             wm.clear(WallpaperManager.FLAG_LOCK);
+                                             wm.clear(WallpaperManager.FLAG_SYSTEM);
+                                         }
+                                         Toast toast = Toast.makeText(getContext(), getString(R
+                                                         .string.manage_wallpaper_all_toast),
+                                                 Toast.LENGTH_SHORT);
+                                         toast.show();
+                                     } catch (IOException e) {
+                                         Log.e("SubstratumLogger", "Failed to restore wallpapers!");
+                                     }
+                             }
+                         }
+                     });
+                     builderSingle.show();
+                 } else {
+                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+                     alertDialogBuilder.setTitle(getString(R.string.manage_wallpaper_title));
+                     alertDialogBuilder.setMessage(getString(R.string.manage_dialog_text));
+                     alertDialogBuilder
+                         .setPositiveButton(android.R.string.ok, new DialogInterface
+                                 .OnClickListener() {
+                             public void onClick(DialogInterface dialog, int id) {
+                             WallpaperManager wm = WallpaperManager.getInstance(getContext());
+                             try {
+                                 wm.clear();
+                                 Toast toast = Toast.makeText(getContext(), getString(R
+                                                 .string.manage_wallpaper_all_toast),
+                                         Toast.LENGTH_SHORT);
+                                 toast.show();
+                             } catch (IOException e) {
+                                 Log.e("SubstratumLogger", "Failed to restore home screen wallpaper!");
+                             }
+                             }
+                         })
+                         .setNegativeButton(android.R.string.cancel, new DialogInterface
+                                 .OnClickListener() {
+                             public void onClick(DialogInterface dialog, int id) {
+                                 dialog.cancel();
+                             }
+                         });
+                     AlertDialog alertDialog = alertDialogBuilder.create();
+                     alertDialog.show();
+                 }
+             }
+         });
 
         // Boot Animation Dialog
 

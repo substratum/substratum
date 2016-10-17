@@ -116,6 +116,8 @@
     <string name="theme_information_quick_apply_thirdparty_overlay_text">Applies all installed third party overlays from this theme</string>
     <string name="theme_information_quick_apply_bootanimation">Boot Animation</string>
     <string name="theme_information_quick_apply_sounds">Sounds</string>
+    <string name="theme_information_quick_apply_wallpaper">Wallpaper</string>
+
 
     <string name="manage_dialog_text">Are you sure you want to perform this action?</string>
     <string name="manage_dialog_performing">Restoring to default&#8230;</string>
@@ -135,6 +137,14 @@
     <string name="manage_system_overlay_toast">System theme is now restoring&#8230;</string>
     <string name="manage_system_overlay_uninstall_toast">Overlays are now uninstalling in the background&#8230;</string>
     <string name="manage_system_overlay_text">Disables all enabled overlays and restores the stock theme</string>
+    <string name="manage_wallpaper_title">Restore Stock Wallpaper</string>
+    <string name="manage_wallpaper_text">Restores the default wallpaper on your device</string>
+    <string name="manage_wallpaper_home">Home screen wallpaper</string>
+    <string name="manage_wallpaper_lock">Lock screen wallpaper</string>
+    <string name="manage_wallpaper_all">Home and Lock screen wallpaper</string>
+    <string name="manage_wallpaper_home_toast">Home screen wallpaper restored successfully!</string>
+    <string name="manage_wallpaper_lock_toast">Lock screen wallpaper restored successfully!</string>
+    <string name="manage_wallpaper_all_toast">Wallpaper restored successfully!</string>
 
     <string name="plugin_template">Plugin</string>
     <string name="api_21">Lollipop</string>

@@ -1,10 +1,14 @@
 package projekt.substratum.fragments;
 
+import android.app.WallpaperManager;
+import android.app.admin.DevicePolicyManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
@@ -24,6 +28,7 @@ import android.widget.Toast;
 import com.alimuzaffar.lib.widgets.AnimatedEditText;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -249,6 +254,8 @@ public class ProfileFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... sUrl) {
+            String uid = Environment.getExternalStorageDirectory().getAbsolutePath()
+                    .split("/")[3];
             if (References.checkOMS()) {
                 Root.runCommand("cp /data/system/overlays.xml " +
                         Environment.getExternalStorageDirectory().getAbsolutePath() +
@@ -270,6 +277,21 @@ public class ProfileFragment extends Fragment {
                 Root.runCommand("cp -rf /data/system/theme/ " +
                         Environment.getExternalStorageDirectory().getAbsolutePath() +
                         "/substratum/profiles/" + aet_getText);
+
+                // Backup wallpapers
+                Root.runCommand("cp -f " + "/data/system/users/" + uid + "/wallpaper "
+                        + Environment.getExternalStorageDirectory().getAbsolutePath()
+                        + "/substratum/profiles/" + aet_getText + "/wallpaper.png");
+                Root.runCommand("cp -f " + "/data/system/users/" + uid + "/wallpaper_lock "
+                        + Environment.getExternalStorageDirectory().getAbsolutePath()
+                        + "/substratum/profiles/" + aet_getText + "/wallpaper_lock.png");
+
+                // Backup system bootanimation if encrypted
+                if (getDeviceEncryptionStatus() >= 2) {
+                    Root.runCommand("cp -f /system/media/bootanimation.zip "
+                            + Environment.getExternalStorageDirectory().getAbsolutePath()
+                            + "/substratum/profiles/" + aet_getText + "/bootanimation.zip");
+                }
             } else {
                 String current_directory;
                 if (References.inNexusFilter()) {
@@ -294,6 +316,25 @@ public class ProfileFragment extends Fragment {
                             Environment.getExternalStorageDirectory()
                                     .getAbsolutePath() + "/substratum/profiles/" + aet_getText);
                     Root.runCommand("mount -o ro,remount /system");
+
+                    // Don't forget the wallpaper
+                    File homeWall = new File("/data/system/users/" + uid + "/wallpaper");
+                    File lockWall = new File("/data/system/users/" + uid + "/wallpaper_lock");
+                    if (homeWall.exists()) {
+                        Root.runCommand("cp -f " + homeWall + " "
+                                + Environment.getExternalStorageDirectory().getAbsolutePath()
+                                + "/substratum/profiles/" + aet_getText + "/wallpaper.png");
+                    }
+                    if (lockWall.exists()) {
+                        Root.runCommand("cp -f " + lockWall + " "
+                                + Environment.getExternalStorageDirectory().getAbsolutePath()
+                                + "/substratum/profiles/" + aet_getText + "/wallpaper_lock.png");
+                    }
+
+                    // And bootanimation
+                    Root.runCommand("cp -f /system/media/bootanimation.zip "
+                            + Environment.getExternalStorageDirectory().getAbsolutePath()
+                            + "/substratum/profiles/" + aet_getText);
                 } else {
                     Toast toast = Toast.makeText(getContext(), getString(R.string
                                     .backup_no_overlays),
@@ -499,6 +540,31 @@ public class ProfileFragment extends Fragment {
                 alertDialog.show();
                 headerProgress.setVisibility(View.GONE);
             }
+
+            // Restore wallpapers
+            String homeWallPath = Environment.getExternalStorageDirectory().getAbsolutePath() +
+                    "/substratum/profiles/" + profile_selector.getSelectedItem() + "/" +
+                    "/wallpaper.png";
+            String lockWallPath = Environment.getExternalStorageDirectory().getAbsolutePath() +
+                    "/substratum/profiles/" + profile_selector.getSelectedItem() + "/" +
+                    "/wallpaper_lock.png";
+            File homeWall = new File(homeWallPath);
+            File lockWall = new File(lockWallPath);
+            if (homeWall.exists() || lockWall.exists()) {
+                WallpaperManager wm = WallpaperManager.getInstance(getContext());
+                try {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        wm.setStream(new FileInputStream(homeWallPath), null, true,
+                                WallpaperManager.FLAG_SYSTEM);
+                        wm.setStream(new FileInputStream(lockWallPath), null, true,
+                                WallpaperManager.FLAG_LOCK);
+                    } else {
+                        wm.setStream(new FileInputStream(homeWallPath));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
             super.onPostExecute(result);
         }
 
@@ -627,13 +693,31 @@ public class ProfileFragment extends Fragment {
                     to_be_run_commands = to_be_run_commands + " && chmod 755 /data/system/theme/";
 
                     // Boot Animation
-                    File bootanimations = new File(Environment.getExternalStorageDirectory()
-                            .getAbsolutePath() +
-
-                            "/substratum/profiles/" + profile_name + "/bootanimation.zip");
-                    if (bootanimations.exists()) {
-                        to_be_run_commands = to_be_run_commands +
-                                " && chmod 644 /data/system/theme/bootanimation.zip";
+                    File bootanimation = new File(Environment.getExternalStorageDirectory()
+                            .getAbsolutePath() + "/substratum/profiles/" + profile_name +
+                            "/bootanimation.zip");
+                    if (bootanimation.exists()) {
+                        if (getDeviceEncryptionStatus() <= 1) {
+                            to_be_run_commands = to_be_run_commands +
+                                    " && chmod 644 /data/system/theme/bootanimation.zip";
+                        } else {
+                            File bootanimationBackup = new File(
+                                    "/system/media/bootanimation-backup.zip");
+                            to_be_run_commands = to_be_run_commands +
+                                    " && mount -o rw,remount /system";
+                            if (!bootanimationBackup.exists()) {
+                                to_be_run_commands = to_be_run_commands +
+                                        " && mv -f /system/media/bootanimation.zip" +
+                                        " /system/media/bootanimation-backup.zip";
+                            }
+                            to_be_run_commands = to_be_run_commands + " && cp -f " +
+                                    Environment.getExternalStorageDirectory().getAbsolutePath() +
+                                    "/substratum/profiles/" + profile_name + "/bootanimation.zip" +
+                                    " /system/media/bootanimation.zip";
+                            to_be_run_commands = to_be_run_commands +
+                                    " && chmod 644 /system/media/bootanimation.zip" +
+                                    " && mount -o ro,remount /system";
+                        }
                     }
 
                     // Fonts
@@ -724,8 +808,37 @@ public class ProfileFragment extends Fragment {
                     to_be_run_commands = to_be_run_commands + " && pkill -f com.android.systemui";
                 }
                 Log.e("SubstratumRestore", to_be_run_commands);
+            } else {
+                String profile_name = sUrl[0];
+                to_be_run_commands = to_be_run_commands +
+                        " && mount -o rw,remount /system";
+                to_be_run_commands = to_be_run_commands +
+                        " && mv -f /system/media/bootanimation.zip" +
+                        " /system/media/bootanimation-backup.zip";
+                to_be_run_commands = to_be_run_commands + " && cp -f " +
+                        Environment.getExternalStorageDirectory().getAbsolutePath() +
+                        "/substratum/profiles/" + profile_name + "/ /system/media/";
+                to_be_run_commands = to_be_run_commands +
+                        " && chmod 644 /system/media/bootanimation.zip" +
+                        " && mount -o ro,remount /system";
             }
             return null;
         }
+    }
+
+    private int getDeviceEncryptionStatus() {
+        // 0: ENCRYPTION_STATUS_UNSUPPORTED
+        // 1: ENCRYPTION_STATUS_INACTIVE
+        // 2: ENCRYPTION_STATUS_ACTIVATING
+        // 3: ENCRYPTION_STATUS_ACTIVE_DEFAULT_KEY
+        // 4: ENCRYPTION_STATUS_ACTIVE
+        // 5: ENCRYPTION_STATUS_ACTIVE_PER_USER
+        int status = DevicePolicyManager.ENCRYPTION_STATUS_UNSUPPORTED;
+        final DevicePolicyManager dpm = (DevicePolicyManager)
+                getContext().getSystemService(Context.DEVICE_POLICY_SERVICE);
+        if (dpm != null) {
+            status = dpm.getStorageEncryptionStatus();
+        }
+        return status;
     }
 }

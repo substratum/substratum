@@ -227,6 +227,22 @@ public class ProfileFragment extends Fragment {
         return root;
     }
 
+    private int getDeviceEncryptionStatus() {
+        // 0: ENCRYPTION_STATUS_UNSUPPORTED
+        // 1: ENCRYPTION_STATUS_INACTIVE
+        // 2: ENCRYPTION_STATUS_ACTIVATING
+        // 3: ENCRYPTION_STATUS_ACTIVE_DEFAULT_KEY
+        // 4: ENCRYPTION_STATUS_ACTIVE
+        // 5: ENCRYPTION_STATUS_ACTIVE_PER_USER
+        int status = DevicePolicyManager.ENCRYPTION_STATUS_UNSUPPORTED;
+        final DevicePolicyManager dpm = (DevicePolicyManager)
+                getContext().getSystemService(Context.DEVICE_POLICY_SERVICE);
+        if (dpm != null) {
+            status = dpm.getStorageEncryptionStatus();
+        }
+        return status;
+    }
+
     private class BackupFunction extends AsyncTask<String, Integer, String> {
 
         @Override
@@ -824,21 +840,5 @@ public class ProfileFragment extends Fragment {
             }
             return null;
         }
-    }
-
-    private int getDeviceEncryptionStatus() {
-        // 0: ENCRYPTION_STATUS_UNSUPPORTED
-        // 1: ENCRYPTION_STATUS_INACTIVE
-        // 2: ENCRYPTION_STATUS_ACTIVATING
-        // 3: ENCRYPTION_STATUS_ACTIVE_DEFAULT_KEY
-        // 4: ENCRYPTION_STATUS_ACTIVE
-        // 5: ENCRYPTION_STATUS_ACTIVE_PER_USER
-        int status = DevicePolicyManager.ENCRYPTION_STATUS_UNSUPPORTED;
-        final DevicePolicyManager dpm = (DevicePolicyManager)
-                getContext().getSystemService(Context.DEVICE_POLICY_SERVICE);
-        if (dpm != null) {
-            status = dpm.getStorageEncryptionStatus();
-        }
-        return status;
     }
 }

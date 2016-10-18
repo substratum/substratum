@@ -539,7 +539,7 @@ public class MainActivity extends AppCompatActivity implements
                                         switchFragment(getString(R.string
                                                         .nav_troubleshooting),
                                                 "TroubleshootingFragment");
-                                        drawerSelected = 11;
+                                        drawerSelected = 10;
                                     }
                                     break;
                                 case 11:

@@ -98,5 +98,8 @@ dependencies {
 
     // Image Processing
     compile 'com.theartofdev.edmodo:android-image-cropper:2.3.+'
+
+    // HTML Processing
+    compile 'org.jsoup:jsoup:1.7.3'
 }
 apply plugin: 'com.google.gms.google-services'

@@ -3,7 +3,6 @@ package projekt.substratum;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -749,22 +748,8 @@ public class MainActivity extends AppCompatActivity implements
                 toast.show();
                 return true;
             case R.id.search:
-                try {
-                    String playURL;
-                    if (References.checkOMS()) {
-                        playURL = getString(R.string.search_play_store_url);
-                    } else {
-                        playURL = getString(R.string.search_play_store_url_legacy);
-                    }
-                    Intent i = new Intent(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse(playURL));
-                    startActivity(i);
-                } catch (ActivityNotFoundException activityNotFoundException) {
-                    Toast toaster = Toast.makeText(getApplicationContext(), getString(R.string
-                                    .activity_missing_toast),
-                            Toast.LENGTH_SHORT);
-                    toaster.show();
-                }
+                Intent intent = new Intent(this, ShowcaseActivity.class);
+                startActivity(intent);
                 return true;
 
             // Begin OMS based options

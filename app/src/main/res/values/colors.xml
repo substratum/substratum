@@ -63,6 +63,9 @@
     <color name="main_screen_card_theme_title">#ff000000</color>
     <color name="main_screen_card_theme_author">#d0000000</color>
 
+    <color name="showcase_support_default">@color/main_screen_card_theme_title</color>
+    <color name="showcase_support_disabled">#64777777</color>
+
     <color name="wallpaper_bg_background">@android:color/black</color>
 
     <color name="theme_information_background">#ffeeeeee</color>

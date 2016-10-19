@@ -42,17 +42,35 @@ public class ReadCloudShowcaseFile {
                             getTextContent();
                     String addon_author = eElement.getElementsByTagName("author").item(0).
                             getTextContent();
+                    String addon_image = "";
+                    try {
+                        // Try to see if the entry has an image override tag <image>
+                        addon_image = eElement.getElementsByTagName("image").item(0).
+                                getTextContent();
+                    } catch (Exception e) {
+                        // There is no image override tag
+                    }
                     String addon_pricing = eElement.getElementsByTagName("pricing").item(0).
                             getTextContent();
                     String addon_support = eElement.getElementsByTagName("support").item(0).
                             getTextContent();
 
-                    String[] finalArray = {addon_download_name, addon_download_link,
-                            addon_author, addon_pricing, addon_support};
-                    map.put(finalArray[0], finalArray[1]);
-                    map.put(finalArray[0] + "-author", finalArray[2]);
-                    map.put(finalArray[0] + "-pricing", finalArray[3]);
-                    map.put(finalArray[0] + "-support", finalArray[4]);
+                    if (addon_image.length() > 0) {
+                        String[] finalArray = {addon_download_name, addon_download_link,
+                                addon_author, addon_pricing, addon_image, addon_support};
+                        map.put(finalArray[0], finalArray[1]);
+                        map.put(finalArray[0] + "-author", finalArray[2]);
+                        map.put(finalArray[0] + "-pricing", finalArray[3]);
+                        map.put(finalArray[0] + "-image-override", finalArray[4]);
+                        map.put(finalArray[0] + "-support", finalArray[5]);
+                    } else {
+                        String[] finalArray = {addon_download_name, addon_download_link,
+                                addon_author, addon_pricing, addon_support};
+                        map.put(finalArray[0], finalArray[1]);
+                        map.put(finalArray[0] + "-author", finalArray[2]);
+                        map.put(finalArray[0] + "-pricing", finalArray[3]);
+                        map.put(finalArray[0] + "-support", finalArray[4]);
+                    }
                 }
             }
             return map;

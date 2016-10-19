@@ -212,7 +212,7 @@ public class ShowcaseTab extends Fragment {
                                 }
                             }
                         } catch (Exception e) {
-                            e.printStackTrace();
+                            // Suppress
                         }
                         newEntry.setThemeLink(newArray.get(key));
                     } else {
@@ -220,6 +220,9 @@ public class ShowcaseTab extends Fragment {
                             newEntry.setThemeAuthor(newArray.get(key));
                         } else if (key.toLowerCase().contains("-pricing".toLowerCase())) {
                             newEntry.setThemePricing(newArray.get(key));
+                        } else if (key.toLowerCase().contains("-image-override")) {
+                            Log.e("Key", newArray.get(key));
+                            newEntry.setThemeIcon(newArray.get(key));
                         } else if (key.toLowerCase().contains("-support".toLowerCase())) {
                             newEntry.setThemeSupport(newArray.get(key));
                             wallpapers.add(newEntry);

@@ -32,6 +32,7 @@ import projekt.substratum.R;
 import projekt.substratum.adapters.ThemeEntryAdapter;
 import projekt.substratum.config.References;
 import projekt.substratum.model.ThemeInfo;
+import projekt.substratum.util.AOPTCheck;
 import projekt.substratum.util.ReadOverlays;
 import projekt.substratum.util.Root;
 
@@ -259,6 +260,8 @@ public class ThemeFragment extends Fragment {
     }
 
     private void refreshLayout() {
+        new AOPTCheck().injectAOPT(getContext());
+
         MaterialProgressBar materialProgressBar = (MaterialProgressBar) root.findViewById(R.id
                 .progress_bar_loader);
         materialProgressBar.setVisibility(View.VISIBLE);

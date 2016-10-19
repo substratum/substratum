@@ -39,7 +39,7 @@ import projekt.substratum.util.Root;
  * @author Nicholas Chum (nicholaschum)
  */
 
-public class BootAnimationsFragment extends Fragment {
+public class ThemeFragment extends Fragment {
 
     private final int THEME_INFORMATION_REQUEST_CODE = 1;
     private HashMap<String, String[]> substratum_packages;
@@ -51,6 +51,7 @@ public class BootAnimationsFragment extends Fragment {
     private ThemeEntryAdapter adapter;
     private View cardView;
     private ViewGroup root;
+    private String home_type = "";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
@@ -59,6 +60,11 @@ public class BootAnimationsFragment extends Fragment {
         root = (ViewGroup) inflater.inflate(R.layout.home_fragment, null);
 
         mContext = getActivity();
+
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            home_type = bundle.getString("home_type");
+        }
 
         substratum_packages = new HashMap<>();
         recyclerView = (RecyclerView) root.findViewById(R.id.theme_list);
@@ -86,8 +92,23 @@ public class BootAnimationsFragment extends Fragment {
         list = packageManager.getInstalledApplications(PackageManager
                 .GET_META_DATA);
 
-        LayoutLoader layoutLoader = new LayoutLoader();
-        layoutLoader.execute("");
+        swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Refresh items
+                refreshLayout();
+            }
+        });
+
+        if (home_type.equals("")) {
+            // We use this because our splash screen is meant to hang (to load) than show a wheel
+            refreshLayout();
+        } else {
+            // This allows it to not hang the nav drawer activity
+            LayoutLoader layoutLoader = new LayoutLoader();
+            layoutLoader.execute("");
+        }
 
         // Now we need to sort the buffered installed Layers themes
         map = new TreeMap<>(substratum_packages);
@@ -101,14 +122,6 @@ public class BootAnimationsFragment extends Fragment {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
-        swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipeRefreshLayout);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                // Refresh items
-                refreshLayout();
-            }
-        });
         return root;
     }
 
@@ -121,25 +134,88 @@ public class BootAnimationsFragment extends Fragment {
             Context otherContext = getContext().createPackageContext(package_name, 0);
             AssetManager am = otherContext.getAssets();
             if (appInfo.metaData != null) {
-                if (appInfo.metaData.getString(References.metadataName) != null) {
-                    if (appInfo.metaData.getString(References.metadataAuthor) != null) {
-                        try {
-                            String[] stringArray = am.list("");
-                            if (Arrays.asList(stringArray).contains("bootanimation")) {
-                                String[] data = {appInfo.metaData.getString
-                                        (References.metadataAuthor),
-                                        package_name};
-                                substratum_packages.put(appInfo.metaData.getString
-                                        (References.metadataName), data);
+                if (!References.checkOMS()) {
+                    if (appInfo.metaData.getBoolean(References.metadataLegacy, false)) {
+                        if (appInfo.metaData.getString(References.metadataName) != null) {
+                            if (appInfo.metaData.getString(References.metadataAuthor) != null) {
+                                if (home_type.equals("wallpapers")) {
+                                    if (appInfo.metaData.getString(References.metadataWallpapers) !=
+                                            null) {
+                                        String[] data = {appInfo.metaData.getString
+                                                (References.metadataAuthor),
+                                                package_name};
+                                        substratum_packages.put(appInfo.metaData.getString(
+                                                References.metadataName), data);
+                                    }
+                                } else {
+                                    if (home_type.length() == 0) {
+                                        String[] data = {appInfo.metaData.getString
+                                                (References.metadataAuthor),
+                                                package_name};
+                                        substratum_packages.put(appInfo.metaData.getString
+                                                (References.metadataName), data);
+                                        Log.d("Substratum Ready Theme", package_name);
+                                    } else {
+                                        try {
+                                            String[] stringArray = am.list("");
+                                            if (Arrays.asList(stringArray).contains(home_type)) {
+                                                String[] data = {appInfo.metaData.getString
+                                                        (References.metadataAuthor),
+                                                        package_name};
+                                                substratum_packages.put(appInfo.metaData.getString
+                                                        (References.metadataName), data);
+                                            }
+                                        } catch (Exception e) {
+                                            Log.e("SubstratumLogger",
+                                                    "Unable to find package identifier");
+                                        }
+                                    }
+                                }
                             }
-                        } catch (Exception e) {
-                            Log.e("SubstratumLogger", "Unable to find package identifier");
+                        }
+                    }
+                } else {
+                    if (appInfo.metaData.getString(References.metadataName) != null) {
+                        if (appInfo.metaData.getString(References.metadataAuthor) != null) {
+                            if (home_type.equals("wallpapers")) {
+                                if (appInfo.metaData.getString(References.metadataWallpapers) !=
+                                        null) {
+                                    String[] data = {appInfo.metaData.getString
+                                            (References.metadataAuthor),
+                                            package_name};
+                                    substratum_packages.put(appInfo.metaData.getString(
+                                            References.metadataName), data);
+                                }
+                            } else {
+                                if (home_type.length() == 0) {
+                                    String[] data = {appInfo.metaData.getString
+                                            (References.metadataAuthor),
+                                            package_name};
+                                    substratum_packages.put(appInfo.metaData.getString
+                                            (References.metadataName), data);
+                                    Log.d("Substratum Ready Theme", package_name);
+                                } else {
+                                    try {
+                                        String[] stringArray = am.list("");
+                                        if (Arrays.asList(stringArray).contains(home_type)) {
+                                            String[] data = {appInfo.metaData.getString
+                                                    (References.metadataAuthor),
+                                                    package_name};
+                                            substratum_packages.put(appInfo.metaData.getString
+                                                    (References.metadataName), data);
+                                        }
+                                    } catch (Exception e) {
+                                        Log.e("SubstratumLogger",
+                                                "Unable to find package identifier");
+                                    }
+                                }
+                            }
                         }
                     }
                 }
             }
         } catch (Exception e) {
-            Log.e("SubstratumLogger", "Unable to find package identifier (INDEX OUT OF BOUNDS)");
+            // Exception
         }
     }
 
@@ -171,7 +247,11 @@ public class BootAnimationsFragment extends Fragment {
                 themeInfo.setSDKLevels(null);
                 themeInfo.setThemeVersion(null);
             }
-            themeInfo.setThemeMode("bootanimation");
+            if (home_type.length() == 0) {
+                themeInfo.setThemeMode(null);
+            } else {
+                themeInfo.setThemeMode(home_type);
+            }
             themeInfo.setContext(mContext);
             themes.add(themeInfo);
         }

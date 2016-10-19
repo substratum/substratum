@@ -51,6 +51,13 @@ public class References {
     public static String metadataVersion = "Substratum_Plugin";
     public static String metadataThemeReady = "Substratum_ThemeReady";
     public static String metadataWallpapers = "Substratum_Wallpapers";
+    // These strings control the nav drawer filter for ThemeFragment
+    public static String homeFragment = "";
+    public static String overlaysFragment = "overlays";
+    public static String bootAnimationsFragment = "bootanimation";
+    public static String fontsFragment = "fonts";
+    public static String soundsFragment = "sounds";
+    public static String wallpaperFragment = "wallpapers";
 
     // This int controls the default priority level for legacy overlays
     public static int DEFAULT_PRIORITY = 50;

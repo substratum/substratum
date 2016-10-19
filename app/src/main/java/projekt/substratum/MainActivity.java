@@ -52,6 +52,7 @@ import java.io.OutputStream;
 import eightbitlab.com.blurview.BlurView;
 import eightbitlab.com.blurview.RenderScriptBlur;
 import projekt.substratum.config.References;
+import projekt.substratum.fragments.ThemeFragment;
 import projekt.substratum.services.ThemeService;
 import projekt.substratum.util.Root;
 
@@ -74,6 +75,19 @@ public class MainActivity extends AppCompatActivity implements
         tx.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         tx.replace(R.id.main, Fragment.instantiate(MainActivity.this, "projekt.substratum" +
                 ".fragments." + fragment));
+        tx.commit();
+    }
+
+    private void switchThemeFragment(String title, String home_type) {
+        Fragment fragment = new ThemeFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("home_type", home_type);
+        fragment.setArguments(bundle);
+
+        getSupportActionBar().setTitle(title);
+        FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
+        tx.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
+        tx.replace(R.id.main, fragment);
         tx.commit();
     }
 
@@ -200,45 +214,45 @@ public class MainActivity extends AppCompatActivity implements
                         switch (position) {
                             case 1:
                                 if (drawerSelected != position) {
-                                    switchFragment(((References.checkOMS()) ?
+                                    switchThemeFragment(((References.checkOMS()) ?
                                                     getString(R.string.app_name) :
                                                     getString(R.string.legacy_app_name)),
-                                            "HomeFragment");
+                                            References.homeFragment);
                                     drawerSelected = 1;
                                 }
                                 break;
                             case 2:
                                 if (drawerSelected != position) {
-                                    switchFragment(getString(R.string.nav_overlays),
-                                            "OverlaysFragment");
+                                    switchThemeFragment(getString(R.string.nav_overlays),
+                                            References.overlaysFragment);
                                     drawerSelected = 2;
                                 }
                                 break;
                             case 3:
                                 if (drawerSelected != position) {
-                                    switchFragment(getString(R.string.nav_bootanim),
-                                            "BootAnimationsFragment");
+                                    switchThemeFragment(getString(R.string.nav_bootanim),
+                                            References.bootAnimationsFragment);
                                     drawerSelected = 3;
                                 }
                                 break;
                             case 4:
                                 if (drawerSelected != position) {
-                                    switchFragment(getString(R.string.nav_fonts),
-                                            "FontsFragment");
+                                    switchThemeFragment(getString(R.string.nav_fonts),
+                                            References.fontsFragment);
                                     drawerSelected = 4;
                                 }
                                 break;
                             case 5:
                                 if (drawerSelected != position) {
-                                    switchFragment(getString(R.string.nav_sounds),
-                                            "SoundsFragment");
+                                    switchThemeFragment(getString(R.string.nav_sounds),
+                                            References.soundsFragment);
                                     drawerSelected = 5;
                                 }
                                 break;
                             case 6:
                                 if (drawerSelected != position) {
-                                    switchFragment(getString(R.string.nav_wallpapers),
-                                            "WallpaperFragment");
+                                    switchThemeFragment(getString(R.string.nav_wallpapers),
+                                            References.wallpaperFragment);
                                     drawerSelected = 6;
                                 }
                                 break;
@@ -353,46 +367,46 @@ public class MainActivity extends AppCompatActivity implements
                             switch (position) {
                                 case 1:
                                     if (drawerSelected != position) {
-                                        switchFragment(((References.checkOMS()) ?
+                                        switchThemeFragment(((References.checkOMS()) ?
                                                         getString(R.string.app_name) :
                                                         getString(R.string
                                                                 .legacy_app_name)),
-                                                "HomeFragment");
+                                                References.homeFragment);
                                         drawerSelected = 1;
                                     }
                                     break;
                                 case 2:
                                     if (drawerSelected != position) {
-                                        switchFragment(getString(R.string.nav_overlays),
-                                                "OverlaysFragment");
+                                        switchThemeFragment(getString(R.string.nav_overlays),
+                                                References.overlaysFragment);
                                         drawerSelected = 2;
                                     }
                                     break;
                                 case 3:
                                     if (drawerSelected != position) {
-                                        switchFragment(getString(R.string.nav_bootanim),
-                                                "BootAnimationsFragment");
+                                        switchThemeFragment(getString(R.string.nav_bootanim),
+                                                References.bootAnimationsFragment);
                                         drawerSelected = 3;
                                     }
                                     break;
                                 case 4:
                                     if (drawerSelected != position) {
-                                        switchFragment(getString(R.string.nav_fonts),
-                                                "FontsFragment");
+                                        switchThemeFragment(getString(R.string.nav_fonts),
+                                                References.fontsFragment);
                                         drawerSelected = 4;
                                     }
                                     break;
                                 case 5:
                                     if (drawerSelected != position) {
-                                        switchFragment(getString(R.string.nav_sounds),
-                                                "SoundsFragment");
+                                        switchThemeFragment(getString(R.string.nav_sounds),
+                                                References.soundsFragment);
                                         drawerSelected = 5;
                                     }
                                     break;
                                 case 6:
                                     if (drawerSelected != position) {
-                                        switchFragment(getString(R.string.nav_wallpapers),
-                                                "WallpaperFragment");
+                                        switchThemeFragment(getString(R.string.nav_wallpapers),
+                                                References.wallpaperFragment);
                                         drawerSelected = 6;
                                     }
                                     break;
@@ -493,32 +507,32 @@ public class MainActivity extends AppCompatActivity implements
                             switch (position) {
                                 case 1:
                                     if (drawerSelected != position) {
-                                        switchFragment(((References.checkOMS()) ?
+                                        switchThemeFragment(((References.checkOMS()) ?
                                                         getString(R.string.app_name) :
                                                         getString(R.string
                                                                 .legacy_app_name)),
-                                                "HomeFragment");
+                                                References.homeFragment);
                                         drawerSelected = 1;
                                     }
                                     break;
                                 case 2:
                                     if (drawerSelected != position) {
-                                        switchFragment(getString(R.string.nav_overlays),
-                                                "OverlaysFragment");
+                                        switchThemeFragment(getString(R.string.nav_overlays),
+                                                References.overlaysFragment);
                                         drawerSelected = 2;
                                     }
                                     break;
                                 case 3:
                                     if (drawerSelected != position) {
-                                        switchFragment(getString(R.string.nav_bootanim),
-                                                "BootAnimationsFragment");
+                                        switchThemeFragment(getString(R.string.nav_bootanim),
+                                                References.bootAnimationsFragment);
                                         drawerSelected = 3;
                                     }
                                     break;
                                 case 4:
                                     if (drawerSelected != position) {
-                                        switchFragment(getString(R.string.nav_sounds),
-                                                "SoundsFragment");
+                                        switchThemeFragment(getString(R.string.nav_sounds),
+                                                References.soundsFragment);
                                         drawerSelected = 4;
                                     }
                                     break;
@@ -797,7 +811,7 @@ public class MainActivity extends AppCompatActivity implements
             drawer.closeDrawer();
         } else {
             if (drawerSelected != 1) {
-                switchFragment(getString(R.string.app_name), "HomeFragment");
+                switchThemeFragment(getString(R.string.app_name), References.homeFragment);
                 drawer.setSelectionAtPosition(1);
                 drawerSelected = 1;
             } else {

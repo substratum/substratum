@@ -67,8 +67,7 @@
                 android:text="THEME_AUTHOR"
                 android:textAllCaps="true"
                 android:textColor="@color/main_screen_card_theme_title"
-                android:textSize="16sp"
-                android:textStyle="italic"/>
+                android:textSize="14sp"/>
 
             <RelativeLayout
                 android:layout_width="wrap_content"

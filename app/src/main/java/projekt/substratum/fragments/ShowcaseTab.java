@@ -221,7 +221,6 @@ public class ShowcaseTab extends Fragment {
                         } else if (key.toLowerCase().contains("-pricing".toLowerCase())) {
                             newEntry.setThemePricing(newArray.get(key));
                         } else if (key.toLowerCase().contains("-image-override")) {
-                            Log.e("Key", newArray.get(key));
                             newEntry.setThemeIcon(newArray.get(key));
                         } else if (key.toLowerCase().contains("-support".toLowerCase())) {
                             newEntry.setThemeSupport(newArray.get(key));

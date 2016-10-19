@@ -28,43 +28,50 @@
         app:tabSelectedTextColor="@android:color/white"
         app:tabTextColor="@android:color/white"/>
 
-    <RelativeLayout
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <RelativeLayout
-            android:id="@+id/no_network"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="57dp">
+            android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/image_placeholder2"
+            <RelativeLayout
+                android:id="@+id/no_network"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginTop="20dp"
-                android:src="@drawable/no_network_showcase"/>
+                android:layout_height="match_parent"
+                android:layout_marginTop="57dp">
 
-            <TextView
-                android:id="@+id/placeholder_text2"
+                <ImageView
+                    android:id="@+id/image_placeholder2"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/no_network_showcase"/>
+
+                <TextView
+                    android:id="@+id/placeholder_text2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/image_placeholder2"
+                    android:layout_margin="15dp"
+                    android:gravity="center"
+                    android:text="@string/showcase_no_connection"
+                    android:textColor="@color/main_screen_card_theme_title"
+                    android:textSize="20dp"
+                    android:textStyle="italic"/>
+
+            </RelativeLayout>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewpager"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/image_placeholder2"
-                android:layout_margin="15dp"
-                android:gravity="center"
-                android:text="@string/showcase_no_connection"
-                android:textColor="@color/main_screen_card_theme_title"
-                android:textSize="20dp"
-                android:textStyle="italic"/>
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
         </RelativeLayout>
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/viewpager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-
-    </RelativeLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>

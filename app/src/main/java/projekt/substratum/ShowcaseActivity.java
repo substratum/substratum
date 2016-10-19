@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -69,10 +70,33 @@ public class ShowcaseActivity extends AppCompatActivity {
                 }
                 return true;
             case R.id.refresh:
-                recreate();
+                finish();
+                startActivity(getIntent());
                 return true;
         }
         return false;
+    }
+
+    private void swipeRefresh() {
+        final SwipeRefreshLayout swipeLayout = (SwipeRefreshLayout) findViewById(R.id
+                .swipeRefreshLayout);
+        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                finish();
+                startActivity(getIntent());
+            }
+        });
+    }
+
+    private void refreshLayout() {
+        if (References.isNetworkAvailable(getApplicationContext())) {
+            no_network.setVisibility(View.GONE);
+            DownloadTabs downloadTabs = new DownloadTabs();
+            downloadTabs.execute(getString(R.string.showcase_tabs), "showcase_tabs.xml");
+        } else {
+            no_network.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -95,13 +119,8 @@ public class ShowcaseActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setVisibility(View.GONE);
         no_network = (RelativeLayout) findViewById(R.id.no_network);
-        if (References.isNetworkAvailable(getApplicationContext())) {
-            no_network.setVisibility(View.GONE);
-            DownloadTabs downloadTabs = new DownloadTabs();
-            downloadTabs.execute(getString(R.string.showcase_tabs), "showcase_tabs.xml");
-        } else {
-            no_network.setVisibility(View.VISIBLE);
-        }
+        refreshLayout();
+        swipeRefresh();
     }
 
     private class DownloadTabs extends AsyncTask<String, Integer, String> {

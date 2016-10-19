@@ -14,6 +14,8 @@
     <string name="masquerade_github" translatable="false">"https://github.com/nicholaschum/masquerade"</string>
     <string name="showcase_tabs" translatable="false">"http://pastebin.com/raw/pGVmFAuH"</string>
 
+    <string name="showcase_no_connection">the theme showcase requires an internet connection to function!</string>
+
     <string name="on_demand_updating_title">Resource Cache Initializer</string>
     <string name="on_demand_updating_text">%s\'s cache is now rebuilding&#8230;</string>
     <string name="background_updating_toast">A theme is upgrading in the background, please wait for this to finish!</string>

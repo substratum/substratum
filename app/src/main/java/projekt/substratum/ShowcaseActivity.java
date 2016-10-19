@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.io.File;
@@ -88,12 +89,15 @@ public class ShowcaseActivity extends AppCompatActivity {
         });
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
-
-        // First, download the XML database of the tab layout, then we can continue
-        DownloadTabs downloadTabs = new DownloadTabs();
-        downloadTabs.execute(getString(R.string.showcase_tabs), "showcase_tabs.xml");
-
-
+        tabLayout.setVisibility(View.GONE);
+        RelativeLayout no_network = (RelativeLayout) findViewById(R.id.no_network);
+        if (References.isNetworkAvailable(getApplicationContext())) {
+            no_network.setVisibility(View.GONE);
+            DownloadTabs downloadTabs = new DownloadTabs();
+            downloadTabs.execute(getString(R.string.showcase_tabs), "showcase_tabs.xml");
+        } else {
+            no_network.setVisibility(View.VISIBLE);
+        }
     }
 
     private class DownloadTabs extends AsyncTask<String, Integer, String> {
@@ -106,6 +110,8 @@ public class ShowcaseActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
+
+            tabLayout.setVisibility(View.VISIBLE);
 
             String[] checkerCommands = {getApplicationContext().getCacheDir() + "/" + result};
             final Map<String, String> newArray = ReadShowcaseTabsFile.main(checkerCommands);

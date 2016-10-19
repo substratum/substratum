@@ -116,114 +116,119 @@ public class ShowcaseTab extends Fragment {
 
         @Override
         protected ArrayList doInBackground(String... sUrl) {
-            InputStream input = null;
-            OutputStream output = null;
-            HttpURLConnection connection = null;
-
-            File showcase_directory = new File(getContext().getCacheDir() +
-                    "/ShowcaseCache/");
-            if (!showcase_directory.exists()) {
-                showcase_directory.mkdir();
-            }
-
-            File current_wallpapers = new File(getContext().getCacheDir() +
-                    "/ShowcaseCache/" + sUrl[1]);
-            if (current_wallpapers.exists()) {
-                current_wallpapers.delete();
-            }
-
+            ArrayList<ShowcaseItem> wallpapers = new ArrayList<>();
             try {
-                URL url = new URL(sUrl[0]);
-                connection = (HttpURLConnection) url.openConnection();
-                connection.connect();
+                InputStream input = null;
+                OutputStream output = null;
+                HttpURLConnection connection = null;
 
-                // expect HTTP 200 OK, so we don't mistakenly save error report
-                // instead of the file
-                if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                    Log.e("Server returned HTTP", connection.getResponseCode()
-                            + " " + connection.getResponseMessage());
+                File showcase_directory = new File(getContext().getCacheDir() +
+                        "/ShowcaseCache/");
+                if (!showcase_directory.exists()) {
+                    showcase_directory.mkdir();
                 }
 
-                // this will be useful to display download percentage
-                // might be -1: server did not report the length
-                int fileLength = connection.getContentLength();
+                File current_wallpapers = new File(getContext().getCacheDir() +
+                        "/ShowcaseCache/" + sUrl[1]);
+                if (current_wallpapers.exists()) {
+                    current_wallpapers.delete();
+                }
 
-                // download the file
-                input = connection.getInputStream();
+                try {
+                    URL url = new URL(sUrl[0]);
+                    connection = (HttpURLConnection) url.openConnection();
+                    connection.connect();
 
-                output = new FileOutputStream(
-                        getContext().getCacheDir().getAbsolutePath() + "/ShowcaseCache/" + sUrl[1]);
-
-                byte data[] = new byte[4096];
-                long total = 0;
-                int count;
-                while ((count = input.read(data)) != -1) {
-                    // allow canceling with back button
-                    if (isCancelled()) {
-                        input.close();
-                        return null;
+                    // expect HTTP 200 OK, so we don't mistakenly save error report
+                    // instead of the file
+                    if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
+                        Log.e("Server returned HTTP", connection.getResponseCode()
+                                + " " + connection.getResponseMessage());
                     }
-                    total += count;
-                    // publishing the progress....
-                    if (fileLength > 0) // only if total length is known
-                        publishProgress((int) (total * 100 / fileLength));
-                    output.write(data, 0, count);
+
+                    // this will be useful to display download percentage
+                    // might be -1: server did not report the length
+                    int fileLength = connection.getContentLength();
+
+                    // download the file
+                    input = connection.getInputStream();
+
+                    output = new FileOutputStream(
+                            getContext().getCacheDir().getAbsolutePath() +
+                                    "/ShowcaseCache/" + sUrl[1]);
+
+                    byte data[] = new byte[4096];
+                    long total = 0;
+                    int count;
+                    while ((count = input.read(data)) != -1) {
+                        // allow canceling with back button
+                        if (isCancelled()) {
+                            input.close();
+                            return null;
+                        }
+                        total += count;
+                        // publishing the progress....
+                        if (fileLength > 0) // only if total length is known
+                            publishProgress((int) (total * 100 / fileLength));
+                        output.write(data, 0, count);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    try {
+                        if (output != null)
+                            output.close();
+                        if (input != null)
+                            input.close();
+                    } catch (IOException ignored) {
+                    }
+
+                    if (connection != null)
+                        connection.disconnect();
+                }
+
+                String[] checkerCommands = {getContext().getCacheDir() +
+                        "/ShowcaseCache/" + sUrl[1]};
+
+                final Map<String, String> newArray = ReadCloudShowcaseFile.main(checkerCommands);
+                ShowcaseItem newEntry = new ShowcaseItem();
+
+                for (String key : newArray.keySet()) {
+                    if (!key.toLowerCase().contains("-".toLowerCase())) {
+                        newEntry.setContext(getContext());
+                        newEntry.setThemeName(key);
+                        try {
+                            Document doc = Jsoup.connect(newArray.get(key)).get();
+                            Element main_head = doc.select("div.main-content").first();
+                            Elements links = main_head.getElementsByTag("img");
+
+                            cover_photo_looper:
+                            for (Element link : links) {
+                                String linkClass = link.className();
+                                String linkAttr = link.attr("src");
+                                if (linkClass.equals("cover-image")) {
+                                    newEntry.setThemeIcon("http://" + linkAttr.substring(2));
+                                    break cover_photo_looper;
+                                }
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        newEntry.setThemeLink(newArray.get(key));
+                    } else {
+                        if (key.toLowerCase().contains("-author".toLowerCase())) {
+                            newEntry.setThemeAuthor(newArray.get(key));
+                        } else if (key.toLowerCase().contains("-pricing".toLowerCase())) {
+                            newEntry.setThemePricing(newArray.get(key));
+                        } else if (key.toLowerCase().contains("-support".toLowerCase())) {
+                            newEntry.setThemeSupport(newArray.get(key));
+                            wallpapers.add(newEntry);
+                            newEntry = new ShowcaseItem();
+                        }
+                    }
                 }
             } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                try {
-                    if (output != null)
-                        output.close();
-                    if (input != null)
-                        input.close();
-                } catch (IOException ignored) {
-                }
-
-                if (connection != null)
-                    connection.disconnect();
-            }
-
-            String[] checkerCommands = {getContext().getCacheDir() +
-                    "/ShowcaseCache/" + sUrl[1]};
-
-            final Map<String, String> newArray = ReadCloudShowcaseFile.main(checkerCommands);
-            ArrayList<ShowcaseItem> wallpapers = new ArrayList<>();
-            ShowcaseItem newEntry = new ShowcaseItem();
-
-            for (String key : newArray.keySet()) {
-                if (!key.toLowerCase().contains("-".toLowerCase())) {
-                    newEntry.setContext(getContext());
-                    newEntry.setThemeName(key);
-                    try {
-                        Document doc = Jsoup.connect(newArray.get(key)).get();
-                        Element main_head = doc.select("div.main-content").first();
-                        Elements links = main_head.getElementsByTag("img");
-
-                        cover_photo_looper:
-                        for (Element link : links) {
-                            String linkClass = link.className();
-                            String linkAttr = link.attr("src");
-                            if (linkClass.equals("cover-image")) {
-                                newEntry.setThemeIcon("http://" + linkAttr.substring(2));
-                                break cover_photo_looper;
-                            }
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    newEntry.setThemeLink(newArray.get(key));
-                } else {
-                    if (key.toLowerCase().contains("-author".toLowerCase())) {
-                        newEntry.setThemeAuthor(newArray.get(key));
-                    } else if (key.toLowerCase().contains("-pricing".toLowerCase())) {
-                        newEntry.setThemePricing(newArray.get(key));
-                    } else if (key.toLowerCase().contains("-support".toLowerCase())) {
-                        newEntry.setThemeSupport(newArray.get(key));
-                        wallpapers.add(newEntry);
-                        newEntry = new ShowcaseItem();
-                    }
-                }
+                //
             }
             return wallpapers;
         }

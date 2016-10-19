@@ -320,7 +320,7 @@ public class MainActivity extends AppCompatActivity implements
                         "hotswapping.");
                 fonts_allowed = true;
             } catch (Exception ex) {
-                ex.printStackTrace();
+                // Suppress Fonts
             }
 
             if (fonts_allowed) {

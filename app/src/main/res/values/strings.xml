@@ -10,8 +10,8 @@
     <string name="search_play_store_url" translatable="false">"https://play.google.com/store/search?q=Substratum%20Theme&amp;c=apps"</string>
     <string name="search_play_store_url_legacy" translatable="false">"https://play.google.com/store/search?q=Substratum%20Legacy%20Theme&amp;c=apps"</string>
     <string name="tbo_theme_ready_url" translatable="false">"http://forum.xda-developers.com/android/apps-games/apps-themeable-hangouts-layers-cmte-t3113192"</string>
-    <string name="substratum_github" translatable="false">"https://github.com/TeamSubstratum/substratum"</string>
-    <string name="masquerade_github" translatable="false">"https://github.com/TeamSubstratum/masquerade"</string>
+    <string name="substratum_github" translatable="false">"https://github.com/nicholaschum/substratum"</string>
+    <string name="masquerade_github" translatable="false">"https://github.com/nicholaschum/masquerade"</string>
     <string name="showcase_tabs" translatable="false">"http://pastebin.com/raw/pGVmFAuH"</string>
 
     <string name="on_demand_updating_title">Resource Cache Initializer</string>

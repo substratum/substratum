@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -38,6 +39,7 @@ public class ShowcaseActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
     private RelativeLayout no_network;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -78,9 +80,9 @@ public class ShowcaseActivity extends AppCompatActivity {
     }
 
     private void swipeRefresh() {
-        final SwipeRefreshLayout swipeLayout = (SwipeRefreshLayout) findViewById(R.id
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id
                 .swipeRefreshLayout);
-        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 finish();
@@ -155,6 +157,18 @@ public class ShowcaseActivity extends AppCompatActivity {
                 viewPager.setAdapter(adapter);
                 viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener
                         (tabLayout));
+                viewPager.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        swipeRefreshLayout.setEnabled(false);
+                        switch (event.getAction()) {
+                            case MotionEvent.ACTION_UP:
+                                swipeRefreshLayout.setEnabled(true);
+                                break;
+                        }
+                        return false;
+                    }
+                });
                 tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                     @Override
                     public void onTabSelected(TabLayout.Tab tab) {

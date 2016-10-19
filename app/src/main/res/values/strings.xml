@@ -170,6 +170,7 @@
     <string name="menu_reboot_device">Reboot Device</string>
     <string name="menu_restart_systemui">Restart SystemUI</string>
     <string name="menu_search">Play Store Themes</string>
+    <string name="menu_showcase">Theme Showcase</string>
     <string name="menu_uninstall">Uninstall</string>
 
     <string name="coming_soon">Stolen by Char!</string>

@@ -13,7 +13,7 @@
         android:icon="@drawable/toolbar_playstore"
         android:menuCategory="secondary"
         android:orderInCategory="1"
-        android:title="@string/menu_search"
+        android:title="@string/menu_showcase"
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/refresh_windows"

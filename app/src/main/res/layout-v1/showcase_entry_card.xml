@@ -33,7 +33,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
             android:layout_marginTop="-10dp"
-            android:paddingEnd="15dp"
+            android:paddingEnd="20dp"
             android:scaleType="centerCrop"
             android:src="@drawable/showcase_paid"/>
 
@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:gravity="right"
-                android:paddingRight="15dp"
+                android:paddingRight="20dp"
                 android:text="THEME_NAME"
                 android:textAllCaps="true"
                 android:textColor="@color/main_screen_card_theme_title"
@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/theme_name"
                 android:gravity="right"
-                android:paddingRight="15dp"
+                android:paddingRight="20dp"
                 android:text="THEME_AUTHOR"
                 android:textAllCaps="true"
                 android:textColor="@color/main_screen_card_theme_title"
@@ -73,7 +73,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/theme_author"
-                android:paddingRight="13dp"
+                android:paddingRight="20dp"
                 android:paddingTop="3dp">
 
                 <ImageView

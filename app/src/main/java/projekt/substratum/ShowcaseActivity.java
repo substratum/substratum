@@ -36,6 +36,7 @@ import projekt.substratum.util.ReadShowcaseTabsFile;
 public class ShowcaseActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
+    private RelativeLayout no_network;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -67,6 +68,9 @@ public class ShowcaseActivity extends AppCompatActivity {
                     toaster.show();
                 }
                 return true;
+            case R.id.refresh:
+                recreate();
+                return true;
         }
         return false;
     }
@@ -90,7 +94,7 @@ public class ShowcaseActivity extends AppCompatActivity {
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setVisibility(View.GONE);
-        RelativeLayout no_network = (RelativeLayout) findViewById(R.id.no_network);
+        no_network = (RelativeLayout) findViewById(R.id.no_network);
         if (References.isNetworkAvailable(getApplicationContext())) {
             no_network.setVisibility(View.GONE);
             DownloadTabs downloadTabs = new DownloadTabs();

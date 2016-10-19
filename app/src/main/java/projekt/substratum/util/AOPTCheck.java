@@ -12,6 +12,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 
+import static projekt.substratum.config.References.mountRO;
+import static projekt.substratum.config.References.mountRW;
+
 /**
  * @author Nicholas Chum (nicholaschum)
  */
@@ -31,13 +34,13 @@ public class AOPTCheck {
                 // Take account for ARM/ARM64 devices
                 try {
                     copyAOPT("aopt");
-                    Root.runCommand("mount -o rw,remount /system");
+                    mountRW();
                     Root.runCommand(
                             "cp " + context.getFilesDir().getAbsolutePath() +
                                     "/aopt " +
                                     "/system/bin/aopt");
                     Root.runCommand("chmod 777 /system/bin/aopt");
-                    Root.runCommand("mount -o ro,remount /system");
+                    mountRO();
                     Log.d("SubstratumLogger", "Android Overlay Packaging Tool (ARM) has been" +
                             " added into the system partition.");
                 } catch (Exception e) {
@@ -47,20 +50,20 @@ public class AOPTCheck {
                 // Take account for x86 devices
                 try {
                     copyAOPT("aopt-x86");
-                    Root.runCommand("mount -o rw,remount /system");
+                    mountRW();
                     Root.runCommand(
                             "cp " + context.getFilesDir().getAbsolutePath() +
                                     "/aopt-x86 " +
                                     "/system/bin/aopt");
                     Root.runCommand("chmod 777 /system/bin/aopt");
-                    Root.runCommand("mount -o ro,remount /system");
+                    mountRO();
                     Log.d("SubstratumLogger", "Android Overlay Packaging Tool (x86) has been" +
                             " added into the system partition.");
                 } catch (Exception e) {
                     //
                 }
             }
-        } else {
+        } else if (aopt.exists()) {
             String integrityCheck = checkAOPTIntegrity();
             // AOPT outputs different ui
             if (integrityCheck != null && integrityCheck.equals("Android Overlay Packaging Tool, " +
@@ -74,27 +77,27 @@ public class AOPTCheck {
                 if (!Build.SUPPORTED_ABIS.toString().contains("86")) {
                     // Take account for ARM/ARM64 devices
                     copyAOPT("aopt");
-                    Root.runCommand("mount -o rw,remount /system");
+                    mountRW();
                     Root.runCommand("rm /system/bin/aopt");
                     Root.runCommand(
                             "cp " + context.getFilesDir().getAbsolutePath() +
                                     "/aopt " +
                                     "/system/bin/aopt");
                     Root.runCommand("chmod 777 /system/bin/aopt");
-                    Root.runCommand("mount -o ro,remount /system");
+                    mountRO();
                     Log.d("SubstratumLogger", "Android Overlay Packaging Tool (ARM) has been " +
                             "injected into the system partition.");
                 } else {
                     // Take account for x86 devices
                     copyAOPT("aopt-x86");
-                    Root.runCommand("mount -o rw,remount /system");
+                    mountRW();
                     Root.runCommand("rm -rf /system/bin/aopt");
                     Root.runCommand(
                             "cp " + context.getFilesDir().getAbsolutePath() +
                                     "/aopt-x86 " +
                                     "/system/bin/aopt");
                     Root.runCommand("chmod 777 /system/bin/aopt");
-                    Root.runCommand("mount -o ro,remount /system");
+                    mountRO();
                     Log.d("SubstratumLogger", "Android Overlay Packaging Tool (x86) has been " +
                             "injected into the system partition.");
                 }

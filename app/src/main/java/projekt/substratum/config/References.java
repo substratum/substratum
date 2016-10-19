@@ -412,6 +412,46 @@ public class References {
         return null;
     }
 
+    // These methods allow for a more secure method to mount RW and mount RO
+    private static String checkMountCMD() {
+        Process proc = null;
+        try {
+            Runtime rt = Runtime.getRuntime();
+            proc = rt.exec(new String[]{"readlink", "/system/bin/mount"});
+            try (BufferedReader stdInput = new BufferedReader(new
+                    InputStreamReader(proc.getInputStream()))) {
+                return stdInput.readLine();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (proc != null) {
+                proc.destroy();
+            }
+        }
+        return null;
+    }
+
+    public static void mountRW() {
+        String mountCMD = checkMountCMD();
+        if (mountCMD != null && mountCMD.equals("toybox")) {
+            Root.runCommand("mount -o rw,remount /system");
+
+        } else if (mountCMD.equals("toolbox")) {
+            Root.runCommand("mount -o remount,rw /system");
+        }
+    }
+
+    public static void mountRO() {
+        String mountCMD = checkMountCMD();
+        if (mountCMD != null && mountCMD.equals("toybox")) {
+            Root.runCommand("mount -o ro,remount /system");
+
+        } else if (mountCMD.equals("toolbox")) {
+            Root.runCommand("mount -o remount,ro /system");
+        }
+    }
+
     public static class SubstratumThemeUpdate extends AsyncTask<Void, Integer, String> {
 
         private ProgressDialog progress;

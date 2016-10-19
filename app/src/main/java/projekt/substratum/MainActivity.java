@@ -245,47 +245,49 @@ public class MainActivity extends AppCompatActivity implements
                             case 8:
                                 switchFragment(getString(R.string.nav_overlay_manager),
                                         "AdvancedManagerFragment");
-                                drawerSelected = 7;
+                                drawerSelected = 8;
                                 break;
                             case 9:
                                 switchFragment(getString(R.string.nav_manage),
                                         "ManageFragment");
-                                drawerSelected = 8;
+                                drawerSelected = 9;
                                 break;
                             case 10:
                                 switchFragment(getString(R.string.nav_priorities),
                                         "PriorityLoaderFragment");
-                                drawerSelected = 9;
+                                drawerSelected = 10;
                                 break;
                             case 11:
                                 switchFragment(getString(R.string.nav_backup_restore),
                                         "ProfileFragment");
-                                drawerSelected = 10;
+                                drawerSelected = 11;
                                 break;
                             case 13:
                                 if (drawerSelected != position) {
                                     switchFragment(getString(R.string.nav_troubleshooting),
                                             "TroubleshootingFragment");
-                                    drawerSelected = 12;
+                                    drawerSelected = 13;
                                 }
                                 break;
                             case 14:
                                 if (drawerSelected != position) {
                                     switchFragment(getString(R.string.nav_team),
                                             "TeamFragment");
-                                    drawerSelected = 13;
+                                    drawerSelected = 14;
                                 }
                                 break;
                             case 15:
-                                switchFragmentToLicenses(getString(R.string.nav_opensource),
-                                        fragment);
-                                drawerSelected = 14;
+                                if (drawerSelected != position) {
+                                    switchFragmentToLicenses(getString(R.string.nav_opensource),
+                                            fragment);
+                                    drawerSelected = 15;
+                                }
                                 break;
                             case 16:
                                 if (drawerSelected != position) {
                                     switchFragment(getString(R.string.nav_settings),
                                             "SettingsFragment");
-                                    drawerSelected = 15;
+                                    drawerSelected = 16;
                                 }
                                 break;
                         }
@@ -425,10 +427,12 @@ public class MainActivity extends AppCompatActivity implements
                                     }
                                     break;
                                 case 14:
-                                    switchFragmentToLicenses(getString(R.string
-                                                    .nav_opensource),
-                                            fragment);
-                                    drawerSelected = 14;
+                                    if (drawerSelected != position) {
+                                        switchFragmentToLicenses(getString(R.string
+                                                        .nav_opensource),
+                                                fragment);
+                                        drawerSelected = 14;
+                                    }
                                     break;
                                 case 15:
                                     if (drawerSelected != position) {
@@ -549,10 +553,12 @@ public class MainActivity extends AppCompatActivity implements
                                     }
                                     break;
                                 case 12:
-                                    switchFragmentToLicenses(getString(R.string
-                                                    .nav_opensource),
-                                            fragment);
-                                    drawerSelected = 12;
+                                    if (drawerSelected != position) {
+                                        switchFragmentToLicenses(getString(R.string
+                                                        .nav_opensource),
+                                                fragment);
+                                        drawerSelected = 12;
+                                    }
                                     break;
                                 case 13:
                                     if (drawerSelected != position) {
@@ -567,7 +573,6 @@ public class MainActivity extends AppCompatActivity implements
                     }
                 });
             }
-
         }
         drawerBuilder.withSelectedItem(1);
         drawerBuilder.withSelectedItemByPosition(1);

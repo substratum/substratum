@@ -88,7 +88,11 @@ public class InformationActivity extends AppCompatActivity {
     }
 
     private static int getDominantColor(Bitmap bitmap) {
-        return bitmap.getPixel(0, 0);
+        try {
+            return bitmap.getPixel(0, 0);
+        } catch (IllegalArgumentException iae) {
+            return Color.BLACK;
+        }
     }
 
     public static List getListOfFolders() {

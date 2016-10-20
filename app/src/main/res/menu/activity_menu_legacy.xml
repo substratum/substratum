@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/search"
-        android:title="@string/menu_showcase"/>
+        android:icon="@drawable/toolbar_playstore"
+        android:menuCategory="secondary"
+        android:orderInCategory="1"
+        android:title="@string/menu_showcase"
+        app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/reboot_device"
         android:title="@string/menu_reboot_device"/>

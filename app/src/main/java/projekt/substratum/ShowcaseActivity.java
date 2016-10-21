@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -98,7 +99,6 @@ public class ShowcaseActivity extends AppCompatActivity {
                 startActivity(getIntent());
             }
         });
-        swipeRefreshLayout.setEnabled(false);
     }
 
     private void refreshLayout() {
@@ -191,6 +191,18 @@ public class ShowcaseActivity extends AppCompatActivity {
                 viewPager.setAdapter(adapter);
                 viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener
                         (tabLayout));
+                viewPager.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        swipeRefreshLayout.setEnabled(false);
+                        switch (event.getAction()) {
+                            case MotionEvent.ACTION_UP:
+                                swipeRefreshLayout.setEnabled(true);
+                                break;
+                        }
+                        return false;
+                    }
+                });
                 tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                     @Override
                     public void onTabSelected(TabLayout.Tab tab) {

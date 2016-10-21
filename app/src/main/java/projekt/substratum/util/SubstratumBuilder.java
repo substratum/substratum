@@ -285,37 +285,30 @@ public class SubstratumBuilder {
             try {
                 String commands;
                 if (typeMode == 1) {
-                    commands = "aopt p -M " + work_area +
-                            "/AndroidManifest.xml -S " +
-                            work_area +
-                            "/workdir/ -I " +
-                            "/system/framework/framework-res.apk -F " +
-                            work_area +
-                            "/" + overlay_package + "." + parse2_themeName + "-unsigned.apk " +
+                    commands = "aopt p " +
+                            "-M " + work_area + "/AndroidManifest.xml " +
+                            "-S " + work_area + "/workdir/" +
+                            "-I " + "/system/framework/framework-res.apk " +
+                            "-F " + work_area + "/" + overlay_package +
+                            "." + parse2_themeName + "-unsigned.apk " +
                             "-f --include-meta-data --auto-add-overlay\n";
                 } else {
                     if (variant != null) {
-                        commands = "aopt p -M " + work_area +
-                                "/AndroidManifest.xml -S " +
-                                work_area +
-                                "/" + "type2_" + additional_variant + "/ -S " +
-                                work_area +
-                                "/workdir/ -I " +
-                                "/system/framework/framework-res.apk -F " +
-                                work_area +
-                                "/" + overlay_package + "." + parse2_themeName + "-unsigned" +
-                                ".apk " +
-
+                        commands = "aopt p " +
+                                "-M " + work_area + "/AndroidManifest.xml -S "
+                                + work_area + "/" + "type2_" + additional_variant + "/ " +
+                                "-S " + work_area + "/workdir/ " +
+                                "-I " + "/system/framework/framework-res.apk -F "
+                                + work_area + "/" + overlay_package + "." +
+                                parse2_themeName + "-unsigned.apk " +
                                 "-f --include-meta-data --auto-add-overlay\n";
                     } else {
-                        commands = "aopt p -M " + work_area +
-                                "/AndroidManifest.xml -S " +
-                                work_area +
-                                "/workdir/ -I " +
-                                "/system/framework/framework-res.apk -F " +
-                                work_area +
-                                "/" + overlay_package + "." + parse2_themeName + "-unsigned" +
-                                ".apk " +
+                        commands = "aopt p " +
+                                "-M " + work_area + "/AndroidManifest.xml -S " +
+                                work_area + "/workdir/ " +
+                                "-I " + "/system/framework/framework-res.apk " +
+                                "-F " + work_area + "/" + overlay_package +
+                                "." + parse2_themeName + "-unsigned.apk " +
                                 "-f --include-meta-data --auto-add-overlay\n";
                     }
                 }

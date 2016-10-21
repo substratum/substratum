@@ -12,7 +12,7 @@
     <string name="tbo_theme_ready_url" translatable="false">"http://forum.xda-developers.com/android/apps-games/apps-themeable-hangouts-layers-cmte-t3113192"</string>
     <string name="substratum_github" translatable="false">"https://github.com/nicholaschum/substratum"</string>
     <string name="masquerade_github" translatable="false">"https://github.com/nicholaschum/masquerade"</string>
-    <string name="showcase_tabs" translatable="false">"http://pastebin.com/raw/pGVmFAuH"</string>
+    <string name="showcase_tabs" translatable="false">"https://raw.githubusercontent.com/nicholaschum/substratum/dev/showcase.xml"</string>
 
     <string name="showcase_no_connection">the theme showcase requires an internet connection to function!</string>
     <string name="showcase_no_themes">seems like there was an error caching the showcase database for this tab. reload the database with the refresh button above.</string>

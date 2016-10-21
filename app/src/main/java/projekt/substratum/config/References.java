@@ -320,9 +320,9 @@ public class References {
             ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
                     package_name, PackageManager.GET_META_DATA);
             if (appInfo.metaData != null) {
-                if (appInfo.metaData.getString(References.metadataVersion) != null) {
+                if (appInfo.metaData.get(References.metadataVersion) != null) {
                     return mContext.getString(R.string.plugin_template) + ": " +
-                            appInfo.metaData.getString(References.metadataVersion);
+                            appInfo.metaData.get(References.metadataVersion);
                 }
             }
         } catch (Exception e) {

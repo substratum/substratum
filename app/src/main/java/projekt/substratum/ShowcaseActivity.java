@@ -11,7 +11,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -156,14 +155,11 @@ public class ShowcaseActivity extends AppCompatActivity {
                 String new_file = MD5.calculateMD5(new File(getApplicationContext().getCacheDir() +
                         "/" + "showcase_tabs-temp.xml"));
                 if (!existing.equals(new_file)) {
-                    // Erase SharedPref
-                    Log.e("ShowcaseActivity", "The tabs have been updated from the cloud!");
                     File renameMe = new File(getApplicationContext().getCacheDir() +
                             "/" + "showcase_tabs-temp.xml");
                     renameMe.renameTo(new File(getApplicationContext().getCacheDir() +
                             "/" + "showcase_tabs.xml"));
                 } else {
-                    Log.d("ShowcaseActivity", "The tabs are the same since the last time!");
                     File deleteMe = new File(getApplicationContext().getCacheDir() +
                             "/" + "showcase_tabs-temp.xml");
                     deleteMe.delete();

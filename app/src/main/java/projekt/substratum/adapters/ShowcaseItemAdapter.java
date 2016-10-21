@@ -91,7 +91,8 @@ public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapte
                     Intent intent = new Intent(Intent.ACTION_VIEW);
                     intent.setData(Uri.parse(information.get(i).getThemeLink()));
                     information.get(i).getContext().startActivity(intent);
-                } catch (ActivityNotFoundException activityNotFoundException) {
+                } catch (Exception e) {
+                    e.printStackTrace();
                     Toast toaster = Toast.makeText(information.get(i).getContext(),
                             information.get(i).getContext().getString(R.string
                                     .activity_missing_toast),

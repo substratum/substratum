@@ -169,7 +169,6 @@ public class ShowcaseTab extends Fragment {
 
                 File current_wallpapers = new File(getContext().getCacheDir() +
                         "/ShowcaseCache/" + inputFileName);
-                Log.e("Current file", current_wallpapers.getAbsolutePath());
                 if (current_wallpapers.exists()) {
                     // We create a temporary file to check whether we should be replacing the
                     // current
@@ -247,7 +246,6 @@ public class ShowcaseTab extends Fragment {
                         clearArray(sUrl[1].substring(0, sUrl[1].length() - 4), getContext());
                         cached = false;
                     } else {
-                        Log.d("ShowcaseActivity", "The tabs are the same since the last time!");
                         File deleteMe = new File(getContext().getCacheDir() +
                                 "/" + inputFileName);
                         deleteMe.delete();

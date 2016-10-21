@@ -119,6 +119,7 @@ public class OverlaysList extends Fragment {
     private Boolean DEBUG = References.DEBUG;
     private String error_logs = "";
     private String themer_email, theme_author;
+    private MaterialProgressBar materialProgressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
@@ -133,6 +134,8 @@ public class OverlaysList extends Fragment {
 
         progressBar = (ProgressBar) root.findViewById(R.id.header_loading_bar);
         progressBar.setVisibility(View.GONE);
+
+        materialProgressBar = (MaterialProgressBar) root.findViewById(R.id.progress_bar_loader);
 
         // Pre-initialize the adapter first so that it won't complain for skipping layout on logs
         mRecyclerView = (RecyclerView) root.findViewById(R.id.overlayRecyclerView);
@@ -378,6 +381,10 @@ public class OverlaysList extends Fragment {
                                 toast2.show();
                             }
                         } else {
+                            compile_enable_mode = false;
+                            enable_mode = false;
+                            disable_mode = true;
+
                             for (int i = 0; i < overlaysLists.size(); i++) {
                                 OverlaysInfo currentOverlay = overlaysLists.get(i);
                                 if (currentOverlay.isSelected()) {
@@ -398,7 +405,7 @@ public class OverlaysList extends Fragment {
                             if (!checkedOverlays.isEmpty()) {
                                 for (int i = 0; i < checkedOverlays.size(); i++) {
                                     Root.runCommand("mount -o rw,remount /system");
-                                    Root.runCommand("rm -r " + current_directory +
+                                    Root.runCommand("rm -rf " + current_directory +
                                             checkedOverlays.get(i).getPackageName() + "." +
                                             checkedOverlays.get(i).getThemeName() + ".apk");
                                     mAdapter.notifyDataSetChanged();
@@ -437,6 +444,7 @@ public class OverlaysList extends Fragment {
                                                         .OnClickListener() {
                                                     public void onClick(DialogInterface dialog, int
                                                             id) {
+                                                        progressBar.setVisibility(View.GONE);
                                                         dialog.dismiss();
                                                     }
                                                 });
@@ -450,6 +458,8 @@ public class OverlaysList extends Fragment {
                                         Toast.LENGTH_SHORT);
                                 toast2.show();
                             }
+                            is_active = false;
+                            disable_mode = false;
                         }
                     }
                 }
@@ -641,8 +651,6 @@ public class OverlaysList extends Fragment {
 
         @Override
         protected void onPreExecute() {
-            MaterialProgressBar materialProgressBar = (MaterialProgressBar) root.findViewById(R.id
-                    .progress_bar_loader);
             if (materialProgressBar != null) materialProgressBar.setVisibility(View.VISIBLE);
             mRecyclerView.setVisibility(View.INVISIBLE);
             swipeRefreshLayout.setVisibility(View.GONE);
@@ -652,8 +660,6 @@ public class OverlaysList extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
-            MaterialProgressBar materialProgressBar = (MaterialProgressBar) root.findViewById(R.id
-                    .progress_bar_loader);
             if (materialProgressBar != null) materialProgressBar.setVisibility(View.GONE);
             toggle_all.setEnabled(true);
             base_spinner.setEnabled(true);
@@ -1557,6 +1563,7 @@ public class OverlaysList extends Fragment {
                         .setNegativeButton(R.string.remove_dialog_later, new DialogInterface
                                 .OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
+                                progressBar.setVisibility(View.GONE);
                                 dialog.dismiss();
                             }
                         });
@@ -1565,6 +1572,7 @@ public class OverlaysList extends Fragment {
                 alertDialog.show();
             }
             is_active = false;
+            mAdapter.notifyDataSetChanged();
         }
 
         @Override
@@ -1580,7 +1588,7 @@ public class OverlaysList extends Fragment {
                 File file = new File(current_directory);
                 if (file.exists()) {
                     Root.runCommand("mount -o rw,remount /system");
-                    Root.runCommand("rm -r " + current_directory);
+                    Root.runCommand("rm -rf " + current_directory);
                 }
             }
 
@@ -1696,7 +1704,7 @@ public class OverlaysList extends Fragment {
                                 ((sUrl[0].length() != 0) ? "/type3_" + sUrl[0] : "/res"));
                         File destDir = new File(workingDirectory + "/workdir");
                         if (destDir.exists()) {
-                            Root.runCommand("rm -r " + destDir.getAbsolutePath());
+                            Root.runCommand("rm -rf " + destDir.getAbsolutePath());
                         }
                         FileUtils.copyDirectory(srcDir, destDir);
 

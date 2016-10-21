@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_marginTop="20dp"
-            android:src="@drawable/no_wallpapers_found"/>
+            android:src="@drawable/no_wallpapers_found_showcase"/>
 
         <TextView
             android:id="@+id/placeholder_text"
@@ -25,8 +25,8 @@
             android:layout_below="@id/image_placeholder"
             android:layout_margin="15dp"
             android:gravity="center"
-            android:text="@string/wallpaper_no_wallpapers"
-            android:textColor="@color/font_text"
+            android:text="@string/showcase_no_themes"
+            android:textColor="@color/main_screen_card_theme_title"
             android:textSize="20dp"
             android:textStyle="italic"/>
 

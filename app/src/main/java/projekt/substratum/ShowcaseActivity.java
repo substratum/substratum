@@ -2,6 +2,7 @@ package projekt.substratum;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -29,7 +31,9 @@ import java.util.Map;
 
 import projekt.substratum.adapters.ShowcaseTabsAdapter;
 import projekt.substratum.config.References;
+import projekt.substratum.util.MD5;
 import projekt.substratum.util.ReadShowcaseTabsFile;
+import projekt.substratum.util.Root;
 
 /**
  * @author Nicholas Chum (nicholaschum)
@@ -72,6 +76,12 @@ public class ShowcaseActivity extends AppCompatActivity {
                 }
                 return true;
             case R.id.refresh:
+                Root.runCommand(
+                        "rm -rf " + getApplicationContext().getCacheDir().getAbsolutePath() +
+                                "/ShowcaseCache/");
+                SharedPreferences prefs = getApplicationContext().getSharedPreferences(
+                        "showcase_tabs", 0);
+                prefs.edit().clear().apply();
                 finish();
                 startActivity(getIntent());
                 return true;
@@ -138,7 +148,31 @@ public class ShowcaseActivity extends AppCompatActivity {
 
             tabLayout.setVisibility(View.VISIBLE);
 
-            String[] checkerCommands = {getApplicationContext().getCacheDir() + "/" + result};
+            String resultant = result;
+
+            if (resultant.endsWith("-temp.xml")) {
+                String existing = MD5.calculateMD5(new File(getApplicationContext().getCacheDir() +
+                        "/" + "showcase_tabs.xml"));
+                String new_file = MD5.calculateMD5(new File(getApplicationContext().getCacheDir() +
+                        "/" + "showcase_tabs-temp.xml"));
+                if (!existing.equals(new_file)) {
+                    // Erase SharedPref
+                    Log.e("ShowcaseActivity", "The tabs have been updated from the cloud!");
+                    File renameMe = new File(getApplicationContext().getCacheDir() +
+                            "/" + "showcase_tabs-temp.xml");
+                    renameMe.renameTo(new File(getApplicationContext().getCacheDir() +
+                            "/" + "showcase_tabs.xml"));
+                } else {
+                    Log.d("ShowcaseActivity", "The tabs are the same since the last time!");
+                    File deleteMe = new File(getApplicationContext().getCacheDir() +
+                            "/" + "showcase_tabs-temp.xml");
+                    deleteMe.delete();
+                }
+            }
+
+            resultant = "showcase_tabs.xml";
+
+            String[] checkerCommands = {getApplicationContext().getCacheDir() + "/" + resultant};
             final Map<String, String> newArray = ReadShowcaseTabsFile.main(checkerCommands);
             ArrayList<String> links = new ArrayList<>();
 
@@ -188,14 +222,18 @@ public class ShowcaseActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... sUrl) {
+            String inputFileName = sUrl[1];
+
             InputStream input = null;
             OutputStream output = null;
             HttpURLConnection connection = null;
 
             File current_wallpapers = new File(getApplicationContext().getCacheDir() +
-                    "/" + sUrl[1]);
+                    "/" + inputFileName);
             if (current_wallpapers.exists()) {
-                current_wallpapers.delete();
+                // We create a temporary file to check whether we should be replacing the current
+                inputFileName = inputFileName.substring(0, inputFileName.length() - 4) + "-temp" +
+                        ".xml";
             }
 
             try {
@@ -218,7 +256,8 @@ public class ShowcaseActivity extends AppCompatActivity {
                 input = connection.getInputStream();
 
                 output = new FileOutputStream(
-                        getApplicationContext().getCacheDir().getAbsolutePath() + "/" + sUrl[1]);
+                        getApplicationContext().getCacheDir().getAbsolutePath() + "/" +
+                                inputFileName);
 
                 byte data[] = new byte[4096];
                 long total = 0;
@@ -249,7 +288,7 @@ public class ShowcaseActivity extends AppCompatActivity {
                 if (connection != null)
                     connection.disconnect();
             }
-            return sUrl[1];
+            return inputFileName;
         }
     }
 }

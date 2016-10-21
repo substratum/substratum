@@ -15,6 +15,7 @@
     <string name="showcase_tabs" translatable="false">"http://pastebin.com/raw/pGVmFAuH"</string>
 
     <string name="showcase_no_connection">the theme showcase requires an internet connection to function!</string>
+    <string name="showcase_no_themes">seems like there was an error caching the showcase database for this tab. reload the database with the refresh button above.</string>
 
     <string name="on_demand_updating_title">Resource Cache Initializer</string>
     <string name="on_demand_updating_text">%s\'s cache is now rebuilding&#8230;</string>

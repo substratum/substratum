@@ -1,5 +1,7 @@
 package projekt.substratum.fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -23,7 +25,10 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Set;
 
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.R;
@@ -32,6 +37,7 @@ import projekt.substratum.adapters.WallpaperAdapter;
 import projekt.substratum.config.References;
 import projekt.substratum.model.ShowcaseItem;
 import projekt.substratum.model.WallpaperEntries;
+import projekt.substratum.util.MD5;
 import projekt.substratum.util.ReadCloudShowcaseFile;
 
 /**
@@ -66,6 +72,37 @@ public class ShowcaseTab extends Fragment {
         refreshLayout();
 
         return root;
+    }
+
+    private boolean saveArray(String[] array, String arrayName, Context mContext) {
+        SharedPreferences prefs = mContext.getSharedPreferences("showcase_tabs", 0);
+        SharedPreferences.Editor editor = prefs.edit();
+
+        int initial = 1000;
+        Set set = new LinkedHashSet();
+        for (int i = 0; i < array.length; i++) {
+            set.add(initial + "_" + array[i]);
+            initial += 1;
+        }
+        editor.putStringSet(arrayName, set);
+        return editor.commit();
+    }
+
+    private ArrayList loadArray(String arrayName, Context mContext) {
+        SharedPreferences prefs = mContext.getSharedPreferences("showcase_tabs", 0);
+
+        Set fallback = new LinkedHashSet();
+        Set<String> cache = prefs.getStringSet(arrayName, fallback);
+
+        ArrayList<String> arrayList = new ArrayList<>();
+        arrayList.addAll(cache);
+        Collections.sort(arrayList);
+        return arrayList;
+    }
+
+    private void clearArray(String arrayName, Context mContext) {
+        SharedPreferences prefs = mContext.getSharedPreferences("showcase_tabs", 0);
+        prefs.edit().remove(arrayName).apply();
     }
 
     private void refreshLayout() {
@@ -116,7 +153,9 @@ public class ShowcaseTab extends Fragment {
 
         @Override
         protected ArrayList doInBackground(String... sUrl) {
+            String inputFileName = sUrl[1];
             ArrayList<ShowcaseItem> wallpapers = new ArrayList<>();
+            Boolean cached = false;
             try {
                 InputStream input = null;
                 OutputStream output = null;
@@ -129,9 +168,14 @@ public class ShowcaseTab extends Fragment {
                 }
 
                 File current_wallpapers = new File(getContext().getCacheDir() +
-                        "/ShowcaseCache/" + sUrl[1]);
+                        "/ShowcaseCache/" + inputFileName);
+                Log.e("Current file", current_wallpapers.getAbsolutePath());
                 if (current_wallpapers.exists()) {
-                    current_wallpapers.delete();
+                    // We create a temporary file to check whether we should be replacing the
+                    // current
+                    inputFileName = inputFileName.substring(0, inputFileName.length() - 4) +
+                            "-temp" +
+                            ".xml";
                 }
 
                 try {
@@ -155,7 +199,7 @@ public class ShowcaseTab extends Fragment {
 
                     output = new FileOutputStream(
                             getContext().getCacheDir().getAbsolutePath() +
-                                    "/ShowcaseCache/" + sUrl[1]);
+                                    "/ShowcaseCache/" + inputFileName);
 
                     byte data[] = new byte[4096];
                     long total = 0;
@@ -187,48 +231,96 @@ public class ShowcaseTab extends Fragment {
                         connection.disconnect();
                 }
 
+                if (inputFileName.endsWith("-temp.xml")) {
+                    String existing = MD5.calculateMD5(new File(getContext().getCacheDir() +
+                            "/ShowcaseCache/" + sUrl[1]));
+                    String new_file = MD5.calculateMD5(new File(getContext().getCacheDir() +
+                            "/ShowcaseCache/" + inputFileName));
+                    if (!existing.equals(new_file)) {
+                        Log.e("ShowcaseActivity", "Tab " + current_tab_position +
+                                " has been updated from the cloud!");
+                        File renameMe = new File(getContext().getCacheDir() +
+                                "/" + sUrl[1].substring(0, sUrl[1].length() - 4) + "-temp.xml");
+                        renameMe.renameTo(new File(getContext().getCacheDir() +
+                                "/" + sUrl[1]));
+                        clearArray(sUrl[1].substring(0, sUrl[1].length() - 4), getContext());
+                        cached = false;
+                    } else {
+                        Log.d("ShowcaseActivity", "The tabs are the same since the last time!");
+                        File deleteMe = new File(getContext().getCacheDir() +
+                                "/" + inputFileName);
+                        deleteMe.delete();
+                        cached = true;
+                    }
+                }
+
+                inputFileName = sUrl[1];
+
                 String[] checkerCommands = {getContext().getCacheDir() +
-                        "/ShowcaseCache/" + sUrl[1]};
+                        "/ShowcaseCache/" + inputFileName};
 
                 final Map<String, String> newArray = ReadCloudShowcaseFile.main(checkerCommands);
                 ShowcaseItem newEntry = new ShowcaseItem();
 
+                ArrayList<String> cacheImages = loadArray(inputFileName.substring(0,
+                        inputFileName.length() - 4), getContext());
+                ArrayList<String> prefList = new ArrayList<>();
+                int image_counter = 0;
                 for (String key : newArray.keySet()) {
                     if (!key.toLowerCase().contains("-".toLowerCase())) {
                         newEntry.setContext(getContext());
                         newEntry.setThemeName(key);
-                        try {
-                            Document doc = Jsoup.connect(newArray.get(key)).get();
-                            Element main_head = doc.select("div.main-content").first();
-                            Elements links = main_head.getElementsByTag("img");
-
-                            cover_photo_looper:
-                            for (Element link : links) {
-                                String linkClass = link.className();
-                                String linkAttr = link.attr("src");
-                                if (linkClass.equals("cover-image")) {
-                                    newEntry.setThemeIcon("http://" + linkAttr.substring(2));
-                                    break cover_photo_looper;
-                                }
-                            }
-                        } catch (Exception e) {
-                            // Suppress
-                        }
                         newEntry.setThemeLink(newArray.get(key));
+                        if (cached) {
+                            newEntry.setThemeIcon(cacheImages.get(image_counter).substring(5));
+                        } else {
+                            try {
+                                Document doc = Jsoup.connect(newArray.get(key)).get();
+                                Element main_head = doc.select("div.main-content").first();
+                                Elements links = main_head.getElementsByTag("img");
+
+                                cover_photo_looper:
+                                for (Element link : links) {
+                                    String linkClass = link.className();
+                                    String linkAttr = link.attr("src");
+                                    if (linkClass.equals("cover-image")) {
+                                        prefList.add("http://" + linkAttr.substring(2));
+                                        newEntry.setThemeIcon("http://" + linkAttr.substring(2));
+                                        break cover_photo_looper;
+                                    }
+                                }
+                            } catch (Exception e) {
+                                // Suppress
+                            }
+                        }
                     } else {
                         if (key.toLowerCase().contains("-author".toLowerCase())) {
                             newEntry.setThemeAuthor(newArray.get(key));
                         } else if (key.toLowerCase().contains("-pricing".toLowerCase())) {
                             newEntry.setThemePricing(newArray.get(key));
                         } else if (key.toLowerCase().contains("-image-override")) {
-                            newEntry.setThemeIcon(newArray.get(key));
+                            if (cached) {
+                                newEntry.setThemeIcon(cacheImages.get(image_counter).substring(5));
+                            } else {
+                                prefList.add(newArray.get(key));
+                                newEntry.setThemeIcon(newArray.get(key));
+                            }
                         } else if (key.toLowerCase().contains("-support".toLowerCase())) {
                             newEntry.setThemeSupport(newArray.get(key));
                             wallpapers.add(newEntry);
                             newEntry = new ShowcaseItem();
+                            newEntry.setContext(getContext());
+                            image_counter += 1;
                         }
                     }
                 }
+                String[] prefToAdd = new String[prefList.size()];
+                for (int i = 0; i < prefList.size(); i++) {
+                    prefToAdd[i] = prefList.get(i);
+                }
+                if (!cached)
+                    saveArray(prefToAdd, inputFileName.substring(0,
+                            inputFileName.length() - 4), getContext());
             } catch (Exception e) {
                 //
             }

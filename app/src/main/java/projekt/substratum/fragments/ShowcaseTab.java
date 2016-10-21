@@ -240,9 +240,10 @@ public class ShowcaseTab extends Fragment {
                         Log.e("ShowcaseActivity", "Tab " + current_tab_position +
                                 " has been updated from the cloud!");
                         File renameMe = new File(getContext().getCacheDir() +
-                                "/" + sUrl[1].substring(0, sUrl[1].length() - 4) + "-temp.xml");
+                                "/ShowcaseCache/" +
+                                sUrl[1].substring(0, sUrl[1].length() - 4) + "-temp.xml");
                         renameMe.renameTo(new File(getContext().getCacheDir() +
-                                "/" + sUrl[1]));
+                                "/ShowcaseCache/" + sUrl[1]));
                         clearArray(sUrl[1].substring(0, sUrl[1].length() - 4), getContext());
                         cached = false;
                     } else {

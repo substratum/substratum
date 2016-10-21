@@ -1539,7 +1539,7 @@ public class OverlaysList extends Fragment {
                     }
                 }
             }
-            if (!References.checkOMS()) {
+            if (!References.checkOMS() && final_runner.size() == fail_count) {
                 final AlertDialog.Builder alertDialogBuilder =
                         new AlertDialog.Builder(getContext());
                 alertDialogBuilder

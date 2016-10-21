@@ -1,12 +1,10 @@
 package projekt.substratum.util;
 
 import android.content.Context;
-import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Environment;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
@@ -47,6 +45,11 @@ public class SubstratumBuilder {
     public String parse2_themeName;
     public String no_install = "";
     private Context mContext;
+    private String error_logs = "";
+
+    public String getErrorLogs() {
+        return error_logs;
+    }
 
     private String getDeviceIMEI() {
         TelephonyManager telephonyManager =
@@ -59,23 +62,15 @@ public class SubstratumBuilder {
                 mContext.getContentResolver(), Settings.Secure.ANDROID_ID);
     }
 
-    @Nullable
-    private String getThemeName(String package_name) {
-        // Simulate the Layers Plugin feature by filtering all installed apps and their metadata
-        try {
-            ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
-                    package_name, PackageManager.GET_META_DATA);
-            if (appInfo.metaData != null) {
-                if (appInfo.metaData.getString(References.metadataName) != null) {
-                    if (appInfo.metaData.getString(References.metadataAuthor) != null) {
-                        return appInfo.metaData.getString(References.metadataName);
-                    }
-                }
+    private void dumpErrorLogs(String tag, String overlay, String message) {
+        if (message.length() > 0) {
+            Log.e(tag, message);
+            if (error_logs.length() == 0) {
+                error_logs = "» [" + overlay + "]: " + message;
+            } else {
+                error_logs += "\n" + "» [" + overlay + "]: " + message;
             }
-        } catch (Exception e) {
-            Log.e("SubstratumLogger", "Unable to find package identifier (INDEX OUT OF BOUNDS)");
         }
-        return null;
     }
 
     public void beginAction(Context context, String theme_pid, String overlay_package, String
@@ -161,15 +156,17 @@ public class SubstratumBuilder {
                                     new File(work_area_array.getAbsolutePath() + "/priority"))));
                     legacy_priority = Integer.parseInt(reader.readLine());
                 } catch (IOException e) {
-                    Log.e("SubstratumBuilder", "There was an error parsing priority file!");
+                    dumpErrorLogs("SubstratumBuilder", overlay_package,
+                            "There was an error parsing priority file!");
                     legacy_priority = References.DEFAULT_PRIORITY;
                 } finally {
                     if (reader != null) {
                         try {
                             reader.close();
                         } catch (IOException e) {
-                            Log.e("SubstratumBuilder", "Could not read priority file" +
-                                    " properly, falling back to default integer...");
+                            dumpErrorLogs("SubstratumBuilder", overlay_package,
+                                    "Could not read priority file" +
+                                            " properly, falling back to default integer...");
                             legacy_priority = References.DEFAULT_PRIORITY;
                         }
                     }
@@ -270,11 +267,14 @@ public class SubstratumBuilder {
                     }
                 }
             } catch (Exception e) {
-                e.printStackTrace();
-                Log.e("SubstratumBuilder", "There was an exception creating a new Manifest file!");
+                dumpErrorLogs("SubstratumBuilder", overlay_package,
+                        e.getMessage());
+                dumpErrorLogs("SubstratumBuilder", overlay_package,
+                        "There was an exception creating a new Manifest file!");
                 has_errored_out = true;
-                Log.e("SubstratumBuilder", "Installation of \"" + overlay_package + "\" has " +
-                        "failed.");
+                dumpErrorLogs("SubstratumBuilder", overlay_package,
+                        "Installation of \"" + overlay_package + "\" has " +
+                                "failed.");
             }
         }
 
@@ -336,14 +336,13 @@ public class SubstratumBuilder {
                     }
                     try (BufferedReader br = new BufferedReader(new InputStreamReader(stderr))) {
                         while ((line = br.readLine()) != null) {
-                            Log.e("SubstratumBuilder", line);
+                            dumpErrorLogs("SubstratumBuilder", overlay_package, line);
                             has_errored_out = true;
                         }
                     }
                     if (has_errored_out) {
-                        Log.e("SubstratumBuilder", "Installation of \"" + overlay_package + "\" " +
-                                "has " +
-                                "failed.");
+                        dumpErrorLogs("SubstratumBuilder", overlay_package,
+                                "Installation of \"" + overlay_package + "\" has failed.");
                     }
                 }
 
@@ -356,19 +355,19 @@ public class SubstratumBuilder {
                     if (unsignedAPK.exists()) {
                         Log.d("SubstratumBuilder", "Overlay APK creation has completed!");
                     } else {
-                        Log.e("SubstratumBuilder", "Overlay APK creation has failed!");
+                        dumpErrorLogs("SubstratumBuilder", overlay_package,
+                                "Overlay APK creation has failed!");
                         has_errored_out = true;
-                        Log.e("SubstratumBuilder", "Installation of \"" + overlay_package + "\" " +
-                                "overlay has failed.");
+                        dumpErrorLogs("SubstratumBuilder", overlay_package,
+                                "Installation of \"" + overlay_package + "\" has failed.");
                     }
                 }
             } catch (Exception e) {
-                Log.e("SubstratumBuilder", "Unfortunately, there was an exception trying to " +
-                        "create a new " +
-                        "APK");
+                dumpErrorLogs("SubstratumBuilder", overlay_package,
+                        "Unfortunately, there was an exception trying to create a new APK");
                 has_errored_out = true;
-                Log.e("SubstratumBuilder", "Installation of \"" + overlay_package + "\" has " +
-                        "failed.");
+                dumpErrorLogs("SubstratumBuilder", overlay_package,
+                        "Installation of \"" + overlay_package + "\" has failed.");
             } finally {
                 if (nativeApp != null) {
                     nativeApp.destroy();
@@ -402,10 +401,11 @@ public class SubstratumBuilder {
 
                 Log.d("SubstratumBuilder", "APK successfully signed!");
             } catch (Throwable t) {
-                Log.e("SubstratumBuilder", "APK could not be signed. " + t.toString());
+                dumpErrorLogs("SubstratumBuilder", overlay_package,
+                        "APK could not be signed. " + t.toString());
                 has_errored_out = true;
-                Log.e("SubstratumBuilder", "Installation of \"" + overlay_package + "\" has " +
-                        "failed.");
+                dumpErrorLogs("SubstratumBuilder", overlay_package,
+                        "Installation of \"" + overlay_package + "\" has failed.");
             }
         }
 
@@ -428,7 +428,8 @@ public class SubstratumBuilder {
                                 Log.d("SubstratumBuilder", "Overlay APK has successfully been " +
                                         "installed!");
                             } else {
-                                Log.e("SubstratumBuilder", "Overlay APK has failed to install!");
+                                dumpErrorLogs("SubstratumBuilder", overlay_package,
+                                        "Overlay APK has failed to install!");
                             }
                         } else {
                             Root.runCommand(
@@ -444,15 +445,16 @@ public class SubstratumBuilder {
                                 Log.d("SubstratumBuilder", "Overlay APK has successfully been " +
                                         "installed!");
                             } else {
-                                Log.e("SubstratumBuilder", "Overlay APK has failed to install!");
+                                dumpErrorLogs("SubstratumBuilder", overlay_package,
+                                        "Overlay APK has failed to install!");
                             }
                         }
                     } catch (Exception e) {
-                        Log.e("SubstratumBuilder", "Overlay APK has failed to install! " +
-                                "(Exception)");
+                        dumpErrorLogs("SubstratumBuilder", overlay_package,
+                                "Overlay APK has failed to install! \"(Exception)");
                         has_errored_out = true;
-                        Log.e("SubstratumBuilder", "Installation of \"" + overlay_package +
-                                "\" has failed.");
+                        dumpErrorLogs("SubstratumBuilder", overlay_package,
+                                "Installation of \"" + overlay_package + "\" has failed.");
                     }
                 } else {
                     // At this point, it is detected to be legacy mode and Substratum will push to

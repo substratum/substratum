@@ -1,9 +1,12 @@
 package projekt.substratum.tabs;
 
+import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -30,6 +33,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -45,6 +49,8 @@ import org.apache.commons.io.FileUtils;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -69,6 +75,8 @@ import projekt.substratum.util.FloatingActionMenu;
 import projekt.substratum.util.ReadOverlays;
 import projekt.substratum.util.Root;
 import projekt.substratum.util.SubstratumBuilder;
+
+import static android.content.Context.CLIPBOARD_SERVICE;
 
 /**
  * @author Nicholas Chum (nicholaschum)
@@ -109,6 +117,8 @@ public class OverlaysList extends Fragment {
     private ArrayList<String> current_theme_overlays;
     private Boolean is_active = false;
     private Boolean DEBUG = References.DEBUG;
+    private String error_logs = "";
+    private String themer_email, theme_author;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
@@ -594,22 +604,25 @@ public class OverlaysList extends Fragment {
         return root;
     }
 
-    private String getThemeName(String package_name) {
-        // Simulate the Layers Plugin feature by filtering all installed apps and their metadata
-        try {
-            ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
-                    package_name, PackageManager.GET_META_DATA);
-            if (appInfo.metaData != null) {
-                if (appInfo.metaData.getString(References.metadataName) != null) {
-                    if (appInfo.metaData.getString(References.metadataAuthor) != null) {
-                        return appInfo.metaData.getString(References.metadataName);
-                    }
-                }
+    private String checkXposedVersion() {
+        String xposed_version = "";
+
+        File f = new File("/system/framework/XposedBridge.jar");
+        if (f.exists() && !f.isDirectory()) {
+            File file = new File("/system/", "xposed.prop");
+            try {
+                BufferedReader br = new BufferedReader(new FileReader(file));
+                String unparsed_br = br.readLine();
+                xposed_version = unparsed_br.substring(8, 10);
+            } catch (FileNotFoundException e) {
+                Log.e("XposedChecker", "'xposed.prop' could not be found!");
+            } catch (IOException e) {
+                Log.e("XposedChecker", "Unable to parse BufferedReader from 'xposed.prop'");
             }
-        } catch (Exception e) {
-            // Exception
+            xposed_version = ", " + R.string.logcat_email_xposed_check + " (" +
+                    xposed_version + ")";
         }
-        return null;
+        return xposed_version;
     }
 
     private boolean checkActiveNotifications() {
@@ -1087,6 +1100,7 @@ public class OverlaysList extends Fragment {
 
             has_failed = false;
             fail_count = 0;
+            error_logs = "";
 
             if (!enable_mode && !disable_mode) {
                 // Change title in preparation for loop to change subtext
@@ -1199,6 +1213,96 @@ public class OverlaysList extends Fragment {
                                     .string.toast_compiled_updated_with_errors),
                             Toast.LENGTH_LONG);
                     toast.show();
+
+                    final Dialog dialog = new Dialog(getContext(), android.R.style
+                            .Theme_DeviceDefault_Dialog);
+                    dialog.setContentView(R.layout.logcat_dialog);
+                    dialog.setTitle(R.string.logcat_dialog_title);
+                    dialog.getWindow().setLayout(RecyclerView.LayoutParams.FILL_PARENT,
+                            RecyclerView.LayoutParams.WRAP_CONTENT);
+                    dialog.setCancelable(false);
+
+                    TextView text = (TextView) dialog.findViewById(R.id.textField);
+                    text.setText(error_logs);
+                    ImageButton leave = (ImageButton) dialog.findViewById(R.id.confirm);
+                    leave.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                        }
+                    });
+                    ImageButton copy_clipboard = (ImageButton) dialog.findViewById(
+                            R.id.copy_clipboard);
+                    copy_clipboard.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            ClipboardManager clipboard = (ClipboardManager) getActivity()
+                                    .getSystemService(CLIPBOARD_SERVICE);
+                            ClipData clip = ClipData.newPlainText("substratum_log", error_logs);
+                            clipboard.setPrimaryClip(clip);
+                            Toast toast = Toast.makeText(getContext(), getString(R
+                                            .string.logcat_dialog_copy_success),
+                                    Toast.LENGTH_SHORT);
+                            toast.show();
+                        }
+                    });
+
+                    ImageButton send = (ImageButton) dialog.findViewById(
+                            R.id.send);
+                    send.setVisibility(View.GONE);
+
+                    theme_author = "";
+                    themer_email = "";
+                    try {
+                        ApplicationInfo appInfo = getContext().getPackageManager()
+                                .getApplicationInfo(theme_pid, PackageManager.GET_META_DATA);
+                        if (appInfo.metaData != null) {
+                            if (appInfo.metaData.getString("Substratum_Author") != null) {
+                                theme_author = appInfo.metaData.getString("Substratum_Author");
+                            }
+                            if (appInfo.metaData.getString("Substratum_Email") != null) {
+                                themer_email = appInfo.metaData.getString("Substratum_Email");
+                            }
+                        }
+                    } catch (Exception e) {
+                        // NameNotFound
+                    }
+
+                    if (themer_email.length() > 0) {
+                        send.setVisibility(View.VISIBLE);
+                        send.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                String device = " " + Build.MODEL + " (" + Build.DEVICE + ") " +
+                                        "[" + Build.FINGERPRINT + "]";
+                                String email_subject =
+                                        String.format(getString(R.string.logcat_email_subject),
+                                                theme_name);
+                                String xposed = checkXposedVersion();
+                                if (xposed.length() > 0) {
+                                    device += " {" + xposed + "}";
+                                }
+                                String email_body =
+                                        String.format(getString(R.string.logcat_email_body),
+                                                theme_author, theme_name, device, error_logs);
+                                Intent i = new Intent(Intent.ACTION_SEND);
+                                i.setType("message/rfc822");
+                                i.putExtra(Intent.EXTRA_EMAIL, new String[]{themer_email});
+                                i.putExtra(Intent.EXTRA_SUBJECT, email_subject);
+                                i.putExtra(Intent.EXTRA_TEXT, email_body);
+                                try {
+                                    startActivity(Intent.createChooser(
+                                            i, getString(R.string.logcat_email_activity)));
+                                } catch (android.content.ActivityNotFoundException ex) {
+                                    Toast.makeText(
+                                            getActivity(),
+                                            getString(R.string.logcat_email_activity_error),
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                    }
+                    dialog.show();
                 }
 
                 if (!has_failed || final_runner.size() > fail_count) {
@@ -1732,6 +1836,11 @@ public class OverlaysList extends Fragment {
                             }
                             if (sb.has_errored_out) {
                                 fail_count += 1;
+                                if (error_logs.length() == 0) {
+                                    error_logs = sb.getErrorLogs();
+                                } else {
+                                    error_logs += "\n" + sb.getErrorLogs();
+                                }
                                 has_failed = true;
                             }
                         } else {
@@ -1766,6 +1875,11 @@ public class OverlaysList extends Fragment {
                             }
                             if (sb.has_errored_out) {
                                 fail_count += 1;
+                                if (error_logs.length() == 0) {
+                                    error_logs = sb.getErrorLogs();
+                                } else {
+                                    error_logs += "\n" + sb.getErrorLogs();
+                                }
                                 has_failed = true;
                             }
                         }

@@ -196,6 +196,14 @@
     <string name="nav_team">Contributors</string>
     <string name="nav_troubleshooting">Troubleshooting</string>
 
+    <string name="logcat_dialog_title">\"LogChar\" Debug Report</string>
+    <string name="logcat_dialog_copy_success">Successfully copied error log to clipboard!</string>
+    <string name="logcat_email_subject">%s: Theme Bug Report</string>
+    <string name="logcat_email_body" formatted="false">Hey %s,\n\nI have an issue with %s, and would like to see if you could help me resolve this issue.\n\nDevice:%s\n\nReport:\n\n%s</string>
+    <string name="logcat_email_activity">Send bug report using&#8230;</string>
+    <string name="logcat_email_activity_error">There are no email clients installed.</string>
+    <string name="logcat_email_xposed_check">Xposed Framework</string>
+
     <string name="priority_card_title">Dynamic Priority System (DPS)</string>
     <string name="priority_card_content">The Dynamic Priority System is an advanced procedure allowing for theme overlays to be organized with different priorities, ignoring the default OMS system-applied priorities.\n\nAn example when this would be of use would be wanting to structure a specific overlay on top of another overlay targeting the same application.\n\nWith the introduction of the Overlay Manager Service, the priorities are reversed, and the top most overlay resides at the bottom of each list.</string>
     <string name="priority_card_title2">Instructions</string>

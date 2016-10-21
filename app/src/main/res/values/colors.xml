@@ -63,6 +63,11 @@
     <color name="main_screen_card_theme_title">#ff000000</color>
     <color name="main_screen_card_theme_author">#d0000000</color>
 
+    <color name="logcat_dialog_background">@android:color/black</color>
+    <color name="logcat_dialog_buttons">@android:color/black</color>
+    <color name="logcat_dialog_icons">@android:color/white</color>
+    <color name="logcat_dialog_text">#ff0000</color>
+
     <color name="showcase_support_default">@color/main_screen_card_theme_title</color>
     <color name="showcase_support_disabled">#64777777</color>
 

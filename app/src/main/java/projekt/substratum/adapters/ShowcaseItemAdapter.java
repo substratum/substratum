@@ -1,6 +1,5 @@
 package projekt.substratum.adapters;
 
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.CardView;

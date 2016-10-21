@@ -31,20 +31,38 @@ public class AOPTCheck {
         File aopt = new File("/system/bin/aopt");
         if (!aopt.exists()) {
             if (!Build.SUPPORTED_ABIS.toString().contains("86")) {
-                // Take account for ARM/ARM64 devices
-                try {
-                    copyAOPT("aopt");
-                    mountRW();
-                    Root.runCommand(
-                            "cp " + context.getFilesDir().getAbsolutePath() +
-                                    "/aopt " +
-                                    "/system/bin/aopt");
-                    Root.runCommand("chmod 777 /system/bin/aopt");
-                    mountRO();
-                    Log.d("SubstratumLogger", "Android Overlay Packaging Tool (ARM) has been" +
-                            " added into the system partition.");
-                } catch (Exception e) {
-                    //
+                if (!Build.SUPPORTED_ABIS.toString().contains("64")) {
+                    try {
+                        // Take account for ARM64 first
+                        copyAOPT("aopt64");
+                        mountRW();
+                        Root.runCommand(
+                                "cp " + context.getFilesDir().getAbsolutePath() +
+                                        "/aopt64 " +
+                                        "/system/bin/aopt");
+                        Root.runCommand("chmod 777 /system/bin/aopt");
+                        mountRO();
+                        Log.d("SubstratumLogger", "Android Overlay Packaging Tool (ARM64) has been"
+                                + " added into the system partition.");
+                    } catch (Exception e) {
+                        //
+                    }
+                } else {
+                    // Take account for ARM devices
+                    try {
+                        copyAOPT("aopt");
+                        mountRW();
+                        Root.runCommand(
+                                "cp " + context.getFilesDir().getAbsolutePath() +
+                                        "/aopt " +
+                                        "/system/bin/aopt");
+                        Root.runCommand("chmod 777 /system/bin/aopt");
+                        mountRO();
+                        Log.d("SubstratumLogger", "Android Overlay Packaging Tool (ARM) has been" +
+                                " added into the system partition.");
+                    } catch (Exception e) {
+                        //
+                    }
                 }
             } else {
                 // Take account for x86 devices

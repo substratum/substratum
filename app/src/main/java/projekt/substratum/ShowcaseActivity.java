@@ -1,6 +1,8 @@
 package projekt.substratum;
 
+import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -103,6 +105,26 @@ public class ShowcaseActivity extends AppCompatActivity {
     private void refreshLayout() {
         if (References.isNetworkAvailable(getApplicationContext())) {
             no_network.setVisibility(View.GONE);
+
+            final SharedPreferences prefs = getApplicationContext().getSharedPreferences(
+                    "showcase_tabs", 0);
+            if (!prefs.contains("acknowledgement")) {
+                final AlertDialog.Builder alertDialogBuilder =
+                        new AlertDialog.Builder(this);
+                alertDialogBuilder.setTitle(R.string.showcase_dialog_title);
+                alertDialogBuilder.setMessage(R.string.showcase_dialog_content);
+                alertDialogBuilder.setCancelable(false);
+                alertDialogBuilder
+                        .setPositiveButton(R.string.showcase_dialog_agree, new DialogInterface
+                                .OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                prefs.edit().putBoolean("acknowledgement", true).apply();
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+            }
             DownloadTabs downloadTabs = new DownloadTabs();
             downloadTabs.execute(getString(R.string.showcase_tabs), "showcase_tabs.xml");
         } else {
@@ -155,10 +177,18 @@ public class ShowcaseActivity extends AppCompatActivity {
                 String new_file = MD5.calculateMD5(new File(getApplicationContext().getCacheDir() +
                         "/" + "showcase_tabs-temp.xml"));
                 if (!existing.equals(new_file)) {
+                    // MD5s don't match
                     File renameMe = new File(getApplicationContext().getCacheDir() +
                             "/" + "showcase_tabs-temp.xml");
                     renameMe.renameTo(new File(getApplicationContext().getCacheDir() +
                             "/" + "showcase_tabs.xml"));
+                    // Also clear the tabs cache
+                    Root.runCommand(
+                            "rm -rf " + getApplicationContext().getCacheDir().getAbsolutePath() +
+                                    "/ShowcaseCache/");
+                    SharedPreferences prefs = getApplicationContext().getSharedPreferences(
+                            "showcase_tabs", 0);
+                    prefs.edit().clear().apply();
                 } else {
                     File deleteMe = new File(getApplicationContext().getCacheDir() +
                             "/" + "showcase_tabs-temp.xml");

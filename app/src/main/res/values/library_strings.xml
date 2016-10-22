@@ -243,7 +243,7 @@
     <string name="library_blurview_author" translatable="false">Dmitry Saviuk</string>
     <string name="library_blurview_authorWebsite" translatable="false"></string>
     <!-- Library section -->
-    <string name="library_blurview_libraryName" translatable="false" translatable="false">BlurView</string>
+    <string name="library_blurview_libraryName" translatable="false">BlurView</string>
     <string name="library_blurview_libraryDescription">Dynamic iOS-like blur of underlying Views for Android.</string>
     <string name="library_blurview_libraryWebsite" translatable="false">https://github.com/Dimezis/BlurView</string>
     <string name="library_blurview_libraryVersion" translatable="false">1.2.0</string>

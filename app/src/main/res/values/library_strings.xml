@@ -222,54 +222,54 @@
     <!-- Circular Fillable Loaders -->
     <string name="define_circularfillableloaders"/>
     <!-- Author section -->
-    <string name="library_circularfillableloaders_author">Lopez Mikhael</string>
-    <string name="library_circularfillableloaders_authorWebsite">http://mikhaellopez.com/</string>
+    <string name="library_circularfillableloaders_author" translatable="false">Lopez Mikhael</string>
+    <string name="library_circularfillableloaders_authorWebsite" translatable="false">http://mikhaellopez.com/</string>
     <!-- Library section -->
-    <string name="library_circularfillableloaders_libraryName">CircularFillableLoaders</string>
+    <string name="library_circularfillableloaders_libraryName" translatable="false">CircularFillableLoaders</string>
     <string name="library_circularfillableloaders_libraryDescription">This is an Android project allowing to realize a beautiful circular fillable loaders to be used for splashscreen for example.</string>
-    <string name="library_circularfillableloaders_libraryWebsite">https://github.com/lopspower/CircularFillableLoaders</string>
-    <string name="library_circularfillableloaders_libraryVersion">1.2.0</string>
+    <string name="library_circularfillableloaders_libraryWebsite" translatable="false">https://github.com/lopspower/CircularFillableLoaders</string>
+    <string name="library_circularfillableloaders_libraryVersion" translatable="false">1.2.0</string>
     <!-- OpenSource section -->
-    <string name="library_circularfillableloaders_isOpenSource">true</string>
-    <string name="library_circularfillableloaders_repositoryLink">https://github.com/lopspower/CircularFillableLoaders</string>
+    <string name="library_circularfillableloaders_isOpenSource" translatable="false">true</string>
+    <string name="library_circularfillableloaders_repositoryLink" translatable="false">https://github.com/lopspower/CircularFillableLoaders</string>
     <!-- ClassPath for autoDetect section -->
-    <string name="library_circularfillableloaders_classPath">com.mikhaellopez:circularfillableloaders</string>
+    <string name="library_circularfillableloaders_classPath" translatable="false">com.mikhaellopez:circularfillableloaders</string>
     <!-- License section -->
-    <string name="library_circularfillableloaders_licenseId">apache_2_0</string>
+    <string name="library_circularfillableloaders_licenseId" translatable="false">apache_2_0</string>
 
     <!-- BlurView -->
     <string name="define_blurview"/>
     <!-- Author section -->
-    <string name="library_blurview_author">Dmitry Saviuk</string>
-    <string name="library_blurview_authorWebsite"></string>
+    <string name="library_blurview_author" translatable="false">Dmitry Saviuk</string>
+    <string name="library_blurview_authorWebsite" translatable="false"></string>
     <!-- Library section -->
-    <string name="library_blurview_libraryName">BlurView</string>
+    <string name="library_blurview_libraryName" translatable="false">BlurView</string>
     <string name="library_blurview_libraryDescription">Dynamic iOS-like blur of underlying Views for Android.</string>
-    <string name="library_blurview_libraryWebsite">https://github.com/Dimezis/BlurView</string>
-    <string name="library_blurview_libraryVersion">1.2.0</string>
+    <string name="library_blurview_libraryWebsite" translatable="false">https://github.com/Dimezis/BlurView</string>
+    <string name="library_blurview_libraryVersion" translatable="false">1.2.0</string>
     <!-- OpenSource section -->
-    <string name="library_blurview_isOpenSource">true</string>
-    <string name="library_blurview_repositoryLink">https://github.com/Dimezis/BlurView</string>
+    <string name="library_blurview_isOpenSource" translatable="false">true</string>
+    <string name="library_blurview_repositoryLink" translatable="false">https://github.com/Dimezis/BlurView</string>
     <!-- ClassPath for autoDetect section -->
-    <string name="library_blurview_classPath">com.eightbitlab:blurview</string>
+    <string name="library_blurview_classPath" translatable="false">com.eightbitlab:blurview</string>
     <!-- License section -->
-    <string name="library_blurview_licenseId">apache_2_0</string>
+    <string name="library_blurview_licenseId" translatable="false">apache_2_0</string>
 
     <!-- Android Image Cropper -->
     <string name="define_androidimagecropper"/>
     <!-- Author section -->
-    <string name="library_androidimagecropper_author">ArthurHub</string>
-    <string name="library_androidimagecropper_authorWebsite"></string>
+    <string name="library_androidimagecropper_author" translatable="false">ArthurHub</string>
+    <string name="library_androidimagecropper_authorWebsite" translatable="false"></string>
     <!-- Library section -->
-    <string name="library_androidimagecropper_libraryName">Android Image Cropper</string>
+    <string name="library_androidimagecropper_libraryName" translatable="false">Android Image Cropper</string>
     <string name="library_androidimagecropper_libraryDescription">Powerful (Zoom, Rotation, Multi-Source), customizable (Shape, Limits, Style), optimized (Async, Sampling, Matrix) and simple image cropping library for Android.</string>
-    <string name="library_androidimagecropper_libraryWebsite">https://github.com/ArthurHub/Android-Image-Cropper</string>
-    <string name="library_androidimagecropper_libraryVersion">2.3</string>
+    <string name="library_androidimagecropper_libraryWebsite" translatable="false">https://github.com/ArthurHub/Android-Image-Cropper</string>
+    <string name="library_androidimagecropper_libraryVersion" translatable="false">2.3</string>
     <!-- OpenSource section -->
-    <string name="library_androidimagecropper_isOpenSource">true</string>
-    <string name="library_androidimagecropper_repositoryLink">https://github.com/ArthurHub/Android-Image-Cropper</string>
+    <string name="library_androidimagecropper_isOpenSource" translatable="false">true</string>
+    <string name="library_androidimagecropper_repositoryLink" translatable="false">https://github.com/ArthurHub/Android-Image-Cropper</string>
     <!-- ClassPath for autoDetect section -->
-    <string name="library_androidimagecropper_classPath">com.theartofdev.edmodo:android-image-cropper</string>
+    <string name="library_androidimagecropper_classPath" translatable="false">com.theartofdev.edmodo:android-image-cropper</string>
     <!-- License section -->
-    <string name="library_androidimagecropper_licenseId">apache_2_0</string>
+    <string name="library_androidimagecropper_licenseId" translatable="false">apache_2_0</string>
 </resources>

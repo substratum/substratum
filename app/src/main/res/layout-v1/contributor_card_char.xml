@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="120dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/team_ben"/>
+            android:src="@drawable/contributor_char"/>
 
         <TextView
             android:id="@+id/team_name"
@@ -31,7 +31,7 @@
             android:layout_gravity="center"
             android:layout_marginStart="15dp"
             android:layout_marginTop="10dp"
-            android:text="@string/team_ben"
+            android:text="@string/contributor_char"
             android:textColor="@color/main_screen_card_theme_title"
             android:textSize="25sp"/>
 
@@ -44,7 +44,7 @@
             android:layout_marginBottom="10dp"
             android:layout_marginStart="15dp"
             android:layout_marginTop="2dp"
-            android:text="@string/team_ben_content"
+            android:text="@string/contributor_char_content"
             android:textColor="@color/main_screen_card_theme_author"
             android:textSize="14sp"/>
     </RelativeLayout>

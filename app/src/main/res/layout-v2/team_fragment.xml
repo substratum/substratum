@@ -64,10 +64,6 @@
             android:text="@string/team_text_2"/>
 
         <include
-            android:id="@+id/ben"
-            layout="@layout/team_card_ben"/>
-
-        <include
             android:id="@+id/ivan"
             layout="@layout/team_card_ivan"/>
 
@@ -123,6 +119,36 @@
             android:layout_marginEnd="5dp"
             android:layout_marginStart="5dp"
             android:layout_marginTop="30dp"
+            android:text="@string/contributor_title_3"
+            android:textColor="@color/settings_title_color"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/contributor_text_3"/>
+
+        <include
+            android:id="@+id/ben"
+            layout="@layout/contributor_card_ben"/>
+
+        <include
+            android:id="@+id/charcat"
+            layout="@layout/contributor_card_char"/>
+
+        <include
+            android:id="@+id/nathan"
+            layout="@layout/contributor_card_nathan"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="30dp"
             android:text="@string/contributor_title_1"
             android:textColor="@color/settings_title_color"
             android:textStyle="bold"/>
@@ -142,10 +168,6 @@
         <include
             android:id="@+id/mihir"
             layout="@layout/contributor_card_mihir"/>
-
-        <include
-            android:id="@+id/nathan"
-            layout="@layout/contributor_card_nathan"/>
 
         <include
             android:id="@+id/sajid"

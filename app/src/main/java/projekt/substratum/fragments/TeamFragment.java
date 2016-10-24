@@ -383,12 +383,25 @@ public class TeamFragment extends Fragment {
             }
         });
 
-
         CardView kevin = (CardView) root.findViewById(R.id.kevin);
         kevin.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 try {
                     String playURL = getString(R.string.translator_kevin_link);
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(playURL));
+                    startActivity(i);
+                } catch (ActivityNotFoundException activityNotFoundException) {
+                    //
+                }
+            }
+        });
+
+        CardView nils = (CardView) root.findViewById(R.id.nils);
+        nils.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                try {
+                    String playURL = getString(R.string.translator_nils_link);
                     Intent i = new Intent(Intent.ACTION_VIEW);
                     i.setData(Uri.parse(playURL));
                     startActivity(i);

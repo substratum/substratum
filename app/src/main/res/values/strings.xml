@@ -444,6 +444,9 @@
     <string name="translator_gautham" translatable="false">Gautham Suki</string>
     <string name="translator_gautham_content">Tamil Translations</string>
     <string name="translator_gautham_link" translatable="false">https://plus.google.com/u/0/+GauthamSuki/</string>
+    <string name="translator_nils" translatable="false">Nils Wasser</string>
+    <string name="translator_nils_content">German Translations</string>
+    <string name="translator_nils_link" translatable="false">https://plus.google.com/u/0/+NilsWasser/</string>
 
     <string name="team_title_1">Substratum Team Leaders</string>
     <string name="team_text_1">Not only did we create something that works for the users, but we worked in conjunction with themers to make it a wonderful theming engine for the community!</string>

@@ -200,6 +200,10 @@
             layout="@layout/translator_card_kevin"/>
 
         <include
+            android:id="@+id/nils"
+            layout="@layout/translator_card_nils"/>
+
+        <include
             android:id="@+id/david"
             layout="@layout/translator_card_david"/>
 

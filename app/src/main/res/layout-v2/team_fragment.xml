@@ -219,6 +219,10 @@
             android:id="@+id/jorge"
             layout="@layout/translator_card_jorge"/>
 
+        <include
+            android:id="@+id/gautham"
+            layout="@layout/translator_card_gautham"/>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

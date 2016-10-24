@@ -288,7 +288,7 @@ public class SoundPackager extends Fragment {
 
                 try {
                     File f = new File(getContext().getCacheDir().getAbsoluteFile() +
-                            "/SubstratumBuilder/" + theme_pid);
+                            "/SubstratumBuilder/" + theme_pid + "/assets/audio/" + source);
                     try (InputStream inputStream = new FileInputStream(f);
                          OutputStream outputStream = new FileOutputStream(getContext().getCacheDir()
                                  .getAbsolutePath() + "/SoundsCache/" + source)) {

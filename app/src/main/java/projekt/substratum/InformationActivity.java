@@ -211,6 +211,25 @@ public class InformationActivity extends AppCompatActivity {
                         toast.show();
                         e.printStackTrace();
                     }
+                } else if (resultUri.toString().contains("all_wallpaper")) {
+                    try {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                            myWallpaperManager.setStream(new FileInputStream(
+                                            resultUri.toString().substring(7)), null, true,
+                                    WallpaperManager.FLAG_SYSTEM);
+                            myWallpaperManager.clear(WallpaperManager.FLAG_LOCK);
+                        }
+                        Toast toast = Toast.makeText(getApplicationContext(),
+                                getString(R.string.wallpaper_allscreen_success),
+                                Toast.LENGTH_LONG);
+                        toast.show();
+                    } catch (IOException e) {
+                        Toast toast = Toast.makeText(getApplicationContext(),
+                                getString(R.string.wallpaper_allscreen_error),
+                                Toast.LENGTH_LONG);
+                        toast.show();
+                        e.printStackTrace();
+                    }
                 }
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();

@@ -262,6 +262,7 @@ public class ManageFragment extends Fragment {
                                     } catch (IOException e) {
                                         Log.e("SubstratumLogger", "Failed to restore wallpapers!");
                                     }
+                                    break;
                             }
                         }
                     });

@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -70,15 +71,34 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
         viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(
                         information.get(i).getContext());
-                builder.setTitle(information.get(i).getWallpaperName());
-                builder.setMessage(R.string.wallpaper_dialog_message);
+                final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(information.get(i)
+                        .getContext(),
+                        R.layout.dialog_listview);
+                arrayAdapter.add(information.get(i).getContext().getString(R.string
+                        .wallpaper_dialog_wallpaper));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    arrayAdapter.add(information.get(i).getContext().getString(R.string
+                            .wallpaper_dialog_lockscreen));
+                    arrayAdapter.add(information.get(i).getContext().getString(R.string
+                            .wallpaper_dialog_wallpaper_both));
+                }
                 builder.setCancelable(false);
-                builder.setPositiveButton(
-                        R.string.wallpaper_dialog_wallpaper,
+                builder.setNegativeButton(
+                        android.R.string.cancel,
                         new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                builder.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
                                 dialog.cancel();
 
                                 // Find out the extension of the image
@@ -104,55 +124,69 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
                                                 mContext.getCacheDir().getAbsolutePath() +
                                                         "/" + "homescreen_wallpaper" + extension)))
                                         .start(information.get(i).getCallingActivity());
-                            }
-                        });
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    builder.setNegativeButton(
-                            R.string.wallpaper_dialog_lockscreen,
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    dialog.cancel();
-
-                                    // Find out the extension of the image
-                                    String extension;
-                                    if (information.get(i).getWallpaperLink().endsWith(".png")) {
-                                        extension = ".png";
-                                    } else {
-                                        extension = ".jpg";
-                                    }
-
-                                    // Download the image
-                                    new downloadWallpaper().execute(
-                                            information.get(i).getWallpaperLink(),
-                                            "lockscreen_wallpaper" + extension);
-
-                                    // Crop the image, and send the request back to
-                                    // InformationActivity
-                                    CropImage.activity(Uri.fromFile(new File(
-                                            mContext.getCacheDir().getAbsolutePath() +
-                                                    "/" + "lockscreen_wallpaper" + extension)))
-                                            .setGuidelines(CropImageView.Guidelines.ON)
-                                            .setActivityTitle(information.get(i).getWallpaperName())
-                                            .setOutputUri(Uri.fromFile(new File(
-                                                    mContext.getCacheDir().getAbsolutePath() +
-                                                            "/" + "lockscreen_wallpaper" +
-                                                            extension)))
-                                            .start(information.get(i).getCallingActivity());
-                                }
-                            });
-                }
-
-                builder.setNeutralButton(
-                        R.string.wallpaper_dialog_cancel,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
+                                break;
+                            case 1:
                                 dialog.cancel();
-                            }
-                        }
-                );
 
-                AlertDialog alert = builder.create();
-                alert.show();
+                                // Find out the extension of the image
+                                String extension2;
+                                if (information.get(i).getWallpaperLink().endsWith(".png")) {
+                                    extension2 = ".png";
+                                } else {
+                                    extension2 = ".jpg";
+                                }
+
+                                // Download the image
+                                new downloadWallpaper().execute(
+                                        information.get(i).getWallpaperLink(),
+                                        "lockscreen_wallpaper" + extension2);
+
+                                // Crop the image, and send the request back to
+                                // InformationActivity
+                                CropImage.activity(Uri.fromFile(new File(
+                                        mContext.getCacheDir().getAbsolutePath() +
+                                                "/" + "lockscreen_wallpaper" + extension2)))
+                                        .setGuidelines(CropImageView.Guidelines.ON)
+                                        .setActivityTitle(information.get(i).getWallpaperName())
+                                        .setOutputUri(Uri.fromFile(new File(
+                                                mContext.getCacheDir().getAbsolutePath() +
+                                                        "/" + "lockscreen_wallpaper" +
+                                                        extension2)))
+                                        .start(information.get(i).getCallingActivity());
+                                break;
+                            case 2:
+                                dialog.cancel();
+
+                                // Find out the extension of the image
+                                String extension3;
+                                if (information.get(i).getWallpaperLink().endsWith(".png")) {
+                                    extension3 = ".png";
+                                } else {
+                                    extension3 = ".jpg";
+                                }
+
+                                // Download the image
+                                new downloadWallpaper().execute(
+                                        information.get(i).getWallpaperLink(),
+                                        "all_wallpaper" + extension3);
+
+                                // Crop the image, and send the request back to
+                                // InformationActivity
+                                CropImage.activity(Uri.fromFile(new File(
+                                        mContext.getCacheDir().getAbsolutePath() +
+                                                "/" + "all_wallpaper" + extension3)))
+                                        .setGuidelines(CropImageView.Guidelines.ON)
+                                        .setActivityTitle(information.get(i).getWallpaperName())
+                                        .setOutputUri(Uri.fromFile(new File(
+                                                mContext.getCacheDir().getAbsolutePath() +
+                                                        "/" + "all_wallpaper" +
+                                                        extension3)))
+                                        .start(information.get(i).getCallingActivity());
+                                break;
+                        }
+                    }
+                });
+                builder.show();
             }
         });
     }

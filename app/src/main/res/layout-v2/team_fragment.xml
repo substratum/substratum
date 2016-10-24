@@ -208,6 +208,10 @@
             layout="@layout/translator_card_wasita"/>
 
         <include
+            android:id="@+id/gediminas"
+            layout="@layout/translator_card_gediminas"/>
+
+        <include
             android:id="@+id/chrys"
             layout="@layout/translator_card_chrys"/>
 

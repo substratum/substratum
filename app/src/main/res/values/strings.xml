@@ -438,6 +438,9 @@
     <string name="translator_david" translatable="false">David Setiawan</string>
     <string name="translator_david_content">Indonesian Translations</string>
     <string name="translator_david_link" translatable="false">https://plus.google.com/u/0/112952657794170427447/</string>
+    <string name="translator_gediminas" translatable="false">Gediminas Kiaunė</string>
+    <string name="translator_gediminas_content">Lithuanian Translations</string>
+    <string name="translator_gediminas_link" translatable="false">https://plus.google.com/u/0/115756673473766512257/</string>
 
     <string name="team_title_1">Substratum Team Leaders</string>
     <string name="team_text_1">Not only did we create something that works for the users, but we worked in conjunction with themers to make it a wonderful theming engine for the community!</string>

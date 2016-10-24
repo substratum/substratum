@@ -341,6 +341,20 @@ public class TeamFragment extends Fragment {
             }
         });
 
+        CardView gediminas = (CardView) root.findViewById(R.id.gediminas);
+        gediminas.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                try {
+                    String playURL = getString(R.string.translator_gediminas_link);
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(playURL));
+                    startActivity(i);
+                } catch (ActivityNotFoundException activityNotFoundException) {
+                    //
+                }
+            }
+        });
+
         CardView jorge = (CardView) root.findViewById(R.id.jorge);
         jorge.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

@@ -131,17 +131,18 @@ public class Wallpapers extends Fragment {
 
         @Override
         protected String doInBackground(String... sUrl) {
+
             InputStream input = null;
             OutputStream output = null;
             HttpURLConnection connection = null;
 
-            File current_wallpapers = new File(getContext().getCacheDir() +
-                    "/current_wallpapers.xml");
-            if (current_wallpapers.exists()) {
-                current_wallpapers.delete();
-            }
-
             try {
+                File current_wallpapers = new File(getContext().getCacheDir() +
+                        "/current_wallpapers.xml");
+                if (current_wallpapers.exists()) {
+                    current_wallpapers.delete();
+                }
+
                 URL url = new URL(sUrl[0]);
                 connection = (HttpURLConnection) url.openConnection();
                 connection.connect();

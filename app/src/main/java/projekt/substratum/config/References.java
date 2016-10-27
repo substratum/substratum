@@ -76,6 +76,19 @@ public class References {
         return false;
     }
 
+    public static int checkOMSVersion() {
+        File om = new File("/system/bin/om");
+        if (om.exists()) {
+            return 3;
+        } else {
+            // At this point, we must perform an OMS7 check
+            if (Root.runCommand("cmd -l").contains("overlay")) {
+                return 7;
+            }
+        }
+        return 0;
+    }
+
     // These methods are now used to interact with the console to output the proper commands whether
     // it is being run on an OMS3 or an OMS7 device.
     public static String enableOverlay() {

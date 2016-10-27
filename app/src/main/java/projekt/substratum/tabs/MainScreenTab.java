@@ -604,9 +604,9 @@ public class MainScreenTab extends Fragment {
                 final_commands = final_commands + final_runner.get(j) + " ";
             }
             if (final_commands.length() == 0) {
-                final_commands += "om disable-all";
+                final_commands += References.disableAllOverlays();
             } else {
-                final_commands += "&& om disable-all";
+                final_commands += "&& " + References.disableAllOverlays();
             }
 
             mWakeLock.release();
@@ -658,7 +658,8 @@ public class MainScreenTab extends Fragment {
 
             for (int j = 0; j < to_be_enabled.size(); j++) {
                 if (j == 0) {
-                    final_commands = final_commands + " && om enable " + to_be_enabled.get(j);
+                    final_commands = final_commands + " && " + References.enableOverlay() + " " +
+                            to_be_enabled.get(j);
                 } else {
                     final_commands = final_commands + " " + to_be_enabled.get(j);
                 }

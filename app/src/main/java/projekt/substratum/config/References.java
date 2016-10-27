@@ -65,7 +65,82 @@ public class References {
     // This method is used to determine whether there the system is initiated with OMS
     public static Boolean checkOMS() {
         File om = new File("/system/bin/om");
-        return om.exists();
+        if (om.exists()) {
+            return true;
+        } else {
+            // At this point, we must perform an OMS7 check
+            if (Root.runCommand("cmd -l").contains("overlay")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // These methods are now used to interact with the console to output the proper commands whether
+    // it is being run on an OMS3 or an OMS7 device.
+    public static String enableOverlay() {
+        File om = new File("/system/bin/om");
+        if (om.exists()) {
+            return "om enable";
+        } else {
+            // At this point, we must perform an OMS7 check
+            if (Root.runCommand("cmd -l").contains("overlay")) {
+                return "cmd overlay enable";
+            }
+        }
+        return null;
+    }
+
+    public static String disableOverlay() {
+        File om = new File("/system/bin/om");
+        if (om.exists()) {
+            return "om disable";
+        } else {
+            // At this point, we must perform an OMS7 check
+            if (Root.runCommand("cmd -l").contains("overlay")) {
+                return "cmd overlay disable";
+            }
+        }
+        return null;
+    }
+
+    public static String disableAllOverlays() {
+        File om = new File("/system/bin/om");
+        if (om.exists()) {
+            return "om disable-all";
+        } else {
+            // At this point, we must perform an OMS7 check
+            if (Root.runCommand("cmd -l").contains("overlay")) {
+                return "cmd overlay disable-all";
+            }
+        }
+        return null;
+    }
+
+    public static String listAllOverlays() {
+        File om = new File("/system/bin/om");
+        if (om.exists()) {
+            return "om list";
+        } else {
+            // At this point, we must perform an OMS7 check
+            if (Root.runCommand("cmd -l").contains("overlay")) {
+                return "cmd overlay list";
+            }
+        }
+        return null;
+    }
+
+    public static String refreshWindows() {
+        File om = new File("/system/bin/om");
+        if (om.exists()) {
+            return "om refresh";
+        } else {
+            // At this point, we must perform an OMS7 check
+            if (Root.runCommand("cmd -l").contains("overlay")) {
+                return "cmd overlay refresh";
+            }
+        }
+        return null;
     }
 
     // This method is used to check whether a build.prop value is found

@@ -587,7 +587,7 @@ public class InformationActivity extends AppCompatActivity {
                                 }
                             }
 
-                            String commands2 = "om disable ";
+                            String commands2 = References.disableOverlay() + " ";
                             for (int i = 0; i < all_overlays.size(); i++) {
                                 commands2 = commands2 + all_overlays.get(i) + " ";
                             }
@@ -660,7 +660,7 @@ public class InformationActivity extends AppCompatActivity {
                                 }
                             }
 
-                            String commands2 = "om enable ";
+                            String commands2 = References.enableOverlay() + " ";
                             for (int i = 0; i < all_overlays.size(); i++) {
                                 commands2 = commands2 + all_overlays.get(i) + " ";
                             }
@@ -808,11 +808,12 @@ public class InformationActivity extends AppCompatActivity {
                                     Intent runCommand = new Intent();
                                     runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                                     runCommand.setAction("masquerade.substratum.COMMANDS");
-                                    runCommand.putExtra("om-commands", "om refresh && setprop sys" +
-                                            ".refresh_theme 1");
+                                    runCommand.putExtra("om-commands", References.refreshWindows() +
+                                            " && setprop sys.refresh_theme 1");
                                     getApplicationContext().sendBroadcast(runCommand);
                                 } else {
-                                    Root.runCommand("om refresh && setprop sys.refresh_theme 1");
+                                    Root.runCommand(References.refreshWindows() +
+                                            " && setprop sys.refresh_theme 1");
                                 }
                                 if (!prefs.getBoolean("systemui_recreate", false)) {
                                     if (References.isPackageInstalled(getApplicationContext(),
@@ -864,10 +865,10 @@ public class InformationActivity extends AppCompatActivity {
                 Intent runCommand = new Intent();
                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                 runCommand.setAction("masquerade.substratum.COMMANDS");
-                runCommand.putExtra("om-commands", "om refresh");
+                runCommand.putExtra("om-commands", References.refreshWindows());
                 getApplicationContext().sendBroadcast(runCommand);
             } else {
-                Root.runCommand("om refresh");
+                Root.runCommand(References.refreshWindows());
             }
             return true;
         }

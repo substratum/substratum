@@ -1137,10 +1137,10 @@ public class OverlaysList extends Fragment {
 
             String final_commands = "";
             if (enable_mode || compile_enable_mode) {
-                final_commands = "om enable";
+                final_commands = References.enableOverlay();
             } else {
                 if (disable_mode) {
-                    final_commands = "om disable";
+                    final_commands = References.disableOverlay();
                 }
             }
 
@@ -1316,7 +1316,7 @@ public class OverlaysList extends Fragment {
                     if (mixAndMatchMode) {
                         if (all_installed_overlays.size() - current_theme_overlays.size()
                                 != 0) {
-                            disableBeforeEnabling = "om disable";
+                            disableBeforeEnabling = References.disableOverlay();
                             for (int i = 0; i < all_installed_overlays.size(); i++) {
                                 if (!current_theme_overlays.contains(
                                         all_installed_overlays.get(i))) {
@@ -1370,7 +1370,7 @@ public class OverlaysList extends Fragment {
                                         "provider...");
                             if (final_commands.contains("pm install")) {
                                 final_commands = final_commands +
-                                        " && om refresh";
+                                        " && " + References.refreshWindows();
                             }
                             Intent runCommand = new Intent();
                             runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
@@ -1392,7 +1392,7 @@ public class OverlaysList extends Fragment {
                         if (mixAndMatchMode) {
                             if (all_installed_overlays.size() - current_theme_overlays.size()
                                     != 0) {
-                                disableBeforeEnabling = "om disable";
+                                disableBeforeEnabling = References.disableOverlay();
                                 for (int i = 0; i < all_installed_overlays.size(); i++) {
                                     if (!current_theme_overlays.contains(
                                             all_installed_overlays.get(i))) {
@@ -1471,7 +1471,7 @@ public class OverlaysList extends Fragment {
                         if (mixAndMatchMode) {
                             if (all_installed_overlays.size() - current_theme_overlays.size() !=
                                     0) {
-                                disableBeforeEnabling = "om disable";
+                                disableBeforeEnabling = References.disableOverlay();
                                 for (int i = 0; i < all_installed_overlays.size(); i++) {
                                     if (!current_theme_overlays.contains(
                                             all_installed_overlays.get(i))) {

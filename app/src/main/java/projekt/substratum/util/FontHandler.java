@@ -100,10 +100,11 @@ public class FontHandler {
                         Intent runCommand = new Intent();
                         runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                         runCommand.setAction("masquerade.substratum.COMMANDS");
-                        runCommand.putExtra("om-commands", "om refresh" + final_commands);
+                        runCommand.putExtra("om-commands", References.refreshWindows() +
+                                final_commands);
                         mContext.sendBroadcast(runCommand);
                     } else {
-                        Root.runCommand("om refresh" + final_commands);
+                        Root.runCommand(References.refreshWindows() + final_commands);
                     }
                 } else {
                     final AlertDialog.Builder alertDialogBuilder =

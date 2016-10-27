@@ -779,10 +779,10 @@ public class MainActivity extends AppCompatActivity implements
                     Intent runCommand = new Intent();
                     runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                     runCommand.setAction("masquerade.substratum.COMMANDS");
-                    runCommand.putExtra("om-commands", "om refresh");
+                    runCommand.putExtra("om-commands", References.refreshWindows());
                     getApplicationContext().sendBroadcast(runCommand);
                 } else {
-                    Root.runCommand("om refresh");
+                    Root.runCommand(References.refreshWindows());
                 }
                 return true;
             case R.id.restart_systemui:

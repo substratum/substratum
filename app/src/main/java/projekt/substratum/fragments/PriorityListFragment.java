@@ -93,7 +93,7 @@ public class PriorityListFragment extends Fragment {
         commands = "";
         Process nativeApp = null;
         try {
-            nativeApp = Runtime.getRuntime().exec("om list");
+            nativeApp = Runtime.getRuntime().exec(References.listAllOverlays());
 
             try (OutputStream stdin = nativeApp.getOutputStream();
                  InputStream stderr = nativeApp.getErrorStream();

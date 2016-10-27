@@ -115,7 +115,7 @@ public class ManageFragment extends Fragment {
                                             final SharedPreferences prefs =
                                                     PreferenceManager.getDefaultSharedPreferences(
                                                             getContext());
-                                            String commands = "om disable-all";
+                                            String commands = References.disableAllOverlays();
                                             if (!prefs.getBoolean("systemui_recreate", false)) {
                                                 commands = commands +
                                                         " && pkill -f com.android.systemui";
@@ -567,7 +567,7 @@ public class ManageFragment extends Fragment {
         @Override
         protected String doInBackground(String... sUrl) {
             Root.runCommand("rm -r /data/system/theme/fonts/");
-            final_commands = "om refresh";
+            final_commands = References.refreshWindows();
             return null;
         }
     }

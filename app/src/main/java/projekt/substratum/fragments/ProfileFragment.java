@@ -624,7 +624,7 @@ public class ProfileFragment extends Fragment {
                 List<String> to_be_run = new ArrayList<>();
 
                 // Disable everything enabled first
-                String to_be_disabled = "om disable-all";
+                String to_be_disabled = References.disableAllOverlays();
 
                 // Now process the overlays to be enabled
 
@@ -674,10 +674,12 @@ public class ProfileFragment extends Fragment {
                 for (int i = 0; i < to_be_run.size(); i++) {
                     if (!to_be_run.get(i).equals("substratum.helper")) {
                         if (i == 0) {
-                            to_be_run_commands = "om enable " + to_be_run.get(i);
+                            to_be_run_commands = References.enableOverlay() + " " +
+                                    to_be_run.get(i);
                         } else {
                             if (i > 0 && to_be_run_commands.length() == 0) {
-                                to_be_run_commands = "om enable " + to_be_run.get(i);
+                                to_be_run_commands = References.enableOverlay() + " " +
+                                        to_be_run.get(i);
                             } else {
                                 to_be_run_commands = to_be_run_commands + " " + to_be_run
                                         .get(i);
@@ -807,13 +809,12 @@ public class ProfileFragment extends Fragment {
 
                     if (fonts.exists()) {
                         if (system.contains("substratum.helper")) {
-                            to_be_run_commands = to_be_run_commands + " && om enable substratum" +
-                                    ".helper";
+                            to_be_run_commands = to_be_run_commands + " && " +
+                                    References.enableOverlay() + " substratum.helper";
                         } else {
                             if (system_active.contains("substratum.helper")) {
-                                to_be_run_commands = to_be_run_commands + " && om disable " +
-                                        "substratum" +
-                                        ".helper";
+                                to_be_run_commands = to_be_run_commands + " && " +
+                                        References.disableOverlay() + " substratum.helper";
                             } else {
                                 helper_exists = false;
                             }

@@ -131,7 +131,7 @@ public class PriorityLoaderFragment extends Fragment {
         protected String doInBackground(String... sUrl) {
             Process nativeApp = null;
             try {
-                nativeApp = Runtime.getRuntime().exec("om list");
+                nativeApp = Runtime.getRuntime().exec(References.listAllOverlays());
                 try (OutputStream stdin = nativeApp.getOutputStream();
                      InputStream stderr = nativeApp.getErrorStream();
                      InputStream stdout = nativeApp.getInputStream();

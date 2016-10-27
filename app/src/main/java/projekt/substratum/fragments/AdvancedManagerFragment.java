@@ -148,7 +148,7 @@ public class AdvancedManagerFragment extends Fragment {
                     materialSheetFab.hideSheet();
                     loadingBar.setVisibility(View.VISIBLE);
                     if (References.checkOMS()) {
-                        String data = "om disable";
+                        String data = References.disableOverlay();
                         List<OverlayManager> overlayList = ((OverlayManagerAdapter) mAdapter)
                                 .getOverlayManagerList();
                         for (int i = 0; i < overlayList.size(); i++) {
@@ -252,7 +252,7 @@ public class AdvancedManagerFragment extends Fragment {
                 public void onClick(View v) {
                     materialSheetFab.hideSheet();
                     loadingBar.setVisibility(View.VISIBLE);
-                    String data = "om enable";
+                    String data = References.enableOverlay();
                     List<OverlayManager> overlayList = ((OverlayManagerAdapter) mAdapter)
                             .getOverlayManagerList();
                     for (int i = 0; i < overlayList.size(); i++) {
@@ -306,9 +306,10 @@ public class AdvancedManagerFragment extends Fragment {
                     }
                     if (!prefs.getBoolean("systemui_recreate", false) &&
                             data.contains("systemui")) {
-                        data = data + " && om refresh && pkill -f com.android.systemui";
+                        data = data + " && " + References.refreshWindows() +
+                                " && pkill -f com.android.systemui";
                     } else {
-                        data += " && om refresh";
+                        data += " && " + References.refreshWindows();
                     }
                     Toast toast = Toast.makeText(getContext(), getString(R
                                     .string.toast_uninstalling),

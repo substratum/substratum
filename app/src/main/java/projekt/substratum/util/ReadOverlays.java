@@ -7,6 +7,8 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import projekt.substratum.config.References;
+
 /**
  * @author Nicholas Chum (nicholaschum)
  */
@@ -32,7 +34,7 @@ public class ReadOverlays {
         }
 
         try {
-            nativeApp = Runtime.getRuntime().exec("om list");
+            nativeApp = Runtime.getRuntime().exec(References.listAllOverlays());
 
             try (OutputStream stdin = nativeApp.getOutputStream();
                  InputStream stdout = nativeApp.getInputStream();

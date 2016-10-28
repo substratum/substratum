@@ -1052,7 +1052,7 @@ public class OverlaysList extends Fragment {
                         R.string.sb_phase_1_loader));
                 loader = (CircularFillableLoaders) mProgressDialog.findViewById(
                         R.id.circularFillableLoader);
-                loader.setProgress(60);
+                loader.setProgress(80);
             }
             super.onPreExecute();
         }
@@ -1126,7 +1126,7 @@ public class OverlaysList extends Fragment {
                 }
                 loader_string.setText(getContext().getResources().getString(
                         R.string.sb_phase_2_loader));
-                loader.setProgress(20);
+                loader.setProgress(50);
             }
             super.onPreExecute();
         }

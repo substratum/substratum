@@ -17,6 +17,7 @@ import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.service.notification.StatusBarNotification;
@@ -83,6 +84,8 @@ import static android.content.Context.CLIPBOARD_SERVICE;
  */
 
 public class OverlaysList extends Fragment {
+
+    private static final int REFRESH_WINDOW_DELAY = 500;
 
     private CircularFillableLoaders loader;
     private TextView loader_string;
@@ -1338,9 +1341,7 @@ public class OverlaysList extends Fragment {
                             runCommand.putExtra("om-commands",
                                     ((disableBeforeEnabling.length() > 0) ?
                                             disableBeforeEnabling +
-                                                    " && " + final_commands + " && " + References
-                                                    .refreshWindows() : final_commands + " && " +
-                                            References.refreshWindows()));
+                                                    " && " + final_commands : final_commands));
                             getContext().sendBroadcast(runCommand);
                         } else {
                             if (DEBUG)
@@ -1348,9 +1349,7 @@ public class OverlaysList extends Fragment {
                                         "back to Substratum theme provider...");
                             Root.runCommand(((disableBeforeEnabling.length() > 0) ?
                                     disableBeforeEnabling +
-                                            " && " + final_commands + " && " + References
-                                            .refreshWindows() : final_commands + " && " + References
-                                    .refreshWindows()));
+                                            " && " + final_commands : final_commands));
                         }
                     }
 
@@ -1379,16 +1378,24 @@ public class OverlaysList extends Fragment {
                             Intent runCommand = new Intent();
                             runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                             runCommand.setAction("masquerade.substratum.COMMANDS");
-                            runCommand.putExtra("om-commands", final_commands + " && " + References
-                                    .refreshWindows());
+                            runCommand.putExtra("om-commands", final_commands);
                             getContext().sendBroadcast(runCommand);
                         } else {
                             if (DEBUG)
                                 Log.e("SubstratumLogger", "Masquerade was not found, falling " +
                                         "back to Substratum theme provider...");
-                            Root.runCommand(final_commands + " && " + References
-                                    .refreshWindows());
+                            Root.runCommand(final_commands);
                         }
+                    }
+                    if (References.checkOMSVersion(getContext()) == 7) {
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            public void run() {
+                                // OMS may not have written all the changes so quickly just yet
+                                // so we may need to have a small delay
+                                getActivity().recreate();
+                            }
+                        }, REFRESH_WINDOW_DELAY);
                     }
                 }
             } else {
@@ -1433,10 +1440,7 @@ public class OverlaysList extends Fragment {
                                 runCommand.putExtra("om-commands",
                                         ((disableBeforeEnabling.length() > 0) ?
                                                 disableBeforeEnabling +
-                                                        " && " + final_commands + " && " +
-                                                        References.refreshWindows() :
-                                                final_commands + " && " +
-                                                        References.refreshWindows()));
+                                                        " && " + final_commands : final_commands));
                                 getContext().sendBroadcast(runCommand);
                             } else {
                                 if (DEBUG)
@@ -1444,9 +1448,7 @@ public class OverlaysList extends Fragment {
                                             "back to Substratum theme provider...");
                                 Root.runCommand(((disableBeforeEnabling.length() > 0) ?
                                         disableBeforeEnabling +
-                                                " && " + final_commands + " && " + References
-                                                .refreshWindows() : final_commands + " && " +
-                                        References.refreshWindows()));
+                                                " && " + final_commands : final_commands));
                             }
                         } else {
                             progressBar.setVisibility(View.VISIBLE);
@@ -1459,16 +1461,24 @@ public class OverlaysList extends Fragment {
                                 Intent runCommand = new Intent();
                                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                                 runCommand.setAction("masquerade.substratum.COMMANDS");
-                                runCommand.putExtra("om-commands", final_commands + " && " +
-                                        References.refreshWindows());
+                                runCommand.putExtra("om-commands", final_commands);
                                 getContext().sendBroadcast(runCommand);
                             } else {
                                 if (DEBUG)
                                     Log.e("SubstratumLogger", "Masquerade was not found, falling " +
                                             "back to Substratum theme provider...");
-                                Root.runCommand(final_commands + " && " + References
-                                        .refreshWindows());
+                                Root.runCommand(final_commands);
                             }
+                        }
+                        if (References.checkOMSVersion(getContext()) == 7) {
+                            Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                public void run() {
+                                    // OMS may not have written all the changes so quickly just yet
+                                    // so we may need to have a small delay
+                                    getActivity().recreate();
+                                }
+                            }, REFRESH_WINDOW_DELAY);
                         }
                     } else {
                         compile_enable_mode = false;
@@ -1519,10 +1529,7 @@ public class OverlaysList extends Fragment {
                                 runCommand.putExtra("om-commands",
                                         ((disableBeforeEnabling.length() > 0) ?
                                                 disableBeforeEnabling +
-                                                        " && " + final_commands + " && " +
-                                                        References.refreshWindows() :
-                                                final_commands + " && " +
-                                                        References.refreshWindows()));
+                                                        " && " + final_commands : final_commands));
                                 getContext().sendBroadcast(runCommand);
                             } else {
                                 if (DEBUG)
@@ -1530,9 +1537,7 @@ public class OverlaysList extends Fragment {
                                             "back to Substratum theme provider...");
                                 Root.runCommand(((disableBeforeEnabling.length() > 0) ?
                                         disableBeforeEnabling +
-                                                " && " + final_commands + " && " + References
-                                                .refreshWindows() : final_commands + " && " +
-                                        References.refreshWindows()));
+                                                " && " + final_commands : final_commands));
                             }
                         } else {
                             progressBar.setVisibility(View.VISIBLE);
@@ -1545,16 +1550,24 @@ public class OverlaysList extends Fragment {
                                 Intent runCommand = new Intent();
                                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                                 runCommand.setAction("masquerade.substratum.COMMANDS");
-                                runCommand.putExtra("om-commands", final_commands + " && " +
-                                        References.refreshWindows());
+                                runCommand.putExtra("om-commands", final_commands);
                                 getContext().sendBroadcast(runCommand);
                             } else {
                                 if (DEBUG)
                                     Log.e("SubstratumLogger", "Masquerade was not found, falling " +
                                             "back to Substratum theme provider...");
-                                Root.runCommand(final_commands + " && " + References
-                                        .refreshWindows());
+                                Root.runCommand(final_commands);
                             }
+                        }
+                        if (References.checkOMSVersion(getContext()) == 7) {
+                            Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                public void run() {
+                                    // OMS may not have written all the changes so quickly just yet
+                                    // so we may need to have a small delay
+                                    getActivity().recreate();
+                                }
+                            }, REFRESH_WINDOW_DELAY);
                         }
                     } else {
                         disable_mode = false;

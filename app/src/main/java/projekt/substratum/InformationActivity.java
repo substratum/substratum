@@ -483,8 +483,8 @@ public class InformationActivity extends AppCompatActivity {
                                     ("[^a-zA-Z0-9]+", "");
 
                             // Begin uninstalling all overlays based on this package
-                            List<String> stateAll = ReadOverlays.main(4);
-                            stateAll.addAll(ReadOverlays.main(5));
+                            List<String> stateAll = ReadOverlays.main(4, getApplicationContext());
+                            stateAll.addAll(ReadOverlays.main(5, getApplicationContext()));
 
                             ArrayList<String> all_overlays = new ArrayList<>();
                             for (int j = 0; j < stateAll.size(); j++) {
@@ -577,8 +577,8 @@ public class InformationActivity extends AppCompatActivity {
                                             .getExternalStorageDirectory().getAbsolutePath() +
                                     "/.substratum/current_overlays.xml");
 
-                            List<String> stateAll = ReadOverlays.main(4);
-                            stateAll.addAll(ReadOverlays.main(5));
+                            List<String> stateAll = ReadOverlays.main(4, getApplicationContext());
+                            stateAll.addAll(ReadOverlays.main(5, getApplicationContext()));
 
                             ArrayList<String> all_overlays = new ArrayList<>();
                             for (int j = 0; j < stateAll.size(); j++) {
@@ -649,8 +649,8 @@ public class InformationActivity extends AppCompatActivity {
                                     ("[^a-zA-Z0-9]+", "");
 
                             // Begin enabling all overlays based on this package
-                            List<String> stateAll = ReadOverlays.main(4);
-                            stateAll.addAll(ReadOverlays.main(5));
+                            List<String> stateAll = ReadOverlays.main(4, getApplicationContext());
+                            stateAll.addAll(ReadOverlays.main(5, getApplicationContext()));
 
                             ArrayList<String> all_overlays = new ArrayList<>();
                             for (int j = 0; j < stateAll.size(); j++) {
@@ -753,8 +753,8 @@ public class InformationActivity extends AppCompatActivity {
                                             .getExternalStorageDirectory().getAbsolutePath() +
                                     "/.substratum/current_overlays.xml");
 
-                            List<String> stateAll = ReadOverlays.main(4);
-                            stateAll.addAll(ReadOverlays.main(5));
+                            List<String> stateAll = ReadOverlays.main(4, getApplicationContext());
+                            stateAll.addAll(ReadOverlays.main(5, getApplicationContext()));
 
                             ArrayList<String> all_overlays = new ArrayList<>();
                             for (int j = 0; j < stateAll.size(); j++) {

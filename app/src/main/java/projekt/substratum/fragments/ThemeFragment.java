@@ -345,7 +345,8 @@ public class ThemeFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            List<String> state1 = ReadOverlays.main(1);  // Overlays with non-existent targets
+            List<String> state1 = ReadOverlays.main(1, mContext);
+            // Overlays with non-existent targets
             for (int i = 0; i < state1.size(); i++) {
                 Log.e("OverlayCleaner", "Target APK not found for \"" + state1.get(i) + "\" and " +
                         "will " +

@@ -78,6 +78,7 @@ public class References {
         File om = new File("/system/bin/om");
         if (om.exists()) {
             prefs.edit().putBoolean("oms_state", true).apply();
+            prefs.edit().putInt("oms_version", 3).apply();
             Log.d("SubstratumLogger", "Initializing Substratum with the third iteration of " +
                     "the Overlay Manager Service...");
         } else {
@@ -89,33 +90,31 @@ public class References {
                 if (reader.readLine().equals(
                         "The overlay manager has already been initialized.")) {
                     prefs.edit().putBoolean("oms_state", true).apply();
+                    prefs.edit().putInt("oms_version", 7).apply();
                     Log.d("SubstratumLogger", "Initializing Substratum with the seventh " +
                             "iteration of the Overlay Manager Service...");
                 } else {
                     prefs.edit().putBoolean("oms_state", false).apply();
+                    prefs.edit().putInt("oms_version", 0).apply();
                     Log.d("SubstratumLogger", "Initializing Substratum with the second " +
                             "iteration of the Resource Runtime Overlay system...");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
                 prefs.edit().putBoolean("oms_state", false).apply();
+                prefs.edit().putInt("oms_version", 0).apply();
                 Log.d("SubstratumLogger", "Initializing Substratum with the second " +
                         "iteration of the Resource Runtime Overlay system...");
             }
         }
     }
 
-    public static int checkOMSVersion() {
-        File om = new File("/system/bin/om");
-        if (om.exists()) {
-            return 3;
-        } else {
-            // At this point, we must perform an OMS7 check
-            if (Root.runCommand("cmd -l").contains("overlay")) {
-                return 7;
-            }
+    public static int checkOMSVersion(Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        if (!prefs.contains("oms_version")) {
+            setAndCheckOMS(context);
         }
-        return 0;
+        return prefs.getInt("oms_version", 0);
     }
 
     // These methods are now used to interact with the console to output the proper commands whether
@@ -125,12 +124,8 @@ public class References {
         if (om.exists()) {
             return "om enable";
         } else {
-            // At this point, we must perform an OMS7 check
-            if (Root.runCommand("cmd -l").contains("overlay")) {
-                return "cmd overlay enable";
-            }
+            return "cmd overlay enable";
         }
-        return null;
     }
 
     public static String disableOverlay() {
@@ -138,12 +133,8 @@ public class References {
         if (om.exists()) {
             return "om disable";
         } else {
-            // At this point, we must perform an OMS7 check
-            if (Root.runCommand("cmd -l").contains("overlay")) {
-                return "cmd overlay disable";
-            }
+            return "cmd overlay disable";
         }
-        return null;
     }
 
     public static String disableAllOverlays() {
@@ -151,12 +142,8 @@ public class References {
         if (om.exists()) {
             return "om disable-all";
         } else {
-            // At this point, we must perform an OMS7 check
-            if (Root.runCommand("cmd -l").contains("overlay")) {
-                return "cmd overlay disable-all";
-            }
+            return "cmd overlay disable-all";
         }
-        return null;
     }
 
     public static String listAllOverlays() {
@@ -164,12 +151,8 @@ public class References {
         if (om.exists()) {
             return "om list";
         } else {
-            // At this point, we must perform an OMS7 check
-            if (Root.runCommand("cmd -l").contains("overlay")) {
-                return "cmd overlay list";
-            }
+            return "cmd overlay list";
         }
-        return null;
     }
 
     public static String refreshWindows() {
@@ -177,12 +160,8 @@ public class References {
         if (om.exists()) {
             return "om refresh";
         } else {
-            // At this point, we must perform an OMS7 check
-            if (Root.runCommand("cmd -l").contains("overlay")) {
-                return "cmd overlay refresh";
-            }
+            return "cmd overlay refresh";
         }
-        return null;
     }
 
     // This method is used to check whether a build.prop value is found

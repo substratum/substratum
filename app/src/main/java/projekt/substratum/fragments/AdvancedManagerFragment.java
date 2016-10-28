@@ -375,8 +375,8 @@ public class AdvancedManagerFragment extends Fragment {
             all_overlays = new ArrayList<>();
 
             if (References.checkOMS(getContext())) {
-                activated_overlays = new ArrayList<>(ReadOverlays.main(5));
-                disabled_overlays = new ArrayList<>(ReadOverlays.main(4));
+                activated_overlays = new ArrayList<>(ReadOverlays.main(5, getContext()));
+                disabled_overlays = new ArrayList<>(ReadOverlays.main(4, getContext()));
 
                 if (prefs.getBoolean("manager_disabled_overlays", true)) {
                     all_overlays = new ArrayList<>(activated_overlays);

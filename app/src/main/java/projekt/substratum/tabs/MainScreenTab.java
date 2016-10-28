@@ -792,7 +792,7 @@ public class MainScreenTab extends Fragment {
             String parse1_themeName = theme_name.replaceAll("\\s+", "");
             String parse2_themeName = parse1_themeName.replaceAll("[^a-zA-Z0-9]+", "");
 
-            List<String> state5 = ReadOverlays.main(5);
+            List<String> state5 = ReadOverlays.main(5, getContext());
             ArrayList<String> all_installed_overlays = new ArrayList<>(state5);
             List<String> state5overlays = new ArrayList<>(all_installed_overlays);
 

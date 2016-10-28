@@ -1,5 +1,7 @@
 package projekt.substratum.util;
 
+import android.content.Context;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -19,7 +21,7 @@ public class ReadOverlays {
     private static String OVERLAY_MANAGER_STATE_DISABLED = "[ ]";
     private static String OVERLAY_MANAGER_STATE_ENABLED = "[x]";
 
-    public static List<String> main(int state_count) {
+    public static List<String> main(int state_count, Context context) {
 
         String CURRENT_SELECTION = OVERLAY_MANAGER_STATE_NOT_APPROVED;
         List<String> list = new ArrayList<>();
@@ -47,7 +49,7 @@ public class ReadOverlays {
                 while ((line = br.readLine()) != null) {
                     if (line.length() > 0) {
                         if (line.contains(CURRENT_SELECTION)) {
-                            int version = References.checkOMSVersion();
+                            int version = References.checkOMSVersion(context);
                             if (version == 3) {
                                 list.add(line.substring(8));
                             } else if (version == 7) {

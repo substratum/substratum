@@ -434,12 +434,12 @@ public class ManageFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            List<String> state0 = ReadOverlays.main(0);
-            List<String> state1 = ReadOverlays.main(1);
-            List<String> state2 = ReadOverlays.main(2);
-            List<String> state3 = ReadOverlays.main(3);
-            List<String> state4 = ReadOverlays.main(4);
-            List<String> state5 = ReadOverlays.main(5);
+            List<String> state0 = ReadOverlays.main(0, getContext());
+            List<String> state1 = ReadOverlays.main(1, getContext());
+            List<String> state2 = ReadOverlays.main(2, getContext());
+            List<String> state3 = ReadOverlays.main(3, getContext());
+            List<String> state4 = ReadOverlays.main(4, getContext());
+            List<String> state5 = ReadOverlays.main(5, getContext());
 
             final_commands_array = new ArrayList<>(state0);
             final_commands_array.addAll(state1);

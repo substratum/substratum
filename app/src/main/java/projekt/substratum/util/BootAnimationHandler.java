@@ -379,7 +379,7 @@ public class BootAnimationHandler {
                         }
 
                         Root.runCommand("cp " + mContext.getFilesDir().getAbsolutePath() +
-                                "/81-substratum.sh " + backupScript.getAbsolutePath());
+                                "/81-subsboot.sh " + backupScript.getAbsolutePath());
                         Root.runCommand("chmod 755 " + backupScript.getAbsolutePath());
                     }
 
@@ -390,9 +390,15 @@ public class BootAnimationHandler {
                                 + "/bootanimation.zip " + backupDirectory.getAbsolutePath());
                     }
 
+                    File bootAnimationCheck = new File(themeDirectory.getAbsolutePath() +
+                            "/bootanimation.zip");
+
                     if (backupDirectory.exists() && backupScript.exists()) {
                         Log.d("BootAnimationHandler", "Old bootanimation is backed up, ready to " +
                                 "go!");
+                    } else if (!bootAnimationCheck.exists() && !backupDirectory.exists()) {
+                        Log.d("BootAnimationHandler", "There is no predefined bootanimation on " +
+                                "this device, injecting a brand new default bootanimation...");
                     } else {
                         Log.e("BootAnimationHandler", "Failed to backup bootanimation!");
                         has_failed = true;

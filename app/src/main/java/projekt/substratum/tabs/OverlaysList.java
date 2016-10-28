@@ -1387,7 +1387,8 @@ public class OverlaysList extends Fragment {
                             Root.runCommand(final_commands);
                         }
                     }
-                    if (References.checkOMSVersion(getContext()) == 7) {
+                    if (References.checkOMSVersion(getContext()) == 7 &&
+                            !final_commands.contains("projekt.substratum")) {
                         Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             public void run() {
@@ -1470,7 +1471,8 @@ public class OverlaysList extends Fragment {
                                 Root.runCommand(final_commands);
                             }
                         }
-                        if (References.checkOMSVersion(getContext()) == 7) {
+                        if (References.checkOMSVersion(getContext()) == 7 &&
+                                !final_commands.contains("projekt.substratum")) {
                             Handler handler = new Handler();
                             handler.postDelayed(new Runnable() {
                                 public void run() {
@@ -1559,7 +1561,8 @@ public class OverlaysList extends Fragment {
                                 Root.runCommand(final_commands);
                             }
                         }
-                        if (References.checkOMSVersion(getContext()) == 7) {
+                        if (References.checkOMSVersion(getContext()) == 7 &&
+                                !final_commands.contains("projekt.substratum")) {
                             Handler handler = new Handler();
                             handler.postDelayed(new Runnable() {
                                 public void run() {

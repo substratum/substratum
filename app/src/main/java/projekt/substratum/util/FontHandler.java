@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.Toast;
@@ -88,13 +89,19 @@ public class FontHandler {
             }
 
             if (result == null) {
-
                 // Finally, refresh the window
-
                 String final_commands = "";
                 if (References.checkOMS(mContext)) {
                     if (!prefs.getBoolean("systemui_recreate", false)) {
                         final_commands = " && pkill -f com.android.systemui";
+                    }
+                    try {
+                        float fontSize = Float.valueOf(Settings.System.getString(
+                                mContext.getContentResolver(), Settings.System.FONT_SCALE));
+                        Settings.System.putString(mContext.getContentResolver(),
+                                Settings.System.FONT_SCALE, String.valueOf(fontSize + 0.0000001));
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                     if (References.isPackageInstalled(mContext, "masquerade.substratum")) {
                         Intent runCommand = new Intent();
@@ -286,7 +293,7 @@ public class FontHandler {
         }
 
         /**
-         * Dont close streams here calling method must take care.
+         * Don't close streams here calling method must take care.
          *
          * @param Input
          * @param Output

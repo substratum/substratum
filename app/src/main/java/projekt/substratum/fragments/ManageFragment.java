@@ -7,10 +7,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
@@ -374,6 +376,16 @@ public class ManageFragment extends Fragment {
                 alertDialog.show();
             }
         });
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (!Settings.System.canWrite(getContext())) {
+                Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_WRITE_SETTINGS);
+                intent.setData(Uri.parse("package:" + getActivity().getPackageName()));
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        }
+
         return root;
     }
 
@@ -492,6 +504,15 @@ public class ManageFragment extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             mProgressDialog.dismiss();
+
+            try {
+                float fontSize = Float.valueOf(Settings.System.getString(
+                        getContext().getContentResolver(), Settings.System.FONT_SCALE));
+                Settings.System.putString(getContext().getContentResolver(),
+                        Settings.System.FONT_SCALE, String.valueOf(fontSize + 0.0000001));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             // Finally, perform a window refresh
             if (References.isPackageInstalled(getContext(), "masquerade.substratum")) {

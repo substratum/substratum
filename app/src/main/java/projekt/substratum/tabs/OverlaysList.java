@@ -1338,7 +1338,9 @@ public class OverlaysList extends Fragment {
                             runCommand.putExtra("om-commands",
                                     ((disableBeforeEnabling.length() > 0) ?
                                             disableBeforeEnabling +
-                                                    " && " + final_commands : final_commands));
+                                                    " && " + final_commands + " && " + References
+                                                    .refreshWindows() : final_commands + " && " +
+                                            References.refreshWindows()));
                             getContext().sendBroadcast(runCommand);
                         } else {
                             if (DEBUG)
@@ -1346,7 +1348,9 @@ public class OverlaysList extends Fragment {
                                         "back to Substratum theme provider...");
                             Root.runCommand(((disableBeforeEnabling.length() > 0) ?
                                     disableBeforeEnabling +
-                                            " && " + final_commands : final_commands));
+                                            " && " + final_commands + " && " + References
+                                            .refreshWindows() : final_commands + " && " + References
+                                    .refreshWindows()));
                         }
                     }
 
@@ -1375,13 +1379,15 @@ public class OverlaysList extends Fragment {
                             Intent runCommand = new Intent();
                             runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                             runCommand.setAction("masquerade.substratum.COMMANDS");
-                            runCommand.putExtra("om-commands", final_commands);
+                            runCommand.putExtra("om-commands", final_commands + " && " + References
+                                    .refreshWindows());
                             getContext().sendBroadcast(runCommand);
                         } else {
                             if (DEBUG)
                                 Log.e("SubstratumLogger", "Masquerade was not found, falling " +
                                         "back to Substratum theme provider...");
-                            Root.runCommand(final_commands);
+                            Root.runCommand(final_commands + " && " + References
+                                    .refreshWindows());
                         }
                     }
                 }
@@ -1427,7 +1433,10 @@ public class OverlaysList extends Fragment {
                                 runCommand.putExtra("om-commands",
                                         ((disableBeforeEnabling.length() > 0) ?
                                                 disableBeforeEnabling +
-                                                        " && " + final_commands : final_commands));
+                                                        " && " + final_commands + " && " +
+                                                        References.refreshWindows() :
+                                                final_commands + " && " +
+                                                        References.refreshWindows()));
                                 getContext().sendBroadcast(runCommand);
                             } else {
                                 if (DEBUG)
@@ -1435,7 +1444,9 @@ public class OverlaysList extends Fragment {
                                             "back to Substratum theme provider...");
                                 Root.runCommand(((disableBeforeEnabling.length() > 0) ?
                                         disableBeforeEnabling +
-                                                " && " + final_commands : final_commands));
+                                                " && " + final_commands + " && " + References
+                                                .refreshWindows() : final_commands + " && " +
+                                        References.refreshWindows()));
                             }
                         } else {
                             progressBar.setVisibility(View.VISIBLE);
@@ -1448,13 +1459,15 @@ public class OverlaysList extends Fragment {
                                 Intent runCommand = new Intent();
                                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                                 runCommand.setAction("masquerade.substratum.COMMANDS");
-                                runCommand.putExtra("om-commands", final_commands);
+                                runCommand.putExtra("om-commands", final_commands + " && " +
+                                        References.refreshWindows());
                                 getContext().sendBroadcast(runCommand);
                             } else {
                                 if (DEBUG)
                                     Log.e("SubstratumLogger", "Masquerade was not found, falling " +
                                             "back to Substratum theme provider...");
-                                Root.runCommand(final_commands);
+                                Root.runCommand(final_commands + " && " + References
+                                        .refreshWindows());
                             }
                         }
                     } else {
@@ -1506,7 +1519,10 @@ public class OverlaysList extends Fragment {
                                 runCommand.putExtra("om-commands",
                                         ((disableBeforeEnabling.length() > 0) ?
                                                 disableBeforeEnabling +
-                                                        " && " + final_commands : final_commands));
+                                                        " && " + final_commands + " && " +
+                                                        References.refreshWindows() :
+                                                final_commands + " && " +
+                                                        References.refreshWindows()));
                                 getContext().sendBroadcast(runCommand);
                             } else {
                                 if (DEBUG)
@@ -1514,7 +1530,9 @@ public class OverlaysList extends Fragment {
                                             "back to Substratum theme provider...");
                                 Root.runCommand(((disableBeforeEnabling.length() > 0) ?
                                         disableBeforeEnabling +
-                                                " && " + final_commands : final_commands));
+                                                " && " + final_commands + " && " + References
+                                                .refreshWindows() : final_commands + " && " +
+                                        References.refreshWindows()));
                             }
                         } else {
                             progressBar.setVisibility(View.VISIBLE);
@@ -1527,13 +1545,15 @@ public class OverlaysList extends Fragment {
                                 Intent runCommand = new Intent();
                                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                                 runCommand.setAction("masquerade.substratum.COMMANDS");
-                                runCommand.putExtra("om-commands", final_commands);
+                                runCommand.putExtra("om-commands", final_commands + " && " +
+                                        References.refreshWindows());
                                 getContext().sendBroadcast(runCommand);
                             } else {
                                 if (DEBUG)
                                     Log.e("SubstratumLogger", "Masquerade was not found, falling " +
                                             "back to Substratum theme provider...");
-                                Root.runCommand(final_commands);
+                                Root.runCommand(final_commands + " && " + References
+                                        .refreshWindows());
                             }
                         }
                     } else {

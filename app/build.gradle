@@ -21,8 +21,8 @@ android {
         minSdkVersion 23
         targetSdkVersion 25
         maxSdkVersion 25
-        versionCode 353
-        versionName "three hundred fifty three"
+        versionCode 399
+        versionName "three hundred ninety nine"
         renderscriptTargetApi 23
         renderscriptSupportModeEnabled true
     }

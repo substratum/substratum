@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Environment;
@@ -714,6 +715,20 @@ public class MainActivity extends AppCompatActivity implements
         }
 
         printFCMtoken();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+            new AlertDialog.Builder(this)
+                    .setTitle(R.string.api25_warning_title)
+                    .setMessage(R.string.api25_warning_content)
+                    .setPositiveButton(R.string.dialog_ok, new DialogInterface
+                            .OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    })
+                    .show();
+        }
     }
 
     @Override

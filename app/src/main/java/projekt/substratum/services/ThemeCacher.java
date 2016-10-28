@@ -42,7 +42,7 @@ public class ThemeCacher extends BroadcastReceiver {
             ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
                     package_name, PackageManager.GET_META_DATA);
             if (appInfo.metaData != null) {
-                if (!References.checkOMS()) {
+                if (!References.checkOMS(mContext)) {
                     if (appInfo.metaData.getString(References.metadataName) != null) {
                         if (appInfo.metaData.getString(References.metadataAuthor) != null) {
                             if (appInfo.metaData.getBoolean(References.metadataLegacy, false)) {

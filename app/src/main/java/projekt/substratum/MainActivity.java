@@ -138,6 +138,7 @@ public class MainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
+        References.setAndCheckOMS(getApplicationContext());
         startService(new Intent(this, ThemeService.class));
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -171,7 +172,7 @@ public class MainActivity extends AppCompatActivity implements
             drawerBuilder.withHeaderHeight(DimenHolder.fromDp(0));
         }
         drawerBuilder.withAccountHeader(header);
-        if (References.checkOMS()) {
+        if (References.checkOMS(getApplicationContext())) {
             drawerBuilder.addDrawerItems(
                     new PrimaryDrawerItem().withName(R.string.nav_home).withIcon(
                             R.drawable.nav_theme_packs),
@@ -214,7 +215,8 @@ public class MainActivity extends AppCompatActivity implements
                         switch (position) {
                             case 1:
                                 if (drawerSelected != position) {
-                                    switchThemeFragment(((References.checkOMS()) ?
+                                    switchThemeFragment(((References.checkOMS(
+                                            getApplicationContext())) ?
                                                     getString(R.string.app_name) :
                                                     getString(R.string.legacy_app_name)),
                                             References.homeFragment);
@@ -367,7 +369,8 @@ public class MainActivity extends AppCompatActivity implements
                             switch (position) {
                                 case 1:
                                     if (drawerSelected != position) {
-                                        switchThemeFragment(((References.checkOMS()) ?
+                                        switchThemeFragment(((References.checkOMS(
+                                                getApplicationContext())) ?
                                                         getString(R.string.app_name) :
                                                         getString(R.string
                                                                 .legacy_app_name)),
@@ -507,7 +510,8 @@ public class MainActivity extends AppCompatActivity implements
                             switch (position) {
                                 case 1:
                                     if (drawerSelected != position) {
-                                        switchThemeFragment(((References.checkOMS()) ?
+                                        switchThemeFragment(((References.checkOMS(
+                                                getApplicationContext())) ?
                                                         getString(R.string.app_name) :
                                                         getString(R.string
                                                                 .legacy_app_name)),
@@ -705,7 +709,7 @@ public class MainActivity extends AppCompatActivity implements
             // Exception: At this point, Masquerade is not installed at all.
         }
 
-        if (References.checkOMS()) {
+        if (References.checkOMS(getApplicationContext())) {
             if (!prefs.getBoolean("substratum_oms", true)) {
                 if (!new File(Environment.getExternalStorageDirectory()
                         .getAbsolutePath() + "/.substratum/").exists()) {
@@ -740,7 +744,7 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (References.checkOMS()) {
+        if (References.checkOMS(getApplicationContext())) {
             getMenuInflater().inflate(R.menu.activity_menu, menu);
         } else {
             getMenuInflater().inflate(R.menu.activity_menu_legacy, menu);

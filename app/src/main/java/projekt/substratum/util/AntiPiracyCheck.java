@@ -162,7 +162,7 @@ public class AntiPiracyCheck {
                     for (int i = 0; i < unauthorized_packages.size(); i++) {
                         final_commands_array.add(unauthorized_packages.get(i));
                     }
-                    if (References.checkOMS()) {
+                    if (References.checkOMS(mContext)) {
                         if (References.isPackageInstalled(mContext, "masquerade.substratum")) {
                             Intent runCommand = new Intent();
                             runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);

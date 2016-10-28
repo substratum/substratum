@@ -92,7 +92,7 @@ public class FontHandler {
                 // Finally, refresh the window
 
                 String final_commands = "";
-                if (References.checkOMS()) {
+                if (References.checkOMS(mContext)) {
                     if (!prefs.getBoolean("systemui_recreate", false)) {
                         final_commands = " && pkill -f com.android.systemui";
                     }

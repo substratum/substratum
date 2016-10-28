@@ -308,7 +308,7 @@ public class BootAnimationHandler {
                         "and setting correct contextual parameters...");
                 boolean is_encrypted = false;
                 File themeDirectory;
-                if (References.checkOMS()) {
+                if (References.checkOMS(mContext)) {
                     if (getDeviceEncryptionStatus() <= 1) {
                         Log.d("BootAnimationHandler", "Data partition on the current device is " +
                                 "decrypted, using dedicated theme bootanimation slot...");
@@ -341,7 +341,7 @@ public class BootAnimationHandler {
                     has_failed = true;
                 }
 
-                if (!has_failed && (is_encrypted || !References.checkOMS())) {
+                if (!has_failed && (is_encrypted || !References.checkOMS(mContext))) {
                     Root.runCommand("mount -o rw,remount /system");
                     File backupScript = new File("/system/addon.d/81-subsboot.sh");
 

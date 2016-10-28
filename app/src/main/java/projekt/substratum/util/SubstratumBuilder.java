@@ -143,7 +143,7 @@ public class SubstratumBuilder {
         }
 
         int legacy_priority = References.DEFAULT_PRIORITY;
-        if (!References.checkOMS()) {
+        if (!References.checkOMS(mContext)) {
             File work_area_array = new File(work_area);
 
             if (Arrays.asList(work_area_array.list()).contains("priority")) {

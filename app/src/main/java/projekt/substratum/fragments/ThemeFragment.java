@@ -135,7 +135,7 @@ public class ThemeFragment extends Fragment {
             Context otherContext = getContext().createPackageContext(package_name, 0);
             AssetManager am = otherContext.getAssets();
             if (appInfo.metaData != null) {
-                if (!References.checkOMS()) {
+                if (!References.checkOMS(getContext())) {
                     if (appInfo.metaData.getBoolean(References.metadataLegacy, false)) {
                         if (appInfo.metaData.getString(References.metadataName) != null) {
                             if (appInfo.metaData.getString(References.metadataAuthor) != null) {

@@ -66,7 +66,7 @@ public class ProfileFragment extends Fragment {
         File[] files = f.listFiles();
         if (files != null) {
             for (File inFile : files) {
-                if (References.checkOMS()) {
+                if (References.checkOMS(getContext())) {
                     if (!inFile.isDirectory()) {
                         if (inFile.getName().split("\\.")[inFile.getName().split("\\.").length - 1]
                                 .equals("substratum")) {
@@ -143,7 +143,7 @@ public class ProfileFragment extends Fragment {
         File[] files = f.listFiles();
         if (files != null) {
             for (File inFile : files) {
-                if (References.checkOMS()) {
+                if (References.checkOMS(getContext())) {
                     if (!inFile.isDirectory()) {
                         if (inFile.getName().split("\\.")[inFile.getName().split("\\.").length - 1]
                                 .equals("substratum")) {
@@ -254,7 +254,7 @@ public class ProfileFragment extends Fragment {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             headerProgress.setVisibility(View.GONE);
-            if (References.checkOMS()) {
+            if (References.checkOMS(getContext())) {
                 String directory_parse = String.format(getString(R.string.toast_backup_success),
                         aet_getText + ".substratum");
                 Toast toast = Toast.makeText(getContext(), directory_parse, Toast.LENGTH_LONG);
@@ -272,7 +272,7 @@ public class ProfileFragment extends Fragment {
         protected String doInBackground(String... sUrl) {
             String uid = Environment.getExternalStorageDirectory().getAbsolutePath()
                     .split("/")[3];
-            if (References.checkOMS()) {
+            if (References.checkOMS(getContext())) {
                 Root.runCommand("cp /data/system/overlays.xml " +
                         Environment.getExternalStorageDirectory().getAbsolutePath() +
                         "/substratum/profiles/" + aet_getText + ".substratum");
@@ -371,7 +371,7 @@ public class ProfileFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
-            if (References.checkOMS()) {
+            if (References.checkOMS(getContext())) {
                 if (cannot_run_overlays.size() > 0) {
                     new AlertDialog.Builder(getContext())
                             .setTitle(getString(R.string.restore_dialog_title))
@@ -587,7 +587,7 @@ public class ProfileFragment extends Fragment {
         @Override
         protected String doInBackground(String... sUrl) {
 
-            if (References.checkOMS()) {  // RRO doesn't need any of this
+            if (References.checkOMS(getContext())) {  // RRO doesn't need any of this
                 String profile_name = sUrl[0];
                 helper_exists = true;
 

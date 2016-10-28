@@ -49,7 +49,7 @@ public class SubstratumThemeUpdater {
             ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
                     package_name, PackageManager.GET_META_DATA);
             if (appInfo.metaData != null) {
-                if (References.checkOMS()) {
+                if (References.checkOMS(mContext)) {
                     if (appInfo.metaData.getString(References.metadataName) != null) {
                         if (appInfo.metaData.getString(References.metadataAuthor) != null) {
                             return appInfo.metaData.getString(References.metadataName);
@@ -86,7 +86,7 @@ public class SubstratumThemeUpdater {
                 Intent notificationIntent;
                 PendingIntent intent;
                 try {
-                    if (!References.checkOMS()) {
+                    if (!References.checkOMS(mContext)) {
                         notificationIntent = new Intent(mContext, MainActivity.class);
                         intent = PendingIntent.getActivity(mContext, 0, notificationIntent,
                                 PendingIntent.FLAG_CANCEL_CURRENT);
@@ -133,7 +133,7 @@ public class SubstratumThemeUpdater {
                 Intent notificationIntent;
                 PendingIntent intent;
                 try {
-                    if (!References.checkOMS()) {
+                    if (!References.checkOMS(mContext)) {
                         notificationIntent = new Intent(mContext, MainActivity.class);
                         intent = PendingIntent.getActivity(mContext, 0, notificationIntent,
                                 PendingIntent.FLAG_CANCEL_CURRENT);

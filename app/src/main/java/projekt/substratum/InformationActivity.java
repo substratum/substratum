@@ -332,7 +332,7 @@ public class InformationActivity extends AppCompatActivity {
                     AssetManager am = otherContext.getAssets();
                     List found_folders = Arrays.asList(am.list(""));
                     tab_checker = new ArrayList<>();
-                    if (!References.checkOMS()) {
+                    if (!References.checkOMS(getApplicationContext())) {
                         for (int i = 0; i < found_folders.size(); i++) {
                             if (References.allowedForLegacy(found_folders.get(i).toString())) {
                                 tab_checker.add(found_folders.get(i).toString());
@@ -443,7 +443,7 @@ public class InformationActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (References.checkOMS()) {
+        if (References.checkOMS(getApplicationContext())) {
             getMenuInflater().inflate(R.menu.theme_information_menu, menu);
         } else {
             getMenuInflater().inflate(R.menu.theme_information_menu_legacy, menu);

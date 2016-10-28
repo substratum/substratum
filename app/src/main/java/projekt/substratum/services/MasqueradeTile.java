@@ -26,7 +26,7 @@ public class MasqueradeTile extends TileService {
             runCommand.putExtra("substratum-check", "masquerade-ball");
             getApplicationContext().sendBroadcast(runCommand);
         } else {
-            if (References.checkOMS()) {
+            if (References.checkOMS(getApplicationContext())) {
                 Toast toast = Toast.makeText(getApplicationContext(), getString(R.string
                                 .masquerade_check_not_installed),
                         Toast.LENGTH_SHORT);

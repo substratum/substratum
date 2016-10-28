@@ -61,7 +61,7 @@ public class ShowcaseActivity extends AppCompatActivity {
             case R.id.search:
                 try {
                     String playURL;
-                    if (References.checkOMS()) {
+                    if (References.checkOMS(getApplicationContext())) {
                         playURL = getString(R.string.search_play_store_url);
                     } else {
                         playURL = getString(R.string.search_play_store_url_legacy);

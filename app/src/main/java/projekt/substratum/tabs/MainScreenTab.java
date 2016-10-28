@@ -754,7 +754,7 @@ public class MainScreenTab extends Fragment {
                                     theme_name,
                                     "false", "", null,
                                     ((base3overlay.length() == 0) ? null : base3overlay),
-                                    versionName, References.checkOMS());
+                                    versionName, References.checkOMS(getContext()));
                             if (sb.no_install.length() > 0) {
                                 final_runner.add(sb.no_install);
                             }
@@ -776,7 +776,7 @@ public class MainScreenTab extends Fragment {
                                 theme_name,
                                 "true", "", null,
                                 ((base3overlay.length() == 0) ? null : base3overlay),
-                                versionName, References.checkOMS());
+                                versionName, References.checkOMS(getContext()));
                         to_be_enabled.add(package_name);
                     }
                     if (sb.has_errored_out) {

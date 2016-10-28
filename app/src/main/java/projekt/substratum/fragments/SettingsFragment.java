@@ -49,7 +49,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
     @Override
     public void onCreatePreferences(Bundle bundle, String s) {
-        if (References.checkOMS()) {
+        if (References.checkOMS(getContext())) {
             addPreferencesFromResource(R.xml.preference_fragment);
         } else {
             addPreferencesFromResource(R.xml.legacy_preference_fragment);
@@ -79,7 +79,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     }
                 });
 
-        if (References.checkOMS()) {
+        if (References.checkOMS(getContext())) {
             Preference aboutMasquerade = getPreferenceManager().findPreference
                     ("about_masquerade");
             aboutMasquerade.setIcon(getResources().getDrawable(R.mipmap.restore_launcher));

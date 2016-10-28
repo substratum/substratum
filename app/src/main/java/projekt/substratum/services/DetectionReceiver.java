@@ -47,7 +47,7 @@ public class DetectionReceiver extends BroadcastReceiver {
             ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
                     package_name, PackageManager.GET_META_DATA);
             if (appInfo.metaData != null) {
-                if (!References.checkOMS()) {
+                if (!References.checkOMS(mContext)) {
                     if (appInfo.metaData.getBoolean(References.metadataLegacy, false)) {
                         if (appInfo.metaData.getString(References.metadataName) != null) {
                             if (appInfo.metaData.getString(References.metadataAuthor) != null) {
@@ -102,7 +102,7 @@ public class DetectionReceiver extends BroadcastReceiver {
                     ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
                             packageInfo.packageName, PackageManager.GET_META_DATA);
                     if (appInfo.metaData != null) {
-                        if (References.checkOMS()) {
+                        if (References.checkOMS(mContext)) {
                             if (appInfo.metaData.getString(References.metadataName) != null) {
                                 if (appInfo.metaData.getString(References.metadataAuthor) != null) {
                                     installed.add(packageInfo.packageName);

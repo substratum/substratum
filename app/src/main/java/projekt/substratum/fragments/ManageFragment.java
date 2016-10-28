@@ -19,7 +19,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -75,9 +74,6 @@ public class ManageFragment extends Fragment {
         CardView fontsCard = (CardView) root.findViewById(R.id.fontsCard);
         CardView soundsCard = (CardView) root.findViewById(R.id.soundsCard);
 
-        TextView bootAnimTitle = (TextView) root.findViewById(R.id.bootAnimTitle);
-        TextView fontsCardTitle = (TextView) root.findViewById(R.id.fontsTitle);
-
         // Overlays Dialog
 
         overlaysCard.setOnClickListener(new View.OnClickListener() {
@@ -87,7 +83,7 @@ public class ManageFragment extends Fragment {
                 final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getContext(),
                         R.layout.dialog_listview);
 
-                if (References.checkOMS()) arrayAdapter.add(getString(
+                if (References.checkOMS(getContext())) arrayAdapter.add(getString(
                         R.string.manage_system_overlay_disable));
                 arrayAdapter.add(getString(R.string.manage_system_overlay_uninstall));
 
@@ -107,7 +103,7 @@ public class ManageFragment extends Fragment {
                                 switch (which) {
                                     case 0:
                                         dialog.dismiss();
-                                        if (References.checkOMS()) {
+                                        if (References.checkOMS(getContext())) {
                                             Toast toast = Toast.makeText(getContext(), getString(R
                                                             .string.manage_system_overlay_toast),
                                                     Toast.LENGTH_LONG);
@@ -470,7 +466,7 @@ public class ManageFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            if (getDeviceEncryptionStatus() <= 1 && References.checkOMS()) {
+            if (getDeviceEncryptionStatus() <= 1 && References.checkOMS(getContext())) {
                 Root.runCommand("rm -r /data/system/theme/bootanimation.zip");
             } else {
                 Root.runCommand("mount -o rw,remount /system");
@@ -527,7 +523,7 @@ public class ManageFragment extends Fragment {
                 Root.runCommand("setprop sys.refresh_theme 1");
             }
 
-            if (References.checkOMS()) {
+            if (References.checkOMS(getContext())) {
                 Toast toast = Toast.makeText(getContext(), getString(R.string.manage_fonts_toast),
                         Toast.LENGTH_SHORT);
                 toast.show();

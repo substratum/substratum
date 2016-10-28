@@ -21,8 +21,8 @@ android {
         minSdkVersion 23
         targetSdkVersion 25
         maxSdkVersion 25
-        versionCode 352
-        versionName "three hundred fifty two"
+        versionCode 353
+        versionName "three hundred fifty three"
         renderscriptTargetApi 23
         renderscriptSupportModeEnabled true
     }
@@ -39,7 +39,6 @@ dependencies {
     compile 'com.android.support:palette-v7:25.0.0'
     compile 'com.android.support:preference-v14:25.0.0'
     compile 'com.google.firebase:firebase-messaging:9.4.0'
-
 
     // Butter Knife (remain on 7.0.1 for standalone library)
     compile 'com.jakewharton:butterknife:7.0.1'

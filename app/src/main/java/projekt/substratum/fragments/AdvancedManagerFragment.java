@@ -140,14 +140,14 @@ public class AdvancedManagerFragment extends Fragment {
                 });
 
         TextView disable_selected = (TextView) root.findViewById(R.id.disable_selected);
-        if (!References.checkOMS())
+        if (!References.checkOMS(getContext()))
             disable_selected.setText(getString(R.string.fab_menu_uninstall));
         if (disable_selected != null)
             disable_selected.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     materialSheetFab.hideSheet();
                     loadingBar.setVisibility(View.VISIBLE);
-                    if (References.checkOMS()) {
+                    if (References.checkOMS(getContext())) {
                         String data = References.disableOverlay();
                         List<OverlayManager> overlayList = ((OverlayManagerAdapter) mAdapter)
                                 .getOverlayManagerList();
@@ -282,7 +282,7 @@ public class AdvancedManagerFragment extends Fragment {
             });
 
         TextView uninstall_selected = (TextView) root.findViewById(R.id.uninstall);
-        if (!References.checkOMS())
+        if (!References.checkOMS(getContext()))
             uninstall_selected.setVisibility(View.GONE);
         if (uninstall_selected != null)
             uninstall_selected.setOnClickListener(new View.OnClickListener() {
@@ -354,7 +354,8 @@ public class AdvancedManagerFragment extends Fragment {
                 relativeLayout.setVisibility(View.GONE);
                 mRecyclerView.setVisibility(View.VISIBLE);
             }
-            if (!prefs.getBoolean("manager_disabled_overlays", true) || !References.checkOMS()) {
+            if (!prefs.getBoolean("manager_disabled_overlays", true) ||
+                    !References.checkOMS(getContext())) {
                 LinearLayout enable_view = (LinearLayout) root.findViewById(R.id.enable);
                 enable_view.setVisibility(View.GONE);
             }
@@ -373,7 +374,7 @@ public class AdvancedManagerFragment extends Fragment {
             disabled_overlays = new ArrayList<>();
             all_overlays = new ArrayList<>();
 
-            if (References.checkOMS()) {
+            if (References.checkOMS(getContext())) {
                 activated_overlays = new ArrayList<>(ReadOverlays.main(5));
                 disabled_overlays = new ArrayList<>(ReadOverlays.main(4));
 

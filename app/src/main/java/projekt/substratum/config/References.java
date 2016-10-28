@@ -63,17 +63,46 @@ public class References {
     public static int DEFAULT_PRIORITY = 50;
 
     // This method is used to determine whether there the system is initiated with OMS
-    public static Boolean checkOMS() {
+    public static Boolean checkOMS(Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        if (!prefs.contains("oms_state")) {
+            setAndCheckOMS(context);
+        }
+        return prefs.getBoolean("oms_state", false);
+    }
+
+    public static void setAndCheckOMS(Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        prefs.edit().remove("oms_state").apply();
+
         File om = new File("/system/bin/om");
         if (om.exists()) {
-            return true;
+            prefs.edit().putBoolean("oms_state", true).apply();
+            Log.d("SubstratumLogger", "Initializing Substratum with the third iteration of " +
+                    "the Overlay Manager Service...");
         } else {
             // At this point, we must perform an OMS7 check
-            if (Root.runCommand("cmd -l").contains("overlay")) {
-                return true;
+            try {
+                Process p = Runtime.getRuntime().exec("cmd overlay");
+                BufferedReader reader = new BufferedReader(
+                        new InputStreamReader(p.getInputStream()));
+                if (reader.readLine().equals(
+                        "The overlay manager has already been initialized.")) {
+                    prefs.edit().putBoolean("oms_state", true).apply();
+                    Log.d("SubstratumLogger", "Initializing Substratum with the seventh " +
+                            "iteration of the Overlay Manager Service...");
+                } else {
+                    prefs.edit().putBoolean("oms_state", false).apply();
+                    Log.d("SubstratumLogger", "Initializing Substratum with the second " +
+                            "iteration of the Resource Runtime Overlay system...");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                prefs.edit().putBoolean("oms_state", false).apply();
+                Log.d("SubstratumLogger", "Initializing Substratum with the second " +
+                        "iteration of the Resource Runtime Overlay system...");
             }
         }
-        return false;
     }
 
     public static int checkOMSVersion() {
@@ -200,7 +229,7 @@ public class References {
         } else {
             prefs.edit().putBoolean("systemui_recreate", false).apply();
         }
-        prefs.edit().putBoolean("substratum_oms", References.checkOMS()).apply();
+        prefs.edit().putBoolean("substratum_oms", References.checkOMS(context)).apply();
         prefs.edit().putBoolean("show_template_version", false).apply();
         prefs.edit().putBoolean("vibrate_on_compiled", false).apply();
         prefs = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
@@ -454,12 +483,12 @@ public class References {
                     String.valueOf(saved_time).length() && saved_time != 0 &&
                     !References.isPackageInstalled(mContext, References.lp_package_identifier)) {
                 LetsGetStarted.initialize(mContext, package_name,
-                        !References.checkOMS(), theme_mode, References.DEBUG, saved_time);
+                        !References.checkOMS(mContext), theme_mode, References.DEBUG, saved_time);
                 return true;
             } else {
                 long checker = LetsGetStarted.initialize(mContext,
                         package_name,
-                        !References.checkOMS(), theme_mode, References.DEBUG, saved_time);
+                        !References.checkOMS(mContext), theme_mode, References.DEBUG, saved_time);
                 if (checker > -1) {
                     prefs.edit().putLong(
                             parse2_themeName + "_saved_time", currentDateAndTime).apply();

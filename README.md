@@ -1,6 +1,6 @@
-![Alt text](http://i.imgur.com/i3mO2Ao.png) [![Build Status](https://travis-ci.org/nicholaschum/substratum.svg?branch=dev)](https://travis-ci.org/nicholaschum/substratum)
+![Alt text](http://i.imgur.com/i3mO2Ao.png)
 
-# substratum development branch
+# substratum development branch [![Build Status](https://travis-ci.org/nicholaschum/substratum.svg?branch=dev)](https://travis-ci.org/nicholaschum/substratum)
 A new overlaying manager based off Sony's OverlayManagerService. This is the official repository of the substratum theme engine.
 
 # masquerade

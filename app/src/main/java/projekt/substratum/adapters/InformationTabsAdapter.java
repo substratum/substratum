@@ -53,7 +53,7 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
                 if (theme_mode.equals("fonts")) {
                     return new FontInstaller();
                 }
-                if (theme_mode.equals("sounds")) {
+                if (theme_mode.equals("audio")) {
                     return new SoundPackager();
                 }
                 if (theme_mode.equals("wallpapers")) {

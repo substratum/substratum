@@ -379,7 +379,7 @@ public class InformationActivity extends AppCompatActivity {
                             tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
                                     .theme_information_tab_four)));
                         } else {
-                            if (theme_mode.equals("sounds")) {
+                            if (theme_mode.equals("audio")) {
                                 tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
                                         .theme_information_tab_five)));
                             } else {

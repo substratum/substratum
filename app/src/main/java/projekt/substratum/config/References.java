@@ -56,7 +56,7 @@ public class References {
     public static String overlaysFragment = "overlays";
     public static String bootAnimationsFragment = "bootanimation";
     public static String fontsFragment = "fonts";
-    public static String soundsFragment = "sounds";
+    public static String soundsFragment = "audio";
     public static String wallpaperFragment = "wallpapers";
 
     // This int controls the default priority level for legacy overlays

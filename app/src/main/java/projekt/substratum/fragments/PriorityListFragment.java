@@ -112,10 +112,18 @@ public class PriorityListFragment extends Fragment {
                         } else {
                             if (current_header.equals(obtained_key)) {
                                 if (line.contains("[x]")) {
-                                    prioritiesList.add(new Priorities(line.substring(8),
-                                            References.grabAppIcon(getContext(),
-                                                    current_header)));
-                                    workable_list.add(line.substring(8));
+                                    int version = References.checkOMSVersion(getContext());
+                                    if (version == 3) {
+                                        prioritiesList.add(new Priorities(line.substring(8),
+                                                References.grabAppIcon(getContext(),
+                                                        current_header)));
+                                        workable_list.add(line.substring(8));
+                                    } else if (version == 7) {
+                                        prioritiesList.add(new Priorities(line.substring(4),
+                                                References.grabAppIcon(getContext(),
+                                                        current_header)));
+                                        workable_list.add(line.substring(4));
+                                    }
                                 } else if (!line.contains("[ ]")) {
                                     break;
                                 }
@@ -184,7 +192,7 @@ public class PriorityListFragment extends Fragment {
                 if (fromPos != toPos) {
                     if (commands.length() == 0) {
                         String move_package = workable_list.get(fromPos);
-                        commands = "om set-priority " + move_package + " " +
+                        commands = References.setPriority() + " " + move_package + " " +
                                 workable_list.get(toPos);
 
                         // As workable list is a simulation of the priority list without object
@@ -194,7 +202,8 @@ public class PriorityListFragment extends Fragment {
                         applyFab.show();
                     } else {
                         String move_package = workable_list.get(fromPos);
-                        commands = commands + " && om set-priority " + move_package + " " +
+                        commands = commands + " && " + References.setPriority() + " " +
+                                move_package + " " +
                                 workable_list.get(toPos);
                         // As workable list is a simulation of the priority list without object
                         // values, we have to simulate the events such as adding above parents
@@ -235,10 +244,17 @@ public class PriorityListFragment extends Fragment {
                                 } else {
                                     Root.runCommand(commands);
                                 }
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        getActivity().recreate();
+                                    }
+                                });
                             }
                         },
                         500
                 );
+
             }
         });
 

@@ -164,6 +164,15 @@ public class References {
         }
     }
 
+    public static String setPriority() {
+        File om = new File("/system/bin/om");
+        if (om.exists()) {
+            return "om set-priority";
+        } else {
+            return "cmd overlay set-priority";
+        }
+    }
+
     // This method is used to check whether a build.prop value is found
     public static String getProp(String propName) {
         Process p;

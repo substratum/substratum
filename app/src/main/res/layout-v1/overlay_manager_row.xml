@@ -15,15 +15,16 @@
         android:layout_height="wrap_content"
         android:layout_margin="15dp">
 
-        <TextView
+        <projekt.substratum.util.AutoTextResizer
             android:id="@+id/tvName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerInParent="true"
+            android:layout_height="50dp"
             android:layout_toStartOf="@+id/chkSelected"
+            android:ellipsize="none"
+            android:gravity="left|center"
+            android:maxLines="1"
             android:textColor="@color/main_screen_card_theme_title"
-            android:textSize="18sp"/>
+            android:textSize="20sp"/>
 
         <CheckBox
             android:id="@+id/chkSelected"

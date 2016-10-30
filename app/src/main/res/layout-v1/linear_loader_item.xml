@@ -32,14 +32,16 @@
                 android:src="@drawable/default_overlay_icon"/>
         </LinearLayout>
 
-        <TextView
+        <projekt.substratum.util.AutoTextResizer
             android:id="@+id/card_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
             android:layout_toEndOf="@+id/app_icon_container"
             android:layout_toStartOf="@+id/card_drag"
+            android:ellipsize="none"
             android:gravity="center_vertical"
+            android:maxLines="1"
             android:paddingLeft="@dimen/linear_text_padding"
             android:paddingRight="@dimen/linear_text_padding"
             android:textColor="@color/main_screen_card_theme_title"/>

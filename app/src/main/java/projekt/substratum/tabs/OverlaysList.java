@@ -1240,6 +1240,15 @@ public class OverlaysList extends Fragment {
                             dialog.dismiss();
                         }
                     });
+
+                    ImageButton confirm = (ImageButton) dialog.findViewById(R.id.confirm);
+                    confirm.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            dialog.dismiss();
+                        }
+                    });
+
                     ImageButton copy_clipboard = (ImageButton) dialog.findViewById(
                             R.id.copy_clipboard);
                     copy_clipboard.setOnClickListener(new View.OnClickListener() {

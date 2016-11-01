@@ -172,6 +172,7 @@ public class InformationActivity extends AppCompatActivity {
             WallpaperManager myWallpaperManager
                     = WallpaperManager.getInstance(getApplicationContext());
             if (resultCode == RESULT_OK) {
+                SharedPreferences.Editor editor = prefs.edit();
                 Uri resultUri = result.getUri();
                 if (resultUri.toString().contains("homescreen_wallpaper")) {
                     try {
@@ -183,6 +184,7 @@ public class InformationActivity extends AppCompatActivity {
                             myWallpaperManager.setStream(new FileInputStream(
                                     resultUri.toString().substring(7)));
                         }
+                        editor.putString("home_wallpaper_applied", theme_pid);
                         Toast toast = Toast.makeText(getApplicationContext(),
                                 getString(R.string.wallpaper_homescreen_success),
                                 Toast.LENGTH_LONG);
@@ -201,6 +203,7 @@ public class InformationActivity extends AppCompatActivity {
                                             resultUri.toString().substring(7)), null, true,
                                     WallpaperManager.FLAG_LOCK);
                         }
+                        editor.putString("lock_wallpaper_applied", theme_pid);
                         Toast toast = Toast.makeText(getApplicationContext(),
                                 getString(R.string.wallpaper_lockscreen_success),
                                 Toast.LENGTH_LONG);
@@ -220,6 +223,8 @@ public class InformationActivity extends AppCompatActivity {
                                     WallpaperManager.FLAG_SYSTEM);
                             myWallpaperManager.clear(WallpaperManager.FLAG_LOCK);
                         }
+                        editor.putString("home_wallpaper_applied", theme_pid);
+                        editor.putString("lock_wallpaper_applied", theme_pid);
                         Toast toast = Toast.makeText(getApplicationContext(),
                                 getString(R.string.wallpaper_allscreen_success),
                                 Toast.LENGTH_LONG);
@@ -232,6 +237,7 @@ public class InformationActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
+                editor.apply();
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
                 Log.e("SubstratumImageCropper",
@@ -854,6 +860,28 @@ public class InformationActivity extends AppCompatActivity {
                                             ".zip");
                                 }
                                 editor.remove("bootanimation_applied");
+                            }
+                            WallpaperManager wm = WallpaperManager.getInstance(
+                                    getApplicationContext());
+                            if (prefs.getString("home_wallpaper_applied", "").equals(theme_pid)) {
+                                try {
+                                    wm.clear();
+                                    editor.remove("home_wallpaper_applied");
+                                } catch (IOException e) {
+                                    Log.e("InformationActivity", "Failed to restore home screen " +
+                                            "wallpaper!");
+                                }
+                            }
+                            if (prefs.getString("lock_wallpaper_applied", "").equals(theme_pid)) {
+                                try {
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                        wm.clear(WallpaperManager.FLAG_LOCK);
+                                        editor.remove("lock_wallpaper_applied");
+                                    }
+                                } catch (IOException e) {
+                                    Log.e("InformationActivity", "Failed to restore lock screen " +
+                                            "wallpaper!");
+                                }
                             }
 
                             // Finally close out of the window

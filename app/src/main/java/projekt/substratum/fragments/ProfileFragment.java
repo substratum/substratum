@@ -352,7 +352,7 @@ public class ProfileFragment extends Fragment {
                             + Environment.getExternalStorageDirectory().getAbsolutePath()
                             + "/substratum/profiles/" + aet_getText);
                 } else {
-                    Toast toast = Toast.makeText(getContext(), getString(R.string
+                    Toast toast = Toast.makeText(getActivity().getBaseContext(), getString(R.string
                                     .backup_no_overlays),
                             Toast.LENGTH_SHORT);
                     toast.show();

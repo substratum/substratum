@@ -78,14 +78,13 @@ import projekt.substratum.util.Root;
 import projekt.substratum.util.SubstratumBuilder;
 
 import static android.content.Context.CLIPBOARD_SERVICE;
+import static projekt.substratum.config.References.REFRESH_WINDOW_DELAY;
 
 /**
  * @author Nicholas Chum (nicholaschum)
  */
 
 public class OverlaysList extends Fragment {
-
-    private static final int REFRESH_WINDOW_DELAY = 500;
 
     private CircularFillableLoaders loader;
     private TextView loader_string;

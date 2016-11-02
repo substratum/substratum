@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -38,6 +39,8 @@ import projekt.substratum.model.OverlayManager;
 import projekt.substratum.util.FloatingActionMenu;
 import projekt.substratum.util.ReadOverlays;
 import projekt.substratum.util.Root;
+
+import static projekt.substratum.config.References.REFRESH_WINDOW_DELAY;
 
 /**
  * @author Nicholas Chum (nicholaschum)
@@ -173,7 +176,22 @@ public class AdvancedManagerFragment extends Fragment {
                             runCommand.putExtra("om-commands", data);
                             getContext().sendBroadcast(runCommand);
                         } else {
-                            Root.runCommand(data);
+                            new References.ThreadRunner().execute(data);
+                        }
+                        if (References.checkOMSVersion(getContext()) == 7 &&
+                                !data.contains("projekt.substratum")) {
+                            Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                public void run() {
+                                    // OMS may not have written all the changes so quickly just yet
+                                    // so we may need to have a small delay
+                                    try {
+                                        getActivity().recreate();
+                                    } catch (Exception e) {
+                                        // Consume window refresh
+                                    }
+                                }
+                            }, REFRESH_WINDOW_DELAY);
                         }
                     } else {
                         String current_directory;
@@ -276,7 +294,22 @@ public class AdvancedManagerFragment extends Fragment {
                         runCommand.putExtra("om-commands", data);
                         getContext().sendBroadcast(runCommand);
                     } else {
-                        Root.runCommand(data);
+                        new References.ThreadRunner().execute(data);
+                    }
+                    if (References.checkOMSVersion(getContext()) == 7 &&
+                            !data.contains("projekt.substratum")) {
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            public void run() {
+                                // OMS may not have written all the changes so quickly just yet
+                                // so we may need to have a small delay
+                                try {
+                                    getActivity().recreate();
+                                } catch (Exception e) {
+                                    // Consume window refresh
+                                }
+                            }
+                        }, REFRESH_WINDOW_DELAY);
                     }
                 }
             });
@@ -322,7 +355,22 @@ public class AdvancedManagerFragment extends Fragment {
                         runCommand.putExtra("om-commands", data);
                         getContext().sendBroadcast(runCommand);
                     } else {
-                        Root.runCommand(data);
+                        new References.ThreadRunner().execute(data);
+                    }
+                    if (References.checkOMSVersion(getContext()) == 7 &&
+                            !data.contains("projekt.substratum")) {
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            public void run() {
+                                // OMS may not have written all the changes so quickly just yet
+                                // so we may need to have a small delay
+                                try {
+                                    getActivity().recreate();
+                                } catch (Exception e) {
+                                    // Consume window refresh
+                                }
+                            }
+                        }, REFRESH_WINDOW_DELAY);
                     }
                 }
             });

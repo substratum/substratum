@@ -44,6 +44,8 @@ public class References {
     public static int notification_id_upgrade = 0;
     // Universal switch for Application-wide Debugging
     public static Boolean DEBUG = true;
+    // This int controls the delay for window refreshes to occur
+    public static int REFRESH_WINDOW_DELAY = 500;
     // These strings control the current filter for themes
     public static String metadataName = "Substratum_Name";
     public static String metadataAuthor = "Substratum_Author";

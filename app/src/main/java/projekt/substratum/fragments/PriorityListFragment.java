@@ -3,6 +3,7 @@ package projekt.substratum.fragments;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -35,7 +36,8 @@ import projekt.substratum.adapters.PrioritiesAdapter;
 import projekt.substratum.config.References;
 import projekt.substratum.model.Priorities;
 import projekt.substratum.model.PrioritiesItem;
-import projekt.substratum.util.Root;
+
+import static projekt.substratum.config.References.REFRESH_WINDOW_DELAY;
 
 /**
  * @author Nicholas Chum (nicholaschum)
@@ -242,18 +244,27 @@ public class PriorityListFragment extends Fragment {
                                     runCommand.putExtra("om-commands", commands);
                                     getContext().sendBroadcast(runCommand);
                                 } else {
-                                    Root.runCommand(commands);
+                                    new References.ThreadRunner().execute(commands);
                                 }
-                                getActivity().runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        getActivity().recreate();
-                                    }
-                                });
                             }
                         },
                         500
                 );
+                if (References.checkOMSVersion(getContext()) == 7 &&
+                        !commands.contains("projekt.substratum")) {
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        public void run() {
+                            // OMS may not have written all the changes so
+                            // quickly just yet so we may need to have a small delay
+                            try {
+                                getActivity().recreate();
+                            } catch (Exception e) {
+                                // Consume window refresh
+                            }
+                        }
+                    }, REFRESH_WINDOW_DELAY * 2);
+                }
 
             }
         });

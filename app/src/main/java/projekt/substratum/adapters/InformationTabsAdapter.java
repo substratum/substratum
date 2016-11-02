@@ -1,14 +1,11 @@
 package projekt.substratum.adapters;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
-
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import projekt.substratum.tabs.BootAnimation;
@@ -18,8 +15,12 @@ import projekt.substratum.tabs.OverlaysList;
 import projekt.substratum.tabs.SoundPackager;
 import projekt.substratum.tabs.Wallpapers;
 
+/**
+ * @author Nicholas Chum (nicholaschum)
+ */
+
 public class InformationTabsAdapter extends FragmentStatePagerAdapter {
-    public List package_checker;
+    public ArrayList<String> package_checker;
     int mNumOfTabs;
     Context mContext;
     String theme_pid;
@@ -36,7 +37,11 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
         this.theme_pid = theme_pid;
         this.allow_quick_apply = allow_quick_apply;
         this.theme_mode = theme_mode;
-        this.package_checker = package_checker;
+        try {
+            this.package_checker = new ArrayList<>(package_checker);
+        } catch (NullPointerException npe) {
+            // Suppress this warning for theme_mode launches
+        }
         this.wallpaperUrl = wallpaperUrl;
     }
 
@@ -44,92 +49,28 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
+                // Case 0 is either Quick Apply (for Theme Packs) or specific fragments instances
                 if (theme_mode.equals("overlays")) {
                     return new OverlaysList();
-                }
-                if (theme_mode.equals("bootanimation")) {
+                } else if (theme_mode.equals("bootanimation")) {
                     return new BootAnimation();
-                }
-                if (theme_mode.equals("fonts")) {
+                } else if (theme_mode.equals("fonts")) {
                     return new FontInstaller();
-                }
-                if (theme_mode.equals("audio")) {
+                } else if (theme_mode.equals("audio")) {
                     return new SoundPackager();
-                }
-                if (theme_mode.equals("wallpapers")) {
+                } else if (theme_mode.equals("wallpapers")) {
                     return new Wallpapers();
-                }
-                if (allow_quick_apply) {
+                } else if (allow_quick_apply) {
                     return new MainScreenTab();
                 } else {
                     return new OverlaysList();
                 }
-            case 1:
-                if (package_checker.contains("overlays") &&
-                        allow_quick_apply) {
-                    return new OverlaysList();
-                }
-                if (package_checker.contains("bootanimation")) {
-                    return new BootAnimation();
-                }
-                if (package_checker.contains("fonts")) {
-                    return new FontInstaller();
-                }
-                if (package_checker.contains("audio")) {
-                    return new SoundPackager();
-                }
-                if (wallpaperUrl != null) {
-                    return new Wallpapers();
-                }
-            case 2:
-                if (package_checker.contains("bootanimation") &&
-                        package_checker.contains("overlays") &&
-                        allow_quick_apply) {
-                    return new BootAnimation();
-                }
-                if (package_checker.contains("fonts")) {
-                    return new FontInstaller();
-                }
-                if (package_checker.contains("audio")) {
-                    return new SoundPackager();
-                }
-                if (wallpaperUrl != null) {
-                    return new Wallpapers();
-                }
-            case 3:
-                if (package_checker.contains("fonts") &&
-                        package_checker.contains("bootanimation") &&
-                        package_checker.contains("overlays") &&
-                        allow_quick_apply) {
-                    return new FontInstaller();
-                }
-                if (package_checker.contains("audio")) {
-                    return new SoundPackager();
-                }
-                if (wallpaperUrl != null) {
-                    return new Wallpapers();
-                }
-            case 4:
-                if (package_checker.contains("audio") &&
-                        package_checker.contains("fonts") &&
-                        package_checker.contains("bootanimation") &&
-                        package_checker.contains("overlays") &&
-                        allow_quick_apply) {
-                    return new SoundPackager();
-                }
-                if (wallpaperUrl != null) {
-                    return new Wallpapers();
-                }
-            case 5:
-                if (wallpaperUrl != null &&
-                        package_checker.contains("audio") &&
-                        package_checker.contains("fonts") &&
-                        package_checker.contains("bootanimation") &&
-                        package_checker.contains("overlays") &&
-                        allow_quick_apply) {
-                    return new Wallpapers();
-                }
             default:
+                try {
+                    return getFragment();
+                } catch (Exception e) {
+                    // Suppress all warnings
+                }
                 return null;
         }
     }
@@ -137,5 +78,24 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
     @Override
     public int getCount() {
         return mNumOfTabs;
+    }
+
+    public Fragment getFragment() {
+        if (package_checker.contains("overlays") && allow_quick_apply) {
+            package_checker.remove("overlays");
+            return new OverlaysList();
+        } else if (package_checker.contains("bootanimation")) {
+            package_checker.remove("bootanimation");
+            return new BootAnimation();
+        } else if (package_checker.contains("fonts")) {
+            package_checker.remove("fonts");
+            return new FontInstaller();
+        } else if (package_checker.contains("audio")) {
+            package_checker.remove("audio");
+            return new SoundPackager();
+        } else if (wallpaperUrl != null) {
+            return new Wallpapers();
+        }
+        return null;
     }
 }

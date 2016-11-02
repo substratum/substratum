@@ -1000,6 +1000,19 @@ public class OverlaysList extends Fragment {
         }
     }
 
+    private class ThreadRunner extends AsyncTask<String, Integer, String> {
+
+        @Override
+        protected String doInBackground(String... sUrl) {
+            try {
+                Root.runCommand(sUrl[0]);
+            } catch (Exception e) {
+                // Consume window refresh
+            }
+            return null;
+        }
+    }
+
     private class Phase2_InitializeCache extends AsyncTask<String, Integer, String> {
 
         @Override
@@ -1356,9 +1369,9 @@ public class OverlaysList extends Fragment {
                             if (DEBUG)
                                 Log.e("SubstratumLogger", "Masquerade was not found, falling " +
                                         "back to Substratum theme provider...");
-                            Root.runCommand(((disableBeforeEnabling.length() > 0) ?
-                                    disableBeforeEnabling +
-                                            " && " + final_commands : final_commands));
+                            new ThreadRunner().execute(((disableBeforeEnabling.length() > 0) ?
+                                    disableBeforeEnabling + " && " +
+                                            final_commands : final_commands));
                         }
                     }
 
@@ -1393,7 +1406,7 @@ public class OverlaysList extends Fragment {
                             if (DEBUG)
                                 Log.e("SubstratumLogger", "Masquerade was not found, falling " +
                                         "back to Substratum theme provider...");
-                            Root.runCommand(final_commands);
+                            new ThreadRunner().execute(final_commands);
                         }
                     }
                     if (References.checkOMSVersion(getContext()) == 7 &&
@@ -1403,7 +1416,11 @@ public class OverlaysList extends Fragment {
                             public void run() {
                                 // OMS may not have written all the changes so quickly just yet
                                 // so we may need to have a small delay
-                                getActivity().recreate();
+                                try {
+                                    getActivity().recreate();
+                                } catch (Exception e) {
+                                    // Consume window refresh
+                                }
                             }
                         }, REFRESH_WINDOW_DELAY);
                     }
@@ -1456,7 +1473,7 @@ public class OverlaysList extends Fragment {
                                 if (DEBUG)
                                     Log.e("SubstratumLogger", "Masquerade was not found, falling " +
                                             "back to Substratum theme provider...");
-                                Root.runCommand(((disableBeforeEnabling.length() > 0) ?
+                                new ThreadRunner().execute(((disableBeforeEnabling.length() > 0) ?
                                         disableBeforeEnabling +
                                                 " && " + final_commands : final_commands));
                             }
@@ -1477,7 +1494,7 @@ public class OverlaysList extends Fragment {
                                 if (DEBUG)
                                     Log.e("SubstratumLogger", "Masquerade was not found, falling " +
                                             "back to Substratum theme provider...");
-                                Root.runCommand(final_commands);
+                                new ThreadRunner().execute(final_commands);
                             }
                         }
                         if (References.checkOMSVersion(getContext()) == 7 &&
@@ -1487,7 +1504,11 @@ public class OverlaysList extends Fragment {
                                 public void run() {
                                     // OMS may not have written all the changes so quickly just yet
                                     // so we may need to have a small delay
-                                    getActivity().recreate();
+                                    try {
+                                        getActivity().recreate();
+                                    } catch (Exception e) {
+                                        // Consume window refresh
+                                    }
                                 }
                             }, REFRESH_WINDOW_DELAY);
                         }
@@ -1546,7 +1567,7 @@ public class OverlaysList extends Fragment {
                                 if (DEBUG)
                                     Log.e("SubstratumLogger", "Masquerade was not found, falling " +
                                             "back to Substratum theme provider...");
-                                Root.runCommand(((disableBeforeEnabling.length() > 0) ?
+                                new ThreadRunner().execute(((disableBeforeEnabling.length() > 0) ?
                                         disableBeforeEnabling +
                                                 " && " + final_commands : final_commands));
                             }
@@ -1567,7 +1588,7 @@ public class OverlaysList extends Fragment {
                                 if (DEBUG)
                                     Log.e("SubstratumLogger", "Masquerade was not found, falling " +
                                             "back to Substratum theme provider...");
-                                Root.runCommand(final_commands);
+                                new ThreadRunner().execute(final_commands);
                             }
                         }
                         if (References.checkOMSVersion(getContext()) == 7 &&
@@ -1577,7 +1598,11 @@ public class OverlaysList extends Fragment {
                                 public void run() {
                                     // OMS may not have written all the changes so quickly just yet
                                     // so we may need to have a small delay
-                                    getActivity().recreate();
+                                    try {
+                                        getActivity().recreate();
+                                    } catch (Exception e) {
+                                        // Consume window refresh
+                                    }
                                 }
                             }, REFRESH_WINDOW_DELAY);
                         }

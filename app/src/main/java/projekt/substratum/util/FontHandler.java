@@ -90,11 +90,8 @@ public class FontHandler {
 
             if (result == null) {
                 // Finally, refresh the window
-                String final_commands = "";
+                String final_commands = "pkill -f com.android.systemui";
                 if (References.checkOMS(mContext)) {
-                    if (!prefs.getBoolean("systemui_recreate", false)) {
-                        final_commands = " && pkill -f com.android.systemui";
-                    }
                     try {
                         float fontSize = Float.valueOf(Settings.System.getString(
                                 mContext.getContentResolver(), Settings.System.FONT_SCALE));
@@ -103,15 +100,26 @@ public class FontHandler {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    if (References.isPackageInstalled(mContext, "masquerade.substratum")) {
-                        Intent runCommand = new Intent();
-                        runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                        runCommand.setAction("masquerade.substratum.COMMANDS");
-                        runCommand.putExtra("om-commands", References.refreshWindows() +
-                                final_commands);
-                        mContext.sendBroadcast(runCommand);
+                    if (References.checkOMSVersion(mContext) == 3) {
+                        if (!prefs.getBoolean("systemui_recreate", false)) {
+                            final_commands = " && pkill -f com.android.systemui";
+                        } else {
+                            final_commands = "";
+                        }
+                        if (References.isPackageInstalled(mContext, "masquerade.substratum")) {
+                            Intent runCommand = new Intent();
+                            runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                            runCommand.setAction("masquerade.substratum.COMMANDS");
+                            runCommand.putExtra("om-commands", References.refreshWindows() +
+                                    final_commands);
+                            mContext.sendBroadcast(runCommand);
+                        } else {
+                            Root.runCommand(References.refreshWindows() + final_commands);
+                        }
                     } else {
-                        Root.runCommand(References.refreshWindows() + final_commands);
+                        if (References.checkOMSVersion(mContext) == 7) {
+                            Root.runCommand(final_commands);
+                        }
                     }
                 } else {
                     final AlertDialog.Builder alertDialogBuilder =

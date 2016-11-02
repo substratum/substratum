@@ -505,80 +505,100 @@ public class ManageFragment extends Fragment {
         protected void onPostExecute(String result) {
             mProgressDialog.dismiss();
 
-            try {
-                float fontSize = Float.valueOf(Settings.System.getString(
-                        getContext().getContentResolver(), Settings.System.FONT_SCALE));
-                Settings.System.putString(getContext().getContentResolver(),
-                        Settings.System.FONT_SCALE, String.valueOf(fontSize + 0.0000001));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            // Finally, perform a window refresh
-            if (References.isPackageInstalled(getContext(), "masquerade.substratum")) {
-                if (DEBUG)
-                    Log.e("SubstratumLogger", "Initializing the Masquerade theme provider...");
-                Intent runCommand = new Intent();
-                runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                runCommand.setAction("masquerade.substratum.COMMANDS");
-                runCommand.putExtra("om-commands", final_commands);
-                getContext().sendBroadcast(runCommand);
-            } else {
-                if (DEBUG)
-                    Log.e("SubstratumLogger", "Masquerade was not found, falling back to " +
-                            "Substratum theme provider...");
-                Root.runCommand(final_commands);
-            }
-            if (References.isPackageInstalled(getContext(), "masquerade.substratum")) {
-                if (DEBUG)
-                    Log.e("SubstratumLogger", "Initializing the Masquerade theme provider...");
-                Intent runCommand = new Intent();
-                runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                runCommand.setAction("masquerade.substratum.COMMANDS");
-                runCommand.putExtra("om-commands", "setprop sys.refresh_theme 1");
-                getContext().sendBroadcast(runCommand);
-            } else {
-                if (DEBUG)
-                    Log.e("SubstratumLogger", "Masquerade was not found, falling back to " +
-                            "Substratum theme provider...");
-                Root.runCommand("setprop sys.refresh_theme 1");
-            }
-
-            if (References.checkOMS(getContext())) {
-                Toast toast = Toast.makeText(getContext(), getString(R.string.manage_fonts_toast),
-                        Toast.LENGTH_SHORT);
-                toast.show();
-                if (!prefs.getBoolean("systemui_recreate", false)) {
-                    Root.runCommand("pkill -f com.android.systemui");
-                }
-            } else {
-                Toast toast = Toast.makeText(getContext(), getString(R.string.manage_fonts_toast),
-                        Toast.LENGTH_SHORT);
-                toast.show();
-                final AlertDialog.Builder alertDialogBuilder =
-                        new AlertDialog.Builder(getContext());
-                alertDialogBuilder.setTitle(getString(R.string.legacy_dialog_soft_reboot_title));
-                alertDialogBuilder.setMessage(getString(R.string.legacy_dialog_soft_reboot_text));
-                alertDialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface
-                        .OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        Root.runCommand("reboot");
-                    }
-                });
-                alertDialogBuilder.setNegativeButton(R.string.remove_dialog_later,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.dismiss();
-                            }
-                        });
-                alertDialogBuilder.setCancelable(false);
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
-            }
-
             SharedPreferences.Editor editor = prefs.edit();
             editor.remove("fonts_applied");
             editor.apply();
+
+            // Finally, perform a window refresh
+            if (References.checkOMSVersion(getContext()) == 7) {
+
+                try {
+                    Class cls = Class.forName("android.graphics.Typeface");
+                    cls.getDeclaredMethod("recreateDefaults");
+                    Log.e("SubstratumLogger", "Reflected into the Android Framework and " +
+                            "initialized a font recreation!");
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+
+                try {
+                    float fontSize = Float.valueOf(Settings.System.getString(
+                            getContext().getContentResolver(), Settings.System.FONT_SCALE));
+                    Settings.System.putString(getContext().getContentResolver(),
+                            Settings.System.FONT_SCALE, String.valueOf(fontSize + 0.0000001));
+                    if (!prefs.getBoolean("systemui_recreate", false)) {
+                        Root.runCommand("pkill -f com.android.systemui");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                if (References.isPackageInstalled(getContext(), "masquerade.substratum")) {
+                    if (DEBUG)
+                        Log.e("SubstratumLogger", "Initializing the Masquerade theme provider...");
+                    Intent runCommand = new Intent();
+                    runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                    runCommand.setAction("masquerade.substratum.COMMANDS");
+                    runCommand.putExtra("om-commands", final_commands);
+                    getContext().sendBroadcast(runCommand);
+                } else {
+                    if (DEBUG)
+                        Log.e("SubstratumLogger", "Masquerade was not found, falling back to " +
+                                "Substratum theme provider...");
+                    Root.runCommand(final_commands);
+                }
+                if (References.isPackageInstalled(getContext(), "masquerade.substratum")) {
+                    if (DEBUG)
+                        Log.e("SubstratumLogger", "Initializing the Masquerade theme provider...");
+                    Intent runCommand = new Intent();
+                    runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                    runCommand.setAction("masquerade.substratum.COMMANDS");
+                    runCommand.putExtra("om-commands", "setprop sys.refresh_theme 1");
+                    getContext().sendBroadcast(runCommand);
+                } else {
+                    if (DEBUG)
+                        Log.e("SubstratumLogger", "Masquerade was not found, falling back to " +
+                                "Substratum theme provider...");
+                    Root.runCommand("setprop sys.refresh_theme 1");
+                }
+
+                if (References.checkOMS(getContext())) {
+                    Toast toast = Toast.makeText(getContext(), getString(R.string
+                            .manage_fonts_toast),
+
+                            Toast.LENGTH_SHORT);
+                    toast.show();
+                    if (!prefs.getBoolean("systemui_recreate", false)) {
+                        Root.runCommand("pkill -f com.android.systemui");
+                    }
+                } else {
+                    Toast toast = Toast.makeText(getContext(), getString(R.string
+                                    .manage_fonts_toast),
+                            Toast.LENGTH_SHORT);
+                    toast.show();
+                    final AlertDialog.Builder alertDialogBuilder =
+                            new AlertDialog.Builder(getContext());
+                    alertDialogBuilder.setTitle(getString(R.string
+                            .legacy_dialog_soft_reboot_title));
+                    alertDialogBuilder.setMessage(getString(R.string
+                            .legacy_dialog_soft_reboot_text));
+                    alertDialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface
+                            .OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            Root.runCommand("reboot");
+                        }
+                    });
+                    alertDialogBuilder.setNegativeButton(R.string.remove_dialog_later,
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    alertDialogBuilder.setCancelable(false);
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+                }
+            }
         }
 
         @Override

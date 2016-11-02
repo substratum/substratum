@@ -58,7 +58,12 @@ public class ThemeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
         super.onCreate(savedInstanceState);
-        root = (ViewGroup) inflater.inflate(R.layout.home_fragment, null);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        if (prefs.getBoolean("nougat_style_cards", false)) {
+            root = (ViewGroup) inflater.inflate(R.layout.home_fragment_n, null);
+        } else {
+            root = (ViewGroup) inflater.inflate(R.layout.home_fragment, null);
+        }
 
         mContext = getActivity();
 

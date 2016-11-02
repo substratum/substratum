@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -36,8 +37,16 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
 
     @Override
     public ThemeEntryAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.theme_entry_card,
-                viewGroup, false);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(viewGroup
+                .getContext());
+        View view;
+        if (prefs.getBoolean("nougat_style_cards", false)) {
+            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.theme_entry_card_n,
+                    viewGroup, false);
+        } else {
+            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.theme_entry_card,
+                    viewGroup, false);
+        }
         return new ViewHolder(view);
     }
 

@@ -716,7 +716,8 @@ public class MainActivity extends AppCompatActivity implements
 
         printFCMtoken();
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1 && !References.getProp("ro.substratum.verified").equals("true")) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1 && !References.getProp("ro" +
+                ".substratum.verified").equals("true")) {
             new AlertDialog.Builder(this)
                     .setTitle(R.string.api25_warning_title)
                     .setMessage(R.string.api25_warning_content)

@@ -296,6 +296,29 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     }
                 });
 
+        final CheckBoxPreference nougat_style_cards = (CheckBoxPreference)
+                getPreferenceManager().findPreference("nougat_style_cards");
+        if (prefs.getBoolean("nougat_style_cards", false)) {
+            nougat_style_cards.setChecked(true);
+        } else {
+            nougat_style_cards.setChecked(false);
+        }
+        nougat_style_cards.setOnPreferenceChangeListener(
+                new Preference.OnPreferenceChangeListener() {
+                    @Override
+                    public boolean onPreferenceChange(Preference preference, Object newValue) {
+                        boolean isChecked = (Boolean) newValue;
+                        if (isChecked) {
+                            prefs.edit().putBoolean("nougat_style_cards", true).apply();
+                            nougat_style_cards.setChecked(true);
+                        } else {
+                            prefs.edit().putBoolean("nougat_style_cards", false).apply();
+                            nougat_style_cards.setChecked(false);
+                        }
+                        return false;
+                    }
+                });
+
         final CheckBoxPreference vibrate_on_compiled = (CheckBoxPreference)
                 getPreferenceManager().findPreference("vibrate_on_compiled");
         if (prefs.getBoolean("vibrate_on_compiled", true)) {

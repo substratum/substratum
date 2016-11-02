@@ -564,7 +564,7 @@ public class ManageFragment extends Fragment {
 
                 if (References.checkOMS(getContext())) {
                     Toast toast = Toast.makeText(getContext(), getString(R.string
-                            .manage_fonts_toast),
+                                    .manage_fonts_toast),
 
                             Toast.LENGTH_SHORT);
                     toast.show();

@@ -1,0 +1,140 @@
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                                    android:id="@+id/theme_card"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:clickable="true"
+                                    android:foreground="?android:selectableItemBackground"
+                                    card_view:cardBackgroundColor="@android:color/transparent"
+                                    card_view:cardCornerRadius="0dp"
+                                    card_view:cardElevation="0dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/api_levels"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/theme_version"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="2dp"
+            android:text="API_LEVELS"
+            android:textColor="@color/main_screen_card_theme_author"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:id="@+id/theme_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/plugin_version"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="2dp"
+            android:text="THEME_VERSION"
+            android:textColor="@color/main_screen_card_theme_author"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:id="@+id/plugin_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/theme_name"
+            android:layout_gravity="center"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="2dp"
+            android:text="PLUGIN_VERSION"
+            android:textColor="@color/main_screen_card_theme_author"
+            android:textSize="12sp"/>
+
+        <projekt.substratum.util.AutoTextResizer
+            android:id="@+id/theme_name"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_below="@+id/theme_preview_image"
+            android:layout_gravity="center"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_toStartOf="@id/api_levels"
+            android:ellipsize="none"
+            android:gravity="left|center"
+            android:text="THEME_NAME"
+            android:textColor="@color/main_screen_card_theme_title"
+            android:textSize="40sp"/>
+
+        <TextView
+            android:id="@+id/theme_author"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/theme_name"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="2dp"
+            android:layout_toStartOf="@id/plugin_version"
+            android:text="THEME_AUTHOR"
+            android:textColor="@color/main_screen_card_theme_author"
+            android:textSize="12sp"/>
+
+        <ImageView
+            android:id="@+id/theme_preview_image"
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:scaleType="centerCrop"
+            android:src="@android:color/transparent"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/theme_author"
+            android:clickable="false">
+
+            <View
+                android:id="@+id/theme_ready_divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/transparent"/>
+
+            <ImageView
+                android:id="@+id/theme_ready_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@+id/theme_unready_indicator"
+                android:clickable="true"
+                android:foreground="?android:selectableItemBackground"
+                android:src="@drawable/tbo_icon"/>
+
+            <ImageView
+                android:id="@+id/theme_unready_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:clickable="true"
+                android:foreground="?android:selectableItemBackground"
+                android:src="@drawable/two_icon"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/theme_information_card_divider"/>
+
+</android.support.v7.widget.CardView>

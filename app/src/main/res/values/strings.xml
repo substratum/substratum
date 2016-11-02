@@ -114,6 +114,9 @@
     <string name="theme_information_tab_five">Sound Packs</string>
     <string name="theme_information_tab_six">Wallpapers</string>
 
+    <string name="nougat_style_cards_title">Nougat Style Card Layout</string>
+    <string name="nougat_style_cards_subtext">Enable Android Nougat Notification styled theme cards.</string>
+
     <string name="quick_apply_preference_title">Quick Apply</string>
     <string name="quick_apply_preference_subtext">Enable the quick apply interface when launching a theme</string>
     <string name="theme_information_quick_apply_no_views_title">quick apply not available</string>

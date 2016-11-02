@@ -138,7 +138,7 @@ public class ManageFragment extends Fragment {
                                                             "found, falling back to Substratum " +
                                                             "theme " +
                                                             "provider...");
-                                                Root.runCommand(commands);
+                                                new References.ThreadRunner().execute(commands);
                                             }
                                         } else {
                                             String current_directory;
@@ -428,7 +428,7 @@ public class ManageFragment extends Fragment {
                 if (DEBUG)
                     Log.e("SubstratumLogger", "Masquerade was not found, falling back to " +
                             "Substratum theme provider...");
-                Root.runCommand(final_commands);
+                new References.ThreadRunner().execute(final_commands);
             }
         }
 
@@ -545,7 +545,7 @@ public class ManageFragment extends Fragment {
                     if (DEBUG)
                         Log.e("SubstratumLogger", "Masquerade was not found, falling back to " +
                                 "Substratum theme provider...");
-                    Root.runCommand(final_commands);
+                    new References.ThreadRunner().execute(final_commands);
                 }
                 if (References.isPackageInstalled(getContext(), "masquerade.substratum")) {
                     if (DEBUG)
@@ -559,7 +559,7 @@ public class ManageFragment extends Fragment {
                     if (DEBUG)
                         Log.e("SubstratumLogger", "Masquerade was not found, falling back to " +
                                 "Substratum theme provider...");
-                    Root.runCommand("setprop sys.refresh_theme 1");
+                    new References.ThreadRunner().execute("setprop sys.refresh_theme 1");
                 }
 
                 if (References.checkOMS(getContext())) {

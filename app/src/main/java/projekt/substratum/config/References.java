@@ -615,4 +615,17 @@ public class References {
             return null;
         }
     }
+
+    public static class ThreadRunner extends AsyncTask<String, Integer, String> {
+
+        @Override
+        protected String doInBackground(String... sUrl) {
+            try {
+                Root.runCommand(sUrl[0]);
+            } catch (Exception e) {
+                // Consume window refresh
+            }
+            return null;
+        }
+    }
 }

@@ -775,19 +775,6 @@ public class MainActivity extends AppCompatActivity implements
                 return true;
 
             // Begin OMS based options
-            case R.id.refresh_windows:
-                prefs.edit().clear().apply();
-                if (References.isPackageInstalled(getApplicationContext(),
-                        "masquerade.substratum")) {
-                    Intent runCommand = new Intent();
-                    runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                    runCommand.setAction("masquerade.substratum.COMMANDS");
-                    runCommand.putExtra("om-commands", References.refreshWindows());
-                    getApplicationContext().sendBroadcast(runCommand);
-                } else {
-                    Root.runCommand(References.refreshWindows());
-                }
-                return true;
             case R.id.restart_systemui:
                 prefs.edit().clear().apply();
                 Root.runCommand("pkill -f com.android.systemui");

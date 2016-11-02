@@ -873,19 +873,6 @@ public class InformationActivity extends AppCompatActivity {
         }
 
         // Begin OMS based options
-        if (id == R.id.refresh_windows) {
-            if (References.isPackageInstalled(getApplicationContext(),
-                    "masquerade.substratum")) {
-                Intent runCommand = new Intent();
-                runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                runCommand.setAction("masquerade.substratum.COMMANDS");
-                runCommand.putExtra("om-commands", References.refreshWindows());
-                getApplicationContext().sendBroadcast(runCommand);
-            } else {
-                Root.runCommand(References.refreshWindows());
-            }
-            return true;
-        }
         if (id == R.id.restart_systemui) {
             Root.runCommand("pkill -f com.android.systemui");
             return true;

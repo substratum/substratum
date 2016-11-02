@@ -9,8 +9,6 @@
         android:id="@+id/introduction_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        android:foreground="?android:selectableItemBackground"
         card_view:cardBackgroundColor="@color/main_screen_card_background"
         card_view:cardCornerRadius="0dp"
         card_view:cardElevation="@dimen/main_screen_card_corner_elevation">

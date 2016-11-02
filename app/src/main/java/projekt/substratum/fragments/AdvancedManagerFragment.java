@@ -1,5 +1,6 @@
 package projekt.substratum.fragments;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -92,7 +93,7 @@ public class AdvancedManagerFragment extends Fragment {
                     sheetColor, fabColor);
         }
 
-        LayoutReloader layoutReloader = new LayoutReloader();
+        LayoutReloader layoutReloader = new LayoutReloader(getContext());
         layoutReloader.execute("");
 
         swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipeRefreshLayout);
@@ -102,7 +103,7 @@ public class AdvancedManagerFragment extends Fragment {
                 if (first_run != null) {
                     if (mRecyclerView.isShown() && !first_run) {
                         swipeRefreshing = true;
-                        LayoutReloader layoutReloader = new LayoutReloader();
+                        LayoutReloader layoutReloader = new LayoutReloader(getContext());
                         layoutReloader.execute("");
                     } else {
                         swipeRefreshLayout.setRefreshing(false);
@@ -380,6 +381,12 @@ public class AdvancedManagerFragment extends Fragment {
 
     private class LayoutReloader extends AsyncTask<String, Integer, String> {
 
+        private Context mContext;
+
+        private LayoutReloader (Context context) {
+            mContext = context;
+        }
+
         @Override
         protected void onPreExecute() {
             progressBar.setVisibility(View.VISIBLE);
@@ -389,7 +396,7 @@ public class AdvancedManagerFragment extends Fragment {
         protected void onPostExecute(String result) {
             progressBar.setVisibility(View.GONE);
             mRecyclerView.setHasFixedSize(true);
-            mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
             mAdapter = new OverlayManagerAdapter(overlaysList);
             mRecyclerView.setAdapter(mAdapter);
 
@@ -403,7 +410,7 @@ public class AdvancedManagerFragment extends Fragment {
                 mRecyclerView.setVisibility(View.VISIBLE);
             }
             if (!prefs.getBoolean("manager_disabled_overlays", true) ||
-                    !References.checkOMS(getContext())) {
+                    !References.checkOMS(mContext)) {
                 LinearLayout enable_view = (LinearLayout) root.findViewById(R.id.enable);
                 enable_view.setVisibility(View.GONE);
             }
@@ -422,9 +429,9 @@ public class AdvancedManagerFragment extends Fragment {
             disabled_overlays = new ArrayList<>();
             all_overlays = new ArrayList<>();
 
-            if (References.checkOMS(getContext())) {
-                activated_overlays = new ArrayList<>(ReadOverlays.main(5, getContext()));
-                disabled_overlays = new ArrayList<>(ReadOverlays.main(4, getContext()));
+            if (References.checkOMS(mContext)) {
+                activated_overlays = new ArrayList<>(ReadOverlays.main(5, mContext));
+                disabled_overlays = new ArrayList<>(ReadOverlays.main(4, mContext));
 
                 if (prefs.getBoolean("manager_disabled_overlays", true)) {
                     all_overlays = new ArrayList<>(activated_overlays);
@@ -433,11 +440,11 @@ public class AdvancedManagerFragment extends Fragment {
 
                     for (int i = 0; i < all_overlays.size(); i++) {
                         if (disabled_overlays.contains(all_overlays.get(i))) {
-                            OverlayManager st = new OverlayManager(getContext(),
+                            OverlayManager st = new OverlayManager(mContext,
                                     all_overlays.get(i), false);
                             overlaysList.add(st);
                         } else if (activated_overlays.contains(all_overlays.get(i))) {
-                            OverlayManager st = new OverlayManager(getContext(),
+                            OverlayManager st = new OverlayManager(mContext,
                                     all_overlays.get(i), true);
                             overlaysList.add(st);
                         }
@@ -448,7 +455,7 @@ public class AdvancedManagerFragment extends Fragment {
 
                     for (int i = 0; i < all_overlays.size(); i++) {
                         if (activated_overlays.contains(all_overlays.get(i))) {
-                            OverlayManager st = new OverlayManager(getContext(),
+                            OverlayManager st = new OverlayManager(mContext,
                                     all_overlays.get(i), true);
                             overlaysList.add(st);
                         }
@@ -473,7 +480,7 @@ public class AdvancedManagerFragment extends Fragment {
                     }
                     Collections.sort(activated_overlays);
                     for (int i = 0; i < activated_overlays.size(); i++) {
-                        OverlayManager st = new OverlayManager(getContext(), activated_overlays.get
+                        OverlayManager st = new OverlayManager(mContext, activated_overlays.get
                                 (i), true);
                         overlaysList.add(st);
                     }

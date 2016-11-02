@@ -50,6 +50,13 @@
         <CheckBoxPreference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:key="quick_apply"
+            android:summary="@string/quick_apply_preference_subtext"
+            android:title="@string/quick_apply_preference_title"/>
+
+        <CheckBoxPreference
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:key="alternate_drawer_design"
             android:summary="@string/alternate_drawer_design_subtext"
             android:title="@string/alternate_drawer_design_title"/>

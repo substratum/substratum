@@ -214,6 +214,30 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             if (!References.getProp("ro.substratum.recreate").equals("true"))
                 systemUIRestart.setVisible(false);
 
+            final CheckBoxPreference quick_apply_ui = (CheckBoxPreference)
+                    getPreferenceManager().findPreference("quick_apply");
+            if (prefs.getBoolean("quick_apply", false)) {
+                quick_apply_ui.setChecked(true);
+            } else {
+                quick_apply_ui.setChecked(false);
+            }
+            quick_apply_ui.setOnPreferenceChangeListener(
+                    new Preference.OnPreferenceChangeListener() {
+                        @Override
+                        public boolean onPreferenceChange(Preference preference, Object newValue) {
+                            boolean isChecked = (Boolean) newValue;
+                            if (isChecked) {
+                                prefs.edit().putBoolean("quick_apply", true).apply();
+                                quick_apply_ui.setChecked(true);
+                                return true;
+                            } else {
+                                prefs.edit().putBoolean("quick_apply", false).apply();
+                                quick_apply_ui.setChecked(false);
+                                return false;
+                            }
+                        }
+                    });
+
             final CheckBoxPreference manager_disabled_overlays = (CheckBoxPreference)
                     getPreferenceManager().findPreference("manager_disabled_overlays");
             if (prefs.getBoolean("manager_disabled_overlays", true)) {

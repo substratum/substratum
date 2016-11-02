@@ -325,8 +325,9 @@ public class InformationActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         if (tabLayout != null) {
             if (theme_mode.equals("")) {
-                if (!theme_legacy) tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
-                        .theme_information_tab_one)));
+                if (!theme_legacy && prefs.getBoolean("quick_apply", false))
+                    tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
+                            .theme_information_tab_one)));
                 try {
                     Context otherContext = getApplicationContext().createPackageContext
                             (theme_pid, 0);
@@ -418,7 +419,8 @@ public class InformationActivity extends AppCompatActivity {
 
         final InformationTabsAdapter adapter = new InformationTabsAdapter
                 (getSupportFragmentManager(), tabLayout.getTabCount(), getApplicationContext(),
-                        theme_pid, (theme_mode.equals("") && !theme_legacy), theme_mode,
+                        theme_pid, (theme_mode.equals("") &&
+                        (!theme_legacy && prefs.getBoolean("quick_apply", false))), theme_mode,
                         tab_checker, wallpaperUrl);
         if (viewPager != null) {
             viewPager.setOffscreenPageLimit(tabLayout.getTabCount());

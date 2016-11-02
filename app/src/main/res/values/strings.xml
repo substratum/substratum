@@ -113,6 +113,9 @@
     <string name="theme_information_tab_four">Font Packs</string>
     <string name="theme_information_tab_five">Sound Packs</string>
     <string name="theme_information_tab_six">Wallpapers</string>
+
+    <string name="quick_apply_preference_title">Quick Apply</string>
+    <string name="quick_apply_preference_subtext">Enable the quick apply interface when launching a theme</string>
     <string name="theme_information_quick_apply_no_views_title">quick apply not available</string>
     <string name="theme_information_quick_apply_no_views_text">this theme does not support quick apply&#8230;</string>
     <string name="theme_information_quick_apply_dialog_negative_button">Cancel</string>

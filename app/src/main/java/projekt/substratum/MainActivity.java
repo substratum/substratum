@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -66,6 +67,8 @@ public class MainActivity extends AppCompatActivity implements
     private Drawer drawer;
     private int drawerSelected;
     private int permissionCheck, permissionCheck2;
+    private ProgressDialog mProgressDialog;
+    private SharedPreferences prefs;
 
     private void switchFragment(String title, String fragment) {
         getSupportActionBar().setTitle(title);
@@ -160,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements
         DrawerBuilder drawerBuilder = new DrawerBuilder();
         drawerBuilder.withActivity(this);
 
-        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
+        prefs = PreferenceManager.getDefaultSharedPreferences(
                 getApplicationContext());
         drawerBuilder.withToolbar(toolbar);
         drawerBuilder.withSavedInstance(savedInstanceState);
@@ -594,49 +597,6 @@ public class MainActivity extends AppCompatActivity implements
         drawerBuilder.withSelectedItemByPosition(1);
         drawer = drawerBuilder.build();
 
-        if (!Root.requestRootAccess()) {
-            final ProgressDialog mProgressDialog = new ProgressDialog(this, R.style
-                    .SubstratumBuilder_ActivityTheme);
-            mProgressDialog.setIndeterminate(false);
-            mProgressDialog.setCancelable(false);
-            mProgressDialog.show();
-            mProgressDialog.setContentView(R.layout.root_rejected_loader);
-
-            final float radius = 5;
-            final View decorView = getWindow().getDecorView();
-            final View rootView = decorView.findViewById(android.R.id.content);
-            final Drawable windowBackground = decorView.getBackground();
-
-            BlurView blurView = (BlurView) mProgressDialog.findViewById(R.id.blurView);
-
-            blurView.setupWith(rootView)
-                    .windowBackground(windowBackground)
-                    .blurAlgorithm(new RenderScriptBlur(this, true))
-                    .blurRadius(radius);
-
-            final TextView textView = (TextView) mProgressDialog.findViewById(R.id.timer);
-            CountDownTimer Count = new CountDownTimer(5000, 1000) {
-                public void onTick(long millisUntilFinished) {
-                    if ((millisUntilFinished / 1000) > 1) {
-                        textView.setText(String.format(
-                                getString(R.string.root_rejected_timer_plural),
-                                (millisUntilFinished / 1000) + ""));
-                    } else {
-                        textView.setText(String.format(
-                                getString(R.string.root_rejected_timer_singular),
-                                (millisUntilFinished / 1000) + ""));
-                    }
-
-                }
-
-                public void onFinish() {
-                    mProgressDialog.dismiss();
-                    finish();
-                }
-            };
-            Count.start();
-        }
-
         permissionCheck = ContextCompat.checkSelfPermission(getApplicationContext(),
                 Manifest.permission.WRITE_EXTERNAL_STORAGE);
         permissionCheck2 = ContextCompat.checkSelfPermission(getApplicationContext(),
@@ -685,35 +645,6 @@ public class MainActivity extends AppCompatActivity implements
                     PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
         }
 
-        // Now, let's grab root on the helper
-        Intent rootIntent = new Intent(Intent.ACTION_MAIN);
-        rootIntent.setAction("masquerade.substratum.INITIALIZE");
-        try {
-            startActivity(rootIntent);
-        } catch (RuntimeException re) {
-            // Exception: At this point, Masquerade is not installed at all.
-        }
-
-        if (References.checkOMS(getApplicationContext())) {
-            if (!prefs.getBoolean("substratum_oms", true)) {
-                if (!new File(Environment.getExternalStorageDirectory()
-                        .getAbsolutePath() + "/.substratum/").exists()) {
-                    Root.runCommand("rm -r " + Environment.getExternalStorageDirectory()
-                            .getAbsolutePath() + "/.substratum/");
-                }
-                if (!new File(Environment.getExternalStorageDirectory()
-                        .getAbsolutePath() + "/substratum/").exists()) {
-                    Root.runCommand("rm -r " + Environment.getExternalStorageDirectory()
-                            .getAbsolutePath() + "/substratum/");
-                }
-                File directory = new File(Environment.getExternalStorageDirectory(),
-                        "/.substratum/");
-                if (!directory.exists()) {
-                    directory.mkdirs();
-                }
-            }
-        }
-
         printFCMtoken();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1 && !References.getProp("ro" +
@@ -730,6 +661,9 @@ public class MainActivity extends AppCompatActivity implements
                     })
                     .show();
         }
+
+        mProgressDialog = new ProgressDialog(this, R.style.SubstratumBuilder_ActivityTheme);
+        new RootRequester().execute("");
     }
 
     @Override
@@ -886,6 +820,88 @@ public class MainActivity extends AppCompatActivity implements
                 }
                 break;
             }
+        }
+    }
+
+    private class RootRequester extends AsyncTask<String, Integer, Boolean> {
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            if (!result) {
+                mProgressDialog.setCancelable(false);
+                mProgressDialog.show();
+                mProgressDialog.setContentView(R.layout.root_rejected_loader);
+
+                final float radius = 5;
+                final View decorView = getWindow().getDecorView();
+                final View rootView = decorView.findViewById(android.R.id.content);
+                final Drawable windowBackground = decorView.getBackground();
+
+                BlurView blurView = (BlurView) mProgressDialog.findViewById(R.id.blurView);
+
+                blurView.setupWith(rootView)
+                        .windowBackground(windowBackground)
+                        .blurAlgorithm(new RenderScriptBlur(getApplicationContext(), true))
+                        .blurRadius(radius);
+
+                final TextView textView = (TextView) mProgressDialog.findViewById(R.id.timer);
+                CountDownTimer Count = new CountDownTimer(5000, 1000) {
+                    public void onTick(long millisUntilFinished) {
+                        if ((millisUntilFinished / 1000) > 1) {
+                            textView.setText(String.format(
+                                    getString(R.string.root_rejected_timer_plural),
+                                    (millisUntilFinished / 1000) + ""));
+                        } else {
+                            textView.setText(String.format(
+                                    getString(R.string.root_rejected_timer_singular),
+                                    (millisUntilFinished / 1000) + ""));
+                        }
+                    }
+
+                    public void onFinish() {
+                        mProgressDialog.dismiss();
+                        finish();
+                    }
+                };
+                Count.start();
+            } else {
+                // Now, let's grab root on the helper
+                Intent rootIntent = new Intent(Intent.ACTION_MAIN);
+                rootIntent.setAction("masquerade.substratum.INITIALIZE");
+                try {
+                    startActivity(rootIntent);
+                } catch (RuntimeException re) {
+                    // Exception: At this point, Masquerade is not installed at all.
+                }
+            }
+            super.onPostExecute(result);
+        }
+
+        @Override
+        protected Boolean doInBackground(String... sUrl) {
+            Boolean receivedRoot = Root.requestRootAccess();
+            if (receivedRoot) {
+                if (References.checkOMS(getApplicationContext())) {
+                    if (!prefs.getBoolean("substratum_oms", true)) {
+                        if (!new File(Environment.getExternalStorageDirectory()
+                                .getAbsolutePath() + "/.substratum/").exists()) {
+                            Root.runCommand("rm -r " + Environment.getExternalStorageDirectory()
+                                    .getAbsolutePath() + "/.substratum/");
+                        }
+                        if (!new File(Environment.getExternalStorageDirectory()
+                                .getAbsolutePath() + "/substratum/").exists()) {
+                            Root.runCommand("rm -r " + Environment.getExternalStorageDirectory()
+                                    .getAbsolutePath() + "/substratum/");
+                        }
+                        File directory = new File(Environment.getExternalStorageDirectory(),
+                                "/.substratum/");
+                        if (!directory.exists()) {
+                            directory.mkdirs();
+                        }
+                    }
+                }
+            }
+            return receivedRoot;
         }
     }
 }

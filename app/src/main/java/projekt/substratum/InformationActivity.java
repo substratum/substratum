@@ -71,6 +71,7 @@ public class InformationActivity extends AppCompatActivity {
     private Boolean refresh_mode = false;
     private Boolean uninstalled = false;
     private Boolean theme_legacy = false;
+    private String plugin_version = "";
     private KenBurnsView kenBurnsView;
     private byte[] byteArray;
     private Bitmap heroImageBitmap;
@@ -263,6 +264,15 @@ public class InformationActivity extends AppCompatActivity {
         theme_mode = currentIntent.getStringExtra("theme_mode");
         theme_legacy = currentIntent.getBooleanExtra("theme_legacy", false);
         refresh_mode = currentIntent.getBooleanExtra("refresh_mode", false);
+        plugin_version = currentIntent.getStringExtra("plugin_version");
+        if (plugin_version == null) {
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    getString(R.string
+                            .information_activity_upgrade_toast_lenient),
+                    Toast.LENGTH_LONG);
+            toast.show();
+        }
+
         wallpaperUrl = null;
 
         try {

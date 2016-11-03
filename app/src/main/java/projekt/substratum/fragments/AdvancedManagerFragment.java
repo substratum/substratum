@@ -383,7 +383,7 @@ public class AdvancedManagerFragment extends Fragment {
 
         private Context mContext;
 
-        private LayoutReloader (Context context) {
+        private LayoutReloader(Context context) {
             mContext = context;
         }
 

@@ -34,11 +34,11 @@ public class AOPTCheck {
                 if (!Build.SUPPORTED_ABIS.toString().contains("64")) {
                     try {
                         // Take account for ARM64 first
-                        copyAOPT("aopt64");
+                        copyAOPT("aopt");
                         mountRW();
                         Root.runCommand(
                                 "cp " + context.getFilesDir().getAbsolutePath() +
-                                        "/aopt64 " +
+                                        "/aopt " +
                                         "/system/bin/aopt");
                         Root.runCommand("chmod 777 /system/bin/aopt");
                         mountRO();
@@ -84,8 +84,8 @@ public class AOPTCheck {
         } else if (aopt.exists()) {
             String integrityCheck = checkAOPTIntegrity();
             // AOPT outputs different ui
-            if (integrityCheck != null && integrityCheck.equals("Android Overlay Packaging Tool, " +
-                    "v0.2-android-7.0-userdebug")) {
+            if (integrityCheck != null && integrityCheck.equals("Android Asset Packaging " +
+                    "Tool, v0.2-")) {
                 Log.d("SubstratumLogger", "The system partition already contains an existing " +
                         "AOPT binary and Substratum is locked and loaded!");
             } else {

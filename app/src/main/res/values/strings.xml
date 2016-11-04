@@ -182,6 +182,7 @@
     <string name="menu_clean">Clean overlays</string>
     <string name="menu_disable">Disable installed overlays</string>
     <string name="menu_enable">Enable installed overlays</string>
+    <string name="menu_favorite">Favorite</string>
     <string name="menu_rate">Rate theme</string>
     <string name="menu_refresh">Refresh</string>
     <string name="menu_refresh_windows">Refresh Windows</string>
@@ -305,6 +306,7 @@
     <string name="no_themes_description">please install a compatible theme!</string>
 
     <string name="toast_on_back_press_compiling">You can use other apps during compile by clicking Home/Recents buttons.</string>
+    <string name="toast_needs_caching">Substratum\'s cache was wiped, please rebuild this theme before continuing!</string>
 
     <string name="notification_theme_installed">installed</string>
     <string name="notification_theme_updated">updated</string>
@@ -332,6 +334,9 @@
     <string name="a_wild_char_has_appeared">It\'s Char! Run!</string>
     <string name="char_success">Char stole all your cookies!</string>
     <string name="char_error">Char couldn\'t steal your cookies!</string>
+
+    <string name="shortcut_store">Theme Showcase</string>
+    <string name="shortcut_store_disabled">Theme Showcase</string>
 
     <string name="settings_title">About</string>
     <string name="settings_title_1">App Options</string>

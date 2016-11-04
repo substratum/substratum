@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/shortcut_store"
+        android:shortcutDisabledMessage="@string/shortcut_store_disabled"
+        android:shortcutId="static"
+        android:shortcutLongLabel="@string/shortcut_store"
+        android:shortcutShortLabel="@string/shortcut_store">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="projekt.substratum.ShowcaseActivity"
+            android:targetPackage="projekt.substratum"/>
+    </shortcut>
+</shortcuts>

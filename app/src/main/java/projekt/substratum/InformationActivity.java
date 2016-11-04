@@ -4,12 +4,15 @@ import android.app.Activity;
 import android.app.WallpaperManager;
 import android.app.admin.DevicePolicyManager;
 import android.content.ActivityNotFoundException;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.ShortcutInfo;
+import android.content.pm.ShortcutManager;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -17,6 +20,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.Icon;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -51,8 +55,10 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Enumeration;
 import java.util.List;
 
+import dalvik.system.DexFile;
 import projekt.substratum.adapters.InformationTabsAdapter;
 import projekt.substratum.config.References;
 import projekt.substratum.util.ReadOverlays;
@@ -123,6 +129,21 @@ public class InformationActivity extends AppCompatActivity {
                                 activity.getPackageName()));
             }
         });
+    }
+
+    private static String[] getClassesOfPackage(Context context) {
+        ArrayList<String> classes = new ArrayList<>();
+        try {
+            String packageCodePath = context.getPackageCodePath();
+            DexFile df = new DexFile(packageCodePath);
+            for (Enumeration<String> iter = df.entries(); iter.hasMoreElements(); ) {
+                String className = iter.nextElement();
+                classes.add(className);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return classes.toArray(new String[classes.size()]);
     }
 
     private boolean checkColorDarkness(int color) {
@@ -471,14 +492,24 @@ public class InformationActivity extends AppCompatActivity {
                         "permissions for system runtime code execution.");
             }
         }
+
+        new AppShortcutCreator().execute("last_opened");
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (References.checkOMS(getApplicationContext())) {
-            getMenuInflater().inflate(R.menu.theme_information_menu, menu);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+                getMenuInflater().inflate(R.menu.theme_information_menu_n_mr1, menu);
+            } else {
+                getMenuInflater().inflate(R.menu.theme_information_menu, menu);
+            }
         } else {
-            getMenuInflater().inflate(R.menu.theme_information_menu_legacy, menu);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+                getMenuInflater().inflate(R.menu.theme_information_menu_legacy_n_mr1, menu);
+            } else {
+                getMenuInflater().inflate(R.menu.theme_information_menu_legacy, menu);
+            }
         }
         return true;
     }
@@ -486,6 +517,11 @@ public class InformationActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+
+        if (id == R.id.favorite) {
+            new AppShortcutCreator().execute("favorite");
+            return true;
+        }
 
         if (id == R.id.clean) {
             AlertDialog.Builder builder = new AlertDialog.Builder(InformationActivity.this);
@@ -966,6 +1002,40 @@ public class InformationActivity extends AppCompatActivity {
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             heroImageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
             byteArray = stream.toByteArray();
+            return null;
+        }
+    }
+
+    private class AppShortcutCreator extends AsyncTask<String, Integer, String> {
+
+        @Override
+        protected String doInBackground(String... sUrl) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+                ShortcutManager shortcutManager = getSystemService(ShortcutManager.class);
+                Bitmap app_icon = ((BitmapDrawable)
+                        References.grabAppIcon(getApplicationContext(), theme_pid)).getBitmap();
+                try {
+                    Intent myIntent = new Intent(Intent.ACTION_MAIN);
+                    myIntent.putExtra("theme_name", theme_name);
+                    myIntent.putExtra("theme_pid", theme_pid);
+                    myIntent.setComponent(
+                            ComponentName.unflattenFromString(
+                                    "projekt.substratum/projekt.substratum.LaunchTheme"));
+                    myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                            Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
+                    ShortcutInfo shortcut = new ShortcutInfo.Builder(getApplicationContext(),
+                            sUrl[0])
+                            .setShortLabel(((sUrl[0].equals("favorite")) ? "♥ " : "") + theme_name)
+                            .setLongLabel(((sUrl[0].equals("favorite")) ? "♥ " : "") + theme_name)
+                            .setIcon(Icon.createWithBitmap(app_icon))
+                            .setIntent(myIntent)
+                            .build();
+                    shortcutManager.addDynamicShortcuts(Arrays.asList(shortcut));
+                } catch (Exception e) {
+                    // Suppress warning
+                }
+            }
             return null;
         }
     }

@@ -47,31 +47,20 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        switch (position) {
-            case 0:
-                // Case 0 is either Quick Apply (for Theme Packs) or specific fragments instances
-                if (theme_mode.equals("overlays")) {
-                    return new OverlaysList();
-                } else if (theme_mode.equals("bootanimation")) {
-                    return new BootAnimation();
-                } else if (theme_mode.equals("fonts")) {
-                    return new FontInstaller();
-                } else if (theme_mode.equals("audio")) {
-                    return new SoundPackager();
-                } else if (theme_mode.equals("wallpapers")) {
-                    return new Wallpapers();
-                } else if (allow_quick_apply) {
-                    return new MainScreenTab();
-                } else {
-                    return new OverlaysList();
-                }
-            default:
-                try {
-                    return getFragment();
-                } catch (Exception e) {
-                    // Suppress all warnings
-                }
-                return null;
+        if (theme_mode.equals("overlays")) {
+            return new OverlaysList();
+        } else if (theme_mode.equals("bootanimation")) {
+            return new BootAnimation();
+        } else if (theme_mode.equals("fonts")) {
+            return new FontInstaller();
+        } else if (theme_mode.equals("audio")) {
+            return new SoundPackager();
+        } else if (theme_mode.equals("wallpapers")) {
+            return new Wallpapers();
+        } else if (allow_quick_apply) {
+            return new MainScreenTab();
+        } else {
+            return getFragment();
         }
     }
 
@@ -81,7 +70,7 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
     }
 
     public Fragment getFragment() {
-        if (package_checker.contains("overlays") && allow_quick_apply) {
+        if (package_checker.contains("overlays")) {
             package_checker.remove("overlays");
             return new OverlaysList();
         } else if (package_checker.contains("bootanimation")) {

@@ -47,21 +47,20 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        if (theme_mode.equals("overlays")) {
-            return new OverlaysList();
-        } else if (theme_mode.equals("bootanimation")) {
-            return new BootAnimation();
-        } else if (theme_mode.equals("fonts")) {
-            return new FontInstaller();
-        } else if (theme_mode.equals("audio")) {
-            return new SoundPackager();
-        } else if (theme_mode.equals("wallpapers")) {
-            return new Wallpapers();
-        } else if (allow_quick_apply) {
-            return new MainScreenTab();
-        } else {
-            return getFragment();
+        if (theme_mode != null && theme_mode.length() > 0) {
+            if (theme_mode.equals("overlays")) {
+                return new OverlaysList();
+            } else if (theme_mode.equals("bootanimation")) {
+                return new BootAnimation();
+            } else if (theme_mode.equals("fonts")) {
+                return new FontInstaller();
+            } else if (theme_mode.equals("audio")) {
+                return new SoundPackager();
+            } else if (theme_mode.equals("wallpapers")) {
+                return new Wallpapers();
+            }
         }
+        return getFragment();
     }
 
     @Override
@@ -70,7 +69,10 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
     }
 
     public Fragment getFragment() {
-        if (package_checker.contains("overlays")) {
+        if (allow_quick_apply) {
+            allow_quick_apply = false;
+            return new MainScreenTab();
+        } else if (package_checker.contains("overlays")) {
             package_checker.remove("overlays");
             return new OverlaysList();
         } else if (package_checker.contains("bootanimation")) {

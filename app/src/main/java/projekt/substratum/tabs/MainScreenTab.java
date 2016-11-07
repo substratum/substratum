@@ -40,7 +40,6 @@ import projekt.substratum.util.BootAnimationHandler;
 import projekt.substratum.util.CacheCreator;
 import projekt.substratum.util.FontHandler;
 import projekt.substratum.util.ReadOverlays;
-import projekt.substratum.util.Root;
 import projekt.substratum.util.SoundsHandler;
 import projekt.substratum.util.SubstratumBuilder;
 
@@ -672,7 +671,7 @@ public class MainScreenTab extends Fragment {
                 runCommand.putExtra("om-commands", final_commands);
                 getContext().sendBroadcast(runCommand);
             } else {
-                Root.runCommand(final_commands);
+                new References.ThreadRunner().execute(final_commands);
             }
 
             super.onPostExecute(result);
@@ -745,8 +744,7 @@ public class MainScreenTab extends Fragment {
                             File srcDir = new File(workingDirectory + "/res");
                             File destDir = new File(workingDirectory + "/workdir");
                             if (destDir.exists()) {
-
-                                Root.runCommand("rm -r " + destDir.getAbsolutePath());
+                                References.delete(destDir.getAbsolutePath());
                             }
                             FileUtils.copyDirectory(srcDir, destDir);
 
@@ -768,7 +766,7 @@ public class MainScreenTab extends Fragment {
                         File srcDir = new File(workingDirectory + "/res");
                         File destDir = new File(workingDirectory + "/workdir");
                         if (destDir.exists()) {
-                            Root.runCommand("rm -r " + destDir.getAbsolutePath());
+                            References.delete(destDir.getAbsolutePath());
                         }
                         FileUtils.copyDirectory(srcDir, destDir);
 

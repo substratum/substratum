@@ -39,7 +39,6 @@ import projekt.substratum.config.References;
 import projekt.substratum.model.OverlayManager;
 import projekt.substratum.util.FloatingActionMenu;
 import projekt.substratum.util.ReadOverlays;
-import projekt.substratum.util.Root;
 
 import static projekt.substratum.config.References.REFRESH_WINDOW_DELAY;
 
@@ -205,8 +204,8 @@ public class AdvancedManagerFragment extends Fragment {
                         for (int i = 0; i < overlaysList.size(); i++) {
                             if (overlaysList.get(i).isSelected()) {
                                 Log.e("overlays", overlaysList.get(i).getName());
-                                Root.runCommand("mount -o rw,remount /system");
-                                Root.runCommand("rm -r " + current_directory +
+                                References.mountRW();
+                                References.delete(current_directory +
                                         overlaysList.get(i).getName() + ".apk");
                             }
                         }
@@ -255,7 +254,7 @@ public class AdvancedManagerFragment extends Fragment {
                                 .setPositiveButton(android.R.string.ok, new DialogInterface
                                         .OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
-                                        Root.runCommand("reboot");
+                                        References.reboot();
                                     }
                                 });
                         alertDialogBuilder.setCancelable(false);

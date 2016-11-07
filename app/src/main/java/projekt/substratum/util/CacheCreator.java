@@ -105,7 +105,7 @@ public class CacheCreator {
         File myDir2 = new File(mContext.getCacheDir().getAbsoluteFile() +
                 "/SubstratumBuilder/" + package_identifier);
         if (myDir2.exists()) {
-            Root.runCommand("rm -r " + myDir2.getAbsolutePath());
+            References.delete(myDir2.getAbsolutePath());
             return myDir2.mkdir();
         }
         return false;
@@ -127,7 +127,7 @@ public class CacheCreator {
             if (!myDir2.exists()) {
                 boolean created = myDir2.mkdir();
             } else {
-                Root.runCommand("rm -r " + myDir2.getAbsolutePath());
+                References.delete(myDir2.getAbsolutePath());
                 boolean created = myDir2.mkdir();
             }
             String destination = mContext.getCacheDir().getAbsolutePath() + "/SubstratumBuilder/"

@@ -373,10 +373,9 @@ public class SubstratumBuilder {
         if (!has_errored_out) {
             try {
                 // Delete the previous APK if it exists in the dashboard folder
-                Root.runCommand(
-                        "rm -r " + Environment.getExternalStorageDirectory().getAbsolutePath() +
-                                "/.substratum/" + overlay_package + "." + parse2_themeName +
-                                "-unsigned.apk");
+                References.delete(Environment.getExternalStorageDirectory().getAbsolutePath() +
+                        "/.substratum/" + overlay_package + "." + parse2_themeName +
+                        "-unsigned.apk");
 
                 // Sign with the built-in test key/certificate.
                 String source = work_area + "/" + overlay_package + "." + parse2_themeName +
@@ -410,11 +409,10 @@ public class SubstratumBuilder {
                 if (theme_oms) {
                     try {
                         if (variant != null) {
-                            Root.runCommand(
-                                    "pm install -r " + Environment.getExternalStorageDirectory()
-                                            .getAbsolutePath() + "/.substratum/" +
-                                            overlay_package + "." + parse2_themeName +
-                                            "-signed.apk");
+                            References.installOverlay(Environment.getExternalStorageDirectory()
+                                    .getAbsolutePath() + "/.substratum/" +
+                                    overlay_package + "." + parse2_themeName +
+                                    "-signed.apk");
                             Log.d("SubstratumBuilder", "Silently installing APK...");
                             if (checkIfPackageInstalled(overlay_package + "." + parse2_themeName +
                                     parse2_variantName + parse2_baseName, context)) {
@@ -425,13 +423,10 @@ public class SubstratumBuilder {
                                         "Overlay APK has failed to install!");
                             }
                         } else {
-                            Root.runCommand(
-                                    "pm install -r " + Environment.getExternalStorageDirectory()
-                                            .getAbsolutePath() +
-                                            "/.substratum/" + overlay_package + "." +
-                                            parse2_themeName +
-                                            "-signed" +
-                                            ".apk");
+                            References.installOverlay(Environment.getExternalStorageDirectory()
+                                    .getAbsolutePath() +
+                                    "/.substratum/" + overlay_package + "." +
+                                    parse2_themeName + "-signed.apk");
                             Log.d("SubstratumBuilder", "Silently installing APK...");
                             if (checkIfPackageInstalled(overlay_package + "." + parse2_themeName,
                                     context)) {
@@ -460,40 +455,37 @@ public class SubstratumBuilder {
                             ((References.inNexusFilter()) ? vendor_partition :
                                     vendor_location);
 
-                    Root.runCommand("mount -o rw,remount /system");
-
+                    References.mountRW();
                     File vendor = new File(current_vendor);
                     if (!vendor.exists()) {
                         if (current_vendor.equals(vendor_location)) {
-                            Root.runCommand("mkdir " + current_vendor);
+                            References.createNewFolder(current_vendor);
                         } else {
-                            Root.runCommand("mount -o rw,remount /vendor");
-                            Root.runCommand("mkdir " + vendor_symlink);
-                            Root.runCommand("ln -s " + vendor_symlink + " /vendor");
-                            Root.runCommand("chmod 755 " + vendor_partition);
-                            Root.runCommand("mount -o ro,remount /vendor");
+                            References.mountRWVendor();
+                            References.createNewFolder(vendor_symlink);
+                            References.symlink(vendor_symlink, "/vendor");
+                            References.setPermissions(755, vendor_partition);
+                            References.mountROVendor();
                         }
                     }
                     if (current_vendor.equals(vendor_location)) {
-                        Root.runCommand(
-                                "mv -f " + Environment.getExternalStorageDirectory()
-                                        .getAbsolutePath() + "/.substratum/" + overlay_package +
-                                        "." + parse2_themeName + "-signed.apk " + vendor_location +
-                                        overlay_package + "." + parse2_themeName + ".apk");
-                        Root.runCommand("chmod -R 644 " + vendor_location);
-                        Root.runCommand("chmod 755 " + vendor_location);
-                        Root.runCommand("chcon -R u:object_r:system_file:s0 " + vendor_location);
+                        References.move(Environment.getExternalStorageDirectory()
+                                .getAbsolutePath() + "/.substratum/" + overlay_package +
+                                "." + parse2_themeName + "-signed.apk", vendor_location +
+                                overlay_package + "." + parse2_themeName + ".apk");
+                        References.setPermissionsRecursively(644, vendor_location);
+                        References.setPermissions(755, vendor_location);
+                        References.setContext(vendor_location);
                     } else {
-                        Root.runCommand(
-                                "mv -f " + Environment.getExternalStorageDirectory()
-                                        .getAbsolutePath() + "/.substratum/" + overlay_package +
-                                        "." + parse2_themeName + "-signed.apk " + vendor_symlink +
-                                        "/" + overlay_package + "." + parse2_themeName + ".apk");
-                        Root.runCommand("chmod -R 644 " + vendor_symlink);
-                        Root.runCommand("chmod 755 " + vendor_symlink);
-                        Root.runCommand("chcon -R u:object_r:system_file:s0 " + vendor_symlink);
+                        References.move(Environment.getExternalStorageDirectory()
+                                .getAbsolutePath() + "/.substratum/" + overlay_package +
+                                "." + parse2_themeName + "-signed.apk", vendor_symlink +
+                                "/" + overlay_package + "." + parse2_themeName + ".apk");
+                        References.setPermissionsRecursively(644, vendor_symlink);
+                        References.setPermissions(755, vendor_symlink);
+                        References.setContext(vendor_symlink);
                     }
-                    Root.runCommand("mount -o ro,remount /system");
+                    References.mountRO();
                 }
             } else {
                 Log.d("SubstratumBuilder", "Update mode flag disabled, returning one-line " +

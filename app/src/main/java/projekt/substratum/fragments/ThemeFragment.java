@@ -34,7 +34,6 @@ import projekt.substratum.config.References;
 import projekt.substratum.model.ThemeInfo;
 import projekt.substratum.util.AOPTCheck;
 import projekt.substratum.util.ReadOverlays;
-import projekt.substratum.util.Root;
 
 /**
  * @author Nicholas Chum (nicholaschum)
@@ -356,7 +355,7 @@ public class ThemeFragment extends Fragment {
                 Log.e("OverlayCleaner", "Target APK not found for \"" + state1.get(i) + "\" and " +
                         "will " +
                         "be removed.");
-                Root.runCommand("pm uninstall " + state1.get(i));
+                References.uninstallOverlay(state1.get(i));
             }
             return null;
         }

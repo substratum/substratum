@@ -88,7 +88,7 @@ public class SoundsHandler {
         File alarms = new File(mContext.getCacheDir().getAbsolutePath() +
                 "/SoundsCache/SoundsInjector/alarms/");
         File alarms_temp = new File("/data/system/theme/audio/alarms/");
-        if (alarms_temp.exists()) Root.runCommand("rm -r /data/system/theme/audio/alarms/");
+        if (alarms_temp.exists()) References.delete("/data/system/theme/audio/alarms/");
         if (alarms.exists()) {
             File new_alarm_mp3 = new File(mContext.getCacheDir().getAbsolutePath() +
                     "/SoundsCache/SoundsInjector/alarms/" + "/alarm.mp3");
@@ -98,12 +98,11 @@ public class SoundsHandler {
                 boolean mp3 = new_alarm_mp3.exists();
                 boolean ogg = new_alarm_ogg.exists();
 
-                Root.runCommand(
-                        "cp -rf " + mContext.getCacheDir().getAbsolutePath() +
-                                "/SoundsCache/SoundsInjector/alarms/ " +
-                                "/data/system/theme/audio/");
-                Root.runCommand("chmod -R 644 /data/system/theme/audio/alarms/");
-                Root.runCommand("chmod 755 /data/system/theme/audio/alarms/");
+                References.copyDir(mContext.getCacheDir().getAbsolutePath() +
+                                "/SoundsCache/SoundsInjector/alarms/",
+                        "/data/system/theme/audio/");
+                References.setPermissionsRecursively(644, "/data/system/theme/audio/alarms/");
+                References.setPermissions(755, "/data/system/theme/audio/alarms/");
 
                 clearAudibles(mContext, "/data/system/theme/audio/alarms/alarm.mp3");
                 clearAudibles(mContext, "/data/system/theme/audio/alarms/alarm.ogg");
@@ -128,7 +127,7 @@ public class SoundsHandler {
                 "/SoundsCache/SoundsInjector/notifications/");
         File notifications_temp = new File("/data/system/theme/audio/notifications/");
         if (notifications_temp.exists())
-            Root.runCommand("rm -r /data/system/theme/audio/notifications/");
+            References.delete("/data/system/theme/audio/notifications/");
         if (notifications.exists()) {
             ringtone = true;
             File new_notifications_mp3 = new File(mContext.getCacheDir()
@@ -141,12 +140,12 @@ public class SoundsHandler {
                 boolean mp3 = new_notifications_mp3.exists();
                 boolean ogg = new_notifications_ogg.exists();
 
-                Root.runCommand(
-                        "cp -rf " + mContext.getCacheDir().getAbsolutePath() +
-                                "/SoundsCache/SoundsInjector/notifications/ " +
-                                "/data/system/theme/audio/");
-                Root.runCommand("chmod -R 644 /data/system/theme/audio/notifications/");
-                Root.runCommand("chmod 755 /data/system/theme/audio/notifications/");
+                References.copyDir(mContext.getCacheDir().getAbsolutePath() +
+                                "/SoundsCache/SoundsInjector/notifications/",
+                        "/data/system/theme/audio/");
+                References.setPermissionsRecursively(644,
+                        "/data/system/theme/audio/notifications/");
+                References.setPermissions(755, "/data/system/theme/audio/notifications/");
 
                 clearAudibles(mContext,
                         "/data/system/theme/audio/notifications/notification.mp3");
@@ -176,7 +175,7 @@ public class SoundsHandler {
                 "/SoundsCache/SoundsInjector/ringtones/");
         File ringtones_temp = new File("/data/system/theme/audio/ringtones/");
         if (ringtones_temp.exists())
-            Root.runCommand("rm -r /data/system/theme/audio/ringtones/");
+            References.delete("/data/system/theme/audio/ringtones/");
         if (ringtones.exists()) {
             ringtone = true;
             File new_ringtones_mp3 = new File(mContext.getCacheDir().getAbsolutePath() +
@@ -187,12 +186,11 @@ public class SoundsHandler {
                 boolean mp3 = new_ringtones_mp3.exists();
                 boolean ogg = new_ringtones_ogg.exists();
 
-                Root.runCommand(
-                        "cp -rf " + mContext.getCacheDir().getAbsolutePath() +
-                                "/SoundsCache/SoundsInjector/ringtones/ " +
-                                "/data/system/theme/audio/");
-                Root.runCommand("chmod -R 644 /data/system/theme/audio/ringtones/");
-                Root.runCommand("chmod 755 /data/system/theme/audio/ringtones/");
+                References.copyDir(mContext.getCacheDir().getAbsolutePath() +
+                                "/SoundsCache/SoundsInjector/ringtones/",
+                        "/data/system/theme/audio/");
+                References.setPermissionsRecursively(644, "/data/system/theme/audio/ringtones/");
+                References.setPermissions(755, "/data/system/theme/audio/ringtones/");
 
                 clearAudibles(mContext, "/data/system/theme/audio/ringtones/ringtone" +
                         ".mp3");
@@ -220,10 +218,10 @@ public class SoundsHandler {
                 "/SoundsCache/SoundsInjector/ui/");
         File ui_temp = new File("/data/system/theme/audio/ui/");
         if (ui_temp.exists()) {
-            Root.runCommand("rm -r /data/system/theme/audio/ui/");
+            References.delete("/data/system/theme/audio/ui/");
         }
         if (ui.exists()) {
-            Root.runCommand("mkdir /data/system/theme/audio/ui/");
+            References.createNewFolder("/data/system/theme/audio/ui/");
 
             File effect_tick_mp3 = new File(mContext.getCacheDir().getAbsolutePath() +
                     "/SoundsCache/SoundsInjector/ui/Effect_Tick.mp3");
@@ -233,19 +231,17 @@ public class SoundsHandler {
                 boolean mp3 = effect_tick_mp3.exists();
                 boolean ogg = effect_tick_ogg.exists();
                 if (mp3) {
-                    Root.runCommand(
-                            "cp -rf " + mContext.getCacheDir().getAbsolutePath() +
-                                    "/SoundsCache/SoundsInjector/ui/Effect_Tick.mp3 " +
-                                    "/data/system/theme/audio/ui/Effect_Tick.mp3");
+                    References.copyDir(mContext.getCacheDir().getAbsolutePath() +
+                                    "/SoundsCache/SoundsInjector/ui/Effect_Tick.mp3",
+                            "/data/system/theme/audio/ui/Effect_Tick.mp3");
                     setUIAudible(mContext, effect_tick_mp3, new File
                             ("/data/system/theme/audio/ui/Effect_Tick.mp3"), RingtoneManager
                             .TYPE_RINGTONE, "Effect_Tick");
                 }
                 if (ogg) {
-                    Root.runCommand(
-                            "cp -rf " + mContext.getCacheDir().getAbsolutePath() +
-                                    "/SoundsCache/SoundsInjector/ui/Effect_Tick.ogg " +
-                                    "/data/system/theme/audio/ui/Effect_Tick.ogg");
+                    References.copyDir(mContext.getCacheDir().getAbsolutePath() +
+                                    "/SoundsCache/SoundsInjector/ui/Effect_Tick.ogg",
+                            "/data/system/theme/audio/ui/Effect_Tick.ogg");
                     setUIAudible(mContext, effect_tick_ogg, new File
                             ("/data/system/theme/audio/ui/Effect_Tick.ogg"), RingtoneManager
                             .TYPE_RINGTONE, "Effect_Tick");
@@ -262,17 +258,15 @@ public class SoundsHandler {
                 boolean mp3 = new_lock_mp3.exists();
                 boolean ogg = new_lock_ogg.exists();
                 if (mp3) {
-                    Root.runCommand(
-                            "mv -f " + mContext.getCacheDir().getAbsolutePath() +
-                                    "/SoundsCache/SoundsInjector/ui/Lock.mp3 " +
-                                    "/data/system/theme/audio/ui/Lock.mp3");
+                    References.move(mContext.getCacheDir().getAbsolutePath() +
+                                    "/SoundsCache/SoundsInjector/ui/Lock.mp3",
+                            "/data/system/theme/audio/ui/Lock.mp3");
                     setUISounds("lock_sound", "/data/system/theme/audio/ui/Lock.mp3");
                 }
                 if (ogg) {
-                    Root.runCommand(
-                            "mv -f " + mContext.getCacheDir().getAbsolutePath() +
-                                    "/SoundsCache/SoundsInjector/ui/Lock.ogg " +
-                                    "/data/system/theme/audio/ui/Lock.ogg");
+                    References.move(mContext.getCacheDir().getAbsolutePath() +
+                                    "/SoundsCache/SoundsInjector/ui/Lock.ogg",
+                            "/data/system/theme/audio/ui/Lock.ogg");
                     setUISounds("lock_sound", "/data/system/theme/audio/ui/Lock.ogg");
                 }
             } else {
@@ -287,58 +281,50 @@ public class SoundsHandler {
                 boolean mp3 = new_unlock_mp3.exists();
                 boolean ogg = new_unlock_ogg.exists();
                 if (mp3) {
-                    Root.runCommand(
-                            "mv -f " + mContext.getCacheDir().getAbsolutePath() +
-                                    "/SoundsCache/SoundsInjector/ui/Unlock.mp3 " +
-                                    "/data/system/theme/audio/ui/Unlock.mp3");
+                    References.move(mContext.getCacheDir().getAbsolutePath() +
+                                    "/SoundsCache/SoundsInjector/ui/Unlock.mp3",
+                            "/data/system/theme/audio/ui/Unlock.mp3");
                     setUISounds("unlock_sound", "/data/system/theme/audio/ui/Unlock.mp3");
                 }
                 if (ogg) {
-                    Root.runCommand(
-                            "mv -f " + mContext.getCacheDir().getAbsolutePath() +
-                                    "/SoundsCache/SoundsInjector/ui/Unlock.ogg " +
-                                    "/data/system/theme/audio/ui/Unlock.ogg");
+                    References.move(mContext.getCacheDir().getAbsolutePath() +
+                                    "/SoundsCache/SoundsInjector/ui/Unlock.ogg",
+                            "/data/system/theme/audio/ui/Unlock.ogg");
                     setUISounds("unlock_sound", "/data/system/theme/audio/ui/Unlock.ogg");
                 }
             } else {
                 setDefaultUISounds("unlock_sound", "Unlock.ogg");
             }
 
-            File new_lowbattery_mp3 = new File(mContext.getCacheDir().getAbsolutePath
-                    () +
+            File new_lowbattery_mp3 = new File(mContext.getCacheDir().getAbsolutePath() +
                     "/SoundsCache/SoundsInjector/ui/LowBattery.mp3");
-            File new_lowbattery_ogg = new File(mContext.getCacheDir().getAbsolutePath
-                    () +
+            File new_lowbattery_ogg = new File(mContext.getCacheDir().getAbsolutePath() +
                     "/SoundsCache/SoundsInjector/ui/LowBattery.ogg");
             if (new_lowbattery_mp3.exists() || new_lowbattery_ogg.exists()) {
                 boolean mp3 = new_lowbattery_mp3.exists();
                 boolean ogg = new_lowbattery_ogg.exists();
                 if (mp3) {
-                    Root.runCommand(
-                            "mv -f " + mContext.getCacheDir().getAbsolutePath() +
-                                    "/SoundsCache/SoundsInjector/ui/LowBattery.mp3 " +
-                                    "/data/system/theme/audio/ui/LowBattery.mp3");
+                    References.move(mContext.getCacheDir().getAbsolutePath() +
+                                    "/SoundsCache/SoundsInjector/ui/LowBattery.mp3",
+                            "/data/system/theme/audio/ui/LowBattery.mp3");
                     setUISounds("low_battery_sound",
                             "/data/system/theme/audio/ui/LowBattery.mp3");
                 }
                 if (ogg) {
-                    Root.runCommand(
-                            "mv -f " + mContext.getCacheDir().getAbsolutePath() +
-                                    "/SoundsCache/SoundsInjector/ui/LowBattery.ogg " +
-                                    "/data/system/theme/audio/ui/LowBattery.ogg");
+                    References.move(mContext.getCacheDir().getAbsolutePath() +
+                                    "/SoundsCache/SoundsInjector/ui/LowBattery.ogg",
+                            "/data/system/theme/audio/ui/LowBattery.ogg");
                     setUISounds("low_battery_sound",
                             "/data/system/theme/audio/ui/LowBattery.ogg");
                 }
             } else {
                 setDefaultUISounds("low_battery_sound", "LowBattery.ogg");
             }
-
-            Root.runCommand("chmod -R 644 /data/system/theme/audio/ui/");
-            Root.runCommand("chmod 755 /data/system/theme/audio/ui/");
-            Root.runCommand("chmod 755 /data/system/theme/audio/");
-            Root.runCommand("chmod 755 /data/system/theme/");
-            Root.runCommand("chcon -R u:object_r:system_file:s0 " +
-                    "/data/system/theme");
+            References.setPermissionsRecursively(644, "/data/system/theme/audio/ui/");
+            References.setPermissions(755, "/data/system/theme/audio/ui/");
+            References.setPermissions(755, "/data/system/theme/audio/");
+            References.setPermissions(755, "/data/system/theme/");
+            References.setContext("/data/system/theme");
         }
     }
 
@@ -390,16 +376,14 @@ public class SoundsHandler {
 
     private boolean setUISounds(String sound_name, String location) {
         if (References.allowedUISound(sound_name)) {
-            Root.runCommand("content insert --uri " + SYSTEM_CONTENT_URI + " " +
-                    "--bind name:s:" + sound_name + " --bind value:s:" + location);
+            References.adjustContentProvider(SYSTEM_CONTENT_URI, sound_name, location);
             return true;
         }
         return false;
     }
 
     private void setDefaultUISounds(String sound_name, String sound_file) {
-        Root.runCommand("content insert --uri " + SYSTEM_CONTENT_URI + " " +
-                "--bind name:s:" + sound_name + " --bind value:s:" +
+        References.adjustContentProvider(SYSTEM_CONTENT_URI, sound_name,
                 "/system/media/audio/ui/" + sound_file);
     }
 
@@ -547,9 +531,8 @@ public class SoundsHandler {
                         mContext.getString(R.string.sounds_dialog_apply_failed), Toast.LENGTH_LONG);
                 toast.show();
             }
-            Root.runCommand("mount -o ro,remount /");
-            Root.runCommand("mount -o ro,remount /data");
-            Root.runCommand("mount -o ro,remount /system");
+            References.mountROData();
+            References.mountRO();
 
             if (ringtone) {
                 ringtone = false;
@@ -566,8 +549,7 @@ public class SoundsHandler {
                             .show();
                 }
             }
-
-            Root.runCommand("pkill -f com.android.systemui");
+            References.restartSystemUI();
         }
 
         @Override
@@ -576,7 +558,6 @@ public class SoundsHandler {
             has_failed = false;
 
             // Move the file from assets folder to a new working area
-
             Log.d("SoundsHandler", "Copying over the selected sounds to working directory...");
 
             File cacheDirectory = new File(mContext.getCacheDir(), "/SoundsCache/");
@@ -590,9 +571,8 @@ public class SoundsHandler {
                 boolean created = cacheDirectory2.mkdirs();
                 if (created) Log.d("SoundsHandler", "Sounds work folder created");
             } else {
-                Root.runCommand(
-                        "rm -r " + mContext.getCacheDir().getAbsolutePath() +
-                                "/SoundsCache/SoundsInjector/");
+                References.delete(mContext.getCacheDir().getAbsolutePath() +
+                        "/SoundsCache/SoundsInjector/");
                 boolean created = cacheDirectory2.mkdirs();
                 if (created) Log.d("SoundsHandler", "Sounds work folder recreated");
             }
@@ -643,17 +623,17 @@ public class SoundsHandler {
 
                 File themeDirectory = new File("/data/system/theme/");
                 if (!themeDirectory.exists()) {
-                    Root.runCommand("mount -o rw,remount /data");
-                    Root.runCommand("mkdir /data/system/theme/");
-                    Root.runCommand("chmod 755 /data/system/theme/");
-                    Root.runCommand("mount -o ro,remount /data");
+                    References.mountRWData();
+                    References.createNewFolder("/data/system/theme/");
+                    References.setPermissions(755, "/data/system/theme/");
+                    References.mountROData();
                 }
                 File audioDirectory = new File("/data/system/theme/audio/");
                 if (!audioDirectory.exists()) {
-                    Root.runCommand("mount -o rw,remount /data");
-                    Root.runCommand("mkdir /data/system/theme/audio/");
-                    Root.runCommand("chmod 755 /data/system/theme/audio/");
-                    Root.runCommand("mount -o ro,remount /data");
+                    References.mountRWData();
+                    References.createNewFolder("/data/system/theme/audio/");
+                    References.setPermissions(755, "/data/system/theme/audio/");
+                    References.mountROData();
                 }
                 perform_action();
             }
@@ -663,14 +643,12 @@ public class SoundsHandler {
                 editor.putString("sounds_applied", theme_pid);
                 editor.apply();
                 Log.d("SoundsHandler", "Sound pack installed!");
-                Root.runCommand(
-                        "rm -r " + mContext.getCacheDir().getAbsolutePath() +
-                                "/SoundsCache/SoundsInjector/");
+                References.delete(mContext.getCacheDir().getAbsolutePath() +
+                        "/SoundsCache/SoundsInjector/");
             } else {
                 Log.e("SoundsHandler", "Sound installation aborted!");
-                Root.runCommand(
-                        "rm -r " + mContext.getCacheDir().getAbsolutePath() +
-                                "/SoundsCache/SoundsInjector/");
+                References.delete(mContext.getCacheDir().getAbsolutePath() +
+                        "/SoundsCache/SoundsInjector/");
             }
             return null;
         }

@@ -35,7 +35,6 @@ import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
 import projekt.substratum.config.References;
 import projekt.substratum.util.FontHandler;
-import projekt.substratum.util.Root;
 
 /**
  * @author Nicholas Chum (nicholaschum)
@@ -222,9 +221,8 @@ public class FontInstaller extends Fragment {
                             "template. Maybe it wasn't themed?");
                 }
 
-                Root.runCommand(
-                        "rm -r " + getContext().getCacheDir().getAbsolutePath() +
-                                "/FontCache/font_preview/");
+                References.delete(getContext().getCacheDir().getAbsolutePath() +
+                        "/FontCache/font_preview/");
                 imageButton.setImageTintList(checked);
                 imageButton.setClickable(true);
                 font_holder.setVisibility(View.VISIBLE);
@@ -249,9 +247,8 @@ public class FontInstaller extends Fragment {
                     boolean created = cacheDirectory2.mkdirs();
                     if (created) Log.d("FontHandler", "FontCache work folder created");
                 } else {
-                    Root.runCommand(
-                            "rm -r " + getContext().getCacheDir().getAbsolutePath() +
-                                    "/FontCache/font_preview/");
+                    References.delete(getContext().getCacheDir().getAbsolutePath() +
+                            "/FontCache/font_preview/");
                     boolean created = cacheDirectory2.mkdirs();
                     if (created) Log.d("FontHandler", "FontCache folder recreated");
                 }

@@ -40,7 +40,6 @@ import projekt.substratum.adapters.SoundsAdapter;
 import projekt.substratum.config.References;
 import projekt.substratum.model.SoundsInfo;
 import projekt.substratum.util.RecyclerItemClickListener;
-import projekt.substratum.util.Root;
 import projekt.substratum.util.SoundsHandler;
 
 /**
@@ -275,9 +274,8 @@ public class SoundPackager extends Fragment {
                     boolean created = cacheDirectory2.mkdirs();
                     if (created) Log.d("SoundsHandler", "Sounds work folder created");
                 } else {
-                    Root.runCommand(
-                            "rm -r " + getContext().getCacheDir().getAbsolutePath() +
-                                    "/SoundsCache/sounds_preview/");
+                    References.delete(getContext().getCacheDir().getAbsolutePath() +
+                            "/SoundsCache/sounds_preview/");
                     boolean created = cacheDirectory2.mkdirs();
                     if (created) Log.d("SoundsHandler", "Sounds folder recreated");
                 }

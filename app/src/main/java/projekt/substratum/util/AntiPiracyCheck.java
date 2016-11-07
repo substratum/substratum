@@ -172,17 +172,16 @@ public class AntiPiracyCheck {
                             mContext.sendBroadcast(runCommand);
                         } else {
                             for (int i = 0; i < unauthorized_packages.size(); i++) {
-                                Root.runCommand("pm uninstall " + unauthorized_packages.get(i));
+                                References.uninstallOverlay(unauthorized_packages.get(i));
                             }
                         }
                     } else {
-                        Root.runCommand("mount -o rw,remount /system");
+                        References.mountRW();
                         for (int i = 0; i < final_commands_array.size(); i++) {
-                            Root.runCommand("rm -r " +
-                                    References.getInstalledDirectory(mContext,
-                                            final_commands_array.get(i)));
+                            References.delete(References.getInstalledDirectory(mContext,
+                                    final_commands_array.get(i)));
                         }
-                        Root.runCommand("mount -o ro,remount /system");
+                        References.mountRO();
                     }
                 }
                 return null;

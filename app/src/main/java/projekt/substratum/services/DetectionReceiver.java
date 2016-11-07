@@ -24,7 +24,6 @@ import java.util.TreeSet;
 
 import projekt.substratum.R;
 import projekt.substratum.config.References;
-import projekt.substratum.util.Root;
 import projekt.substratum.util.SubstratumThemeUpdater;
 
 /**
@@ -156,7 +155,7 @@ public class DetectionReceiver extends BroadcastReceiver {
                                             runCommand.putExtra("om-commands", final_commands);
                                             mContext.sendBroadcast(runCommand);
                                         } else {
-                                            Root.runCommand(final_commands);
+                                            new References.ThreadRunner().execute(final_commands);
                                         }
                                     }
                                 }

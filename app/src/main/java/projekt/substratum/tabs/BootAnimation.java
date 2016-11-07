@@ -40,7 +40,6 @@ import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
 import projekt.substratum.config.References;
 import projekt.substratum.util.BootAnimationHandler;
-import projekt.substratum.util.Root;
 
 /**
  * @author Nicholas Chum (nicholaschum)
@@ -209,9 +208,8 @@ public class BootAnimation extends Fragment {
                         "frames.");
                 bootAnimationPreview.setImageDrawable(animation);
                 animation.start();
-                Root.runCommand(
-                        "rm -r " + getContext().getCacheDir().getAbsolutePath() +
-                                "/BootAnimationCache/animation_preview/");
+                References.delete(getContext().getCacheDir().getAbsolutePath() +
+                        "/BootAnimationCache/animation_preview/");
                 imageButton.setImageTintList(checked);
                 imageButton.setClickable(true);
                 progressBar.setVisibility(View.GONE);
@@ -236,9 +234,8 @@ public class BootAnimation extends Fragment {
                     boolean created = cacheDirectory2.mkdirs();
                     if (created) Log.d("BootAnimationHandler", "Bootanimation work folder created");
                 } else {
-                    Root.runCommand(
-                            "rm -r " + getContext().getCacheDir().getAbsolutePath() +
-                                    "/BootAnimationCache/animation_preview/");
+                    References.delete(getContext().getCacheDir().getAbsolutePath() +
+                            "/BootAnimationCache/animation_preview/");
                     boolean created = cacheDirectory2.mkdirs();
                     if (created) Log.d("BootAnimationHandler", "Bootanimation folder recreated");
                 }

@@ -35,7 +35,6 @@ import java.util.List;
 import projekt.substratum.R;
 import projekt.substratum.config.References;
 import projekt.substratum.util.ReadOverlaysFile;
-import projekt.substratum.util.Root;
 
 /**
  * @author Nicholas Chum (nicholaschum)
@@ -186,11 +185,12 @@ public class ProfileFragment extends Fragment {
                                                     .getSelectedItem() + "" +
                                                     ".substratum");
                                             boolean deleted = f.delete();
-                                            Root.runCommand("rm -r " +
+                                            References.delete(
                                                     Environment.getExternalStorageDirectory()
                                                             .getAbsolutePath() +
-                                                    "/substratum/profiles/" + profile_selector
-                                                    .getSelectedItem());
+                                                            "/substratum/profiles/" +
+                                                            profile_selector
+                                                                    .getSelectedItem());
                                             RefreshSpinner();
                                         }
                                     })
@@ -273,40 +273,40 @@ public class ProfileFragment extends Fragment {
             String uid = Environment.getExternalStorageDirectory().getAbsolutePath()
                     .split("/")[3];
             if (References.checkOMS(getContext())) {
-                Root.runCommand("cp /data/system/overlays.xml " +
+                References.copy("/data/system/overlays.xml",
                         Environment.getExternalStorageDirectory().getAbsolutePath() +
-                        "/substratum/profiles/" + aet_getText + ".substratum");
+                                "/substratum/profiles/" + aet_getText + ".substratum");
 
                 File makeProfileDir = new File(Environment
                         .getExternalStorageDirectory().getAbsolutePath() +
                         "/substratum/profiles/" + aet_getText + "/");
                 if (makeProfileDir.exists()) {
-                    Root.runCommand("rm -r " +
+                    References.delete(
                             Environment.getExternalStorageDirectory().getAbsolutePath() +
-                            "/substratum/profiles/" + aet_getText);
+                                    "/substratum/profiles/" + aet_getText);
                     boolean created = makeProfileDir.mkdir();
                 } else {
                     boolean created = makeProfileDir.mkdir();
                 }
 
                 // Backup the entire /data/system/theme/ folder
-                Root.runCommand("cp -rf /data/system/theme/ " +
+                References.copyDir("/data/system/theme/",
                         Environment.getExternalStorageDirectory().getAbsolutePath() +
-                        "/substratum/profiles/" + aet_getText);
+                                "/substratum/profiles/" + aet_getText);
 
                 // Backup wallpapers
-                Root.runCommand("cp -f " + "/data/system/users/" + uid + "/wallpaper "
-                        + Environment.getExternalStorageDirectory().getAbsolutePath()
-                        + "/substratum/profiles/" + aet_getText + "/wallpaper.png");
-                Root.runCommand("cp -f " + "/data/system/users/" + uid + "/wallpaper_lock "
-                        + Environment.getExternalStorageDirectory().getAbsolutePath()
-                        + "/substratum/profiles/" + aet_getText + "/wallpaper_lock.png");
+                References.copy("/data/system/users/" + uid + "/wallpaper",
+                        Environment.getExternalStorageDirectory().getAbsolutePath()
+                                + "/substratum/profiles/" + aet_getText + "/wallpaper.png");
+                References.copy("/data/system/users/" + uid + "/wallpaper_lock",
+                        Environment.getExternalStorageDirectory().getAbsolutePath()
+                                + "/substratum/profiles/" + aet_getText + "/wallpaper_lock.png");
 
                 // Backup system bootanimation if encrypted
                 if (getDeviceEncryptionStatus() >= 2) {
-                    Root.runCommand("cp -f /system/media/bootanimation.zip "
-                            + Environment.getExternalStorageDirectory().getAbsolutePath()
-                            + "/substratum/profiles/" + aet_getText + "/bootanimation.zip");
+                    References.copy("/system/media/bootanimation.zip",
+                            Environment.getExternalStorageDirectory().getAbsolutePath()
+                                    + "/substratum/profiles/" + aet_getText + "/bootanimation.zip");
                 }
             } else {
                 String current_directory;
@@ -317,10 +317,10 @@ public class ProfileFragment extends Fragment {
                 }
                 File file = new File(current_directory);
                 if (file.exists()) {
-                    Root.runCommand("mount -o rw,remount /system");
-                    Root.runCommand("cp -rf " + current_directory + " " +
+                    References.mountRW();
+                    References.copyDir(current_directory,
                             Environment.getExternalStorageDirectory().getAbsolutePath() +
-                            "/substratum/profiles/");
+                                    "/substratum/profiles/");
                     File oldFolder = new File(Environment.getExternalStorageDirectory()
                             .getAbsolutePath() + "/substratum/profiles/overlay");
                     File newFolder = new File(Environment.getExternalStorageDirectory()
@@ -328,29 +328,30 @@ public class ProfileFragment extends Fragment {
                     boolean success = oldFolder.renameTo(newFolder);
 
                     // Now begin backing up sounds
-                    Root.runCommand("cp -rf /data/system/theme/audio/ " +
+                    References.copyDir("/data/system/theme/audio/",
                             Environment.getExternalStorageDirectory()
                                     .getAbsolutePath() + "/substratum/profiles/" + aet_getText);
-                    Root.runCommand("mount -o ro,remount /system");
+                    References.mountRO();
 
                     // Don't forget the wallpaper
                     File homeWall = new File("/data/system/users/" + uid + "/wallpaper");
                     File lockWall = new File("/data/system/users/" + uid + "/wallpaper_lock");
                     if (homeWall.exists()) {
-                        Root.runCommand("cp -f " + homeWall + " "
-                                + Environment.getExternalStorageDirectory().getAbsolutePath()
-                                + "/substratum/profiles/" + aet_getText + "/wallpaper.png");
+                        References.copy(homeWall.getAbsolutePath(),
+                                Environment.getExternalStorageDirectory().getAbsolutePath()
+                                        + "/substratum/profiles/" + aet_getText + "/wallpaper.png");
                     }
                     if (lockWall.exists()) {
-                        Root.runCommand("cp -f " + lockWall + " "
-                                + Environment.getExternalStorageDirectory().getAbsolutePath()
-                                + "/substratum/profiles/" + aet_getText + "/wallpaper_lock.png");
+                        References.copy(lockWall.getAbsolutePath(),
+                                Environment.getExternalStorageDirectory().getAbsolutePath()
+                                        + "/substratum/profiles/" + aet_getText +
+                                        "/wallpaper_lock.png");
                     }
 
                     // And bootanimation
-                    Root.runCommand("cp -f /system/media/bootanimation.zip "
-                            + Environment.getExternalStorageDirectory().getAbsolutePath()
-                            + "/substratum/profiles/" + aet_getText);
+                    References.copy("/system/media/bootanimation.zip",
+                            Environment.getExternalStorageDirectory().getAbsolutePath()
+                                    + "/substratum/profiles/" + aet_getText);
                 } else {
                     Toast toast = Toast.makeText(getActivity().getBaseContext(), getString(R.string
                                     .backup_no_overlays),
@@ -400,7 +401,8 @@ public class ProfileFragment extends Fragment {
                                                     toast.show();
                                                 }
                                             } else {
-                                                Root.runCommand(to_be_run_commands);
+                                                new References.ThreadRunner().execute
+                                                        (to_be_run_commands);
                                                 if (!helper_exists) {
                                                     Toast toast = Toast.makeText(getContext(),
                                                             getString(R.string
@@ -433,7 +435,7 @@ public class ProfileFragment extends Fragment {
                             toast.show();
                         }
                     } else {
-                        Root.runCommand(to_be_run_commands);
+                        new References.ThreadRunner().execute(to_be_run_commands);
                         if (!helper_exists) {
                             Toast toast = Toast.makeText(getContext(), getString(R.string
                                             .profile_edittext_empty_toast_sysui),
@@ -452,12 +454,12 @@ public class ProfileFragment extends Fragment {
                 File file = new File(current_directory);
                 if (file.exists()) {
                     // Delete destination overlays
-                    Root.runCommand("mount -o rw,remount /system");
-                    Root.runCommand("rm -r" + current_directory);
-                    Root.runCommand("rm -r /data/system/theme/");
-                    Root.runCommand("mkdir " + current_directory);
-                    Root.runCommand("mkdir /data/system/theme/");
-                    Root.runCommand("chmod 755 /data/system/theme/");
+                    References.mountRW();
+                    References.delete(current_directory);
+                    References.delete("/data/system/theme/");
+                    References.createNewFolder(current_directory);
+                    References.createNewFolder("/data/system/theme/");
+                    References.setPermissions(755, "/data/system/theme/");
 
                     File profile_apk_files = new File(Environment.getExternalStorageDirectory()
                             .getAbsolutePath() + "/substratum/profiles/" +
@@ -465,24 +467,23 @@ public class ProfileFragment extends Fragment {
                     String[] located_files = profile_apk_files.list();
                     for (int i = 0; i < located_files.length; i++) {
                         if (!located_files[i].equals("audio")) {
-                            Root.runCommand("cp -rf " + Environment.getExternalStorageDirectory()
+                            References.copyDir(Environment.getExternalStorageDirectory()
                                     .getAbsolutePath() +
                                     "/substratum/profiles/" + profile_selector.getSelectedItem() +
-                                    "/" + located_files[i] + " " + current_directory);
+                                    "/" + located_files[i], current_directory);
                         } else {
-                            Root.runCommand("cp -rf " + Environment.getExternalStorageDirectory()
+                            References.copyDir(Environment.getExternalStorageDirectory()
                                     .getAbsolutePath() +
                                     "/substratum/profiles/" + profile_selector.getSelectedItem() +
-                                    "/" + located_files[i] + "/ " + "/data/system/theme/audio/");
-                            Root.runCommand("chmod -R 644 /data/system/theme/audio/");
-                            Root.runCommand("chmod 755 /data/system/theme/audio/");
+                                    "/" + located_files[i] + "/", "/data/system/theme/audio/");
+                            References.setPermissionsRecursively(644, "/data/system/theme/audio/");
+                            References.setPermissions(755, "/data/system/theme/audio/");
                         }
                     }
-
-                    Root.runCommand("chmod -R 644 " + current_directory);
-                    Root.runCommand("chmod 755 " + current_directory);
-                    Root.runCommand("chcon -R u:object_r:system_file:s0 " + current_directory);
-                    Root.runCommand("mount -o ro,remount /system");
+                    References.setPermissionsRecursively(644, current_directory);
+                    References.setPermissions(755, current_directory);
+                    References.setContext(current_directory);
+                    References.mountRO();
                 } else {
                     String vendor_location = "/system/vendor/overlay/";
                     String vendor_partition = "/vendor/overlay/";
@@ -490,24 +491,22 @@ public class ProfileFragment extends Fragment {
                     String current_vendor =
                             ((References.inNexusFilter()) ? vendor_partition :
                                     vendor_location);
-
-                    Root.runCommand("mount -o rw,remount /system");
-
+                    References.mountRW();
                     File vendor = new File(current_vendor);
                     if (!vendor.exists()) {
                         if (current_vendor.equals(vendor_location)) {
-                            Root.runCommand("mkdir " + current_vendor);
+                            References.createNewFolder(current_vendor);
                         } else {
-                            Root.runCommand("mount -o rw,remount /vendor");
-                            Root.runCommand("mkdir " + vendor_symlink);
-                            Root.runCommand("ln -s " + vendor_symlink + " /vendor");
-                            Root.runCommand("chmod 755 " + vendor_partition);
-                            Root.runCommand("mount -o ro,remount /vendor");
+                            References.mountRWVendor();
+                            References.createNewFolder(vendor_symlink);
+                            References.symlink(vendor_symlink, "/vendor");
+                            References.setPermissions(755, vendor_partition);
+                            References.mountROVendor();
                         }
                     }
 
-                    Root.runCommand("rm -r /data/system/theme/");
-                    Root.runCommand("mkdir /data/system/theme/");
+                    References.delete("/data/system/theme/");
+                    References.createNewFolder("/data/system/theme/");
 
                     File profile_apk_files = new File(Environment.getExternalStorageDirectory()
                             .getAbsolutePath() + "/substratum/profiles/" +
@@ -515,25 +514,24 @@ public class ProfileFragment extends Fragment {
                     String[] located_files = profile_apk_files.list();
                     for (int i = 0; i < located_files.length; i++) {
                         if (!located_files[i].equals("audio")) {
-                            Root.runCommand("cp -rf " + Environment.getExternalStorageDirectory()
+                            References.copyDir(Environment.getExternalStorageDirectory()
                                     .getAbsolutePath() +
                                     "/substratum/profiles/" + profile_selector.getSelectedItem() +
-                                    "/" + located_files[i] + " " + current_directory);
+                                    "/" + located_files[i], current_directory);
                         } else {
-                            Root.runCommand("chmod 755 /data/system/theme/");
-                            Root.runCommand("cp -rf " + Environment.getExternalStorageDirectory()
+                            References.setPermissions(755, "/data/system/theme/");
+                            References.copyDir(Environment.getExternalStorageDirectory()
                                     .getAbsolutePath() +
                                     "/substratum/profiles/" + profile_selector.getSelectedItem() +
-                                    "/" + located_files[i] + "/ " + "/data/system/theme/audio/");
-                            Root.runCommand("chmod -R 644 /data/system/theme/audio/");
-                            Root.runCommand("chmod 755 /data/system/theme/audio/");
+                                    "/" + located_files[i] + "/", "/data/system/theme/audio/");
+                            References.setPermissionsRecursively(644, "/data/system/theme/audio/");
+                            References.setPermissions(755, "/data/system/theme/audio/");
                         }
                     }
-
-                    Root.runCommand("chmod -R 644 " + current_directory);
-                    Root.runCommand("chmod 755 " + current_directory);
-                    Root.runCommand("chcon -R u:object_r:system_file:s0 " + current_directory);
-                    Root.runCommand("mount -o ro,remount /system");
+                    References.setPermissionsRecursively(644, current_directory);
+                    References.setPermissions(755, current_directory);
+                    References.setContext(current_directory);
+                    References.mountRO();
                 }
                 AlertDialog.Builder alertDialogBuilder =
                         new AlertDialog.Builder(getContext());
@@ -548,7 +546,7 @@ public class ProfileFragment extends Fragment {
                                 android.R.string.ok, new DialogInterface
                                         .OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
-                                        Root.runCommand("reboot");
+                                        References.reboot();
                                     }
                                 });
                 alertDialogBuilder.setCancelable(false);
@@ -595,15 +593,13 @@ public class ProfileFragment extends Fragment {
                         .getExternalStorageDirectory().getAbsolutePath() +
                         "/.substratum/current_overlays.xml");
                 if (current_overlays.exists()) {
-                    Root.runCommand("rm " + Environment
+                    References.delete(Environment
                             .getExternalStorageDirectory().getAbsolutePath() +
                             "/.substratum/current_overlays.xml");
                 }
-                Root.runCommand("cp /data/system/overlays" +
-                        ".xml " +
-                        Environment
-                                .getExternalStorageDirectory().getAbsolutePath() +
-                        "/.substratum/current_overlays.xml");
+                References.copy("/data/system/overlays.xml",
+                        Environment.getExternalStorageDirectory().getAbsolutePath() +
+                                "/.substratum/current_overlays.xml");
 
                 String[] commandsSystem4 = {Environment.getExternalStorageDirectory()
                         .getAbsolutePath() +

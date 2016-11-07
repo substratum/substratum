@@ -59,7 +59,7 @@ public class FontHandler {
             if (!checkChangeConfigurationPermissions()) {
                 Log.e("FontHandler", "Substratum was not granted " +
                         "CHANGE_CONFIGURATION permissions, allowing now...");
-                Root.runCommand("pm grant projekt.substratum " +
+                References.grantPermission("projekt.substratum",
                         "android.permission.CHANGE_CONFIGURATION");
             } else {
                 Log.d("FontHandler", "Substratum was granted CHANGE_CONFIGURATION permissions!");
@@ -114,11 +114,11 @@ public class FontHandler {
                                     final_commands);
                             mContext.sendBroadcast(runCommand);
                         } else {
-                            Root.runCommand(References.refreshWindows() + final_commands);
+                            new References.ThreadRunner().execute(final_commands);
                         }
                     } else {
                         if (References.checkOMSVersion(mContext) == 7) {
-                            Root.runCommand(final_commands);
+                            new References.ThreadRunner().execute(final_commands);
                         }
                     }
                 } else {
@@ -131,7 +131,7 @@ public class FontHandler {
                     alertDialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface
                             .OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            Root.runCommand("reboot");
+                            References.reboot();
                         }
                     });
                     alertDialogBuilder.setNegativeButton(
@@ -169,9 +169,8 @@ public class FontHandler {
                     if (created) Log.d("FontHandler", "Successfully created cache folder work " +
                             "directory!");
                 } else {
-                    Root.runCommand(
-                            "rm -r " + mContext.getCacheDir().getAbsolutePath() +
-                                    "/FontCache/FontCreator/");
+                    References.delete(mContext.getCacheDir().getAbsolutePath() +
+                            "/FontCache/FontCreator/");
                     boolean created = cacheDirectory2.mkdirs();
                     if (created) Log.d("FontHandler", "Successfully recreated cache folder work " +
                             "directory!");
@@ -204,48 +203,37 @@ public class FontHandler {
 
                 File dataSystemThemeDir = new File("/data/system/theme");
                 if (!dataSystemThemeDir.exists()) {
-                    Root.runCommand("mount -o rw,remount /data");
-                    Root.runCommand(
-                            "mkdir /data/system/theme/");
+                    References.mountRWData();
+                    References.createNewFolder("/data/system/theme/");
                 }
                 File dataSystemThemeFontsDir = new File("/data/system/theme/fonts");
                 if (!dataSystemThemeFontsDir.exists()) {
-                    Root.runCommand("mount -o rw,remount /data");
-                    Root.runCommand(
-                            "mkdir /data/system/theme/fonts");
+                    References.mountRWData();
+                    References.createNewFolder("/data/system/theme/fonts");
                 } else {
-                    Root.runCommand(
-                            "rm -r /data/system/theme/fonts/");
-                    Root.runCommand("mount -o rw,remount /data");
-                    Root.runCommand(
-                            "mkdir /data/system/theme/fonts");
+                    References.delete("/data/system/theme/fonts/");
+                    References.mountRWData();
+                    References.createNewFolder("/data/system/theme/fonts");
                 }
 
                 // Copy font configuration file (fonts.xml) to the working directory
                 File fontsConfig = new File(mContext.getCacheDir().getAbsolutePath() +
                         "/FontCache/FontCreator/fonts.xml");
                 if (!fontsConfig.exists()) copyAssets();
-
-                Root.runCommand(
-                        "cp /system/fonts/* /data/system/theme/fonts/");
+                References.copy("/system/fonts/*", "/data/system/theme/fonts/");
 
                 // Copy all the files from work directory to /data/system/theme/fonts
-
-                Root.runCommand("cp -F " + mContext.getCacheDir().getAbsolutePath() +
-                        "/FontCache/FontCreator/*" + " /data/system/theme/fonts/");
+                References.copy(mContext.getCacheDir().getAbsolutePath() +
+                        "/FontCache/FontCreator/*", "/data/system/theme/fonts/");
 
                 // Check for correct permissions and system file context integrity.
-
-                Root.runCommand("mount -o rw,remount /data");
-                Root.runCommand("chmod 755 /data/system/theme/");
-                Root.runCommand("chmod -R 747 " +
-                        "/data/system/theme/fonts/");
-                Root.runCommand("chmod 775 " +
-                        "/data/system/theme/fonts/");
-                Root.runCommand("mount -o ro,remount /data");
-                Root.runCommand("chcon -R u:object_r:system_file:s0 " +
-                        "/data/system/theme");
-                Root.runCommand("setprop sys.refresh_theme 1");
+                References.mountRWData();
+                References.setPermissions(755, "/data/system/theme/");
+                References.setPermissionsRecursively(747, "/data/system/theme/fonts/");
+                References.setPermissions(775, "/data/system/theme/fonts/");
+                References.mountROData();
+                References.setContext("/data/system/theme");
+                References.setProp("sys.refresh_theme", "1");
             } catch (Exception e) {
                 e.printStackTrace();
                 return "failed";

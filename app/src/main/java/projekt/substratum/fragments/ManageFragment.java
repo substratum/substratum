@@ -31,7 +31,6 @@ import java.util.List;
 import projekt.substratum.R;
 import projekt.substratum.config.References;
 import projekt.substratum.util.ReadOverlays;
-import projekt.substratum.util.Root;
 import projekt.substratum.util.SoundsHandler;
 
 /**
@@ -149,8 +148,8 @@ public class ManageFragment extends Fragment {
                                             }
                                             File file = new File(current_directory);
                                             if (file.exists()) {
-                                                Root.runCommand("mount -o rw,remount /system");
-                                                Root.runCommand("rm -r " + current_directory);
+                                                References.mountRW();
+                                                References.delete(current_directory);
                                             }
                                             Toast toast2 = Toast.makeText(getContext(), getString(R
                                                             .string.abort_overlay_toast_success),
@@ -171,8 +170,7 @@ public class ManageFragment extends Fragment {
                                                                 public void onClick
                                                                         (DialogInterface dialog,
                                                                          int id) {
-                                                                    Root.runCommand("killall " +
-                                                                            "zygote");
+                                                                    References.softReboot();
                                                                 }
                                                             });
                                             alertDialogBuilder.setCancelable(false);
@@ -479,12 +477,12 @@ public class ManageFragment extends Fragment {
         @Override
         protected String doInBackground(String... sUrl) {
             if (getDeviceEncryptionStatus() <= 1 && References.checkOMS(getContext())) {
-                Root.runCommand("rm -r /data/system/theme/bootanimation.zip");
+                References.delete("/data/system/theme/bootanimation.zip");
             } else {
-                Root.runCommand("mount -o rw,remount /system");
-                Root.runCommand("mv -f /system/media/bootanimation-backup.zip " +
+                References.mountRW();
+                References.move("/system/media/bootanimation-backup.zip",
                         "/system/media/bootanimation.zip");
-                Root.runCommand("rm -r /system/addon.d/81-subsboot.sh");
+                References.delete("/system/addon.d/81-subsboot.sh");
             }
             return null;
         }
@@ -527,7 +525,7 @@ public class ManageFragment extends Fragment {
                     Settings.System.putString(getContext().getContentResolver(),
                             Settings.System.FONT_SCALE, String.valueOf(fontSize + 0.0000001));
                     if (!prefs.getBoolean("systemui_recreate", false)) {
-                        Root.runCommand("pkill -f com.android.systemui");
+                        References.restartSystemUI();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -559,7 +557,7 @@ public class ManageFragment extends Fragment {
                     if (DEBUG)
                         Log.e("SubstratumLogger", "Masquerade was not found, falling back to " +
                                 "Substratum theme provider...");
-                    new References.ThreadRunner().execute("setprop sys.refresh_theme 1");
+                    References.setProp("setprop sys.refresh_theme", "1");
                 }
 
                 if (References.checkOMS(getContext())) {
@@ -569,7 +567,7 @@ public class ManageFragment extends Fragment {
                             Toast.LENGTH_SHORT);
                     toast.show();
                     if (!prefs.getBoolean("systemui_recreate", false)) {
-                        Root.runCommand("pkill -f com.android.systemui");
+                        References.restartSystemUI();
                     }
                 } else {
                     Toast toast = Toast.makeText(getContext(), getString(R.string
@@ -585,7 +583,7 @@ public class ManageFragment extends Fragment {
                     alertDialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface
                             .OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            Root.runCommand("reboot");
+                            References.reboot();
                         }
                     });
                     alertDialogBuilder.setNegativeButton(R.string.remove_dialog_later,
@@ -603,7 +601,7 @@ public class ManageFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            Root.runCommand("rm -r /data/system/theme/fonts/");
+            References.delete("/data/system/theme/fonts/");
             final_commands = References.refreshWindows();
             return null;
         }
@@ -630,12 +628,12 @@ public class ManageFragment extends Fragment {
                             .string.manage_sounds_toast),
                     Toast.LENGTH_SHORT);
             toast.show();
-            Root.runCommand("pkill -f com.android.systemui");
+            References.restartSystemUI();
         }
 
         @Override
         protected String doInBackground(String... sUrl) {
-            Root.runCommand("rm -r /data/system/theme/audio/");
+            References.delete("/data/system/theme/audio/");
             new SoundsHandler().SoundsClearer(getContext());
             return null;
         }

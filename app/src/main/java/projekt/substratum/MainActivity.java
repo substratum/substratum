@@ -712,17 +712,17 @@ public class MainActivity extends AppCompatActivity implements
             // Begin OMS based options
             case R.id.restart_systemui:
                 prefs.edit().clear().apply();
-                Root.runCommand("pkill -f com.android.systemui");
+                References.restartSystemUI();
                 return true;
 
             // Begin RRO based options
             case R.id.reboot_device:
                 prefs.edit().clear().apply();
-                Root.runCommand("reboot");
+                References.reboot();
                 return true;
             case R.id.soft_reboot:
                 prefs.edit().clear().apply();
-                Root.runCommand("pkill -f zygote");
+                References.softReboot();
                 return true;
 
             default:
@@ -766,9 +766,8 @@ public class MainActivity extends AppCompatActivity implements
                     File[] fileList = new File(getCacheDir().getAbsolutePath() +
                             "/SubstratumBuilder/").listFiles();
                     for (int i = 0; i < fileList.length; i++) {
-                        Root.runCommand(
-                                "rm -r " + getCacheDir().getAbsolutePath() +
-                                        "/SubstratumBuilder/" + fileList[i].getName());
+                        References.delete(getCacheDir().getAbsolutePath() +
+                                "/SubstratumBuilder/" + fileList[i].getName());
                     }
                     Log.d("SubstratumBuilder", "The cache has been flushed!");
                     if (permissionCheck2 == PackageManager.PERMISSION_GRANTED) {
@@ -885,12 +884,12 @@ public class MainActivity extends AppCompatActivity implements
                     if (!prefs.getBoolean("substratum_oms", true)) {
                         if (!new File(Environment.getExternalStorageDirectory()
                                 .getAbsolutePath() + "/.substratum/").exists()) {
-                            Root.runCommand("rm -r " + Environment.getExternalStorageDirectory()
+                            References.delete(Environment.getExternalStorageDirectory()
                                     .getAbsolutePath() + "/.substratum/");
                         }
                         if (!new File(Environment.getExternalStorageDirectory()
                                 .getAbsolutePath() + "/substratum/").exists()) {
-                            Root.runCommand("rm -r " + Environment.getExternalStorageDirectory()
+                            References.delete(Environment.getExternalStorageDirectory()
                                     .getAbsolutePath() + "/substratum/");
                         }
                         File directory = new File(Environment.getExternalStorageDirectory(),

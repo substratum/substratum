@@ -541,13 +541,57 @@ public class References {
         return null;
     }
 
+    // Begin consolidation of Root commands in Substratum
+    public static void adjustContentProvider(final String uri,
+                                             final String topic, final String fileName) {
+        Root.runCommand("content insert --uri " + uri + " " +
+                "--bind name:s:" + topic + " --bind value:s:" + fileName);
+    }
+
+    public static void copy(final String source, final String destination) {
+        Root.runCommand("cp -f " + source + " " + destination);
+    }
+
+    public static void copyDir(final String source, final String destination) {
+        Root.runCommand("cp -rf " + source + " " + destination);
+    }
+
+    public static void createNewFolder(final String foldername) {
+        Root.runCommand("mkdir " + foldername);
+    }
+
+    public static void delete(final String directory) {
+        Root.runCommand("rm -rf " + directory);
+    }
+
+    public static void move(final String source, final String destination) {
+        Root.runCommand("mv -f " + source + " " + destination);
+    }
+
     public static void mountRW() {
         String mountCMD = checkMountCMD();
         if (mountCMD != null && mountCMD.equals("toybox")) {
             Root.runCommand("mount -o rw,remount /system");
-
         } else if (mountCMD.equals("toolbox")) {
             Root.runCommand("mount -o remount,rw /system");
+        }
+    }
+
+    public static void mountRWData() {
+        String mountCMD = checkMountCMD();
+        if (mountCMD != null && mountCMD.equals("toybox")) {
+            Root.runCommand("mount -o rw,remount /data");
+        } else if (mountCMD.equals("toolbox")) {
+            Root.runCommand("mount -o remount,rw /data");
+        }
+    }
+
+    public static void mountRWVendor() {
+        String mountCMD = checkMountCMD();
+        if (mountCMD != null && mountCMD.equals("toybox")) {
+            Root.runCommand("mount -o rw,remount /vendor");
+        } else if (mountCMD.equals("toolbox")) {
+            Root.runCommand("mount -o remount,rw /vendor");
         }
     }
 
@@ -555,12 +599,91 @@ public class References {
         String mountCMD = checkMountCMD();
         if (mountCMD != null && mountCMD.equals("toybox")) {
             Root.runCommand("mount -o ro,remount /system");
-
         } else if (mountCMD.equals("toolbox")) {
             Root.runCommand("mount -o remount,ro /system");
         }
     }
 
+    public static void mountROData() {
+        String mountCMD = checkMountCMD();
+        if (mountCMD != null && mountCMD.equals("toybox")) {
+            Root.runCommand("mount -o ro,remount /data");
+        } else if (mountCMD.equals("toolbox")) {
+            Root.runCommand("mount -o remount,ro /data");
+        }
+    }
+
+    public static void mountROVendor() {
+        String mountCMD = checkMountCMD();
+        if (mountCMD != null && mountCMD.equals("toybox")) {
+            Root.runCommand("mount -o ro,remount /vendor");
+        } else if (mountCMD.equals("toolbox")) {
+            Root.runCommand("mount -o remount,ro /vendor");
+        }
+    }
+
+    public static void grantPermission(final String packager, final String permission) {
+        Root.runCommand("pm grant " + packager + " " + permission);
+    }
+
+    public static void installOverlay(final String overlay) {
+        Root.runCommand("pm install -r " + overlay);
+    }
+
+    public static void reboot() {
+        Root.runCommand("reboot");
+    }
+
+    public static void refreshWindow() {
+        // This is a deprecated call for OMS3 only. Do not call this from OMS7
+        Root.runCommand(References.refreshWindows());
+    }
+
+    public static void restartSystemUI() {
+        Root.runCommand("pkill -f com.android.systemui");
+    }
+
+    public static void setContext(final String foldername) {
+        Root.runCommand("chcon -R u:object_r:system_file:s0 " + foldername);
+    }
+
+    public static void setPermissions(final int permission, final String foldername) {
+        Root.runCommand("chmod " + permission + " " + foldername);
+    }
+
+    public static void setPermissionsRecursively(final int permission, final String foldername) {
+        Root.runCommand("chmod -R " + permission + " " + foldername);
+    }
+
+    public static void setProp(final String propName, final String propValue) {
+        Root.runCommand("setprop " + propName + " " + propValue);
+    }
+
+    public static void softReboot() {
+        Root.runCommand("pkill -f zygote");
+    }
+
+    public static void symlink(final String source, final String destination) {
+        Root.runCommand("ln -s " + source + " " + destination);
+    }
+
+    public static void uninstallOverlay(final String overlay) {
+        Root.runCommand("pm uninstall " + overlay);
+    }
+
+    public static class ThreadRunner extends AsyncTask<String, Integer, String> {
+        @Override
+        protected String doInBackground(String... sUrl) {
+            try {
+                Root.runCommand(sUrl[0]);
+            } catch (Exception e) {
+                // Consume window refresh
+            }
+            return null;
+        }
+    }
+
+    // This class serves to update the theme's cache on demand
     public static class SubstratumThemeUpdate extends AsyncTask<Void, Integer, String> {
 
         private ProgressDialog progress;
@@ -614,19 +737,6 @@ public class References {
         @Override
         protected String doInBackground(Void... Params) {
             launch = new CacheCreator().initializeCache(mContext, theme_package);
-            return null;
-        }
-    }
-
-    public static class ThreadRunner extends AsyncTask<String, Integer, String> {
-
-        @Override
-        protected String doInBackground(String... sUrl) {
-            try {
-                Root.runCommand(sUrl[0]);
-            } catch (Exception e) {
-                // Consume window refresh
-            }
             return null;
         }
     }

@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import projekt.substratum.config.References;
+
 /**
  * @author Nicholas Chum (nicholaschum)
  */
@@ -21,13 +23,12 @@ public class ReadOverlaysFile {
                 .getExternalStorageDirectory().getAbsolutePath() +
                 "/.substratum/current_overlays.xml");
         if (current_overlays.exists()) {
-            Root.runCommand("rm " + Environment
+            References.delete(Environment
                     .getExternalStorageDirectory().getAbsolutePath() +
                     "/.substratum/current_overlays.xml");
         }
-        Root.runCommand("cp /data/system/overlays.xml " +
-                Environment
-                        .getExternalStorageDirectory().getAbsolutePath() +
+        References.copy("/data/system/overlays.xml", Environment
+                .getExternalStorageDirectory().getAbsolutePath() +
                 "/.substratum/current_overlays.xml");
 
         File file = new File(argv[0]);

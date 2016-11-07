@@ -62,7 +62,6 @@ import dalvik.system.DexFile;
 import projekt.substratum.adapters.InformationTabsAdapter;
 import projekt.substratum.config.References;
 import projekt.substratum.util.ReadOverlays;
-import projekt.substratum.util.Root;
 
 /**
  * @author Nicholas Chum (nicholaschum)
@@ -588,7 +587,7 @@ public class InformationActivity extends AppCompatActivity {
                                                 all_overlays.get(i);
                                     }
                                 }
-                                Root.runCommand(commands2);
+                                new References.ThreadRunner().execute(commands2);
                             }
                         }
                     })
@@ -621,15 +620,14 @@ public class InformationActivity extends AppCompatActivity {
                                     .getExternalStorageDirectory().getAbsolutePath() +
                                     "/.substratum/current_overlays.xml");
                             if (current_overlays.exists()) {
-                                Root.runCommand("rm " + Environment
+                                References.delete(Environment
                                         .getExternalStorageDirectory().getAbsolutePath() +
                                         "/.substratum/current_overlays.xml");
                             }
-                            Root.runCommand("cp /data/system/overlays" +
-                                    ".xml " +
+                            References.copy("/data/system/overlays.xml",
                                     Environment
                                             .getExternalStorageDirectory().getAbsolutePath() +
-                                    "/.substratum/current_overlays.xml");
+                                            "/.substratum/current_overlays.xml");
 
                             List<String> stateAll = ReadOverlays.main(4, getApplicationContext());
                             stateAll.addAll(ReadOverlays.main(5, getApplicationContext()));
@@ -674,7 +672,7 @@ public class InformationActivity extends AppCompatActivity {
                                 runCommand.putExtra("om-commands", commands2);
                                 getApplicationContext().sendBroadcast(runCommand);
                             } else {
-                                Root.runCommand(commands2);
+                                new References.ThreadRunner().execute(commands2);
                             }
                         }
                     })
@@ -747,7 +745,7 @@ public class InformationActivity extends AppCompatActivity {
                                 runCommand.putExtra("om-commands", commands2);
                                 getApplicationContext().sendBroadcast(runCommand);
                             } else {
-                                Root.runCommand(commands2);
+                                new References.ThreadRunner().execute(commands2);
                             }
                         }
                     })
@@ -785,7 +783,7 @@ public class InformationActivity extends AppCompatActivity {
                     .setPositiveButton(R.string.uninstall_dialog_okay, new DialogInterface
                             .OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            Root.runCommand("pm uninstall " + theme_pid);
+                            References.uninstallOverlay(theme_pid);
 
                             // Quickly parse theme_name
                             String parse1_themeName = theme_name.replaceAll("\\s+", "");
@@ -797,15 +795,14 @@ public class InformationActivity extends AppCompatActivity {
                                     .getExternalStorageDirectory().getAbsolutePath() +
                                     "/.substratum/current_overlays.xml");
                             if (current_overlays.exists()) {
-                                Root.runCommand("rm " + Environment
+                                References.delete(Environment
                                         .getExternalStorageDirectory().getAbsolutePath() +
                                         "/.substratum/current_overlays.xml");
                             }
-                            Root.runCommand("cp /data/system/overlays" +
-                                    ".xml " +
+                            References.copy("/data/system/overlays.xml",
                                     Environment
                                             .getExternalStorageDirectory().getAbsolutePath() +
-                                    "/.substratum/current_overlays.xml");
+                                            "/.substratum/current_overlays.xml");
 
                             List<String> stateAll = ReadOverlays.main(4, getApplicationContext());
                             stateAll.addAll(ReadOverlays.main(5, getApplicationContext()));
@@ -838,7 +835,7 @@ public class InformationActivity extends AppCompatActivity {
                                     Toast.LENGTH_LONG);
                             toast.show();
 
-                            Root.runCommand("rm -r " + getCacheDir().getAbsolutePath() +
+                            References.delete(getCacheDir().getAbsolutePath() +
                                     "/SubstratumBuilder/" + getThemePID());
 
                             if (References.isPackageInstalled(getApplicationContext(),
@@ -860,17 +857,17 @@ public class InformationActivity extends AppCompatActivity {
                                                 all_overlays.get(i);
                                     }
                                 }
-                                Root.runCommand(commands2);
+                                new References.ThreadRunner().execute(commands2);
                             }
 
                             //Remove applied font, sounds, and bootanimation
                             if (prefs.getString("sounds_applied", "").equals(theme_pid)) {
-                                Root.runCommand("rm -r /data/system/theme/audio/ && pkill -f com" +
+                                References.delete("/data/system/theme/audio/ && pkill -f com" +
                                         ".android.systemui");
                                 editor.remove("sounds_applied");
                             }
                             if (prefs.getString("fonts_applied", "").equals(theme_pid)) {
-                                Root.runCommand("rm -r /data/system/theme/fonts/");
+                                References.delete("/data/system/theme/fonts/");
                                 if (References.isPackageInstalled(getApplicationContext(),
                                         "masquerade.substratum")) {
                                     Intent runCommand = new Intent();
@@ -880,8 +877,8 @@ public class InformationActivity extends AppCompatActivity {
                                             " && setprop sys.refresh_theme 1");
                                     getApplicationContext().sendBroadcast(runCommand);
                                 } else {
-                                    Root.runCommand(References.refreshWindows() +
-                                            " && setprop sys.refresh_theme 1");
+                                    References.setProp("sys.refresh_theme", "1");
+                                    References.refreshWindow();
                                 }
                                 if (!prefs.getBoolean("systemui_recreate", false)) {
                                     if (References.isPackageInstalled(getApplicationContext(),
@@ -893,16 +890,16 @@ public class InformationActivity extends AppCompatActivity {
                                                 ".systemui");
                                         getApplicationContext().sendBroadcast(runCommand);
                                     } else {
-                                        Root.runCommand("pkill -f com.android.systemui");
+                                        References.restartSystemUI();
                                     }
                                 }
                                 editor.remove("fonts_applied");
                             }
                             if (prefs.getString("bootanimation_applied", "").equals(theme_pid)) {
                                 if (getDeviceEncryptionStatus() <= 1) {
-                                    Root.runCommand("rm -r /data/system/theme/bootanimation.zip");
+                                    References.delete("/data/system/theme/bootanimation.zip");
                                 } else {
-                                    Root.runCommand("rm -r /system/media/bootanimation-encrypted" +
+                                    References.delete("/system/media/bootanimation-encrypted" +
                                             ".zip");
                                 }
                                 editor.remove("bootanimation_applied");
@@ -950,17 +947,17 @@ public class InformationActivity extends AppCompatActivity {
 
         // Begin OMS based options
         if (id == R.id.restart_systemui) {
-            Root.runCommand("pkill -f com.android.systemui");
+            References.restartSystemUI();
             return true;
         }
 
         // Begin RRO based options
         if (id == R.id.reboot_device) {
-            Root.runCommand("reboot");
+            References.reboot();
             return true;
         }
         if (id == R.id.soft_reboot) {
-            Root.runCommand("pkill -f zygote");
+            References.softReboot();
             return true;
         }
         return super.onOptionsItemSelected(item);

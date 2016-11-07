@@ -34,7 +34,6 @@ import projekt.substratum.adapters.ShowcaseTabsAdapter;
 import projekt.substratum.config.References;
 import projekt.substratum.util.MD5;
 import projekt.substratum.util.ReadShowcaseTabsFile;
-import projekt.substratum.util.Root;
 
 /**
  * @author Nicholas Chum (nicholaschum)
@@ -77,9 +76,8 @@ public class ShowcaseActivity extends AppCompatActivity {
                 }
                 return true;
             case R.id.refresh:
-                Root.runCommand(
-                        "rm -rf " + getApplicationContext().getCacheDir().getAbsolutePath() +
-                                "/ShowcaseCache/");
+                References.delete(getApplicationContext().getCacheDir().getAbsolutePath() +
+                        "/ShowcaseCache/");
                 SharedPreferences prefs = getApplicationContext().getSharedPreferences(
                         "showcase_tabs", 0);
                 prefs.edit().clear().apply();
@@ -183,9 +181,8 @@ public class ShowcaseActivity extends AppCompatActivity {
                     renameMe.renameTo(new File(getApplicationContext().getCacheDir() +
                             "/" + "showcase_tabs.xml"));
                     // Also clear the tabs cache
-                    Root.runCommand(
-                            "rm -rf " + getApplicationContext().getCacheDir().getAbsolutePath() +
-                                    "/ShowcaseCache/");
+                    References.delete(getApplicationContext().getCacheDir().getAbsolutePath() +
+                            "/ShowcaseCache/");
                     SharedPreferences prefs = getApplicationContext().getSharedPreferences(
                             "showcase_tabs", 0);
                     prefs.edit().clear().apply();

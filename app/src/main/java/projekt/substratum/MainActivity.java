@@ -195,7 +195,7 @@ public class MainActivity extends AppCompatActivity implements
                     new PrimaryDrawerItem().withName(R.string.nav_priorities).withIcon(
                             R.drawable.nav_drawer_priorities),
                     new PrimaryDrawerItem().withName(R.string.nav_backup_restore).withIcon(
-                            R.drawable.nav_drawer_profiles),
+                            R.drawable.nav_drawer_profiles).withEnabled(false),
                     new SectionDrawerItem().withName(R.string.nav_section_header_more),
                     new SecondaryDrawerItem().withName(R.string.nav_troubleshooting)
                             .withIcon(
@@ -348,7 +348,7 @@ public class MainActivity extends AppCompatActivity implements
                                 R.drawable.nav_manage),
                         new PrimaryDrawerItem().withName(R.string.nav_backup_restore)
                                 .withIcon(
-                                        R.drawable.nav_drawer_profiles),
+                                        R.drawable.nav_drawer_profiles).withEnabled(false),
                         new SectionDrawerItem().withName(R.string.nav_section_header_more),
                         new SecondaryDrawerItem().withName(R.string.nav_troubleshooting)
                                 .withIcon(
@@ -488,7 +488,7 @@ public class MainActivity extends AppCompatActivity implements
                                 .drawable.nav_manage),
                         new PrimaryDrawerItem().withName(R.string.nav_backup_restore)
                                 .withIcon(R
-                                        .drawable.nav_drawer_profiles),
+                                        .drawable.nav_drawer_profiles).withEnabled(false),
 
                         new SectionDrawerItem().withName(R.string.nav_section_header_more),
                         new SecondaryDrawerItem().withName(R.string.nav_troubleshooting)

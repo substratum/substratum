@@ -107,8 +107,11 @@ public class MainActivity extends AppCompatActivity implements
 
         File destFile = new File(destFileName);
         File destParentDir = destFile.getParentFile();
-        Boolean made = destParentDir.mkdir();
-        if (!made) Log.e("SubstratumLogger", "Unable create directories for rescue archive dumps.");
+        if (!destParentDir.exists()) {
+            Boolean made = destParentDir.mkdir();
+            if (!made) Log.e("SubstratumLogger",
+                    "Unable to create directories for rescue archive dumps.");
+        }
 
         InputStream in;
         OutputStream out;

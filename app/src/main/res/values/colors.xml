@@ -9,7 +9,6 @@
     <color name="priorities_switchbar">@color/colorPrimary</color>
 
     <color name="quick_apply_icon_tint">@color/main_screen_card_theme_title</color>
-    <color name="sounds_play_pause_button_tint">@android:color/black</color>
     <color name="notification_dismiss_icon_tint">@color/main_screen_card_theme_title</color>
 
     <color name="wallpaper_tab_text">@color/main_screen_card_theme_title</color>
@@ -41,9 +40,11 @@
     <color name="font_spinner_background">@color/theme_information_background</color>
     <color name="font_window_background">@android:color/black</color>
 
-    <color name="sounds_placeholder_tint">@android:color/black</color>
+    <color name="sounds_text">@android:color/white</color>
+    <color name="sounds_placeholder_tint">@android:color/white</color>
     <color name="sounds_checked">@color/colorAccent</color>
     <color name="sounds_unchecked">#ff777777</color>
+    <color name="sounds_play_pause_button_tint">@android:color/white</color>
     <color name="sounds_spinner_background">@color/theme_information_background</color>
     <color name="sounds_window_background">@android:color/black</color>
 

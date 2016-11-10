@@ -163,7 +163,7 @@ public class SubstratumBuilder {
                  BufferedWriter bw = new BufferedWriter(fw);
                  PrintWriter pw = new PrintWriter(bw)) {
                 Boolean created = root.createNewFile();
-                if (!created) Log.e("SubstratumBuilder", "Could not create new file!");
+                if (!created) //
                 if (variant != null) {
                     String manifest =
                             "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?>\n" +

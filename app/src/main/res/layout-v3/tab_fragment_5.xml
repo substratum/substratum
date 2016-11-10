@@ -29,7 +29,7 @@
                 android:background="@android:color/transparent"
                 android:clickable="true"
                 android:foreground="?android:selectableItemBackground"
-                android:src="@drawable/sounds_check"/>
+                android:src="@drawable/tab_checkbox"/>
         </RelativeLayout>
 
         <RelativeLayout

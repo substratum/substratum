@@ -3,9 +3,6 @@ package projekt.substratum.model;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
 public class ThemeInfo {
 
     private String themeName;

@@ -1,7 +1,5 @@
 package projekt.substratum.tabs;
 
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
@@ -42,10 +40,6 @@ import projekt.substratum.model.SoundsInfo;
 import projekt.substratum.util.RecyclerItemClickListener;
 import projekt.substratum.util.SoundsHandler;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
-
 public class SoundPackager extends Fragment {
 
     private String theme_pid;
@@ -75,7 +69,7 @@ public class SoundPackager extends Fragment {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new SoundsHandler().SoundsHandler(soundsSelector.getSelectedItem()
+                new SoundsHandler().execute(soundsSelector.getSelectedItem()
                         .toString(), getContext(), theme_pid);
             }
         });
@@ -119,8 +113,8 @@ public class SoundPackager extends Fragment {
                     theme_pid + "/assets/audio");
             File[] fileArray = f.listFiles();
             ArrayList<String> archivedSounds = new ArrayList<>();
-            for (int i = 0; i < fileArray.length; i++) {
-                archivedSounds.add(fileArray[i].getName());
+            for (File file : fileArray) {
+                archivedSounds.add(file.getName());
             }
             ArrayList<String> unarchivedSounds = new ArrayList<>();
             unarchivedSounds.add(getString(R.string.sounds_default_spinner));
@@ -211,24 +205,6 @@ public class SoundPackager extends Fragment {
         mp.reset();
     }
 
-    private String getThemeName(String package_name) {
-        // Simulate the Layers Plugin feature by filtering all installed apps and their metadata
-        try {
-            ApplicationInfo appInfo = getContext().getPackageManager().getApplicationInfo(
-                    package_name, PackageManager.GET_META_DATA);
-            if (appInfo.metaData != null) {
-                if (appInfo.metaData.getString(References.metadataName) != null) {
-                    if (appInfo.metaData.getString(References.metadataAuthor) != null) {
-                        return appInfo.metaData.getString(References.metadataName);
-                    }
-                }
-            }
-        } catch (Exception e) {
-            // Exception
-        }
-        return null;
-    }
-
     private class SoundsPreview extends AsyncTask<String, Integer, String> {
 
         @Override
@@ -316,7 +292,7 @@ public class SoundPackager extends Fragment {
             return null;
         }
 
-        public void listFilesForFolder(final File folder) {
+        void listFilesForFolder(final File folder) {
             for (final File fileEntry : folder.listFiles()) {
                 if (fileEntry.isDirectory()) {
                     listFilesForFolder(fileEntry);

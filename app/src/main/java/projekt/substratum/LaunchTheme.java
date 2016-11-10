@@ -11,10 +11,6 @@ import java.io.File;
 
 import projekt.substratum.config.References;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
-
 public class LaunchTheme extends AppCompatActivity {
 
     @Override

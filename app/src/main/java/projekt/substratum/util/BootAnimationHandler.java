@@ -27,6 +27,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
+import java.util.Locale;
 import java.util.zip.CRC32;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -34,10 +35,6 @@ import java.util.zip.ZipOutputStream;
 
 import projekt.substratum.R;
 import projekt.substratum.config.References;
-
-/**
- * @author Nicholas Chum (nicholaschum)
- */
 
 public class BootAnimationHandler {
 
@@ -63,7 +60,7 @@ public class BootAnimationHandler {
         return status;
     }
 
-    public void BootAnimationHandler(String arguments, Context context, String theme_pid) {
+    public void execute(String arguments, Context context, String theme_pid) {
         this.mContext = context;
         this.theme_pid = theme_pid;
         new BootAnimationHandlerAsync().execute(arguments);
@@ -106,7 +103,6 @@ public class BootAnimationHandler {
             has_failed = false;
 
             // Move the file from assets folder to a new working area
-
             Log.d("BootAnimationHandler", "Copying over the selected boot animation to working " +
                     "directory...");
 
@@ -130,7 +126,6 @@ public class BootAnimationHandler {
             String bootanimation = sUrl[0];
 
             // Now let's take out desc.txt from the theme's assets (bootanimation.zip) and parse it
-
             if (!has_failed) {
                 Log.d("BootAnimationHandler", "Analyzing integrity of boot animation descriptor " +
                         "file...");
@@ -152,7 +147,6 @@ public class BootAnimationHandler {
                 }
 
                 // Rename the file
-
                 File workingDirectory = new File(mContext.getCacheDir()
                         .getAbsolutePath() + "/BootAnimationCache/AnimationCreator/");
                 File from = new File(workingDirectory, bootanimation + ".zip");
@@ -183,7 +177,6 @@ public class BootAnimationHandler {
             }
 
             // Begin parsing of the file (desc.txt) and parse the first line
-
             if (!has_failed) {
                 Log.d("BootAnimationHandler", "Calculating hardware display density metrics and " +
                         "resizing the bootanimation...");
@@ -227,9 +220,11 @@ public class BootAnimationHandler {
                             wm.getDefaultDisplay().getRealMetrics(dm);
                             // just in case the device is in landscape orientation we will
                             // swap the values since most (if not all) animations are portrait
+                            int prevent_lint_w = dm.widthPixels;
+                            int prevent_lint_h = dm.heightPixels;
                             if (dm.widthPixels > dm.heightPixels) {
-                                scaledWidth = dm.heightPixels;
-                                scaledHeight = dm.widthPixels;
+                                scaledWidth = prevent_lint_h;
+                                scaledHeight = prevent_lint_w;
                             } else {
                                 scaledWidth = dm.widthPixels;
                                 scaledHeight = dm.heightPixels;
@@ -238,9 +233,10 @@ public class BootAnimationHandler {
                             int width = Integer.parseInt(info[0]);
                             int height = Integer.parseInt(info[1]);
 
-                            if (width == height)
-                                scaledHeight = scaledWidth;
-                            else {
+                            int prevent_lint = scaledWidth;
+                            if (width == height) {
+                                scaledHeight = prevent_lint;
+                            } else {
                                 // adjust scaledHeight to retain original aspect ratio
                                 float scale = (float) scaledWidth / (float) width;
                                 int newHeight = (int) ((float) height * scale);
@@ -251,7 +247,8 @@ public class BootAnimationHandler {
                             CRC32 crc32 = new CRC32();
                             int size = 0;
                             ByteBuffer buffer = ByteBuffer.wrap(bytes);
-                            line = String.format("%d %d %s\n", scaledWidth, scaledHeight, info[2]);
+                            line = String.format(Locale.getDefault(),
+                                    "%d %d %s\n", scaledWidth, scaledHeight, info[2]);
                             buffer.put(line.getBytes());
                             size += line.getBytes().length;
                             crc32.update(line.getBytes());
@@ -362,14 +359,14 @@ public class BootAnimationHandler {
                                 try {
                                     in.close();
                                 } catch (IOException e) {
-                                    // hohoho
+                                    // Suppress warning
                                 }
                             }
                             if (out != null) {
                                 try {
                                     out.close();
                                 } catch (IOException e) {
-                                    // hohoho
+                                    // Suppress warning
                                 }
                             }
                         }

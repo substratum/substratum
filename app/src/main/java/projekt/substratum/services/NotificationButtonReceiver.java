@@ -7,10 +7,6 @@ import android.content.Intent;
 
 import projekt.substratum.config.References;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
-
 public class NotificationButtonReceiver extends BroadcastReceiver {
 
     @Override

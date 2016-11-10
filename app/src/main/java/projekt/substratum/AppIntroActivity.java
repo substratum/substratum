@@ -10,10 +10,6 @@ import com.stephentuso.welcome.WelcomeScreenHelper;
 
 import projekt.substratum.util.AppIntro;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
-
 public class AppIntroActivity extends AppCompatActivity {
 
     private SharedPreferences prefs;

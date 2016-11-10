@@ -12,10 +12,6 @@ import android.service.quicksettings.TileService;
 import projekt.substratum.R;
 import projekt.substratum.config.References;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
-
 @TargetApi(Build.VERSION_CODES.N)
 public class CookieTile extends TileService {
 

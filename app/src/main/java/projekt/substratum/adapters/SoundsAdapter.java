@@ -11,10 +11,6 @@ import java.util.List;
 import projekt.substratum.R;
 import projekt.substratum.model.SoundsInfo;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
-
 public class SoundsAdapter extends RecyclerView.Adapter<SoundsAdapter.MyViewHolder> {
 
     private List<SoundsInfo> soundsList;
@@ -27,7 +23,6 @@ public class SoundsAdapter extends RecyclerView.Adapter<SoundsAdapter.MyViewHold
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.sounds_list_row, parent, false);
-
         return new MyViewHolder(itemView);
     }
 
@@ -42,10 +37,10 @@ public class SoundsAdapter extends RecyclerView.Adapter<SoundsAdapter.MyViewHold
         return soundsList.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView title;
 
-        public MyViewHolder(View view) {
+        MyViewHolder(View view) {
             super(view);
             title = (TextView) view.findViewById(R.id.title);
         }

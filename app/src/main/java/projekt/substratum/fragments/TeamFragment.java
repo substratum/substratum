@@ -13,16 +13,13 @@ import android.view.ViewGroup;
 import projekt.substratum.R;
 import projekt.substratum.easteregg.LLandActivity;
 
-/**
- * Created by Nicholas on 2016-03-31.
- */
 public class TeamFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.team_fragment, null);
+        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.team_fragment, container, false);
 
         // Begin Team Leaders
 

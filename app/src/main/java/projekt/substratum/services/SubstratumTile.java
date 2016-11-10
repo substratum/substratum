@@ -8,10 +8,6 @@ import android.service.quicksettings.TileService;
 import projekt.substratum.LaunchActivity;
 import projekt.substratum.LauncherActivity;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
-
 @TargetApi(Build.VERSION_CODES.N)
 public class SubstratumTile extends TileService {
 

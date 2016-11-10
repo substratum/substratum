@@ -7,10 +7,6 @@ import android.widget.Toast;
 
 import projekt.substratum.R;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
-
 public class MasqueradeBall extends BroadcastReceiver {
 
     @Override

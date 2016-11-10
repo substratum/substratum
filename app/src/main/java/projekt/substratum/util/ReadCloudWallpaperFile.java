@@ -12,10 +12,6 @@ import java.util.TreeMap;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
-
 public class ReadCloudWallpaperFile {
 
     public static Map main(String argv[]) {

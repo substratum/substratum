@@ -18,10 +18,6 @@ import projekt.substratum.R;
 import projekt.substratum.config.References;
 import projekt.substratum.model.OverlaysInfo;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
-
 public class OverlaysAdapter extends
         RecyclerView.Adapter<OverlaysAdapter.ViewHolder> {
 
@@ -35,7 +31,7 @@ public class OverlaysAdapter extends
     @Override
     public OverlaysAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemLayoutView = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.overlays_list_row, null);
+                R.layout.overlays_list_row, parent, false);
         return new ViewHolder(itemLayoutView);
     }
 
@@ -54,16 +50,13 @@ public class OverlaysAdapter extends
                         current_object.versionName);
                 viewHolder.overlayState.setText(format);
                 viewHolder.overlayState.setTextColor(current_object
-                        .getInheritedContext().
-                                getColor(R.color
-                                        .overlay_update_available));
+                        .getInheritedContext().getColor(R.color.overlay_update_available));
             } else {
                 viewHolder.overlayState.setText(current_object
                         .getInheritedContext()
                         .getString(R.string.overlays_up_to_date));
                 viewHolder.overlayState.setTextColor(current_object
-                        .getInheritedContext().
-                                getColor(R.color.overlay_update_not_needed));
+                        .getInheritedContext().getColor(R.color.overlay_update_not_needed));
             }
         } else {
             if (viewHolder.overlayState.getVisibility() == View.VISIBLE) {
@@ -72,27 +65,25 @@ public class OverlaysAdapter extends
                         .getString(R.string
                                 .overlays_overlay_not_installed));
                 viewHolder.overlayState.setTextColor(current_object
-                        .getInheritedContext()
-                        .getColor(R.color
-                                .overlay_not_approved_list_entry));
+                        .getInheritedContext().getColor(R.color.overlay_not_approved_list_entry));
             } else {
                 viewHolder.overlayState.setVisibility(View.GONE);
             }
         }
         if (current_object.isOverlayEnabled()) {
             viewHolder.overlayTargetPackageName.setTextColor(
-                    current_object.getInheritedContext().getColor(R.color
-                            .overlay_installed_list_entry));
+                    current_object.getInheritedContext().getColor(
+                            R.color.overlay_installed_list_entry));
         } else {
             if (current_object.isPackageInstalled(current_object
                     .getFullOverlayParameters())) {
                 viewHolder.overlayTargetPackageName.setTextColor(
-                        current_object.getInheritedContext().getColor(R
-                                .color.overlay_not_enabled_list_entry));
+                        current_object.getInheritedContext().getColor(
+                                R.color.overlay_not_enabled_list_entry));
             } else {
                 viewHolder.overlayTargetPackageName.setTextColor(
-                        current_object.getInheritedContext().getColor(R
-                                .color.overlay_not_installed_list_entry));
+                        current_object.getInheritedContext().getColor(
+                                R.color.overlay_not_installed_list_entry));
             }
         }
     }
@@ -102,8 +93,7 @@ public class OverlaysAdapter extends
     private void commitChanges(OverlaysInfo current_object, ViewHolder viewHolder, String
             packageName) {
         if (current_object.isPackageInstalled(current_object
-                .getPackageName() +
-                "." + current_object.getThemeName() + "." +
+                .getPackageName() + "." + current_object.getThemeName() + "." +
                 packageName + ((current_object.getBaseResources().length
                 () > 0) ? "." + current_object.getBaseResources() : ""))) {
             viewHolder.overlayState.setVisibility(View.VISIBLE);
@@ -120,20 +110,18 @@ public class OverlaysAdapter extends
                 viewHolder.overlayState.setText(format);
                 viewHolder.overlayState.setTextColor(current_object
                         .getInheritedContext()
-                        .getColor(R.color
-                                .overlay_update_available));
+                        .getColor(R.color.overlay_update_available));
             } else {
                 viewHolder.overlayState.setText(current_object
                         .getInheritedContext()
                         .getString(R.string.overlays_up_to_date));
                 viewHolder.overlayState.setTextColor(current_object
-                        .getInheritedContext().getColor(R.color
-                                .overlay_update_not_needed));
+                        .getInheritedContext().getColor(R.color.overlay_update_not_needed));
             }
             if (current_object.isOverlayEnabled()) {
                 viewHolder.overlayTargetPackageName.setTextColor(
-                        current_object.getInheritedContext().getColor(R
-                                .color.overlay_installed_list_entry));
+                        current_object.getInheritedContext().getColor(
+                                R.color.overlay_installed_list_entry));
             } else {
                 if (current_object.isPackageInstalled(current_object
                         .getFullOverlayParameters())) {
@@ -154,24 +142,21 @@ public class OverlaysAdapter extends
                                 .overlays_overlay_not_installed));
                 viewHolder.overlayState.setTextColor(current_object
                         .getInheritedContext()
-                        .getColor(R.color
-                                .overlay_not_approved_list_entry));
+                        .getColor(R.color.overlay_not_approved_list_entry));
                 if (current_object.isOverlayEnabled()) {
                     viewHolder.overlayTargetPackageName.setTextColor(
-                            current_object.getInheritedContext().getColor
-                                    (R.color.overlay_installed_list_entry));
+                            current_object.getInheritedContext().getColor(
+                                    R.color.overlay_installed_list_entry));
                 } else {
                     if (current_object.isPackageInstalled(current_object
                             .getFullOverlayParameters())) {
                         viewHolder.overlayTargetPackageName.setTextColor(
                                 current_object.getInheritedContext()
-                                        .getColor(R.color
-                                                .overlay_not_enabled_list_entry));
+                                        .getColor(R.color.overlay_not_enabled_list_entry));
                     } else {
                         viewHolder.overlayTargetPackageName.setTextColor(
                                 current_object.getInheritedContext()
-                                        .getColor(R.color
-                                                .overlay_not_installed_list_entry));
+                                        .getColor(R.color.overlay_not_installed_list_entry));
                     }
                 }
             } else {
@@ -449,13 +434,11 @@ public class OverlaysAdapter extends
                             .getFullOverlayParameters())) {
                         viewHolder.overlayTargetPackageName.setTextColor(
                                 current_object.getInheritedContext()
-                                        .getColor(R.color
-                                                .overlay_not_enabled_list_entry));
+                                        .getColor(R.color.overlay_not_enabled_list_entry));
                     } else {
                         viewHolder.overlayTargetPackageName.setTextColor(
                                 current_object.getInheritedContext()
-                                        .getColor(R.color
-                                                .overlay_not_installed_list_entry));
+                                        .getColor(R.color.overlay_not_installed_list_entry));
                     }
                 }
             } else {
@@ -497,13 +480,11 @@ public class OverlaysAdapter extends
                             .getFullOverlayParameters())) {
                         viewHolder.overlayTargetPackageName.setTextColor(
                                 current_object.getInheritedContext()
-                                        .getColor(R.color
-                                                .overlay_not_enabled_list_entry));
+                                        .getColor(R.color.overlay_not_enabled_list_entry));
                     } else {
                         viewHolder.overlayTargetPackageName.setTextColor(
                                 current_object.getInheritedContext()
-                                        .getColor(R.color
-                                                .overlay_not_installed_list_entry));
+                                        .getColor(R.color.overlay_not_installed_list_entry));
                     }
                 }
             }
@@ -519,35 +500,34 @@ public class OverlaysAdapter extends
         return overlayList;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
 
-        public CardView card;
-        public TextView overlayTargetPackageName;
-        public TextView overlayTargetPackage;
-        public TextView overlayState;
-        public CheckBox checkBox;
-        public Spinner optionsSpinner;
-        public Spinner optionsSpinner2;
-        public Spinner optionsSpinner3;
-        public Spinner optionsSpinner4;
-        public ImageView app_icon;
+        CardView card;
+        TextView overlayTargetPackageName;
+        TextView overlayTargetPackage;
+        TextView overlayState;
+        CheckBox checkBox;
+        Spinner optionsSpinner;
+        Spinner optionsSpinner2;
+        Spinner optionsSpinner3;
+        Spinner optionsSpinner4;
+        ImageView app_icon;
 
-        public ViewHolder(View itemLayoutView) {
+        ViewHolder(View itemLayoutView) {
             super(itemLayoutView);
-
+            app_icon = (ImageView) itemLayoutView.findViewById(R.id.app_icon);
             card = (CardView) itemLayoutView.findViewById(R.id.card);
-            overlayTargetPackageName = (TextView) itemLayoutView.findViewById(R.id
-                    .overlayTargetPackageName);
-            overlayTargetPackage = (TextView) itemLayoutView.findViewById(R.id
-                    .overlayTargetPackage);
+            checkBox = (CheckBox) itemLayoutView.findViewById(R.id.checkBox);
             overlayState = (TextView) itemLayoutView.findViewById(R.id
                     .installedState);
-            checkBox = (CheckBox) itemLayoutView.findViewById(R.id.checkBox);
             optionsSpinner = (Spinner) itemLayoutView.findViewById(R.id.optionsSpinner);
             optionsSpinner2 = (Spinner) itemLayoutView.findViewById(R.id.optionsSpinner2);
             optionsSpinner3 = (Spinner) itemLayoutView.findViewById(R.id.optionsSpinner3);
             optionsSpinner4 = (Spinner) itemLayoutView.findViewById(R.id.optionsSpinner4);
-            app_icon = (ImageView) itemLayoutView.findViewById(R.id.app_icon);
+            overlayTargetPackageName = (TextView) itemLayoutView.findViewById(R.id
+                    .overlayTargetPackageName);
+            overlayTargetPackage = (TextView) itemLayoutView.findViewById(R.id
+                    .overlayTargetPackage);
         }
     }
 }

@@ -1,7 +1,5 @@
 package projekt.substratum.tabs;
 
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
@@ -36,10 +34,6 @@ import projekt.substratum.R;
 import projekt.substratum.config.References;
 import projekt.substratum.util.FontHandler;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
-
 public class FontInstaller extends Fragment {
 
     private String theme_pid;
@@ -69,7 +63,7 @@ public class FontInstaller extends Fragment {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new FontHandler().FontHandler(fontSelector.getSelectedItem().toString(),
+                new FontHandler().execute(fontSelector.getSelectedItem().toString(),
                         getContext(), theme_pid);
             }
         });
@@ -100,8 +94,8 @@ public class FontInstaller extends Fragment {
                     theme_pid + "/assets/fonts");
             File[] fileArray = f.listFiles();
             ArrayList<String> unparsedFonts = new ArrayList<>();
-            for (int i = 0; i < fileArray.length; i++) {
-                unparsedFonts.add(fileArray[i].getName());
+            for (File file : fileArray) {
+                unparsedFonts.add(file.getName());
             }
             ArrayList<String> fonts = new ArrayList<>();
             fonts.add(getString(R.string.font_default_spinner));
@@ -143,24 +137,6 @@ public class FontInstaller extends Fragment {
         }
 
         return root;
-    }
-
-    private String getThemeName(String package_name) {
-        // Simulate the Layers Plugin feature by filtering all installed apps and their metadata
-        try {
-            ApplicationInfo appInfo = getContext().getPackageManager().getApplicationInfo(
-                    package_name, PackageManager.GET_META_DATA);
-            if (appInfo.metaData != null) {
-                if (appInfo.metaData.getString(References.metadataName) != null) {
-                    if (appInfo.metaData.getString(References.metadataAuthor) != null) {
-                        return appInfo.metaData.getString(References.metadataName);
-                    }
-                }
-            }
-        } catch (Exception e) {
-            Log.e("SubstratumLogger", "Unable to find package identifier (INDEX OUT OF BOUNDS)");
-        }
-        return null;
     }
 
     private class FontPreview extends AsyncTask<String, Integer, String> {

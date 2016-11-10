@@ -1,7 +1,5 @@
 package projekt.substratum.tabs;
 
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -41,10 +39,6 @@ import projekt.substratum.R;
 import projekt.substratum.config.References;
 import projekt.substratum.util.BootAnimationHandler;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
-
 public class BootAnimation extends Fragment {
 
     private String theme_pid;
@@ -81,7 +75,7 @@ public class BootAnimation extends Fragment {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new BootAnimationHandler().BootAnimationHandler(bootAnimationSelector
+                new BootAnimationHandler().execute(bootAnimationSelector
                         .getSelectedItem()
                         .toString(), getContext(), theme_pid);
             }
@@ -109,12 +103,12 @@ public class BootAnimation extends Fragment {
         );
 
         try {
-            File f = new File(getContext().getCacheDir().getAbsoluteFile() + "/SubstratumBuilder/" +
-                    theme_pid + "/assets/bootanimation");
+            File f = new File(getContext().getCacheDir().getAbsoluteFile() +
+                    "/SubstratumBuilder/" + theme_pid + "/assets/bootanimation");
             File[] fileArray = f.listFiles();
             ArrayList<String> unparsedBootAnimations = new ArrayList<>();
-            for (int i = 0; i < fileArray.length; i++) {
-                unparsedBootAnimations.add(fileArray[i].getName());
+            for (File file : fileArray) {
+                unparsedBootAnimations.add(file.getName());
             }
             ArrayList<String> parsedBootAnimations = new ArrayList<>();
             parsedBootAnimations.add(getString(R.string.bootanimation_default_spinner));
@@ -160,26 +154,7 @@ public class BootAnimation extends Fragment {
             Log.e("BootAnimationHandler", "There is no bootanimation.zip found within the assets " +
                     "of this theme!");
         }
-
         return root;
-    }
-
-    private String getThemeName(String package_name) {
-        // Simulate the Layers Plugin feature by filtering all installed apps and their metadata
-        try {
-            ApplicationInfo appInfo = getContext().getPackageManager().getApplicationInfo(
-                    package_name, PackageManager.GET_META_DATA);
-            if (appInfo.metaData != null) {
-                if (appInfo.metaData.getString(References.metadataName) != null) {
-                    if (appInfo.metaData.getString(References.metadataAuthor) != null) {
-                        return appInfo.metaData.getString(References.metadataName);
-                    }
-                }
-            }
-        } catch (Exception e) {
-            // Exception
-        }
-        return null;
     }
 
     private class BootAnimationPreview extends AsyncTask<String, Integer, String> {
@@ -241,7 +216,6 @@ public class BootAnimation extends Fragment {
                 }
 
                 // Copy the bootanimation.zip from assets/bootanimation of the theme's assets
-
                 String source = sUrl[0] + ".zip";
 
                 try {
@@ -281,11 +255,11 @@ public class BootAnimation extends Fragment {
                                 "animation_preview/part" + counter + "/";
                         if (current_directory.exists()) {
                             String[] dirObjects = current_directory.list();
-                            for (int j = 0; j < dirObjects.length; j++) {
+                            for (String string : dirObjects) {
                                 BitmapFactory.Options options = new BitmapFactory.Options();
                                 options.inSampleSize = inSampleSize;
                                 Bitmap bitmap = BitmapFactory.decodeFile(directory +
-                                        dirObjects[j], options);
+                                        string, options);
                                 images.add(bitmap);
                             }
                         } else {

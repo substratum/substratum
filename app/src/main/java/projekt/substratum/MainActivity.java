@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -55,10 +56,6 @@ import projekt.substratum.fragments.ThemeFragment;
 import projekt.substratum.services.ThemeService;
 import projekt.substratum.util.Root;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
-
 public class MainActivity extends AppCompatActivity implements
         ActivityCompat.OnRequestPermissionsResultCallback {
 
@@ -71,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements
     private SharedPreferences prefs;
 
     private void switchFragment(String title, String fragment) {
-        getSupportActionBar().setTitle(title);
+        if (getSupportActionBar() != null) getSupportActionBar().setTitle(title);
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
         tx.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         tx.replace(R.id.main, Fragment.instantiate(MainActivity.this, "projekt.substratum" +
@@ -85,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements
         bundle.putString("home_type", home_type);
         fragment.setArguments(bundle);
 
-        getSupportActionBar().setTitle(title);
+        if (getSupportActionBar() != null) getSupportActionBar().setTitle(title);
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
         tx.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         tx.replace(R.id.main, fragment);
@@ -93,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void switchFragmentToLicenses(String title, LibsSupportFragment fragment) {
-        getSupportActionBar().setTitle(title);
+        if (getSupportActionBar() != null) getSupportActionBar().setTitle(title);
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
         tx.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         tx.replace(R.id.main, fragment);
@@ -110,7 +107,8 @@ public class MainActivity extends AppCompatActivity implements
 
         File destFile = new File(destFileName);
         File destParentDir = destFile.getParentFile();
-        destParentDir.mkdir();
+        Boolean made = destParentDir.mkdir();
+        if (!made) Log.e("SubstratumLogger", "Unable create directories for rescue archive dumps.");
 
         InputStream in;
         OutputStream out;
@@ -123,10 +121,8 @@ public class MainActivity extends AppCompatActivity implements
                 out.write(buffer, 0, read);
             }
             in.close();
-            in = null;
             out.flush();
             out.close();
-            out = null;
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -143,9 +139,13 @@ public class MainActivity extends AppCompatActivity implements
         startService(new Intent(this, ThemeService.class));
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(false);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                getSupportActionBar().setHomeButtonEnabled(false);
+            }
+        }
 
         AccountHeader header = new AccountHeaderBuilder()
                 .withActivity(this)
@@ -165,7 +165,7 @@ public class MainActivity extends AppCompatActivity implements
 
         prefs = PreferenceManager.getDefaultSharedPreferences(
                 getApplicationContext());
-        drawerBuilder.withToolbar(toolbar);
+        if (toolbar != null) drawerBuilder.withToolbar(toolbar);
         drawerBuilder.withSavedInstance(savedInstanceState);
         drawerBuilder.withActionBarDrawerToggleAnimated(true);
         if (prefs.getBoolean("alternate_drawer_design", false)) {
@@ -315,7 +315,7 @@ public class MainActivity extends AppCompatActivity implements
         } else {
             Boolean fonts_allowed = false;
             try {
-                Class cls = Class.forName("android.graphics.Typeface");
+                Class<?> cls = Class.forName("android.graphics.Typeface");
                 cls.getDeclaredMethod("getSystemFontDirLocation");
                 cls.getDeclaredMethod("getThemeFontConfigLocation");
                 cls.getDeclaredMethod("getThemeFontDirLocation");
@@ -607,12 +607,14 @@ public class MainActivity extends AppCompatActivity implements
             File directory = new File(Environment.getExternalStorageDirectory(),
                     "/.substratum/");
             if (!directory.exists()) {
-                directory.mkdirs();
+                Boolean made = directory.mkdirs();
+                if (!made) Log.e("SubstratumLogger", "Unable to create directory");
             }
             File cacheDirectory = new File(getCacheDir(),
                     "/SubstratumBuilder/");
             if (!cacheDirectory.exists()) {
-                cacheDirectory.mkdirs();
+                Boolean made = cacheDirectory.mkdirs();
+                if (!made) Log.e("SubstratumLogger", "Unable to create cache directory");
             }
             File rescueFile = new File(Environment.getExternalStorageDirectory() +
                     java.io.File.separator + "SubstratumRescue.zip");
@@ -697,7 +699,7 @@ public class MainActivity extends AppCompatActivity implements
             case R.id.refresh:
                 Fragment f = getSupportFragmentManager().findFragmentById(R.id.main);
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                if (f instanceof Fragment)
+                if (f != null)
                     ft.detach(f).attach(f).commit();
                 Toast toast = Toast.makeText(getApplicationContext(),
                         getApplicationContext().getString(R.string.refresh_fragment),
@@ -746,8 +748,8 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[],
-                                           int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[],
+                                           @NonNull int[] grantResults) {
         switch (requestCode) {
             case PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE: {
                 if (grantResults.length > 0
@@ -756,18 +758,21 @@ public class MainActivity extends AppCompatActivity implements
                     File directory = new File(Environment.getExternalStorageDirectory(),
                             "/.substratum/");
                     if (!directory.exists()) {
-                        directory.mkdirs();
+                        Boolean made = directory.mkdirs();
+                        if (!made) Log.e("SubstratumLogger",
+                                "Could not make internal substratum directory.");
                     }
                     File cacheDirectory = new File(getCacheDir(),
                             "/SubstratumBuilder/");
                     if (!cacheDirectory.exists()) {
-                        cacheDirectory.mkdirs();
+                        Boolean made = cacheDirectory.mkdirs();
+                        if (!made) Log.e("SubstratumLogger", "Could not create cache directory.");
                     }
                     File[] fileList = new File(getCacheDir().getAbsolutePath() +
                             "/SubstratumBuilder/").listFiles();
-                    for (int i = 0; i < fileList.length; i++) {
+                    for (File file : fileList) {
                         References.delete(getCacheDir().getAbsolutePath() +
-                                "/SubstratumBuilder/" + fileList[i].getName());
+                                "/SubstratumBuilder/" + file.getName());
                     }
                     Log.d("SubstratumBuilder", "The cache has been flushed!");
                     if (permissionCheck2 == PackageManager.PERMISSION_GRANTED) {
@@ -895,7 +900,9 @@ public class MainActivity extends AppCompatActivity implements
                         File directory = new File(Environment.getExternalStorageDirectory(),
                                 "/.substratum/");
                         if (!directory.exists()) {
-                            directory.mkdirs();
+                            Boolean made = directory.mkdirs();
+                            if (!made) Log.e("SubstratumLogger",
+                                    "Could not make substratum directory on internal storage.");
                         }
                     }
                 }

@@ -33,10 +33,6 @@ import projekt.substratum.config.References;
 import projekt.substratum.util.ReadOverlays;
 import projekt.substratum.util.SoundsHandler;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
-
 public class ManageFragment extends Fragment {
 
     private ProgressDialog mProgressDialog;
@@ -65,7 +61,7 @@ public class ManageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.manage_fragment, null);
+        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.manage_fragment, container, false);
 
         prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 
@@ -76,7 +72,6 @@ public class ManageFragment extends Fragment {
         CardView soundsCard = (CardView) root.findViewById(R.id.soundsCard);
 
         // Overlays Dialog
-
         overlaysCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -189,8 +184,7 @@ public class ManageFragment extends Fragment {
             }
         });
 
-        // Wallpaper  Dialog
-
+        // Wallpaper Dialog
         wallpaperCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -298,7 +292,6 @@ public class ManageFragment extends Fragment {
         });
 
         // Boot Animation Dialog
-
         bootAnimCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -324,7 +317,6 @@ public class ManageFragment extends Fragment {
         });
 
         // Font Dialog
-
         fontsCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -350,7 +342,6 @@ public class ManageFragment extends Fragment {
         });
 
         // Sounds Dialog
-
         soundsCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -383,7 +374,6 @@ public class ManageFragment extends Fragment {
                 startActivity(intent);
             }
         }
-
         return root;
     }
 
@@ -511,7 +501,7 @@ public class ManageFragment extends Fragment {
             if (References.checkOMSVersion(getContext()) == 7) {
 
                 try {
-                    Class cls = Class.forName("android.graphics.Typeface");
+                    Class<?> cls = Class.forName("android.graphics.Typeface");
                     cls.getDeclaredMethod("recreateDefaults");
                     Log.e("SubstratumLogger", "Reflected into the Android Framework and " +
                             "initialized a font recreation!");

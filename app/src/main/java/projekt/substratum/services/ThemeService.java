@@ -8,10 +8,6 @@ import android.os.IBinder;
 
 import projekt.substratum.util.AntiPiracyCheck;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
-
 public class ThemeService extends Service {
 
     private static Runnable runnable = null;
@@ -30,7 +26,7 @@ public class ThemeService extends Service {
         handler = new Handler();
         runnable = new Runnable() {
             public void run() {
-                new AntiPiracyCheck().AntiPiracyCheck(context);
+                new AntiPiracyCheck().execute(context);
                 handler.postDelayed(runnable, CONFIG_TIME_PIRACY_CHECKER);
             }
         };

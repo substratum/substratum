@@ -16,10 +16,6 @@ import projekt.substratum.R;
 import projekt.substratum.config.References;
 import projekt.substratum.util.SubstratumThemeUpdater;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
-
 public class ThemeCacher extends BroadcastReceiver {
 
     private Context mContext;
@@ -87,7 +83,6 @@ public class ThemeCacher extends BroadcastReceiver {
                                 } else {
                                     new References.ThreadRunner().execute(final_commands);
                                 }
-
                                 return false;
                             }
                         }

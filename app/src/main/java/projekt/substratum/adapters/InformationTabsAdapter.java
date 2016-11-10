@@ -1,6 +1,5 @@
 package projekt.substratum.adapters;
 
-import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -15,26 +14,19 @@ import projekt.substratum.tabs.OverlaysList;
 import projekt.substratum.tabs.SoundPackager;
 import projekt.substratum.tabs.Wallpapers;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
-
 public class InformationTabsAdapter extends FragmentStatePagerAdapter {
-    public ArrayList<String> package_checker;
-    int mNumOfTabs;
-    Context mContext;
-    String theme_pid;
-    Boolean allow_quick_apply;
-    String theme_mode;
-    String wallpaperUrl;
 
-    public InformationTabsAdapter(FragmentManager fm, int NumOfTabs, Context context,
-                                  String theme_pid, Boolean allow_quick_apply, String theme_mode,
-                                  List package_checker, String wallpaperUrl) {
+    private ArrayList package_checker;
+    private Boolean allow_quick_apply;
+    private Integer mNumOfTabs;
+    private String theme_mode;
+    private String wallpaperUrl;
+
+    @SuppressWarnings("unchecked")
+    public InformationTabsAdapter(FragmentManager fm, int NumOfTabs, Boolean allow_quick_apply,
+                                  String theme_mode, List package_checker, String wallpaperUrl) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
-        this.mContext = context;
-        this.theme_pid = theme_pid;
         this.allow_quick_apply = allow_quick_apply;
         this.theme_mode = theme_mode;
         try {
@@ -48,16 +40,17 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         if (theme_mode != null && theme_mode.length() > 0) {
-            if (theme_mode.equals("overlays")) {
-                return new OverlaysList();
-            } else if (theme_mode.equals("bootanimation")) {
-                return new BootAnimation();
-            } else if (theme_mode.equals("fonts")) {
-                return new FontInstaller();
-            } else if (theme_mode.equals("audio")) {
-                return new SoundPackager();
-            } else if (theme_mode.equals("wallpapers")) {
-                return new Wallpapers();
+            switch (theme_mode) {
+                case "overlays":
+                    return new OverlaysList();
+                case "bootanimation":
+                    return new BootAnimation();
+                case "fonts":
+                    return new FontInstaller();
+                case "audio":
+                    return new SoundPackager();
+                case "wallpapers":
+                    return new Wallpapers();
             }
         }
         return getFragment();
@@ -68,7 +61,7 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
         return mNumOfTabs;
     }
 
-    public Fragment getFragment() {
+    private Fragment getFragment() {
         if (allow_quick_apply) {
             allow_quick_apply = false;
             return new MainScreenTab();

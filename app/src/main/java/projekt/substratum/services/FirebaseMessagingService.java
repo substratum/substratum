@@ -12,12 +12,9 @@ import com.google.firebase.messaging.RemoteMessage;
 import projekt.substratum.R;
 import projekt.substratum.config.References;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
-
 public class FirebaseMessagingService extends
         com.google.firebase.messaging.FirebaseMessagingService {
+
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         Intent showIntent = new Intent();

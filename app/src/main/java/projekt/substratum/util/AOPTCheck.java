@@ -11,12 +11,9 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.util.Arrays;
 
 import projekt.substratum.config.References;
-
-/**
- * @author Nicholas Chum (nicholaschum)
- */
 
 public class AOPTCheck {
 
@@ -26,11 +23,10 @@ public class AOPTCheck {
         mContext = context;
 
         // Check if aopt is installed on the device
-
         File aopt = new File("/system/bin/aopt");
         if (!aopt.exists()) {
-            if (!Build.SUPPORTED_ABIS.toString().contains("86")) {
-                if (!Build.SUPPORTED_ABIS.toString().contains("64")) {
+            if (!Arrays.toString(Build.SUPPORTED_ABIS).contains("86")) {
+                if (!Arrays.toString(Build.SUPPORTED_ABIS).contains("64")) {
                     try {
                         // Take account for ARM64 first
                         copyAOPT("aopt");
@@ -42,7 +38,7 @@ public class AOPTCheck {
                         Log.d("SubstratumLogger", "Android Overlay Packaging Tool (ARM64) has been"
                                 + " added into the system partition.");
                     } catch (Exception e) {
-                        //
+                        // Suppress warning
                     }
                 } else {
                     // Take account for ARM devices
@@ -85,7 +81,7 @@ public class AOPTCheck {
                 Log.e("SubstratumLogger",
                         "The system partition already contains an existing AOPT " +
                                 "binary, however it does not match Substratum integrity.");
-                if (!Build.SUPPORTED_ABIS.toString().contains("86")) {
+                if (!Arrays.toString(Build.SUPPORTED_ABIS).contains("86")) {
                     // Take account for ARM/ARM64 devices
                     copyAOPT("aopt");
                     References.mountRW();
@@ -128,7 +124,7 @@ public class AOPTCheck {
         }
     }
 
-    public String checkAOPTIntegrity() {
+    private String checkAOPTIntegrity() {
         Process proc = null;
         try {
             Runtime rt = Runtime.getRuntime();

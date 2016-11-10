@@ -33,12 +33,8 @@ import java.util.ArrayList;
 import projekt.substratum.R;
 import projekt.substratum.model.WallpaperEntries;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
-
 public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.ViewHolder> {
-    ProgressDialog mProgressDialog;
+    private ProgressDialog mProgressDialog;
     private ArrayList<WallpaperEntries> information;
     private Context mContext;
     private PowerManager.WakeLock mWakeLock;
@@ -56,7 +52,8 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
+    public void onBindViewHolder(final ViewHolder viewHolder, int pos) {
+        final int i = pos;
 
         mContext = information.get(i).getContext();
 
@@ -196,16 +193,16 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
         return information.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         CardView cardView;
         TextView wallpaperName;
         ImageView imageView;
 
-        public ViewHolder(View view) {
+        ViewHolder(View view) {
             super(view);
             cardView = (CardView) view.findViewById(R.id.wallpaperCard);
-            wallpaperName = (TextView) view.findViewById(R.id.wallpaperName);
             imageView = (ImageView) view.findViewById(R.id.wallpaperImage);
+            wallpaperName = (TextView) view.findViewById(R.id.wallpaperName);
         }
     }
 
@@ -222,7 +219,7 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
             mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
             mProgressDialog.setCancelable(false);
 
-            // take CPU lock to prevent CPU from going off if the user
+            // Take CPU lock to prevent CPU from going off if the user
             // presses the power button during download
             PowerManager pm = (PowerManager)
                     mContext.getSystemService(Context.POWER_SERVICE);

@@ -1,9 +1,5 @@
 package projekt.substratum.model;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
-
 public class SoundsInfo {
     private String title, absolute_path;
 
@@ -14,10 +10,6 @@ public class SoundsInfo {
 
     public String getAbsolutePath() {
         return absolute_path;
-    }
-
-    public void setAbsolutePath(String name) {
-        this.absolute_path = name;
     }
 
     public String getTitle() {

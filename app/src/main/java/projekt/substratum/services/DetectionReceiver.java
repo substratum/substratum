@@ -17,7 +17,6 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -25,10 +24,6 @@ import java.util.TreeSet;
 import projekt.substratum.R;
 import projekt.substratum.config.References;
 import projekt.substratum.util.SubstratumThemeUpdater;
-
-/**
- * @author Nicholas Chum (nicholaschum)
- */
 
 public class DetectionReceiver extends BroadcastReceiver {
 
@@ -155,15 +150,13 @@ public class DetectionReceiver extends BroadcastReceiver {
                                             runCommand.putExtra("om-commands", final_commands);
                                             mContext.sendBroadcast(runCommand);
                                         } else {
-                                            new References.ThreadRunner().execute(final_commands);
+                                            References.runCommands(final_commands);
                                         }
                                     }
                                 }
                             }
                         }
-
                     }
-
                 } catch (Exception e) {
                     Log.e("SubstratumLogger", "Unable to find package identifier (INDEX OUT OF " +
                             "BOUNDS)");
@@ -173,18 +166,16 @@ public class DetectionReceiver extends BroadcastReceiver {
             if (!prefs.contains("installed_themes")) new_setup = true;
             Set<String> setString = prefs.getStringSet("installed_themes", new HashSet<String>());
             Set<String> setStringSorted = new TreeSet<>();
-            Iterator<String> it = setString.iterator();
-            while (it.hasNext()) {
-                setStringSorted.add(it.next());
+            for (String string : setString) {
+                setStringSorted.add(string);
             }
 
             // Check for current installed set created just now and sort it
             Set<String> installed_set = new HashSet<>();
             installed_set.addAll(installed);
             Set<String> installed_setStringSorted = new TreeSet<>();
-            Iterator<String> it2 = installed_set.iterator();
-            while (it2.hasNext()) {
-                installed_setStringSorted.add(it2.next());
+            for (String installed_overlay : installed_set) {
+                installed_setStringSorted.add(installed_overlay);
             }
 
             // Compare both lists and if they are different, then show a notification and add it

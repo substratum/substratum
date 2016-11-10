@@ -21,26 +21,16 @@ import projekt.substratum.LauncherActivity;
 import projekt.substratum.R;
 import projekt.substratum.config.References;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
-
 public class SettingsFragment extends PreferenceFragmentCompat {
-
-    String settingsPackageName = "com.android.settings";
-    String settingsSubstratumDrawableName = "ic_settings_substratum";
 
     private boolean checkSettingsPackageSupport() {
         try {
             Resources res = getContext().getApplicationContext().getPackageManager()
-                    .getResourcesForApplication(settingsPackageName);
-            int substratum_icon = res.getIdentifier(settingsPackageName + ":drawable/" +
-                    settingsSubstratumDrawableName, "drawable", settingsPackageName);
-            if (substratum_icon != 0) {
-                return true;
-            } else {
-                return false;
-            }
+                    .getResourcesForApplication(References.settingsPackageName);
+            int substratum_icon = res.getIdentifier(References.settingsPackageName + ":drawable/" +
+                            References.settingsSubstratumDrawableName, "drawable",
+                    References.settingsPackageName);
+            return substratum_icon != 0;
         } catch (Exception e) {
             Log.e("SubstratumLogger", "Could not load drawable from Settings.apk.");
         }
@@ -62,7 +52,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 ("about_substratum");
         aboutSubstratum.setSummary(BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE +
                 ")");
-        aboutSubstratum.setIcon(getResources().getDrawable(R.mipmap.main_launcher));
+        aboutSubstratum.setIcon(getContext().getDrawable(R.mipmap.main_launcher));
         aboutSubstratum.setOnPreferenceClickListener(
                 new Preference.OnPreferenceClickListener() {
                     @Override
@@ -82,7 +72,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         if (References.checkOMS(getContext())) {
             Preference aboutMasquerade = getPreferenceManager().findPreference
                     ("about_masquerade");
-            aboutMasquerade.setIcon(getResources().getDrawable(R.mipmap.restore_launcher));
+            aboutMasquerade.setIcon(getContext().getDrawable(R.mipmap.restore_launcher));
             aboutMasquerade.setOnPreferenceClickListener(
                     new Preference.OnPreferenceClickListener() {
                         @Override

@@ -8,10 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 
 import projekt.substratum.config.References;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
-
 public class LauncherActivity extends AppCompatActivity {
 
     @Override

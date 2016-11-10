@@ -16,7 +16,8 @@ import android.widget.TextView;
 public class AutoTextResizer extends TextView {
 
     private static final int NO_LINE_LIMIT = -1;
-
+    private final static Boolean mEnableSizeCache = true;
+    private final static float mMinTextSize = 20;
     private RectF mTextRect = new RectF();
     private RectF mAvailableSpaceRect;
     private SparseIntArray mTextCachedSizes;
@@ -24,7 +25,6 @@ public class AutoTextResizer extends TextView {
     private float mMaxTextSize;
     private float mSpacingMult = 1.0f;
     private float mSpacingAdd = 0.0f;
-    private float mMinTextSize = 20;
     private int mWidthLimit;
     private int mMaxLines;
 
@@ -59,16 +59,16 @@ public class AutoTextResizer extends TextView {
 
             mTextRect.offsetTo(0, 0);
             if (availableSPace.contains(mTextRect)) {
-                // may be too small, don't worry we will find the best match
+                // Too small
                 return -1;
             } else {
-                // too big
+                // Too big
                 return 1;
             }
         }
     };
-    private boolean mEnableSizeCache = true;
-    private boolean mInitiallized;
+
+    private boolean mInitialized;
 
     public AutoTextResizer(Context context) {
         super(context);
@@ -90,7 +90,7 @@ public class AutoTextResizer extends TextView {
         int lastBest = start;
         int lo = start;
         int hi = end - 1;
-        int mid = 0;
+        int mid;
         while (lo <= hi) {
             mid = (lo + hi) >>> 1;
             int midValCmp = sizeTester.onTestSize(mid, availableSpace);
@@ -104,8 +104,6 @@ public class AutoTextResizer extends TextView {
                 return mid;
             }
         }
-        // make sure to return last best
-        // this is what should always be returned
         return lastBest;
 
     }
@@ -116,23 +114,22 @@ public class AutoTextResizer extends TextView {
         mAvailableSpaceRect = new RectF();
         mTextCachedSizes = new SparseIntArray();
         if (mMaxLines == 0) {
-            // no value was assigned during construction
             mMaxLines = NO_LINE_LIMIT;
         }
-        mInitiallized = true;
+        mInitialized = true;
     }
 
     @Override
     public void setText(final CharSequence text, BufferType type) {
         super.setText(text, type);
-        adjustTextSize(text.toString());
+        adjustTextSize();
     }
 
     @Override
     public void setTextSize(float size) {
         mMaxTextSize = size;
         mTextCachedSizes.clear();
-        adjustTextSize(getText().toString());
+        adjustTextSize();
     }
 
     public int getMaxLines() {
@@ -183,7 +180,7 @@ public class AutoTextResizer extends TextView {
         mMaxTextSize = TypedValue.applyDimension(unit, size,
                 r.getDisplayMetrics());
         mTextCachedSizes.clear();
-        adjustTextSize(getText().toString());
+        adjustTextSize();
     }
 
     @Override
@@ -193,22 +190,12 @@ public class AutoTextResizer extends TextView {
         mSpacingAdd = add;
     }
 
-    /**
-     * Set the lower text size limit and invalidate the view
-     *
-     * @param minTextSize
-     */
-    public void setMinTextSize(float minTextSize) {
-        mMinTextSize = minTextSize;
-        reAdjust();
-    }
-
     private void reAdjust() {
-        adjustTextSize(getText().toString());
+        adjustTextSize();
     }
 
-    private void adjustTextSize(String string) {
-        if (!mInitiallized) {
+    private void adjustTextSize() {
+        if (!mInitialized) {
             return;
         }
         int startSize = (int) mMinTextSize;
@@ -224,27 +211,13 @@ public class AutoTextResizer extends TextView {
                         mSizeTester, mAvailableSpaceRect));
     }
 
-    /**
-     * Enables or disables size caching, enabling it will improve performance
-     * where you are animating a value inside TextView. This stores the font
-     * size against getText().length() Be careful though while enabling it as 0
-     * takes more space than 1 on some fonts and so on.
-     *
-     * @param enable enable font size caching
-     */
-    public void enableSizeCache(boolean enable) {
-        mEnableSizeCache = enable;
-        mTextCachedSizes.clear();
-        adjustTextSize(getText().toString());
-    }
-
     private int efficientTextSizeSearch(int start, int end,
                                         SizeTester sizeTester, RectF availableSpace) {
         if (!mEnableSizeCache) {
             return binarySearch(start, end, sizeTester, availableSpace);
         }
         String text = getText().toString();
-        int key = text == null ? 0 : text.length();
+        int key = text.length();
         int size = mTextCachedSizes.get(key);
         if (size != 0) {
             return size;

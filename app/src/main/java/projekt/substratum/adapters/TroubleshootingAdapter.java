@@ -9,19 +9,11 @@ import android.widget.TextView;
 
 import projekt.substratum.R;
 
-/**
- * @author Ashish Shekar (snowpuppet)
- */
-
 public class TroubleshootingAdapter extends BaseAdapter {
 
-    int[] tQues;
-    int[] tAns;
-    Context context;
-
-    // Views
-    TextView questionsTextView;
-    TextView answersTextView;
+    private int[] tQues;
+    private int[] tAns;
+    private Context context;
 
     public TroubleshootingAdapter(int[] tQues, int[] tAns, Context context) {
         this.tQues = tQues;
@@ -48,18 +40,19 @@ public class TroubleshootingAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService
                 (Context.LAYOUT_INFLATER_SERVICE);
+        View v = null;
+        if (inflater != null) {
+            v = inflater.inflate(R.layout.troubleshooting_row, viewGroup, false);
 
-        View v = inflater.inflate(R.layout.troubleshooting_row, viewGroup, false);
+            TextView questionsTextView = (TextView) v.findViewById(R.id.trouble_ques);
+            TextView answersTextView = (TextView) v.findViewById(R.id.trouble_ans);
 
-        questionsTextView = (TextView) v.findViewById(R.id.trouble_ques);
-        answersTextView = (TextView) v.findViewById(R.id.trouble_ans);
+            String question = getStringFromResource(tQues[i]);
+            String answer = getStringFromResource(tAns[i]);
 
-        String question = getStringFromResource(tQues[i]);
-        String answer = getStringFromResource(tAns[i]);
-
-        questionsTextView.setText(question);
-        answersTextView.setText(answer);
-
+            questionsTextView.setText(question);
+            answersTextView.setText(answer);
+        }
         return v;
     }
 

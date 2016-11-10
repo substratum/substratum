@@ -33,10 +33,6 @@ import projekt.substratum.config.References;
 import projekt.substratum.model.Priorities;
 import projekt.substratum.model.PrioritiesItem;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
-
 public class PriorityLoaderFragment extends Fragment {
 
     private List<PrioritiesItem> prioritiesList;
@@ -51,7 +47,7 @@ public class PriorityLoaderFragment extends Fragment {
             savedInstanceState) {
         super.onCreate(savedInstanceState);
         final ViewGroup root = (ViewGroup) inflater.inflate(R.layout.priority_loader_fragment,
-                null);
+                container, false);
 
         // Pre-initialize the adapter first so that it won't complain for skipping layout on logs
         PrioritiesAdapter empty_adapter = new PrioritiesAdapter(getContext(), R.layout
@@ -67,7 +63,6 @@ public class PriorityLoaderFragment extends Fragment {
         emptyView = (RelativeLayout) root.findViewById(R.id.no_priorities_found);
 
         // Begin loading up list
-
         prioritiesList = new ArrayList<>();
         app_list = new ArrayList<>();
         adapter = new PrioritiesAdapter(getContext(), R.layout
@@ -96,15 +91,10 @@ public class PriorityLoaderFragment extends Fragment {
                         return false;
                     }
                 }));
-
         return root;
     }
 
     private class LoadPrioritizedOverlays extends AsyncTask<String, Integer, String> {
-
-        @Override
-        protected void onPreExecute() {
-        }
 
         @Override
         protected void onPostExecute(String result) {

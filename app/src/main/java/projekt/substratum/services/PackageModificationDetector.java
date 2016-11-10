@@ -11,10 +11,6 @@ import android.util.Log;
 
 import projekt.substratum.config.References;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
-
 public class PackageModificationDetector extends BroadcastReceiver {
 
     @Override

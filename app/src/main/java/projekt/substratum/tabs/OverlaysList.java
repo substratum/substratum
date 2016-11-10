@@ -1,7 +1,6 @@
 package projekt.substratum.tabs;
 
 import android.app.Dialog;
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
@@ -58,7 +57,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -79,10 +77,6 @@ import projekt.substratum.util.SubstratumBuilder;
 import static android.content.Context.CLIPBOARD_SERVICE;
 import static projekt.substratum.config.References.REFRESH_WINDOW_DELAY;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
-
 public class OverlaysList extends Fragment {
 
     private CircularFillableLoaders loader;
@@ -98,7 +92,6 @@ public class OverlaysList extends Fragment {
     private boolean has_failed = false;
     private int fail_count;
     private int id = References.notification_id;
-    private ViewGroup root;
     private ArrayList<OverlaysInfo> values2;
     private RecyclerView mRecyclerView;
     private Spinner base_spinner;
@@ -111,9 +104,6 @@ public class OverlaysList extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
     private PowerManager.WakeLock mWakeLock;
     private MaterialSheetFab materialSheetFab;
-    private TextView toggle_all_overlays_text;
-    private ArrayList<String> overlaysFolder;
-    private File overlaysDirectory;
     private ProgressBar progressBar;
     private ArrayList<String> current_theme_overlays;
     private Boolean is_active = false;
@@ -125,7 +115,7 @@ public class OverlaysList extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
-        root = (ViewGroup) inflater.inflate(R.layout.tab_fragment_2, container, false);
+        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.tab_fragment_2, container, false);
         prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 
         mContext = getContext();
@@ -146,7 +136,8 @@ public class OverlaysList extends Fragment {
         RecyclerView.Adapter empty_adapter = new OverlaysAdapter(empty_array);
         mRecyclerView.setAdapter(empty_adapter);
 
-        toggle_all_overlays_text = (TextView) root.findViewById(R.id.toggle_all_overlays_text);
+        TextView toggle_all_overlays_text = (TextView)
+                root.findViewById(R.id.toggle_all_overlays_text);
         toggle_all_overlays_text.setVisibility(View.VISIBLE);
 
         toggle_all = (Switch) root.findViewById(R.id.toggle_all_overlays);
@@ -553,8 +544,8 @@ public class OverlaysList extends Fragment {
             File[] fileArray = f.listFiles();
             ArrayList<String> stringArray = new ArrayList<>();
             if (fileArray != null && fileArray.length > 0) {
-                for (int i = 0; i < fileArray.length; i++) {
-                    stringArray.add(fileArray[i].getName());
+                for (File file : fileArray) {
+                    stringArray.add(file.getName());
                 }
             }
 
@@ -637,11 +628,9 @@ public class OverlaysList extends Fragment {
     }
 
     private boolean checkActiveNotifications() {
-        StatusBarNotification[] activeNotifications = mNotifyManager
-                .getActiveNotifications();
-
-        for (int i = 0; i < activeNotifications.length; i++) {
-            if (activeNotifications[i].getPackageName().equals("projekt.substratum")) {
+        StatusBarNotification[] activeNotifications = mNotifyManager.getActiveNotifications();
+        for (StatusBarNotification statusBarNotification : activeNotifications) {
+            if (statusBarNotification.getPackageName().equals("projekt.substratum")) {
                 return true;
             }
         }
@@ -713,8 +702,8 @@ public class OverlaysList extends Fragment {
             // Buffer the initial values list so that we get the list of packages inside this theme
             try {
                 values = new ArrayList<>();
-                overlaysFolder = new ArrayList<>();
-                overlaysDirectory = new File(mContext.getCacheDir().getAbsoluteFile() +
+                ArrayList<String> overlaysFolder = new ArrayList<>();
+                File overlaysDirectory = new File(mContext.getCacheDir().getAbsoluteFile() +
                         "/SubstratumBuilder/" + theme_pid + "/assets/overlays/");
 
                 if (!References.checkOMS(getContext())) {
@@ -727,8 +716,8 @@ public class OverlaysList extends Fragment {
 
                 File[] fileArray = overlaysDirectory.listFiles();
                 if (fileArray != null && fileArray.length > 0) {
-                    for (int i = 0; i < fileArray.length; i++) {
-                        overlaysFolder.add(fileArray[i].getName());
+                    for (File file : fileArray) {
+                        overlaysFolder.add(file.getName());
                     }
                 }
 
@@ -792,6 +781,7 @@ public class OverlaysList extends Fragment {
             }
 
             // Sort the values list
+            @SuppressWarnings("unchecked")
             Map<String, String> sortedMap = sortByValues(unsortedMap);
 
             // Now let's add the new information so that the adapter can recognize custom method
@@ -823,8 +813,8 @@ public class OverlaysList extends Fragment {
 
                         File[] fileArray = typeArrayRaw.listFiles();
                         if (fileArray != null && fileArray.length > 0) {
-                            for (int i = 0; i < fileArray.length; i++) {
-                                typeArray.add(fileArray[i].getName());
+                            for (File file : fileArray) {
+                                typeArray.add(file.getName());
                             }
                         }
 
@@ -982,16 +972,19 @@ public class OverlaysList extends Fragment {
         }
 
         private HashMap sortByValues(HashMap map) {
+            @SuppressWarnings("unchecked")
             List list = new LinkedList(map.entrySet());
-            Collections.sort(list, new Comparator() {
-                public int compare(Object o1, Object o2) {
-                    return ((Comparable) ((Map.Entry) (o1)).getValue())
-                            .compareTo(((Map.Entry) (o2)).getValue());
-                }
-            });
+            Collections.sort(list,
+                    new Comparator() {
+                        public int compare(Object o1, Object o2) {
+                            Comparable obj1 = (Comparable) ((Map.Entry) (o1)).getValue();
+                            Comparable obj2 = (Comparable) ((Map.Entry) (o2)).getValue();
+                            return obj1.compareTo(obj2);
+                        }
+                    });
             HashMap sortedHashMap = new LinkedHashMap();
-            for (Iterator it = list.iterator(); it.hasNext(); ) {
-                Map.Entry entry = (Map.Entry) it.next();
+            for (Object mapEntry : list) {
+                Map.Entry entry = (Map.Entry) mapEntry;
                 sortedHashMap.put(entry.getKey(), entry.getValue());
             }
             return sortedHashMap;
@@ -1186,7 +1179,6 @@ public class OverlaysList extends Fragment {
                         mBuilder.setSmallIcon(R.drawable.notification_success_icon);
                         mBuilder.setContentTitle(getString(R.string.notification_done_title));
                         mBuilder.setContentText(getString(R.string.notification_no_errors_found));
-                        mBuilder.getNotification().flags |= Notification.FLAG_AUTO_CANCEL;
                         if (prefs.getBoolean("vibrate_on_compiled", false)) {
                             mBuilder.setVibrate(new long[]{100, 200, 100, 500});
                         }
@@ -1209,7 +1201,6 @@ public class OverlaysList extends Fragment {
                         mBuilder.setSmallIcon(R.drawable.notification_warning_icon);
                         mBuilder.setContentTitle(getString(R.string.notification_done_title));
                         mBuilder.setContentText(getString(R.string.notification_some_errors_found));
-                        mBuilder.getNotification().flags |= Notification.FLAG_AUTO_CANCEL;
                         if (prefs.getBoolean("vibrate_on_compiled", false)) {
                             mBuilder.setVibrate(new long[]{100, 200, 100, 500});
                         }
@@ -1225,20 +1216,13 @@ public class OverlaysList extends Fragment {
                             .Theme_DeviceDefault_Dialog);
                     dialog.setContentView(R.layout.logcat_dialog);
                     dialog.setTitle(R.string.logcat_dialog_title);
-                    dialog.getWindow().setLayout(RecyclerView.LayoutParams.FILL_PARENT,
-                            RecyclerView.LayoutParams.WRAP_CONTENT);
+                    if (dialog.getWindow() != null)
+                        dialog.getWindow().setLayout(RecyclerView.LayoutParams.MATCH_PARENT,
+                                RecyclerView.LayoutParams.WRAP_CONTENT);
                     dialog.setCancelable(false);
 
                     TextView text = (TextView) dialog.findViewById(R.id.textField);
                     text.setText(error_logs);
-                    ImageButton leave = (ImageButton) dialog.findViewById(R.id.confirm);
-                    leave.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            dialog.dismiss();
-                        }
-                    });
-
                     ImageButton confirm = (ImageButton) dialog.findViewById(R.id.confirm);
                     confirm.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -1733,8 +1717,10 @@ public class OverlaysList extends Fragment {
                                                 current, PackageManager.GET_META_DATA);
                                 if (appInfo.metaData != null) {
                                     if (appInfo.metaData.getString("Substratum_Parent") != null) {
-                                        if (appInfo.metaData.getString("Substratum_Parent")
-                                                .equals(theme_name_parsed)) {
+                                        String parent = appInfo.metaData.getString(
+                                                "Substratum_Parent");
+                                        if (theme_name_parsed != null && parent != null &&
+                                                parent.equals(theme_name_parsed)) {
                                             activated_overlays_from_theme.add(current);
                                         }
                                     }

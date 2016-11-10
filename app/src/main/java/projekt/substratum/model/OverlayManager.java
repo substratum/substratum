@@ -6,10 +6,6 @@ import java.io.Serializable;
 
 import projekt.substratum.R;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
-
 public class OverlayManager implements Serializable {
 
     private String name;
@@ -26,7 +22,7 @@ public class OverlayManager implements Serializable {
                     ((isActivated) ? context.getColor(R.color.overlay_installed_list_entry) :
                             context.getColor(R.color.overlay_not_enabled_list_entry));
         } catch (Exception e) {
-            // Exception: Window refresh loves this guy!
+            // Suppress warning
         }
     }
 

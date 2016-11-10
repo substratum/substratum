@@ -28,10 +28,6 @@ import java.util.zip.ZipInputStream;
 import projekt.substratum.R;
 import projekt.substratum.config.References;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
-
 public class FontHandler {
 
     private Context mContext;
@@ -39,7 +35,7 @@ public class FontHandler {
     private String theme_pid;
     private SharedPreferences prefs;
 
-    public void FontHandler(String arguments, Context context, String theme_pid) {
+    public void execute(String arguments, Context context, String theme_pid) {
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
         this.mContext = context;
         this.theme_pid = theme_pid;
@@ -153,7 +149,6 @@ public class FontHandler {
 
             try {
                 // Move the file from assets folder to a new working area
-
                 Log.d("FontHandler", "Copying over the selected fonts to working " +
                         "directory...");
 
@@ -177,7 +172,6 @@ public class FontHandler {
                 }
 
                 // Copy the font.zip from assets/fonts of the theme's assets
-
                 String source = sUrl[0] + ".zip";
 
                 try {
@@ -186,7 +180,7 @@ public class FontHandler {
                     try (InputStream inputStream = am.open("fonts/" + source);
                          OutputStream outputStream = new FileOutputStream(mContext.getCacheDir()
                                  .getAbsolutePath() + "/FontCache/" + source)) {
-                        CopyStream(inputStream, outputStream);
+                        copyStream(inputStream, outputStream);
                     }
                 } catch (Exception e) {
                     Log.e("FontHandler", "There is no fonts.zip found within the assets " +
@@ -200,7 +194,6 @@ public class FontHandler {
                                 "/FontCache/FontCreator/");
 
                 // Copy all the system fonts to /data/system/theme/fonts
-
                 File dataSystemThemeDir = new File("/data/system/theme");
                 if (!dataSystemThemeDir.exists()) {
                     References.mountRWData();
@@ -288,14 +281,7 @@ public class FontHandler {
             }
         }
 
-        /**
-         * Don't close streams here calling method must take care.
-         *
-         * @param Input
-         * @param Output
-         * @throws IOException
-         */
-        private void CopyStream(InputStream Input, OutputStream Output) throws IOException {
+        private void copyStream(InputStream Input, OutputStream Output) throws IOException {
             byte[] buffer = new byte[5120];
             int length = Input.read(buffer);
             while (length > 0) {

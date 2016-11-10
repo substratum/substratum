@@ -34,10 +34,6 @@ import java.util.zip.ZipInputStream;
 import projekt.substratum.R;
 import projekt.substratum.config.References;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
-
 public class SoundsHandler {
 
     private static final String SYSTEM_MEDIA_PATH = "/system/media/audio";
@@ -57,7 +53,7 @@ public class SoundsHandler {
     private boolean ringtone = false;
     private SharedPreferences prefs;
 
-    public void SoundsHandler(String arguments, Context context, String theme_pid) {
+    public void execute(String arguments, Context context, String theme_pid) {
         this.mContext = context;
         this.theme_pid = theme_pid;
         new SoundsHandlerAsync().execute(arguments);
@@ -506,7 +502,7 @@ public class SoundsHandler {
         }
     }
 
-    public class SoundsHandlerAsync extends AsyncTask<String, Integer, String> {
+    private class SoundsHandlerAsync extends AsyncTask<String, Integer, String> {
 
         @Override
         protected void onPreExecute() {
@@ -598,7 +594,6 @@ public class SoundsHandler {
                 }
 
                 // Rename the file
-
                 File workingDirectory = new File(mContext.getCacheDir()
                         .getAbsolutePath() + "/SoundsCache/SoundsInjector/");
                 File from = new File(workingDirectory, sounds + ".zip");

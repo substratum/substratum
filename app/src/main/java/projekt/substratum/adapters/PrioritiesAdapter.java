@@ -36,11 +36,11 @@ public class PrioritiesAdapter extends GestureAdapter<PrioritiesItem, GestureVie
     @Override
     public GestureViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
         if (viewType == PrioritiesItem.PrioritiesItemType.CONTENT.ordinal()) {
-            final View itemView = LayoutInflater.from(parent.getContext()).inflate(mItemResId,
+            View itemView = LayoutInflater.from(parent.getContext()).inflate(mItemResId,
                     parent, false);
             return new PrioritiesViewHolder(itemView);
         } else {
-            final View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout
+            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout
                     .header_item, parent, false);
             return new HeaderViewHolder(itemView);
         }
@@ -85,13 +85,13 @@ public class PrioritiesAdapter extends GestureAdapter<PrioritiesItem, GestureVie
                 Bitmap bitmap = ((BitmapDrawable) icon).getBitmap();
                 try (ByteArrayOutputStream stream = new ByteArrayOutputStream()) {
                     bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                    byte[] bitmapdata = stream.toByteArray();
+                    byte[] bitmapData = stream.toByteArray();
 
-                    Glide.with(mContext).load(bitmapdata).centerCrop().into(prioritiesViewHolder
+                    Glide.with(mContext).load(bitmapData).centerCrop().into(prioritiesViewHolder
                             .mAppIcon);
                 }
             } catch (Exception e) {
-                //eat it !
+                // Suppress warning
             }
         } else {
             final HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;

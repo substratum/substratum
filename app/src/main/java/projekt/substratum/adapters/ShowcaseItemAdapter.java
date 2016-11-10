@@ -18,11 +18,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import projekt.substratum.R;
+import projekt.substratum.config.References;
 import projekt.substratum.model.ShowcaseItem;
-
-/**
- * @author Nicholas Chum (nicholaschum)
- */
 
 public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapter.ViewHolder> {
     private ArrayList<ShowcaseItem> information;
@@ -39,45 +36,48 @@ public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapte
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
-        Glide.with(information.get(i).getContext())
-                .load(information.get(i).getThemeIcon())
+    public void onBindViewHolder(final ViewHolder viewHolder, int pos) {
+        final int position = viewHolder.getAdapterPosition();
+
+        Glide.with(information.get(position).getContext())
+                .load(information.get(position).getThemeIcon())
                 .centerCrop()
                 .crossFade()
                 .into(viewHolder.imageView);
 
-        viewHolder.themeName.setText(information.get(i).getThemeName());
-        viewHolder.themeAuthor.setText(information.get(i).getThemeAuthor());
+        viewHolder.themeName.setText(information.get(position).getThemeName());
+        viewHolder.themeAuthor.setText(information.get(position).getThemeAuthor());
 
-        if (information.get(i).getThemePricing().toLowerCase().equals("paid")) {
+        if (information.get(position).getThemePricing().toLowerCase()
+                .equals(References.paidTheme)) {
             viewHolder.themePricing.setVisibility(View.VISIBLE);
         } else {
             viewHolder.themePricing.setVisibility(View.GONE);
         }
 
-        String[] supported = information.get(i).getThemeSupport().split("\\|");
+        String[] supported = information.get(position).getThemeSupport().split("\\|");
         List supported_array = Arrays.asList(supported);
-        if (supported_array.contains("wallpapers")) {
+        if (supported_array.contains(References.showcaseWallpapers)) {
             viewHolder.wallpaper.setAlpha((float) 1.0);
         } else {
             viewHolder.wallpaper.setAlpha((float) 0.2);
         }
-        if (supported_array.contains("sounds")) {
+        if (supported_array.contains(References.showcaseSounds)) {
             viewHolder.sounds.setAlpha((float) 1.0);
         } else {
             viewHolder.sounds.setAlpha((float) 0.2);
         }
-        if (supported_array.contains("fonts")) {
+        if (supported_array.contains(References.showcaseFonts)) {
             viewHolder.fonts.setAlpha((float) 1.0);
         } else {
             viewHolder.fonts.setAlpha((float) 0.2);
         }
-        if (supported_array.contains("bootanimations")) {
+        if (supported_array.contains(References.showcaseBootanimations)) {
             viewHolder.bootanimations.setAlpha((float) 1.0);
         } else {
             viewHolder.bootanimations.setAlpha((float) 0.2);
         }
-        if (supported_array.contains("overlays")) {
+        if (supported_array.contains(References.showcaseOverlays)) {
             viewHolder.overlays.setAlpha((float) 1.0);
         } else {
             viewHolder.overlays.setAlpha((float) 0.2);
@@ -88,17 +88,16 @@ public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapte
             public void onClick(View view) {
                 try {
                     Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setData(Uri.parse(information.get(i).getThemeLink()));
-                    information.get(i).getContext().startActivity(intent);
+                    intent.setData(Uri.parse(information.get(position).getThemeLink()));
+                    information.get(position).getContext().startActivity(intent);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Toast toaster = Toast.makeText(information.get(i).getContext(),
-                            information.get(i).getContext().getString(R.string
+                    Toast toaster = Toast.makeText(information.get(position).getContext(),
+                            information.get(position).getContext().getString(R.string
                                     .activity_missing_toast),
                             Toast.LENGTH_SHORT);
                     toaster.show();
                 }
-
             }
         });
     }
@@ -108,13 +107,13 @@ public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapte
         return information.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         CardView cardView;
         TextView themeName, themeAuthor;
         ImageView themePricing;
         ImageView imageView, wallpaper, sounds, fonts, bootanimations, overlays;
 
-        public ViewHolder(View view) {
+        ViewHolder(View view) {
             super(view);
             cardView = (CardView) view.findViewById(R.id.theme_card);
             themeName = (TextView) view.findViewById(R.id.theme_name);

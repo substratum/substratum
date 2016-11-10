@@ -3,9 +3,6 @@ package projekt.substratum.model;
 import android.app.Activity;
 import android.content.Context;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
 public class WallpaperEntries {
 
     private Context mContext;

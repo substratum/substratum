@@ -11,15 +11,11 @@ import java.util.List;
 
 import projekt.substratum.config.References;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
-
 public class ReadOverlays {
 
-    private static String OVERLAY_MANAGER_STATE_NOT_APPROVED = "---";
-    private static String OVERLAY_MANAGER_STATE_DISABLED = "[ ]";
-    private static String OVERLAY_MANAGER_STATE_ENABLED = "[x]";
+    private final static String OVERLAY_MANAGER_STATE_NOT_APPROVED = "---";
+    private final static String OVERLAY_MANAGER_STATE_DISABLED = "[ ]";
+    private final static String OVERLAY_MANAGER_STATE_ENABLED = "[x]";
 
     public static List<String> main(int state_count, Context context) {
 
@@ -55,7 +51,6 @@ public class ReadOverlays {
                             } else if (version == 7) {
                                 list.add(line.substring(4));
                             }
-
                         }
                     }
                 }

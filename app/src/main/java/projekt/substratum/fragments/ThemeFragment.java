@@ -35,13 +35,9 @@ import projekt.substratum.model.ThemeInfo;
 import projekt.substratum.util.AOPTCheck;
 import projekt.substratum.util.ReadOverlays;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
-
 public class ThemeFragment extends Fragment {
 
-    private final int THEME_INFORMATION_REQUEST_CODE = 1;
+    private static final int THEME_INFORMATION_REQUEST_CODE = 1;
     private HashMap<String, String[]> substratum_packages;
     private RecyclerView recyclerView;
     private Map<String, String[]> map;
@@ -59,9 +55,9 @@ public class ThemeFragment extends Fragment {
         super.onCreate(savedInstanceState);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         if (prefs.getBoolean("nougat_style_cards", false)) {
-            root = (ViewGroup) inflater.inflate(R.layout.home_fragment_n, null);
+            root = (ViewGroup) inflater.inflate(R.layout.home_fragment_n, container, false);
         } else {
-            root = (ViewGroup) inflater.inflate(R.layout.home_fragment, null);
+            root = (ViewGroup) inflater.inflate(R.layout.home_fragment, container, false);
         }
 
         mContext = getActivity();
@@ -84,7 +80,7 @@ public class ThemeFragment extends Fragment {
                                                 startActivity(i);
                                             } catch (ActivityNotFoundException
                                                     activityNotFoundException) {
-                                                //
+                                                // Suppress warning
                                             }
                                         }
                                     }
@@ -92,7 +88,6 @@ public class ThemeFragment extends Fragment {
         cardView.setVisibility(View.GONE);
 
         // Create it so it uses a recyclerView to parse substratum-based themes
-
         PackageManager packageManager = mContext.getPackageManager();
         list = packageManager.getInstalledApplications(PackageManager
                 .GET_META_DATA);

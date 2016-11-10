@@ -10,10 +10,6 @@ import android.widget.Toast;
 import projekt.substratum.R;
 import projekt.substratum.config.References;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
-
 public class NotificationUpgradeReceiver extends BroadcastReceiver {
 
     @Override

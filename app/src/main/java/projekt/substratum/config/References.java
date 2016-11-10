@@ -23,20 +23,17 @@ import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Locale;
 
 import projekt.substrate.LetsGetStarted;
 import projekt.substratum.R;
 import projekt.substratum.util.CacheCreator;
 import projekt.substratum.util.Root;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
-
 public class References {
 
     // Lucky Patcher's Package Name
-    public static final String lp_package_identifier = "com.android.vending.billing" +
+    public static String lp_package_identifier = "com.android.vending.billing" +
             ".InAppBillingService.LOCK";
     // This int controls the notification identifier
     public static int firebase_notification_id = 24862486;
@@ -50,8 +47,6 @@ public class References {
     public static String metadataName = "Substratum_Name";
     public static String metadataAuthor = "Substratum_Author";
     public static String metadataLegacy = "Substratum_Legacy";
-    public static String metadataVersion = "Substratum_Plugin";
-    public static String metadataThemeReady = "Substratum_ThemeReady";
     public static String metadataWallpapers = "Substratum_Wallpapers";
     // These strings control the nav drawer filter for ThemeFragment
     public static String homeFragment = "";
@@ -60,9 +55,20 @@ public class References {
     public static String fontsFragment = "fonts";
     public static String soundsFragment = "audio";
     public static String wallpaperFragment = "wallpapers";
-
+    // These strings control the showcase metadata parsing
+    public static String paidTheme = "paid";
+    public static String showcaseFonts = "fonts";
+    public static String showcaseWallpapers = "wallpapers";
+    public static String showcaseBootanimations = "bootanimations";
+    public static String showcaseOverlays = "overlays";
+    public static String showcaseSounds = "sounds";
     // This int controls the default priority level for legacy overlays
     public static int DEFAULT_PRIORITY = 50;
+    // These strings control package names for system apps
+    public static String settingsPackageName = "com.android.settings";
+    public static String settingsSubstratumDrawableName = "ic_settings_substratum";
+    private static String metadataVersion = "Substratum_Plugin";
+    private static String metadataThemeReady = "Substratum_ThemeReady";
 
     // This method is used to determine whether there the system is initiated with OMS
     public static Boolean checkOMS(Context context) {
@@ -358,19 +364,25 @@ public class References {
                         }
                     } else {
                         String minSdk = "";
-                        int min = appInfo.minSdkVersion;
-                        if (min == 21) {
-                            minSdk = mContext.getString(R.string.api_21);
-                        } else if (min == 22) {
-                            minSdk = mContext.getString(R.string.api_22);
-                        } else if (min == 23) {
-                            minSdk = mContext.getString(R.string.api_23);
-                        } else if (min == 24) {
-                            minSdk = mContext.getString(R.string.api_24);
-                        } else if (min == 25) {
-                            minSdk = mContext.getString(R.string.api_25);
-                        } else if (min == 26) {
-                            minSdk = mContext.getString(R.string.api_26);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                            int min = appInfo.minSdkVersion;
+                            if (min == 24) {
+                                minSdk = mContext.getString(R.string.api_24);
+                            } else if (min == 25) {
+                                minSdk = mContext.getString(R.string.api_25);
+                            } else if (min == 26) {
+                                minSdk = mContext.getString(R.string.api_26);
+                            }
+                        } else {
+                            // At this point, it is under API24 (API warning) thus we'll do an
+                            // educated guess here.
+                            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP) {
+                                minSdk = mContext.getString(R.string.api_21);
+                            } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP_MR1) {
+                                minSdk = mContext.getString(R.string.api_22);
+                            } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M) {
+                                minSdk = mContext.getString(R.string.api_23);
+                            }
                         }
                         String targetSdk = "";
                         int target = appInfo.targetSdkVersion;
@@ -385,7 +397,7 @@ public class References {
                         }
                         return minSdk + " - " + targetSdk;
                     }
-                } catch (NoSuchFieldError nsfe) {
+                } catch (NoSuchFieldError noSuchFieldError) {
                     // The device is API 23 if it throws a NoSuchFieldError
                     if (appInfo.targetSdkVersion == 23) {
                         return mContext.getString(R.string.api_23);
@@ -430,8 +442,8 @@ public class References {
                     package_name, PackageManager.GET_META_DATA);
             if (appInfo.metaData != null) {
                 if (appInfo.metaData.get(References.metadataVersion) != null) {
-                    return mContext.getString(R.string.plugin_template) + ": " +
-                            appInfo.metaData.get(References.metadataVersion);
+                    return mContext.getString(R.string.plugin_template) + ": " + appInfo.metaData
+                            .get(References.metadataVersion);
                 }
             }
         } catch (Exception e) {
@@ -442,7 +454,7 @@ public class References {
 
     public static Drawable grabPackageHeroImage(Context mContext, String package_name) {
         Resources res;
-        Drawable hero = null;
+        Drawable hero = mContext.getDrawable(android.R.color.black); // Initialize to be black
         try {
             res = mContext.getPackageManager().getResourcesForApplication(package_name);
             int resourceId = res.getIdentifier(package_name + ":drawable/heroimage", null, null);
@@ -461,7 +473,7 @@ public class References {
     public static boolean launchTheme(Context mContext, String theme_name, String package_name,
                                       String theme_mode) {
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault());
             long currentDateAndTime = Long.parseLong(sdf.format(new Date()));
 
             String parse1_themeName = theme_name.replaceAll("\\s+", "");
@@ -503,39 +515,21 @@ public class References {
         return false;
     }
 
-    private static String getThemeName(Context mContext, String package_name) {
-        // Simulate the Layers Plugin feature by filtering all installed apps and their metadata
-        try {
-            ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
-                    package_name, PackageManager.GET_META_DATA);
-            if (appInfo.metaData != null) {
-                if (appInfo.metaData.getString(References.metadataName) != null) {
-                    if (appInfo.metaData.getString(References.metadataAuthor) != null) {
-                        return appInfo.metaData.getString(References.metadataName);
-                    }
-                }
-            }
-        } catch (Exception e) {
-            Log.e("SubstratumLogger", "Unable to find package identifier (INDEX OUT OF BOUNDS)");
-        }
-        return null;
-    }
-
     // These methods allow for a more secure method to mount RW and mount RO
     private static String checkMountCMD() {
-        Process proc = null;
+        Process process = null;
         try {
             Runtime rt = Runtime.getRuntime();
-            proc = rt.exec(new String[]{"readlink", "/system/bin/mount"});
+            process = rt.exec(new String[]{"readlink", "/system/bin/mount"});
             try (BufferedReader stdInput = new BufferedReader(new
-                    InputStreamReader(proc.getInputStream()))) {
+                    InputStreamReader(process.getInputStream()))) {
                 return stdInput.readLine();
             }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (proc != null) {
-                proc.destroy();
+            if (process != null) {
+                process.destroy();
             }
         }
         return null;
@@ -570,55 +564,67 @@ public class References {
 
     public static void mountRW() {
         String mountCMD = checkMountCMD();
-        if (mountCMD != null && mountCMD.equals("toybox")) {
-            Root.runCommand("mount -o rw,remount /system");
-        } else if (mountCMD.equals("toolbox")) {
-            Root.runCommand("mount -o remount,rw /system");
+        if (mountCMD != null) {
+            if (mountCMD.equals("toybox")) {
+                Root.runCommand("mount -o rw,remount /system");
+            } else if (mountCMD.equals("toolbox")) {
+                Root.runCommand("mount -o remount,rw /system");
+            }
         }
     }
 
     public static void mountRWData() {
         String mountCMD = checkMountCMD();
-        if (mountCMD != null && mountCMD.equals("toybox")) {
-            Root.runCommand("mount -o rw,remount /data");
-        } else if (mountCMD.equals("toolbox")) {
-            Root.runCommand("mount -o remount,rw /data");
+        if (mountCMD != null) {
+            if (mountCMD.equals("toybox")) {
+                Root.runCommand("mount -o rw,remount /data");
+            } else if (mountCMD.equals("toolbox")) {
+                Root.runCommand("mount -o remount,rw /data");
+            }
         }
     }
 
     public static void mountRWVendor() {
         String mountCMD = checkMountCMD();
-        if (mountCMD != null && mountCMD.equals("toybox")) {
-            Root.runCommand("mount -o rw,remount /vendor");
-        } else if (mountCMD.equals("toolbox")) {
-            Root.runCommand("mount -o remount,rw /vendor");
+        if (mountCMD != null) {
+            if (mountCMD.equals("toybox")) {
+                Root.runCommand("mount -o rw,remount /vendor");
+            } else if (mountCMD.equals("toolbox")) {
+                Root.runCommand("mount -o remount,rw /vendor");
+            }
         }
     }
 
     public static void mountRO() {
         String mountCMD = checkMountCMD();
-        if (mountCMD != null && mountCMD.equals("toybox")) {
-            Root.runCommand("mount -o ro,remount /system");
-        } else if (mountCMD.equals("toolbox")) {
-            Root.runCommand("mount -o remount,ro /system");
+        if (mountCMD != null) {
+            if (mountCMD.equals("toybox")) {
+                Root.runCommand("mount -o ro,remount /system");
+            } else if (mountCMD.equals("toolbox")) {
+                Root.runCommand("mount -o remount,ro /system");
+            }
         }
     }
 
     public static void mountROData() {
         String mountCMD = checkMountCMD();
-        if (mountCMD != null && mountCMD.equals("toybox")) {
-            Root.runCommand("mount -o ro,remount /data");
-        } else if (mountCMD.equals("toolbox")) {
-            Root.runCommand("mount -o remount,ro /data");
+        if (mountCMD != null) {
+            if (mountCMD.equals("toybox")) {
+                Root.runCommand("mount -o ro,remount /data");
+            } else if (mountCMD.equals("toolbox")) {
+                Root.runCommand("mount -o remount,ro /data");
+            }
         }
     }
 
     public static void mountROVendor() {
         String mountCMD = checkMountCMD();
-        if (mountCMD != null && mountCMD.equals("toybox")) {
-            Root.runCommand("mount -o ro,remount /vendor");
-        } else if (mountCMD.equals("toolbox")) {
-            Root.runCommand("mount -o remount,ro /vendor");
+        if (mountCMD != null) {
+            if (mountCMD.equals("toybox")) {
+                Root.runCommand("mount -o ro,remount /vendor");
+            } else if (mountCMD.equals("toolbox")) {
+                Root.runCommand("mount -o remount,ro /vendor");
+            }
         }
     }
 
@@ -628,6 +634,10 @@ public class References {
 
     public static void installOverlay(final String overlay) {
         Root.runCommand("pm install -r " + overlay);
+    }
+
+    public static void runCommands(final String commands) {
+        Root.runCommand(commands);
     }
 
     public static void reboot() {

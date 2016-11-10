@@ -40,15 +40,11 @@ import projekt.substratum.model.WallpaperEntries;
 import projekt.substratum.util.MD5;
 import projekt.substratum.util.ReadCloudShowcaseFile;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
-
 public class ShowcaseTab extends Fragment {
 
     private ViewGroup root;
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private ShowcaseItemAdapter mAdapter;
     private MaterialProgressBar materialProgressBar;
     private View no_network, no_wallpapers;
     private int current_tab_position;
@@ -74,27 +70,29 @@ public class ShowcaseTab extends Fragment {
         return root;
     }
 
+    @SuppressWarnings("unchecked")
     private boolean saveArray(String[] array, String arrayName, Context mContext) {
         SharedPreferences prefs = mContext.getSharedPreferences("showcase_tabs", 0);
         SharedPreferences.Editor editor = prefs.edit();
 
         int initial = 1000;
         Set set = new LinkedHashSet();
-        for (int i = 0; i < array.length; i++) {
-            set.add(initial + "_" + array[i]);
+        for (String value : array) {
+            set.add(initial + "_" + value);
             initial += 1;
         }
         editor.putStringSet(arrayName, set);
         return editor.commit();
     }
 
+    @SuppressWarnings("unchecked")
     private ArrayList loadArray(String arrayName, Context mContext) {
         SharedPreferences prefs = mContext.getSharedPreferences("showcase_tabs", 0);
 
         Set fallback = new LinkedHashSet();
-        Set<String> cache = prefs.getStringSet(arrayName, fallback);
+        Set cache = prefs.getStringSet(arrayName, fallback);
 
-        ArrayList<String> arrayList = new ArrayList<>();
+        ArrayList arrayList = new ArrayList<>();
         arrayList.addAll(cache);
         Collections.sort(arrayList);
         return arrayList;
@@ -139,6 +137,7 @@ public class ShowcaseTab extends Fragment {
         }
 
         @Override
+        @SuppressWarnings("unchecked")
         protected void onPostExecute(ArrayList result) {
             super.onPostExecute(result);
 
@@ -164,7 +163,8 @@ public class ShowcaseTab extends Fragment {
                 File showcase_directory = new File(getContext().getCacheDir() +
                         "/ShowcaseCache/");
                 if (!showcase_directory.exists()) {
-                    showcase_directory.mkdir();
+                    Boolean made = showcase_directory.mkdir();
+                    if (!made) Log.e("SubstratumLogger", "Could not make showcase directory...");
                 }
 
                 File current_wallpapers = new File(getContext().getCacheDir() +
@@ -235,20 +235,24 @@ public class ShowcaseTab extends Fragment {
                             "/ShowcaseCache/" + sUrl[1]));
                     String new_file = MD5.calculateMD5(new File(getContext().getCacheDir() +
                             "/ShowcaseCache/" + inputFileName));
-                    if (!existing.equals(new_file)) {
+                    if (existing != null && !existing.equals(new_file)) {
                         Log.e("ShowcaseActivity", "Tab " + current_tab_position +
                                 " has been updated from the cloud!");
                         File renameMe = new File(getContext().getCacheDir() +
                                 "/ShowcaseCache/" +
                                 sUrl[1].substring(0, sUrl[1].length() - 4) + "-temp.xml");
-                        renameMe.renameTo(new File(getContext().getCacheDir() +
+                        Boolean renamed = renameMe.renameTo(new File(getContext().getCacheDir() +
                                 "/ShowcaseCache/" + sUrl[1]));
                         clearArray(sUrl[1].substring(0, sUrl[1].length() - 4), getContext());
+                        if (!renamed) Log.e("SubstratumLogger",
+                                "Could not replace the old tab file with the new tab file...");
                         cached = false;
                     } else {
                         File deleteMe = new File(getContext().getCacheDir() +
                                 "/" + inputFileName);
-                        deleteMe.delete();
+                        Boolean deleted = deleteMe.delete();
+                        if (!deleted) Log.e("SubstratumLogger",
+                                "Could not delete temporary tab file...");
                         cached = true;
                     }
                 }
@@ -258,9 +262,11 @@ public class ShowcaseTab extends Fragment {
                 String[] checkerCommands = {getContext().getCacheDir() +
                         "/ShowcaseCache/" + inputFileName};
 
+                @SuppressWarnings("unchecked")
                 final Map<String, String> newArray = ReadCloudShowcaseFile.main(checkerCommands);
                 ShowcaseItem newEntry = new ShowcaseItem();
 
+                @SuppressWarnings("unchecked")
                 ArrayList<String> cacheImages = loadArray(inputFileName.substring(0,
                         inputFileName.length() - 4), getContext());
                 ArrayList<String> prefList = new ArrayList<>();
@@ -278,14 +284,13 @@ public class ShowcaseTab extends Fragment {
                                 Element main_head = doc.select("div.main-content").first();
                                 Elements links = main_head.getElementsByTag("img");
 
-                                cover_photo_looper:
                                 for (Element link : links) {
                                     String linkClass = link.className();
                                     String linkAttr = link.attr("src");
                                     if (linkClass.equals("cover-image")) {
                                         prefList.add("http://" + linkAttr.substring(2));
                                         newEntry.setThemeIcon("http://" + linkAttr.substring(2));
-                                        break cover_photo_looper;
+                                        break;
                                     }
                                 }
                             } catch (Exception e) {

@@ -1,6 +1,5 @@
 package projekt.substratum.tabs;
 
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
@@ -43,16 +42,12 @@ import projekt.substratum.util.ReadOverlays;
 import projekt.substratum.util.SoundsHandler;
 import projekt.substratum.util.SubstratumBuilder;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
-
 public class MainScreenTab extends Fragment {
 
+    private final static int ALLOWED_AMOUNT_OF_OVERLAYS_TO_TRIGGER_QUICK_APPLY = 5;
     private final String theme_name = InformationActivity.getThemeName();
     private final String theme_pid = InformationActivity.getThemePID();
     private final List tab_checker = InformationActivity.getListOfFolders();
-    private int ALLOWED_AMOUNT_OF_OVERLAYS_TO_TRIGGER_QUICK_APPLY = 5;
     private String versionName;
     private SubstratumBuilder sb;
     private CircularFillableLoaders loader;
@@ -68,7 +63,6 @@ public class MainScreenTab extends Fragment {
     private ArrayAdapter<String> arrayAdapter;
     private ArrayList<String> type3overlays;
     private ProgressDialog progress;
-    private AlertDialog.Builder builderSingle;
     private ArrayList<String> overlayList;
 
     private boolean isSystemPackage(PackageInfo pkgInfo) {
@@ -86,29 +80,11 @@ public class MainScreenTab extends Fragment {
         return false;
     }
 
-    private String getThemeName(String package_name) {
-        // Simulate the Layers Plugin feature by filtering all installed apps and their metadata
-        try {
-            ApplicationInfo appInfo = getContext().getPackageManager().getApplicationInfo(
-                    package_name, PackageManager.GET_META_DATA);
-            if (appInfo.metaData != null) {
-                if (appInfo.metaData.getString(References.metadataName) != null) {
-                    if (appInfo.metaData.getString(References.metadataAuthor) != null) {
-                        return appInfo.metaData.getString(References.metadataName);
-                    }
-                }
-            }
-        } catch (Exception e) {
-            // Exception
-        }
-        return null;
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.tab_fragment_1, null);
+        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.tab_fragment_1, container, false);
 
         int overlayCount = 0;
 
@@ -117,8 +93,8 @@ public class MainScreenTab extends Fragment {
                     theme_pid + "/assets/overlays");
             File[] fileArray = f.listFiles();
             overlayList = new ArrayList<>();
-            for (int i = 0; i < fileArray.length; i++) {
-                overlayList.add(fileArray[i].getName());
+            for (File file : fileArray) {
+                overlayList.add(file.getName());
             }
             overlayCount = overlayList.size();
         } catch (Exception e) {
@@ -181,7 +157,6 @@ public class MainScreenTab extends Fragment {
         }
 
         // System Overlays Dialog
-
         systemOverlaysCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -195,7 +170,6 @@ public class MainScreenTab extends Fragment {
         });
 
         // Third Party Overlays Dialog
-
         tpOverlaysCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -209,7 +183,6 @@ public class MainScreenTab extends Fragment {
         });
 
         // Boot Animation Dialog
-
         bootAnimCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -225,9 +198,9 @@ public class MainScreenTab extends Fragment {
                             "/SubstratumBuilder/" + theme_pid
                             + "/assets/bootanimation");
                     File[] fileArray = f.listFiles();
-                    for (int i = 0; i < fileArray.length; i++) {
-                        parsedBootAnimations.add(fileArray[i].getName().substring(0,
-                                fileArray[i].getName().length() - 4));
+                    for (File file : fileArray) {
+                        parsedBootAnimations.add(file.getName().substring(0,
+                                file.getName().length() - 4));
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -251,7 +224,7 @@ public class MainScreenTab extends Fragment {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 String strName = arrayAdapter.getItem(which);
-                                new BootAnimationHandler().BootAnimationHandler(strName,
+                                new BootAnimationHandler().execute(strName,
                                         getContext(), theme_pid);
                             }
                         });
@@ -260,7 +233,6 @@ public class MainScreenTab extends Fragment {
         });
 
         // Font Dialog
-
         fontsCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -276,9 +248,9 @@ public class MainScreenTab extends Fragment {
                             "/SubstratumBuilder/" + theme_pid
                             + "/assets/fonts");
                     File[] fileArray = f.listFiles();
-                    for (int i = 0; i < fileArray.length; i++) {
-                        unarchivedFonts.add(fileArray[i].getName().substring(0,
-                                fileArray[i].getName().length() - 4));
+                    for (File file : fileArray) {
+                        unarchivedFonts.add(file.getName().substring(0,
+                                file.getName().length() - 4));
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -302,7 +274,7 @@ public class MainScreenTab extends Fragment {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 String strName = arrayAdapter.getItem(which);
-                                new FontHandler().FontHandler(strName, getContext(), theme_pid);
+                                new FontHandler().execute(strName, getContext(), theme_pid);
                             }
                         });
                 builderSingle.show();
@@ -310,7 +282,6 @@ public class MainScreenTab extends Fragment {
         });
 
         // Sounds Dialog
-
         soundsCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -326,9 +297,9 @@ public class MainScreenTab extends Fragment {
                             "/SubstratumBuilder/" + theme_pid
                             + "/assets/audio");
                     File[] fileArray = f.listFiles();
-                    for (int i = 0; i < fileArray.length; i++) {
-                        unarchivedSounds.add(fileArray[i].getName().substring(0,
-                                fileArray[i].getName().length() - 4));
+                    for (File file : fileArray) {
+                        unarchivedSounds.add(file.getName().substring(0,
+                                file.getName().length() - 4));
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -352,7 +323,7 @@ public class MainScreenTab extends Fragment {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 String strName = arrayAdapter.getItem(which);
-                                new SoundsHandler().SoundsHandler(strName, getContext(), theme_pid);
+                                new SoundsHandler().execute(strName, getContext(), theme_pid);
                             }
                         });
                 builderSingle.show();
@@ -376,7 +347,7 @@ public class MainScreenTab extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             progress.dismiss();
-            builderSingle = new AlertDialog.Builder(getContext());
+            AlertDialog.Builder builderSingle = new AlertDialog.Builder(getContext());
             if (!Boolean.parseBoolean(result)) {
                 builderSingle.setTitle(R.string.system_overlay_dialog_title);
             } else {
@@ -441,8 +412,8 @@ public class MainScreenTab extends Fragment {
                 File[] type3Directory = f2.listFiles();
 
                 Log.d("SubstratumLogger", "Loading resources from " + theme_name);
-                for (int i = 0; i < unfilteredDirectory.length; i++) {
-                    String current = unfilteredDirectory[i].getName();
+                for (File unfiltered : unfilteredDirectory) {
+                    String current = unfiltered.getName();
                     if (!tp_enabled) {
                         if (systemPackages.contains(current) ||
                                 References.allowedSystemUIOverlay(current) ||
@@ -463,8 +434,8 @@ public class MainScreenTab extends Fragment {
                         }
                     }
                 }
-                for (int j = 0; j < type3Directory.length; j++) {
-                    String current = type3Directory[j].getName();
+                for (File type3 : type3Directory) {
+                    String current = type3.getName();
                     if (!current.equals("res")) {
                         if (current.length() > 5) {
                             if (current.substring(0, 6).equals("type3_")) {
@@ -494,9 +465,7 @@ public class MainScreenTab extends Fragment {
             final_runner = new ArrayList<>();
 
             Log.d("SubstratumBuilder", "Decompiling and initializing work area with the " +
-                    "selected " +
-
-                    "theme's assets...");
+                    "selected theme's assets...");
             int notification_priority = 2; // PRIORITY_MAX == 2
 
             // This is the time when the notification should be shown on the user's screen
@@ -630,7 +599,6 @@ public class MainScreenTab extends Fragment {
                 mBuilder.setSmallIcon(R.drawable.notification_success_icon);
                 mBuilder.setContentTitle(getString(R.string.notification_done_title));
                 mBuilder.setContentText(getString(R.string.notification_no_errors_found));
-                mBuilder.getNotification().flags |= Notification.FLAG_AUTO_CANCEL;
                 mNotifyManager.notify(id, mBuilder.build());
 
                 Toast toast = Toast.makeText(getContext(), getString(R
@@ -646,7 +614,6 @@ public class MainScreenTab extends Fragment {
                 mBuilder.setSmallIcon(R.drawable.notification_warning_icon);
                 mBuilder.setContentTitle(getString(R.string.notification_done_title));
                 mBuilder.setContentText(getString(R.string.notification_some_errors_found));
-                mBuilder.getNotification().flags |= Notification.FLAG_AUTO_CANCEL;
                 mNotifyManager.notify(id, mBuilder.build());
 
                 Toast toast = Toast.makeText(getContext(), getString(R
@@ -800,12 +767,13 @@ public class MainScreenTab extends Fragment {
                             state5overlays.get(i), PackageManager.GET_META_DATA);
                     if (appInfo.metaData != null) {
                         if (appInfo.metaData.getString("Substratum_Variant") != null) {
-                            if (appInfo.metaData.getString("Substratum_Variant")
-                                    .equals(((base3overlay.length() == 0) ? "" : "." +
-                                            base3overlay))) {
+                            String variant = appInfo.metaData.getString("Substratum_Variant");
+                            if (variant != null && variant.equals(
+                                    ((base3overlay.length() == 0) ? "" : "." + base3overlay))) {
                                 if (appInfo.metaData.getString("Substratum_Parent") != null) {
-                                    if (appInfo.metaData.getString("Substratum_Parent")
-                                            .equals(parse2_themeName)) {
+                                    String parent = appInfo.metaData.getString("Substratum_Parent");
+                                    if (parse2_themeName != null && parent != null &&
+                                            parent.equals(parse2_themeName)) {
                                         to_be_enabled.add(state5overlays.get(i));
                                     }
                                 }

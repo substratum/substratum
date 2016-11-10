@@ -1,10 +1,5 @@
 package projekt.substratum.adapters;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
-
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,15 +10,12 @@ import java.util.ArrayList;
 import projekt.substratum.fragments.ShowcaseTab;
 
 public class ShowcaseTabsAdapter extends FragmentStatePagerAdapter {
-    public ArrayList fragment_links;
-    int mNumOfTabs;
-    Context mContext;
+    private ArrayList fragment_links;
+    private Integer mNumOfTabs;
 
-    public ShowcaseTabsAdapter(FragmentManager fm, int mNumOfTabs, Context context, ArrayList
-            fragment_links) {
+    public ShowcaseTabsAdapter(FragmentManager fm, int mNumOfTabs, ArrayList fragment_links) {
         super(fm);
         this.mNumOfTabs = mNumOfTabs;
-        this.mContext = context;
         this.fragment_links = fragment_links;
     }
 

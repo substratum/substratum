@@ -18,10 +18,6 @@ import java.util.Set;
 
 import projekt.substratum.config.References;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
-
 public class AntiPiracyCheck {
 
     private Context mContext;
@@ -29,7 +25,7 @@ public class AntiPiracyCheck {
     private ArrayList<String> unauthorized_packages;
     private SharedPreferences prefs;
 
-    public void AntiPiracyCheck(Context context) {
+    public void execute(Context context) {
         this.mContext = context;
         prefs = PreferenceManager.getDefaultSharedPreferences(
                 mContext);
@@ -94,9 +90,11 @@ public class AntiPiracyCheck {
                     if (appInfo.metaData != null) {
                         if (appInfo.metaData.getString(References.metadataName) != null) {
                             String parse1_themeName = appInfo.metaData.getString(References
-                                    .metadataName)
-                                    .replaceAll("\\s+", "");
-                            String parse2_themeName = parse1_themeName.replaceAll
+                                    .metadataName);
+                            String parse15_themeName = "";
+                            if (parse1_themeName != null)
+                                parse15_themeName = parse1_themeName.replaceAll("\\s+", "");
+                            String parse2_themeName = parse15_themeName.replaceAll
                                     ("[^a-zA-Z0-9]+", "");
                             if (parse2_themeName.equals(theme_parent)) {
                                 return true;
@@ -132,19 +130,23 @@ public class AntiPiracyCheck {
             try {
                 ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
                         package_name, PackageManager.GET_META_DATA);
-                if (appInfo.metaData != null && appInfo.metaData.getString("Substratum_ID") != null
-                        && appInfo.metaData.getString("Substratum_ID")
-                        .equals(Settings.Secure.getString(context.getContentResolver(),
-                                Settings.Secure.ANDROID_ID))) {
-                    if (appInfo.metaData.getString("Substratum_IMEI") != null
-                            && appInfo.metaData.getString("Substratum_IMEI").equals("!" +
-                            getDeviceIMEI())) {
-                        if (appInfo.metaData.getString("Substratum_Parent") != null
-                                && !findOverlayParent(context,
-                                appInfo.metaData.getString("Substratum_Parent"))) {
-                            Log.d("OverlayVerification", package_name + " " +
-                                    "unauthorized to be used on this device.");
-                            unauthorized_packages.add(package_name);
+                if (appInfo.metaData != null &&
+                        appInfo.metaData.getString("Substratum_ID") != null) {
+                    String deviceID = appInfo.metaData.getString("Substratum_ID");
+                    String actualDeviceID = Settings.Secure.ANDROID_ID;
+                    if (deviceID != null && deviceID.equals(actualDeviceID)) {
+                        if (appInfo.metaData.getString("Substratum_IMEI") != null) {
+                            String imei = appInfo.metaData.getString("Substratum_IMEI");
+                            String manifest = "!" + getDeviceIMEI();
+                            if (imei != null && getDeviceIMEI() != null && imei.equals(manifest)) {
+                                if (appInfo.metaData.getString("Substratum_Parent") != null
+                                        && !findOverlayParent(context,
+                                        appInfo.metaData.getString("Substratum_Parent"))) {
+                                    Log.d("OverlayVerification", package_name + " " +
+                                            "unauthorized to be used on this device.");
+                                    unauthorized_packages.add(package_name);
+                                }
+                            }
                         }
                     }
                 }

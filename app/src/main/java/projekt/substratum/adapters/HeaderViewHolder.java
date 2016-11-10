@@ -9,13 +9,12 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import projekt.substratum.R;
 
-
-public class HeaderViewHolder extends GestureViewHolder {
+class HeaderViewHolder extends GestureViewHolder {
 
     @Bind(R.id.header_text)
     TextView mHeaderText;
 
-    public HeaderViewHolder(final View view) {
+    HeaderViewHolder(final View view) {
         super(view);
         ButterKnife.bind(this, view);
     }

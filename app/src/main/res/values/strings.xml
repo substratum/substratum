@@ -259,6 +259,8 @@
     <string name="select_to_toggle_all_overlays">Select to toggle all overlays</string>
     <string name="fab_menu_select_to_toggle_all_overlays">Select all overlays</string>
 
+    <string name="overflow_description">Extra Options</string>
+
     <string name="overlay_dialog_default_res">Default</string>
     <string name="overlay_dialog_text">simplifying current theme options&#8230;</string>
     <string name="system_overlay_dialog_title">please select a system overlay base&#8230;</string>

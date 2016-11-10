@@ -1,6 +1,5 @@
 package projekt.substratum.util;
 
-import android.text.TextUtils;
 import android.util.Log;
 
 import java.io.File;
@@ -14,24 +13,6 @@ import java.security.NoSuchAlgorithmException;
 
 public class MD5 {
     private static final String TAG = "MD5";
-
-    public static boolean checkMD5(String md5, File updateFile) {
-        if (TextUtils.isEmpty(md5) || updateFile == null) {
-            Log.e(TAG, "MD5 string empty or updateFile null");
-            return false;
-        }
-
-        String calculatedDigest = calculateMD5(updateFile);
-        if (calculatedDigest == null) {
-            Log.e(TAG, "calculatedDigest null");
-            return false;
-        }
-
-        Log.v(TAG, "Calculated digest: " + calculatedDigest);
-        Log.v(TAG, "Provided digest: " + md5);
-
-        return calculatedDigest.equalsIgnoreCase(md5);
-    }
 
     public static String calculateMD5(File updateFile) {
         MessageDigest digest;

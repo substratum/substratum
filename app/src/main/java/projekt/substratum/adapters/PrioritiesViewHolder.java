@@ -1,6 +1,5 @@
 package projekt.substratum.adapters;
 
-import android.animation.ValueAnimator;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,7 +12,7 @@ import butterknife.ButterKnife;
 import projekt.substratum.R;
 
 
-public class PrioritiesViewHolder extends GestureViewHolder {
+class PrioritiesViewHolder extends GestureViewHolder {
 
     @Bind(R.id.card_text)
     TextView mCardText;
@@ -22,7 +21,7 @@ public class PrioritiesViewHolder extends GestureViewHolder {
     @Bind(R.id.app_icon)
     ImageView mAppIcon;
 
-    public PrioritiesViewHolder(final View view) {
+    PrioritiesViewHolder(final View view) {
         super(view);
         ButterKnife.bind(this, view);
     }
@@ -41,29 +40,5 @@ public class PrioritiesViewHolder extends GestureViewHolder {
     @Override
     public boolean canSwipe() {
         return true;
-    }
-
-    private ValueAnimator.AnimatorUpdateListener getBackgroundAnimatorListener(final TextView
-                                                                                       view,
-                                                                               final
-                                                                               ValueAnimator
-                                                                                       animator) {
-        return new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(final ValueAnimator valueAnimator) {
-                view.setBackgroundColor((int) animator.getAnimatedValue());
-            }
-        };
-    }
-
-    private ValueAnimator.AnimatorUpdateListener getTextAnimatorListener(final TextView view,
-                                                                         final ValueAnimator
-                                                                                 animator) {
-        return new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(final ValueAnimator valueAnimator) {
-                view.setTextColor((int) animator.getAnimatedValue());
-            }
-        };
     }
 }

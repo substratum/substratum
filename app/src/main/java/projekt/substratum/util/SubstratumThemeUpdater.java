@@ -1,6 +1,5 @@
 package projekt.substratum.util;
 
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -20,10 +19,6 @@ import projekt.substrate.LetsGetStarted;
 import projekt.substratum.MainActivity;
 import projekt.substratum.R;
 import projekt.substratum.config.References;
-
-/**
- * @author Nicholas Chum (nicholaschum)
- */
 
 public class SubstratumThemeUpdater {
 
@@ -74,7 +69,7 @@ public class SubstratumThemeUpdater {
 
     private class SubstratumThemeUpdate extends AsyncTask<String, Integer, String> {
 
-        public Boolean success = false;
+        Boolean success = false;
 
         @Override
         protected void onPostExecute(String result) {
@@ -109,7 +104,6 @@ public class SubstratumThemeUpdater {
                                     Context.NOTIFICATION_SERVICE);
                     NotificationCompat.Builder mBuilder = new NotificationCompat.Builder
                             (mContext);
-                    mBuilder.getNotification().flags |= Notification.FLAG_AUTO_CANCEL;
                     mBuilder.setContentTitle(getThemeName(packageName) + " " + mContext.getString(
                             R.string.notification_theme_updated))
                             .setContentText(mContext.getString(R.string
@@ -156,7 +150,6 @@ public class SubstratumThemeUpdater {
                                     Context.NOTIFICATION_SERVICE);
                     NotificationCompat.Builder mBuilder = new NotificationCompat.Builder
                             (mContext);
-                    mBuilder.getNotification().flags |= Notification.FLAG_AUTO_CANCEL;
                     mBuilder.setContentTitle(getThemeName(packageName) + " " + mContext.getString(
                             R.string.notification_theme_installed))
                             .setContentText(mContext.getString(R.string

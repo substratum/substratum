@@ -2,9 +2,6 @@ package projekt.substratum.model;
 
 import android.content.Context;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
 public class ShowcaseItem {
 
     private Context mContext;

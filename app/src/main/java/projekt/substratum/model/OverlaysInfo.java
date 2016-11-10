@@ -1,9 +1,5 @@
 package projekt.substratum.model;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
-
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -27,7 +23,10 @@ public class OverlaysInfo implements Serializable {
     private String theme_name;
     private String name;
     private String package_name;
-    private ArrayAdapter<String> array, array2, array3, array4;
+    private ArrayAdapter<String> array;
+    private ArrayAdapter<String> array2;
+    private ArrayAdapter<String> array3;
+    private ArrayAdapter<String> array4;
     private boolean isSelected;
     private int spinnerSelection = 0;
     private int spinnerSelection2 = 0;
@@ -267,8 +266,7 @@ public class OverlaysInfo implements Serializable {
     public String getFullOverlayParameters() {
         return getPackageName() + "." + getThemeName() +
                 (((getSelectedVariant() == 0 && getSelectedVariant2() == 0 && getSelectedVariant3
-                        () == 0 &&
-                        getSelectedVariant4() == 0)) ? "" : ".") +
+                        () == 0 && getSelectedVariant4() == 0)) ? "" : ".") +
                 (((getSelectedVariant() == 0) ? "" : getSelectedVariantName()) +
                         ((getSelectedVariant2() == 0) ? "" : getSelectedVariantName2()) +
                         ((getSelectedVariant3() == 0) ? "" : getSelectedVariantName3()) +
@@ -280,23 +278,13 @@ public class OverlaysInfo implements Serializable {
     public boolean isOverlayEnabled() {
         String package_name = getPackageName() + "." + getThemeName() +
                 (((getSelectedVariant() == 0 && getSelectedVariant2() == 0 && getSelectedVariant3
-                        () == 0 &&
-                        getSelectedVariant4() == 0)) ? "" : ".") +
+                        () == 0 && getSelectedVariant4() == 0)) ? "" : ".") +
                 (((getSelectedVariant() == 0) ? "" : getSelectedVariantName()) +
                         ((getSelectedVariant2() == 0) ? "" : getSelectedVariantName2()) +
                         ((getSelectedVariant3() == 0) ? "" : getSelectedVariantName3()) +
                         ((getSelectedVariant4() == 0) ? "" : getSelectedVariantName4()))
                         .replaceAll("\\s", "").replaceAll("[^a-zA-Z0-9]+", "") +
                 ((baseResources.length() == 0) ? "" : "." + baseResources);
-        if (isPackageInstalled(package_name)) {
-            if (enabledOverlays.contains(package_name)) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            return false;
-        }
+        return isPackageInstalled(package_name) && enabledOverlays.contains(package_name);
     }
-
 }

@@ -8,9 +8,6 @@ import android.os.Handler;
 import android.util.Log;
 import android.widget.ImageView;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
 public class SplashScreenActivityFirstLaunch extends Activity {
 
     @Override

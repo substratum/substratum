@@ -10,10 +10,6 @@ import android.widget.ListView;
 import projekt.substratum.R;
 import projekt.substratum.adapters.TroubleshootingAdapter;
 
-/**
- * @author Nicholas Chum (nicholaschum)yea
- */
-
 public class TroubleshootingFragment extends Fragment {
 
     ListView troubleshootListView;
@@ -35,12 +31,12 @@ public class TroubleshootingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View root = inflater.inflate(R.layout.troubleshooting_fragment, null);
+        View root = inflater.inflate(R.layout.troubleshooting_fragment, container, false);
 
         troubleshootListView = (ListView) root.findViewById(R.id
                 .troubleshoot_list_view);
 
-        // make sure troubleshootQuestions & troubleshootAnswers are of same
+        // Make sure troubleshootQuestions & troubleshootAnswers are of same
         // length and then assign adapter to listView
         troubleshootListView.setAdapter(new TroubleshootingAdapter
                 (troubleshootQuestions, troubleshootAnswers, getActivity()

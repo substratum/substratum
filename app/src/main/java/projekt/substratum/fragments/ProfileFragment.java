@@ -36,10 +36,6 @@ import projekt.substratum.R;
 import projekt.substratum.config.References;
 import projekt.substratum.util.ReadOverlaysFile;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
-
 public class ProfileFragment extends Fragment {
 
     private List<String> list;
@@ -56,7 +52,6 @@ public class ProfileFragment extends Fragment {
 
     public void RefreshSpinner() {
         list.clear();
-
         list.add(getResources().getString(R.string.spinner_default_item));
 
         // Now lets add all the located profiles
@@ -88,7 +83,7 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.profile_fragment, null);
+        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.profile_fragment, container, false);
 
         prefs = PreferenceManager.getDefaultSharedPreferences(
                 getContext());
@@ -97,20 +92,20 @@ public class ProfileFragment extends Fragment {
         headerProgress.setVisibility(View.GONE);
 
         // Create a user viewable directory for profiles
-
         File directory = new File(Environment.getExternalStorageDirectory(),
                 "/substratum/");
         if (!directory.exists()) {
-            directory.mkdirs();
+            Boolean made = directory.mkdirs();
+            if (!made) Log.e("SubstratumLogger", "Could not create Substratum directory...");
         }
         File directory2 = new File(Environment.getExternalStorageDirectory(),
                 "/substratum/profiles");
         if (!directory2.exists()) {
-            directory2.mkdirs();
+            Boolean made = directory2.mkdirs();
+            if (!made) Log.e("SubstratumLogger", "Could not create profile directory...");
         }
 
         // Handle Backups
-
         aet_backup = (AnimatedEditText) root.findViewById(R.id.edittext);
 
         final Button backupButton = (Button) root.findViewById(R.id.backupButton);
@@ -185,6 +180,9 @@ public class ProfileFragment extends Fragment {
                                                     .getSelectedItem() + "" +
                                                     ".substratum");
                                             boolean deleted = f.delete();
+                                            if (!deleted)
+                                                Log.e("SubstratumLogger", "Could not delete " +
+                                                        "profile directory.");
                                             References.delete(
                                                     Environment.getExternalStorageDirectory()
                                                             .getAbsolutePath() +
@@ -285,8 +283,10 @@ public class ProfileFragment extends Fragment {
                             Environment.getExternalStorageDirectory().getAbsolutePath() +
                                     "/substratum/profiles/" + aet_getText);
                     boolean created = makeProfileDir.mkdir();
+                    if (!created) Log.e("SubstratumLogger", "Could not create profile directory.");
                 } else {
                     boolean created = makeProfileDir.mkdir();
+                    if (!created) Log.e("SubstratumLogger", "Could not create profile directory.");
                 }
 
                 // Backup the entire /data/system/theme/ folder
@@ -326,6 +326,7 @@ public class ProfileFragment extends Fragment {
                     File newFolder = new File(Environment.getExternalStorageDirectory()
                             .getAbsolutePath() + "/substratum/profiles/" + aet_getText);
                     boolean success = oldFolder.renameTo(newFolder);
+                    if (!success) Log.e("SubstratumLogger", "Could not move profile directory...");
 
                     // Now begin backing up sounds
                     References.copyDir("/data/system/theme/audio/",
@@ -465,17 +466,17 @@ public class ProfileFragment extends Fragment {
                             .getAbsolutePath() + "/substratum/profiles/" +
                             profile_selector.getSelectedItem() + "/");
                     String[] located_files = profile_apk_files.list();
-                    for (int i = 0; i < located_files.length; i++) {
-                        if (!located_files[i].equals("audio")) {
+                    for (String found : located_files) {
+                        if (!found.equals("audio")) {
                             References.copyDir(Environment.getExternalStorageDirectory()
                                     .getAbsolutePath() +
                                     "/substratum/profiles/" + profile_selector.getSelectedItem() +
-                                    "/" + located_files[i], current_directory);
+                                    "/" + found, current_directory);
                         } else {
                             References.copyDir(Environment.getExternalStorageDirectory()
                                     .getAbsolutePath() +
                                     "/substratum/profiles/" + profile_selector.getSelectedItem() +
-                                    "/" + located_files[i] + "/", "/data/system/theme/audio/");
+                                    "/" + found + "/", "/data/system/theme/audio/");
                             References.setPermissionsRecursively(644, "/data/system/theme/audio/");
                             References.setPermissions(755, "/data/system/theme/audio/");
                         }
@@ -512,18 +513,18 @@ public class ProfileFragment extends Fragment {
                             .getAbsolutePath() + "/substratum/profiles/" +
                             profile_selector.getSelectedItem() + "/");
                     String[] located_files = profile_apk_files.list();
-                    for (int i = 0; i < located_files.length; i++) {
-                        if (!located_files[i].equals("audio")) {
+                    for (String found : located_files) {
+                        if (!found.equals("audio")) {
                             References.copyDir(Environment.getExternalStorageDirectory()
                                     .getAbsolutePath() +
                                     "/substratum/profiles/" + profile_selector.getSelectedItem() +
-                                    "/" + located_files[i], current_directory);
+                                    "/" + found, current_directory);
                         } else {
                             References.setPermissions(755, "/data/system/theme/");
                             References.copyDir(Environment.getExternalStorageDirectory()
                                     .getAbsolutePath() +
                                     "/substratum/profiles/" + profile_selector.getSelectedItem() +
-                                    "/" + located_files[i] + "/", "/data/system/theme/audio/");
+                                    "/" + found + "/", "/data/system/theme/audio/");
                             References.setPermissionsRecursively(644, "/data/system/theme/audio/");
                             References.setPermissions(755, "/data/system/theme/audio/");
                         }
@@ -644,9 +645,8 @@ public class ProfileFragment extends Fragment {
                         ApplicationInfo applicationInfo = getContext().getPackageManager()
                                 .getApplicationInfo
                                         (package_id, 0);
-                        String packageTitle = getContext().getPackageManager().getApplicationLabel
+                        package_name = getContext().getPackageManager().getApplicationLabel
                                 (applicationInfo).toString();
-                        package_name = packageTitle;
                     } catch (Exception e) {
                         Log.e("SubstratumLogger", "Could not find explicit package identifier" +
                                 " in package manager list.");

@@ -39,10 +39,6 @@ import projekt.substratum.model.PrioritiesItem;
 
 import static projekt.substratum.config.References.REFRESH_WINDOW_DELAY;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
-
 public class PriorityListFragment extends Fragment {
 
     private String commands;
@@ -52,7 +48,7 @@ public class PriorityListFragment extends Fragment {
             savedInstanceState) {
         super.onCreate(savedInstanceState);
         final ViewGroup root = (ViewGroup) inflater.inflate(R.layout.priority_list_fragment,
-                null);
+                container, false);
         final RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.recycler_view);
         final FloatingActionButton applyFab = (FloatingActionButton) root.findViewById(R.id
                 .profile_apply_fab);
@@ -83,7 +79,6 @@ public class PriorityListFragment extends Fragment {
         });
 
         // Begin loading up list
-
         String obtained_key = "";
         Bundle bundle = this.getArguments();
         if (bundle != null) {
@@ -146,7 +141,7 @@ public class PriorityListFragment extends Fragment {
                     "each overlay.");
         } finally {
             if (nativeApp != null) {
-                // destroy the Process explicitly
+                // destroy the process explicitly
                 nativeApp.destroy();
             }
         }
@@ -265,10 +260,8 @@ public class PriorityListFragment extends Fragment {
                         }
                     }, REFRESH_WINDOW_DELAY * 2);
                 }
-
             }
         });
-
         return root;
     }
 }

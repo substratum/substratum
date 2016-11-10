@@ -55,28 +55,20 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Enumeration;
 import java.util.List;
 
-import dalvik.system.DexFile;
 import projekt.substratum.adapters.InformationTabsAdapter;
 import projekt.substratum.config.References;
 import projekt.substratum.util.ReadOverlays;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
-
 public class InformationActivity extends AppCompatActivity {
 
+    private static final int THEME_INFORMATION_REQUEST_CODE = 1;
     public static String theme_name, theme_pid, theme_mode;
-    private static List tab_checker;
+    private static List<String> tab_checker;
     private static String wallpaperUrl;
-    private final int THEME_INFORMATION_REQUEST_CODE = 1;
     private Boolean refresh_mode = false;
     private Boolean uninstalled = false;
-    private Boolean theme_legacy = false;
-    private String plugin_version = "";
     private KenBurnsView kenBurnsView;
     private byte[] byteArray;
     private Bitmap heroImageBitmap;
@@ -108,7 +100,7 @@ public class InformationActivity extends AppCompatActivity {
 
     private static void setOverflowButtonColor(final Activity activity) {
         final String overflowDescription =
-                activity.getString(R.string.abc_action_menu_overflow_description);
+                activity.getString(R.string.overflow_description);
         final ViewGroup decorView = (ViewGroup) activity.getWindow().getDecorView();
         final ViewTreeObserver viewTreeObserver = decorView.getViewTreeObserver();
         viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -128,21 +120,6 @@ public class InformationActivity extends AppCompatActivity {
                                 activity.getPackageName()));
             }
         });
-    }
-
-    private static String[] getClassesOfPackage(Context context) {
-        ArrayList<String> classes = new ArrayList<>();
-        try {
-            String packageCodePath = context.getPackageCodePath();
-            DexFile df = new DexFile(packageCodePath);
-            for (Enumeration<String> iter = df.entries(); iter.hasMoreElements(); ) {
-                String className = iter.nextElement();
-                classes.add(className);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return classes.toArray(new String[classes.size()]);
     }
 
     private boolean checkColorDarkness(int color) {
@@ -260,9 +237,8 @@ public class InformationActivity extends AppCompatActivity {
                 }
                 editor.apply();
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                Exception error = result.getError();
                 Log.e("SubstratumImageCropper",
-                        "There has been an error processing the image : " + error);
+                        "There has been an error processing the image...");
             }
         }
     }
@@ -282,9 +258,9 @@ public class InformationActivity extends AppCompatActivity {
         theme_name = currentIntent.getStringExtra("theme_name");
         theme_pid = currentIntent.getStringExtra("theme_pid");
         theme_mode = currentIntent.getStringExtra("theme_mode");
-        theme_legacy = currentIntent.getBooleanExtra("theme_legacy", false);
+        Boolean theme_legacy = currentIntent.getBooleanExtra("theme_legacy", false);
         refresh_mode = currentIntent.getBooleanExtra("refresh_mode", false);
-        plugin_version = currentIntent.getStringExtra("plugin_version");
+        String plugin_version = currentIntent.getStringExtra("plugin_version");
         if (plugin_version == null) {
             Toast toast = Toast.makeText(getApplicationContext(),
                     getString(R.string
@@ -334,7 +310,7 @@ public class InformationActivity extends AppCompatActivity {
         });
 
         Drawable heroImage = grabPackageHeroImage(theme_pid);
-        heroImageBitmap = ((BitmapDrawable) heroImage).getBitmap();
+        if (heroImage != null) heroImageBitmap = ((BitmapDrawable) heroImage).getBitmap();
         int dominantColor = getDominantColor(heroImageBitmap);
 
         AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
@@ -452,31 +428,31 @@ public class InformationActivity extends AppCompatActivity {
                 setOverflowButtonColor(this);
             }
         }
-
         final InformationTabsAdapter adapter = new InformationTabsAdapter
-                (getSupportFragmentManager(), tabLayout.getTabCount(), getApplicationContext(),
-                        theme_pid, (theme_mode.equals("") &&
-                        (!theme_legacy && prefs.getBoolean("quick_apply", false))), theme_mode,
-                        tab_checker, wallpaperUrl);
+                (getSupportFragmentManager(), (tabLayout != null) ? tabLayout.getTabCount() : 0,
+                        (theme_mode.equals("") && (!theme_legacy && prefs.getBoolean(
+                                "quick_apply", false))), theme_mode, tab_checker, wallpaperUrl);
+
         if (viewPager != null) {
-            viewPager.setOffscreenPageLimit(tabLayout.getTabCount());
+            viewPager.setOffscreenPageLimit((tabLayout != null) ? tabLayout.getTabCount() : 0);
             viewPager.setAdapter(adapter);
             viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener
                     (tabLayout));
-            tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-                @Override
-                public void onTabSelected(TabLayout.Tab tab) {
-                    viewPager.setCurrentItem(tab.getPosition());
-                }
+            if (tabLayout != null) tabLayout.addOnTabSelectedListener(
+                    new TabLayout.OnTabSelectedListener() {
+                        @Override
+                        public void onTabSelected(TabLayout.Tab tab) {
+                            viewPager.setCurrentItem(tab.getPosition());
+                        }
 
-                @Override
-                public void onTabUnselected(TabLayout.Tab tab) {
-                }
+                        @Override
+                        public void onTabUnselected(TabLayout.Tab tab) {
+                        }
 
-                @Override
-                public void onTabReselected(TabLayout.Tab tab) {
-                }
-            });
+                        @Override
+                        public void onTabReselected(TabLayout.Tab tab) {
+                        }
+                    });
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -547,13 +523,14 @@ public class InformationActivity extends AppCompatActivity {
                                             .getPackageManager()
                                             .getApplicationInfo(
                                                     current, PackageManager.GET_META_DATA);
-                                    if (appInfo.metaData != null) {
-                                        if (appInfo.metaData.getString("Substratum_Parent") !=
-                                                null) {
-                                            if (appInfo.metaData.getString("Substratum_Parent")
-                                                    .equals(parse2_themeName)) {
-                                                all_overlays.add(current);
-                                            }
+                                    if (appInfo.metaData != null &&
+                                            appInfo.metaData.getString(
+                                                    "Substratum_Parent") != null) {
+                                        String parent =
+                                                appInfo.metaData.getString("Substratum_Parent");
+                                        if (parent != null && parse2_themeName != null &&
+                                                parent.equals(parse2_themeName)) {
+                                            all_overlays.add(current);
                                         }
                                     }
                                 } catch (Exception e) {
@@ -640,11 +617,13 @@ public class InformationActivity extends AppCompatActivity {
                                             .getPackageManager()
                                             .getApplicationInfo(
                                                     current, PackageManager.GET_META_DATA);
-                                    if (appInfo.metaData != null
-                                            && appInfo.metaData.getString("Substratum_Parent") !=
-                                            null) {
-                                        if (appInfo.metaData.getString("Substratum_Parent")
-                                                .equals(parse2_themeName)) {
+                                    if (appInfo.metaData != null &&
+                                            appInfo.metaData.getString(
+                                                    "Substratum_Parent") != null) {
+                                        String parent =
+                                                appInfo.metaData.getString("Substratum_Parent");
+                                        if (parent != null && parse2_themeName != null &&
+                                                parent.equals(parse2_themeName)) {
                                             all_overlays.add(current);
                                         }
                                     }
@@ -712,13 +691,15 @@ public class InformationActivity extends AppCompatActivity {
                                             .getPackageManager()
                                             .getApplicationInfo(
                                                     current, PackageManager.GET_META_DATA);
-                                    if (appInfo.metaData != null) {
-                                        if (appInfo.metaData.getString("Substratum_Parent") !=
-                                                null) {
-                                            if (appInfo.metaData.getString("Substratum_Parent")
-                                                    .equals(parse2_themeName)) {
-                                                all_overlays.add(current);
-                                            }
+                                    if (appInfo.metaData != null &&
+                                            appInfo.metaData.getString(
+                                                    "Substratum_Parent") != null) {
+                                        String parent =
+                                                appInfo.metaData.getString("Substratum_Parent");
+                                        if (parent != null &&
+                                                parse2_themeName != null &&
+                                                parent.equals(parse2_themeName)) {
+                                            all_overlays.add(current);
                                         }
                                     }
                                 } catch (Exception e) {
@@ -815,13 +796,14 @@ public class InformationActivity extends AppCompatActivity {
                                             .getPackageManager()
                                             .getApplicationInfo(
                                                     current, PackageManager.GET_META_DATA);
-                                    if (appInfo.metaData != null) {
-                                        if (appInfo.metaData.getString("Substratum_Parent") !=
-                                                null) {
-                                            if (appInfo.metaData.getString("Substratum_Parent")
-                                                    .equals(parse2_themeName)) {
-                                                all_overlays.add(current);
-                                            }
+                                    if (appInfo.metaData != null &&
+                                            appInfo.metaData.getString(
+                                                    "Substratum_Parent") != null) {
+                                        String parent =
+                                                appInfo.metaData.getString("Substratum_Parent");
+                                        if (parent != null && parse2_themeName != null &&
+                                                parent.equals(parse2_themeName)) {
+                                            all_overlays.add(current);
                                         }
                                     }
                                 } catch (Exception e) {
@@ -969,9 +951,9 @@ public class InformationActivity extends AppCompatActivity {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
                 getApplicationContext());
         if (uninstalled || refresh_mode) {
-            prefs.edit().putInt("uninstalled", THEME_INFORMATION_REQUEST_CODE).commit();
+            prefs.edit().putInt("uninstalled", THEME_INFORMATION_REQUEST_CODE).apply();
         } else {
-            prefs.edit().putInt("uninstalled", 0).commit();
+            prefs.edit().putInt("uninstalled", 0).apply();
         }
     }
 
@@ -1021,14 +1003,18 @@ public class InformationActivity extends AppCompatActivity {
                     myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
                             Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
-                    ShortcutInfo shortcut = new ShortcutInfo.Builder(getApplicationContext(),
-                            sUrl[0])
-                            .setShortLabel(((sUrl[0].equals("favorite")) ? "♥ " : "") + theme_name)
-                            .setLongLabel(((sUrl[0].equals("favorite")) ? "♥ " : "") + theme_name)
-                            .setIcon(Icon.createWithBitmap(app_icon))
-                            .setIntent(myIntent)
-                            .build();
-                    shortcutManager.addDynamicShortcuts(Arrays.asList(shortcut));
+                    ShortcutInfo shortcut =
+                            new ShortcutInfo.Builder(getApplicationContext(), sUrl[0])
+                                    .setShortLabel(((sUrl[0].equals("favorite")) ? "♥ " : "") +
+                                            theme_name)
+                                    .setLongLabel(((sUrl[0].equals("favorite")) ? "♥ " : "") +
+                                            theme_name)
+                                    .setIcon(Icon.createWithBitmap(app_icon))
+                                    .setIntent(myIntent)
+                                    .build();
+                    List<ShortcutInfo> shortcuts = new ArrayList<>();
+                    shortcuts.add(shortcut);
+                    shortcutManager.addDynamicShortcuts(shortcuts);
                 } catch (Exception e) {
                     // Suppress warning
                 }

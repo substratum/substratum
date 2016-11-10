@@ -29,21 +29,15 @@ import projekt.substratum.R;
 import projekt.substratum.config.References;
 import projekt.substratum.services.NotificationUpgradeReceiver;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
-
 public class CacheCreator {
-
-    // Extract the files from the assets folder of the target theme
 
     private Context mContext;
     private int id = References.notification_id_upgrade;
     private NotificationManager mNotifyManager;
 
     public boolean initializeCache(Context context, String package_identifier) {
+        // Extract the files from the assets folder of the target theme
         mContext = context;
-
         try {
             return unzip(package_identifier);
         } catch (IOException ioe) {
@@ -121,14 +115,18 @@ public class CacheCreator {
             File myDir = new File(mContext.getCacheDir(), "SubstratumBuilder");
             if (!myDir.exists()) {
                 boolean created = myDir.mkdir();
+                if (!created) Log.e("SubstratumLogger",
+                        "Could not create Substratum cache folder...");
             }
             File myDir2 = new File(mContext.getCacheDir().getAbsoluteFile() +
                     "/SubstratumBuilder/" + package_identifier);
             if (!myDir2.exists()) {
                 boolean created = myDir2.mkdir();
+                if (!created) Log.e("SubstratumLogger", "Could not create theme cache folder...");
             } else {
                 References.delete(myDir2.getAbsolutePath());
                 boolean created = myDir2.mkdir();
+                if (!created) Log.e("SubstratumLogger", "Could not create theme cache folder...");
             }
             String destination = mContext.getCacheDir().getAbsolutePath() + "/SubstratumBuilder/"
                     + package_identifier;
@@ -153,7 +151,6 @@ public class CacheCreator {
                 try (ZipFile zipFile = new ZipFile(otherContext.getPackageCodePath())) {
                     Enumeration zipEntries = zipFile.entries();
                     while (zipEntries.hasMoreElements()) {
-                        String fileName = ((ZipEntry) zipEntries.nextElement()).getName();
                         files += 1;
                     }
                 }
@@ -171,10 +168,12 @@ public class CacheCreator {
 
             // Buffer proper English and parse it (no 's after a name that ends with s)
             String theme = getThemeName(package_identifier);
-            if (theme.substring(theme.length() - 1).equals("s")) {
-                theme = theme + "\'";
-            } else {
-                theme = theme + "\'s";
+            if (theme != null) {
+                if (theme.substring(theme.length() - 1).equals("s")) {
+                    theme = theme + "\'";
+                } else {
+                    theme = theme + "\'s";
+                }
             }
             String theme_name = String.format(
                     mContext.getString(R.string.notification_initial_title_upgrade), theme);
@@ -248,7 +247,9 @@ public class CacheCreator {
         File root = new File(mContext.getCacheDir().getAbsoluteFile() +
                 "/SubstratumBuilder/" + package_name + "/substratum.xml");
         try {
-            root.createNewFile();
+            Boolean created = root.createNewFile();
+            if (!created) Log.e("SubstratumLogger",
+                    "Unable to create versioning placeholder file...");
             FileWriter fw = new FileWriter(root);
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter pw = new PrintWriter(bw);

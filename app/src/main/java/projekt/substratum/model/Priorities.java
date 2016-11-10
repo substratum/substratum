@@ -1,6 +1,5 @@
 package projekt.substratum.model;
 
-
 import android.graphics.drawable.Drawable;
 
 public class Priorities implements PrioritiesItem {

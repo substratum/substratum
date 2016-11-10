@@ -11,10 +11,6 @@ import java.util.List;
 
 import projekt.substratum.config.References;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
-
 public class ReadOverlaysFile {
 
     public static List<String> main(String argv[]) {

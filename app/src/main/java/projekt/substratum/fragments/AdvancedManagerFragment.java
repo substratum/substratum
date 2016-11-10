@@ -42,25 +42,21 @@ import projekt.substratum.util.ReadOverlays;
 
 import static projekt.substratum.config.References.REFRESH_WINDOW_DELAY;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
-
 public class AdvancedManagerFragment extends Fragment {
 
+    private ArrayList<String> activated_overlays;
     private RecyclerView.Adapter mAdapter;
     private MaterialSheetFab materialSheetFab;
-    private ArrayList<String> activated_overlays, disabled_overlays, all_overlays;
     private SharedPreferences prefs;
     private RelativeLayout relativeLayout;
     private ViewGroup root;
     private List<OverlayManager> overlaysList;
     private FloatingActionMenu floatingActionButton;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private boolean swipeRefreshing;
+    private Boolean swipeRefreshing;
+    private Boolean first_run = null;
     private MaterialProgressBar progressBar;
     private RecyclerView mRecyclerView;
-    private Boolean first_run = null;
     private ProgressBar loadingBar;
 
     @Override
@@ -68,7 +64,7 @@ public class AdvancedManagerFragment extends Fragment {
             savedInstanceState) {
         super.onCreate(savedInstanceState);
         prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-        root = (ViewGroup) inflater.inflate(R.layout.advanced_manager_fragment, null);
+        root = (ViewGroup) inflater.inflate(R.layout.advanced_manager_fragment, container, false);
         relativeLayout = (RelativeLayout) root.findViewById(R.id.no_overlays_enabled);
         mRecyclerView = (RecyclerView) root.findViewById(R.id.overlays_recycler_view);
 
@@ -223,13 +219,14 @@ public class AdvancedManagerFragment extends Fragment {
 
                         File currentDir = new File(current_directory);
                         String[] listed = currentDir.list();
-                        for (int i = 0; i < listed.length; i++) {
-                            if (listed[i].substring(listed[i].length() - 4).equals(".apk")) {
-                                activated_overlays.add(listed[i].substring(0,
-                                        listed[i].length() - 4));
+                        for (String file : listed) {
+                            if (file.substring(file.length() - 4).equals(".apk")) {
+                                activated_overlays.add(file.substring(0,
+                                        file.length() - 4));
                             }
                         }
 
+                        // Automatically sort the activated overlays by alphabetical order
                         Collections.sort(activated_overlays);
 
                         for (int i = 0; i < activated_overlays.size(); i++) {
@@ -425,8 +422,8 @@ public class AdvancedManagerFragment extends Fragment {
         protected String doInBackground(String... sUrl) {
             overlaysList = new ArrayList<>();
             activated_overlays = new ArrayList<>();
-            disabled_overlays = new ArrayList<>();
-            all_overlays = new ArrayList<>();
+            ArrayList<String> disabled_overlays;
+            ArrayList<String> all_overlays;
 
             if (References.checkOMS(mContext)) {
                 activated_overlays = new ArrayList<>(ReadOverlays.main(5, mContext));

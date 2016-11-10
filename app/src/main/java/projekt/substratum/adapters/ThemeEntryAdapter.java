@@ -24,10 +24,6 @@ import projekt.substratum.R;
 import projekt.substratum.config.References;
 import projekt.substratum.model.ThemeInfo;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
-
 public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.ViewHolder> {
     private ArrayList<ThemeInfo> information;
 
@@ -51,7 +47,9 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, final int i) {
+    public void onBindViewHolder(ViewHolder viewHolder, int pos) {
+        final int i = pos;
+
         viewHolder.theme_name.setText(information.get(i).getThemeName());
         viewHolder.theme_author.setText(information.get(i).getThemeAuthor());
         if (information.get(i).getPluginVersion() != null) {
@@ -159,7 +157,7 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
                                                             .startActivity(intent);
                                                 } catch (ActivityNotFoundException
                                                         activityNotFoundException) {
-                                                    //
+                                                    // Suppress warning
                                                 }
                                             }
                                         })
@@ -175,15 +173,16 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
                 }
         );
 
-        viewHolder.two.setOnClickListener(new View.OnClickListener() {
-                                              public void onClick(View v) {
-                                                  new AlertDialog.Builder(information.get(i)
-                                                          .getContext())
-                                                          .setMessage(R.string.two_description)
-                                                          .setCancelable(true)
-                                                          .show();
-                                              }
-                                          }
+        viewHolder.two.setOnClickListener(
+                new View.OnClickListener() {
+                    public void onClick(View v) {
+                        new AlertDialog.Builder(information.get(i)
+                                .getContext())
+                                .setMessage(R.string.two_description)
+                                .setCancelable(true)
+                                .show();
+                    }
+                }
         );
 
         viewHolder.theme_author.setText(information.get(i).getThemeAuthor());
@@ -195,7 +194,7 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
         return information.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         CardView cardView;
         TextView theme_name;
         TextView theme_author;
@@ -207,7 +206,7 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
         ImageView tbo;
         ImageView two;
 
-        public ViewHolder(View view) {
+        ViewHolder(View view) {
             super(view);
             cardView = (CardView) view.findViewById(R.id.theme_card);
             theme_name = (TextView) view.findViewById(R.id.theme_name);

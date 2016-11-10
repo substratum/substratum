@@ -9,10 +9,6 @@ import android.widget.Toast;
 import projekt.substratum.R;
 import projekt.substratum.config.References;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
-
 @TargetApi(Build.VERSION_CODES.N)
 public class MasqueradeTile extends TileService {
 

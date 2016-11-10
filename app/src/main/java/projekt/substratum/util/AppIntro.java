@@ -6,10 +6,6 @@ import com.stephentuso.welcome.util.WelcomeScreenConfiguration;
 
 import projekt.substratum.R;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
-
 public class AppIntro extends WelcomeActivity {
 
     @Override

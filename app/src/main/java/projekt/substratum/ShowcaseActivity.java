@@ -13,6 +13,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -34,10 +35,6 @@ import projekt.substratum.adapters.ShowcaseTabsAdapter;
 import projekt.substratum.config.References;
 import projekt.substratum.util.MD5;
 import projekt.substratum.util.ReadShowcaseTabsFile;
-
-/**
- * @author Nicholas Chum (nicholaschum)
- */
 
 public class ShowcaseActivity extends AppCompatActivity {
 
@@ -136,16 +133,20 @@ public class ShowcaseActivity extends AppCompatActivity {
         setContentView(R.layout.showcase_activity);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(false);
-        getSupportActionBar().setTitle(R.string.showcase);
-        if (toolbar != null) toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                getSupportActionBar().setHomeButtonEnabled(false);
+                getSupportActionBar().setTitle(R.string.showcase);
             }
-        });
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onBackPressed();
+                }
+            });
+        }
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setVisibility(View.GONE);
@@ -174,29 +175,37 @@ public class ShowcaseActivity extends AppCompatActivity {
                         "/" + "showcase_tabs.xml"));
                 String new_file = MD5.calculateMD5(new File(getApplicationContext().getCacheDir() +
                         "/" + "showcase_tabs-temp.xml"));
-                if (!existing.equals(new_file)) {
+                if (existing != null && !existing.equals(new_file)) {
                     // MD5s don't match
                     File renameMe = new File(getApplicationContext().getCacheDir() +
                             "/" + "showcase_tabs-temp.xml");
-                    renameMe.renameTo(new File(getApplicationContext().getCacheDir() +
-                            "/" + "showcase_tabs.xml"));
-                    // Also clear the tabs cache
-                    References.delete(getApplicationContext().getCacheDir().getAbsolutePath() +
-                            "/ShowcaseCache/");
-                    SharedPreferences prefs = getApplicationContext().getSharedPreferences(
-                            "showcase_tabs", 0);
-                    prefs.edit().clear().apply();
+                    boolean move = renameMe.renameTo(
+                            new File(getApplicationContext().getCacheDir() +
+                                    "/" + "showcase_tabs.xml"));
+                    if (move) {
+                        // Also clear the tabs cache
+                        References.delete(getApplicationContext().getCacheDir().getAbsolutePath() +
+                                "/ShowcaseCache/");
+                        SharedPreferences prefs = getApplicationContext().getSharedPreferences(
+                                "showcase_tabs", 0);
+                        prefs.edit().clear().apply();
+                    }
                 } else {
                     File deleteMe = new File(getApplicationContext().getCacheDir() +
                             "/" + "showcase_tabs-temp.xml");
-                    deleteMe.delete();
+                    boolean deleted = deleteMe.delete();
+                    if (!deleted) Log.e("SubstratumShowcase",
+                            "Unable to delete temporary tab file.");
                 }
             }
 
             resultant = "showcase_tabs.xml";
 
             String[] checkerCommands = {getApplicationContext().getCacheDir() + "/" + resultant};
+
+            @SuppressWarnings("unchecked")
             final Map<String, String> newArray = ReadShowcaseTabsFile.main(checkerCommands);
+
             ArrayList<String> links = new ArrayList<>();
 
             for (String key : newArray.keySet()) {
@@ -207,8 +216,7 @@ public class ShowcaseActivity extends AppCompatActivity {
             }
             final ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
             final ShowcaseTabsAdapter adapter = new ShowcaseTabsAdapter
-                    (getSupportFragmentManager(), tabLayout.getTabCount(), getApplicationContext(),
-                            links);
+                    (getSupportFragmentManager(), tabLayout.getTabCount(), links);
             if (viewPager != null) {
                 viewPager.setOffscreenPageLimit(tabLayout.getTabCount());
                 viewPager.setAdapter(adapter);
@@ -226,7 +234,7 @@ public class ShowcaseActivity extends AppCompatActivity {
                         return false;
                     }
                 });
-                tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                     @Override
                     public void onTabSelected(TabLayout.Tab tab) {
                         viewPager.setCurrentItem(tab.getPosition());

@@ -23,26 +23,10 @@ import java.util.Arrays;
 import kellinwood.security.zipsigner.ZipSigner;
 import projekt.substratum.config.References;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
-
 public class SubstratumBuilder {
-
-    /*
-
-    All public methods in this class:
-
-    1. initializeCache(Context, package_identifier) : extract assets for theme so no reuse needed
-    2. beginAction(Context, package_name, theme_package) : start SubstratumBuilder function
-        - this will create an AndroidManifest based on selected package
-        - then it will compile using the new work zone
-
-    */
 
     private static final Boolean enable_signing = true;
     public Boolean has_errored_out = false;
-    public String parse2_themeName;
     public String no_install = "";
     private Context mContext;
     private String error_logs = "";
@@ -58,8 +42,7 @@ public class SubstratumBuilder {
     }
 
     private String getDeviceID() {
-        return Settings.Secure.getString(
-                mContext.getContentResolver(), Settings.Secure.ANDROID_ID);
+        return Settings.Secure.ANDROID_ID;
     }
 
     private void dumpErrorLogs(String tag, String overlay, String message) {
@@ -81,7 +64,6 @@ public class SubstratumBuilder {
         mContext = context;
         String work_area;
         Boolean update_mode = Boolean.valueOf(update_mode_input);
-        String base_resources = base_variant;
 
         int typeMode = 1;
         if (additional_variant != null) {
@@ -109,7 +91,7 @@ public class SubstratumBuilder {
         // 2a. Parse the theme's name before adding it into the new manifest to prevent any issues
 
         String parse1_themeName = theme_name.replaceAll("\\s+", "");
-        parse2_themeName = parse1_themeName.replaceAll("[^a-zA-Z0-9]+", "");
+        String parse2_themeName = parse1_themeName.replaceAll("[^a-zA-Z0-9]+", "");
 
         String parse2_variantName = "";
         if (variant != null) {
@@ -119,8 +101,8 @@ public class SubstratumBuilder {
         if (parse2_variantName.length() > 0) parse2_variantName = "." + parse2_variantName;
 
         String parse2_baseName = "";
-        if (base_resources != null) {
-            String parse1_baseName = base_resources.replaceAll("\\s+", "");
+        if (base_variant != null) {
+            String parse1_baseName = base_variant.replaceAll("\\s+", "");
             parse2_baseName = parse1_baseName.replaceAll("[^a-zA-Z0-9]+", "");
         }
         if (parse2_baseName.length() > 0) parse2_baseName = "." + parse2_baseName;
@@ -130,9 +112,8 @@ public class SubstratumBuilder {
         }
 
         // 2b. Create the manifest file based on the new parsed names
-
         String varianter = parse2_variantName + parse2_baseName;
-        varianter.replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "");
+        varianter = varianter.replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "");
 
         String targetPackage = overlay_package;
         if (References.allowedSettingsOverlay(overlay_package)) {
@@ -181,7 +162,8 @@ public class SubstratumBuilder {
             try (FileWriter fw = new FileWriter(root);
                  BufferedWriter bw = new BufferedWriter(fw);
                  PrintWriter pw = new PrintWriter(bw)) {
-                root.createNewFile();
+                Boolean created = root.createNewFile();
+                if (!created) Log.e("SubstratumBuilder", "Could not create new file!");
                 if (variant != null) {
                     String manifest =
                             "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?>\n" +
@@ -209,7 +191,7 @@ public class SubstratumBuilder {
                                     "</manifest>\n";
                     pw.write(manifest);
                 } else {
-                    if (base_resources != null) {
+                    if (base_variant != null) {
                         String manifest =
                                 "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?>\n" +
                                         "<manifest xmlns:android=\"http://schemas.android" +

@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,16 +29,11 @@ import projekt.substratum.config.References;
 import projekt.substratum.model.WallpaperEntries;
 import projekt.substratum.util.ReadCloudWallpaperFile;
 
-/**
- * @author Nicholas Chum (nicholaschum)
- */
-
 public class Wallpapers extends Fragment {
 
     private ViewGroup root;
     private String wallpaperUrl;
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
     private MaterialProgressBar materialProgressBar;
     private View no_network, no_wallpapers;
@@ -45,7 +41,6 @@ public class Wallpapers extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
-
         wallpaperUrl = InformationActivity.getWallpaperUrl();
         root = (ViewGroup) inflater.inflate(R.layout.tab_fragment_6, container, false);
         materialProgressBar = (MaterialProgressBar) root.findViewById(R.id.progress_bar_loader);
@@ -60,9 +55,7 @@ public class Wallpapers extends Fragment {
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
-
         refreshLayout();
-
         return root;
     }
 
@@ -103,6 +96,7 @@ public class Wallpapers extends Fragment {
             super.onPostExecute(result);
             String[] checkerCommands = {getContext().getCacheDir() + "/current_wallpapers.xml"};
 
+            @SuppressWarnings("unchecked")
             final Map<String, String> newArray = ReadCloudWallpaperFile.main(checkerCommands);
             ArrayList<WallpaperEntries> wallpapers = new ArrayList<>();
             WallpaperEntries newEntry = new WallpaperEntries();
@@ -120,7 +114,7 @@ public class Wallpapers extends Fragment {
                     newEntry = new WallpaperEntries();
                 }
             }
-            mAdapter = new WallpaperAdapter(wallpapers);
+            RecyclerView.Adapter mAdapter = new WallpaperAdapter(wallpapers);
             mRecyclerView.setAdapter(mAdapter);
 
             if (wallpapers.size() == 0) no_wallpapers.setVisibility(View.VISIBLE);
@@ -140,7 +134,8 @@ public class Wallpapers extends Fragment {
                 File current_wallpapers = new File(getContext().getCacheDir() +
                         "/current_wallpapers.xml");
                 if (current_wallpapers.exists()) {
-                    current_wallpapers.delete();
+                    Boolean deleted = current_wallpapers.delete();
+                    if (!deleted) Log.e("Wallpapers", "Unable to delete current wallpaper stash.");
                 }
 
                 URL url = new URL(sUrl[0]);
@@ -188,6 +183,7 @@ public class Wallpapers extends Fragment {
                     if (input != null)
                         input.close();
                 } catch (IOException ignored) {
+                    // Suppress warning
                 }
 
                 if (connection != null)

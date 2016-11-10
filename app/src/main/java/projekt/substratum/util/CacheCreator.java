@@ -132,7 +132,6 @@ public class CacheCreator {
                     + package_identifier;
 
             // Initialize Notification
-
             int notification_priority = 2; // PRIORITY_MAX == 2
 
             // Create an Intent for the BroadcastReceiver
@@ -151,6 +150,7 @@ public class CacheCreator {
                 try (ZipFile zipFile = new ZipFile(otherContext.getPackageCodePath())) {
                     Enumeration zipEntries = zipFile.entries();
                     while (zipEntries.hasMoreElements()) {
+                        zipEntries.nextElement(); // Iterable to move to the next file
                         files += 1;
                     }
                 }

@@ -53,7 +53,7 @@ public class AdvancedManagerFragment extends Fragment {
     private List<OverlayManager> overlaysList;
     private FloatingActionMenu floatingActionButton;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private Boolean swipeRefreshing;
+    private boolean swipeRefreshing;
     private Boolean first_run = null;
     private MaterialProgressBar progressBar;
     private RecyclerView mRecyclerView;

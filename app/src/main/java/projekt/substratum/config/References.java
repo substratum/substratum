@@ -27,6 +27,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import projekt.substrate.LetsGetStarted;
+import projekt.substrate.ShowMeYourFierceEyes;
 import projekt.substratum.R;
 import projekt.substratum.util.CacheCreator;
 import projekt.substratum.util.Root;
@@ -467,6 +468,16 @@ public class References {
             e.printStackTrace();
         }
         return hero;
+    }
+
+    public static Boolean spreadYourWingsAndFly(Context context) {
+        String[] checker = ShowMeYourFierceEyes.withSomeMascaraOn();
+        for (String check : checker) {
+            if (References.isPackageInstalled(context, check)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     // Grab Device IMEI for Overlay Embedding

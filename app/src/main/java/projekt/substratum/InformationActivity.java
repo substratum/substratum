@@ -73,6 +73,9 @@ public class InformationActivity extends AppCompatActivity {
     private byte[] byteArray;
     private Bitmap heroImageBitmap;
     private SharedPreferences prefs;
+    private AppBarLayout appBarLayout;
+    private CollapsingToolbarLayout collapsingToolbarLayout;
+    private View gradientView;
 
     public static String getThemeName() {
         return theme_name;
@@ -290,7 +293,8 @@ public class InformationActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) toolbar.setTitle(theme_name);
 
-        CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById
+        gradientView = findViewById(R.id.gradientView);
+        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById
                 (R.id.collapsing_toolbar_tabbed_layout);
         if (collapsingToolbarLayout != null) collapsingToolbarLayout.setTitle(theme_name);
 
@@ -312,7 +316,7 @@ public class InformationActivity extends AppCompatActivity {
         if (heroImage != null) heroImageBitmap = ((BitmapDrawable) heroImage).getBitmap();
         int dominantColor = getDominantColor(heroImageBitmap);
 
-        AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
+        appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
         appBarLayout.setBackgroundColor(dominantColor);
 
         if (collapsingToolbarLayout != null && dynamicActionBarColors &&
@@ -466,7 +470,6 @@ public class InformationActivity extends AppCompatActivity {
                         "permissions for system runtime code execution.");
             }
         }
-
         new AppShortcutCreator().execute("last_opened");
     }
 
@@ -941,7 +944,16 @@ public class InformationActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-            Glide.with(getApplicationContext()).load(byteArray).centerCrop().into(kenBurnsView);
+            if (References.spreadYourWingsAndFly(getApplicationContext())) {
+                gradientView.setVisibility(View.GONE);
+                kenBurnsView.setBackgroundColor(Color.parseColor("#ffff00"));
+                collapsingToolbarLayout.setStatusBarScrimColor(Color.parseColor("#ffff00"));
+                collapsingToolbarLayout.setContentScrimColor(Color.parseColor("#ffff00"));
+                appBarLayout.setBackgroundColor(Color.parseColor("#ffff00"));
+                getWindow().setNavigationBarColor(Color.parseColor("#ffff00"));
+            } else {
+                Glide.with(getApplicationContext()).load(byteArray).centerCrop().into(kenBurnsView);
+            }
 
             // Now, let's grab root on the helper
             Intent rootIntent = new Intent(Intent.ACTION_MAIN);

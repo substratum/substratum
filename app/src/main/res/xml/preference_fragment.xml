@@ -19,6 +19,11 @@
             android:summary="@string/settings_about_masquerade_not_installed"
             android:title="@string/settings_about_masquerade"/>
 
+        <Preference
+            android:key="theme_platform"
+            android:summary="@string/settings_about_rro_version_2"
+            android:title="@string/settings_about_oms_rro_version"/>
+
     </PreferenceCategory>
 
     <PreferenceCategory

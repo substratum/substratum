@@ -69,6 +69,17 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     }
                 });
 
+        Preference themePlatform = getPreferenceManager().findPreference
+                ("theme_platform");
+        if (References.checkOMS(getContext())) {
+            if (References.checkOMSVersion(getContext()) == 3) {
+                themePlatform.setSummary(getString(R.string.settings_about_oms_version_3));
+            } else if (References.checkOMSVersion(getContext()) == 7) {
+                themePlatform.setSummary(getString(R.string.settings_about_oms_version_7));
+            }
+        }
+        themePlatform.setIcon(getContext().getDrawable(R.mipmap.projekt_icon));
+
         if (References.checkOMS(getContext())) {
             Preference aboutMasquerade = getPreferenceManager().findPreference
                     ("about_masquerade");

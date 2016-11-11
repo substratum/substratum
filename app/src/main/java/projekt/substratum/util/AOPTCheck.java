@@ -22,38 +22,27 @@ public class AOPTCheck {
     public void injectAOPT(Context context) {
         mContext = context;
 
-        // Check if aopt is installed on the device
+        // Check if AOPT is installed on the device
         File aopt = new File("/system/bin/aopt");
         if (!aopt.exists()) {
             if (!Arrays.toString(Build.SUPPORTED_ABIS).contains("86")) {
-                if (!Arrays.toString(Build.SUPPORTED_ABIS).contains("64")) {
-                    try {
-                        // Take account for ARM64 first
-                        copyAOPT("aopt");
-                        References.mountRW();
-                        References.copy(context.getFilesDir().getAbsolutePath() +
-                                "/aopt", "/system/bin/aopt");
-                        References.setPermissions(777, "/system/bin/aopt");
-                        References.mountRO();
-                        Log.d("SubstratumLogger", "Android Overlay Packaging Tool (ARM64) has been"
-                                + " added into the system partition.");
-                    } catch (Exception e) {
-                        // Suppress warning
-                    }
-                } else {
-                    // Take account for ARM devices
-                    try {
-                        copyAOPT("aopt");
-                        References.mountRW();
-                        References.copy(context.getFilesDir().getAbsolutePath() +
-                                "/aopt", "/system/bin/aopt");
-                        References.setPermissions(777, "/system/bin/aopt");
-                        References.mountRO();
-                        Log.d("SubstratumLogger", "Android Overlay Packaging Tool (ARM) has been" +
-                                " added into the system partition.");
-                    } catch (Exception e) {
-                        //
-                    }
+                // Developers: AOPT-ARM (32bit) is using the legacy AAPT binary, while AAPT-ARM64
+                //             (64bit) is using the brand new AOPT binary.
+                String architecture =
+                        Arrays.asList(Build.SUPPORTED_64_BIT_ABIS).size() > 0 ? "ARM64" : "ARM";
+                try {
+                    copyAOPT("aopt" + (architecture.equals("ARM64") ? "64" : ""));
+                    References.mountRW();
+                    References.copy(context.getFilesDir().getAbsolutePath() +
+                                    "/aopt" + (architecture.equals("ARM64") ? "64" : ""),
+                            "/system/bin/aopt");
+                    References.setPermissions(777, "/system/bin/aopt");
+                    References.mountRO();
+                    Log.d("SubstratumLogger",
+                            "Android Overlay Packaging Tool (" + architecture + ") has been"
+                                    + " added into the system partition.");
+                } catch (Exception e) {
+                    // Suppress warning
                 }
             } else {
                 // Take account for x86 devices
@@ -73,8 +62,13 @@ public class AOPTCheck {
         } else if (aopt.exists()) {
             String integrityCheck = checkAOPTIntegrity();
             // AOPT outputs different ui
-            if (integrityCheck != null && integrityCheck.equals("Android Asset Packaging " +
-                    "Tool, v0.2-")) {
+            if (integrityCheck != null &&
+                    (integrityCheck.equals("Android Asset Packaging Tool, v0.2-") ||
+                            (Arrays.asList(Build.SUPPORTED_64_BIT_ABIS).size() > 0 &&
+                                    integrityCheck.equals(
+                                            "Android Overlay Packaging Tool, v0.2-android-7" +
+                                                    ".0-userdebug")
+                            ))) {
                 Log.d("SubstratumLogger", "The system partition already contains an existing " +
                         "AOPT binary and Substratum is locked and loaded!");
             } else {
@@ -82,27 +76,38 @@ public class AOPTCheck {
                         "The system partition already contains an existing AOPT " +
                                 "binary, however it does not match Substratum integrity.");
                 if (!Arrays.toString(Build.SUPPORTED_ABIS).contains("86")) {
-                    // Take account for ARM/ARM64 devices
-                    copyAOPT("aopt");
-                    References.mountRW();
-                    References.delete("/system/bin/aopt");
-                    References.copy(context.getFilesDir().getAbsolutePath() +
-                            "/aopt", "/system/bin/aopt");
-                    References.setPermissions(777, "/system/bin/aopt");
-                    References.mountRO();
-                    Log.d("SubstratumLogger", "Android Overlay Packaging Tool (ARM) has been " +
-                            "injected into the system partition.");
+                    // Developers: AOPT-ARM (32bit) is using the legacy AAPT binary,
+                    //             while AAPT-ARM64 (64bit) is using the brand new AOPT binary.
+                    String architecture =
+                            Arrays.asList(Build.SUPPORTED_64_BIT_ABIS).size() > 0 ? "ARM64" : "ARM";
+                    try {
+                        copyAOPT("aopt" + (architecture.equals("ARM64") ? "64" : ""));
+                        References.mountRW();
+                        References.copy(context.getFilesDir().getAbsolutePath() +
+                                        "/aopt" + (architecture.equals("ARM64") ? "64" : ""),
+                                "/system/bin/aopt");
+                        References.setPermissions(777, "/system/bin/aopt");
+                        References.mountRO();
+                        Log.d("SubstratumLogger",
+                                "Android Overlay Packaging Tool (" + architecture + ") has been"
+                                        + " added into the system partition.");
+                    } catch (Exception e) {
+                        // Suppress warning
+                    }
                 } else {
                     // Take account for x86 devices
-                    copyAOPT("aopt-x86");
-                    References.mountRW();
-                    References.delete("/system/bin/aopt");
-                    References.copy(context.getFilesDir().getAbsolutePath() +
-                            "/aopt-x86", "/system/bin/aopt");
-                    References.setPermissions(777, "/system/bin/aopt");
-                    References.mountRO();
-                    Log.d("SubstratumLogger", "Android Overlay Packaging Tool (x86) has been " +
-                            "injected into the system partition.");
+                    try {
+                        copyAOPT("aopt-x86");
+                        References.mountRW();
+                        References.copy(context.getFilesDir().getAbsolutePath() +
+                                "/aopt-x86", "/system/bin/aopt");
+                        References.setPermissions(777, "/system/bin/aopt");
+                        References.mountRO();
+                        Log.d("SubstratumLogger", "Android Overlay Packaging Tool (x86) has been" +
+                                " added into the system partition.");
+                    } catch (Exception e) {
+                        //
+                    }
                 }
             }
         }

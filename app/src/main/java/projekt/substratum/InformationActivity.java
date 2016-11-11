@@ -268,7 +268,6 @@ public class InformationActivity extends AppCompatActivity {
                     Toast.LENGTH_LONG);
             toast.show();
         }
-
         wallpaperUrl = null;
 
         try {
@@ -506,11 +505,6 @@ public class InformationActivity extends AppCompatActivity {
                     .setPositiveButton(R.string.uninstall_dialog_okay, new DialogInterface
                             .OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            // Quickly parse theme_name
-                            String parse1_themeName = theme_name.replaceAll("\\s+", "");
-                            String parse2_themeName = parse1_themeName.replaceAll
-                                    ("[^a-zA-Z0-9]+", "");
-
                             // Begin uninstalling all overlays based on this package
                             List<String> stateAll = ReadOverlays.main(4, getApplicationContext());
                             stateAll.addAll(ReadOverlays.main(5, getApplicationContext()));
@@ -528,8 +522,8 @@ public class InformationActivity extends AppCompatActivity {
                                                     "Substratum_Parent") != null) {
                                         String parent =
                                                 appInfo.metaData.getString("Substratum_Parent");
-                                        if (parent != null && parse2_themeName != null &&
-                                                parent.equals(parse2_themeName)) {
+                                        if (parent != null && References.isPackageInstalled(
+                                                getApplicationContext(), parent)) {
                                             all_overlays.add(current);
                                         }
                                     }
@@ -587,11 +581,6 @@ public class InformationActivity extends AppCompatActivity {
                     .setPositiveButton(R.string.uninstall_dialog_okay, new DialogInterface
                             .OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            // Quickly parse theme_name
-                            String parse1_themeName = theme_name.replaceAll("\\s+", "");
-                            String parse2_themeName = parse1_themeName.replaceAll
-                                    ("[^a-zA-Z0-9]+", "");
-
                             // Begin disabling all overlays based on this package
                             File current_overlays = new File(Environment
                                     .getExternalStorageDirectory().getAbsolutePath() +
@@ -622,8 +611,8 @@ public class InformationActivity extends AppCompatActivity {
                                                     "Substratum_Parent") != null) {
                                         String parent =
                                                 appInfo.metaData.getString("Substratum_Parent");
-                                        if (parent != null && parse2_themeName != null &&
-                                                parent.equals(parse2_themeName)) {
+                                        if (parent != null && References.isPackageInstalled(
+                                                getApplicationContext(), parent)) {
                                             all_overlays.add(current);
                                         }
                                     }
@@ -674,11 +663,6 @@ public class InformationActivity extends AppCompatActivity {
                     .setPositiveButton(R.string.uninstall_dialog_okay, new DialogInterface
                             .OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            // Quickly parse theme_name
-                            String parse1_themeName = theme_name.replaceAll("\\s+", "");
-                            String parse2_themeName = parse1_themeName.replaceAll
-                                    ("[^a-zA-Z0-9]+", "");
-
                             // Begin enabling all overlays based on this package
                             List<String> stateAll = ReadOverlays.main(4, getApplicationContext());
                             stateAll.addAll(ReadOverlays.main(5, getApplicationContext()));
@@ -696,9 +680,8 @@ public class InformationActivity extends AppCompatActivity {
                                                     "Substratum_Parent") != null) {
                                         String parent =
                                                 appInfo.metaData.getString("Substratum_Parent");
-                                        if (parent != null &&
-                                                parse2_themeName != null &&
-                                                parent.equals(parse2_themeName)) {
+                                        if (parent != null && References.isPackageInstalled(
+                                                getApplicationContext(), parent)) {
                                             all_overlays.add(current);
                                         }
                                     }
@@ -766,11 +749,6 @@ public class InformationActivity extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int id) {
                             References.uninstallOverlay(theme_pid);
 
-                            // Quickly parse theme_name
-                            String parse1_themeName = theme_name.replaceAll("\\s+", "");
-                            String parse2_themeName = parse1_themeName.replaceAll
-                                    ("[^a-zA-Z0-9]+", "");
-
                             // Begin uninstalling all overlays based on this package
                             File current_overlays = new File(Environment
                                     .getExternalStorageDirectory().getAbsolutePath() +
@@ -801,8 +779,8 @@ public class InformationActivity extends AppCompatActivity {
                                                     "Substratum_Parent") != null) {
                                         String parent =
                                                 appInfo.metaData.getString("Substratum_Parent");
-                                        if (parent != null && parse2_themeName != null &&
-                                                parent.equals(parse2_themeName)) {
+                                        if (parent != null && References.isPackageInstalled(
+                                                getApplicationContext(), parent)) {
                                             all_overlays.add(current);
                                         }
                                     }

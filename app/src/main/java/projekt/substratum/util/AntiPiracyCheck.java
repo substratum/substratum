@@ -8,7 +8,6 @@ import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
-import android.telephony.TelephonyManager;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -73,41 +72,6 @@ public class AntiPiracyCheck {
             return null;
         }
 
-        private String getDeviceIMEI() {
-            TelephonyManager telephonyManager = (TelephonyManager) mContext.getSystemService(Context
-                    .TELEPHONY_SERVICE);
-            return telephonyManager.getDeviceId();
-        }
-
-        private boolean findOverlayParent(Context context, String theme_parent) {
-            try {
-                PackageManager packageManager = mContext.getPackageManager();
-                List<ApplicationInfo> pm = packageManager.getInstalledApplications(PackageManager
-                        .GET_META_DATA);
-                for (int i = 0; i < pm.size(); i++) {
-                    ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
-                            pm.get(i).packageName, PackageManager.GET_META_DATA);
-                    if (appInfo.metaData != null) {
-                        if (appInfo.metaData.getString(References.metadataName) != null) {
-                            String parse1_themeName = appInfo.metaData.getString(References
-                                    .metadataName);
-                            String parse15_themeName = "";
-                            if (parse1_themeName != null)
-                                parse15_themeName = parse1_themeName.replaceAll("\\s+", "");
-                            String parse2_themeName = parse15_themeName.replaceAll
-                                    ("[^a-zA-Z0-9]+", "");
-                            if (parse2_themeName.equals(theme_parent)) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-            } catch (Exception e) {
-                // Exception
-            }
-            return false;
-        }
-
         private void getSubstratumPackages(Context context, String package_name) {
             // Simulate the Layers Plugin feature by filtering all installed apps and their metadata
             try {
@@ -137,10 +101,11 @@ public class AntiPiracyCheck {
                     if (deviceID != null && deviceID.equals(actualDeviceID)) {
                         if (appInfo.metaData.getString("Substratum_IMEI") != null) {
                             String imei = appInfo.metaData.getString("Substratum_IMEI");
-                            String manifest = "!" + getDeviceIMEI();
-                            if (imei != null && getDeviceIMEI() != null && imei.equals(manifest)) {
+                            String manifest = "!" + References.getDeviceIMEI(mContext);
+                            if (imei != null && References.getDeviceIMEI(mContext) != null &&
+                                    imei.equals(manifest)) {
                                 if (appInfo.metaData.getString("Substratum_Parent") != null
-                                        && !findOverlayParent(context,
+                                        && !References.isPackageInstalled(context,
                                         appInfo.metaData.getString("Substratum_Parent"))) {
                                     Log.d("OverlayVerification", package_name + " " +
                                             "unauthorized to be used on this device.");

@@ -685,8 +685,8 @@ public class OverlaysList extends Fragment {
                             all_installed_overlays.get(i), PackageManager.GET_META_DATA);
                     if (appInfo.metaData != null) {
                         if (appInfo.metaData.getString("Substratum_Parent") != null) {
-                            if (appInfo.metaData.getString("Substratum_Parent")
-                                    .equals(parse2_themeName)) {
+                            if (References.isPackageInstalled(
+                                    mContext, appInfo.metaData.getString("Substratum_Parent"))) {
                                 current_theme_overlays.add(all_installed_overlays.get(i));
                             }
                         }
@@ -1719,8 +1719,8 @@ public class OverlaysList extends Fragment {
                                     if (appInfo.metaData.getString("Substratum_Parent") != null) {
                                         String parent = appInfo.metaData.getString(
                                                 "Substratum_Parent");
-                                        if (theme_name_parsed != null && parent != null &&
-                                                parent.equals(theme_name_parsed)) {
+                                        if (parent != null && References.isPackageInstalled(
+                                                mContext, parent)) {
                                             activated_overlays_from_theme.add(current);
                                         }
                                     }
@@ -1839,7 +1839,8 @@ public class OverlaysList extends Fragment {
                                             checkedOverlays.get(i).getSelectedVariantName4(),
                                             sUrl[0],
                                             versionName,
-                                            References.checkOMS(getContext()));
+                                            References.checkOMS(getContext()),
+                                            theme_pid);
                                 } else {
                                     sb = new SubstratumBuilder();
                                     sb.beginAction(getContext(), theme_pid, current_overlay,
@@ -1849,7 +1850,8 @@ public class OverlaysList extends Fragment {
                                             checkedOverlays.get(i).getSelectedVariantName4(),
                                             null,
                                             versionName,
-                                            References.checkOMS(getContext()));
+                                            References.checkOMS(getContext()),
+                                            theme_pid);
                                 }
                             } else {
                                 Log.d("PackageProcessor", "Currently processing package" +
@@ -1865,7 +1867,8 @@ public class OverlaysList extends Fragment {
                                             null,
                                             sUrl[0],
                                             versionName,
-                                            References.checkOMS(getContext()));
+                                            References.checkOMS(getContext()),
+                                            theme_pid);
                                 } else {
                                     sb = new SubstratumBuilder();
                                     sb.beginAction(getContext(), theme_pid, current_overlay,
@@ -1875,7 +1878,8 @@ public class OverlaysList extends Fragment {
                                             null,
                                             null,
                                             versionName,
-                                            References.checkOMS(getContext()));
+                                            References.checkOMS(getContext()),
+                                            theme_pid);
                                 }
                             }
                             if (update_bool.equals("false")) {
@@ -1915,7 +1919,8 @@ public class OverlaysList extends Fragment {
                                     null,
                                     null,
                                     versionName,
-                                    References.checkOMS(getContext()));
+                                    References.checkOMS(getContext()),
+                                    theme_pid);
 
                             if (update_bool.equals("false")) {
                                 final_runner.add(sb.no_install);

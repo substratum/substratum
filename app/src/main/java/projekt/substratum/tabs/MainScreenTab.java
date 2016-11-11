@@ -719,7 +719,7 @@ public class MainScreenTab extends Fragment {
                                     theme_name,
                                     "false", "", null,
                                     ((base3overlay.length() == 0) ? null : base3overlay),
-                                    versionName, References.checkOMS(getContext()));
+                                    versionName, References.checkOMS(getContext()), theme_pid);
                             if (sb.no_install.length() > 0) {
                                 final_runner.add(sb.no_install);
                             }
@@ -741,7 +741,7 @@ public class MainScreenTab extends Fragment {
                                 theme_name,
                                 "true", "", null,
                                 ((base3overlay.length() == 0) ? null : base3overlay),
-                                versionName, References.checkOMS(getContext()));
+                                versionName, References.checkOMS(getContext()), theme_pid);
                         to_be_enabled.add(package_name);
                     }
                     if (sb.has_errored_out) {
@@ -753,9 +753,6 @@ public class MainScreenTab extends Fragment {
                             "SubstratumBuilder.");
                 }
             }
-
-            String parse1_themeName = theme_name.replaceAll("\\s+", "");
-            String parse2_themeName = parse1_themeName.replaceAll("[^a-zA-Z0-9]+", "");
 
             List<String> state5 = ReadOverlays.main(5, getContext());
             ArrayList<String> all_installed_overlays = new ArrayList<>(state5);
@@ -772,8 +769,8 @@ public class MainScreenTab extends Fragment {
                                     ((base3overlay.length() == 0) ? "" : "." + base3overlay))) {
                                 if (appInfo.metaData.getString("Substratum_Parent") != null) {
                                     String parent = appInfo.metaData.getString("Substratum_Parent");
-                                    if (parse2_themeName != null && parent != null &&
-                                            parent.equals(parse2_themeName)) {
+                                    if (parent != null &&
+                                            References.isPackageInstalled(getContext(), parent)) {
                                         to_be_enabled.add(state5overlays.get(i));
                                     }
                                 }

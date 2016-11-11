@@ -13,6 +13,7 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.preference.PreferenceManager;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -468,8 +469,14 @@ public class References {
         return hero;
     }
 
-    // Launch intent for a theme
+    // Grab Device IMEI for Overlay Embedding
+    public static String getDeviceIMEI(Context context) {
+        TelephonyManager telephonyManager =
+                (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        return telephonyManager.getDeviceId();
+    }
 
+    // Launch intent for a theme
     public static boolean launchTheme(Context mContext, String theme_name, String package_name,
                                       String theme_mode) {
         try {
@@ -486,14 +493,26 @@ public class References {
             if (currentDateAndTime > saved_time && String.valueOf(currentDateAndTime).length() ==
                     String.valueOf(saved_time).length() && saved_time != 0 &&
                     !References.isPackageInstalled(mContext, References.lp_package_identifier)) {
-                LetsGetStarted.initialize(mContext, package_name,
+                long initializer = LetsGetStarted.initialize(mContext, package_name,
                         !References.checkOMS(mContext), theme_mode, References.DEBUG, saved_time);
+                if (initializer == 8256663 * 3) {
+                    Log.e("SubstratumLogger", "\"" + package_name + "\"" +
+                            " has been reported stolen on device [" +
+                            getDeviceIMEI(mContext) + "]");
+                    return false;
+                }
                 return true;
             } else {
                 long checker = LetsGetStarted.initialize(mContext,
                         package_name,
                         !References.checkOMS(mContext), theme_mode, References.DEBUG, saved_time);
                 if (checker > -1) {
+                    if (checker == 8256663 * 3) {
+                        Log.e("SubstratumLogger", "\"" + package_name + "\"" +
+                                " has been reported stolen on device [" +
+                                getDeviceIMEI(mContext) + "]");
+                        return false;
+                    }
                     prefs.edit().putLong(
                             parse2_themeName + "_saved_time", currentDateAndTime).apply();
                     return true;

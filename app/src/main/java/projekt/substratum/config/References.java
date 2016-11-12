@@ -314,8 +314,8 @@ public class References {
 
     // This method obtains the application icon for a specified package
     public static Drawable grabAppIcon(Context context, String package_name) {
-        Drawable icon = null;
         try {
+            Drawable icon;
             if (References.allowedSystemUIOverlay(package_name)) {
                 icon = context.getPackageManager().getApplicationIcon("com.android.systemui");
             } else {
@@ -365,7 +365,13 @@ public class References {
                         String minSdk = "";
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                             int min = appInfo.minSdkVersion;
-                            if (min == 24) {
+                            if (min == 21) {
+                                minSdk = mContext.getString(R.string.api_21);
+                            } else if (min == 22) {
+                                minSdk = mContext.getString(R.string.api_22);
+                            } else if (min == 23) {
+                                minSdk = mContext.getString(R.string.api_23);
+                            } else if (min == 24) {
                                 minSdk = mContext.getString(R.string.api_24);
                             } else if (min == 25) {
                                 minSdk = mContext.getString(R.string.api_25);

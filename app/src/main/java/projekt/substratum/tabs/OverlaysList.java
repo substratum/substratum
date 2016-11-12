@@ -680,19 +680,8 @@ public class OverlaysList extends Fragment {
 
             current_theme_overlays = new ArrayList<>();
             for (int i = 0; i < all_installed_overlays.size(); i++) {
-                try {
-                    ApplicationInfo appInfo = getContext().getPackageManager().getApplicationInfo(
-                            all_installed_overlays.get(i), PackageManager.GET_META_DATA);
-                    if (appInfo.metaData != null) {
-                        if (appInfo.metaData.getString("Substratum_Parent") != null) {
-                            if (References.isPackageInstalled(
-                                    mContext, appInfo.metaData.getString("Substratum_Parent"))) {
-                                current_theme_overlays.add(all_installed_overlays.get(i));
-                            }
-                        }
-                    }
-                } catch (Exception e) {
-                    // Exception
+                if (all_installed_overlays.get(i).contains(parse2_themeName)) {
+                    current_theme_overlays.add(all_installed_overlays.get(i));
                 }
             }
 
@@ -1710,23 +1699,8 @@ public class OverlaysList extends Fragment {
                         }
                         ArrayList<String> activated_overlays_from_theme = new ArrayList<>();
                         for (int j = 0; j < activated_overlays.size(); j++) {
-                            try {
-                                String current = activated_overlays.get(j);
-                                ApplicationInfo appInfo = getContext().getPackageManager()
-                                        .getApplicationInfo(
-                                                current, PackageManager.GET_META_DATA);
-                                if (appInfo.metaData != null) {
-                                    if (appInfo.metaData.getString("Substratum_Parent") != null) {
-                                        String parent = appInfo.metaData.getString(
-                                                "Substratum_Parent");
-                                        if (parent != null && References.isPackageInstalled(
-                                                mContext, parent)) {
-                                            activated_overlays_from_theme.add(current);
-                                        }
-                                    }
-                                }
-                            } catch (Exception e) {
-                                // NameNotFound
+                            if (activated_overlays.get(j).contains(theme_name_parsed)) {
+                                activated_overlays_from_theme.add(activated_overlays.get(j));
                             }
                         }
 

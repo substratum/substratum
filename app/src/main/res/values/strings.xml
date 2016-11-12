@@ -350,6 +350,7 @@
     <string name="settings_title_1">App Options</string>
     <string name="settings_title_2">Manager Options</string>
     <string name="settings_title_3">Theming</string>
+    <string name="settings_title_clickable">App Configuration</string>
     <string name="substratum_cache_clear_initial_toast">Substratum\'s cache is now being wiped&#8230;</string>
     <string name="substratum_cache_clear_toast">Substratum\'s cache has been wiped!</string>
     <string name="substratum_restart_toast">Substratum restarted automatically after a settings change.</string>

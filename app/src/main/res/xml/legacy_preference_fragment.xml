@@ -24,7 +24,7 @@
     <PreferenceCategory
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:title="@string/settings_title_1">
+        android:title="@string/settings_title_clickable">
 
         <Preference
             android:layout_width="match_parent"
@@ -32,6 +32,13 @@
             android:key="purge_cache"
             android:summary="@string/purge_cache_subtext"
             android:title="@string/purge_cache"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:title="@string/settings_title_1">
 
         <CheckBoxPreference
             android:layout_width="match_parent"

@@ -6,11 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
 
 import projekt.substratum.R;
+import projekt.substratum.config.References;
 import projekt.substratum.model.OverlayManager;
 
 public class OverlayManagerAdapter extends
@@ -32,7 +34,12 @@ public class OverlayManagerAdapter extends
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, int position) {
         final int position_fixed = position;
-        viewHolder.tvName.setText(overlayList.get(position_fixed).getName());
+        viewHolder.tvName.setText(References.grabPackageName(
+                overlayList.get(position_fixed).getContext(),
+                References.grabOverlayTarget(
+                        overlayList.get(position_fixed).getContext(),
+                        overlayList.get(position_fixed).getName())));
+        viewHolder.tvDesc.setText(overlayList.get(position_fixed).getName());
         viewHolder.tvName.setTextColor(overlayList.get(position_fixed).getActivationValue());
         viewHolder.chkSelected.setChecked(overlayList.get(position_fixed).isSelected());
         viewHolder.chkSelected.setTag(overlayList.get(position_fixed));
@@ -56,6 +63,16 @@ public class OverlayManagerAdapter extends
                 contact.setSelected(cb.isChecked());
             }
         });
+        viewHolder.appIcon.setImageDrawable(References.grabAppIcon(
+                overlayList.get(position_fixed).getContext(),
+                References.grabOverlayParent(
+                        overlayList.get(position_fixed).getContext(),
+                        overlayList.get(position_fixed).getName())));
+        viewHolder.appIconTarget.setImageDrawable(References.grabAppIcon(
+                overlayList.get(position_fixed).getContext(),
+                References.grabOverlayTarget(
+                        overlayList.get(position_fixed).getContext(),
+                        overlayList.get(position_fixed).getName())));
     }
 
     @Override
@@ -69,14 +86,20 @@ public class OverlayManagerAdapter extends
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvName;
+        TextView tvDesc;
         CheckBox chkSelected;
         CardView card;
+        ImageView appIcon;
+        ImageView appIconTarget;
 
         ViewHolder(View itemLayoutView) {
             super(itemLayoutView);
             tvName = (TextView) itemLayoutView.findViewById(R.id.tvName);
+            tvDesc = (TextView) itemLayoutView.findViewById(R.id.tvDesc);
             card = (CardView) itemLayoutView.findViewById(R.id.overlayCard);
             chkSelected = (CheckBox) itemLayoutView.findViewById(R.id.chkSelected);
+            appIcon = (ImageView) itemLayoutView.findViewById(R.id.app_icon);
+            appIconTarget = (ImageView) itemLayoutView.findViewById(R.id.app_icon_sub);
         }
     }
 }

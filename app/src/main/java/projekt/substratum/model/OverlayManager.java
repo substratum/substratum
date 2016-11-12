@@ -14,7 +14,10 @@ public class OverlayManager implements Serializable {
 
     private int activationValue;
 
+    private Context mContext;
+
     public OverlayManager(Context context, String name, boolean isActivated) {
+        this.mContext = context;
         this.name = name;
         this.isSelected = false;
         try {
@@ -44,5 +47,9 @@ public class OverlayManager implements Serializable {
 
     public void setSelected(boolean isSelected) {
         this.isSelected = isSelected;
+    }
+
+    public Context getContext() {
+        return mContext;
     }
 }

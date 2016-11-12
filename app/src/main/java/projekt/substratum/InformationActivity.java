@@ -76,6 +76,7 @@ public class InformationActivity extends AppCompatActivity {
     private AppBarLayout appBarLayout;
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private View gradientView;
+    private TabLayout tabLayout;
 
     public static String getThemeName() {
         return theme_name;
@@ -337,7 +338,7 @@ public class InformationActivity extends AppCompatActivity {
 
         new LayoutLoader().execute("");
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
         if (tabLayout != null) {
             if (theme_mode.equals("")) {
                 if (!theme_legacy && prefs.getBoolean("quick_apply", false))
@@ -950,6 +951,7 @@ public class InformationActivity extends AppCompatActivity {
                 collapsingToolbarLayout.setStatusBarScrimColor(Color.parseColor("#ffff00"));
                 collapsingToolbarLayout.setContentScrimColor(Color.parseColor("#ffff00"));
                 appBarLayout.setBackgroundColor(Color.parseColor("#ffff00"));
+                tabLayout.setBackgroundColor(Color.parseColor("#ffff00"));
                 getWindow().setNavigationBarColor(Color.parseColor("#ffff00"));
             } else {
                 Glide.with(getApplicationContext()).load(byteArray).centerCrop().into(kenBurnsView);

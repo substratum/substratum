@@ -47,9 +47,13 @@ public class ReadOverlays {
                         if (line.contains(CURRENT_SELECTION)) {
                             int version = References.checkOMSVersion(context);
                             if (version == 3) {
-                                list.add(line.substring(8));
+                                if (References.compareOverlayIMEI(context, line.substring(8))) {
+                                    list.add(line.substring(8));
+                                }
                             } else if (version == 7) {
-                                list.add(line.substring(4));
+                                if (References.compareOverlayIMEI(context, line.substring(4))) {
+                                    list.add(line.substring(4));
+                                }
                             }
                         }
                     }

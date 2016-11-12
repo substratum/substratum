@@ -13,18 +13,60 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp">
+        android:layout_marginBottom="15dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp">
 
-        <projekt.substratum.util.AutoTextResizer
-            android:id="@+id/tvName"
+        <RelativeLayout
+            android:id="@+id/holder"
+            android:layout_width="48dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="20dp">
+
+            <ImageView
+                android:id="@+id/app_icon"
+                android:layout_width="48dp"
+                android:layout_height="60dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/default_overlay_icon"/>
+
+            <ImageView
+                android:id="@+id/app_icon_sub"
+                android:layout_width="48dp"
+                android:layout_height="30dp"
+                android:layout_alignBottom="@id/app_icon"
+                android:layout_alignLeft="@id/app_icon"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="20dp"
+                android:src="@drawable/default_overlay_icon"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/holder"
             android:layout_toStartOf="@+id/chkSelected"
-            android:ellipsize="none"
             android:gravity="left|center"
-            android:maxLines="1"
-            android:textColor="@color/main_screen_card_theme_title"
-            android:textSize="20sp"/>
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/main_screen_card_theme_title"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/tvDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/main_screen_card_theme_title"
+                android:textSize="14sp"/>
+
+        </LinearLayout>
 
         <CheckBox
             android:id="@+id/chkSelected"

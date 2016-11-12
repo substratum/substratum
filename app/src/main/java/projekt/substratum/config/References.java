@@ -288,7 +288,6 @@ public class References {
     }
 
     // This method determines whether a specified package is installed
-
     public static boolean isPackageInstalled(Context context, String package_name) {
         try {
             PackageManager pm = context.getPackageManager();
@@ -300,7 +299,6 @@ public class References {
     }
 
     // This method determines the installed directory of the overlay for legacy mode
-
     public static String getInstalledDirectory(Context context, String package_name) {
         PackageManager pm = context.getPackageManager();
         for (ApplicationInfo app : pm.getInstalledApplications(0)) {
@@ -315,7 +313,6 @@ public class References {
     }
 
     // This method obtains the application icon for a specified package
-
     public static Drawable grabAppIcon(Context context, String package_name) {
         Drawable icon = null;
         try {
@@ -328,15 +325,15 @@ public class References {
                     icon = context.getPackageManager().getApplicationIcon(package_name);
                 }
             }
+            return icon;
         } catch (Exception e) {
             Log.e("SubstratumLogger", "Could not grab the application icon for \"" + package_name
                     + "\"");
         }
-        return icon;
+        return context.getDrawable(R.drawable.default_overlay_icon);
     }
 
     // PackageName Crawling Methods
-
     public static String grabThemeVersion(Context mContext, String package_name) {
         try {
             PackageInfo pInfo = mContext.getPackageManager().getPackageInfo(package_name, 0);
@@ -423,6 +420,7 @@ public class References {
         return null;
     }
 
+    // Grab Theme Ready Metadata
     public static String grabThemeReadyVisibility(Context mContext, String package_name) {
         try {
             ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
@@ -438,6 +436,7 @@ public class References {
         return null;
     }
 
+    // Grab Theme Plugin Metadata
     public static String grabPackageTemplateVersion(Context mContext, String package_name) {
         try {
             ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
@@ -454,6 +453,7 @@ public class References {
         return null;
     }
 
+    // Grab Theme Hero Image
     public static Drawable grabPackageHeroImage(Context mContext, String package_name) {
         Resources res;
         Drawable hero = mContext.getDrawable(android.R.color.black); // Initialize to be black
@@ -468,6 +468,70 @@ public class References {
             e.printStackTrace();
         }
         return hero;
+    }
+
+    // Grab Overlay Target Package Name (Human Readable)
+    public static String grabPackageName(Context mContext, String package_name) {
+        final PackageManager pm = mContext.getPackageManager();
+        ApplicationInfo ai;
+        try {
+            ai = pm.getApplicationInfo(package_name, 0);
+        } catch (final PackageManager.NameNotFoundException e) {
+            ai = null;
+        }
+        return (String) (ai != null ? pm.getApplicationLabel(ai) : null);
+    }
+
+    // Grab Overlay Parent
+    public static String grabOverlayParent(Context mContext, String package_name) {
+        try {
+            ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
+                    package_name, PackageManager.GET_META_DATA);
+            if (appInfo.metaData != null) {
+                if (appInfo.metaData.getString("Substratum_Parent") != null) {
+                    return appInfo.metaData.getString("Substratum_Parent");
+                }
+            }
+        } catch (Exception e) {
+            //
+        }
+        return null;
+    }
+
+    // Grab Overlay Target
+    public static String grabOverlayTarget(Context mContext, String package_name) {
+        try {
+            ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
+                    package_name, PackageManager.GET_META_DATA);
+            if (appInfo.metaData != null) {
+                if (appInfo.metaData.getString("Substratum_Target") != null) {
+                    return appInfo.metaData.getString("Substratum_Target");
+                }
+            }
+        } catch (Exception e) {
+            //
+        }
+        return null;
+    }
+
+    // Grab Overlay Target
+    public static Boolean compareOverlayIMEI(Context mContext, String package_name) {
+        try {
+            ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
+                    package_name, PackageManager.GET_META_DATA);
+            if (appInfo.metaData != null) {
+                if (appInfo.metaData.getString("Substratum_IMEI") != null) {
+                    String imei = "!" + getDeviceIMEI(mContext);
+                    String overlay = appInfo.metaData.getString("Substratum_IMEI");
+                    if (overlay != null) {
+                        return overlay.equals(imei);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            //
+        }
+        return false;
     }
 
     public static Boolean spreadYourWingsAndFly(Context context) {

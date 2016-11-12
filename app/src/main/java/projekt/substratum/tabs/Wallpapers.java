@@ -94,33 +94,37 @@ public class Wallpapers extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            String[] checkerCommands = {getContext().getCacheDir() + "/current_wallpapers.xml"};
+            try {
+                String[] checkerCommands = {getContext().getCacheDir() + "/current_wallpapers.xml"};
 
-            @SuppressWarnings("unchecked")
-            final Map<String, String> newArray = ReadCloudWallpaperFile.main(checkerCommands);
-            ArrayList<WallpaperEntries> wallpapers = new ArrayList<>();
-            WallpaperEntries newEntry = new WallpaperEntries();
+                @SuppressWarnings("unchecked")
+                final Map<String, String> newArray = ReadCloudWallpaperFile.main(checkerCommands);
+                ArrayList<WallpaperEntries> wallpapers = new ArrayList<>();
+                WallpaperEntries newEntry = new WallpaperEntries();
 
-            for (String key : newArray.keySet()) {
-                if (!key.toLowerCase().contains("-preview".toLowerCase())) {
-                    newEntry.setCallingActivity(getActivity());
-                    newEntry.setContext(getContext());
-                    newEntry.setWallpaperName(key);
-                    newEntry.setWallpaperLink(newArray.get(key));
-                } else {
-                    // This is a preview image to be displayed on the card
-                    newEntry.setWallpaperPreview(newArray.get(key));
-                    wallpapers.add(newEntry);
-                    newEntry = new WallpaperEntries();
+                for (String key : newArray.keySet()) {
+                    if (!key.toLowerCase().contains("-preview".toLowerCase())) {
+                        newEntry.setCallingActivity(getActivity());
+                        newEntry.setContext(getContext());
+                        newEntry.setWallpaperName(key);
+                        newEntry.setWallpaperLink(newArray.get(key));
+                    } else {
+                        // This is a preview image to be displayed on the card
+                        newEntry.setWallpaperPreview(newArray.get(key));
+                        wallpapers.add(newEntry);
+                        newEntry = new WallpaperEntries();
+                    }
                 }
+                RecyclerView.Adapter mAdapter = new WallpaperAdapter(wallpapers);
+                mRecyclerView.setAdapter(mAdapter);
+
+                if (wallpapers.size() == 0) no_wallpapers.setVisibility(View.VISIBLE);
+
+                mRecyclerView.setVisibility(View.VISIBLE);
+                materialProgressBar.setVisibility(View.GONE);
+            } catch (Exception e) {
+                // Suppress warning
             }
-            RecyclerView.Adapter mAdapter = new WallpaperAdapter(wallpapers);
-            mRecyclerView.setAdapter(mAdapter);
-
-            if (wallpapers.size() == 0) no_wallpapers.setVisibility(View.VISIBLE);
-
-            mRecyclerView.setVisibility(View.VISIBLE);
-            materialProgressBar.setVisibility(View.GONE);
         }
 
         @Override

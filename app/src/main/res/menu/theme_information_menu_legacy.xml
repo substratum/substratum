@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/clean_cache"
+        android:title="@string/menu_clean_cache"/>
+    <item
         android:id="@+id/rate"
         android:title="@string/menu_rate"/>
     <item

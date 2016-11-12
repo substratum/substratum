@@ -577,6 +577,38 @@ public class InformationActivity extends AppCompatActivity {
             builder.show();
             return true;
         }
+
+        if (id == R.id.clean_cache) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(InformationActivity.this);
+            builder.setTitle(theme_name);
+            builder.setIcon(References.grabAppIcon(getApplicationContext(), theme_pid));
+            builder.setMessage(R.string.clean_cache_dialog_body)
+                    .setPositiveButton(R.string.uninstall_dialog_okay, new DialogInterface
+                            .OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            References.delete(getCacheDir().getAbsolutePath() +
+                                    "/SubstratumBuilder/" + theme_pid + "/");
+                            String format =
+                                    String.format(
+                                            getString(R.string.cache_clear_completion), theme_name);
+                            Toast toast = Toast.makeText(getApplicationContext(), format,
+                                    Toast.LENGTH_LONG);
+                            toast.show();
+                            finish();
+                        }
+                    })
+                    .setNegativeButton(R.string.uninstall_dialog_cancel, new DialogInterface
+                            .OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // User cancelled the dialog
+                        }
+                    });
+            // Create the AlertDialog object and return it
+            builder.create();
+            builder.show();
+            return true;
+        }
+
         if (id == R.id.disable) {
             AlertDialog.Builder builder = new AlertDialog.Builder(InformationActivity.this);
             builder.setTitle(theme_name);

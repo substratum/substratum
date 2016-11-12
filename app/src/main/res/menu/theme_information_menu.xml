@@ -4,6 +4,9 @@
         android:id="@+id/clean"
         android:title="@string/menu_clean"/>
     <item
+        android:id="@+id/clean_cache"
+        android:title="@string/menu_clean_cache"/>
+    <item
         android:id="@+id/disable"
         android:title="@string/menu_disable"/>
     <item

@@ -184,6 +184,7 @@
     <string name="refresh_fragment">Content reloaded successfully!</string>
 
     <string name="menu_clean">Clean overlays</string>
+    <string name="menu_clean_cache">Clean theme cache</string>
     <string name="menu_disable">Disable installed overlays</string>
     <string name="menu_enable">Enable installed overlays</string>
     <string name="menu_favorite">Favorite</string>
@@ -277,6 +278,7 @@
         or the app will not compile device dependent overlays properly!</string>
     <string name="dialog_ok">OK</string>
 
+    <string name="clean_cache_dialog_body">Do you want to clean this theme\'s cache?</string>
     <string name="clean_dialog_body">Do you want to clean all overlays for this theme?</string>
     <string name="disable_dialog_body">Do you want to disable all overlays for this theme?</string>
     <string name="enable_dialog_body">Do you want to enable all installed overlays for this theme?</string>
@@ -370,6 +372,7 @@
     <string name="show_installed_packages_only">Only show installed packages in overlay picker</string>
     <string name="purge_completion">All overlays for this theme are now deactivating and removing&#8230;</string>
     <string name="clean_completion">All overlays for this theme are now deactivating and removing&#8230;</string>
+    <string name="cache_clear_completion">%s theme cache has been cleared!</string>
     <string name="disable_completion">All overlays for this theme are now deactivating&#8230;</string>
     <string name="enable_completion">All installed overlays for this theme are now activating&#8230;</string>
     <string name="purge_information">Removing all overlays at once is a potentially dangerous action causing multiple force closes during the action.</string>

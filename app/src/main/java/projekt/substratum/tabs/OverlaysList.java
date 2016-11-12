@@ -1565,6 +1565,7 @@ public class OverlaysList extends Fragment {
             }
             is_active = false;
             mAdapter.notifyDataSetChanged();
+            if (toggle_all.isChecked()) toggle_all.setChecked(false);
         }
 
         @Override

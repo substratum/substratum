@@ -1295,45 +1295,6 @@ public class OverlaysList extends Fragment {
                 }
 
                 if (!has_failed || final_runner.size() > fail_count) {
-                    String disableBeforeEnabling = "";
-                    if (mixAndMatchMode) {
-                        if (all_installed_overlays.size() - current_theme_overlays.size()
-                                != 0) {
-                            disableBeforeEnabling = References.disableOverlay();
-                            for (int i = 0; i < all_installed_overlays.size(); i++) {
-                                if (!current_theme_overlays.contains(
-                                        all_installed_overlays.get(i))) {
-                                    disableBeforeEnabling = disableBeforeEnabling + " " +
-                                            all_installed_overlays.get(i);
-                                }
-                            }
-                        }
-                        progressBar.setVisibility(View.VISIBLE);
-                        if (toggle_all.isChecked()) toggle_all.setChecked(false);
-                        if (References.isPackageInstalled(getContext(),
-                                "masquerade.substratum")) {
-                            if (DEBUG)
-                                Log.e("SubstratumLogger", "Initializing the Masquerade theme " +
-                                        "provider...");
-                            Intent runCommand = new Intent();
-                            runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                            runCommand.setAction("masquerade.substratum.COMMANDS");
-                            runCommand.putExtra("om-commands",
-                                    ((disableBeforeEnabling.length() > 0) ?
-                                            disableBeforeEnabling +
-                                                    " && " + final_commands : final_commands));
-                            getContext().sendBroadcast(runCommand);
-                        } else {
-                            if (DEBUG)
-                                Log.e("SubstratumLogger", "Masquerade was not found, falling " +
-                                        "back to Substratum theme provider...");
-                            new References.ThreadRunner().execute(
-                                    ((disableBeforeEnabling.length() > 0) ?
-                                            disableBeforeEnabling + " && " +
-                                                    final_commands : final_commands));
-                        }
-                    }
-
                     if (!prefs.getBoolean("systemui_recreate", false) && final_commands
                             .contains("systemui")) {
                         final_commands = final_commands + " && pkill -f com.android.systemui";

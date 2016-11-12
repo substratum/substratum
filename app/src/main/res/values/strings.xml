@@ -122,7 +122,7 @@
     <string name="nougat_style_cards_title">Nougat Style Card Layout</string>
     <string name="nougat_style_cards_subtext">Enable Android Nougat Notification styled theme cards.</string>
 
-    <string name="quick_apply_preference_title">Quick Apply</string>
+    <string name="quick_apply_preference_title">Quick Apply UI</string>
     <string name="quick_apply_preference_subtext">Enable the quick apply interface when launching a theme</string>
     <string name="theme_information_quick_apply_no_views_title">quick apply not available</string>
     <string name="theme_information_quick_apply_no_views_text">this theme does not support quick apply&#8230;</string>
@@ -350,13 +350,17 @@
     <string name="settings_title_1">App Options</string>
     <string name="settings_title_2">Manager Options</string>
     <string name="settings_title_3">Theming</string>
+    <string name="substratum_cache_clear_initial_toast">Substratum\'s cache is now being wiped&#8230;</string>
+    <string name="substratum_cache_clear_toast">Substratum\'s cache has been wiped!</string>
     <string name="substratum_restart_toast">Substratum restarted automatically after a settings change.</string>
     <string name="masquerade_check_title">Would thou honor this masquerade with a dance?</string>
     <string name="masquerade_check_subtext">Ensure the system\'s presence and integrity of the Masquerade theme system. If Masquerade does not report back positively, please perform a soft/hard reboot and try again!</string>
     <string name="masquerade_check_installed">Put on your mask, take my hand and lead the way!</string>
     <string name="masquerade_check_not_installed">masquerade is not installed.</string>
     <string name="masquerade_check_not_supported">masquerade is not supported on substratum legacy.</string>
-    <string name="restart_systemui">Post-enable SystemUI recreate\n</string>
+    <string name="purge_cache">Purge and Reset Theme Caches</string>
+    <string name="purge_cache_subtext">Invalidate Substratum\'s theme and application cache, as well as reset all flags relating to theme rebuilding.</string>
+    <string name="restart_systemui">Post-enable SystemUI recreate</string>
     <string name="restart_systemui_subtext">Automatically recreate the SystemUI after enabling/disabling a SystemUI overlay</string>
     <string name="restart_systemui_toast_enabled">SystemUI will recreate dynamically instead of restarting!</string>
     <string name="restart_systemui_toast_disabled">SystemUI will restart automatically instead of recreating!</string>

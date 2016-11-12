@@ -1,13 +1,16 @@
 package projekt.substratum.fragments;
 
+import android.app.NotificationManager;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.preference.CheckBoxPreference;
@@ -15,6 +18,8 @@ import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.util.Log;
 import android.widget.Toast;
+
+import java.io.File;
 
 import projekt.substratum.BuildConfig;
 import projekt.substratum.LauncherActivity;
@@ -264,6 +269,16 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     });
         }
 
+        final Preference purgeCache = getPreferenceManager().findPreference("purge_cache");
+        purgeCache.setOnPreferenceClickListener(
+                new Preference.OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        new deleteCache().execute("");
+                        return false;
+                    }
+                });
+
         final CheckBoxPreference alternate_drawer_design = (CheckBoxPreference)
                 getPreferenceManager().findPreference("alternate_drawer_design");
         if (prefs.getBoolean("alternate_drawer_design", false)) {
@@ -412,5 +427,66 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         return false;
                     }
                 });
+    }
+
+    public class deleteCache extends AsyncTask<String, Integer, String> {
+        @Override
+        protected void onPreExecute() {
+            // Show a toast
+            Toast toast = Toast.makeText(getContext(), getString(R.string
+                            .substratum_cache_clear_initial_toast),
+                    Toast.LENGTH_SHORT);
+            toast.show();
+            // Clear the notification of building theme if shown
+            NotificationManager manager = (NotificationManager)
+                    getContext().getSystemService(Context.NOTIFICATION_SERVICE);
+            manager.cancel(References.notification_id);
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            // Show a toast
+            Toast toast = Toast.makeText(getContext(), getString(R.string
+                            .substratum_cache_clear_toast),
+                    Toast.LENGTH_SHORT);
+            toast.show();
+            // Since the cache is invalidated, better relaunch the app now
+            getActivity().finish();
+            startActivity(getActivity().getIntent());
+        }
+
+        @Override
+        protected String doInBackground(String... sUrl) {
+            // Delete the directory
+            try {
+                File dir = getContext().getCacheDir();
+                deleteDir(dir);
+            } catch (Exception e) {
+                // Suppress warning
+            }
+            // Reset the flag for is_updating
+            SharedPreferences prefsPrivate =
+                    getContext().getSharedPreferences("substratum_state",
+                            Context.MODE_PRIVATE);
+            prefsPrivate.edit().putBoolean("is_updating", false).apply();
+            return null;
+        }
+
+        public boolean deleteDir(File dir) {
+            if (dir != null && dir.isDirectory()) {
+                String[] children = dir.list();
+                for (int i = 0; i < children.length; i++) {
+                    boolean success = deleteDir(new File(dir, children[i]));
+                    if (!success) {
+                        return false;
+                    }
+                }
+                return dir.delete();
+            } else if (dir != null && dir.isFile()) {
+                return dir.delete();
+            } else {
+                return false;
+            }
+        }
     }
 }

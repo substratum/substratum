@@ -38,6 +38,13 @@
             android:summary="@string/masquerade_check_subtext"
             android:title="@string/masquerade_check_title"/>
 
+        <Preference
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:key="purge_cache"
+            android:summary="@string/purge_cache_subtext"
+            android:title="@string/purge_cache"/>
+
         <CheckBoxPreference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -62,16 +69,16 @@
         <CheckBoxPreference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:key="hide_app_checkbox"
-            android:summary="@string/hide_app_icon_not_supported"
-            android:title="@string/hide_app_icon"/>
+            android:key="show_template_version"
+            android:summary="@string/show_theme_template_version_description"
+            android:title="@string/show_theme_template_version"/>
 
         <CheckBoxPreference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:key="show_template_version"
-            android:summary="@string/show_theme_template_version_description"
-            android:title="@string/show_theme_template_version"/>
+            android:key="hide_app_checkbox"
+            android:summary="@string/hide_app_icon_not_supported"
+            android:title="@string/hide_app_icon"/>
 
     </PreferenceCategory>
 
@@ -97,20 +104,6 @@
         <CheckBoxPreference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:key="nougat_style_cards"
-            android:summary="@string/nougat_style_cards_subtext"
-            android:title="@string/nougat_style_cards_title"/>
-
-        <CheckBoxPreference
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:key="alternate_drawer_design"
-            android:summary="@string/alternate_drawer_design_subtext"
-            android:title="@string/alternate_drawer_design_title"/>
-
-        <CheckBoxPreference
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:key="dynamic_actionbar"
             android:summary="@string/dynamic_actionbar_colors_subtext"
             android:title="@string/dynamic_actionbar_colors"/>
@@ -121,6 +114,20 @@
             android:key="dynamic_navbar"
             android:summary="@string/dynamic_navbar_colors_subtext"
             android:title="@string/dynamic_navbar_colors"/>
+
+        <CheckBoxPreference
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:key="nougat_style_cards"
+            android:summary="@string/nougat_style_cards_subtext"
+            android:title="@string/nougat_style_cards_title"/>
+
+        <CheckBoxPreference
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:key="alternate_drawer_design"
+            android:summary="@string/alternate_drawer_design_subtext"
+            android:title="@string/alternate_drawer_design_title"/>
 
     </PreferenceCategory>
 </PreferenceScreen>

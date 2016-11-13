@@ -32,12 +32,8 @@ import com.gordonwong.materialsheetfab.MaterialSheetFab;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.R;
@@ -48,6 +44,7 @@ import projekt.substratum.util.FloatingActionMenu;
 import projekt.substratum.util.ReadOverlays;
 
 import static projekt.substratum.config.References.REFRESH_WINDOW_DELAY;
+import static projekt.substratum.util.MapUtils.sortMapByValues;
 
 public class AdvancedManagerFragment extends Fragment {
 
@@ -425,22 +422,6 @@ public class AdvancedManagerFragment extends Fragment {
             super.onPostExecute(result);
         }
 
-        private <S, T extends Comparable<T>> List<Pair<S, T>> sortByValues(HashMap<S, T> map) {
-            List<Pair<S, T>> list = new ArrayList<>();
-            for (Map.Entry<S, T> entry : map.entrySet()) {
-                list.add(new Pair<>(entry.getKey(), entry.getValue()));
-            }
-
-            Collections.sort(list,
-                    new Comparator<Pair<S, T>>() {
-                        @Override
-                        public int compare(Pair<S, T> pair1, Pair<S, T> pair2) {
-                            return pair1.second.compareTo(pair2.second);
-                        }
-                    });
-            return list;
-        }
-
         @Override
         protected String doInBackground(String... sUrl) {
             overlaysList = new ArrayList<>();
@@ -476,7 +457,7 @@ public class AdvancedManagerFragment extends Fragment {
                     }
 
                     // Sort the values list
-                    List<Pair<String, String>> sortedMap = sortByValues(unsortedMap);
+                    List<Pair<String, String>> sortedMap = sortMapByValues(unsortedMap);
 
                     for (Pair<String, String> entry : sortedMap) {
                         if (disabled_overlays.contains(entry.first)) {
@@ -512,7 +493,7 @@ public class AdvancedManagerFragment extends Fragment {
                     }
 
                     // Sort the values list
-                    List<Pair<String, String>> sortedMap = sortByValues(unsortedMap);
+                    List<Pair<String, String>> sortedMap = sortMapByValues(unsortedMap);
 
                     for (Pair<String, String> entry : sortedMap) {
                         if (activated_overlays.contains(entry.first)) {

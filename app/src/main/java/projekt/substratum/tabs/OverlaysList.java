@@ -21,6 +21,7 @@ import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.service.notification.StatusBarNotification;
 import android.support.v4.app.Fragment;
+import android.support.v4.util.Pair;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.NotificationCompat;
@@ -54,13 +55,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.InformationActivity;
@@ -76,6 +72,7 @@ import projekt.substratum.util.SubstratumBuilder;
 
 import static android.content.Context.CLIPBOARD_SERVICE;
 import static projekt.substratum.config.References.REFRESH_WINDOW_DELAY;
+import static projekt.substratum.util.MapUtils.sortMapByValues;
 
 public class OverlaysList extends Fragment {
 
@@ -770,14 +767,13 @@ public class OverlaysList extends Fragment {
             }
 
             // Sort the values list
-            @SuppressWarnings("unchecked")
-            Map<String, String> sortedMap = sortByValues(unsortedMap);
+            List<Pair<String, String>> sortedMap = sortMapByValues(unsortedMap);
 
             // Now let's add the new information so that the adapter can recognize custom method
             // calls
-            for (Map.Entry<String, String> entry : sortedMap.entrySet()) {
-                String package_name = entry.getValue();
-                String package_identifier = entry.getKey();
+            for (Pair<String, String> entry : sortedMap) {
+                String package_name = entry.second;
+                String package_identifier = entry.first;
 
                 try {
                     try {
@@ -958,25 +954,6 @@ public class OverlaysList extends Fragment {
                 }
             }
             return null;
-        }
-
-        private HashMap sortByValues(HashMap map) {
-            @SuppressWarnings("unchecked")
-            List list = new LinkedList(map.entrySet());
-            Collections.sort(list,
-                    new Comparator() {
-                        public int compare(Object o1, Object o2) {
-                            Comparable obj1 = (Comparable) ((Map.Entry) (o1)).getValue();
-                            Comparable obj2 = (Comparable) ((Map.Entry) (o2)).getValue();
-                            return obj1.compareTo(obj2);
-                        }
-                    });
-            HashMap sortedHashMap = new LinkedHashMap();
-            for (Object mapEntry : list) {
-                Map.Entry entry = (Map.Entry) mapEntry;
-                sortedHashMap.put(entry.getKey(), entry.getValue());
-            }
-            return sortedHashMap;
         }
     }
 

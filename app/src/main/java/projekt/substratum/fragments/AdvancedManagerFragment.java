@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.util.Pair;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
@@ -424,23 +425,20 @@ public class AdvancedManagerFragment extends Fragment {
             super.onPostExecute(result);
         }
 
-        private HashMap sortByValues(HashMap map) {
-            @SuppressWarnings("unchecked")
-            List list = new LinkedList(map.entrySet());
+        private <S, T extends Comparable<T>> List<Pair<S, T>> sortByValues(HashMap<S, T> map) {
+            List<Pair<S, T>> list = new ArrayList<>();
+            for (Map.Entry<S, T> entry : map.entrySet()) {
+                list.add(new Pair<>(entry.getKey(), entry.getValue()));
+            }
+
             Collections.sort(list,
-                    new Comparator() {
-                        public int compare(Object o1, Object o2) {
-                            Comparable obj1 = (Comparable) ((Map.Entry) (o1)).getValue();
-                            Comparable obj2 = (Comparable) ((Map.Entry) (o2)).getValue();
-                            return obj1.compareTo(obj2);
+                    new Comparator<Pair<S, T>>() {
+                        @Override
+                        public int compare(Pair<S, T> pair1, Pair<S, T> pair2) {
+                            return pair1.second.compareTo(pair2.second);
                         }
                     });
-            HashMap sortedHashMap = new LinkedHashMap();
-            for (Object mapEntry : list) {
-                Map.Entry entry = (Map.Entry) mapEntry;
-                sortedHashMap.put(entry.getKey(), entry.getValue());
-            }
-            return sortedHashMap;
+            return list;
         }
 
         @Override
@@ -478,17 +476,16 @@ public class AdvancedManagerFragment extends Fragment {
                     }
 
                     // Sort the values list
-                    @SuppressWarnings("unchecked")
-                    Map<String, String> sortedMap = sortByValues(unsortedMap);
+                    List<Pair<String, String>> sortedMap = sortByValues(unsortedMap);
 
-                    for (Map.Entry<String, String> entry : sortedMap.entrySet()) {
-                        if (disabled_overlays.contains(entry.getKey())) {
+                    for (Pair<String, String> entry : sortedMap) {
+                        if (disabled_overlays.contains(entry.first)) {
                             OverlayManager st = new OverlayManager(mContext,
-                                    entry.getKey(), false);
+                                    entry.first, false);
                             overlaysList.add(st);
-                        } else if (activated_overlays.contains(entry.getKey())) {
+                        } else if (activated_overlays.contains(entry.first)) {
                             OverlayManager st = new OverlayManager(mContext,
-                                    entry.getKey(), true);
+                                    entry.first, true);
                             overlaysList.add(st);
                         }
                     }
@@ -515,13 +512,12 @@ public class AdvancedManagerFragment extends Fragment {
                     }
 
                     // Sort the values list
-                    @SuppressWarnings("unchecked")
-                    Map<String, String> sortedMap = sortByValues(unsortedMap);
+                    List<Pair<String, String>> sortedMap = sortByValues(unsortedMap);
 
-                    for (Map.Entry<String, String> entry : sortedMap.entrySet()) {
-                        if (activated_overlays.contains(entry.getKey())) {
+                    for (Pair<String, String> entry : sortedMap) {
+                        if (activated_overlays.contains(entry.first)) {
                             OverlayManager st = new OverlayManager(mContext,
-                                    entry.getKey(), true);
+                                    entry.first, true);
                             overlaysList.add(st);
                         }
                     }

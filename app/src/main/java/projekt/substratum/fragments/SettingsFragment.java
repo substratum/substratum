@@ -469,7 +469,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             SharedPreferences prefsPrivate =
                     getContext().getSharedPreferences("substratum_state",
                             Context.MODE_PRIVATE);
-            prefsPrivate.edit().putBoolean("is_updating", false).apply();
+            prefsPrivate.edit().remove("is_updating").apply();
             return null;
         }
 

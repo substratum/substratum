@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -30,7 +31,12 @@ import com.gordonwong.materialsheetfab.MaterialSheetFab;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.R;
@@ -418,6 +424,25 @@ public class AdvancedManagerFragment extends Fragment {
             super.onPostExecute(result);
         }
 
+        private HashMap sortByValues(HashMap map) {
+            @SuppressWarnings("unchecked")
+            List list = new LinkedList(map.entrySet());
+            Collections.sort(list,
+                    new Comparator() {
+                        public int compare(Object o1, Object o2) {
+                            Comparable obj1 = (Comparable) ((Map.Entry) (o1)).getValue();
+                            Comparable obj2 = (Comparable) ((Map.Entry) (o2)).getValue();
+                            return obj1.compareTo(obj2);
+                        }
+                    });
+            HashMap sortedHashMap = new LinkedHashMap();
+            for (Object mapEntry : list) {
+                Map.Entry entry = (Map.Entry) mapEntry;
+                sortedHashMap.put(entry.getKey(), entry.getValue());
+            }
+            return sortedHashMap;
+        }
+
         @Override
         protected String doInBackground(String... sUrl) {
             overlaysList = new ArrayList<>();
@@ -434,14 +459,36 @@ public class AdvancedManagerFragment extends Fragment {
                     all_overlays.addAll(disabled_overlays);
                     Collections.sort(all_overlays);
 
+                    // Create the map for {package name: package identifier}
+                    HashMap<String, String> unsortedMap = new HashMap<>();
+
+                    // Then let's convert all the package names to their app names
                     for (int i = 0; i < all_overlays.size(); i++) {
-                        if (disabled_overlays.contains(all_overlays.get(i))) {
+                        try {
+                            ApplicationInfo applicationInfo = getContext().getPackageManager()
+                                    .getApplicationInfo(all_overlays.get(i), 0);
+                            String packageTitle = getContext().getPackageManager()
+                                    .getApplicationLabel(applicationInfo).toString();
+                            unsortedMap.put(all_overlays.get(i), References.grabPackageName(
+                                    getContext(), References.grabOverlayTarget(getContext(),
+                                            packageTitle)));
+                        } catch (Exception e) {
+                            // Suppress warning
+                        }
+                    }
+
+                    // Sort the values list
+                    @SuppressWarnings("unchecked")
+                    Map<String, String> sortedMap = sortByValues(unsortedMap);
+
+                    for (Map.Entry<String, String> entry : sortedMap.entrySet()) {
+                        if (disabled_overlays.contains(entry.getKey())) {
                             OverlayManager st = new OverlayManager(mContext,
-                                    all_overlays.get(i), false);
+                                    entry.getKey(), false);
                             overlaysList.add(st);
-                        } else if (activated_overlays.contains(all_overlays.get(i))) {
+                        } else if (activated_overlays.contains(entry.getKey())) {
                             OverlayManager st = new OverlayManager(mContext,
-                                    all_overlays.get(i), true);
+                                    entry.getKey(), true);
                             overlaysList.add(st);
                         }
                     }
@@ -449,10 +496,32 @@ public class AdvancedManagerFragment extends Fragment {
                     all_overlays = new ArrayList<>(activated_overlays);
                     Collections.sort(all_overlays);
 
+                    // Create the map for {package name: package identifier}
+                    HashMap<String, String> unsortedMap = new HashMap<>();
+
+                    // Then let's convert all the package names to their app names
                     for (int i = 0; i < all_overlays.size(); i++) {
-                        if (activated_overlays.contains(all_overlays.get(i))) {
+                        try {
+                            ApplicationInfo applicationInfo = getContext().getPackageManager()
+                                    .getApplicationInfo(all_overlays.get(i), 0);
+                            String packageTitle = getContext().getPackageManager()
+                                    .getApplicationLabel(applicationInfo).toString();
+                            unsortedMap.put(all_overlays.get(i), References.grabPackageName(
+                                    getContext(), References.grabOverlayTarget(getContext(),
+                                            packageTitle)));
+                        } catch (Exception e) {
+                            // Suppress warning
+                        }
+                    }
+
+                    // Sort the values list
+                    @SuppressWarnings("unchecked")
+                    Map<String, String> sortedMap = sortByValues(unsortedMap);
+
+                    for (Map.Entry<String, String> entry : sortedMap.entrySet()) {
+                        if (activated_overlays.contains(entry.getKey())) {
                             OverlayManager st = new OverlayManager(mContext,
-                                    all_overlays.get(i), true);
+                                    entry.getKey(), true);
                             overlaysList.add(st);
                         }
                     }

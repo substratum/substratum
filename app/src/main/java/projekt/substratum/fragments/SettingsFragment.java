@@ -459,7 +459,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         protected String doInBackground(String... sUrl) {
             // Delete the directory
             try {
-                File dir = getContext().getCacheDir();
+                File dir = new File(getContext().getCacheDir().getAbsolutePath() +
+                        "/SubstratumBuilder/");
                 deleteDir(dir);
             } catch (Exception e) {
                 // Suppress warning

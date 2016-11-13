@@ -151,8 +151,6 @@ public class MainActivity extends AppCompatActivity implements
             }
         }
 
-        new LetsGetStarted().kissMe();
-
         AccountHeader header = new AccountHeaderBuilder()
                 .withActivity(this)
                 .withHeaderBackground(R.drawable.material_drawer_header_background)

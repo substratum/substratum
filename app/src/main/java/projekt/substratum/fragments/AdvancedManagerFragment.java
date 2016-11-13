@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.util.Pair;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
@@ -31,12 +32,8 @@ import com.gordonwong.materialsheetfab.MaterialSheetFab;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.R;
@@ -47,6 +44,7 @@ import projekt.substratum.util.FloatingActionMenu;
 import projekt.substratum.util.ReadOverlays;
 
 import static projekt.substratum.config.References.REFRESH_WINDOW_DELAY;
+import static projekt.substratum.util.MapUtils.sortMapByValues;
 
 public class AdvancedManagerFragment extends Fragment {
 
@@ -424,25 +422,6 @@ public class AdvancedManagerFragment extends Fragment {
             super.onPostExecute(result);
         }
 
-        private HashMap sortByValues(HashMap map) {
-            @SuppressWarnings("unchecked")
-            List list = new LinkedList(map.entrySet());
-            Collections.sort(list,
-                    new Comparator() {
-                        public int compare(Object o1, Object o2) {
-                            Comparable obj1 = (Comparable) ((Map.Entry) (o1)).getValue();
-                            Comparable obj2 = (Comparable) ((Map.Entry) (o2)).getValue();
-                            return obj1.compareTo(obj2);
-                        }
-                    });
-            HashMap sortedHashMap = new LinkedHashMap();
-            for (Object mapEntry : list) {
-                Map.Entry entry = (Map.Entry) mapEntry;
-                sortedHashMap.put(entry.getKey(), entry.getValue());
-            }
-            return sortedHashMap;
-        }
-
         @Override
         protected String doInBackground(String... sUrl) {
             overlaysList = new ArrayList<>();
@@ -478,17 +457,16 @@ public class AdvancedManagerFragment extends Fragment {
                     }
 
                     // Sort the values list
-                    @SuppressWarnings("unchecked")
-                    Map<String, String> sortedMap = sortByValues(unsortedMap);
+                    List<Pair<String, String>> sortedMap = sortMapByValues(unsortedMap);
 
-                    for (Map.Entry<String, String> entry : sortedMap.entrySet()) {
-                        if (disabled_overlays.contains(entry.getKey())) {
+                    for (Pair<String, String> entry : sortedMap) {
+                        if (disabled_overlays.contains(entry.first)) {
                             OverlayManager st = new OverlayManager(mContext,
-                                    entry.getKey(), false);
+                                    entry.first, false);
                             overlaysList.add(st);
-                        } else if (activated_overlays.contains(entry.getKey())) {
+                        } else if (activated_overlays.contains(entry.first)) {
                             OverlayManager st = new OverlayManager(mContext,
-                                    entry.getKey(), true);
+                                    entry.first, true);
                             overlaysList.add(st);
                         }
                     }
@@ -515,13 +493,12 @@ public class AdvancedManagerFragment extends Fragment {
                     }
 
                     // Sort the values list
-                    @SuppressWarnings("unchecked")
-                    Map<String, String> sortedMap = sortByValues(unsortedMap);
+                    List<Pair<String, String>> sortedMap = sortMapByValues(unsortedMap);
 
-                    for (Map.Entry<String, String> entry : sortedMap.entrySet()) {
-                        if (activated_overlays.contains(entry.getKey())) {
+                    for (Pair<String, String> entry : sortedMap) {
+                        if (activated_overlays.contains(entry.first)) {
                             OverlayManager st = new OverlayManager(mContext,
-                                    entry.getKey(), true);
+                                    entry.first, true);
                             overlaysList.add(st);
                         }
                     }

@@ -57,6 +57,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import projekt.substrate.LetsGetStarted;
 import projekt.substratum.adapters.InformationTabsAdapter;
 import projekt.substratum.config.References;
 import projekt.substratum.util.ReadOverlays;
@@ -977,7 +978,8 @@ public class InformationActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-            if (References.spreadYourWingsAndFly(getApplicationContext())) {
+            if (References.spreadYourWingsAndFly(getApplicationContext()) ||
+                    new LetsGetStarted().overcomeMyBeauty()) {
                 gradientView.setVisibility(View.GONE);
                 kenBurnsView.setBackgroundColor(Color.parseColor("#ffff00"));
                 collapsingToolbarLayout.setStatusBarScrimColor(Color.parseColor("#ffff00"));
@@ -985,6 +987,7 @@ public class InformationActivity extends AppCompatActivity {
                 appBarLayout.setBackgroundColor(Color.parseColor("#ffff00"));
                 tabLayout.setBackgroundColor(Color.parseColor("#ffff00"));
                 getWindow().setNavigationBarColor(Color.parseColor("#ffff00"));
+                LetsGetStarted.kissMe();
             } else {
                 Glide.with(getApplicationContext()).load(byteArray).centerCrop().into(kenBurnsView);
             }

@@ -51,6 +51,7 @@ import java.io.OutputStream;
 
 import eightbitlab.com.blurview.BlurView;
 import eightbitlab.com.blurview.RenderScriptBlur;
+import projekt.substrate.LetsGetStarted;
 import projekt.substratum.config.References;
 import projekt.substratum.fragments.ThemeFragment;
 import projekt.substratum.services.ThemeService;
@@ -149,6 +150,8 @@ public class MainActivity extends AppCompatActivity implements
                 getSupportActionBar().setHomeButtonEnabled(false);
             }
         }
+
+        new LetsGetStarted().kissMe();
 
         AccountHeader header = new AccountHeaderBuilder()
                 .withActivity(this)
@@ -639,6 +642,9 @@ public class MainActivity extends AppCompatActivity implements
                 // permission already granted, allow the program to continue running
                 // Set the first option to start at app boot
                 drawer.setSelectionAtPosition(1);
+                if (References.spreadYourWingsAndFly(getApplicationContext())) {
+                    LetsGetStarted.kissMe();
+                }
             } else {
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.READ_PHONE_STATE},

@@ -9,6 +9,9 @@
     <string name="restore_app_name">Theme wiederherstellen</string>
     <string name="showcase_no_connection">Für Themes-Showcase ist eine Internetverbindung erforderlich!</string>
     <string name="showcase_no_themes">Es scheint als sei das Zwischenspeichern der Showcase-Datenbank dieses Tabs fehlgeschlagen. Lade die Datenbank mit der \"Aktualisieren\"-Schaltfläche oben neu.</string>
+    <string name="showcase_dialog_title">Disclaimer!</string>
+    <string name="showcase_dialog_content">Bitte warte während die Datenbank-Symbole jedes Tabs zwischengespeichert werden.\n\nDas Starten wird anschließend weniger Zeit in Anspruch nehmen.\n\nBerühre die \"Aktualisieren\"-Schaltfläche, um den Zwischenspeicher neu zu laden.</string>
+    <string name="showcase_dialog_agree">Auf geht’s!</string>
     <string name="on_demand_updating_title">Resource Cache Initializer</string>
     <string name="on_demand_updating_text">Cache von %s wird neu erstellt&#8230;</string>
     <string name="background_updating_toast">Ein Theme wird im Hintergrund aktualisiert, bitte warte noch einen Augenblick!</string>
@@ -25,6 +28,8 @@
     <string name="tbo_description">Dieses Theme unterstützt die \"Theme Ready Google Apps\" von Team BlackOut. Klicke \"Herunterladen\" um zum Herunterladen dieser zu XDA weitergeleitet zu werden oder \"Abbrechen\", falls du diese schon installiert hast!</string>
     <string name="two_description">Dieses Theme unterstützt die Apps von Google, wie sie standardmäßig gemacht sind. Falls du dieses Theme verwenden willst allerdings die \"Theme Ready Google Apps\" von Team BlackOut installiert hast, erhältst du bei Problemen keinen Support vom Theme-Entwickler!</string>
     <string name="tbo_dialog_proceed">Herunterladen</string>
+    <string name="api25_warning_title">WARNUNG!</string>
+    <string name="api25_warning_content">Substratum hat festgestellt, dass es eventuell auf einer gefährlichen Firmware (N-MR1/7.1+/API25) ausgeführt wird. Es sollten auf keinen Fall irgendwelche \"Framework\"- oder Android-System\"-Overlays angewendet werden, da dies sonst in einem Bootloop enden wird.\n\nFalls du es dennoch riskierst, flashe das Wiederherstellungs-Archiv in \"/storage/emulated/0/substratum/\".</string>
     <string name="legacy_dialog_soft_reboot_title">Neustart erforderlich!</string>
     <string name="legacy_dialog_soft_reboot_text">Das \"Resource Runtime Overlay\"-System benötigt einen Neustart um Änderungen wie das Hinzufügen oder Ändern von Overlays anwenden zu können.\n\nDas Gerät muss neugestartet werden. Stelle sicher, dass du gerade nicht aktiv an etwas arbeitest, was du noch nicht gespeichert hast bevor du fortfährst.</string>
     <string name="activity_missing_toast">Es wurden keine Anwendungen gefunden, welche diese Anfrage ausführen könnten, sorry!</string>
@@ -47,17 +52,21 @@
     <string name="overlays_compile_update_button">Kompilieren/Aktualisieren &amp; Installieren</string>
     <string name="information_activity_pirated_toast">Dieses Theme hat die Integritäts-Verifikation von Substratum nicht bestanden!</string>
     <string name="information_activity_upgrade_toast">Dieses Theme muss auf das neue Theme-Template aktualisiert werden um es mit Substratum verwenden zu können!</string>
+    <string name="information_activity_upgrade_toast_lenient">Für dieses Theme-Plugin ist eine Aktualisierung verfügbar!</string>
     <string name="bootanimation_vm_exploded">Rendering der Boot-Animation wurde aufgrund ungenügender Speicherplatzzuweisung beendet.\n\nDie Installation dieser Boot-Animation ist ohne gerenderter Vorschau weiterhin möglich.</string>
     <string name="bootanimation_placeholder_text">Bitte wähle eine Boot-Animation aus der Dropdown-Liste&#8230;</string>
     <string name="bootanimation_default_spinner">Boot-Animation wählen&#8230;</string>
     <string name="bootanimation_dialog_apply_text">Boot-Animation wird angewendet&#8230;</string>
     <string name="bootanimation_dialog_apply_success">Boot-Animation angewendet!</string>
     <string name="bootanimation_dialog_apply_failed">Anwenden der Boot-Animation fehlgeschlagen&#8230;</string>
-    <string name="wallpaper_dialog_wallpaper">Startbildschirm</string>
-    <string name="wallpaper_dialog_lockscreen">Sperrbildschirm</string>
+    <string name="wallpaper_dialog_wallpaper">Startbildschirm-Hintergrund</string>
+    <string name="wallpaper_dialog_lockscreen">Sperrbildschirm-Hintergrund</string>
+    <string name="wallpaper_dialog_wallpaper_both">Start- und Sperrbildschirm-Hintergrund</string>
     <string name="wallpaper_dialog_cancel">Abbrechen</string>
     <string name="wallpaper_dialog_message">Dieses Bild als welchen Hintergrund anwenden?</string>
     <string name="wallpaper_downloading">Bild wird zwischengespeichert&#8230;</string>
+    <string name="wallpaper_allscreen_success">Start- und Sperrbildschirm-Hintergrund angepasst!</string>
+    <string name="wallpaper_allscreen_error">Festlegen des Start- sowie Sperrbildschirm-Hintergrundbilds nicht möglich</string>
     <string name="wallpaper_homescreen_success">Startbildschirm-Hintergrund angepasst!</string>
     <string name="wallpaper_homescreen_error">Festlegen des Startbildschirm-Hintergrunds fehlgeschlagen</string>
     <string name="wallpaper_lockscreen_success">Sperrbildschirm-Hintergrund angepasst!</string>
@@ -85,6 +94,10 @@
     <string name="theme_information_tab_four">Schriftarten</string>
     <string name="theme_information_tab_five">Soundpakete</string>
     <string name="theme_information_tab_six">Hintergründe</string>
+    <string name="nougat_style_cards_title">Karten-Layout im Nougat-Stil</string>
+    <string name="nougat_style_cards_subtext">Die Theme-Karten optisch ähnlich der Benachrichtigungen in Android Nougat anzeigen.</string>
+    <string name="quick_apply_preference_title">Schnellanwendung</string>
+    <string name="quick_apply_preference_subtext">Schnellanwendung-Tab aktivieren, wenn ein Theme ausgewählt wird</string>
     <string name="theme_information_quick_apply_no_views_title">Schnellanwendung nicht verfügbar</string>
     <string name="theme_information_quick_apply_no_views_text">Dieses Theme unterstützt keine Schnellanwendung&#8230;</string>
     <string name="theme_information_quick_apply_dialog_negative_button">Abbrechen</string>
@@ -142,6 +155,7 @@
     <string name="menu_clean">Overlays entfernen</string>
     <string name="menu_disable">Installierte Overlays deaktivieren</string>
     <string name="menu_enable">Installierte Overlays aktivieren</string>
+    <string name="menu_favorite">Favorit</string>
     <string name="menu_rate">Theme bewerten</string>
     <string name="menu_refresh">Aktualisieren</string>
     <string name="menu_refresh_windows">Fenster aktualisieren</string>
@@ -247,6 +261,7 @@
     <string name="no_themes_title">Keine Themes installiert&#8230;</string>
     <string name="no_themes_description">Bitte installiere ein kompatibles Theme!</string>
     <string name="toast_on_back_press_compiling">Du kannst während dem Kompilieren andere Apps verwenden.</string>
+    <string name="toast_needs_caching">Der Zwischenspeicher von Substratum wurde gelöscht. Bitte das Theme zuerst neu kompilieren!</string>
     <string name="notification_theme_installed">installiert</string>
     <string name="notification_theme_updated">aktualisiert</string>
     <string name="notification_theme_installed_content">Theme erfolgreich installiert.</string>
@@ -271,6 +286,8 @@
     <string name="a_wild_char_has_appeared">Es ist Char! Lauf!</string>
     <string name="char_success">Char hat all\' deine Cookies gestohlen!</string>
     <string name="char_error">Char konnte deine Cookies nicht stehlen!</string>
+    <string name="shortcut_store">Theme-Showcase</string>
+    <string name="shortcut_store_disabled">Theme-Showcase</string>
     <string name="settings_title">Über</string>
     <string name="settings_title_1">App-Optionen</string>
     <string name="settings_title_2">Manager-Optionen</string>
@@ -319,11 +336,10 @@
     <string name="fab_menu_enable">Aktivieren</string>
     <string name="fab_menu_swap_toggle">Andere Themes deaktivieren</string>
     <string name="fab_menu_swap_toggle_legacy">Alle vorhandenen entfernen</string>
-    <string name="contributor_title_1">Substratum-Mitwirkende</string>
+    <string name="contributor_title_1">Substratum-Designer</string>
     <string name="contributor_text_1">Diese Leute haben viel zu Substratum in Bereichen Design beigetragen und unser Team möchte diesen von Herzen danken!</string>
     <string name="contributor_idan_content">Ich habe alle animierten Splashscreen-Drawables von Substratum erstellt!</string>
     <string name="contributor_mihir_content">Ich habe alle Drawables der Theme-Informationen von Substratum erstellt!</string>
-    <string name="contributor_nathan_content">Ich habe die Fehlerbehebung-FAQ für Substratum geschrieben!</string>
     <string name="contributor_travis_content">Ich habe alle Drawables des App-Intros von Substratum erstellt!</string>
     <string name="contributor_sajid_content">Ich habe alle App-Symbole von Substratum erstellt!</string>
     <string name="contributor_title_2">Layers-Mitwirkende</string>
@@ -335,6 +351,11 @@
     <string name="contributor_niklas_content">Ich habe am Layers-Manager gearbeitet!</string>
     <string name="contributor_andrzej_content">Ich habe am Layers-Manager gearbeitet!</string>
     <string name="contributor_denis_content">Ich habe das Layers-Showcase gestartet!</string>
+    <string name="contributor_title_3">Substratum-Mitwirkende</string>
+    <string name="contributor_text_3">Diese Leute haben uns freundlicherweise ihr Engagement und ihre Zeit zur Verfügung gestellt wofür wir sie lieben!</string>
+    <string name="contributor_ben_content">Ich möchte nur Verantwortlicher sein&#8230;</string>
+    <string name="contributor_char_content">Miau!</string>
+    <string name="contributor_nathan_content">Fang mich, wenn du kannst!</string>
     <string name="translator_title">Substratum-Übersetzer</string>
     <string name="translator_text">Ein großes Dankeschön an folgende Übersetzer, welche Substratum um die ganze Welt bringen.</string>
     <string name="translator_kevin_content">Französische Übersetzung</string>
@@ -342,6 +363,9 @@
     <string name="translator_chrys_content">Portugiesische Übersetzung</string>
     <string name="translator_wasita_content">Indonesische Übersetzung</string>
     <string name="translator_david_content">Indonesische Übersetzung</string>
+    <string name="translator_gediminas_content">Litauische Übersetzung</string>
+    <string name="translator_gautham_content">Tamilische Übersetzung</string>
+    <string name="translator_nils_content">Deutsche Übersetzung</string>
     <string name="team_title_1">Substratum-Teamleiter</string>
     <string name="team_text_1">Wir haben nicht nur etwas erschaffen, das für Benutzer funktioniert sondern haben auch zusammen mit Theme-Entwicklern gearbeitet, um Substratum zu einer wundervollen Theming-Engine für die Community zu entwicklen!</string>
     <string name="team_title_2">Substratum-Mitwirkende</string>
@@ -354,7 +378,6 @@
     <string name="team_cory_content">Muss etwas hinzugefügt oder behoben werden? Kein Problem!</string>
     <string name="team_jacob_content">Was möchtest du? Fantastisch, es ist fertig!</string>
     <string name="team_surge_content">Was verpasse ich?</string>
-    <string name="team_ben_content">Ich möchte nur Verantwortlicher sein&#8230;</string>
     <string name="team_ivan_content">Bereite dich darauf vor von der Niedlichkeit von Kätzchen getötet zu werden!</string>
     <string name="team_raja_content">Ich toleriere keine Sicherheitslücken!</string>
     <string name="team_jimmy_content">Ich zerstöre alles bevor du je eine Chance dazu hattest!</string>
@@ -373,4 +396,5 @@
     <string name="slide_5_text">Du kannst zu deinen anderen Apps wechseln während die Overlays im Hintergrund weiter kompiliert werden, da dies eine Weile dauert. Du kannst den Fortschritt in der Benachrichtigungsleiste prüfen!</string>
     <string name="slide_6_title">Wir hoffen euch gefällt unsere Entwicklung!</string>
     <string name="slide_6_text">Vielen Dank für\'s Lesen der Einleitung! Wir hoffen du findest so viel Gefallen an Substratum wie wir während der Entwicklung!</string>
+    <string name="team_ben_content">Ich möchte nur Verantwortlicher sein&#8230;</string>
 </resources>

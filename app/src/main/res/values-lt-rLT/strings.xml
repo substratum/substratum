@@ -9,8 +9,11 @@
     <string name="restore_app_name">atstatyti temą</string>
     <string name="showcase_no_connection">kad veiktu, temos vitrina reikalauja interneto ryšio!</string>
     <string name="showcase_no_themes">atrodo, kad įvyko klaida spartinant vitrinos duomenų bazę šiame skirtuke. atnaujinkite duomenų bazę su mygtuku viršuje.</string>
+    <string name="showcase_dialog_title">Atsakomybės apribojimas!</string>
+    <string name="showcase_dialog_content">Prašome palaukti, kol duomenų bazės piktogramos bus patalpintos į kiekvieną skirtuką.\n\nVėlesni paleidimai bus daug greitesni po to, kai patalpinimas bus baigtas.\n\nNorėdami perkrauti talpyklą, paspauskite atnaujinti mygtuką viršuje.</string>
+    <string name="showcase_dialog_agree">Eime!</string>
     <string name="on_demand_updating_title">Išteklių Talpyklos Iniciavimas</string>
-    <string name="on_demand_updating_text">%s talpyklos dabar perkuriamos&#8230;</string>
+    <string name="on_demand_updating_text">%s talpyklos perkuriamos&#8230;</string>
     <string name="background_updating_toast">Tema atnaujinama fone, prašome palaukti kol tai bus baigta!</string>
     <string name="background_updated_toast">Išteklių talpykla buvo sukurta!</string>
     <string name="background_updated_toast_cancel">Šiai temai reikia atnaujinti išteklių talpyklą, kol ji yra funkcionali!</string>
@@ -25,6 +28,8 @@
     <string name="tbo_description">Ši tema palaiko Team Black Out\'s Theme Ready Google Apps, jei jūs jų neturite, jūs galite paspausti Atsisiųsti, kad būtumėte nukreipti į jų XDA puslapį arba Atšaukti jei jūs juos jau turite!</string>
     <string name="two_description">Ši tema palaiko Google įprastas programėles, tokie kokie buvo sukurti! Jei jūs turite įdiegę Team Black Out\'s Google Apps, bet norite naudoti šią temą, prašome juos pašalinti, kad gautumėte palaikymą iš kūrėjų.</string>
     <string name="tbo_dialog_proceed">Atsisiųsti</string>
+    <string name="api25_warning_title">DĖMESIO!</string>
+    <string name="api25_warning_content">Substratum aptiko PAVOJINGĄ PROGRAMINĘ ĮRANGĄ (N-MR1/7.1+/API25) ir labai nerekomenduojame taikyti framework/Android Sistemos perdangas, kitu atveju turėsite įkrovos kilpą.\n\nJei tai padarysite, prašome įrašyti gelbėjimo archyvą, kurį rasite \"/storage/emulated/0/substratum/\".</string>
     <string name="legacy_dialog_soft_reboot_title">Būtina paleisti iš naujo</string>
     <string name="legacy_dialog_soft_reboot_text">Naudojant Resource Runtime Overlay (RRO) sistemą, būtina paleisti iš naujo po perdangų pridėjimo/pašalinimo.\n\nSekant šį dialogą jums automatiškai paleis įrenginį iš naujo, todėl būkite tikri, kad išsaugojote savo darbą prieš tęsdami.</string>
     <string name="activity_missing_toast">Nebuvo rasta nei viena programėlė, kuri galėtu palaikyti šį prašymą, atsiprašome!</string>
@@ -47,17 +52,21 @@
     <string name="overlays_compile_update_button">Kompiliuoti/Atnaujinti ir Įdiegti</string>
     <string name="information_activity_pirated_toast">Šios temos dvejetainė nepraėjo Substratum vientisumo tikrinimo.</string>
     <string name="information_activity_upgrade_toast">Ši tema turi būti perskaičiuota ant naujo temos šablono, kad toliau naudotis su Substratum.</string>
+    <string name="information_activity_upgrade_toast_lenient">Pasiekiamas atnaujinimas šios temos įskiepiui!</string>
     <string name="bootanimation_vm_exploded">Atvaizdavimas įjungimo animacijos buvo nutraukta dėl nepakankamo atminties paskirstymo.\n\nĮdiegimas šios įjungimo animacijos vis dar įmanomas be peržiūros atvaizdavimo.</string>
     <string name="bootanimation_placeholder_text">prašome pasirinkti įjungimo animaciją iškleidžiamajame sąraše&#8230;</string>
     <string name="bootanimation_default_spinner">prašome pasirinkti įjungimo animaciją&#8230;</string>
     <string name="bootanimation_dialog_apply_text">Įjungimo animacijos apdirbimas&#8230;</string>
     <string name="bootanimation_dialog_apply_success">Įjungimo animacija pritaikyta!</string>
     <string name="bootanimation_dialog_apply_failed">Įjungimo animacijos nepavyko pritaikyti&#8230;</string>
-    <string name="wallpaper_dialog_wallpaper">Pradžios ekranas</string>
-    <string name="wallpaper_dialog_lockscreen">Ekrano užraktas</string>
+    <string name="wallpaper_dialog_wallpaper">Pradžios ekrano užsklanda</string>
+    <string name="wallpaper_dialog_lockscreen">Ekrano užrakto užsklanda</string>
+    <string name="wallpaper_dialog_wallpaper_both">Pradžios Ekrano ir Ekrano Užrakto užsklanda</string>
     <string name="wallpaper_dialog_cancel">Atšaukti</string>
     <string name="wallpaper_dialog_message">Kuriame fone pritaikyti šį paveikslėlį?</string>
     <string name="wallpaper_downloading">Kraunamas paveikslėlis į talpyklą&#8230;</string>
+    <string name="wallpaper_allscreen_success">Abu pradžios ekrano ir ekrano užrakto užsklandos sukonfigūruotos!</string>
+    <string name="wallpaper_allscreen_error">Nepavyko nustatyti abiejų pradžios ekrano ir ekrano užrakto užsklandų</string>
     <string name="wallpaper_homescreen_success">Pradžios ekrano užsklanda sukonfigūruota!</string>
     <string name="wallpaper_homescreen_error">Nepavyko nustatyti pradžios ekrano užsklandos</string>
     <string name="wallpaper_lockscreen_success">Ekrano užrakto užsklanda sukonfigūruota!</string>
@@ -75,7 +84,7 @@
     <string name="sounds_dialog_apply_failed">Garso paketo nepavyko pritaikyti&#8230;</string>
     <string name="sounds_default_spinner">prašome pasirinkti garso paketą&#8230;</string>
     <string name="sounds_dialog_permissions_title">Melodijos Konfigūravimo Pranešimas</string>
-    <string name="sounds_dialog_permissions_text">Dabar Žadintuvai/Pranešimai/Melodijos pasirenkami Nustatymuose rankiniu būdu!\n\nTačiau, Substratum negali pats sau suteikti \"android.permission.WRITE_SETTINGS\", todėl nėra galimybės automatiškai nustatyti juos kaip dabartinį garsą.</string>
+    <string name="sounds_dialog_permissions_text">Žadintuvai/Pranešimai/Melodijos pasirenkami Nustatymuose rankiniu būdu!\n\nTačiau, Substratum negali pats sau suteikti \"android.permission.WRITE_SETTINGS\", todėl nėra galimybės automatiškai nustatyti juos kaip dabartinį garsą.</string>
     <string name="settings_about_substratum">substratum versija</string>
     <string name="settings_about_masquerade">masquerade versija</string>
     <string name="settings_about_masquerade_not_installed">masquerade neįdiegta</string>
@@ -85,6 +94,10 @@
     <string name="theme_information_tab_four">Šriftų Paketai</string>
     <string name="theme_information_tab_five">Garsų Paketai</string>
     <string name="theme_information_tab_six">Užsklandos</string>
+    <string name="nougat_style_cards_title">Nougat Stiliaus Kortelių Išdėstymas</string>
+    <string name="nougat_style_cards_subtext">Įgalinti Android Nougat Pranešimų stiliaus temų korteles.</string>
+    <string name="quick_apply_preference_title">Spartusis Pritaikymas</string>
+    <string name="quick_apply_preference_subtext">Įgalinti sąsajos spartųjį pritaikymą , kai paleidžiama tema</string>
     <string name="theme_information_quick_apply_no_views_title">greitasis pritaikymas neįmanomas</string>
     <string name="theme_information_quick_apply_no_views_text">ši tema nepalaiko greitojo pritaikymo&#8230;</string>
     <string name="theme_information_quick_apply_dialog_negative_button">Atšaukti</string>
@@ -142,6 +155,7 @@
     <string name="menu_clean">Išvalyti perdangas</string>
     <string name="menu_disable">Išjungti įdiegtas perdangas</string>
     <string name="menu_enable">Įgalinti įdiegtas perdangas</string>
+    <string name="menu_favorite">Mėgstamiausi</string>
     <string name="menu_rate">Įvertinti temą</string>
     <string name="menu_refresh">Atnaujinti</string>
     <string name="menu_refresh_windows">Atnaujinti Langus</string>
@@ -206,7 +220,7 @@
     <string name="profile_edittext_title">Naujas Profilis:</string>
     <string name="toast_backup_success">Dabartinis perdangų sąrašas išsaugotas \"/storage/emulated/0/substratum/profiles/%s\"</string>
     <string name="spinner_default_item">pasirinkite profilį, kad atkurti&#8230;</string>
-    <string name="select_to_toggle_all_overlays">Pasirinkite, kad perjungti visas perdangas</string>
+    <string name="select_to_toggle_all_overlays">Pasirinkite, kad įjungti visas perdangas</string>
     <string name="fab_menu_select_to_toggle_all_overlays">Pasirinkite visas perdangas</string>
     <string name="overlay_dialog_default_res">Numatytasis</string>
     <string name="overlay_dialog_text">supaprastinami dabartinių temų nustatymai&#8230;</string>
@@ -224,7 +238,7 @@
     <string name="uninstall_dialog_okay">Gerai</string>
     <string name="failed_to_install_overlay_toast">Nepavyko kompiliuoti \"%s\" perdangos</string>
     <string name="sb_phase_1_loader">išpakuojamos ypatybės iš temos</string>
-    <string name="sb_phase_2_loader">sukuriama ir pasirašoma perdangą(os)</string>
+    <string name="sb_phase_2_loader">sukuriama(os) ir pasirašoma(os) perdanga(os)</string>
     <string name="root_rejected_title">Superuser leidimas atmestas</string>
     <string name="root_rejected_timer_plural">uždaroma už %s sekundžių&#8230;</string>
     <string name="root_rejected_timer_singular">uždaroma už %s sekundės&#8230;</string>
@@ -247,6 +261,7 @@
     <string name="no_themes_title">neįdiegta jokių temų&#8230;</string>
     <string name="no_themes_description">prašome įdiegti suderinamą temą!</string>
     <string name="toast_on_back_press_compiling">Jūs galite naudoti kitas programėles paspausdami Namų/Naujausieji mygtuką!</string>
+    <string name="toast_needs_caching">Substratum talpykla buvo pašalinta, prieš tęsiant prašome atstatyti temą!</string>
     <string name="notification_theme_installed">įdiegta</string>
     <string name="notification_theme_updated">atnaujinta</string>
     <string name="notification_theme_installed_content">Tema sėkmingai įdiegta.</string>
@@ -254,7 +269,7 @@
     <string name="notification_hide">Pamiršti</string>
     <string name="notification_hide_upgrade">Atšaukti</string>
     <string name="notification_initial_title">Substratum veikia</string>
-    <string name="notification_initial_title_upgrade">%s resursų dabar atnaujinamą&#8230;</string>
+    <string name="notification_initial_title_upgrade">%s resursai atnaujinami&#8230;</string>
     <string name="notification_done_title">Temos kompiliavimas baigtas</string>
     <string name="notification_extracting_assets">Išpakuojamos ypatybės iš temos paketo&#8230;</string>
     <string name="notification_extracting_assets_text">Apdorojamos perdangos&#8230;</string>
@@ -271,6 +286,8 @@
     <string name="a_wild_char_has_appeared">Tai Char\'as! Bėk!</string>
     <string name="char_success">Char\'as pavogė visus tavo sausainius!</string>
     <string name="char_error">Char\'as nepavogė tavo sausainių!</string>
+    <string name="shortcut_store">Temų Vitrina</string>
+    <string name="shortcut_store_disabled">Temų Vitrina</string>
     <string name="settings_title">Apie</string>
     <string name="settings_title_1">Programėlės Nustatymai</string>
     <string name="settings_title_2">Tvarkyklės Nustatymai</string>
@@ -319,11 +336,10 @@
     <string name="fab_menu_enable">Įgalinti Pasirinktus</string>
     <string name="fab_menu_swap_toggle">Išjungti kitas temas</string>
     <string name="fab_menu_swap_toggle_legacy">Pašalinti visus esamus</string>
-    <string name="contributor_title_1">Substratum Bendraautoriai</string>
+    <string name="contributor_title_1">Substratum Dizaineriai</string>
     <string name="contributor_text_1">Tegul šie žmonės būna žinomi. Jie labai daug prisidėjo prie Substratum projektavimo darbų ir mūsų komanda norėtu jiems labai padėkot!</string>
     <string name="contributor_idan_content">Aš sukūriau visas animuotas Substratum ekrano užsklandos brėžinius!</string>
     <string name="contributor_mihir_content">Aš sukūriau visus Substratum temų informacijos brėžinius!</string>
-    <string name="contributor_nathan_content">Aš parašiau Substratum trikčių diagnostikos ir šalinimo DUK!</string>
     <string name="contributor_travis_content">Aš sukūriau Substratum programėlės įžangos brėžinius!</string>
     <string name="contributor_sajid_content">Aš sukūriau visas Substratum programėlės piktogramas!</string>
     <string name="contributor_title_2">Sluoksnių Bendraautoriai</string>
@@ -335,6 +351,11 @@
     <string name="contributor_niklas_content">Aš dirbau su Layers Manager!</string>
     <string name="contributor_andrzej_content">Aš dirbau su Layers Manager!</string>
     <string name="contributor_denis_content">Aš pradėjau Sluoksnių Vitriną!</string>
+    <string name="contributor_title_3">Substratum Bendraautoriai</string>
+    <string name="contributor_text_3">Šie žmonės noriai prisidėjo savo atsidavimu, laiku mums visiems ir todėl mes juos labai mylime!</string>
+    <string name="contributor_ben_content">Aš tik noriu būti laikomas&#8230;</string>
+    <string name="contributor_char_content">Miau!</string>
+    <string name="contributor_nathan_content">Pagauk mane, jei gali!</string>
     <string name="translator_title">Substratum Vertėjai</string>
     <string name="translator_text">Labai dėkojame šiems vertėjams, kad pristatė Substratum visiem žmonėms aplink pasaulį!</string>
     <string name="translator_kevin_content">Prancūzų Vertėjai</string>
@@ -342,6 +363,9 @@
     <string name="translator_chrys_content">Portugalų Vertėjai</string>
     <string name="translator_wasita_content">Indoneziečių Vertėjai</string>
     <string name="translator_david_content">Indoneziečių Vertėjai</string>
+    <string name="translator_gediminas_content">Lietuvių Vertėjai</string>
+    <string name="translator_gautham_content">Tamilų Vertėjai</string>
+    <string name="translator_nils_content">Vokiečių Vertėjai</string>
     <string name="team_title_1">Substratum Komandos Lyderiai</string>
     <string name="team_text_1">Mes ne tik sukūrėme kažką, kas dirba vartotojams, bet mes dirbome kartu su apipavidalintojais, kad sukurti nuostabų apipavidalinimo variklį bendruomenei!</string>
     <string name="team_title_2">Substratum Vystymosi Bendraautoriai</string>
@@ -354,7 +378,6 @@
     <string name="team_cory_content">Reikia kažką pridėti/sutaisyti? Jokių problemų!</string>
     <string name="team_jacob_content">Jūs norite ko? Puiku, viskas padaryta.</string>
     <string name="team_surge_content">Ką aš praleidau?</string>
-    <string name="team_ben_content">Aš tik noriu būti laikomas&#8230;</string>
     <string name="team_ivan_content">Pasiruoškite būti nužudyti kačiukų mielumo!</string>
     <string name="team_raja_content">Aš netoleruoju saugumo spragų!</string>
     <string name="team_jimmy_content">Aš puikiai praleidau laiką prieš jums gaunant šansą!</string>
@@ -373,4 +396,5 @@
     <string name="slide_5_text">jūs galite persijungti į savo programėles ir leisti kompiliuoti perdangas fone, nes šis procesas šiek tiek užtruks. tiesiog patikrinkite progresą pranešimų skydelyje!</string>
     <string name="slide_6_title">mes tikimės jūs mėgaujatės mūsų kūrinių!</string>
     <string name="slide_6_text">dėkui, kad skaitėte įvadą ir mes tikimės, jog jūs mėgaujatės substratum naudojimusi tiek pat, kiek mes jį kuriant!</string>
+    <string name="team_ben_content">Aš tik noriu būti laikomas&#8230;</string>
 </resources>

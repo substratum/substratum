@@ -9,6 +9,9 @@
     <string name="restore_app_name">கருப்பொருள் மீட்பு</string>
     <string name="showcase_no_connection">சமூக காட்சி பெட்டி இயங்குவதற்கு இணைய இணைப்பு தேவை!</string>
     <string name="showcase_no_themes">சமூக காட்சிப்பெட்டி அமைப்பதில் பிழை ஏற்படுகிறது. தயவு செய்து இந்த முயற்சியை மீண்டும் துவக்கவும்.</string>
+    <string name="showcase_dialog_title">பொறுப்பு துறப்பு</string>
+    <string name="showcase_dialog_content">முதல் முறை இந்த வசதியை பயன்படுத்துகிறீர்கள். தயவு செய்து காத்திருக்கவும்.\n\nஇரண்டாம் முறை வேகமாக செயல்படும் என்பதற்கு உறுதி அளிக்கிறோம்.\n\nபதுக்கத்தை மீண்டும் துவக்க மேலே உள்ள பொத்தானை அழுத்தவும்.</string>
+    <string name="showcase_dialog_agree">முன்னேறி செல்வோம்!</string>
     <string name="on_demand_updating_title">வளங்கள் பதுக்கம் துவக்கி</string>
     <string name="on_demand_updating_text">%s வளங்கள் மறுபடியும் கட்டப்படுகிறது&#8230;</string>
     <string name="background_updating_toast">ஒரு கருப்பொருள் பின்னணியில் மேம்படுத்த படுகிறது. அந்த பணி முடியும்வரை காத்திருக்கவும்!</string>
@@ -25,6 +28,7 @@
     <string name="tbo_description">இந்த கருப்பொருள் team black அவுட் வழங்கும் கருப்பொருள் தயாரான google ஆஃப்ஸ்க்கு ஆதரவு தருகிறது. நீங்கள் விரும்பினால் அவற்றை XDA விலிருந்து பதிவிறக்கம் செய்யலாம். ஏற்கனவேய அவற்றை பயன்படுத்தினால் நிராகரிக்கவும்.</string>
     <string name="two_description">இந்த கருப்பொருள் Google அசல் செயலிகளை அப்படியே பயன்படுத்துகிறது. நீங்கள் team black out  செயலிகள் நிறுவி இருந்தால் அவற்றை தயவு செய்து நீக்கவும். அப்பொழுது தான் இக்கருப்பொருள் வடிவமைப்பாளர் உங்களுக்கு உதவிகள் புரிவார்!</string>
     <string name="tbo_dialog_proceed">பதிவிறக்கம்</string>
+    <string name="api25_warning_title">எச்சரிக்கை!</string>
     <string name="legacy_dialog_soft_reboot_title">மறுத்துவக்கும் தேவைப்படுகிறது!</string>
     <string name="legacy_dialog_soft_reboot_text">நீங்கள் பயன்படுத்தும் ரேம் ஓம்ஸ் துணை கொண்டு இயங்கவில்லை.\nஎனவே நீங்கள்க நிறுவிய ருப்பொருளை அனுபவிக்கும் முன்னர் உங்கள் சாதனம் மருத்துவக்கம் செய்யப்படவேண்டும். உங்கள் பணிகளை சேமித்துக்கொண்டு, இந்த செயலை தொடரவும்.</string>
     <string name="activity_missing_toast">மன்னிக்கவும்!! இந்த கோரிக்கையை நிறைவேற்றும் எந்த செயலியும் தற்சமயம் இல்லை.</string>
@@ -47,6 +51,7 @@
     <string name="overlays_compile_update_button">தொகுத்து/முன்னேற்று மற்றும் நிறுவு</string>
     <string name="information_activity_pirated_toast">இந்த கருப்பொருளின் நேர்மை சரிபார்ப்பு பூர்த்தி அடையவில்லை.</string>
     <string name="information_activity_upgrade_toast">இந்த கருப்பொருள் புதிய சப்ஸ்டிரேட்டம் டெம்ப்ளட் கொண்டு மருவடிவமைப்பு செய்யப்படவேண்டும்!</string>
+    <string name="information_activity_upgrade_toast_lenient">இந்த கருப்பொருள் இடை சொருகிற்க்கு புதிய தரவு கிடைக்கிறது!</string>
     <string name="bootanimation_vm_exploded">துவக்கு அனிமேஷன் முன்னோட்டம் போதிய நினைவகம் இல்லாமையால் பாதியில் நிறுத்த  பட்டது. \nஎனினும் நீங்கள் அதனை வெற்றிகரமாக நிறுவலாம்</string>
     <string name="bootanimation_placeholder_text">துவக்க அனிமேஷனை கீழ்காணும் பிரிவிலிருந்து தேர்ந்தெடுக்கவும்&#8230;</string>
     <string name="bootanimation_default_spinner">துவக்க அனிமேஷனை தேர்ந்தெடுக்கவும்&#8230;</string>
@@ -55,9 +60,12 @@
     <string name="bootanimation_dialog_apply_failed">துவக்க அனிமேஷன் செயலாக்கம் தோல்வி&#8230;</string>
     <string name="wallpaper_dialog_wallpaper">முகப்புதிரை</string>
     <string name="wallpaper_dialog_lockscreen">பூட்டியதிரை</string>
+    <string name="wallpaper_dialog_wallpaper_both">முகப்பு மற்றும் பூட்டியதிரை சுவர்படம்</string>
     <string name="wallpaper_dialog_cancel">ரத்து செய்</string>
     <string name="wallpaper_dialog_message">எந்த திரைக்கு இதனை பின்னணியாக அமைக்க வேண்டும்?</string>
     <string name="wallpaper_downloading">படம் பதுக்ககத்தில் செலுத்த படுகிறது&#8230;</string>
+    <string name="wallpaper_allscreen_success">முகப்பு மற்றும் பூட்டியதிரை சுவர்படம் நிர்மாணிக்கப்பட்டது!</string>
+    <string name="wallpaper_allscreen_error">முகப்பு மற்றும் பூட்டியதிரை சுவர்படம் நிறுவும் முயற்சியை தீர்மானிக்க இயலவில்லை</string>
     <string name="wallpaper_homescreen_success">முகப்பு திரை பின்னணி அமைக்கப்பட்டது!</string>
     <string name="wallpaper_homescreen_error">முகப்பு திரை பின்னணி அமைக்க இயலவில்லை</string>
     <string name="wallpaper_lockscreen_success">பூட்டு திரை பின்னணி அமைக்கப்பட்டது!</string>
@@ -85,6 +93,9 @@
     <string name="theme_information_tab_four">எழுத்துருப்பு கட்டுகள்</string>
     <string name="theme_information_tab_five">ஒலி கட்டுகள்</string>
     <string name="theme_information_tab_six">சுவர்படங்கள்</string>
+    <string name="nougat_style_cards_title">நுகட் பாணி அட்டை அமைப்பு</string>
+    <string name="nougat_style_cards_subtext">நுகட் பாணி கருப்பொருள் அட்டை அறிவிப்புகள்</string>
+    <string name="quick_apply_preference_title">விரைவாக அமை</string>
     <string name="theme_information_quick_apply_no_views_title">விரைவான செயலாக்கம் இல்லை</string>
     <string name="theme_information_quick_apply_no_views_text">இந்த கருப்பொருளுக்கு விரைவான செயலாக்கம் இல்லை&#8230;</string>
     <string name="theme_information_quick_apply_dialog_negative_button">ரத்து செய்</string>
@@ -142,6 +153,7 @@
     <string name="menu_clean">மேலடுக்குகளை சுத்தம் செய்க</string>
     <string name="menu_disable">செயல்பாட்டில் உள்ள மேலடுக்குகளை முடக்குக</string>
     <string name="menu_enable">நிறுவப்பட்ட மேலடுக்குகளை செயல்பாட்டுக்கு கொண்டுவருக</string>
+    <string name="menu_favorite">பிடித்தமான</string>
     <string name="menu_rate">கருப்பொருளை மதிப்பீடு செய்</string>
     <string name="menu_refresh">புதுப்பிப்பு</string>
     <string name="menu_refresh_windows">விண்டோஸ்ஐ- புதுப்பிக்க</string>
@@ -271,6 +283,8 @@
     <string name="a_wild_char_has_appeared">அது சார்! ஓடு!</string>
     <string name="char_success">சார் உங்கள் குக்கீகளை களவாண்டார்!</string>
     <string name="char_error">சார் உங்கள் குக்கீகளை களவு செய்ய முடியாது!</string>
+    <string name="shortcut_store">கருப்பொருள் காட்சிப்பெட்டி</string>
+    <string name="shortcut_store_disabled">கருப்பொருள் காட்சிப்பெட்டி</string>
     <string name="settings_title">செயலி பற்றி</string>
     <string name="settings_title_1">செயலி மெனு</string>
     <string name="settings_title_2">மேலாளர் மெனு</string>
@@ -323,7 +337,6 @@
     <string name="contributor_text_1">இவர்கள் அனைவரும் சப்ஸ்டிரேட்டம் உருவாக்கத்தில் பெரும் பங்கு வகித்தவர்கள். இவர்களுக்கு எங்கள் கோடானகோடி நன்றிகள்!</string>
     <string name="contributor_idan_content">சப்ஸ்டிரேட்டம்  அனிமேஷன் வரைவுகள்</string>
     <string name="contributor_mihir_content">சப்ஸ்டிரேட்டம் கருப்பொருள் தகவல்பலகைகள்!</string>
-    <string name="contributor_nathan_content">உபயோகம் பற்றிய அறிவுரைகள்!</string>
     <string name="contributor_travis_content">செயலி உருவாக்கம்</string>
     <string name="contributor_sajid_content">செயலி ஐகான் உருவாக்கம்</string>
     <string name="contributor_title_2">பழைய அடுக்கு செயலி பங்களிப்பாளர்கள்</string>
@@ -335,6 +348,7 @@
     <string name="contributor_niklas_content">நான் மேலாளர் உருவாக்கினேன்!</string>
     <string name="contributor_andrzej_content">நான் மேலாளர் உருவாக்கினேன்!</string>
     <string name="contributor_denis_content">மேலடுக்கு காட்சி பெட்டி உருவாக்கம்</string>
+    <string name="contributor_nathan_content">உபயோகம் பற்றிய அறிவுரைகள்!</string>
     <string name="translator_title">சப்ஸ்டிரேட்டம் மொழிபெயர்ப்பாளர்கள்</string>
     <string name="translator_text">அணைத்து மொழிகளிலும் இந்த செயலியை கொண்டு சென்ற இந்த மொழிப்பெயர்ப்பாளர்களுக்கு எமது நன்றிகள்!</string>
     <string name="translator_kevin_content">பிரெஞ்சு மொழிபெயர்ப்பாளர்</string>
@@ -342,6 +356,7 @@
     <string name="translator_chrys_content">போர்ச்சுகீசிய மொழிபெயர்ப்பாளர்</string>
     <string name="translator_wasita_content">இந்தோனேசிய மொழிபெயர்ப்பாளர்</string>
     <string name="translator_david_content">இந்தோனேசிய மொழிபெயர்ப்பாளர்</string>
+    <string name="translator_gautham_content">தமிழ் மொழிபெயர்ப்பு</string>
     <string name="team_title_1">சப்ஸ்டிரேட்டம் குழு தலைவர்கள்</string>
     <string name="team_text_1">இந்த ஆண்ட்ராய்டு உலகத்திற்கு நாங்கள் அழகான வேகமான கருப்பொருள் இயந்திரத்தை வழங்குகிறோம்!</string>
     <string name="team_title_2">சப்ஸ்டிரேட்டம் வளர்ச்சி பங்களிப்பாளர்கள்</string>
@@ -354,7 +369,6 @@
     <string name="team_cory_content">ஏதேனும் மாற்றம் தேவையா? பிரச்சனையா?</string>
     <string name="team_jacob_content">நீங்கள் வேண்டுபவை கிடைக்கும்</string>
     <string name="team_surge_content">எதை நான் இழக்கிறேன்?</string>
-    <string name="team_ben_content">எனக்கு சிறு அவகாசம் அளியுங்கள்&#8230;</string>
     <string name="team_ivan_content">அழகால் மெய்மறக்க போகிறீர்கள்!</string>
     <string name="team_raja_content">பாதுகாப்பு மீறல்கள் நான் அனுமதிக்க மாட்டேன்!</string>
     <string name="team_jimmy_content">உங்களை நான் எப்போதும் வெல்வேன்!</string>
@@ -373,4 +387,5 @@
     <string name="slide_5_text">மேலடுக்குகள் உருவாகும்பொழுது நீங்கள் விரும்பிய செயலிகளை இயக்கலாம். நாங்கள் பின்புலத்தில் அமைதியாக எங்கள் பணிகளை தொடர்வோம் எந்த இடையூறுமின்றி!</string>
     <string name="slide_6_title">எங்கள் படைப்பை நீங்கள் விரும்புகிறீர்கள் என்று நம்புகிறோம்!</string>
     <string name="slide_6_text">நெறிகாட்டுதல் படித்தமைக்கு மிக்க நன்றி. எங்களின் கடுமையான உழைப்பை நீங்கள் அனுபவிப்பதை எண்ணி மகிழ்ச்சி அடைகிறோம்!</string>
+    <string name="team_ben_content">எனக்கு சிறு அவகாசம் அளியுங்கள்&#8230;</string>
 </resources>

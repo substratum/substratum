@@ -1,27 +1,32 @@
+<?xml version="1.0"?>
 <resources>
     <string name="app_name">Substratum</string>
     <string name="masquerade">Masquerade</string>
     <string name="legacy_app_name">Substratum legacy</string>
+    <string name="showcase">Galerie de thème</string>
     <string name="helper_name">Assistant Substratum</string>
     <string name="drawer_name">Projet Substratum</string>
     <string name="restore_app_name">Restaurer le thème</string>
-
+    <string name="showcase_no_connection">La galerie de thème nécessite une connexion Internet pour fonctionner !</string>
+    <string name="showcase_no_themes">Une erreur est survenue lors de la mise en cache de la base de données de la galerie de thème pour cet onglet. Rechargez la base de données avec le bouton d\'actualisation ci-dessus.</string>
     <string name="on_demand_updating_title">Première configuration du cache des ressources</string>
     <string name="on_demand_updating_text">Compilation du cache de %s en cours&#8230;</string>
     <string name="background_updating_toast">Mise à niveau en cours d\'un thème en arrière-plan, veuillez patienter !</string>
     <string name="background_updated_toast">Compilation du cache effectuée !</string>
+    <string name="background_updated_toast_cancel">Ce thème a besoin de mettre à jour son cache de ressources avant d\\\'être fonctionnel !</string>
+    <string name="background_updated_toast_cleaning">Substratum nettoie le cache de ressources de ce thème&#8230;</string>
     <string name="failed_to_install_title_notification">Échec de l\'installation du thème</string>
     <string name="failed_to_install_text_notification">Échec de l\'installation de %s</string>
-
     <string name="settings_icons">Icônes</string>
     <string name="systemui_headers">En-têtes</string>
     <string name="systemui_navigation">Navigation</string>
     <string name="systemui_qs_tiles">Icônes du volet des paramètres</string>
     <string name="systemui_statusbar">Icônes de la barre d\'état</string>
-
+    <string name="tbo_description">Ce thème prend en charge les Google Apps \"Theme Ready\" de la \"Team Black Out\". Si vous ne les avez pas, vous pouvez appuyer sur \"Télécharger\" pour être redirigé vers leur fil de discussion XDA, ou \"Annuler\" si vous les avez déjà !</string>
+    <string name="two_description">Ce thème prend en charge les Google Apps d\\\'origines, comme elles ont été faites ! Si vous avez les Google Apps de la \"Team Black Out\" installées, mais souhaiteriez utiliser ce thème, veuillez les supprimer afin de récupérer la prise en charge du créateur de thème !</string>
+    <string name="tbo_dialog_proceed">Télécharger</string>
     <string name="legacy_dialog_soft_reboot_title">Redémarrage nécessaire !</string>
     <string name="legacy_dialog_soft_reboot_text">Exécution du système de superposition en cours. Il est nécessaire d\'effectuer un redémarrage après l\'ajout ou la suppression des surcouches.\n\nL\'utilisation de cette fenêtre de dialogue redémarrera automatiquement votre appareil. Veuillez donc vous assurer d\'avoir enregistré votre travail avant de poursuivre.</string>
-
     <string name="activity_missing_toast">Désolé, aucune application trouvée qui pourrait gérer cette demande !</string>
     <string name="abort_overlay_toast">Désinstallation de toutes les surcouches en cours&#8230;</string>
     <string name="abort_overlay_toast_success">Toutes les surcouches sont désinstallées !</string>
@@ -30,7 +35,6 @@
     <string name="disable_overlay_toast_not_found">Désactivation de toutes les surcouches impossible !</string>
     <string name="restore_activity_toast">Fichier de sauvegarde trouvé ! Restauration en cours&#8230;</string>
     <string name="restore_activity_toast_not_found">Aucune sauvegarde de surcouche trouvée.</string>
-
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">Variante type1a&#8230;</string>
     <string name="overlays_variant_default_1b">Variante type1b&#8230;</string>
@@ -43,20 +47,28 @@
     <string name="overlays_compile_update_button">Compiler/Mettre à jour et Installer</string>
     <string name="information_activity_pirated_toast">L\'intégrité du binaire de ce thème ne peut pas être vérifiée par Substratum.</string>
     <string name="information_activity_upgrade_toast">Ce thème doit être mis à jour avec le nouveau modèle de thème pour continuer à être utilisé avec Substratum !</string>
-
     <string name="bootanimation_vm_exploded">Rendu de l\'animation de démarrage interrompu en raison d\'allocation de mémoire insuffisante.\n\nL\'installation de cette animation de démarrage reste possible, mais sans aperçu du rendu.</string>
     <string name="bootanimation_placeholder_text">Sélectionnez une animation de démarrage à partir de la liste déroulante&#8230;</string>
     <string name="bootanimation_default_spinner">Sélectionnez une animation de démarrage&#8230;</string>
     <string name="bootanimation_dialog_apply_text">Installation de l\'animation de démarrage en cours&#8230;</string>
     <string name="bootanimation_dialog_apply_success">Animation de démarrage installée !</string>
     <string name="bootanimation_dialog_apply_failed">Échec de l\'installation de l\'animation de démarrage&#8230;</string>
-
+    <string name="wallpaper_dialog_wallpaper">Écran d\'accueil</string>
+    <string name="wallpaper_dialog_lockscreen">Écran de déverrouillage</string>
+    <string name="wallpaper_dialog_cancel">Annuler</string>
+    <string name="wallpaper_dialog_message">Utiliser cette image pour quel arrière-plan ?</string>
+    <string name="wallpaper_downloading">Chargement de l\'image dans le cache en cours&#8230;</string>
+    <string name="wallpaper_homescreen_success">Fond d\'écran d\'accueil défini !</string>
+    <string name="wallpaper_homescreen_error">Impossible de définir le fond d\'écran d\'accueil</string>
+    <string name="wallpaper_lockscreen_success">Fond d\'écran de déverrouillage défini !</string>
+    <string name="wallpaper_lockscreen_error">Impossible de définir le fond d\'écran de déverrouillage</string>
+    <string name="wallpaper_no_connection">Pour utiliser les arrière-plans de thème, une connexion Internet est nécessaire&#8230;</string>
+    <string name="wallpaper_no_wallpapers">La base de données d\'arrière-plans chargée semble être est vide&#8230;</string>
     <string name="font_placeholder_text">Sélectionnez un paquet de police dans la liste déroulante&#8230;</string>
     <string name="font_default_spinner">Sélectionnez un paquet de police&#8230;</string>
     <string name="font_dialog_apply_text">Installation du paquet de police en cours&#8230;</string>
     <string name="font_dialog_apply_success">Paquet de police installé !</string>
     <string name="font_dialog_apply_failed">Échec de l\'installation du paquet de police&#8230;</string>
-
     <string name="sounds_placeholder_text">Sélectionnez un paquet de son dans la liste déroulante&#8230;</string>
     <string name="sounds_dialog_apply_text">Installation du paquet de son en cours&#8230;</string>
     <string name="sounds_dialog_apply_success">Paquet de son installé !</string>
@@ -64,16 +76,15 @@
     <string name="sounds_default_spinner">Sélectionnez un paquet de son&#8230;</string>
     <string name="sounds_dialog_permissions_title">Configuration des sonneries</string>
     <string name="sounds_dialog_permissions_text">Alarmes/Notifications/Sonneries sont maintenant sélectionnables manuellement à partir de Paramètres !\n\nSubstratum ne peut pas s\'accorder l\'autorisation \"android.permission.WRITE_SETTINGS\", il est donc impossible de définir les sonneries par défaut.</string>
-
     <string name="settings_about_substratum">Version de Substratum</string>
     <string name="settings_about_masquerade">Version de Masquerade</string>
     <string name="settings_about_masquerade_not_installed">Masquerade non installé</string>
-
     <string name="theme_information_tab_one">Installation rapide</string>
     <string name="theme_information_tab_two">Gestionnaire de surcouche</string>
     <string name="theme_information_tab_three">Animations de démarrage</string>
     <string name="theme_information_tab_four">Paquets de police</string>
     <string name="theme_information_tab_five">Paquets de son</string>
+    <string name="theme_information_tab_six">Fonds d\'écran</string>
     <string name="theme_information_quick_apply_no_views_title">Installation rapide non disponible</string>
     <string name="theme_information_quick_apply_no_views_text">Ce thème ne prend pas en charge l\'installation rapide&#8230;</string>
     <string name="theme_information_quick_apply_dialog_negative_button">Annuler</string>
@@ -91,7 +102,7 @@
     <string name="theme_information_quick_apply_thirdparty_overlay_text">Définir toutes les surcouches tierces installées de ce thème</string>
     <string name="theme_information_quick_apply_bootanimation">Animation de démarrage</string>
     <string name="theme_information_quick_apply_sounds">Sons</string>
-
+    <string name="theme_information_quick_apply_wallpaper">Fond d\'écran</string>
     <string name="manage_dialog_text">Voulez-vous vraiment effectuer cette action ?</string>
     <string name="manage_dialog_performing">Restauration des valeurs par défaut en cours&#8230;</string>
     <string name="manage_bootanimation_text">Restaurer l\'animation de démarrage</string>
@@ -110,26 +121,37 @@
     <string name="manage_system_overlay_toast">Restauration du thème système en cours&#8230;</string>
     <string name="manage_system_overlay_uninstall_toast">Désinstallation en arrière-plan des surcouches en cours&#8230;</string>
     <string name="manage_system_overlay_text">Désactiver toutes les surcouches installées et rétablir le thème d\'origine</string>
-
+    <string name="manage_wallpaper_title">Rétablir le fond d\'écran d\'origine</string>
+    <string name="manage_wallpaper_text">Rétablit le fond d\'écran par défaut sur votre appareil</string>
+    <string name="manage_wallpaper_home">Fond d\'écran d\'accueil</string>
+    <string name="manage_wallpaper_lock">Fond d\'écran de déverrouillage</string>
+    <string name="manage_wallpaper_all">Fond d\'écran d\'accueil et de déverrouillage</string>
+    <string name="manage_wallpaper_home_toast">Fond d\'écran d\'accueil rétabli !</string>
+    <string name="manage_wallpaper_lock_toast">Fond d\'écran de déverrouillage rétabli !</string>
+    <string name="manage_wallpaper_all_toast">Fond d\'écran rétabli !</string>
     <string name="plugin_template">Extension</string>
+    <string name="api_21">Lollipop</string>
+    <string name="api_22">Lollipop MR1</string>
     <string name="api_23">Marshmallow</string>
     <string name="api_24">Nougat</string>
     <string name="api_25">Oreo</string>
-
+    <string name="api_26">Oreo</string>
     <string name="priority_back_title">Retour aux surcouches</string>
     <string name="priority_success_toast">Les priorités ont été modifiées et les fenêtres sont en cours d\'actualisation&#8230;</string>
-
+    <string name="refresh_fragment">Contenu rechargé !</string>
     <string name="menu_clean">Nettoyer les surcouches</string>
     <string name="menu_disable">Désactiver les surcouches installées</string>
     <string name="menu_enable">Activer les surcouches installées</string>
     <string name="menu_rate">Évaluer le thème</string>
+    <string name="menu_refresh">Actualiser</string>
     <string name="menu_refresh_windows">Actualiser les fenêtres</string>
     <string name="menu_soft_reboot">Redémarrage logiciel</string>
     <string name="menu_reboot_device">Redémarrage de l\'appareil</string>
     <string name="menu_restart_systemui">Redémarrage de l\'interface</string>
     <string name="menu_search">Thèmes sur le Play Store</string>
+    <string name="menu_showcase">Galerie de thème</string>
     <string name="menu_uninstall">Désinstaller</string>
-
+    <string name="coming_soon">Dérobé par Char !</string>
     <string name="nav_overlay_manager">Gestionnaire détaillé</string>
     <string name="nav_home">Thèmes</string>
     <string name="nav_overlays">Surcouches</string>
@@ -137,10 +159,8 @@
     <string name="nav_fonts">Polices</string>
     <string name="nav_sounds">Sons</string>
     <string name="nav_wallpapers">Fonds d\'écran</string>
-
     <string name="nav_section_header_utilities">Utilitaires</string>
     <string name="nav_section_header_more">Plus</string>
-
     <string name="nav_manage">Valeurs par défaut</string>
     <string name="nav_priorities">Priorités</string>
     <string name="nav_backup_restore">Profils</string>
@@ -148,17 +168,21 @@
     <string name="nav_opensource">Licences</string>
     <string name="nav_team">Contributeurs</string>
     <string name="nav_troubleshooting">Dépannage</string>
-
+    <string name="logcat_dialog_title">Rapport de débogage \\\"JournauxDeChar\\\"</string>
+    <string name="logcat_dialog_copy_success">Journal d\'erreur copié dans le presse-papiers !</string>
+    <string name="logcat_email_subject">%s : Rapport de bogue de thème</string>
+    <string name="logcat_email_body" formatted="false">Bonjour %s,\n\nJ\'ai un problème avec %s, et j\'aimerai savoir si vous pourriez m\'aider à le résoudre.\n\nAppareil : %s\n\nRapport :\n\n%s</string>
+    <string name="logcat_email_activity">Envoyer le rapport de bogue via&#8230;</string>
+    <string name="logcat_email_activity_error">Aucun client de courriel installé.</string>
+    <string name="logcat_email_xposed_check">Xposed Framework</string>
     <string name="priority_card_title">Système de priorité dynamique (DPS)</string>
     <string name="priority_card_content">Le Système de priorité dynamique est une procédure détaillée permettant au thème de surcouches d\'être organisé selon des priorités différentes, en ignorant les priorités appliquées par défaut du Gestionnaire de service de surcouche.\n\nPar exemple, lorsque deux surcouches ciblent la même application, il peut être utile d\'organiser l\'ordre dans lequel elles s\'appliquent.\n\nAvec le Gestionnaire de service de surcouche, les priorités sont inversées. La surcouche de plus haute priorité se trouve dans la partie la plus basse de chaque liste.</string>
     <string name="priority_card_title2">Instructions</string>
     <string name="priority_card_content2">De par le fonctionnement du service de gestion des surcouches, toutes les priorités de surcouche sont disposées dans un ordre inversé où la partie inférieure est la plus haute priorité (recherche initiale des ressources) et la partie supérieure est la plus basse priorité (recherche finale des ressources).</string>
     <string name="priority_no_multiple_overlays_title">Aucune application possédant des surcouches multiples&#8230;</string>
     <string name="priority_no_multiple_overlays_text">Activez deux surcouches ou plus pour la même application, pour pouvoir m\'utiliser !</string>
-
     <string name="manager_no_overlays_title">Aucune surcouche installée&#8230;</string>
     <string name="manager_no_overlays_text">Compilez une surcouche pour pouvoir m\'utiliser !</string>
-
     <string name="backup">Carte de sauvegarde</string>
     <string name="backup_card_content">Cette fonction créée une copie de votre liste de surcouches actuellement activées et l\'enregistre dans \"/storage/emulated/0/substratum/profiles/\" pour plus de sécurité.</string>
     <string name="delete_dialog_cancel">Annuler</string>
@@ -182,37 +206,30 @@
     <string name="profile_edittext_title">Nouveau profil :</string>
     <string name="toast_backup_success">Liste des surcouches actuelles enregistrée dans \"/storage/emulated/0/substratum/profiles/%s\"</string>
     <string name="spinner_default_item">Sélectionnez un profil à restaurer&#8230;</string>
-
     <string name="select_to_toggle_all_overlays">Tout sélectionner</string>
     <string name="fab_menu_select_to_toggle_all_overlays">Tout sélectionner</string>
-
     <string name="overlay_dialog_default_res">Par défaut</string>
     <string name="overlay_dialog_text">Simplification des options du thème actuel en cours&#8230;</string>
     <string name="system_overlay_dialog_title">Sélectionnez une base de surcouches systèmes&#8230;</string>
     <string name="tp_overlay_dialog_title">Sélectionnez une base de surcouches tierces&#8230;</string>
-
     <string name="permission_not_granted_dialog_title">Autorisation non accordée</string>
     <string name="permission_not_granted_dialog_message1">Veuillez accorder à Substratum l\'autorisation \"Stockage\"
         ou l\'application ne fonctionnera pas correctement !</string>
     <string name="permission_not_granted_dialog_message2">Veuillez accorder à Substratum l\'autorisation \"Téléphone\"
         ou l\'application ne pourra pas compiler correctement les surcouches spécifiques à l\'appareil !</string>
     <string name="dialog_ok">OK</string>
-
     <string name="clean_dialog_body">Voulez-vous nettoyer toutes les surcouches pour ce thème ?</string>
     <string name="disable_dialog_body">Voulez-vous désactiver toutes les surcouches pour ce thème ?</string>
     <string name="enable_dialog_body">Voulez-vous activer toutes les surcouches pour ce thème ?</string>
     <string name="uninstall_dialog_body">Voulez-vous désinstaller ce thème ?</string>
     <string name="uninstall_dialog_cancel">Annuler</string>
     <string name="uninstall_dialog_okay">OK</string>
-
     <string name="failed_to_install_overlay_toast">Impossible de compiler la surcouche \"%s\"</string>
-
     <string name="sb_phase_1_loader">Extraction des atouts du thème en cours</string>
     <string name="sb_phase_2_loader">Création et signature des surcouches en cours</string>
     <string name="root_rejected_title">Autorisation \"Super Utilisateur\" refusée</string>
     <string name="root_rejected_timer_plural">Fermeture dans %s secondes&#8230;</string>
     <string name="root_rejected_timer_singular">Fermeture dans %s seconde&#8230;</string>
-
     <string name="list_of_overlays">Liste des surcouches installables</string>
     <string name="toast_unapproved">Cette surcouche a été rejetée par le système</string>
     <string name="toast_compiled">Surcouche(s) sélectionnée(s) compilée(s)!</string>
@@ -231,16 +248,15 @@
     <string name="toast_updating">Compilation/Mise à jour visible dans le volet de notification, vous pouvez utiliser une autre application en utilisant les boutons \"Accueil\" ou \"Applications récentes\" !</string>
     <string name="no_themes_title">Aucun thème installé&#8230;</string>
     <string name="no_themes_description">Installez un thème compatible !</string>
-
     <string name="toast_on_back_press_compiling">Vous pouvez utiliser une autre application pendant la compilation en utilisant les boutons \"Accueil\" ou \"Applications récentes\".</string>
-
     <string name="notification_theme_installed">Installé</string>
     <string name="notification_theme_updated">Mis à jour</string>
     <string name="notification_theme_installed_content">Thème installé</string>
     <string name="notification_theme_updated_content">Ressources mises à jour</string>
-
     <string name="notification_hide">Masquer</string>
+    <string name="notification_hide_upgrade">Annuler</string>
     <string name="notification_initial_title">Substratum est en cours d\'exécution</string>
+    <string name="notification_initial_title_upgrade">Mise à niveau des ressources de %s en cours&#8230;</string>
     <string name="notification_done_title">Compilation de thème terminée</string>
     <string name="notification_extracting_assets">Extraction des atouts du thème en cours&#8230;</string>
     <string name="notification_extracting_assets_text">Traitement des surcouches en cours&#8230;</string>
@@ -249,7 +265,6 @@
     <string name="notification_processing">Traitement de la surcouche en cours pour</string>
     <string name="notification_processing_n">Création et signature des surcouches en cours&#8230;</string>
     <string name="notification_compiling_signing_installing">Création et installation de vos surcouches en cours&#8230;</string>
-
     <string name="one_bread">Une tranche de pain</string>
     <string name="two_bread">Deux tranches de pain</string>
     <string name="three_bread">Un sandwich de pain !</string>
@@ -258,11 +273,11 @@
     <string name="a_wild_char_has_appeared">C\'est Char ! Fuyez !</string>
     <string name="char_success">Char a volé tous vos biscuits !</string>
     <string name="char_error">Char n\'a pas pu voler vos biscuits !</string>
-
     <string name="settings_title">À propos</string>
     <string name="settings_title_1">Options de l\'application</string>
     <string name="settings_title_2">Options du gestionnaire</string>
     <string name="settings_title_3">Thème</string>
+    <string name="substratum_restart_toast">Substratum redémarre automatiquement après un changement de paramètres</string>
     <string name="masquerade_check_title">Souhaitez-vous honorer cette masquerade avec une danse ?</string>
     <string name="masquerade_check_subtext">Vérification de la présence et de l\'intégrité du système de thème Masquerade. En cas d\'échec, veuillez effectuer un redémarrage logiciel ou de l\'appareil et ré-essayez !</string>
     <string name="masquerade_check_installed">Mettez votre masque, prenez ma main, montrez-moi l\'exemple !</string>
@@ -295,7 +310,8 @@
     <string name="dynamic_navbar_colors_subtext">Dans la fenêtre d\'information du thème, Substratum adaptera la barre de navigation à la couleur dominante de l\'images de couverture.</string>
     <string name="manager_title">Afficher les surcouches désactivées dans la liste</string>
     <string name="manager_subtext">Dans la fenêtre du gestionnaire détaillé, afficher les surcouches désactivées avec leurs équivalentes activées.</string>
-
+    <string name="alternate_drawer_design_title">Apparence du tiroir secondaire</string>
+    <string name="alternate_drawer_design_subtext">Affiche une apparence différente pour le panneau de navigation lors de la navigation dans l\'interface utilisateur</string>
     <string name="fab_menu_compile">Compiler la sélection</string>
     <string name="fab_menu_compile_enable">Compiler et activer</string>
     <string name="fab_menu_compile_update">Compiler et mettre à jour</string>
@@ -305,15 +321,12 @@
     <string name="fab_menu_enable">Activer la sélection</string>
     <string name="fab_menu_swap_toggle">Désactiver les autres thèmes</string>
     <string name="fab_menu_swap_toggle_legacy">Supprimer toutes les présentes</string>
-
     <string name="contributor_title_1">Contributeurs de Substratum</string>
     <string name="contributor_text_1">Notre équipe aimerait grandement remercier ces personnes qui ont grandement contribué à Substratum en termes de travaux de conception !</string>
     <string name="contributor_idan_content">J\'ai fait toutes les animations de démarrage de Substratum !</string>
     <string name="contributor_mihir_content">J\'ai fait toutes les icônes d\'informations de thème de Substratum !</string>
-    <string name="contributor_nathan_content">J\'ai écrit le guide de dépannage de Substratum !</string>
     <string name="contributor_travis_content">J\'ai fait toutes les images de l\'introduction de Substratum !</string>
     <string name="contributor_sajid_content">J\'ai fait toutes les icônes de Substratum !</string>
-
     <string name="contributor_title_2">Contributeurs de \"Layers\"</string>
     <string name="contributor_text_2">Ces personnes vous ont apporté le \"Gestionnaire Layers\" par le passé, et ont depuis continué à faire de grandes choses pour la préparation Substratum !</string>
     <string name="contributor_reinhard_content">J\'ai créé \"Layers\" avec Mike !</string>
@@ -323,7 +336,14 @@
     <string name="contributor_niklas_content">J\'ai travaillé sur le \"Gestionnaire Layers\" !</string>
     <string name="contributor_andrzej_content">J\'ai travaillé sur le \"Gestionnaire Layers\" !</string>
     <string name="contributor_denis_content">J\'ai commencé \"Layers Showcase\" !</string>
-
+    <string name="contributor_nathan_content">J\'ai écrit le guide de dépannage de Substratum !</string>
+    <string name="translator_title">Traducteurs de Substratum</string>
+    <string name="translator_text">Un grand merci à ces traducteurs pour mettre à disposition de tous Substratum à travers le monde !</string>
+    <string name="translator_kevin_content">Traduction française</string>
+    <string name="translator_jorge_content">Traduction espagnole</string>
+    <string name="translator_chrys_content">Traduction portugaise</string>
+    <string name="translator_wasita_content">Traduction indonésienne</string>
+    <string name="translator_david_content">Traduction indonésienne</string>
     <string name="team_title_1">Chefs d\'équipe de Substratum</string>
     <string name="team_text_1">Non seulement nous avons créé quelque chose qui fonctionne pour les utilisateurs, mais en plus nous avons travaillé en collaboration avec des créateurs de thèmes, pour en faire un merveilleux moteur de thème pour la communauté !</string>
     <string name="team_title_2">Contributeurs au développement de Substratum</string>
@@ -335,12 +355,13 @@
     <string name="team_george_content">Qu\'avez-vous besoin de changer dans Android ? Je vous couvre !</string>
     <string name="team_cory_content">Besoin d\'ajouter ou de corriger quelque chose ? Aucun problème !</string>
     <string name="team_jacob_content">Que voulez-vous ? Génial, c\'est fait.</string>
+    <string name="team_surge_content">Qu\'ai-je manqué ?</string>
     <string name="team_ivan_content">Préparez-vous à être tué par la gentillesse des chatons !</string>
     <string name="team_raja_content">Je ne tolère aucune faille de sécurité !</string>
     <string name="team_jimmy_content">Je casse les choses avant que vous n\'ayez la chance de le faire !</string>
+    <string name="team_dave_content">#WhiteUIMustDie</string>
     <string name="team_branden_content">Essayez de trouver la licorne appelée Menthe Sublime !</string>
     <string name="team_jeremy_content">Vous avez rêvé d\'un thème ? Je l\'ai déjà créé !</string>
-
     <string name="slide_1_title">Bienvenue dans Substratum</string>
     <string name="slide_1_text">Un moteur de thème puissant et minimal, basé sur le service de gestion des surcouches de Sony</string>
     <string name="slide_2_title">Une toute nouvelle interface utilisateur</string>
@@ -353,7 +374,5 @@
     <string name="slide_5_text">Vous pouvez basculer vers vos applications et laisser la compilation des surcouches s\'effectuer en arrière-plan, vu que ce processus peut prendre un certain temps. Vérifiez simplement votre volet de notification pour afficher la progression !</string>
     <string name="slide_6_title">Nous espérons que vous apprécierez notre création !</string>
     <string name="slide_6_text">Merci d\'avoir lu cette introduction. Nous espérons que vous apprécierez l\'utilisation de Substratum autant que nous l\'avons fait pendant son développement !</string>
-
-    <string name="skip">PASSER</string>
-    <string name="done">OK</string>
+    <string name="team_ben_content">Je veux juste être tenu&#8230;</string>
 </resources>

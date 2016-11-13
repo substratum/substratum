@@ -14,7 +14,7 @@
     <string name="answer_six">Ištrinkite savo /system/bin/aopt failą, per naujo įjungite programėlę ir bandykite dar kartą.</string>
     <string name="question_seven">Mano tema neveikia, kas nutiko?</string>
     <string name="answer_seven">Jei jūs pritaikote temą pirmą kartą ar iš esamos temos, įsitikinkite, kad jūs nepažymėjote \"Išjungti kitas temas\" .</string>
-    <string name="question_eight">Įrenginys nebe įsijungia!  Kaip tai sutvarkyti?</string>
+    <string name="question_eight">Aš įkrovos kilpoje!  Kaip tai sutvarkyti?</string>
     <string name="answer_eight">Substratum turi savo atkūrimo režimą, vadinamą Substratum Rescue System (SRS),kuris yra automatizuotas ir įkelia archyvą į /storage/emulated/0/substratum/SubstratumRescue.zip. Iraškite šį ZIP atkūrimo režime ir paleiskite įrenginį iš naujo.</string>
     <string name="question_nine">Po temos pritaikymo kai kurie elementai atrodo prastai. Kas nutiko?</string>
     <string name="answer_nine">1. Paleiskite iš naujo SistemosNS jei tai nebuvo atlikta automatiškai.\n2. Paleiskite iš naujo įrenginį.\n3. Atjunkite ir/ar ištrinkite perdangas, perkompiliuokite ir per naujo pritaikykite.</string>

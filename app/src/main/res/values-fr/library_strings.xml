@@ -1,82 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <resources>
+    <!-- http://def-builder.mikepenz.com/ -->
     <!-- AnimatedEditText -->
+    <!-- Author section -->
+    <!-- Library section -->
     <string name="library_animatededittext_libraryDescription">Ce dépôt contient AnimatedEditText et TextDrawable qui étendent le comportement de EditText et ajoutent des fonctionnalités.</string>
+    <!-- OpenSource section -->
+    <!-- ClassPath for autoDetect section -->
+    <!-- License section -->
     <!-- commons-io -->
+    <!-- Author section -->
+    <!-- Library section -->
     <string name="library_commons_io_libraryDescription">Commons IO est une bibliothèque d\'utilitaires pour aider à développer la fonctionnalité IO.</string>
+    <!-- OpenSource section -->
+    <!-- ClassPath for autoDetect section -->
+    <!-- License section -->
     <!-- FAB Speed Dial -->
+    <!-- Author section -->
+    <!-- Library section -->
     <string name="library_fab_speed_dial_libraryDescription">Une bibliothèque simple réunissant \"FAB\" + \"Menu resources\" + \"Speed dial metaphor\" de la conception \"Material Design\".</string>
+    <!-- OpenSource section -->
+    <!-- ClassPath for autoDetect section -->
+    <!-- License section -->
     <!-- Gesture RecyclerView -->
+    <!-- Author section -->
+    <!-- Library section -->
     <string name="library_gesturerecycler_libraryDescription">Cette bibliothèque apporte les fonctionnalités de \"Balayer\", \"Glisser et Déposer\" pour \"RecyclerView\".</string>
+    <!-- OpenSource section -->
+    <!-- ClassPath for autoDetect section -->
+    <!-- License section -->
     <!-- KenBurnsView -->
+    <!-- Author section -->
+    <string name="library_kenburnsview_author" formatted="false">Flávio Faria</string>
+    <string name="library_kenburnsview_authorWebsite" formatted="false">https://plus.google.com/+Fl%C3%A1vioFaria1/posts</string>
+    <!-- Library section -->
     <string name="library_kenburnsview_libraryDescription">Bibliothèque Android apportant une extension à \"ImageView\" qui crée une expérience immersive en utilisant l\'effet Ken Burns.</string>
+    <!-- OpenSource section -->
+    <!-- ClassPath for autoDetect section -->
+    <!-- License section -->
     <!-- libsuperuser -->
-    <string name="library_libsuperuser_libraryDescription">Le but de cette bibliothèque est de démontrer les techniques que vous pouvez réutiliser dans votre application root qui contourne les problèmes communs, en un minimum de code. </string>
+    <!-- Author section -->
+    <!-- Library section -->
+    <string name="library_libsuperuser_libraryDescription">Le but de cette bibliothèque est de démontrer les techniques que vous pouvez réutiliser dans votre application root qui contourne les problèmes communs, en un minimum de code.</string>
+    <!-- OpenSource section -->
+    <!-- ClassPath for autoDetect section -->
+    <!-- License section -->
     <!-- Material Progress Bar -->
+    <!-- Author section -->
+    <!-- Library section -->
     <string name="library_materialprogressbar_libraryDescription">\"ProgressBar\" de conception \"Material Design\" avec une apparence cohérente pour Android 4.0 et supérieur.</string>
+    <!-- OpenSource section -->
+    <!-- ClassPath for autoDetect section -->
+    <!-- License section -->
     <!-- Material Sheet Fab -->
+    <!-- Author section -->
+    <!-- Library section -->
     <string name="library_materialsheetfab_libraryDescription">Bibliothèque ajoutant le bouton d\'action flottante à la transition de feuille de la documentation de Google concernant la conception \"Material Design\". Il peut être utilisé avec n\'importe quelle bibliothèque de bouton d\'action flottante sur Android 4.0 et supérieurs (niveaux API 14 et supérieurs).</string>
+    <!-- OpenSource section -->
+    <!-- ClassPath for autoDetect section -->
+    <!-- License section -->
     <!-- Scrolling Image View -->
+    <!-- Author section -->
+    <!-- Library section -->
     <string name="library_androidscrollingimageview_libraryDescription">Une vue pour Android permettant un défilement latérale d\'images en continue. Cela peut être utilisé pour créer un effet d\'animation parallaxe.</string>
-    <!-- AndroidScrollingImageView -->
+    <!-- OpenSource section -->
+    <!-- ClassPath for autoDetect section -->
     <string name="library_androidscrollingimageview_classPath">Une vue pour Android permettant un défilement latérale d\'images en continue. Cela peut être utilisé pour créer un effet d\'animation parallaxe.</string>
+    <!-- License section -->
     <!-- Welcome -->
+    <!-- Author section -->
+    <!-- Library section -->
     <string name="library_welcome_android_libraryDescription">Un écran d\'accueil facile à utiliser et personnalisable pour les applications Android.</string>
+    <!-- OpenSource section -->
+    <!-- ClassPath for autoDetect section -->
+    <!-- License section -->
     <!-- ZipSigner -->
+    <!-- Author section -->
+    <!-- Library section -->
     <string name="library_zipsigner_libraryDescription">ZipSigner est une bibliothèque Android pour la signature des fichiers Zip, Apk, et/ou Jar directement sur les appareils Android.</string>
+    <!-- OpenSource section -->
+    <!-- ClassPath for autoDetect section -->
+    <!-- License section -->
     <!-- ZT-Zip -->
+    <!-- Author section -->
+    <!-- Library section -->
     <string name="library_zt_zip_libraryDescription">Le projet est compilé en utilisant des paquets java.util.zip.* pour un accès basé sur les flux. Les méthodes les plus pratiques pour l\'utilisation du système de fichiers sont également pris en charge.</string>
-
-    <!-- Non exposed/built-in libraries strings -->
-    <!-- AboutLibraries -->
-    <string name="library_AboutLibraries_libraryDescription">
-        
-        &lt;b>AboutLibraries&lt;/b> est une bibliothèque vous délivrant toutes les informations dont vous avez besoin sur vos bibliothèques !
-        &lt;br />&lt;br />
-        La plupart des applications actuelles disposent d\'une section "Bibliothèque utilisées" et pour cela, des informations sur ces bibliothèques sont nécessaires. Comme c\'est ennuyeux de copier toutes ces informations pour les placer une à une dans votre application, j\'ai développé cette petite bibliothèque d\'aide pour fournir les informations nécessaires.
-        
-    </string>
-    <!-- Android-Iconics -->
-    <string name="library_AndroidIconics_libraryDescription">
-        
-        Cette bibliothèque vous permet d\'inclure des icônes vectorielles partout dans votre projet. Sans aucune limitation. Aucune limite de taille, de couleur. Avec ou sans contour, et de nombreuses possibilités supplémentaires.
-        
-    </string>
-    <!-- ButterKnife -->
-    <string name="library_Butterknife_libraryDescription">Champ et méthode de liaison pour les vues Android qui utilisent le traitement d\'annotation afin de générer du code réutilisable pour vous.</string>
-    <!-- FastAdapter -->
-    <string name="library_fastadapter_libraryDescription">
-        
-        &lt;b>FastAdapter&lt;/b>, est à l\'épreuve des balles, rapide et facile d\'utilisation pour la bibliothèque d\'adaptation, ce qui réduit le temps de développement...
-        
-    </string>
-    <!-- Glide -->
-    <string name="library_glide_libraryDescription">Glide est un outil Open Source de gestion des médias, rapide et efficace, et de gestion du chargement des images pour Android, qui comprend le décodage des médias, de la mémoire et du cache, rassemblant les ressources dans une interface simple et facile d\'utilisation.</string>
-    <!-- MaterialDrawer -->
-    <string name="library_materialdrawer_libraryDescription">
-        
-        La bibliothèque tout-en-un &lt;b>MaterialDrawer&lt;/b> est flexible et facile d\'utilisation pour votre projet Android.
-        
-    </string>
-    <!-- Materialize -->
-    <string name="library_materialize_libraryDescription">
-        
-        &lt;b>Materialize&lt;/b> contient des classes auxiliaires utiles, la palette complète des couleurs \"Material\", et de nombreux autres outils. Utilisez son thème comme base. Il gère votre Barre d\'État, votre Barre de Navigation, le comportement en mode plein écran&amp;#8230;
-        
-    </string>
-    <!-- NineOldAndroids -->
-    <string name="library_NineOldAndroids_libraryDescription">Bibliothèque Android pour l\'utilisation de l\'API d\'animation d\'Honeycomb (Android 3.0) sur toutes les versions de la plate-forme depuis la version 1.0 !
-    </string>
-    <!-- Picasso -->
-    <string name="library_Picasso_libraryDescription">Une bibliothèque puissante gérant le téléchargement et la mise en cache d\'image pour Android.
-    </string>
-    <!-- AppCompat -->
-    <string name="library_appcompat_v7_libraryDescription">Cette bibliothèque ajoute la prise en charge de la barre d\'action de l\'interface utilisateur.</string>
-    <!-- Design package -->
-    <string name="library_design_libraryDescription">Le paquet \"Design\" fournit des APIs pour la prise en charge de l\'ajout de composants et de modèles \"Material\" pour vos applications. La bibliothèque \"Design Support library\" ajoute la prise en charge pour de différents composants de la conception \"Material\" et des modèles pour les développeurs d\'applications pour tirer parti des tiroirs de navigation, des boutons d\'action flottants (FAB), des Snackbars, et des onglets.</string>
-    <!-- RecyclerView -->
-    <string name="library_recyclerview_v7_libraryDescription">La bibliothèque de Recyclerview ajoute la classe RecyclerView. Cette classe apporte la prise en charge du widget RecyclerView, une vue synthétique d\'affichage d\'une grande quantité de données.</string>
-    <!-- Support v4 -->
-    <string name="library_support_v4_libraryDescription">Cette bibliothèque est conçue pour être utilisée avec Android 1.6 (API 4) et versions supérieures. Il comprend un grand ensemble d\'APIs, dont la prise en charge des composants d\'application, des caractéristiques de l\'interface utilisateur, de l\'accessibilité, la gestion des données, la connectivité réseau, et des utilitaires de programmation.</string>
+    <!-- OpenSource section -->
+    <!-- ClassPath for autoDetect section -->
+    <!-- License section -->
+    <!-- Circular Fillable Loaders -->
+    <!-- Author section -->
+    <!-- Library section -->
+    <string name="library_circularfillableloaders_libraryDescription">Projet Android permettant de réaliser une jolie image circulaire de chargement, pouvant par exemple, être utilisée sur un écran de démarrage.</string>
+    <!-- OpenSource section -->
+    <!-- ClassPath for autoDetect section -->
+    <!-- License section -->
+    <!-- BlurView -->
+    <!-- Author section -->
+    <!-- Library section -->
+    <string name="library_blurview_libraryDescription">Rendu de flou dynamique de vues sous-subjacentes, semblable à iOS, pour Android.</string>
+    <!-- OpenSource section -->
+    <!-- ClassPath for autoDetect section -->
+    <!-- License section -->
+    <!-- Android Image Cropper -->
+    <!-- Author section -->
+    <!-- Library section -->
+    <string name="library_androidimagecropper_libraryDescription">Une bibliothèque de recadrage d\'image puissante (Zoom, Rotation, Multi-Source), personnalisable (Forme, Limites, Allure), et optimisée (Asynchrone, Échantillonnage, Matrice) pour Android.</string>
+    <!-- OpenSource section -->
+    <!-- ClassPath for autoDetect section -->
+    <!-- License section -->
 </resources>

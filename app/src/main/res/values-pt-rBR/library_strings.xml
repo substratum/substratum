@@ -3,194 +3,110 @@
     <!-- http://def-builder.mikepenz.com/ -->
     <!-- AnimatedEditText -->
     <!-- Author section -->
-    <string name="library_animatededittext_author">Ali Muzaffar</string>
-    <string name="library_animatededittext_authorWebsite">http://alimuzaffar.com/</string>
     <!-- Library section -->
-    <string name="library_animatededittext_libraryName">AnimatedEditText</string>
     <string name="library_animatededittext_libraryDescription">Este repositório contém o AnimatedEditText e o TextDrawable todos os quais estendem o comportamento de EditText e implementam recursos que de outra forma não estariam disponíveis.</string>
-    <string name="library_animatededittext_libraryWebsite">https://github.com/alphamu/AnimatedEditText</string>
-    <string name="library_animatededittext_libraryVersion">1.0</string>
     <!-- OpenSource section -->
-    <string name="library_animatededittext_isOpenSource">true</string>
-    <string name="library_animatededittext_repositoryLink">https://github.com/alphamu/AnimatedEditText</string>
     <!-- ClassPath for autoDetect section -->
-    <string name="library_animatededittext_classPath">com.alimuzaffar.lib:animated-edit-text</string>
     <!-- License section -->
-    <string name="library_animatededittext_licenseId">apache_2_0</string>
     <!-- commons-io -->
     <!-- Author section -->
-    <string name="library_commons_io_author">Apache</string>
-    <string name="library_commons_io_authorWebsite">http://commons.apache.org/</string>
     <!-- Library section -->
-    <string name="library_commons_io_libraryName">Commons IO</string>
     <string name="library_commons_io_libraryDescription">Commons IO é uma biblioteca de utilitários para ajudar com o desenvolvimento de funcionalidade IO.</string>
-    <string name="library_commons_io_libraryWebsite">https://commons.apache.org/proper/commons-io/</string>
-    <string name="library_commons_io_libraryVersion">1.0</string>
     <!-- OpenSource section -->
-    <string name="library_commons_io_isOpenSource">true</string>
-    <string name="library_commons_io_repositoryLink">https://commons.apache.org/proper/commons-io/</string>
     <!-- ClassPath for autoDetect section -->
-    <string name="library_commons_io_classPath">commons-io</string>
     <!-- License section -->
-    <string name="library_commons_io_licenseId">apache_2_0</string>
     <!-- FAB Speed Dial -->
     <!-- Author section -->
-    <string name="library_fab_speed_dial_author">Yavor Ivanov</string>
-    <string name="library_fab_speed_dial_authorWebsite">https://github.com/yavski</string>
     <!-- Library section -->
-    <string name="library_fab_speed_dial_libraryName">fab-speed-dial</string>
     <string name="library_fab_speed_dial_libraryDescription">Uma biblioteca simples FAB + recursos de menu + metáfora de discagem rápida do material design.</string>
-    <string name="library_fab_speed_dial_libraryWebsite">https://github.com/yavski/fab-speed-dial</string>
-    <string name="library_fab_speed_dial_libraryVersion">1.0.4</string>
     <!-- OpenSource section -->
-    <string name="library_fab_speed_dial_isOpenSource">true</string>
-    <string name="library_fab_speed_dial_repositoryLink">https://github.com/yavski/fab-speed-dial</string>
     <!-- ClassPath for autoDetect section -->
-    <string name="library_fab_speed_dial_classPath">io.github.yavski:fab-speed-dial</string>
     <!-- License section -->
-    <string name="library_fab_speed_dial_licenseId">apache_2_0</string>
     <!-- Gesture RecyclerView -->
     <!-- Author section -->
-    <string name="library_gesturerecycler_author">Paweł Surówka</string>
-    <string name="library_gesturerecycler_authorWebsite">https://github.com/thesurix/gesture-recycler</string>
     <!-- Library section -->
-    <string name="library_gesturerecycler_libraryName">Reciclador de Gestos</string>
     <string name="library_gesturerecycler_libraryDescription">Esta biblioteca fornece apoio do \"deslize &amp; arraste e solte\" para o RecyclerView.</string>
-    <string name="library_gesturerecycler_libraryWebsite">https://github.com/thesurix/gesture-recycler</string>
-    <string name="library_gesturerecycler_libraryVersion">1.3.1</string>
     <!-- OpenSource section -->
-    <string name="library_gesturerecycler_isOpenSource">true</string>
-    <string name="library_gesturerecycler_repositoryLink">https://github.com/thesurix/gesture-recycler</string>
     <!-- ClassPath for autoDetect section -->
-    <string name="library_gesturerecycler_classPath">com.thesurix.gesturerecycler:gesture-recycler</string>
     <!-- License section -->
-    <string name="library_gesturerecycler_licenseId">apache_2_0</string>
     <!-- KenBurnsView -->
     <!-- Author section -->
     <string name="library_kenburnsview_author" formatted="false">Flávio Faria</string>
     <string name="library_kenburnsview_authorWebsite" formatted="false">https://plus.google.com/+Fl%C3%A1vioFaria1/posts</string>
     <!-- Library section -->
-    <string name="library_kenburnsview_libraryName">KenBurnsView</string>
     <string name="library_kenburnsview_libraryDescription">Biblioteca Android que fornece uma extensão para o ImageView que cria uma experiência imersiva animando a sua tela usando o efeito Ken Burns.</string>
-    <string name="library_kenburnsview_libraryWebsite">https://github.com/flavioarfaria/KenBurnsView</string>
-    <string name="library_kenburnsview_libraryVersion">1.0.7</string>
     <!-- OpenSource section -->
-    <string name="library_kenburnsview_isOpenSource">true</string>
-    <string name="library_kenburnsview_repositoryLink">https://github.com/flavioarfaria/KenBurnsView</string>
     <!-- ClassPath for autoDetect section -->
-    <string name="library_kenburnsview_classPath">com.flaviofaria:kenburnsview</string>
     <!-- License section -->
-    <string name="library_kenburnsview_licenseId">apache_2_0</string>
     <!-- libsuperuser -->
     <!-- Author section -->
-    <string name="library_libsuperuser_author">Chainfire</string>
-    <string name="library_libsuperuser_authorWebsite">http://su.chainfire.eu/</string>
     <!-- Library section -->
-    <string name="library_libsuperuser_libraryName">libsuperuser</string>
     <string name="library_libsuperuser_libraryDescription">O objetivo desta biblioteca é demonstrar técnicas que você pode querer reutilizar em seu aplicativo root para contornar os problemas comuns, com o mínimo de código possível.</string>
-    <string name="library_libsuperuser_libraryWebsite">https://github.com/Chainfire/libsuperuser</string>
-    <string name="library_libsuperuser_libraryVersion">1.0.0</string>
     <!-- OpenSource section -->
-    <string name="library_libsuperuser_isOpenSource">true</string>
-    <string name="library_libsuperuser_repositoryLink">https://github.com/Chainfire/libsuperuser</string>
     <!-- ClassPath for autoDetect section -->
-    <string name="library_libsuperuser_classPath">eu.chainfire:libsuperuser</string>
     <!-- License section -->
-    <string name="library_libsuperuser_licenseId">apache_2_0</string>
     <!-- Material Progress Bar -->
     <!-- Author section -->
-    <string name="library_materialprogressbar_author">Zhang Hai</string>
-    <string name="library_materialprogressbar_authorWebsite">http://blog.zhanghai.me/</string>
     <!-- Library section -->
-    <string name="library_materialprogressbar_libraryName">MaterialProgressBar</string>
     <string name="library_materialprogressbar_libraryDescription">Barra de progresso Material Design com aparência consistente no Android 4.0+.</string>
-    <string name="library_materialprogressbar_libraryWebsite">https://github.com/DreaminginCodeZH/MaterialProgressBar</string>
-    <string name="library_materialprogressbar_libraryVersion">1.1.6</string>
     <!-- OpenSource section -->
-    <string name="library_materialprogressbar_isOpenSource">true</string>
-    <string name="library_materialprogressbar_repositoryLink">https://github.com/DreaminginCodeZH/MaterialProgressBar</string>
     <!-- ClassPath for autoDetect section -->
-    <string name="library_materialprogressbar_classPath">me.zhanghai.android.materialprogressbar</string>
     <!-- License section -->
-    <string name="library_materialprogressbar_licenseId">apache_2_0</string>
     <!-- Material Sheet Fab -->
     <!-- Author section -->
-    <string name="library_materialsheetfab_author">Gordon Wong</string>
-    <string name="library_materialsheetfab_authorWebsite">http://gordonwong.com/</string>
     <!-- Library section -->
-    <string name="library_materialsheetfab_libraryName">MaterialSheetFab</string>
     <string name="library_materialsheetfab_libraryDescription">Biblioteca que implementa o botão de ação flutuante para transição da folha da documentação material design da Google. Ele pode ser usado com qualquer biblioteca FAB no Android 4.0+ (níveis de API&gt; = 14).</string>
-    <string name="library_materialsheetfab_libraryWebsite">https://github.com/gowong/material-sheet-fab/</string>
-    <string name="library_materialsheetfab_libraryVersion">1.2.1</string>
     <!-- OpenSource section -->
-    <string name="library_materialsheetfab_isOpenSource">true</string>
-    <string name="library_materialsheetfab_repositoryLink">https://github.com/gowong/material-sheet-fab/</string>
     <!-- ClassPath for autoDetect section -->
-    <string name="library_materialsheetfab_classPath">com.gordonwong:material-sheet-fab</string>
     <!-- License section -->
-    <string name="library_materialsheetfab_licenseId">mit</string>
     <!-- Scrolling Image View -->
     <!-- Author section -->
-    <string name="library_androidscrollingimageview_author">Q42</string>
-    <string name="library_androidscrollingimageview_authorWebsite">https://www.q42.com/</string>
     <!-- Library section -->
-    <string name="library_androidscrollingimageview_libraryName">AndroidScrollingImageView</string>
     <string name="library_androidscrollingimageview_libraryDescription">Uma Android View para exibir imagens de deslocamento lateral contínuos repetidos. Isto pode ser usado para criar um efeito de animação paralaxe.</string>
-    <string name="library_androidscrollingimageview_libraryWebsite">https://github.com/Q42/AndroidScrollingImageView</string>
-    <string name="library_androidscrollingimageview_libraryVersion">1.2</string>
     <!-- OpenSource section -->
-    <string name="library_androidscrollingimageview_isOpenSource">true</string>
-    <string name="library_androidscrollingimageview_repositoryLink">https://github.com/Q42/AndroidScrollingImageView</string>
     <!-- ClassPath for autoDetect section -->
     <string name="library_androidscrollingimageview_classPath">Uma Android View para exibir imagens de deslocamento lateral contínuos repetidos. Isto pode ser usado para criar um efeito de animação paralaxe.</string>
     <!-- License section -->
-    <string name="library_androidscrollingimageview_licenseId">apache_2_0</string>
     <!-- Welcome -->
     <!-- Author section -->
-    <string name="library_welcome_android_author">Stephen Tuso</string>
-    <string name="library_welcome_android_authorWebsite">https://github.com/stephentuso</string>
     <!-- Library section -->
-    <string name="library_welcome_android_libraryName">Bem-Vindo</string>
     <string name="library_welcome_android_libraryDescription">Uma forma fácil de customizar telas de boas vindas para aplicativos Android.</string>
-    <string name="library_welcome_android_libraryWebsite">https://github.com/stephentuso/welcome-android</string>
-    <string name="library_welcome_android_libraryVersion">0.7.2</string>
     <!-- OpenSource section -->
-    <string name="library_welcome_android_isOpenSource">true</string>
-    <string name="library_welcome_android_repositoryLink">https://github.com/stephentuso/welcome-android</string>
     <!-- ClassPath for autoDetect section -->
-    <string name="library_welcome_android_classPath">com.stephentuso:welcome</string>
     <!-- License section -->
-    <string name="library_welcome_android_licenseId">apache_2_0</string>
     <!-- ZipSigner -->
     <!-- Author section -->
-    <string name="library_zipsigner_author">Ken Ellinwood</string>
-    <string name="library_zipsigner_authorWebsite">https://sites.google.com/site/zipsigner/home</string>
     <!-- Library section -->
-    <string name="library_zipsigner_libraryName">ZipSigner</string>
     <string name="library_zipsigner_libraryDescription">ZipSigner é uma biblioteca Android para assinar arquivos Zip, APK, e/ou arquivos Jar em dispositivos Android.</string>
-    <string name="library_zipsigner_libraryWebsite">https://code.google.com/archive/p/zip-signer/</string>
-    <string name="library_zipsigner_libraryVersion">1.17</string>
     <!-- OpenSource section -->
-    <string name="library_zipsigner_isOpenSource">true</string>
-    <string name="library_zipsigner_repositoryLink">https://code.google.com/archive/p/zip-signer/</string>
     <!-- ClassPath for autoDetect section -->
-    <string name="library_zipsigner_classPath">kellinwood.security.zipsigner</string>
     <!-- License section -->
-    <string name="library_zipsigner_licenseId">apache_2_0</string>
     <!-- ZT-Zip -->
     <!-- Author section -->
-    <string name="library_zt_zip_author">ZeroTurnAround</string>
-    <string name="library_zt_zip_authorWebsite">http://zeroturnaround.com/</string>
     <!-- Library section -->
-    <string name="library_zt_zip_libraryName">ZT-Zip</string>
     <string name="library_zt_zip_libraryDescription">O projeto é construído usando java.util.zip. * Pacotes para o fluxo de acesso baseado. A maioria dos métodos de conveniência para o uso do sistema de arquivos também é suportado.</string>
-    <string name="library_zt_zip_libraryWebsite">https://github.com/zeroturnaround/zt-zip</string>
-    <string name="library_zt_zip_libraryVersion">1.9</string>
     <!-- OpenSource section -->
-    <string name="library_zt_zip_isOpenSource">true</string>
-    <string name="library_zt_zip_repositoryLink">https://github.com/zeroturnaround/zt-zip</string>
     <!-- ClassPath for autoDetect section -->
-    <string name="library_zt_zip_classPath">org.zeroturnaround.zt-zip</string>
     <!-- License section -->
-    <string name="library_zt_zip_licenseId">apache_2_0</string>
+    <!-- Circular Fillable Loaders -->
+    <!-- Author section -->
+    <!-- Library section -->
+    <string name="library_circularfillableloaders_libraryDescription">Este é um projeto Android que permite realizar um belo carregador circular preenchível para ser usado para splashscreen por exemplo.</string>
+    <!-- OpenSource section -->
+    <!-- ClassPath for autoDetect section -->
+    <!-- License section -->
+    <!-- BlurView -->
+    <!-- Author section -->
+    <!-- Library section -->
+    <string name="library_blurview_libraryDescription">Blur dinâmico parecido com iOS subjacente para o Views para Android.</string>
+    <!-- OpenSource section -->
+    <!-- ClassPath for autoDetect section -->
+    <!-- License section -->
+    <!-- Android Image Cropper -->
+    <!-- Author section -->
+    <!-- Library section -->
+    <string name="library_androidimagecropper_libraryDescription">Poderoso (Zoom, Rotation, Multi-Source), customizável (Shape, Limits, Style), otimizado (Async, Sampling, Matrix) e simples livraria de cortador de imagem para Android.</string>
+    <!-- OpenSource section -->
+    <!-- ClassPath for autoDetect section -->
+    <!-- License section -->
 </resources>

@@ -103,9 +103,9 @@ public class InformationActivity extends AppCompatActivity {
         return tab_checker;
     }
 
-    private static void setOverflowButtonColor(final Activity activity) {
+    private static void setOverflowButtonColor(final Activity activity, final Boolean dark_mode) {
         final String overflowDescription =
-                activity.getString(R.string.overflow_description);
+                activity.getString(R.string.abc_action_menu_overflow_description);
         final ViewGroup decorView = (ViewGroup) activity.getWindow().getDecorView();
         final ViewTreeObserver viewTreeObserver = decorView.getViewTreeObserver();
         viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -118,11 +118,19 @@ public class InformationActivity extends AppCompatActivity {
                     return;
                 }
                 AppCompatImageView overflow = (AppCompatImageView) outViews.get(0);
-                overflow.setImageResource(
-                        activity.getResources().getIdentifier(
-                                "information_activity_overflow_dark",
-                                "drawable",
-                                activity.getPackageName()));
+                if (dark_mode) {
+                    overflow.setImageResource(
+                            activity.getResources().getIdentifier(
+                                    "information_activity_overflow_dark",
+                                    "drawable",
+                                    activity.getPackageName()));
+                } else {
+                    overflow.setImageResource(
+                            activity.getResources().getIdentifier(
+                                    "information_activity_overflow_light",
+                                    "drawable",
+                                    activity.getPackageName()));
+                }
             }
         });
     }
@@ -422,15 +430,30 @@ public class InformationActivity extends AppCompatActivity {
                 collapsingToolbarLayout.setExpandedTitleColor(
                         getColor(R.color.information_activity_dark_icon_mode));
                 tabLayout.setTabTextColors(
-                        getColor(R.color.information_activity_dark_icon_mode),
-                        getColor(R.color.information_activity_dark_icon_mode));
+                        getColor(R.color.information_activity_dark_text_mode),
+                        getColor(R.color.information_activity_dark_text_mode));
 
                 Drawable upArrow = getDrawable(R.drawable.information_activity_back_dark);
                 if (upArrow != null)
                     upArrow.setColorFilter(getColor(R.color.information_activity_dark_icon_mode),
                             PorterDuff.Mode.SRC_ATOP);
                 getSupportActionBar().setHomeAsUpIndicator(upArrow);
-                setOverflowButtonColor(this);
+                setOverflowButtonColor(this, true);
+            } else if (collapsingToolbarLayout != null) {
+                collapsingToolbarLayout.setCollapsedTitleTextColor(
+                        getColor(R.color.information_activity_light_icon_mode));
+                collapsingToolbarLayout.setExpandedTitleColor(
+                        getColor(R.color.information_activity_light_icon_mode));
+                tabLayout.setTabTextColors(
+                        getColor(R.color.information_activity_light_text_mode),
+                        getColor(R.color.information_activity_light_text_mode));
+
+                Drawable upArrow = getDrawable(R.drawable.information_activity_back_light);
+                if (upArrow != null)
+                    upArrow.setColorFilter(getColor(R.color.information_activity_light_icon_mode),
+                            PorterDuff.Mode.SRC_ATOP);
+                getSupportActionBar().setHomeAsUpIndicator(upArrow);
+                setOverflowButtonColor(this, false);
             }
         }
         final InformationTabsAdapter adapter = new InformationTabsAdapter

@@ -149,6 +149,9 @@ public class ShowcaseActivity extends AppCompatActivity {
         }
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setTabTextColors(
+                getColor(R.color.showcase_activity_text),
+                getColor(R.color.showcase_activity_text));
         tabLayout.setVisibility(View.GONE);
         no_network = (RelativeLayout) findViewById(R.id.no_network);
         refreshLayout();

@@ -611,7 +611,8 @@ public class MainActivity extends AppCompatActivity implements
                         new PrimaryDrawerItem().withName(R.string.nav_sounds).withIcon(R
                                 .drawable
                                 .nav_sounds),
-
+                        new PrimaryDrawerItem().withName(R.string.nav_wallpapers).withIcon(
+                                R.drawable.nav_wallpapers),
                         new SectionDrawerItem().withName(R.string
                                 .nav_section_header_utilities),
                         new PrimaryDrawerItem().withName(R.string.nav_overlay_manager)
@@ -675,49 +676,56 @@ public class MainActivity extends AppCompatActivity implements
                                         drawerSelected = 4;
                                     }
                                     break;
-                                case 6:
-                                    switchFragment(getString(R.string.nav_overlay_manager),
-                                            "AdvancedManagerFragment");
-                                    drawerSelected = 6;
+                                case 5:
+                                    if (drawerSelected != position) {
+                                        switchThemeFragment(getString(R.string.nav_wallpapers),
+                                                References.wallpaperFragment);
+                                        drawerSelected = 5;
+                                    }
                                     break;
                                 case 7:
-                                    switchFragment(getString(R.string.nav_manage),
-                                            "ManageFragment");
+                                    switchFragment(getString(R.string.nav_overlay_manager),
+                                            "AdvancedManagerFragment");
                                     drawerSelected = 7;
                                     break;
                                 case 8:
-                                    switchFragment(getString(R.string.nav_backup_restore),
-                                            "ProfileFragment");
+                                    switchFragment(getString(R.string.nav_manage),
+                                            "ManageFragment");
                                     drawerSelected = 8;
                                     break;
-                                case 10:
+                                case 9:
+                                    switchFragment(getString(R.string.nav_backup_restore),
+                                            "ProfileFragment");
+                                    drawerSelected = 9;
+                                    break;
+                                case 11:
                                     if (drawerSelected != position) {
                                         switchFragment(getString(R.string
                                                         .nav_troubleshooting),
                                                 "TroubleshootingFragment");
-                                        drawerSelected = 10;
-                                    }
-                                    break;
-                                case 11:
-                                    if (drawerSelected != position) {
-                                        switchFragment(getString(R.string.nav_team),
-                                                "TeamFragment");
                                         drawerSelected = 11;
                                     }
                                     break;
                                 case 12:
                                     if (drawerSelected != position) {
-                                        switchFragmentToLicenses(getString(R.string
-                                                        .nav_opensource),
-                                                fragment);
+                                        switchFragment(getString(R.string.nav_team),
+                                                "TeamFragment");
                                         drawerSelected = 12;
                                     }
                                     break;
                                 case 13:
                                     if (drawerSelected != position) {
+                                        switchFragmentToLicenses(getString(R.string
+                                                        .nav_opensource),
+                                                fragment);
+                                        drawerSelected = 13;
+                                    }
+                                    break;
+                                case 14:
+                                    if (drawerSelected != position) {
                                         switchFragment(getString(R.string.nav_settings),
                                                 "SettingsFragment");
-                                        drawerSelected = 13;
+                                        drawerSelected = 14;
                                     }
                                     break;
                             }

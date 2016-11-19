@@ -302,7 +302,7 @@ public class ThemeFragment extends Fragment {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         if (prefs.getInt(
                 "uninstalled", THEME_INFORMATION_REQUEST_CODE) == THEME_INFORMATION_REQUEST_CODE) {
-            prefs.edit().putInt("uninstalled", 0).commit();
+            prefs.edit().putInt("uninstalled", 0).apply();
             refreshLayout();
         }
         super.onResume();

@@ -537,8 +537,7 @@ public class InformationActivity extends AppCompatActivity {
                                                     "Substratum_Parent") != null) {
                                         String parent =
                                                 appInfo.metaData.getString("Substratum_Parent");
-                                        if (parent != null && References.isPackageInstalled(
-                                                getApplicationContext(), parent)) {
+                                        if (parent != null && parent.equals(theme_pid)) {
                                             all_overlays.add(current);
                                         }
                                     }
@@ -658,8 +657,7 @@ public class InformationActivity extends AppCompatActivity {
                                                     "Substratum_Parent") != null) {
                                         String parent =
                                                 appInfo.metaData.getString("Substratum_Parent");
-                                        if (parent != null && References.isPackageInstalled(
-                                                getApplicationContext(), parent)) {
+                                        if (parent != null && parent.equals(theme_pid)) {
                                             all_overlays.add(current);
                                         }
                                     }
@@ -727,8 +725,7 @@ public class InformationActivity extends AppCompatActivity {
                                                     "Substratum_Parent") != null) {
                                         String parent =
                                                 appInfo.metaData.getString("Substratum_Parent");
-                                        if (parent != null && References.isPackageInstalled(
-                                                getApplicationContext(), parent)) {
+                                        if (parent != null && parent.equals(theme_pid)) {
                                             all_overlays.add(current);
                                         }
                                     }
@@ -826,8 +823,7 @@ public class InformationActivity extends AppCompatActivity {
                                                     "Substratum_Parent") != null) {
                                         String parent =
                                                 appInfo.metaData.getString("Substratum_Parent");
-                                        if (parent != null && References.isPackageInstalled(
-                                                getApplicationContext(), parent)) {
+                                        if (parent != null && parent.equals(theme_pid)) {
                                             all_overlays.add(current);
                                         }
                                     }

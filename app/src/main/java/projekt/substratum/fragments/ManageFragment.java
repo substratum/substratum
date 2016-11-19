@@ -352,7 +352,20 @@ public class ManageFragment extends Fragment {
                         .setPositiveButton(android.R.string.ok, new DialogInterface
                                 .OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                new SoundsClearer().execute("");
+                                if (Settings.System.canWrite(getContext())) {
+                                    new SoundsClearer().execute("");
+                                } else {
+                                    Intent intent = new Intent(
+                                            android.provider.Settings.ACTION_MANAGE_WRITE_SETTINGS);
+                                    intent.setData(Uri.parse(
+                                            "package:" + getActivity().getPackageName()));
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                    Toast toast = Toast.makeText(getContext(), getString(R
+                                                    .string.sounds_dialog_permissions_grant_toast),
+                                            Toast.LENGTH_LONG);
+                                    toast.show();
+                                }
                             }
                         })
                         .setNegativeButton(android.R.string.cancel, new DialogInterface
@@ -366,14 +379,7 @@ public class ManageFragment extends Fragment {
             }
         });
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (!Settings.System.canWrite(getContext())) {
-                Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_WRITE_SETTINGS);
-                intent.setData(Uri.parse("package:" + getActivity().getPackageName()));
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-            }
-        }
+
         return root;
     }
 

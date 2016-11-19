@@ -4,6 +4,8 @@ import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.database.Cursor;
@@ -11,6 +13,8 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.MediaStore;
+import android.provider.Settings;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -537,6 +541,45 @@ public class SoundsHandler {
             }
             References.mountROData();
             References.mountRO();
+
+            if (ringtone) {
+                ringtone = false;
+                if (!Settings.System.canWrite(mContext)) {
+                    new AlertDialog.Builder(mContext)
+                            .setTitle(mContext.getString(R.string.sounds_dialog_permissions_title))
+                            .setMessage(mContext.getString(R.string.sounds_dialog_permissions_text))
+                            .setPositiveButton(R.string.sounds_dialog_permissions_grant,
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            if (!Settings.System.canWrite(mContext)) {
+                                                Intent intent = new Intent(
+                                                        android.provider.Settings
+                                                                .ACTION_MANAGE_WRITE_SETTINGS);
+                                                intent.setData(Uri.parse("package:" +
+                                                        mContext.getPackageName()));
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                mContext.startActivity(intent);
+                                            } else {
+                                                Log.d("SubstratumLogger",
+                                                        "Substratum was granted " +
+                                                                "'android.permission" +
+                                                                ".WRITE_SETTINGS' " +
+                                                                "permissions for system " +
+                                                                "runtime code " +
+                                                                "execution.");
+                                            }
+                                        }
+                                    })
+                            .setNegativeButton(R.string.sounds_dialog_permissions_deny,
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    })
+                            .setIcon(mContext.getDrawable(R.drawable.sounds_dialog_alert))
+                            .show();
+                }
+            }
             References.restartSystemUI();
         }
 

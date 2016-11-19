@@ -482,19 +482,6 @@ public class InformationActivity extends AppCompatActivity {
                         }
                     });
         }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (!Settings.System.canWrite(getApplicationContext())) {
-                Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_WRITE_SETTINGS);
-                intent.setData(Uri.parse("package:" + InformationActivity.this.getPackageName()));
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-            } else {
-                Log.d("SubstratumLogger", "Substratum was granted " +
-                        "'android.permission.WRITE_SETTINGS' " +
-                        "permissions for system runtime code execution.");
-            }
-        }
         new AppShortcutCreator().execute("last_opened");
     }
 

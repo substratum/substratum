@@ -769,8 +769,7 @@ public class MainScreenTab extends Fragment {
                                     ((base3overlay.length() == 0) ? "" : "." + base3overlay))) {
                                 if (appInfo.metaData.getString("Substratum_Parent") != null) {
                                     String parent = appInfo.metaData.getString("Substratum_Parent");
-                                    if (parent != null &&
-                                            References.isPackageInstalled(getContext(), parent)) {
+                                    if (parent != null && parent.equals(theme_pid)) {
                                         to_be_enabled.add(state5overlays.get(i));
                                     }
                                 }

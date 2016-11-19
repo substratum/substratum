@@ -188,6 +188,8 @@
     <string name="manage_wallpaper_lock_toast">Lock screen wallpaper restored successfully!</string>
     <string name="manage_wallpaper_all_toast">Wallpaper restored successfully!</string>
 
+    <string name="adapter_uninstalling">Now removing %s&#8230;</string>
+
     <string name="plugin_template">Plugin</string>
     <string name="api_21">Lollipop</string>
     <string name="api_22">Lollipop MR1</string>
@@ -393,8 +395,8 @@
     <string name="hide_app_icon_not_supported">Change not supported</string>
     <string name="hide_app_icon_supported">This will allow you to toggle between having the launcher icon visible or invisible on your home screen.</string>
     <string name="show_installed_packages_only">Only show installed packages in overlay picker</string>
-    <string name="purge_completion">All overlays for this theme are now deactivating and removing&#8230;</string>
-    <string name="clean_completion">All overlays for this theme are now deactivating and removing&#8230;</string>
+    <string name="purge_completion">Overlays for this theme are being cleaned up in the background&#8230;</string>
+    <string name="clean_completion">Overlays for this theme are being cleaned up in the background&#8230;</string>
     <string name="cache_clear_completion">%s theme cache has been cleared!</string>
     <string name="disable_completion">All overlays for this theme are now deactivating&#8230;</string>
     <string name="enable_completion">All installed overlays for this theme are now activating&#8230;</string>

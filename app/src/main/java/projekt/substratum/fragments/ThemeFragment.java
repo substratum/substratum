@@ -253,6 +253,7 @@ public class ThemeFragment extends Fragment {
                 themeInfo.setThemeMode(home_type);
             }
             themeInfo.setContext(mContext);
+            themeInfo.setActivity(getActivity());
             themes.add(themeInfo);
         }
         return themes;

@@ -1,5 +1,6 @@
 package projekt.substratum.model;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 
@@ -15,6 +16,7 @@ public class ThemeInfo {
     private Drawable themeDrawable;
     private Context themeContext;
     private String themeMode;
+    private Activity activity;
 
     public String getThemeName() {
         return themeName;
@@ -54,6 +56,14 @@ public class ThemeInfo {
 
     public void setThemeDrawable(Drawable drawable) {
         this.themeDrawable = drawable;
+    }
+
+    public Activity getActivity() {
+        return activity;
+    }
+
+    public void setActivity(Activity activity) {
+        this.activity = activity;
     }
 
     public Context getContext() {

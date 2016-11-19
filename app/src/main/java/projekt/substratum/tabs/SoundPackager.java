@@ -231,8 +231,7 @@ public class SoundPackager extends Fragment {
                 progressBar.setVisibility(View.GONE);
             } catch (Exception e) {
                 Log.e("SoundsHandler", "Window was destroyed before AsyncTask could " +
-                        "perform " +
-                        "postExecute()");
+                        "perform postExecute()");
             }
         }
 
@@ -286,8 +285,7 @@ public class SoundPackager extends Fragment {
                 listFilesForFolder(testDirectory);
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.e("SoundsHandler", "Unexpectedly lost connection to the application " +
-                        "host");
+                Log.e("SoundsHandler", "Unexpectedly lost connection to the application host");
             }
             return null;
         }
@@ -298,8 +296,10 @@ public class SoundPackager extends Fragment {
                     listFilesForFolder(fileEntry);
                 } else {
                     if (!fileEntry.getName().substring(0, 1).equals(".")) {
-                        wordList.add(new SoundsInfo(fileEntry.getName(), fileEntry
-                                .getAbsolutePath()));
+                        if (References.allowedSounds(fileEntry.getName())) {
+                            wordList.add(new SoundsInfo(getContext(), fileEntry.getName(), fileEntry
+                                    .getAbsolutePath()));
+                        }
                     }
                 }
             }

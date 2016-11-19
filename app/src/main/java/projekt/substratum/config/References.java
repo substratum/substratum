@@ -251,6 +251,25 @@ public class References {
     }
 
     // This string array contains all the SystemUI acceptable overlay packs
+    public static Boolean allowedSounds(String current) {
+        String[] allowed_sounds = {
+                "alarm.mp3",
+                "alarm.ogg",
+                "notification.mp3",
+                "notification.ogg",
+                "ringtone.mp3",
+                "ringtone.ogg",
+                "Effect_Tick.mp3",
+                "Effect_Tick.ogg",
+                "Lock.mp3",
+                "Lock.ogg",
+                "Unlock.mp3",
+                "Unlock.ogg",
+        };
+        return Arrays.asList(allowed_sounds).contains(current);
+    }
+
+    // This string array contains all the SystemUI acceptable overlay packs
     public static Boolean allowedSystemUIOverlay(String current) {
         String[] allowed_overlays = {
                 "com.android.systemui.headers",

@@ -4,16 +4,13 @@ import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.MediaStore;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -79,137 +76,7 @@ public class SoundsHandler {
     }
 
     private void perform_action() {
-        // Move all the assets to the finalized folders
-
-        File alarms = new File(mContext.getCacheDir().getAbsolutePath() +
-                "/SoundsCache/SoundsInjector/alarms/");
-        File alarms_temp = new File("/data/system/theme/audio/alarms/");
-        if (alarms_temp.exists()) References.delete("/data/system/theme/audio/alarms/");
-        if (alarms.exists()) {
-            File new_alarm_mp3 = new File(mContext.getCacheDir().getAbsolutePath() +
-                    "/SoundsCache/SoundsInjector/alarms/" + "/alarm.mp3");
-            File new_alarm_ogg = new File(mContext.getCacheDir().getAbsolutePath() +
-                    "/SoundsCache/SoundsInjector/alarms/" + "/alarm.ogg");
-            if (new_alarm_mp3.exists() || new_alarm_ogg.exists()) {
-                boolean mp3 = new_alarm_mp3.exists();
-                boolean ogg = new_alarm_ogg.exists();
-
-                References.copyDir(mContext.getCacheDir().getAbsolutePath() +
-                                "/SoundsCache/SoundsInjector/alarms/",
-                        "/data/system/theme/audio/");
-                References.setPermissionsRecursively(644, "/data/system/theme/audio/alarms/");
-                References.setPermissions(755, "/data/system/theme/audio/alarms/");
-
-                clearAudibles(mContext, "/data/system/theme/audio/alarms/alarm.mp3");
-                clearAudibles(mContext, "/data/system/theme/audio/alarms/alarm.ogg");
-
-                if (mp3)
-                    setAudible(mContext, new File
-                                    ("/data/system/theme/audio/alarms/alarm.mp3"),
-                            new File(alarms.getAbsolutePath(), "alarm.mp3"),
-                            RingtoneManager.TYPE_ALARM, "alarm.mp3");
-                if (ogg)
-                    setAudible(mContext, new File
-                                    ("/data/system/theme/audio/alarms/alarm.ogg"),
-                            new File(alarms.getAbsolutePath(), "alarm.ogg"),
-                            RingtoneManager.TYPE_ALARM, "alarm.ogg");
-            } else {
-                setDefaultAudible(mContext, RingtoneManager.TYPE_ALARM);
-            }
-        }
-
-
-        File notifications = new File(mContext.getCacheDir().getAbsolutePath() +
-                "/SoundsCache/SoundsInjector/notifications/");
-        File notifications_temp = new File("/data/system/theme/audio/notifications/");
-        if (notifications_temp.exists())
-            References.delete("/data/system/theme/audio/notifications/");
-        if (notifications.exists()) {
-            ringtone = true;
-            File new_notifications_mp3 = new File(mContext.getCacheDir()
-                    .getAbsolutePath() +
-                    "/SoundsCache/SoundsInjector/notifications/" + "/notification.mp3");
-            File new_notifications_ogg = new File(mContext.getCacheDir()
-                    .getAbsolutePath() +
-                    "/SoundsCache/SoundsInjector/notifications/" + "/notification.ogg");
-            if (new_notifications_mp3.exists() || new_notifications_ogg.exists()) {
-                boolean mp3 = new_notifications_mp3.exists();
-                boolean ogg = new_notifications_ogg.exists();
-
-                References.copyDir(mContext.getCacheDir().getAbsolutePath() +
-                                "/SoundsCache/SoundsInjector/notifications/",
-                        "/data/system/theme/audio/");
-                References.setPermissionsRecursively(644,
-                        "/data/system/theme/audio/notifications/");
-                References.setPermissions(755, "/data/system/theme/audio/notifications/");
-
-                clearAudibles(mContext,
-                        "/data/system/theme/audio/notifications/notification.mp3");
-                clearAudibles(mContext,
-                        "/data/system/theme/audio/notifications/notification.ogg");
-
-                if (mp3)
-                    setAudible(mContext, new File
-                                    ("/data/system/theme/audio/notifications/notification" +
-                                            ".mp3"), new File(notifications.getAbsolutePath(),
-                                    "notification.mp3"),
-                            RingtoneManager.TYPE_ALARM, "notification.mp3");
-                if (ogg)
-                    setAudible(mContext, new File
-                                    ("/data/system/theme/audio/notifications/notification" +
-                                            ".ogg"), new File(notifications.getAbsolutePath(),
-                                    "notification.ogg"),
-                            RingtoneManager.TYPE_ALARM, "notification.ogg");
-            } else {
-                setDefaultAudible(mContext, RingtoneManager.TYPE_NOTIFICATION);
-            }
-        } else {
-            ringtone = false;
-        }
-
-        File ringtones = new File(mContext.getCacheDir().getAbsolutePath() +
-                "/SoundsCache/SoundsInjector/ringtones/");
-        File ringtones_temp = new File("/data/system/theme/audio/ringtones/");
-        if (ringtones_temp.exists())
-            References.delete("/data/system/theme/audio/ringtones/");
-        if (ringtones.exists()) {
-            ringtone = true;
-            File new_ringtones_mp3 = new File(mContext.getCacheDir().getAbsolutePath() +
-                    "/SoundsCache/SoundsInjector/ringtones/" + "/ringtone.mp3");
-            File new_ringtones_ogg = new File(mContext.getCacheDir().getAbsolutePath() +
-                    "/SoundsCache/SoundsInjector/ringtones/" + "/ringtone.ogg");
-            if (new_ringtones_mp3.exists() || new_ringtones_ogg.exists()) {
-                boolean mp3 = new_ringtones_mp3.exists();
-                boolean ogg = new_ringtones_ogg.exists();
-
-                References.copyDir(mContext.getCacheDir().getAbsolutePath() +
-                                "/SoundsCache/SoundsInjector/ringtones/",
-                        "/data/system/theme/audio/");
-                References.setPermissionsRecursively(644, "/data/system/theme/audio/ringtones/");
-                References.setPermissions(755, "/data/system/theme/audio/ringtones/");
-
-                clearAudibles(mContext, "/data/system/theme/audio/ringtones/ringtone" +
-                        ".mp3");
-                clearAudibles(mContext, "/data/system/theme/audio/ringtones/ringtone" +
-                        ".ogg");
-
-                if (mp3)
-                    setAudible(mContext, new File
-                                    ("/data/system/theme/audio/ringtones/ringtone.mp3"),
-                            new File(ringtones.getAbsolutePath(), "ringtone.mp3"),
-                            RingtoneManager.TYPE_RINGTONE, "ringtone.mp3");
-                if (ogg)
-                    setAudible(mContext, new File
-                                    ("/data/system/theme/audio/ringtones/ringtone.ogg"),
-                            new File(ringtones.getAbsolutePath(), "ringtone.ogg"),
-                            RingtoneManager.TYPE_RINGTONE, "ringtone.ogg");
-            } else {
-                setDefaultAudible(mContext, RingtoneManager.TYPE_RINGTONE);
-            }
-        } else {
-            ringtone = false;
-        }
-
+        // Let's start with user interface sounds
         File ui = new File(mContext.getCacheDir().getAbsolutePath() +
                 "/SoundsCache/SoundsInjector/ui/");
         File ui_temp = new File("/data/system/theme/audio/ui/");
@@ -321,6 +188,137 @@ public class SoundsHandler {
             References.setPermissions(755, "/data/system/theme/audio/");
             References.setPermissions(755, "/data/system/theme/");
             References.setContext("/data/system/theme");
+        }
+
+        // Now let's set the common user's sound files found in Settings
+        File alarms = new File(mContext.getCacheDir().getAbsolutePath() +
+                "/SoundsCache/SoundsInjector/alarms/");
+        File alarms_temp = new File("/data/system/theme/audio/alarms/");
+        if (alarms_temp.exists()) References.delete("/data/system/theme/audio/alarms/");
+        if (alarms.exists()) {
+            File new_alarm_mp3 = new File(mContext.getCacheDir().getAbsolutePath() +
+                    "/SoundsCache/SoundsInjector/alarms/" + "/alarm.mp3");
+            File new_alarm_ogg = new File(mContext.getCacheDir().getAbsolutePath() +
+                    "/SoundsCache/SoundsInjector/alarms/" + "/alarm.ogg");
+            if (new_alarm_mp3.exists() || new_alarm_ogg.exists()) {
+                boolean mp3 = new_alarm_mp3.exists();
+                boolean ogg = new_alarm_ogg.exists();
+
+                References.copyDir(mContext.getCacheDir().getAbsolutePath() +
+                                "/SoundsCache/SoundsInjector/alarms/",
+                        "/data/system/theme/audio/");
+                References.setPermissionsRecursively(644, "/data/system/theme/audio/alarms/");
+                References.setPermissions(755, "/data/system/theme/audio/alarms/");
+
+                // Prior to setting, we should clear out the current ones
+                clearAudibles(mContext, "/data/system/theme/audio/alarms/alarm.mp3");
+                clearAudibles(mContext, "/data/system/theme/audio/alarms/alarm.ogg");
+
+                if (mp3)
+                    setAudible(mContext, new File("/data/system/theme/audio/alarms/alarm.mp3"),
+                            new File(alarms.getAbsolutePath(), "alarm.mp3"),
+                            RingtoneManager.TYPE_ALARM,
+                            mContext.getString(R.string.content_resolver_alarm_metadata));
+                if (ogg)
+                    setAudible(mContext, new File("/data/system/theme/audio/alarms/alarm.ogg"),
+                            new File(alarms.getAbsolutePath(), "alarm.ogg"),
+                            RingtoneManager.TYPE_ALARM,
+                            mContext.getString(R.string.content_resolver_alarm_metadata));
+            } else {
+                setDefaultAudible(mContext, RingtoneManager.TYPE_ALARM);
+            }
+        }
+
+
+        File notifications = new File(mContext.getCacheDir().getAbsolutePath() +
+                "/SoundsCache/SoundsInjector/notifications/");
+        File notifications_temp = new File("/data/system/theme/audio/notifications/");
+        if (notifications_temp.exists())
+            References.delete("/data/system/theme/audio/notifications/");
+        if (notifications.exists()) {
+            ringtone = true;
+            File new_notifications_mp3 = new File(mContext.getCacheDir()
+                    .getAbsolutePath() +
+                    "/SoundsCache/SoundsInjector/notifications/" + "/notification.mp3");
+            File new_notifications_ogg = new File(mContext.getCacheDir()
+                    .getAbsolutePath() +
+                    "/SoundsCache/SoundsInjector/notifications/" + "/notification.ogg");
+            if (new_notifications_mp3.exists() || new_notifications_ogg.exists()) {
+                boolean mp3 = new_notifications_mp3.exists();
+                boolean ogg = new_notifications_ogg.exists();
+
+                References.copyDir(mContext.getCacheDir().getAbsolutePath() +
+                                "/SoundsCache/SoundsInjector/notifications/",
+                        "/data/system/theme/audio/");
+                References.setPermissionsRecursively(644,
+                        "/data/system/theme/audio/notifications/");
+                References.setPermissions(755, "/data/system/theme/audio/notifications/");
+
+                // Prior to setting, we should clear out the current ones
+                clearAudibles(mContext, "/data/system/theme/audio/notifications/notification.mp3");
+                clearAudibles(mContext, "/data/system/theme/audio/notifications/notification.ogg");
+
+                if (mp3)
+                    setAudible(mContext, new File
+                                    ("/data/system/theme/audio/notifications/notification.mp3"),
+                            new File(notifications.getAbsolutePath(), "notification.mp3"),
+                            RingtoneManager.TYPE_NOTIFICATION,
+                            mContext.getString(R.string.content_resolver_notification_metadata));
+                if (ogg)
+                    setAudible(mContext, new File
+                                    ("/data/system/theme/audio/notifications/notification.ogg"),
+                            new File(notifications.getAbsolutePath(), "notification.ogg"),
+                            RingtoneManager.TYPE_NOTIFICATION,
+                            mContext.getString(R.string.content_resolver_notification_metadata));
+            } else {
+                setDefaultAudible(mContext, RingtoneManager.TYPE_NOTIFICATION);
+            }
+        } else {
+            ringtone = false;
+        }
+
+        File ringtones = new File(mContext.getCacheDir().getAbsolutePath() +
+                "/SoundsCache/SoundsInjector/ringtones/");
+        File ringtones_temp = new File("/data/system/theme/audio/ringtones/");
+        if (ringtones_temp.exists())
+            References.delete("/data/system/theme/audio/ringtones/");
+        if (ringtones.exists()) {
+            ringtone = true;
+            File new_ringtones_mp3 = new File(mContext.getCacheDir().getAbsolutePath() +
+                    "/SoundsCache/SoundsInjector/ringtones/" + "/ringtone.mp3");
+            File new_ringtones_ogg = new File(mContext.getCacheDir().getAbsolutePath() +
+                    "/SoundsCache/SoundsInjector/ringtones/" + "/ringtone.ogg");
+            if (new_ringtones_mp3.exists() || new_ringtones_ogg.exists()) {
+                boolean mp3 = new_ringtones_mp3.exists();
+                boolean ogg = new_ringtones_ogg.exists();
+
+                References.copyDir(mContext.getCacheDir().getAbsolutePath() +
+                                "/SoundsCache/SoundsInjector/ringtones/",
+                        "/data/system/theme/audio/");
+                References.setPermissionsRecursively(644, "/data/system/theme/audio/ringtones/");
+                References.setPermissions(755, "/data/system/theme/audio/ringtones/");
+
+                // Prior to setting, we should clear out the current ones
+                clearAudibles(mContext, "/data/system/theme/audio/ringtones/ringtone.mp3");
+                clearAudibles(mContext, "/data/system/theme/audio/ringtones/ringtone.ogg");
+
+                if (mp3)
+                    setAudible(mContext, new File
+                                    ("/data/system/theme/audio/ringtones/ringtone.mp3"),
+                            new File(ringtones.getAbsolutePath(), "ringtone.mp3"),
+                            RingtoneManager.TYPE_RINGTONE,
+                            mContext.getString(R.string.content_resolver_ringtone_metadata));
+                if (ogg)
+                    setAudible(mContext, new File
+                                    ("/data/system/theme/audio/ringtones/ringtone.ogg"),
+                            new File(ringtones.getAbsolutePath(), "ringtone.ogg"),
+                            RingtoneManager.TYPE_RINGTONE,
+                            mContext.getString(R.string.content_resolver_ringtone_metadata));
+            } else {
+                setDefaultAudible(mContext, RingtoneManager.TYPE_RINGTONE);
+            }
+        } else {
+            ringtone = false;
         }
     }
 
@@ -450,14 +448,19 @@ public class SoundsHandler {
             Log.e("ContentResolver", id + "");
             c.close();
             newUri = Uri.withAppendedPath(Uri.parse(MEDIA_CONTENT_URI), "" + id);
-            context.getContentResolver().update(uri, values,
-                    MediaStore.MediaColumns._ID + "=" + id, null);
+            try {
+                context.getContentResolver().update(uri, values,
+                        MediaStore.MediaColumns._ID + "=" + id, null);
+            } catch (Exception e) {
+                Log.d("SoundsHandler", "The content provider does not need to be updated.");
+            }
         }
         if (newUri == null)
             newUri = context.getContentResolver().insert(uri, values);
         try {
             RingtoneManager.setActualDefaultRingtoneUri(context, type, newUri);
         } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
         return true;
@@ -506,12 +509,17 @@ public class SoundsHandler {
 
         @Override
         protected void onPreExecute() {
-            progress = new ProgressDialog(mContext, android.R.style
-                    .Theme_DeviceDefault_Dialog_Alert);
-            progress.setMessage(mContext.getString(R.string.sounds_dialog_apply_text));
-            progress.setIndeterminate(false);
-            progress.setCancelable(false);
-            progress.show();
+            try {
+                progress = new ProgressDialog(mContext, android.R.style
+                        .Theme_DeviceDefault_Dialog_Alert);
+                progress.setMessage(mContext.getString(R.string.sounds_dialog_apply_text));
+                progress.setIndeterminate(false);
+                progress.setCancelable(false);
+                progress.show();
+            } catch (Exception e) {
+                e.printStackTrace();
+                // Suppress warning
+            }
         }
 
         @Override
@@ -529,22 +537,6 @@ public class SoundsHandler {
             }
             References.mountROData();
             References.mountRO();
-
-            if (ringtone) {
-                ringtone = false;
-                if (!checkWriteSettingsPermissions()) {
-                    new AlertDialog.Builder(mContext)
-                            .setTitle(mContext.getString(R.string.sounds_dialog_permissions_title))
-                            .setMessage(mContext.getString(R.string.sounds_dialog_permissions_text))
-                            .setPositiveButton(android.R.string.yes,
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int which) {
-                                        }
-                                    })
-                            .setIcon(mContext.getDrawable(R.drawable.sounds_dialog_alert))
-                            .show();
-                }
-            }
             References.restartSystemUI();
         }
 
@@ -682,12 +674,6 @@ public class SoundsHandler {
                 Log.e("SoundsHandler",
                         "An issue has occurred while attempting to decompress this archive.");
             }
-        }
-
-        private boolean checkWriteSettingsPermissions() {
-            String permission = "android.permission.WRITE_SETTINGS";
-            int res = mContext.checkCallingOrSelfPermission(permission);
-            return (res == PackageManager.PERMISSION_GRANTED);
         }
     }
 }

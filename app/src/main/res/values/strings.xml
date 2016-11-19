@@ -104,6 +104,17 @@
     <string name="sounds_dialog_permissions_title">Ringtones Configuration Alert</string>
     <string name="sounds_dialog_permissions_text">Alarms/Notifications/Ringtones are now selectable from Settings manually!\n\nHowever, Substratum cannot grant itself "android.permission.WRITE_SETTINGS", so it is not able to set them as your current sounds automatically.</string>
 
+    <string name="content_resolver_alarm_metadata">Substratum Theme Alarm</string>
+    <string name="content_resolver_notification_metadata">Substratum Theme Notification</string>
+    <string name="content_resolver_ringtone_metadata">Substratum Theme Ringtone</string>
+
+    <string name="sounds_alarm">Alarm</string>
+    <string name="sounds_notification">Notification</string>
+    <string name="sounds_ringtone">Ringtone</string>
+    <string name="sounds_effect_tick">System Touch Sounds</string>
+    <string name="sounds_lock_sound">Screen Lock Sounds</string>
+    <string name="sounds_unlock_sound">Screen Unlock Sounds</string>
+
     <string name="settings_about_substratum">substratum version</string>
     <string name="settings_about_masquerade">masquerade version</string>
     <string name="settings_about_masquerade_not_installed">masquerade not installed</string>

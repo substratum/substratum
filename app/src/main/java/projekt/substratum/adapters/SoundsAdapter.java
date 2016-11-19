@@ -15,8 +15,8 @@ public class SoundsAdapter extends RecyclerView.Adapter<SoundsAdapter.MyViewHold
 
     private List<SoundsInfo> soundsList;
 
-    public SoundsAdapter(List<SoundsInfo> moviesList) {
-        this.soundsList = moviesList;
+    public SoundsAdapter(List<SoundsInfo> soundsList) {
+        this.soundsList = soundsList;
     }
 
     @Override
@@ -29,7 +29,27 @@ public class SoundsAdapter extends RecyclerView.Adapter<SoundsAdapter.MyViewHold
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         SoundsInfo sounds = soundsList.get(position);
-        holder.title.setText(sounds.getTitle().substring(0, sounds.getTitle().length() - 4));
+        String current_sound = sounds.getTitle().substring(0, sounds.getTitle().length() - 4);
+        switch (current_sound) {
+            case "alarm":
+                holder.title.setText(sounds.getContext().getString(R.string.sounds_alarm));
+                break;
+            case "notification":
+                holder.title.setText(sounds.getContext().getString(R.string.sounds_notification));
+                break;
+            case "ringtone":
+                holder.title.setText(sounds.getContext().getString(R.string.sounds_ringtone));
+                break;
+            case "Effect_Tick":
+                holder.title.setText(sounds.getContext().getString(R.string.sounds_effect_tick));
+                break;
+            case "Lock":
+                holder.title.setText(sounds.getContext().getString(R.string.sounds_lock_sound));
+                break;
+            case "Unlock":
+                holder.title.setText(sounds.getContext().getString(R.string.sounds_unlock_sound));
+                break;
+        }
     }
 
     @Override

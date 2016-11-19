@@ -39,8 +39,9 @@
     <string name="two_description">This theme supports Google\'s stock apps, the way they were made! If you have Team Black Out\'s Google Apps installed, but would like to use this theme, please remove them to regain support from the themer!</string>
     <string name="tbo_dialog_proceed">Download</string>
 
-    <string name="api25_warning_title">WARNING!</string>
-    <string name="api25_warning_content">Substratum has detected that it may be running on a DANGEROUS FIRMWARE (N-MR1/7.1+/API25) and is strongly advising against applying any framework/Android System overlays, or else you would end up in a boot loop.\n\nIf you do, please flash the rescue archive found in "/storage/emulated/0/substratum/".</string>
+    <string name="warning_title">WARNING!</string>
+    <string name="dangerous_warning_content">Substratum has detected that it running on a DANGEROUS FIRMWARE (November update N/N-MR1) and is strongly advising against applying any framework/Android System overlays, or else you would end up in a boot loop.\n\nIf you do, please flash the rescue archive found in "/storage/emulated/0/substratum/".</string>
+    <string name="legacy_warning_content">Legacy is provided as is, we can not guarantee it will work for you so ensure you have a custom recovery for your device and understand how to restore a boot loop before proceeding farther.\n\nWe can't fix things not getting themed on legacy because they require system side changes.</string>
 
     <string name="legacy_dialog_soft_reboot_title">Reboot required!</string>
     <string name="legacy_dialog_soft_reboot_text">Running on the Resource Runtime Overlay system, it is required to perform a reboot after adding or removing overlays.\n\nProceeding with this dialog would automatically reboot your device, so please be sure to have saved your work before continuing.</string>

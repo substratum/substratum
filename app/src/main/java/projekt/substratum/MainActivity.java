@@ -794,11 +794,25 @@ public class MainActivity extends AppCompatActivity implements
 
         printFCMtoken();
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1 && !References.getProp("ro" +
-                ".substratum.verified").equals("true")) {
+        if (!References.checkOMS(getApplicationContext())) {
             new AlertDialog.Builder(this)
-                    .setTitle(R.string.api25_warning_title)
-                    .setMessage(R.string.api25_warning_content)
+                    .setTitle(R.string.warning_title)
+                    .setMessage(R.string.legacy_warning_content)
+                    .setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int i) {
+                            dialog.cancel();
+                        }
+                    })
+                    .show();
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && !References.checkOMS(
+                getApplicationContext()) && References.getProp("ro.build.version.security_patch")
+                .equals("2016-11-05")) {
+            new AlertDialog.Builder(this)
+                    .setTitle(R.string.warning_title)
+                    .setMessage(R.string.dangerous_warning_content)
                     .setPositiveButton(R.string.dialog_ok, new DialogInterface
                             .OnClickListener() {
                         @Override

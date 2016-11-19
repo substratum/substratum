@@ -1130,7 +1130,7 @@ public class OverlaysList extends Fragment {
                         if (om.length() == 0) {
                             om = References.enableOverlay() + " " + final_runner.get(i);
                         } else {
-                            om += References.enableOverlay() + " " + final_runner.get(i);
+                            om += " " + final_runner.get(i);
                         }
                     }
                 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
           package="projekt.substratum"
           android:installLocation="internalOnly">
 
@@ -19,8 +20,10 @@
         android:icon="@mipmap/main_launcher"
         android:label="@string/app_name"
         android:largeHeap="true"
+        android:roundIcon="@mipmap/main_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="ManifestResource">
         <receiver android:name=".services.BootCompletedDetector">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>

@@ -1,6 +1,7 @@
 package projekt.substratum.fragments;
 
 import android.app.NotificationManager;
+import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
@@ -27,6 +28,8 @@ import projekt.substratum.R;
 import projekt.substratum.config.References;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
+
+    private ProgressDialog mProgressDialog;
 
     private boolean checkSettingsPackageSupport() {
         try {
@@ -433,10 +436,11 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         @Override
         protected void onPreExecute() {
             // Show a toast
-            Toast toast = Toast.makeText(getContext(), getString(R.string
-                            .substratum_cache_clear_initial_toast),
-                    Toast.LENGTH_SHORT);
-            toast.show();
+            mProgressDialog = new ProgressDialog(getContext());
+            mProgressDialog.setMessage(getString(R.string.substratum_cache_clear_initial_toast));
+            mProgressDialog.setIndeterminate(true);
+            mProgressDialog.setCancelable(false);
+            mProgressDialog.show();
             // Clear the notification of building theme if shown
             NotificationManager manager = (NotificationManager)
                     getContext().getSystemService(Context.NOTIFICATION_SERVICE);
@@ -445,12 +449,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         @Override
         protected void onPostExecute(String result) {
-            // Show a toast
-            Toast toast = Toast.makeText(getContext(), getString(R.string
-                            .substratum_cache_clear_toast),
-                    Toast.LENGTH_SHORT);
-            toast.show();
             // Since the cache is invalidated, better relaunch the app now
+            mProgressDialog.cancel();
             getActivity().finish();
             startActivity(getActivity().getIntent());
         }

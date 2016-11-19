@@ -126,6 +126,10 @@
     <string name="settings_about_oms_version_7">overlay manager service - iteration 7 (oms7)</string>
     <string name="settings_about_rro_version_2">resource runtime overlay - iteration 2 (rro2/legacy)</string>
 
+    <string name="settings_aopt_switcher_title">Substratum Overlay Compiler</string>
+    <string name="settings_aapt">AAPT (Stable)</string>
+    <string name="settings_aopt">AOPT (Cutting Edge)</string>
+
     <string name="theme_information_tab_one">Quick Apply</string>
     <string name="theme_information_tab_two">Overlay Manager</string>
     <string name="theme_information_tab_three">Boot animations</string>
@@ -373,7 +377,7 @@
     <string name="masquerade_check_installed">Quiet child, as the dance has already begun!</string>
     <string name="masquerade_check_not_installed">masquerade is not installed.</string>
     <string name="masquerade_check_not_supported">masquerade is not supported on substratum legacy.</string>
-    <string name="purge_cache">Purge and Reset Theme Caches</string>
+    <string name="purge_cache">Reset Theme Cache</string>
     <string name="purge_cache_subtext">Invalidate Substratum\'s theme and application cache, as well as reset all flags relating to theme rebuilding.</string>
     <string name="restart_systemui">Post-enable SystemUI recreate</string>
     <string name="restart_systemui_subtext">Automatically recreate the SystemUI after enabling/disabling a SystemUI overlay</string>

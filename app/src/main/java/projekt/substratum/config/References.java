@@ -232,6 +232,7 @@ public class References {
         prefs.edit().putBoolean("vibrate_on_compiled", false).apply();
         prefs.edit().putBoolean("quick_apply", false).apply();
         prefs.edit().putBoolean("nougat_style_cards", false).apply();
+        prefs.edit().putString("compiler", "aapt").apply();
         prefs = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
         prefs.edit().putBoolean("is_updating", false).apply();
     }

@@ -1,10 +1,12 @@
 package projekt.substratum.fragments;
 
+import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -18,6 +20,7 @@ import android.support.v7.preference.CheckBoxPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import java.io.File;
@@ -26,6 +29,7 @@ import projekt.substratum.BuildConfig;
 import projekt.substratum.LauncherActivity;
 import projekt.substratum.R;
 import projekt.substratum.config.References;
+import projekt.substratum.util.AOPTCheck;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
 
@@ -87,6 +91,61 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
         }
         themePlatform.setIcon(getContext().getDrawable(R.mipmap.projekt_icon));
+
+        final Preference aoptSwitcher = getPreferenceManager().findPreference
+                ("aopt_switcher");
+        if (prefs.getString("compiler", "aapt").equals("aapt")) {
+            aoptSwitcher.setSummary(R.string.settings_aapt);
+        } else {
+            aoptSwitcher.setSummary(R.string.settings_aopt);
+        }
+        aoptSwitcher.setOnPreferenceClickListener(
+                new Preference.OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        final AlertDialog.Builder builderSingle = new AlertDialog.Builder
+                                (getContext());
+                        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getContext(),
+                                R.layout.dialog_listview);
+
+                        arrayAdapter.add(getString(R.string.settings_aapt));
+                        arrayAdapter.add(getString(R.string.settings_aopt));
+
+                        builderSingle.setNegativeButton(
+                                android.R.string.cancel,
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+
+                        builderSingle.setAdapter(arrayAdapter, new DialogInterface
+                                .OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                SharedPreferences prefs =
+                                        PreferenceManager.getDefaultSharedPreferences(getContext());
+                                switch (which) {
+                                    case 0:
+                                        prefs.edit().remove("compiler").apply();
+                                        prefs.edit().putString("compiler", "aapt").apply();
+                                        aoptSwitcher.setSummary(R.string.settings_aapt);
+                                        new AOPTCheck().injectAOPT(getContext(), true);
+                                        break;
+                                    case 1:
+                                        prefs.edit().remove("compiler").apply();
+                                        prefs.edit().putString("compiler", "aopt").apply();
+                                        aoptSwitcher.setSummary(R.string.settings_aopt);
+                                        new AOPTCheck().injectAOPT(getContext(), true);
+                                        break;
+                                }
+                            }
+                        });
+                        builderSingle.show();
+                        return false;
+                    }
+                });
 
         if (References.checkOMS(getContext())) {
             Preference aboutMasquerade = getPreferenceManager().findPreference

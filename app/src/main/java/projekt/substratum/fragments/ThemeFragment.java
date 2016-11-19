@@ -259,7 +259,7 @@ public class ThemeFragment extends Fragment {
     }
 
     private void refreshLayout() {
-        new AOPTCheck().injectAOPT(getContext());
+        new AOPTCheck().injectAOPT(getContext(), false);
 
         MaterialProgressBar materialProgressBar = (MaterialProgressBar) root.findViewById(R.id
                 .progress_bar_loader);

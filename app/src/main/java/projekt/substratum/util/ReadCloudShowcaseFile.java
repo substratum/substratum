@@ -71,7 +71,6 @@ public class ReadCloudShowcaseFile {
             }
             return map;
         } catch (Exception e) {
-            e.printStackTrace();
             return emptyMap;
         }
     }

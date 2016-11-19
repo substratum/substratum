@@ -1111,7 +1111,7 @@ public class OverlaysList extends Fragment {
                             final_commands = final_runner.get(i);
                         }
                     } else {
-                        final_commands = final_commands + " && " + final_runner.get(i);
+                        final_commands = final_commands + " " + final_runner.get(i);
                     }
                 }
             } else {
@@ -1289,6 +1289,24 @@ public class OverlaysList extends Fragment {
                 }
 
                 if (!has_failed || final_runner.size() > fail_count) {
+                    int disable_count = 0;
+                    if (compile_enable_mode && mixAndMatchMode) {
+                        // Buffer the disableBeforeEnabling String
+                        String disableBeforeEnabling = "";
+                        if (all_installed_overlays.size() - current_theme_overlays.size() != 0) {
+                            disableBeforeEnabling = References.disableOverlay();
+                            for (int i = 0; i < all_installed_overlays.size(); i++) {
+                                if (!current_theme_overlays.contains(
+                                        all_installed_overlays.get(i))) {
+                                    disableBeforeEnabling += " " + all_installed_overlays.get(i);
+                                    disable_count += 1;
+                                }
+                            }
+                        }
+                        final_commands = disableBeforeEnabling +
+                                ((disableBeforeEnabling.length() == 0) ?
+                                        final_commands : " && " + final_commands);
+                    }
                     if (final_runner.size() == 0) {
                         if (base_spinner.getSelectedItemPosition() == 0) {
                             mAdapter.notifyDataSetChanged();
@@ -1296,7 +1314,6 @@ public class OverlaysList extends Fragment {
                             mAdapter.notifyDataSetChanged();
                         }
                     } else {
-                        mAdapter.notifyDataSetChanged();
                         progressBar.setVisibility(View.VISIBLE);
                         if (toggle_all.isChecked()) toggle_all.setChecked(false);
                         if (References.isPackageInstalled(getContext(), "masquerade.substratum")) {
@@ -1319,6 +1336,7 @@ public class OverlaysList extends Fragment {
                                         "back to Substratum theme provider...");
                             new References.ThreadRunner().execute(final_commands);
                         }
+                        mAdapter.notifyDataSetChanged();
                     }
                     if (References.checkOMSVersion(getContext()) == 7 &&
                             !final_commands.contains("projekt.substratum")) {
@@ -1333,7 +1351,7 @@ public class OverlaysList extends Fragment {
                                     // Consume window refresh
                                 }
                             }
-                        }, REFRESH_WINDOW_DELAY);
+                        }, REFRESH_WINDOW_DELAY * ((disable_count == 0) ? 1 : disable_count));
                     }
                     // Finally, let's restart SystemUI at the end of all the code processed
                     if (!prefs.getBoolean("systemui_recreate", false) &&
@@ -1341,22 +1359,8 @@ public class OverlaysList extends Fragment {
                         References.restartSystemUI();
                     }
                 }
-            } else if (enable_mode || compile_enable_mode) {
+            } else if (enable_mode) {
                 if (final_runner.size() > 0) {
-                    String disableBeforeEnabling = "";
-                    if (mixAndMatchMode) {
-                        if (all_installed_overlays.size() - current_theme_overlays.size()
-                                != 0) {
-                            disableBeforeEnabling = References.disableOverlay();
-                            for (int i = 0; i < all_installed_overlays.size(); i++) {
-                                if (!current_theme_overlays.contains(
-                                        all_installed_overlays.get(i))) {
-                                    disableBeforeEnabling = disableBeforeEnabling + " " +
-                                            all_installed_overlays.get(i);
-                                }
-                            }
-                        }
-                    }
                     Toast toast = Toast.makeText(getContext(), getString(R
                                     .string.toast_enabled),
                             Toast.LENGTH_LONG);
@@ -1364,6 +1368,17 @@ public class OverlaysList extends Fragment {
                     enable_mode = false;
 
                     if (mixAndMatchMode) {
+                        // Buffer the disableBeforeEnabling String
+                        String disableBeforeEnabling = "";
+                        if (all_installed_overlays.size() - current_theme_overlays.size() != 0) {
+                            disableBeforeEnabling = References.disableOverlay();
+                            for (int i = 0; i < all_installed_overlays.size(); i++) {
+                                if (!current_theme_overlays.contains(
+                                        all_installed_overlays.get(i))) {
+                                    disableBeforeEnabling += " " + all_installed_overlays.get(i);
+                                }
+                            }
+                        }
                         progressBar.setVisibility(View.VISIBLE);
                         if (toggle_all.isChecked()) toggle_all.setChecked(false);
                         if (References.isPackageInstalled(getContext(),

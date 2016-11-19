@@ -83,6 +83,7 @@ public class ManageFragment extends Fragment {
                         R.string.manage_system_overlay_disable));
                 arrayAdapter.add(getString(R.string.manage_system_overlay_uninstall));
 
+                builderSingle.setTitle(R.string.manage_system_overlay_title);
                 builderSingle.setNegativeButton(
                         android.R.string.cancel,
                         new DialogInterface.OnClickListener() {
@@ -198,6 +199,7 @@ public class ManageFragment extends Fragment {
                     arrayAdapter.add(getString(R.string.manage_wallpaper_lock));
                     arrayAdapter.add(getString(R.string.manage_wallpaper_all));
 
+                    builderSingle.setTitle(R.string.manage_wallpaper_title);
                     builderSingle.setNegativeButton(
                             android.R.string.cancel,
                             new DialogInterface.OnClickListener() {

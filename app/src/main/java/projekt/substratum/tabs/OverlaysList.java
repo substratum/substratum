@@ -1185,7 +1185,6 @@ public class OverlaysList extends Fragment {
                     if (dialog.getWindow() != null)
                         dialog.getWindow().setLayout(RecyclerView.LayoutParams.MATCH_PARENT,
                                 RecyclerView.LayoutParams.WRAP_CONTENT);
-                    dialog.setCancelable(false);
 
                     TextView text = (TextView) dialog.findViewById(R.id.textField);
                     text.setText(error_logs);

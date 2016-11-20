@@ -76,6 +76,7 @@ import static projekt.substratum.util.MapUtils.sortMapByValues;
 
 public class OverlaysList extends Fragment {
 
+    private static final int SYSTEMUI_PAUSE = 2;
     private CircularFillableLoaders loader;
     private TextView loader_string;
     private ProgressDialog mProgressDialog;
@@ -171,8 +172,8 @@ public class OverlaysList extends Fragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mAdapter.notifyDataSetChanged();
                 swipeRefreshLayout.setRefreshing(false);
+                getActivity().recreate();
             }
         });
         swipeRefreshLayout.setVisibility(View.GONE);
@@ -1307,6 +1308,13 @@ public class OverlaysList extends Fragment {
                                 ((disableBeforeEnabling.length() == 0) ?
                                         final_commands : " && " + final_commands);
                     }
+                    // Finally, let's restart SystemUI at the end of all the code processed
+                    if (!prefs.getBoolean("systemui_recreate", false) &&
+                            final_commands.contains("systemui")) {
+                        final_commands = final_commands + " && sleep " + SYSTEMUI_PAUSE + " && " +
+                                "pkill -f com.android.systemui";
+                    }
+
                     if (final_runner.size() == 0) {
                         if (base_spinner.getSelectedItemPosition() == 0) {
                             mAdapter.notifyDataSetChanged();
@@ -1351,12 +1359,7 @@ public class OverlaysList extends Fragment {
                                     // Consume window refresh
                                 }
                             }
-                        }, REFRESH_WINDOW_DELAY * ((disable_count == 0) ? 1 : disable_count));
-                    }
-                    // Finally, let's restart SystemUI at the end of all the code processed
-                    if (!prefs.getBoolean("systemui_recreate", false) &&
-                            final_commands.contains("systemui")) {
-                        References.restartSystemUI();
+                        }, REFRESH_WINDOW_DELAY);
                     }
                 }
             } else if (enable_mode) {
@@ -1366,6 +1369,13 @@ public class OverlaysList extends Fragment {
                             Toast.LENGTH_LONG);
                     toast.show();
                     enable_mode = false;
+
+                    // Finally, let's restart SystemUI at the end of all the code processed
+                    if (!prefs.getBoolean("systemui_recreate", false) &&
+                            final_commands.contains("systemui")) {
+                        final_commands = final_commands + " && sleep " + SYSTEMUI_PAUSE + " && " +
+                                "pkill -f com.android.systemui";
+                    }
 
                     if (mixAndMatchMode) {
                         // Buffer the disableBeforeEnabling String
@@ -1443,11 +1453,6 @@ public class OverlaysList extends Fragment {
                             }
                         }, REFRESH_WINDOW_DELAY);
                     }
-                    // Finally, let's restart SystemUI at the end of all the code processed
-                    if (!prefs.getBoolean("systemui_recreate", false) &&
-                            final_commands.contains("systemui")) {
-                        References.restartSystemUI();
-                    }
                 } else {
                     compile_enable_mode = false;
                     enable_mode = false;
@@ -1478,9 +1483,11 @@ public class OverlaysList extends Fragment {
                     toast.show();
                     disable_mode = false;
 
+                    // Finally, let's restart SystemUI at the end of all the code processed
                     if (!prefs.getBoolean("systemui_recreate", false) &&
                             final_commands.contains("systemui")) {
-                        final_commands = final_commands + " && pkill -f com.android.systemui";
+                        final_commands = final_commands + " && sleep " + SYSTEMUI_PAUSE + " && " +
+                                "pkill -f com.android.systemui";
                     }
 
                     if (mixAndMatchMode) {

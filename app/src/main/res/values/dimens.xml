@@ -2,6 +2,8 @@
     <dimen name="activity_horizontal_margin">12dp</dimen>
     <dimen name="activity_vertical_margin">12dp</dimen>
 
+    <dimen name="action_bar_elevation">4dp</dimen>
+
     <dimen name="main_screen_card_corner_elevation">2dp</dimen>
     <dimen name="main_screen_card_corner_radius">2dp</dimen>
 

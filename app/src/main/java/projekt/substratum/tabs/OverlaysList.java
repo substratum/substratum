@@ -71,11 +71,11 @@ import projekt.substratum.util.SubstratumBuilder;
 
 import static android.content.Context.CLIPBOARD_SERVICE;
 import static projekt.substratum.config.References.REFRESH_WINDOW_DELAY;
+import static projekt.substratum.config.References.SYSTEMUI_PAUSE;
 import static projekt.substratum.util.MapUtils.sortMapByValues;
 
 public class OverlaysList extends Fragment {
 
-    private static final int SYSTEMUI_PAUSE = 2;
     private TextView loader_string;
     private ProgressDialog mProgressDialog;
     private SubstratumBuilder sb;
@@ -1360,10 +1360,12 @@ public class OverlaysList extends Fragment {
                 }
             } else if (enable_mode) {
                 if (final_runner.size() > 0) {
-                    Toast toast = Toast.makeText(getContext(), getString(R
-                                    .string.toast_enabled),
-                            Toast.LENGTH_LONG);
-                    toast.show();
+                    if (References.checkOMSVersion(getContext()) == 3) {
+                        Toast toast = Toast.makeText(getContext(), getString(R
+                                        .string.toast_enabled),
+                                Toast.LENGTH_LONG);
+                        toast.show();
+                    }
                     enable_mode = false;
 
                     // Finally, let's restart SystemUI at the end of all the code processed
@@ -1473,10 +1475,12 @@ public class OverlaysList extends Fragment {
                             }
                         }
                     }
-                    Toast toast = Toast.makeText(getContext(), getString(R
-                                    .string.toast_disabled),
-                            Toast.LENGTH_LONG);
-                    toast.show();
+                    if (References.checkOMSVersion(getContext()) == 3) {
+                        Toast toast = Toast.makeText(getContext(), getString(R
+                                        .string.toast_disabled),
+                                Toast.LENGTH_LONG);
+                        toast.show();
+                    }
                     disable_mode = false;
 
                     // Finally, let's restart SystemUI at the end of all the code processed

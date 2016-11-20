@@ -28,7 +28,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.mikepenz.aboutlibraries.LibsBuilder;
@@ -860,10 +859,6 @@ public class MainActivity extends AppCompatActivity implements
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                 if (f != null)
                     ft.detach(f).attach(f).commit();
-                Toast toast = Toast.makeText(getApplicationContext(),
-                        getApplicationContext().getString(R.string.refresh_fragment),
-                        Toast.LENGTH_SHORT);
-                toast.show();
                 return true;
             case R.id.search:
                 Intent intent = new Intent(this, ShowcaseActivity.class);

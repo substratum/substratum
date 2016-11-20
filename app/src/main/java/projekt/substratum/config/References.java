@@ -45,6 +45,7 @@ public class References {
     public static Boolean DEBUG = true;
     // This int controls the delay for window refreshes to occur
     public static int REFRESH_WINDOW_DELAY = 500;
+    public static int SYSTEMUI_PAUSE = 2;
     // These strings control the current filter for themes
     public static String metadataName = "Substratum_Name";
     public static String metadataAuthor = "Substratum_Author";

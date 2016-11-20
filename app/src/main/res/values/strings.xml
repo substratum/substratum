@@ -22,7 +22,7 @@
 
     <string name="on_demand_updating_title">Resource Cache Initializer</string>
     <string name="on_demand_updating_text">%s\'s cache is now rebuilding&#8230;</string>
-    <string name="background_updating_toast">A theme is upgrading in the background, please wait for this to finish!</string>
+    <string name="background_updating_toast">Substratum is getting a theme ready in the background, please wait for this to finish!</string>
     <string name="background_updated_toast">Resource cache has been built!</string>
     <string name="background_updated_toast_cancel">This theme needs to upgrade its resource cache before it is functional!</string>
     <string name="background_updated_toast_cleaning">Substratum is now clearing up this theme\'s resource cache&#8230;</string>
@@ -204,9 +204,7 @@
     <string name="priority_back_title">Back to overlays</string>
     <string name="priority_success_toast">Priorities have been changed and windows are refreshing&#8230;</string>
 
-    <string name="refresh_fragment">Content reloaded successfully!</string>
-
-    <string name="menu_clean">Clean overlays</string>
+    <string name="menu_clean">Clean installed overlays</string>
     <string name="menu_clean_cache">Clean theme cache</string>
     <string name="menu_disable">Disable installed overlays</string>
     <string name="menu_enable">Enable installed overlays</string>
@@ -219,7 +217,7 @@
     <string name="menu_restart_systemui">Restart SystemUI</string>
     <string name="menu_search">Play Store Themes</string>
     <string name="menu_showcase">Showcase</string>
-    <string name="menu_uninstall">Uninstall</string>
+    <string name="menu_uninstall">Uninstall Theme</string>
 
     <string name="coming_soon">Stolen by Char!</string>
 
@@ -332,7 +330,7 @@
     <string name="toast_installed">Selected overlay(s) applied!</string>
     <string name="toast_uninstalled">You just uninstalled this theme! I\'ll be gone on your next refresh!</string>
     <string name="toast_uninstalling">Now uninstalling selected overlays, please wait&#8230;</string>
-    <string name="toast_updating">Compiling/updating in the notification panel, you can use other apps by clicking Home/Recents!</string>
+    <string name="toast_updating">Substratum is now getting your theme ready in the background!</string>
     <string name="no_themes_title">no themes installed&#8230;</string>
     <string name="no_themes_description">please install a compatible theme!</string>
 
@@ -354,7 +352,7 @@
     <string name="notification_no_errors_found">No errors while installing any overlays</string>
     <string name="notification_some_errors_found">An error has occurred during overlay installation</string>
     <string name="notification_processing">Processing overlay for</string>
-    <string name="notification_processing_n">Creating and signing overlays&#8230;</string>
+    <string name="notification_processing_n">Preparing theme overlay&#8230;</string>
     <string name="notification_compiling_signing_installing">Creating and installing your overlays&#8230;</string>
 
     <string name="advanced_manager_overlay_read_error">Unable to parse list of overlays. Please open Defaults Manager and click on Restore System Theme (Uninstall all installed overlays) to resolve this issue.</string>

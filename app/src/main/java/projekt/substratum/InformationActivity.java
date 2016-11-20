@@ -63,6 +63,8 @@ import projekt.substratum.adapters.InformationTabsAdapter;
 import projekt.substratum.config.References;
 import projekt.substratum.util.ReadOverlays;
 
+import static projekt.substratum.config.References.SYSTEMUI_PAUSE;
+
 public class InformationActivity extends AppCompatActivity {
 
     private static final int THEME_INFORMATION_REQUEST_CODE = 1;
@@ -679,6 +681,12 @@ public class InformationActivity extends AppCompatActivity {
                                     Toast.LENGTH_LONG);
                             toast.show();
 
+                            if (!prefs.getBoolean("systemui_recreate", false) &&
+                                    commands2.contains("systemui")) {
+                                commands2 = commands2 + " && sleep " + SYSTEMUI_PAUSE + " && " +
+                                        "pkill -f com.android.systemui";
+                            }
+
                             if (References.isPackageInstalled(getApplicationContext(),
                                     "masquerade.substratum")) {
                                 Intent runCommand = new Intent();
@@ -746,6 +754,12 @@ public class InformationActivity extends AppCompatActivity {
                                             .enable_completion),
                                     Toast.LENGTH_LONG);
                             toast.show();
+
+                            if (!prefs.getBoolean("systemui_recreate", false) &&
+                                    commands2.contains("systemui")) {
+                                commands2 = commands2 + " && sleep " + SYSTEMUI_PAUSE + " && " +
+                                        "pkill -f com.android.systemui";
+                            }
 
                             if (References.isPackageInstalled(getApplicationContext(),
                                     "masquerade.substratum")) {

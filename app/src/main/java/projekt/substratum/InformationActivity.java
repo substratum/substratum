@@ -1048,11 +1048,14 @@ public class InformationActivity extends AppCompatActivity {
                 editor.remove("fonts_applied");
             }
             if (prefs.getString("bootanimation_applied", "").equals(theme_pid)) {
-                if (getDeviceEncryptionStatus(getApplicationContext()) <= 1) {
+                if (getDeviceEncryptionStatus(getApplicationContext()) <= 1 && References.checkOMS(
+                        getApplicationContext())) {
                     References.delete("/data/system/theme/bootanimation.zip");
                 } else {
-                    References.delete("/system/media/bootanimation-encrypted" +
-                            ".zip");
+                    References.mountRW();
+                    References.move("/system/media/bootanimation-backup.zip",
+                            "/system/media/bootanimation.zip");
+                    References.delete("/system/addon.d/81-subsboot.sh");
                 }
                 editor.remove("bootanimation_applied");
             }

@@ -474,33 +474,40 @@ public class AdvancedManagerFragment extends Fragment {
                     all_overlays = new ArrayList<>(activated_overlays);
                     Collections.sort(all_overlays);
 
-                    // Create the map for {package name: package identifier}
-                    HashMap<String, String> unsortedMap = new HashMap<>();
+                    try {
+                        // Create the map for {package name: package identifier}
+                        HashMap<String, String> unsortedMap = new HashMap<>();
 
-                    // Then let's convert all the package names to their app names
-                    for (int i = 0; i < all_overlays.size(); i++) {
-                        try {
-                            ApplicationInfo applicationInfo = getContext().getPackageManager()
-                                    .getApplicationInfo(all_overlays.get(i), 0);
-                            String packageTitle = getContext().getPackageManager()
-                                    .getApplicationLabel(applicationInfo).toString();
-                            unsortedMap.put(all_overlays.get(i), References.grabPackageName(
-                                    getContext(), References.grabOverlayTarget(getContext(),
-                                            packageTitle)));
-                        } catch (Exception e) {
-                            // Suppress warning
+                        // Then let's convert all the package names to their app names
+                        for (int i = 0; i < all_overlays.size(); i++) {
+                            try {
+                                ApplicationInfo applicationInfo = getContext().getPackageManager()
+                                        .getApplicationInfo(all_overlays.get(i), 0);
+                                String packageTitle = getContext().getPackageManager()
+                                        .getApplicationLabel(applicationInfo).toString();
+                                unsortedMap.put(all_overlays.get(i), References.grabPackageName(
+                                        getContext(), References.grabOverlayTarget(getContext(),
+                                                packageTitle)));
+                            } catch (Exception e) {
+                                // Suppress warning
+                            }
                         }
-                    }
 
-                    // Sort the values list
-                    List<Pair<String, String>> sortedMap = sortMapByValues(unsortedMap);
+                        // Sort the values list
+                        List<Pair<String, String>> sortedMap = sortMapByValues(unsortedMap);
 
-                    for (Pair<String, String> entry : sortedMap) {
-                        if (activated_overlays.contains(entry.first)) {
-                            OverlayManager st = new OverlayManager(mContext,
-                                    entry.first, true);
-                            overlaysList.add(st);
+                        for (Pair<String, String> entry : sortedMap) {
+                            if (activated_overlays.contains(entry.first)) {
+                                OverlayManager st = new OverlayManager(mContext,
+                                        entry.first, true);
+                                overlaysList.add(st);
+                            }
                         }
+                    } catch (Exception e) {
+                        Toast toast = Toast.makeText(getContext(), getString(R
+                                        .string.advanced_manager_overlay_read_error),
+                                Toast.LENGTH_LONG);
+                        toast.show();
                     }
                 }
             } else {

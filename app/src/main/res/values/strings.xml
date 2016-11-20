@@ -355,6 +355,8 @@
     <string name="notification_processing_n">Creating and signing overlays&#8230;</string>
     <string name="notification_compiling_signing_installing">Creating and installing your overlays&#8230;</string>
 
+    <string name="advanced_manager_overlay_read_error">Unable to parse list of overlays. Please open Defaults Manager and click on Restore System Theme (Uninstall all installed overlays) to resolve this issue.</string>
+
     <string name="one_bread">One slice of bread</string>
     <string name="two_bread">Two slices of bread</string>
     <string name="three_bread">Bread Sandwich!</string>

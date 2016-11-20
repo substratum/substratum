@@ -41,7 +41,7 @@
 
     <string name="warning_title">WARNING!</string>
     <string name="dangerous_warning_content">Substratum has detected that it running on a DANGEROUS FIRMWARE (November update N/N-MR1) and is strongly advising against applying any framework/Android System overlays, or else you would end up in a boot loop.\n\nIf you do, please flash the rescue archive found in "/storage/emulated/0/substratum/".</string>
-    <string name="legacy_warning_content">Legacy is provided as is, we can not guarantee it will work for you so ensure you have a custom recovery for your device and understand how to restore a boot loop before proceeding farther.\n\nWe can't fix things not getting themed on legacy because they require system side changes.</string>
+    <string name="legacy_warning_content">Legacy is provided as-is, as we can not guarantee it will work for you. Please ensure you have a custom recovery for your device and have an understanding on how to restore from a bootloop before proceeding any further.\n\nWe cannot fix things that are not getting themed on legacy because they require system side changes.</string>
 
     <string name="legacy_dialog_soft_reboot_title">Reboot required!</string>
     <string name="legacy_dialog_soft_reboot_text">Running on the Resource Runtime Overlay system, it is required to perform a reboot after adding or removing overlays.\n\nProceeding with this dialog would automatically reboot your device, so please be sure to have saved your work before continuing.</string>

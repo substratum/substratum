@@ -103,10 +103,12 @@
     <string name="sounds_dialog_apply_failed">Sound pack failed to apply&#8230;</string>
     <string name="sounds_default_spinner">please select a sound pack&#8230;</string>
     <string name="sounds_dialog_permissions_title">Ringtones Configuration Alert</string>
-    <string name="sounds_dialog_permissions_text">Alarms/Notifications/Ringtones are now selectable from Settings manually!\n\nHowever, Substratum cannot grant itself "android.permission.WRITE_SETTINGS", so it is not able to set them as your current sounds automatically.\n\nBy clicking grant, a new window will launch to request system WRITE_SETTINGS permission, so that you would not have this issue in the future.</string>
+    <string name="sounds_dialog_permissions_text">Alarms/Notifications/Ringtones are now selectable from Settings manually!\n\nHowever, Substratum cannot grant itself "android.permission.WRITE_SETTINGS", so it is not able to set them as your current sounds automatically.\n\nBy clicking grant, a new window will launch to request the \'Allow modify system settings\' permission, so that you would not have this issue in the future.</string>
     <string name="sounds_dialog_permissions_deny">Deny</string>
     <string name="sounds_dialog_permissions_grant">Grant</string>
-    <string name="sounds_dialog_permissions_grant_toast">To reset all sounds set by Substratum, you must have the WRITE_SETTINGS permission enabled.</string>
+    <string name="sounds_dialog_permissions_grant_toast">To reset all sounds set by Substratum, you must enable \'Allow modify system settings\'.</string>
+    <string name="fonts_dialog_permissions_grant_toast">To reset all fonts set by Substratum, you must enable \'Allow modify system settings\'.</string>
+    <string name="fonts_dialog_permissions_grant_toast2">To let Substratum control your system fonts, you must enable \'Allow modify system settings\'.</string>
 
     <string name="content_resolver_alarm_metadata">Substratum Theme Alarm</string>
     <string name="content_resolver_notification_metadata">Substratum Theme Notification</string>

@@ -1,9 +1,12 @@
 package projekt.substratum.tabs;
 
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +18,7 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -63,8 +67,21 @@ public class FontInstaller extends Fragment {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new FontHandler().execute(fontSelector.getSelectedItem().toString(),
-                        getContext(), theme_pid);
+                if (Settings.System.canWrite(getContext())) {
+                    new FontHandler().execute(fontSelector.getSelectedItem().toString(),
+                            getContext(), theme_pid);
+                } else {
+                    Intent intent = new Intent(
+                            android.provider.Settings.ACTION_MANAGE_WRITE_SETTINGS);
+                    intent.setData(Uri.parse(
+                            "package:" + getActivity().getPackageName()));
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    Toast toast = Toast.makeText(getContext(), getString(R
+                                    .string.fonts_dialog_permissions_grant_toast2),
+                            Toast.LENGTH_LONG);
+                    toast.show();
+                }
             }
         });
 

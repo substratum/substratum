@@ -183,7 +183,7 @@ public class MainActivity extends AppCompatActivity implements
             cls.getDeclaredMethod("getSystemFontDirLocation");
             cls.getDeclaredMethod("getThemeFontConfigLocation");
             cls.getDeclaredMethod("getThemeFontDirLocation");
-            Log.e("SubstratumLogger", "This device system fully supports font hotswapping.");
+            Log.d("SubstratumLogger", "This system fully supports font hotswapping.");
             fonts_allowed = true;
         } catch (Exception ex) {
             // Suppress Fonts

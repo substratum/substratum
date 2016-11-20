@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.AssetManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -24,7 +25,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -329,7 +333,20 @@ public class ManageFragment extends Fragment {
                         .setPositiveButton(android.R.string.ok, new DialogInterface
                                 .OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                new FontsClearer().execute("");
+                                if (Settings.System.canWrite(getContext())) {
+                                    new FontsClearer().execute("");
+                                } else {
+                                    Intent intent = new Intent(
+                                            android.provider.Settings.ACTION_MANAGE_WRITE_SETTINGS);
+                                    intent.setData(Uri.parse(
+                                            "package:" + getActivity().getPackageName()));
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                    Toast toast = Toast.makeText(getContext(), getString(R
+                                                    .string.fonts_dialog_permissions_grant_toast),
+                                            Toast.LENGTH_LONG);
+                                    toast.show();
+                                }
                             }
                         })
                         .setNegativeButton(android.R.string.cancel, new DialogInterface
@@ -507,7 +524,6 @@ public class ManageFragment extends Fragment {
 
             // Finally, perform a window refresh
             if (References.checkOMSVersion(getContext()) == 7) {
-
                 try {
                     Class<?> cls = Class.forName("android.graphics.Typeface");
                     cls.getDeclaredMethod("recreateDefaults");
@@ -516,7 +532,6 @@ public class ManageFragment extends Fragment {
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
-
                 try {
                     float fontSize = Float.valueOf(Settings.System.getString(
                             getContext().getContentResolver(), Settings.System.FONT_SCALE));
@@ -599,9 +614,48 @@ public class ManageFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            References.delete("/data/system/theme/fonts/");
-            final_commands = References.refreshWindows();
+            if (References.checkOMSVersion(getContext()) == 3) {
+                References.delete("/data/system/theme/fonts/");
+                final_commands = References.refreshWindows();
+            } else {
+                References.delete("/data/system/theme/fonts/");
+                References.mountRWData();
+                References.copyDir("/system/fonts/", "/data/system/theme/");
+                copyAssets();
+                References.move(getContext().getCacheDir().getAbsolutePath() +
+                        "/FontCache/FontCreator/fonts.xml", "/data/system/theme/fonts/");
+
+                // Check for correct permissions and system file context integrity.
+                References.setPermissions(755, "/data/system/theme/");
+                References.setPermissionsRecursively(747, "/data/system/theme/fonts/");
+                References.setPermissions(775, "/data/system/theme/fonts/");
+                References.setContext("/data/system/theme");
+                References.setProp("sys.refresh_theme", "1");
+                References.mountROData();
+            }
             return null;
+        }
+
+        private void copyAssets() {
+            AssetManager assetManager = getContext().getAssets();
+            final String filename = "fonts.xml";
+            try (InputStream in = assetManager.open(filename);
+                 OutputStream out = new FileOutputStream(getContext().getCacheDir()
+                         .getAbsolutePath() +
+                         "/FontCache/FontCreator/" + filename)) {
+                copyFile(in, out);
+            } catch (IOException e) {
+                Log.e("FontHandler", "Failed to move font configuration file to working " +
+                        "directory!");
+            }
+        }
+
+        private void copyFile(InputStream in, OutputStream out) throws IOException {
+            byte[] buffer = new byte[1024];
+            int read;
+            while ((read = in.read(buffer)) != -1) {
+                out.write(buffer, 0, read);
+            }
         }
     }
 

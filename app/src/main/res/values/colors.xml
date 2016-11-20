@@ -92,7 +92,7 @@
     <color name="material_drawer_background">#ffffffff</color>
     <color name="material_drawer_header_background">@color/colorPrimary</color>
 
-    <color name="compile_dialog_wave_color">#32ffffff</color>
+    <color name="compile_dialog_wave_color">#c0ffffff</color>
 
     <color name="overlay_installed_list_entry">#00c853</color>
     <color name="overlay_not_approved_list_entry">#ff0000</color>

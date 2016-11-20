@@ -8,32 +8,27 @@
                 android:gravity="center|center_horizontal"
                 android:orientation="vertical">
 
-    <com.mikhaellopez.circularfillableloaders.CircularFillableLoaders
-        android:id="@+id/circularFillableLoader"
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/loadingIndicatorView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="300dp"
-        android:layout_marginRight="300dp"
-        android:src="@drawable/loading_icon"
-        app:cfl_border="true"
-        app:cfl_border_width="5dp"
-        app:cfl_progress="100"
-        app:cfl_wave_amplitude="0.06"
-        app:cfl_wave_color="@color/compile_dialog_wave_color"/>
+        app:indicatorColor="@color/compile_dialog_wave_color"
+        app:indicatorName="LineScaleIndicator"/>
 
     <TextView
         android:id="@+id/loadingTextCreativeMode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/circularFillableLoader"
+        android:layout_below="@id/loadingIndicatorView"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:gravity="center"
         android:text="PLACEHOLDER_LOADING_TEXT"
+        android:textAllCaps="true"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textStyle="italic"/>
+        android:textSize="16dp"
+        android:textStyle="bold"/>
 
 </RelativeLayout>

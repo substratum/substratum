@@ -43,7 +43,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gordonwong.materialsheetfab.MaterialSheetFab;
-import com.mikhaellopez.circularfillableloaders.CircularFillableLoaders;
 
 import org.apache.commons.io.FileUtils;
 
@@ -77,7 +76,6 @@ import static projekt.substratum.util.MapUtils.sortMapByValues;
 public class OverlaysList extends Fragment {
 
     private static final int SYSTEMUI_PAUSE = 2;
-    private CircularFillableLoaders loader;
     private TextView loader_string;
     private ProgressDialog mProgressDialog;
     private SubstratumBuilder sb;
@@ -1011,9 +1009,6 @@ public class OverlaysList extends Fragment {
                         .loadingTextCreativeMode);
                 loader_string.setText(getContext().getResources().getString(
                         R.string.sb_phase_1_loader));
-                loader = (CircularFillableLoaders) mProgressDialog.findViewById(
-                        R.id.circularFillableLoader);
-                loader.setProgress(80);
             }
             super.onPreExecute();
         }
@@ -1087,7 +1082,6 @@ public class OverlaysList extends Fragment {
                 }
                 loader_string.setText(getContext().getResources().getString(
                         R.string.sb_phase_2_loader));
-                loader.setProgress(50);
             }
             super.onPreExecute();
         }

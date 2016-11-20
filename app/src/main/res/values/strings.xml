@@ -308,8 +308,8 @@
 
     <string name="failed_to_install_overlay_toast">Failed to compile \"%s\" overlay</string>
 
-    <string name="sb_phase_1_loader">extracting assets from theme</string>
-    <string name="sb_phase_2_loader">creating and signing overlay(s)</string>
+    <string name="sb_phase_1_loader">extracting theme</string>
+    <string name="sb_phase_2_loader">installing theme</string>
     <string name="root_rejected_title">Superuser permissions denied</string>
     <string name="root_rejected_timer_plural">closing in %s seconds&#8230;</string>
     <string name="root_rejected_timer_singular">closing in %s second&#8230;</string>

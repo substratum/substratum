@@ -24,8 +24,6 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mikhaellopez.circularfillableloaders.CircularFillableLoaders;
-
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -50,7 +48,6 @@ public class MainScreenTab extends Fragment {
     private final List tab_checker = InformationActivity.getListOfFolders();
     private String versionName;
     private SubstratumBuilder sb;
-    private CircularFillableLoaders loader;
     private TextView loader_string;
     private ProgressDialog mProgressDialog;
     private NotificationManager mNotifyManager;
@@ -498,9 +495,6 @@ public class MainScreenTab extends Fragment {
                     .loadingTextCreativeMode);
             loader_string.setText(getContext().getResources().getString(
                     R.string.sb_phase_1_loader));
-            loader = (CircularFillableLoaders) mProgressDialog.findViewById(
-                    R.id.circularFillableLoader);
-            loader.setProgress(60);
 
             super.onPreExecute();
         }
@@ -560,7 +554,6 @@ public class MainScreenTab extends Fragment {
 
             loader_string.setText(getContext().getResources().getString(
                     R.string.sb_phase_2_loader));
-            loader.setProgress(20);
             super.onPreExecute();
         }
 

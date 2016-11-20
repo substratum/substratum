@@ -1106,7 +1106,11 @@ public class OverlaysList extends Fragment {
                             final_commands = final_runner.get(i);
                         }
                     } else {
-                        final_commands = final_commands + " " + final_runner.get(i);
+                        if (enable_mode || disable_mode) {
+                            final_commands = final_commands + " " + final_runner.get(i);
+                        } else {
+                            final_commands = final_commands + " && " + final_runner.get(i);
+                        }
                     }
                 }
             } else {
@@ -1284,7 +1288,6 @@ public class OverlaysList extends Fragment {
                 }
 
                 if (!has_failed || final_runner.size() > fail_count) {
-                    int disable_count = 0;
                     if (compile_enable_mode && mixAndMatchMode) {
                         // Buffer the disableBeforeEnabling String
                         String disableBeforeEnabling = "";
@@ -1294,7 +1297,6 @@ public class OverlaysList extends Fragment {
                                 if (!current_theme_overlays.contains(
                                         all_installed_overlays.get(i))) {
                                     disableBeforeEnabling += " " + all_installed_overlays.get(i);
-                                    disable_count += 1;
                                 }
                             }
                         }

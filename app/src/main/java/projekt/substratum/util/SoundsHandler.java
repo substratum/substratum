@@ -514,8 +514,7 @@ public class SoundsHandler {
         @Override
         protected void onPreExecute() {
             try {
-                progress = new ProgressDialog(mContext, android.R.style
-                        .Theme_DeviceDefault_Dialog_Alert);
+                progress = new ProgressDialog(mContext, R.style.AppTheme_DialogAlert);
                 progress.setMessage(mContext.getString(R.string.sounds_dialog_apply_text));
                 progress.setIndeterminate(false);
                 progress.setCancelable(false);

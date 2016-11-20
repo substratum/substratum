@@ -60,8 +60,7 @@ public class FontHandler {
             } else {
                 Log.d("FontHandler", "Substratum was granted CHANGE_CONFIGURATION permissions!");
             }
-            progress = new ProgressDialog(mContext, android.R.style
-                    .Theme_DeviceDefault_Dialog_Alert);
+            progress = new ProgressDialog(mContext, R.style.AppTheme_DialogAlert);
             progress.setMessage(mContext.getString(R.string.font_dialog_apply_text));
             progress.setIndeterminate(false);
             progress.setCancelable(false);

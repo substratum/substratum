@@ -71,8 +71,7 @@ public class BootAnimationHandler {
 
         @Override
         protected void onPreExecute() {
-            progress = new ProgressDialog(mContext, android.R.style
-                    .Theme_DeviceDefault_Dialog_Alert);
+            progress = new ProgressDialog(mContext, R.style.AppTheme_DialogAlert);
             progress.setMessage(mContext.getString(R.string.bootanimation_dialog_apply_text));
             progress.setIndeterminate(false);
             progress.setCancelable(false);

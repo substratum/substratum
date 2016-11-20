@@ -832,8 +832,7 @@ public class References {
 
         @Override
         protected void onPreExecute() {
-            progress = new ProgressDialog(mContext, android.R.style
-                    .Theme_DeviceDefault_Light_Dialog_Alert);
+            progress = new ProgressDialog(mContext, R.style.AppTheme_DialogAlert);
 
             String parse = String.format(mContext.getString(R.string.on_demand_updating_text),
                     theme_name);

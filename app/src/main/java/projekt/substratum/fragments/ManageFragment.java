@@ -614,10 +614,11 @@ public class ManageFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            if (References.checkOMSVersion(getContext()) == 3) {
+            int version = References.checkOMSVersion(getContext());
+            if (version == 3) {
                 References.delete("/data/system/theme/fonts/");
                 final_commands = References.refreshWindows();
-            } else {
+            } else if (version == 7) {
                 References.delete("/data/system/theme/fonts/");
                 References.mountRWData();
                 References.copyDir("/system/fonts/", "/data/system/theme/");
@@ -632,6 +633,19 @@ public class ManageFragment extends Fragment {
                 References.setContext("/data/system/theme");
                 References.setProp("sys.refresh_theme", "1");
                 References.mountROData();
+            } else if (version == 0) {
+                References.delete("/data/system/theme/fonts/");
+            }
+            if (!prefs.getBoolean("systemui_recreate", false)) {
+                if (References.isPackageInstalled(getContext(), "masquerade.substratum")) {
+                    Intent runCommand = new Intent();
+                    runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                    runCommand.setAction("masquerade.substratum.COMMANDS");
+                    runCommand.putExtra("om-commands", "pkill -f com.android.systemui");
+                    getContext().sendBroadcast(runCommand);
+                } else {
+                    References.restartSystemUI();
+                }
             }
             return null;
         }

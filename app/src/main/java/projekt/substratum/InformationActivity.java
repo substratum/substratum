@@ -53,7 +53,10 @@ import org.apache.commons.io.output.ByteArrayOutputStream;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -1033,18 +1036,27 @@ public class InformationActivity extends AppCompatActivity {
                 editor.remove("sounds_applied");
             }
             if (prefs.getString("fonts_applied", "").equals(theme_pid)) {
-                References.delete("/data/system/theme/fonts/");
-                if (References.isPackageInstalled(getApplicationContext(),
-                        "masquerade.substratum")) {
-                    Intent runCommand = new Intent();
-                    runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                    runCommand.setAction("masquerade.substratum.COMMANDS");
-                    runCommand.putExtra("om-commands", References.refreshWindows() +
-                            " && setprop sys.refresh_theme 1");
-                    getApplicationContext().sendBroadcast(runCommand);
-                } else {
+                int version = References.checkOMSVersion(getApplicationContext());
+                if (version == 3) {
+                    References.delete("/data/system/theme/fonts/");
+                    References.runCommands(References.refreshWindows());
+                } else if (version == 7) {
+                    References.delete("/data/system/theme/fonts/");
+                    References.mountRWData();
+                    References.copyDir("/system/fonts/", "/data/system/theme/");
+                    copyAssets();
+                    References.move(getApplicationContext().getCacheDir().getAbsolutePath() +
+                            "/FontCache/FontCreator/fonts.xml", "/data/system/theme/fonts/");
+
+                    // Check for correct permissions and system file context integrity.
+                    References.setPermissions(755, "/data/system/theme/");
+                    References.setPermissionsRecursively(747, "/data/system/theme/fonts/");
+                    References.setPermissions(775, "/data/system/theme/fonts/");
+                    References.setContext("/data/system/theme");
                     References.setProp("sys.refresh_theme", "1");
-                    References.refreshWindow();
+                    References.mountROData();
+                } else if (version == 0) {
+                    References.delete("/data/system/theme/fonts/");
                 }
                 if (!prefs.getBoolean("systemui_recreate", false)) {
                     if (References.isPackageInstalled(getApplicationContext(),
@@ -1052,8 +1064,7 @@ public class InformationActivity extends AppCompatActivity {
                         Intent runCommand = new Intent();
                         runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                         runCommand.setAction("masquerade.substratum.COMMANDS");
-                        runCommand.putExtra("om-commands", "pkill -f com.android" +
-                                ".systemui");
+                        runCommand.putExtra("om-commands", "pkill -f com.android.systemui");
                         getApplicationContext().sendBroadcast(runCommand);
                     } else {
                         References.restartSystemUI();
@@ -1097,6 +1108,28 @@ public class InformationActivity extends AppCompatActivity {
             }
             editor.apply();
             return null;
+        }
+
+        private void copyFile(InputStream in, OutputStream out) throws IOException {
+            byte[] buffer = new byte[1024];
+            int read;
+            while ((read = in.read(buffer)) != -1) {
+                out.write(buffer, 0, read);
+            }
+        }
+
+        private void copyAssets() {
+            AssetManager assetManager = getApplicationContext().getAssets();
+            final String filename = "fonts.xml";
+            try (InputStream in = assetManager.open(filename);
+                 OutputStream out = new FileOutputStream(getApplicationContext().getCacheDir()
+                         .getAbsolutePath() +
+                         "/FontCache/FontCreator/" + filename)) {
+                copyFile(in, out);
+            } catch (IOException e) {
+                Log.e("FontHandler", "Failed to move font configuration file to working " +
+                        "directory!");
+            }
         }
     }
 }

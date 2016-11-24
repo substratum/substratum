@@ -668,8 +668,17 @@ public class OverlaysList extends Fragment {
                 // Exception
             }
             List<String> state5 = ReadOverlays.main(5, getContext());
-            all_installed_overlays = new ArrayList<>(state5);
+            ArrayList<String> all = new ArrayList<>(state5);
+
+            all_installed_overlays = new ArrayList<>();
             List<String> state5overlays = new ArrayList<>(all_installed_overlays);
+
+            // Filter out icon pack overlays from all overlays
+            for (int i = 0; i < all.size(); i++) {
+                if (!all.get(i).endsWith(".icon")) {
+                    all_installed_overlays.add(all.get(i));
+                }
+            }
 
             String parse1_themeName = theme_name.replaceAll("\\s+", "");
             String parse2_themeName = parse1_themeName.replaceAll("[^a-zA-Z0-9]+", "");
@@ -1767,14 +1776,14 @@ public class OverlaysList extends Fragment {
                                                     replaceAll("\\s+", "").replaceAll
                                                     ("[^a-zA-Z0-9]+", "");
 
-                            String update_bool = "true";
+                            Boolean update_bool = true;
                             if (activated_overlays_from_theme.size() > 0) {
                                 for (int j = 0; j < activated_overlays_from_theme.size(); j++) {
                                     if (activated_overlays_from_theme.get(j).equals
                                             (checkedOverlays.get(i).getFullOverlayParameters())) {
                                         Log.d("SubstratumLogger", "The flag to update this " +
                                                 "overlay has been triggered.");
-                                        update_bool = "false";
+                                        update_bool = false;
                                     }
                                 }
                             }
@@ -1852,14 +1861,14 @@ public class OverlaysList extends Fragment {
                                 has_failed = true;
                             }
                         } else {
-                            String update_bool = "true";
+                            Boolean update_bool = true;
                             if (activated_overlays_from_theme.size() > 0) {
                                 for (int j = 0; j < activated_overlays_from_theme.size(); j++) {
                                     if (activated_overlays_from_theme.get(j).equals
                                             (current_overlay + "." + theme_name_parsed)) {
                                         Log.d("SubstratumLogger", "The flag to update this " +
                                                 "overlay has been triggered.");
-                                        update_bool = "false";
+                                        update_bool = false;
                                     }
                                 }
                             }

@@ -430,8 +430,24 @@ public class AdvancedManagerFragment extends Fragment {
             ArrayList<String> all_overlays;
 
             if (References.checkOMS(mContext)) {
-                activated_overlays = new ArrayList<>(ReadOverlays.main(5, mContext));
-                disabled_overlays = new ArrayList<>(ReadOverlays.main(4, mContext));
+                ArrayList<String> active = new ArrayList<>(ReadOverlays.main(5, mContext));
+                ArrayList<String> disabled = new ArrayList<>(ReadOverlays.main(4, mContext));
+
+                // Filter out icon pack overlays from the advanced manager
+                activated_overlays = new ArrayList<>();
+                for (int i = 0; i < active.size(); i++) {
+                    if (!active.get(i).endsWith(".icon")) {
+                        activated_overlays.add(active.get(i));
+                    }
+                }
+
+                // Filter out icon pack overlays from the advanced manager
+                disabled_overlays = new ArrayList<>();
+                for (int i = 0; i < disabled.size(); i++) {
+                    if (!disabled.get(i).endsWith(".icon")) {
+                        disabled_overlays.add(disabled.get(i));
+                    }
+                }
 
                 if (prefs.getBoolean("manager_disabled_overlays", true)) {
                     all_overlays = new ArrayList<>(activated_overlays);

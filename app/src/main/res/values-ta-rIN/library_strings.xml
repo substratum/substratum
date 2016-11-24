@@ -4,108 +4,151 @@
     <!-- AnimatedEditText -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_animatededittext_libraryDescription">This repository contains AnimatedEditText and TextDrawable all of which extend the behaviour of EditText and implement features that are otherwise not available.</string>
+    <string name="library_animatededittext_libraryDescription">This repository contains
+        AnimatedEditText and TextDrawable all of which extend the behaviour of EditText and
+        implement features that are otherwise not available.
+    </string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- commons-io -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_commons_io_libraryDescription">Commons IO is a library of utilities to assist with developing IO functionality.</string>
+    <string name="library_commons_io_libraryDescription">Commons IO is a library of utilities to
+        assist with developing IO functionality.
+    </string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- FAB Speed Dial -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_fab_speed_dial_libraryDescription">A simple library marrying together FAB + menu resources + Speed dial metaphor from Material Design.</string>
+    <string name="library_fab_speed_dial_libraryDescription">A simple library marrying together FAB
+        + menu resources + Speed dial metaphor from Material Design.
+    </string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- Gesture RecyclerView -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_gesturerecycler_libraryDescription">This library provides swipe &amp; drag and drop support for RecyclerView.</string>
+    <string name="library_gesturerecycler_libraryDescription">This library provides swipe &amp; drag
+        and drop support for RecyclerView.
+    </string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- KenBurnsView -->
     <!-- Author section -->
     <string name="library_kenburnsview_author" formatted="false">Flávio Faria</string>
-    <string name="library_kenburnsview_authorWebsite" formatted="false">https://plus.google.com/+Fl%C3%A1vioFaria1/posts</string>
+    <string name="library_kenburnsview_authorWebsite" formatted="false">
+        https://plus.google.com/+Fl%C3%A1vioFaria1/posts
+    </string>
     <!-- Library section -->
-    <string name="library_kenburnsview_libraryDescription">Android library that provides an extension to ImageView that creates an immersive experience by animating its drawable using the Ken Burns Effect.</string>
+    <string name="library_kenburnsview_libraryDescription">Android library that provides an
+        extension to ImageView that creates an immersive experience by animating its drawable using
+        the Ken Burns Effect.
+    </string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- libsuperuser -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_libsuperuser_libraryDescription">The goal of this library is to demonstrate techniques you may want to reuse in your root app that work around common problems, in as little code as possible.</string>
+    <string name="library_libsuperuser_libraryDescription">The goal of this library is to
+        demonstrate techniques you may want to reuse in your root app that work around common
+        problems, in as little code as possible.
+    </string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- Material Progress Bar -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_materialprogressbar_libraryDescription">Material Design ProgressBar with consistent appearance on Android 4.0+.</string>
+    <string name="library_materialprogressbar_libraryDescription">Material Design ProgressBar with
+        consistent appearance on Android 4.0+.
+    </string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- Material Sheet Fab -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_materialsheetfab_libraryDescription">Library that implements the floating action button to sheet transition from Google\'s Material Design documentation. It can be used with any FAB library on Android 4.0+ (API levels &gt;= 14).</string>
+    <string name="library_materialsheetfab_libraryDescription">Library that implements the floating
+        action button to sheet transition from Google\'s Material Design documentation. It can be
+        used with any FAB library on Android 4.0+ (API levels &gt;= 14).
+    </string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- Scrolling Image View -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_androidscrollingimageview_libraryDescription">An Android view for displaying repeated continuous side scrolling images. This can be used to create a parallax animation effect.</string>
+    <string name="library_androidscrollingimageview_libraryDescription">An Android view for
+        displaying repeated continuous side scrolling images. This can be used to create a parallax
+        animation effect.
+    </string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
-    <string name="library_androidscrollingimageview_classPath">An Android view for displaying repeated continuous side scrolling images. This can be used to create a parallax animation effect.</string>
+    <string name="library_androidscrollingimageview_classPath">An Android view for displaying
+        repeated continuous side scrolling images. This can be used to create a parallax animation
+        effect.
+    </string>
     <!-- License section -->
     <!-- Welcome -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_welcome_android_libraryDescription">An easy to use and customizable welcome screen for Android apps.</string>
+    <string name="library_welcome_android_libraryDescription">An easy to use and customizable
+        welcome screen for Android apps.
+    </string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- ZipSigner -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_zipsigner_libraryDescription">ZipSigner is an Android library for signing Zip, Apk, and/or Jar files on-board Android devices.</string>
+    <string name="library_zipsigner_libraryDescription">ZipSigner is an Android library for signing
+        Zip, Apk, and/or Jar files on-board Android devices.
+    </string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- ZT-Zip -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_zt_zip_libraryDescription">The project is built using java.util.zip.* packages for stream based access. Most convenience methods for filesystem usage is also supported.</string>
+    <string name="library_zt_zip_libraryDescription">The project is built using java.util.zip.*
+        packages for stream based access. Most convenience methods for filesystem usage is also
+        supported.
+    </string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- Circular Fillable Loaders -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_circularfillableloaders_libraryDescription">This is an Android project allowing to realize a beautiful circular fillable loaders to be used for splashscreen for example.</string>
+    <string name="library_circularfillableloaders_libraryDescription">This is an Android project
+        allowing to realize a beautiful circular fillable loaders to be used for splashscreen for
+        example.
+    </string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- BlurView -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_blurview_libraryDescription">Dynamic iOS-like blur of underlying Views for Android.</string>
+    <string name="library_blurview_libraryDescription">Dynamic iOS-like blur of underlying Views for
+        Android.
+    </string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- Android Image Cropper -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_androidimagecropper_libraryDescription">Powerful (Zoom, Rotation, Multi-Source), customizable (Shape, Limits, Style), optimized (Async, Sampling, Matrix) and simple image cropping library for Android.</string>
+    <string name="library_androidimagecropper_libraryDescription">Powerful (Zoom, Rotation,
+        Multi-Source), customizable (Shape, Limits, Style), optimized (Async, Sampling, Matrix) and
+        simple image cropping library for Android.
+    </string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->

@@ -2,10 +2,12 @@ package projekt.substratum.config;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
@@ -13,17 +15,22 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 
 import projekt.substrate.LetsGetStarted;
@@ -34,6 +41,13 @@ import projekt.substratum.util.Root;
 
 public class References {
 
+    // These are specific log tags for different classes
+    public static final Boolean ENABLE_SIGNING = true;
+    public static final String SUBSTRATUM_BUILDER = "SubstratumBuilder";
+    public static final String SUBSTRATUM_ICON_BUILDER = "SubstratumIconBuilder";
+    private static final String SUBSTRATUM_THEME = "projekt.substratum.THEME";
+    // This controls the package name for the specified launchers allowed for Studio
+    private static final String NOVA_LAUNCHER = "com.novalauncher.THEME";
     // Lucky Patcher's Package Name
     public static String lp_package_identifier = "com.android.vending.billing" +
             ".InAppBillingService.LOCK";
@@ -72,6 +86,10 @@ public class References {
     public static String settingsSubstratumDrawableName = "ic_settings_substratum";
     private static String metadataVersion = "Substratum_Plugin";
     private static String metadataThemeReady = "Substratum_ThemeReady";
+    // Delays for Masquerade Icon Pack Handling
+    public static final int MAIN_WINDOW_REFRESH_DELAY = 2000;
+    public static final int FIRST_WINDOW_REFRESH_DELAY = 1000;
+    public static final int SECOND_WINDOW_REFRESH_DELAY = 2500;
 
     // This method is used to determine whether there the system is initiated with OMS
     public static Boolean checkOMS(Context context) {
@@ -355,6 +373,113 @@ public class References {
         return context.getDrawable(R.drawable.default_overlay_icon);
     }
 
+    public static List<ResolveInfo> getIconPacks(Context context) {
+        // Scavenge through the packages on the device with specific launcher metadata in
+        // their manifest
+        PackageManager packageManager = context.getPackageManager();
+        return packageManager.queryIntentActivities(new Intent(NOVA_LAUNCHER),
+                PackageManager.GET_META_DATA);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static HashMap getIconState(Context mContext, @NonNull String packageName) {
+        /**
+         * Returns a HashMap in a specific order, of which the key would be the activityName
+         * that is most likely a perfect match in what icon we want to be overlaying. A check should
+         * be made to ensure this specific activity is the one being overlaid.
+         *
+         * The object will be an ArrayList of icon directories where the icon occurs inside the
+         * to-be-themed target. For example "res/mipmap-xxxhdpi/ic_launcher.png".
+         *
+         */
+        try {
+            ApplicationInfo ai =
+                    mContext.getPackageManager().getApplicationInfo(packageName, 0);
+            Process process = Runtime.getRuntime().exec("aopt d badging " + ai.sourceDir);
+
+            DataOutputStream outputStream = new DataOutputStream(process.getOutputStream());
+            BufferedReader reader = new BufferedReader(new InputStreamReader(
+                    process.getInputStream()));
+            HashMap hashMap = new HashMap<>();
+            ArrayList<String> iconArray = new ArrayList();
+            Boolean has_passed_icons = false;
+
+            ArrayList<String> lines = new ArrayList<>();
+            String line = reader.readLine();
+            while (line != null) {
+                lines.add(line);
+                line = reader.readLine();
+            }
+            for (int i = 0; i < lines.size(); i++) {
+                if (lines.get(i).startsWith("application-icon")) {
+                    String appIcon = lines.get(i).split(":")[1];
+                    appIcon = appIcon.replace("'", "");
+                    appIcon = appIcon.replace("-v4", "");
+                    if (!iconArray.contains(appIcon)) {
+                        // Do not contain duplicates in AOPT report, such as 65534-65535
+                        iconArray.add(appIcon);
+                        has_passed_icons = true;
+                    }
+                } else if (lines.get(i).startsWith("launchable-activity") && !has_passed_icons) {
+                    String appIcon = lines.get(i);
+                    appIcon = appIcon.substring(appIcon.lastIndexOf("=") + 1);
+                    appIcon = appIcon.replace("'", ""); // Strip the quotes
+                    appIcon = appIcon.replace("-v4", ""); // Make it to a non-API dependency
+                    if (!iconArray.contains(appIcon)) {
+                        iconArray.add(appIcon);
+                        has_passed_icons = true;
+                    }
+                }
+            }
+            if (has_passed_icons) {
+                hashMap.put(packageName, iconArray);
+                // Once we reach this point, we have concluded the map assignation
+                return hashMap;
+            }
+            outputStream.writeBytes("exit\n");
+            outputStream.flush();
+            process.waitFor();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @SuppressWarnings("unchecked")
+    public static String getPackageIconName(Context mContext, @NonNull String packageName) {
+        /**
+         * Returns the name of the icon in the package
+         *
+         * The object will be an ArrayList of icon directories where the icon occurs inside the
+         * to-be-themed target. For example "res/mipmap-xxxhdpi/ic_launcher.png".
+         *
+         */
+        try {
+            ApplicationInfo ai =
+                    mContext.getPackageManager().getApplicationInfo(packageName, 0);
+            Process process = Runtime.getRuntime().exec("aopt d badging " + ai.sourceDir);
+
+            DataOutputStream outputStream = new DataOutputStream(process.getOutputStream());
+            BufferedReader reader = new BufferedReader(new InputStreamReader(
+                    process.getInputStream()));
+            String s;
+            while ((s = reader.readLine()) != null) {
+                if (s.contains("application-icon")) {
+                    String appIcon = s.split(":")[1];
+                    appIcon = appIcon.substring(1, appIcon.length() - 1).replace("-v4", "");
+                    return appIcon.split("/")[2];
+                }
+            }
+            outputStream.writeBytes("exit\n");
+            outputStream.flush();
+            process.waitFor();
+        } catch (Exception e) {
+            // At this point we could simply show that there is no app icon in the package
+            // e.g. DocumentsUI
+        }
+        return "ic_launcher";
+    }
+
     // PackageName Crawling Methods
     public static String grabThemeVersion(Context mContext, String package_name) {
         try {
@@ -542,7 +667,7 @@ public class References {
         return null;
     }
 
-    // Grab Overlay Target
+    // Compare Overlay IMEI
     public static Boolean compareOverlayIMEI(Context mContext, String package_name) {
         try {
             ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
@@ -554,6 +679,24 @@ public class References {
                     if (overlay != null) {
                         return overlay.equals(imei);
                     }
+                }
+            }
+        } catch (Exception e) {
+            //
+        }
+        return false;
+    }
+
+    // Grab IconPack Parent
+    public static Boolean grabIconPack(Context mContext, String package_name,
+                                       String expectedPackName) {
+        try {
+            ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
+                    package_name, PackageManager.GET_META_DATA);
+            if (appInfo.metaData != null) {
+                if (appInfo.metaData.getString("Substratum_IconPack") != null) {
+                    return appInfo.metaData.getString("Substratum_IconPack").equals(
+                            expectedPackName);
                 }
             }
         } catch (Exception e) {

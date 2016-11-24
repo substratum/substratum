@@ -260,7 +260,11 @@ public class ThemeFragment extends Fragment {
     }
 
     private void refreshLayout() {
-        new AOPTCheck().injectAOPT(getContext(), false);
+        try {
+            new AOPTCheck().injectAOPT(getContext(), false);
+        } catch (Exception e) {
+            Log.e("SubstratumLogger", "AOPT could not be checked or injected at this time.");
+        }
 
         MaterialProgressBar materialProgressBar = (MaterialProgressBar) root.findViewById(R.id
                 .progress_bar_loader);

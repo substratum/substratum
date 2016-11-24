@@ -710,7 +710,7 @@ public class MainScreenTab extends Fragment {
 
                             sb.beginAction(getContext(), theme_pid, filteredDirectory.get(i),
                                     theme_name,
-                                    "false", "", null,
+                                    false, "", null,
                                     ((base3overlay.length() == 0) ? null : base3overlay),
                                     versionName, References.checkOMS(getContext()), theme_pid);
                             if (sb.no_install.length() > 0) {
@@ -732,7 +732,7 @@ public class MainScreenTab extends Fragment {
 
                         sb.beginAction(getContext(), theme_pid, filteredDirectory.get(i),
                                 theme_name,
-                                "true", "", null,
+                                true, "", null,
                                 ((base3overlay.length() == 0) ? null : base3overlay),
                                 versionName, References.checkOMS(getContext()), theme_pid);
                         to_be_enabled.add(package_name);

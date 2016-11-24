@@ -112,7 +112,7 @@ public class CacheCreator {
         if (folder_abbreviation != 0) {
             String source = "/data/app/" + package_identifier + "-" +
                     folder_abbreviation + "/base.apk";
-            File myDir = new File(mContext.getCacheDir(), "SubstratumBuilder");
+            File myDir = new File(mContext.getCacheDir(), References.SUBSTRATUM_BUILDER);
             if (!myDir.exists()) {
                 boolean created = myDir.mkdir();
                 if (!created) Log.e("SubstratumLogger",

@@ -207,6 +207,8 @@ public class MainActivity extends AppCompatActivity implements
                                 .withIcon(R.drawable.nav_overlay_manager),
                         new PrimaryDrawerItem().withName(R.string.nav_manage).withIcon(
                                 R.drawable.nav_manage),
+                        new PrimaryDrawerItem().withName(R.string.nav_studio).withIcon(
+                                R.drawable.nav_drawer_studio).withSelectable(false),
                         new PrimaryDrawerItem().withName(R.string.nav_priorities).withIcon(
                                 R.drawable.nav_drawer_priorities),
                         new PrimaryDrawerItem().withName(R.string.nav_backup_restore).withIcon(
@@ -285,41 +287,46 @@ public class MainActivity extends AppCompatActivity implements
                                     drawerSelected = 9;
                                     break;
                                 case 10:
-                                    switchFragment(getString(R.string.nav_priorities),
-                                            "PriorityLoaderFragment");
-                                    drawerSelected = 10;
+                                    Intent intent = new Intent(getApplicationContext(),
+                                            StudioSelectorActivity.class);
+                                    startActivity(intent);
                                     break;
                                 case 11:
-                                    switchFragment(getString(R.string.nav_backup_restore),
-                                            "ProfileFragment");
+                                    switchFragment(getString(R.string.nav_priorities),
+                                            "PriorityLoaderFragment");
                                     drawerSelected = 11;
                                     break;
-                                case 13:
-                                    if (drawerSelected != position) {
-                                        switchFragment(getString(R.string.nav_troubleshooting),
-                                                "TroubleshootingFragment");
-                                        drawerSelected = 13;
-                                    }
+                                case 12:
+                                    switchFragment(getString(R.string.nav_backup_restore),
+                                            "ProfileFragment");
+                                    drawerSelected = 12;
                                     break;
                                 case 14:
                                     if (drawerSelected != position) {
-                                        switchFragment(getString(R.string.nav_team),
-                                                "TeamFragment");
+                                        switchFragment(getString(R.string.nav_troubleshooting),
+                                                "TroubleshootingFragment");
                                         drawerSelected = 14;
                                     }
                                     break;
                                 case 15:
                                     if (drawerSelected != position) {
-                                        switchFragmentToLicenses(getString(R.string.nav_opensource),
-                                                fragment);
+                                        switchFragment(getString(R.string.nav_team),
+                                                "TeamFragment");
                                         drawerSelected = 15;
                                     }
                                     break;
                                 case 16:
                                     if (drawerSelected != position) {
+                                        switchFragmentToLicenses(getString(R.string.nav_opensource),
+                                                fragment);
+                                        drawerSelected = 16;
+                                    }
+                                    break;
+                                case 17:
+                                    if (drawerSelected != position) {
                                         switchFragment(getString(R.string.nav_settings),
                                                 "SettingsFragment");
-                                        drawerSelected = 16;
+                                        drawerSelected = 17;
                                     }
                                     break;
                             }
@@ -822,7 +829,7 @@ public class MainActivity extends AppCompatActivity implements
                     .show();
         }
 
-        mProgressDialog = new ProgressDialog(this, R.style.SubstratumBuilder_ActivityTheme);
+        mProgressDialog = new ProgressDialog(this, R.style.SubstratumBuilder_BlurView);
         new RootRequester().execute("");
     }
 

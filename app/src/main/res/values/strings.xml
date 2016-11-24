@@ -7,25 +7,52 @@
     <string name="drawer_name">projekt substratum</string>
     <string name="restore_app_name">restore theme</string>
 
-    <string name="search_play_store_url" translatable="false">"https://play.google.com/store/search?q=Substratum%20Theme&amp;c=apps"</string>
-    <string name="search_play_store_url_legacy" translatable="false">"https://play.google.com/store/search?q=Substratum%20Legacy%20Theme&amp;c=apps"</string>
-    <string name="tbo_theme_ready_url" translatable="false">"http://forum.xda-developers.com/android/apps-games/apps-themeable-hangouts-layers-cmte-t3113192"</string>
-    <string name="substratum_github" translatable="false">"https://github.com/nicholaschum/substratum"</string>
-    <string name="masquerade_github" translatable="false">"https://github.com/nicholaschum/masquerade"</string>
-    <string name="showcase_tabs" translatable="false">"https://raw.githubusercontent.com/nicholaschum/substratum/dev/showcase.xml"</string>
+    <string name="search_play_store_url" translatable="false">
+        "https://play.google.com/store/search?q=Substratum%20Theme&amp;c=apps"
+    </string>
+    <string name="search_play_store_url_icon_packs" translatable="false">
+        "https://play.google.com/store/search?q=Icon%20Pack&amp;c=apps"
+    </string>
+    <string name="search_play_store_url_legacy" translatable="false">
+        "https://play.google.com/store/search?q=Substratum%20Legacy%20Theme&amp;c=apps"
+    </string>
+    <string name="tbo_theme_ready_url" translatable="false">
+        "http://forum.xda-developers.com/android/apps-games/apps-themeable-hangouts-layers-cmte-t3113192"
+    </string>
+    <string name="substratum_github" translatable="false">
+        "https://github.com/nicholaschum/substratum"
+    </string>
+    <string name="masquerade_github" translatable="false">
+        "https://github.com/nicholaschum/masquerade"
+    </string>
+    <string name="showcase_tabs" translatable="false">
+        "https://raw.githubusercontent.com/nicholaschum/substratum/dev/showcase.xml"
+    </string>
 
-    <string name="showcase_no_connection">the theme showcase requires an internet connection to function!</string>
-    <string name="showcase_no_themes">seems like there was an error caching the showcase database for this tab. reload the database with the refresh button above.</string>
+    <string name="showcase_no_connection">the theme showcase requires an internet connection to
+        function!
+    </string>
+    <string name="showcase_no_themes">seems like there was an error caching the showcase database
+        for this tab. reload the database with the refresh button above.
+    </string>
     <string name="showcase_dialog_title">Disclaimer!</string>
-    <string name="showcase_dialog_content">Please wait while the database icons are cached in each of the tabs.\n\nSubsequent launches will be much faster after the cache is complete.\n\nTo reload the cache, click the refresh button above.</string>
+    <string name="showcase_dialog_content">Please wait while the database icons are cached in each
+        of the tabs.\n\nSubsequent launches will be much faster after the cache is complete.\n\nTo
+        reload the cache, click the refresh button above.
+    </string>
     <string name="showcase_dialog_agree">Let\'s go!</string>
 
     <string name="on_demand_updating_title">Resource Cache Initializer</string>
     <string name="on_demand_updating_text">%s\'s cache is now rebuilding&#8230;</string>
-    <string name="background_updating_toast">Substratum is getting a theme ready in the background, please wait for this to finish!</string>
+    <string name="background_updating_toast">Substratum is getting a theme ready in the background,
+        please wait for this to finish!
+    </string>
     <string name="background_updated_toast">Resource cache has been built!</string>
-    <string name="background_updated_toast_cancel">This theme needs to upgrade its resource cache before it is functional!</string>
-    <string name="background_updated_toast_cleaning">Substratum is now clearing up this theme\'s resource cache&#8230;</string>
+    <string name="background_updated_toast_cancel">This theme needs to upgrade its resource cache
+        before it is functional!
+    </string>
+    <string name="background_updated_toast_cleaning">Substratum is now clearing up this theme\'s
+        resource cache&#8230;</string>
     <string name="failed_to_install_title_notification">Failed to install OMS theme</string>
     <string name="failed_to_install_text_notification">%s failed to install</string>
 
@@ -35,18 +62,38 @@
     <string name="systemui_qs_tiles">System UI QS Tile Icons</string>
     <string name="systemui_statusbar">System UI Status Bar Icons</string>
 
-    <string name="tbo_description">This theme supports Team Black Out\'s Theme Ready Google Apps, if you do not have them, you can click Download to be redirected to their XDA thread, or Cancel if you already have them!</string>
-    <string name="two_description">This theme supports Google\'s stock apps, the way they were made! If you have Team Black Out\'s Google Apps installed, but would like to use this theme, please remove them to regain support from the themer!</string>
+    <string name="tbo_description">This theme supports Team Black Out\'s Theme Ready Google Apps, if
+        you do not have them, you can click Download to be redirected to their XDA thread, or Cancel
+        if you already have them!
+    </string>
+    <string name="two_description">This theme supports Google\'s stock apps, the way they were made!
+        If you have Team Black Out\'s Google Apps installed, but would like to use this theme,
+        please remove them to regain support from the themer!
+    </string>
     <string name="tbo_dialog_proceed">Download</string>
 
     <string name="warning_title">WARNING!</string>
-    <string name="dangerous_warning_content">Substratum has detected that it running on a DANGEROUS FIRMWARE (November update N/N-MR1) and is strongly advising against applying any framework/Android System overlays, or else you would end up in a boot loop.\n\nIf you do, please flash the rescue archive found in "/storage/emulated/0/substratum/".</string>
-    <string name="legacy_warning_content">Legacy is provided as-is, as we can not guarantee it will work for you. Please ensure you have a custom recovery for your device and have an understanding on how to restore from a bootloop before proceeding any further.\n\nWe cannot fix things that are not getting themed on legacy because they require system side changes.</string>
+    <string name="dangerous_warning_content">Substratum has detected that it is running on a
+        BOOTLOOP-KNOWN FIRMWARE (November update N/N-MR1) and is strongly advising against applying
+        any framework/Android System overlays, or else you would end up in a boot loop.\n\nIf you
+        do, please flash the rescue archive found in "/storage/emulated/0/substratum/".
+    </string>
+    <string name="legacy_warning_content">Legacy is provided as-is, as we can not guarantee it will
+        work for you. Please ensure you have a custom recovery for your device and have an
+        understanding on how to restore from a bootloop before proceeding any further.\n\nWe cannot
+        fix things that are not getting themed on legacy because they require system side changes.
+    </string>
 
     <string name="legacy_dialog_soft_reboot_title">Reboot required!</string>
-    <string name="legacy_dialog_soft_reboot_text">Running on the Resource Runtime Overlay system, it is required to perform a reboot after adding or removing overlays.\n\nProceeding with this dialog would automatically reboot your device, so please be sure to have saved your work before continuing.</string>
+    <string name="legacy_dialog_soft_reboot_text">Running on the Resource Runtime Overlay system, it
+        is required to perform a reboot after adding or removing overlays.\n\nProceeding with this
+        dialog would automatically reboot your device, so please be sure to have saved your work
+        before continuing.
+    </string>
 
-    <string name="activity_missing_toast">There were no applications found that could handle this request, sorry!</string>
+    <string name="activity_missing_toast">There were no applications found that could handle this
+        request, sorry!
+    </string>
     <string name="abort_overlay_toast">Now uninstalling all overlays&#8230;</string>
     <string name="abort_overlay_toast_success">All overlays uninstalled!</string>
     <string name="disable_overlay_toast">Now disabling all enabled overlays&#8230;</string>
@@ -65,12 +112,22 @@
     <string name="overlays_update_available">Update available!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Variant not installed</string>
     <string name="overlays_compile_update_button">Compile/Update &amp; Install</string>
-    <string name="information_activity_pirated_toast">This theme\'s binary does not pass Substratum\'s integrity verification.</string>
-    <string name="information_activity_upgrade_toast">This theme needs to be rebased on the new theme template to continue using it with Substratum!</string>
-    <string name="information_activity_upgrade_toast_lenient">This themer\'s theme plugin is out-of-date!</string>
+    <string name="information_activity_pirated_toast">This theme\'s binary does not pass
+        Substratum\'s integrity verification.
+    </string>
+    <string name="information_activity_upgrade_toast">This theme needs to be rebased on the new
+        theme template to continue using it with Substratum!
+    </string>
+    <string name="information_activity_upgrade_toast_lenient">This themer\'s theme plugin is
+        out-of-date!
+    </string>
 
-    <string name="bootanimation_vm_exploded">Rendering of boot animation has been terminated due to insufficient memory allocation.\n\nInstallation of this boot animation is still possible without a rendered preview.</string>
-    <string name="bootanimation_placeholder_text">please select a boot animation from the dropdown list&#8230;</string>
+    <string name="bootanimation_vm_exploded">Rendering of boot animation has been terminated due to
+        insufficient memory allocation.\n\nInstallation of this boot animation is still possible
+        without a rendered preview.
+    </string>
+    <string name="bootanimation_placeholder_text">please select a boot animation from the dropdown
+        list&#8230;</string>
     <string name="bootanimation_default_spinner">please select a boot animation&#8230;</string>
     <string name="bootanimation_dialog_apply_text">Boot animation is processing&#8230;</string>
     <string name="bootanimation_dialog_apply_success">Boot animation applied!</string>
@@ -82,33 +139,50 @@
     <string name="wallpaper_dialog_cancel">Cancel</string>
     <string name="wallpaper_dialog_message">Apply this image to which background?</string>
     <string name="wallpaper_downloading">Loading the image into the cache&#8230;</string>
-    <string name="wallpaper_allscreen_success">Both home and lock screen wallpapers configured!</string>
-    <string name="wallpaper_allscreen_error">Unable to set both home and lock screen wallpapers</string>
+    <string name="wallpaper_allscreen_success">Both home and lock screen wallpapers configured!
+    </string>
+    <string name="wallpaper_allscreen_error">Unable to set both home and lock screen wallpapers
+    </string>
     <string name="wallpaper_homescreen_success">Homescreen wallpaper configured!</string>
     <string name="wallpaper_homescreen_error">Unable to set homescreen wallpaper</string>
     <string name="wallpaper_lockscreen_success">Lockscreen wallpaper configured!</string>
     <string name="wallpaper_lockscreen_error">Unable to set lockscreen wallpaper</string>
-    <string name="wallpaper_no_connection">to utilize theme wallpapers, an internet connection is required&#8230;</string>
-    <string name="wallpaper_no_wallpapers">seems like the loaded wallpaper database is empty&#8230;</string>
+    <string name="wallpaper_no_connection">to utilize theme wallpapers, an internet connection is
+        required&#8230;</string>
+    <string name="wallpaper_no_wallpapers">seems like the loaded wallpaper database is
+        empty&#8230;</string>
 
-    <string name="font_placeholder_text">please select a font pack from the dropdown list&#8230;</string>
+    <string name="font_placeholder_text">please select a font pack from the dropdown
+        list&#8230;</string>
     <string name="font_default_spinner">please select a font pack&#8230;</string>
     <string name="font_dialog_apply_text">Font pack is processing&#8230;</string>
     <string name="font_dialog_apply_success">Font pack has been applied!</string>
     <string name="font_dialog_apply_failed">Font pack has failed to apply&#8230;</string>
 
-    <string name="sounds_placeholder_text">please select a sound pack from the dropdown list&#8230;</string>
+    <string name="sounds_placeholder_text">please select a sound pack from the dropdown
+        list&#8230;</string>
     <string name="sounds_dialog_apply_text">Sound pack is processing&#8230;</string>
     <string name="sounds_dialog_apply_success">Sound pack applied!</string>
     <string name="sounds_dialog_apply_failed">Sound pack failed to apply&#8230;</string>
     <string name="sounds_default_spinner">please select a sound pack&#8230;</string>
     <string name="sounds_dialog_permissions_title">Ringtones Configuration Alert</string>
-    <string name="sounds_dialog_permissions_text">Alarms/Notifications/Ringtones are now selectable from Settings manually!\n\nHowever, Substratum cannot grant itself "android.permission.WRITE_SETTINGS", so it is not able to set them as your current sounds automatically.\n\nBy clicking grant, a new window will launch to request the \'Allow modify system settings\' permission, so that you would not have this issue in the future.</string>
+    <string name="sounds_dialog_permissions_text">Alarms/Notifications/Ringtones are now selectable
+        from Settings manually!\n\nHowever, Substratum cannot grant itself
+        "android.permission.WRITE_SETTINGS", so it is not able to set them as your current sounds
+        automatically.\n\nBy clicking grant, a new window will launch to request the \'Allow modify
+        system settings\' permission, so that you would not have this issue in the future.
+    </string>
     <string name="sounds_dialog_permissions_deny">Deny</string>
     <string name="sounds_dialog_permissions_grant">Grant</string>
-    <string name="sounds_dialog_permissions_grant_toast">To reset all sounds set by Substratum, you must enable \'Allow modify system settings\'.</string>
-    <string name="fonts_dialog_permissions_grant_toast">To reset all fonts set by Substratum, you must enable \'Allow modify system settings\'.</string>
-    <string name="fonts_dialog_permissions_grant_toast2">To let Substratum control your system fonts, you must enable \'Allow modify system settings\'.</string>
+    <string name="sounds_dialog_permissions_grant_toast">To reset all sounds set by Substratum, you
+        must enable \'Allow modify system settings\'.
+    </string>
+    <string name="fonts_dialog_permissions_grant_toast">To reset all fonts set by Substratum, you
+        must enable \'Allow modify system settings\'.
+    </string>
+    <string name="fonts_dialog_permissions_grant_toast2">To let Substratum control your system
+        fonts, you must enable \'Allow modify system settings\'.
+    </string>
 
     <string name="content_resolver_alarm_metadata">Substratum Theme Alarm</string>
     <string name="content_resolver_notification_metadata">Substratum Theme Notification</string>
@@ -125,9 +199,13 @@
     <string name="settings_about_masquerade">masquerade version</string>
     <string name="settings_about_masquerade_not_installed">masquerade not installed</string>
     <string name="settings_about_oms_rro_version">theming platform</string>
-    <string name="settings_about_oms_version_3">overlay manager service - iteration 3 (oms3)</string>
-    <string name="settings_about_oms_version_7">overlay manager service - iteration 7 (oms7)</string>
-    <string name="settings_about_rro_version_2">resource runtime overlay - iteration 2 (rro2/legacy)</string>
+    <string name="settings_about_oms_version_3">overlay manager service - iteration 3 (oms3)
+    </string>
+    <string name="settings_about_oms_version_7">overlay manager service - iteration 7 (oms7)
+    </string>
+    <string name="settings_about_rro_version_2">resource runtime overlay - iteration 2
+        (rro2/legacy)
+    </string>
 
     <string name="settings_aopt_switcher_title">Substratum Overlay Compiler</string>
     <string name="settings_aapt">AAPT (Stable)</string>
@@ -141,25 +219,41 @@
     <string name="theme_information_tab_six">Wallpapers</string>
 
     <string name="nougat_style_cards_title">Nougat Style Card Layout</string>
-    <string name="nougat_style_cards_subtext">Enable Android Nougat Notification styled theme cards.</string>
+    <string name="nougat_style_cards_subtext">Enable Android Nougat Notification styled theme
+        cards.
+    </string>
 
     <string name="quick_apply_preference_title">Quick Apply UI</string>
-    <string name="quick_apply_preference_subtext">Enable the quick apply interface when launching a theme</string>
+    <string name="quick_apply_preference_subtext">Enable the quick apply interface when launching a
+        theme
+    </string>
     <string name="theme_information_quick_apply_no_views_title">quick apply not available</string>
-    <string name="theme_information_quick_apply_no_views_text">this theme does not support quick apply&#8230;</string>
+    <string name="theme_information_quick_apply_no_views_text">this theme does not support quick
+        apply&#8230;</string>
     <string name="theme_information_quick_apply_dialog_negative_button">Cancel</string>
     <string name="theme_information_quick_apply_style">Style</string>
     <string name="theme_information_quick_apply_fonts">System Fonts</string>
     <string name="theme_information_quick_apply_bootanimation_text">Custom Boot Animation</string>
-    <string name="theme_information_quick_apply_bootanimation_title">Applies a custom bootanimation to your device</string>
+    <string name="theme_information_quick_apply_bootanimation_title">Applies a custom bootanimation
+        to your device
+    </string>
     <string name="theme_information_quick_apply_fonts_title">Fonts</string>
-    <string name="theme_information_quick_apply_fonts_text">Applies a custom font to your device on the fly</string>
+    <string name="theme_information_quick_apply_fonts_text">Applies a custom font to your device on
+        the fly
+    </string>
     <string name="theme_information_quick_apply_sounds_title">System Sounds</string>
-    <string name="theme_information_quick_apply_sounds_text">Applies all custom system sounds from this theme</string>
+    <string name="theme_information_quick_apply_sounds_text">Applies all custom system sounds from
+        this theme
+    </string>
     <string name="theme_information_quick_apply_system_overlay_title">System overlays</string>
-    <string name="theme_information_quick_apply_system_overlay_text">Applies all system overlays from this theme</string>
-    <string name="theme_information_quick_apply_thirdparty_overlay_title">Third-party overlays</string>
-    <string name="theme_information_quick_apply_thirdparty_overlay_text">Applies all installed third party overlays from this theme</string>
+    <string name="theme_information_quick_apply_system_overlay_text">Applies all system overlays
+        from this theme
+    </string>
+    <string name="theme_information_quick_apply_thirdparty_overlay_title">Third-party overlays
+    </string>
+    <string name="theme_information_quick_apply_thirdparty_overlay_text">Applies all installed third
+        party overlays from this theme
+    </string>
     <string name="theme_information_quick_apply_bootanimation">Boot Animation</string>
     <string name="theme_information_quick_apply_sounds">Sounds</string>
     <string name="theme_information_quick_apply_wallpaper">Wallpaper</string>
@@ -168,7 +262,8 @@
     <string name="manage_dialog_performing">Restoring to default&#8230;</string>
     <string name="manage_bootanimation_text">Restore Boot Animation</string>
     <string name="manage_bootanimation_toast">Boot animation restored successfully!</string>
-    <string name="manage_bootanimation_title">Restores the default bootanimation on your device</string>
+    <string name="manage_bootanimation_title">Restores the default bootanimation on your device
+    </string>
     <string name="manage_fonts_title">Restore System Font</string>
     <string name="manage_fonts_toast">Fonts restored successfully!</string>
     <string name="manage_fonts_text">Restores the default system fonts on your device</string>
@@ -180,8 +275,11 @@
     <string name="manage_system_overlay_uninstall">Uninstall all installed overlays</string>
     <string name="manage_system_overlay_title">Restore System Theme</string>
     <string name="manage_system_overlay_toast">System theme is now restoring&#8230;</string>
-    <string name="manage_system_overlay_uninstall_toast">Overlays are now uninstalling in the background&#8230;</string>
-    <string name="manage_system_overlay_text">Disables all enabled overlays and restores the stock theme</string>
+    <string name="manage_system_overlay_uninstall_toast">Overlays are now uninstalling in the
+        background&#8230;</string>
+    <string name="manage_system_overlay_text">Disables all enabled overlays and restores the stock
+        theme
+    </string>
     <string name="manage_wallpaper_title">Restore Stock Wallpaper</string>
     <string name="manage_wallpaper_text">Restores the default wallpaper on your device</string>
     <string name="manage_wallpaper_home">Home screen wallpaper</string>
@@ -209,17 +307,31 @@
     <string name="menu_disable">Disable installed overlays</string>
     <string name="menu_enable">Enable installed overlays</string>
     <string name="menu_favorite">Favorite</string>
+    <string name="menu_open">Icon Pack Dashboard</string>
     <string name="menu_rate">Rate theme</string>
+    <string name="menu_reload_launcher">Update Configuration</string>
     <string name="menu_refresh">Refresh</string>
     <string name="menu_refresh_windows">Refresh Windows</string>
     <string name="menu_soft_reboot">Soft Reboot</string>
     <string name="menu_reboot_device">Reboot Device</string>
     <string name="menu_restart_systemui">Restart SystemUI</string>
     <string name="menu_search">Play Store Themes</string>
+    <string name="menu_search_icon_packs">Play Store Icon Packs</string>
     <string name="menu_showcase">Showcase</string>
     <string name="menu_uninstall">Uninstall Theme</string>
 
     <string name="coming_soon">Stolen by Char!</string>
+
+    <string name="studio">icon pack studio (alpha)</string>
+    <string name="studio_system">System Icons [coming soon]</string>
+    <string name="studio_custom">Creative Mode [coming soon]</string>
+    <string name="studio_icon_packs">Custom Icons</string>
+    <string name="studio_pack_title">Downloaded Icon Packs</string>
+    <string name="studio_system_title">Substratum Framework</string>
+    <string name="studio_applied_toast">Successfully applied %s!</string>
+    <string name="studio_configuration_changed">Successfully updated configuration!</string>
+    <string name="studio_applying">Loading&#8230;</string>
+    <string name="icon_pack_entry">Overlay Icon</string>
 
     <string name="nav_overlay_manager">Advanced Manager</string>
     <string name="nav_home">Theme Packs</string>
@@ -233,6 +345,7 @@
     <string name="nav_section_header_more">More</string>
 
     <string name="nav_manage">Defaults Manager</string>
+    <string name="nav_studio">Icon Pack Studio</string>
     <string name="nav_priorities">Priorities</string>
     <string name="nav_backup_restore">Profiles</string>
     <string name="nav_settings">Settings</string>
@@ -243,43 +356,73 @@
     <string name="logcat_dialog_title">\"LogChar\" Debug Report</string>
     <string name="logcat_dialog_copy_success">Successfully copied error log to clipboard!</string>
     <string name="logcat_email_subject">%s: Theme Bug Report</string>
-    <string name="logcat_email_body" formatted="false">Hey %s,\n\nI have an issue with %s, and would like to see if you could help me resolve this issue.\n\nDevice:%s\n\nReport:\n\n%s</string>
+    <string name="logcat_email_body" formatted="false">Hey %s,\n\nI have an issue with %s, and would
+        like to see if you could help me resolve this issue.\n\nDevice:%s\n\nReport:\n\n%s
+    </string>
     <string name="logcat_email_activity">Send bug report using&#8230;</string>
     <string name="logcat_email_activity_error">There are no email clients installed.</string>
     <string name="logcat_email_xposed_check">Xposed Framework</string>
 
     <string name="priority_card_title">Dynamic Priority System (DPS)</string>
-    <string name="priority_card_content">The Dynamic Priority System is an advanced procedure allowing for theme overlays to be organized with different priorities, ignoring the default OMS system-applied priorities.\n\nAn example when this would be of use would be wanting to structure a specific overlay on top of another overlay targeting the same application.\n\nWith the introduction of the Overlay Manager Service, the priorities are reversed, and the top most overlay resides at the bottom of each list.</string>
+    <string name="priority_card_content">The Dynamic Priority System is an advanced procedure
+        allowing for theme overlays to be organized with different priorities, ignoring the default
+        OMS system-applied priorities.\n\nAn example when this would be of use would be wanting to
+        structure a specific overlay on top of another overlay targeting the same
+        application.\n\nWith the introduction of the Overlay Manager Service, the priorities are
+        reversed, and the top most overlay resides at the bottom of each list.
+    </string>
     <string name="priority_card_title2">Instructions</string>
-    <string name="priority_card_content2">With the way OverlayManagerService works, all overlay priorities are laid out in an inverted order where the bottom is the highest priority (initial resource lookup) and the top is the lowest priority (final resource lookup).</string>
-    <string name="priority_no_multiple_overlays_title">no apps with multiple overlays&#8230;</string>
-    <string name="priority_no_multiple_overlays_text">enable two or more overlays on one app to use me!</string>
+    <string name="priority_card_content2">With the way OverlayManagerService works, all overlay
+        priorities are laid out in an inverted order where the bottom is the highest priority
+        (initial resource lookup) and the top is the lowest priority (final resource lookup).
+    </string>
+    <string name="priority_no_multiple_overlays_title">no apps with multiple
+        overlays&#8230;</string>
+    <string name="priority_no_multiple_overlays_text">enable two or more overlays on one app to use
+        me!
+    </string>
 
     <string name="manager_no_overlays_title">no overlays installed&#8230;</string>
     <string name="manager_no_overlays_text">compile one overlay to be able to use me!</string>
 
     <string name="backup">Backup Card</string>
-    <string name="backup_card_content">This function makes a copy of your currently enabled overlays list and places it in \"/storage/emulated/0/substratum/profiles/\" for safekeeping.</string>
+    <string name="backup_card_content">This function makes a copy of your currently enabled overlays
+        list and places it in \"/storage/emulated/0/substratum/profiles/\" for safekeeping.
+    </string>
     <string name="delete_dialog_cancel">Cancel</string>
     <string name="delete_dialog_okay">Delete</string>
     <string name="delete_dialog_title">Delete profile</string>
     <string name="delete_dialog_text">Are you sure you want to delete \"%s\"?</string>
     <string name="restore">Restore Card</string>
-    <string name="restore_card_content">When a profile is loaded, your current setup is completely wiped and \"restore theme\" would take on the updated changes.</string>
+    <string name="restore_card_content">When a profile is loaded, your current setup is completely
+        wiped and \"restore theme\" would take on the updated changes.
+    </string>
     <string name="remove_dialog_later">Later</string>
     <string name="restore_dialog_cancel">Cancel</string>
     <string name="restore_dialog_okay">Continue</string>
-    <string name="restore_dialog_title">Please install these overlays to restore your profile completely:</string>
+    <string name="restore_dialog_title">Please install these overlays to restore your profile
+        completely:
+    </string>
     <string name="backup_button">BACKUP CURRENT STATE</string>
     <string name="backup_no_overlays">There are no overlays in your current set up.</string>
     <string name="restore_button">RESTORE PROFILE</string>
-    <string name="restore_button_none_selected_toast">Please select a profile from the dropdown list before trying to restore a profile!</string>
-    <string name="profile_delete_button_none_selected_toast">Please select a profile from the dropdown list before trying to delete a profile!</string>
+    <string name="restore_button_none_selected_toast">Please select a profile from the dropdown list
+        before trying to restore a profile!
+    </string>
+    <string name="profile_delete_button_none_selected_toast">Please select a profile from the
+        dropdown list before trying to delete a profile!
+    </string>
     <string name="profile_edittext_hint">please type a name for your profile&#8230;</string>
-    <string name="profile_edittext_empty_toast">Please enter a name for your profile before backing up!</string>
-    <string name="profile_edittext_empty_toast_sysui">Substratum Font Helper was not found, please apply a font to install the helper and regain dynamic font swapping!</string>
+    <string name="profile_edittext_empty_toast">Please enter a name for your profile before backing
+        up!
+    </string>
+    <string name="profile_edittext_empty_toast_sysui">Substratum Font Helper was not found, please
+        apply a font to install the helper and regain dynamic font swapping!
+    </string>
     <string name="profile_edittext_title">New Profile:</string>
-    <string name="toast_backup_success">Current overlay list saved to \"/storage/emulated/0/substratum/profiles/%s\"</string>
+    <string name="toast_backup_success">Current overlay list saved to
+        \"/storage/emulated/0/substratum/profiles/%s\"
+    </string>
     <string name="spinner_default_item">select a profile to restore&#8230;</string>
 
     <string name="select_to_toggle_all_overlays">Select to toggle all overlays</string>
@@ -293,16 +436,20 @@
     <string name="tp_overlay_dialog_title">please select a third party overlay base&#8230;</string>
 
     <string name="permission_not_granted_dialog_title">Permissions not granted</string>
-    <string name="permission_not_granted_dialog_message1">Please grant substratum storage permissions
-        or the app will not function properly!</string>
+    <string name="permission_not_granted_dialog_message1">Please grant substratum storage
+        permissions
+        or the app will not function properly!
+    </string>
     <string name="permission_not_granted_dialog_message2">Please grant substratum phone permissions
-        or the app will not compile device dependent overlays properly!</string>
+        or the app will not compile device dependent overlays properly!
+    </string>
     <string name="dialog_ok">OK</string>
 
     <string name="clean_cache_dialog_body">Do you want to clean this theme\'s cache?</string>
     <string name="clean_dialog_body">Do you want to clean all overlays for this theme?</string>
     <string name="disable_dialog_body">Do you want to disable all overlays for this theme?</string>
-    <string name="enable_dialog_body">Do you want to enable all installed overlays for this theme?</string>
+    <string name="enable_dialog_body">Do you want to enable all installed overlays for this theme?
+    </string>
     <string name="uninstall_dialog_body">Do you want to uninstall this theme?</string>
     <string name="uninstall_dialog_cancel">Cancel</string>
     <string name="uninstall_dialog_okay">OK</string>
@@ -311,6 +458,7 @@
 
     <string name="sb_phase_1_loader">extracting theme</string>
     <string name="sb_phase_2_loader">installing theme</string>
+    <string name="sb_phase_3_loader">injecting icon resources</string>
     <string name="root_rejected_title">Superuser permissions denied</string>
     <string name="root_rejected_timer_plural">closing in %s seconds&#8230;</string>
     <string name="root_rejected_timer_singular">closing in %s second&#8230;</string>
@@ -319,23 +467,34 @@
     <string name="toast_unapproved">This overlay has been rejected by the system</string>
     <string name="toast_compiled">Selected overlay(s) compiled!</string>
     <string name="toast_compiled_updated">Selected overlay(s) updated!</string>
-    <string name="toast_compiled_updated_with_errors">Selected overlay(s) updated with some errors!</string>
+    <string name="toast_compiled_updated_with_errors">Selected overlay(s) updated with some
+        errors!
+    </string>
     <string name="toast_enabled">Selected overlay(s) enabling&#8230;</string>
     <string name="toast_disabled">Selected overlay(s) disabling&#8230;</string>
     <string name="toast_disabled2">Selected overlay(s) disabling&#8230;</string>
     <string name="toast_disabled3">Please compile this overlay before applying!</string>
     <string name="toast_disabled4">You can\'t disable an overlay you don\'t have compiled!</string>
-    <string name="toast_disabled5">Please select a valid overlay before performing this action.</string>
+    <string name="toast_disabled5">Please select a valid overlay before performing this action.
+    </string>
     <string name="toast_disabled6">Selected overlay(s) removed!</string>
     <string name="toast_installed">Selected overlay(s) applied!</string>
-    <string name="toast_uninstalled">You just uninstalled this theme! I\'ll be gone on your next refresh!</string>
-    <string name="toast_uninstalling">Now uninstalling selected overlays, please wait&#8230;</string>
-    <string name="toast_updating">Substratum is now getting your theme ready in the background!</string>
+    <string name="toast_uninstalled">You just uninstalled this theme! I\'ll be gone on your next
+        refresh!
+    </string>
+    <string name="toast_uninstalling">Now uninstalling selected overlays, please
+        wait&#8230;</string>
+    <string name="toast_updating">Substratum is now getting your theme ready in the background!
+    </string>
     <string name="no_themes_title">no themes installed&#8230;</string>
     <string name="no_themes_description">please install a compatible theme!</string>
 
-    <string name="toast_on_back_press_compiling">You can use other apps during compile by clicking Home/Recents buttons.</string>
-    <string name="toast_needs_caching">Substratum\'s cache was wiped, please rebuild this theme before continuing!</string>
+    <string name="toast_on_back_press_compiling">You can use other apps during compile by clicking
+        Home/Recents buttons.
+    </string>
+    <string name="toast_needs_caching">Substratum\'s cache was wiped, please rebuild this theme
+        before continuing!
+    </string>
 
     <string name="notification_theme_installed">installed</string>
     <string name="notification_theme_updated">updated</string>
@@ -347,15 +506,21 @@
     <string name="notification_initial_title">Substratum is running</string>
     <string name="notification_initial_title_upgrade">%s resources are now upgrading&#8230;</string>
     <string name="notification_done_title">Theme compilation has completed</string>
-    <string name="notification_extracting_assets">Extracting assets from theme package&#8230;</string>
+    <string name="notification_extracting_assets">Extracting assets from theme
+        package&#8230;</string>
     <string name="notification_extracting_assets_text">Processing overlays&#8230;</string>
     <string name="notification_no_errors_found">No errors while installing any overlays</string>
-    <string name="notification_some_errors_found">An error has occurred during overlay installation</string>
+    <string name="notification_some_errors_found">An error has occurred during overlay
+        installation
+    </string>
     <string name="notification_processing">Processing overlay for</string>
     <string name="notification_processing_n">Preparing theme overlay&#8230;</string>
     <string name="notification_compiling_signing_installing">Creating and installing your overlays&#8230;</string>
 
-    <string name="advanced_manager_overlay_read_error">Unable to parse list of overlays. Please open Defaults Manager and click on Restore System Theme (Uninstall all installed overlays) to resolve this issue.</string>
+    <string name="advanced_manager_overlay_read_error">Unable to parse list of overlays. Please open
+        Defaults Manager and click on Restore System Theme (Uninstall all installed overlays) to
+        resolve this issue.
+    </string>
 
     <string name="one_bread">One slice of bread</string>
     <string name="two_bread">Two slices of bread</string>
@@ -376,44 +541,82 @@
     <string name="settings_title_clickable">App Configuration</string>
     <string name="substratum_cache_clear_initial_toast">Substratum\'s cache is now being wiped&#8230;</string>
     <string name="substratum_cache_clear_toast">Substratum\'s cache has been wiped!</string>
-    <string name="substratum_restart_toast">Substratum restarted automatically after a settings change.</string>
+    <string name="substratum_restart_toast">Substratum restarted automatically after a settings
+        change.
+    </string>
     <string name="masquerade_check_title">il bacio della morte</string>
-    <string name="masquerade_check_subtext">Ensure the system\'s presence and integrity of the Masquerade theme system. If Masquerade does not report back positively, please perform a soft/hard reboot and try again!</string>
+    <string name="masquerade_check_subtext">Ensure the system\'s presence and integrity of the
+        Masquerade theme system. If Masquerade does not report back positively, please perform a
+        soft/hard reboot and try again!
+    </string>
     <string name="masquerade_check_installed">Quiet child, as the dance has already begun!</string>
     <string name="masquerade_check_not_installed">masquerade is not installed.</string>
-    <string name="masquerade_check_not_supported">masquerade is not supported on substratum legacy.</string>
+    <string name="masquerade_check_not_supported">masquerade is not supported on substratum
+        legacy.
+    </string>
     <string name="purge_cache">Reset Theme Cache</string>
-    <string name="purge_cache_subtext">Invalidate Substratum\'s theme and application cache, as well as reset all flags relating to theme rebuilding.</string>
+    <string name="purge_cache_subtext">Invalidate Substratum\'s theme and application cache, as well
+        as reset all flags relating to theme rebuilding.
+    </string>
     <string name="restart_systemui">Post-enable SystemUI recreate</string>
-    <string name="restart_systemui_subtext">Automatically recreate the SystemUI after enabling/disabling a SystemUI overlay</string>
-    <string name="restart_systemui_toast_enabled">SystemUI will recreate dynamically instead of restarting!</string>
-    <string name="restart_systemui_toast_disabled">SystemUI will restart automatically instead of recreating!</string>
+    <string name="restart_systemui_subtext">Automatically recreate the SystemUI after
+        enabling/disabling a SystemUI overlay
+    </string>
+    <string name="restart_systemui_toast_enabled">SystemUI will recreate dynamically instead of
+        restarting!
+    </string>
+    <string name="restart_systemui_toast_disabled">SystemUI will restart automatically instead of
+        recreating!
+    </string>
     <string name="show_theme_template_version">Show advanced theme information</string>
-    <string name="show_theme_template_version_description">Show each theme\'s target SDK levels, theme version and plugin version as a tag on each of the theme cards.</string>
+    <string name="show_theme_template_version_description">Show each theme\'s target SDK levels,
+        theme version and plugin version as a tag on each of the theme cards.
+    </string>
     <string name="vibrate_on_compiled">Notify after theme is compiled</string>
-    <string name="vibrate_on_compiled_description">When the theme has been compiled, vibrate the device to notify the user that the compilation has completed.</string>
+    <string name="vibrate_on_compiled_description">When the theme has been compiled, vibrate the
+        device to notify the user that the compilation has completed.
+    </string>
     <string name="hide_app_icon">Show app icon</string>
-    <string name="hide_app_icon_toast_enabled">The app\'s icon has been removed from your launcher!</string>
-    <string name="hide_app_icon_toast_disabled">The app\'s icon has now been added to your launcher!</string>
+    <string name="hide_app_icon_toast_enabled">The app\'s icon has been removed from your
+        launcher!
+    </string>
+    <string name="hide_app_icon_toast_disabled">The app\'s icon has now been added to your
+        launcher!
+    </string>
     <string name="hide_app_icon_not_supported">Change not supported</string>
-    <string name="hide_app_icon_supported">This will allow you to toggle between having the launcher icon visible or invisible on your home screen.</string>
-    <string name="show_installed_packages_only">Only show installed packages in overlay picker</string>
+    <string name="hide_app_icon_supported">This will allow you to toggle between having the launcher
+        icon visible or invisible on your home screen.
+    </string>
+    <string name="show_installed_packages_only">Only show installed packages in overlay picker
+    </string>
     <string name="purge_completion">Overlays for this theme are being cleaned up in the background&#8230;</string>
     <string name="clean_completion">Overlays for this theme are being cleaned up in the background&#8230;</string>
     <string name="cache_clear_completion">%s theme cache has been cleared!</string>
-    <string name="disable_completion">All overlays for this theme are now deactivating&#8230;</string>
-    <string name="enable_completion">All installed overlays for this theme are now activating&#8230;</string>
-    <string name="purge_information">Removing all overlays at once is a potentially dangerous action causing multiple force closes during the action.</string>
+    <string name="disable_completion">All overlays for this theme are now
+        deactivating&#8230;</string>
+    <string name="enable_completion">All installed overlays for this theme are now
+        activating&#8230;</string>
+    <string name="purge_information">Removing all overlays at once is a potentially dangerous action
+        causing multiple force closes during the action.
+    </string>
     <string name="purge_button_text">UNINSTALL ALL OVERLAYS</string>
     <string name="purge2_button_text">DISABLE ALL ENABLED OVERLAYS</string>
     <string name="dynamic_actionbar_colors">Dynamic Action Bar Colors</string>
-    <string name="dynamic_actionbar_colors_subtext">In the theme information window, Substratum will adapt the collapsible action bar to the hero image\'s dominating color.</string>
+    <string name="dynamic_actionbar_colors_subtext">In the theme information window, Substratum will
+        adapt the collapsible action bar to the hero image\'s dominating color.
+    </string>
     <string name="dynamic_navbar_colors">Dynamic Navigation Bar Colors</string>
-    <string name="dynamic_navbar_colors_subtext">In the theme information window, Substratum will adapt the navigation bar to the hero image\'s dominating color.</string>
+    <string name="dynamic_navbar_colors_subtext">In the theme information window, Substratum will
+        adapt the navigation bar to the hero image\'s dominating color.
+    </string>
     <string name="manager_title">Show disabled overlays in the list</string>
-    <string name="manager_subtext">In the Advanced Manager window, show all disabled overlays with their enabled counterparts.</string>
+    <string name="manager_subtext">In the Advanced Manager window, show all disabled overlays with
+        their enabled counterparts.
+    </string>
     <string name="alternate_drawer_design_title">Secondary Drawer Design</string>
-    <string name="alternate_drawer_design_subtext">Uses an alternate navigation drawer design when navigating through the user interface.</string>
+    <string name="alternate_drawer_design_subtext">Uses an alternate navigation drawer design when
+        navigating through the user interface.
+    </string>
 
     <string name="fab_menu_compile">Compile Selected</string>
     <string name="fab_menu_compile_enable">Build &amp; Enable</string>
@@ -426,136 +629,238 @@
     <string name="fab_menu_swap_toggle_legacy">Remove all existing</string>
 
     <string name="contributor_title_1">Substratum Designers</string>
-    <string name="contributor_text_1">Let these people be known that they have contributed greatly to Substratum in terms of design work and our team would like to thank them greatly!</string>
+    <string name="contributor_text_1">Let these people be known that they have contributed greatly
+        to Substratum in terms of design work and our team would like to thank them greatly!
+    </string>
     <string name="contributor_idan" translatable="false">Idan Shulman</string>
-    <string name="contributor_idan_content">I made all of Substratum\'s animated splashscreen drawables!</string>
-    <string name="contributor_idan_link" translatable="false">https://plus.google.com/u/0/+idanshulman/</string>
+    <string name="contributor_idan_content">I made all of Substratum\'s animated splashscreen
+        drawables!
+    </string>
+    <string name="contributor_idan_link" translatable="false">
+        https://plus.google.com/u/0/+idanshulman/
+    </string>
     <string name="contributor_mihir" translatable="false">Mihir Mistry</string>
-    <string name="contributor_mihir_content">I made all of Substratum\'s theme information drawables!</string>
-    <string name="contributor_mihir_link" translatable="false">https://plus.google.com/u/0/+mihirmistryWALLY/</string>
-    <string name="contributor_travis" translatable="false">Travis Hall (notjustanotherdesigner)</string>
-    <string name="contributor_travis_content">I made all of Substratum\'s app intro drawables!</string>
-    <string name="contributor_travis_link" translatable="false">https://plus.google.com/+TravisHall/</string>
+    <string name="contributor_mihir_content">I made all of Substratum\'s theme information
+        drawables!
+    </string>
+    <string name="contributor_mihir_link" translatable="false">
+        https://plus.google.com/u/0/+mihirmistryWALLY/
+    </string>
+    <string name="contributor_travis" translatable="false">Travis Hall (notjustanotherdesigner)
+    </string>
+    <string name="contributor_travis_content">I made all of Substratum\'s app intro drawables!
+    </string>
+    <string name="contributor_travis_link" translatable="false">
+        https://plus.google.com/+TravisHall/
+    </string>
     <string name="contributor_sajid" translatable="false">Sajid Shaik</string>
     <string name="contributor_sajid_content">I made all of Substratum\'s app icons!</string>
-    <string name="contributor_sajid_link" translatable="false">https://plus.google.com/+DroidAppsReviewer/</string>
+    <string name="contributor_sajid_link" translatable="false">
+        https://plus.google.com/+DroidAppsReviewer/
+    </string>
 
     <string name="contributor_title_2">Layers Contributors</string>
-    <string name="contributor_text_2">These people brought you Layers Manager in the past and have since went on to do many great things in getting Substratum ready for us!</string>
+    <string name="contributor_text_2">These people brought you Layers Manager in the past and have
+        since went on to do many great things in getting Substratum ready for us!
+    </string>
     <string name="contributor_reinhard" translatable="false">Reinhard Strauch</string>
     <string name="contributor_reinhard_content">I created Layers with Mike!</string>
-    <string name="contributor_reinhard_link" translatable="false">https://plus.google.com/u/0/101549242713977412381/</string>
+    <string name="contributor_reinhard_link" translatable="false">
+        https://plus.google.com/u/0/101549242713977412381/
+    </string>
     <string name="contributor_brian" translatable="false">Brian Gill (Bgill55)</string>
     <string name="contributor_brian_content">I worked on the ROM side of Layers!</string>
-    <string name="contributor_brian_link" translatable="false">https://plus.google.com/u/0/+BrianGill55/</string>
+    <string name="contributor_brian_link" translatable="false">
+        https://plus.google.com/u/0/+BrianGill55/
+    </string>
     <string name="contributor_aldrin" translatable="false">Aldrin Holmes (CallMeAldy)</string>
     <string name="contributor_aldrin_content">I worked on the ROM side of Layers!</string>
-    <string name="contributor_aldrin_link" translatable="false">https://plus.google.com/u/0/+AldrinHolmes20/</string>
+    <string name="contributor_aldrin_link" translatable="false">
+        https://plus.google.com/u/0/+AldrinHolmes20/
+    </string>
     <string name="contributor_steve" translatable="false">Steve Lovejoy (lovejoy777)</string>
     <string name="contributor_steve_content">I created Layers Manager!</string>
-    <string name="contributor_steve_link" translatable="false">https://plus.google.com/u/0/+SteveLovejoy/</string>
+    <string name="contributor_steve_link" translatable="false">
+        https://plus.google.com/u/0/+SteveLovejoy/
+    </string>
     <string name="contributor_niklas" translatable="false">Niklas Schnettler (Sh4dowSoul)</string>
     <string name="contributor_niklas_content">I worked on Layers Manager!</string>
-    <string name="contributor_niklas_link" translatable="false">https://plus.google.com/u/0/+NiklasSchnettler/</string>
+    <string name="contributor_niklas_link" translatable="false">
+        https://plus.google.com/u/0/+NiklasSchnettler/
+    </string>
     <string name="contributor_andrzej" translatable="false">Andrzej Ressel (jereksel)</string>
     <string name="contributor_andrzej_content">I worked on Layers Manager!</string>
-    <string name="contributor_andrzej_link" translatable="false">https://plus.google.com/u/0/117376207394302665227/</string>
+    <string name="contributor_andrzej_link" translatable="false">
+        https://plus.google.com/u/0/117376207394302665227/
+    </string>
     <string name="contributor_denis" translatable="false">Denis Suarez (Wh0Cares)</string>
     <string name="contributor_denis_content">I started the Layers Showcase!</string>
-    <string name="contributor_denis_link" translatable="false">https://plus.google.com/u/0/+DenisSuarez98/</string>
+    <string name="contributor_denis_link" translatable="false">
+        https://plus.google.com/u/0/+DenisSuarez98/
+    </string>
 
     <string name="contributor_title_3">Substratum Contributors</string>
-    <string name="contributor_text_3">These people stepped up and willingly contributed their dedication and time to all of us and we love them a lot!</string>
+    <string name="contributor_text_3">These people stepped up and willingly contributed their
+        dedication and time to all of us and we love them a lot!
+    </string>
     <string name="contributor_ben" translatable="false">Benjamin Humpton (Morningstar)</string>
     <string name="contributor_ben_content">I just want to be held&#8230;</string>
-    <string name="contributor_ben_link" translatable="false">http://forum.xda-developers.com/member.php?u=293887</string>
+    <string name="contributor_ben_link" translatable="false">
+        http://forum.xda-developers.com/member.php?u=293887
+    </string>
     <string name="contributor_char" translatable="false">Char G</string>
     <string name="contributor_char_content">Meow!</string>
-    <string name="contributor_char_link" translatable="false">https://plus.google.com/u/0/+CharG/</string>
+    <string name="contributor_char_link" translatable="false">https://plus.google.com/u/0/+CharG/
+    </string>
     <string name="contributor_nathan" translatable="false">Nathan Chancellor (The Flash)</string>
     <string name="contributor_nathan_content">Catch me if you can!</string>
-    <string name="contributor_nathan_link" translatable="false">https://plus.google.com/+NathanChancellor/</string>
+    <string name="contributor_nathan_link" translatable="false">
+        https://plus.google.com/+NathanChancellor/
+    </string>
 
     <string name="translator_title">Substratum Translators</string>
-    <string name="translator_text">A huge thank you to these translators for bringing Substratum to everyone around the world!</string>
+    <string name="translator_text">A huge thank you to these translators for bringing Substratum to
+        everyone around the world!
+    </string>
     <string name="translator_kevin" translatable="false">Kevin Minions</string>
     <string name="translator_kevin_content">French Translations</string>
-    <string name="translator_kevin_link" translatable="false">https://plus.google.com/u/0/115610928059890728494/</string>
+    <string name="translator_kevin_link" translatable="false">
+        https://plus.google.com/u/0/115610928059890728494/
+    </string>
     <string name="translator_jorge" translatable="false">Jorge Abel</string>
     <string name="translator_jorge_content">Spanish Translations</string>
-    <string name="translator_jorge_link" translatable="false">https://plus.google.com/u/0/115528288956639124717/</string>
+    <string name="translator_jorge_link" translatable="false">
+        https://plus.google.com/u/0/115528288956639124717/
+    </string>
     <string name="translator_chrys" translatable="false">Chrys B (abacate123)</string>
     <string name="translator_chrys_content">Portuguese Translations</string>
-    <string name="translator_chrys_link" translatable="false">https://plus.google.com/+ChrystianBorges/</string>
+    <string name="translator_chrys_link" translatable="false">
+        https://plus.google.com/+ChrystianBorges/
+    </string>
     <string name="translator_wasita" translatable="false">Wasita Bagus</string>
     <string name="translator_wasita_content">Indonesian Translations</string>
-    <string name="translator_wasita_link" translatable="false">https://plus.google.com/u/0/+WasitaBagusNXS/</string>
+    <string name="translator_wasita_link" translatable="false">
+        https://plus.google.com/u/0/+WasitaBagusNXS/
+    </string>
     <string name="translator_david" translatable="false">David Setiawan</string>
     <string name="translator_david_content">Indonesian Translations</string>
-    <string name="translator_david_link" translatable="false">https://plus.google.com/u/0/112952657794170427447/</string>
+    <string name="translator_david_link" translatable="false">
+        https://plus.google.com/u/0/112952657794170427447/
+    </string>
     <string name="translator_gediminas" translatable="false">Gediminas Kiaunė</string>
     <string name="translator_gediminas_content">Lithuanian Translations</string>
-    <string name="translator_gediminas_link" translatable="false">https://plus.google.com/u/0/115756673473766512257/</string>
+    <string name="translator_gediminas_link" translatable="false">
+        https://plus.google.com/u/0/115756673473766512257/
+    </string>
     <string name="translator_gautham" translatable="false">Gautham Suki</string>
     <string name="translator_gautham_content">Tamil Translations</string>
-    <string name="translator_gautham_link" translatable="false">https://plus.google.com/u/0/+GauthamSuki/</string>
+    <string name="translator_gautham_link" translatable="false">
+        https://plus.google.com/u/0/+GauthamSuki/
+    </string>
     <string name="translator_nils" translatable="false">Nils Wasser</string>
     <string name="translator_nils_content">German Translations</string>
-    <string name="translator_nils_link" translatable="false">https://plus.google.com/u/0/+NilsWasser/</string>
+    <string name="translator_nils_link" translatable="false">
+        https://plus.google.com/u/0/+NilsWasser/
+    </string>
 
     <string name="team_title_1">Substratum Team Leaders</string>
-    <string name="team_text_1">Not only did we create something that works for the users, but we worked in conjunction with themers to make it a wonderful theming engine for the community!</string>
+    <string name="team_text_1">Not only did we create something that works for the users, but we
+        worked in conjunction with themers to make it a wonderful theming engine for the community!
+    </string>
     <string name="team_title_2">Substratum Development Contributors</string>
-    <string name="team_text_2">These developers came when we needed help and aided the cause to create the OMS scene a much better place!</string>
+    <string name="team_text_2">These developers came when we needed help and aided the cause to
+        create the OMS scene a much better place!
+    </string>
     <string name="team_title_3">Substratum Themers</string>
-    <string name="team_text_3">These core themers got Substratum ready, as well as aided the developers closely to provide features geared towards other themers such as anti-piracy and a more definitive UI!</string>
+    <string name="team_text_3">These core themers got Substratum ready, as well as aided the
+        developers closely to provide features geared towards other themers such as anti-piracy and
+        a more definitive UI!
+    </string>
     <string name="team_nicholas" translatable="false">Nicholas Chum (nicholaschum)</string>
     <string name="team_nicholas_content">I wrote the app and incorporated the app engine!</string>
-    <string name="team_nicholas_link" translatable="false">https://plus.google.com/u/0/+NicholasChumCDT/</string>
+    <string name="team_nicholas_link" translatable="false">
+        https://plus.google.com/u/0/+NicholasChumCDT/
+    </string>
     <string name="team_syko" translatable="false">Mike Finnegan (Sykopompos)</string>
     <string name="team_syko_content">The Architect!</string>
-    <string name="team_syko_link" translatable="false">https://plus.google.com/u/0/+SykoPompos/</string>
+    <string name="team_syko_link" translatable="false">https://plus.google.com/u/0/+SykoPompos/
+    </string>
     <string name="team_george" translatable="false">George Gian (KreAch3R)</string>
-    <string name="team_george_content">What do you need to change in Android? I got your back!</string>
-    <string name="team_george_link" translatable="false">https://plus.google.com/u/0/+GeorgeGian/</string>
+    <string name="team_george_content">What do you need to change in Android? I got your back!
+    </string>
+    <string name="team_george_link" translatable="false">https://plus.google.com/u/0/+GeorgeGian/
+    </string>
     <string name="team_cory" translatable="false">Cory Collins (camcory)</string>
     <string name="team_cory_content">Need something added/fixed? No problem!</string>
-    <string name="team_cory_link" translatable="false">https://plus.google.com/u/0/107213348284084753883/</string>
+    <string name="team_cory_link" translatable="false">
+        https://plus.google.com/u/0/107213348284084753883/
+    </string>
     <string name="team_jacob" translatable="false">Jacob McSwain (USA-RedDragon)</string>
     <string name="team_jacob_content">You want what? Awesome, it\'s done.</string>
-    <string name="team_jacob_link" translatable="false">https://plus.google.com/u/0/+JacobMcSwainDev/</string>
+    <string name="team_jacob_link" translatable="false">
+        https://plus.google.com/u/0/+JacobMcSwainDev/
+    </string>
     <string name="team_surge" translatable="false">Suraj Raval (Surge1223)</string>
     <string name="team_surge_content">What I miss?</string>
-    <string name="team_surge_link" translatable="false">https://plus.google.com/u/0/109273915986671208869/</string>
+    <string name="team_surge_link" translatable="false">
+        https://plus.google.com/u/0/109273915986671208869/
+    </string>
     <string name="team_ivan" translatable="false">Ivan Iskandar (iskandar1023)</string>
     <string name="team_ivan_content">Prepare to be killed by the cuteness of kittens!</string>
-    <string name="team_ivan_link" translatable="false">https://plus.google.com/u/0/+IvanIskandar1023/</string>
+    <string name="team_ivan_link" translatable="false">
+        https://plus.google.com/u/0/+IvanIskandar1023/
+    </string>
     <string name="team_raja" translatable="false">Raja Mu (RajaMu)</string>
     <string name="team_raja_content">I do not tolerate security vulnerabilities!</string>
-    <string name="team_raja_link" translatable="false">https://plus.google.com/u/0/112199061099928069499/</string>
+    <string name="team_raja_link" translatable="false">
+        https://plus.google.com/u/0/112199061099928069499/
+    </string>
     <string name="team_jimmy" translatable="false">Jimmy Setiawan (setiawanjimmy)</string>
     <string name="team_jimmy_content">I break shit before you get a chance to!</string>
-    <string name="team_jimmy_link" translatable="false">https://plus.google.com/u/0/+JimmySetiawan84/</string>
+    <string name="team_jimmy_link" translatable="false">
+        https://plus.google.com/u/0/+JimmySetiawan84/
+    </string>
     <string name="team_dave" translatable="false">David Wilson (daveyannihilation)</string>
     <string name="team_dave_content">#WhiteUIMustDie</string>
-    <string name="team_dave_link" translatable="false">https://plus.google.com/u/0/+DavidWilsonAnnihilation/</string>
+    <string name="team_dave_link" translatable="false">
+        https://plus.google.com/u/0/+DavidWilsonAnnihilation/
+    </string>
     <string name="team_branden" translatable="false">Branden Manibusan (BrandenM)</string>
     <string name="team_branden_content">Try to find the unicorn called Sublime Mint!</string>
-    <string name="team_branden_link" translatable="false">https://plus.google.com/u/0/101729058057775926785/</string>
+    <string name="team_branden_link" translatable="false">
+        https://plus.google.com/u/0/101729058057775926785/
+    </string>
     <string name="team_jeremy" translatable="false">Jeremy Beck (jerbeck24)</string>
-    <string name="team_jeremy_content">If you can dream up the theme, I\'ve already created it!</string>
-    <string name="team_jeremy_link" translatable="false">https://plus.google.com/u/0/+JeremyBeck24/</string>
+    <string name="team_jeremy_content">If you can dream up the theme, I\'ve already created it!
+    </string>
+    <string name="team_jeremy_link" translatable="false">
+        https://plus.google.com/u/0/+JeremyBeck24/
+    </string>
 
     <string name="slide_1_title">welcome to substratum</string>
-    <string name="slide_1_text">a minimal yet powerful theme engine based on Sony\'s overlay manager service</string>
+    <string name="slide_1_text">a minimal yet powerful theme engine based on Sony\'s overlay manager
+        service
+    </string>
     <string name="slide_2_title">a brand new user interface</string>
-    <string name="slide_2_text">do you love your themes? introducing a gorgeous card view interface to showcase each of your theme\'s preview images installed on your device!</string>
+    <string name="slide_2_text">do you love your themes? introducing a gorgeous card view interface
+        to showcase each of your theme\'s preview images installed on your device!
+    </string>
     <string name="slide_3_title">per-app theming to its finest</string>
-    <string name="slide_3_text">not sure whether you want your Google+ themed? that\'s okay, just pick whatever you want themed from the overlay list!</string>
+    <string name="slide_3_text">not sure whether you want your Google+ themed? that\'s okay, just
+        pick whatever you want themed from the overlay list!
+    </string>
     <string name="slide_4_title">compile? enable? disable? where?</string>
-    <string name="slide_4_text">by clicking on the floating action button after selecting overlays, you could compile (do this first!), enable and disable each overlay directly on your phone to begin using your theme.</string>
+    <string name="slide_4_text">by clicking on the floating action button after selecting overlays,
+        you could compile (do this first!), enable and disable each overlay directly on your phone
+        to begin using your theme.
+    </string>
     <string name="slide_5_title">while compiling your overlays&#8230;</string>
-    <string name="slide_5_text">you can switch over to your own apps and allow the overlays to compile in the background as this process may take a while. just check your notification panel for the progress!</string>
+    <string name="slide_5_text">you can switch over to your own apps and allow the overlays to
+        compile in the background as this process may take a while. just check your notification
+        panel for the progress!
+    </string>
     <string name="slide_6_title">we hope you enjoy our creation!</string>
-    <string name="slide_6_text">thank you for reading the introduction and we hope you enjoy using substratum as much as we did while developing for it!</string>
+    <string name="slide_6_text">thank you for reading the introduction and we hope you enjoy using
+        substratum as much as we did while developing for it!
+    </string>
 </resources>

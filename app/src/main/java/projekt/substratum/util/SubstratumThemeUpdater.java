@@ -59,7 +59,6 @@ public class SubstratumThemeUpdater {
                         }
                     }
                 }
-
             }
         } catch (Exception e) {
             Log.e("SubstratumLogger", "Unable to find package identifier (INDEX OUT OF BOUNDS)");

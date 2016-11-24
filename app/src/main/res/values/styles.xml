@@ -15,7 +15,8 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.DialogAlert" parent="@android:style/Theme.DeviceDefault.Light.Dialog.Alert"/>
+    <style name="AppTheme.DialogAlert"
+           parent="@android:style/Theme.DeviceDefault.Light.Dialog.Alert"/>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
@@ -57,6 +58,15 @@
         <item name="android:windowAnimationStyle">@style/SubstratumBuilder.WindowAnimation</item>
         <item name="android:windowBackground">@color/window_bg_glass</item>
         <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
+    <style name="SubstratumBuilder.BlurView" parent="@android:style/Theme.Material.Wallpaper">
+        <item name="android:colorPrimaryDark">@android:color/transparent</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:textColor">@color/dialog_text_color</item>
+        <item name="android:windowAnimationStyle">@style/SubstratumBuilder.WindowAnimation</item>
+        <item name="android:windowBackground">@color/window_bg_glass</item>
     </style>
 
     <style name="SubstratumBuilder.WindowAnimation" parent="Animation.AppCompat.Dialog">

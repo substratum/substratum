@@ -614,28 +614,8 @@ public class ManageFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            int version = References.checkOMSVersion(getContext());
-            if (version == 3) {
-                References.delete("/data/system/theme/fonts/");
-                final_commands = References.refreshWindows();
-            } else if (version == 7) {
-                References.delete("/data/system/theme/fonts/");
-                References.mountRWData();
-                References.copyDir("/system/fonts/", "/data/system/theme/");
-                copyAssets();
-                References.move(getContext().getCacheDir().getAbsolutePath() +
-                        "/FontCache/FontCreator/fonts.xml", "/data/system/theme/fonts/");
-
-                // Check for correct permissions and system file context integrity.
-                References.setPermissions(755, "/data/system/theme/");
-                References.setPermissionsRecursively(747, "/data/system/theme/fonts/");
-                References.setPermissions(775, "/data/system/theme/fonts/");
-                References.setContext("/data/system/theme");
-                References.setProp("sys.refresh_theme", "1");
-                References.mountROData();
-            } else if (version == 0) {
-                References.delete("/data/system/theme/fonts/");
-            }
+            References.delete("/data/system/theme/fonts/");
+            References.setProp("sys.refresh_theme", "1");
             if (!prefs.getBoolean("systemui_recreate", false)) {
                 if (References.isPackageInstalled(getContext(), "masquerade.substratum")) {
                     Intent runCommand = new Intent();

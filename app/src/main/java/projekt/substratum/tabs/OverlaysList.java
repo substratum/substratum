@@ -671,7 +671,6 @@ public class OverlaysList extends Fragment {
             ArrayList<String> all = new ArrayList<>(state5);
 
             all_installed_overlays = new ArrayList<>();
-            List<String> state5overlays = new ArrayList<>(all_installed_overlays);
 
             // Filter out icon pack overlays from all overlays
             for (int i = 0; i < all.size(); i++) {
@@ -679,6 +678,8 @@ public class OverlaysList extends Fragment {
                     all_installed_overlays.add(all.get(i));
                 }
             }
+
+            List<String> state5overlays = new ArrayList<>(all_installed_overlays);
 
             String parse1_themeName = theme_name.replaceAll("\\s+", "");
             String parse2_themeName = parse1_themeName.replaceAll("[^a-zA-Z0-9]+", "");

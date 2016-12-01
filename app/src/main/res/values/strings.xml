@@ -184,6 +184,9 @@
         fonts, you must enable \'Allow modify system settings\'.
     </string>
 
+    <string name="error_loading_pack">it seems like this pack was not set up
+        correctly&#8230;</string>
+
     <string name="content_resolver_alarm_metadata">Substratum Theme Alarm</string>
     <string name="content_resolver_notification_metadata">Substratum Theme Notification</string>
     <string name="content_resolver_ringtone_metadata">Substratum Theme Ringtone</string>

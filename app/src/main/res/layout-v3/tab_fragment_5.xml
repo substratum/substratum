@@ -61,6 +61,32 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/error_loading_pack"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/sad_emoji"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/no_themes_installed"/>
+
+            <TextView
+                android:id="@+id/error_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/sad_emoji"
+                android:layout_margin="15dp"
+                android:gravity="center"
+                android:text="@string/error_loading_pack"
+                android:textColor="@color/sounds_text"
+                android:textSize="20dp"
+                android:textStyle="italic"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
             android:id="@+id/relativeLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

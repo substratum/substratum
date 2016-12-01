@@ -52,6 +52,7 @@ public class SoundPackager extends Fragment {
     private RecyclerView recyclerView;
     private MediaPlayer mp = new MediaPlayer();
     private int previous_position;
+    private RelativeLayout relativeLayout, error;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
@@ -76,8 +77,9 @@ public class SoundPackager extends Fragment {
 
         final RelativeLayout sounds_preview = (RelativeLayout) root.findViewById(R.id
                 .sounds_placeholder);
-        final RelativeLayout relativeLayout = (RelativeLayout) root.findViewById(R.id
-                .relativeLayout);
+        relativeLayout = (RelativeLayout) root.findViewById(R.id.relativeLayout);
+        error = (RelativeLayout) root.findViewById(R.id.error_loading_pack);
+        error.setVisibility(View.GONE);
 
         // Pre-initialize the adapter first so that it won't complain for skipping layout on logs
         recyclerView = (RecyclerView) root.findViewById(R.id.recycler_view);
@@ -135,9 +137,11 @@ public class SoundPackager extends Fragment {
                     if (pos == 0) {
                         imageButton.setClickable(false);
                         imageButton.setImageTintList(unchecked);
+                        error.setVisibility(View.GONE);
                         relativeLayout.setVisibility(View.GONE);
                         sounds_preview.setVisibility(View.VISIBLE);
                     } else {
+                        error.setVisibility(View.GONE);
                         sounds_preview.setVisibility(View.GONE);
                         relativeLayout.setVisibility(View.VISIBLE);
                         String[] commands = {arg0.getSelectedItem().toString()};
@@ -219,15 +223,24 @@ public class SoundPackager extends Fragment {
         protected void onPostExecute(String result) {
             try {
                 List<SoundsInfo> adapter1 = new ArrayList<>(wordList);
-                recyclerView = (RecyclerView) root.findViewById(R.id.recycler_view);
-                SoundsAdapter mAdapter = new SoundsAdapter(adapter1);
-                RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
-                recyclerView.setLayoutManager(mLayoutManager);
-                recyclerView.setItemAnimator(new DefaultItemAnimator());
-                recyclerView.setAdapter(mAdapter);
 
-                imageButton.setImageTintList(checked);
-                imageButton.setClickable(true);
+                if (adapter1.size() > 0) {
+                    recyclerView = (RecyclerView) root.findViewById(R.id.recycler_view);
+                    SoundsAdapter mAdapter = new SoundsAdapter(adapter1);
+                    RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager
+                            (getContext());
+
+                    recyclerView.setLayoutManager(mLayoutManager);
+                    recyclerView.setItemAnimator(new DefaultItemAnimator());
+                    recyclerView.setAdapter(mAdapter);
+
+                    imageButton.setImageTintList(checked);
+                    imageButton.setClickable(true);
+                } else {
+                    recyclerView.setVisibility(View.GONE);
+                    relativeLayout.setVisibility(View.GONE);
+                    error.setVisibility(View.VISIBLE);
+                }
                 progressBar.setVisibility(View.GONE);
             } catch (Exception e) {
                 Log.e("SoundsHandler", "Window was destroyed before AsyncTask could " +

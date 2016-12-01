@@ -122,7 +122,7 @@ public class ManageFragment extends Fragment {
                                                 if (DEBUG)
                                                     Log.e(References.SUBSTRATUM_LOG,
                                                             "Initializing the " +
-                                                            "Masquerade theme provider...");
+                                                                    "Masquerade theme provider...");
                                                 Intent runCommand = new Intent();
                                                 runCommand.addFlags(Intent
                                                         .FLAG_INCLUDE_STOPPED_PACKAGES);

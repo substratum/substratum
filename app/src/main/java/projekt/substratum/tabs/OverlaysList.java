@@ -1670,9 +1670,8 @@ public class OverlaysList extends Fragment {
                 current_dialog_overlay = "'" + References.grabPackageName(
                         mContext, current_overlay) + "'";
 
-                publishProgress((int) current_amount);
-
                 if (!enable_mode && !disable_mode) {
+                    publishProgress((int) current_amount);
                     if (compile_enable_mode) {
                         if (final_runner == null) final_runner = new ArrayList<>();
                         String package_name = checkedOverlays.get(i).getFullOverlayParameters();

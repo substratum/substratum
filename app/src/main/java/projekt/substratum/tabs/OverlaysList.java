@@ -13,6 +13,8 @@ import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -57,6 +59,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import eightbitlab.com.blurview.BlurView;
+import eightbitlab.com.blurview.RenderScriptBlur;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
@@ -107,6 +111,10 @@ public class OverlaysList extends Fragment {
     private String error_logs = "";
     private String themer_email, theme_author;
     private MaterialProgressBar materialProgressBar;
+    private double current_amount = 0;
+    private double total_amount = 0;
+    private String current_dialog_overlay;
+    private ProgressBar dialogProgress;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
@@ -241,12 +249,6 @@ public class OverlaysList extends Fragment {
                             }
                         }
                         if (!checkedOverlays.isEmpty()) {
-                            Toast toast = Toast.makeText(getContext(),
-                                    getString(R.string
-                                            .toast_updating),
-                                    Toast.LENGTH_LONG);
-                            toast.show();
-
                             if (base_spinner.getSelectedItemPosition() != 0 &&
                                     base_spinner.getVisibility() == View.VISIBLE) {
                                 Phase2_InitializeCache phase2_initializeCache = new
@@ -292,11 +294,6 @@ public class OverlaysList extends Fragment {
                             }
                         }
                         if (!checkedOverlays.isEmpty()) {
-                            Toast toast = Toast.makeText(getContext(),
-                                    getString(R.string.toast_updating),
-                                    Toast.LENGTH_LONG);
-                            toast.show();
-
                             if (base_spinner.getSelectedItemPosition() != 0 &&
                                     base_spinner.getVisibility() == View.VISIBLE) {
                                 Phase2_InitializeCache phase2_initializeCache = new
@@ -1020,8 +1017,24 @@ public class OverlaysList extends Fragment {
                 mProgressDialog.show();
                 mProgressDialog.setContentView(R.layout.compile_dialog_loader);
 
-                loader_string = (TextView) mProgressDialog.findViewById(R.id
-                        .loadingTextCreativeMode);
+                final float radius = 5;
+                final View decorView = getActivity().getWindow().getDecorView();
+                final View rootView = decorView.findViewById(android.R.id.content);
+                final Drawable windowBackground = decorView.getBackground();
+
+                BlurView blurView = (BlurView) mProgressDialog.findViewById(R.id.blurView);
+
+                blurView.setupWith(rootView)
+                        .windowBackground(windowBackground)
+                        .blurAlgorithm(new RenderScriptBlur(getContext(), true))
+                        .blurRadius(radius);
+
+                dialogProgress = (ProgressBar) mProgressDialog.findViewById(R.id.loading_bar);
+                dialogProgress.setProgressTintList(ColorStateList.valueOf(mContext.getColor(
+                        R.color.compile_dialog_wave_color)));
+                dialogProgress.setIndeterminate(false);
+
+                loader_string = (TextView) mProgressDialog.findViewById(R.id.title);
                 loader_string.setText(getContext().getResources().getString(
                         R.string.sb_phase_1_loader));
             }
@@ -1099,6 +1112,19 @@ public class OverlaysList extends Fragment {
                         R.string.sb_phase_2_loader));
             }
             super.onPreExecute();
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+            TextView textView = (TextView) mProgressDialog.findViewById(R.id.current_object);
+            textView.setText(current_dialog_overlay);
+            double progress = (current_amount / total_amount) * 100;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                dialogProgress.setProgress((int) progress, true);
+            } else {
+                dialogProgress.setProgress((int) progress);
+            }
         }
 
         @Override
@@ -1631,10 +1657,16 @@ public class OverlaysList extends Fragment {
                 }
             }
 
+            total_amount = checkedOverlays.size();
             for (int i = 0; i < checkedOverlays.size(); i++) {
+                current_amount = i + 1;
                 String theme_name_parsed = theme_name.replaceAll("\\s+", "").replaceAll
                         ("[^a-zA-Z0-9]+", "");
                 String current_overlay = checkedOverlays.get(i).getPackageName();
+                current_dialog_overlay = "'" + References.grabPackageName(
+                        mContext, current_overlay) + "'";
+
+                publishProgress((int) current_amount);
 
                 if (!enable_mode && !disable_mode) {
                     if (compile_enable_mode) {

@@ -631,6 +631,15 @@ public class References {
         final PackageManager pm = mContext.getPackageManager();
         ApplicationInfo ai;
         try {
+            if (package_name.equals("com.android.systemui.navbars")) {
+                return mContext.getString(R.string.systemui_navigation);
+            } else if (package_name.equals("com.android.systemui.headers")) {
+                return mContext.getString(R.string.systemui_headers);
+            } else if (package_name.equals("com.android.systemui.tiles")) {
+                return mContext.getString(R.string.systemui_qs_tiles);
+            } else if (package_name.equals("com.android.systemui.statusbars")) {
+                return mContext.getString(R.string.systemui_statusbar);
+            }
             ai = pm.getApplicationInfo(package_name, 0);
         } catch (final PackageManager.NameNotFoundException e) {
             ai = null;

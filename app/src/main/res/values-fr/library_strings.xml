@@ -80,20 +80,6 @@
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
-    <!-- Scrolling Image View -->
-    <!-- Author section -->
-    <!-- Library section -->
-    <string name="library_androidscrollingimageview_libraryDescription">Une vue pour Android
-        permettant un défilement latérale d\'images en continue. Cela peut être utilisé pour créer
-        un effet d\'animation parallaxe.
-    </string>
-    <!-- OpenSource section -->
-    <!-- ClassPath for autoDetect section -->
-    <string name="library_androidscrollingimageview_classPath">Une vue pour Android permettant un
-        défilement latérale d\'images en continue. Cela peut être utilisé pour créer un effet
-        d\'animation parallaxe.
-    </string>
-    <!-- License section -->
     <!-- Welcome -->
     <!-- Author section -->
     <!-- Library section -->

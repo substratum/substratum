@@ -182,32 +182,6 @@
     <string name="library_materialsheetfab_classPath">com.gordonwong:material-sheet-fab</string>
     <!-- License section -->
     <string name="library_materialsheetfab_licenseId">mit</string>
-    <!-- Scrolling Image View -->
-    <!-- Author section -->
-    <string name="library_androidscrollingimageview_author">Q42</string>
-    <string name="library_androidscrollingimageview_authorWebsite">https://www.q42.com/</string>
-    <!-- Library section -->
-    <string name="library_androidscrollingimageview_libraryName">AndroidScrollingImageView</string>
-    <string name="library_androidscrollingimageview_libraryDescription">Sebuah tampilan Android
-        untuk menampilkan gambar scrolling side yang terus-menerus dan berulang-ulang. Ini dapat
-        dipakai untuk menciptakan efek animasi parallax.
-    </string>
-    <string name="library_androidscrollingimageview_libraryWebsite">
-        https://github.com/Q42/AndroidScrollingImageView
-    </string>
-    <string name="library_androidscrollingimageview_libraryVersion">1.2</string>
-    <!-- OpenSource section -->
-    <string name="library_androidscrollingimageview_isOpenSource">true</string>
-    <string name="library_androidscrollingimageview_repositoryLink">
-        https://github.com/Q42/AndroidScrollingImageView
-    </string>
-    <!-- ClassPath for autoDetect section -->
-    <string name="library_androidscrollingimageview_classPath">An Android view for displaying
-        repeated continuous side scrolling images. This can be used to create a parallax animation
-        effect.
-    </string>
-    <!-- License section -->
-    <string name="library_androidscrollingimageview_licenseId">apache_2_0</string>
     <!-- Welcome -->
     <!-- Author section -->
     <string name="library_welcome_android_author">Stephen Tuso</string>

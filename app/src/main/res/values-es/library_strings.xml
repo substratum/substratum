@@ -83,20 +83,6 @@
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
-    <!-- Scrolling Image View -->
-    <!-- Author section -->
-    <!-- Library section -->
-    <string name="library_androidscrollingimageview_libraryDescription">Una vista Android para
-        mostrar imágenes de desplazamiento lateral continuas repetidas. Esto se puede utilizar para
-        crear un efecto de animación de paralaje.
-    </string>
-    <!-- OpenSource section -->
-    <!-- ClassPath for autoDetect section -->
-    <string name="library_androidscrollingimageview_classPath">Una vista Android para mostrar
-        imágenes de desplazamiento lateral continuas repetidas. Esto se puede utilizar para crear un
-        efecto de animación de paralaje.
-    </string>
-    <!-- License section -->
     <!-- Welcome -->
     <!-- Author section -->
     <!-- Library section -->

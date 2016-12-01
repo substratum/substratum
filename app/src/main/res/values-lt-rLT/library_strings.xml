@@ -81,20 +81,6 @@
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
-    <!-- Scrolling Image View -->
-    <!-- Author section -->
-    <!-- Library section -->
-    <string name="library_androidscrollingimageview_libraryDescription">Android vaizdas, rodantis
-        nuolat pasikartojančius slenkančius vaizdus. Tai gali būti naudojama norint sukurti
-        paralakso animacijos efektą.
-    </string>
-    <!-- OpenSource section -->
-    <!-- ClassPath for autoDetect section -->
-    <string name="library_androidscrollingimageview_classPath">An Android view for displaying
-        repeated continuous side scrolling images. This can be used to create a parallax animation
-        effect.
-    </string>
-    <!-- License section -->
     <!-- Welcome -->
     <!-- Author section -->
     <!-- Library section -->

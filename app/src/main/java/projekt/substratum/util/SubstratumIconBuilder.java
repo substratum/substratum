@@ -218,8 +218,8 @@ public class SubstratumIconBuilder {
                                     "<manifest xmlns:android=\"http://schemas.android" +
                                     ".com/apk/res/android\" package=\"" + overlay_package + "" +
                                     ".icon" + "\"\n" +
-                                    "        android:versionName=\"" + overlay_package + " (" +
-                                    versionName + ")\"> \n" +
+                                    "        android:versionName=\"" + theme_pack + " (" +
+                                    versionName + "\"> \n" +
                                     "    <overlay " + ((!theme_oms) ? "android:priority=\"" +
                                     legacy_priority + "\" " : "") +
                                     "android:targetPackage=\"" + overlay_package + "\"/>\n" +

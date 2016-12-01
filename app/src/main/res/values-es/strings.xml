@@ -202,9 +202,9 @@
     <string name="theme_information_quick_apply_wallpaper">Fondo de Pantalla</string>
     <string name="manage_dialog_text">¿Está seguro de que desea realizar esta acción?</string>
     <string name="manage_dialog_performing">Restaurando a valores por defecto&#8230;</string>
-    <string name="manage_bootanimation_text">Restaurar Animación de Inicio</string>
+    <string name="manage_bootanimation_title">Restaurar Animación de Inicio</string>
     <string name="manage_bootanimation_toast">Animación de Inicio restaurado con éxito!</string>
-    <string name="manage_bootanimation_title">Restaura la animación de inicio por defecto en el
+    <string name="manage_bootanimation_text">Restaura la animación de inicio por defecto en el
         dispositivo
     </string>
     <string name="manage_fonts_title">Restaurar Fuentes del Sistema</string>

@@ -187,9 +187,9 @@
     <string name="theme_information_quick_apply_wallpaper">Užsklanda</string>
     <string name="manage_dialog_text">Ar jūs tikrai norite atlikti šį veiksmą?</string>
     <string name="manage_dialog_performing">Atkuriama į numatytąjį&#8230;</string>
-    <string name="manage_bootanimation_text">Atkurti Įjungimo Animaciją</string>
+    <string name="manage_bootanimation_title">Atkurti Įjungimo Animaciją</string>
     <string name="manage_bootanimation_toast">Įjungimo animacija atkurta sėkmingai!</string>
-    <string name="manage_bootanimation_title">Atkuria numatytąją įjungimo animaciją jūsų
+    <string name="manage_bootanimation_text">Atkuria numatytąją įjungimo animaciją jūsų
         įrenginyje
     </string>
     <string name="manage_fonts_title">Atkurti Sistemos Šriftą</string>

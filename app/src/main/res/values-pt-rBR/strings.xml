@@ -164,9 +164,9 @@
     <string name="theme_information_quick_apply_wallpaper">Papel de Parede</string>
     <string name="manage_dialog_text">Tem certeza que deseja executar esta ação?</string>
     <string name="manage_dialog_performing">Restaurando ao padrão&#8230;</string>
-    <string name="manage_bootanimation_text">Restaurar a Animação de Boot</string>
+    <string name="manage_bootanimation_title">Restaurar a Animação de Boot</string>
     <string name="manage_bootanimation_toast">Animação de Boot restaurada com sucesso!</string>
-    <string name="manage_bootanimation_title">Restaura a animação de boot padrão do seu aparelho
+    <string name="manage_bootanimation_text">Restaura a animação de boot padrão do seu aparelho
     </string>
     <string name="manage_fonts_title">Restaura Fonte do Sistema</string>
     <string name="manage_fonts_toast">Fontes restauradas com sucesso!</string>

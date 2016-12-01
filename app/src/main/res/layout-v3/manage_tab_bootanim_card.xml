@@ -1,67 +1,57 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
                                     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                                    xmlns:scrolling_image_view="http://schemas.android.com/apk/res-auto"
-                                    xmlns:tools="http://schemas.android.com/tools"
                                     android:id="@+id/theme_card"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="10dp"
                                     android:clickable="true"
                                     android:foreground="?android:selectableItemBackground"
-                                    card_view:cardBackgroundColor="@color/main_screen_card_background"
-                                    card_view:cardCornerRadius="@dimen/main_screen_card_corner_radius"
-                                    card_view:cardElevation="@dimen/main_screen_card_corner_elevation">
+                                    card_view:cardBackgroundColor="@color/main_screen_card_background">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_margin="10dp">
 
-        <LinearLayout
-            android:id="@+id/animatedImage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="@dimen/activity_vertical_margin"
-            android:paddingTop="@dimen/activity_vertical_margin"
-            tools:context=".MainActivity">
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="64dp"
+            android:layout_height="72dp"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="5dp"
+            android:src="@drawable/quick_apply_bootanimation"/>
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <com.q42.android.scrollingimageview.ScrollingImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_gravity="bottom"
-                    scrolling_image_view:speed="1dp"
-                    scrolling_image_view:src="@drawable/theme_information_bootanimation_image"/>
-            </FrameLayout>
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/team_name"
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/animatedImage"
-            android:layout_gravity="center"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/manage_bootanimation_text"
-            android:textColor="@color/main_screen_card_theme_title"
-            android:textSize="25sp"/>
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/icon">
 
-        <TextView
-            android:id="@+id/team_content"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/team_name"
-            android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="2dp"
-            android:text="@string/manage_bootanimation_title"
-            android:textColor="@color/main_screen_card_theme_author"
-            android:textSize="14sp"/>
+            <TextView
+                android:id="@+id/team_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/manage_bootanimation_title"
+                android:textColor="@color/main_screen_card_theme_title"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/team_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/team_name"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="2dp"
+                android:text="@string/manage_bootanimation_text"
+                android:textColor="@color/main_screen_card_theme_author"
+                android:textSize="14sp"/>
+
+        </RelativeLayout>
     </RelativeLayout>
 
 </android.support.v7.widget.CardView>

@@ -167,9 +167,9 @@
     <string name="manage_dialog_text">Voulez-vous vraiment effectuer cette action ?</string>
     <string name="manage_dialog_performing">Restauration des valeurs par défaut en
         cours&#8230;</string>
-    <string name="manage_bootanimation_text">Restaurer l\'animation de démarrage</string>
+    <string name="manage_bootanimation_title">Restaurer l\'animation de démarrage</string>
     <string name="manage_bootanimation_toast">Animation de démarrage restaurée !</string>
-    <string name="manage_bootanimation_title">Rétablir l\'animation de démarrage par défaut</string>
+    <string name="manage_bootanimation_text">Rétablir l\'animation de démarrage par défaut</string>
     <string name="manage_fonts_title">Restaurer les polices système</string>
     <string name="manage_fonts_toast">Polices d\'écriture restaurées !</string>
     <string name="manage_fonts_text">Rétablir les polices d\'écriture système par défaut</string>

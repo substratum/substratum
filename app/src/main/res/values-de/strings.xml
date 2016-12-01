@@ -196,9 +196,9 @@
     <string name="theme_information_quick_apply_wallpaper">Hintergrund</string>
     <string name="manage_dialog_text">Soll diese Aktion ausgeführt werden?</string>
     <string name="manage_dialog_performing">Auf Standard zurücksetzen&#8230;</string>
-    <string name="manage_bootanimation_text">Boot-Animation wiederherstellen</string>
+    <string name="manage_bootanimation_title">Boot-Animation wiederherstellen</string>
     <string name="manage_bootanimation_toast">Boot-Animation erfolgreich wiederhergestellt!</string>
-    <string name="manage_bootanimation_title">Stellt die standardmäßige Boot-Animation des Gerätes
+    <string name="manage_bootanimation_text">Stellt die standardmäßige Boot-Animation des Gerätes
         wiederher
     </string>
     <string name="manage_fonts_title">Systemschriften wiederherstellen</string>

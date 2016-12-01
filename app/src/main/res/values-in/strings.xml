@@ -136,9 +136,9 @@
     <string name="theme_information_quick_apply_sounds">Suara</string>
     <string name="manage_dialog_text">Apa kamu yakin akan melakukan aksi ini? Ciyus?</string>
     <string name="manage_dialog_performing">Mengembalikan ke standar&#8230;</string>
-    <string name="manage_bootanimation_text">Mengembalikan Animasi Boot</string>
+    <string name="manage_bootanimation_title">Mengembalikan Animasi Boot</string>
     <string name="manage_bootanimation_toast">Pengembalian animasi boot telah sukses!</string>
-    <string name="manage_bootanimation_title">Mengembalikan animasi boot standar pada perangkatmu
+    <string name="manage_bootanimation_text">Mengembalikan animasi boot standar pada perangkatmu
     </string>
     <string name="manage_fonts_title">Mengembalikan Font Sistem</string>
     <string name="manage_fonts_toast">Pengembalian font telah sukses!</string>

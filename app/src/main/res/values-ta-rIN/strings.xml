@@ -183,11 +183,11 @@
     <string name="theme_information_quick_apply_wallpaper">சுவர்படம்</string>
     <string name="manage_dialog_text">இந்த செயலை நிச்சயமாக மேற்கொள்ள விரும்புகிறீர்களா?</string>
     <string name="manage_dialog_performing">இயல்பு நிலைக்கு திரும்பி செல்&#8230;</string>
-    <string name="manage_bootanimation_text">இயல்பு நிலை துவக்க அனிமேஷன் செல்க</string>
+    <string name="manage_bootanimation_title">இயல்பு நிலை துவக்க அனிமேஷன் செல்க</string>
     <string name="manage_bootanimation_toast">இயல்பு நிலை துவக்க அனிமேஷன் வெற்றிகரமாக செயல்
         படுத்தப்பட்டது!
     </string>
-    <string name="manage_bootanimation_title">உங்கள் சாதனத்தின் இயல்பு நிலை துவக்க அனிமேஷனை
+    <string name="manage_bootanimation_text">உங்கள் சாதனத்தின் இயல்பு நிலை துவக்க அனிமேஷனை
         செயல்படுத்தும்
     </string>
     <string name="manage_fonts_title">இயல்பு நிலை எழுத்துருப்பை மீட்கவும்</string>

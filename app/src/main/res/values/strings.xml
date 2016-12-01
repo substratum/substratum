@@ -260,9 +260,9 @@
 
     <string name="manage_dialog_text">Are you sure you want to perform this action?</string>
     <string name="manage_dialog_performing">Restoring to default&#8230;</string>
-    <string name="manage_bootanimation_text">Restore Boot Animation</string>
+    <string name="manage_bootanimation_title">Restore Boot Animation</string>
     <string name="manage_bootanimation_toast">Boot animation restored successfully!</string>
-    <string name="manage_bootanimation_title">Restores the default bootanimation on your device
+    <string name="manage_bootanimation_text">Restores the default bootanimation on your device
     </string>
     <string name="manage_fonts_title">Restore System Font</string>
     <string name="manage_fonts_toast">Fonts restored successfully!</string>
@@ -640,8 +640,8 @@
         https://plus.google.com/u/0/+idanshulman/
     </string>
     <string name="contributor_mihir" translatable="false">Mihir Mistry</string>
-    <string name="contributor_mihir_content">I made all of Substratum\'s theme information
-        drawables!
+    <string name="contributor_mihir_content">I made all of Substratum\'s previous default manager
+        animated drawables!
     </string>
     <string name="contributor_mihir_link" translatable="false">
         https://plus.google.com/u/0/+mihirmistryWALLY/

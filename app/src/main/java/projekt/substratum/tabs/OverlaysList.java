@@ -1907,7 +1907,7 @@ public class OverlaysList extends Fragment {
                                     References.checkOMS(getContext()),
                                     theme_pid);
 
-                            if (update_bool.equals("false")) {
+                            if (!update_bool) {
                                 final_runner.add(sb.no_install);
                             }
                             if (sb.has_errored_out) {

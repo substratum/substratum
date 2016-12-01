@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.AssetManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -25,10 +24,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -625,8 +621,10 @@ public class ManageFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... sUrl) {
+            int version = References.checkOMSVersion(getContext());
+            if (version == 3) final_commands = References.refreshWindows();
             References.delete("/data/system/theme/fonts/");
-            References.setProp("sys.refresh_theme", "1");
+            if (version == 7) References.setProp("sys.refresh_theme", "1");
             if (!prefs.getBoolean("systemui_recreate", false)) {
                 if (References.isPackageInstalled(getContext(), "masquerade.substratum")) {
                     Intent runCommand = new Intent();
@@ -639,28 +637,6 @@ public class ManageFragment extends Fragment {
                 }
             }
             return null;
-        }
-
-        private void copyAssets() {
-            AssetManager assetManager = getContext().getAssets();
-            final String filename = "fonts.xml";
-            try (InputStream in = assetManager.open(filename);
-                 OutputStream out = new FileOutputStream(getContext().getCacheDir()
-                         .getAbsolutePath() +
-                         "/FontCache/FontCreator/" + filename)) {
-                copyFile(in, out);
-            } catch (IOException e) {
-                Log.e("FontHandler", "Failed to move font configuration file to working " +
-                        "directory!");
-            }
-        }
-
-        private void copyFile(InputStream in, OutputStream out) throws IOException {
-            byte[] buffer = new byte[1024];
-            int read;
-            while ((read = in.read(buffer)) != -1) {
-                out.write(buffer, 0, read);
-            }
         }
     }
 

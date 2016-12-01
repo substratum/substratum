@@ -256,6 +256,12 @@
     <string name="manage_wallpaper_lock_toast">Lock screen wallpaper restored successfully!</string>
     <string name="manage_wallpaper_all_toast">Wallpaper restored successfully!</string>
 
+    <string name="manage_style">Style</string>
+    <string name="manage_fonts">Fonts</string>
+    <string name="manage_bootanimation">Boot Animation</string>
+    <string name="manage_sounds">Sounds</string>
+    <string name="manage_wallpaper">Wallpaper</string>
+
     <string name="adapter_uninstalling">Now removing %s&#8230;</string>
 
     <string name="plugin_template">Plugin</string>

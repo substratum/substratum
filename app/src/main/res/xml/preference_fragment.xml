@@ -76,13 +76,6 @@
         <CheckBoxPreference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:key="quick_apply"
-            android:summary="@string/quick_apply_preference_subtext"
-            android:title="@string/quick_apply_preference_title"/>
-
-        <CheckBoxPreference
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:key="show_template_version"
             android:summary="@string/show_theme_template_version_description"
             android:title="@string/show_theme_template_version"/>

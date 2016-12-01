@@ -19,7 +19,7 @@
             android:layout_height="72dp"
             android:layout_centerVertical="true"
             android:layout_marginEnd="5dp"
-            android:src="@drawable/quick_apply_sounds"/>
+            android:src="@drawable/manage_sounds"/>
 
         <RelativeLayout
             android:layout_width="wrap_content"

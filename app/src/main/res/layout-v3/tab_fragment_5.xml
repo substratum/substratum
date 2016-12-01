@@ -1,114 +1,89 @@
-<android.support.v4.widget.NestedScrollView
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/sounds_window_background">
+    android:background="@color/wallpaper_bg_background"
+    android:fitsSystemWindows="true"
+    tools:context=".MainActivity">
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/none_found"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_marginTop="57dp">
 
-        <RelativeLayout
+        <ImageView
+            android:id="@+id/image_placeholder"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/no_wallpapers_found"/>
+
+        <TextView
+            android:id="@+id/placeholder_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/sounds_spinner_background">
+            android:layout_below="@id/image_placeholder"
+            android:layout_margin="15dp"
+            android:gravity="center"
+            android:text="@string/wallpaper_no_wallpapers"
+            android:textColor="@color/font_text"
+            android:textSize="20dp"
+            android:textStyle="italic"/>
 
-            <Spinner
-                android:id="@+id/soundsSelection"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_toStartOf="@+id/checkBox"/>
+    </RelativeLayout>
 
-            <ImageButton
-                android:id="@+id/checkBox"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="15dp"
-                android:background="@android:color/transparent"
-                android:clickable="true"
-                android:foreground="?android:selectableItemBackground"
-                android:src="@drawable/tab_checkbox"/>
-        </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/no_network"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="57dp">
 
-        <RelativeLayout
-            android:id="@+id/sounds_placeholder"
+        <ImageView
+            android:id="@+id/image_placeholder2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="200dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/no_network"/>
 
-            <ImageView
-                android:id="@+id/image_placeholder"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginTop="30dp"
-                android:src="@drawable/sounds_placeholder"/>
-
-            <TextView
-                android:id="@+id/placeholder_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/image_placeholder"
-                android:layout_margin="15dp"
-                android:gravity="center"
-                android:text="@string/sounds_placeholder_text"
-                android:textColor="@color/sounds_text"
-                android:textSize="20dp"
-                android:textStyle="italic"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/error_loading_pack"
+        <TextView
+            android:id="@+id/placeholder_text2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:layout_below="@id/image_placeholder2"
+            android:layout_margin="15dp"
+            android:gravity="center"
+            android:text="@string/wallpaper_no_connection"
+            android:textColor="@color/font_text"
+            android:textSize="20dp"
+            android:textStyle="italic"/>
 
-            <ImageView
-                android:id="@+id/sad_emoji"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginTop="30dp"
-                android:src="@drawable/no_themes_installed"/>
+    </RelativeLayout>
 
-            <TextView
-                android:id="@+id/error_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/sad_emoji"
-                android:layout_margin="15dp"
-                android:gravity="center"
-                android:text="@string/error_loading_pack"
-                android:textColor="@color/sounds_text"
-                android:textSize="20dp"
-                android:textStyle="italic"/>
+    <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+        android:id="@+id/progress_bar_loader"
+        style="@style/Widget.MaterialProgressBar.ProgressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center_horizontal"
+        android:indeterminate="true"
+        android:paddingTop="50dp"/>
 
-        </RelativeLayout>
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-        <RelativeLayout
-            android:id="@+id/relativeLayout"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/wallpaperRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:clipToPadding="false"
+            android:paddingBottom="90dp"
+            android:scrollbars="vertical"/>
 
-            <me.zhanghai.android.materialprogressbar.MaterialProgressBar
-                android:id="@+id/progress_bar_loader"
-                style="@style/Widget.MaterialProgressBar.ProgressBar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|center_vertical"
-                android:layout_marginTop="50dp"
-                android:indeterminate="true"/>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="10dp"
-                android:layout_marginStart="10dp"/>
-
-        </RelativeLayout>
-    </LinearLayout>
-</android.support.v4.widget.NestedScrollView>
+</android.support.design.widget.CoordinatorLayout>

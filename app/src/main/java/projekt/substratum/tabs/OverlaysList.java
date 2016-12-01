@@ -120,7 +120,7 @@ public class OverlaysList extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
-        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.tab_fragment_2, container, false);
+        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.tab_fragment_1, container, false);
         prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 
         mContext = getContext();

@@ -59,7 +59,7 @@ public class BootAnimation extends Fragment {
 
         theme_pid = InformationActivity.getThemePID();
 
-        root = (ViewGroup) inflater.inflate(R.layout.tab_fragment_3, container, false);
+        root = (ViewGroup) inflater.inflate(R.layout.tab_fragment_2, container, false);
 
         animation = new AnimationDrawable();
         animation.setOneShot(false);

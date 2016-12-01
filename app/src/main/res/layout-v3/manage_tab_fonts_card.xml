@@ -19,7 +19,7 @@
             android:layout_height="72dp"
             android:layout_centerVertical="true"
             android:layout_marginEnd="5dp"
-            android:src="@drawable/quick_apply_fonts"/>
+            android:src="@drawable/manage_fonts"/>
 
         <RelativeLayout
             android:layout_width="wrap_content"

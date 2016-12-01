@@ -9,7 +9,6 @@ import java.util.List;
 
 import projekt.substratum.tabs.BootAnimation;
 import projekt.substratum.tabs.FontInstaller;
-import projekt.substratum.tabs.MainScreenTab;
 import projekt.substratum.tabs.OverlaysList;
 import projekt.substratum.tabs.SoundPackager;
 import projekt.substratum.tabs.Wallpapers;
@@ -62,10 +61,7 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
     }
 
     private Fragment getFragment() {
-        if (allow_quick_apply) {
-            allow_quick_apply = false;
-            return new MainScreenTab();
-        } else if (package_checker.contains("overlays")) {
+        if (package_checker.contains("overlays")) {
             package_checker.remove("overlays");
             return new OverlaysList();
         } else if (package_checker.contains("bootanimation")) {

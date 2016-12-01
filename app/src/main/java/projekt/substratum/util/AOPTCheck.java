@@ -43,7 +43,7 @@ public class AOPTCheck {
                                 "/system/bin/aopt");
                         References.setPermissions(777, "/system/bin/aopt");
                         References.mountRO();
-                        Log.d("SubstratumLogger",
+                        Log.d(References.SUBSTRATUM_LOG,
                                 "Android Overlay Packaging Tool (" + architecture + ") has been"
                                         + " added into the system partition.");
                     } else {
@@ -53,7 +53,7 @@ public class AOPTCheck {
                                 "/aapt", "/system/bin/aopt");
                         References.setPermissions(777, "/system/bin/aopt");
                         References.mountRO();
-                        Log.d("SubstratumLogger",
+                        Log.d(References.SUBSTRATUM_LOG,
                                 "Android Assets Packaging Tool (" + architecture + ") has been"
                                         + " added into the system partition.");
                     }
@@ -69,7 +69,8 @@ public class AOPTCheck {
                             "/aopt-x86", "/system/bin/aopt");
                     References.setPermissions(777, "/system/bin/aopt");
                     References.mountRO();
-                    Log.d("SubstratumLogger", "Android Assets Packaging Tool (x86) has been" +
+                    Log.d(References.SUBSTRATUM_LOG, "Android Assets Packaging Tool (x86) has " +
+                            "been" +
                             " added into the system partition.");
                 } catch (Exception e) {
                     //
@@ -84,10 +85,11 @@ public class AOPTCheck {
                                     "Android Overlay Packaging Tool, v0.2-android-7" +
                                             ".0-userdebug")
                     )) {
-                Log.d("SubstratumLogger", "The system partition already contains an existing " +
+                Log.d(References.SUBSTRATUM_LOG, "The system partition already contains an " +
+                        "existing " +
                         "compiler and Substratum is locked and loaded!");
             } else {
-                Log.e("SubstratumLogger",
+                Log.e(References.SUBSTRATUM_LOG,
                         "The system partition already contains an existing compiler, " +
                                 "however it does not match Substratum integrity.");
                 if (!Arrays.toString(Build.SUPPORTED_ABIS).contains("86")) {
@@ -104,7 +106,7 @@ public class AOPTCheck {
                                     "/system/bin/aopt");
                             References.setPermissions(777, "/system/bin/aopt");
                             References.mountRO();
-                            Log.d("SubstratumLogger",
+                            Log.d(References.SUBSTRATUM_LOG,
                                     "Android Overlay Packaging Tool (" + architecture + ") has been"
                                             + " added into the system partition.");
                         } else {
@@ -114,7 +116,7 @@ public class AOPTCheck {
                                     "/aapt", "/system/bin/aopt");
                             References.setPermissions(777, "/system/bin/aopt");
                             References.mountRO();
-                            Log.d("SubstratumLogger",
+                            Log.d(References.SUBSTRATUM_LOG,
                                     "Android Assets Packaging Tool (" + architecture + ") has been"
                                             + " added into the system partition.");
                         }
@@ -130,7 +132,8 @@ public class AOPTCheck {
                                 "/aopt-x86", "/system/bin/aopt");
                         References.setPermissions(777, "/system/bin/aopt");
                         References.mountRO();
-                        Log.d("SubstratumLogger", "Android Assets Packaging Tool (x86) has been" +
+                        Log.d(References.SUBSTRATUM_LOG, "Android Assets Packaging Tool (x86) has" +
+                                " been" +
                                 " added into the system partition.");
                     } catch (Exception e) {
                         //

@@ -164,7 +164,8 @@ public class ShowcaseTab extends Fragment {
                         "/ShowcaseCache/");
                 if (!showcase_directory.exists()) {
                     Boolean made = showcase_directory.mkdir();
-                    if (!made) Log.e("SubstratumLogger", "Could not make showcase directory...");
+                    if (!made)
+                        Log.e(References.SUBSTRATUM_LOG, "Could not make showcase directory...");
                 }
 
                 File current_wallpapers = new File(getContext().getCacheDir() +
@@ -244,14 +245,14 @@ public class ShowcaseTab extends Fragment {
                         Boolean renamed = renameMe.renameTo(new File(getContext().getCacheDir() +
                                 "/ShowcaseCache/" + sUrl[1]));
                         clearArray(sUrl[1].substring(0, sUrl[1].length() - 4), getContext());
-                        if (!renamed) Log.e("SubstratumLogger",
+                        if (!renamed) Log.e(References.SUBSTRATUM_LOG,
                                 "Could not replace the old tab file with the new tab file...");
                         cached = false;
                     } else {
                         File deleteMe = new File(getContext().getCacheDir() +
                                 "/" + inputFileName);
                         Boolean deleted = deleteMe.delete();
-                        if (!deleted) Log.e("SubstratumLogger",
+                        if (!deleted) Log.e(References.SUBSTRATUM_LOG,
                                 "Could not delete temporary tab file...");
                         cached = true;
                     }

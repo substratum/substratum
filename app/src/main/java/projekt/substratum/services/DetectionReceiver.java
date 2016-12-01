@@ -158,7 +158,8 @@ public class DetectionReceiver extends BroadcastReceiver {
                         }
                     }
                 } catch (Exception e) {
-                    Log.e("SubstratumLogger", "Unable to find package identifier (INDEX OUT OF " +
+                    Log.e(References.SUBSTRATUM_LOG, "Unable to find package identifier (INDEX " +
+                            "OUT OF " +
                             "BOUNDS)");
                 }
             }

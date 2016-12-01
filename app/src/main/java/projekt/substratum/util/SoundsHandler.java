@@ -559,7 +559,7 @@ public class SoundsHandler {
                                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                                 mContext.startActivity(intent);
                                             } else {
-                                                Log.d("SubstratumLogger",
+                                                Log.d(References.SUBSTRATUM_LOG,
                                                         "Substratum was granted " +
                                                                 "'android.permission" +
                                                                 ".WRITE_SETTINGS' " +

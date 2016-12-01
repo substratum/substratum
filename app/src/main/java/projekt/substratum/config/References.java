@@ -44,6 +44,7 @@ public class References {
     // These are specific log tags for different classes
     public static final Boolean ENABLE_SIGNING = true;
     public static final String SUBSTRATUM_BUILDER = "SubstratumBuilder";
+    public static final String SUBSTRATUM_LOG = "SubstratumLogger";
     public static final String SUBSTRATUM_ICON_BUILDER = "SubstratumIconBuilder";
     // Delays for Masquerade Icon Pack Handling
     public static final int MAIN_WINDOW_REFRESH_DELAY = 2000;
@@ -108,7 +109,8 @@ public class References {
         if (om.exists()) {
             prefs.edit().putBoolean("oms_state", true).apply();
             prefs.edit().putInt("oms_version", 3).apply();
-            Log.d("SubstratumLogger", "Initializing Substratum with the third iteration of " +
+            Log.d(References.SUBSTRATUM_LOG, "Initializing Substratum with the third iteration of" +
+                    " " +
                     "the Overlay Manager Service...");
         } else {
             // At this point, we must perform an OMS7 check
@@ -120,19 +122,19 @@ public class References {
                         "The overlay manager has already been initialized.")) {
                     prefs.edit().putBoolean("oms_state", true).apply();
                     prefs.edit().putInt("oms_version", 7).apply();
-                    Log.d("SubstratumLogger", "Initializing Substratum with the seventh " +
+                    Log.d(References.SUBSTRATUM_LOG, "Initializing Substratum with the seventh " +
                             "iteration of the Overlay Manager Service...");
                 } else {
                     prefs.edit().putBoolean("oms_state", false).apply();
                     prefs.edit().putInt("oms_version", 0).apply();
-                    Log.d("SubstratumLogger", "Initializing Substratum with the second " +
+                    Log.d(References.SUBSTRATUM_LOG, "Initializing Substratum with the second " +
                             "iteration of the Resource Runtime Overlay system...");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
                 prefs.edit().putBoolean("oms_state", false).apply();
                 prefs.edit().putInt("oms_version", 0).apply();
-                Log.d("SubstratumLogger", "Initializing Substratum with the second " +
+                Log.d(References.SUBSTRATUM_LOG, "Initializing Substratum with the second " +
                         "iteration of the Resource Runtime Overlay system...");
             }
         }
@@ -367,7 +369,8 @@ public class References {
             }
             return icon;
         } catch (Exception e) {
-            Log.e("SubstratumLogger", "Could not grab the application icon for \"" + package_name
+            Log.e(References.SUBSTRATUM_LOG, "Could not grab the application icon for \"" +
+                    package_name
                     + "\"");
         }
         return context.getDrawable(R.drawable.default_overlay_icon);
@@ -742,7 +745,7 @@ public class References {
                 long initializer = LetsGetStarted.initialize(mContext, package_name,
                         !References.checkOMS(mContext), theme_mode, References.DEBUG, saved_time);
                 if (initializer == 8256663 * 3) {
-                    Log.e("SubstratumLogger", "\"" + package_name + "\"" +
+                    Log.e(References.SUBSTRATUM_LOG, "\"" + package_name + "\"" +
                             " has been reported stolen on device [" +
                             getDeviceIMEI(mContext) + "]");
                     return false;
@@ -754,7 +757,7 @@ public class References {
                         !References.checkOMS(mContext), theme_mode, References.DEBUG, saved_time);
                 if (checker > -1) {
                     if (checker == 8256663 * 3) {
-                        Log.e("SubstratumLogger", "\"" + package_name + "\"" +
+                        Log.e(References.SUBSTRATUM_LOG, "\"" + package_name + "\"" +
                                 " has been reported stolen on device [" +
                                 getDeviceIMEI(mContext) + "]");
                         return false;

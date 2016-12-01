@@ -44,7 +44,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     References.settingsPackageName);
             return substratum_icon != 0;
         } catch (Exception e) {
-            Log.e("SubstratumLogger", "Could not load drawable from Settings.apk.");
+            Log.e(References.SUBSTRATUM_LOG, "Could not load drawable from Settings.apk.");
         }
         return false;
     }

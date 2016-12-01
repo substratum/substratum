@@ -553,7 +553,7 @@ public class OverlaysList extends Fragment {
                             .overlays_variant_substitute), reader.readLine());
                     type3.add(formatter);
                 } catch (IOException e) {
-                    Log.e("SubstratumLogger", "There was an error parsing asset " +
+                    Log.e(References.SUBSTRATUM_LOG, "There was an error parsing asset " +
                             "file!");
                     type3.add(getString(R.string
                             .overlays_variant_default_3));
@@ -597,7 +597,8 @@ public class OverlaysList extends Fragment {
                 base_spinner.setVisibility(View.INVISIBLE);
             }
             e.printStackTrace();
-            Log.e("SubstratumLogger", "Could not parse list of base options for this theme!");
+            Log.e(References.SUBSTRATUM_LOG, "Could not parse list of base options for this " +
+                    "theme!");
         }
         return root;
     }
@@ -725,7 +726,7 @@ public class OverlaysList extends Fragment {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.e("SubstratumLogger", "Could not refresh list of overlay folders.");
+                Log.e(References.SUBSTRATUM_LOG, "Could not refresh list of overlay folders.");
             }
 
             // Create the map for {package name: package identifier}
@@ -821,7 +822,8 @@ public class OverlaysList extends Fragment {
                                         .overlays_variant_substitute), reader.readLine());
                                 type1a.add(formatter);
                             } catch (IOException e) {
-                                Log.e("SubstratumLogger", "There was an error parsing asset " +
+                                Log.e(References.SUBSTRATUM_LOG, "There was an error parsing " +
+                                        "asset " +
                                         "file!");
                                 type1a.add(getString(R.string
                                         .overlays_variant_default_1a));
@@ -839,7 +841,8 @@ public class OverlaysList extends Fragment {
                                         .overlays_variant_substitute), reader.readLine());
                                 type1b.add(formatter);
                             } catch (IOException e) {
-                                Log.e("SubstratumLogger", "There was an error parsing asset " +
+                                Log.e(References.SUBSTRATUM_LOG, "There was an error parsing " +
+                                        "asset " +
                                         "file!");
                                 type1b.add(getString(R.string
                                         .overlays_variant_default_1b));
@@ -857,7 +860,8 @@ public class OverlaysList extends Fragment {
                                         .overlays_variant_substitute), reader.readLine());
                                 type1c.add(formatter);
                             } catch (IOException e) {
-                                Log.e("SubstratumLogger", "There was an error parsing asset " +
+                                Log.e(References.SUBSTRATUM_LOG, "There was an error parsing " +
+                                        "asset " +
                                         "file!");
                                 type1c.add(getString(R.string
                                         .overlays_variant_default_1c));
@@ -875,7 +879,8 @@ public class OverlaysList extends Fragment {
                                         .overlays_variant_substitute), reader.readLine());
                                 type2.add(formatter);
                             } catch (IOException e) {
-                                Log.e("SubstratumLogger", "There was an error parsing asset " +
+                                Log.e(References.SUBSTRATUM_LOG, "There was an error parsing " +
+                                        "asset " +
                                         "file!");
                                 type2.add(getString(R.string
                                         .overlays_variant_default_2));
@@ -1332,7 +1337,8 @@ public class OverlaysList extends Fragment {
                         if (toggle_all.isChecked()) toggle_all.setChecked(false);
                         if (References.isPackageInstalled(getContext(), "masquerade.substratum")) {
                             if (DEBUG)
-                                Log.e("SubstratumLogger", "Initializing the Masquerade theme " +
+                                Log.e(References.SUBSTRATUM_LOG, "Initializing the Masquerade " +
+                                        "theme " +
                                         "provider...");
                             if (final_commands.contains("pm install") &&
                                     References.checkOMSVersion(getContext()) == 3) {
@@ -1346,7 +1352,8 @@ public class OverlaysList extends Fragment {
                             getContext().sendBroadcast(runCommand);
                         } else {
                             if (DEBUG)
-                                Log.e("SubstratumLogger", "Masquerade was not found, falling " +
+                                Log.e(References.SUBSTRATUM_LOG, "Masquerade was not found, " +
+                                        "falling " +
                                         "back to Substratum theme provider...");
                             new References.ThreadRunner().execute(final_commands);
                         }
@@ -1402,7 +1409,8 @@ public class OverlaysList extends Fragment {
                         if (References.isPackageInstalled(getContext(),
                                 "masquerade.substratum")) {
                             if (DEBUG)
-                                Log.e("SubstratumLogger", "Initializing the Masquerade theme " +
+                                Log.e(References.SUBSTRATUM_LOG, "Initializing the Masquerade " +
+                                        "theme " +
                                         "provider...");
                             if (final_commands.contains("pm install") &&
                                     References.checkOMSVersion(getContext()) == 3) {
@@ -1419,7 +1427,8 @@ public class OverlaysList extends Fragment {
                             getContext().sendBroadcast(runCommand);
                         } else {
                             if (DEBUG)
-                                Log.e("SubstratumLogger", "Masquerade was not found, falling " +
+                                Log.e(References.SUBSTRATUM_LOG, "Masquerade was not found, " +
+                                        "falling " +
                                         "back to Substratum theme provider...");
                             new References.ThreadRunner().execute(
                                     ((disableBeforeEnabling.length() > 0) ?
@@ -1432,7 +1441,8 @@ public class OverlaysList extends Fragment {
                         if (References.isPackageInstalled(getContext(),
                                 "masquerade.substratum")) {
                             if (DEBUG)
-                                Log.e("SubstratumLogger", "Initializing the Masquerade theme " +
+                                Log.e(References.SUBSTRATUM_LOG, "Initializing the Masquerade " +
+                                        "theme " +
                                         "provider...");
                             Intent runCommand = new Intent();
                             runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
@@ -1441,7 +1451,8 @@ public class OverlaysList extends Fragment {
                             getContext().sendBroadcast(runCommand);
                         } else {
                             if (DEBUG)
-                                Log.e("SubstratumLogger", "Masquerade was not found, falling " +
+                                Log.e(References.SUBSTRATUM_LOG, "Masquerade was not found, " +
+                                        "falling " +
                                         "back to Substratum theme provider...");
                             new References.ThreadRunner().execute(final_commands);
                         }
@@ -1506,7 +1517,8 @@ public class OverlaysList extends Fragment {
                         if (References.isPackageInstalled(getContext(),
                                 "masquerade.substratum")) {
                             if (DEBUG)
-                                Log.e("SubstratumLogger", "Initializing the Masquerade theme " +
+                                Log.e(References.SUBSTRATUM_LOG, "Initializing the Masquerade " +
+                                        "theme " +
                                         "provider...");
                             Intent runCommand = new Intent();
                             runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
@@ -1518,7 +1530,8 @@ public class OverlaysList extends Fragment {
                             getContext().sendBroadcast(runCommand);
                         } else {
                             if (DEBUG)
-                                Log.e("SubstratumLogger", "Masquerade was not found, falling " +
+                                Log.e(References.SUBSTRATUM_LOG, "Masquerade was not found, " +
+                                        "falling " +
                                         "back to Substratum theme provider...");
                             new References.ThreadRunner().execute(
                                     ((disableBeforeEnabling.length() > 0) ?
@@ -1531,7 +1544,8 @@ public class OverlaysList extends Fragment {
                         if (References.isPackageInstalled(getContext(),
                                 "masquerade.substratum")) {
                             if (DEBUG)
-                                Log.e("SubstratumLogger", "Initializing the Masquerade theme " +
+                                Log.e(References.SUBSTRATUM_LOG, "Initializing the Masquerade " +
+                                        "theme " +
                                         "provider...");
                             Intent runCommand = new Intent();
                             runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
@@ -1540,7 +1554,8 @@ public class OverlaysList extends Fragment {
                             getContext().sendBroadcast(runCommand);
                         } else {
                             if (DEBUG)
-                                Log.e("SubstratumLogger", "Masquerade was not found, falling " +
+                                Log.e(References.SUBSTRATUM_LOG, "Masquerade was not found, " +
+                                        "falling " +
                                         "back to Substratum theme provider...");
                             new References.ThreadRunner().execute(final_commands);
                         }
@@ -1686,7 +1701,8 @@ public class OverlaysList extends Fragment {
                         List<String> state5 = ReadOverlays.main(5, getContext());
                         ArrayList<String> activated_overlays = new ArrayList<>(state5);
                         if (activated_overlays.size() > 0) {
-                            Log.d("SubstratumLogger", "There are activated overlays in this " +
+                            Log.d(References.SUBSTRATUM_LOG, "There are activated overlays in " +
+                                    "this " +
                                     "current device set up, so we will cherry pick whatever is " +
                                     "enabled from this theme...");
                         }
@@ -1782,7 +1798,8 @@ public class OverlaysList extends Fragment {
                                 for (int j = 0; j < activated_overlays_from_theme.size(); j++) {
                                     if (activated_overlays_from_theme.get(j).equals
                                             (checkedOverlays.get(i).getFullOverlayParameters())) {
-                                        Log.d("SubstratumLogger", "The flag to update this " +
+                                        Log.d(References.SUBSTRATUM_LOG, "The flag to update this" +
+                                                " " +
                                                 "overlay has been triggered.");
                                         update_bool = false;
                                     }
@@ -1867,7 +1884,8 @@ public class OverlaysList extends Fragment {
                                 for (int j = 0; j < activated_overlays_from_theme.size(); j++) {
                                     if (activated_overlays_from_theme.get(j).equals
                                             (current_overlay + "." + theme_name_parsed)) {
-                                        Log.d("SubstratumLogger", "The flag to update this " +
+                                        Log.d(References.SUBSTRATUM_LOG, "The flag to update this" +
+                                                " " +
                                                 "overlay has been triggered.");
                                         update_bool = false;
                                     }
@@ -1904,7 +1922,7 @@ public class OverlaysList extends Fragment {
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
-                        Log.e("SubstratumLogger", "Main function has unexpectedly stopped!");
+                        Log.e(References.SUBSTRATUM_LOG, "Main function has unexpectedly stopped!");
                     }
                 } else {
                     if (final_runner == null) final_runner = new ArrayList<>();

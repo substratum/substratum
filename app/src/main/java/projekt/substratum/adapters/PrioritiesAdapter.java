@@ -19,6 +19,7 @@ import com.thesurix.gesturerecycler.GestureViewHolder;
 import java.io.ByteArrayOutputStream;
 
 import projekt.substratum.R;
+import projekt.substratum.config.References;
 import projekt.substratum.model.Priorities;
 import projekt.substratum.model.PrioritiesHeader;
 import projekt.substratum.model.PrioritiesItem;
@@ -76,7 +77,7 @@ public class PrioritiesAdapter extends GestureAdapter<PrioritiesItem, GestureVie
                     }
 
                 } catch (Exception e) {
-                    Log.e("SubstratumLogger", "Could not find explicit package identifier" +
+                    Log.e(References.SUBSTRATUM_LOG, "Could not find explicit package identifier" +
                             " in package manager list.");
                 }
 

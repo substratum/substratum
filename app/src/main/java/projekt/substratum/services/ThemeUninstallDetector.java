@@ -71,7 +71,8 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
             if (prefs.contains("installed_themes")) {
                 Set installed_themes = prefs.getStringSet("installed_themes", null);
                 if (installed_themes.contains(package_name)) {
-                    Log.d("SubstratumLogger", "Now purging caches for \"" + package_name + "\"...");
+                    Log.d(References.SUBSTRATUM_LOG, "Now purging caches for \"" + package_name +
+                            "\"...");
                     References.delete(context.getCacheDir().getAbsolutePath() +
                             "/SubstratumBuilder/" + package_name + "/");
 
@@ -92,7 +93,7 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
                             References.copyDir("/system/fonts/", "/data/system/theme/");
                             copyAssets(context);
                             References.move(context.getCacheDir().getAbsolutePath() +
-                                    "/FontCache/FontCreator/fonts.xml",
+                                            "/FontCache/FontCreator/fonts.xml",
                                     "/data/system/theme/fonts/");
 
                             // Check for correct permissions and system file context integrity.

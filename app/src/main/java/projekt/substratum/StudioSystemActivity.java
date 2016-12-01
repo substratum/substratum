@@ -376,7 +376,7 @@ public class StudioSystemActivity extends AppCompatActivity {
                 // these are the resources currently loaded on top of the current view
                 if (icons.get(i).getPackageName().equals("android") ||
                         icons.get(i).getPackageName().equals("projekt.substratum")) {
-                    Log.d("SubstratumLogger", "The flag to update this " +
+                    Log.d(References.SUBSTRATUM_LOG, "The flag to update this " +
                             "overlay has been triggered.");
                     update_bool = false;
                 }

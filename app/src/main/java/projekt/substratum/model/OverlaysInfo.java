@@ -11,6 +11,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import projekt.substratum.config.References;
+
 public class OverlaysInfo implements Serializable {
 
     public boolean is_variant_chosen = false;
@@ -228,7 +230,7 @@ public class OverlaysInfo implements Serializable {
                     getFullOverlayParameters(), 0);
             return pinfo.versionName.equals(versionName);
         } catch (Exception e) {
-            Log.e("SubstratumLogger", "Could not find explicit package identifier in " +
+            Log.e(References.SUBSTRATUM_LOG, "Could not find explicit package identifier in " +
                     "package manager list.");
         }
         return false;
@@ -247,7 +249,7 @@ public class OverlaysInfo implements Serializable {
                     getPackageName() + "." + theme_name + variant + base, 0);
             return pinfo.versionName.equals(versionName);
         } catch (Exception e) {
-            Log.e("SubstratumLogger", "Could not find explicit package identifier in " +
+            Log.e(References.SUBSTRATUM_LOG, "Could not find explicit package identifier in " +
                     "package manager list.");
         }
         return false;

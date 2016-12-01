@@ -166,7 +166,7 @@ public class ThemeFragment extends Fragment {
                                                         (References.metadataName), data);
                                             }
                                         } catch (Exception e) {
-                                            Log.e("SubstratumLogger",
+                                            Log.e(References.SUBSTRATUM_LOG,
                                                     "Unable to find package identifier");
                                         }
                                     }
@@ -205,7 +205,7 @@ public class ThemeFragment extends Fragment {
                                                     (References.metadataName), data);
                                         }
                                     } catch (Exception e) {
-                                        Log.e("SubstratumLogger",
+                                        Log.e(References.SUBSTRATUM_LOG,
                                                 "Unable to find package identifier");
                                     }
                                 }
@@ -263,7 +263,7 @@ public class ThemeFragment extends Fragment {
         try {
             new AOPTCheck().injectAOPT(getContext(), false);
         } catch (Exception e) {
-            Log.e("SubstratumLogger", "AOPT could not be checked or injected at this time.");
+            Log.e(References.SUBSTRATUM_LOG, "AOPT could not be checked or injected at this time.");
         }
 
         MaterialProgressBar materialProgressBar = (MaterialProgressBar) root.findViewById(R.id

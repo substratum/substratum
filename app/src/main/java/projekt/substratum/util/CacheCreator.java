@@ -60,7 +60,8 @@ public class CacheCreator {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e("SubstratumLogger", "Unable to find package identifier (INDEX OUT OF BOUNDS)");
+            Log.e(References.SUBSTRATUM_LOG, "Unable to find package identifier (INDEX OUT OF " +
+                    "BOUNDS)");
         }
         return null;
     }
@@ -115,18 +116,20 @@ public class CacheCreator {
             File myDir = new File(mContext.getCacheDir(), References.SUBSTRATUM_BUILDER);
             if (!myDir.exists()) {
                 boolean created = myDir.mkdir();
-                if (!created) Log.e("SubstratumLogger",
+                if (!created) Log.e(References.SUBSTRATUM_LOG,
                         "Could not create Substratum cache folder...");
             }
             File myDir2 = new File(mContext.getCacheDir().getAbsoluteFile() +
                     "/SubstratumBuilder/" + package_identifier);
             if (!myDir2.exists()) {
                 boolean created = myDir2.mkdir();
-                if (!created) Log.e("SubstratumLogger", "Could not create theme cache folder...");
+                if (!created)
+                    Log.e(References.SUBSTRATUM_LOG, "Could not create theme cache folder...");
             } else {
                 References.delete(myDir2.getAbsolutePath());
                 boolean created = myDir2.mkdir();
-                if (!created) Log.e("SubstratumLogger", "Could not create theme cache folder...");
+                if (!created)
+                    Log.e(References.SUBSTRATUM_LOG, "Could not create theme cache folder...");
             }
             String destination = mContext.getCacheDir().getAbsolutePath() + "/SubstratumBuilder/"
                     + package_identifier;
@@ -224,7 +227,7 @@ public class CacheCreator {
                 return false;
             }
         } else {
-            Log.e("SubstratumLogger",
+            Log.e(References.SUBSTRATUM_LOG,
                     "There is no valid package name under this abbreviated folder " +
                             "count.");
         }
@@ -248,7 +251,7 @@ public class CacheCreator {
                 "/SubstratumBuilder/" + package_name + "/substratum.xml");
         try {
             Boolean created = root.createNewFile();
-            if (!created) Log.e("SubstratumLogger",
+            if (!created) Log.e(References.SUBSTRATUM_LOG,
                     "Unable to create versioning placeholder file...");
             FileWriter fw = new FileWriter(root);
             BufferedWriter bw = new BufferedWriter(fw);

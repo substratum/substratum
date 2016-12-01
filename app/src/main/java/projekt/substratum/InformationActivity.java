@@ -389,7 +389,7 @@ public class InformationActivity extends AppCompatActivity {
                                 .theme_information_tab_six)));
                     }
                 } catch (Exception e) {
-                    Log.e("SubstratumLogger", "Could not refresh list of asset folders.");
+                    Log.e(References.SUBSTRATUM_LOG, "Could not refresh list of asset folders.");
                 }
             } else {
                 if (theme_mode.equals("overlays")) {

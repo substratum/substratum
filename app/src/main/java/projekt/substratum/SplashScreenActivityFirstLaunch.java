@@ -8,6 +8,8 @@ import android.os.Handler;
 import android.util.Log;
 import android.widget.ImageView;
 
+import projekt.substratum.config.References;
+
 public class SplashScreenActivityFirstLaunch extends Activity {
 
     @Override
@@ -29,7 +31,7 @@ public class SplashScreenActivityFirstLaunch extends Activity {
             frameAnimation.setOneShot(true);
             frameAnimation.run();
         } catch (OutOfMemoryError oome) {
-            Log.e("SubstratumLogger", "The VM has been blown up and the rendering of " +
+            Log.e(References.SUBSTRATUM_LOG, "The VM has been blown up and the rendering of " +
                     "the splash screen animated icon has been cancelled.");
         }
 

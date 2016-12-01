@@ -120,7 +120,8 @@ public class ManageFragment extends Fragment {
                                             if (References.isPackageInstalled(getContext(),
                                                     "masquerade.substratum")) {
                                                 if (DEBUG)
-                                                    Log.e("SubstratumLogger", "Initializing the " +
+                                                    Log.e(References.SUBSTRATUM_LOG,
+                                                            "Initializing the " +
                                                             "Masquerade theme provider...");
                                                 Intent runCommand = new Intent();
                                                 runCommand.addFlags(Intent
@@ -132,7 +133,8 @@ public class ManageFragment extends Fragment {
                                                 getContext().sendBroadcast(runCommand);
                                             } else {
                                                 if (DEBUG)
-                                                    Log.e("SubstratumLogger", "Masquerade was not" +
+                                                    Log.e(References.SUBSTRATUM_LOG, "Masquerade " +
+                                                            "was not" +
                                                             " " +
                                                             "found, falling back to Substratum " +
                                                             "theme " +
@@ -227,7 +229,8 @@ public class ManageFragment extends Fragment {
                                                 Toast.LENGTH_SHORT);
                                         toast.show();
                                     } catch (IOException e) {
-                                        Log.e("SubstratumLogger", "Failed to restore home screen " +
+                                        Log.e(References.SUBSTRATUM_LOG, "Failed to restore home " +
+                                                "screen " +
                                                 "wallpaper!");
                                     }
                                     break;
@@ -241,7 +244,8 @@ public class ManageFragment extends Fragment {
                                                 Toast.LENGTH_SHORT);
                                         toast.show();
                                     } catch (IOException e) {
-                                        Log.e("SubstratumLogger", "Failed to restore lock screen " +
+                                        Log.e(References.SUBSTRATUM_LOG, "Failed to restore lock " +
+                                                "screen " +
                                                 "wallpaper!");
                                     }
                                     break;
@@ -256,7 +260,8 @@ public class ManageFragment extends Fragment {
                                                 Toast.LENGTH_SHORT);
                                         toast.show();
                                     } catch (IOException e) {
-                                        Log.e("SubstratumLogger", "Failed to restore wallpapers!");
+                                        Log.e(References.SUBSTRATUM_LOG, "Failed to restore " +
+                                                "wallpapers!");
                                     }
                                     break;
                             }
@@ -280,7 +285,8 @@ public class ManageFragment extends Fragment {
                                                 Toast.LENGTH_SHORT);
                                         toast.show();
                                     } catch (IOException e) {
-                                        Log.e("SubstratumLogger", "Failed to restore home screen " +
+                                        Log.e(References.SUBSTRATUM_LOG, "Failed to restore home " +
+                                                "screen " +
                                                 "wallpaper!");
                                     }
                                 }
@@ -425,13 +431,14 @@ public class ManageFragment extends Fragment {
             } catch (Exception e) {
                 // At this point the window is refreshed too many times causing an unattached
                 // Activity
-                Log.e("SubstratumLogger", "Profile window refreshed too " +
+                Log.e(References.SUBSTRATUM_LOG, "Profile window refreshed too " +
                         "many times, restarting current activity to preserve app " +
                         "integrity.");
             }
             if (References.isPackageInstalled(getContext(), "masquerade.substratum")) {
                 if (DEBUG)
-                    Log.e("SubstratumLogger", "Initializing the Masquerade theme provider...");
+                    Log.e(References.SUBSTRATUM_LOG, "Initializing the Masquerade theme " +
+                            "provider...");
                 Intent runCommand = new Intent();
                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                 runCommand.setAction("masquerade.substratum.COMMANDS");
@@ -439,7 +446,7 @@ public class ManageFragment extends Fragment {
                 getContext().sendBroadcast(runCommand);
             } else {
                 if (DEBUG)
-                    Log.e("SubstratumLogger", "Masquerade was not found, falling back to " +
+                    Log.e(References.SUBSTRATUM_LOG, "Masquerade was not found, falling back to " +
                             "Substratum theme provider...");
                 new References.ThreadRunner().execute(final_commands);
             }
@@ -527,7 +534,7 @@ public class ManageFragment extends Fragment {
                 try {
                     Class<?> cls = Class.forName("android.graphics.Typeface");
                     cls.getDeclaredMethod("recreateDefaults");
-                    Log.e("SubstratumLogger", "Reflected into the Android Framework and " +
+                    Log.e(References.SUBSTRATUM_LOG, "Reflected into the Android Framework and " +
                             "initialized a font recreation!");
                 } catch (Exception ex) {
                     ex.printStackTrace();
@@ -546,7 +553,8 @@ public class ManageFragment extends Fragment {
             } else {
                 if (References.isPackageInstalled(getContext(), "masquerade.substratum")) {
                     if (DEBUG)
-                        Log.e("SubstratumLogger", "Initializing the Masquerade theme provider...");
+                        Log.e(References.SUBSTRATUM_LOG, "Initializing the Masquerade theme " +
+                                "provider...");
                     Intent runCommand = new Intent();
                     runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                     runCommand.setAction("masquerade.substratum.COMMANDS");
@@ -554,13 +562,15 @@ public class ManageFragment extends Fragment {
                     getContext().sendBroadcast(runCommand);
                 } else {
                     if (DEBUG)
-                        Log.e("SubstratumLogger", "Masquerade was not found, falling back to " +
+                        Log.e(References.SUBSTRATUM_LOG, "Masquerade was not found, falling back " +
+                                "to " +
                                 "Substratum theme provider...");
                     new References.ThreadRunner().execute(final_commands);
                 }
                 if (References.isPackageInstalled(getContext(), "masquerade.substratum")) {
                     if (DEBUG)
-                        Log.e("SubstratumLogger", "Initializing the Masquerade theme provider...");
+                        Log.e(References.SUBSTRATUM_LOG, "Initializing the Masquerade theme " +
+                                "provider...");
                     Intent runCommand = new Intent();
                     runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                     runCommand.setAction("masquerade.substratum.COMMANDS");
@@ -568,7 +578,8 @@ public class ManageFragment extends Fragment {
                     getContext().sendBroadcast(runCommand);
                 } else {
                     if (DEBUG)
-                        Log.e("SubstratumLogger", "Masquerade was not found, falling back to " +
+                        Log.e(References.SUBSTRATUM_LOG, "Masquerade was not found, falling back " +
+                                "to " +
                                 "Substratum theme provider...");
                     References.setProp("setprop sys.refresh_theme", "1");
                 }

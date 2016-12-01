@@ -96,13 +96,13 @@ public class ProfileFragment extends Fragment {
                 "/substratum/");
         if (!directory.exists()) {
             Boolean made = directory.mkdirs();
-            if (!made) Log.e("SubstratumLogger", "Could not create Substratum directory...");
+            if (!made) Log.e(References.SUBSTRATUM_LOG, "Could not create Substratum directory...");
         }
         File directory2 = new File(Environment.getExternalStorageDirectory(),
                 "/substratum/profiles");
         if (!directory2.exists()) {
             Boolean made = directory2.mkdirs();
-            if (!made) Log.e("SubstratumLogger", "Could not create profile directory...");
+            if (!made) Log.e(References.SUBSTRATUM_LOG, "Could not create profile directory...");
         }
 
         // Handle Backups
@@ -181,7 +181,8 @@ public class ProfileFragment extends Fragment {
                                                     ".substratum");
                                             boolean deleted = f.delete();
                                             if (!deleted)
-                                                Log.e("SubstratumLogger", "Could not delete " +
+                                                Log.e(References.SUBSTRATUM_LOG, "Could not " +
+                                                        "delete " +
                                                         "profile directory.");
                                             References.delete(
                                                     Environment.getExternalStorageDirectory()
@@ -283,10 +284,12 @@ public class ProfileFragment extends Fragment {
                             Environment.getExternalStorageDirectory().getAbsolutePath() +
                                     "/substratum/profiles/" + aet_getText);
                     boolean created = makeProfileDir.mkdir();
-                    if (!created) Log.e("SubstratumLogger", "Could not create profile directory.");
+                    if (!created)
+                        Log.e(References.SUBSTRATUM_LOG, "Could not create profile directory.");
                 } else {
                     boolean created = makeProfileDir.mkdir();
-                    if (!created) Log.e("SubstratumLogger", "Could not create profile directory.");
+                    if (!created)
+                        Log.e(References.SUBSTRATUM_LOG, "Could not create profile directory.");
                 }
 
                 // Backup the entire /data/system/theme/ folder
@@ -326,7 +329,8 @@ public class ProfileFragment extends Fragment {
                     File newFolder = new File(Environment.getExternalStorageDirectory()
                             .getAbsolutePath() + "/substratum/profiles/" + aet_getText);
                     boolean success = oldFolder.renameTo(newFolder);
-                    if (!success) Log.e("SubstratumLogger", "Could not move profile directory...");
+                    if (!success)
+                        Log.e(References.SUBSTRATUM_LOG, "Could not move profile directory...");
 
                     // Now begin backing up sounds
                     References.copyDir("/data/system/theme/audio/",
@@ -648,7 +652,8 @@ public class ProfileFragment extends Fragment {
                         package_name = getContext().getPackageManager().getApplicationLabel
                                 (applicationInfo).toString();
                     } catch (Exception e) {
-                        Log.e("SubstratumLogger", "Could not find explicit package identifier" +
+                        Log.e(References.SUBSTRATUM_LOG, "Could not find explicit package " +
+                                "identifier" +
                                 " in package manager list.");
                     }
 

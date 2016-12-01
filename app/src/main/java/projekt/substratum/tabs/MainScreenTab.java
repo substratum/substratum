@@ -71,7 +71,7 @@ public class MainScreenTab extends Fragment {
             PackageInfo pinfo = getContext().getPackageManager().getPackageInfo(package_name, 0);
             return pinfo.versionName.equals(versionName);
         } catch (Exception e) {
-            Log.e("SubstratumLogger", "Could not find explicit package identifier in " +
+            Log.e(References.SUBSTRATUM_LOG, "Could not find explicit package identifier in " +
                     "package manager list.");
         }
         return false;
@@ -408,7 +408,7 @@ public class MainScreenTab extends Fragment {
                 File[] unfilteredDirectory = f.listFiles();
                 File[] type3Directory = f2.listFiles();
 
-                Log.d("SubstratumLogger", "Loading resources from " + theme_name);
+                Log.d(References.SUBSTRATUM_LOG, "Loading resources from " + theme_name);
                 for (File unfiltered : unfilteredDirectory) {
                     String current = unfiltered.getName();
                     if (!tp_enabled) {
@@ -419,14 +419,14 @@ public class MainScreenTab extends Fragment {
                                     References.allowedSystemUIOverlay(current) ||
                                     References.allowedSettingsOverlay(current)) {
                                 filteredDirectory.add(current);
-                                Log.d("SubstratumLogger", "System Overlay: " + current);
+                                Log.d(References.SUBSTRATUM_LOG, "System Overlay: " + current);
                             }
                         }
                     } else {
                         if (!systemPackages.contains(current)) {
                             if (References.isPackageInstalled(getContext(), current)) {
                                 filteredDirectory.add(current);
-                                Log.d("SubstratumLogger", "Third-party Overlay: " + current);
+                                Log.d(References.SUBSTRATUM_LOG, "Third-party Overlay: " + current);
                             }
                         }
                     }
@@ -623,7 +623,7 @@ public class MainScreenTab extends Fragment {
                     final_commands = final_commands + " " + to_be_enabled.get(j);
                 }
             }
-            Log.e("SubstratumLogger", final_commands);
+            Log.e(References.SUBSTRATUM_LOG, final_commands);
             if (References.isPackageInstalled(getContext(), "masquerade.substratum")) {
                 Intent runCommand = new Intent();
                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
@@ -742,7 +742,7 @@ public class MainScreenTab extends Fragment {
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Log.e("SubstratumLogger", "There was an error trying to run " +
+                    Log.e(References.SUBSTRATUM_LOG, "There was an error trying to run " +
                             "SubstratumBuilder.");
                 }
             }

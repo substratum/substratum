@@ -26,7 +26,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
                 SharedPreferences prefs = context.getSharedPreferences(
                         "filter_state", Context.MODE_PRIVATE);
                 prefs.edit().clear().apply();
-                Log.d("SubstratumLogger",
+                Log.d(References.SUBSTRATUM_LOG,
                         "The filter cache has been wiped in accordance to intent: " +
                                 package_name + " [" + intent.getAction() + "]");
             } else {
@@ -39,7 +39,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
                                 SharedPreferences prefs = context.getSharedPreferences(
                                         "filter_state", Context.MODE_PRIVATE);
                                 prefs.edit().clear().apply();
-                                Log.d("SubstratumLogger",
+                                Log.d(References.SUBSTRATUM_LOG,
                                         "The filter cache has been wiped in accordance to intent:" +
                                                 " " + package_name + " [" +
                                                 intent.getAction() + "]");

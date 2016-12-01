@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements
 
     private void printFCMtoken() {
         String token = FirebaseInstanceId.getInstance().getToken();
-        Log.d("SubstratumLogger", "FCM Registration Token: " + token);
+        Log.d(References.SUBSTRATUM_LOG, "FCM Registration Token: " + token);
     }
 
     private boolean copyRescueFile(Context context, String sourceFileName, String destFileName) {
@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements
         File destParentDir = destFile.getParentFile();
         if (!destParentDir.exists()) {
             Boolean made = destParentDir.mkdir();
-            if (!made) Log.e("SubstratumLogger",
+            if (!made) Log.e(References.SUBSTRATUM_LOG,
                     "Unable to create directories for rescue archive dumps.");
         }
 
@@ -182,7 +182,7 @@ public class MainActivity extends AppCompatActivity implements
             cls.getDeclaredMethod("getSystemFontDirLocation");
             cls.getDeclaredMethod("getThemeFontConfigLocation");
             cls.getDeclaredMethod("getThemeFontDirLocation");
-            Log.d("SubstratumLogger", "This system fully supports font hotswapping.");
+            Log.d(References.SUBSTRATUM_LOG, "This system fully supports font hotswapping.");
             fonts_allowed = true;
         } catch (Exception ex) {
             // Suppress Fonts
@@ -756,13 +756,13 @@ public class MainActivity extends AppCompatActivity implements
                     "/.substratum/");
             if (!directory.exists()) {
                 Boolean made = directory.mkdirs();
-                if (!made) Log.e("SubstratumLogger", "Unable to create directory");
+                if (!made) Log.e(References.SUBSTRATUM_LOG, "Unable to create directory");
             }
             File cacheDirectory = new File(getCacheDir(),
                     "/SubstratumBuilder/");
             if (!cacheDirectory.exists()) {
                 Boolean made = cacheDirectory.mkdirs();
-                if (!made) Log.e("SubstratumLogger", "Unable to create cache directory");
+                if (!made) Log.e(References.SUBSTRATUM_LOG, "Unable to create cache directory");
             }
             File rescueFile = new File(Environment.getExternalStorageDirectory() +
                     java.io.File.separator + "SubstratumRescue.zip");
@@ -920,14 +920,15 @@ public class MainActivity extends AppCompatActivity implements
                             "/.substratum/");
                     if (!directory.exists()) {
                         Boolean made = directory.mkdirs();
-                        if (!made) Log.e("SubstratumLogger",
+                        if (!made) Log.e(References.SUBSTRATUM_LOG,
                                 "Could not make internal substratum directory.");
                     }
                     File cacheDirectory = new File(getCacheDir(),
                             "/SubstratumBuilder/");
                     if (!cacheDirectory.exists()) {
                         Boolean made = cacheDirectory.mkdirs();
-                        if (!made) Log.e("SubstratumLogger", "Could not create cache directory.");
+                        if (!made)
+                            Log.e(References.SUBSTRATUM_LOG, "Could not create cache directory.");
                     }
                     File[] fileList = new File(getCacheDir().getAbsolutePath() +
                             "/SubstratumBuilder/").listFiles();
@@ -1062,7 +1063,7 @@ public class MainActivity extends AppCompatActivity implements
                                 "/.substratum/");
                         if (!directory.exists()) {
                             Boolean made = directory.mkdirs();
-                            if (!made) Log.e("SubstratumLogger",
+                            if (!made) Log.e(References.SUBSTRATUM_LOG,
                                     "Could not make substratum directory on internal storage.");
                         }
                     }

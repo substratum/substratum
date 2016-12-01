@@ -277,14 +277,6 @@ public class InformationActivity extends AppCompatActivity {
         theme_mode = currentIntent.getStringExtra("theme_mode");
         Boolean theme_legacy = currentIntent.getBooleanExtra("theme_legacy", false);
         refresh_mode = currentIntent.getBooleanExtra("refresh_mode", false);
-        String plugin_version = currentIntent.getStringExtra("plugin_version");
-        if (plugin_version == null) {
-            Toast toast = Toast.makeText(getApplicationContext(),
-                    getString(R.string
-                            .information_activity_upgrade_toast_lenient),
-                    Toast.LENGTH_LONG);
-            toast.show();
-        }
         wallpaperUrl = null;
 
         try {

@@ -45,6 +45,10 @@ public class References {
     public static final Boolean ENABLE_SIGNING = true;
     public static final String SUBSTRATUM_BUILDER = "SubstratumBuilder";
     public static final String SUBSTRATUM_ICON_BUILDER = "SubstratumIconBuilder";
+    // Delays for Masquerade Icon Pack Handling
+    public static final int MAIN_WINDOW_REFRESH_DELAY = 2000;
+    public static final int FIRST_WINDOW_REFRESH_DELAY = 1000;
+    public static final int SECOND_WINDOW_REFRESH_DELAY = 2500;
     private static final String SUBSTRATUM_THEME = "projekt.substratum.THEME";
     // This controls the package name for the specified launchers allowed for Studio
     private static final String NOVA_LAUNCHER = "com.novalauncher.THEME";
@@ -86,10 +90,6 @@ public class References {
     public static String settingsSubstratumDrawableName = "ic_settings_substratum";
     private static String metadataVersion = "Substratum_Plugin";
     private static String metadataThemeReady = "Substratum_ThemeReady";
-    // Delays for Masquerade Icon Pack Handling
-    public static final int MAIN_WINDOW_REFRESH_DELAY = 2000;
-    public static final int FIRST_WINDOW_REFRESH_DELAY = 1000;
-    public static final int SECOND_WINDOW_REFRESH_DELAY = 2500;
 
     // This method is used to determine whether there the system is initiated with OMS
     public static Boolean checkOMS(Context context) {

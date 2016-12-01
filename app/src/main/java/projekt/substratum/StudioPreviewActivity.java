@@ -48,7 +48,6 @@ import static projekt.substratum.config.References.DEBUG;
 import static projekt.substratum.config.References.FIRST_WINDOW_REFRESH_DELAY;
 import static projekt.substratum.config.References.MAIN_WINDOW_REFRESH_DELAY;
 import static projekt.substratum.config.References.SECOND_WINDOW_REFRESH_DELAY;
-import static projekt.substratum.config.References.getIconPacks;
 import static projekt.substratum.config.References.grabPackageName;
 import static projekt.substratum.util.MapUtils.sortMapByValues;
 

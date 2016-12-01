@@ -6,12 +6,16 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.AssetManager;
 import android.net.Uri;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Set;
 
 import projekt.substratum.config.References;
@@ -32,6 +36,28 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
             status = dpm.getStorageEncryptionStatus();
         }
         return status;
+    }
+
+    private void copyFile(InputStream in, OutputStream out) throws IOException {
+        byte[] buffer = new byte[1024];
+        int read;
+        while ((read = in.read(buffer)) != -1) {
+            out.write(buffer, 0, read);
+        }
+    }
+
+    private void copyAssets(Context context) {
+        AssetManager assetManager = context.getAssets();
+        final String filename = "fonts.xml";
+        try (InputStream in = assetManager.open(filename);
+             OutputStream out = new FileOutputStream(context.getCacheDir()
+                     .getAbsolutePath() +
+                     "/FontCache/FontCreator/" + filename)) {
+            copyFile(in, out);
+        } catch (IOException e) {
+            Log.e("FontHandler", "Failed to move font configuration file to working " +
+                    "directory!");
+        }
     }
 
     @Override
@@ -56,17 +82,28 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
                         editor.remove("sounds_applied");
                     }
                     if (prefs.getString("fonts_applied", "").equals(package_name)) {
-                        References.delete("/data/system/theme/fonts/");
-                        if (References.isPackageInstalled(context, "masquerade.substratum")) {
-                            Intent runCommand = new Intent();
-                            runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                            runCommand.setAction("masquerade.substratum.COMMANDS");
-                            runCommand.putExtra("om-commands", References.refreshWindows() +
-                                    " && setprop sys.refresh_theme 1");
-                            context.sendBroadcast(runCommand);
-                        } else {
+                        int version = References.checkOMSVersion(context);
+                        if (version == 3) {
+                            References.delete("/data/system/theme/fonts/");
+                            References.runCommands(References.refreshWindows());
+                        } else if (version == 7) {
+                            References.delete("/data/system/theme/fonts/");
+                            References.mountRWData();
+                            References.copyDir("/system/fonts/", "/data/system/theme/");
+                            copyAssets(context);
+                            References.move(context.getCacheDir().getAbsolutePath() +
+                                    "/FontCache/FontCreator/fonts.xml",
+                                    "/data/system/theme/fonts/");
+
+                            // Check for correct permissions and system file context integrity.
+                            References.setPermissions(755, "/data/system/theme/");
+                            References.setPermissionsRecursively(747, "/data/system/theme/fonts/");
+                            References.setPermissions(775, "/data/system/theme/fonts/");
+                            References.setContext("/data/system/theme");
                             References.setProp("sys.refresh_theme", "1");
-                            References.refreshWindow();
+                            References.mountROData();
+                        } else if (version == 0) {
+                            References.delete("/data/system/theme/fonts/");
                         }
                         if (!prefs.getBoolean("systemui_recreate", false)) {
                             if (References.isPackageInstalled(context, "masquerade.substratum")) {

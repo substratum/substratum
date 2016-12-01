@@ -56,6 +56,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -809,6 +810,9 @@ public class OverlaysList extends Fragment {
                                 typeArray.add(file.getName());
                             }
                         }
+
+                        // Sort the typeArray so that the types are asciibetical
+                        Collections.sort(typeArray);
 
                         if (typeArray.contains("type1a")) {
                             try (BufferedReader reader = new BufferedReader(

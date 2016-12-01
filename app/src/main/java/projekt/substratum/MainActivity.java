@@ -1009,27 +1009,31 @@ public class MainActivity extends AppCompatActivity implements
                         .windowBackground(windowBackground)
                         .blurAlgorithm(new RenderScriptBlur(getApplicationContext(), true))
                         .blurRadius(radius);
-
                 final TextView textView = (TextView) mProgressDialog.findViewById(R.id.timer);
-                CountDownTimer Count = new CountDownTimer(5000, 1000) {
-                    public void onTick(long millisUntilFinished) {
-                        if ((millisUntilFinished / 1000) > 1) {
-                            textView.setText(String.format(
-                                    getString(R.string.root_rejected_timer_plural),
-                                    (millisUntilFinished / 1000) + ""));
-                        } else {
-                            textView.setText(String.format(
-                                    getString(R.string.root_rejected_timer_singular),
-                                    (millisUntilFinished / 1000) + ""));
+                if (References.isPackageInstalled(
+                        getApplicationContext(), "eu.chainfire.supersu")) {
+                    CountDownTimer Count = new CountDownTimer(5000, 1000) {
+                        public void onTick(long millisUntilFinished) {
+                            if ((millisUntilFinished / 1000) > 1) {
+                                textView.setText(String.format(
+                                        getString(R.string.root_rejected_timer_plural),
+                                        (millisUntilFinished / 1000) + ""));
+                            } else {
+                                textView.setText(String.format(
+                                        getString(R.string.root_rejected_timer_singular),
+                                        (millisUntilFinished / 1000) + ""));
+                            }
                         }
-                    }
 
-                    public void onFinish() {
-                        mProgressDialog.dismiss();
-                        finish();
-                    }
-                };
-                Count.start();
+                        public void onFinish() {
+                            mProgressDialog.dismiss();
+                            finish();
+                        }
+                    };
+                    Count.start();
+                } else {
+                    textView.setText(getString(R.string.root_rejected_text_cm_phh));
+                }
             } else {
                 // Now, let's grab root on the helper
                 Intent rootIntent = new Intent(Intent.ACTION_MAIN);

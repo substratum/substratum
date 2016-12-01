@@ -4,16 +4,17 @@ import android.content.Context;
 
 public class IconInfo {
     private String package_name, package_drawable, package_theme;
-    private String mPackageName;
     private Context mContext;
     private byte[] mDrawable;
+    private String parsedName;
 
     public IconInfo(Context mContext, String package_name,
-                    String package_drawable, String package_theme) {
+                    String package_drawable, String package_theme, String parsedName) {
         this.mContext = mContext;
         this.package_name = package_name;
         this.package_drawable = package_drawable;
         this.package_theme = package_theme;
+        this.parsedName = parsedName;
     }
 
     public String getPackageName() {
@@ -41,10 +42,10 @@ public class IconInfo {
     }
 
     public String getParsedName() {
-        return mPackageName;
+        return parsedName;
     }
 
     public void setParsedName(String parsedName) {
-        this.mPackageName = parsedName;
+        this.parsedName = parsedName;
     }
 }

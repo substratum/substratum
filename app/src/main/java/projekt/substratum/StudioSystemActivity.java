@@ -548,7 +548,9 @@ public class StudioSystemActivity extends AppCompatActivity {
                             getApplicationContext(),
                             attrs[0],
                             attrs[1],
-                            current_pack);
+                            current_pack,
+                            References.grabPackageName(getApplicationContext(), attrs[0])
+                    );
                     icons.add(iconInfo);
                     packages.add(attrs[0]);
                 }

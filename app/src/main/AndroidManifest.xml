@@ -188,14 +188,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".StudioSystemActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@style/AppTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-            </intent-filter>
-        </activity>
-        <activity
             android:name=".StudioPreviewActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/AppTheme">

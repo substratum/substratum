@@ -106,10 +106,6 @@ public class InformationActivity extends AppCompatActivity {
         }
     }
 
-    public static List getListOfFolders() {
-        return tab_checker;
-    }
-
     private static void setOverflowButtonColor(final Activity activity, final Boolean dark_mode) {
         final String overflowDescription =
                 activity.getString(R.string.abc_action_menu_overflow_description);

@@ -296,7 +296,10 @@
     <string name="coming_soon">Stolen by Char!</string>
 
     <string name="studio">icon pack studio (alpha)</string>
-    <string name="studio_system">System Icons [coming soon]</string>
+    <string name="studio_system">Restore System Icons</string>
+    <string name="studio_system_reset_dialog_title">Apply System Icon Pack</string>
+    <string name="studio_system_reset_dialog">
+        Do you want to restore the current icons back to the system default icons?</string>
     <string name="studio_custom">Creative Mode [coming soon]</string>
     <string name="studio_icon_packs">Custom Icons</string>
     <string name="studio_pack_title">Downloaded Icon Packs</string>

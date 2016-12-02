@@ -1,12 +1,14 @@
 package projekt.substratum;
 
 import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.util.Pair;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,9 +27,11 @@ import java.util.List;
 import projekt.substratum.adapters.PackAdapter;
 import projekt.substratum.config.References;
 import projekt.substratum.model.PackInfo;
+import projekt.substratum.util.ReadOverlays;
 
 import static projekt.substratum.config.References.DEBUG;
 import static projekt.substratum.config.References.FIRST_WINDOW_REFRESH_DELAY;
+import static projekt.substratum.config.References.MAIN_WINDOW_REFRESH_DELAY;
 import static projekt.substratum.config.References.SECOND_WINDOW_REFRESH_DELAY;
 import static projekt.substratum.util.MapUtils.sortMapByValues;
 
@@ -114,10 +118,6 @@ public class StudioSelectorActivity extends AppCompatActivity {
         creative_mode.setClickable(false);
         creative_mode.setEnabled(false);
 
-        View system_mode = findViewById(R.id.studio_system);
-        system_mode.setClickable(false);
-        system_mode.setEnabled(false);
-
         // Create a bare list to store each of the values necessary to add into the RecyclerView
         ArrayList<PackInfo> packs = new ArrayList<>();
 
@@ -160,8 +160,64 @@ public class StudioSelectorActivity extends AppCompatActivity {
         system_card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), StudioSystemActivity.class);
-                startActivity(intent);
+                AlertDialog.Builder builder = new AlertDialog.Builder(StudioSelectorActivity.this);
+                builder.setTitle(getString(R.string.studio_system_reset_dialog_title));
+                builder.setIcon(References.grabAppIcon(getApplicationContext(), "android"));
+                builder.setMessage(R.string.studio_system_reset_dialog);
+                builder.setPositiveButton(R.string.uninstall_dialog_okay, new DialogInterface
+                        .OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // Begin disabling themes
+                        List<String> state5 = ReadOverlays.main(5,
+                                getApplicationContext());
+                        ArrayList<String> all = new ArrayList<>(state5);
+
+                        // Filter out icon pack overlays from all overlays
+                        String final_commands = References.disableOverlay();
+                        if (all.size() > 0) {
+                            for (int i = 0; i < all.size(); i++) {
+                                if (all.get(i).endsWith(".icon")) {
+                                    final_commands += " " + all.get(i);
+                                }
+                            }
+                            if (References.isPackageInstalled(getApplicationContext(),
+                                    "masquerade.substratum")) {
+                                if (DEBUG)
+                                    Log.e(References.SUBSTRATUM_ICON_BUILDER,
+                                            "Initializing the Masquerade theme " +
+                                                    "provider...");
+
+                                Intent runCommand = new Intent();
+                                runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                                runCommand.setAction("masquerade.substratum.COMMANDS");
+                                ArrayList<String> final_array = new ArrayList<>();
+                                final_array.add(0, getString(R.string.studio_system)
+                                        .toLowerCase());
+                                final_array.add(1, final_commands);
+                                final_array.add(2,
+                                        String.valueOf(MAIN_WINDOW_REFRESH_DELAY));
+                                final_array.add(3,
+                                        String.valueOf(FIRST_WINDOW_REFRESH_DELAY));
+                                final_array.add(4,
+                                        String.valueOf(SECOND_WINDOW_REFRESH_DELAY));
+                                final_array.add(5, null);
+                                runCommand.putExtra("icon-handler", final_array);
+                                getApplicationContext().sendBroadcast(runCommand);
+                            } else {
+                                Log.e(References.SUBSTRATUM_ICON_BUILDER,
+                                        "Cannot apply icon pack on a non OMS7 ROM");
+                            }
+                        }
+                    }
+                });
+                builder.setNegativeButton(R.string.restore_dialog_cancel, new DialogInterface
+                        .OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.create();
+                builder.show();
             }
         });
     }

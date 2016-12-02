@@ -469,7 +469,7 @@ public class References {
                 if (s.contains("application-icon")) {
                     String appIcon = s.split(":")[1];
                     appIcon = appIcon.substring(1, appIcon.length() - 1).replace("-v4", "");
-                    return appIcon.split("/")[2];
+                    return appIcon.split("/")[2].substring(0, appIcon.split("/")[2].length() - 4);
                 }
             }
             outputStream.writeBytes("exit\n");

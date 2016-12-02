@@ -306,6 +306,7 @@
     <string name="studio_pack_title">Downloaded Icon Packs</string>
     <string name="studio_system_title">Substratum Framework</string>
     <string name="studio_applied_toast">Successfully applied %s!</string>
+    <string name="studio_apply_confirmation">Are you sure you would like to apply %s?</string>
     <string name="studio_configuration_changed">Successfully updated configuration!</string>
     <string name="studio_applying">Loading&#8230;</string>
     <string name="icon_pack_entry">Overlay Icon</string>

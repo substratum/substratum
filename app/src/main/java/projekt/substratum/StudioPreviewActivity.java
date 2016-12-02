@@ -2,6 +2,7 @@ package projekt.substratum;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -13,6 +14,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.util.Pair;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -185,7 +187,26 @@ public class StudioPreviewActivity extends AppCompatActivity {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new IconPackInstaller().execute("");
+                AlertDialog.Builder builder = new AlertDialog.Builder(StudioPreviewActivity.this);
+                builder.setTitle(References.grabPackageName(getApplicationContext(), current_pack));
+                builder.setIcon(References.grabAppIcon(getApplicationContext(), current_pack));
+                String formatter = String.format(getString(R.string.studio_apply_confirmation),
+                        References.grabPackageName(getApplicationContext(), current_pack));
+                builder.setMessage(formatter);
+                builder.setPositiveButton(R.string.dialog_ok, new DialogInterface
+                        .OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        new IconPackInstaller().execute("");
+                    }
+                });
+                builder.setNegativeButton(R.string.restore_dialog_cancel, new DialogInterface
+                        .OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.create();
+                builder.show();
             }
         });
 

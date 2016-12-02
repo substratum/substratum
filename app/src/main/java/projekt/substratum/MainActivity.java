@@ -187,560 +187,164 @@ public class MainActivity extends AppCompatActivity implements
         } catch (Exception ex) {
             // Suppress Fonts
         }
-        if (References.checkOMS(getApplicationContext())) {
-            if (fonts_allowed) {
-                drawerBuilder.addDrawerItems(
-                        new PrimaryDrawerItem().withName(R.string.nav_home).withIcon(
-                                R.drawable.nav_theme_packs),
-                        new PrimaryDrawerItem().withName(R.string.nav_overlays).withIcon(
-                                R.drawable.nav_overlays),
-                        new PrimaryDrawerItem().withName(R.string.nav_bootanim).withIcon(
-                                R.drawable.nav_bootanim),
-                        new PrimaryDrawerItem().withName(R.string.nav_fonts).withIcon(
-                                R.drawable.nav_fonts),
-                        new PrimaryDrawerItem().withName(R.string.nav_sounds).withIcon(
-                                R.drawable.nav_sounds),
-                        new PrimaryDrawerItem().withName(R.string.nav_wallpapers).withIcon(
-                                R.drawable.nav_wallpapers),
-                        new SectionDrawerItem().withName(R.string.nav_section_header_utilities),
-                        new PrimaryDrawerItem().withName(R.string.nav_overlay_manager)
-                                .withIcon(R.drawable.nav_overlay_manager),
-                        new PrimaryDrawerItem().withName(R.string.nav_manage).withIcon(
-                                R.drawable.nav_manage),
-                        new PrimaryDrawerItem().withName(R.string.nav_studio).withIcon(
-                                R.drawable.nav_drawer_studio).withSelectable(false),
-                        new PrimaryDrawerItem().withName(R.string.nav_priorities).withIcon(
-                                R.drawable.nav_drawer_priorities),
-                        new PrimaryDrawerItem().withName(R.string.nav_backup_restore).withIcon(
-                                R.drawable.nav_drawer_profiles).withEnabled(false),
-                        new SectionDrawerItem().withName(R.string.nav_section_header_more),
-                        new SecondaryDrawerItem().withName(R.string.nav_troubleshooting)
-                                .withIcon(
-                                        R.drawable.nav_troubleshooting),
-                        new SecondaryDrawerItem().withName(R.string.nav_team).withIcon(
-                                R.drawable.nav_drawer_team),
-                        new SecondaryDrawerItem().withName(getString(R.string.nav_opensource))
-                                .withIcon(
-                                        R.drawable.nav_drawer_licenses),
-                        new SecondaryDrawerItem().withName(R.string.nav_settings).withIcon(
-                                R.drawable.nav_drawer_settings)
-                );
-                drawerBuilder.withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-                    @Override
-                    public boolean onItemClick(View view, int position, IDrawerItem
-                            drawerItem) {
-                        if (drawerItem != null) {
-                            switch (position) {
-                                case 1:
-                                    if (drawerSelected != position) {
-                                        switchThemeFragment(((References.checkOMS(
-                                                getApplicationContext())) ?
-                                                        getString(R.string.app_name) :
-                                                        getString(R.string.legacy_app_name)),
-                                                References.homeFragment);
-                                        drawerSelected = 1;
-                                    }
-                                    break;
-                                case 2:
-                                    if (drawerSelected != position) {
-                                        switchThemeFragment(getString(R.string.nav_overlays),
-                                                References.overlaysFragment);
-                                        drawerSelected = 2;
-                                    }
-                                    break;
-                                case 3:
-                                    if (drawerSelected != position) {
-                                        switchThemeFragment(getString(R.string.nav_bootanim),
-                                                References.bootAnimationsFragment);
-                                        drawerSelected = 3;
-                                    }
-                                    break;
-                                case 4:
-                                    if (drawerSelected != position) {
-                                        switchThemeFragment(getString(R.string.nav_fonts),
-                                                References.fontsFragment);
-                                        drawerSelected = 4;
-                                    }
-                                    break;
-                                case 5:
-                                    if (drawerSelected != position) {
-                                        switchThemeFragment(getString(R.string.nav_sounds),
-                                                References.soundsFragment);
-                                        drawerSelected = 5;
-                                    }
-                                    break;
-                                case 6:
-                                    if (drawerSelected != position) {
-                                        switchThemeFragment(getString(R.string.nav_wallpapers),
-                                                References.wallpaperFragment);
-                                        drawerSelected = 6;
-                                    }
-                                    break;
-                                case 8:
-                                    switchFragment(getString(R.string.nav_overlay_manager),
-                                            "AdvancedManagerFragment");
-                                    drawerSelected = 8;
-                                    break;
-                                case 9:
-                                    switchFragment(getString(R.string.nav_manage),
-                                            "ManageFragment");
-                                    drawerSelected = 9;
-                                    break;
-                                case 10:
-                                    Intent intent = new Intent(getApplicationContext(),
-                                            StudioSelectorActivity.class);
-                                    startActivity(intent);
-                                    break;
-                                case 11:
-                                    switchFragment(getString(R.string.nav_priorities),
-                                            "PriorityLoaderFragment");
-                                    drawerSelected = 11;
-                                    break;
-                                case 12:
-                                    switchFragment(getString(R.string.nav_backup_restore),
-                                            "ProfileFragment");
-                                    drawerSelected = 12;
-                                    break;
-                                case 14:
-                                    if (drawerSelected != position) {
-                                        switchFragment(getString(R.string.nav_troubleshooting),
-                                                "TroubleshootingFragment");
-                                        drawerSelected = 14;
-                                    }
-                                    break;
-                                case 15:
-                                    if (drawerSelected != position) {
-                                        switchFragment(getString(R.string.nav_team),
-                                                "TeamFragment");
-                                        drawerSelected = 15;
-                                    }
-                                    break;
-                                case 16:
-                                    if (drawerSelected != position) {
-                                        switchFragmentToLicenses(getString(R.string.nav_opensource),
-                                                fragment);
-                                        drawerSelected = 16;
-                                    }
-                                    break;
-                                case 17:
-                                    if (drawerSelected != position) {
-                                        switchFragment(getString(R.string.nav_settings),
-                                                "SettingsFragment");
-                                        drawerSelected = 17;
-                                    }
-                                    break;
-                            }
-                        }
-                        return false;
-                    }
-                });
-            } else {
-                drawerBuilder.addDrawerItems(
-                        new PrimaryDrawerItem().withName(R.string.nav_home).withIcon(
-                                R.drawable.nav_theme_packs),
-                        new PrimaryDrawerItem().withName(R.string.nav_overlays).withIcon(
-                                R.drawable.nav_overlays),
-                        new PrimaryDrawerItem().withName(R.string.nav_bootanim).withIcon(
-                                R.drawable.nav_bootanim),
-                        new PrimaryDrawerItem().withName(R.string.nav_sounds).withIcon(
-                                R.drawable.nav_sounds),
-                        new PrimaryDrawerItem().withName(R.string.nav_wallpapers).withIcon(
-                                R.drawable.nav_wallpapers),
-                        new SectionDrawerItem().withName(R.string.nav_section_header_utilities),
-                        new PrimaryDrawerItem().withName(R.string.nav_overlay_manager)
-                                .withIcon(R.drawable.nav_overlay_manager),
-                        new PrimaryDrawerItem().withName(R.string.nav_manage).withIcon(
-                                R.drawable.nav_manage),
-                        new PrimaryDrawerItem().withName(R.string.nav_priorities).withIcon(
-                                R.drawable.nav_drawer_priorities),
-                        new PrimaryDrawerItem().withName(R.string.nav_backup_restore).withIcon(
-                                R.drawable.nav_drawer_profiles).withEnabled(false),
-                        new SectionDrawerItem().withName(R.string.nav_section_header_more),
-                        new SecondaryDrawerItem().withName(R.string.nav_troubleshooting)
-                                .withIcon(
-                                        R.drawable.nav_troubleshooting),
-                        new SecondaryDrawerItem().withName(R.string.nav_team).withIcon(
-                                R.drawable.nav_drawer_team),
-                        new SecondaryDrawerItem().withName(getString(R.string.nav_opensource))
-                                .withIcon(
-                                        R.drawable.nav_drawer_licenses),
-                        new SecondaryDrawerItem().withName(R.string.nav_settings).withIcon(
-                                R.drawable.nav_drawer_settings)
-                );
-                drawerBuilder.withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-                    @Override
-                    public boolean onItemClick(View view, int position, IDrawerItem
-                            drawerItem) {
-                        if (drawerItem != null) {
-                            switch (position) {
-                                case 1:
-                                    if (drawerSelected != position) {
-                                        switchThemeFragment(((References.checkOMS(
-                                                getApplicationContext())) ?
-                                                        getString(R.string.app_name) :
-                                                        getString(R.string.legacy_app_name)),
-                                                References.homeFragment);
-                                        drawerSelected = 1;
-                                    }
-                                    break;
-                                case 2:
-                                    if (drawerSelected != position) {
-                                        switchThemeFragment(getString(R.string.nav_overlays),
-                                                References.overlaysFragment);
-                                        drawerSelected = 2;
-                                    }
-                                    break;
-                                case 3:
-                                    if (drawerSelected != position) {
-                                        switchThemeFragment(getString(R.string.nav_bootanim),
-                                                References.bootAnimationsFragment);
-                                        drawerSelected = 3;
-                                    }
-                                    break;
-                                case 4:
-                                    if (drawerSelected != position) {
-                                        switchThemeFragment(getString(R.string.nav_sounds),
-                                                References.soundsFragment);
-                                        drawerSelected = 4;
-                                    }
-                                    break;
-                                case 5:
-                                    if (drawerSelected != position) {
-                                        switchThemeFragment(getString(R.string.nav_wallpapers),
-                                                References.wallpaperFragment);
-                                        drawerSelected = 5;
-                                    }
-                                    break;
-                                case 7:
-                                    switchFragment(getString(R.string.nav_overlay_manager),
-                                            "AdvancedManagerFragment");
-                                    drawerSelected = 7;
-                                    break;
-                                case 8:
-                                    switchFragment(getString(R.string.nav_manage),
-                                            "ManageFragment");
-                                    drawerSelected = 8;
-                                    break;
-                                case 9:
-                                    switchFragment(getString(R.string.nav_priorities),
-                                            "PriorityLoaderFragment");
-                                    drawerSelected = 9;
-                                    break;
-                                case 10:
-                                    switchFragment(getString(R.string.nav_backup_restore),
-                                            "ProfileFragment");
-                                    drawerSelected = 10;
-                                    break;
-                                case 12:
-                                    if (drawerSelected != position) {
-                                        switchFragment(getString(R.string.nav_troubleshooting),
-                                                "TroubleshootingFragment");
-                                        drawerSelected = 12;
-                                    }
-                                    break;
-                                case 13:
-                                    if (drawerSelected != position) {
-                                        switchFragment(getString(R.string.nav_team),
-                                                "TeamFragment");
-                                        drawerSelected = 13;
-                                    }
-                                    break;
-                                case 14:
-                                    if (drawerSelected != position) {
-                                        switchFragmentToLicenses(getString(R.string.nav_opensource),
-                                                fragment);
-                                        drawerSelected = 14;
-                                    }
-                                    break;
-                                case 15:
-                                    if (drawerSelected != position) {
-                                        switchFragment(getString(R.string.nav_settings),
-                                                "SettingsFragment");
-                                        drawerSelected = 15;
-                                    }
-                                    break;
-                            }
-                        }
-                        return false;
-                    }
-                });
-            }
-        } else {
-            if (fonts_allowed) {
-                drawerBuilder.addDrawerItems(
-                        new PrimaryDrawerItem().withName(R.string.nav_home).withIcon(
-                                R.drawable.nav_theme_packs),
-                        new PrimaryDrawerItem().withName(R.string.nav_overlays).withIcon(
-                                R.drawable.nav_overlays),
-                        new PrimaryDrawerItem().withName(R.string.nav_bootanim).withIcon(
-                                R.drawable.nav_bootanim),
-                        new PrimaryDrawerItem().withName(R.string.nav_fonts).withIcon(
-                                R.drawable.nav_fonts),
-                        new PrimaryDrawerItem().withName(R.string.nav_sounds).withIcon(
-                                R.drawable.nav_sounds),
-                        new PrimaryDrawerItem().withName(R.string.nav_wallpapers).withIcon(
-                                R.drawable.nav_wallpapers),
-                        new SectionDrawerItem().withName(R.string
-                                .nav_section_header_utilities),
-                        new PrimaryDrawerItem().withName(R.string.nav_overlay_manager)
-                                .withIcon(R.drawable.nav_overlay_manager),
-                        new PrimaryDrawerItem().withName(R.string.nav_manage).withIcon(
-                                R.drawable.nav_manage),
-                        new PrimaryDrawerItem().withName(R.string.nav_backup_restore)
-                                .withIcon(
-                                        R.drawable.nav_drawer_profiles).withEnabled(false),
-                        new SectionDrawerItem().withName(R.string.nav_section_header_more),
-                        new SecondaryDrawerItem().withName(R.string.nav_troubleshooting)
-                                .withIcon(
-                                        R.drawable.nav_troubleshooting),
-                        new SecondaryDrawerItem().withName(R.string.nav_team).withIcon(
-                                R.drawable.nav_drawer_team),
-                        new SecondaryDrawerItem().withName(getString(R.string
-                                .nav_opensource))
-                                .withIcon(
-                                        R.drawable.nav_drawer_licenses),
-                        new SecondaryDrawerItem().withName(R.string.nav_settings).withIcon(
-                                R.drawable.nav_drawer_settings)
-                );
-                drawerBuilder.withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-                    @Override
-                    public boolean onItemClick(View view, int position, IDrawerItem
-                            drawerItem) {
-                        if (drawerItem != null) {
-                            switch (position) {
-                                case 1:
-                                    if (drawerSelected != position) {
-                                        switchThemeFragment(((References.checkOMS(
-                                                getApplicationContext())) ?
-                                                        getString(R.string.app_name) :
-                                                        getString(R.string
-                                                                .legacy_app_name)),
-                                                References.homeFragment);
-                                        drawerSelected = 1;
-                                    }
-                                    break;
-                                case 2:
-                                    if (drawerSelected != position) {
-                                        switchThemeFragment(getString(R.string.nav_overlays),
-                                                References.overlaysFragment);
-                                        drawerSelected = 2;
-                                    }
-                                    break;
-                                case 3:
-                                    if (drawerSelected != position) {
-                                        switchThemeFragment(getString(R.string.nav_bootanim),
-                                                References.bootAnimationsFragment);
-                                        drawerSelected = 3;
-                                    }
-                                    break;
-                                case 4:
-                                    if (drawerSelected != position) {
-                                        switchThemeFragment(getString(R.string.nav_fonts),
-                                                References.fontsFragment);
-                                        drawerSelected = 4;
-                                    }
-                                    break;
-                                case 5:
-                                    if (drawerSelected != position) {
-                                        switchThemeFragment(getString(R.string.nav_sounds),
-                                                References.soundsFragment);
-                                        drawerSelected = 5;
-                                    }
-                                    break;
-                                case 6:
-                                    if (drawerSelected != position) {
-                                        switchThemeFragment(getString(R.string.nav_wallpapers),
-                                                References.wallpaperFragment);
-                                        drawerSelected = 6;
-                                    }
-                                    break;
-                                case 8:
-                                    switchFragment(getString(R.string.nav_overlay_manager),
-                                            "AdvancedManagerFragment");
-                                    drawerSelected = 8;
-                                    break;
-                                case 9:
-                                    switchFragment(getString(R.string.nav_manage),
-                                            "ManageFragment");
-                                    drawerSelected = 9;
-                                    break;
-                                case 10:
-                                    switchFragment(getString(R.string.nav_backup_restore),
-                                            "ProfileFragment");
-                                    drawerSelected = 10;
-                                    break;
-                                case 12:
-                                    if (drawerSelected != position) {
-                                        switchFragment(getString(R.string
-                                                        .nav_troubleshooting),
-                                                "TroubleshootingFragment");
-                                        drawerSelected = 12;
-                                    }
-                                    break;
-                                case 13:
-                                    if (drawerSelected != position) {
-                                        switchFragment(getString(R.string.nav_team),
-                                                "TeamFragment");
-                                        drawerSelected = 13;
-                                    }
-                                    break;
-                                case 14:
-                                    if (drawerSelected != position) {
-                                        switchFragmentToLicenses(getString(R.string
-                                                        .nav_opensource),
-                                                fragment);
-                                        drawerSelected = 14;
-                                    }
-                                    break;
-                                case 15:
-                                    if (drawerSelected != position) {
-                                        switchFragment(getString(R.string.nav_settings),
-                                                "SettingsFragment");
-                                        drawerSelected = 15;
-                                    }
-                                    break;
-                            }
-                        }
-                        return false;
-                    }
-                });
-            } else {
-                drawerBuilder.addDrawerItems(
-                        new PrimaryDrawerItem().withName(R.string.nav_home).withIcon(R
-                                .drawable
-                                .nav_theme_packs),
-                        new PrimaryDrawerItem().withName(R.string.nav_overlays).withIcon(R
-                                .drawable
-                                .nav_overlays),
-                        new PrimaryDrawerItem().withName(R.string.nav_bootanim).withIcon(
-                                R.drawable.nav_bootanim),
-                        new PrimaryDrawerItem().withName(R.string.nav_sounds).withIcon(R
-                                .drawable
-                                .nav_sounds),
-                        new PrimaryDrawerItem().withName(R.string.nav_wallpapers).withIcon(
-                                R.drawable.nav_wallpapers),
-                        new SectionDrawerItem().withName(R.string
-                                .nav_section_header_utilities),
-                        new PrimaryDrawerItem().withName(R.string.nav_overlay_manager)
-                                .withIcon(R
-                                        .drawable
-                                        .nav_overlay_manager),
-                        new PrimaryDrawerItem().withName(R.string.nav_manage).withIcon(R
-                                .drawable.nav_manage),
-                        new PrimaryDrawerItem().withName(R.string.nav_backup_restore)
-                                .withIcon(R
-                                        .drawable.nav_drawer_profiles).withEnabled(false),
 
-                        new SectionDrawerItem().withName(R.string.nav_section_header_more),
-                        new SecondaryDrawerItem().withName(R.string.nav_troubleshooting)
-                                .withIcon(R
-                                        .drawable.nav_troubleshooting),
-                        new SecondaryDrawerItem().withName(R.string.nav_team).withIcon(R
-                                .drawable.nav_drawer_team),
-                        new SecondaryDrawerItem().withName(getString(R.string
-                                .nav_opensource))
-                                .withIcon(R
-                                        .drawable.nav_drawer_licenses),
-                        new SecondaryDrawerItem().withName(R.string.nav_settings).withIcon(R
-                                .drawable.nav_drawer_settings)
-                );
-                drawerBuilder.withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-                    @Override
-                    public boolean onItemClick(View view, int position, IDrawerItem
-                            drawerItem) {
-                        if (drawerItem != null) {
-                            switch (position) {
-                                case 1:
-                                    if (drawerSelected != position) {
-                                        switchThemeFragment(((References.checkOMS(
-                                                getApplicationContext())) ?
-                                                        getString(R.string.app_name) :
-                                                        getString(R.string
-                                                                .legacy_app_name)),
-                                                References.homeFragment);
-                                        drawerSelected = 1;
-                                    }
-                                    break;
-                                case 2:
-                                    if (drawerSelected != position) {
-                                        switchThemeFragment(getString(R.string.nav_overlays),
-                                                References.overlaysFragment);
-                                        drawerSelected = 2;
-                                    }
-                                    break;
-                                case 3:
-                                    if (drawerSelected != position) {
-                                        switchThemeFragment(getString(R.string.nav_bootanim),
-                                                References.bootAnimationsFragment);
-                                        drawerSelected = 3;
-                                    }
-                                    break;
-                                case 4:
-                                    if (drawerSelected != position) {
-                                        switchThemeFragment(getString(R.string.nav_sounds),
-                                                References.soundsFragment);
-                                        drawerSelected = 4;
-                                    }
-                                    break;
-                                case 5:
-                                    if (drawerSelected != position) {
-                                        switchThemeFragment(getString(R.string.nav_wallpapers),
-                                                References.wallpaperFragment);
-                                        drawerSelected = 5;
-                                    }
-                                    break;
-                                case 7:
-                                    switchFragment(getString(R.string.nav_overlay_manager),
-                                            "AdvancedManagerFragment");
-                                    drawerSelected = 7;
-                                    break;
-                                case 8:
-                                    switchFragment(getString(R.string.nav_manage),
-                                            "ManageFragment");
-                                    drawerSelected = 8;
-                                    break;
-                                case 9:
-                                    switchFragment(getString(R.string.nav_backup_restore),
-                                            "ProfileFragment");
-                                    drawerSelected = 9;
-                                    break;
-                                case 11:
-                                    if (drawerSelected != position) {
-                                        switchFragment(getString(R.string
-                                                        .nav_troubleshooting),
-                                                "TroubleshootingFragment");
-                                        drawerSelected = 11;
-                                    }
-                                    break;
-                                case 12:
-                                    if (drawerSelected != position) {
-                                        switchFragment(getString(R.string.nav_team),
-                                                "TeamFragment");
-                                        drawerSelected = 12;
-                                    }
-                                    break;
-                                case 13:
-                                    if (drawerSelected != position) {
-                                        switchFragmentToLicenses(getString(R.string
-                                                        .nav_opensource),
-                                                fragment);
-                                        drawerSelected = 13;
-                                    }
-                                    break;
-                                case 14:
-                                    if (drawerSelected != position) {
-                                        switchFragment(getString(R.string.nav_settings),
-                                                "SettingsFragment");
-                                        drawerSelected = 14;
-                                    }
-                                    break;
-                            }
-                        }
-                        return false;
+        // Begin initializing the navigation drawer
+        drawerBuilder.addDrawerItems(
+                new PrimaryDrawerItem()
+                        .withName(R.string.nav_home)
+                        .withIcon(R.drawable.nav_theme_packs)
+                        .withIdentifier(1));
+        drawerBuilder.addDrawerItems(
+                new PrimaryDrawerItem()
+                        .withName(R.string.nav_overlays)
+                        .withIcon(R.drawable.nav_overlays)
+                        .withIdentifier(2));
+        drawerBuilder.addDrawerItems(
+                new PrimaryDrawerItem()
+                        .withName(R.string.nav_bootanim)
+                        .withIcon(R.drawable.nav_bootanim)
+                        .withIdentifier(3));
+        if (fonts_allowed) drawerBuilder.addDrawerItems(
+                new PrimaryDrawerItem()
+                        .withName(R.string.nav_fonts)
+                        .withIcon(R.drawable.nav_fonts)
+                        .withIdentifier(4));
+        drawerBuilder.addDrawerItems(
+                new PrimaryDrawerItem()
+                        .withName(R.string.nav_sounds)
+                        .withIcon(R.drawable.nav_sounds)
+                        .withIdentifier(5));
+        drawerBuilder.addDrawerItems(
+                new PrimaryDrawerItem()
+                        .withName(R.string.nav_wallpapers)
+                        .withIcon(R.drawable.nav_wallpapers)
+                        .withIdentifier(6));
+        drawerBuilder.addDrawerItems(
+                new SectionDrawerItem()
+                        .withName(R.string.nav_section_header_utilities));
+        drawerBuilder.addDrawerItems(
+                new PrimaryDrawerItem()
+                        .withName(R.string.nav_overlay_manager)
+                        .withIcon(R.drawable.nav_overlay_manager)
+                        .withIdentifier(7));
+        drawerBuilder.addDrawerItems(
+                new PrimaryDrawerItem()
+                        .withName(R.string.nav_manage)
+                        .withIcon(R.drawable.nav_manage)
+                        .withIdentifier(8));
+        drawerBuilder.addDrawerItems(
+                new PrimaryDrawerItem()
+                        .withName(R.string.nav_studio)
+                        .withIcon(R.drawable.nav_drawer_studio)
+                        .withSelectable(false)
+                        .withIdentifier(9));
+        if (References.checkOMS(getApplicationContext())) drawerBuilder.addDrawerItems(
+                new PrimaryDrawerItem()
+                        .withName(R.string.nav_priorities)
+                        .withIcon(R.drawable.nav_drawer_priorities)
+                        .withIdentifier(10));
+        drawerBuilder.addDrawerItems(
+                new PrimaryDrawerItem()
+                        .withName(R.string.nav_backup_restore)
+                        .withIcon(R.drawable.nav_drawer_profiles)
+                        .withEnabled(false)
+                        .withIdentifier(11));
+        drawerBuilder.addDrawerItems(
+                new SectionDrawerItem()
+                        .withName(R.string.nav_section_header_more));
+        drawerBuilder.addDrawerItems(
+                new SecondaryDrawerItem()
+                        .withName(R.string.nav_troubleshooting)
+                        .withIcon(R.drawable.nav_troubleshooting)
+                        .withIdentifier(12));
+        drawerBuilder.addDrawerItems(
+                new SecondaryDrawerItem()
+                        .withName(R.string.nav_team)
+                        .withIcon(R.drawable.nav_drawer_team)
+                        .withIdentifier(13));
+        drawerBuilder.addDrawerItems(
+                new SecondaryDrawerItem()
+                        .withName(getString(R.string.nav_opensource))
+                        .withIcon(R.drawable.nav_drawer_licenses)
+                        .withIdentifier(14));
+        drawerBuilder.addDrawerItems(
+                new SecondaryDrawerItem()
+                        .withName(R.string.nav_settings)
+                        .withIcon(R.drawable.nav_drawer_settings)
+                        .withIdentifier(15));
+        drawerBuilder.withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+            @Override
+            public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                if (drawerItem != null) {
+                    switch ((int) drawerItem.getIdentifier()) {
+                        case 1:
+                            switchThemeFragment(((References.checkOMS(
+                                    getApplicationContext())) ?
+                                            getString(R.string.app_name) :
+                                            getString(R.string.legacy_app_name)),
+                                    References.homeFragment);
+                            break;
+                        case 2:
+                            switchThemeFragment(getString(R.string.nav_overlays),
+                                    References.overlaysFragment);
+                            break;
+                        case 3:
+                            switchThemeFragment(getString(R.string.nav_bootanim),
+                                    References.bootAnimationsFragment);
+                            break;
+                        case 4:
+                            switchThemeFragment(getString(R.string.nav_fonts),
+                                    References.fontsFragment);
+                            break;
+                        case 5:
+                            switchThemeFragment(getString(R.string.nav_sounds),
+                                    References.soundsFragment);
+                            break;
+                        case 6:
+                            switchThemeFragment(getString(R.string.nav_wallpapers),
+                                    References.wallpaperFragment);
+                            break;
+                        case 7:
+                            switchFragment(getString(R.string.nav_overlay_manager),
+                                    "AdvancedManagerFragment");
+                            break;
+                        case 8:
+                            switchFragment(getString(R.string.nav_manage),
+                                    "ManageFragment");
+                            break;
+                        case 9:
+                            Intent intent = new Intent(getApplicationContext(),
+                                    StudioSelectorActivity.class);
+                            startActivity(intent);
+                            break;
+                        case 10:
+                            switchFragment(getString(R.string.nav_priorities),
+                                    "PriorityLoaderFragment");
+                            break;
+                        case 11:
+                            switchFragment(getString(R.string.nav_backup_restore),
+                                    "ProfileFragment");
+                        case 12:
+                            switchFragment(getString(R.string.nav_troubleshooting),
+                                    "TroubleshootingFragment");
+                            break;
+                        case 13:
+                            switchFragment(getString(R.string.nav_team),
+                                    "TeamFragment");
+                            break;
+                        case 14:
+                            switchFragmentToLicenses(getString(R.string.nav_opensource),
+                                    fragment);
+                            break;
+                        case 15:
+                            switchFragment(getString(R.string.nav_settings),
+                                    "SettingsFragment");
+                            break;
                     }
-                });
+                }
+                return false;
             }
-        }
+        });
         drawerBuilder.withSelectedItem(1);
         drawerBuilder.withSelectedItemByPosition(1);
         drawer = drawerBuilder.build();

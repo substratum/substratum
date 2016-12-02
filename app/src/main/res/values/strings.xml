@@ -297,7 +297,8 @@
 
     <string name="studio">icon pack studio (alpha)</string>
     <string name="studio_system">Restore System Icons</string>
-    <string name="studio_system_reset_dialog_title">Apply System Icon Pack</string>
+    <string name="studio_system_reset_dialog_toast">
+        All custom icons have already been disabled!</string>
     <string name="studio_system_reset_dialog">
         Do you want to restore the current icons back to the system default icons?</string>
     <string name="studio_custom">Creative Mode [coming soon]</string>

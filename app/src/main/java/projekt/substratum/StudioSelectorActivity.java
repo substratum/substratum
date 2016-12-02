@@ -161,7 +161,7 @@ public class StudioSelectorActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(StudioSelectorActivity.this);
-                builder.setTitle(getString(R.string.studio_system_reset_dialog_title));
+                builder.setTitle(getString(R.string.studio_system));
                 builder.setIcon(References.grabAppIcon(getApplicationContext(), "android"));
                 builder.setMessage(R.string.studio_system_reset_dialog);
                 builder.setPositiveButton(R.string.uninstall_dialog_okay, new DialogInterface
@@ -207,6 +207,11 @@ public class StudioSelectorActivity extends AppCompatActivity {
                                 Log.e(References.SUBSTRATUM_ICON_BUILDER,
                                         "Cannot apply icon pack on a non OMS7 ROM");
                             }
+                        } else {
+                            Toast toaster = Toast.makeText(getApplicationContext(),
+                                    getString(R.string.studio_system_reset_dialog_toast),
+                                    Toast.LENGTH_SHORT);
+                            toaster.show();
                         }
                     }
                 });

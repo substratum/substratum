@@ -50,6 +50,10 @@
                 android:id="@+id/studio_system"
                 layout="@layout/icon_studio_system"/>
 
+            <include
+                android:id="@+id/studio_update"
+                layout="@layout/icon_studio_update"/>
+
         </LinearLayout>
 
         <TextView

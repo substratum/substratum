@@ -92,6 +92,18 @@ public class References {
     private static String metadataVersion = "Substratum_Plugin";
     private static String metadataThemeReady = "Substratum_ThemeReady";
 
+    // This method is used to check the version of the masquerade theme system
+    public static int checkMasquerade(Context context) {
+        try {
+            PackageInfo pInfo =
+                    context.getPackageManager().getPackageInfo("masquerade.substratum", 0);
+            return pInfo.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            //
+        }
+        return 0;
+    }
+
     // This method is used to determine whether there the system is initiated with OMS
     public static Boolean checkOMS(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);

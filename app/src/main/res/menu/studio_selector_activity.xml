@@ -10,8 +10,9 @@
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/search"
-        android:title="@string/menu_search_icon_packs"/>
-    <item
-        android:id="@+id/reload"
-        android:title="@string/menu_reload_launcher"/>
+        android:icon="@drawable/shortcut_store"
+        android:menuCategory="secondary"
+        android:orderInCategory="2"
+        android:title="@string/menu_search_icon_packs"
+        app:showAsAction="ifRoom"/>
 </menu>

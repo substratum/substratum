@@ -282,7 +282,6 @@
     <string name="menu_favorite">Favorite</string>
     <string name="menu_open">Icon Pack Dashboard</string>
     <string name="menu_rate">Rate theme</string>
-    <string name="menu_reload_launcher">Update Configuration</string>
     <string name="menu_refresh">Refresh</string>
     <string name="menu_refresh_windows">Refresh Windows</string>
     <string name="menu_soft_reboot">Soft Reboot</string>
@@ -295,12 +294,14 @@
 
     <string name="coming_soon">Stolen by Char!</string>
 
-    <string name="studio">icon pack studio (alpha)</string>
+    <string name="studio">icon pack studio (beta)</string>
     <string name="studio_system">Restore System Icons</string>
     <string name="studio_system_reset_dialog_toast">
-        All custom icons have already been disabled!</string>
+        All custom icons have already been disabled!
+    </string>
     <string name="studio_system_reset_dialog">
-        Do you want to restore the current icons back to the system default icons?</string>
+        Do you want to restore the current icons back to the system default icons?
+    </string>
     <string name="studio_custom">Creative Mode [coming soon]</string>
     <string name="studio_icon_packs">Custom Icons</string>
     <string name="studio_pack_title">Downloaded Icon Packs</string>
@@ -310,6 +311,7 @@
     <string name="studio_configuration_changed">Successfully updated configuration!</string>
     <string name="studio_applying">Loading&#8230;</string>
     <string name="icon_pack_entry">Overlay Icon</string>
+    <string name="studio_update_configuration">Refresh Icon Configuration</string>
 
     <string name="nav_overlay_manager">Advanced Manager</string>
     <string name="nav_home">Theme Packs</string>

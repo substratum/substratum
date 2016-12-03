@@ -65,28 +65,6 @@ public class StudioSelectorActivity extends AppCompatActivity {
                     toaster.show();
                 }
                 return true;
-            case R.id.reload:
-                if (References.isPackageInstalled(getApplicationContext(),
-                        "masquerade.substratum")) {
-                    if (DEBUG)
-                        Log.e(References.SUBSTRATUM_ICON_BUILDER,
-                                "Initializing the Masquerade theme provider...");
-                    Intent runCommand = new Intent();
-                    runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                    runCommand.setAction("masquerade.substratum.COMMANDS");
-                    ArrayList<String> final_array = new ArrayList<>();
-                    final_array.add(0, null);
-                    final_array.add(1, null);
-                    final_array.add(2, String.valueOf(0));
-                    final_array.add(3, String.valueOf(FIRST_WINDOW_REFRESH_DELAY));
-                    final_array.add(4, String.valueOf(SECOND_WINDOW_REFRESH_DELAY));
-                    final_array.add(5, References.SUBSTRATUM_ICON_BUILDER);
-                    runCommand.putExtra("icon-handler", final_array);
-                    getApplicationContext().sendBroadcast(runCommand);
-                } else {
-                    Log.e(References.SUBSTRATUM_ICON_BUILDER,
-                            "Cannot apply icon pack on a non OMS7 ROM");
-                }
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -155,6 +133,34 @@ public class StudioSelectorActivity extends AppCompatActivity {
 
         PackAdapter packAdapter = new PackAdapter(packs);
         recyclerView.setAdapter(packAdapter);
+
+        CardView update_configuration = (CardView) findViewById(R.id.studio_update);
+        update_configuration.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (References.isPackageInstalled(getApplicationContext(),
+                        "masquerade.substratum")) {
+                    if (DEBUG)
+                        Log.e(References.SUBSTRATUM_ICON_BUILDER,
+                                "Initializing the Masquerade theme provider...");
+                    Intent runCommand = new Intent();
+                    runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                    runCommand.setAction("masquerade.substratum.COMMANDS");
+                    ArrayList<String> final_array = new ArrayList<>();
+                    final_array.add(0, null);
+                    final_array.add(1, null);
+                    final_array.add(2, String.valueOf(0));
+                    final_array.add(3, String.valueOf(FIRST_WINDOW_REFRESH_DELAY));
+                    final_array.add(4, String.valueOf(SECOND_WINDOW_REFRESH_DELAY));
+                    final_array.add(5, References.SUBSTRATUM_ICON_BUILDER);
+                    runCommand.putExtra("icon-handler", final_array);
+                    getApplicationContext().sendBroadcast(runCommand);
+                } else {
+                    Log.e(References.SUBSTRATUM_ICON_BUILDER,
+                            "Cannot apply icon pack on a non OMS7 ROM");
+                }
+            }
+        });
 
         CardView system_card = (CardView) findViewById(R.id.studio_system);
         system_card.setOnClickListener(new View.OnClickListener() {

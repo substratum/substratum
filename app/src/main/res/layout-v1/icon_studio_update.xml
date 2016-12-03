@@ -3,6 +3,7 @@
                                     android:id="@+id/theme_card"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
                                     android:layout_marginLeft="5dp"
                                     android:layout_marginRight="5dp"
                                     android:layout_marginTop="10dp"
@@ -22,7 +23,7 @@
             android:layout_height="48dp"
             android:layout_centerVertical="true"
             android:layout_margin="10dp"
-            android:src="@drawable/phone_heart"/>
+            android:src="@drawable/update_configuration"/>
 
         <TextView
             android:id="@+id/mode"
@@ -34,7 +35,7 @@
             android:layout_marginStart="15dp"
             android:layout_marginTop="10dp"
             android:layout_toRightOf="@id/icon"
-            android:text="@string/studio_system"
+            android:text="@string/studio_update_configuration"
             android:textColor="@color/main_screen_card_theme_title"
             android:textSize="18sp"/>
     </RelativeLayout>

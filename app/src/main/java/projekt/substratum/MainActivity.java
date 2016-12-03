@@ -232,7 +232,7 @@ public class MainActivity extends AppCompatActivity implements
                         .withName(R.string.nav_manage)
                         .withIcon(R.drawable.nav_manage)
                         .withIdentifier(8));
-        drawerBuilder.addDrawerItems(
+        if (References.checkMasquerade(getApplicationContext()) >= 20) drawerBuilder.addDrawerItems(
                 new PrimaryDrawerItem()
                         .withName(R.string.nav_studio)
                         .withIcon(R.drawable.nav_drawer_studio)

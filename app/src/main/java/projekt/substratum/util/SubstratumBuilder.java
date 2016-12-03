@@ -281,11 +281,13 @@ public class SubstratumBuilder {
             Process nativeApp = null;
             try {
                 String commands;
+                String targetPkg = References.getInstalledDirectory(context, targetPackage);
                 if (typeMode == 1) {
                     commands = "aopt p " +
                             "-M " + work_area + "/AndroidManifest.xml " +
                             "-S " + work_area + "/workdir/ " +
                             "-I " + "/system/framework/framework-res.apk " +
+                            "-I " + targetPkg + " " +
                             "-F " + work_area + "/" + overlay_package +
                             "." + parse2_themeName + "-unsigned.apk " +
                             "-f --include-meta-data --auto-add-overlay\n";
@@ -296,6 +298,7 @@ public class SubstratumBuilder {
                                 "-S " + work_area + "/" + "type2_" + additional_variant + "/ " +
                                 "-S " + work_area + "/workdir/ " +
                                 "-I " + "/system/framework/framework-res.apk " +
+                                "-I " + targetPkg + " " +
                                 "-F " + work_area + "/" + overlay_package + "." +
                                 parse2_themeName + "-unsigned.apk " +
                                 "-f --include-meta-data --auto-add-overlay\n";
@@ -304,6 +307,7 @@ public class SubstratumBuilder {
                                 "-M " + work_area + "/AndroidManifest.xml " +
                                 "-S " + work_area + "/workdir/ " +
                                 "-I " + "/system/framework/framework-res.apk " +
+                                "-I " + targetPkg + " " +
                                 "-F " + work_area + "/" + overlay_package +
                                 "." + parse2_themeName + "-unsigned.apk " +
                                 "-f --include-meta-data --auto-add-overlay\n";

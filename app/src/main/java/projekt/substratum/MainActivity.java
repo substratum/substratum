@@ -369,9 +369,9 @@ public class MainActivity extends AppCompatActivity implements
                 if (!made) Log.e(References.SUBSTRATUM_LOG, "Unable to create cache directory");
             }
             File rescueFile = new File(Environment.getExternalStorageDirectory() +
-                    java.io.File.separator + "SubstratumRescue.zip");
+                    File.separator + "substratum" + File.separator + "SubstratumRescue.zip");
             File rescueFileLegacy = new File(Environment.getExternalStorageDirectory() +
-                    java.io.File.separator + "SubstratumRescue_Legacy.zip");
+                    File.separator + "substratum" + File.separator + "SubstratumRescue_Legacy.zip");
             if (!rescueFile.exists()) {
                 copyRescueFile(getApplicationContext(), "rescue.dat",
                         Environment.getExternalStorageDirectory() +

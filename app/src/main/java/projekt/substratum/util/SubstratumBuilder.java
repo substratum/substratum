@@ -376,7 +376,7 @@ public class SubstratumBuilder {
                 // Delete the previous APK if it exists in the dashboard folder
                 References.delete(Environment.getExternalStorageDirectory().getAbsolutePath() +
                         "/.substratum/" + overlay_package + "." + parse2_themeName +
-                        "-unsigned.apk");
+                        "-signed.apk");
 
                 // Sign with the built-in test key/certificate.
                 String source = work_area + "/" + overlay_package + "." + parse2_themeName +

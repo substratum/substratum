@@ -34,6 +34,9 @@
     <color name="easter_egg_new_highscore_3">#fff6e803</color>
     <color name="easter_egg_new_highscore_3_shadow">@android:color/black</color>
 
+    <color name="studio_placeholder_icon">@android:color/black</color>
+    <color name="studio_placeholder_title">@android:color/black</color>
+
     <color name="font_text">@android:color/white</color>
     <color name="font_checked">@color/colorAccent</color>
     <color name="font_unchecked">#ff777777</color>

@@ -3,6 +3,8 @@ package projekt.substratum.adapters;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
@@ -23,8 +25,10 @@ import projekt.substratum.model.IconInfo;
 public class IconPackAdapter extends RecyclerView.Adapter<IconEntry> {
 
     private ArrayList<IconInfo> itemList;
+    private Context mContext;
 
-    public IconPackAdapter(ArrayList<IconInfo> itemList) {
+    public IconPackAdapter(Context mContext, ArrayList<IconInfo> itemList) {
+        this.mContext = mContext;
         this.itemList = itemList;
     }
 
@@ -32,7 +36,7 @@ public class IconPackAdapter extends RecyclerView.Adapter<IconEntry> {
     public IconEntry onCreateViewHolder(ViewGroup parent, int viewType) {
         View layoutView = LayoutInflater.from(
                 parent.getContext()).inflate(R.layout.icon_entry_card, null);
-        return new IconEntry(layoutView);
+        return new IconEntry(mContext, layoutView);
     }
 
     @Override
@@ -121,6 +125,13 @@ public class IconPackAdapter extends RecyclerView.Adapter<IconEntry> {
             } catch (Exception e) {
                 // Suppress warning
             }
+        }
+        if (itemList.get(position).getPackageDrawable().equals("null")) {
+            ColorMatrix matrix = new ColorMatrix();
+            matrix.setSaturation(0);
+            ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
+            holder.iconDrawable.setColorFilter(filter);
+            holder.setDisabled(true);
         }
     }
 

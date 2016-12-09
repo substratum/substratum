@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -96,6 +97,9 @@ public class StudioSelectorActivity extends AppCompatActivity {
         creative_mode.setClickable(false);
         creative_mode.setEnabled(false);
 
+        RelativeLayout none_found = (RelativeLayout) findViewById(R.id.pack_placeholder);
+        none_found.setVisibility(View.GONE);
+
         // Create a bare list to store each of the values necessary to add into the RecyclerView
         ArrayList<PackInfo> packs = new ArrayList<>();
 
@@ -133,6 +137,11 @@ public class StudioSelectorActivity extends AppCompatActivity {
 
         PackAdapter packAdapter = new PackAdapter(packs);
         recyclerView.setAdapter(packAdapter);
+
+        if (sortedMap.size() <= 0) {
+            recyclerView.setVisibility(View.GONE);
+            none_found.setVisibility(View.VISIBLE);
+        }
 
         CardView update_configuration = (CardView) findViewById(R.id.studio_update);
         update_configuration.setOnClickListener(new View.OnClickListener() {

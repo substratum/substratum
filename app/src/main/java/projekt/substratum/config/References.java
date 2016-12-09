@@ -339,6 +339,13 @@ public class References {
         return Arrays.asList(allowed_themable).contains(targetValue);
     }
 
+    // This string array contains all the legacy allowed folders
+    public static Boolean checkIconPackNotAllowed(String targetValue) {
+        String[] not_allowed_themable = {
+                "com.keramidas.TitaniumBackup"};
+        return Arrays.asList(not_allowed_themable).contains(targetValue);
+    }
+
     // This method determines whether a specified package is installed
     public static boolean isPackageInstalled(Context context, String package_name) {
         try {
@@ -363,6 +370,26 @@ public class References {
             }
         }
         return null;
+    }
+
+    // This method validates the resources by their name in a specific package
+    public static Boolean validateResource(Context mContext, String package_Name,
+                                           String resource_name, String resource_type) {
+        try {
+            Context context = mContext.createPackageContext(package_Name, 0);
+            Resources resources = context.getResources();
+            int drawablePointer = resources.getIdentifier(
+                    resource_name, // Drawable name explicitly defined
+                    resource_type, // Declared icon is a drawable, indeed.
+                    package_Name); // Icon pack package name
+            if (drawablePointer == 0) {
+                return false;
+            } else {
+                return true;
+            }
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     // This method obtains the application icon for a specified package

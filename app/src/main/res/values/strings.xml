@@ -312,6 +312,10 @@
     <string name="studio_applying">Loading&#8230;</string>
     <string name="icon_pack_entry">Overlay Icon</string>
     <string name="studio_update_configuration">Refresh Icon Configuration</string>
+    <string name="studio_placeholder_text">no substratum supported icon packs found</string>
+    <string name="studio_toast_mask">This icon is being drawn from your current pack and
+        will be changed when you apply this icon pack.
+    </string>
 
     <string name="nav_overlay_manager">Advanced Manager</string>
     <string name="nav_home">Theme Packs</string>

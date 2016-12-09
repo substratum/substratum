@@ -76,6 +76,35 @@
             android:layout_below="@+id/pack_title"
             android:scrollbars="vertical"/>
 
+        <RelativeLayout
+            android:id="@+id/pack_placeholder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/pack_title"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/image_placeholder"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginTop="20dp"
+                android:alpha="50"
+                android:src="@drawable/studio_no_icon_packs_found"/>
+
+            <TextView
+                android:id="@+id/placeholder_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/image_placeholder"
+                android:layout_margin="15dp"
+                android:gravity="center"
+                android:text="@string/studio_placeholder_text"
+                android:textColor="@color/studio_placeholder_title"
+                android:textSize="20dp"
+                android:textStyle="italic"/>
+
+        </RelativeLayout>
+
     </RelativeLayout>
 
 </LinearLayout>

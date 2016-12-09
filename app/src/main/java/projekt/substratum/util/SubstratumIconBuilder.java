@@ -258,7 +258,6 @@ public class SubstratumIconBuilder {
                     pw.write(manifest);
                 }
             } catch (Exception e) {
-                e.printStackTrace();
                 dumpErrorLogs(References.SUBSTRATUM_ICON_BUILDER, overlay_package, e.getMessage());
                 dumpErrorLogs(References.SUBSTRATUM_ICON_BUILDER, overlay_package,
                         "There was an exception creating a new Manifest file!");
@@ -361,7 +360,6 @@ public class SubstratumIconBuilder {
 
                 Log.d(References.SUBSTRATUM_ICON_BUILDER, "APK successfully signed!");
             } catch (Throwable t) {
-                t.printStackTrace();
                 dumpErrorLogs(References.SUBSTRATUM_ICON_BUILDER, overlay_package,
                         "APK could not be signed. " + t.toString());
                 has_errored_out = true;

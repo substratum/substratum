@@ -404,7 +404,8 @@ public class MainActivity extends AppCompatActivity implements
 
         printFCMtoken();
 
-        if (!References.checkOMS(getApplicationContext())) {
+        if (!References.checkOMS(getApplicationContext()) &&
+                !prefs.contains("legacy_dismissal")) {
             new AlertDialog.Builder(this)
                     .setTitle(R.string.warning_title)
                     .setMessage(R.string.legacy_warning_content)
@@ -414,6 +415,14 @@ public class MainActivity extends AppCompatActivity implements
                             dialog.cancel();
                         }
                     })
+                    .setNeutralButton(R.string.dialog_do_not_show_again,
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int i) {
+                                    prefs.edit().putBoolean("legacy_dismissal", true).apply();
+                                    dialog.cancel();
+                                }
+                            })
                     .show();
         }
 

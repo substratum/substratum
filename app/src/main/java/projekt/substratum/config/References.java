@@ -99,7 +99,7 @@ public class References {
                     context.getPackageManager().getPackageInfo("masquerade.substratum", 0);
             return pInfo.versionCode;
         } catch (PackageManager.NameNotFoundException e) {
-            //
+            // Suppress warning
         }
         return 0;
     }

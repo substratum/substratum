@@ -427,8 +427,9 @@ public class MainActivity extends AppCompatActivity implements
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && !References.checkOMS(
-                getApplicationContext()) && References.getProp("ro.build.version.security_patch")
-                .equals("2016-11-05")) {
+                getApplicationContext()) && (
+                References.getProp("ro.build.version.security_patch").equals("2016-11-05") ||
+                References.getProp("ro.build.version.security_patch").equals("2016-12-05"))) {
             new AlertDialog.Builder(this)
                     .setTitle(R.string.warning_title)
                     .setMessage(R.string.dangerous_warning_content)

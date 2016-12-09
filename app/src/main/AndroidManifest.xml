@@ -34,7 +34,8 @@
                 <data android:scheme="package"/>
             </intent-filter>
         </receiver>
-        <receiver android:name=".services.MasqueradeBall">
+        <receiver android:name=".services.MasqueradeBall"
+                  android:exported="false">
             <intent-filter>
                 <action android:name="projekt.substratum.MASQUERADE_BALL"/>
             </intent-filter>
@@ -104,7 +105,8 @@
             android:value="true"/>
 
         <service
-            android:name=".services.FirebaseMessagingService">
+            android:name=".services.FirebaseMessagingService"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>

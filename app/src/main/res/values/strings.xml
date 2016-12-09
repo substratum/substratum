@@ -294,7 +294,7 @@
 
     <string name="coming_soon">Stolen by Char!</string>
 
-    <string name="studio">icon pack studio (beta)</string>
+    <string name="studio">icon pack studio (gamma)</string>
     <string name="studio_system">Restore System Icons</string>
     <string name="studio_system_reset_dialog_toast">
         All custom icons have already been disabled!

@@ -290,7 +290,9 @@ public class SubstratumBuilder {
                             "-I " + targetPkg + " " +
                             "-F " + work_area + "/" + overlay_package +
                             "." + parse2_themeName + "-unsigned.apk " +
-                            "-f --include-meta-data --auto-add-overlay\n";
+                            "-f --include-meta-data --auto-add-overlay" +
+                            ((References.ENABLE_AOPT_OUTPUT) ? " -v" : "") +
+                            "\n";
                 } else {
                     if (variant != null) {
                         commands = "aopt p " +
@@ -301,7 +303,9 @@ public class SubstratumBuilder {
                                 "-I " + targetPkg + " " +
                                 "-F " + work_area + "/" + overlay_package + "." +
                                 parse2_themeName + "-unsigned.apk " +
-                                "-f --include-meta-data --auto-add-overlay\n";
+                                "-f --include-meta-data --auto-add-overlay" +
+                                ((References.ENABLE_AOPT_OUTPUT) ? " -v" : "") +
+                                "\n";
                     } else {
                         commands = "aopt p " +
                                 "-M " + work_area + "/AndroidManifest.xml " +
@@ -310,7 +314,9 @@ public class SubstratumBuilder {
                                 "-I " + targetPkg + " " +
                                 "-F " + work_area + "/" + overlay_package +
                                 "." + parse2_themeName + "-unsigned.apk " +
-                                "-f --include-meta-data --auto-add-overlay\n";
+                                "-f --include-meta-data --auto-add-overlay" +
+                                ((References.ENABLE_AOPT_OUTPUT) ? " -v" : "") +
+                                "\n";
                     }
                 }
 
@@ -325,7 +331,7 @@ public class SubstratumBuilder {
 
                     try (BufferedReader br = new BufferedReader(new InputStreamReader(stdout))) {
                         while ((line = br.readLine()) != null) {
-                            Log.d("OverlayOptimizer", line);
+                            Log.d("SubstratumCompiler", line);
                         }
                     }
                     try (BufferedReader br = new BufferedReader(new InputStreamReader(stderr))) {

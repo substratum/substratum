@@ -277,7 +277,9 @@ public class SubstratumIconBuilder {
                         "-S " + work_area + "/res/ " +
                         "-I " + "/system/framework/framework-res.apk " +
                         "-F " + work_area + "/" + overlay_package + ".icon-unsigned.apk " +
-                        "-f --include-meta-data --auto-add-overlay\n";
+                        "-f --include-meta-data --auto-add-overlay" +
+                        ((References.ENABLE_AOPT_OUTPUT) ? " -v" : "") +
+                        "\n";
 
                 String line;
                 nativeApp = Runtime.getRuntime().exec(commands);
@@ -290,7 +292,7 @@ public class SubstratumIconBuilder {
 
                     try (BufferedReader br = new BufferedReader(new InputStreamReader(stdout))) {
                         while ((line = br.readLine()) != null) {
-                            Log.d("OverlayOptimizer", line);
+                            Log.d("SubstratumCompiler", line);
                         }
                     }
                     try (BufferedReader br = new BufferedReader(new InputStreamReader(stderr))) {

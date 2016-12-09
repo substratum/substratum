@@ -19,7 +19,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.service.notification.StatusBarNotification;
 import android.support.v4.app.Fragment;
@@ -33,6 +32,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
@@ -103,7 +103,6 @@ public class OverlaysList extends Fragment {
     private Context mContext;
     private Switch toggle_all;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private PowerManager.WakeLock mWakeLock;
     private MaterialSheetFab materialSheetFab;
     private ProgressBar progressBar;
     private ArrayList<String> current_theme_overlays;
@@ -1007,12 +1006,6 @@ public class OverlaysList extends Fragment {
                         .setOngoing(true);
                 mNotifyManager.notify(id, mBuilder.build());
 
-                PowerManager pm = (PowerManager)
-                        mContext.getApplicationContext().getSystemService(Context.POWER_SERVICE);
-                mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
-                        getClass().getName());
-                mWakeLock.acquire();
-
                 mProgressDialog = null;
                 mProgressDialog = new ProgressDialog(getActivity(), R.style
                         .SubstratumBuilder_ActivityTheme);
@@ -1020,6 +1013,8 @@ public class OverlaysList extends Fragment {
                 mProgressDialog.setCancelable(false);
                 mProgressDialog.show();
                 mProgressDialog.setContentView(R.layout.compile_dialog_loader);
+                mProgressDialog.getWindow().addFlags(
+                        WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
                 final float radius = 5;
                 final View decorView = getActivity().getWindow().getDecorView();
@@ -1182,7 +1177,6 @@ public class OverlaysList extends Fragment {
             }
 
             if (!enable_mode && !disable_mode) {
-                mWakeLock.release();
                 mProgressDialog.dismiss();
 
                 // Add dummy intent to be able to close the notification on click

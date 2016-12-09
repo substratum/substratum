@@ -30,6 +30,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -319,12 +320,12 @@ public class StudioPreviewActivity extends AppCompatActivity {
 
     public class IconPackInstaller extends AsyncTask<String, Integer, String> {
 
-
         @Override
         protected void onPreExecute() {
             mProgressDialog.setCancelable(false);
             mProgressDialog.show();
             mProgressDialog.setContentView(R.layout.compile_icon_dialog_loader);
+            mProgressDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
             final float radius = 5;
             final View decorView = getWindow().getDecorView();

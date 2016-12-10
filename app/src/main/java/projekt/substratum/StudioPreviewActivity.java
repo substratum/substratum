@@ -480,7 +480,8 @@ public class StudioPreviewActivity extends AppCompatActivity {
                     try {
                         // We must disable the icon from any further resource withdrawals
                         References.runCommands(References.disableOverlay() + " " +
-                                icons.get(i).getPackageName());
+                                icons.get(i).getPackageName() + ".icon");
+                        Thread.sleep(1000);
 
                         Context context = createPackageContext(current_pack, 0);
                         Resources resources = context.getResources();

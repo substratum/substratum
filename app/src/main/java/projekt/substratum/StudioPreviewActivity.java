@@ -540,7 +540,7 @@ public class StudioPreviewActivity extends AppCompatActivity {
                         // We must disable the icon from any further resource withdrawals
                         References.runCommands(References.disableOverlay() + " " +
                                 icons.get(i).getPackageName() + ".icon");
-                        Thread.sleep(1000);
+                        Thread.sleep(1500);
 
                         Context context = createPackageContext(current_pack, 0);
                         Resources resources = context.getResources();
@@ -574,6 +574,8 @@ public class StudioPreviewActivity extends AppCompatActivity {
                                                     false);
                                 }
                                 iconification = combineLayers(bBack, applicationIcon);
+                            } else {
+                                iconBack = false;
                             }
                         }
                         if (iconMask) {
@@ -704,6 +706,18 @@ public class StudioPreviewActivity extends AppCompatActivity {
 
                                     // Conclude bitmap mutation
                                     iconification = result;
+
+                                    // Check if there's an iconBack that needs to be replaced
+                                    if (iconBack) {
+                                        int drawableBack = resources.getIdentifier(
+                                                iconBackValue, // Drawable name explicitly defined
+                                                "drawable", // Declared icon is a drawable, indeed.
+                                                current_pack);
+
+                                        Bitmap bBack = BitmapFactory.decodeResource(resources,
+                                                drawableBack);
+                                        iconification = combineLayers(bBack, iconification);
+                                    }
                                 } else {
                                     // At this point, this object is a simple semi-transparent
                                     // overlay image
@@ -729,6 +743,8 @@ public class StudioPreviewActivity extends AppCompatActivity {
                                         iconification = combineLayers(iconification, bMask);
                                     }
                                 }
+                            } else {
+                                iconMask = false;
                             }
                         }
                         if (iconUpon) {
@@ -764,6 +780,8 @@ public class StudioPreviewActivity extends AppCompatActivity {
                                 } else {
                                     iconification = combineLayers(iconification, bFront);
                                 }
+                            } else {
+                                iconUpon = false;
                             }
                         }
                     } catch (Exception e) {

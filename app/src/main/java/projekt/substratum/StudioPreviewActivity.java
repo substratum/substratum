@@ -12,7 +12,11 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -58,6 +62,7 @@ import static projekt.substratum.config.References.DEBUG;
 import static projekt.substratum.config.References.FIRST_WINDOW_REFRESH_DELAY;
 import static projekt.substratum.config.References.MAIN_WINDOW_REFRESH_DELAY;
 import static projekt.substratum.config.References.SECOND_WINDOW_REFRESH_DELAY;
+import static projekt.substratum.config.References.SUBSTRATUM_ICON_BUILDER;
 import static projekt.substratum.config.References.grabPackageName;
 import static projekt.substratum.util.MapUtils.sortMapByValues;
 
@@ -157,6 +162,24 @@ public class StudioPreviewActivity extends AppCompatActivity {
                                     iconBack = true;
                                     iconBackValue = parser.getAttributeValue(null, "img1");
                                 }
+                            } else if (parser.getAttributeValue(null, "img2") != null) {
+                                // Validate that the filter is not lying
+                                Boolean validated = References.validateResource(
+                                        getApplicationContext(), current_pack,
+                                        parser.getAttributeValue(null, "img2"), "drawable");
+                                if (validated) {
+                                    iconBack = true;
+                                    iconBackValue = parser.getAttributeValue(null, "img2");
+                                }
+                            } else if (parser.getAttributeValue(null, "img3") != null) {
+                                // Validate that the filter is not lying
+                                Boolean validated = References.validateResource(
+                                        getApplicationContext(), current_pack,
+                                        parser.getAttributeValue(null, "img3"), "drawable");
+                                if (validated) {
+                                    iconBack = true;
+                                    iconBackValue = parser.getAttributeValue(null, "img3");
+                                }
                             }
                             break;
                         case "iconupon":
@@ -179,6 +202,24 @@ public class StudioPreviewActivity extends AppCompatActivity {
                                     iconUpon = true;
                                     iconUponValue = parser.getAttributeValue(null, "img1");
                                 }
+                            } else if (parser.getAttributeValue(null, "img2") != null) {
+                                // Validate that the filter is not lying
+                                Boolean validated = References.validateResource(
+                                        getApplicationContext(), current_pack,
+                                        parser.getAttributeValue(null, "img2"), "drawable");
+                                if (validated) {
+                                    iconUpon = true;
+                                    iconUponValue = parser.getAttributeValue(null, "img2");
+                                }
+                            } else if (parser.getAttributeValue(null, "img3") != null) {
+                                // Validate that the filter is not lying
+                                Boolean validated = References.validateResource(
+                                        getApplicationContext(), current_pack,
+                                        parser.getAttributeValue(null, "img3"), "drawable");
+                                if (validated) {
+                                    iconUpon = true;
+                                    iconUponValue = parser.getAttributeValue(null, "img3");
+                                }
                             }
                             break;
                         case "iconmask":
@@ -200,6 +241,24 @@ public class StudioPreviewActivity extends AppCompatActivity {
                                 if (validated) {
                                     iconMask = true;
                                     iconMaskValue = parser.getAttributeValue(null, "img1");
+                                }
+                            } else if (parser.getAttributeValue(null, "img2") != null) {
+                                // Validate that the filter is not lying
+                                Boolean validated = References.validateResource(
+                                        getApplicationContext(), current_pack,
+                                        parser.getAttributeValue(null, "img2"), "drawable");
+                                if (validated) {
+                                    iconMask = true;
+                                    iconMaskValue = parser.getAttributeValue(null, "img2");
+                                }
+                            } else if (parser.getAttributeValue(null, "img3") != null) {
+                                // Validate that the filter is not lying
+                                Boolean validated = References.validateResource(
+                                        getApplicationContext(), current_pack,
+                                        parser.getAttributeValue(null, "img3"), "drawable");
+                                if (validated) {
+                                    iconMask = true;
+                                    iconMaskValue = parser.getAttributeValue(null, "img3");
                                 }
                             }
                             break;
@@ -517,6 +576,161 @@ public class StudioPreviewActivity extends AppCompatActivity {
                                 iconification = combineLayers(bBack, applicationIcon);
                             }
                         }
+                        if (iconMask) {
+                            // Validation
+                            Boolean validated = References.validateResource(
+                                    getApplicationContext(), current_pack,
+                                    iconMaskValue, "drawable");
+                            if (validated) {
+                                int drawableMask = resources.getIdentifier(
+                                        iconMaskValue, // Drawable name explicitly defined
+                                        "drawable", // Declared icon is a drawable, indeed.
+                                        current_pack);
+                                Bitmap mask = BitmapFactory.decodeResource(
+                                        resources,
+                                        drawableMask);
+
+                                // We have to check whether the iconMask object is a cropper, or a
+                                // simple overlaying drawable
+                                Boolean is_cropper = true;
+                                int[] pixelCheck = new int[mask.getHeight() *
+                                        mask.getWidth()];
+                                mask.getPixels(pixelCheck, 0, mask.getWidth(), 0, 0,
+                                        mask.getWidth(), mask.getHeight());
+                                int colorPixelTopLeft = mask.getPixel(0, 0);
+                                int colorPixelTopRight = mask.getPixel(mask.getWidth() - 1, 0);
+                                int colorPixelBottomLeft = mask.getPixel(0, mask.getHeight() - 1);
+                                int colorPixelBottomRight = mask.getPixel(mask.getWidth() - 1,
+                                        mask.getHeight() - 1);
+                                if (colorPixelTopLeft == colorPixelTopRight &&
+                                        colorPixelBottomLeft == colorPixelBottomRight &&
+                                        colorPixelTopLeft == colorPixelBottomRight) {
+                                    Log.d(SUBSTRATUM_ICON_BUILDER, "Mask pixels all match, " +
+                                            "checking if mask is cropper or overlay...");
+                                    if (colorPixelTopLeft == Color.BLACK) {
+                                        Log.d(SUBSTRATUM_ICON_BUILDER,
+                                                "Mask pixels denote the template is using a " +
+                                                        "cropping guideline, " +
+                                                        "ensuring proper parameters...");
+                                        is_cropper = true;
+                                    } else {
+                                        Log.d(SUBSTRATUM_ICON_BUILDER,
+                                                "Mask pixels denote the template is using a " +
+                                                        "overlaying guideline, " +
+                                                        "ensuring proper parameters...");
+                                    }
+                                }
+
+                                if (is_cropper) {
+                                    Log.d(SUBSTRATUM_ICON_BUILDER,
+                                            "This icon is now being processed with the " +
+                                                    "cropping algorithm...");
+                                    Bitmap original;
+                                    if (iconification != null) {
+                                        original = iconification;
+                                    } else {
+                                        Drawable icon = References.grabAppIcon(
+                                                getApplicationContext(),
+                                                icons.get(i).getPackageName());
+                                        original = ((BitmapDrawable) icon).getBitmap();
+                                        if (iconScale) {
+                                            // Take account for the icon pack designer's scale value
+                                            float height = original.getHeight() * iconScaleValue;
+                                            float width = original.getWidth() * iconScaleValue;
+                                            original = Bitmap.createScaledBitmap(
+                                                    original,
+                                                    (int) height,
+                                                    (int) width,
+                                                    false);
+                                        }
+                                    }
+                                    Bitmap bMask = BitmapFactory.decodeResource(
+                                            resources,
+                                            drawableMask);
+
+                                    /**
+                                     * Begin process of the mask icon
+                                     */
+                                    // Create an image with the same size as the base
+                                    Bitmap imageWithBG = Bitmap.createBitmap(
+                                            bMask.getWidth(),
+                                            bMask.getHeight(),
+                                            bMask.getConfig());
+
+                                    // Set the background to white (erase doesn't mean erase)
+                                    imageWithBG.eraseColor(Color.WHITE);
+
+                                    // Create a canvas to draw on the new image
+                                    Canvas canvas = new Canvas(imageWithBG);
+
+                                    // Draw the mask on the background
+                                    canvas.drawBitmap(bMask, 0f, 0f, null);
+
+                                    // Erase all of the black so we have the core bleed area
+                                    // ready for bitmap mutation
+                                    int[] pixels = new int[
+                                            imageWithBG.getHeight() *
+                                                    imageWithBG.getWidth()];
+                                    imageWithBG.getPixels(pixels, 0,
+                                            imageWithBG.getWidth(), 0, 0,
+                                            imageWithBG.getWidth(), imageWithBG.getHeight());
+                                    for (int count = 0; count < pixels.length; count++) {
+                                        if (pixels[count] == Color.BLACK) {
+                                            pixels[count] = Color.TRANSPARENT;
+                                        }
+                                    }
+                                    imageWithBG.setPixels(pixels, 0, imageWithBG.getWidth(),
+                                            0, 0, imageWithBG.getWidth(),
+                                            imageWithBG.getHeight());
+
+                                    /**
+                                     * Then finally perform the masking on the processed mask
+                                     * overlay
+                                     */
+                                    Bitmap result = Bitmap.createBitmap(
+                                            bMask.getWidth(),
+                                            bMask.getHeight(),
+                                            Bitmap.Config.ARGB_8888);
+                                    Canvas tempCanvas = new Canvas(result);
+                                    Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+                                    paint.setXfermode(
+                                            new PorterDuffXfermode(PorterDuff.Mode.DST_IN));
+                                    tempCanvas.drawBitmap(original, 0, 0, null);
+                                    tempCanvas.drawBitmap(imageWithBG, 0, 0, paint);
+                                    paint.setXfermode(null);
+
+                                    // Draw result after performing masking
+                                    canvas.drawBitmap(result, 0, 0, new Paint());
+
+                                    // Conclude bitmap mutation
+                                    iconification = result;
+                                } else {
+                                    // At this point, this object is a simple semi-transparent
+                                    // overlay image
+                                    Bitmap bMask = BitmapFactory.decodeResource(resources,
+                                            drawableMask);
+
+                                    Drawable icon = References.grabAppIcon(getApplicationContext(),
+                                            icons.get(i).getPackageName());
+                                    Bitmap app = ((BitmapDrawable) icon).getBitmap();
+                                    if (iconScale) {
+                                        // Take account for the icon pack designer's scale value
+                                        float height = app.getHeight() * iconScaleValue;
+                                        float width = app.getWidth() * iconScaleValue;
+                                        app = Bitmap.createScaledBitmap(
+                                                app,
+                                                (int) height,
+                                                (int) width,
+                                                false);
+                                    }
+                                    if (iconification == null) {
+                                        iconification = combineLayers(bMask, app);
+                                    } else {
+                                        iconification = combineLayers(iconification, bMask);
+                                    }
+                                }
+                            }
+                        }
                         if (iconUpon) {
                             // Validation
                             Boolean validated = References.validateResource(
@@ -549,41 +763,6 @@ public class StudioPreviewActivity extends AppCompatActivity {
                                     iconification = combineLayers(bFront, applicationIcon);
                                 } else {
                                     iconification = combineLayers(iconification, bFront);
-                                }
-                            }
-                        }
-
-                        if (iconMask) {
-                            // Validation
-                            Boolean validated = References.validateResource(
-                                    getApplicationContext(), current_pack,
-                                    iconMaskValue, "drawable");
-                            if (validated) {
-                                int drawableMask = resources.getIdentifier(
-                                        iconMaskValue, // Drawable name explicitly defined
-                                        "drawable", // Declared icon is a drawable, indeed.
-                                        current_pack);
-
-                                Bitmap bMask = BitmapFactory.decodeResource(resources,
-                                        drawableMask);
-
-                                Drawable icon = References.grabAppIcon(getApplicationContext(),
-                                        icons.get(i).getPackageName());
-                                Bitmap app = ((BitmapDrawable) icon).getBitmap();
-                                if (iconScale) {
-                                    // Take account for the icon pack designer's scale value
-                                    float height = app.getHeight() * iconScaleValue;
-                                    float width = app.getWidth() * iconScaleValue;
-                                    app = Bitmap.createScaledBitmap(
-                                            app,
-                                            (int) height,
-                                            (int) width,
-                                            false);
-                                }
-                                if (iconification == null) {
-                                    iconification = combineLayers(bMask, app);
-                                } else {
-                                    iconification = combineLayers(iconification, bMask);
                                 }
                             }
                         }

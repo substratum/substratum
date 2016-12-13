@@ -1079,9 +1079,10 @@ public class References {
         try {
             Date date = format.parse(currentPatch);
             long currentPatchTimestamp = date.getTime();
+
             return currentPatchTimestamp > NOVEMBER_PATCH_TIMESTAMP;
-        } catch (ParseException nfe) {
-            nfe.printStackTrace();
+        } catch (ParseException pe) {
+            pe.printStackTrace();
         }
 
         // Something bad happened. Aborting

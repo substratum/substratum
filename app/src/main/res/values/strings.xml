@@ -74,7 +74,7 @@
 
     <string name="warning_title">WARNING!</string>
     <string name="dangerous_warning_content">Substratum has detected that it is running on a
-        BOOTLOOP-KNOWN FIRMWARE (November/December update N/N-MR1) and is strongly advising against
+        BOOTLOOP-KNOWN FIRMWARE (Update after November, N/N-MR1) and is strongly advising against
         applying any framework/Android System overlays.\n\nIf you choose to continue and end up in a
         bootloop, please flash the rescue archive found in "/storage/emulated/0/substratum/".
     </string>

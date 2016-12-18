@@ -290,7 +290,7 @@ public class SubstratumBuilder {
                             "-I " + targetPkg + " " +
                             "-F " + work_area + "/" + overlay_package +
                             "." + parse2_themeName + "-unsigned.apk " +
-                            "-f --include-meta-data --auto-add-overlay" +
+                            "-f -x --include-meta-data --auto-add-overlay" +
                             ((References.ENABLE_AOPT_OUTPUT) ? " -v" : "") +
                             "\n";
                 } else {
@@ -303,7 +303,7 @@ public class SubstratumBuilder {
                                 "-I " + targetPkg + " " +
                                 "-F " + work_area + "/" + overlay_package + "." +
                                 parse2_themeName + "-unsigned.apk " +
-                                "-f --include-meta-data --auto-add-overlay" +
+                                "-f -x --include-meta-data --auto-add-overlay" +
                                 ((References.ENABLE_AOPT_OUTPUT) ? " -v" : "") +
                                 "\n";
                     } else {
@@ -314,7 +314,7 @@ public class SubstratumBuilder {
                                 "-I " + targetPkg + " " +
                                 "-F " + work_area + "/" + overlay_package +
                                 "." + parse2_themeName + "-unsigned.apk " +
-                                "-f --include-meta-data --auto-add-overlay" +
+                                "-f -x --include-meta-data --auto-add-overlay" +
                                 ((References.ENABLE_AOPT_OUTPUT) ? " -v" : "") +
                                 "\n";
                     }

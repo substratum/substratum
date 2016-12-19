@@ -30,8 +30,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import projekt.substrate.LetsGetStarted;
 import projekt.substrate.ShowMeYourFierceEyes;
@@ -424,6 +426,14 @@ public class References {
         // their manifest
         PackageManager packageManager = context.getPackageManager();
         return packageManager.queryIntentActivities(new Intent(NOVA_LAUNCHER),
+                PackageManager.GET_META_DATA);
+    }
+
+    public static List<ResolveInfo> getThemes(Context context) {
+        // Scavenge through the packages on the device with specific substratum metadata in
+        // their manifest
+        PackageManager packageManager = context.getPackageManager();
+        return packageManager.queryIntentActivities(new Intent(SUBSTRATUM_THEME),
                 PackageManager.GET_META_DATA);
     }
 

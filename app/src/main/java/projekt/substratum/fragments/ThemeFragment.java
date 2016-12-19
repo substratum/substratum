@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.content.res.AssetManager;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -125,91 +126,45 @@ public class ThemeFragment extends Fragment {
         return root;
     }
 
-    private void getSubstratumPackages(Context context, String package_name) {
+    private void getSubstratumPackages(Context context) {
         // Simulate the Layers Plugin feature by filtering all installed apps and their metadata
         try {
-            ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
-                    package_name, PackageManager.GET_META_DATA);
-
-            Context otherContext = getContext().createPackageContext(package_name, 0);
-            AssetManager am = otherContext.getAssets();
-            if (appInfo.metaData != null) {
-                if (!References.checkOMS(getContext())) {
-                    if (appInfo.metaData.getBoolean(References.metadataLegacy, false)) {
-                        if (appInfo.metaData.getString(References.metadataName) != null) {
-                            if (appInfo.metaData.getString(References.metadataAuthor) != null) {
-                                if (home_type.equals("wallpapers")) {
-                                    if (appInfo.metaData.getString(References.metadataWallpapers) !=
-                                            null) {
-                                        String[] data = {appInfo.metaData.getString
-                                                (References.metadataAuthor),
-                                                package_name};
-                                        substratum_packages.put(appInfo.metaData.getString(
-                                                References.metadataName), data);
-                                    }
-                                } else {
-                                    if (home_type.length() == 0) {
-                                        String[] data = {appInfo.metaData.getString
-                                                (References.metadataAuthor),
-                                                package_name};
-                                        substratum_packages.put(appInfo.metaData.getString
-                                                (References.metadataName), data);
-                                        Log.d("Substratum Ready Theme", package_name);
-                                    } else {
-                                        try {
-                                            String[] stringArray = am.list("");
-                                            if (Arrays.asList(stringArray).contains(home_type)) {
-                                                String[] data = {appInfo.metaData.getString
-                                                        (References.metadataAuthor),
-                                                        package_name};
-                                                substratum_packages.put(appInfo.metaData.getString
-                                                        (References.metadataName), data);
-                                            }
-                                        } catch (Exception e) {
-                                            Log.e(References.SUBSTRATUM_LOG,
-                                                    "Unable to find package identifier");
-                                        }
-                                    }
-                                }
-                            }
-                        }
+            List<ResolveInfo> listOfThemes = References.getThemes(context);
+            for (ResolveInfo ri : listOfThemes) {
+                String packageName = ri.activityInfo.packageName;
+                ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
+                        packageName, PackageManager.GET_META_DATA);
+                Context otherContext = getContext().createPackageContext(packageName, 0);
+                AssetManager am = otherContext.getAssets();
+                if (home_type.equals(References.wallpaperFragment)) {
+                    if (appInfo.metaData.getString(References.metadataWallpapers) != null) {
+                        String[] data = {appInfo.metaData.getString
+                                (References.metadataAuthor),
+                                packageName};
+                        substratum_packages.put(appInfo.metaData.getString(
+                                References.metadataName), data);
                     }
                 } else {
-                    if (appInfo.metaData.getString(References.metadataName) != null) {
-                        if (appInfo.metaData.getString(References.metadataAuthor) != null) {
-                            if (home_type.equals("wallpapers")) {
-                                if (appInfo.metaData.getString(References.metadataWallpapers) !=
-                                        null) {
-                                    String[] data = {appInfo.metaData.getString
-                                            (References.metadataAuthor),
-                                            package_name};
-                                    substratum_packages.put(appInfo.metaData.getString(
-                                            References.metadataName), data);
-                                }
-                            } else {
-                                if (home_type.length() == 0) {
-                                    String[] data = {appInfo.metaData.getString
-                                            (References.metadataAuthor),
-                                            package_name};
-                                    substratum_packages.put(appInfo.metaData.getString
-                                            (References.metadataName), data);
-                                    Log.d("Substratum Ready Theme", package_name);
-                                } else {
-                                    try {
-                                        String[] stringArray = am.list("");
-                                        if (Arrays.asList(stringArray).contains(home_type)) {
-                                            String[] data = {appInfo.metaData.getString
-                                                    (References.metadataAuthor),
-                                                    package_name};
-                                            substratum_packages.put(appInfo.metaData.getString
-                                                    (References.metadataName), data);
-                                        }
-                                    } catch (Exception e) {
-                                        Log.e(References.SUBSTRATUM_LOG,
-                                                "Unable to find package identifier");
-                                    }
-                                }
+                    if (home_type.length() == 0) {
+                        String[] data = {appInfo.metaData.getString
+                                (References.metadataAuthor),
+                                packageName};
+                        substratum_packages.put(appInfo.metaData.getString
+                                (References.metadataName), data);
+                        Log.d("Substratum Ready Theme", packageName);
+                    } else {
+                        try {
+                            String[] stringArray = am.list("");
+                            if (Arrays.asList(stringArray).contains(home_type)) {
+                                String[] data = {appInfo.metaData.getString
+                                        (References.metadataAuthor),
+                                        packageName};
+                                substratum_packages.put(appInfo.metaData.getString
+                                        (References.metadataName), data);
                             }
+                        } catch (Exception e) {
+                            Log.e(References.SUBSTRATUM_LOG,
+                                    "Unable to find package identifier");
                         }
                     }
                 }
@@ -260,10 +215,13 @@ public class ThemeFragment extends Fragment {
     }
 
     private void refreshLayout() {
-        try {
-            new AOPTCheck().injectAOPT(getContext(), false);
-        } catch (Exception e) {
-            Log.e(References.SUBSTRATUM_LOG, "AOPT could not be checked or injected at this time.");
+        if (home_type.length() == 0) {
+            try {
+                new AOPTCheck().injectAOPT(getContext(), false);
+            } catch (Exception e) {
+                Log.e(References.SUBSTRATUM_LOG,
+                        "AOPT could not be checked or injected at this time.");
+            }
         }
 
         MaterialProgressBar materialProgressBar = (MaterialProgressBar) root.findViewById(R.id
@@ -275,11 +233,7 @@ public class ThemeFragment extends Fragment {
         substratum_packages = new HashMap<>();
         list = packageManager.getInstalledApplications(PackageManager
                 .GET_META_DATA);
-        for (ApplicationInfo packageInfo : list) {
-            if ((packageInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
-                getSubstratumPackages(mContext, packageInfo.packageName);
-            }
-        }
+        getSubstratumPackages(mContext);
 
         doCleanUp cleanUp = new doCleanUp();
         cleanUp.execute("");
@@ -330,9 +284,7 @@ public class ThemeFragment extends Fragment {
         @Override
         protected String doInBackground(String... sUrl) {
             try {
-                for (ApplicationInfo packageInfo : list) {
-                    getSubstratumPackages(mContext, packageInfo.packageName);
-                }
+                getSubstratumPackages(mContext);
             } catch (Exception e) {
                 // Exception
             }

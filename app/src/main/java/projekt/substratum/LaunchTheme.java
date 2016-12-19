@@ -17,7 +17,6 @@ public class LaunchTheme extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent currentIntent = getIntent();
-        String theme_name = currentIntent.getStringExtra("theme_name");
         String theme_pid = currentIntent.getStringExtra("theme_pid");
 
         SharedPreferences prefs = this.getSharedPreferences(
@@ -30,7 +29,7 @@ public class LaunchTheme extends AppCompatActivity {
                 File checkSubstratumVerity = new File(this.getCacheDir()
                         .getAbsoluteFile() + "/SubstratumBuilder/" + theme_pid + "/substratum.xml");
                 if (checkSubstratumVerity.exists()) {
-                    References.launchTheme(this, theme_name, theme_pid, null);
+                    References.launchTheme(this, theme_pid, null, false);
                 } else {
                     Toast toast = Toast.makeText(this, this.getString(R.string.toast_needs_caching),
                             Toast.LENGTH_LONG);

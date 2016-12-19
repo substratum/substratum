@@ -125,9 +125,9 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
                                         information.get(i).getThemePackage() + "/substratum.xml");
                                 if (checkSubstratumVerity.exists()) {
                                     References.launchTheme(information.get(i).getContext(),
-                                            information.get(i).getThemeName(), information.get(i)
+                                            information.get(i)
                                                     .getThemePackage(), information.get(i)
-                                                    .getThemeMode());
+                                                    .getThemeMode(), false);
                                 } else {
                                     new References.SubstratumThemeUpdate(
                                             information.get(i).getContext(),

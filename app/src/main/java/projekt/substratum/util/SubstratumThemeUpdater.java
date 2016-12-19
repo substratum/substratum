@@ -86,8 +86,8 @@ public class SubstratumThemeUpdater {
                         intent = PendingIntent.getActivity(mContext, 0, notificationIntent,
                                 PendingIntent.FLAG_CANCEL_CURRENT);
                     } else {
-                        Intent myIntent = LetsGetStarted.notifier(mContext, packageName,
-                                false, null, References.DEBUG);
+                        Intent myIntent = LetsGetStarted.initialize(mContext, packageName,
+                                false, null, true);
                         if (myIntent != null) {
                             intent = PendingIntent.getActivity(mContext, 0, myIntent,
                                     PendingIntent.FLAG_CANCEL_CURRENT);
@@ -132,8 +132,8 @@ public class SubstratumThemeUpdater {
                         intent = PendingIntent.getActivity(mContext, 0, notificationIntent,
                                 PendingIntent.FLAG_CANCEL_CURRENT);
                     } else {
-                        Intent myIntent = LetsGetStarted.notifier(mContext, packageName,
-                                false, null, References.DEBUG);
+                        Intent myIntent = LetsGetStarted.initialize(mContext, packageName,
+                                false, null, true);
                         if (myIntent != null) {
                             intent = PendingIntent.getActivity(mContext, 0, myIntent,
                                     PendingIntent.FLAG_CANCEL_CURRENT);

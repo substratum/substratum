@@ -2,6 +2,7 @@ package projekt.substratum.config;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
@@ -583,59 +584,12 @@ public class References {
     }
 
     // Launch intent for a theme
-    public static boolean launchTheme(Context mContext, String theme_name, String package_name,
-                                      String theme_mode) {
-        try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault());
-            long currentDateAndTime = Long.parseLong(sdf.format(new Date()));
-
-            String parse1_themeName = theme_name.replaceAll("\\s+", "");
-            String parse2_themeName = parse1_themeName.replaceAll("[^a-zA-Z0-9]+", "");
-
-            SharedPreferences prefs = mContext.getSharedPreferences(
-                    "filter_state", Context.MODE_PRIVATE);
-            long saved_time = prefs.getLong(parse2_themeName + "_saved_time", 0);
-
-            if (currentDateAndTime > saved_time && String.valueOf(currentDateAndTime).length() ==
-                    String.valueOf(saved_time).length() && saved_time != 0 &&
-                    !References.isPackageInstalled(mContext, References.lp_package_identifier)) {
-                long initializer = LetsGetStarted.initialize(mContext, package_name,
-                        !References.checkOMS(mContext), theme_mode, References.DEBUG, saved_time);
-                if (initializer == 8256663 * 3) {
-                    Log.e("SubstratumLogger", "\"" + package_name + "\"" +
-                            " has been reported stolen on device [" +
-                            getDeviceIMEI(mContext) + "]");
-                    return false;
-                }
-                return true;
-            } else {
-                long checker = LetsGetStarted.initialize(mContext,
-                        package_name,
-                        !References.checkOMS(mContext), theme_mode, References.DEBUG, saved_time);
-                if (checker > -1) {
-                    if (checker == 8256663 * 3) {
-                        Log.e("SubstratumLogger", "\"" + package_name + "\"" +
-                                " has been reported stolen on device [" +
-                                getDeviceIMEI(mContext) + "]");
-                        return false;
-                    }
-                    prefs.edit().putLong(
-                            parse2_themeName + "_saved_time", currentDateAndTime).apply();
-                    return true;
-                } else {
-                    Toast toast = Toast.makeText(mContext,
-                            mContext.getString(R.string
-                                    .information_activity_pirated_toast),
-                            Toast.LENGTH_LONG);
-                    toast.show();
-                }
-            }
-        } catch (Exception ex) {
-            Toast toast = Toast.makeText(mContext,
-                    mContext.getString(R.string
-                            .information_activity_upgrade_toast),
-                    Toast.LENGTH_LONG);
-            toast.show();
+    public static boolean launchTheme(Context mContext, String package_name, String theme_mode,
+                                      Boolean notification) {
+        Intent initializer = LetsGetStarted.initialize(mContext, package_name,
+                !References.checkOMS(mContext), theme_mode, notification);
+        if (initializer != null) {
+            mContext.startActivity(initializer);
         }
         return false;
     }
@@ -860,7 +814,7 @@ public class References {
             if (launch) {
                 toast.show();
                 // At this point, we can safely assume that the theme has successfully extracted
-                launchTheme(mContext, theme_name, theme_package, theme_mode);
+                launchTheme(mContext, theme_package, theme_mode, false);
             } else {
                 toast2.show();
                 // We don't want this cache anymore, delete it from the system completely

@@ -25,6 +25,9 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -35,6 +38,8 @@ import projekt.substrate.ShowMeYourFierceEyes;
 import projekt.substratum.R;
 import projekt.substratum.util.CacheCreator;
 import projekt.substratum.util.Root;
+
+import static android.R.attr.format;
 
 public class References {
 
@@ -89,6 +94,8 @@ public class References {
     public static String settingsSubstratumDrawableName = "ic_settings_substratum";
     private static String metadataVersion = "Substratum_Plugin";
     private static String metadataThemeReady = "Substratum_ThemeReady";
+    // November security update(incompatible firmware) timestamp;
+    public static long NOVEMBER_PATCH_TIMESTAMP = 1478304000000L;
 
     // This method is used to check the version of the masquerade theme system
     public static int checkMasquerade(Context context) {
@@ -1014,5 +1021,22 @@ public class References {
             launch = new CacheCreator().initializeCache(mContext, theme_package);
             return null;
         }
+    }
+
+    public static boolean isIncompatibleFirmware() {
+
+        String currentPatch = References.getProp("ro.build.version.security_patch");
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        try {
+            Date date = format.parse(currentPatch);
+            long currentPatchTimestamp = date.getTime();
+
+            return currentPatchTimestamp > NOVEMBER_PATCH_TIMESTAMP;
+        } catch (ParseException pe) {
+            pe.printStackTrace();
+        }
+
+        // Something bad happened. Aborting
+        return false;
     }
 }

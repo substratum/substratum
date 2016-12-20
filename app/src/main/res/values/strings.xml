@@ -130,6 +130,10 @@
     <string name="bootanimation_placeholder_text">please select a boot animation from the dropdown
         list&#8230;</string>
     <string name="bootanimation_default_spinner">please select a boot animation&#8230;</string>
+    <string name="bootanimation_spinner_set_defaults">restore to default boot animation&#8230;
+    </string>
+    <string name="bootanimation_defaults_text">this will clear out any custom boot animations
+        applied on your device</string>
     <string name="bootanimation_dialog_apply_text">Boot animation is processing&#8230;</string>
     <string name="bootanimation_dialog_apply_success">Boot animation applied!</string>
     <string name="bootanimation_dialog_apply_failed">Boot animation failed to apply&#8230;</string>
@@ -156,12 +160,19 @@
     <string name="font_placeholder_text">please select a font pack from the dropdown
         list&#8230;</string>
     <string name="font_default_spinner">please select a font pack&#8230;</string>
+    <string name="font_spinner_set_defaults">restore to default fonts&#8230;</string>
+    <string name="fonts_defaults_text">this will clear out any custom fonts
+        applied on your device</string>
     <string name="font_dialog_apply_text">Font pack is processing&#8230;</string>
     <string name="font_dialog_apply_success">Font pack has been applied!</string>
     <string name="font_dialog_apply_failed">Font pack has failed to apply&#8230;</string>
 
     <string name="sounds_placeholder_text">please select a sound pack from the dropdown
         list&#8230;</string>
+    <string name="sounds_spinner_set_defaults">restore to default sounds&#8230;
+    </string>
+    <string name="sounds_spinner_defaults_text">this will clear out any custom sounds
+        applied on your device</string>
     <string name="sounds_dialog_apply_text">Sound pack is processing&#8230;</string>
     <string name="sounds_dialog_apply_success">Sound pack applied!</string>
     <string name="sounds_dialog_apply_failed">Sound pack failed to apply&#8230;</string>

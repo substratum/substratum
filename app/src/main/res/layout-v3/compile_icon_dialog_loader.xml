@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/background_view"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_gravity="center"
-                android:background="@android:color/transparent"
-                android:gravity="center|center_horizontal"
-                android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/background_view"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_gravity="center"
+    android:background="@android:color/transparent"
+    android:gravity="center|center_horizontal"
+    android:orientation="vertical">
 
     <eightbitlab.com.blurview.BlurView
         android:id="@+id/blurView"
@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 app:indicatorColor="@color/compile_dialog_wave_color"
-                app:indicatorName="LineScaleIndicator"/>
+                app:indicatorName="LineScaleIndicator" />
 
             <TextView
                 android:id="@+id/title"
@@ -41,7 +41,7 @@
                 android:textAllCaps="true"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textSize="16dp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/current_object"
@@ -57,7 +57,7 @@
                 android:textAllCaps="true"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textSize="16dp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <ProgressBar
                 android:id="@+id/loading_bar"
@@ -66,7 +66,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/current_object"
                 android:layout_centerHorizontal="true"
-                android:indeterminate="true"/>
+                android:indeterminate="true" />
 
         </RelativeLayout>
 

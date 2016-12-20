@@ -1,5 +1,4 @@
-<android.support.v4.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/font_window_background">
@@ -19,7 +18,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:layout_toStartOf="@+id/checkBox"/>
+                android:layout_toStartOf="@+id/checkBox" />
 
             <ImageButton
                 android:id="@+id/checkBox"
@@ -31,7 +30,7 @@
                 android:background="@android:color/transparent"
                 android:clickable="true"
                 android:foreground="?android:selectableItemBackground"
-                android:src="@drawable/tab_checkbox"/>
+                android:src="@drawable/tab_checkbox" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -49,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:layout_marginTop="50dp"
-                android:indeterminate="true"/>
+                android:indeterminate="true" />
 
             <RelativeLayout
                 android:id="@+id/font_placeholder"
@@ -61,7 +60,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_marginTop="20dp"
-                    android:src="@drawable/font_placeholder"/>
+                    android:src="@drawable/font_placeholder" />
 
                 <TextView
                     android:id="@+id/placeholder_text"
@@ -73,7 +72,34 @@
                     android:text="@string/font_placeholder_text"
                     android:textColor="@color/font_text"
                     android:textSize="20dp"
-                    android:textStyle="italic"/>
+                    android:textStyle="italic" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/restore_to_default"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/restore_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="22dp"
+                    android:src="@drawable/tab_restore_default" />
+
+                <TextView
+                    android:id="@+id/restore_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/restore_image"
+                    android:layout_margin="15dp"
+                    android:gravity="center"
+                    android:text="@string/fonts_defaults_text"
+                    android:textColor="@color/font_text"
+                    android:textSize="20dp"
+                    android:textStyle="italic" />
 
             </RelativeLayout>
 
@@ -89,7 +115,7 @@
                     android:gravity="center"
                     android:text="AaBbCcDd123"
                     android:textColor="@color/font_text"
-                    android:textSize="50dp"/>
+                    android:textSize="50dp" />
 
                 <TextView
                     android:id="@+id/text_bold"
@@ -100,7 +126,7 @@
                     android:text="AaBbCcDd123"
                     android:textColor="@color/font_text"
                     android:textSize="50dp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/text_normal_italics"
@@ -111,7 +137,7 @@
                     android:text="AaBbCcDd123"
                     android:textColor="@color/font_text"
                     android:textSize="50dp"
-                    android:textStyle="italic"/>
+                    android:textStyle="italic" />
 
                 <TextView
                     android:id="@+id/text_normal_bold_italics"
@@ -122,7 +148,7 @@
                     android:text="AaBbCcDd123"
                     android:textColor="@color/font_text"
                     android:textSize="50dp"
-                    android:textStyle="italic|bold"/>
+                    android:textStyle="italic|bold" />
             </RelativeLayout>
         </RelativeLayout>
     </LinearLayout>

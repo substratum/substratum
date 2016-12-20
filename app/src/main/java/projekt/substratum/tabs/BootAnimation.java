@@ -1,5 +1,9 @@
 package projekt.substratum.tabs;
 
+import android.app.ProgressDialog;
+import android.app.admin.DevicePolicyManager;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -7,6 +11,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -52,6 +58,26 @@ public class BootAnimation extends Fragment {
     private ColorStateList unchecked, checked;
     private TextView vm_blown;
     private RelativeLayout bootanimation_placeholder;
+    private RelativeLayout defaults;
+    private ProgressDialog mProgressDialog;
+    private SharedPreferences prefs;
+    private AsyncTask current;
+
+    private int getDeviceEncryptionStatus() {
+        // 0: ENCRYPTION_STATUS_UNSUPPORTED
+        // 1: ENCRYPTION_STATUS_INACTIVE
+        // 2: ENCRYPTION_STATUS_ACTIVATING
+        // 3: ENCRYPTION_STATUS_ACTIVE_DEFAULT_KEY
+        // 4: ENCRYPTION_STATUS_ACTIVE
+        // 5: ENCRYPTION_STATUS_ACTIVE_PER_USER
+        int status = DevicePolicyManager.ENCRYPTION_STATUS_UNSUPPORTED;
+        final DevicePolicyManager dpm = (DevicePolicyManager)
+                getContext().getSystemService(Context.DEVICE_POLICY_SERVICE);
+        if (dpm != null) {
+            status = dpm.getStorageEncryptionStatus();
+        }
+        return status;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
@@ -64,20 +90,27 @@ public class BootAnimation extends Fragment {
         animation = new AnimationDrawable();
         animation.setOneShot(false);
 
+        prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+
         progressBar = (MaterialProgressBar) root.findViewById(R.id.progress_bar_loader);
 
         vm_blown = (TextView) root.findViewById(R.id.vm_blown);
         bootanimation_placeholder = (RelativeLayout) root.findViewById(R.id
                 .bootanimation_placeholder);
+        defaults = (RelativeLayout) root.findViewById(R.id.restore_to_default);
 
         imageButton = (ImageButton) root.findViewById(R.id.checkBox);
         imageButton.setClickable(false);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new BootAnimationHandler().execute(bootAnimationSelector
-                        .getSelectedItem()
-                        .toString(), getContext(), theme_pid);
+                if (bootAnimationSelector.getSelectedItemPosition() == 1) {
+                    new BootAnimationClearer().execute("");
+                } else {
+                    new BootAnimationHandler().execute(bootAnimationSelector
+                            .getSelectedItem()
+                            .toString(), getContext(), theme_pid);
+                }
             }
         });
 
@@ -112,6 +145,7 @@ public class BootAnimation extends Fragment {
             }
             ArrayList<String> parsedBootAnimations = new ArrayList<>();
             parsedBootAnimations.add(getString(R.string.bootanimation_default_spinner));
+            parsedBootAnimations.add(getString(R.string.bootanimation_spinner_set_defaults));
             for (int i = 0; i < unparsedBootAnimations.size(); i++) {
                 parsedBootAnimations.add(unparsedBootAnimations.get(i).substring(0,
                         unparsedBootAnimations.get(i).length() - 4));
@@ -127,7 +161,9 @@ public class BootAnimation extends Fragment {
                 public void onItemSelected(AdapterView<?> arg0, View arg1,
                                            int pos, long id) {
                     if (pos == 0) {
+                        if (current != null) current.cancel(true);
                         bootanimation_placeholder.setVisibility(View.VISIBLE);
+                        defaults.setVisibility(View.GONE);
                         vm_blown.setVisibility(View.GONE);
                         imageButton.setClickable(false);
                         imageButton.setImageTintList(unchecked);
@@ -138,10 +174,27 @@ public class BootAnimation extends Fragment {
                         bootAnimationPreview.setImageDrawable(null);
                         images.clear();
                         progressBar.setVisibility(View.GONE);
+                    } else if (pos == 1) {
+                        if (current != null) current.cancel(true);
+                        defaults.setVisibility(View.VISIBLE);
+                        bootanimation_placeholder.setVisibility(View.GONE);
+                        vm_blown.setVisibility(View.GONE);
+                        imageButton.setImageTintList(checked);
+                        imageButton.setClickable(true);
+                        progressBar.setVisibility(View.GONE);
+                        animation = new AnimationDrawable();
+                        animation.setOneShot(false);
+                        bootAnimationPreview = (ImageView) root.findViewById(
+                                R.id.bootAnimationPreview);
+                        bootAnimationPreview.setImageDrawable(null);
+                        images.clear();
+                        progressBar.setVisibility(View.GONE);
                     } else {
+                        if (current != null) current.cancel(true);
+                        defaults.setVisibility(View.GONE);
                         bootanimation_placeholder.setVisibility(View.GONE);
                         String[] commands = {arg0.getSelectedItem().toString()};
-                        new BootAnimationPreview().execute(commands);
+                        current = new BootAnimationPreview().execute(commands);
                     }
                 }
 
@@ -155,6 +208,43 @@ public class BootAnimation extends Fragment {
                     "of this theme!");
         }
         return root;
+    }
+
+    public class BootAnimationClearer extends AsyncTask<String, Integer, String> {
+
+        @Override
+        protected void onPreExecute() {
+            mProgressDialog = new ProgressDialog(getActivity(), R.style.RestoreDialog);
+            mProgressDialog.setMessage(getString(R.string.manage_dialog_performing));
+            mProgressDialog.setIndeterminate(true);
+            mProgressDialog.setCancelable(false);
+            mProgressDialog.show();
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            mProgressDialog.dismiss();
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.remove("bootanimation_applied");
+            editor.apply();
+            Toast toast = Toast.makeText(getContext(), getString(R
+                            .string.manage_bootanimation_toast),
+                    Toast.LENGTH_SHORT);
+            toast.show();
+        }
+
+        @Override
+        protected String doInBackground(String... sUrl) {
+            if (getDeviceEncryptionStatus() <= 1 && References.checkOMS(getContext())) {
+                References.delete("/data/system/theme/bootanimation.zip");
+            } else {
+                References.mountRW();
+                References.move("/system/media/bootanimation-backup.zip",
+                        "/system/media/bootanimation.zip");
+                References.delete("/system/addon.d/81-subsboot.sh");
+            }
+            return null;
+        }
     }
 
     private class BootAnimationPreview extends AsyncTask<String, Integer, String> {
@@ -181,8 +271,10 @@ public class BootAnimation extends Fragment {
                 Log.d("BootAnimationHandler", "Loaded boot animation contains " + images.size() +
                         " " +
                         "frames.");
-                bootAnimationPreview.setImageDrawable(animation);
-                animation.start();
+                if (bootAnimationSelector.getSelectedItemPosition() > 1) {
+                    bootAnimationPreview.setImageDrawable(animation);
+                    animation.start();
+                }
                 References.delete(getContext().getCacheDir().getAbsolutePath() +
                         "/BootAnimationCache/animation_preview/");
                 imageButton.setImageTintList(checked);

@@ -15,6 +15,8 @@
     <color name="wallpaper_card_text">@android:color/white</color>
     <color name="wallpaper_card_text_shadow">@android:color/black</color>
 
+    <color name="tab_defaults_icon_tint">@android:color/white</color>
+
     <color name="bootanimation_placeholder_tint">@android:color/white</color>
     <color name="bootanimation_vm_text">@android:color/white</color>
     <color name="bootanimation_checked">@color/colorAccent</color>

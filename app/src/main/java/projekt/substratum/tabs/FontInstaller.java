@@ -1,13 +1,18 @@
 package projekt.substratum.tabs;
 
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,6 +43,8 @@ import projekt.substratum.R;
 import projekt.substratum.config.References;
 import projekt.substratum.util.FontHandler;
 
+import static projekt.substratum.config.References.DEBUG;
+
 public class FontInstaller extends Fragment {
 
     private String theme_pid;
@@ -48,6 +55,11 @@ public class FontInstaller extends Fragment {
     private ColorStateList unchecked, checked;
     private RelativeLayout font_holder;
     private RelativeLayout font_placeholder;
+    private RelativeLayout defaults;
+    private String final_commands;
+    private ProgressDialog mProgressDialog;
+    private SharedPreferences prefs;
+    private AsyncTask current;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
@@ -59,8 +71,12 @@ public class FontInstaller extends Fragment {
 
         progressBar = (MaterialProgressBar) root.findViewById(R.id.progress_bar_loader);
 
+        defaults = (RelativeLayout) root.findViewById(R.id.restore_to_default);
+
         font_holder = (RelativeLayout) root.findViewById(R.id.font_holder);
         font_placeholder = (RelativeLayout) root.findViewById(R.id.font_placeholder);
+
+        prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 
         imageButton = (ImageButton) root.findViewById(R.id.checkBox);
         imageButton.setClickable(false);
@@ -68,8 +84,12 @@ public class FontInstaller extends Fragment {
             @Override
             public void onClick(View v) {
                 if (Settings.System.canWrite(getContext())) {
-                    new FontHandler().execute(fontSelector.getSelectedItem().toString(),
-                            getContext(), theme_pid);
+                    if (fontSelector.getSelectedItemPosition() == 1) {
+                        new FontsClearer().execute("");
+                    } else {
+                        new FontHandler().execute(fontSelector.getSelectedItem().toString(),
+                                getContext(), theme_pid);
+                    }
                 } else {
                     Intent intent = new Intent(
                             android.provider.Settings.ACTION_MANAGE_WRITE_SETTINGS);
@@ -116,6 +136,7 @@ public class FontInstaller extends Fragment {
             }
             ArrayList<String> fonts = new ArrayList<>();
             fonts.add(getString(R.string.font_default_spinner));
+            fonts.add(getString(R.string.font_spinner_set_defaults));
             for (int i = 0; i < unparsedFonts.size(); i++) {
                 fonts.add(unparsedFonts.get(i).substring(0,
                         unparsedFonts.get(i).length() - 4));
@@ -131,15 +152,27 @@ public class FontInstaller extends Fragment {
                 public void onItemSelected(AdapterView<?> arg0, View arg1,
                                            int pos, long id) {
                     if (pos == 0) {
+                        if (current != null) current.cancel(true);
                         font_placeholder.setVisibility(View.VISIBLE);
+                        defaults.setVisibility(View.GONE);
                         imageButton.setClickable(false);
                         imageButton.setImageTintList(unchecked);
                         font_holder.setVisibility(View.GONE);
                         progressBar.setVisibility(View.GONE);
+                    } else if (pos == 1) {
+                        if (current != null) current.cancel(true);
+                        defaults.setVisibility(View.VISIBLE);
+                        font_placeholder.setVisibility(View.GONE);
+                        imageButton.setImageTintList(checked);
+                        imageButton.setClickable(true);
+                        font_holder.setVisibility(View.GONE);
+                        progressBar.setVisibility(View.GONE);
                     } else {
+                        if (current != null) current.cancel(true);
+                        defaults.setVisibility(View.GONE);
                         font_placeholder.setVisibility(View.GONE);
                         String[] commands = {arg0.getSelectedItem().toString()};
-                        new FontPreview().execute(commands);
+                        current = new FontPreview().execute(commands);
                     }
                 }
 
@@ -154,6 +187,140 @@ public class FontInstaller extends Fragment {
         }
 
         return root;
+    }
+
+    private class FontsClearer extends AsyncTask<String, Integer, String> {
+
+        @Override
+        protected void onPreExecute() {
+            mProgressDialog = new ProgressDialog(getActivity(), R.style.RestoreDialog);
+            mProgressDialog.setMessage(getString(R.string.manage_dialog_performing));
+            mProgressDialog.setIndeterminate(true);
+            mProgressDialog.setCancelable(false);
+            mProgressDialog.show();
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            mProgressDialog.dismiss();
+
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.remove("fonts_applied");
+            editor.apply();
+
+            // Finally, perform a window refresh
+            if (References.checkOMSVersion(getContext()) == 7) {
+                try {
+                    Class<?> cls = Class.forName("android.graphics.Typeface");
+                    cls.getDeclaredMethod("recreateDefaults");
+                    Log.e(References.SUBSTRATUM_LOG, "Reflected into the Android Framework and " +
+                            "initialized a font recreation!");
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+                try {
+                    float fontSize = Float.valueOf(Settings.System.getString(
+                            getContext().getContentResolver(), Settings.System.FONT_SCALE));
+                    Settings.System.putString(getContext().getContentResolver(),
+                            Settings.System.FONT_SCALE, String.valueOf(fontSize + 0.0000001));
+                    if (!prefs.getBoolean("systemui_recreate", false)) {
+                        References.restartSystemUI();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                if (References.isPackageInstalled(getContext(), "masquerade.substratum")) {
+                    if (DEBUG)
+                        Log.e(References.SUBSTRATUM_LOG, "Initializing the Masquerade theme " +
+                                "provider...");
+                    Intent runCommand = new Intent();
+                    runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                    runCommand.setAction("masquerade.substratum.COMMANDS");
+                    runCommand.putExtra("om-commands", final_commands);
+                    getContext().sendBroadcast(runCommand);
+                } else {
+                    if (DEBUG)
+                        Log.e(References.SUBSTRATUM_LOG, "Masquerade was not found, falling back " +
+                                "to " +
+                                "Substratum theme provider...");
+                    new References.ThreadRunner().execute(final_commands);
+                }
+                if (References.isPackageInstalled(getContext(), "masquerade.substratum")) {
+                    if (DEBUG)
+                        Log.e(References.SUBSTRATUM_LOG, "Initializing the Masquerade theme " +
+                                "provider...");
+                    Intent runCommand = new Intent();
+                    runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                    runCommand.setAction("masquerade.substratum.COMMANDS");
+                    runCommand.putExtra("om-commands", "setprop sys.refresh_theme 1");
+                    getContext().sendBroadcast(runCommand);
+                } else {
+                    if (DEBUG)
+                        Log.e(References.SUBSTRATUM_LOG, "Masquerade was not found, falling back " +
+                                "to " +
+                                "Substratum theme provider...");
+                    References.setProp("setprop sys.refresh_theme", "1");
+                }
+
+                if (References.checkOMS(getContext())) {
+                    Toast toast = Toast.makeText(getContext(), getString(R.string
+                                    .manage_fonts_toast),
+
+                            Toast.LENGTH_SHORT);
+                    toast.show();
+                    if (!prefs.getBoolean("systemui_recreate", false)) {
+                        References.restartSystemUI();
+                    }
+                } else {
+                    Toast toast = Toast.makeText(getContext(), getString(R.string
+                                    .manage_fonts_toast),
+                            Toast.LENGTH_SHORT);
+                    toast.show();
+                    final AlertDialog.Builder alertDialogBuilder =
+                            new AlertDialog.Builder(getContext());
+                    alertDialogBuilder.setTitle(getString(R.string
+                            .legacy_dialog_soft_reboot_title));
+                    alertDialogBuilder.setMessage(getString(R.string
+                            .legacy_dialog_soft_reboot_text));
+                    alertDialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface
+                            .OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            References.reboot();
+                        }
+                    });
+                    alertDialogBuilder.setNegativeButton(R.string.remove_dialog_later,
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    alertDialogBuilder.setCancelable(false);
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+                }
+            }
+        }
+
+        @Override
+        protected String doInBackground(String... sUrl) {
+            int version = References.checkOMSVersion(getContext());
+            if (version == 3) final_commands = References.refreshWindows();
+            References.delete("/data/system/theme/fonts/");
+            if (version == 7) References.setProp("sys.refresh_theme", "1");
+            if (!prefs.getBoolean("systemui_recreate", false)) {
+                if (References.isPackageInstalled(getContext(), "masquerade.substratum")) {
+                    Intent runCommand = new Intent();
+                    runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                    runCommand.setAction("masquerade.substratum.COMMANDS");
+                    runCommand.putExtra("om-commands", "pkill -f com.android.systemui");
+                    getContext().sendBroadcast(runCommand);
+                } else {
+                    References.restartSystemUI();
+                }
+            }
+            return null;
+        }
     }
 
     private class FontPreview extends AsyncTask<String, Integer, String> {

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?android:attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
-                android:orientation="vertical"
-                android:paddingBottom="10dp"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:paddingTop="10dp">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="vertical"
+    android:paddingBottom="10dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="10dp">
 
     <TextView
         android:id="@+id/title"
@@ -21,7 +21,7 @@
         android:layout_toStartOf="@+id/play"
         android:textColor="@color/sounds_text"
         android:textSize="16sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <ImageButton
         android:id="@+id/play"
@@ -30,6 +30,6 @@
         android:layout_alignParentRight="true"
         android:layout_marginTop="2.5dp"
         android:background="@android:color/transparent"
-        android:src="@drawable/sounds_preview_play"/>
+        android:src="@drawable/sounds_preview_play" />
 
 </RelativeLayout>

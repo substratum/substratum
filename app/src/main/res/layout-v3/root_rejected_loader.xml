@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/background_view"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_gravity="center"
-                android:background="@android:color/transparent"
-                android:gravity="center|center_horizontal"
-                android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/background_view"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_gravity="center"
+    android:background="@android:color/transparent"
+    android:gravity="center|center_horizontal"
+    android:orientation="vertical">
 
     <eightbitlab.com.blurview.BlurView
         android:id="@+id/blurView"
@@ -25,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:layout_centerVertical="true"
-                android:src="@drawable/root_rejected_image"/>
+                android:src="@drawable/root_rejected_image" />
 
             <TextView
                 android:id="@+id/title"
@@ -38,7 +38,7 @@
                 android:gravity="center"
                 android:text="@string/root_rejected_title"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textStyle="italic"/>
+                android:textStyle="italic" />
 
             <TextView
                 android:id="@+id/timer"
@@ -51,7 +51,7 @@
                 android:gravity="center"
                 android:text="@string/root_rejected_timer_plural"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textStyle="italic"/>
+                android:textStyle="italic" />
 
         </RelativeLayout>
 

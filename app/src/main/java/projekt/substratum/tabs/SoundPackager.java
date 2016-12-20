@@ -1,9 +1,12 @@
 package projekt.substratum.tabs;
 
+import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -53,6 +57,10 @@ public class SoundPackager extends Fragment {
     private MediaPlayer mp = new MediaPlayer();
     private int previous_position;
     private RelativeLayout relativeLayout, error;
+    private RelativeLayout defaults;
+    private ProgressDialog mProgressDialog;
+    private SharedPreferences prefs;
+    private AsyncTask current;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
@@ -65,13 +73,21 @@ public class SoundPackager extends Fragment {
         progressBar = (MaterialProgressBar) root.findViewById(R.id.progress_bar_loader);
         progressBar.setVisibility(View.GONE);
 
+        prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+
+        defaults = (RelativeLayout) root.findViewById(R.id.restore_to_default);
+
         imageButton = (ImageButton) root.findViewById(R.id.checkBox);
         imageButton.setClickable(false);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new SoundsHandler().execute(soundsSelector.getSelectedItem()
-                        .toString(), getContext(), theme_pid);
+                if (soundsSelector.getSelectedItemPosition() == 1) {
+                    new SoundsClearer().execute("");
+                } else {
+                    new SoundsHandler().execute(soundsSelector.getSelectedItem()
+                            .toString(), getContext(), theme_pid);
+                }
             }
         });
 
@@ -120,6 +136,7 @@ public class SoundPackager extends Fragment {
             }
             ArrayList<String> unarchivedSounds = new ArrayList<>();
             unarchivedSounds.add(getString(R.string.sounds_default_spinner));
+            unarchivedSounds.add(getString(R.string.sounds_spinner_set_defaults));
             for (int i = 0; i < archivedSounds.size(); i++) {
                 unarchivedSounds.add(archivedSounds.get(i).substring(0,
                         archivedSounds.get(i).length() - 4));
@@ -135,17 +152,29 @@ public class SoundPackager extends Fragment {
                 public void onItemSelected(AdapterView<?> arg0, View arg1,
                                            int pos, long id) {
                     if (pos == 0) {
+                        if (current != null) current.cancel(true);
+                        defaults.setVisibility(View.GONE);
                         imageButton.setClickable(false);
                         imageButton.setImageTintList(unchecked);
                         error.setVisibility(View.GONE);
                         relativeLayout.setVisibility(View.GONE);
                         sounds_preview.setVisibility(View.VISIBLE);
+                    } else if (pos == 1) {
+                        if (current != null) current.cancel(true);
+                        defaults.setVisibility(View.VISIBLE);
+                        imageButton.setImageTintList(checked);
+                        imageButton.setClickable(true);
+                        error.setVisibility(View.GONE);
+                        relativeLayout.setVisibility(View.GONE);
+                        sounds_preview.setVisibility(View.GONE);
                     } else {
+                        if (current != null) current.cancel(true);
+                        defaults.setVisibility(View.GONE);
                         error.setVisibility(View.GONE);
                         sounds_preview.setVisibility(View.GONE);
                         relativeLayout.setVisibility(View.VISIBLE);
                         String[] commands = {arg0.getSelectedItem().toString()};
-                        new SoundsPreview().execute(commands);
+                        current = new SoundsPreview().execute(commands);
                     }
                 }
 
@@ -207,6 +236,38 @@ public class SoundPackager extends Fragment {
                     .setImageResource(R.drawable.sounds_preview_play);
         }
         mp.reset();
+    }
+
+    private class SoundsClearer extends AsyncTask<String, Integer, String> {
+
+        @Override
+        protected void onPreExecute() {
+            mProgressDialog = new ProgressDialog(getActivity(), R.style.RestoreDialog);
+            mProgressDialog.setMessage(getString(R.string.manage_dialog_performing));
+            mProgressDialog.setIndeterminate(true);
+            mProgressDialog.setCancelable(false);
+            mProgressDialog.show();
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            mProgressDialog.dismiss();
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.remove("sounds_applied");
+            editor.apply();
+            Toast toast = Toast.makeText(getContext(), getString(R
+                            .string.manage_sounds_toast),
+                    Toast.LENGTH_SHORT);
+            toast.show();
+            References.restartSystemUI();
+        }
+
+        @Override
+        protected String doInBackground(String... sUrl) {
+            References.delete("/data/system/theme/audio/");
+            new SoundsHandler().SoundsClearer(getContext());
+            return null;
+        }
     }
 
     private class SoundsPreview extends AsyncTask<String, Integer, String> {

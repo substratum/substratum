@@ -21,7 +21,7 @@ android {
         minSdkVersion 23
         targetSdkVersion 25
         versionCode 499
-        versionName "four hundred ninety nine - point nine nine eight"
+        versionName "four hundred ninety nine - asterisk"
         renderscriptTargetApi 23
         renderscriptSupportModeEnabled true
     }

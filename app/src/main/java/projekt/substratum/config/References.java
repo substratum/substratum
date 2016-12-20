@@ -694,7 +694,7 @@ public class References {
                 return mContext.getString(R.string.systemui_statusbar);
             }
             ai = pm.getApplicationInfo(package_name, 0);
-        } catch (final PackageManager.NameNotFoundException e) {
+        } catch (Exception e) {
             ai = null;
         }
         return (String) (ai != null ? pm.getApplicationLabel(ai) : null);

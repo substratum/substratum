@@ -70,7 +70,7 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
             if (prefs.contains("installed_themes")) {
                 Set installed_themes = prefs.getStringSet("installed_themes", null);
-                if (installed_themes.contains(package_name)) {
+                if (installed_themes != null && installed_themes.contains(package_name)) {
                     Log.d(References.SUBSTRATUM_LOG, "Now purging caches for \"" + package_name +
                             "\"...");
                     References.delete(context.getCacheDir().getAbsolutePath() +

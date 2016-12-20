@@ -24,11 +24,9 @@ public class ThemeService extends Service {
     @Override
     public void onCreate() {
         handler = new Handler();
-        runnable = new Runnable() {
-            public void run() {
-                new AntiPiracyCheck().execute(context);
-                handler.postDelayed(runnable, CONFIG_TIME_PIRACY_CHECKER);
-            }
+        runnable = () -> {
+            new AntiPiracyCheck().execute(context);
+            handler.postDelayed(runnable, CONFIG_TIME_PIRACY_CHECKER);
         };
         handler.postDelayed(runnable, CONFIG_TIME_PIRACY_CHECKER);
     }

@@ -35,13 +35,11 @@ public class PackAdapter extends RecyclerView.Adapter<PackAdapter.ViewHolder> {
         final int i = pos;
 
         viewHolder.cardView.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View v) {
-                        Intent intent = new Intent(information.get(i).getContext(),
-                                StudioPreviewActivity.class);
-                        intent.putExtra("icon_pack", information.get(i).getPackageName());
-                        information.get(i).getContext().startActivity(intent);
-                    }
+                v -> {
+                    Intent intent = new Intent(information.get(i).getContext(),
+                            StudioPreviewActivity.class);
+                    intent.putExtra("icon_pack", information.get(i).getPackageName());
+                    information.get(i).getContext().startActivity(intent);
                 });
 
         viewHolder.packName.setText(References.grabPackageName(information.get(i).getContext(),

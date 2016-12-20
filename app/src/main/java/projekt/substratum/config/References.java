@@ -41,8 +41,6 @@ import projekt.substratum.R;
 import projekt.substratum.util.CacheCreator;
 import projekt.substratum.util.Root;
 
-import static android.R.attr.format;
-
 public class References {
 
     // These are specific log tags for different classes
@@ -58,6 +56,8 @@ public class References {
     private static final String SUBSTRATUM_THEME = "projekt.substratum.THEME";
     // This controls the package name for the specified launchers allowed for Studio
     private static final String NOVA_LAUNCHER = "com.novalauncher.THEME";
+    // November security update (incompatible firmware) timestamp;
+    private static final long NOVEMBER_PATCH_TIMESTAMP = 1478304000000L;
     // Lucky Patcher's Package Name
     public static String lp_package_identifier = "com.android.vending.billing" +
             ".InAppBillingService.LOCK";
@@ -96,8 +96,6 @@ public class References {
     public static String settingsSubstratumDrawableName = "ic_settings_substratum";
     private static String metadataVersion = "Substratum_Plugin";
     private static String metadataThemeReady = "Substratum_ThemeReady";
-    // November security update(incompatible firmware) timestamp;
-    public static long NOVEMBER_PATCH_TIMESTAMP = 1478304000000L;
 
     // This method is used to check the version of the masquerade theme system
     public static int checkMasquerade(Context context) {
@@ -389,11 +387,7 @@ public class References {
                     resource_name, // Drawable name explicitly defined
                     resource_type, // Declared icon is a drawable, indeed.
                     package_Name); // Icon pack package name
-            if (drawablePointer == 0) {
-                return false;
-            } else {
-                return true;
-            }
+            return drawablePointer != 0;
         } catch (Exception e) {
             return false;
         }
@@ -684,14 +678,15 @@ public class References {
         final PackageManager pm = mContext.getPackageManager();
         ApplicationInfo ai;
         try {
-            if (package_name.equals("com.android.systemui.navbars")) {
-                return mContext.getString(R.string.systemui_navigation);
-            } else if (package_name.equals("com.android.systemui.headers")) {
-                return mContext.getString(R.string.systemui_headers);
-            } else if (package_name.equals("com.android.systemui.tiles")) {
-                return mContext.getString(R.string.systemui_qs_tiles);
-            } else if (package_name.equals("com.android.systemui.statusbars")) {
-                return mContext.getString(R.string.systemui_statusbar);
+            switch (package_name) {
+                case "com.android.systemui.navbars":
+                    return mContext.getString(R.string.systemui_navigation);
+                case "com.android.systemui.headers":
+                    return mContext.getString(R.string.systemui_headers);
+                case "com.android.systemui.tiles":
+                    return mContext.getString(R.string.systemui_qs_tiles);
+                case "com.android.systemui.statusbars":
+                    return mContext.getString(R.string.systemui_statusbar);
             }
             ai = pm.getApplicationInfo(package_name, 0);
         } catch (Exception e) {
@@ -759,10 +754,8 @@ public class References {
             ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
                     package_name, PackageManager.GET_META_DATA);
             if (appInfo.metaData != null) {
-                if (appInfo.metaData.getString("Substratum_IconPack") != null) {
-                    return appInfo.metaData.getString("Substratum_IconPack").equals(
-                            expectedPackName);
-                }
+                String current = appInfo.metaData.getString("Substratum_IconPack");
+                if (current != null) return current.equals(expectedPackName);
             }
         } catch (Exception e) {
             //
@@ -964,6 +957,23 @@ public class References {
         Root.runCommand("pm uninstall " + overlay);
     }
 
+    public static boolean isIncompatibleFirmware() {
+
+        String currentPatch = References.getProp("ro.build.version.security_patch");
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        try {
+            Date date = format.parse(currentPatch);
+            long currentPatchTimestamp = date.getTime();
+
+            return currentPatchTimestamp > NOVEMBER_PATCH_TIMESTAMP;
+        } catch (ParseException pe) {
+            pe.printStackTrace();
+        }
+
+        // Something bad happened. Aborting
+        return false;
+    }
+
     public static class ThreadRunner extends AsyncTask<String, Integer, String> {
         @Override
         protected String doInBackground(String... sUrl) {
@@ -1031,22 +1041,5 @@ public class References {
             launch = new CacheCreator().initializeCache(mContext, theme_package);
             return null;
         }
-    }
-
-    public static boolean isIncompatibleFirmware() {
-
-        String currentPatch = References.getProp("ro.build.version.security_patch");
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-        try {
-            Date date = format.parse(currentPatch);
-            long currentPatchTimestamp = date.getTime();
-
-            return currentPatchTimestamp > NOVEMBER_PATCH_TIMESTAMP;
-        } catch (ParseException pe) {
-            pe.printStackTrace();
-        }
-
-        // Something bad happened. Aborting
-        return false;
     }
 }

@@ -16,17 +16,15 @@ import projekt.substratum.tabs.Wallpapers;
 public class InformationTabsAdapter extends FragmentStatePagerAdapter {
 
     private ArrayList package_checker;
-    private Boolean allow_quick_apply;
     private Integer mNumOfTabs;
     private String theme_mode;
     private String wallpaperUrl;
 
     @SuppressWarnings("unchecked")
-    public InformationTabsAdapter(FragmentManager fm, int NumOfTabs, Boolean allow_quick_apply,
-                                  String theme_mode, List package_checker, String wallpaperUrl) {
+    public InformationTabsAdapter(FragmentManager fm, int NumOfTabs, String theme_mode,
+                                  List package_checker, String wallpaperUrl) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
-        this.allow_quick_apply = allow_quick_apply;
         this.theme_mode = theme_mode;
         try {
             this.package_checker = new ArrayList<>(package_checker);

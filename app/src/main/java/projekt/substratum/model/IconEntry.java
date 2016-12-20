@@ -13,8 +13,8 @@ public class IconEntry extends RecyclerView.ViewHolder implements View.OnClickLi
 
     public TextView iconName;
     public ImageView iconDrawable;
-    public Boolean willBeModified = false;
     public Context mContext;
+    private Boolean willBeModified = false;
 
     public IconEntry(Context mContext, View itemView) {
         super(itemView);

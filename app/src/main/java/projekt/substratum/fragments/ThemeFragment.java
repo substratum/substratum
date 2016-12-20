@@ -71,20 +71,18 @@ public class ThemeFragment extends Fragment {
         substratum_packages = new HashMap<>();
         recyclerView = (RecyclerView) root.findViewById(R.id.theme_list);
         cardView = root.findViewById(R.id.no_entry_card_view);
-        cardView.setOnClickListener(new View.OnClickListener() {
-                                        public void onClick(View v) {
-                                            try {
-                                                String playURL = getString(R.string
-                                                        .search_play_store_url);
-                                                Intent i = new Intent(Intent.ACTION_VIEW);
-                                                i.setData(Uri.parse(playURL));
-                                                startActivity(i);
-                                            } catch (ActivityNotFoundException
-                                                    activityNotFoundException) {
-                                                // Suppress warning
-                                            }
-                                        }
-                                    }
+        cardView.setOnClickListener(v -> {
+                    try {
+                        String playURL = getString(R.string
+                                .search_play_store_url);
+                        Intent i = new Intent(Intent.ACTION_VIEW);
+                        i.setData(Uri.parse(playURL));
+                        startActivity(i);
+                    } catch (ActivityNotFoundException
+                            activityNotFoundException) {
+                        // Suppress warning
+                    }
+                }
         );
         cardView.setVisibility(View.GONE);
 
@@ -94,13 +92,7 @@ public class ThemeFragment extends Fragment {
                 .GET_META_DATA);
 
         swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipeRefreshLayout);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                // Refresh items
-                refreshLayout();
-            }
-        });
+        swipeRefreshLayout.setOnRefreshListener(() -> refreshLayout());
 
         if (home_type.equals("")) {
             // We use this because our splash screen is meant to hang (to load) than show a wheel

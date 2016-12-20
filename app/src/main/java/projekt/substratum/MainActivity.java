@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -41,7 +40,6 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SectionDrawerItem;
-import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -272,78 +270,75 @@ public class MainActivity extends AppCompatActivity implements
                         .withName(R.string.nav_settings)
                         .withIcon(R.drawable.nav_drawer_settings)
                         .withIdentifier(15));
-        drawerBuilder.withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-            @Override
-            public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                if (drawerItem != null) {
-                    switch ((int) drawerItem.getIdentifier()) {
-                        case 1:
-                            switchThemeFragment(((References.checkOMS(
-                                    getApplicationContext())) ?
-                                            getString(R.string.app_name) :
-                                            getString(R.string.legacy_app_name)),
-                                    References.homeFragment);
-                            break;
-                        case 2:
-                            switchThemeFragment(getString(R.string.nav_overlays),
-                                    References.overlaysFragment);
-                            break;
-                        case 3:
-                            switchThemeFragment(getString(R.string.nav_bootanim),
-                                    References.bootAnimationsFragment);
-                            break;
-                        case 4:
-                            switchThemeFragment(getString(R.string.nav_fonts),
-                                    References.fontsFragment);
-                            break;
-                        case 5:
-                            switchThemeFragment(getString(R.string.nav_sounds),
-                                    References.soundsFragment);
-                            break;
-                        case 6:
-                            switchThemeFragment(getString(R.string.nav_wallpapers),
-                                    References.wallpaperFragment);
-                            break;
-                        case 7:
-                            switchFragment(getString(R.string.nav_overlay_manager),
-                                    "AdvancedManagerFragment");
-                            break;
-                        case 8:
-                            switchFragment(getString(R.string.nav_manage),
-                                    "ManageFragment");
-                            break;
-                        case 9:
-                            Intent intent = new Intent(getApplicationContext(),
-                                    StudioSelectorActivity.class);
-                            startActivity(intent);
-                            break;
-                        case 10:
-                            switchFragment(getString(R.string.nav_priorities),
-                                    "PriorityLoaderFragment");
-                            break;
-                        case 11:
-                            switchFragment(getString(R.string.nav_backup_restore),
-                                    "ProfileFragment");
-                        case 12:
-                            switchFragment(getString(R.string.nav_troubleshooting),
-                                    "TroubleshootingFragment");
-                            break;
-                        case 13:
-                            switchFragment(getString(R.string.nav_team),
-                                    "TeamFragment");
-                            break;
-                        case 14:
-                            switchFragmentToLicenses(getString(R.string.nav_opensource),
-                                    fragment);
-                            break;
-                        case 15:
-                            switchFragment(getString(R.string.nav_settings),
-                                    "SettingsFragment");
-                            break;
-                    }
+        drawerBuilder.withOnDrawerItemClickListener((view, position, drawerItem) -> {
+            if (drawerItem != null) {
+                switch ((int) drawerItem.getIdentifier()) {
+                    case 1:
+                        switchThemeFragment(((References.checkOMS(
+                                getApplicationContext())) ?
+                                        getString(R.string.app_name) :
+                                        getString(R.string.legacy_app_name)),
+                                References.homeFragment);
+                        break;
+                    case 2:
+                        switchThemeFragment(getString(R.string.nav_overlays),
+                                References.overlaysFragment);
+                        break;
+                    case 3:
+                        switchThemeFragment(getString(R.string.nav_bootanim),
+                                References.bootAnimationsFragment);
+                        break;
+                    case 4:
+                        switchThemeFragment(getString(R.string.nav_fonts),
+                                References.fontsFragment);
+                        break;
+                    case 5:
+                        switchThemeFragment(getString(R.string.nav_sounds),
+                                References.soundsFragment);
+                        break;
+                    case 6:
+                        switchThemeFragment(getString(R.string.nav_wallpapers),
+                                References.wallpaperFragment);
+                        break;
+                    case 7:
+                        switchFragment(getString(R.string.nav_overlay_manager),
+                                "AdvancedManagerFragment");
+                        break;
+                    case 8:
+                        switchFragment(getString(R.string.nav_manage),
+                                "ManageFragment");
+                        break;
+                    case 9:
+                        Intent intent = new Intent(getApplicationContext(),
+                                StudioSelectorActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 10:
+                        switchFragment(getString(R.string.nav_priorities),
+                                "PriorityLoaderFragment");
+                        break;
+                    case 11:
+                        switchFragment(getString(R.string.nav_backup_restore),
+                                "ProfileFragment");
+                    case 12:
+                        switchFragment(getString(R.string.nav_troubleshooting),
+                                "TroubleshootingFragment");
+                        break;
+                    case 13:
+                        switchFragment(getString(R.string.nav_team),
+                                "TeamFragment");
+                        break;
+                    case 14:
+                        switchFragmentToLicenses(getString(R.string.nav_opensource),
+                                fragment);
+                        break;
+                    case 15:
+                        switchFragment(getString(R.string.nav_settings),
+                                "SettingsFragment");
+                        break;
                 }
-                return false;
             }
+            return false;
         });
         drawerBuilder.withSelectedItem(1);
         drawerBuilder.withSelectedItemByPosition(1);
@@ -409,19 +404,11 @@ public class MainActivity extends AppCompatActivity implements
             new AlertDialog.Builder(this)
                     .setTitle(R.string.warning_title)
                     .setMessage(R.string.legacy_warning_content)
-                    .setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int i) {
-                            dialog.cancel();
-                        }
-                    })
+                    .setPositiveButton(R.string.dialog_ok, (dialog, i) -> dialog.cancel())
                     .setNeutralButton(R.string.dialog_do_not_show_again,
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int i) {
-                                    prefs.edit().putBoolean("legacy_dismissal", true).apply();
-                                    dialog.cancel();
-                                }
+                            (dialog, i) -> {
+                                prefs.edit().putBoolean("legacy_dismissal", true).apply();
+                                dialog.cancel();
                             })
                     .show();
         }
@@ -431,13 +418,7 @@ public class MainActivity extends AppCompatActivity implements
             new AlertDialog.Builder(this)
                     .setTitle(R.string.warning_title)
                     .setMessage(R.string.dangerous_warning_content)
-                    .setPositiveButton(R.string.dialog_ok, new DialogInterface
-                            .OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
-                        }
-                    })
+                    .setPositiveButton(R.string.dialog_ok, (dialog, which) -> dialog.cancel())
                     .show();
         }
 
@@ -563,13 +544,7 @@ public class MainActivity extends AppCompatActivity implements
                     new AlertDialog.Builder(this)
                             .setTitle(R.string.permission_not_granted_dialog_title)
                             .setMessage(R.string.permission_not_granted_dialog_message1)
-                            .setPositiveButton(R.string.dialog_ok, new DialogInterface
-                                    .OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    MainActivity.this.finish();
-                                }
-                            })
+                            .setPositiveButton(R.string.dialog_ok, (dialog, which) -> MainActivity.this.finish())
                             .show();
                     return;
                 }
@@ -586,13 +561,7 @@ public class MainActivity extends AppCompatActivity implements
                     new AlertDialog.Builder(this)
                             .setTitle(R.string.permission_not_granted_dialog_title)
                             .setMessage(R.string.permission_not_granted_dialog_message2)
-                            .setPositiveButton(R.string.dialog_ok, new DialogInterface
-                                    .OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    MainActivity.this.finish();
-                                }
-                            })
+                            .setPositiveButton(R.string.dialog_ok, (dialog, which) -> MainActivity.this.finish())
                             .show();
                     return;
                 }

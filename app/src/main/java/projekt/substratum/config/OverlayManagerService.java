@@ -13,9 +13,7 @@ import static projekt.substratum.config.References.SUBSTRATUM_LOG;
 public class OverlayManagerService {
 
     /**
-     * Api for getting information about overlay packages.
-     * <p>
-     * {@hide}
+     * Api for obtaining information about overlay packages.
      */
 
     // Until we have a better implementation of obtaining the current user ID from the device from

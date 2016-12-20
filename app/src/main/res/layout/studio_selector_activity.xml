@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:fitsSystemWindows="true"
-              android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -13,7 +13,7 @@
         android:background="?attr/colorPrimary"
         android:elevation="@dimen/action_bar_elevation"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -33,7 +33,7 @@
             android:layout_marginTop="10dp"
             android:text="@string/studio_system_title"
             android:textColor="@color/settings_title_color"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <LinearLayout
             android:id="@+id/presets"
@@ -44,15 +44,15 @@
 
             <include
                 android:id="@+id/studio_custom"
-                layout="@layout/icon_studio_custom"/>
+                layout="@layout/icon_studio_custom" />
 
             <include
                 android:id="@+id/studio_system"
-                layout="@layout/icon_studio_system"/>
+                layout="@layout/icon_studio_system" />
 
             <include
                 android:id="@+id/studio_update"
-                layout="@layout/icon_studio_update"/>
+                layout="@layout/icon_studio_update" />
 
         </LinearLayout>
 
@@ -67,14 +67,14 @@
             android:layout_marginTop="10dp"
             android:text="@string/studio_pack_title"
             android:textColor="@color/settings_title_color"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/pack_title"
-            android:scrollbars="vertical"/>
+            android:scrollbars="vertical" />
 
         <RelativeLayout
             android:id="@+id/pack_placeholder"
@@ -89,7 +89,7 @@
                 android:layout_height="150dp"
                 android:layout_marginTop="20dp"
                 android:alpha="50"
-                android:src="@drawable/studio_no_icon_packs_found"/>
+                android:src="@drawable/studio_no_icon_packs_found" />
 
             <TextView
                 android:id="@+id/placeholder_text"
@@ -101,7 +101,7 @@
                 android:text="@string/studio_placeholder_text"
                 android:textColor="@color/studio_placeholder_title"
                 android:textSize="20dp"
-                android:textStyle="italic"/>
+                android:textStyle="italic" />
 
         </RelativeLayout>
 

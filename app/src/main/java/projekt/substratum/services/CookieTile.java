@@ -65,16 +65,13 @@ public class CookieTile extends TileService {
                 tile.updateTile();
                 References.clearAppCache(getApplicationContext());
                 final Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        editor.putInt("cookie_tile", 1).apply();
-                        tile.setIcon(Icon.createWithResource(getApplicationContext(),
-                                R.drawable.ic_cookie_non_bitten));
-                        tile.setLabel(getApplicationContext().getString(
-                                R.string.cookie_non_bitten));
-                        tile.updateTile();
-                    }
+                handler.postDelayed(() -> {
+                    editor.putInt("cookie_tile", 1).apply();
+                    tile.setIcon(Icon.createWithResource(getApplicationContext(),
+                            R.drawable.ic_cookie_non_bitten));
+                    tile.setLabel(getApplicationContext().getString(
+                            R.string.cookie_non_bitten));
+                    tile.updateTile();
                 }, 3500);
                 break;
             case 99:

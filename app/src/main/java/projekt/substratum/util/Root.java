@@ -8,7 +8,7 @@ import java.io.OutputStreamWriter;
 
 public class Root {
 
-    public static SU su;
+    private static SU su;
 
     public static boolean requestRootAccess() {
         SU su = getSU();

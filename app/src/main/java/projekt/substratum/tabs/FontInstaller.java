@@ -1,7 +1,6 @@
 package projekt.substratum.tabs;
 
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
@@ -80,28 +79,25 @@ public class FontInstaller extends Fragment {
 
         imageButton = (ImageButton) root.findViewById(R.id.checkBox);
         imageButton.setClickable(false);
-        imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (Settings.System.canWrite(getContext())) {
-                    if (fontSelector.getSelectedItemPosition() == 1) {
-                        new FontsClearer().execute("");
-                    } else {
-                        new FontHandler().execute(fontSelector.getSelectedItem().toString(),
-                                getContext(), theme_pid);
-                    }
+        imageButton.setOnClickListener(v -> {
+            if (Settings.System.canWrite(getContext())) {
+                if (fontSelector.getSelectedItemPosition() == 1) {
+                    new FontsClearer().execute("");
                 } else {
-                    Intent intent = new Intent(
-                            android.provider.Settings.ACTION_MANAGE_WRITE_SETTINGS);
-                    intent.setData(Uri.parse(
-                            "package:" + getActivity().getPackageName()));
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                    Toast toast = Toast.makeText(getContext(), getString(R
-                                    .string.fonts_dialog_permissions_grant_toast2),
-                            Toast.LENGTH_LONG);
-                    toast.show();
+                    new FontHandler().execute(fontSelector.getSelectedItem().toString(),
+                            getContext(), theme_pid);
                 }
+            } else {
+                Intent intent = new Intent(
+                        Settings.ACTION_MANAGE_WRITE_SETTINGS);
+                intent.setData(Uri.parse(
+                        "package:" + getActivity().getPackageName()));
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                Toast toast = Toast.makeText(getContext(), getString(R
+                                .string.fonts_dialog_permissions_grant_toast2),
+                        Toast.LENGTH_LONG);
+                toast.show();
             }
         });
 
@@ -283,18 +279,9 @@ public class FontInstaller extends Fragment {
                             .legacy_dialog_soft_reboot_title));
                     alertDialogBuilder.setMessage(getString(R.string
                             .legacy_dialog_soft_reboot_text));
-                    alertDialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface
-                            .OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            References.reboot();
-                        }
-                    });
+                    alertDialogBuilder.setPositiveButton(android.R.string.ok, (dialog, id) -> References.reboot());
                     alertDialogBuilder.setNegativeButton(R.string.remove_dialog_later,
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    dialog.dismiss();
-                                }
-                            });
+                            (dialog, id) -> dialog.dismiss());
                     alertDialogBuilder.setCancelable(false);
                     AlertDialog alertDialog = alertDialogBuilder.create();
                     alertDialog.show();

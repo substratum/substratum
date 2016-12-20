@@ -101,16 +101,13 @@ public class BootAnimation extends Fragment {
 
         imageButton = (ImageButton) root.findViewById(R.id.checkBox);
         imageButton.setClickable(false);
-        imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (bootAnimationSelector.getSelectedItemPosition() == 1) {
-                    new BootAnimationClearer().execute("");
-                } else {
-                    new BootAnimationHandler().execute(bootAnimationSelector
-                            .getSelectedItem()
-                            .toString(), getContext(), theme_pid);
-                }
+        imageButton.setOnClickListener(v -> {
+            if (bootAnimationSelector.getSelectedItemPosition() == 1) {
+                new BootAnimationClearer().execute("");
+            } else {
+                new BootAnimationHandler().execute(bootAnimationSelector
+                        .getSelectedItem()
+                        .toString(), getContext(), theme_pid);
             }
         });
 

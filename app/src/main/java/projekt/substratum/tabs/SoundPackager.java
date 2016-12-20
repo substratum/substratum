@@ -79,15 +79,12 @@ public class SoundPackager extends Fragment {
 
         imageButton = (ImageButton) root.findViewById(R.id.checkBox);
         imageButton.setClickable(false);
-        imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (soundsSelector.getSelectedItemPosition() == 1) {
-                    new SoundsClearer().execute("");
-                } else {
-                    new SoundsHandler().execute(soundsSelector.getSelectedItem()
-                            .toString(), getContext(), theme_pid);
-                }
+        imageButton.setOnClickListener(v -> {
+            if (soundsSelector.getSelectedItemPosition() == 1) {
+                new SoundsClearer().execute("");
+            } else {
+                new SoundsHandler().execute(soundsSelector.getSelectedItem()
+                        .toString(), getContext(), theme_pid);
             }
         });
 
@@ -190,36 +187,27 @@ public class SoundPackager extends Fragment {
 
         RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.recycler_view);
         recyclerView.addOnItemTouchListener(
-                new RecyclerItemClickListener(getContext(), new RecyclerItemClickListener
-                        .OnItemClickListener() {
-                    @Override
-                    public void onItemClick(View view, int position) {
-                        wordList.get(position);
-                        try {
-                            if (!mp.isPlaying() || position != previous_position) {
-                                stopPlayer();
-                                ((ImageButton) view.findViewById(R.id.play))
-                                        .setImageResource(R.drawable.sounds_preview_stop);
-                                mp.setDataSource(wordList.get(position).getAbsolutePath());
-                                mp.prepare();
-                                mp.start();
-                            } else {
-                                stopPlayer();
-                            }
-                            previous_position = position;
-                        } catch (IOException ioe) {
-                            Log.e("SoundsHandler", "Playback has failed for " + wordList.get
-                                    (position).getTitle());
+                new RecyclerItemClickListener(getContext(), (view, position) -> {
+                    wordList.get(position);
+                    try {
+                        if (!mp.isPlaying() || position != previous_position) {
+                            stopPlayer();
+                            ((ImageButton) view.findViewById(R.id.play))
+                                    .setImageResource(R.drawable.sounds_preview_stop);
+                            mp.setDataSource(wordList.get(position).getAbsolutePath());
+                            mp.prepare();
+                            mp.start();
+                        } else {
+                            stopPlayer();
                         }
+                        previous_position = position;
+                    } catch (IOException ioe) {
+                        Log.e("SoundsHandler", "Playback has failed for " + wordList.get
+                                (position).getTitle());
                     }
                 })
         );
-        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mediaPlayer) {
-                stopPlayer();
-            }
-        });
+        mp.setOnCompletionListener(mediaPlayer -> stopPlayer());
         return root;
     }
 

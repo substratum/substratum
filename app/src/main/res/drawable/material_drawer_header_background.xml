@@ -3,5 +3,5 @@
     <gradient
         android:angle="0"
         android:endColor="@color/material_drawer_header_background"
-        android:startColor="@color/material_drawer_header_background"/>
+        android:startColor="@color/material_drawer_header_background" />
 </shape>

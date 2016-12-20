@@ -36,14 +36,11 @@ public class SplashScreenActivityFirstLaunch extends Activity {
         }
 
         final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = new Intent(SplashScreenActivityFirstLaunch.this, AppIntroActivity
-                        .class);
-                startActivity(intent);
-                finish();
-            }
+        handler.postDelayed(() -> {
+            Intent intent = new Intent(SplashScreenActivityFirstLaunch.this, AppIntroActivity
+                    .class);
+            startActivity(intent);
+            finish();
         }, 3800);
     }
 }

@@ -7,7 +7,6 @@ import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
@@ -35,7 +34,6 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -146,41 +144,35 @@ public class OverlaysList extends Fragment {
 
         toggle_all = (Switch) root.findViewById(R.id.toggle_all_overlays);
         toggle_all.setOnCheckedChangeListener(
-                new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        try {
-                            overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
-                            if (isChecked) {
-                                for (int i = 0; i < overlaysLists.size(); i++) {
-                                    OverlaysInfo currentOverlay = overlaysLists.get(i);
-                                    if (!currentOverlay.isSelected()) {
-                                        currentOverlay.setSelected(true);
-                                    }
-                                    mAdapter.notifyDataSetChanged();
-                                }
-                            } else {
-                                for (int i = 0; i < overlaysLists.size(); i++) {
-                                    OverlaysInfo currentOverlay = overlaysLists.get(i);
-                                    if (currentOverlay.isSelected()) {
-                                        currentOverlay.setSelected(false);
-                                    }
+                (buttonView, isChecked) -> {
+                    try {
+                        overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
+                        if (isChecked) {
+                            for (int i = 0; i < overlaysLists.size(); i++) {
+                                OverlaysInfo currentOverlay = overlaysLists.get(i);
+                                if (!currentOverlay.isSelected()) {
+                                    currentOverlay.setSelected(true);
                                 }
                                 mAdapter.notifyDataSetChanged();
                             }
-                        } catch (Exception e) {
-                            Log.e("OverlaysList", "Window has lost connection with the host.");
+                        } else {
+                            for (int i = 0; i < overlaysLists.size(); i++) {
+                                OverlaysInfo currentOverlay = overlaysLists.get(i);
+                                if (currentOverlay.isSelected()) {
+                                    currentOverlay.setSelected(false);
+                                }
+                            }
+                            mAdapter.notifyDataSetChanged();
                         }
+                    } catch (Exception e) {
+                        Log.e("OverlaysList", "Window has lost connection with the host.");
                     }
                 });
 
         swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipeRefreshLayout);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                swipeRefreshLayout.setRefreshing(false);
-                getActivity().recreate();
-            }
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            swipeRefreshLayout.setRefreshing(false);
+            getActivity().recreate();
         });
         swipeRefreshLayout.setVisibility(View.GONE);
 
@@ -210,17 +202,13 @@ public class OverlaysList extends Fragment {
                 mixAndMatchMode = false;
                 enable_swap.setChecked(false);
             }
-            enable_swap.setOnCheckedChangeListener(new CompoundButton
-                    .OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked) {
-                        prefs.edit().putBoolean("enable_swapping_overlays", true).apply();
-                        mixAndMatchMode = true;
-                    } else {
-                        prefs.edit().putBoolean("enable_swapping_overlays", false).apply();
-                        mixAndMatchMode = false;
-                    }
+            enable_swap.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                if (isChecked) {
+                    prefs.edit().putBoolean("enable_swapping_overlays", true).apply();
+                    mixAndMatchMode = true;
+                } else {
+                    prefs.edit().putBoolean("enable_swapping_overlays", false).apply();
+                    mixAndMatchMode = false;
                 }
             });
         }
@@ -230,236 +218,12 @@ public class OverlaysList extends Fragment {
         if (!References.checkOMS(getContext()))
             compile_enable_selected.setVisibility(View.GONE);
         if (compile_enable_selected != null)
-            compile_enable_selected.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    materialSheetFab.hideSheet();
-                    if (!is_active) {
-                        is_active = true;
-                        compile_enable_mode = true;
-                        enable_mode = false;
-                        disable_mode = false;
-
-                        overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
-                        checkedOverlays = new ArrayList<>();
-
-                        for (int i = 0; i < overlaysLists.size(); i++) {
-                            OverlaysInfo currentOverlay = overlaysLists.get(i);
-                            if (currentOverlay.isSelected()) {
-                                checkedOverlays.add(currentOverlay);
-                            }
-                        }
-                        if (!checkedOverlays.isEmpty()) {
-                            if (base_spinner.getSelectedItemPosition() != 0 &&
-                                    base_spinner.getVisibility() == View.VISIBLE) {
-                                Phase2_InitializeCache phase2_initializeCache = new
-                                        Phase2_InitializeCache();
-                                phase2_initializeCache.execute(base_spinner.getSelectedItem()
-                                        .toString());
-                            } else {
-                                Phase2_InitializeCache phase2_initializeCache = new
-                                        Phase2_InitializeCache();
-                                phase2_initializeCache.execute("");
-                            }
-                        } else {
-                            if (toggle_all.isChecked()) toggle_all.setChecked(false);
-                            is_active = false;
-                            Toast toast2 = Toast.makeText(getContext(), getString(R
-                                            .string.toast_disabled5),
-                                    Toast.LENGTH_SHORT);
-                            toast2.show();
-                        }
-                    }
-                }
-            });
-
-        TextView compile_update_selected = (TextView) root.findViewById(R.id
-                .compile_update_selected);
-        if (!References.checkOMS(getContext()))
-            compile_update_selected.setText(getString(R.string.fab_menu_compile_install));
-        if (compile_update_selected != null)
-            compile_update_selected.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    materialSheetFab.hideSheet();
-                    if (!is_active) {
-                        is_active = true;
-                        compile_enable_mode = false;
-
-                        overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
-                        checkedOverlays = new ArrayList<>();
-
-                        for (int i = 0; i < overlaysLists.size(); i++) {
-                            OverlaysInfo currentOverlay = overlaysLists.get(i);
-                            if (currentOverlay.isSelected()) {
-                                checkedOverlays.add(currentOverlay);
-                            }
-                        }
-                        if (!checkedOverlays.isEmpty()) {
-                            if (base_spinner.getSelectedItemPosition() != 0 &&
-                                    base_spinner.getVisibility() == View.VISIBLE) {
-                                Phase2_InitializeCache phase2_initializeCache = new
-                                        Phase2_InitializeCache();
-                                phase2_initializeCache.execute(base_spinner.getSelectedItem()
-                                        .toString());
-                            } else {
-                                Phase2_InitializeCache phase2_initializeCache = new
-                                        Phase2_InitializeCache();
-                                phase2_initializeCache.execute("");
-                            }
-                        } else {
-                            if (toggle_all.isChecked()) toggle_all.setChecked(false);
-                            is_active = false;
-                            Toast toast2 = Toast.makeText(getContext(), getString(R
-                                            .string.toast_disabled5),
-                                    Toast.LENGTH_SHORT);
-                            toast2.show();
-                        }
-                    }
-                }
-            });
-
-        TextView disable_selected = (TextView) root.findViewById(R.id.disable_selected);
-        if (!References.checkOMS(getContext()))
-            disable_selected.setText(getString(R.string.fab_menu_uninstall));
-        if (disable_selected != null)
-            disable_selected.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    materialSheetFab.hideSheet();
-                    if (!is_active) {
-                        is_active = true;
-
-                        overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
-                        checkedOverlays = new ArrayList<>();
-
-                        if (References.checkOMS(getContext())) {
-                            compile_enable_mode = false;
-                            enable_mode = false;
-                            disable_mode = true;
-
-                            for (int i = 0; i < overlaysLists.size(); i++) {
-                                OverlaysInfo currentOverlay = overlaysLists.get(i);
-                                if (currentOverlay.isSelected() &&
-                                        currentOverlay.isOverlayEnabled()) {
-                                    checkedOverlays.add(currentOverlay);
-                                } else {
-                                    currentOverlay.setSelected(false);
-                                    mAdapter.notifyDataSetChanged();
-                                }
-                            }
-                            if (!checkedOverlays.isEmpty()) {
-                                if (base_spinner.getSelectedItemPosition() != 0 &&
-                                        base_spinner.getVisibility() == View.VISIBLE) {
-                                    Phase2_InitializeCache phase2_initializeCache = new
-                                            Phase2_InitializeCache();
-                                    phase2_initializeCache.execute(base_spinner.getSelectedItem()
-                                            .toString());
-                                } else {
-                                    Phase2_InitializeCache phase2_initializeCache = new
-                                            Phase2_InitializeCache();
-                                    phase2_initializeCache.execute("");
-                                }
-                            } else {
-                                if (toggle_all.isChecked()) toggle_all.setChecked(false);
-                                is_active = false;
-                                Toast toast2 = Toast.makeText(getContext(), getString(R
-                                                .string.toast_disabled5),
-                                        Toast.LENGTH_SHORT);
-                                toast2.show();
-                            }
-                        } else {
-                            compile_enable_mode = false;
-                            enable_mode = false;
-                            disable_mode = true;
-
-                            for (int i = 0; i < overlaysLists.size(); i++) {
-                                OverlaysInfo currentOverlay = overlaysLists.get(i);
-                                if (currentOverlay.isSelected()) {
-                                    checkedOverlays.add(currentOverlay);
-                                } else {
-                                    currentOverlay.setSelected(false);
-                                    mAdapter.notifyDataSetChanged();
-                                }
-                            }
-
-                            String current_directory;
-                            if (References.inNexusFilter()) {
-                                current_directory = "/system/overlay/";
-                            } else {
-                                current_directory = "/system/vendor/overlay/";
-                            }
-
-                            if (!checkedOverlays.isEmpty()) {
-                                for (int i = 0; i < checkedOverlays.size(); i++) {
-                                    References.mountRW();
-                                    References.delete(current_directory +
-                                            checkedOverlays.get(i).getPackageName() + "." +
-                                            checkedOverlays.get(i).getThemeName() + ".apk");
-                                    mAdapter.notifyDataSetChanged();
-                                }
-                                // Untick all options in the adapter after compiling
-                                toggle_all.setChecked(false);
-                                overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
-                                for (int i = 0; i < overlaysLists.size(); i++) {
-                                    OverlaysInfo currentOverlay = overlaysLists.get(i);
-                                    if (currentOverlay.isSelected()) {
-                                        currentOverlay.setSelected(false);
-                                    }
-                                }
-                                Toast toast2 = Toast.makeText(getContext(), getString(R
-                                                .string.toast_disabled6),
-                                        Toast.LENGTH_SHORT);
-                                toast2.show();
-                                AlertDialog.Builder alertDialogBuilder =
-                                        new AlertDialog.Builder(getContext());
-                                alertDialogBuilder
-                                        .setTitle(getString(R.string
-                                                .legacy_dialog_soft_reboot_title));
-                                alertDialogBuilder
-                                        .setMessage(getString(
-                                                R.string.legacy_dialog_soft_reboot_text));
-                                alertDialogBuilder
-                                        .setPositiveButton(android.R.string.ok, new DialogInterface
-                                                .OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int id) {
-                                                References.reboot();
-                                            }
-                                        });
-                                alertDialogBuilder
-                                        .setNegativeButton(R.string.remove_dialog_later, new
-                                                DialogInterface
-                                                        .OnClickListener() {
-                                                    public void onClick(DialogInterface dialog, int
-                                                            id) {
-                                                        progressBar.setVisibility(View.GONE);
-                                                        dialog.dismiss();
-                                                    }
-                                                });
-                                AlertDialog alertDialog = alertDialogBuilder.create();
-                                alertDialog.show();
-                            } else {
-                                if (toggle_all.isChecked()) toggle_all.setChecked(false);
-                                is_active = false;
-                                Toast toast2 = Toast.makeText(getContext(), getString(R
-                                                .string.toast_disabled5),
-                                        Toast.LENGTH_SHORT);
-                                toast2.show();
-                            }
-                            is_active = false;
-                            disable_mode = false;
-                        }
-                    }
-                }
-            });
-
-        LinearLayout enable_zone = (LinearLayout) root.findViewById(R.id.enable);
-        if (!References.checkOMS(getContext())) enable_zone.setVisibility(View.GONE);
-        TextView enable_selected = (TextView) root.findViewById(R.id.enable_selected);
-        if (enable_selected != null) enable_selected.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+            compile_enable_selected.setOnClickListener(v -> {
                 materialSheetFab.hideSheet();
                 if (!is_active) {
                     is_active = true;
-                    compile_enable_mode = false;
-                    enable_mode = true;
+                    compile_enable_mode = true;
+                    enable_mode = false;
                     disable_mode = false;
 
                     overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
@@ -467,11 +231,8 @@ public class OverlaysList extends Fragment {
 
                     for (int i = 0; i < overlaysLists.size(); i++) {
                         OverlaysInfo currentOverlay = overlaysLists.get(i);
-                        if (currentOverlay.isSelected() && !currentOverlay.isOverlayEnabled()) {
+                        if (currentOverlay.isSelected()) {
                             checkedOverlays.add(currentOverlay);
-                        } else {
-                            currentOverlay.setSelected(false);
-                            mAdapter.notifyDataSetChanged();
                         }
                     }
                     if (!checkedOverlays.isEmpty()) {
@@ -479,9 +240,8 @@ public class OverlaysList extends Fragment {
                                 base_spinner.getVisibility() == View.VISIBLE) {
                             Phase2_InitializeCache phase2_initializeCache = new
                                     Phase2_InitializeCache();
-                            phase2_initializeCache.execute(
-                                    base_spinner.getSelectedItem().toString());
-
+                            phase2_initializeCache.execute(base_spinner.getSelectedItem()
+                                    .toString());
                         } else {
                             Phase2_InitializeCache phase2_initializeCache = new
                                     Phase2_InitializeCache();
@@ -495,6 +255,217 @@ public class OverlaysList extends Fragment {
                                 Toast.LENGTH_SHORT);
                         toast2.show();
                     }
+                }
+            });
+
+        TextView compile_update_selected = (TextView) root.findViewById(R.id
+                .compile_update_selected);
+        if (!References.checkOMS(getContext()))
+            compile_update_selected.setText(getString(R.string.fab_menu_compile_install));
+        if (compile_update_selected != null)
+            compile_update_selected.setOnClickListener(v -> {
+                materialSheetFab.hideSheet();
+                if (!is_active) {
+                    is_active = true;
+                    compile_enable_mode = false;
+
+                    overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
+                    checkedOverlays = new ArrayList<>();
+
+                    for (int i = 0; i < overlaysLists.size(); i++) {
+                        OverlaysInfo currentOverlay = overlaysLists.get(i);
+                        if (currentOverlay.isSelected()) {
+                            checkedOverlays.add(currentOverlay);
+                        }
+                    }
+                    if (!checkedOverlays.isEmpty()) {
+                        if (base_spinner.getSelectedItemPosition() != 0 &&
+                                base_spinner.getVisibility() == View.VISIBLE) {
+                            Phase2_InitializeCache phase2_initializeCache = new
+                                    Phase2_InitializeCache();
+                            phase2_initializeCache.execute(base_spinner.getSelectedItem()
+                                    .toString());
+                        } else {
+                            Phase2_InitializeCache phase2_initializeCache = new
+                                    Phase2_InitializeCache();
+                            phase2_initializeCache.execute("");
+                        }
+                    } else {
+                        if (toggle_all.isChecked()) toggle_all.setChecked(false);
+                        is_active = false;
+                        Toast toast2 = Toast.makeText(getContext(), getString(R
+                                        .string.toast_disabled5),
+                                Toast.LENGTH_SHORT);
+                        toast2.show();
+                    }
+                }
+            });
+
+        TextView disable_selected = (TextView) root.findViewById(R.id.disable_selected);
+        if (!References.checkOMS(getContext()))
+            disable_selected.setText(getString(R.string.fab_menu_uninstall));
+        if (disable_selected != null)
+            disable_selected.setOnClickListener(v -> {
+                materialSheetFab.hideSheet();
+                if (!is_active) {
+                    is_active = true;
+
+                    overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
+                    checkedOverlays = new ArrayList<>();
+
+                    if (References.checkOMS(getContext())) {
+                        compile_enable_mode = false;
+                        enable_mode = false;
+                        disable_mode = true;
+
+                        for (int i = 0; i < overlaysLists.size(); i++) {
+                            OverlaysInfo currentOverlay = overlaysLists.get(i);
+                            if (currentOverlay.isSelected() &&
+                                    currentOverlay.isOverlayEnabled()) {
+                                checkedOverlays.add(currentOverlay);
+                            } else {
+                                currentOverlay.setSelected(false);
+                                mAdapter.notifyDataSetChanged();
+                            }
+                        }
+                        if (!checkedOverlays.isEmpty()) {
+                            if (base_spinner.getSelectedItemPosition() != 0 &&
+                                    base_spinner.getVisibility() == View.VISIBLE) {
+                                Phase2_InitializeCache phase2_initializeCache = new
+                                        Phase2_InitializeCache();
+                                phase2_initializeCache.execute(base_spinner.getSelectedItem()
+                                        .toString());
+                            } else {
+                                Phase2_InitializeCache phase2_initializeCache = new
+                                        Phase2_InitializeCache();
+                                phase2_initializeCache.execute("");
+                            }
+                        } else {
+                            if (toggle_all.isChecked()) toggle_all.setChecked(false);
+                            is_active = false;
+                            Toast toast2 = Toast.makeText(getContext(), getString(R
+                                            .string.toast_disabled5),
+                                    Toast.LENGTH_SHORT);
+                            toast2.show();
+                        }
+                    } else {
+                        compile_enable_mode = false;
+                        enable_mode = false;
+                        disable_mode = true;
+
+                        for (int i = 0; i < overlaysLists.size(); i++) {
+                            OverlaysInfo currentOverlay = overlaysLists.get(i);
+                            if (currentOverlay.isSelected()) {
+                                checkedOverlays.add(currentOverlay);
+                            } else {
+                                currentOverlay.setSelected(false);
+                                mAdapter.notifyDataSetChanged();
+                            }
+                        }
+
+                        String current_directory;
+                        if (References.inNexusFilter()) {
+                            current_directory = "/system/overlay/";
+                        } else {
+                            current_directory = "/system/vendor/overlay/";
+                        }
+
+                        if (!checkedOverlays.isEmpty()) {
+                            for (int i = 0; i < checkedOverlays.size(); i++) {
+                                References.mountRW();
+                                References.delete(current_directory +
+                                        checkedOverlays.get(i).getPackageName() + "." +
+                                        checkedOverlays.get(i).getThemeName() + ".apk");
+                                mAdapter.notifyDataSetChanged();
+                            }
+                            // Untick all options in the adapter after compiling
+                            toggle_all.setChecked(false);
+                            overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
+                            for (int i = 0; i < overlaysLists.size(); i++) {
+                                OverlaysInfo currentOverlay = overlaysLists.get(i);
+                                if (currentOverlay.isSelected()) {
+                                    currentOverlay.setSelected(false);
+                                }
+                            }
+                            Toast toast2 = Toast.makeText(getContext(), getString(R
+                                            .string.toast_disabled6),
+                                    Toast.LENGTH_SHORT);
+                            toast2.show();
+                            AlertDialog.Builder alertDialogBuilder =
+                                    new AlertDialog.Builder(getContext());
+                            alertDialogBuilder
+                                    .setTitle(getString(R.string
+                                            .legacy_dialog_soft_reboot_title));
+                            alertDialogBuilder
+                                    .setMessage(getString(
+                                            R.string.legacy_dialog_soft_reboot_text));
+                            alertDialogBuilder
+                                    .setPositiveButton(android.R.string.ok,
+                                            (dialog, id12) -> References.reboot());
+                            alertDialogBuilder
+                                    .setNegativeButton(R.string.remove_dialog_later, (dialog, id1) -> {
+                                        progressBar.setVisibility(View.GONE);
+                                        dialog.dismiss();
+                                    });
+                            AlertDialog alertDialog = alertDialogBuilder.create();
+                            alertDialog.show();
+                        } else {
+                            if (toggle_all.isChecked()) toggle_all.setChecked(false);
+                            is_active = false;
+                            Toast toast2 = Toast.makeText(getContext(), getString(R
+                                            .string.toast_disabled5),
+                                    Toast.LENGTH_SHORT);
+                            toast2.show();
+                        }
+                        is_active = false;
+                        disable_mode = false;
+                    }
+                }
+            });
+
+        LinearLayout enable_zone = (LinearLayout) root.findViewById(R.id.enable);
+        if (!References.checkOMS(getContext())) enable_zone.setVisibility(View.GONE);
+        TextView enable_selected = (TextView) root.findViewById(R.id.enable_selected);
+        if (enable_selected != null) enable_selected.setOnClickListener(v -> {
+            materialSheetFab.hideSheet();
+            if (!is_active) {
+                is_active = true;
+                compile_enable_mode = false;
+                enable_mode = true;
+                disable_mode = false;
+
+                overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
+                checkedOverlays = new ArrayList<>();
+
+                for (int i = 0; i < overlaysLists.size(); i++) {
+                    OverlaysInfo currentOverlay = overlaysLists.get(i);
+                    if (currentOverlay.isSelected() && !currentOverlay.isOverlayEnabled()) {
+                        checkedOverlays.add(currentOverlay);
+                    } else {
+                        currentOverlay.setSelected(false);
+                        mAdapter.notifyDataSetChanged();
+                    }
+                }
+                if (!checkedOverlays.isEmpty()) {
+                    if (base_spinner.getSelectedItemPosition() != 0 &&
+                            base_spinner.getVisibility() == View.VISIBLE) {
+                        Phase2_InitializeCache phase2_initializeCache = new
+                                Phase2_InitializeCache();
+                        phase2_initializeCache.execute(
+                                base_spinner.getSelectedItem().toString());
+
+                    } else {
+                        Phase2_InitializeCache phase2_initializeCache = new
+                                Phase2_InitializeCache();
+                        phase2_initializeCache.execute("");
+                    }
+                } else {
+                    if (toggle_all.isChecked()) toggle_all.setChecked(false);
+                    is_active = false;
+                    Toast toast2 = Toast.makeText(getContext(), getString(R
+                                    .string.toast_disabled5),
+                            Toast.LENGTH_SHORT);
+                    toast2.show();
                 }
             }
         });
@@ -1013,7 +984,7 @@ public class OverlaysList extends Fragment {
                 mProgressDialog.setCancelable(false);
                 mProgressDialog.show();
                 mProgressDialog.setContentView(R.layout.compile_dialog_loader);
-                mProgressDialog.getWindow().addFlags(
+                if (mProgressDialog.getWindow() != null) mProgressDialog.getWindow().addFlags(
                         WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
                 final float radius = 5;
@@ -1245,27 +1216,19 @@ public class OverlaysList extends Fragment {
                     TextView text = (TextView) dialog.findViewById(R.id.textField);
                     text.setText(error_logs);
                     ImageButton confirm = (ImageButton) dialog.findViewById(R.id.confirm);
-                    confirm.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            dialog.dismiss();
-                        }
-                    });
+                    confirm.setOnClickListener(view -> dialog.dismiss());
 
                     ImageButton copy_clipboard = (ImageButton) dialog.findViewById(
                             R.id.copy_clipboard);
-                    copy_clipboard.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            ClipboardManager clipboard = (ClipboardManager) getActivity()
-                                    .getSystemService(CLIPBOARD_SERVICE);
-                            ClipData clip = ClipData.newPlainText("substratum_log", error_logs);
-                            clipboard.setPrimaryClip(clip);
-                            Toast toast = Toast.makeText(getContext(), getString(R
-                                            .string.logcat_dialog_copy_success),
-                                    Toast.LENGTH_SHORT);
-                            toast.show();
-                        }
+                    copy_clipboard.setOnClickListener(v -> {
+                        ClipboardManager clipboard = (ClipboardManager) getActivity()
+                                .getSystemService(CLIPBOARD_SERVICE);
+                        ClipData clip = ClipData.newPlainText("substratum_log", error_logs);
+                        clipboard.setPrimaryClip(clip);
+                        Toast toast1 = Toast.makeText(getContext(), getString(R
+                                        .string.logcat_dialog_copy_success),
+                                Toast.LENGTH_SHORT);
+                        toast1.show();
                     });
 
                     ImageButton send = (ImageButton) dialog.findViewById(
@@ -1291,35 +1254,32 @@ public class OverlaysList extends Fragment {
 
                     if (themer_email.length() > 0) {
                         send.setVisibility(View.VISIBLE);
-                        send.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                String device = " " + Build.MODEL + " (" + Build.DEVICE + ") " +
-                                        "[" + Build.FINGERPRINT + "]";
-                                String email_subject =
-                                        String.format(getString(R.string.logcat_email_subject),
-                                                theme_name);
-                                String xposed = checkXposedVersion();
-                                if (xposed.length() > 0) {
-                                    device += " {" + xposed + "}";
-                                }
-                                String email_body =
-                                        String.format(getString(R.string.logcat_email_body),
-                                                theme_author, theme_name, device, error_logs);
-                                Intent i = new Intent(Intent.ACTION_SEND);
-                                i.setType("message/rfc822");
-                                i.putExtra(Intent.EXTRA_EMAIL, new String[]{themer_email});
-                                i.putExtra(Intent.EXTRA_SUBJECT, email_subject);
-                                i.putExtra(Intent.EXTRA_TEXT, email_body);
-                                try {
-                                    startActivity(Intent.createChooser(
-                                            i, getString(R.string.logcat_email_activity)));
-                                } catch (android.content.ActivityNotFoundException ex) {
-                                    Toast.makeText(
-                                            getActivity(),
-                                            getString(R.string.logcat_email_activity_error),
-                                            Toast.LENGTH_SHORT).show();
-                                }
+                        send.setOnClickListener(v -> {
+                            String device = " " + Build.MODEL + " (" + Build.DEVICE + ") " +
+                                    "[" + Build.FINGERPRINT + "]";
+                            String email_subject =
+                                    String.format(getString(R.string.logcat_email_subject),
+                                            theme_name);
+                            String xposed = checkXposedVersion();
+                            if (xposed.length() > 0) {
+                                device += " {" + xposed + "}";
+                            }
+                            String email_body =
+                                    String.format(getString(R.string.logcat_email_body),
+                                            theme_author, theme_name, device, error_logs);
+                            Intent i = new Intent(Intent.ACTION_SEND);
+                            i.setType("message/rfc822");
+                            i.putExtra(Intent.EXTRA_EMAIL, new String[]{themer_email});
+                            i.putExtra(Intent.EXTRA_SUBJECT, email_subject);
+                            i.putExtra(Intent.EXTRA_TEXT, email_body);
+                            try {
+                                startActivity(Intent.createChooser(
+                                        i, getString(R.string.logcat_email_activity)));
+                            } catch (android.content.ActivityNotFoundException ex) {
+                                Toast.makeText(
+                                        getActivity(),
+                                        getString(R.string.logcat_email_activity_error),
+                                        Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
@@ -1386,15 +1346,13 @@ public class OverlaysList extends Fragment {
                     if (References.checkOMSVersion(getContext()) == 7 &&
                             !final_commands.contains("projekt.substratum")) {
                         Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            public void run() {
-                                // OMS may not have written all the changes so quickly just yet
-                                // so we may need to have a small delay
-                                try {
-                                    getActivity().recreate();
-                                } catch (Exception e) {
-                                    // Consume window refresh
-                                }
+                        handler.postDelayed(() -> {
+                            // OMS may not have written all the changes so quickly just yet
+                            // so we may need to have a small delay
+                            try {
+                                getActivity().recreate();
+                            } catch (Exception e) {
+                                // Consume window refresh
                             }
                         }, REFRESH_WINDOW_DELAY);
                     }
@@ -1484,15 +1442,13 @@ public class OverlaysList extends Fragment {
                     if (References.checkOMSVersion(getContext()) == 7 &&
                             !final_commands.contains("projekt.substratum")) {
                         Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            public void run() {
-                                // OMS may not have written all the changes so quickly just yet
-                                // so we may need to have a small delay
-                                try {
-                                    getActivity().recreate();
-                                } catch (Exception e) {
-                                    // Consume window refresh
-                                }
+                        handler.postDelayed(() -> {
+                            // OMS may not have written all the changes so quickly just yet
+                            // so we may need to have a small delay
+                            try {
+                                getActivity().recreate();
+                            } catch (Exception e) {
+                                // Consume window refresh
                             }
                         }, REFRESH_WINDOW_DELAY);
                     }
@@ -1587,15 +1543,13 @@ public class OverlaysList extends Fragment {
                     if (References.checkOMSVersion(getContext()) == 7 &&
                             !final_commands.contains("projekt.substratum")) {
                         Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            public void run() {
-                                // OMS may not have written all the changes so quickly just yet
-                                // so we may need to have a small delay
-                                try {
-                                    getActivity().recreate();
-                                } catch (Exception e) {
-                                    // Consume window refresh
-                                }
+                        handler.postDelayed(() -> {
+                            // OMS may not have written all the changes so quickly just yet
+                            // so we may need to have a small delay
+                            try {
+                                getActivity().recreate();
+                            } catch (Exception e) {
+                                // Consume window refresh
                             }
                         }, REFRESH_WINDOW_DELAY);
                     }
@@ -1615,19 +1569,11 @@ public class OverlaysList extends Fragment {
                 alertDialogBuilder
                         .setMessage(getString(R.string.legacy_dialog_soft_reboot_text));
                 alertDialogBuilder
-                        .setPositiveButton(android.R.string.ok, new DialogInterface
-                                .OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                References.reboot();
-                            }
-                        });
+                        .setPositiveButton(android.R.string.ok, (dialog, id12) -> References.reboot());
                 alertDialogBuilder
-                        .setNegativeButton(R.string.remove_dialog_later, new DialogInterface
-                                .OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                progressBar.setVisibility(View.GONE);
-                                dialog.dismiss();
-                            }
+                        .setNegativeButton(R.string.remove_dialog_later, (dialog, id1) -> {
+                            progressBar.setVisibility(View.GONE);
+                            dialog.dismiss();
                         });
                 alertDialogBuilder.setCancelable(false);
                 AlertDialog alertDialog = alertDialogBuilder.create();
@@ -1895,7 +1841,7 @@ public class OverlaysList extends Fragment {
                                             theme_pid);
                                 }
                             }
-                            if (update_bool.equals("false")) {
+                            if (!update_bool) {
                                 final_runner.add(sb.no_install);
                             }
                             if (sb.has_errored_out) {

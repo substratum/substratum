@@ -6,7 +6,6 @@ import android.app.ProgressDialog;
 import android.app.WallpaperManager;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
@@ -107,134 +106,107 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
         }
 
         viewHolder.cardView.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View v) {
-                        SharedPreferences prefs = information.get(i).getContext()
-                                .getSharedPreferences(
-                                        "substratum_state", Context.MODE_PRIVATE);
-                        if (!prefs.contains("is_updating")) prefs.edit()
-                                .putBoolean("is_updating", false).apply();
-                        if (!prefs.getBoolean("is_updating", true)) {
-                            // Process fail case if user uninstalls an app and goes back an activity
-                            if (References.isPackageInstalled(information.get(i).getContext(),
-                                    information.get(i).getThemePackage())) {
+                v -> {
+                    SharedPreferences prefs1 = information.get(i).getContext()
+                            .getSharedPreferences(
+                                    "substratum_state", Context.MODE_PRIVATE);
+                    if (!prefs1.contains("is_updating")) prefs1.edit()
+                            .putBoolean("is_updating", false).apply();
+                    if (!prefs1.getBoolean("is_updating", true)) {
+                        // Process fail case if user uninstalls an app and goes back an activity
+                        if (References.isPackageInstalled(information.get(i).getContext(),
+                                information.get(i).getThemePackage())) {
 
-                                File checkSubstratumVerity = new File(information.get(i)
-                                        .getContext().getCacheDir()
-                                        .getAbsoluteFile() + "/SubstratumBuilder/" +
-                                        information.get(i).getThemePackage() + "/substratum.xml");
-                                if (checkSubstratumVerity.exists()) {
-                                    References.launchTheme(information.get(i).getContext(),
-                                            information.get(i)
-                                                    .getThemePackage(), information.get(i)
-                                                    .getThemeMode(), false);
-                                } else {
-                                    new References.SubstratumThemeUpdate(
-                                            information.get(i).getContext(),
-                                            information.get(i).getThemePackage(),
-                                            information.get(i).getThemeName(),
-                                            information.get(i).getThemeMode())
-                                            .execute();
-                                }
+                            File checkSubstratumVerity = new File(information.get(i)
+                                    .getContext().getCacheDir()
+                                    .getAbsoluteFile() + "/SubstratumBuilder/" +
+                                    information.get(i).getThemePackage() + "/substratum.xml");
+                            if (checkSubstratumVerity.exists()) {
+                                References.launchTheme(information.get(i).getContext(),
+                                        information.get(i)
+                                                .getThemePackage(), information.get(i)
+                                                .getThemeMode(), false);
                             } else {
-                                Toast toast = Toast.makeText(information.get(i).getContext(),
-                                        information.get(i).getContext().getString(R.string
-                                                .toast_uninstalled),
-                                        Toast.LENGTH_SHORT);
-                                toast.show();
-                                information.get(i).getActivity().recreate();
+                                new References.SubstratumThemeUpdate(
+                                        information.get(i).getContext(),
+                                        information.get(i).getThemePackage(),
+                                        information.get(i).getThemeName(),
+                                        information.get(i).getThemeMode())
+                                        .execute();
                             }
                         } else {
                             Toast toast = Toast.makeText(information.get(i).getContext(),
                                     information.get(i).getContext().getString(R.string
-                                            .background_updating_toast),
+                                            .toast_uninstalled),
                                     Toast.LENGTH_SHORT);
                             toast.show();
+                            information.get(i).getActivity().recreate();
                         }
+                    } else {
+                        Toast toast = Toast.makeText(information.get(i).getContext(),
+                                information.get(i).getContext().getString(R.string
+                                        .background_updating_toast),
+                                Toast.LENGTH_SHORT);
+                        toast.show();
                     }
                 });
 
-        viewHolder.cardView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                // Vibrate the device alerting the user they are about to do something dangerous!
-                Vibrator v = (Vibrator) information.get(i).getContext()
-                        .getSystemService(Context.VIBRATOR_SERVICE);
-                v.vibrate(30);
+        viewHolder.cardView.setOnLongClickListener(view -> {
+            // Vibrate the device alerting the user they are about to do something dangerous!
+            Vibrator v = (Vibrator) information.get(i).getContext()
+                    .getSystemService(Context.VIBRATOR_SERVICE);
+            v.vibrate(30);
 
-                android.support.v7.app.AlertDialog.Builder builder = new
-                        android.support.v7.app.AlertDialog.Builder(information.get(i).getContext());
-                builder.setTitle(information.get(i).getThemeName());
-                builder.setIcon(References.grabAppIcon(information.get(i).getContext(),
-                        information.get(i).getThemePackage()));
-                builder.setMessage(R.string.uninstall_dialog_body)
-                        .setPositiveButton(R.string.uninstall_dialog_okay, new DialogInterface
-                                .OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                mContext = information.get(i).getContext();
-                                currentObject = information.get(i);
-                                new uninstallTheme().execute();
-                            }
-                        })
-                        .setNegativeButton(R.string.uninstall_dialog_cancel, new DialogInterface
-                                .OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                // User cancelled the dialog
-                            }
-                        });
-                // Create the AlertDialog object and return it
-                builder.create();
-                builder.show();
-                return false;
-            }
+            android.support.v7.app.AlertDialog.Builder builder = new
+                    android.support.v7.app.AlertDialog.Builder(information.get(i).getContext());
+            builder.setTitle(information.get(i).getThemeName());
+            builder.setIcon(References.grabAppIcon(information.get(i).getContext(),
+                    information.get(i).getThemePackage()));
+            builder.setMessage(R.string.uninstall_dialog_body)
+                    .setPositiveButton(R.string.uninstall_dialog_okay, (dialog, id) -> {
+                        mContext = information.get(i).getContext();
+                        currentObject = information.get(i);
+                        new uninstallTheme().execute();
+                    })
+                    .setNegativeButton(R.string.uninstall_dialog_cancel, (dialog, id) -> dialog.cancel());
+            // Create the AlertDialog object and return it
+            builder.create();
+            builder.show();
+            return false;
         });
 
         viewHolder.tbo.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View v) {
-                        new AlertDialog.Builder(information.get(i)
-                                .getContext())
-                                .setMessage(R.string.tbo_description)
-                                .setPositiveButton(R.string.tbo_dialog_proceed,
-                                        new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                try {
-                                                    String playURL =
-                                                            information.get(i).getContext()
-                                                                    .getString(R.string
-                                                                            .tbo_theme_ready_url);
-                                                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                                                    intent.setData(Uri.parse(playURL));
-                                                    information.get(i).getContext()
-                                                            .startActivity(intent);
-                                                } catch (ActivityNotFoundException
-                                                        activityNotFoundException) {
-                                                    // Suppress warning
-                                                }
-                                            }
-                                        })
-                                .setNegativeButton(android.R.string.cancel,
-                                        new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                dialog.cancel();
-                                            }
-                                        })
-                                .setCancelable(true)
-                                .show();
-                    }
-                }
+                v -> new AlertDialog.Builder(information.get(i)
+                        .getContext())
+                        .setMessage(R.string.tbo_description)
+                        .setPositiveButton(R.string.tbo_dialog_proceed,
+                                (dialog, which) -> {
+                                    try {
+                                        String playURL =
+                                                information.get(i).getContext()
+                                                        .getString(R.string
+                                                                .tbo_theme_ready_url);
+                                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                                        intent.setData(Uri.parse(playURL));
+                                        information.get(i).getContext()
+                                                .startActivity(intent);
+                                    } catch (ActivityNotFoundException
+                                            activityNotFoundException) {
+                                        // Suppress warning
+                                    }
+                                })
+                        .setNegativeButton(android.R.string.cancel,
+                                (dialog, which) -> dialog.cancel())
+                        .setCancelable(true)
+                        .show()
         );
 
         viewHolder.two.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View v) {
-                        new AlertDialog.Builder(information.get(i)
-                                .getContext())
-                                .setMessage(R.string.two_description)
-                                .setCancelable(true)
-                                .show();
-                    }
-                }
+                v -> new AlertDialog.Builder(information.get(i)
+                        .getContext())
+                        .setMessage(R.string.two_description)
+                        .setCancelable(true)
+                        .show()
         );
 
         viewHolder.theme_author.setText(information.get(i).getThemeAuthor());

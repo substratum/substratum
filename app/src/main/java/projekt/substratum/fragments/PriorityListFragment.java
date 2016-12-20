@@ -65,17 +65,14 @@ public class PriorityListFragment extends Fragment {
         Toolbar toolbar = (Toolbar) root.findViewById(R.id.action_bar_toolbar);
         toolbar.setTitle(getString(R.string.priority_back_title));
         toolbar.setNavigationIcon(getContext().getDrawable(R.drawable.priorities_back_button));
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Fragment fragment = new PriorityLoaderFragment();
-                FragmentManager fm = getActivity().getSupportFragmentManager();
-                FragmentTransaction transaction = fm.beginTransaction();
-                transaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim
-                        .slide_out_right);
-                transaction.replace(R.id.main, fragment);
-                transaction.commit();
-            }
+        toolbar.setNavigationOnClickListener(v -> {
+            Fragment fragment = new PriorityLoaderFragment();
+            FragmentManager fm = getActivity().getSupportFragmentManager();
+            FragmentTransaction transaction = fm.beginTransaction();
+            transaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim
+                    .slide_out_right);
+            transaction.replace(R.id.main, fragment);
+            transaction.commit();
         });
 
         // Begin loading up list
@@ -211,55 +208,51 @@ public class PriorityListFragment extends Fragment {
             }
         });
 
-        applyFab.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Toast toast = Toast.makeText(getContext(), getString(R.string
-                                .priority_success_toast),
-                        Toast.LENGTH_SHORT);
-                toast.show();
-                headerProgress.setVisibility(View.VISIBLE);
-                new java.util.Timer().schedule(
-                        new java.util.TimerTask() {
-                            @Override
-                            public void run() {
-                                if (References.isPackageInstalled(getContext(),
-                                        "masquerade.substratum")) {
-                                    final SharedPreferences prefs =
-                                            PreferenceManager.getDefaultSharedPreferences(
-                                                    getContext());
-                                    if (!prefs.getBoolean("systemui_recreate", false)) {
-                                        if (commands.contains("systemui")) {
-                                            commands = commands + " && pkill -f com.android" +
-                                                    ".systemui";
-                                        }
-                                    }
-                                    Intent runCommand = new Intent();
-                                    runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                                    runCommand.setAction("masquerade.substratum.COMMANDS");
-                                    runCommand.putExtra("om-commands", commands);
-                                    getContext().sendBroadcast(runCommand);
-                                } else {
-                                    new References.ThreadRunner().execute(commands);
-                                }
-                            }
-                        },
-                        500
-                );
-                if (References.checkOMSVersion(getContext()) == 7 &&
-                        !commands.contains("projekt.substratum")) {
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
+        applyFab.setOnClickListener(v -> {
+            Toast toast = Toast.makeText(getContext(), getString(R.string
+                            .priority_success_toast),
+                    Toast.LENGTH_SHORT);
+            toast.show();
+            headerProgress.setVisibility(View.VISIBLE);
+            new java.util.Timer().schedule(
+                    new java.util.TimerTask() {
+                        @Override
                         public void run() {
-                            // OMS may not have written all the changes so
-                            // quickly just yet so we may need to have a small delay
-                            try {
-                                getActivity().recreate();
-                            } catch (Exception e) {
-                                // Consume window refresh
+                            if (References.isPackageInstalled(getContext(),
+                                    "masquerade.substratum")) {
+                                final SharedPreferences prefs =
+                                        PreferenceManager.getDefaultSharedPreferences(
+                                                getContext());
+                                if (!prefs.getBoolean("systemui_recreate", false)) {
+                                    if (commands.contains("systemui")) {
+                                        commands = commands + " && pkill -f com.android" +
+                                                ".systemui";
+                                    }
+                                }
+                                Intent runCommand = new Intent();
+                                runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                                runCommand.setAction("masquerade.substratum.COMMANDS");
+                                runCommand.putExtra("om-commands", commands);
+                                getContext().sendBroadcast(runCommand);
+                            } else {
+                                new References.ThreadRunner().execute(commands);
                             }
                         }
-                    }, REFRESH_WINDOW_DELAY * 2);
-                }
+                    },
+                    500
+            );
+            if (References.checkOMSVersion(getContext()) == 7 &&
+                    !commands.contains("projekt.substratum")) {
+                Handler handler = new Handler();
+                handler.postDelayed(() -> {
+                    // OMS may not have written all the changes so
+                    // quickly just yet so we may need to have a small delay
+                    try {
+                        getActivity().recreate();
+                    } catch (Exception e) {
+                        // Consume window refresh
+                    }
+                }, REFRESH_WINDOW_DELAY * 2);
             }
         });
         return root;

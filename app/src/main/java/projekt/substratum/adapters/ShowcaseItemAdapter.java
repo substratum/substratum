@@ -83,21 +83,18 @@ public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapte
             viewHolder.overlays.setAlpha((float) 0.2);
         }
 
-        viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setData(Uri.parse(information.get(position).getThemeLink()));
-                    information.get(position).getContext().startActivity(intent);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Toast toaster = Toast.makeText(information.get(position).getContext(),
-                            information.get(position).getContext().getString(R.string
-                                    .activity_missing_toast),
-                            Toast.LENGTH_SHORT);
-                    toaster.show();
-                }
+        viewHolder.cardView.setOnClickListener(view -> {
+            try {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(information.get(position).getThemeLink()));
+                information.get(position).getContext().startActivity(intent);
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast toaster = Toast.makeText(information.get(position).getContext(),
+                        information.get(position).getContext().getString(R.string
+                                .activity_missing_toast),
+                        Toast.LENGTH_SHORT);
+                toaster.show();
             }
         });
     }

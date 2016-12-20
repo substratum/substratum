@@ -37,38 +37,41 @@ public class PackageModificationDetector extends BroadcastReceiver {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
             if (prefs.contains("installed_icon_pack")) {
                 to_be_disabled = new ArrayList<>();
-                if (prefs.getString("installed_icon_pack", null).equals(context.getPackageName())) {
-                    List<ApplicationInfo> list = context.getPackageManager()
-                            .getInstalledApplications(PackageManager.GET_META_DATA);
-                    for (ApplicationInfo packageInfo : list) {
-                        if ((packageInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
-                            getSubstratumPackages(context, packageInfo.packageName);
+                String current = prefs.getString("installed_icon_pack", null);
+                if (current != null) {
+                    if (current.equals(context.getPackageName())) {
+                        List<ApplicationInfo> list = context.getPackageManager()
+                                .getInstalledApplications(PackageManager.GET_META_DATA);
+                        for (ApplicationInfo packageInfo : list) {
+                            if ((packageInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
+                                getSubstratumPackages(context, packageInfo.packageName);
+                            }
                         }
+                        String final_commands = References.disableOverlay();
+                        for (int i = 0; i < to_be_disabled.size(); i++) {
+                            final_commands = final_commands + " " + to_be_disabled.get(i);
+                        }
+                        if (References.isPackageInstalled(context, "masquerade.substratum")) {
+                            if (DEBUG)
+                                Log.e(References.SUBSTRATUM_LOG, "Initializing the Masquerade " +
+                                        "theme provider...");
+                            Intent runCommand = new Intent();
+                            runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                            runCommand.setAction("masquerade.substratum.COMMANDS");
+                            ArrayList<String> final_array = new ArrayList<>();
+                            final_array.add(0, context.getString(R.string.studio_system)
+                                    .toLowerCase());
+                            final_array.add(1, final_commands);
+                            final_array.add(2, (final_commands.contains("projekt.substratum") ?
+                                    String.valueOf(MAIN_WINDOW_REFRESH_DELAY) : String.valueOf(0)));
+                            final_array.add(3, String.valueOf(FIRST_WINDOW_REFRESH_DELAY));
+                            final_array.add(4, String.valueOf(SECOND_WINDOW_REFRESH_DELAY));
+                            final_array.add(5, null);
+                            runCommand.putExtra("icon-handler", final_array);
+                            context.sendBroadcast(runCommand);
+                        }
+                        prefs.edit().remove("installed_icon_pack").apply();
                     }
-                    String final_commands = References.disableOverlay();
-                    for (int i = 0; i < to_be_disabled.size(); i++) {
-                        final_commands = final_commands + " " + to_be_disabled.get(i);
-                    }
-                    if (References.isPackageInstalled(context, "masquerade.substratum")) {
-                        if (DEBUG)
-                            Log.e(References.SUBSTRATUM_LOG, "Initializing the Masquerade " +
-                                    "theme provider...");
-                        Intent runCommand = new Intent();
-                        runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                        runCommand.setAction("masquerade.substratum.COMMANDS");
-                        ArrayList<String> final_array = new ArrayList<>();
-                        final_array.add(0, context.getString(R.string.studio_system)
-                                .toLowerCase());
-                        final_array.add(1, final_commands);
-                        final_array.add(2, (final_commands.contains("projekt.substratum") ?
-                                String.valueOf(MAIN_WINDOW_REFRESH_DELAY) : String.valueOf(0)));
-                        final_array.add(3, String.valueOf(FIRST_WINDOW_REFRESH_DELAY));
-                        final_array.add(4, String.valueOf(SECOND_WINDOW_REFRESH_DELAY));
-                        final_array.add(5, null);
-                        runCommand.putExtra("icon-handler", final_array);
-                        context.sendBroadcast(runCommand);
-                    }
-                    prefs.edit().remove("installed_icon_pack").apply();
                 }
             } else if (package_name.equals(References.lp_package_identifier)) {
                 SharedPreferences prefsPrivate = context.getSharedPreferences(
@@ -107,7 +110,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
             ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
                     package_name, PackageManager.GET_META_DATA);
             if (appInfo.metaData != null) {
-                if (appInfo.metaData.equals("Substratum_IconPack")) {
+                if (appInfo.metaData.getString("Substratum_IconPack") != null) {
                     to_be_disabled.add(package_name);
                 }
             }

@@ -1,7 +1,6 @@
 package projekt.substratum;
 
 import android.content.ActivityNotFoundException;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.ResolveInfo;
@@ -85,12 +84,7 @@ public class StudioSelectorActivity extends AppCompatActivity {
                 getSupportActionBar().setHomeButtonEnabled(false);
                 getSupportActionBar().setTitle(getString(R.string.studio));
             }
-            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onBackPressed();
-                }
-            });
+            toolbar.setNavigationOnClickListener((view) -> onBackPressed());
         }
 
         View creative_mode = findViewById(R.id.studio_custom);
@@ -144,101 +138,87 @@ public class StudioSelectorActivity extends AppCompatActivity {
         }
 
         CardView update_configuration = (CardView) findViewById(R.id.studio_update);
-        update_configuration.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (References.isPackageInstalled(getApplicationContext(),
-                        "masquerade.substratum")) {
-                    if (DEBUG)
-                        Log.e(References.SUBSTRATUM_ICON_BUILDER,
-                                "Initializing the Masquerade theme provider...");
-                    Intent runCommand = new Intent();
-                    runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                    runCommand.setAction("masquerade.substratum.COMMANDS");
-                    ArrayList<String> final_array = new ArrayList<>();
-                    final_array.add(0, null);
-                    final_array.add(1, null);
-                    final_array.add(2, String.valueOf(0));
-                    final_array.add(3, String.valueOf(FIRST_WINDOW_REFRESH_DELAY));
-                    final_array.add(4, String.valueOf(SECOND_WINDOW_REFRESH_DELAY));
-                    final_array.add(5, References.SUBSTRATUM_ICON_BUILDER);
-                    runCommand.putExtra("icon-handler", final_array);
-                    getApplicationContext().sendBroadcast(runCommand);
-                } else {
+        update_configuration.setOnClickListener((view) -> {
+            if (References.isPackageInstalled(getApplicationContext(),
+                    "masquerade.substratum")) {
+                if (DEBUG)
                     Log.e(References.SUBSTRATUM_ICON_BUILDER,
-                            "Cannot apply icon pack on a non OMS7 ROM");
-                }
+                            "Initializing the Masquerade theme provider...");
+                Intent runCommand = new Intent();
+                runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                runCommand.setAction("masquerade.substratum.COMMANDS");
+                ArrayList<String> final_array = new ArrayList<>();
+                final_array.add(0, null);
+                final_array.add(1, null);
+                final_array.add(2, String.valueOf(0));
+                final_array.add(3, String.valueOf(FIRST_WINDOW_REFRESH_DELAY));
+                final_array.add(4, String.valueOf(SECOND_WINDOW_REFRESH_DELAY));
+                final_array.add(5, References.SUBSTRATUM_ICON_BUILDER);
+                runCommand.putExtra("icon-handler", final_array);
+                getApplicationContext().sendBroadcast(runCommand);
+            } else {
+                Log.e(References.SUBSTRATUM_ICON_BUILDER,
+                        "Cannot apply icon pack on a non OMS7 ROM");
             }
         });
 
         CardView system_card = (CardView) findViewById(R.id.studio_system);
-        system_card.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(StudioSelectorActivity.this);
-                builder.setTitle(getString(R.string.studio_system));
-                builder.setIcon(References.grabAppIcon(getApplicationContext(), "android"));
-                builder.setMessage(R.string.studio_system_reset_dialog);
-                builder.setPositiveButton(R.string.uninstall_dialog_okay, new DialogInterface
-                        .OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        // Begin disabling themes
-                        List<String> state5 = ReadOverlays.main(5,
-                                getApplicationContext());
-                        ArrayList<String> all = new ArrayList<>(state5);
+        system_card.setOnClickListener((view) -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(StudioSelectorActivity.this);
+            builder.setTitle(getString(R.string.studio_system));
+            builder.setIcon(References.grabAppIcon(getApplicationContext(), "android"));
+            builder.setMessage(R.string.studio_system_reset_dialog);
+            builder.setPositiveButton(R.string.uninstall_dialog_okay, (dialog, id) -> {
+                // Begin disabling themes
+                List<String> state5 = ReadOverlays.main(5,
+                        getApplicationContext());
+                ArrayList<String> all = new ArrayList<>(state5);
 
-                        // Filter out icon pack overlays from all overlays
-                        String final_commands = References.disableOverlay();
-                        if (all.size() > 0) {
-                            for (int i = 0; i < all.size(); i++) {
-                                if (all.get(i).endsWith(".icon")) {
-                                    final_commands += " " + all.get(i);
-                                }
-                            }
-                            if (References.isPackageInstalled(getApplicationContext(),
-                                    "masquerade.substratum")) {
-                                if (DEBUG)
-                                    Log.e(References.SUBSTRATUM_ICON_BUILDER,
-                                            "Initializing the Masquerade theme " +
-                                                    "provider...");
-
-                                Intent runCommand = new Intent();
-                                runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                                runCommand.setAction("masquerade.substratum.COMMANDS");
-                                ArrayList<String> final_array = new ArrayList<>();
-                                final_array.add(0, getString(R.string.studio_system)
-                                        .toLowerCase());
-                                final_array.add(1, final_commands);
-                                final_array.add(2,
-                                        String.valueOf(MAIN_WINDOW_REFRESH_DELAY));
-                                final_array.add(3,
-                                        String.valueOf(FIRST_WINDOW_REFRESH_DELAY));
-                                final_array.add(4,
-                                        String.valueOf(SECOND_WINDOW_REFRESH_DELAY));
-                                final_array.add(5, null);
-                                runCommand.putExtra("icon-handler", final_array);
-                                getApplicationContext().sendBroadcast(runCommand);
-                            } else {
-                                Log.e(References.SUBSTRATUM_ICON_BUILDER,
-                                        "Cannot apply icon pack on a non OMS7 ROM");
-                            }
-                        } else {
-                            Toast toaster = Toast.makeText(getApplicationContext(),
-                                    getString(R.string.studio_system_reset_dialog_toast),
-                                    Toast.LENGTH_SHORT);
-                            toaster.show();
+                // Filter out icon pack overlays from all overlays
+                String final_commands = References.disableOverlay();
+                if (all.size() > 0) {
+                    for (int i = 0; i < all.size(); i++) {
+                        if (all.get(i).endsWith(".icon")) {
+                            final_commands += " " + all.get(i);
                         }
                     }
-                });
-                builder.setNegativeButton(R.string.restore_dialog_cancel, new DialogInterface
-                        .OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.dismiss();
+                    if (References.isPackageInstalled(getApplicationContext(),
+                            "masquerade.substratum")) {
+                        if (DEBUG)
+                            Log.e(References.SUBSTRATUM_ICON_BUILDER,
+                                    "Initializing the Masquerade theme " +
+                                            "provider...");
+
+                        Intent runCommand = new Intent();
+                        runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                        runCommand.setAction("masquerade.substratum.COMMANDS");
+                        ArrayList<String> final_array = new ArrayList<>();
+                        final_array.add(0, getString(R.string.studio_system)
+                                .toLowerCase());
+                        final_array.add(1, final_commands);
+                        final_array.add(2,
+                                String.valueOf(MAIN_WINDOW_REFRESH_DELAY));
+                        final_array.add(3,
+                                String.valueOf(FIRST_WINDOW_REFRESH_DELAY));
+                        final_array.add(4,
+                                String.valueOf(SECOND_WINDOW_REFRESH_DELAY));
+                        final_array.add(5, null);
+                        runCommand.putExtra("icon-handler", final_array);
+                        getApplicationContext().sendBroadcast(runCommand);
+                    } else {
+                        Log.e(References.SUBSTRATUM_ICON_BUILDER,
+                                "Cannot apply icon pack on a non OMS7 ROM");
                     }
-                });
-                builder.create();
-                builder.show();
-            }
+                } else {
+                    Toast toaster = Toast.makeText(getApplicationContext(),
+                            getString(R.string.studio_system_reset_dialog_toast),
+                            Toast.LENGTH_SHORT);
+                    toaster.show();
+                }
+            });
+            builder.setNegativeButton(R.string.restore_dialog_cancel, (dialog, id) -> dialog.dismiss());
+            builder.create();
+            builder.show();
         });
     }
 }

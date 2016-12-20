@@ -10,6 +10,6 @@
         <intent
             android:action="android.intent.action.VIEW"
             android:targetClass="projekt.substratum.ShowcaseActivity"
-            android:targetPackage="projekt.substratum"/>
+            android:targetPackage="projekt.substratum" />
     </shortcut>
 </shortcuts>

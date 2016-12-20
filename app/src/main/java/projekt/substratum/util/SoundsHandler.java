@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
@@ -548,33 +547,27 @@ public class SoundsHandler {
                             .setTitle(mContext.getString(R.string.sounds_dialog_permissions_title))
                             .setMessage(mContext.getString(R.string.sounds_dialog_permissions_text))
                             .setPositiveButton(R.string.sounds_dialog_permissions_grant,
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            if (!Settings.System.canWrite(mContext)) {
-                                                Intent intent = new Intent(
-                                                        android.provider.Settings
-                                                                .ACTION_MANAGE_WRITE_SETTINGS);
-                                                intent.setData(Uri.parse("package:" +
-                                                        mContext.getPackageName()));
-                                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                                mContext.startActivity(intent);
-                                            } else {
-                                                Log.d(References.SUBSTRATUM_LOG,
-                                                        "Substratum was granted " +
-                                                                "'android.permission" +
-                                                                ".WRITE_SETTINGS' " +
-                                                                "permissions for system " +
-                                                                "runtime code " +
-                                                                "execution.");
-                                            }
+                                    (dialog, which) -> {
+                                        if (!Settings.System.canWrite(mContext)) {
+                                            Intent intent = new Intent(
+                                                    Settings
+                                                            .ACTION_MANAGE_WRITE_SETTINGS);
+                                            intent.setData(Uri.parse("package:" +
+                                                    mContext.getPackageName()));
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                            mContext.startActivity(intent);
+                                        } else {
+                                            Log.d(References.SUBSTRATUM_LOG,
+                                                    "Substratum was granted " +
+                                                            "'android.permission" +
+                                                            ".WRITE_SETTINGS' " +
+                                                            "permissions for system " +
+                                                            "runtime code " +
+                                                            "execution.");
                                         }
                                     })
                             .setNegativeButton(R.string.sounds_dialog_permissions_deny,
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            dialog.dismiss();
-                                        }
-                                    })
+                                    (dialog, which) -> dialog.dismiss())
                             .setIcon(mContext.getDrawable(R.drawable.sounds_dialog_alert))
                             .show();
                 }

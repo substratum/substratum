@@ -2,7 +2,6 @@ package projekt.substratum;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -336,39 +335,22 @@ public class StudioPreviewActivity extends AppCompatActivity {
                 getSupportActionBar().setTitle(References.grabPackageName(
                         getApplicationContext(), current_pack));
             }
-            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onBackPressed();
-                }
-            });
+            toolbar.setNavigationOnClickListener((view) -> onBackPressed());
         }
 
         floatingActionButton = (FloatingActionButton) findViewById(R.id.apply_fab);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(StudioPreviewActivity.this);
-                builder.setTitle(References.grabPackageName(getApplicationContext(), current_pack));
-                builder.setIcon(References.grabAppIcon(getApplicationContext(), current_pack));
-                String formatter = String.format(getString(R.string.studio_apply_confirmation),
-                        References.grabPackageName(getApplicationContext(), current_pack));
-                builder.setMessage(formatter);
-                builder.setPositiveButton(R.string.dialog_ok, new DialogInterface
-                        .OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        new IconPackInstaller().execute("");
-                    }
-                });
-                builder.setNegativeButton(R.string.restore_dialog_cancel, new DialogInterface
-                        .OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.dismiss();
-                    }
-                });
-                builder.create();
-                builder.show();
-            }
+        floatingActionButton.setOnClickListener((view) -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(StudioPreviewActivity.this);
+            builder.setTitle(References.grabPackageName(getApplicationContext(), current_pack));
+            builder.setIcon(References.grabAppIcon(getApplicationContext(), current_pack));
+            String formatter = String.format(getString(R.string.studio_apply_confirmation),
+                    References.grabPackageName(getApplicationContext(), current_pack));
+            builder.setMessage(formatter);
+            builder.setPositiveButton(R.string.dialog_ok,
+                    (dialog, id) -> new IconPackInstaller().execute(""));
+            builder.setNegativeButton(R.string.restore_dialog_cancel, (dialog, id) -> dialog.dismiss());
+            builder.create();
+            builder.show();
         });
 
         References.getIconState(getApplicationContext(), current_pack);
@@ -384,7 +366,9 @@ public class StudioPreviewActivity extends AppCompatActivity {
             mProgressDialog.setCancelable(false);
             mProgressDialog.show();
             mProgressDialog.setContentView(R.layout.compile_icon_dialog_loader);
-            mProgressDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+            if (mProgressDialog.getWindow() != null)
+                mProgressDialog.getWindow().addFlags(
+                        WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
             final float radius = 5;
             final View decorView = getWindow().getDecorView();
@@ -594,7 +578,7 @@ public class StudioPreviewActivity extends AppCompatActivity {
 
                                 // We have to check whether the iconMask object is a cropper, or a
                                 // simple overlaying drawable
-                                Boolean is_cropper = true;
+                                Boolean is_cropper = false;
                                 int[] pixelCheck = new int[mask.getHeight() *
                                         mask.getWidth()];
                                 mask.getPixels(pixelCheck, 0, mask.getWidth(), 0, 0,

@@ -3,7 +3,6 @@ package projekt.substratum.fragments;
 import android.app.WallpaperManager;
 import android.app.admin.DevicePolicyManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
@@ -109,18 +108,16 @@ public class ProfileFragment extends Fragment {
         aet_backup = (AnimatedEditText) root.findViewById(R.id.edittext);
 
         final Button backupButton = (Button) root.findViewById(R.id.backupButton);
-        backupButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if (aet_backup.getText().length() > 0) {
-                    aet_getText = aet_backup.getText().toString();
-                    BackupFunction backupFunction = new BackupFunction();
-                    backupFunction.execute();
-                } else {
-                    Toast toast = Toast.makeText(getContext(), getString(R.string
-                                    .profile_edittext_empty_toast),
-                            Toast.LENGTH_SHORT);
-                    toast.show();
-                }
+        backupButton.setOnClickListener(v -> {
+            if (aet_backup.getText().length() > 0) {
+                aet_getText = aet_backup.getText().toString();
+                BackupFunction backupFunction = new BackupFunction();
+                backupFunction.execute();
+            } else {
+                Toast toast = Toast.makeText(getContext(), getString(R.string
+                                .profile_edittext_empty_toast),
+                        Toast.LENGTH_SHORT);
+                toast.show();
             }
         });
 
@@ -161,66 +158,54 @@ public class ProfileFragment extends Fragment {
         profile_selector.setAdapter(adapter);
 
         ImageButton imageButton = (ImageButton) root.findViewById(R.id.remove_profile);
-        imageButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if (profile_selector.getSelectedItemPosition() > 0) {
-                    String formatted = String.format(getString(R.string.delete_dialog_text),
-                            profile_selector.getSelectedItem());
-                    new AlertDialog.Builder(getContext())
-                            .setTitle(getString(R.string.delete_dialog_title))
-                            .setMessage(formatted)
-                            .setCancelable(false)
-                            .setPositiveButton(getString(R.string.delete_dialog_okay), new
-                                    DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            File f = new File(Environment
-                                                    .getExternalStorageDirectory().getAbsolutePath()
-                                                    + "/substratum/profiles/" + profile_selector
-                                                    .getSelectedItem() + "" +
-                                                    ".substratum");
-                                            boolean deleted = f.delete();
-                                            if (!deleted)
-                                                Log.e(References.SUBSTRATUM_LOG, "Could not " +
-                                                        "delete " +
-                                                        "profile directory.");
-                                            References.delete(
-                                                    Environment.getExternalStorageDirectory()
-                                                            .getAbsolutePath() +
-                                                            "/substratum/profiles/" +
-                                                            profile_selector
-                                                                    .getSelectedItem());
-                                            RefreshSpinner();
-                                        }
-                                    })
-                            .setNegativeButton(getString(R.string.delete_dialog_cancel), new
-                                    DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                        }
-                                    })
-                            .create().show();
-                } else {
-                    Toast toast = Toast.makeText(getContext(), getString(R.string
-                                    .profile_delete_button_none_selected_toast),
-                            Toast.LENGTH_SHORT);
-                    toast.show();
-                }
+        imageButton.setOnClickListener(v -> {
+            if (profile_selector.getSelectedItemPosition() > 0) {
+                String formatted = String.format(getString(R.string.delete_dialog_text),
+                        profile_selector.getSelectedItem());
+                new AlertDialog.Builder(getContext())
+                        .setTitle(getString(R.string.delete_dialog_title))
+                        .setMessage(formatted)
+                        .setCancelable(false)
+                        .setPositiveButton(getString(R.string.delete_dialog_okay),
+                                (dialog, which) -> {
+                                    File f1 = new File(Environment
+                                            .getExternalStorageDirectory().getAbsolutePath()
+                                            + "/substratum/profiles/" + profile_selector
+                                            .getSelectedItem() + "" +
+                                            ".substratum");
+                                    boolean deleted = f1.delete();
+                                    if (!deleted)
+                                        Log.e(References.SUBSTRATUM_LOG, "Could not " +
+                                                "delete " +
+                                                "profile directory.");
+                                    References.delete(
+                                            Environment.getExternalStorageDirectory()
+                                                    .getAbsolutePath() +
+                                                    "/substratum/profiles/" +
+                                                    profile_selector
+                                                            .getSelectedItem());
+                                    RefreshSpinner();
+                                })
+                        .setNegativeButton(getString(R.string.delete_dialog_cancel), (dialog, which) -> dialog.cancel())
+                        .create().show();
+            } else {
+                Toast toast = Toast.makeText(getContext(), getString(R.string
+                                .profile_delete_button_none_selected_toast),
+                        Toast.LENGTH_SHORT);
+                toast.show();
             }
         });
 
         final Button restoreButton = (Button) root.findViewById(R.id.restoreButton);
-        restoreButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if (profile_selector.getSelectedItemPosition() > 0) {
-                    RestoreFunction restoreFunction = new RestoreFunction();
-                    restoreFunction.execute(profile_selector.getSelectedItem().toString());
-                } else {
-                    Toast toast = Toast.makeText(getContext(), getString(R.string
-                                    .restore_button_none_selected_toast),
-                            Toast.LENGTH_SHORT);
-                    toast.show();
-                }
+        restoreButton.setOnClickListener(v -> {
+            if (profile_selector.getSelectedItemPosition() > 0) {
+                RestoreFunction restoreFunction = new RestoreFunction();
+                restoreFunction.execute(profile_selector.getSelectedItem().toString());
+            } else {
+                Toast toast = Toast.makeText(getContext(), getString(R.string
+                                .restore_button_none_selected_toast),
+                        Toast.LENGTH_SHORT);
+                toast.show();
             }
         });
         return root;
@@ -383,48 +368,39 @@ public class ProfileFragment extends Fragment {
                             .setTitle(getString(R.string.restore_dialog_title))
                             .setMessage(dialog_message)
                             .setCancelable(false)
-                            .setPositiveButton(getString(R.string.restore_dialog_okay), new
-                                    DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            if (References.isPackageInstalled(getContext(),
-                                                    "masquerade.substratum")) {
-                                                Intent runCommand = new Intent();
-                                                runCommand.addFlags(Intent
-                                                        .FLAG_INCLUDE_STOPPED_PACKAGES);
-                                                runCommand.setAction("masquerade.substratum" +
-                                                        ".COMMANDS");
-                                                runCommand.putExtra("om-commands",
-                                                        to_be_run_commands);
+                            .setPositiveButton(getString(R.string.restore_dialog_okay), (dialog, which) -> {
+                                if (References.isPackageInstalled(getContext(),
+                                        "masquerade.substratum")) {
+                                    Intent runCommand = new Intent();
+                                    runCommand.addFlags(Intent
+                                            .FLAG_INCLUDE_STOPPED_PACKAGES);
+                                    runCommand.setAction("masquerade.substratum" +
+                                            ".COMMANDS");
+                                    runCommand.putExtra("om-commands",
+                                            to_be_run_commands);
 
-                                                getContext().sendBroadcast(runCommand);
-                                                if (!helper_exists) {
-                                                    Toast toast = Toast.makeText(getContext(),
-                                                            getString(R.string
-                                                                    .profile_edittext_empty_toast_sysui),
-                                                            Toast.LENGTH_SHORT);
-                                                    toast.show();
-                                                }
-                                            } else {
-                                                new References.ThreadRunner().execute
-                                                        (to_be_run_commands);
-                                                if (!helper_exists) {
-                                                    Toast toast = Toast.makeText(getContext(),
-                                                            getString(R.string
-                                                                    .profile_edittext_empty_toast_sysui),
-                                                            Toast.LENGTH_SHORT);
-                                                    toast.show();
-                                                }
-                                            }
-                                        }
-                                    })
-                            .setNegativeButton(getString(R.string.restore_dialog_cancel), new
-                                    DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            headerProgress.setVisibility(View.GONE);
-                                        }
-                                    })
+                                    getContext().sendBroadcast(runCommand);
+                                    if (!helper_exists) {
+                                        Toast toast = Toast.makeText(getContext(),
+                                                getString(R.string
+                                                        .profile_edittext_empty_toast_sysui),
+                                                Toast.LENGTH_SHORT);
+                                        toast.show();
+                                    }
+                                } else {
+                                    new References.ThreadRunner().execute
+                                            (to_be_run_commands);
+                                    if (!helper_exists) {
+                                        Toast toast = Toast.makeText(getContext(),
+                                                getString(R.string
+                                                        .profile_edittext_empty_toast_sysui),
+                                                Toast.LENGTH_SHORT);
+                                        toast.show();
+                                    }
+                                }
+                            })
+                            .setNegativeButton(getString(R.string.restore_dialog_cancel),
+                                    (dialog, which) -> headerProgress.setVisibility(View.GONE))
                             .create().show();
                 } else {
                     if (References.isPackageInstalled(getContext(), "masquerade.substratum")) {
@@ -548,12 +524,7 @@ public class ProfileFragment extends Fragment {
                                 R.string.legacy_dialog_soft_reboot_text));
                 alertDialogBuilder
                         .setPositiveButton(
-                                android.R.string.ok, new DialogInterface
-                                        .OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        References.reboot();
-                                    }
-                                });
+                                android.R.string.ok, (dialog, id) -> References.reboot());
                 alertDialogBuilder.setCancelable(false);
                 AlertDialog alertDialog = alertDialogBuilder.create();
                 alertDialog.show();

@@ -6,7 +6,6 @@ import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -66,19 +65,16 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 ")");
         aboutSubstratum.setIcon(getContext().getDrawable(R.mipmap.main_launcher));
         aboutSubstratum.setOnPreferenceClickListener(
-                new Preference.OnPreferenceClickListener() {
-                    @Override
-                    public boolean onPreferenceClick(Preference preference) {
-                        try {
-                            String sourceURL = getString(R.string.substratum_github);
-                            Intent i = new Intent(Intent.ACTION_VIEW);
-                            i.setData(Uri.parse(sourceURL));
-                            startActivity(i);
-                        } catch (ActivityNotFoundException activityNotFoundException) {
-                            //
-                        }
-                        return false;
+                preference -> {
+                    try {
+                        String sourceURL = getString(R.string.substratum_github);
+                        Intent i = new Intent(Intent.ACTION_VIEW);
+                        i.setData(Uri.parse(sourceURL));
+                        startActivity(i);
+                    } catch (ActivityNotFoundException activityNotFoundException) {
+                        //
                     }
+                    return false;
                 });
 
         Preference themePlatform = getPreferenceManager().findPreference
@@ -100,51 +96,39 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             aoptSwitcher.setSummary(R.string.settings_aopt);
         }
         aoptSwitcher.setOnPreferenceClickListener(
-                new Preference.OnPreferenceClickListener() {
-                    @Override
-                    public boolean onPreferenceClick(Preference preference) {
-                        final AlertDialog.Builder builderSingle = new AlertDialog.Builder
-                                (getContext());
-                        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getContext(),
-                                R.layout.dialog_listview);
+                preference -> {
+                    final AlertDialog.Builder builderSingle = new AlertDialog.Builder
+                            (getContext());
+                    final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getContext(),
+                            R.layout.dialog_listview);
 
-                        arrayAdapter.add(getString(R.string.settings_aapt));
-                        arrayAdapter.add(getString(R.string.settings_aopt));
+                    arrayAdapter.add(getString(R.string.settings_aapt));
+                    arrayAdapter.add(getString(R.string.settings_aopt));
 
-                        builderSingle.setNegativeButton(
-                                android.R.string.cancel,
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.dismiss();
-                                    }
-                                });
+                    builderSingle.setNegativeButton(
+                            android.R.string.cancel,
+                            (dialog, which) -> dialog.dismiss());
 
-                        builderSingle.setAdapter(arrayAdapter, new DialogInterface
-                                .OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                SharedPreferences prefs =
-                                        PreferenceManager.getDefaultSharedPreferences(getContext());
-                                switch (which) {
-                                    case 0:
-                                        prefs.edit().remove("compiler").apply();
-                                        prefs.edit().putString("compiler", "aapt").apply();
-                                        aoptSwitcher.setSummary(R.string.settings_aapt);
-                                        new AOPTCheck().injectAOPT(getContext(), true);
-                                        break;
-                                    case 1:
-                                        prefs.edit().remove("compiler").apply();
-                                        prefs.edit().putString("compiler", "aopt").apply();
-                                        aoptSwitcher.setSummary(R.string.settings_aopt);
-                                        new AOPTCheck().injectAOPT(getContext(), true);
-                                        break;
-                                }
-                            }
-                        });
-                        builderSingle.show();
-                        return false;
-                    }
+                    builderSingle.setAdapter(arrayAdapter, (dialog, which) -> {
+                        SharedPreferences prefs1 =
+                                PreferenceManager.getDefaultSharedPreferences(getContext());
+                        switch (which) {
+                            case 0:
+                                prefs1.edit().remove("compiler").apply();
+                                prefs1.edit().putString("compiler", "aapt").apply();
+                                aoptSwitcher.setSummary(R.string.settings_aapt);
+                                new AOPTCheck().injectAOPT(getContext(), true);
+                                break;
+                            case 1:
+                                prefs1.edit().remove("compiler").apply();
+                                prefs1.edit().putString("compiler", "aopt").apply();
+                                aoptSwitcher.setSummary(R.string.settings_aopt);
+                                new AOPTCheck().injectAOPT(getContext(), true);
+                                break;
+                        }
+                    });
+                    builderSingle.show();
+                    return false;
                 });
 
         if (References.checkOMS(getContext())) {
@@ -152,19 +136,16 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     ("about_masquerade");
             aboutMasquerade.setIcon(getContext().getDrawable(R.mipmap.restore_launcher));
             aboutMasquerade.setOnPreferenceClickListener(
-                    new Preference.OnPreferenceClickListener() {
-                        @Override
-                        public boolean onPreferenceClick(Preference preference) {
-                            try {
-                                String sourceURL = getString(R.string.masquerade_github);
-                                Intent i = new Intent(Intent.ACTION_VIEW);
-                                i.setData(Uri.parse(sourceURL));
-                                startActivity(i);
-                            } catch (ActivityNotFoundException activityNotFoundException) {
-                                //
-                            }
-                            return false;
+                    preference -> {
+                        try {
+                            String sourceURL = getString(R.string.masquerade_github);
+                            Intent i = new Intent(Intent.ACTION_VIEW);
+                            i.setData(Uri.parse(sourceURL));
+                            startActivity(i);
+                        } catch (ActivityNotFoundException activityNotFoundException) {
+                            //
                         }
+                        return false;
                     });
             try {
                 PackageInfo pinfo;
@@ -179,24 +160,21 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             final Preference masqueradeCheck = getPreferenceManager().findPreference
                     ("masquerade_check");
             masqueradeCheck.setOnPreferenceClickListener(
-                    new Preference.OnPreferenceClickListener() {
-                        @Override
-                        public boolean onPreferenceClick(Preference preference) {
-                            if (References.isPackageInstalled(getContext(),
-                                    "masquerade.substratum")) {
-                                Intent runCommand = new Intent();
-                                runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                                runCommand.setAction("masquerade.substratum.COMMANDS");
-                                runCommand.putExtra("substratum-check", "masquerade-ball");
-                                getContext().sendBroadcast(runCommand);
-                            } else {
-                                Toast toast = Toast.makeText(getContext(), getString(R.string
-                                                .masquerade_check_not_installed),
-                                        Toast.LENGTH_SHORT);
-                                toast.show();
-                            }
-                            return false;
+                    preference -> {
+                        if (References.isPackageInstalled(getContext(),
+                                "masquerade.substratum")) {
+                            Intent runCommand = new Intent();
+                            runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                            runCommand.setAction("masquerade.substratum.COMMANDS");
+                            runCommand.putExtra("substratum-check", "masquerade-ball");
+                            getContext().sendBroadcast(runCommand);
+                        } else {
+                            Toast toast = Toast.makeText(getContext(), getString(R.string
+                                            .masquerade_check_not_installed),
+                                    Toast.LENGTH_SHORT);
+                            toast.show();
                         }
+                        return false;
                     });
 
             final CheckBoxPreference hide_app_checkbox = (CheckBoxPreference)
@@ -212,41 +190,38 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 hide_app_checkbox.setEnabled(true);
             }
             hide_app_checkbox.setOnPreferenceChangeListener(
-                    new Preference.OnPreferenceChangeListener() {
-                        @Override
-                        public boolean onPreferenceChange(Preference preference, Object newValue) {
-                            boolean isChecked = (Boolean) newValue;
-                            if (isChecked) {
-                                prefs.edit().putBoolean("show_app_icon", true).apply();
-                                PackageManager p = getContext().getPackageManager();
-                                ComponentName componentName = new ComponentName(getContext(),
-                                        LauncherActivity
-                                                .class);
-                                p.setComponentEnabledSetting(componentName, PackageManager
-                                        .COMPONENT_ENABLED_STATE_ENABLED, PackageManager
-                                        .DONT_KILL_APP);
-                                Toast toast = Toast.makeText(getContext(), getString(R.string
-                                                .hide_app_icon_toast_disabled),
-                                        Toast.LENGTH_SHORT);
-                                toast.show();
-                                hide_app_checkbox.setChecked(true);
-                            } else {
-                                prefs.edit().putBoolean("show_app_icon", false).apply();
-                                PackageManager p = getContext().getPackageManager();
-                                ComponentName componentName = new ComponentName(getContext(),
-                                        LauncherActivity.class);
-                                p.setComponentEnabledSetting(componentName, PackageManager
-                                        .COMPONENT_ENABLED_STATE_DISABLED, PackageManager
-                                        .DONT_KILL_APP);
+                    (preference, newValue) -> {
+                        boolean isChecked = (Boolean) newValue;
+                        if (isChecked) {
+                            prefs.edit().putBoolean("show_app_icon", true).apply();
+                            PackageManager p = getContext().getPackageManager();
+                            ComponentName componentName = new ComponentName(getContext(),
+                                    LauncherActivity
+                                            .class);
+                            p.setComponentEnabledSetting(componentName, PackageManager
+                                    .COMPONENT_ENABLED_STATE_ENABLED, PackageManager
+                                    .DONT_KILL_APP);
+                            Toast toast = Toast.makeText(getContext(), getString(R.string
+                                            .hide_app_icon_toast_disabled),
+                                    Toast.LENGTH_SHORT);
+                            toast.show();
+                            hide_app_checkbox.setChecked(true);
+                        } else {
+                            prefs.edit().putBoolean("show_app_icon", false).apply();
+                            PackageManager p = getContext().getPackageManager();
+                            ComponentName componentName = new ComponentName(getContext(),
+                                    LauncherActivity.class);
+                            p.setComponentEnabledSetting(componentName, PackageManager
+                                    .COMPONENT_ENABLED_STATE_DISABLED, PackageManager
+                                    .DONT_KILL_APP);
 
-                                Toast toast = Toast.makeText(getContext(), getString(R.string
-                                                .hide_app_icon_toast_enabled),
-                                        Toast.LENGTH_SHORT);
-                                toast.show();
-                                hide_app_checkbox.setChecked(false);
-                            }
-                            return false;
+                            Toast toast = Toast.makeText(getContext(), getString(R.string
+                                            .hide_app_icon_toast_enabled),
+                                    Toast.LENGTH_SHORT);
+                            toast.show();
+                            hide_app_checkbox.setChecked(false);
                         }
+                        return false;
                     });
 
             final CheckBoxPreference systemUIRestart = (CheckBoxPreference)
@@ -257,27 +232,24 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 systemUIRestart.setChecked(false);
             }
             systemUIRestart.setOnPreferenceChangeListener(
-                    new Preference.OnPreferenceChangeListener() {
-                        @Override
-                        public boolean onPreferenceChange(Preference preference, Object newValue) {
-                            boolean isChecked = (Boolean) newValue;
-                            if (isChecked) {
-                                prefs.edit().putBoolean("systemui_recreate", true).apply();
-                                Toast toast = Toast.makeText(getContext(), getString(R.string
-                                                .restart_systemui_toast_enabled),
-                                        Toast.LENGTH_SHORT);
-                                toast.show();
-                                systemUIRestart.setChecked(true);
-                            } else {
-                                prefs.edit().putBoolean("systemui_recreate", false).apply();
-                                Toast toast = Toast.makeText(getContext(), getString(R.string
-                                                .restart_systemui_toast_disabled),
-                                        Toast.LENGTH_SHORT);
-                                toast.show();
-                                systemUIRestart.setChecked(false);
-                            }
-                            return false;
+                    (preference, newValue) -> {
+                        boolean isChecked = (Boolean) newValue;
+                        if (isChecked) {
+                            prefs.edit().putBoolean("systemui_recreate", true).apply();
+                            Toast toast = Toast.makeText(getContext(), getString(R.string
+                                            .restart_systemui_toast_enabled),
+                                    Toast.LENGTH_SHORT);
+                            toast.show();
+                            systemUIRestart.setChecked(true);
+                        } else {
+                            prefs.edit().putBoolean("systemui_recreate", false).apply();
+                            Toast toast = Toast.makeText(getContext(), getString(R.string
+                                            .restart_systemui_toast_disabled),
+                                    Toast.LENGTH_SHORT);
+                            toast.show();
+                            systemUIRestart.setChecked(false);
                         }
+                        return false;
                     });
             if (!References.getProp("ro.substratum.recreate").equals("true"))
                 systemUIRestart.setVisible(false);
@@ -290,31 +262,25 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 manager_disabled_overlays.setChecked(false);
             }
             manager_disabled_overlays.setOnPreferenceChangeListener(
-                    new Preference.OnPreferenceChangeListener() {
-                        @Override
-                        public boolean onPreferenceChange(Preference preference, Object newValue) {
-                            boolean isChecked = (Boolean) newValue;
-                            if (isChecked) {
-                                prefs.edit().putBoolean("manager_disabled_overlays", true).apply();
-                                manager_disabled_overlays.setChecked(true);
-                                return true;
-                            } else {
-                                prefs.edit().putBoolean("manager_disabled_overlays", false).apply();
-                                manager_disabled_overlays.setChecked(false);
-                                return false;
-                            }
+                    (preference, newValue) -> {
+                        boolean isChecked = (Boolean) newValue;
+                        if (isChecked) {
+                            prefs.edit().putBoolean("manager_disabled_overlays", true).apply();
+                            manager_disabled_overlays.setChecked(true);
+                            return true;
+                        } else {
+                            prefs.edit().putBoolean("manager_disabled_overlays", false).apply();
+                            manager_disabled_overlays.setChecked(false);
+                            return false;
                         }
                     });
         }
 
         final Preference purgeCache = getPreferenceManager().findPreference("purge_cache");
         purgeCache.setOnPreferenceClickListener(
-                new Preference.OnPreferenceClickListener() {
-                    @Override
-                    public boolean onPreferenceClick(Preference preference) {
-                        new deleteCache().execute("");
-                        return false;
-                    }
+                preference -> {
+                    new deleteCache().execute("");
+                    return false;
                 });
 
         final CheckBoxPreference alternate_drawer_design = (CheckBoxPreference)
@@ -325,29 +291,26 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             alternate_drawer_design.setChecked(false);
         }
         alternate_drawer_design.setOnPreferenceChangeListener(
-                new Preference.OnPreferenceChangeListener() {
-                    @Override
-                    public boolean onPreferenceChange(Preference preference, Object newValue) {
-                        boolean isChecked = (Boolean) newValue;
-                        if (isChecked) {
-                            prefs.edit().putBoolean("alternate_drawer_design", true).apply();
-                            alternate_drawer_design.setChecked(true);
-                            Toast toast = Toast.makeText(getContext(), getString(R.string
-                                            .substratum_restart_toast),
-                                    Toast.LENGTH_SHORT);
-                            toast.show();
-                            getActivity().recreate();
-                        } else {
-                            prefs.edit().putBoolean("alternate_drawer_design", false).apply();
-                            alternate_drawer_design.setChecked(false);
-                            Toast toast = Toast.makeText(getContext(), getString(R.string
-                                            .substratum_restart_toast),
-                                    Toast.LENGTH_SHORT);
-                            toast.show();
-                            getActivity().recreate();
-                        }
-                        return false;
+                (preference, newValue) -> {
+                    boolean isChecked = (Boolean) newValue;
+                    if (isChecked) {
+                        prefs.edit().putBoolean("alternate_drawer_design", true).apply();
+                        alternate_drawer_design.setChecked(true);
+                        Toast toast = Toast.makeText(getContext(), getString(R.string
+                                        .substratum_restart_toast),
+                                Toast.LENGTH_SHORT);
+                        toast.show();
+                        getActivity().recreate();
+                    } else {
+                        prefs.edit().putBoolean("alternate_drawer_design", false).apply();
+                        alternate_drawer_design.setChecked(false);
+                        Toast toast = Toast.makeText(getContext(), getString(R.string
+                                        .substratum_restart_toast),
+                                Toast.LENGTH_SHORT);
+                        toast.show();
+                        getActivity().recreate();
                     }
+                    return false;
                 });
 
         final CheckBoxPreference nougat_style_cards = (CheckBoxPreference)
@@ -358,19 +321,16 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             nougat_style_cards.setChecked(false);
         }
         nougat_style_cards.setOnPreferenceChangeListener(
-                new Preference.OnPreferenceChangeListener() {
-                    @Override
-                    public boolean onPreferenceChange(Preference preference, Object newValue) {
-                        boolean isChecked = (Boolean) newValue;
-                        if (isChecked) {
-                            prefs.edit().putBoolean("nougat_style_cards", true).apply();
-                            nougat_style_cards.setChecked(true);
-                        } else {
-                            prefs.edit().putBoolean("nougat_style_cards", false).apply();
-                            nougat_style_cards.setChecked(false);
-                        }
-                        return false;
+                (preference, newValue) -> {
+                    boolean isChecked = (Boolean) newValue;
+                    if (isChecked) {
+                        prefs.edit().putBoolean("nougat_style_cards", true).apply();
+                        nougat_style_cards.setChecked(true);
+                    } else {
+                        prefs.edit().putBoolean("nougat_style_cards", false).apply();
+                        nougat_style_cards.setChecked(false);
                     }
+                    return false;
                 });
 
         final CheckBoxPreference vibrate_on_compiled = (CheckBoxPreference)
@@ -381,19 +341,16 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             vibrate_on_compiled.setChecked(false);
         }
         vibrate_on_compiled.setOnPreferenceChangeListener(
-                new Preference.OnPreferenceChangeListener() {
-                    @Override
-                    public boolean onPreferenceChange(Preference preference, Object newValue) {
-                        boolean isChecked = (Boolean) newValue;
-                        if (isChecked) {
-                            prefs.edit().putBoolean("vibrate_on_compiled", true).apply();
-                            vibrate_on_compiled.setChecked(true);
-                            return true;
-                        } else {
-                            prefs.edit().putBoolean("vibrate_on_compiled", false).apply();
-                            vibrate_on_compiled.setChecked(false);
-                            return false;
-                        }
+                (preference, newValue) -> {
+                    boolean isChecked = (Boolean) newValue;
+                    if (isChecked) {
+                        prefs.edit().putBoolean("vibrate_on_compiled", true).apply();
+                        vibrate_on_compiled.setChecked(true);
+                        return true;
+                    } else {
+                        prefs.edit().putBoolean("vibrate_on_compiled", false).apply();
+                        vibrate_on_compiled.setChecked(false);
+                        return false;
                     }
                 });
 
@@ -405,19 +362,16 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             show_template_version.setChecked(false);
         }
         show_template_version.setOnPreferenceChangeListener(
-                new Preference.OnPreferenceChangeListener() {
-                    @Override
-                    public boolean onPreferenceChange(Preference preference, Object newValue) {
-                        boolean isChecked = (Boolean) newValue;
-                        if (isChecked) {
-                            prefs.edit().putBoolean("show_template_version", true).apply();
-                            show_template_version.setChecked(true);
-                        } else {
-                            prefs.edit().putBoolean("show_template_version", false).apply();
-                            show_template_version.setChecked(false);
-                        }
-                        return false;
+                (preference, newValue) -> {
+                    boolean isChecked = (Boolean) newValue;
+                    if (isChecked) {
+                        prefs.edit().putBoolean("show_template_version", true).apply();
+                        show_template_version.setChecked(true);
+                    } else {
+                        prefs.edit().putBoolean("show_template_version", false).apply();
+                        show_template_version.setChecked(false);
                     }
+                    return false;
                 });
 
         final CheckBoxPreference dynamic_actionbar = (CheckBoxPreference)
@@ -428,19 +382,16 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             dynamic_actionbar.setChecked(false);
         }
         dynamic_actionbar.setOnPreferenceChangeListener(
-                new Preference.OnPreferenceChangeListener() {
-                    @Override
-                    public boolean onPreferenceChange(Preference preference, Object newValue) {
-                        boolean isChecked = (Boolean) newValue;
-                        if (isChecked) {
-                            prefs.edit().putBoolean("dynamic_actionbar", true).apply();
-                            dynamic_actionbar.setChecked(true);
-                        } else {
-                            prefs.edit().putBoolean("dynamic_actionbar", false).apply();
-                            dynamic_actionbar.setChecked(false);
-                        }
-                        return false;
+                (preference, newValue) -> {
+                    boolean isChecked = (Boolean) newValue;
+                    if (isChecked) {
+                        prefs.edit().putBoolean("dynamic_actionbar", true).apply();
+                        dynamic_actionbar.setChecked(true);
+                    } else {
+                        prefs.edit().putBoolean("dynamic_actionbar", false).apply();
+                        dynamic_actionbar.setChecked(false);
                     }
+                    return false;
                 });
 
         final CheckBoxPreference dynamic_navbar = (CheckBoxPreference)
@@ -451,19 +402,16 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             dynamic_navbar.setChecked(false);
         }
         dynamic_navbar.setOnPreferenceChangeListener(
-                new Preference.OnPreferenceChangeListener() {
-                    @Override
-                    public boolean onPreferenceChange(Preference preference, Object newValue) {
-                        boolean isChecked = (Boolean) newValue;
-                        if (isChecked) {
-                            prefs.edit().putBoolean("dynamic_navbar", true).apply();
-                            dynamic_navbar.setChecked(true);
-                        } else {
-                            prefs.edit().putBoolean("dynamic_navbar", false).apply();
-                            dynamic_navbar.setChecked(false);
-                        }
-                        return false;
+                (preference, newValue) -> {
+                    boolean isChecked = (Boolean) newValue;
+                    if (isChecked) {
+                        prefs.edit().putBoolean("dynamic_navbar", true).apply();
+                        dynamic_navbar.setChecked(true);
+                    } else {
+                        prefs.edit().putBoolean("dynamic_navbar", false).apply();
+                        dynamic_navbar.setChecked(false);
                     }
+                    return false;
                 });
     }
 
@@ -508,21 +456,18 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             return null;
         }
 
-        public boolean deleteDir(File dir) {
+        boolean deleteDir(File dir) {
             if (dir != null && dir.isDirectory()) {
                 String[] children = dir.list();
-                for (int i = 0; i < children.length; i++) {
-                    boolean success = deleteDir(new File(dir, children[i]));
+                for (String aChildren : children) {
+                    boolean success = deleteDir(new File(dir, aChildren));
                     if (!success) {
                         return false;
                     }
                 }
                 return dir.delete();
-            } else if (dir != null && dir.isFile()) {
-                return dir.delete();
-            } else {
-                return false;
-            }
+            } else
+                return dir != null && dir.isFile() && dir.delete();
         }
     }
 }

@@ -2,7 +2,6 @@ package projekt.substratum.util;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -123,19 +122,10 @@ public class FontHandler {
                             R.string.legacy_dialog_soft_reboot_title));
                     alertDialogBuilder.setMessage(mContext.getString(
                             R.string.legacy_dialog_soft_reboot_text));
-                    alertDialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface
-                            .OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            References.reboot();
-                        }
-                    });
+                    alertDialogBuilder.setPositiveButton(android.R.string.ok,
+                            (dialog, id) -> References.reboot());
                     alertDialogBuilder.setNegativeButton(
-                            R.string.remove_dialog_later, new DialogInterface
-                                    .OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    dialog.dismiss();
-                                }
-                            });
+                            R.string.remove_dialog_later, (dialog, id) -> dialog.dismiss());
                     alertDialogBuilder.setCancelable(false);
                     AlertDialog alertDialog = alertDialogBuilder.create();
                     alertDialog.show();

@@ -48,12 +48,9 @@ public class Wallpapers extends Fragment {
         no_wallpapers = root.findViewById(R.id.none_found);
 
         swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipeRefreshLayout);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                refreshLayout();
-                swipeRefreshLayout.setRefreshing(false);
-            }
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            refreshLayout();
+            swipeRefreshLayout.setRefreshing(false);
         });
         refreshLayout();
         return root;

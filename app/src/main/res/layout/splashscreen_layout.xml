@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_gravity="center"
-                android:background="@color/splashscreen_background"
-                android:gravity="center"
-                android:orientation="vertical">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_gravity="center"
+    android:background="@color/splashscreen_background"
+    android:gravity="center"
+    android:orientation="vertical">
 
     <ImageView
         android:id="@+id/splashscreen_image"
@@ -13,6 +13,6 @@
         android:layout_height="130dp"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/substratum_icon"/>
+        android:src="@drawable/substratum_icon" />
 
 </RelativeLayout>

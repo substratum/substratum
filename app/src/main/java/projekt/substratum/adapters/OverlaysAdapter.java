@@ -211,26 +211,22 @@ public class OverlaysAdapter extends
 
         viewHolder.checkBox.setTag(current_object);
 
-        viewHolder.checkBox.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                CheckBox cb = (CheckBox) v;
-                OverlaysInfo contact = (OverlaysInfo) cb.getTag();
+        viewHolder.checkBox.setOnClickListener(v -> {
+            CheckBox cb = (CheckBox) v;
+            OverlaysInfo contact = (OverlaysInfo) cb.getTag();
 
-                contact.setSelected(cb.isChecked());
-                current_object.setSelected(cb.isChecked());
-            }
+            contact.setSelected(cb.isChecked());
+            current_object.setSelected(cb.isChecked());
         });
 
-        viewHolder.card.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                viewHolder.checkBox.setChecked(!viewHolder.checkBox.isChecked());
+        viewHolder.card.setOnClickListener(v -> {
+            viewHolder.checkBox.setChecked(!viewHolder.checkBox.isChecked());
 
-                CheckBox cb = viewHolder.checkBox;
-                OverlaysInfo contact = (OverlaysInfo) cb.getTag();
+            CheckBox cb = viewHolder.checkBox;
+            OverlaysInfo contact = (OverlaysInfo) cb.getTag();
 
-                contact.setSelected(cb.isChecked());
-                current_object.setSelected(cb.isChecked());
-            }
+            contact.setSelected(cb.isChecked());
+            current_object.setSelected(cb.isChecked());
         });
 
         if (current_object.variant_mode) {

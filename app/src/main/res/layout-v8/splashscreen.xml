@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/splashpic"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/bubbasplashbg">
+    android:id="@+id/splashpic"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bubbasplashbg">
 
     <ImageView
         android:id="@+id/splashbubbasmall"
@@ -12,7 +12,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:src="@drawable/splash_bubba_small"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/title1"
@@ -22,7 +22,7 @@
         android:layout_marginLeft="55dp"
         android:layout_marginTop="25dp"
         android:src="@drawable/egg_title_1"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/title2"
@@ -32,7 +32,7 @@
         android:layout_marginLeft="200dp"
         android:layout_marginTop="79dp"
         android:src="@drawable/egg_title_2"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/title3"
@@ -42,7 +42,7 @@
         android:layout_marginLeft="1dp"
         android:layout_marginTop="90dp"
         android:src="@drawable/egg_title_3"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/splashbubbabig"
@@ -51,7 +51,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:src="@drawable/splash_bubba"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/wink"
@@ -60,7 +60,7 @@
         android:layout_marginLeft="156dp"
         android:layout_marginTop="310dp"
         android:src="@drawable/wink"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/speech_bubble"
@@ -70,7 +70,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginBottom="288dp"
         android:layout_marginRight="25dp"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/best_score"
@@ -84,13 +84,13 @@
         android:shadowDy="8"
         android:shadowRadius="1"
         android:textColor="@color/easteregg_best_score"
-        android:textSize="20.0sp"/>
+        android:textSize="20.0sp" />
 
     <View
         android:id="@+id/full_dialog_view"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@android:color/transparent"/>
+        android:background="@android:color/transparent" />
 
     <ImageView
         android:id="@+id/splashbox"
@@ -99,6 +99,6 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="103dp"
-        android:src="@drawable/splash_box"/>
+        android:src="@drawable/splash_box" />
 
 </RelativeLayout>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -19,7 +18,7 @@
             android:layout_marginTop="10dp"
             android:text="@string/team_title_1"
             android:textColor="@color/settings_title_color"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
@@ -27,23 +26,23 @@
             android:layout_marginEnd="5dp"
             android:layout_marginStart="5dp"
             android:layout_marginTop="10dp"
-            android:text="@string/team_text_1"/>
+            android:text="@string/team_text_1" />
 
         <include
             android:id="@+id/nicholas"
-            layout="@layout/team_card_nicholas"/>
+            layout="@layout/team_card_nicholas" />
 
         <include
             android:id="@+id/syko"
-            layout="@layout/team_card_syko"/>
+            layout="@layout/team_card_syko" />
 
         <include
             android:id="@+id/george"
-            layout="@layout/team_card_george"/>
+            layout="@layout/team_card_george" />
 
         <include
             android:id="@+id/cory"
-            layout="@layout/team_card_cory"/>
+            layout="@layout/team_card_cory" />
 
         <TextView
             android:layout_width="match_parent"
@@ -53,7 +52,7 @@
             android:layout_marginTop="30dp"
             android:text="@string/team_title_2"
             android:textColor="@color/settings_title_color"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
@@ -61,23 +60,23 @@
             android:layout_marginEnd="5dp"
             android:layout_marginStart="5dp"
             android:layout_marginTop="10dp"
-            android:text="@string/team_text_2"/>
+            android:text="@string/team_text_2" />
 
         <include
             android:id="@+id/ivan"
-            layout="@layout/team_card_ivan"/>
+            layout="@layout/team_card_ivan" />
 
         <include
             android:id="@+id/jacob"
-            layout="@layout/team_card_jacob"/>
+            layout="@layout/team_card_jacob" />
 
         <include
             android:id="@+id/raja"
-            layout="@layout/team_card_raja"/>
+            layout="@layout/team_card_raja" />
 
         <include
             android:id="@+id/surge"
-            layout="@layout/team_card_surge"/>
+            layout="@layout/team_card_surge" />
 
         <TextView
             android:layout_width="match_parent"
@@ -87,7 +86,7 @@
             android:layout_marginTop="30dp"
             android:text="@string/team_title_3"
             android:textColor="@color/settings_title_color"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
@@ -95,23 +94,23 @@
             android:layout_marginEnd="5dp"
             android:layout_marginStart="5dp"
             android:layout_marginTop="10dp"
-            android:text="@string/team_text_3"/>
+            android:text="@string/team_text_3" />
 
         <include
             android:id="@+id/branden"
-            layout="@layout/team_card_branden"/>
+            layout="@layout/team_card_branden" />
 
         <include
             android:id="@+id/dave"
-            layout="@layout/team_card_dave"/>
+            layout="@layout/team_card_dave" />
 
         <include
             android:id="@+id/jeremy"
-            layout="@layout/team_card_jeremy"/>
+            layout="@layout/team_card_jeremy" />
 
         <include
             android:id="@+id/jimmy"
-            layout="@layout/team_card_jimmy"/>
+            layout="@layout/team_card_jimmy" />
 
         <TextView
             android:layout_width="match_parent"
@@ -121,7 +120,7 @@
             android:layout_marginTop="30dp"
             android:text="@string/contributor_title_3"
             android:textColor="@color/settings_title_color"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
@@ -129,19 +128,19 @@
             android:layout_marginEnd="5dp"
             android:layout_marginStart="5dp"
             android:layout_marginTop="10dp"
-            android:text="@string/contributor_text_3"/>
+            android:text="@string/contributor_text_3" />
 
         <include
             android:id="@+id/ben"
-            layout="@layout/contributor_card_ben"/>
+            layout="@layout/contributor_card_ben" />
 
         <include
             android:id="@+id/charcat"
-            layout="@layout/contributor_card_char"/>
+            layout="@layout/contributor_card_char" />
 
         <include
             android:id="@+id/nathan"
-            layout="@layout/contributor_card_nathan"/>
+            layout="@layout/contributor_card_nathan" />
 
         <TextView
             android:layout_width="match_parent"
@@ -151,7 +150,7 @@
             android:layout_marginTop="30dp"
             android:text="@string/contributor_title_1"
             android:textColor="@color/settings_title_color"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
@@ -159,23 +158,23 @@
             android:layout_marginEnd="5dp"
             android:layout_marginStart="5dp"
             android:layout_marginTop="10dp"
-            android:text="@string/contributor_text_1"/>
+            android:text="@string/contributor_text_1" />
 
         <include
             android:id="@+id/idan"
-            layout="@layout/contributor_card_idan"/>
+            layout="@layout/contributor_card_idan" />
 
         <include
             android:id="@+id/mihir"
-            layout="@layout/contributor_card_mihir"/>
+            layout="@layout/contributor_card_mihir" />
 
         <include
             android:id="@+id/sajid"
-            layout="@layout/contributor_card_sajid"/>
+            layout="@layout/contributor_card_sajid" />
 
         <include
             android:id="@+id/travis"
-            layout="@layout/contributor_card_travis"/>
+            layout="@layout/contributor_card_travis" />
 
         <TextView
             android:layout_width="match_parent"
@@ -185,7 +184,7 @@
             android:layout_marginTop="30dp"
             android:text="@string/translator_title"
             android:textColor="@color/settings_title_color"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
@@ -193,39 +192,39 @@
             android:layout_marginEnd="5dp"
             android:layout_marginStart="5dp"
             android:layout_marginTop="10dp"
-            android:text="@string/translator_text"/>
+            android:text="@string/translator_text" />
 
         <include
             android:id="@+id/kevin"
-            layout="@layout/translator_card_kevin"/>
+            layout="@layout/translator_card_kevin" />
 
         <include
             android:id="@+id/nils"
-            layout="@layout/translator_card_nils"/>
+            layout="@layout/translator_card_nils" />
 
         <include
             android:id="@+id/david"
-            layout="@layout/translator_card_david"/>
+            layout="@layout/translator_card_david" />
 
         <include
             android:id="@+id/wasita"
-            layout="@layout/translator_card_wasita"/>
+            layout="@layout/translator_card_wasita" />
 
         <include
             android:id="@+id/gediminas"
-            layout="@layout/translator_card_gediminas"/>
+            layout="@layout/translator_card_gediminas" />
 
         <include
             android:id="@+id/chrys"
-            layout="@layout/translator_card_chrys"/>
+            layout="@layout/translator_card_chrys" />
 
         <include
             android:id="@+id/jorge"
-            layout="@layout/translator_card_jorge"/>
+            layout="@layout/translator_card_jorge" />
 
         <include
             android:id="@+id/gautham"
-            layout="@layout/translator_card_gautham"/>
+            layout="@layout/translator_card_gautham" />
 
         <TextView
             android:layout_width="match_parent"
@@ -235,7 +234,7 @@
             android:layout_marginTop="30dp"
             android:text="@string/contributor_title_2"
             android:textColor="@color/settings_title_color"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
@@ -243,34 +242,34 @@
             android:layout_marginEnd="5dp"
             android:layout_marginStart="5dp"
             android:layout_marginTop="10dp"
-            android:text="@string/contributor_text_2"/>
+            android:text="@string/contributor_text_2" />
 
         <include
             android:id="@+id/reinhard"
-            layout="@layout/contributor_card_reinhard"/>
+            layout="@layout/contributor_card_reinhard" />
 
         <include
             android:id="@+id/brian"
-            layout="@layout/contributor_card_brian"/>
+            layout="@layout/contributor_card_brian" />
 
         <include
             android:id="@+id/aldrin"
-            layout="@layout/contributor_card_aldrin"/>
+            layout="@layout/contributor_card_aldrin" />
 
         <include
             android:id="@+id/steve"
-            layout="@layout/contributor_card_steve"/>
+            layout="@layout/contributor_card_steve" />
 
         <include
             android:id="@+id/niklas"
-            layout="@layout/contributor_card_niklas"/>
+            layout="@layout/contributor_card_niklas" />
 
         <include
             android:id="@+id/andrzej"
-            layout="@layout/contributor_card_andrzej"/>
+            layout="@layout/contributor_card_andrzej" />
 
         <include
             android:id="@+id/denis"
-            layout="@layout/contributor_card_denis"/>
+            layout="@layout/contributor_card_denis" />
     </LinearLayout>
 </ScrollView>

@@ -165,19 +165,15 @@ public class DetectionReceiver extends BroadcastReceiver {
             }
             // Check for SharedPreferences Set and sort it
             if (!prefs.contains("installed_themes")) new_setup = true;
-            Set<String> setString = prefs.getStringSet("installed_themes", new HashSet<String>());
+            Set<String> setString = prefs.getStringSet("installed_themes", new HashSet<>());
             Set<String> setStringSorted = new TreeSet<>();
-            for (String string : setString) {
-                setStringSorted.add(string);
-            }
+            setStringSorted.addAll(setString);
 
             // Check for current installed set created just now and sort it
             Set<String> installed_set = new HashSet<>();
             installed_set.addAll(installed);
             Set<String> installed_setStringSorted = new TreeSet<>();
-            for (String installed_overlay : installed_set) {
-                installed_setStringSorted.add(installed_overlay);
-            }
+            installed_setStringSorted.addAll(installed_set);
 
             // Compare both lists and if they are different, then show a notification and add it
             // into the list

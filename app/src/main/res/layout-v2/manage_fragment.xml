@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -18,11 +17,11 @@
             android:layout_marginTop="10dp"
             android:text="@string/manage_style"
             android:textColor="@color/colorAccent"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <include
             android:id="@+id/overlaysCard"
-            layout="@layout/manage_tab_overlay_card"/>
+            layout="@layout/manage_tab_overlay_card" />
 
         <TextView
             android:id="@+id/wallpaperTitle"
@@ -32,11 +31,11 @@
             android:layout_marginTop="10dp"
             android:text="@string/manage_wallpaper"
             android:textColor="@color/colorAccent"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <include
             android:id="@+id/wallpaperCard"
-            layout="@layout/manage_tab_wallpaper_card"/>
+            layout="@layout/manage_tab_wallpaper_card" />
 
         <TextView
             android:id="@+id/bootAnimTitle"
@@ -46,11 +45,11 @@
             android:layout_marginTop="10dp"
             android:text="@string/manage_bootanimation"
             android:textColor="@color/colorAccent"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <include
             android:id="@+id/bootAnimCard"
-            layout="@layout/manage_tab_bootanim_card"/>
+            layout="@layout/manage_tab_bootanim_card" />
 
         <TextView
             android:id="@+id/fontsTitle"
@@ -60,11 +59,11 @@
             android:layout_marginTop="10dp"
             android:text="@string/manage_fonts"
             android:textColor="@color/colorAccent"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <include
             android:id="@+id/fontsCard"
-            layout="@layout/manage_tab_fonts_card"/>
+            layout="@layout/manage_tab_fonts_card" />
 
         <TextView
             android:id="@+id/soundsTitle"
@@ -74,11 +73,11 @@
             android:layout_marginTop="10dp"
             android:text="@string/manage_sounds"
             android:textColor="@color/colorAccent"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <include
             android:id="@+id/soundsCard"
-            layout="@layout/manage_tab_sounds_card"/>
+            layout="@layout/manage_tab_sounds_card" />
 
     </LinearLayout>
 </ScrollView>

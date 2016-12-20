@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_gravity="center"
-                android:background="@color/window_bg_glass"
-                android:gravity="center|center_horizontal"
-                android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_gravity="center"
+    android:background="@color/window_bg_glass"
+    android:gravity="center|center_horizontal"
+    android:orientation="vertical">
 
     <com.wang.avi.AVLoadingIndicatorView
         android:id="@+id/loadingIndicatorView"
@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         app:indicatorColor="@color/compile_dialog_wave_color"
-        app:indicatorName="LineScaleIndicator"/>
+        app:indicatorName="LineScaleIndicator" />
 
     <TextView
         android:id="@+id/loadingTextCreativeMode"
@@ -29,6 +29,6 @@
         android:textAllCaps="true"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textSize="16dp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
 </RelativeLayout>

@@ -1,7 +1,6 @@
 package projekt.substratum.fragments;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
@@ -19,7 +18,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -96,49 +94,43 @@ public class AdvancedManagerFragment extends Fragment {
         layoutReloader.execute("");
 
         swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipeRefreshLayout);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                if (first_run != null) {
-                    if (mRecyclerView.isShown() && !first_run) {
-                        swipeRefreshing = true;
-                        LayoutReloader layoutReloader = new LayoutReloader(getContext());
-                        layoutReloader.execute("");
-                    } else {
-                        swipeRefreshLayout.setRefreshing(false);
-                    }
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            if (first_run != null) {
+                if (mRecyclerView.isShown() && !first_run) {
+                    swipeRefreshing = true;
+                    LayoutReloader layoutReloader1 = new LayoutReloader(getContext());
+                    layoutReloader1.execute("");
+                } else {
+                    swipeRefreshLayout.setRefreshing(false);
                 }
             }
         });
 
         Switch toggle_all = (Switch) root.findViewById(R.id.select_all);
         toggle_all.setOnCheckedChangeListener(
-                new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        try {
-                            List<OverlayManager> overlayList = ((OverlayManagerAdapter) mAdapter)
-                                    .getOverlayManagerList();
-                            if (isChecked) {
-                                for (int i = 0; i < overlayList.size(); i++) {
-                                    OverlayManager currentOverlay = overlayList.get(i);
-                                    if (!currentOverlay.isSelected()) {
-                                        currentOverlay.setSelected(true);
-                                    }
-                                    mAdapter.notifyDataSetChanged();
-                                }
-                            } else {
-                                for (int i = 0; i < overlayList.size(); i++) {
-                                    OverlayManager currentOverlay = overlayList.get(i);
-                                    if (currentOverlay.isSelected()) {
-                                        currentOverlay.setSelected(false);
-                                    }
+                (buttonView, isChecked) -> {
+                    try {
+                        List<OverlayManager> overlayList = ((OverlayManagerAdapter) mAdapter)
+                                .getOverlayManagerList();
+                        if (isChecked) {
+                            for (int i = 0; i < overlayList.size(); i++) {
+                                OverlayManager currentOverlay = overlayList.get(i);
+                                if (!currentOverlay.isSelected()) {
+                                    currentOverlay.setSelected(true);
                                 }
                                 mAdapter.notifyDataSetChanged();
                             }
-                        } catch (Exception e) {
-                            Log.e("OverlaysList", "Window has lost connection with the host.");
+                        } else {
+                            for (int i = 0; i < overlayList.size(); i++) {
+                                OverlayManager currentOverlay = overlayList.get(i);
+                                if (currentOverlay.isSelected()) {
+                                    currentOverlay.setSelected(false);
+                                }
+                            }
+                            mAdapter.notifyDataSetChanged();
                         }
+                    } catch (Exception e) {
+                        Log.e("OverlaysList", "Window has lost connection with the host.");
                     }
                 });
 
@@ -146,138 +138,17 @@ public class AdvancedManagerFragment extends Fragment {
         if (!References.checkOMS(getContext()))
             disable_selected.setText(getString(R.string.fab_menu_uninstall));
         if (disable_selected != null)
-            disable_selected.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    materialSheetFab.hideSheet();
-                    loadingBar.setVisibility(View.VISIBLE);
-                    if (References.checkOMS(getContext())) {
-                        String data = References.disableOverlay();
-                        List<OverlayManager> overlayList = ((OverlayManagerAdapter) mAdapter)
-                                .getOverlayManagerList();
-                        for (int i = 0; i < overlayList.size(); i++) {
-                            OverlayManager overlay = overlayList.get(i);
-                            if (overlay.isSelected()) {
-                                data = data + " " + overlay.getName();
-                            }
-                        }
-                        if (!prefs.getBoolean("systemui_recreate", false) &&
-                                data.contains("systemui")) {
-                            data = data + " && pkill -f com.android.systemui";
-                        }
-                        Toast toast = Toast.makeText(getContext(), getString(R
-                                        .string.toast_disabled),
-                                Toast.LENGTH_LONG);
-                        toast.show();
-                        if (References.isPackageInstalled(getContext(),
-                                "masquerade.substratum")) {
-                            Intent runCommand = new Intent();
-                            runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                            runCommand.setAction("masquerade.substratum.COMMANDS");
-                            runCommand.putExtra("om-commands", data);
-                            getContext().sendBroadcast(runCommand);
-                        } else {
-                            new References.ThreadRunner().execute(data);
-                        }
-                        if (References.checkOMSVersion(getContext()) == 7 &&
-                                !data.contains("projekt.substratum")) {
-                            Handler handler = new Handler();
-                            handler.postDelayed(new Runnable() {
-                                public void run() {
-                                    // OMS may not have written all the changes so quickly just yet
-                                    // so we may need to have a small delay
-                                    try {
-                                        getActivity().recreate();
-                                    } catch (Exception e) {
-                                        // Consume window refresh
-                                    }
-                                }
-                            }, REFRESH_WINDOW_DELAY);
-                        }
-                    } else {
-                        String current_directory;
-                        if (References.inNexusFilter()) {
-                            current_directory = "/system/overlay/";
-                        } else {
-                            current_directory = "/system/vendor/overlay/";
-                        }
-
-                        for (int i = 0; i < overlaysList.size(); i++) {
-                            if (overlaysList.get(i).isSelected()) {
-                                Log.e("overlays", overlaysList.get(i).getName());
-                                References.mountRW();
-                                References.delete(current_directory +
-                                        overlaysList.get(i).getName() + ".apk");
-                            }
-                        }
-
-                        // Since we had to parse the directory to process the recyclerView,
-                        // reparse it to notifyDataSetChanged
-
-                        activated_overlays.clear();
-                        overlaysList.clear();
-                        if (References.inNexusFilter()) {
-                            current_directory = "/system/overlay/";
-                        } else {
-                            current_directory = "/system/vendor/overlay/";
-                        }
-
-                        File currentDir = new File(current_directory);
-                        String[] listed = currentDir.list();
-                        for (String file : listed) {
-                            if (file.substring(file.length() - 4).equals(".apk")) {
-                                activated_overlays.add(file.substring(0,
-                                        file.length() - 4));
-                            }
-                        }
-
-                        // Automatically sort the activated overlays by alphabetical order
-                        Collections.sort(activated_overlays);
-
-                        for (int i = 0; i < activated_overlays.size(); i++) {
-                            OverlayManager st = new OverlayManager(getContext(),
-                                    activated_overlays.get(i), true);
-                            overlaysList.add(st);
-                        }
-
-                        mAdapter.notifyDataSetChanged();
-
-                        Toast toast2 = Toast.makeText(getContext(), getString(R
-                                        .string.toast_disabled6),
-                                Toast.LENGTH_SHORT);
-                        toast2.show();
-                        AlertDialog.Builder alertDialogBuilder =
-                                new AlertDialog.Builder(getContext());
-                        alertDialogBuilder
-                                .setTitle(getString(R.string.legacy_dialog_soft_reboot_title));
-                        alertDialogBuilder
-                                .setMessage(getString(R.string.legacy_dialog_soft_reboot_text));
-                        alertDialogBuilder
-                                .setPositiveButton(android.R.string.ok, new DialogInterface
-                                        .OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        References.reboot();
-                                    }
-                                });
-                        alertDialogBuilder.setCancelable(false);
-                        AlertDialog alertDialog = alertDialogBuilder.create();
-                        alertDialog.show();
-                    }
-                }
-            });
-
-        TextView enable_selected = (TextView) root.findViewById(R.id.enable_selected);
-        if (enable_selected != null)
-            enable_selected.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    materialSheetFab.hideSheet();
-                    loadingBar.setVisibility(View.VISIBLE);
-                    String data = References.enableOverlay();
+            disable_selected.setOnClickListener(v -> {
+                materialSheetFab.hideSheet();
+                loadingBar.setVisibility(View.VISIBLE);
+                if (References.checkOMS(getContext())) {
+                    String data = References.disableOverlay();
                     List<OverlayManager> overlayList = ((OverlayManagerAdapter) mAdapter)
                             .getOverlayManagerList();
                     for (int i = 0; i < overlayList.size(); i++) {
-                        OverlayManager overlay = overlayList.get(i);
-                        if (overlay.isSelected()) {
-                            data = data + " " + overlay.getName();
+                        OverlayManager overlay13 = overlayList.get(i);
+                        if (overlay13.isSelected()) {
+                            data = data + " " + overlay13.getName();
                         }
                     }
                     if (!prefs.getBoolean("systemui_recreate", false) &&
@@ -285,10 +156,11 @@ public class AdvancedManagerFragment extends Fragment {
                         data = data + " && pkill -f com.android.systemui";
                     }
                     Toast toast = Toast.makeText(getContext(), getString(R
-                                    .string.toast_enabled),
+                                    .string.toast_disabled),
                             Toast.LENGTH_LONG);
                     toast.show();
-                    if (References.isPackageInstalled(getContext(), "masquerade.substratum")) {
+                    if (References.isPackageInstalled(getContext(),
+                            "masquerade.substratum")) {
                         Intent runCommand = new Intent();
                         runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                         runCommand.setAction("masquerade.substratum.COMMANDS");
@@ -300,18 +172,126 @@ public class AdvancedManagerFragment extends Fragment {
                     if (References.checkOMSVersion(getContext()) == 7 &&
                             !data.contains("projekt.substratum")) {
                         Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            public void run() {
-                                // OMS may not have written all the changes so quickly just yet
-                                // so we may need to have a small delay
-                                try {
-                                    getActivity().recreate();
-                                } catch (Exception e) {
-                                    // Consume window refresh
-                                }
+                        handler.postDelayed(() -> {
+                            // OMS may not have written all the changes so quickly just yet
+                            // so we may need to have a small delay
+                            try {
+                                getActivity().recreate();
+                            } catch (Exception e) {
+                                // Consume window refresh
                             }
                         }, REFRESH_WINDOW_DELAY);
                     }
+                } else {
+                    String current_directory;
+                    if (References.inNexusFilter()) {
+                        current_directory = "/system/overlay/";
+                    } else {
+                        current_directory = "/system/vendor/overlay/";
+                    }
+
+                    for (int i = 0; i < overlaysList.size(); i++) {
+                        if (overlaysList.get(i).isSelected()) {
+                            Log.e("overlays", overlaysList.get(i).getName());
+                            References.mountRW();
+                            References.delete(current_directory +
+                                    overlaysList.get(i).getName() + ".apk");
+                        }
+                    }
+
+                    // Since we had to parse the directory to process the recyclerView,
+                    // reparse it to notifyDataSetChanged
+
+                    activated_overlays.clear();
+                    overlaysList.clear();
+                    if (References.inNexusFilter()) {
+                        current_directory = "/system/overlay/";
+                    } else {
+                        current_directory = "/system/vendor/overlay/";
+                    }
+
+                    File currentDir = new File(current_directory);
+                    String[] listed = currentDir.list();
+                    for (String file : listed) {
+                        if (file.substring(file.length() - 4).equals(".apk")) {
+                            activated_overlays.add(file.substring(0,
+                                    file.length() - 4));
+                        }
+                    }
+
+                    // Automatically sort the activated overlays by alphabetical order
+                    Collections.sort(activated_overlays);
+
+                    for (int i = 0; i < activated_overlays.size(); i++) {
+                        OverlayManager st = new OverlayManager(getContext(),
+                                activated_overlays.get(i), true);
+                        overlaysList.add(st);
+                    }
+
+                    mAdapter.notifyDataSetChanged();
+
+                    Toast toast2 = Toast.makeText(getContext(), getString(R
+                                    .string.toast_disabled6),
+                            Toast.LENGTH_SHORT);
+                    toast2.show();
+                    AlertDialog.Builder alertDialogBuilder =
+                            new AlertDialog.Builder(getContext());
+                    alertDialogBuilder
+                            .setTitle(getString(R.string.legacy_dialog_soft_reboot_title));
+                    alertDialogBuilder
+                            .setMessage(getString(R.string.legacy_dialog_soft_reboot_text));
+                    alertDialogBuilder
+                            .setPositiveButton(android.R.string.ok,
+                                    (dialog, id) -> References.reboot());
+                    alertDialogBuilder.setCancelable(false);
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+                }
+            });
+
+        TextView enable_selected = (TextView) root.findViewById(R.id.enable_selected);
+        if (enable_selected != null)
+            enable_selected.setOnClickListener(v -> {
+                materialSheetFab.hideSheet();
+                loadingBar.setVisibility(View.VISIBLE);
+                String data = References.enableOverlay();
+                List<OverlayManager> overlayList = ((OverlayManagerAdapter) mAdapter)
+                        .getOverlayManagerList();
+                for (int i = 0; i < overlayList.size(); i++) {
+                    OverlayManager overlay12 = overlayList.get(i);
+                    if (overlay12.isSelected()) {
+                        data = data + " " + overlay12.getName();
+                    }
+                }
+                if (!prefs.getBoolean("systemui_recreate", false) &&
+                        data.contains("systemui")) {
+                    data = data + " && pkill -f com.android.systemui";
+                }
+                Toast toast = Toast.makeText(getContext(), getString(R
+                                .string.toast_enabled),
+                        Toast.LENGTH_LONG);
+                toast.show();
+                if (References.isPackageInstalled(getContext(), "masquerade.substratum")) {
+                    Intent runCommand = new Intent();
+                    runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                    runCommand.setAction("masquerade.substratum.COMMANDS");
+                    runCommand.putExtra("om-commands", data);
+                    getContext().sendBroadcast(runCommand);
+                } else {
+                    new References.ThreadRunner().execute(data);
+                }
+                if (References.checkOMSVersion(getContext()) == 7 &&
+                        !data.contains("projekt.substratum")) {
+                    Handler handler = new Handler();
+                    handler.postDelayed(() -> {
+                        // OMS may not have written all the changes so quickly just yet
+                        // so we may need to have a small delay
+                        try {
+                            getActivity().recreate();
+                        } catch (Exception e) {
+                            // Consume window refresh
+                        }
+                    }, REFRESH_WINDOW_DELAY);
                 }
             });
 
@@ -319,60 +299,56 @@ public class AdvancedManagerFragment extends Fragment {
         if (!References.checkOMS(getContext()))
             uninstall_selected.setVisibility(View.GONE);
         if (uninstall_selected != null)
-            uninstall_selected.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    materialSheetFab.hideSheet();
-                    loadingBar.setVisibility(View.VISIBLE);
-                    String data = "";
-                    List<OverlayManager> overlayList = ((OverlayManagerAdapter) mAdapter)
-                            .getOverlayManagerList();
-                    for (int i = 0; i < overlayList.size(); i++) {
-                        OverlayManager overlay = overlayList.get(i);
-                        if (data.length() == 0) {
-                            if (overlay.isSelected()) {
-                                data = "pm uninstall " + overlay.getName();
-                            }
-                        } else {
-                            if (overlay.isSelected()) {
-                                data = data + " && pm uninstall " + overlay.getName();
-                            }
+            uninstall_selected.setOnClickListener(v -> {
+                materialSheetFab.hideSheet();
+                loadingBar.setVisibility(View.VISIBLE);
+                String data = "";
+                List<OverlayManager> overlayList = ((OverlayManagerAdapter) mAdapter)
+                        .getOverlayManagerList();
+                for (int i = 0; i < overlayList.size(); i++) {
+                    OverlayManager overlay1 = overlayList.get(i);
+                    if (data.length() == 0) {
+                        if (overlay1.isSelected()) {
+                            data = "pm uninstall " + overlay1.getName();
+                        }
+                    } else {
+                        if (overlay1.isSelected()) {
+                            data = data + " && pm uninstall " + overlay1.getName();
                         }
                     }
-                    if (!prefs.getBoolean("systemui_recreate", false) &&
-                            data.contains("systemui")) {
-                        data = data + " && " + References.refreshWindows() +
-                                " && pkill -f com.android.systemui";
-                    } else {
-                        data += " && " + References.refreshWindows();
-                    }
-                    Toast toast = Toast.makeText(getContext(), getString(R
-                                    .string.toast_uninstalling),
-                            Toast.LENGTH_LONG);
-                    toast.show();
-                    if (References.isPackageInstalled(getContext(), "masquerade.substratum")) {
-                        Intent runCommand = new Intent();
-                        runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                        runCommand.setAction("masquerade.substratum.COMMANDS");
-                        runCommand.putExtra("om-commands", data);
-                        getContext().sendBroadcast(runCommand);
-                    } else {
-                        new References.ThreadRunner().execute(data);
-                    }
-                    if (References.checkOMSVersion(getContext()) == 7 &&
-                            !data.contains("projekt.substratum")) {
-                        Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            public void run() {
-                                // OMS may not have written all the changes so quickly just yet
-                                // so we may need to have a small delay
-                                try {
-                                    getActivity().recreate();
-                                } catch (Exception e) {
-                                    // Consume window refresh
-                                }
-                            }
-                        }, REFRESH_WINDOW_DELAY);
-                    }
+                }
+                if (!prefs.getBoolean("systemui_recreate", false) &&
+                        data.contains("systemui")) {
+                    data = data + " && " + References.refreshWindows() +
+                            " && pkill -f com.android.systemui";
+                } else {
+                    data += " && " + References.refreshWindows();
+                }
+                Toast toast = Toast.makeText(getContext(), getString(R
+                                .string.toast_uninstalling),
+                        Toast.LENGTH_LONG);
+                toast.show();
+                if (References.isPackageInstalled(getContext(), "masquerade.substratum")) {
+                    Intent runCommand = new Intent();
+                    runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                    runCommand.setAction("masquerade.substratum.COMMANDS");
+                    runCommand.putExtra("om-commands", data);
+                    getContext().sendBroadcast(runCommand);
+                } else {
+                    new References.ThreadRunner().execute(data);
+                }
+                if (References.checkOMSVersion(getContext()) == 7 &&
+                        !data.contains("projekt.substratum")) {
+                    Handler handler = new Handler();
+                    handler.postDelayed(() -> {
+                        // OMS may not have written all the changes so quickly just yet
+                        // so we may need to have a small delay
+                        try {
+                            getActivity().recreate();
+                        } catch (Exception e) {
+                            // Consume window refresh
+                        }
+                    }, REFRESH_WINDOW_DELAY);
                 }
             });
 

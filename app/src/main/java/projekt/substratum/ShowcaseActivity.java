@@ -2,7 +2,6 @@ package projekt.substratum;
 
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -88,12 +87,9 @@ public class ShowcaseActivity extends AppCompatActivity {
     private void swipeRefresh() {
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id
                 .swipeRefreshLayout);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                finish();
-                startActivity(getIntent());
-            }
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            finish();
+            startActivity(getIntent());
         });
     }
 
@@ -110,12 +106,9 @@ public class ShowcaseActivity extends AppCompatActivity {
                 alertDialogBuilder.setMessage(R.string.showcase_dialog_content);
                 alertDialogBuilder.setCancelable(false);
                 alertDialogBuilder
-                        .setPositiveButton(R.string.showcase_dialog_agree, new DialogInterface
-                                .OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                prefs.edit().putBoolean("acknowledgement", true).apply();
-                                dialog.cancel();
-                            }
+                        .setPositiveButton(R.string.showcase_dialog_agree, (dialog, id) -> {
+                            prefs.edit().putBoolean("acknowledgement", true).apply();
+                            dialog.cancel();
                         });
                 AlertDialog alertDialog = alertDialogBuilder.create();
                 alertDialog.show();
@@ -140,12 +133,7 @@ public class ShowcaseActivity extends AppCompatActivity {
                 getSupportActionBar().setHomeButtonEnabled(false);
                 getSupportActionBar().setTitle(R.string.showcase);
             }
-            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onBackPressed();
-                }
-            });
+            toolbar.setNavigationOnClickListener((view) -> onBackPressed());
         }
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
@@ -225,17 +213,14 @@ public class ShowcaseActivity extends AppCompatActivity {
                 viewPager.setAdapter(adapter);
                 viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener
                         (tabLayout));
-                viewPager.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        swipeRefreshLayout.setEnabled(false);
-                        switch (event.getAction()) {
-                            case MotionEvent.ACTION_UP:
-                                swipeRefreshLayout.setEnabled(true);
-                                break;
-                        }
-                        return false;
+                viewPager.setOnTouchListener((v, event) -> {
+                    swipeRefreshLayout.setEnabled(false);
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_UP:
+                            swipeRefreshLayout.setEnabled(true);
+                            break;
                     }
+                    return false;
                 });
                 tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                     @Override

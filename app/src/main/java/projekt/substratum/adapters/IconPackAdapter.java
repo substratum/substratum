@@ -1,5 +1,6 @@
 package projekt.substratum.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -34,7 +35,7 @@ public class IconPackAdapter extends RecyclerView.Adapter<IconEntry> {
 
     @Override
     public IconEntry onCreateViewHolder(ViewGroup parent, int viewType) {
-        View layoutView = LayoutInflater.from(
+        @SuppressLint("InflateParams") View layoutView = LayoutInflater.from(
                 parent.getContext()).inflate(R.layout.icon_entry_card, null);
         return new IconEntry(mContext, layoutView);
     }

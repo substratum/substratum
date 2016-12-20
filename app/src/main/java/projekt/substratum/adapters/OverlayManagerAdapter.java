@@ -43,25 +43,21 @@ public class OverlayManagerAdapter extends
         viewHolder.tvName.setTextColor(overlayList.get(position_fixed).getActivationValue());
         viewHolder.chkSelected.setChecked(overlayList.get(position_fixed).isSelected());
         viewHolder.chkSelected.setTag(overlayList.get(position_fixed));
-        viewHolder.chkSelected.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                CheckBox cb = (CheckBox) v;
-                OverlayManager contact = (OverlayManager) cb.getTag();
+        viewHolder.chkSelected.setOnClickListener(v -> {
+            CheckBox cb = (CheckBox) v;
+            OverlayManager contact = (OverlayManager) cb.getTag();
 
-                contact.setSelected(cb.isChecked());
-                overlayList.get(position_fixed).setSelected(cb.isChecked());
-            }
+            contact.setSelected(cb.isChecked());
+            overlayList.get(position_fixed).setSelected(cb.isChecked());
         });
-        viewHolder.card.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                viewHolder.chkSelected.setChecked(!viewHolder.chkSelected.isChecked());
+        viewHolder.card.setOnClickListener(v -> {
+            viewHolder.chkSelected.setChecked(!viewHolder.chkSelected.isChecked());
 
-                CheckBox cb = viewHolder.chkSelected;
-                OverlayManager contact = (OverlayManager) cb.getTag();
+            CheckBox cb = viewHolder.chkSelected;
+            OverlayManager contact = (OverlayManager) cb.getTag();
 
-                contact.setSelected(cb.isChecked());
-                contact.setSelected(cb.isChecked());
-            }
+            contact.setSelected(cb.isChecked());
+            contact.setSelected(cb.isChecked());
         });
         viewHolder.appIcon.setImageDrawable(References.grabAppIcon(
                 overlayList.get(position_fixed).getContext(),

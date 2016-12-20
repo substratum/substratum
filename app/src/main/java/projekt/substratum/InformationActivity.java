@@ -8,7 +8,6 @@ import android.app.admin.DevicePolicyManager;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
@@ -111,29 +110,26 @@ public class InformationActivity extends AppCompatActivity {
                 activity.getString(R.string.abc_action_menu_overflow_description);
         final ViewGroup decorView = (ViewGroup) activity.getWindow().getDecorView();
         final ViewTreeObserver viewTreeObserver = decorView.getViewTreeObserver();
-        viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                final ArrayList<View> outViews = new ArrayList<>();
-                decorView.findViewsWithText(outViews, overflowDescription,
-                        View.FIND_VIEWS_WITH_CONTENT_DESCRIPTION);
-                if (outViews.isEmpty()) {
-                    return;
-                }
-                AppCompatImageView overflow = (AppCompatImageView) outViews.get(0);
-                if (dark_mode) {
-                    overflow.setImageResource(
-                            activity.getResources().getIdentifier(
-                                    "information_activity_overflow_dark",
-                                    "drawable",
-                                    activity.getPackageName()));
-                } else {
-                    overflow.setImageResource(
-                            activity.getResources().getIdentifier(
-                                    "information_activity_overflow_light",
-                                    "drawable",
-                                    activity.getPackageName()));
-                }
+        viewTreeObserver.addOnGlobalLayoutListener(() -> {
+            final ArrayList<View> outViews = new ArrayList<>();
+            decorView.findViewsWithText(outViews, overflowDescription,
+                    View.FIND_VIEWS_WITH_CONTENT_DESCRIPTION);
+            if (outViews.isEmpty()) {
+                return;
+            }
+            AppCompatImageView overflow = (AppCompatImageView) outViews.get(0);
+            if (dark_mode) {
+                overflow.setImageResource(
+                        activity.getResources().getIdentifier(
+                                "information_activity_overflow_dark",
+                                "drawable",
+                                activity.getPackageName()));
+            } else {
+                overflow.setImageResource(
+                        activity.getResources().getIdentifier(
+                                "information_activity_overflow_light",
+                                "drawable",
+                                activity.getPackageName()));
             }
         });
     }
@@ -310,12 +306,7 @@ public class InformationActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
-        if (toolbar != null) toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        if (toolbar != null) toolbar.setNavigationOnClickListener(v -> onBackPressed());
 
         Drawable heroImage = grabPackageHeroImage(theme_pid);
         if (heroImage != null) heroImageBitmap = ((BitmapDrawable) heroImage).getBitmap();
@@ -453,8 +444,7 @@ public class InformationActivity extends AppCompatActivity {
         }
         final InformationTabsAdapter adapter = new InformationTabsAdapter
                 (getSupportFragmentManager(), (tabLayout != null) ? tabLayout.getTabCount() : 0,
-                        (theme_mode.equals("") && (!theme_legacy && prefs.getBoolean(
-                                "quick_apply", false))), theme_mode, tab_checker, wallpaperUrl);
+                        theme_mode, tab_checker, wallpaperUrl);
 
         if (viewPager != null) {
             viewPager.setOffscreenPageLimit((tabLayout != null) ? tabLayout.getTabCount() : 0);
@@ -512,70 +502,64 @@ public class InformationActivity extends AppCompatActivity {
             builder.setTitle(theme_name);
             builder.setIcon(References.grabAppIcon(getApplicationContext(), theme_pid));
             builder.setMessage(R.string.clean_dialog_body)
-                    .setPositiveButton(R.string.uninstall_dialog_okay, new DialogInterface
-                            .OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            // Begin uninstalling all overlays based on this package
-                            List<String> stateAll = ReadOverlays.main(4, getApplicationContext());
-                            stateAll.addAll(ReadOverlays.main(5, getApplicationContext()));
+                    .setPositiveButton(R.string.uninstall_dialog_okay, (dialog, id18) -> {
+                        // Begin uninstalling all overlays based on this package
+                        List<String> stateAll = ReadOverlays.main(4, getApplicationContext());
+                        stateAll.addAll(ReadOverlays.main(5, getApplicationContext()));
 
-                            ArrayList<String> all_overlays = new ArrayList<>();
-                            for (int j = 0; j < stateAll.size(); j++) {
-                                try {
-                                    String current = stateAll.get(j);
-                                    ApplicationInfo appInfo = getApplicationContext()
-                                            .getPackageManager()
-                                            .getApplicationInfo(
-                                                    current, PackageManager.GET_META_DATA);
-                                    if (appInfo.metaData != null &&
-                                            appInfo.metaData.getString(
-                                                    "Substratum_Parent") != null) {
-                                        String parent =
-                                                appInfo.metaData.getString("Substratum_Parent");
-                                        if (parent != null && parent.equals(theme_pid)) {
-                                            all_overlays.add(current);
-                                        }
-                                    }
-                                } catch (Exception e) {
-                                    // NameNotFound
-                                }
-                            }
-
-                            Toast toast = Toast.makeText(getApplicationContext(),
-                                    getString(R.string
-                                            .clean_completion),
-                                    Toast.LENGTH_LONG);
-                            toast.show();
-
-                            if (References.isPackageInstalled(getApplicationContext(),
-                                    "masquerade.substratum")) {
-                                Intent runCommand = new Intent();
-                                runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                                runCommand.setAction("masquerade.substratum.COMMANDS");
-                                runCommand.putExtra("restart_systemui", true);
-                                runCommand.putStringArrayListExtra("pm-uninstall-specific",
-                                        all_overlays);
-                                getApplicationContext().sendBroadcast(runCommand);
-                            } else {
-                                String commands2 = "";
-                                for (int i = 0; i < all_overlays.size(); i++) {
-                                    if (i == 0) {
-                                        commands2 = commands2 + "pm uninstall " +
-                                                all_overlays.get(i);
-                                    } else {
-                                        commands2 = commands2 + " && pm uninstall " +
-                                                all_overlays.get(i);
+                        ArrayList<String> all_overlays = new ArrayList<>();
+                        for (int j = 0; j < stateAll.size(); j++) {
+                            try {
+                                String current = stateAll.get(j);
+                                ApplicationInfo appInfo = getApplicationContext()
+                                        .getPackageManager()
+                                        .getApplicationInfo(
+                                                current, PackageManager.GET_META_DATA);
+                                if (appInfo.metaData != null &&
+                                        appInfo.metaData.getString(
+                                                "Substratum_Parent") != null) {
+                                    String parent =
+                                            appInfo.metaData.getString("Substratum_Parent");
+                                    if (parent != null && parent.equals(theme_pid)) {
+                                        all_overlays.add(current);
                                     }
                                 }
-                                new References.ThreadRunner().execute(commands2);
+                            } catch (Exception e) {
+                                // NameNotFound
                             }
+                        }
+
+                        Toast toast = Toast.makeText(getApplicationContext(),
+                                getString(R.string
+                                        .clean_completion),
+                                Toast.LENGTH_LONG);
+                        toast.show();
+
+                        if (References.isPackageInstalled(getApplicationContext(),
+                                "masquerade.substratum")) {
+                            Intent runCommand = new Intent();
+                            runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                            runCommand.setAction("masquerade.substratum.COMMANDS");
+                            runCommand.putExtra("restart_systemui", true);
+                            runCommand.putStringArrayListExtra("pm-uninstall-specific",
+                                    all_overlays);
+                            getApplicationContext().sendBroadcast(runCommand);
+                        } else {
+                            String commands2 = "";
+                            for (int i = 0; i < all_overlays.size(); i++) {
+                                if (i == 0) {
+                                    commands2 = commands2 + "pm uninstall " +
+                                            all_overlays.get(i);
+                                } else {
+                                    commands2 = commands2 + " && pm uninstall " +
+                                            all_overlays.get(i);
+                                }
+                            }
+                            new References.ThreadRunner().execute(commands2);
                         }
                     })
-                    .setNegativeButton(R.string.uninstall_dialog_cancel, new DialogInterface
-                            .OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            // User cancelled the dialog
-                        }
+                    .setNegativeButton(R.string.uninstall_dialog_cancel, (dialog, id19) -> {
+                        // User cancelled the dialog
                     });
             // Create the AlertDialog object and return it
             builder.create();
@@ -588,26 +572,18 @@ public class InformationActivity extends AppCompatActivity {
             builder.setTitle(theme_name);
             builder.setIcon(References.grabAppIcon(getApplicationContext(), theme_pid));
             builder.setMessage(R.string.clean_cache_dialog_body)
-                    .setPositiveButton(R.string.uninstall_dialog_okay, new DialogInterface
-                            .OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            References.delete(getCacheDir().getAbsolutePath() +
-                                    "/SubstratumBuilder/" + theme_pid + "/");
-                            String format =
-                                    String.format(
-                                            getString(R.string.cache_clear_completion), theme_name);
-                            Toast toast = Toast.makeText(getApplicationContext(), format,
-                                    Toast.LENGTH_LONG);
-                            toast.show();
-                            finish();
-                        }
+                    .setPositiveButton(R.string.uninstall_dialog_okay, (dialog, id110) -> {
+                        References.delete(getCacheDir().getAbsolutePath() +
+                                "/SubstratumBuilder/" + theme_pid + "/");
+                        String format =
+                                String.format(
+                                        getString(R.string.cache_clear_completion), theme_name);
+                        Toast toast = Toast.makeText(getApplicationContext(), format,
+                                Toast.LENGTH_LONG);
+                        toast.show();
+                        finish();
                     })
-                    .setNegativeButton(R.string.uninstall_dialog_cancel, new DialogInterface
-                            .OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            // User cancelled the dialog
-                        }
-                    });
+                    .setNegativeButton(R.string.uninstall_dialog_cancel, (dialog, id17) -> dialog.cancel());
             // Create the AlertDialog object and return it
             builder.create();
             builder.show();
@@ -619,82 +595,76 @@ public class InformationActivity extends AppCompatActivity {
             builder.setTitle(theme_name);
             builder.setIcon(References.grabAppIcon(getApplicationContext(), theme_pid));
             builder.setMessage(R.string.disable_dialog_body)
-                    .setPositiveButton(R.string.uninstall_dialog_okay, new DialogInterface
-                            .OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            // Begin disabling all overlays based on this package
-                            File current_overlays = new File(Environment
+                    .setPositiveButton(R.string.uninstall_dialog_okay, (dialog, id16) -> {
+                        // Begin disabling all overlays based on this package
+                        File current_overlays = new File(Environment
+                                .getExternalStorageDirectory().getAbsolutePath() +
+                                "/.substratum/current_overlays.xml");
+                        if (current_overlays.exists()) {
+                            References.delete(Environment
                                     .getExternalStorageDirectory().getAbsolutePath() +
                                     "/.substratum/current_overlays.xml");
-                            if (current_overlays.exists()) {
-                                References.delete(Environment
+                        }
+                        References.copy("/data/system/overlays.xml",
+                                Environment
                                         .getExternalStorageDirectory().getAbsolutePath() +
                                         "/.substratum/current_overlays.xml");
-                            }
-                            References.copy("/data/system/overlays.xml",
-                                    Environment
-                                            .getExternalStorageDirectory().getAbsolutePath() +
-                                            "/.substratum/current_overlays.xml");
 
-                            List<String> stateAll = ReadOverlays.main(4, getApplicationContext());
-                            stateAll.addAll(ReadOverlays.main(5, getApplicationContext()));
+                        List<String> stateAll = ReadOverlays.main(4, getApplicationContext());
+                        stateAll.addAll(ReadOverlays.main(5, getApplicationContext()));
 
-                            ArrayList<String> all_overlays = new ArrayList<>();
-                            for (int j = 0; j < stateAll.size(); j++) {
-                                try {
-                                    String current = stateAll.get(j);
-                                    ApplicationInfo appInfo = getApplicationContext()
-                                            .getPackageManager()
-                                            .getApplicationInfo(
-                                                    current, PackageManager.GET_META_DATA);
-                                    if (appInfo.metaData != null &&
-                                            appInfo.metaData.getString(
-                                                    "Substratum_Parent") != null) {
-                                        String parent =
-                                                appInfo.metaData.getString("Substratum_Parent");
-                                        if (parent != null && parent.equals(theme_pid)) {
-                                            all_overlays.add(current);
-                                        }
+                        ArrayList<String> all_overlays = new ArrayList<>();
+                        for (int j = 0; j < stateAll.size(); j++) {
+                            try {
+                                String current = stateAll.get(j);
+                                ApplicationInfo appInfo = getApplicationContext()
+                                        .getPackageManager()
+                                        .getApplicationInfo(
+                                                current, PackageManager.GET_META_DATA);
+                                if (appInfo.metaData != null &&
+                                        appInfo.metaData.getString(
+                                                "Substratum_Parent") != null) {
+                                    String parent =
+                                            appInfo.metaData.getString("Substratum_Parent");
+                                    if (parent != null && parent.equals(theme_pid)) {
+                                        all_overlays.add(current);
                                     }
-                                } catch (Exception e) {
-                                    // NameNotFound
                                 }
+                            } catch (Exception e) {
+                                // NameNotFound
                             }
+                        }
 
-                            String commands2 = References.disableOverlay() + " ";
-                            for (int i = 0; i < all_overlays.size(); i++) {
-                                commands2 = commands2 + all_overlays.get(i) + " ";
-                            }
+                        String commands2 = References.disableOverlay() + " ";
+                        for (int i = 0; i < all_overlays.size(); i++) {
+                            commands2 = commands2 + all_overlays.get(i) + " ";
+                        }
 
-                            Toast toast = Toast.makeText(getApplicationContext(),
-                                    getString(R.string
-                                            .disable_completion),
-                                    Toast.LENGTH_LONG);
-                            toast.show();
+                        Toast toast = Toast.makeText(getApplicationContext(),
+                                getString(R.string
+                                        .disable_completion),
+                                Toast.LENGTH_LONG);
+                        toast.show();
 
-                            if (!prefs.getBoolean("systemui_recreate", false) &&
-                                    commands2.contains("systemui")) {
-                                commands2 = commands2 + " && sleep " + SYSTEMUI_PAUSE + " && " +
-                                        "pkill -f com.android.systemui";
-                            }
+                        if (!prefs.getBoolean("systemui_recreate", false) &&
+                                commands2.contains("systemui")) {
+                            commands2 = commands2 + " && sleep " + SYSTEMUI_PAUSE + " && " +
+                                    "pkill -f com.android.systemui";
+                        }
 
-                            if (References.isPackageInstalled(getApplicationContext(),
-                                    "masquerade.substratum")) {
-                                Intent runCommand = new Intent();
-                                runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                                runCommand.setAction("masquerade.substratum.COMMANDS");
-                                runCommand.putExtra("om-commands", commands2);
-                                getApplicationContext().sendBroadcast(runCommand);
-                            } else {
-                                new References.ThreadRunner().execute(commands2);
-                            }
+                        if (References.isPackageInstalled(getApplicationContext(),
+                                "masquerade.substratum")) {
+                            Intent runCommand = new Intent();
+                            runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                            runCommand.setAction("masquerade.substratum.COMMANDS");
+                            runCommand.putExtra("om-commands", commands2);
+                            getApplicationContext().sendBroadcast(runCommand);
+                        } else {
+                            new References.ThreadRunner().execute(commands2);
                         }
                     })
-                    .setNegativeButton(R.string.uninstall_dialog_cancel, new DialogInterface
-                            .OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            // User cancelled the dialog
-                        }
+                    .setNegativeButton(R.string.uninstall_dialog_cancel, (dialog, id15) -> {
+                        // User cancelled the dialog
                     });
             // Create the AlertDialog object and return it
             builder.create();
@@ -706,70 +676,62 @@ public class InformationActivity extends AppCompatActivity {
             builder.setTitle(theme_name);
             builder.setIcon(References.grabAppIcon(getApplicationContext(), theme_pid));
             builder.setMessage(R.string.enable_dialog_body)
-                    .setPositiveButton(R.string.uninstall_dialog_okay, new DialogInterface
-                            .OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            // Begin enabling all overlays based on this package
-                            List<String> stateAll = ReadOverlays.main(4, getApplicationContext());
-                            stateAll.addAll(ReadOverlays.main(5, getApplicationContext()));
+                    .setPositiveButton(R.string.uninstall_dialog_okay, (dialog, id14) -> {
+                        // Begin enabling all overlays based on this package
+                        List<String> stateAll = ReadOverlays.main(4, getApplicationContext());
+                        stateAll.addAll(ReadOverlays.main(5, getApplicationContext()));
 
-                            ArrayList<String> all_overlays = new ArrayList<>();
-                            for (int j = 0; j < stateAll.size(); j++) {
-                                try {
-                                    String current = stateAll.get(j);
-                                    ApplicationInfo appInfo = getApplicationContext()
-                                            .getPackageManager()
-                                            .getApplicationInfo(
-                                                    current, PackageManager.GET_META_DATA);
-                                    if (appInfo.metaData != null &&
-                                            appInfo.metaData.getString(
-                                                    "Substratum_Parent") != null) {
-                                        String parent =
-                                                appInfo.metaData.getString("Substratum_Parent");
-                                        if (parent != null && parent.equals(theme_pid)) {
-                                            all_overlays.add(current);
-                                        }
+                        ArrayList<String> all_overlays = new ArrayList<>();
+                        for (int j = 0; j < stateAll.size(); j++) {
+                            try {
+                                String current = stateAll.get(j);
+                                ApplicationInfo appInfo = getApplicationContext()
+                                        .getPackageManager()
+                                        .getApplicationInfo(
+                                                current, PackageManager.GET_META_DATA);
+                                if (appInfo.metaData != null &&
+                                        appInfo.metaData.getString(
+                                                "Substratum_Parent") != null) {
+                                    String parent =
+                                            appInfo.metaData.getString("Substratum_Parent");
+                                    if (parent != null && parent.equals(theme_pid)) {
+                                        all_overlays.add(current);
                                     }
-                                } catch (Exception e) {
-                                    // NameNotFound
                                 }
+                            } catch (Exception e) {
+                                // NameNotFound
                             }
+                        }
 
-                            String commands2 = References.enableOverlay() + " ";
-                            for (int i = 0; i < all_overlays.size(); i++) {
-                                commands2 = commands2 + all_overlays.get(i) + " ";
-                            }
+                        String commands2 = References.enableOverlay() + " ";
+                        for (int i = 0; i < all_overlays.size(); i++) {
+                            commands2 = commands2 + all_overlays.get(i) + " ";
+                        }
 
-                            Toast toast = Toast.makeText(getApplicationContext(),
-                                    getString(R.string
-                                            .enable_completion),
-                                    Toast.LENGTH_LONG);
-                            toast.show();
+                        Toast toast = Toast.makeText(getApplicationContext(),
+                                getString(R.string
+                                        .enable_completion),
+                                Toast.LENGTH_LONG);
+                        toast.show();
 
-                            if (!prefs.getBoolean("systemui_recreate", false) &&
-                                    commands2.contains("systemui")) {
-                                commands2 = commands2 + " && sleep " + SYSTEMUI_PAUSE + " && " +
-                                        "pkill -f com.android.systemui";
-                            }
+                        if (!prefs.getBoolean("systemui_recreate", false) &&
+                                commands2.contains("systemui")) {
+                            commands2 = commands2 + " && sleep " + SYSTEMUI_PAUSE + " && " +
+                                    "pkill -f com.android.systemui";
+                        }
 
-                            if (References.isPackageInstalled(getApplicationContext(),
-                                    "masquerade.substratum")) {
-                                Intent runCommand = new Intent();
-                                runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                                runCommand.setAction("masquerade.substratum.COMMANDS");
-                                runCommand.putExtra("om-commands", commands2);
-                                getApplicationContext().sendBroadcast(runCommand);
-                            } else {
-                                new References.ThreadRunner().execute(commands2);
-                            }
+                        if (References.isPackageInstalled(getApplicationContext(),
+                                "masquerade.substratum")) {
+                            Intent runCommand = new Intent();
+                            runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                            runCommand.setAction("masquerade.substratum.COMMANDS");
+                            runCommand.putExtra("om-commands", commands2);
+                            getApplicationContext().sendBroadcast(runCommand);
+                        } else {
+                            new References.ThreadRunner().execute(commands2);
                         }
                     })
-                    .setNegativeButton(R.string.uninstall_dialog_cancel, new DialogInterface
-                            .OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            // User cancelled the dialog
-                        }
-                    });
+                    .setNegativeButton(R.string.uninstall_dialog_cancel, (dialog, id13) -> dialog.cancel());
             // Create the AlertDialog object and return it
             builder.create();
             builder.show();
@@ -794,17 +756,9 @@ public class InformationActivity extends AppCompatActivity {
             builder.setTitle(theme_name);
             builder.setIcon(References.grabAppIcon(getApplicationContext(), theme_pid));
             builder.setMessage(R.string.uninstall_dialog_body)
-                    .setPositiveButton(R.string.uninstall_dialog_okay, new DialogInterface
-                            .OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            new uninstallTheme().execute("");
-                        }
-                    })
-                    .setNegativeButton(R.string.uninstall_dialog_cancel, new DialogInterface
-                            .OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            // User cancelled the dialog
-                        }
+                    .setPositiveButton(R.string.uninstall_dialog_okay, (dialog, id12) -> new uninstallTheme().execute(""))
+                    .setNegativeButton(R.string.uninstall_dialog_cancel, (dialog, id1) -> {
+                        // User cancelled the dialog
                     });
             // Create the AlertDialog object and return it
             builder.create();
@@ -849,7 +803,7 @@ public class InformationActivity extends AppCompatActivity {
             super.onPostExecute(result);
 
             if (References.spreadYourWingsAndFly(getApplicationContext()) ||
-                    new LetsGetStarted().overcomeMyBeauty()) {
+                    LetsGetStarted.overcomeMyBeauty()) {
                 gradientView.setVisibility(View.GONE);
                 kenBurnsView.setBackgroundColor(Color.parseColor("#ffff00"));
                 collapsingToolbarLayout.setStatusBarScrimColor(Color.parseColor("#ffff00"));

@@ -834,7 +834,7 @@ public class References {
 
     // Save data to Firebase
     public static void backupDebuggableStatistics(Context mContext, String tag, String data,
-                                                  String reason) {
+                                                  String reason) throws SecurityException {
         FirebaseDatabase mDatabaseInstance = FirebaseDatabase.getInstance();
         DatabaseReference mDatabase = mDatabaseInstance.getReference(tag);
         Account[] accounts = AccountManager.get(mContext).getAccountsByType("com.google");

@@ -46,7 +46,9 @@ public class DetectionReceiver extends BroadcastReceiver {
 
         @Override
         protected void onPostExecute(String result) {
-            new SubstratumThemeUpdater().initialize(mContext, result, false);
+            if (result != null) {
+                new SubstratumThemeUpdater().initialize(mContext, result, false);
+            }
             super.onPostExecute(result);
         }
 
@@ -128,7 +130,6 @@ public class DetectionReceiver extends BroadcastReceiver {
                     .equals(setStringSorted)) {
                 for (int i = 0; i < installed_setStringSorted.size(); i++) {
                     if (!setStringSorted.contains(installed.get(i))) {
-                        i = installed_setStringSorted.size();
                         prefs.edit().putStringSet("installed_themes", installed_set).apply();
                         return installed.get(i);
                     }

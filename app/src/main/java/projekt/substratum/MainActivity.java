@@ -28,6 +28,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.mikepenz.aboutlibraries.LibsBuilder;
 import com.mikepenz.aboutlibraries.ui.LibsSupportFragment;
@@ -59,9 +60,10 @@ public class MainActivity extends AppCompatActivity implements
 
     private static final int PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
     private static final int PERMISSIONS_REQUEST_READ_PHONE_STATE = 2;
+    private static final int PERMISSIONS_REQUEST_GET_ACCOUNTS = 3;
     private Drawer drawer;
     private int drawerSelected;
-    private int permissionCheck, permissionCheck2;
+    private int permissionCheck, permissionCheck2, permissionCheck3;
     private ProgressDialog mProgressDialog;
     private SharedPreferences prefs;
 
@@ -136,6 +138,9 @@ public class MainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
+        prefs = PreferenceManager.getDefaultSharedPreferences(
+                getApplicationContext());
+
         References.setAndCheckOMS(getApplicationContext());
         startService(new Intent(this, ThemeService.class));
 
@@ -164,8 +169,6 @@ public class MainActivity extends AppCompatActivity implements
         DrawerBuilder drawerBuilder = new DrawerBuilder();
         drawerBuilder.withActivity(this);
 
-        prefs = PreferenceManager.getDefaultSharedPreferences(
-                getApplicationContext());
         if (toolbar != null) drawerBuilder.withToolbar(toolbar);
         drawerBuilder.withSavedInstance(savedInstanceState);
         drawerBuilder.withActionBarDrawerToggleAnimated(true);
@@ -344,92 +347,162 @@ public class MainActivity extends AppCompatActivity implements
         drawerBuilder.withSelectedItemByPosition(1);
         drawer = drawerBuilder.build();
 
-        permissionCheck = ContextCompat.checkSelfPermission(getApplicationContext(),
-                Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        permissionCheck2 = ContextCompat.checkSelfPermission(getApplicationContext(),
-                Manifest.permission.READ_PHONE_STATE);
-
-        if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
-            // permission already granted, allow the program to continue running
-            File directory = new File(Environment.getExternalStorageDirectory(),
-                    "/.substratum/");
-            if (!directory.exists()) {
-                Boolean made = directory.mkdirs();
-                if (!made) Log.e(References.SUBSTRATUM_LOG, "Unable to create directory");
-            }
-            File cacheDirectory = new File(getCacheDir(),
-                    "/SubstratumBuilder/");
-            if (!cacheDirectory.exists()) {
-                Boolean made = cacheDirectory.mkdirs();
-                if (!made) Log.e(References.SUBSTRATUM_LOG, "Unable to create cache directory");
-            }
-            File rescueFile = new File(Environment.getExternalStorageDirectory() +
-                    File.separator + "substratum" + File.separator + "SubstratumRescue.zip");
-            File rescueFileLegacy = new File(Environment.getExternalStorageDirectory() +
-                    File.separator + "substratum" + File.separator + "SubstratumRescue_Legacy.zip");
-            if (!rescueFile.exists()) {
-                copyRescueFile(getApplicationContext(), "rescue.dat",
-                        Environment.getExternalStorageDirectory() +
-                                java.io.File.separator + "substratum" +
-                                java.io.File.separator + "SubstratumRescue.zip");
-            }
-            if (!rescueFileLegacy.exists()) {
-                copyRescueFile(getApplicationContext(), "rescue_legacy.dat",
-                        Environment.getExternalStorageDirectory() +
-                                java.io.File.separator + "substratum" +
-                                java.io.File.separator + "SubstratumRescue_Legacy.zip");
-            }
-            if (permissionCheck2 == PackageManager.PERMISSION_GRANTED) {
-                // permission already granted, allow the program to continue running
-                // Set the first option to start at app boot
-                drawer.setSelectionAtPosition(1);
-                if (References.spreadYourWingsAndFly(getApplicationContext())) {
-                    LetsGetStarted.kissMe();
-                }
-            } else {
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.READ_PHONE_STATE},
-                        PERMISSIONS_REQUEST_READ_PHONE_STATE);
-            }
-        } else {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                    PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
-        }
-
-        printFCMtoken();
-
-        if (!References.checkOMS(getApplicationContext()) &&
-                !prefs.contains("legacy_dismissal")) {
+        if (prefs.getBoolean("permissions_ungranted", true)) {
             new AlertDialog.Builder(this)
-                    .setTitle(R.string.warning_title)
-                    .setMessage(R.string.legacy_warning_content)
-                    .setPositiveButton(R.string.dialog_ok, (dialog, i) -> dialog.cancel())
-                    .setNeutralButton(R.string.dialog_do_not_show_again,
+                    .setCancelable(false)
+                    .setTitle(R.string.permission_explanation_title)
+                    .setMessage(R.string.permission_explanation_text)
+                    .setPositiveButton(R.string.dialog_ok, (dialog, i) -> {
+                        dialog.cancel();
+
+                        permissionCheck = ContextCompat.checkSelfPermission(
+                                getApplicationContext(),
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                        permissionCheck2 = ContextCompat.checkSelfPermission(
+                                getApplicationContext(),
+                                Manifest.permission.READ_PHONE_STATE);
+                        permissionCheck3 = ContextCompat.checkSelfPermission(
+                                getApplicationContext(),
+                                Manifest.permission.GET_ACCOUNTS);
+
+                        if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
+                            // permission already granted, allow the program to continue running
+                            File directory = new File(Environment.getExternalStorageDirectory(),
+                                    "/.substratum/");
+                            if (!directory.exists()) {
+                                Boolean made = directory.mkdirs();
+                                if (!made) Log.e(References.SUBSTRATUM_LOG,
+                                        "Unable to create directory");
+                            }
+                            File cacheDirectory = new File(getCacheDir(),
+                                    "/SubstratumBuilder/");
+                            if (!cacheDirectory.exists()) {
+                                Boolean made = cacheDirectory.mkdirs();
+                                if (!made) Log.e(References.SUBSTRATUM_LOG,
+                                        "Unable to create cache directory");
+                            }
+                            File rescueFile = new File(
+                                    Environment.getExternalStorageDirectory() +
+                                            File.separator + "substratum" +
+                                            File.separator + "SubstratumRescue.zip");
+                            File rescueFileLegacy = new File(
+                                    Environment.getExternalStorageDirectory() +
+                                            File.separator + "substratum" +
+                                            File.separator + "SubstratumRescue_Legacy.zip");
+                            if (!rescueFile.exists()) {
+                                copyRescueFile(getApplicationContext(), "rescue.dat",
+                                        Environment.getExternalStorageDirectory() +
+                                                java.io.File.separator + "substratum" +
+                                                java.io.File.separator + "SubstratumRescue.zip");
+                            }
+                            if (!rescueFileLegacy.exists()) {
+                                copyRescueFile(getApplicationContext(), "rescue_legacy.dat",
+                                        Environment.getExternalStorageDirectory() +
+                                                java.io.File.separator + "substratum" +
+                                                java.io.File.separator +
+                                                "SubstratumRescue_Legacy.zip");
+                            }
+                            if (permissionCheck2 == PackageManager.PERMISSION_GRANTED) {
+                                // permission already granted, allow the program to continue
+                                if (permissionCheck3 == PackageManager.PERMISSION_GRANTED) {
+                                    // permission already granted, allow the program to continue
+                                    // Set the first option to start at app boot
+                                    drawer.setSelectionAtPosition(1);
+                                    prefs.edit().putBoolean("permissions_ungranted", false).apply();
+                                    if (References.spreadYourWingsAndFly(getApplicationContext())) {
+                                        LetsGetStarted.kissMe();
+                                    }
+                                } else {
+                                    ActivityCompat.requestPermissions(this,
+                                            new String[]{Manifest.permission.GET_ACCOUNTS},
+                                            PERMISSIONS_REQUEST_GET_ACCOUNTS);
+                                }
+                            } else {
+                                ActivityCompat.requestPermissions(this,
+                                        new String[]{Manifest.permission.READ_PHONE_STATE},
+                                        PERMISSIONS_REQUEST_READ_PHONE_STATE);
+                            }
+                        } else {
+                            ActivityCompat.requestPermissions(this,
+                                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                    PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
+                        }
+                        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+                        printFCMtoken();
+
+                        if (!References.checkOMS(getApplicationContext()) &&
+                                !prefs.contains("legacy_dismissal")) {
+                            new AlertDialog.Builder(this)
+                                    .setTitle(R.string.warning_title)
+                                    .setMessage(R.string.legacy_warning_content)
+                                    .setPositiveButton(R.string.dialog_ok, (dialog2, i2) ->
+                                            dialog2.cancel())
+                                    .setNeutralButton(R.string.dialog_do_not_show_again,
+                                            (dialog3, i3) -> {
+                                                prefs.edit().putBoolean(
+                                                        "legacy_dismissal", true).apply();
+                                                dialog3.cancel();
+                                            })
+                                    .show();
+                        }
+
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && !References.checkOMS(
+                                getApplicationContext()) && References.isIncompatibleFirmware()) {
+                            new AlertDialog.Builder(this)
+                                    .setTitle(R.string.warning_title)
+                                    .setMessage(R.string.dangerous_warning_content)
+                                    .setPositiveButton(R.string.dialog_ok, (dialog4, which4) ->
+                                            dialog4.cancel())
+                                    .show();
+                        }
+
+                        mProgressDialog = new ProgressDialog(this,
+                                R.style.SubstratumBuilder_BlurView);
+                        new RootRequester().execute("");
+                    })
+                    .setNegativeButton(android.R.string.cancel,
                             (dialog, i) -> {
-                                prefs.edit().putBoolean("legacy_dismissal", true).apply();
                                 dialog.cancel();
+                                this.finish();
                             })
                     .show();
-        }
+        } else {
+            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+            printFCMtoken();
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && !References.checkOMS(
-                getApplicationContext()) && References.isIncompatibleFirmware()) {
-            new AlertDialog.Builder(this)
-                    .setTitle(R.string.warning_title)
-                    .setMessage(R.string.dangerous_warning_content)
-                    .setPositiveButton(R.string.dialog_ok, (dialog, which) -> dialog.cancel())
-                    .show();
-        }
+            if (!References.checkOMS(getApplicationContext()) &&
+                    !prefs.contains("legacy_dismissal")) {
+                new AlertDialog.Builder(this)
+                        .setTitle(R.string.warning_title)
+                        .setMessage(R.string.legacy_warning_content)
+                        .setPositiveButton(R.string.dialog_ok, (dialog, i) -> dialog.cancel())
+                        .setNeutralButton(R.string.dialog_do_not_show_again,
+                                (dialog, i) -> {
+                                    prefs.edit().putBoolean("legacy_dismissal", true).apply();
+                                    dialog.cancel();
+                                })
+                        .show();
+            }
 
-        mProgressDialog = new ProgressDialog(this, R.style.SubstratumBuilder_BlurView);
-        new RootRequester().execute("");
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && !References.checkOMS(
+                    getApplicationContext()) && References.isIncompatibleFirmware()) {
+                new AlertDialog.Builder(this)
+                        .setTitle(R.string.warning_title)
+                        .setMessage(R.string.dangerous_warning_content)
+                        .setPositiveButton(R.string.dialog_ok, (dialog, which) -> dialog.cancel())
+                        .show();
+            }
+
+            mProgressDialog = new ProgressDialog(this, R.style.SubstratumBuilder_BlurView);
+            new RootRequester().execute("");
+        }
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        if (permissionCheck == PackageManager.PERMISSION_GRANTED && permissionCheck2 ==
-                PackageManager.PERMISSION_GRANTED) {
+        if (permissionCheck == PackageManager.PERMISSION_GRANTED &&
+                permissionCheck2 == PackageManager.PERMISSION_GRANTED &&
+                permissionCheck3 == PackageManager.PERMISSION_GRANTED) {
             //add the values which need to be saved from the drawer to the bundle
             outState = drawer.saveInstanceState(outState);
             super.onSaveInstanceState(outState);
@@ -532,8 +605,18 @@ public class MainActivity extends AppCompatActivity implements
                     Log.d("SubstratumBuilder", "The cache has been flushed!");
                     if (permissionCheck2 == PackageManager.PERMISSION_GRANTED) {
                         // permission already granted, allow the program to continue running
-                        // Set the first option to start at app boot
-                        drawer.setSelectionAtPosition(1);
+                        if (permissionCheck3 == PackageManager.PERMISSION_GRANTED) {
+                            // permission already granted, allow the program to continue running
+                            // Set the first option to start at app boot
+                            drawer.setSelectionAtPosition(1);
+                            if (References.spreadYourWingsAndFly(getApplicationContext())) {
+                                LetsGetStarted.kissMe();
+                            }
+                        } else {
+                            ActivityCompat.requestPermissions(this,
+                                    new String[]{Manifest.permission.GET_ACCOUNTS},
+                                    PERMISSIONS_REQUEST_GET_ACCOUNTS);
+                        }
                     } else {
                         ActivityCompat.requestPermissions(this,
                                 new String[]{Manifest.permission.READ_PHONE_STATE},
@@ -551,6 +634,32 @@ public class MainActivity extends AppCompatActivity implements
                 break;
             }
             case PERMISSIONS_REQUEST_READ_PHONE_STATE: {
+                if (grantResults.length > 0 &&
+                        grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (permissionCheck3 == PackageManager.PERMISSION_GRANTED) {
+                        // permission already granted, allow the program to continue running
+                        // Set the first option to start at app boot
+                        drawer.setSelectionAtPosition(1);
+                        if (References.spreadYourWingsAndFly(getApplicationContext())) {
+                            LetsGetStarted.kissMe();
+                        }
+                    } else {
+                        ActivityCompat.requestPermissions(this,
+                                new String[]{Manifest.permission.GET_ACCOUNTS},
+                                PERMISSIONS_REQUEST_GET_ACCOUNTS);
+                    }
+                } else {
+                    // permission was not granted, show closing dialog
+                    new AlertDialog.Builder(this)
+                            .setTitle(R.string.permission_not_granted_dialog_title)
+                            .setMessage(R.string.permission_not_granted_dialog_message2)
+                            .setPositiveButton(R.string.dialog_ok, (dialog, which) -> MainActivity.this.finish())
+                            .show();
+                    return;
+                }
+                break;
+            }
+            case PERMISSIONS_REQUEST_GET_ACCOUNTS: {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // permission already granted, allow the program to continue running
@@ -560,8 +669,9 @@ public class MainActivity extends AppCompatActivity implements
                     // permission was not granted, show closing dialog
                     new AlertDialog.Builder(this)
                             .setTitle(R.string.permission_not_granted_dialog_title)
-                            .setMessage(R.string.permission_not_granted_dialog_message2)
-                            .setPositiveButton(R.string.dialog_ok, (dialog, which) -> MainActivity.this.finish())
+                            .setMessage(R.string.permission_not_granted_dialog_message3)
+                            .setPositiveButton(R.string.dialog_ok, (dialog, which) ->
+                                    MainActivity.this.finish())
                             .show();
                     return;
                 }
@@ -614,15 +724,6 @@ public class MainActivity extends AppCompatActivity implements
                     Count.start();
                 } else {
                     textView.setText(getString(R.string.root_rejected_text_cm_phh));
-                }
-            } else {
-                // Now, let's grab root on the helper
-                Intent rootIntent = new Intent(Intent.ACTION_MAIN);
-                rootIntent.setAction("masquerade.substratum.INITIALIZE");
-                try {
-                    startActivity(rootIntent);
-                } catch (RuntimeException re) {
-                    // Exception: At this point, Masquerade is not installed at all.
                 }
             }
             super.onPostExecute(result);

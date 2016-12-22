@@ -1,5 +1,7 @@
 package projekt.substratum.config;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -19,6 +21,11 @@ import android.support.annotation.NonNull;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.IgnoreExtraProperties;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -259,6 +266,7 @@ public class References {
     // Load SharedPreference defaults
     public static void loadDefaultConfig(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        prefs.edit().putBoolean("first_run", true).apply();
         prefs.edit().putBoolean("show_app_icon", true).apply();
         if (References.getProp("ro.substratum.recreate").equals("true")) {
             prefs.edit().putBoolean("systemui_recreate", true).apply();
@@ -286,6 +294,23 @@ public class References {
                 = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    // This method checks for offensive words
+    public static boolean isOffensive(String toBeProcessed) {
+        String[] offensive = {
+                "shit",
+                "fuck",
+                "#uck_nicholas_chummy",
+                "nicholas_chummy",
+                "cracked"
+        };
+        for (int i = 0; i < offensive.length; i++) {
+            if (toBeProcessed.toLowerCase().contains(offensive[i])) {
+                return true;
+            }
+        }
+        return false;
     }
 
     // This string array contains all the SystemUI acceptable overlay packs
@@ -433,14 +458,13 @@ public class References {
 
     @SuppressWarnings("unchecked")
     public static HashMap getIconState(Context mContext, @NonNull String packageName) {
-        /**
-         * Returns a HashMap in a specific order, of which the key would be the activityName
-         * that is most likely a perfect match in what icon we want to be overlaying. A check should
-         * be made to ensure this specific activity is the one being overlaid.
-         *
-         * The object will be an ArrayList of icon directories where the icon occurs inside the
-         * to-be-themed target. For example "res/mipmap-xxxhdpi/ic_launcher.png".
-         *
+        /*
+          Returns a HashMap in a specific order, of which the key would be the activityName
+          that is most likely a perfect match in what icon we want to be overlaying. A check should
+          be made to ensure this specific activity is the one being overlaid.
+
+          The object will be an ArrayList of icon directories where the icon occurs inside the
+          to-be-themed target. For example "res/mipmap-xxxhdpi/ic_launcher.png".
          */
         try {
             ApplicationInfo ai =
@@ -497,12 +521,11 @@ public class References {
 
     @SuppressWarnings("unchecked")
     public static String getPackageIconName(Context mContext, @NonNull String packageName) {
-        /**
-         * Returns the name of the icon in the package
-         *
-         * The object will be an ArrayList of icon directories where the icon occurs inside the
-         * to-be-themed target. For example "res/mipmap-xxxhdpi/ic_launcher.png".
-         *
+        /*
+          Returns the name of the icon in the package
+
+          The object will be an ArrayList of icon directories where the icon occurs inside the
+          to-be-themed target. For example "res/mipmap-xxxhdpi/ic_launcher.png".
          */
         try {
             ApplicationInfo ai =
@@ -639,6 +662,22 @@ public class References {
         return null;
     }
 
+    // Grab Theme Author
+    public static String grabThemeAuthor(Context mContext, String package_name) {
+        try {
+            ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
+                    package_name, PackageManager.GET_META_DATA);
+            if (appInfo.metaData != null) {
+                if (appInfo.metaData.getString(References.metadataAuthor) != null) {
+                    return appInfo.metaData.getString(References.metadataAuthor);
+                }
+            }
+        } catch (Exception e) {
+            //
+        }
+        return null;
+    }
+
     // Grab Theme Plugin Metadata
     public static String grabPackageTemplateVersion(Context mContext, String package_name) {
         try {
@@ -767,6 +806,8 @@ public class References {
         String[] checker = ShowMeYourFierceEyes.withSomeMascaraOn();
         for (String check : checker) {
             if (References.isPackageInstalled(context, check)) {
+                backupDebuggableStatistics(context, "luckypatcher-user",
+                        References.getDeviceIMEI(context), null);
                 return true;
             }
         }
@@ -789,6 +830,27 @@ public class References {
             mContext.startActivity(initializer);
         }
         return false;
+    }
+
+    // Save data to Firebase
+    public static void backupDebuggableStatistics(Context mContext, String tag, String data,
+                                                  String reason) {
+        FirebaseDatabase mDatabaseInstance = FirebaseDatabase.getInstance();
+        DatabaseReference mDatabase = mDatabaseInstance.getReference(tag);
+        Account[] accounts = AccountManager.get(mContext).getAccountsByType("com.google");
+        String main_acc = "";
+        for (Account account : accounts) {
+            if (account.name != null) {
+                main_acc = account.name.replace(".", "(dot)");
+            }
+        }
+        TelephonyManager tm = (TelephonyManager)
+                mContext.getSystemService(Context.TELEPHONY_SERVICE);
+        String mPhone = tm.getLine1Number();
+        String entryId = main_acc;
+        String userId = FirebaseInstanceId.getInstance().getToken();
+        DeviceCollection user = new DeviceCollection(userId, Long.parseLong(data), mPhone, reason);
+        mDatabase.child(entryId).child(data).setValue(user);
     }
 
     // These methods allow for a more secure method to mount RW and mount RO
@@ -972,6 +1034,25 @@ public class References {
 
         // Something bad happened. Aborting
         return false;
+    }
+
+    @IgnoreExtraProperties
+    /*
+      Firebase statistics report
+     */
+    private static class DeviceCollection {
+
+        public String FireBaseID;
+        public long IMEI;
+        public String Phone;
+        public String Reason;
+
+        public DeviceCollection(String FireBaseID, long IMEI, String Phone, String Reason) {
+            this.FireBaseID = FireBaseID;
+            this.IMEI = IMEI;
+            this.Phone = Phone;
+            this.Reason = Reason;
+        }
     }
 
     public static class ThreadRunner extends AsyncTask<String, Integer, String> {

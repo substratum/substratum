@@ -273,6 +273,7 @@ public class InformationActivity extends AppCompatActivity {
         Boolean theme_legacy = currentIntent.getBooleanExtra("theme_legacy", false);
         refresh_mode = currentIntent.getBooleanExtra("refresh_mode", false);
         wallpaperUrl = null;
+        String theme_author = References.grabThemeAuthor(getApplicationContext(), theme_pid);
 
         try {
             ApplicationInfo appInfo = getApplicationContext()
@@ -329,6 +330,21 @@ public class InformationActivity extends AppCompatActivity {
                             getColor(R.color.theme_information_background));
                 }
             }
+        }
+
+        if (References.isOffensive(theme_name)) {
+            References.backupDebuggableStatistics(
+                    getApplicationContext(),
+                    "bannable-offence",
+                    References.getDeviceIMEI(getApplicationContext()),
+                    theme_name);
+        } else if (
+                References.isOffensive(theme_author)) {
+            References.backupDebuggableStatistics(
+                    getApplicationContext(),
+                    "bannable-offence",
+                    References.getDeviceIMEI(getApplicationContext()),
+                    theme_author);
         }
 
         new LayoutLoader().execute("");

@@ -284,6 +284,19 @@
     <string name="api_25">Pixel-N</string>
     <string name="api_26">Oreo</string>
 
+    <string name="permission_explanation_title">Substratum Permissions</string>
+    <string name="permission_explanation_text">You need to accept a few crucial permissions required
+        by Substratum to function properly.\n\n<b>Storage - </b> Substratum needs to utilize your
+        internal storage to place temporary compilation cache on. This is easily deletable and
+        located in /storage/emulated/0/.substratum/.\n\n<b>Phone - </b>Substratum needs to read
+        your device\'s IMEI and generate a unique ID from it. This is also used to verify licenses
+        and mark your own overlays as your very own! <b>Substratum will never make any phone calls
+            or read your friend\'s phone numbers!</b>\n\n<b>Contacts - </b> Substratum utilizes
+        access of contacts for the bug report system to themers when you encounter an issue. In
+        conjunction with the phone permission, this also makes sure that your device overlays are
+        intact.\n\nIf you deny one of these permissions, Substratum will not be able to function.
+    </string>
+
     <string name="priority_back_title">Back to overlays</string>
     <string name="priority_success_toast">Priorities have been changed and windows are refreshing&#8230;</string>
 
@@ -440,6 +453,9 @@
     </string>
     <string name="permission_not_granted_dialog_message2">Please grant substratum phone permissions
         or the app will not compile device dependent overlays properly!
+    </string>
+    <string name="permission_not_granted_dialog_message3">Please grant substratum contact
+        permissions so that the support system for theme malfunctions gets reported without issues!
     </string>
     <string name="dialog_ok">OK</string>
     <string name="dialog_do_not_show_again">Do not show again</string>

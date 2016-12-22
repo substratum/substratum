@@ -62,7 +62,6 @@ public class MainActivity extends AppCompatActivity implements
     private static final int PERMISSIONS_REQUEST_READ_PHONE_STATE = 2;
     private static final int PERMISSIONS_REQUEST_GET_ACCOUNTS = 3;
     private Drawer drawer;
-    private int drawerSelected;
     private int permissionCheck, permissionCheck2, permissionCheck3;
     private ProgressDialog mProgressDialog;
     private SharedPreferences prefs;
@@ -407,8 +406,8 @@ public class MainActivity extends AppCompatActivity implements
                                 if (permissionCheck3 == PackageManager.PERMISSION_GRANTED) {
                                     // permission already granted, allow the program to continue
                                     // Set the first option to start at app boot
-                                    drawer.setSelectionAtPosition(1);
                                     prefs.edit().putBoolean("permissions_ungranted", false).apply();
+                                    drawer.setSelectionAtPosition(1);
                                     if (References.spreadYourWingsAndFly(getApplicationContext())) {
                                         LetsGetStarted.kissMe();
                                     }
@@ -467,6 +466,12 @@ public class MainActivity extends AppCompatActivity implements
                             })
                     .show();
         } else {
+            drawer.setSelectionAtPosition(1);
+
+            if (References.spreadYourWingsAndFly(getApplicationContext())) {
+                LetsGetStarted.kissMe();
+            }
+
             FirebaseDatabase.getInstance().setPersistenceEnabled(true);
             printFCMtoken();
 
@@ -563,14 +568,10 @@ public class MainActivity extends AppCompatActivity implements
     public void onBackPressed() {
         if (drawer != null && drawer.isDrawerOpen()) {
             drawer.closeDrawer();
-        } else {
-            if (drawerSelected != 1) {
-                switchThemeFragment(getString(R.string.app_name), References.homeFragment);
-                drawer.setSelectionAtPosition(1);
-                drawerSelected = 1;
-            } else {
-                super.onBackPressed();
-            }
+        } else if (drawer != null && drawer.getCurrentSelectedPosition() > 1) {
+            drawer.setSelectionAtPosition(1);
+        } else if (drawer != null && drawer.getCurrentSelectedPosition() == 1) {
+            this.finish();
         }
     }
 

@@ -1,13 +1,18 @@
 package projekt.substratum.services;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.preference.PreferenceManager;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -81,24 +86,64 @@ public class PackageModificationDetector extends BroadcastReceiver {
                         "The filter cache has been wiped in accordance to intent: " +
                                 package_name + " [" + intent.getAction() + "]");
             } else {
-                try {
-                    ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
-                            package_name, PackageManager.GET_META_DATA);
-                    if (appInfo.metaData != null) {
-                        if (appInfo.metaData.getString(References.metadataName) != null) {
-                            if (appInfo.metaData.getString(References.metadataAuthor) != null) {
-                                SharedPreferences prefsPrivate = context.getSharedPreferences(
-                                        "filter_state", Context.MODE_PRIVATE);
-                                prefsPrivate.edit().clear().apply();
-                                Log.d(References.SUBSTRATUM_LOG,
-                                        "The filter cache has been wiped in accordance to intent:" +
-                                                " " + package_name + " [" +
-                                                intent.getAction() + "]");
+                Boolean found_valid_theme = false;
+                List<ResolveInfo> themes = References.getThemes(context);
+                for (int i = 0; i < themes.size(); i++) {
+                    if (themes.get(i).activityInfo.packageName.equals(package_name)) {
+                        SharedPreferences prefsPrivate = context.getSharedPreferences(
+                                "filter_state", Context.MODE_PRIVATE);
+                        prefsPrivate.edit().clear().apply();
+                        Log.d(References.SUBSTRATUM_LOG,
+                                "The filter cache has been wiped in accordance to intent:" +
+                                        " " + package_name + " [" +
+                                        intent.getAction() + "]");
+                        found_valid_theme = true;
+                    }
+                }
+                if (!found_valid_theme) {
+                    try {
+                        ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
+                                package_name, PackageManager.GET_META_DATA);
+                        if (appInfo.metaData != null) {
+                            if (appInfo.metaData.getString(References.metadataName) != null) {
+                                if (appInfo.metaData.getString(References.metadataAuthor) != null) {
+                                    Log.e(References.SUBSTRATUM_LOG,
+                                            "An outdated theme has been reported from " +
+                                                    ": " + package_name);
+
+                                    Intent showIntent = new Intent();
+                                    PendingIntent contentIntent = PendingIntent.getActivity(
+                                            context, 0, showIntent, 0);
+
+                                    String parse = String.format(context.getString(
+                                            R.string.legacy_theme_notification_text),
+                                            appInfo.metaData.getString(
+                                                    References.metadataName));
+
+                                    NotificationManager notificationManager =
+                                            (NotificationManager) context.getSystemService(
+                                                    Context.NOTIFICATION_SERVICE);
+                                    NotificationCompat.Builder mBuilder =
+                                            new NotificationCompat.Builder(context)
+                                                    .setContentIntent(contentIntent)
+                                                    .setAutoCancel(true)
+                                                    .setSmallIcon(
+                                                            R.drawable.notification_warning_icon)
+                                                    .setContentTitle(context.getString(
+                                                            R.string.legacy_theme_notification_title))
+                                                    .setContentText(parse);
+                                    Notification notification = mBuilder.build();
+                                    notificationManager.notify(
+                                            References.notification_id, notification);
+
+                                    String final_commands = "pm uninstall " + package_name;
+                                    References.runCommands(final_commands);
+                                }
                             }
                         }
+                    } catch (Exception e) {
+                        // Suppress warning
                     }
-                } catch (Exception e) {
-                    // Exception
                 }
             }
         }

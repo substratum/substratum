@@ -305,6 +305,8 @@
     <string name="menu_uninstall">Uninstall Theme</string>
 
     <string name="coming_soon">Stolen by Char!</string>
+    <string name="legacy_theme_notification_title">Deprecated Theme Warning</string>
+    <string name="legacy_theme_notification_text">%s is using an outdated theme plugin.</string>
 
     <string name="studio">icon pack studio (gamma)</string>
     <string name="studio_system">Restore System Icons</string>

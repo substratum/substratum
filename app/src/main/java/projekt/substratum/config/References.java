@@ -1,5 +1,6 @@
 package projekt.substratum.config;
 
+import android.Manifest;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.ProgressDialog;
@@ -18,6 +19,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -837,6 +839,16 @@ public class References {
                                                   String reason) {
         FirebaseDatabase mDatabaseInstance = FirebaseDatabase.getInstance();
         DatabaseReference mDatabase = mDatabaseInstance.getReference(tag);
+        if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.GET_ACCOUNTS) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         Account[] accounts = AccountManager.get(mContext).getAccountsByType("com.google");
         String main_acc = "";
         for (Account account : accounts) {

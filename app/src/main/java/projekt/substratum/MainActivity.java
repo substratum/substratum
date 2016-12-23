@@ -411,9 +411,9 @@ public class MainActivity extends AppCompatActivity implements
                                                 .putBoolean("permissions_ungranted", false).apply();
                                     }
                                     drawer.setSelectionAtPosition(1);
-                                    if (References.spreadYourWingsAndFly(getApplicationContext())) {
-                                        LetsGetStarted.kissMe();
-                                    }
+                                    mProgressDialog = new ProgressDialog(this,
+                                            R.style.SubstratumBuilder_BlurView);
+                                    new RootRequester().execute("");
                                 } else {
                                     ActivityCompat.requestPermissions(this,
                                             new String[]{Manifest.permission.GET_ACCOUNTS},
@@ -457,10 +457,6 @@ public class MainActivity extends AppCompatActivity implements
                                             dialog4.cancel())
                                     .show();
                         }
-
-                        mProgressDialog = new ProgressDialog(this,
-                                R.style.SubstratumBuilder_BlurView);
-                        new RootRequester().execute("");
                     })
                     .setNegativeButton(android.R.string.cancel,
                             (dialog, i) -> {
@@ -470,11 +466,6 @@ public class MainActivity extends AppCompatActivity implements
                     .show();
         } else {
             drawer.setSelectionAtPosition(1);
-
-            if (References.spreadYourWingsAndFly(getApplicationContext())) {
-                LetsGetStarted.kissMe();
-            }
-
             FirebaseDatabase.getInstance().setPersistenceEnabled(true);
             printFCMtoken();
 
@@ -728,6 +719,10 @@ public class MainActivity extends AppCompatActivity implements
                     Count.start();
                 } else {
                     textView.setText(getString(R.string.root_rejected_text_cm_phh));
+                }
+            } else {
+                if (References.spreadYourWingsAndFly(getApplicationContext())) {
+                    LetsGetStarted.kissMe();
                 }
             }
             super.onPostExecute(result);

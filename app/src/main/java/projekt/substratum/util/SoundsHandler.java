@@ -13,10 +13,11 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
-import android.widget.Toast;
+import android.view.View;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -52,10 +53,12 @@ public class SoundsHandler {
     private boolean has_failed;
     private boolean ringtone = false;
     private SharedPreferences prefs;
+    private View view;
 
-    public void execute(String arguments, Context context, String theme_pid) {
+    public void execute(View view, String arguments, Context context, String theme_pid) {
         this.mContext = context;
         this.theme_pid = theme_pid;
+        this.view = view;
         new SoundsHandlerAsync().execute(arguments);
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
     }
@@ -528,14 +531,15 @@ public class SoundsHandler {
         protected void onPostExecute(String result) {
             progress.dismiss();
             if (!has_failed) {
-                Toast toast = Toast.makeText(mContext,
-                        mContext.getString(R.string.sounds_dialog_apply_success), Toast
-                                .LENGTH_LONG);
-                toast.show();
+                Snackbar.make(view,
+                        mContext.getString(R.string.sounds_dialog_apply_success),
+                        Snackbar.LENGTH_LONG)
+                        .show();
             } else {
-                Toast toast = Toast.makeText(mContext,
-                        mContext.getString(R.string.sounds_dialog_apply_failed), Toast.LENGTH_LONG);
-                toast.show();
+                Snackbar.make(view,
+                        mContext.getString(R.string.sounds_dialog_apply_failed),
+                        Snackbar.LENGTH_LONG)
+                        .show();
             }
             References.mountROData();
             References.mountRO();

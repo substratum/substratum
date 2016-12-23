@@ -7,7 +7,9 @@ import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,7 +22,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -61,6 +62,7 @@ public class SoundPackager extends Fragment {
     private ProgressDialog mProgressDialog;
     private SharedPreferences prefs;
     private AsyncTask current;
+    private NestedScrollView nsv;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
@@ -69,6 +71,7 @@ public class SoundPackager extends Fragment {
         theme_pid = InformationActivity.getThemePID();
 
         root = (ViewGroup) inflater.inflate(R.layout.tab_fragment_4, container, false);
+        nsv = (NestedScrollView) root.findViewById(R.id.nestedScrollView);
 
         progressBar = (MaterialProgressBar) root.findViewById(R.id.progress_bar_loader);
         progressBar.setVisibility(View.GONE);
@@ -83,7 +86,7 @@ public class SoundPackager extends Fragment {
             if (soundsSelector.getSelectedItemPosition() == 1) {
                 new SoundsClearer().execute("");
             } else {
-                new SoundsHandler().execute(soundsSelector.getSelectedItem()
+                new SoundsHandler().execute(nsv, soundsSelector.getSelectedItem()
                         .toString(), getContext(), theme_pid);
             }
         });
@@ -243,10 +246,10 @@ public class SoundPackager extends Fragment {
             SharedPreferences.Editor editor = prefs.edit();
             editor.remove("sounds_applied");
             editor.apply();
-            Toast toast = Toast.makeText(getContext(), getString(R
-                            .string.manage_sounds_toast),
-                    Toast.LENGTH_SHORT);
-            toast.show();
+            Snackbar.make(nsv,
+                    getString(R.string.manage_sounds_toast),
+                    Snackbar.LENGTH_LONG)
+                    .show();
             References.restartSystemUI();
         }
 

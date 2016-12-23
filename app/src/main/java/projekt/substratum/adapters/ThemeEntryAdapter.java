@@ -16,6 +16,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -135,19 +136,19 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
                                         .execute();
                             }
                         } else {
-                            Toast toast = Toast.makeText(information.get(i).getContext(),
-                                    information.get(i).getContext().getString(R.string
-                                            .toast_uninstalled),
-                                    Toast.LENGTH_SHORT);
-                            toast.show();
+                            Snackbar.make(v,
+                                    information.get(pos).getContext()
+                                            .getString(R.string.toast_uninstalled),
+                                    Snackbar.LENGTH_LONG)
+                                    .show();
                             information.get(i).getActivity().recreate();
                         }
                     } else {
-                        Toast toast = Toast.makeText(information.get(i).getContext(),
-                                information.get(i).getContext().getString(R.string
-                                        .background_updating_toast),
-                                Toast.LENGTH_SHORT);
-                        toast.show();
+                        Snackbar.make(v,
+                                information.get(pos).getContext()
+                                        .getString(R.string.background_updating_toast),
+                                Snackbar.LENGTH_LONG)
+                                .show();
                     }
                 });
 

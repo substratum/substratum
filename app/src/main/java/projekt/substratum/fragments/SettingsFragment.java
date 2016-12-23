@@ -15,12 +15,12 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.Snackbar;
 import android.support.v7.preference.CheckBoxPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.util.Log;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
 import java.io.File;
 
@@ -169,10 +169,10 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                             runCommand.putExtra("substratum-check", "masquerade-ball");
                             getContext().sendBroadcast(runCommand);
                         } else {
-                            Toast toast = Toast.makeText(getContext(), getString(R.string
-                                            .masquerade_check_not_installed),
-                                    Toast.LENGTH_SHORT);
-                            toast.show();
+                            Snackbar.make(getView(),
+                                    getString(R.string.masquerade_check_not_installed),
+                                    Snackbar.LENGTH_LONG)
+                                    .show();
                         }
                         return false;
                     });
@@ -201,10 +201,10 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                             p.setComponentEnabledSetting(componentName, PackageManager
                                     .COMPONENT_ENABLED_STATE_ENABLED, PackageManager
                                     .DONT_KILL_APP);
-                            Toast toast = Toast.makeText(getContext(), getString(R.string
-                                            .hide_app_icon_toast_disabled),
-                                    Toast.LENGTH_SHORT);
-                            toast.show();
+                            Snackbar.make(getView(),
+                                    getString(R.string.hide_app_icon_toast_disabled),
+                                    Snackbar.LENGTH_LONG)
+                                    .show();
                             hide_app_checkbox.setChecked(true);
                         } else {
                             prefs.edit().putBoolean("show_app_icon", false).apply();
@@ -215,10 +215,10 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                     .COMPONENT_ENABLED_STATE_DISABLED, PackageManager
                                     .DONT_KILL_APP);
 
-                            Toast toast = Toast.makeText(getContext(), getString(R.string
-                                            .hide_app_icon_toast_enabled),
-                                    Toast.LENGTH_SHORT);
-                            toast.show();
+                            Snackbar.make(getView(),
+                                    getString(R.string.hide_app_icon_toast_enabled),
+                                    Snackbar.LENGTH_LONG)
+                                    .show();
                             hide_app_checkbox.setChecked(false);
                         }
                         return false;
@@ -236,17 +236,17 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         boolean isChecked = (Boolean) newValue;
                         if (isChecked) {
                             prefs.edit().putBoolean("systemui_recreate", true).apply();
-                            Toast toast = Toast.makeText(getContext(), getString(R.string
-                                            .restart_systemui_toast_enabled),
-                                    Toast.LENGTH_SHORT);
-                            toast.show();
+                            Snackbar.make(getView(),
+                                    getString(R.string.restart_systemui_toast_enabled),
+                                    Snackbar.LENGTH_LONG)
+                                    .show();
                             systemUIRestart.setChecked(true);
                         } else {
                             prefs.edit().putBoolean("systemui_recreate", false).apply();
-                            Toast toast = Toast.makeText(getContext(), getString(R.string
-                                            .restart_systemui_toast_disabled),
-                                    Toast.LENGTH_SHORT);
-                            toast.show();
+                            Snackbar.make(getView(),
+                                    getString(R.string.restart_systemui_toast_disabled),
+                                    Snackbar.LENGTH_LONG)
+                                    .show();
                             systemUIRestart.setChecked(false);
                         }
                         return false;
@@ -296,18 +296,18 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     if (isChecked) {
                         prefs.edit().putBoolean("alternate_drawer_design", true).apply();
                         alternate_drawer_design.setChecked(true);
-                        Toast toast = Toast.makeText(getContext(), getString(R.string
-                                        .substratum_restart_toast),
-                                Toast.LENGTH_SHORT);
-                        toast.show();
+                        Snackbar.make(getView(),
+                                getString(R.string.substratum_restart_toast),
+                                Snackbar.LENGTH_LONG)
+                                .show();
                         getActivity().recreate();
                     } else {
                         prefs.edit().putBoolean("alternate_drawer_design", false).apply();
                         alternate_drawer_design.setChecked(false);
-                        Toast toast = Toast.makeText(getContext(), getString(R.string
-                                        .substratum_restart_toast),
-                                Toast.LENGTH_SHORT);
-                        toast.show();
+                        Snackbar.make(getView(),
+                                getString(R.string.substratum_restart_toast),
+                                Snackbar.LENGTH_LONG)
+                                .show();
                         getActivity().recreate();
                     }
                     return false;
@@ -418,7 +418,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     public class deleteCache extends AsyncTask<String, Integer, String> {
         @Override
         protected void onPreExecute() {
-            // Show a toast
             mProgressDialog = new ProgressDialog(getContext());
             mProgressDialog.setMessage(getString(R.string.substratum_cache_clear_initial_toast));
             mProgressDialog.setIndeterminate(true);

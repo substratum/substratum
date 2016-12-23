@@ -6,6 +6,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -18,7 +19,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -59,10 +59,10 @@ public class StudioSelectorActivity extends AppCompatActivity {
                     i.setData(Uri.parse(playURL));
                     startActivity(i);
                 } catch (ActivityNotFoundException activityNotFoundException) {
-                    Toast toaster = Toast.makeText(getApplicationContext(), getString(R.string
-                                    .activity_missing_toast),
-                            Toast.LENGTH_SHORT);
-                    toaster.show();
+                    Snackbar.make(findViewById(android.R.id.content),
+                            getString(R.string.activity_missing_toast),
+                            Snackbar.LENGTH_LONG)
+                            .show();
                 }
                 return true;
             default:
@@ -210,10 +210,10 @@ public class StudioSelectorActivity extends AppCompatActivity {
                                 "Cannot apply icon pack on a non OMS7 ROM");
                     }
                 } else {
-                    Toast toaster = Toast.makeText(getApplicationContext(),
+                    Snackbar.make(findViewById(android.R.id.content),
                             getString(R.string.studio_system_reset_dialog_toast),
-                            Toast.LENGTH_SHORT);
-                    toaster.show();
+                            Snackbar.LENGTH_LONG)
+                            .show();
                 }
             });
             builder.setNegativeButton(R.string.restore_dialog_cancel, (dialog, id) -> dialog.dismiss());

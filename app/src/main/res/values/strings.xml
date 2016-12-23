@@ -92,7 +92,7 @@
         before continuing.
     </string>
 
-    <string name="activity_missing_toast">There were no applications found that could handle this
+    <string name="activity_missing_toast">There were no apps found that could handle this
         request, sorry!
     </string>
     <string name="abort_overlay_toast">Now uninstalling all overlays&#8230;</string>

@@ -7,10 +7,11 @@ import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
+import android.support.design.widget.Snackbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import org.zeroturnaround.zip.FileSource;
 import org.zeroturnaround.zip.ZipEntrySource;
@@ -43,6 +44,7 @@ public class BootAnimationHandler {
     private Boolean has_failed;
     private String theme_pid;
     private SharedPreferences prefs;
+    private View view;
 
     private int getDeviceEncryptionStatus() {
         // 0: ENCRYPTION_STATUS_UNSUPPORTED
@@ -60,9 +62,10 @@ public class BootAnimationHandler {
         return status;
     }
 
-    public void execute(String arguments, Context context, String theme_pid) {
+    public void execute(View view, String arguments, Context context, String theme_pid) {
         this.mContext = context;
         this.theme_pid = theme_pid;
+        this.view = view;
         new BootAnimationHandlerAsync().execute(arguments);
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
     }
@@ -81,16 +84,17 @@ public class BootAnimationHandler {
         @Override
         protected void onPostExecute(String result) {
             progress.dismiss();
+
             if (!has_failed) {
-                Toast toast = Toast.makeText(mContext,
-                        mContext.getString(R.string.bootanimation_dialog_apply_success), Toast
-                                .LENGTH_LONG);
-                toast.show();
+                Snackbar.make(view,
+                        mContext.getString(R.string.bootanimation_dialog_apply_success),
+                        Snackbar.LENGTH_LONG)
+                        .show();
             } else {
-                Toast toast = Toast.makeText(mContext,
-                        mContext.getString(R.string.bootanimation_dialog_apply_failed), Toast
-                                .LENGTH_LONG);
-                toast.show();
+                Snackbar.make(view,
+                        mContext.getString(R.string.bootanimation_dialog_apply_failed),
+                        Snackbar.LENGTH_LONG)
+                        .show();
             }
             References.mountROData();
             References.mountRO();

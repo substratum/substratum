@@ -1,11 +1,11 @@
 package projekt.substratum.model;
 
 import android.content.Context;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import projekt.substratum.R;
 
@@ -31,9 +31,10 @@ public class IconEntry extends RecyclerView.ViewHolder implements View.OnClickLi
     @Override
     public void onClick(View view) {
         if (willBeModified) {
-            Toast toast = Toast.makeText(mContext, mContext.getString(R.string.studio_toast_mask),
-                    Toast.LENGTH_LONG);
-            toast.show();
+            Snackbar.make(view,
+                    mContext.getString(R.string.studio_toast_mask),
+                    Snackbar.LENGTH_LONG)
+                    .show();
         }
     }
 }

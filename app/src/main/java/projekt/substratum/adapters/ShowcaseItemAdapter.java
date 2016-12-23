@@ -2,6 +2,7 @@ package projekt.substratum.adapters;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -90,11 +90,11 @@ public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapte
                 information.get(position).getContext().startActivity(intent);
             } catch (Exception e) {
                 e.printStackTrace();
-                Toast toaster = Toast.makeText(information.get(position).getContext(),
-                        information.get(position).getContext().getString(R.string
-                                .activity_missing_toast),
-                        Toast.LENGTH_SHORT);
-                toaster.show();
+                Snackbar.make(view,
+                        information.get(position).getContext()
+                                .getString(R.string.activity_missing_toast),
+                        Snackbar.LENGTH_LONG)
+                        .show();
             }
         });
     }

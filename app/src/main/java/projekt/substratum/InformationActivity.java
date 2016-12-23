@@ -30,6 +30,7 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
@@ -195,15 +196,15 @@ public class InformationActivity extends AppCompatActivity {
                                     resultUri.toString().substring(7)));
                         }
                         editor.putString("home_wallpaper_applied", theme_pid);
-                        Toast toast = Toast.makeText(getApplicationContext(),
+                        Snackbar.make(findViewById(android.R.id.content),
                                 getString(R.string.wallpaper_homescreen_success),
-                                Toast.LENGTH_LONG);
-                        toast.show();
+                                Snackbar.LENGTH_LONG)
+                                .show();
                     } catch (IOException e) {
-                        Toast toast = Toast.makeText(getApplicationContext(),
+                        Snackbar.make(findViewById(android.R.id.content),
                                 getString(R.string.wallpaper_homescreen_error),
-                                Toast.LENGTH_LONG);
-                        toast.show();
+                                Snackbar.LENGTH_LONG)
+                                .show();
                         e.printStackTrace();
                     }
                 } else if (resultUri.toString().contains("lockscreen_wallpaper")) {
@@ -214,15 +215,15 @@ public class InformationActivity extends AppCompatActivity {
                                     WallpaperManager.FLAG_LOCK);
                         }
                         editor.putString("lock_wallpaper_applied", theme_pid);
-                        Toast toast = Toast.makeText(getApplicationContext(),
+                        Snackbar.make(findViewById(android.R.id.content),
                                 getString(R.string.wallpaper_lockscreen_success),
-                                Toast.LENGTH_LONG);
-                        toast.show();
+                                Snackbar.LENGTH_LONG)
+                                .show();
                     } catch (IOException e) {
-                        Toast toast = Toast.makeText(getApplicationContext(),
+                        Snackbar.make(findViewById(android.R.id.content),
                                 getString(R.string.wallpaper_lockscreen_error),
-                                Toast.LENGTH_LONG);
-                        toast.show();
+                                Snackbar.LENGTH_LONG)
+                                .show();
                         e.printStackTrace();
                     }
                 } else if (resultUri.toString().contains("all_wallpaper")) {
@@ -235,15 +236,15 @@ public class InformationActivity extends AppCompatActivity {
                         }
                         editor.putString("home_wallpaper_applied", theme_pid);
                         editor.putString("lock_wallpaper_applied", theme_pid);
-                        Toast toast = Toast.makeText(getApplicationContext(),
+                        Snackbar.make(findViewById(android.R.id.content),
                                 getString(R.string.wallpaper_allscreen_success),
-                                Toast.LENGTH_LONG);
-                        toast.show();
+                                Snackbar.LENGTH_LONG)
+                                .show();
                     } catch (IOException e) {
-                        Toast toast = Toast.makeText(getApplicationContext(),
+                        Snackbar.make(findViewById(android.R.id.content),
                                 getString(R.string.wallpaper_allscreen_error),
-                                Toast.LENGTH_LONG);
-                        toast.show();
+                                Snackbar.LENGTH_LONG)
+                                .show();
                         e.printStackTrace();
                     }
                 }
@@ -760,10 +761,10 @@ public class InformationActivity extends AppCompatActivity {
                 i.setData(Uri.parse(playURL));
                 startActivity(i);
             } catch (ActivityNotFoundException activityNotFoundException) {
-                Toast toast = Toast.makeText(getApplicationContext(), getString(R.string
-                                .activity_missing_toast),
-                        Toast.LENGTH_SHORT);
-                toast.show();
+                Snackbar.make(findViewById(android.R.id.content),
+                        getString(R.string.activity_missing_toast),
+                        Snackbar.LENGTH_LONG)
+                        .show();
             }
             return true;
         }

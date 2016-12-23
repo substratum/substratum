@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
@@ -20,7 +21,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
@@ -91,10 +91,11 @@ public class ManageFragment extends Fragment {
                             case 0:
                                 dialog.dismiss();
                                 if (References.checkOMS(getContext())) {
-                                    Toast toast = Toast.makeText(getContext(), getString(R
-                                                    .string.manage_system_overlay_toast),
-                                            Toast.LENGTH_LONG);
-                                    toast.show();
+                                    Snackbar.make(getView(),
+                                            getString(R.string.
+                                                    manage_system_overlay_toast),
+                                            Snackbar.LENGTH_LONG)
+                                            .show();
                                     final SharedPreferences prefs1 =
                                             PreferenceManager.getDefaultSharedPreferences(
                                                     getContext());
@@ -139,10 +140,11 @@ public class ManageFragment extends Fragment {
                                         References.mountRW();
                                         References.delete(current_directory);
                                     }
-                                    Toast toast2 = Toast.makeText(getContext(), getString(R
-                                                    .string.abort_overlay_toast_success),
-                                            Toast.LENGTH_SHORT);
-                                    toast2.show();
+                                    Snackbar.make(getView(),
+                                            getString(R.string.
+                                                    abort_overlay_toast_success),
+                                            Snackbar.LENGTH_LONG)
+                                            .show();
                                     AlertDialog.Builder alertDialogBuilder =
                                             new AlertDialog.Builder(getContext());
                                     alertDialogBuilder
@@ -194,10 +196,11 @@ public class ManageFragment extends Fragment {
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                                     wm.clear(WallpaperManager.FLAG_SYSTEM);
                                 }
-                                Toast toast = Toast.makeText(getContext(), getString(R
-                                                .string.manage_wallpaper_home_toast),
-                                        Toast.LENGTH_SHORT);
-                                toast.show();
+                                Snackbar.make(getView(),
+                                        getString(R.string.
+                                                manage_wallpaper_home_toast),
+                                        Snackbar.LENGTH_LONG)
+                                        .show();
                             } catch (IOException e) {
                                 Log.e(References.SUBSTRATUM_LOG, "Failed to restore home " +
                                         "screen " +
@@ -209,10 +212,11 @@ public class ManageFragment extends Fragment {
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                                     wm.clear(WallpaperManager.FLAG_LOCK);
                                 }
-                                Toast toast = Toast.makeText(getContext(), getString(R
-                                                .string.manage_wallpaper_lock_toast),
-                                        Toast.LENGTH_SHORT);
-                                toast.show();
+                                Snackbar.make(getView(),
+                                        getString(R.string.
+                                                manage_wallpaper_lock_toast),
+                                        Snackbar.LENGTH_LONG)
+                                        .show();
                             } catch (IOException e) {
                                 Log.e(References.SUBSTRATUM_LOG, "Failed to restore lock " +
                                         "screen " +
@@ -225,10 +229,11 @@ public class ManageFragment extends Fragment {
                                     wm.clear(WallpaperManager.FLAG_SYSTEM);
                                     wm.clear(WallpaperManager.FLAG_LOCK);
                                 }
-                                Toast toast = Toast.makeText(getContext(), getString(R
-                                                .string.manage_wallpaper_all_toast),
-                                        Toast.LENGTH_SHORT);
-                                toast.show();
+                                Snackbar.make(getView(),
+                                        getString(R.string.
+                                                manage_wallpaper_all_toast),
+                                        Snackbar.LENGTH_LONG)
+                                        .show();
                             } catch (IOException e) {
                                 Log.e(References.SUBSTRATUM_LOG, "Failed to restore " +
                                         "wallpapers!");
@@ -247,10 +252,11 @@ public class ManageFragment extends Fragment {
                                     ());
                             try {
                                 wm.clear();
-                                Toast toast = Toast.makeText(getContext(), getString(R
-                                                .string.manage_wallpaper_all_toast),
-                                        Toast.LENGTH_SHORT);
-                                toast.show();
+                                Snackbar.make(getView(),
+                                        getString(R.string.
+                                                manage_wallpaper_all_toast),
+                                        Snackbar.LENGTH_LONG)
+                                        .show();
                             } catch (IOException e) {
                                 Log.e(References.SUBSTRATUM_LOG, "Failed to restore home " +
                                         "screen " +
@@ -294,10 +300,11 @@ public class ManageFragment extends Fragment {
                                     "package:" + getActivity().getPackageName()));
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
-                            Toast toast = Toast.makeText(getContext(), getString(R
-                                            .string.fonts_dialog_permissions_grant_toast),
-                                    Toast.LENGTH_LONG);
-                            toast.show();
+                            Snackbar.make(getView(),
+                                    getString(R.string.
+                                            fonts_dialog_permissions_grant_toast),
+                                    Snackbar.LENGTH_LONG)
+                                    .show();
                         }
                     })
                     .setNegativeButton(android.R.string.cancel,
@@ -322,10 +329,11 @@ public class ManageFragment extends Fragment {
                                     "package:" + getActivity().getPackageName()));
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
-                            Toast toast = Toast.makeText(getContext(), getString(R
-                                            .string.sounds_dialog_permissions_grant_toast),
-                                    Toast.LENGTH_LONG);
-                            toast.show();
+                            Snackbar.make(getView(),
+                                    getString(R.string.
+                                            sounds_dialog_permissions_grant_toast),
+                                    Snackbar.LENGTH_LONG)
+                                    .show();
                         }
                     })
                     .setNegativeButton(android.R.string.cancel,
@@ -354,10 +362,11 @@ public class ManageFragment extends Fragment {
             mProgressDialog.dismiss();
             super.onPostExecute(result);
             try {
-                Toast toast = Toast.makeText(getContext(), getString(R
-                                .string.manage_system_overlay_uninstall_toast),
-                        Toast.LENGTH_SHORT);
-                toast.show();
+                Snackbar.make(getView(),
+                        getString(R.string.
+                                manage_system_overlay_uninstall_toast),
+                        Snackbar.LENGTH_LONG)
+                        .show();
             } catch (Exception e) {
                 // At this point the window is refreshed too many times causing an unattached
                 // Activity
@@ -420,10 +429,11 @@ public class ManageFragment extends Fragment {
             SharedPreferences.Editor editor = prefs.edit();
             editor.remove("bootanimation_applied");
             editor.apply();
-            Toast toast = Toast.makeText(getContext(), getString(R
-                            .string.manage_bootanimation_toast),
-                    Toast.LENGTH_SHORT);
-            toast.show();
+            Snackbar.make(getView(),
+                    getString(R.string.
+                            manage_bootanimation_toast),
+                    Snackbar.LENGTH_LONG)
+                    .show();
         }
 
         @Override
@@ -515,19 +525,20 @@ public class ManageFragment extends Fragment {
                 }
 
                 if (References.checkOMS(getContext())) {
-                    Toast toast = Toast.makeText(getContext(), getString(R.string
-                                    .manage_fonts_toast),
-
-                            Toast.LENGTH_SHORT);
-                    toast.show();
+                    Snackbar.make(getView(),
+                            getString(R.string.
+                                    manage_fonts_toast),
+                            Snackbar.LENGTH_LONG)
+                            .show();
                     if (!prefs.getBoolean("systemui_recreate", false)) {
                         References.restartSystemUI();
                     }
                 } else {
-                    Toast toast = Toast.makeText(getContext(), getString(R.string
-                                    .manage_fonts_toast),
-                            Toast.LENGTH_SHORT);
-                    toast.show();
+                    Snackbar.make(getView(),
+                            getString(R.string.
+                                    manage_fonts_toast),
+                            Snackbar.LENGTH_LONG)
+                            .show();
                     final AlertDialog.Builder alertDialogBuilder =
                             new AlertDialog.Builder(getContext());
                     alertDialogBuilder.setTitle(getString(R.string
@@ -583,10 +594,11 @@ public class ManageFragment extends Fragment {
             SharedPreferences.Editor editor = prefs.edit();
             editor.remove("sounds_applied");
             editor.apply();
-            Toast toast = Toast.makeText(getContext(), getString(R
-                            .string.manage_sounds_toast),
-                    Toast.LENGTH_SHORT);
-            toast.show();
+            Snackbar.make(getView(),
+                    getString(R.string.
+                            manage_sounds_toast),
+                    Snackbar.LENGTH_LONG)
+                    .show();
             References.restartSystemUI();
         }
 

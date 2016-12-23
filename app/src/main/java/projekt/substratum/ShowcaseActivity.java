@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -18,7 +19,6 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -65,10 +65,10 @@ public class ShowcaseActivity extends AppCompatActivity {
                     i.setData(Uri.parse(playURL));
                     startActivity(i);
                 } catch (ActivityNotFoundException activityNotFoundException) {
-                    Toast toaster = Toast.makeText(getApplicationContext(), getString(R.string
-                                    .activity_missing_toast),
-                            Toast.LENGTH_SHORT);
-                    toaster.show();
+                    Snackbar.make(findViewById(android.R.id.content),
+                            getString(R.string.activity_missing_toast),
+                            Snackbar.LENGTH_LONG)
+                            .show();
                 }
                 return true;
             case R.id.refresh:

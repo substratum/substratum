@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -18,7 +19,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.thesurix.gesturerecycler.GestureAdapter;
 import com.thesurix.gesturerecycler.GestureManager;
@@ -209,10 +209,11 @@ public class PriorityListFragment extends Fragment {
         });
 
         applyFab.setOnClickListener(v -> {
-            Toast toast = Toast.makeText(getContext(), getString(R.string
-                            .priority_success_toast),
-                    Toast.LENGTH_SHORT);
-            toast.show();
+            Snackbar.make(getView(),
+                    getString(R.string.
+                            priority_success_toast),
+                    Snackbar.LENGTH_LONG)
+                    .show();
             headerProgress.setVisibility(View.VISIBLE);
             new java.util.Timer().schedule(
                     new java.util.TimerTask() {

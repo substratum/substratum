@@ -13,6 +13,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.NestedScrollView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +25,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -62,6 +62,7 @@ public class BootAnimation extends Fragment {
     private ProgressDialog mProgressDialog;
     private SharedPreferences prefs;
     private AsyncTask current;
+    private NestedScrollView nsv;
 
     private int getDeviceEncryptionStatus() {
         // 0: ENCRYPTION_STATUS_UNSUPPORTED
@@ -86,6 +87,7 @@ public class BootAnimation extends Fragment {
         theme_pid = InformationActivity.getThemePID();
 
         root = (ViewGroup) inflater.inflate(R.layout.tab_fragment_2, container, false);
+        nsv = (NestedScrollView) root.findViewById(R.id.nestedScrollView);
 
         animation = new AnimationDrawable();
         animation.setOneShot(false);
@@ -105,7 +107,7 @@ public class BootAnimation extends Fragment {
             if (bootAnimationSelector.getSelectedItemPosition() == 1) {
                 new BootAnimationClearer().execute("");
             } else {
-                new BootAnimationHandler().execute(bootAnimationSelector
+                new BootAnimationHandler().execute(nsv, bootAnimationSelector
                         .getSelectedItem()
                         .toString(), getContext(), theme_pid);
             }
@@ -207,7 +209,7 @@ public class BootAnimation extends Fragment {
         return root;
     }
 
-    public class BootAnimationClearer extends AsyncTask<String, Integer, String> {
+    private class BootAnimationClearer extends AsyncTask<String, Integer, String> {
 
         @Override
         protected void onPreExecute() {
@@ -224,10 +226,7 @@ public class BootAnimation extends Fragment {
             SharedPreferences.Editor editor = prefs.edit();
             editor.remove("bootanimation_applied");
             editor.apply();
-            Toast toast = Toast.makeText(getContext(), getString(R
-                            .string.manage_bootanimation_toast),
-                    Toast.LENGTH_SHORT);
-            toast.show();
+
         }
 
         @Override

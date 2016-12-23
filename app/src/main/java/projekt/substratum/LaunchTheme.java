@@ -4,8 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
 
 import java.io.File;
 
@@ -31,21 +31,24 @@ public class LaunchTheme extends AppCompatActivity {
                 if (checkSubstratumVerity.exists()) {
                     References.launchTheme(this, theme_pid, null, false);
                 } else {
-                    Toast toast = Toast.makeText(this, this.getString(R.string.toast_needs_caching),
-                            Toast.LENGTH_LONG);
-                    toast.show();
+                    Snackbar.make(findViewById(android.R.id.content),
+                            getString(R.string.toast_needs_caching),
+                            Snackbar.LENGTH_LONG)
+                            .show();
                     Intent intent = new Intent(this, MainActivity.class);
                     startActivity(intent);
                 }
             } else {
-                Toast toast = Toast.makeText(this, this.getString(R.string.toast_uninstalled),
-                        Toast.LENGTH_SHORT);
-                toast.show();
+                Snackbar.make(findViewById(android.R.id.content),
+                        getString(R.string.toast_uninstalled),
+                        Snackbar.LENGTH_LONG)
+                        .show();
             }
         } else {
-            Toast toast = Toast.makeText(this, this.getString(R.string.background_updating_toast),
-                    Toast.LENGTH_SHORT);
-            toast.show();
+            Snackbar.make(findViewById(android.R.id.content),
+                    getString(R.string.background_updating_toast),
+                    Snackbar.LENGTH_LONG)
+                    .show();
         }
         finish();
     }

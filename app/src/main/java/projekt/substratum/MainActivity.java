@@ -406,7 +406,10 @@ public class MainActivity extends AppCompatActivity implements
                                 if (permissionCheck3 == PackageManager.PERMISSION_GRANTED) {
                                     // permission already granted, allow the program to continue
                                     // Set the first option to start at app boot
-                                    prefs.edit().putBoolean("permissions_ungranted", false).apply();
+                                    if (!prefs.getBoolean("permissions_ungranted", true)) {
+                                        prefs.edit()
+                                                .putBoolean("permissions_ungranted", false).apply();
+                                    }
                                     drawer.setSelectionAtPosition(1);
                                     if (References.spreadYourWingsAndFly(getApplicationContext())) {
                                         LetsGetStarted.kissMe();

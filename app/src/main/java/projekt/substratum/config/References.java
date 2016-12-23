@@ -1,6 +1,5 @@
 package projekt.substratum.config;
 
-import android.Manifest;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.ProgressDialog;
@@ -19,7 +18,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -39,6 +37,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -46,6 +45,7 @@ import java.util.Locale;
 
 import projekt.substrate.LetsGetStarted;
 import projekt.substrate.ShowMeYourFierceEyes;
+import projekt.substratum.BuildConfig;
 import projekt.substratum.R;
 import projekt.substratum.util.CacheCreator;
 import projekt.substratum.util.Root;
@@ -836,33 +836,34 @@ public class References {
 
     // Save data to Firebase
     public static void backupDebuggableStatistics(Context mContext, String tag, String data,
-                                                  String reason) throws SecurityException {
-        FirebaseDatabase mDatabaseInstance = FirebaseDatabase.getInstance();
-        DatabaseReference mDatabase = mDatabaseInstance.getReference(tag);
-        if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.GET_ACCOUNTS) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        Account[] accounts = AccountManager.get(mContext).getAccountsByType("com.google");
-        String main_acc = "";
-        for (Account account : accounts) {
-            if (account.name != null) {
-                main_acc = account.name.replace(".", "(dot)");
+                                                  String reason) {
+        try {
+            FirebaseDatabase mDatabaseInstance = FirebaseDatabase.getInstance();
+            DatabaseReference mDatabase = mDatabaseInstance.getReference(tag);
+            String currentTimeAndDate = java.text.DateFormat.getDateTimeInstance().format(
+                    Calendar.getInstance().getTime());
+            Account[] accounts = AccountManager.get(mContext).getAccountsByType("com.google");
+            String main_acc = "null";
+            for (Account account : accounts) {
+                if (account.name != null) {
+                    main_acc = account.name.replace(".", "(dot)");
+                }
             }
+            String entryId = main_acc;
+            String userId = FirebaseInstanceId.getInstance().getToken();
+            DeviceCollection user = new DeviceCollection(
+                    currentTimeAndDate,
+                    userId,
+                    Long.parseLong(data),
+                    reason,
+                    BuildConfig.VERSION_CODE,
+                    BuildConfig.VERSION_NAME);
+            mDatabase.child(entryId).child(data).setValue(user);
+        } catch (SecurityException se) {
+            // Suppress Warning
+        } catch (RuntimeException re) {
+            // Suppress Warning
         }
-        TelephonyManager tm = (TelephonyManager)
-                mContext.getSystemService(Context.TELEPHONY_SERVICE);
-        String mPhone = tm.getLine1Number();
-        String entryId = main_acc;
-        String userId = FirebaseInstanceId.getInstance().getToken();
-        DeviceCollection user = new DeviceCollection(userId, Long.parseLong(data), mPhone, reason);
-        mDatabase.child(entryId).child(data).setValue(user);
     }
 
     // These methods allow for a more secure method to mount RW and mount RO
@@ -1054,16 +1055,21 @@ public class References {
      */
     private static class DeviceCollection {
 
+        public String CurrentTime;
         public String FireBaseID;
         public long IMEI;
-        public String Phone;
         public String Reason;
+        public int VersionCode;
+        public String VersionName;
 
-        public DeviceCollection(String FireBaseID, long IMEI, String Phone, String Reason) {
+        public DeviceCollection(String CurrentTime, String FireBaseID, long IMEI, String Reason,
+                                int VersionCode, String VersionName) {
+            this.CurrentTime = CurrentTime;
             this.FireBaseID = FireBaseID;
             this.IMEI = IMEI;
-            this.Phone = Phone;
             this.Reason = Reason;
+            this.VersionCode = VersionCode;
+            this.VersionName = VersionName;
         }
     }
 

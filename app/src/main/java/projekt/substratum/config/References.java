@@ -2,6 +2,7 @@ package projekt.substratum.config;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -307,8 +308,8 @@ public class References {
                 "nicholas_chummy",
                 "cracked"
         };
-        for (int i = 0; i < offensive.length; i++) {
-            if (toBeProcessed.toLowerCase().contains(offensive[i])) {
+        for (String anOffensive : offensive) {
+            if (toBeProcessed.toLowerCase().contains(anOffensive)) {
                 return true;
             }
         }
@@ -817,6 +818,7 @@ public class References {
     }
 
     // Grab Device IMEI for Overlay Embedding
+    @SuppressLint("HardwareIds")
     public static String getDeviceIMEI(Context context) {
         TelephonyManager telephonyManager =
                 (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
@@ -859,8 +861,6 @@ public class References {
                     BuildConfig.VERSION_CODE,
                     BuildConfig.VERSION_NAME);
             mDatabase.child(entryId).child(data).setValue(user);
-        } catch (SecurityException se) {
-            // Suppress Warning
         } catch (RuntimeException re) {
             // Suppress Warning
         }
@@ -1050,6 +1050,7 @@ public class References {
     }
 
     @IgnoreExtraProperties
+    @SuppressWarnings("WeakerAccess")
     /*
       Firebase statistics report
      */

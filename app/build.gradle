@@ -21,7 +21,7 @@ android {
         minSdkVersion 23
         targetSdkVersion 25
         versionCode 499
-        versionName "four hundred ninety nine - castula"
+        versionName "four hundred ninety nine - decrux"
         renderscriptTargetApi 23
         renderscriptSupportModeEnabled true
     }

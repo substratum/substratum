@@ -406,7 +406,7 @@ public class MainActivity extends AppCompatActivity implements
                                 if (permissionCheck3 == PackageManager.PERMISSION_GRANTED) {
                                     // permission already granted, allow the program to continue
                                     // Set the first option to start at app boot
-                                    if (!prefs.getBoolean("permissions_ungranted", true)) {
+                                    if (!prefs.contains("permissions_ungranted")) {
                                         prefs.edit()
                                                 .putBoolean("permissions_ungranted", false).apply();
                                     }
@@ -603,6 +603,9 @@ public class MainActivity extends AppCompatActivity implements
                         if (permissionCheck3 == PackageManager.PERMISSION_GRANTED) {
                             // permission already granted, allow the program to continue running
                             // Set the first option to start at app boot
+                            if (!prefs.contains("permissions_ungranted")) {
+                                prefs.edit().putBoolean("permissions_ungranted", false).apply();
+                            }
                             drawer.setSelectionAtPosition(1);
                             if (References.spreadYourWingsAndFly(getApplicationContext())) {
                                 LetsGetStarted.kissMe();
@@ -634,6 +637,9 @@ public class MainActivity extends AppCompatActivity implements
                     if (permissionCheck3 == PackageManager.PERMISSION_GRANTED) {
                         // permission already granted, allow the program to continue running
                         // Set the first option to start at app boot
+                        if (!prefs.contains("permissions_ungranted")) {
+                            prefs.edit().putBoolean("permissions_ungranted", false).apply();
+                        }
                         drawer.setSelectionAtPosition(1);
                         if (References.spreadYourWingsAndFly(getApplicationContext())) {
                             LetsGetStarted.kissMe();
@@ -659,6 +665,9 @@ public class MainActivity extends AppCompatActivity implements
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // permission already granted, allow the program to continue running
                     // Set the first option to start at app boot
+                    if (!prefs.contains("permissions_ungranted")) {
+                        prefs.edit().putBoolean("permissions_ungranted", false).apply();
+                    }
                     drawer.setSelectionAtPosition(1);
                 } else {
                     // permission was not granted, show closing dialog

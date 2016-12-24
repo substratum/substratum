@@ -21,7 +21,7 @@ android {
         minSdkVersion 23
         targetSdkVersion 25
         versionCode 501
-        versionName "five hundred one - elmuthalleth"
+        versionName "five hundred two - fomalhaut"
         renderscriptTargetApi 23
         renderscriptSupportModeEnabled true
     }
@@ -50,8 +50,6 @@ dependencies {
     compile 'com.android.support:preference-v14:25.1.0'
     compile 'com.google.firebase:firebase-database:10.0.1'
     compile 'com.google.firebase:firebase-messaging:10.0.1'
-    // Butter Knife (remain on 7.0.1 for standalone library)
-    compile 'com.jakewharton:butterknife:7.0.1'
     compile project(':substrate')
     // Image Downloading and Caching
     compile 'com.github.bumptech.glide:glide:3.7.0'

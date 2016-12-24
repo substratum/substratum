@@ -7,23 +7,20 @@ import android.widget.TextView;
 
 import com.thesurix.gesturerecycler.GestureViewHolder;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
 import projekt.substratum.R;
 
 
 class PrioritiesViewHolder extends GestureViewHolder {
 
-    @Bind(R.id.card_text)
     TextView mCardText;
-    @Bind(R.id.card_drag)
     ImageView mItemDrag;
-    @Bind(R.id.app_icon)
     ImageView mAppIcon;
 
     PrioritiesViewHolder(final View view) {
         super(view);
-        ButterKnife.bind(this, view);
+        mCardText = (TextView) view.findViewById(R.id.card_text);
+        mItemDrag = (ImageView) view.findViewById(R.id.card_drag);
+        mAppIcon = (ImageView) view.findViewById(R.id.app_icon);
     }
 
     @Nullable

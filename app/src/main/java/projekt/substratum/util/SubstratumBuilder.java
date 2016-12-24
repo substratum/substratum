@@ -26,6 +26,7 @@ public class SubstratumBuilder {
 
     private static final Boolean enable_signing = true;
     public Boolean has_errored_out = false;
+    public Boolean check_fallback = false;
     public String no_install = "";
     private Context mContext;
     private String error_logs = "";
@@ -47,6 +48,128 @@ public class SubstratumBuilder {
                 error_logs += "\n" + "» [" + overlay + "]: " + message;
             }
         }
+    }
+
+    private String processAOPTCommands(String work_area, String targetPkg,
+                                       String theme_name, String overlay_package,
+                                       String variant, String additional_variant,
+                                       int typeMode, boolean legacySwitch) {
+        String commands;
+        if (typeMode == 1) {
+            commands = "aopt p " +
+                    "-M " + work_area + "/AndroidManifest.xml " +
+                    "-S " + work_area + "/workdir/ " +
+                    "-I " + "/system/framework/framework-res.apk " +
+                    ((legacySwitch) ? "" : "-I " + targetPkg + " ") +
+                    "-F " + work_area + "/" + overlay_package +
+                    "." + theme_name + "-unsigned.apk " +
+                    "-f --include-meta-data --auto-add-overlay" +
+                    ((References.ENABLE_AOPT_OUTPUT) ? " -v" : "") +
+                    "\n";
+        } else {
+            if (variant != null) {
+                commands = "aopt p " +
+                        "-M " + work_area + "/AndroidManifest.xml " +
+                        "-S " + work_area + "/" + "type2_" + additional_variant + "/ " +
+                        "-S " + work_area + "/workdir/ " +
+                        "-I " + "/system/framework/framework-res.apk " +
+                        ((legacySwitch) ? "" : "-I " + targetPkg + " ") +
+                        "-F " + work_area + "/" + overlay_package + "." +
+                        theme_name + "-unsigned.apk " +
+                        "-f --include-meta-data --auto-add-overlay" +
+                        ((References.ENABLE_AOPT_OUTPUT) ? " -v" : "") +
+                        "\n";
+            } else {
+                commands = "aopt p " +
+                        "-M " + work_area + "/AndroidManifest.xml " +
+                        "-S " + work_area + "/workdir/ " +
+                        "-I " + "/system/framework/framework-res.apk " +
+                        ((legacySwitch) ? "" : "-I " + targetPkg + " ") +
+                        "-F " + work_area + "/" + overlay_package +
+                        "." + theme_name + "-unsigned.apk " +
+                        "-f --include-meta-data --auto-add-overlay" +
+                        ((References.ENABLE_AOPT_OUTPUT) ? " -v" : "") +
+                        "\n";
+            }
+        }
+        return commands;
+    }
+
+    private boolean runShellCommands(String commands, String work_area,
+                                     String targetPkg, String theme_name,
+                                     String overlay_package, String variant,
+                                     String additional_variant, int typeMode,
+                                     boolean legacySwitch) {
+        Process nativeApp = null;
+        try {
+            String line;
+            nativeApp = Runtime.getRuntime().exec(commands);
+
+            try (OutputStream stdin = nativeApp.getOutputStream();
+                 InputStream stderr = nativeApp.getErrorStream();
+                 InputStream stdout = nativeApp.getInputStream()) {
+                stdin.write(("ls\n").getBytes());
+                stdin.write("exit\n".getBytes());
+
+                try (BufferedReader br = new BufferedReader(new InputStreamReader(stdout))) {
+                    while ((line = br.readLine()) != null) {
+                        Log.d("SubstratumCompiler", line);
+                    }
+                }
+                Boolean errored = false;
+                try (BufferedReader br = new BufferedReader(new InputStreamReader(stderr))) {
+                    while ((line = br.readLine()) != null) {
+                        if (line.contains("Boolean types not allowed") && !legacySwitch) {
+                            Log.e(References.SUBSTRATUM_BUILDER,
+                                    "This overlay was designed using a legacy theming " +
+                                            "style, now falling back to legacy compiler...");
+                            String new_commands = processAOPTCommands(work_area, targetPkg,
+                                    theme_name, overlay_package, variant, additional_variant,
+                                    typeMode, true);
+                            return runShellCommands(
+                                    new_commands, work_area, targetPkg, theme_name,
+                                    overlay_package, variant, additional_variant, typeMode,
+                                    true);
+                        } else {
+                            dumpErrorLogs(
+                                    References.SUBSTRATUM_BUILDER, overlay_package, line);
+                            errored = true;
+                        }
+                    }
+                }
+                if (errored) {
+                    dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
+                            "Installation of \"" + overlay_package + "\" has failed.");
+                } else {
+                    // We need this Process to be waited for before moving on to the next function.
+                    Log.d(References.SUBSTRATUM_BUILDER, "Overlay APK creation is running now...");
+                    nativeApp.waitFor();
+                    File unsignedAPK = new File(work_area + "/" + overlay_package + "." +
+                            theme_name + "-unsigned.apk");
+                    if (unsignedAPK.exists()) {
+                        Log.d(References.SUBSTRATUM_BUILDER, "Overlay APK creation has completed!");
+                        return true;
+                    } else {
+                        dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
+                                "Overlay APK creation has failed!");
+                        has_errored_out = true;
+                        dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
+                                "Installation of \"" + overlay_package + "\" has failed.");
+                    }
+                }
+            }
+        } catch (Exception e) {
+            dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
+                    "Unfortunately, there was an exception trying to create a new APK");
+            has_errored_out = true;
+            dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
+                    "Installation of \"" + overlay_package + "\" has failed.");
+        } finally {
+            if (nativeApp != null) {
+                nativeApp.destroy();
+            }
+        }
+        return false;
     }
 
     public void beginAction(Context context, String theme_pid, String overlay_package, String
@@ -284,91 +407,20 @@ public class SubstratumBuilder {
         // Compile the new theme apk based on new manifest, framework-res.apk and extracted asset
 
         if (!has_errored_out) {
-            Process nativeApp = null;
-            try {
-                String commands;
-                if (typeMode == 1) {
-                    commands = "aopt p " +
-                            "-M " + work_area + "/AndroidManifest.xml " +
-                            "-S " + work_area + "/workdir/ " +
-                            "-I " + "/system/framework/framework-res.apk " +
-                            "-F " + work_area + "/" + overlay_package +
-                            "." + parse2_themeName + "-unsigned.apk " +
-                            "-f --include-meta-data --auto-add-overlay\n";
-                } else {
-                    if (variant != null) {
-                        commands = "aopt p " +
-                                "-M " + work_area + "/AndroidManifest.xml " +
-                                "-S " + work_area + "/" + "type2_" + additional_variant + "/ " +
-                                "-S " + work_area + "/workdir/ " +
-                                "-I " + "/system/framework/framework-res.apk " +
-                                "-F " + work_area + "/" + overlay_package + "." +
-                                parse2_themeName + "-unsigned.apk " +
-                                "-f --include-meta-data --auto-add-overlay\n";
-                    } else {
-                        commands = "aopt p " +
-                                "-M " + work_area + "/AndroidManifest.xml " +
-                                "-S " + work_area + "/workdir/ " +
-                                "-I " + "/system/framework/framework-res.apk " +
-                                "-F " + work_area + "/" + overlay_package +
-                                "." + parse2_themeName + "-unsigned.apk " +
-                                "-f --include-meta-data --auto-add-overlay\n";
-                    }
-                }
+            String targetPkg = References.getInstalledDirectory(context, targetPackage);
+            String commands = processAOPTCommands(
+                    work_area,
+                    targetPkg,
+                    parse2_themeName,
+                    overlay_package,
+                    variant,
+                    additional_variant,
+                    typeMode,
+                    false);
 
-                String line;
-                nativeApp = Runtime.getRuntime().exec(commands);
-
-                try (OutputStream stdin = nativeApp.getOutputStream();
-                     InputStream stderr = nativeApp.getErrorStream();
-                     InputStream stdout = nativeApp.getInputStream()) {
-                    stdin.write(("ls\n").getBytes());
-                    stdin.write("exit\n".getBytes());
-
-                    try (BufferedReader br = new BufferedReader(new InputStreamReader(stdout))) {
-                        while ((line = br.readLine()) != null) {
-                            Log.d("OverlayOptimizer", line);
-                        }
-                    }
-                    try (BufferedReader br = new BufferedReader(new InputStreamReader(stderr))) {
-                        while ((line = br.readLine()) != null) {
-                            dumpErrorLogs("SubstratumBuilder", overlay_package, line);
-                            has_errored_out = true;
-                        }
-                    }
-                    if (has_errored_out) {
-                        dumpErrorLogs("SubstratumBuilder", overlay_package,
-                                "Installation of \"" + overlay_package + "\" has failed.");
-                    }
-                }
-
-                if (!has_errored_out) {
-                    // We need this Process to be waited for before moving on to the next function.
-                    Log.d("SubstratumBuilder", "Overlay APK creation is running now...");
-                    nativeApp.waitFor();
-                    File unsignedAPK = new File(work_area + "/" + overlay_package + "." +
-                            parse2_themeName + "-unsigned.apk");
-                    if (unsignedAPK.exists()) {
-                        Log.d("SubstratumBuilder", "Overlay APK creation has completed!");
-                    } else {
-                        dumpErrorLogs("SubstratumBuilder", overlay_package,
-                                "Overlay APK creation has failed!");
-                        has_errored_out = true;
-                        dumpErrorLogs("SubstratumBuilder", overlay_package,
-                                "Installation of \"" + overlay_package + "\" has failed.");
-                    }
-                }
-            } catch (Exception e) {
-                dumpErrorLogs("SubstratumBuilder", overlay_package,
-                        "Unfortunately, there was an exception trying to create a new APK");
-                has_errored_out = true;
-                dumpErrorLogs("SubstratumBuilder", overlay_package,
-                        "Installation of \"" + overlay_package + "\" has failed.");
-            } finally {
-                if (nativeApp != null) {
-                    nativeApp.destroy();
-                }
-            }
+            has_errored_out = !runShellCommands(
+                    commands, work_area, targetPkg, parse2_themeName, overlay_package,
+                    variant, additional_variant, typeMode, false);
         }
 
         // Sign the apk

@@ -209,6 +209,7 @@ public class PriorityListFragment extends Fragment {
         });
 
         applyFab.setOnClickListener(v -> {
+            applyFab.hide();
             Snackbar.make(getView(),
                     getString(R.string.
                             priority_success_toast),

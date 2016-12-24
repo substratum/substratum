@@ -466,7 +466,15 @@ public class MainActivity extends AppCompatActivity implements
                     .show();
         } else {
             drawer.setSelectionAtPosition(1);
-            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+            try {
+                FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+            } catch (RuntimeException re1) {
+                try {
+                    FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+                } catch (RuntimeException re2) {
+                    // Suppress warning
+                }
+            }
             printFCMtoken();
 
             if (!References.checkOMS(getApplicationContext()) &&

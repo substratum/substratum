@@ -102,16 +102,10 @@ public class SubstratumBuilder {
             nativeApp = Runtime.getRuntime().exec(commands);
 
             try (OutputStream stdin = nativeApp.getOutputStream();
-                 InputStream stderr = nativeApp.getErrorStream();
-                 InputStream stdout = nativeApp.getInputStream()) {
+                 InputStream stderr = nativeApp.getErrorStream()) {
                 stdin.write(("ls\n").getBytes());
                 stdin.write("exit\n".getBytes());
 
-                try (BufferedReader br = new BufferedReader(new InputStreamReader(stdout))) {
-                    while ((line = br.readLine()) != null) {
-                        Log.d("SubstratumCompiler", line);
-                    }
-                }
                 Boolean errored = false;
                 try (BufferedReader br = new BufferedReader(new InputStreamReader(stderr))) {
                     while ((line = br.readLine()) != null) {

@@ -213,7 +213,7 @@ public class PriorityListFragment extends Fragment {
             Snackbar.make(getView(),
                     getString(R.string.
                             priority_success_toast),
-                    Snackbar.LENGTH_LONG)
+                    Snackbar.LENGTH_INDEFINITE)
                     .show();
             headerProgress.setVisibility(View.VISIBLE);
             new java.util.Timer().schedule(

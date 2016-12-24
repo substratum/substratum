@@ -21,6 +21,7 @@ import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.util.Log;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import java.io.File;
 
@@ -296,18 +297,18 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     if (isChecked) {
                         prefs.edit().putBoolean("alternate_drawer_design", true).apply();
                         alternate_drawer_design.setChecked(true);
-                        Snackbar.make(getView(),
-                                getString(R.string.substratum_restart_toast),
-                                Snackbar.LENGTH_LONG)
-                                .show();
+                        Toast toast = Toast.makeText(getContext(), getString(R.string
+                                        .substratum_restart_toast),
+                                Toast.LENGTH_SHORT);
+                        toast.show();
                         getActivity().recreate();
                     } else {
                         prefs.edit().putBoolean("alternate_drawer_design", false).apply();
                         alternate_drawer_design.setChecked(false);
-                        Snackbar.make(getView(),
-                                getString(R.string.substratum_restart_toast),
-                                Snackbar.LENGTH_LONG)
-                                .show();
+                        Toast toast = Toast.makeText(getContext(), getString(R.string
+                                        .substratum_restart_toast),
+                                Toast.LENGTH_SHORT);
+                        toast.show();
                         getActivity().recreate();
                     }
                     return false;

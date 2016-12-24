@@ -1002,6 +1002,10 @@ public class References {
         Root.runCommand(References.refreshWindows());
     }
 
+    public static void restartMasquerade() {
+        Root.runCommand("pkill -f masquerade.substratum");
+    }
+
     public static void restartSystemUI() {
         Root.runCommand("pkill -f com.android.systemui");
     }

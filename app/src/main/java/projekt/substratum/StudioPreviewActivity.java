@@ -462,6 +462,7 @@ public class StudioPreviewActivity extends AppCompatActivity {
 
                             if (References.isPackageInstalled(getApplicationContext(),
                                     "masquerade.substratum")) {
+                                References.restartMasquerade();
                                 if (DEBUG)
                                     Log.e(References.SUBSTRATUM_ICON_BUILDER,
                                             "Initializing the Masquerade theme provider...");

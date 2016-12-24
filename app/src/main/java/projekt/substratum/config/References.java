@@ -729,6 +729,8 @@ public class References {
                     return mContext.getString(R.string.systemui_qs_tiles);
                 case "com.android.systemui.statusbars":
                     return mContext.getString(R.string.systemui_statusbar);
+                case "com.android.settings.icons":
+                    return mContext.getString(R.string.settings_icons);
             }
             ai = pm.getApplicationInfo(package_name, 0);
         } catch (Exception e) {

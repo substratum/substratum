@@ -351,7 +351,7 @@ public class MainActivity extends AppCompatActivity implements
                     .setCancelable(false)
                     .setTitle(R.string.permission_explanation_title)
                     .setMessage(R.string.permission_explanation_text)
-                    .setPositiveButton(R.string.dialog_ok, (dialog, i) -> {
+                    .setPositiveButton(R.string.accept, (dialog, i) -> {
                         dialog.cancel();
 
                         permissionCheck = ContextCompat.checkSelfPermission(
@@ -458,7 +458,7 @@ public class MainActivity extends AppCompatActivity implements
                                     .show();
                         }
                     })
-                    .setNegativeButton(android.R.string.cancel,
+                    .setNegativeButton(R.string.deny,
                             (dialog, i) -> {
                                 dialog.cancel();
                                 this.finish();

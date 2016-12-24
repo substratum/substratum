@@ -62,7 +62,7 @@ public class References {
     // Delays for Masquerade Icon Pack Handling
     public static final int MAIN_WINDOW_REFRESH_DELAY = 2000;
     public static final int FIRST_WINDOW_REFRESH_DELAY = 1000;
-    public static final int SECOND_WINDOW_REFRESH_DELAY = 2500;
+    public static final int SECOND_WINDOW_REFRESH_DELAY = 3000;
     private static final String SUBSTRATUM_THEME = "projekt.substratum.THEME";
     // This controls the package name for the specified launchers allowed for Studio
     private static final String NOVA_LAUNCHER = "com.novalauncher.THEME";

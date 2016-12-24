@@ -449,38 +449,48 @@ public class StudioPreviewActivity extends AppCompatActivity {
                     }
                 }
 
-                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
-                        getApplicationContext());
-                prefs.edit().putString("installed_icon_pack", current_pack).apply();
+                final String final_runner = final_commands;
+                new android.app.AlertDialog.Builder(StudioPreviewActivity.this)
+                        .setTitle(R.string.studio_refresh_dialog_title)
+                        .setMessage(R.string.studio_refresh_dialog_content)
+                        .setCancelable(false)
+                        .setPositiveButton(R.string.dialog_ok, (dialog2, i2) -> {
+                            String finalized = final_runner;
+                            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
+                                    getApplicationContext());
+                            prefs.edit().putString("installed_icon_pack", current_pack).apply();
 
-                if (References.isPackageInstalled(getApplicationContext(),
-                        "masquerade.substratum")) {
-                    if (DEBUG)
-                        Log.e(References.SUBSTRATUM_ICON_BUILDER,
-                                "Initializing the Masquerade theme provider...");
-                    if (final_commands.contains("pm install") &&
-                            References.checkOMSVersion(getApplicationContext()) == 3) {
-                        final_commands = final_commands +
-                                " && " + References.refreshWindows();
-                    }
-                    Intent runCommand = new Intent();
-                    runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                    runCommand.setAction("masquerade.substratum.COMMANDS");
-                    ArrayList<String> final_array = new ArrayList<>();
-                    final_array.add(0, References.grabPackageName(
-                            getApplicationContext(), current_pack));
-                    final_array.add(1, final_commands);
-                    final_array.add(2, (final_commands.contains("projekt.substratum") ?
-                            String.valueOf(MAIN_WINDOW_REFRESH_DELAY) : String.valueOf(0)));
-                    final_array.add(3, String.valueOf(FIRST_WINDOW_REFRESH_DELAY));
-                    final_array.add(4, String.valueOf(SECOND_WINDOW_REFRESH_DELAY));
-                    final_array.add(5, null);
-                    runCommand.putExtra("icon-handler", final_array);
-                    getApplicationContext().sendBroadcast(runCommand);
-                } else {
-                    Log.e(References.SUBSTRATUM_ICON_BUILDER,
-                            "Cannot apply icon pack on a non OMS7 ROM");
-                }
+                            if (References.isPackageInstalled(getApplicationContext(),
+                                    "masquerade.substratum")) {
+                                if (DEBUG)
+                                    Log.e(References.SUBSTRATUM_ICON_BUILDER,
+                                            "Initializing the Masquerade theme provider...");
+                                if (finalized.contains("pm install") &&
+                                        References.checkOMSVersion(getApplicationContext()) == 3) {
+                                    finalized = finalized +
+                                            " && " + References.refreshWindows();
+                                }
+                                Intent runCommand = new Intent();
+                                runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                                runCommand.setAction("masquerade.substratum.COMMANDS");
+                                ArrayList<String> final_array = new ArrayList<>();
+                                final_array.add(0, References.grabPackageName(
+                                        getApplicationContext(), current_pack));
+                                final_array.add(1, finalized);
+                                final_array.add(2, (finalized.contains("projekt.substratum") ?
+                                        String.valueOf(MAIN_WINDOW_REFRESH_DELAY) :
+                                        String.valueOf(0)));
+                                final_array.add(3, String.valueOf(FIRST_WINDOW_REFRESH_DELAY));
+                                final_array.add(4, String.valueOf(SECOND_WINDOW_REFRESH_DELAY));
+                                final_array.add(5, null);
+                                runCommand.putExtra("icon-handler", final_array);
+                                getApplicationContext().sendBroadcast(runCommand);
+                            } else {
+                                Log.e(References.SUBSTRATUM_ICON_BUILDER,
+                                        "Cannot apply icon pack on a non OMS7 ROM");
+                            }
+                        })
+                        .show();
             }
 
             // Disable the window

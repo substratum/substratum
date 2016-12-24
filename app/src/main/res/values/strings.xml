@@ -334,6 +334,14 @@
     <string name="studio_system_reset_dialog">
         Do you want to restore the current icons back to the system default icons?
     </string>
+    <string name="studio_refresh_dialog_title">Configuration Change Confirmation</string>
+    <string name="studio_refresh_dialog_content">Substratum will now change your system
+        configuration to quickly cause all applications to recognize new icons.\n\nYour system
+        language will momentarily turn Japanese after being kicked to your launcher, then return
+        back to the original language set on your device. If the icons do not change, click on
+        Refresh Icon Configuration at the main page of the Icon Studio!\n\nAfter pressing OK, do not
+        touch your device until a message comes up saying that it has successfully applied your icon
+        pack!</string>
     <string name="studio_custom">Creative Mode [coming soon]</string>
     <string name="studio_icon_packs">Custom Icons</string>
     <string name="studio_pack_title">Downloaded Icon Packs</string>

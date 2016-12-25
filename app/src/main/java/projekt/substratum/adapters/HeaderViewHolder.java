@@ -5,18 +5,15 @@ import android.widget.TextView;
 
 import com.thesurix.gesturerecycler.GestureViewHolder;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
 import projekt.substratum.R;
 
 class HeaderViewHolder extends GestureViewHolder {
 
-    @Bind(R.id.header_text)
     TextView mHeaderText;
 
     HeaderViewHolder(final View view) {
         super(view);
-        ButterKnife.bind(this, view);
+        mHeaderText = (TextView) view.findViewById(R.id.header_text);
     }
 
     @Override

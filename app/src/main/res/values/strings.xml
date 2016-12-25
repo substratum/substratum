@@ -446,7 +446,7 @@
     <string name="toast_backup_success">Current overlay list saved to
         \"/storage/emulated/0/substratum/profiles/%s\"
     </string>
-    <string name="spinner_default_item">select a profile to restore&#8230;</string>
+    <string name="spinner_default_item">select a profile&#8230;</string>
 
     <string name="select_to_toggle_all_overlays">Select to toggle all overlays</string>
     <string name="fab_menu_select_to_toggle_all_overlays">Select all overlays</string>
@@ -896,4 +896,22 @@
     <string name="slide_6_text">thank you for reading the introduction and we hope you enjoy using
         substratum as much as we did while developing for it!
     </string>
+
+    <string name="scheduled_night_profile">Scheduled Night Profile</string>
+    <string name="scheduled_profile_card_content">This function gives you the possibility to
+        automatically apply selected profiles to be used as night profile on specified time.</string>
+    <string name="active_time">Active time</string>
+    <string name="start_time">Start</string>
+    <string name="end_time">End</string>
+    <string name="day_profile">Day profile</string>
+    <string name="night_profile">Night profile</string>
+    <string name="day">Day</string>
+    <string name="night">Night</string>
+    <string name="apply">Apply</string>
+    <string name="time_empty_warning">Please select start and end time!</string>
+    <string name="profile_empty_warning">Please select all the profile you want to use!</string>
+    <string name="profile_notification_title">%s profile</string>
+    <string name="profile_pending_notification">Profile will be changed after screen off</string>
+    <string name="profile_success_notification">Profile successfully applied</string>
+    <string name="profile_failed_notification">Profile failed to apply</string>
 </resources>

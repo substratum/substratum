@@ -1,5 +1,7 @@
 package projekt.substratum.fragments;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.WallpaperManager;
 import android.app.admin.DevicePolicyManager;
 import android.content.Context;
@@ -12,8 +14,11 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,25 +26,39 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.Switch;
 
 import com.alimuzaffar.lib.widgets.AnimatedEditText;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import projekt.substratum.R;
 import projekt.substratum.config.References;
+import projekt.substratum.services.ScheduledProfileReceiver;
 import projekt.substratum.util.ReadOverlaysFile;
+import projekt.substratum.util.ViewAnimationUtils;
 
 public class ProfileFragment extends Fragment {
 
+    private static final String SCHEDULED_PROFILE_ENABLED = "scheduled_profile_enabled";
+    private static final String NIGHT_PROFILE = "night_profile";
+    private static final String NIGHT_PROFILE_HOUR = "night_profile_hour";
+    private static final String NIGHT_PROFILE_MINUTE = "night_profile_minute";
+    private static final String DAY_PROFILE = "day_profile";
+    private static final String DAY_PROFILE_HOUR = "day_profile_hour";
+    private static final String DAY_PROFILE_MINUTE = "day_profile_minute";
+    private static int nightHour, nightMinute, dayHour, dayMinute;
+
     private List<String> list;
     private ProgressBar headerProgress;
-    private Spinner profile_selector;
+    private Spinner profile_selector, dayProfile, nightProfile;
     private AnimatedEditText aet_backup;
     private String aet_getText;
     private String to_be_run_commands;
@@ -48,6 +67,17 @@ public class ProfileFragment extends Fragment {
     private String dialog_message;
     private boolean helper_exists = true;
     private SharedPreferences prefs;
+    private boolean dayNightEnabled;
+
+    public static void setNightProfileStart(int hour, int minute) {
+        nightHour = hour;
+        nightMinute = minute;
+    }
+
+    public static void setDayProfileStart(int hour, int minute) {
+        dayHour = hour;
+        dayMinute = minute;
+    }
 
     public void RefreshSpinner() {
         list.clear();
@@ -208,6 +238,86 @@ public class ProfileFragment extends Fragment {
                         .show();
             }
         });
+
+        final CardView scheduledProfileCard = (CardView) root.findViewById(R.id.cardListView3);
+        if (References.checkOMS(getActivity())) {
+            final LinearLayout scheduledProfileLayout = (LinearLayout) root.findViewById(
+                    R.id.scheduled_profile_card_content);
+            final Switch dayNightSwitch = (Switch) root.findViewById(R.id.profile_switch);
+            dayNightSwitch.setOnCheckedChangeListener((compoundButton, b) -> {
+                if (b) {
+                    ViewAnimationUtils.expand(scheduledProfileLayout);
+                } else {
+                    ViewAnimationUtils.collapse(scheduledProfileLayout);
+                }
+                dayNightEnabled = b;
+            });
+
+            final FragmentManager fm = getActivity().getSupportFragmentManager();
+            final Button startTime = (Button) root.findViewById(R.id.night_start_time);
+            startTime.setOnClickListener(view -> {
+                DialogFragment timePickerFragment = new TimePickerFragment();
+                TimePickerFragment.setFlag(TimePickerFragment.FLAG_START_TIME);
+                timePickerFragment.show(fm, "TimePicker");
+            });
+
+            final Button endTime = (Button) root.findViewById(R.id.night_end_time);
+            endTime.setOnClickListener(view -> {
+                DialogFragment timePickerFragment = new TimePickerFragment();
+                TimePickerFragment.setFlag(TimePickerFragment.FLAG_END_TIME);
+                timePickerFragment.show(fm, "TimePicker");
+            });
+
+            dayProfile = (Spinner) root.findViewById(R.id.day_spinner);
+            dayProfile.setAdapter(adapter);
+            nightProfile = (Spinner) root.findViewById(R.id.night_spinner);
+            nightProfile.setAdapter(adapter);
+
+            if (prefs.getBoolean(SCHEDULED_PROFILE_ENABLED, false)) {
+                String day = prefs.getString(DAY_PROFILE, getResources()
+                        .getString(R.string.spinner_default_item));
+                String night = prefs.getString(NIGHT_PROFILE, getResources()
+                        .getString(R.string.spinner_default_item));
+                dayHour = prefs.getInt(DAY_PROFILE_HOUR, 0);
+                dayMinute = prefs.getInt(DAY_PROFILE_MINUTE, 0);
+                nightHour = prefs.getInt(NIGHT_PROFILE_HOUR, 0);
+                nightMinute = prefs.getInt(NIGHT_PROFILE_MINUTE, 0);
+                dayNightEnabled = true;
+
+                dayNightSwitch.setChecked(true);
+                startTime.setText(References.parseTime(getActivity(), nightHour, nightMinute));
+                endTime.setText(References.parseTime(getActivity(), dayHour, dayMinute));
+                dayProfile.setSelection(adapter.getPosition(day));
+                nightProfile.setSelection(adapter.getPosition(night));
+            }
+
+            final Button applyScheduledProfileButton = (Button) root.findViewById(
+                    R.id.apply_schedule_button);
+            applyScheduledProfileButton.setOnClickListener(view -> {
+                if (dayNightEnabled) {
+                    if (dayProfile.getSelectedItemPosition() > 0 &&
+                            nightProfile.getSelectedItemPosition() > 0) {
+                        if (!startTime.getText().equals(getResources()
+                                .getString(R.string.start_time)) && !endTime.getText()
+                                .equals(getResources().getString(R.string.end_time))) {
+                            setupScheduledProfile();
+                        } else {
+                            Snackbar.make(getView(), R.string.time_empty_warning,
+                                    Snackbar.LENGTH_LONG)
+                                    .show();
+                        }
+                    } else {
+                        Snackbar.make(getView(), R.string.profile_empty_warning,
+                                Snackbar.LENGTH_LONG)
+                                .show();
+                    }
+                } else {
+                    setupScheduledProfile();
+                }
+            });
+        } else {
+            scheduledProfileCard.setVisibility(View.GONE);
+        }
         return root;
     }
 
@@ -225,6 +335,73 @@ public class ProfileFragment extends Fragment {
             status = dpm.getStorageEncryptionStatus();
         }
         return status;
+    }
+
+    private void setupScheduledProfile() {
+        SharedPreferences.Editor editor = prefs.edit();
+        AlarmManager alarmMgr = (AlarmManager) getActivity()
+                .getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(getActivity(), ScheduledProfileReceiver.class);
+        intent.putExtra("type", getString(R.string.night));
+        PendingIntent nightIntent = PendingIntent.getBroadcast(getActivity(), 0, intent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        intent.putExtra("type", getString(R.string.day));
+        PendingIntent dayIntent = PendingIntent.getBroadcast(getActivity(), 1, intent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+
+        if (dayNightEnabled) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(System.currentTimeMillis());
+
+            editor.putBoolean(SCHEDULED_PROFILE_ENABLED, dayNightEnabled);
+
+            // night time
+            calendar.set(Calendar.HOUR_OF_DAY, nightHour);
+            calendar.set(Calendar.MINUTE, nightMinute);
+            if (calendar.getTimeInMillis() < System.currentTimeMillis()) {
+                calendar.add(Calendar.DAY_OF_YEAR, 1);
+            }
+            alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                    AlarmManager.INTERVAL_DAY, nightIntent);
+            editor.putString(NIGHT_PROFILE, nightProfile.getSelectedItem().toString());
+            editor.putInt(NIGHT_PROFILE_HOUR, nightHour);
+            editor.putInt(NIGHT_PROFILE_MINUTE, nightMinute);
+
+            // day time
+            calendar.set(Calendar.HOUR_OF_DAY, dayHour);
+            calendar.set(Calendar.MINUTE, dayMinute);
+            if (calendar.getTimeInMillis() < System.currentTimeMillis()) {
+                calendar.add(Calendar.DAY_OF_YEAR, 1);
+            }
+            alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                    AlarmManager.INTERVAL_DAY, dayIntent);
+            editor.putString(DAY_PROFILE, dayProfile.getSelectedItem().toString());
+            editor.putInt(DAY_PROFILE_HOUR, dayHour);
+            editor.putInt(DAY_PROFILE_MINUTE, dayMinute);
+            editor.apply();
+
+            Snackbar.make(getView(), "Scheduled profile successfully applied!",
+                    Snackbar.LENGTH_LONG)
+                    .show();
+        } else {
+            if (alarmMgr != null) {
+                alarmMgr.cancel(nightIntent);
+                alarmMgr.cancel(dayIntent);
+
+                editor
+                        .remove(SCHEDULED_PROFILE_ENABLED)
+                        .remove(DAY_PROFILE)
+                        .remove(DAY_PROFILE_HOUR)
+                        .remove(DAY_PROFILE_MINUTE)
+                        .remove(NIGHT_PROFILE)
+                        .remove(NIGHT_PROFILE_HOUR)
+                        .remove(NIGHT_PROFILE_MINUTE)
+                        .apply();
+                Snackbar.make(getView(), "Scheduled profile successfully disabled!",
+                        Snackbar.LENGTH_LONG)
+                        .show();
+            }
+        }
     }
 
     private class BackupFunction extends AsyncTask<String, Integer, String> {

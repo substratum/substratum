@@ -172,6 +172,144 @@
 
             </android.support.v7.widget.CardView>
 
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardListView3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/cardListView2"
+                android:layout_margin="15dp"
+                card_view:cardBackgroundColor="@color/main_screen_card_background"
+                card_view:cardCornerRadius="@dimen/main_screen_card_corner_radius"
+                card_view:cardElevation="@dimen/main_screen_card_corner_elevation">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/card3title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/scheduled_night_profile"
+                        android:textColor="@color/colorAccent"
+                        android:textStyle="bold"
+                        android:layout_alignTop="@+id/profile_switch"
+                        android:layout_above="@+id/tv_content_3" />
+                    <Switch
+                        android:id="@+id/profile_switch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"/>
+                    <TextView
+                        android:id="@+id/tv_content_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/profile_switch"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/scheduled_profile_card_content" />
+                    <LinearLayout
+                        android:id="@+id/scheduled_profile_card_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_below="@id/tv_content_3"
+                        android:visibility="gone">
+                        <LinearLayout
+                            android:id="@+id/night_profile_time"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:weightSum="1">
+                            <TextView
+                                android:layout_width="80dp"
+                                android:layout_height="wrap_content"
+                                android:text="@string/active_time"/>
+                            <Button
+                                android:id="@+id/night_start_time"
+                                android:layout_width="wrap_content"
+                                android:layout_height="48dp"
+                                android:layout_weight="0.5"
+                                android:layout_marginStart="10dp"
+                                android:text="@string/start_time"
+                                style="?borderlessButtonStyle" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="-"
+                                android:textStyle="bold" />
+                            <Button
+                                android:id="@+id/night_end_time"
+                                android:layout_width="wrap_content"
+                                android:layout_height="48dp"
+                                android:layout_weight="0.5"
+                                android:text="@string/end_time"
+                                style="?borderlessButtonStyle" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/day"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginEnd="16dp">
+                            <TextView
+                                android:layout_width="80dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:text="@string/day_profile"/>
+                            <Spinner
+                                android:id="@+id/day_spinner"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="10dp"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="10dp"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/night"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginEnd="16dp">
+
+                            <TextView
+                                android:layout_width="80dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:text="@string/night_profile"
+                                android:id="@+id/textView" />
+
+                            <Spinner
+                                android:id="@+id/night_spinner"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="10dp"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                    <Button
+                        android:id="@+id/apply_schedule_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_below="@id/scheduled_profile_card_content"
+                        android:background="@color/restore_button"
+                        android:clickable="true"
+                        android:foreground="?android:selectableItemBackground"
+                        android:text="@string/apply"
+                        android:textColor="@color/restore_button_text_color" />
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>

@@ -111,4 +111,10 @@
         <item name="android:textColor">@color/fab_menu_text_color</item>
         <item name="android:drawablePadding">@dimen/sheet_item_image_spacing</item>
     </style>
+
+    <style name="AppTheme.Dialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
 </resources>

@@ -1239,4 +1239,24 @@ public class References {
             return null;
         }
     }
+
+    public static String parseTime(Context context, int hour, int minute) {
+        Locale locale;
+        String parse;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+            locale = context.getResources().getConfiguration().getLocales().get(0);
+        } else {
+            locale = context.getResources().getConfiguration().locale;
+        }
+
+        if (android.text.format.DateFormat.is24HourFormat(context)) {
+            parse = String.format(locale, "%02d:%02d", hour, minute);
+        } else {
+            String AM_PM = hour <= 12 ? "AM" : "PM";
+            hour = hour <= 12 ? hour : hour - 12;
+            parse = String.format(locale, "%d:%02d " + AM_PM, hour, minute);
+        }
+        return parse;
+    }
 }

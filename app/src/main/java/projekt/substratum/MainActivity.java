@@ -247,7 +247,6 @@ public class MainActivity extends AppCompatActivity implements
                 new PrimaryDrawerItem()
                         .withName(R.string.nav_backup_restore)
                         .withIcon(R.drawable.nav_drawer_profiles)
-                        .withEnabled(false)
                         .withIdentifier(11));
         drawerBuilder.addDrawerItems(
                 new SectionDrawerItem()
@@ -322,6 +321,7 @@ public class MainActivity extends AppCompatActivity implements
                     case 11:
                         switchFragment(getString(R.string.nav_backup_restore),
                                 "ProfileFragment");
+                        break;
                     case 12:
                         switchFragment(getString(R.string.nav_troubleshooting),
                                 "TroubleshootingFragment");

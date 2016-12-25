@@ -14,6 +14,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="true"
@@ -32,6 +33,7 @@
         <receiver android:name=".services.DetectionReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_ADDED" />
+
                 <data android:scheme="package" />
             </intent-filter>
         </receiver>
@@ -70,6 +72,7 @@
                 <data android:scheme="package" />
             </intent-filter>
         </receiver>
+        <receiver android:name=".services.ScheduledProfileReceiver" />
 
         <service
             android:name=".services.CookieTile"
@@ -101,6 +104,7 @@
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
             </intent-filter>
         </service>
+        <service android:name=".services.ScheduledProfileService" />
 
         <meta-data android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -211,5 +215,11 @@
         <activity
             android:name=".util.AppIntro"
             android:theme="@style/WelcomeScreenTheme" />
+        <activity
+            android:name=".ProfileErrorInfoActivity"
+            android:theme="@style/AppTheme.Dialog"
+            android:label="@string/restore_dialog_title"
+            android:excludeFromRecents="true" />
     </application>
+
 </manifest>

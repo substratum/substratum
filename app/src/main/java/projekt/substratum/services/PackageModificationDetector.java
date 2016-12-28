@@ -47,11 +47,11 @@ public class PackageModificationDetector extends BroadcastReceiver {
                     if (current.equals(context.getPackageName())) {
                         List<ApplicationInfo> list = context.getPackageManager()
                                 .getInstalledApplications(PackageManager.GET_META_DATA);
-                        for (ApplicationInfo packageInfo : list) {
-                            if ((packageInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
-                                getSubstratumPackages(context, packageInfo.packageName);
-                            }
-                        }
+                        list.stream().filter(packageInfo ->
+                                (packageInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0).forEach(
+                                packageInfo ->
+                                        getSubstratumPackages(context,
+                                                packageInfo.packageName));
                         String final_commands = References.disableOverlay();
                         for (int i = 0; i < to_be_disabled.size(); i++) {
                             final_commands = final_commands + " " + to_be_disabled.get(i);
@@ -87,17 +87,40 @@ public class PackageModificationDetector extends BroadcastReceiver {
                                 package_name + " [" + intent.getAction() + "]");
             } else {
                 Boolean found_valid_theme = false;
-                List<ResolveInfo> themes = References.getThemes(context);
-                for (int i = 0; i < themes.size(); i++) {
-                    if (themes.get(i).activityInfo.packageName.equals(package_name)) {
-                        SharedPreferences prefsPrivate = context.getSharedPreferences(
-                                "filter_state", Context.MODE_PRIVATE);
-                        prefsPrivate.edit().clear().apply();
-                        Log.d(References.SUBSTRATUM_LOG,
-                                "The filter cache has been wiped in accordance to intent:" +
-                                        " " + package_name + " [" +
-                                        intent.getAction() + "]");
-                        found_valid_theme = true;
+                if (prefs.getBoolean("display_old_themes", true)) {
+                    List<ResolveInfo> themes = References.getThemes(context);
+                    for (int i = 0; i < themes.size(); i++) {
+                        if (themes.get(i).activityInfo.packageName.equals(package_name)) {
+                            SharedPreferences prefsPrivate = context.getSharedPreferences(
+                                    "filter_state", Context.MODE_PRIVATE);
+                            prefsPrivate.edit().clear().apply();
+                            Log.d(References.SUBSTRATUM_LOG,
+                                    "The filter cache has been wiped in accordance to intent:" +
+                                            " " + package_name + " [" +
+                                            intent.getAction() + "]");
+                            found_valid_theme = true;
+                        }
+                    }
+                } else {
+                    try {
+                        ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
+                                package_name, PackageManager.GET_META_DATA);
+                        if (appInfo.metaData != null) {
+                            if (appInfo.metaData.getString(References.metadataName) != null) {
+                                if (appInfo.metaData.getString(References.metadataAuthor) != null) {
+                                    SharedPreferences prefsPrivate = context.getSharedPreferences(
+                                            "filter_state", Context.MODE_PRIVATE);
+                                    prefsPrivate.edit().clear().apply();
+                                    Log.d(References.SUBSTRATUM_LOG,
+                                            "The filter cache has been wiped in accordance to " +
+                                                    "intent: " + package_name + " [" +
+                                                    intent.getAction() + "]");
+                                    found_valid_theme = true;
+                                }
+                            }
+                        }
+                    } catch (Exception e) {
+                        // Exception
                     }
                 }
                 if (!found_valid_theme) {
@@ -115,11 +138,6 @@ public class PackageModificationDetector extends BroadcastReceiver {
                                     PendingIntent contentIntent = PendingIntent.getActivity(
                                             context, 0, showIntent, 0);
 
-                                    String parse = String.format(context.getString(
-                                            R.string.legacy_theme_notification_text),
-                                            appInfo.metaData.getString(
-                                                    References.metadataName));
-
                                     NotificationManager notificationManager =
                                             (NotificationManager) context.getSystemService(
                                                     Context.NOTIFICATION_SERVICE);
@@ -131,7 +149,8 @@ public class PackageModificationDetector extends BroadcastReceiver {
                                                             R.drawable.notification_warning_icon)
                                                     .setContentTitle(context.getString(
                                                             R.string.legacy_theme_notification_title))
-                                                    .setContentText(parse);
+                                                    .setContentText(context.getString(
+                                                            R.string.legacy_theme_notification_text));
                                     Notification notification = mBuilder.build();
                                     notificationManager.notify(
                                             References.notification_id, notification);

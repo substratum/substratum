@@ -11,6 +11,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
@@ -281,6 +282,7 @@ public class References {
         prefs.edit().putBoolean("vibrate_on_compiled", false).apply();
         prefs.edit().putBoolean("nougat_style_cards", false).apply();
         prefs.edit().putString("compiler", "aapt").apply();
+        prefs.edit().putBoolean("display_old_themes", true).apply();
         prefs = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
         prefs.edit().putBoolean("is_updating", false).apply();
     }
@@ -1053,6 +1055,118 @@ public class References {
 
         // Something bad happened. Aborting
         return false;
+    }
+
+    // This method checks whether these are legitimate packages for Substratum
+    @SuppressWarnings("unchecked")
+    public static HashMap<String, String[]> getSubstratumPackages(Context context,
+                                                                  String package_name,
+                                                                  HashMap packages,
+                                                                  String home_type,
+                                                                  Boolean old_algorithm) {
+        if (old_algorithm) {
+            // This algorithm was used during 490 and below and runs at a speed where the number of
+            // overlay packages installed would affect the theme reload time. We are keeping this to
+            // retain the old filter to show pre-6.0.0 themes.
+            try {
+                ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
+                        package_name, PackageManager.GET_META_DATA);
+                Context otherContext = context.createPackageContext(package_name, 0);
+                AssetManager am = otherContext.getAssets();
+                if (appInfo.metaData != null) {
+                    boolean can_continue = true;
+                    if (!References.checkOMS(context)) {
+                        if (appInfo.metaData.getBoolean(References.metadataLegacy, false)) {
+                            can_continue = false;
+                        }
+                    }
+                    if (can_continue) {
+                        if (appInfo.metaData.getString(References.metadataName) != null) {
+                            if (appInfo.metaData.getString(References.metadataAuthor) != null) {
+                                if (home_type.equals("wallpapers")) {
+                                    if (appInfo.metaData.getString(References.metadataWallpapers)
+                                            != null) {
+                                        String[] data = {appInfo.metaData.getString
+                                                (References.metadataAuthor), package_name};
+                                        packages.put(appInfo.metaData.getString(
+                                                References.metadataName), data);
+                                    }
+                                } else if (home_type.length() == 0) {
+                                    String[] data = {appInfo.metaData.getString
+                                            (References.metadataAuthor), package_name};
+                                    packages.put(appInfo.metaData.getString
+                                            (References.metadataName), data);
+                                    Log.d("Substratum Ready Theme", package_name);
+                                } else {
+                                    try {
+                                        String[] stringArray = am.list("");
+                                        if (Arrays.asList(stringArray).contains(home_type)) {
+                                            String[] data = {appInfo.metaData.getString
+                                                    (References.metadataAuthor), package_name};
+                                            packages.put(appInfo.metaData.getString
+                                                    (References.metadataName), data);
+                                        }
+                                    } catch (Exception e) {
+                                        Log.e(References.SUBSTRATUM_LOG,
+                                                "Unable to find package identifier");
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                // Exception
+            }
+        } else {
+            // This algorithm was used during 499 and above runs at a speed where the number of
+            // overlay packages installed DOES NOT affect the theme reload time.
+            try {
+                List<ResolveInfo> listOfThemes = References.getThemes(context);
+                for (ResolveInfo ri : listOfThemes) {
+                    String packageName = ri.activityInfo.packageName;
+                    ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
+                            packageName, PackageManager.GET_META_DATA);
+                    Context otherContext = context.createPackageContext(packageName, 0);
+                    AssetManager am = otherContext.getAssets();
+                    if (home_type.equals(References.wallpaperFragment)) {
+                        if (appInfo.metaData.getString(References.metadataWallpapers) != null) {
+                            String[] data = {appInfo.metaData.getString
+                                    (References.metadataAuthor),
+                                    packageName};
+                            packages.put(appInfo.metaData.getString(
+                                    References.metadataName), data);
+                        }
+                    } else {
+                        if (home_type.length() == 0) {
+                            String[] data = {appInfo.metaData.getString
+                                    (References.metadataAuthor),
+                                    packageName};
+                            packages.put(appInfo.metaData.getString
+                                    (References.metadataName), data);
+                            Log.d("Substratum Ready Theme", packageName);
+                        } else {
+                            try {
+                                String[] stringArray = am.list("");
+                                if (Arrays.asList(stringArray).contains(home_type)) {
+                                    String[] data = {appInfo.metaData.getString
+                                            (References.metadataAuthor),
+                                            packageName};
+                                    packages.put(appInfo.metaData.getString
+                                            (References.metadataName), data);
+                                }
+                            } catch (Exception e) {
+                                Log.e(References.SUBSTRATUM_LOG,
+                                        "Unable to find package identifier");
+                            }
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                // Exception
+            }
+        }
+        return packages;
     }
 
     @IgnoreExtraProperties

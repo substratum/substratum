@@ -284,6 +284,26 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     return false;
                 });
 
+        final CheckBoxPreference show_outdated_themes = (CheckBoxPreference)
+                getPreferenceManager().findPreference("show_outdated_themes");
+        if (prefs.getBoolean("display_old_themes", false)) {
+            show_outdated_themes.setChecked(true);
+        } else {
+            show_outdated_themes.setChecked(false);
+        }
+        show_outdated_themes.setOnPreferenceChangeListener(
+                (preference, newValue) -> {
+                    boolean isChecked = (Boolean) newValue;
+                    if (isChecked) {
+                        prefs.edit().putBoolean("display_old_themes", true).apply();
+                        show_outdated_themes.setChecked(true);
+                    } else {
+                        prefs.edit().putBoolean("display_old_themes", false).apply();
+                        show_outdated_themes.setChecked(false);
+                    }
+                    return false;
+                });
+
         final CheckBoxPreference alternate_drawer_design = (CheckBoxPreference)
                 getPreferenceManager().findPreference("alternate_drawer_design");
         if (prefs.getBoolean("alternate_drawer_design", false)) {

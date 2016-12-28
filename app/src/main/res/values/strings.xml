@@ -324,7 +324,8 @@
 
     <string name="coming_soon">Stolen by Char!</string>
     <string name="legacy_theme_notification_title">Deprecated Theme Warning</string>
-    <string name="legacy_theme_notification_text">%s is using an outdated theme plugin.</string>
+    <string name="legacy_theme_notification_text">To use outdated themes,
+        please enable it in Settings.</string>
 
     <string name="studio">icon pack studio (gamma)</string>
     <string name="studio_system">Restore System Icons</string>
@@ -646,6 +647,11 @@
     <string name="alternate_drawer_design_subtext">Uses an alternate navigation drawer design when
         navigating through the user interface.
     </string>
+
+    <string name="show_outdated_themes_title">Show all outdated themes</string>
+    <string name="show_outdated_themes_content">Disabling this would allow Substratum to utilize
+        the brand new algorithm where themes get loaded up much faster than usual. This will only
+        work for properly configured 6.0.0+ plugin themes.</string>
 
     <string name="fab_menu_compile">Compile Selected</string>
     <string name="fab_menu_compile_enable">Build &amp; Enable</string>

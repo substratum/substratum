@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
-import android.content.res.AssetManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -22,7 +20,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,12 +46,13 @@ public class ThemeFragment extends Fragment {
     private View cardView;
     private ViewGroup root;
     private String home_type = "";
+    private SharedPreferences prefs;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         if (prefs.getBoolean("nougat_style_cards", false)) {
             root = (ViewGroup) inflater.inflate(R.layout.home_fragment_n, container, false);
         } else {
@@ -118,54 +116,6 @@ public class ThemeFragment extends Fragment {
         return root;
     }
 
-    private void getSubstratumPackages(Context context) {
-        // Simulate the Layers Plugin feature by filtering all installed apps and their metadata
-        try {
-            List<ResolveInfo> listOfThemes = References.getThemes(context);
-            for (ResolveInfo ri : listOfThemes) {
-                String packageName = ri.activityInfo.packageName;
-                ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
-                        packageName, PackageManager.GET_META_DATA);
-                Context otherContext = getContext().createPackageContext(packageName, 0);
-                AssetManager am = otherContext.getAssets();
-                if (home_type.equals(References.wallpaperFragment)) {
-                    if (appInfo.metaData.getString(References.metadataWallpapers) != null) {
-                        String[] data = {appInfo.metaData.getString
-                                (References.metadataAuthor),
-                                packageName};
-                        substratum_packages.put(appInfo.metaData.getString(
-                                References.metadataName), data);
-                    }
-                } else {
-                    if (home_type.length() == 0) {
-                        String[] data = {appInfo.metaData.getString
-                                (References.metadataAuthor),
-                                packageName};
-                        substratum_packages.put(appInfo.metaData.getString
-                                (References.metadataName), data);
-                        Log.d("Substratum Ready Theme", packageName);
-                    } else {
-                        try {
-                            String[] stringArray = am.list("");
-                            if (Arrays.asList(stringArray).contains(home_type)) {
-                                String[] data = {appInfo.metaData.getString
-                                        (References.metadataAuthor),
-                                        packageName};
-                                substratum_packages.put(appInfo.metaData.getString
-                                        (References.metadataName), data);
-                            }
-                        } catch (Exception e) {
-                            Log.e(References.SUBSTRATUM_LOG,
-                                    "Unable to find package identifier");
-                        }
-                    }
-                }
-            }
-        } catch (Exception e) {
-            // Exception
-        }
-    }
-
     private ArrayList<ThemeInfo> prepareData() {
 
         ArrayList<ThemeInfo> themes = new ArrayList<>();
@@ -225,7 +175,28 @@ public class ThemeFragment extends Fragment {
         substratum_packages = new HashMap<>();
         list = packageManager.getInstalledApplications(PackageManager
                 .GET_META_DATA);
-        getSubstratumPackages(mContext);
+
+        if (prefs.getBoolean("display_old_themes", true)) {
+            list.stream().filter(packageInfo ->
+                    (packageInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0).forEach(packageInfo ->
+                    References.getSubstratumPackages(
+                            mContext,
+                            packageInfo.packageName,
+                            substratum_packages,
+                            home_type,
+                            true));
+            Log.d(References.SUBSTRATUM_LOG, "Substratum has loaded themes using the pre-499 " +
+                    "theme database filter");
+        } else {
+            References.getSubstratumPackages(
+                    mContext,
+                    null,
+                    substratum_packages,
+                    home_type,
+                    false);
+            Log.d(References.SUBSTRATUM_LOG, "Substratum has loaded themes using the post-499 " +
+                    "theme database filter");
+        }
 
         doCleanUp cleanUp = new doCleanUp();
         cleanUp.execute("");
@@ -276,7 +247,28 @@ public class ThemeFragment extends Fragment {
         @Override
         protected String doInBackground(String... sUrl) {
             try {
-                getSubstratumPackages(mContext);
+                if (prefs.getBoolean("display_old_themes", true)) {
+                    list.stream().filter(packageInfo ->
+                            (packageInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0).forEach(
+                            packageInfo ->
+                                    References.getSubstratumPackages(
+                                            mContext,
+                                            packageInfo.packageName,
+                                            substratum_packages,
+                                            home_type,
+                                            true));
+                    Log.d(References.SUBSTRATUM_LOG, "Substratum has loaded themes using the" +
+                            "pre-499 theme database filter");
+                } else {
+                    References.getSubstratumPackages(
+                            mContext,
+                            null,
+                            substratum_packages,
+                            home_type,
+                            false);
+                    Log.d(References.SUBSTRATUM_LOG, "Substratum has loaded themes using the " +
+                            "post-499 theme database filter");
+                }
             } catch (Exception e) {
                 // Exception
             }
@@ -297,8 +289,7 @@ public class ThemeFragment extends Fragment {
             // Overlays with non-existent targets
             for (int i = 0; i < state1.size(); i++) {
                 Log.e("OverlayCleaner", "Target APK not found for \"" + state1.get(i) + "\" and " +
-                        "will " +
-                        "be removed.");
+                        "will be removed.");
                 References.uninstallOverlay(state1.get(i));
             }
             return null;

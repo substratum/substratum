@@ -60,6 +60,13 @@
             android:summary="@string/show_theme_template_version_description"
             android:title="@string/show_theme_template_version" />
 
+        <CheckBoxPreference
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:key="show_outdated_themes"
+            android:summary="@string/show_outdated_themes_content"
+            android:title="@string/show_outdated_themes_title" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

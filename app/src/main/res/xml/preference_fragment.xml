@@ -86,6 +86,13 @@
             android:summary="@string/hide_app_icon_not_supported"
             android:title="@string/hide_app_icon" />
 
+        <CheckBoxPreference
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:key="show_outdated_themes"
+            android:summary="@string/show_outdated_themes_content"
+            android:title="@string/show_outdated_themes_title" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

@@ -28,16 +28,38 @@ import projekt.substratum.util.SubstratumThemeUpdater;
 public class DetectionReceiver extends BroadcastReceiver {
 
     private Context mContext;
+    private SharedPreferences prefs;
 
     @Override
     public void onReceive(Context context, Intent intent) {
         this.mContext = context;
         String package_name = intent.getData().toString().substring(8);
-        List<ResolveInfo> themes = References.getThemes(context);
-        for (int i = 0; i < themes.size(); i++) {
-            if (themes.get(i).activityInfo.packageName.equals(package_name)) {
-                MainFunction mainFunction = new MainFunction();
-                mainFunction.execute("");
+        prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+
+        if (prefs.getBoolean("display_old_themes", true)) {
+            try {
+                ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
+                        package_name, PackageManager.GET_META_DATA);
+                if (appInfo.metaData != null) {
+                    if (appInfo.metaData.getString(References.metadataName) != null) {
+                        if (appInfo.metaData.getString(References.metadataAuthor) != null) {
+                            Log.d("SubstratumDetector", "Substratum is now initializing: " +
+                                    package_name);
+                            MainFunction mainFunction = new MainFunction();
+                            mainFunction.execute("");
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                // Suppress warning
+            }
+        } else {
+            List<ResolveInfo> themes = References.getThemes(context);
+            for (int i = 0; i < themes.size(); i++) {
+                if (themes.get(i).activityInfo.packageName.equals(package_name)) {
+                    MainFunction mainFunction = new MainFunction();
+                    mainFunction.execute("");
+                }
             }
         }
     }
@@ -58,7 +80,6 @@ public class DetectionReceiver extends BroadcastReceiver {
             List<ApplicationInfo> list = packageManager.getInstalledApplications(PackageManager
                     .GET_META_DATA);
             List<String> installed = new ArrayList<>();
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
 
             for (ApplicationInfo packageInfo : list) {
                 try {
@@ -70,7 +91,7 @@ public class DetectionReceiver extends BroadcastReceiver {
                                 if (References.checkOMS(mContext)) {
                                     installed.add(packageInfo.packageName);
                                 } else if (appInfo.metaData.getBoolean(
-                                        References.metadataLegacy, false)) {
+                                        References.metadataLegacy, true)) {
                                     installed.add(packageInfo.packageName);
                                 } else {
                                     Log.e("SubstratumCacher", "Device is non-OMS, while an " +

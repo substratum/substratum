@@ -1076,7 +1076,7 @@ public class References {
                 if (appInfo.metaData != null) {
                     boolean can_continue = true;
                     if (!References.checkOMS(context)) {
-                        if (appInfo.metaData.getBoolean(References.metadataLegacy, false)) {
+                        if (!appInfo.metaData.getBoolean(References.metadataLegacy, true)) {
                             can_continue = false;
                         }
                     }

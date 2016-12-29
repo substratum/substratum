@@ -18,10 +18,10 @@ android {
 
     defaultConfig {
         applicationId "projekt.substratum"
-        minSdkVersion 23
+        minSdkVersion 24
         targetSdkVersion 25
-        versionCode 504
-        versionName "five hundred four"
+        versionCode 507
+        versionName "five hundred seven"
         renderscriptTargetApi 23
         renderscriptSupportModeEnabled true
     }

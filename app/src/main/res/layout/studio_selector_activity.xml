@@ -43,10 +43,6 @@
             android:orientation="vertical">
 
             <include
-                android:id="@+id/studio_custom"
-                layout="@layout/icon_studio_custom" />
-
-            <include
                 android:id="@+id/studio_system"
                 layout="@layout/icon_studio_system" />
 

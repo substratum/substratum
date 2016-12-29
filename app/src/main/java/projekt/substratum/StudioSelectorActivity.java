@@ -87,10 +87,6 @@ public class StudioSelectorActivity extends AppCompatActivity {
             toolbar.setNavigationOnClickListener((view) -> onBackPressed());
         }
 
-        View creative_mode = findViewById(R.id.studio_custom);
-        creative_mode.setClickable(false);
-        creative_mode.setEnabled(false);
-
         RelativeLayout none_found = (RelativeLayout) findViewById(R.id.pack_placeholder);
         none_found.setVisibility(View.GONE);
 

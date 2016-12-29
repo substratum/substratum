@@ -4,28 +4,28 @@
     <!-- AnimatedEditText -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_animatededittext_libraryDescription">This repository contains AnimatedEditText and TextDrawable all of which extend the behaviour of EditText and implement features that are otherwise not available.</string>
+    <string name="library_animatededittext_libraryDescription">Este repositorio contienen AnimatedEditText y TextDrawable, los cuales extienden el comportamiento de EditText e implementar características que de otro modo no están disponibles.</string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- commons-io -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_commons_io_libraryDescription">Commons IO is a library of utilities to assist with developing IO functionality.</string>
+    <string name="library_commons_io_libraryDescription">Commons IO es una biblioteca de utilidades para ayudar con el desarrollo de funcionalidad IO.</string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- FAB Speed Dial -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_fab_speed_dial_libraryDescription">A simple library marrying together FAB + menu resources + Speed dial metaphor from Material Design.</string>
+    <string name="library_fab_speed_dial_libraryDescription">Una simple biblioteca de conjuntos FAB + recursos de menú + metáfora velocidad de línea de Material Design.</string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- Gesture RecyclerView -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_gesturerecycler_libraryDescription">This library provides swipe &amp; drag and drop support for RecyclerView.</string>
+    <string name="library_gesturerecycler_libraryDescription">Esta biblioteca proporciona swipe y drag y drop brindado por RecyclerView.</string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
@@ -41,51 +41,62 @@
     <!-- libsuperuser -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_libsuperuser_libraryDescription">The goal of this library is to demonstrate techniques you may want to reuse in your root app that work around common problems, in as little code as possible.</string>
+    <string name="library_libsuperuser_libraryDescription">El objetivo de esta biblioteca es demostrar la técnica de que es posible que desee reutilización en su raíz de la aplicación de el trabajo en torno a los problemas más comunes, teniendo el mínimo de código como sea posible.</string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- Material Progress Bar -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_materialprogressbar_libraryDescription">Material Design ProgressBar with consistent appearance on Android 4.0+.</string>
+    <string name="library_materialprogressbar_libraryDescription">Material Design ProgressBar de apariencia consistente en Android 4.0+.</string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- Material Sheet Fab -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_materialsheetfab_libraryDescription">Library that implements the floating action button to sheet transition from Google\'s Material Design documentation. It can be used with any FAB library on Android 4.0+ (API levels &gt;= 14).</string>
+    <string name="library_materialsheetfab_libraryDescription">Biblioteca que implementa el botón de acción flotante para la transición de hojas de la documentación de Material Design de Google. Puede ser utilizado con cualquier biblioteca de Fab en Android 4.0 o superior (niveles de API&gt; = 14).</string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- Welcome -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_welcome_android_libraryDescription">An easy to use and customizable welcome screen for Android apps.</string>
+    <string name="library_welcome_android_libraryDescription">Facilidad para usar y pantalla de bienvenida personalizable para aplicaciones de Android.</string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- ZipSigner -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_zipsigner_libraryDescription">ZipSigner is an Android library for signing Zip, Apk, and/or Jar files on-board Android devices.</string>
+    <string name="library_zipsigner_libraryDescription">ZipSigner es una biblioteca de Android para la firma de los archivos Zip, APK, y/o archivos Jar a bordo de  dispositivos Android.</string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- ZT-Zip -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_zt_zip_libraryDescription">The project is built using java.util.zip.* packages for stream based access. Most convenience methods for filesystem usage is also supported.</string>
+    <string name="library_zt_zip_libraryDescription">El proyecto se construye a partir de java.util.zip. * basado en paquetes de flujo de acceso. También se admite la mayoría de los métodos de conveniencia para el uso del sistema de archivos.</string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- AV Loading Indicator View -->
     <!-- Author section -->
+    <string name="library_avloadingindicatorview_author">Jack Wang</string>
+    <string name="library_avloadingindicatorview_authorWebsite">http://hlong.xyz/</string>
     <!-- Library section -->
+    <string name="library_avloadingindicatorview_libraryName">AVLoadingIndicatorView</string>
+    <string name="library_avloadingindicatorview_libraryDescription">AVLoadingIndicatorView es una
+colección de animaciones de carga agradable para Android.</string>
+    <string name="library_avloadingindicatorview_libraryWebsite">https://github.com/81813780/AVLoadingIndicatorView</string>
+    <string name="library_avloadingindicatorview_libraryVersion">2.1.3</string>
     <!-- OpenSource section -->
+    <string name="library_avloadingindicatorview_isOpenSource">true</string>
+    <string name="library_avloadingindicatorview_repositoryLink">https://github.com/81813780/AVLoadingIndicatorView</string>
     <!-- ClassPath for autoDetect section -->
+    <string name="library_avloadingindicatorview_classPath">com.wang.avi:library</string>
     <!-- License section -->
+    <string name="library_avloadingindicatorview_licenseId">apache_2_0</string>
     <!-- BlurView -->
     <!-- Author section -->
     <!-- Library section -->
@@ -96,7 +107,7 @@
     <!-- Android Image Cropper -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_androidimagecropper_libraryDescription">Powerful (Zoom, Rotation, Multi-Source), customizable (Shape, Limits, Style), optimized (Async, Sampling, Matrix) and simple image cropping library for Android.</string>
+    <string name="library_androidimagecropper_libraryDescription">Powerful (Zoom, Rotation, Multi-Source), customizable (Shape, Limits, Style), optimized (Async, Sampling, Matrix) and simple image cropping library for Android</string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->

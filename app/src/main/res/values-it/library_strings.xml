@@ -4,28 +4,28 @@
     <!-- AnimatedEditText -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_animatededittext_libraryDescription">This repository contains AnimatedEditText and TextDrawable all of which extend the behaviour of EditText and implement features that are otherwise not available.</string>
+    <string name="library_animatededittext_libraryDescription">Questa repository contiene AnimatedEditText e TextDrawabls che estende il comportamento di EditText e implementa le funzioni che altrimenti non sarebbero disponibili</string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- commons-io -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_commons_io_libraryDescription">Commons IO is a library of utilities to assist with developing IO functionality.</string>
+    <string name="library_commons_io_libraryDescription">Commons IO è una libreria di utilità che assiste lo sviluppo della funzionalità IO.</string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- FAB Speed Dial -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_fab_speed_dial_libraryDescription">A simple library marrying together FAB + menu resources + Speed dial metaphor from Material Design.</string>
+    <string name="library_fab_speed_dial_libraryDescription">Una semplice libreria che sposa assieme FAB + manu risorse + quadrante metafora velocità dal Material Design.</string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- Gesture RecyclerView -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_gesturerecycler_libraryDescription">This library provides swipe &amp; drag and drop support for RecyclerView.</string>
+    <string name="library_gesturerecycler_libraryDescription">Questa libreria porta colpo &amp; resistenza e fa cadere il supporto per RecyclerView.</string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
@@ -34,49 +34,49 @@
     <string name="library_kenburnsview_author" formatted="false">Flávio Faria</string>
     <string name="library_kenburnsview_authorWebsite" formatted="false">https://plus.google.com/+Fl%C3%A1vioFaria1/posts</string>
     <!-- Library section -->
-    <string name="library_kenburnsview_libraryDescription">Android library that provides an extension to ImageView that creates an immersive experience by animating its drawable using the Ken Burns Effect.</string>
+    <string name="library_kenburnsview_libraryDescription">Libreria Android che porta un estensione Image View che crea una esperienza immersiva animando il suo disegno utilizzando il Ken Burns Effect.</string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- libsuperuser -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_libsuperuser_libraryDescription">The goal of this library is to demonstrate techniques you may want to reuse in your root app that work around common problems, in as little code as possible.</string>
+    <string name="library_libsuperuser_libraryDescription">Lo scopo di questa libreria è di dimostrare le tecniche che potresti voler usare nella tua app root che funziona attorno a comuni problemi, in un piccolo codice.</string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- Material Progress Bar -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_materialprogressbar_libraryDescription">Material Design ProgressBar with consistent appearance on Android 4.0+.</string>
+    <string name="library_materialprogressbar_libraryDescription">Material Design Barra di Progresso con un aspetto consistente su Android 4.0+.</string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- Material Sheet Fab -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_materialsheetfab_libraryDescription">Library that implements the floating action button to sheet transition from Google\'s Material Design documentation. It can be used with any FAB library on Android 4.0+ (API levels &gt;= 14).</string>
+    <string name="library_materialsheetfab_libraryDescription">Libreria che implementa il l\'azione fluttuante del bottone alla scheda transizione dalla documentazione del Material Design di Google. Può essere usata con qualsiasi libreria FAB su Android 4.0+. (API livelli &gt;= 14).</string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- Welcome -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_welcome_android_libraryDescription">An easy to use and customizable welcome screen for Android apps.</string>
+    <string name="library_welcome_android_libraryDescription">Una schermata di benvenuto per le applicazioni Android facile da usare e da personalizzare.</string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- ZipSigner -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_zipsigner_libraryDescription">ZipSigner is an Android library for signing Zip, Apk, and/or Jar files on-board Android devices.</string>
+    <string name="library_zipsigner_libraryDescription">ZipSigner è una libreria Android per firmare Zip,Apk e/o files Jar sui dispositivi Android.</string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- ZT-Zip -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_zt_zip_libraryDescription">The project is built using java.util.zip.* packages for stream based access. Most convenience methods for filesystem usage is also supported.</string>
+    <string name="library_zt_zip_libraryDescription">Il progetto è costruito usando Java.util.zip pacchetti per lo stream d\'accesso base. I più convenienti metodi di utlizzo del filesystem sono anche supportati.</string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
@@ -89,14 +89,14 @@
     <!-- BlurView -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_blurview_libraryDescription">Dynamic iOS-like blur of underlying Views for Android.</string>
+    <string name="library_blurview_libraryDescription">Dinamico come IOS-blur sottostante alle visualizzazioni per Android.</string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- Android Image Cropper -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_androidimagecropper_libraryDescription">Powerful (Zoom, Rotation, Multi-Source), customizable (Shape, Limits, Style), optimized (Async, Sampling, Matrix) and simple image cropping library for Android.</string>
+    <string name="library_androidimagecropper_libraryDescription">Powerful (zoom,rotazione,multi-sorgente), personalizzabile (shape,limiti,stili), ottimizato (async,sampling,matrix) e semplice immagine della libreria cropping per Android.</string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->

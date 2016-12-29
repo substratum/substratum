@@ -109,7 +109,7 @@ public class SubstratumBuilder {
                 Boolean errored = false;
                 try (BufferedReader br = new BufferedReader(new InputStreamReader(stderr))) {
                     while ((line = br.readLine()) != null) {
-                        if (line.contains("Boolean types not allowed") && !legacySwitch) {
+                        if (line.contains("types not allowed") && !legacySwitch) {
                             Log.e(References.SUBSTRATUM_BUILDER,
                                     "This overlay was designed using a legacy theming " +
                                             "style, now falling back to legacy compiler...");

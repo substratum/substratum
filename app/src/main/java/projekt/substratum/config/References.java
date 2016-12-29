@@ -72,6 +72,9 @@ public class References {
     public static String settingsSubstratumDrawableName = "ic_settings_substratum";
     private static String metadataVersion = "Substratum_Plugin";
     private static String metadataThemeReady = "Substratum_ThemeReady";
+    // SubstratumBuilder Specific
+    public static Boolean ENABLE_AOPT_OUTPUT = false;
+    public static String SUBSTRATUM_BUILDER = "SubstratumBuilder";
 
     // This method is used to determine whether there the system is initiated with OMS
     public static Boolean checkOMS(Context context) {

@@ -17,6 +17,7 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.service.notification.StatusBarNotification;
@@ -74,6 +75,7 @@ import projekt.substratum.util.SubstratumBuilder;
 
 import static android.content.Context.CLIPBOARD_SERVICE;
 import static projekt.substratum.config.References.REFRESH_WINDOW_DELAY;
+import static projekt.substratum.config.References.SUBSTRATUM_LOG;
 import static projekt.substratum.config.References.SYSTEMUI_PAUSE;
 import static projekt.substratum.util.MapUtils.sortMapByValues;
 
@@ -141,6 +143,14 @@ public class OverlaysList extends Fragment {
         TextView toggle_all_overlays_text = (TextView)
                 root.findViewById(R.id.toggle_all_overlays_text);
         toggle_all_overlays_text.setVisibility(View.VISIBLE);
+
+        File work_area = new File(Environment.getExternalStorageDirectory().getAbsolutePath() +
+                "/.substratum");
+        if (!work_area.exists()) {
+            boolean created = work_area.mkdir();
+            if (created) Log.d(SUBSTRATUM_LOG,
+                    "Updating the internal storage with proper file directories...");
+        }
 
         toggle_all = (Switch) root.findViewById(R.id.toggle_all_overlays);
         toggle_all.setOnCheckedChangeListener(

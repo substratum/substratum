@@ -40,7 +40,7 @@
                         android:id="@+id/tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginStart="16dp"
                         android:layout_marginTop="10dp"
                         android:text="@string/backup"
                         android:textColor="@color/colorAccent"
@@ -51,7 +51,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/tv"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginStart="16dp"
                         android:layout_marginTop="10dp"
                         android:text="@string/backup_card_content" />
 
@@ -60,7 +61,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/tv_content_1"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginStart="16dp"
                         android:layout_marginTop="20dp"
                         android:text="@string/profile_edittext_title" />
 
@@ -69,7 +70,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignTop="@+id/tv1"
-                        android:layout_marginEnd="10dp"
+                        android:layout_marginEnd="16dp"
                         android:layout_marginStart="5dp"
                         android:layout_marginTop="-11dp"
                         android:layout_toEndOf="@+id/tv1"
@@ -77,8 +78,8 @@
                         android:hint="@string/profile_edittext_hint"
                         android:imeOptions="actionNext"
                         android:inputType="textNoSuggestions"
+                        android:maxLines="1"
                         android:nextFocusDown="@+id/edittext2"
-                        android:singleLine="true"
                         android:textSize="15sp"
                         app:animateCursor="true"
                         app:animateTextClear="true"
@@ -119,7 +120,7 @@
                         android:id="@+id/tv3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginStart="16dp"
                         android:layout_marginTop="10dp"
                         android:text="@string/restore"
                         android:textColor="@color/colorAccent"
@@ -130,7 +131,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/tv3"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginStart="16dp"
                         android:layout_marginTop="10dp"
                         android:text="@string/restore_card_content" />
 

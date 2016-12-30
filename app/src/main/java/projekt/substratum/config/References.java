@@ -85,7 +85,7 @@ public class References {
     public static String metadataName = "Substratum_Name";
     public static String metadataAuthor = "Substratum_Author";
     public static String metadataLegacy = "Substratum_Legacy";
-    public static String metadataWallpapers = "Substratum_Wallpapers";
+    private static String metadataWallpapers = "Substratum_Wallpapers";
     // These strings control the nav drawer filter for ThemeFragment
     public static String homeFragment = "";
     public static String overlaysFragment = "overlays";
@@ -813,8 +813,6 @@ public class References {
         String[] checker = ShowMeYourFierceEyes.withSomeMascaraOn();
         for (String check : checker) {
             if (References.isPackageInstalled(context, check)) {
-                backupDebuggableStatistics(context, "luckypatcher-user",
-                        References.getDeviceIMEI(context), null);
                 return true;
             }
         }

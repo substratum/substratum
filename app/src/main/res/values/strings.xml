@@ -897,10 +897,10 @@
         substratum as much as we did while developing for it!
     </string>
 
-    <string name="scheduled_night_profile">Scheduled Night Profile</string>
+    <string name="scheduled_night_profile">Scheduled Contextual Profiles</string>
     <string name="scheduled_profile_card_content">This function gives you the possibility to
-        automatically apply selected profiles to be used as night profile on specified time.</string>
-    <string name="active_time">Active time</string>
+        automatically switch between profiles based on the time of day.</string>
+    <string name="active_time">Active times</string>
     <string name="start_time">Start</string>
     <string name="end_time">End</string>
     <string name="day_profile">Day profile</string>
@@ -908,10 +908,10 @@
     <string name="day">Day</string>
     <string name="night">Night</string>
     <string name="apply">Apply</string>
-    <string name="time_empty_warning">Please select start and end time!</string>
-    <string name="profile_empty_warning">Please select all the profile you want to use!</string>
+    <string name="time_empty_warning">Please configure Start and End times!</string>
+    <string name="profile_empty_warning">Please select all the profiles you want enabled!</string>
     <string name="profile_notification_title">%s profile</string>
-    <string name="profile_pending_notification">Profile will be changed after screen off</string>
-    <string name="profile_success_notification">Profile successfully applied</string>
-    <string name="profile_failed_notification">Profile failed to apply</string>
+    <string name="profile_pending_notification">Profile will be changed after screen is off.</string>
+    <string name="profile_success_notification">Profile successfully applied!</string>
+    <string name="profile_failed_notification">Profile failed to apply&#8230;</string>
 </resources>

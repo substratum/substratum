@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name">substratum</string>
-    <string name="masquerade">masquerade</string>
-    <string name="legacy_app_name">substratum legacy</string>
+    <string name="app_name" translatable="false">substratum</string>
+    <string name="masquerade" translatable="false">masquerade</string>
+    <string name="legacy_app_name" translatable="false">substratum legacy</string>
     <string name="showcase">community showcase</string>
     <string name="helper_name">substratum overlay helper</string>
-    <string name="drawer_name">projekt substratum</string>
+    <string name="drawer_name" translatable="false">projekt substratum</string>
     <string name="restore_app_name">restore theme</string>
 
     <string name="search_play_store_url" translatable="false">
@@ -289,17 +289,20 @@
     <string name="permission_explanation_title">Substratum Permissions</string>
     <string name="permission_explanation_text">You need to accept a few crucial permissions required
         by Substratum to function properly.\n\n<b>Storage: </b> Substratum needs to utilize your
-        internal storage to place temporary compilation caches, as well as storing your system
-        rescue archives, located in /storage/emulated/0/substratum/.\n\n<b>Phone: </b>Substratum
+        internal storage to store your system rescue archives, located in
+        /storage/emulated/0/substratum/.\n\n<b>Phone: </b>Substratum
         needs to read your device\'s IMEI and generate a unique ID from it. This is also used to
         verify licenses and mark your own overlays as your very own! <b>Substratum will never make
-            any phone calls nor read your phone numbers!</b>\n\n<b>Contacts: </b> Substratum
-        utilizes access of contacts for the bug report system to themers when you encounter an
-        issue. In conjunction with the phone permission, this also ensures that your device overlays
-        are intact.\n\n<b>Firebase: </b>Substratum utilizes Google\'s Firebase Analytics to gather
-        and analyze user experience data in order to improve core services and security enhancements
-        for future updates.\n\nIf you deny one of these permissions, Substratum may not be able to
-        function as expected.
+            any phone calls nor store your phone numbers!</b>\n\n<b>Contacts: </b> Substratum
+        utilizes the GET_ACCOUNTS permission to obtain an email account when an issue is raised.
+        In conjunction with the Firebase permission, this allows for the developers to identify from
+        Google Play\'s automatically sent bug reports to aid in issues. Unfortunately due to Android
+        7.0\'s changes in permissions, GET_ACCOUNT has been merged into the Contacts permission, and
+        ultimately the dialog will request to read contacts. <b>Substratum will never read or
+            transmit any of your contacts after the permission is granted!</b>\n\n<b>Firebase: </b>
+        Substratum utilizes Google\'s Firebase Analytics to gather and analyze user experience data
+        in order to improve core services and security enhancements for future updates.\n\nIf you
+        deny one of these permissions, Substratum may not function as expected.
     </string>
 
     <string name="priority_back_title">Back to overlays</string>

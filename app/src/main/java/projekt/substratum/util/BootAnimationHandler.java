@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.util.DisplayMetrics;
@@ -35,6 +36,7 @@ import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 import projekt.substratum.R;
+import projekt.substratum.config.MasqueradeService;
 import projekt.substratum.config.References;
 
 public class BootAnimationHandler {
@@ -305,19 +307,24 @@ public class BootAnimationHandler {
                 boolean is_encrypted = false;
                 File themeDirectory;
                 if (References.checkOMS(mContext)) {
-                    if (getDeviceEncryptionStatus() <= 1) {
-                        Log.d("BootAnimationHandler", "Data partition on the current device is " +
-                                "decrypted, using dedicated theme bootanimation slot...");
-                        themeDirectory = new File("/data/system/theme/");
-                        if (!themeDirectory.exists()) {
-                            References.mountRWData();
-                            References.createNewFolder("/data/system/theme/");
+                    if (References.checkMasquerade(mContext) <= 20) {
+                        if (getDeviceEncryptionStatus() <= 1) {
+                            Log.d("BootAnimationHandler", "Data partition on the current device " +
+                                    "is decrypted, using dedicated theme bootanimation slot...");
+                            themeDirectory = new File("/data/system/theme/");
+                            if (!themeDirectory.exists()) {
+                                References.mountRWData();
+                                References.createNewFolder("/data/system/theme/");
+                            }
+                        } else {
+                            Log.d("BootAnimationHandler", "Data partition on the current device " +
+                                    "is encrypted, using dedicated encrypted bootanimation " +
+                                    "slot...");
+                            is_encrypted = true;
+                            themeDirectory = new File("/system/media/");
                         }
                     } else {
-                        Log.d("BootAnimationHandler", "Data partition on the current device is " +
-                                "encrypted, using dedicated encrypted bootanimation slot...");
-                        is_encrypted = true;
-                        themeDirectory = new File("/system/media/");
+                        themeDirectory = null;
                     }
                 } else {
                     Log.d("BootAnimationHandler", "Current device is on substratum legacy, " +
@@ -336,6 +343,11 @@ public class BootAnimationHandler {
                             "NOT verified!");
                     has_failed = true;
                 }
+
+                References.move((mContext.getCacheDir()
+                        .getAbsolutePath() + "/BootAnimationCache/AnimationCreator/" + "scaled-"
+                        + bootanimation + ".zip"), Environment.getExternalStorageDirectory()
+                        .getAbsolutePath() + "/.substratum/bootanimation.zip");
 
                 if (!has_failed && (is_encrypted || !References.checkOMS(mContext))) {
                     References.mountRW();
@@ -401,18 +413,27 @@ public class BootAnimationHandler {
                 }
 
                 if (!has_failed) {
-                    References.mountRW();
-                    References.setPermissions(755, themeDirectory.getAbsolutePath());
-                    References.mountRW();
-                    References.move(mContext.getCacheDir()
-                                    .getAbsolutePath() + "/BootAnimationCache/AnimationCreator/"
-                                    + "scaled-" + bootanimation + ".zip",
-                            themeDirectory.getAbsolutePath() + "/bootanimation.zip");
-                    References.mountRW();
-                    References.setPermissions(644, themeDirectory.getAbsolutePath() +
-                            "/bootanimation.zip");
-                    References.mountRWData();
-                    References.setContext(themeDirectory.getAbsolutePath());
+                    if (References.checkMasquerade(mContext) >= 21) {
+                        Log.d("BootAnimationHandler",
+                                "No-root option has been enabled with the inclusion of " +
+                                        "masquerade v21+...");
+                        MasqueradeService.setBootAnimation(mContext,
+                                Environment.getExternalStorageDirectory().getAbsolutePath() +
+                                        "/.substratum/bootanimation.zip");
+                    } else {
+                        References.mountRW();
+                        References.setPermissions(755, themeDirectory.getAbsolutePath());
+                        References.mountRW();
+                        References.move(mContext.getCacheDir()
+                                        .getAbsolutePath() + "/BootAnimationCache/AnimationCreator/"
+                                        + "scaled-" + bootanimation + ".zip",
+                                themeDirectory.getAbsolutePath() + "/bootanimation.zip");
+                        References.mountRW();
+                        References.setPermissions(644, themeDirectory.getAbsolutePath() +
+                                "/bootanimation.zip");
+                        References.mountRWData();
+                        References.setContext(themeDirectory.getAbsolutePath());
+                    }
                 }
             }
 
@@ -421,6 +442,7 @@ public class BootAnimationHandler {
                 editor.putString("bootanimation_applied", theme_pid);
                 editor.apply();
                 Log.d("BootAnimationHandler", "Boot animation installed!");
+                // TODO: Remove rm -rf call to delete our own cache file
                 References.delete(mContext.getCacheDir().getAbsolutePath() +
                         "/BootAnimationCache/AnimationCreator/");
             } else {

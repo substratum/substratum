@@ -75,15 +75,13 @@ public class MasqueradeService {
         context.startService(masqIntent);
     }
 
-    public static void setBootAnimation(Context context, String bootanimation, String package_name) {
+    public static void setBootAnimation(Context context, String bootanimation_location) {
         Intent masqIntent = getMasquerade(context);
         masqIntent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_BOOTANIMATION);
         boolean useThemed = true;
         if (useThemed) {
             // going to set a themed bootanim
-            String fileName = bootanimation;
-            String pid = package_name;
-            masqIntent.putExtra(BOOTANIMATION_PID_KEY, pid);
+            String fileName = bootanimation_location;
             masqIntent.putExtra(BOOTANIMATION_FILE_NAME, fileName);
         } else {
             // nothing. to reset to stock, just don't add PID and FILE

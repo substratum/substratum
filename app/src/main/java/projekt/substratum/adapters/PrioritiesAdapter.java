@@ -65,7 +65,7 @@ public class PrioritiesAdapter extends GestureAdapter<PrioritiesItem, GestureVie
                     String packageTitle = mContext.getPackageManager().getApplicationLabel
                             (applicationInfo).toString();
                     if (applicationInfo.metaData != null) {
-                        if (applicationInfo.metaData.getString("Substratum_ID") != null) {
+                        if (applicationInfo.metaData.getString("Substratum_Device") != null) {
                             prioritiesViewHolder.mCardText.setText(priorities.getName());
                         } else {
                             prioritiesViewHolder.mCardText.setText(packageTitle + " (" +

@@ -7,7 +7,6 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
-import android.provider.Settings;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -95,24 +94,21 @@ public class AntiPiracyCheck {
                 ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
                         package_name, PackageManager.GET_META_DATA);
                 if (appInfo.metaData != null &&
-                        appInfo.metaData.getString("Substratum_ID") != null) {
-                    String deviceID = appInfo.metaData.getString("Substratum_ID");
-                    String actualDeviceID = Settings.Secure.ANDROID_ID;
+                        appInfo.metaData.getString("Substratum_Device") != null) {
+                    String deviceID = appInfo.metaData.getString("Substratum_Device");
+                    String actualDeviceID = References.getDeviceID(context);
                     if (deviceID != null && deviceID.equals(actualDeviceID)) {
-                        if (appInfo.metaData.getString("Substratum_IMEI") != null) {
-                            String imei = appInfo.metaData.getString("Substratum_IMEI");
-                            String manifest = "!" + References.getDeviceIMEI(mContext);
-                            if (imei != null && References.getDeviceIMEI(mContext) != null &&
-                                    imei.equals(manifest)) {
-                                if (appInfo.metaData.getString("Substratum_Parent") != null
-                                        && !References.isPackageInstalled(context,
-                                        appInfo.metaData.getString("Substratum_Parent"))) {
-                                    Log.d("OverlayVerification", package_name + " " +
-                                            "unauthorized to be used on this device.");
-                                    unauthorized_packages.add(package_name);
-                                }
-                            }
+                        if (appInfo.metaData.getString("Substratum_Parent") != null
+                                && !References.isPackageInstalled(context,
+                                appInfo.metaData.getString("Substratum_Parent"))) {
+                            Log.d("OverlayVerification", package_name + " " +
+                                    "unauthorized to be used on this device.");
+                            unauthorized_packages.add(package_name);
                         }
+                    } else {
+                        Log.d("OverlayVerification", package_name + " " +
+                                "unauthorized to be used on this device.");
+                        unauthorized_packages.add(package_name);
                     }
                 }
             } catch (Exception e) {

@@ -337,14 +337,14 @@ public class InformationActivity extends AppCompatActivity {
             References.backupDebuggableStatistics(
                     getApplicationContext(),
                     "bannable-offence",
-                    References.getDeviceIMEI(getApplicationContext()),
+                    References.getDeviceID(getApplicationContext()),
                     theme_name);
         } else if (
                 References.isOffensive(theme_author)) {
             References.backupDebuggableStatistics(
                     getApplicationContext(),
                     "bannable-offence",
-                    References.getDeviceIMEI(getApplicationContext()),
+                    References.getDeviceID(getApplicationContext()),
                     theme_author);
         }
 

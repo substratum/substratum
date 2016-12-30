@@ -23,6 +23,8 @@ import java.util.HashMap;
 import kellinwood.security.zipsigner.ZipSigner;
 import projekt.substratum.config.References;
 
+import static projekt.substratum.config.References.getDeviceID;
+
 public class SubstratumIconBuilder {
 
     public Boolean has_errored_out = false;
@@ -248,9 +250,8 @@ public class SubstratumIconBuilder {
                                     "android:targetPackage=\"" + overlay_package + "\"/>\n" +
                                     "    <application android:label=\"" + parsedIconName + "" +
                                     "\">\n" +
-                                    "        <meta-data android:name=\"Substratum_IMEI\" " +
-                                    "android:value=\"!" +
-                                    References.getDeviceIMEI(context) + "\"/>\n" +
+                                    "        <meta-data android:name=\"Substratum_Device\" " +
+                                    "android:value=\"" + getDeviceID(context) + "\"/>\n" +
                                     "        <meta-data android:name=\"Substratum_IconPack\" " +
                                     "android:value=\"" + theme_pack + "\"/>\n" +
                                     "    </application>\n" +

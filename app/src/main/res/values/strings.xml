@@ -286,20 +286,17 @@
 
     <string name="accept">Accept</string>
     <string name="deny">Deny</string>
-    <string name="permission_explanation_title">Substratum Permissions</string>
+    <string name="permission_explanation_title">Permissions Overview</string>
     <string name="permission_explanation_text">You need to accept a few crucial permissions required
         by Substratum to function properly.\n\n<b>Storage: </b> Substratum needs to utilize your
         internal storage to store your system rescue archives, located in
-        /storage/emulated/0/substratum/.\n\n<b>Phone: </b>Substratum
-        needs to read your device\'s IMEI and generate a unique ID from it. This is also used to
-        verify licenses and mark your own overlays as your very own! <b>Substratum will never make
-            any phone calls nor store your phone numbers!</b>\n\n<b>Contacts: </b> Substratum
+        /storage/emulated/0/substratum/.\n\n<b>Get Accounts (Contacts): </b> Substratum
         utilizes the GET_ACCOUNTS permission to obtain an email account when an issue is raised.
         In conjunction with the Firebase permission, this allows for the developers to identify from
-        Google Play\'s automatically sent bug reports to aid in issues. Unfortunately due to Android
-        7.0\'s changes in permissions, GET_ACCOUNT has been merged into the Contacts permission, and
-        ultimately the dialog will request to read contacts. <b>Substratum will never read or
-            transmit any of your contacts after the permission is granted!</b>\n\n<b>Firebase: </b>
+        Google Play\'s automatically sent bug reports to aid in user issues. Unfortunately due to
+        Android 7.0\'s changes in permissions, GET_ACCOUNTS has been merged into the Contacts
+        permission, ultimately showing a request to read contacts. <b>Substratum will never read or
+            transmit any of your contacts</b>\n\n<b>Firebase: </b>
         Substratum utilizes Google\'s Firebase Analytics to gather and analyze user experience data
         in order to improve core services and security enhancements for future updates.\n\nIf you
         deny one of these permissions, Substratum may not function as expected.

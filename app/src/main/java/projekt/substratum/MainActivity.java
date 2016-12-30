@@ -59,10 +59,9 @@ public class MainActivity extends AppCompatActivity implements
         ActivityCompat.OnRequestPermissionsResultCallback {
 
     private static final int PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
-    private static final int PERMISSIONS_REQUEST_READ_PHONE_STATE = 2;
-    private static final int PERMISSIONS_REQUEST_GET_ACCOUNTS = 3;
+    private static final int PERMISSIONS_REQUEST_GET_ACCOUNTS = 2;
     private Drawer drawer;
-    private int permissionCheck, permissionCheck2, permissionCheck3;
+    private int permissionCheck, permissionCheck2;
     private ProgressDialog mProgressDialog;
     private SharedPreferences prefs;
 
@@ -360,9 +359,6 @@ public class MainActivity extends AppCompatActivity implements
                                 Manifest.permission.WRITE_EXTERNAL_STORAGE);
                         permissionCheck2 = ContextCompat.checkSelfPermission(
                                 getApplicationContext(),
-                                Manifest.permission.READ_PHONE_STATE);
-                        permissionCheck3 = ContextCompat.checkSelfPermission(
-                                getApplicationContext(),
                                 Manifest.permission.GET_ACCOUNTS);
 
                         if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
@@ -404,26 +400,19 @@ public class MainActivity extends AppCompatActivity implements
                             }
                             if (permissionCheck2 == PackageManager.PERMISSION_GRANTED) {
                                 // permission already granted, allow the program to continue
-                                if (permissionCheck3 == PackageManager.PERMISSION_GRANTED) {
-                                    // permission already granted, allow the program to continue
-                                    // Set the first option to start at app boot
-                                    if (!prefs.contains("permissions_ungranted")) {
-                                        prefs.edit()
-                                                .putBoolean("permissions_ungranted", false).apply();
-                                    }
-                                    drawer.setSelectionAtPosition(1);
-                                    mProgressDialog = new ProgressDialog(this,
-                                            R.style.SubstratumBuilder_BlurView);
-                                    new RootRequester().execute("");
-                                } else {
-                                    ActivityCompat.requestPermissions(this,
-                                            new String[]{Manifest.permission.GET_ACCOUNTS},
-                                            PERMISSIONS_REQUEST_GET_ACCOUNTS);
+                                // Set the first option to start at app boot
+                                if (!prefs.contains("permissions_ungranted")) {
+                                    prefs.edit()
+                                            .putBoolean("permissions_ungranted", false).apply();
                                 }
+                                drawer.setSelectionAtPosition(1);
+                                mProgressDialog = new ProgressDialog(this,
+                                        R.style.SubstratumBuilder_BlurView);
+                                new RootRequester().execute("");
                             } else {
                                 ActivityCompat.requestPermissions(this,
-                                        new String[]{Manifest.permission.READ_PHONE_STATE},
-                                        PERMISSIONS_REQUEST_READ_PHONE_STATE);
+                                        new String[]{Manifest.permission.GET_ACCOUNTS},
+                                        PERMISSIONS_REQUEST_GET_ACCOUNTS);
                             }
                         } else {
                             ActivityCompat.requestPermissions(this,
@@ -509,8 +498,7 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         if (permissionCheck == PackageManager.PERMISSION_GRANTED &&
-                permissionCheck2 == PackageManager.PERMISSION_GRANTED &&
-                permissionCheck3 == PackageManager.PERMISSION_GRANTED) {
+                permissionCheck2 == PackageManager.PERMISSION_GRANTED) {
             //add the values which need to be saved from the drawer to the bundle
             outState = drawer.saveInstanceState(outState);
             super.onSaveInstanceState(outState);
@@ -609,42 +597,6 @@ public class MainActivity extends AppCompatActivity implements
                     Log.d("SubstratumBuilder", "The cache has been flushed!");
                     if (permissionCheck2 == PackageManager.PERMISSION_GRANTED) {
                         // permission already granted, allow the program to continue running
-                        if (permissionCheck3 == PackageManager.PERMISSION_GRANTED) {
-                            // permission already granted, allow the program to continue running
-                            // Set the first option to start at app boot
-                            if (!prefs.contains("permissions_ungranted")) {
-                                prefs.edit().putBoolean("permissions_ungranted", false).apply();
-                            }
-                            drawer.setSelectionAtPosition(1);
-                            if (References.spreadYourWingsAndFly(getApplicationContext())) {
-                                LetsGetStarted.kissMe();
-                            }
-                        } else {
-                            ActivityCompat.requestPermissions(this,
-                                    new String[]{Manifest.permission.GET_ACCOUNTS},
-                                    PERMISSIONS_REQUEST_GET_ACCOUNTS);
-                        }
-                    } else {
-                        ActivityCompat.requestPermissions(this,
-                                new String[]{Manifest.permission.READ_PHONE_STATE},
-                                PERMISSIONS_REQUEST_READ_PHONE_STATE);
-                    }
-                } else {
-                    // permission was not granted, show closing dialog
-                    new AlertDialog.Builder(this)
-                            .setTitle(R.string.permission_not_granted_dialog_title)
-                            .setMessage(R.string.permission_not_granted_dialog_message1)
-                            .setPositiveButton(R.string.dialog_ok, (dialog, which) -> MainActivity.this.finish())
-                            .show();
-                    return;
-                }
-                break;
-            }
-            case PERMISSIONS_REQUEST_READ_PHONE_STATE: {
-                if (grantResults.length > 0 &&
-                        grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    if (permissionCheck3 == PackageManager.PERMISSION_GRANTED) {
-                        // permission already granted, allow the program to continue running
                         // Set the first option to start at app boot
                         if (!prefs.contains("permissions_ungranted")) {
                             prefs.edit().putBoolean("permissions_ungranted", false).apply();
@@ -662,7 +614,7 @@ public class MainActivity extends AppCompatActivity implements
                     // permission was not granted, show closing dialog
                     new AlertDialog.Builder(this)
                             .setTitle(R.string.permission_not_granted_dialog_title)
-                            .setMessage(R.string.permission_not_granted_dialog_message2)
+                            .setMessage(R.string.permission_not_granted_dialog_message1)
                             .setPositiveButton(R.string.dialog_ok, (dialog, which) -> MainActivity.this.finish())
                             .show();
                     return;

@@ -2,7 +2,6 @@ package projekt.substratum.util;
 
 import android.content.Context;
 import android.os.Environment;
-import android.provider.Settings;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -20,19 +19,16 @@ import java.util.Arrays;
 import kellinwood.security.zipsigner.ZipSigner;
 import projekt.substratum.config.References;
 
+import static projekt.substratum.config.References.getDeviceID;
+
 public class SubstratumBuilder {
 
     public Boolean has_errored_out = false;
-    public Boolean check_fallback = false;
     public String no_install = "";
     private String error_logs = "";
 
     public String getErrorLogs() {
         return error_logs;
-    }
-
-    private String getDeviceID() {
-        return Settings.Secure.ANDROID_ID;
     }
 
     private void dumpErrorLogs(String tag, String overlay, String message) {
@@ -285,11 +281,8 @@ public class SubstratumBuilder {
                                         overlay_package + "." + parse2_themeName +
                                         parse2_variantName + parse2_baseName +
                                         "\">\n" +
-                                        "        <meta-data android:name=\"Substratum_ID\" " +
-                                        "android:value=\"" + getDeviceID() + "\"/>\n" +
-                                        "        <meta-data android:name=\"Substratum_IMEI\" " +
-                                        "android:value=\"!" +
-                                        References.getDeviceIMEI(context) + "\"/>\n" +
+                                        "        <meta-data android:name=\"Substratum_Device\" " +
+                                        "android:value=\"" + getDeviceID(context) + "\"/>\n" +
                                         "        <meta-data android:name=\"Substratum_Parent\" " +
                                         "android:value=\"" + theme_parent + "\"/>\n" +
                                         "        <meta-data android:name=\"" +
@@ -326,11 +319,8 @@ public class SubstratumBuilder {
                                             parse2_themeName + parse2_variantName +
                                             parse2_baseName +
                                             "\">\n" +
-                                            "        <meta-data android:name=\"Substratum_ID\" " +
-                                            "android:value=\"" + getDeviceID() + "\"/>\n" +
-                                            "        <meta-data android:name=\"Substratum_IMEI\" " +
-                                            "android:value=\"!" +
-                                            References.getDeviceIMEI(context) + "\"/>\n" +
+                                            "        <meta-data android:name=\"Substratum_Device\" " +
+                                            "android:value=\"" + getDeviceID(context) + "\"/>\n" +
                                             "        <meta-data " +
                                             "android:name=\"Substratum_Parent\" " +
                                             "android:value=\"" + theme_parent + "\"/>\n" +
@@ -364,11 +354,8 @@ public class SubstratumBuilder {
                                             + "" +
                                             "." +
                                             parse2_themeName + "\">\n" +
-                                            "        <meta-data android:name=\"Substratum_ID\" " +
-                                            "android:value=\"" + getDeviceID() + "\"/>\n" +
-                                            "        <meta-data android:name=\"Substratum_IMEI\" " +
-                                            "android:value=\"!" +
-                                            References.getDeviceIMEI(context) + "\"/>\n" +
+                                            "        <meta-data android:name=\"Substratum_Device\" " +
+                                            "android:value=\"" + getDeviceID(context) + "\"/>\n" +
                                             "        <meta-data " +
                                             "android:name=\"Substratum_Parent\" " +
                                             "android:value=\"" + theme_parent + "\"/>\n" +

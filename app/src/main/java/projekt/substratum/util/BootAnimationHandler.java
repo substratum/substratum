@@ -344,10 +344,12 @@ public class BootAnimationHandler {
                     has_failed = true;
                 }
 
-                References.move((mContext.getCacheDir()
-                        .getAbsolutePath() + "/BootAnimationCache/AnimationCreator/" + "scaled-"
-                        + bootanimation + ".zip"), Environment.getExternalStorageDirectory()
-                        .getAbsolutePath() + "/.substratum/bootanimation.zip");
+                if (References.checkMasquerade(mContext) >= 21) {
+                    References.move((mContext.getCacheDir()
+                            .getAbsolutePath() + "/BootAnimationCache/AnimationCreator/" + "scaled-"
+                            + bootanimation + ".zip"), Environment.getExternalStorageDirectory()
+                            .getAbsolutePath() + "/.substratum/bootanimation.zip");
+                }
 
                 if (!has_failed && (is_encrypted || !References.checkOMS(mContext))) {
                     References.mountRW();

@@ -18,7 +18,7 @@ public class ViewAnimationUtils {
             protected void applyTransformation(float interpolatedTime, Transformation t) {
                 view.getLayoutParams().height = interpolatedTime == 1
                         ? ViewGroup.LayoutParams.WRAP_CONTENT
-                        : (int)(targetHeight * interpolatedTime);
+                        : (int) (targetHeight * interpolatedTime);
                 view.requestLayout();
             }
 
@@ -38,10 +38,10 @@ public class ViewAnimationUtils {
         Animation animation = new Animation() {
             @Override
             protected void applyTransformation(float interpolatedTime, Transformation t) {
-                if(interpolatedTime == 1){
+                if (interpolatedTime == 1) {
                     view.setVisibility(View.GONE);
-                }else{
-                    view.getLayoutParams().height = initialHeight - (int)(initialHeight *
+                } else {
+                    view.getLayoutParams().height = initialHeight - (int) (initialHeight *
                             interpolatedTime);
                     view.requestLayout();
                 }

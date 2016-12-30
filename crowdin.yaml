@@ -1,0 +1,8 @@
+files:
+  - source: /app/src/main/res/values/
+    ignore:
+      - /app/src/main/res/values/bools.xml
+      - /app/src/main/res/values/colors.xml
+      - /app/src/main/res/values/dimens.xml
+      - /app/src/main/res/values/styles.xml
+    translation: /app/src/main/res/values-%android_code%/%original_file_name%

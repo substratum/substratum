@@ -226,11 +226,11 @@
     <string name="settings_aapt">AAPT (Stable)</string>
     <string name="settings_aopt">AOPT (Cutting Edge)</string>
 
-    <string name="theme_information_tab_two">Overlay Manager</string>
-    <string name="theme_information_tab_three">Boot animations</string>
-    <string name="theme_information_tab_four">Font Packs</string>
-    <string name="theme_information_tab_five">Sound Packs</string>
-    <string name="theme_information_tab_six">Wallpapers</string>
+    <string name="theme_information_tab_one">Overlay Manager</string>
+    <string name="theme_information_tab_two">Boot animations</string>
+    <string name="theme_information_tab_three">Font Packs</string>
+    <string name="theme_information_tab_four">Sound Packs</string>
+    <string name="theme_information_tab_five">Wallpapers</string>
 
     <string name="nougat_style_cards_title">Nougat Style Card Layout</string>
     <string name="nougat_style_cards_subtext">Enable Android Nougat Notification styled theme

@@ -63,10 +63,10 @@ public class AOPTCheck {
             } else {
                 // Take account for x86 devices
                 try {
-                    copyAOPT("aapt-x86");
+                    copyAOPT("aapt86");
                     References.mountRW();
                     References.copy(context.getFilesDir().getAbsolutePath() +
-                            "/aopt-x86", "/system/bin/aopt");
+                            "/aapt86", "/system/bin/aopt");
                     References.setPermissions(777, "/system/bin/aopt");
                     References.mountRO();
                     Log.d(References.SUBSTRATUM_LOG, "Android Assets Packaging Tool (x86) has " +
@@ -126,10 +126,10 @@ public class AOPTCheck {
                 } else {
                     // Take account for x86 devices
                     try {
-                        copyAOPT("aopt-x86");
+                        copyAOPT("aapt86");
                         References.mountRW();
                         References.copy(context.getFilesDir().getAbsolutePath() +
-                                "/aopt-x86", "/system/bin/aopt");
+                                "/aapt86", "/system/bin/aopt");
                         References.setPermissions(777, "/system/bin/aopt");
                         References.mountRO();
                         Log.d(References.SUBSTRATUM_LOG, "Android Assets Packaging Tool (x86) has" +

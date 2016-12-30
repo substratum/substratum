@@ -21,7 +21,7 @@ android {
         minSdkVersion 24
         targetSdkVersion 25
         versionCode 517
-        versionName "five hundred seventeen - izar"
+        versionName "five hundred seventeen"
         renderscriptTargetApi 23
         renderscriptSupportModeEnabled true
     }

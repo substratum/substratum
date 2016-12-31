@@ -23,8 +23,6 @@ import java.util.HashMap;
 import kellinwood.security.zipsigner.ZipSigner;
 import projekt.substratum.config.References;
 
-import static projekt.substratum.config.References.getDeviceID;
-
 public class SubstratumIconBuilder {
 
     public Boolean has_errored_out = false;
@@ -237,25 +235,14 @@ public class SubstratumIconBuilder {
                  PrintWriter pw = new PrintWriter(bw)) {
                 Boolean created = root.createNewFile();
                 if (!created) {
-                    int legacy_priority = 80;
-                    String manifest =
-                            "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?>\n" +
-                                    "<manifest xmlns:android=\"http://schemas.android" +
-                                    ".com/apk/res/android\" package=\"" + overlay_package + "" +
-                                    ".icon" + "\"\n" +
-                                    "        android:versionName=\"" + theme_pack + " (" +
-                                    versionName + "\"> \n" +
-                                    "    <overlay " + ((!theme_oms) ? "android:priority=\"" +
-                                    legacy_priority + "\" " : "") +
-                                    "android:targetPackage=\"" + overlay_package + "\"/>\n" +
-                                    "    <application android:label=\"" + parsedIconName + "" +
-                                    "\">\n" +
-                                    "        <meta-data android:name=\"Substratum_Device\" " +
-                                    "android:value=\"" + getDeviceID(context) + "\"/>\n" +
-                                    "        <meta-data android:name=\"Substratum_IconPack\" " +
-                                    "android:value=\"" + theme_pack + "\"/>\n" +
-                                    "    </application>\n" +
-                                    "</manifest>\n";
+                    String manifest = CommandCompiler.createIconOverlayManifest(
+                            context,
+                            overlay_package,
+                            theme_pack,
+                            versionName,
+                            parsedIconName,
+                            theme_oms,
+                            80);
                     pw.write(manifest);
                 }
             } catch (Exception e) {

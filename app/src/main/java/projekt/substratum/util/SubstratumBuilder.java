@@ -19,8 +19,6 @@ import java.util.Arrays;
 import kellinwood.security.zipsigner.ZipSigner;
 import projekt.substratum.config.References;
 
-import static projekt.substratum.config.References.getDeviceID;
-
 public class SubstratumBuilder {
 
     public Boolean has_errored_out = false;
@@ -48,40 +46,30 @@ public class SubstratumBuilder {
                                        int typeMode, boolean legacySwitch) {
         String commands;
         if (typeMode == 1) {
-            commands = "aopt p " +
-                    "-M " + work_area + "/AndroidManifest.xml " +
-                    "-S " + work_area + "/workdir/ " +
-                    "-I " + "/system/framework/framework-res.apk " +
-                    ((legacySwitch) ? "" : "-I " + targetPkg + " ") +
-                    "-F " + work_area + "/" + overlay_package +
-                    "." + theme_name + "-unsigned.apk " +
-                    "-f --include-meta-data --auto-add-overlay" +
-                    ((References.ENABLE_AOPT_OUTPUT) ? " -v" : "") +
-                    "\n";
+            commands = CommandCompiler.createAOPTShellCommands(
+                    work_area,
+                    targetPkg,
+                    overlay_package,
+                    theme_name,
+                    legacySwitch,
+                    null);
         } else {
             if (variant != null) {
-                commands = "aopt p " +
-                        "-M " + work_area + "/AndroidManifest.xml " +
-                        "-S " + work_area + "/" + "type2_" + additional_variant + "/ " +
-                        "-S " + work_area + "/workdir/ " +
-                        "-I " + "/system/framework/framework-res.apk " +
-                        ((legacySwitch) ? "" : "-I " + targetPkg + " ") +
-                        "-F " + work_area + "/" + overlay_package + "." +
-                        theme_name + "-unsigned.apk " +
-                        "-f --include-meta-data --auto-add-overlay" +
-                        ((References.ENABLE_AOPT_OUTPUT) ? " -v" : "") +
-                        "\n";
+                commands = CommandCompiler.createAOPTShellCommands(
+                        work_area,
+                        targetPkg,
+                        overlay_package,
+                        theme_name,
+                        legacySwitch,
+                        additional_variant);
             } else {
-                commands = "aopt p " +
-                        "-M " + work_area + "/AndroidManifest.xml " +
-                        "-S " + work_area + "/workdir/ " +
-                        "-I " + "/system/framework/framework-res.apk " +
-                        ((legacySwitch) ? "" : "-I " + targetPkg + " ") +
-                        "-F " + work_area + "/" + overlay_package +
-                        "." + theme_name + "-unsigned.apk " +
-                        "-f --include-meta-data --auto-add-overlay" +
-                        ((References.ENABLE_AOPT_OUTPUT) ? " -v" : "") +
-                        "\n";
+                commands = CommandCompiler.createAOPTShellCommands(
+                        work_area,
+                        targetPkg,
+                        overlay_package,
+                        theme_name,
+                        legacySwitch,
+                        null);
             }
         }
         return commands;
@@ -267,103 +255,52 @@ public class SubstratumBuilder {
                 if (!created)
                     if (variant != null) {
                         String manifest =
-                                "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?>\n" +
-                                        "<manifest xmlns:android=\"http://schemas.android" +
-                                        ".com/apk/res/android\" package=\"" + overlay_package + "" +
-                                        "." +
-                                        parse2_themeName + parse2_variantName + parse2_baseName +
-                                        "\"\n" +
-                                        "        android:versionName=\"" + versionName + "\"> \n" +
-                                        "    <overlay " + ((!theme_oms) ? "android:priority=\"" +
-                                        legacy_priority + "\" " : "") +
-                                        "android:targetPackage=\"" + targetPackage + "\"/>\n" +
-                                        "    <application android:label=\"" +
-                                        overlay_package + "." + parse2_themeName +
-                                        parse2_variantName + parse2_baseName +
-                                        "\">\n" +
-                                        "        <meta-data android:name=\"Substratum_Device\" " +
-                                        "android:value=\"" + getDeviceID(context) + "\"/>\n" +
-                                        "        <meta-data android:name=\"Substratum_Parent\" " +
-                                        "android:value=\"" + theme_parent + "\"/>\n" +
-                                        "        <meta-data android:name=\"" +
-                                        "Substratum_Target\" " +
-                                        "android:value=\"" + targetPackage + "\"/>\n" +
-                                        "        <meta-data android:name=\"Substratum_Variant\" " +
-                                        "android:value=\"" + varianter +
-                                        "\"/>\n" +
-                                        "    </application>\n" +
-                                        "</manifest>\n";
+                                CommandCompiler.createOverlayManifest(
+                                        context,
+                                        overlay_package,
+                                        parse2_themeName,
+                                        parse2_variantName,
+                                        parse2_baseName,
+                                        versionName,
+                                        targetPackage,
+                                        theme_parent,
+                                        varianter,
+                                        theme_oms,
+                                        legacy_priority,
+                                        false);
                         pw.write(manifest);
                     } else {
                         if (base_variant != null) {
                             String manifest =
-                                    "<?xml version=\"1.0\" encoding=\"utf-8\" " +
-                                            "standalone=\"no\"?>\n" +
-                                            "<manifest xmlns:android=\"http://schemas.android" +
-                                            ".com/apk/res/android\" package=\"" + overlay_package
-                                            + "" +
-                                            "." +
-                                            parse2_themeName + parse2_variantName +
-                                            parse2_baseName +
-                                            "\"\n" +
-                                            "        android:versionName=\"" + versionName + "\">" +
-                                            " \n" +
-                                            "    <overlay " + ((!theme_oms) ?
-                                            "android:priority=\"" +
-                                                    legacy_priority + "\" " : "") +
-                                            "android:targetPackage=\"" + targetPackage +
-                                            "\"/>\n" +
-                                            "    <application android:label=\"" + overlay_package
-                                            + "" +
-                                            "." +
-                                            parse2_themeName + parse2_variantName +
-                                            parse2_baseName +
-                                            "\">\n" +
-                                            "        <meta-data android:name=\"Substratum_Device\" " +
-                                            "android:value=\"" + getDeviceID(context) + "\"/>\n" +
-                                            "        <meta-data " +
-                                            "android:name=\"Substratum_Parent\" " +
-                                            "android:value=\"" + theme_parent + "\"/>\n" +
-                                            "        <meta-data android:name=\"" +
-                                            "Substratum_Target\" " +
-                                            "android:value=\"" + targetPackage + "\"/>\n" +
-                                            "        <meta-data " +
-                                            "android:name=\"Substratum_Variant\" " +
-                                            "android:value=\"" + varianter
-                                            + "\"/>\n" +
-                                            "    </application>\n" +
-                                            "</manifest>\n";
+                                    CommandCompiler.createOverlayManifest(
+                                            context,
+                                            overlay_package,
+                                            parse2_themeName,
+                                            parse2_variantName,
+                                            parse2_baseName,
+                                            versionName,
+                                            targetPackage,
+                                            theme_parent,
+                                            varianter,
+                                            theme_oms,
+                                            legacy_priority,
+                                            false);
                             pw.write(manifest);
                         } else {
                             String manifest =
-                                    "<?xml version=\"1.0\" encoding=\"utf-8\" " +
-                                            "standalone=\"no\"?>\n" +
-                                            "<manifest xmlns:android=\"http://schemas.android" +
-                                            ".com/apk/res/android\" package=\"" + overlay_package
-                                            + "" +
-                                            "." +
-                                            parse2_themeName + "\"\n" +
-                                            "        android:versionName=\"" + versionName + "\">" +
-                                            " \n" +
-                                            "    <overlay " +
-                                            ((!theme_oms) ?
-                                                    "android:priority=\"" +
-                                                            legacy_priority + "\" " : "") +
-                                            " android:targetPackage=\"" + targetPackage + "\"/>\n" +
-                                            "    <application android:label=\"" + overlay_package
-                                            + "" +
-                                            "." +
-                                            parse2_themeName + "\">\n" +
-                                            "        <meta-data android:name=\"Substratum_Device\" " +
-                                            "android:value=\"" + getDeviceID(context) + "\"/>\n" +
-                                            "        <meta-data " +
-                                            "android:name=\"Substratum_Parent\" " +
-                                            "android:value=\"" + theme_parent + "\"/>\n" +
-                                            "        <meta-data android:name=\"" +
-                                            "Substratum_Target\" " +
-                                            "android:value=\"" + targetPackage + "\"/>\n" +
-                                            "    </application>\n" +
-                                            "</manifest>\n";
+                                    CommandCompiler.createOverlayManifest(
+                                            context,
+                                            overlay_package,
+                                            parse2_themeName,
+                                            parse2_variantName,
+                                            parse2_baseName,
+                                            versionName,
+                                            targetPackage,
+                                            theme_parent,
+                                            varianter,
+                                            theme_oms,
+                                            legacy_priority,
+                                            true);
                             pw.write(manifest);
                         }
                     }

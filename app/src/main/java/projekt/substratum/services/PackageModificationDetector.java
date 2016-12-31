@@ -87,7 +87,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
                                 package_name + " [" + intent.getAction() + "]");
             } else {
                 Boolean found_valid_theme = false;
-                if (prefs.getBoolean("display_old_themes", true)) {
+                if (!prefs.getBoolean("display_old_themes", true)) {
                     List<ResolveInfo> themes = References.getThemes(context);
                     for (int i = 0; i < themes.size(); i++) {
                         if (themes.get(i).activityInfo.packageName.equals(package_name)) {

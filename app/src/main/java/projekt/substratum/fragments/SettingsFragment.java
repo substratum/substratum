@@ -286,7 +286,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         final CheckBoxPreference show_outdated_themes = (CheckBoxPreference)
                 getPreferenceManager().findPreference("show_outdated_themes");
-        if (prefs.getBoolean("display_old_themes", false)) {
+        if (prefs.getBoolean("display_old_themes", true)) {
             show_outdated_themes.setChecked(true);
         } else {
             show_outdated_themes.setChecked(false);

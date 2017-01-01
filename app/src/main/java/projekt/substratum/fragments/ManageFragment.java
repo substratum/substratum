@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.ParcelFileDescriptor;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.design.widget.Snackbar;
@@ -23,7 +24,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -194,7 +197,12 @@ public class ManageFragment extends Fragment {
                         case 0:
                             try {
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                    ParcelFileDescriptor lockFile = wm
+                                            .getWallpaperFile(WallpaperManager.FLAG_LOCK);
+                                    InputStream input = new FileInputStream(
+                                            lockFile.getFileDescriptor());
                                     wm.clear(WallpaperManager.FLAG_SYSTEM);
+                                    wm.setStream(input, null, true, WallpaperManager.FLAG_LOCK);
                                 }
                                 Snackbar.make(getView(),
                                         getString(R.string.
@@ -204,6 +212,9 @@ public class ManageFragment extends Fragment {
                             } catch (IOException e) {
                                 Log.e(References.SUBSTRATUM_LOG, "Failed to restore home " +
                                         "screen " +
+                                        "wallpaper!");
+                            } catch (NullPointerException e) {
+                                Log.e(References.SUBSTRATUM_LOG, "Cannot retrieve lock screen " +
                                         "wallpaper!");
                             }
                             break;

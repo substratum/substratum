@@ -23,6 +23,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -143,6 +144,10 @@ public class ProfileFragment extends Fragment {
                 aet_getText = aet_backup.getText().toString();
                 BackupFunction backupFunction = new BackupFunction();
                 backupFunction.execute();
+                InputMethodManager imm = (InputMethodManager)
+                        getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(backupButton.getWindowToken(),
+                        InputMethodManager.RESULT_UNCHANGED_SHOWN);
             } else {
                 Snackbar.make(getView(),
                         getString(R.string.profile_edittext_empty_toast),

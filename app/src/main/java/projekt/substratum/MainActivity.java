@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements
 
     private static final int PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
     private static final int PERMISSIONS_REQUEST_GET_ACCOUNTS = 2;
+    private boolean hideRefresh;
     private Drawer drawer;
     private int permissionCheck, permissionCheck2;
     private ProgressDialog mProgressDialog;
@@ -72,6 +73,9 @@ public class MainActivity extends AppCompatActivity implements
         tx.replace(R.id.main, Fragment.instantiate(MainActivity.this, "projekt.substratum" +
                 ".fragments." + fragment));
         tx.commit();
+        hideRefresh = !fragment.equals("PriorityLoaderFragment") &&
+                !fragment.equals("AdvancedManagerFragment");
+        invalidateOptionsMenu();
     }
 
     private void switchThemeFragment(String title, String home_type) {
@@ -85,6 +89,8 @@ public class MainActivity extends AppCompatActivity implements
         tx.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         tx.replace(R.id.main, fragment);
         tx.commit();
+        hideRefresh = false;
+        invalidateOptionsMenu();
     }
 
     private void switchFragmentToLicenses(String title, LibsSupportFragment fragment) {
@@ -93,6 +99,8 @@ public class MainActivity extends AppCompatActivity implements
         tx.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         tx.replace(R.id.main, fragment);
         tx.commit();
+        hideRefresh = true;
+        invalidateOptionsMenu();
     }
 
     private void printFCMtoken() {
@@ -511,6 +519,7 @@ public class MainActivity extends AppCompatActivity implements
     public boolean onCreateOptionsMenu(Menu menu) {
         if (References.checkOMS(getApplicationContext())) {
             getMenuInflater().inflate(R.menu.activity_menu, menu);
+            menu.findItem(R.id.refresh).setVisible(!hideRefresh);
         } else {
             getMenuInflater().inflate(R.menu.activity_menu_legacy, menu);
         }

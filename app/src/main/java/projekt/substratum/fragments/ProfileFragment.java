@@ -36,6 +36,7 @@ import com.alimuzaffar.lib.widgets.AnimatedEditText;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -461,6 +462,17 @@ public class ProfileFragment extends Fragment {
                     boolean created = makeProfileDir.mkdir();
                     if (!created)
                         Log.e(References.SUBSTRATUM_LOG, "Could not create profile directory.");
+                }
+
+                File nomediaFile = new File(Environment.getExternalStorageDirectory() +
+                        "/substratum/.nomedia");
+                try {
+                    if (!nomediaFile.createNewFile()) {
+                        Log.d(References.SUBSTRATUM_LOG, "Could not create .nomedia file or" +
+                                " file already exist!");
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
 
                 // Backup the entire /data/system/theme/ folder

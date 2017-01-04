@@ -24,6 +24,8 @@ import projekt.substratum.easteregg.LLandActivity;
 
 public class TeamFragment extends Fragment {
 
+    private static final int PAGE_FLIP_DELAY = 3000;
+
     private List<GalleryView> contributors = new ArrayList<>();
     private List<GalleryView> developers = new ArrayList<>();
     private List<GalleryView> themers = new ArrayList<>();
@@ -79,7 +81,7 @@ public class TeamFragment extends Fragment {
         themerEntities.clear();
 
         Timer timer = new Timer();
-        timer.schedule(new FlipTheThemers(), 0, 3000);
+        timer.schedule(new FlipTheThemers(), 0, PAGE_FLIP_DELAY);
 
         // Begin Developers
 
@@ -121,7 +123,7 @@ public class TeamFragment extends Fragment {
         developerEntities.clear();
 
         Timer timer2 = new Timer();
-        timer2.schedule(new FlipTheDevelopers(), 0, 3000);
+        timer2.schedule(new FlipTheDevelopers(), 0, PAGE_FLIP_DELAY);
 
         // Begin Contributors
 
@@ -163,7 +165,7 @@ public class TeamFragment extends Fragment {
         contributorEntities.clear();
 
         Timer timer3 = new Timer();
-        timer3.schedule(new FlipTheContributors(), 0, 3000);
+        timer3.schedule(new FlipTheContributors(), 0, PAGE_FLIP_DELAY);
 
         Button contribute = (Button) root.findViewById(R.id.list_button_translators_contribute);
         contribute.setOnClickListener(v -> {

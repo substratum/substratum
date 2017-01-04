@@ -1004,10 +1004,12 @@ public class OverlaysList extends Fragment {
 
                 BlurView blurView = (BlurView) mProgressDialog.findViewById(R.id.blurView);
 
-                blurView.setupWith(rootView)
-                        .windowBackground(windowBackground)
-                        .blurAlgorithm(new RenderScriptBlur(getContext(), true))
-                        .blurRadius(radius);
+                if (rootView != null) {
+                    blurView.setupWith(rootView)
+                            .windowBackground(windowBackground)
+                            .blurAlgorithm(new RenderScriptBlur(getContext(), true))
+                            .blurRadius(radius);
+                }
 
                 dialogProgress = (ProgressBar) mProgressDialog.findViewById(R.id.loading_bar);
                 dialogProgress.setProgressTintList(ColorStateList.valueOf(mContext.getColor(

@@ -8,27 +8,67 @@
     android:gravity="center|center_horizontal"
     android:orientation="vertical">
 
-    <com.wang.avi.AVLoadingIndicatorView
-        android:id="@+id/loadingIndicatorView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        app:indicatorColor="@color/compile_dialog_wave_color"
-        app:indicatorName="LineScaleIndicator" />
-
-    <TextView
-        android:id="@+id/loadingTextCreativeMode"
+    <eightbitlab.com.blurview.BlurView
+        android:id="@+id/blurView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/loadingIndicatorView"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
-        android:gravity="center"
-        android:text="PLACEHOLDER_LOADING_TEXT"
-        android:textAllCaps="true"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="16dp"
-        android:textStyle="bold" />
+        android:layout_height="match_parent"
+        app:blurOverlayColor="@color/window_bg_glass">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical">
+
+            <com.wang.avi.AVLoadingIndicatorView
+                android:id="@+id/loadingIndicatorView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                app:indicatorColor="@color/compile_dialog_wave_color"
+                app:indicatorName="LineScaleIndicator" />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/loadingIndicatorView"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_marginTop="30dp"
+                android:gravity="center"
+                android:text="@string/sb_phase_1_loader"
+                android:textAllCaps="true"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/current_object"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/title"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="@string/studio_applying"
+                android:textAllCaps="true"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+            <ProgressBar
+                android:id="@+id/loading_bar"
+                style="?android:progressBarStyleHorizontal"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/current_object"
+                android:layout_centerHorizontal="true"
+                android:indeterminate="true" />
+
+        </RelativeLayout>
+
+    </eightbitlab.com.blurview.BlurView>
 
 </RelativeLayout>

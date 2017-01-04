@@ -2,7 +2,9 @@ package projekt.substratum.fragments;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -162,6 +164,21 @@ public class TeamFragment extends Fragment {
 
         Timer timer3 = new Timer();
         timer3.schedule(new FlipTheContributors(), 0, 3000);
+
+        Button contribute = (Button) root.findViewById(R.id.list_button_translators_contribute);
+        contribute.setOnClickListener(v -> {
+            try {
+                String playURL = getString(R.string.crowdin_url);
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(playURL));
+                startActivity(i);
+            } catch (ActivityNotFoundException activityNotFoundException) {
+                Snackbar.make(root.findViewById(android.R.id.content),
+                        getString(R.string.activity_missing_toast),
+                        Snackbar.LENGTH_LONG)
+                        .show();
+            }
+        });
 
         Button layers = (Button) root.findViewById(R.id.list_button_layers);
         layers.setOnClickListener(v -> {

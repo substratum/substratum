@@ -31,8 +31,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="10dp"
+            android:baselineAligned="false">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -53,7 +53,7 @@
                     android:layout_below="@+id/nicholas"
                     android:layout_gravity="center"
                     android:layout_marginTop="10dp"
-                    android:gravity="left"
+                    android:gravity="start"
                     android:text="@string/team_nicholas"
                     android:textColor="@color/main_screen_card_theme_title"
                     android:textSize="18sp" />
@@ -79,7 +79,7 @@
                     android:layout_below="@+id/syko"
                     android:layout_gravity="center"
                     android:layout_marginTop="10dp"
-                    android:gravity="left"
+                    android:gravity="start"
                     android:text="@string/team_syko"
                     android:textColor="@color/main_screen_card_theme_title"
                     android:textSize="18sp" />
@@ -109,7 +109,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
             android:layout_marginTop="10dp">
 
             <me.wangyuwei.galleryview.GalleryView
@@ -156,7 +155,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
             android:layout_marginTop="10dp">
 
             <me.wangyuwei.galleryview.GalleryView
@@ -203,7 +201,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
             android:layout_marginTop="10dp">
 
             <me.wangyuwei.galleryview.GalleryView
@@ -248,10 +245,22 @@
             android:text="@string/team_text_5" />
 
         <Button
+            android:id="@+id/list_button_translators_contribute"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/restore_button"
+            android:clickable="true"
+            android:foreground="?android:selectableItemBackground"
+            android:text="@string/team_button_5_contribute"
+            android:textColor="@color/restore_button_text_color" />
+
+        <Button
             android:id="@+id/list_button_translators"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/restore_spinner"
             android:layout_margin="10dp"
             android:background="@color/restore_button"
             android:clickable="true"

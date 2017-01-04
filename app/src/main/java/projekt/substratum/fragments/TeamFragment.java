@@ -89,10 +89,10 @@ public class TeamFragment extends Fragment {
         cory.imgUrl = getString(R.string.team_cory_link);
         cory.title = getString(R.string.team_cory);
         developerEntities.add(cory);
-        ivan = new GalleryEntity();
-        ivan.imgUrl = getString(R.string.team_ivan_link);
-        ivan.title = getString(R.string.team_ivan);
-        developerEntities.add(ivan);
+        GalleryEntity jacob = new GalleryEntity();
+        jacob.imgUrl = getString(R.string.team_jacob_link);
+        jacob.title = getString(R.string.team_jacob);
+        developerEntities.add(jacob);
         developers.get(0).addGalleryData(developerEntities);
         developerEntities.clear();
 
@@ -107,10 +107,10 @@ public class TeamFragment extends Fragment {
         developers.get(1).addGalleryData(developerEntities);
         developerEntities.clear();
 
-        GalleryEntity jacob = new GalleryEntity();
-        jacob.imgUrl = getString(R.string.team_jacob_link);
-        jacob.title = getString(R.string.team_jacob);
-        developerEntities.add(jacob);
+        ivan = new GalleryEntity();
+        ivan.imgUrl = getString(R.string.team_ivan_link);
+        ivan.title = getString(R.string.team_ivan);
+        developerEntities.add(ivan);
         GalleryEntity surge = new GalleryEntity();
         surge.imgUrl = getString(R.string.team_surge_link);
         surge.title = getString(R.string.team_surge);

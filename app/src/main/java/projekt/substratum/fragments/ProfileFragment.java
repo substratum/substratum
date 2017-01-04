@@ -386,7 +386,7 @@ public class ProfileFragment extends Fragment {
             editor.putInt(DAY_PROFILE_MINUTE, dayMinute);
             editor.apply();
 
-            Snackbar.make(getView(), "Scheduled profile successfully applied!",
+            Snackbar.make(getView(), R.string.scheduled_profile_apply_success,
                     Snackbar.LENGTH_LONG)
                     .show();
         } else {
@@ -403,7 +403,7 @@ public class ProfileFragment extends Fragment {
                         .remove(NIGHT_PROFILE_HOUR)
                         .remove(NIGHT_PROFILE_MINUTE)
                         .apply();
-                Snackbar.make(getView(), "Scheduled profile successfully disabled!",
+                Snackbar.make(getView(), R.string.scheduled_profile_disable_success,
                         Snackbar.LENGTH_LONG)
                         .show();
             }

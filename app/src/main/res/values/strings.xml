@@ -761,6 +761,8 @@
 
     <string name="scheduled_night_profile">Scheduled Contextual Profiles</string>
     <string name="scheduled_profile_card_content">This function gives you the possibility to automatically switch between profiles based on the time of day.</string>
+    <string name="scheduled_profile_apply_success">Scheduled profile successfully applied!</string>
+    <string name="scheduled_profile_disable_success">Scheduled profile successfully disabled!</string>
     <string name="active_time">Active times</string>
     <string name="start_time">Start</string>
     <string name="end_time">End</string>

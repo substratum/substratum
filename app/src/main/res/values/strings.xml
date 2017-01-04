@@ -661,245 +661,106 @@
     <string name="fab_menu_swap_toggle">Disable other themes</string>
     <string name="fab_menu_swap_toggle_legacy">Remove all existing</string>
 
-    <string name="contributor_title_1">Substratum Designers</string>
-    <string name="contributor_text_1">Let these people be known that they have contributed greatly
-        to Substratum in terms of design work and our team would like to thank them greatly!
-    </string>
-    <string name="contributor_idan" translatable="false">Idan Shulman</string>
-    <string name="contributor_idan_content">I made all of Substratum\'s animated splashscreen
-        drawables!
-    </string>
-    <string name="contributor_idan_link" translatable="false">
-        https://plus.google.com/u/0/+idanshulman/
-    </string>
-    <string name="contributor_mihir" translatable="false">Mihir Mistry</string>
-    <string name="contributor_mihir_content">I made all of Substratum\'s previous default manager
-        animated drawables!
-    </string>
-    <string name="contributor_mihir_link" translatable="false">
-        https://plus.google.com/u/0/+mihirmistryWALLY/
-    </string>
-    <string name="contributor_travis" translatable="false">Travis Hall (notjustanotherdesigner)
-    </string>
-    <string name="contributor_travis_content">I made all of Substratum\'s app intro drawables!
-    </string>
-    <string name="contributor_travis_link" translatable="false">
-        https://plus.google.com/+TravisHall/
-    </string>
-    <string name="contributor_sajid" translatable="false">Sajid Shaik</string>
-    <string name="contributor_sajid_content">I made all of Substratum\'s app icons!</string>
-    <string name="contributor_sajid_link" translatable="false">
-        https://plus.google.com/+DroidAppsReviewer/
-    </string>
-
-    <string name="contributor_title_2">Layers Contributors</string>
-    <string name="contributor_text_2">These people brought you Layers Manager in the past and have
-        since went on to do many great things in getting Substratum ready for us!
-    </string>
-    <string name="contributor_reinhard" translatable="false">Reinhard Strauch</string>
-    <string name="contributor_reinhard_content">I created Layers with Mike!</string>
-    <string name="contributor_reinhard_link" translatable="false">
-        https://plus.google.com/u/0/101549242713977412381/
-    </string>
-    <string name="contributor_brian" translatable="false">Brian Gill (Bgill55)</string>
-    <string name="contributor_brian_content">I worked on the ROM side of Layers!</string>
-    <string name="contributor_brian_link" translatable="false">
-        https://plus.google.com/u/0/+BrianGill55/
-    </string>
-    <string name="contributor_aldrin" translatable="false">Aldrin Holmes (CallMeAldy)</string>
-    <string name="contributor_aldrin_content">I worked on the ROM side of Layers!</string>
-    <string name="contributor_aldrin_link" translatable="false">
-        https://plus.google.com/u/0/+AldrinHolmes20/
-    </string>
-    <string name="contributor_steve" translatable="false">Steve Lovejoy (lovejoy777)</string>
-    <string name="contributor_steve_content">I created Layers Manager!</string>
-    <string name="contributor_steve_link" translatable="false">
-        https://plus.google.com/u/0/+SteveLovejoy/
-    </string>
-    <string name="contributor_niklas" translatable="false">Niklas Schnettler (Sh4dowSoul)</string>
-    <string name="contributor_niklas_content">I worked on Layers Manager!</string>
-    <string name="contributor_niklas_link" translatable="false">
-        https://plus.google.com/u/0/+NiklasSchnettler/
-    </string>
-    <string name="contributor_andrzej" translatable="false">Andrzej Ressel (jereksel)</string>
-    <string name="contributor_andrzej_content">I worked on Layers Manager!</string>
-    <string name="contributor_andrzej_link" translatable="false">
-        https://plus.google.com/u/0/117376207394302665227/
-    </string>
-    <string name="contributor_denis" translatable="false">Denis Suarez (Wh0Cares)</string>
-    <string name="contributor_denis_content">I started the Layers Showcase!</string>
-    <string name="contributor_denis_link" translatable="false">
-        https://plus.google.com/u/0/+DenisSuarez98/
-    </string>
-
-    <string name="contributor_title_3">Substratum Contributors</string>
-    <string name="contributor_text_3">These people stepped up and willingly contributed their
-        dedication and time to all of us and we love them a lot!
-    </string>
-    <string name="contributor_ben" translatable="false">Benjamin Humpton (Morningstar)</string>
-    <string name="contributor_ben_content">I just want to be held&#8230;</string>
-    <string name="contributor_ben_link" translatable="false">
-        http://forum.xda-developers.com/member.php?u=293887
-    </string>
-    <string name="contributor_char" translatable="false">Char G</string>
-    <string name="contributor_char_content">Meow!</string>
-    <string name="contributor_char_link" translatable="false">https://plus.google.com/u/0/+CharG/
-    </string>
-    <string name="contributor_nathan" translatable="false">Nathan Chancellor (The Flash)</string>
-    <string name="contributor_nathan_content">Catch me if you can!</string>
-    <string name="contributor_nathan_link" translatable="false">
-        https://plus.google.com/+NathanChancellor/
-    </string>
-
-    <string name="translator_title">Substratum Translators</string>
-    <string name="translator_text">A huge thank you to these translators for bringing Substratum to
-        everyone around the world!
-    </string>
-    <string name="translator_kevin" translatable="false">Kevin Minions</string>
-    <string name="translator_kevin_content">French Translations</string>
-    <string name="translator_kevin_link" translatable="false">
-        https://plus.google.com/u/0/115610928059890728494/
-    </string>
-    <string name="translator_jorge" translatable="false">Jorge Abel</string>
-    <string name="translator_jorge_content">Spanish Translations</string>
-    <string name="translator_jorge_link" translatable="false">
-        https://plus.google.com/u/0/115528288956639124717/
-    </string>
-    <string name="translator_chrys" translatable="false">Chrys B (abacate123)</string>
-    <string name="translator_chrys_content">Portuguese Translations</string>
-    <string name="translator_chrys_link" translatable="false">
-        https://plus.google.com/+ChrystianBorges/
-    </string>
-    <string name="translator_wasita" translatable="false">Wasita Bagus</string>
-    <string name="translator_wasita_content">Indonesian Translations</string>
-    <string name="translator_wasita_link" translatable="false">
-        https://plus.google.com/u/0/+WasitaBagusNXS/
-    </string>
-    <string name="translator_david" translatable="false">David Setiawan</string>
-    <string name="translator_david_content">Indonesian Translations</string>
-    <string name="translator_david_link" translatable="false">
-        https://plus.google.com/u/0/112952657794170427447/
-    </string>
-    <string name="translator_gediminas" translatable="false">Gediminas Kiaunė</string>
-    <string name="translator_gediminas_content">Lithuanian Translations</string>
-    <string name="translator_gediminas_link" translatable="false">
-        https://plus.google.com/u/0/115756673473766512257/
-    </string>
-    <string name="translator_gautham" translatable="false">Gautham Suki</string>
-    <string name="translator_gautham_content">Tamil Translations</string>
-    <string name="translator_gautham_link" translatable="false">
-        https://plus.google.com/u/0/+GauthamSuki/
-    </string>
-    <string name="translator_nils" translatable="false">Nils Wasser</string>
-    <string name="translator_nils_content">German Translations</string>
-    <string name="translator_nils_link" translatable="false">
-        https://plus.google.com/u/0/+NilsWasser/
-    </string>
-
     <string name="team_title_1">Substratum Team Leaders</string>
-    <string name="team_text_1">Not only did we create something that works for the users, but we
-        worked in conjunction with themers to make it a wonderful theming engine for the community!
-    </string>
+    <string name="team_text_1">Not only did we create something that works for the users, but we worked in conjunction with themers to make it a wonderful theming engine for the community!</string>
+
     <string name="team_title_2">Substratum Development Contributors</string>
-    <string name="team_text_2">These developers came when we needed help and aided the cause to
-        create the OMS scene a much better place!
-    </string>
-    <string name="team_title_3">Substratum Themers</string>
-    <string name="team_text_3">These core themers got Substratum ready, as well as aided the
-        developers closely to provide features geared towards other themers such as anti-piracy and
-        a more definitive UI!
-    </string>
+    <string name="team_text_2">These developers came when we needed help and aided the cause to create the OMS scene a much better place!</string>
+
+    <string name="team_title_3">Substratum Head Themers</string>
+    <string name="team_text_3">These core themers got Substratum ready, as well as aided the developers closely to provide features geared towards other themers such as anti-piracy and a more definitive UI!</string>
+
+    <string name="team_title_4">Substratum Contributors</string>
+    <string name="team_text_4">These people stepped up and willingly contributed their dedication and time to all of us and we love them a lot!</string>
+
+    <string name="team_title_5">Substratum Translators</string>
+    <string name="team_text_5">A huge thank you to these translators for bringing Substratum to everyone around the world!</string>
+    <string name="team_button_5">Show Translators</string>
+
+    <string name="team_title_6">Layers Contributors</string>
+    <string name="team_text_6">These people brought you Layers Manager in the past and have since went on to do many great things in getting Substratum ready for us!</string>
+    <string name="team_button_6">Show Contributors</string>
+
+    <string name="contributor_reinhard" translatable="false">Reinhard Strauch</string>
+    <string name="contributor_brian" translatable="false">Brian Gill (Bgill55)</string>
+    <string name="contributor_aldrin" translatable="false">Aldrin Holmes (CallMeAldy)</string>
+    <string name="contributor_steve" translatable="false">Steve Lovejoy (lovejoy777)</string>
+    <string name="contributor_niklas" translatable="false">Niklas Schnettler (Sh4dowSoul)</string>
+    <string name="contributor_andrzej" translatable="false">Andrzej Ressel (jereksel)</string>
+    <string name="contributor_denis" translatable="false">Denis Suarez (Wh0Cares)</string>
+
+    <string name="contributor_ben" translatable="false">Benjamin Humpton (Morningstar)</string>
+    <string name="contributor_ben_link" translatable="false">https://lh3.googleusercontent.com/-2svXmwg7saQ/AAAAAAAAAAI/AAAAAAAAW4Y/vK_XYcVFqn8/s120-c/photo.jpg</string>
+
+    <string name="contributor_char" translatable="false">Char G</string>
+    <string name="contributor_char_link" translatable="false">https://lh3.googleusercontent.com/-76kHnSc8_Cs/AAAAAAAAAAI/AAAAAAAAyTs/u9YnYSf0wV8/s120-c/photo.jpg</string>
+
+    <string name="contributor_nathan" translatable="false">Nathan Chancellor (The Flash)</string>
+    <string name="contributor_nathan_link" translatable="false">https://lh3.googleusercontent.com/-q3fCjLU-tTA/AAAAAAAAAAI/AAAAAAAAbL8/lSpIJHV7Jsc/s120-c/photo.jpg</string>
+
+    <string name="contributor_idan" translatable="false">Idan Shulman</string>
+    <string name="contributor_idan_link" translatable="false">https://lh3.googleusercontent.com/-3B6IQ4CbIKs/AAAAAAAAAAI/AAAAAAAATIo/DlpTSfukFJ0/s120-c/photo.jpg</string>
+
+    <string name="contributor_travis" translatable="false">Travis Hall (notjustanotherdesigner)</string>
+    <string name="contributor_travis_link" translatable="false">https://lh3.googleusercontent.com/-qcJSZKtqyq0/AAAAAAAAAAI/AAAAAAAAxlE/EjXP5WynQ74/s120-c/photo.jpg</string>
+
+    <string name="contributor_sajid" translatable="false">Sajid Shaik</string>
+    <string name="contributor_sajid_link" translatable="false">https://lh3.googleusercontent.com/-GZWYKoQoIB0/AAAAAAAAAAI/AAAAAAAAiUg/QhGfzaMXVbI/s120-c/photo.jpg</string>
+
     <string name="team_nicholas" translatable="false">Nicholas Chum (nicholaschum)</string>
-    <string name="team_nicholas_content">I wrote the app and incorporated the app engine!</string>
-    <string name="team_nicholas_link" translatable="false">
-        https://plus.google.com/u/0/+NicholasChumCDT/
-    </string>
+    <string name="team_nicholas_link" translatable="false">https://lh3.googleusercontent.com/-Xeaj_SRZKgw/AAAAAAAAAAI/AAAAAAAANFQ/7MPq-GD4A90/s120-c/photo.jpg</string>
+
     <string name="team_syko" translatable="false">Mike Finnegan (Sykopompos)</string>
-    <string name="team_syko_content">The Architect!</string>
-    <string name="team_syko_link" translatable="false">https://plus.google.com/u/0/+SykoPompos/
-    </string>
+    <string name="team_syko_link" translatable="false">https://lh3.googleusercontent.com/-zhaOSEhazvE/AAAAAAAAAAI/AAAAAAAAX6M/3bKW9b9y7yE/s120-c/photo.jpg</string>
+
     <string name="team_george" translatable="false">George Gian (KreAch3R)</string>
-    <string name="team_george_content">What do you need to change in Android? I got your back!
-    </string>
-    <string name="team_george_link" translatable="false">https://plus.google.com/u/0/+GeorgeGian/
-    </string>
+    <string name="team_george_link" translatable="false">https://lh3.googleusercontent.com/-TynH4xk_mUg/AAAAAAAAAAI/AAAAAAAABg8/P7N0EEGE5WU/s120-c/photo.jpg</string>
+
     <string name="team_cory" translatable="false">Cory Collins (camcory)</string>
-    <string name="team_cory_content">Need something added/fixed? No problem!</string>
-    <string name="team_cory_link" translatable="false">
-        https://plus.google.com/u/0/107213348284084753883/
-    </string>
+    <string name="team_cory_link" translatable="false">https://lh3.googleusercontent.com/-zWvjEPBnqqo/AAAAAAAAAAI/AAAAAAAAETM/X1efzWQi4N0/s120-c/photo.jpg</string>
+
     <string name="team_jacob" translatable="false">Jacob McSwain (USA-RedDragon)</string>
-    <string name="team_jacob_content">You want what? Awesome, it\'s done.</string>
-    <string name="team_jacob_link" translatable="false">
-        https://plus.google.com/u/0/+JacobMcSwainDev/
-    </string>
+    <string name="team_jacob_link" translatable="false">https://lh3.googleusercontent.com/-8k-upsMSNjE/AAAAAAAAAAI/AAAAAAAAQqY/YSrfZLh1q1E/s120-c/photo.jpg</string>
+
     <string name="team_surge" translatable="false">Suraj Raval (Surge1223)</string>
-    <string name="team_surge_content">What I miss?</string>
-    <string name="team_surge_link" translatable="false">
-        https://plus.google.com/u/0/109273915986671208869/
-    </string>
+    <string name="team_surge_link" translatable="false">https://lh3.googleusercontent.com/-M_nokQGdeQo/AAAAAAAAAAI/AAAAAAAAAdU/5olbk0yAQbI/s120-c/photo.jpg</string>
+
     <string name="team_ivan" translatable="false">Ivan Iskandar (iskandar1023)</string>
-    <string name="team_ivan_content">Prepare to be killed by the cuteness of kittens!</string>
-    <string name="team_ivan_link" translatable="false">
-        https://plus.google.com/u/0/+IvanIskandar1023/
-    </string>
+    <string name="team_ivan_link" translatable="false">https://lh3.googleusercontent.com/-dHxEt-Jnh5Q/AAAAAAAAAAI/AAAAAAAASbE/ujArwKCPUQo/s120-c/photo.jpg</string>
+
     <string name="team_raja" translatable="false">Raja Mu (RajaMu)</string>
-    <string name="team_raja_content">I do not tolerate security vulnerabilities!</string>
-    <string name="team_raja_link" translatable="false">
-        https://plus.google.com/u/0/112199061099928069499/
-    </string>
+    <string name="team_raja_link" translatable="false">https://lh3.googleusercontent.com/-QnwLJuXNDI4/AAAAAAAAAAI/AAAAAAAAFr4/uudXv-OXGcg/s120-c/photo.jpg</string>
+
     <string name="team_jimmy" translatable="false">Jimmy Setiawan (setiawanjimmy)</string>
-    <string name="team_jimmy_content">I break shit before you get a chance to!</string>
-    <string name="team_jimmy_link" translatable="false">
-        https://plus.google.com/u/0/+JimmySetiawan84/
-    </string>
+    <string name="team_jimmy_link" translatable="false">https://lh3.googleusercontent.com/-Vr3ducdRB-Y/AAAAAAAAAAI/AAAAAAAATZw/cs89A1rHjGM/s120-c/photo.jpg</string>
+
+    <string name="team_dejan" translatable="false">DeJan Baric (llevo3)</string>
+    <string name="team_dejan_link" translatable="false">https://lh3.googleusercontent.com/-Bs-5_0XMnSk/AAAAAAAAAAI/AAAAAAAAPKw/SswQi6wdzpM/s120-c/photo.jpg</string>
+
     <string name="team_dave" translatable="false">David Wilson (daveyannihilation)</string>
-    <string name="team_dave_content">#WhiteUIMustDie</string>
-    <string name="team_dave_link" translatable="false">
-        https://plus.google.com/u/0/+DavidWilsonAnnihilation/
-    </string>
+    <string name="team_dave_link" translatable="false">https://lh3.googleusercontent.com/-DplAfZWGiNI/AAAAAAAAAAI/AAAAAAAAe3k/8cW-4h2tug8/s120-c/photo.jpg</string>
+
     <string name="team_branden" translatable="false">Branden Manibusan (BrandenM)</string>
-    <string name="team_branden_content">Try to find the unicorn called Sublime Mint!</string>
-    <string name="team_branden_link" translatable="false">
-        https://plus.google.com/u/0/101729058057775926785/
-    </string>
+    <string name="team_branden_link" translatable="false">https://lh3.googleusercontent.com/-56pMQf9oyy0/AAAAAAAAAAI/AAAAAAAAdps/scNiEc8QW0U/s120-c/photo.jpg</string>
+
     <string name="team_jeremy" translatable="false">Jeremy Beck (jerbeck24)</string>
-    <string name="team_jeremy_content">If you can dream up the theme, I\'ve already created it!
-    </string>
-    <string name="team_jeremy_link" translatable="false">
-        https://plus.google.com/u/0/+JeremyBeck24/
-    </string>
+    <string name="team_jeremy_link" translatable="false">https://lh3.googleusercontent.com/-9cREi-gE05k/AAAAAAAAAAI/AAAAAAAAnvU/7S6JqslbMwc/s120-c/photo.jpg</string>
 
     <string name="slide_1_title">welcome to substratum</string>
-    <string name="slide_1_text">a minimal yet powerful theme engine based on Sony\'s overlay manager
-        service
-    </string>
+    <string name="slide_1_text">a minimal yet powerful theme engine based on Sony\'s overlay manager service</string>
     <string name="slide_2_title">a brand new user interface</string>
-    <string name="slide_2_text">do you love your themes? introducing a gorgeous card view interface
-        to showcase each of your theme\'s preview images installed on your device!
-    </string>
+    <string name="slide_2_text">do you love your themes? introducing a gorgeous card view interface to showcase each of your theme\'s preview images installed on your device!</string>
     <string name="slide_3_title">per-app theming to its finest</string>
-    <string name="slide_3_text">not sure whether you want your Google+ themed? that\'s okay, just
-        pick whatever you want themed from the overlay list!
-    </string>
+    <string name="slide_3_text">not sure whether you want your Google+ themed? that\'s okay, just pick whatever you want themed from the overlay list!</string>
     <string name="slide_4_title">compile? enable? disable? where?</string>
-    <string name="slide_4_text">by clicking on the floating action button after selecting overlays,
-        you could compile (do this first!), enable and disable each overlay directly on your phone
-        to begin using your theme.
-    </string>
+    <string name="slide_4_text">by clicking on the floating action button after selecting overlays, you could compile (do this first!), enable and disable each overlay directly on your phone to begin using your theme.</string>
     <string name="slide_5_title">while compiling your overlays&#8230;</string>
-    <string name="slide_5_text">you can switch over to your own apps and allow the overlays to
-        compile in the background as this process may take a while. just check your notification
-        panel for the progress!
-    </string>
+    <string name="slide_5_text">you can switch over to your own apps and allow the overlays to compile in the background as this process may take a while. just check your notification panel for the progress!</string>
     <string name="slide_6_title">we hope you enjoy our creation!</string>
-    <string name="slide_6_text">thank you for reading the introduction and we hope you enjoy using
-        substratum as much as we did while developing for it!
-    </string>
+    <string name="slide_6_text">thank you for reading the introduction and we hope you enjoy using substratum as much as we did while developing for it!</string>
 
     <string name="scheduled_night_profile">Scheduled Contextual Profiles</string>
-    <string name="scheduled_profile_card_content">This function gives you the possibility to
-        automatically switch between profiles based on the time of day.</string>
+    <string name="scheduled_profile_card_content">This function gives you the possibility to automatically switch between profiles based on the time of day.</string>
     <string name="active_time">Active times</string>
     <string name="start_time">Start</string>
     <string name="end_time">End</string>

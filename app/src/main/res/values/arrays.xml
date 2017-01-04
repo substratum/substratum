@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="layers_contributors">
+        <item>@string/contributor_reinhard</item>
+        <item>@string/contributor_brian</item>
+        <item>@string/contributor_aldrin</item>
+        <item>@string/contributor_steve</item>
+        <item>@string/contributor_niklas</item>
+        <item>@string/contributor_andrzej</item>
+        <item>@string/contributor_denis</item>
+    </string-array>
+</resources>

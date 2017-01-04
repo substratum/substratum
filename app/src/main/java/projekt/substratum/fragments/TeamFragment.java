@@ -2,18 +2,36 @@ package projekt.substratum.fragments;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.CardView;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import me.wangyuwei.galleryview.GalleryEntity;
+import me.wangyuwei.galleryview.GalleryView;
 import projekt.substratum.R;
 import projekt.substratum.easteregg.LLandActivity;
 
 public class TeamFragment extends Fragment {
+
+    private List<GalleryView> contributors = new ArrayList<>();
+    private List<GalleryView> developers = new ArrayList<>();
+    private List<GalleryView> themers = new ArrayList<>();
+    private List<GalleryEntity> contributorEntities = new ArrayList<>();
+    private List<GalleryEntity> developerEntities = new ArrayList<>();
+    private List<GalleryEntity> themerEntities = new ArrayList<>();
+
+    private boolean flipContributors = false;
+    private boolean flipDevelopers = false;
+    private boolean flipThemers = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
@@ -21,437 +39,197 @@ public class TeamFragment extends Fragment {
         super.onCreate(savedInstanceState);
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.team_fragment, container, false);
 
-        // Begin Team Leaders
+        themers.add((GalleryView) root.findViewById(R.id.designer1));
+        themers.add((GalleryView) root.findViewById(R.id.designer2));
+        themers.add((GalleryView) root.findViewById(R.id.designer3));
 
-        CardView nicholas = (CardView) root.findViewById(R.id.nicholas);
-        nicholas.setOnClickListener(v -> {
-            try {
-                String playURL = getString(R.string.team_nicholas_link);
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(playURL));
-                startActivity(i);
-            } catch (ActivityNotFoundException activityNotFoundException) {
-                //
-            }
-        });
+        GalleryEntity branden = new GalleryEntity();
+        branden.imgUrl = getString(R.string.team_branden_link);
+        branden.title = getString(R.string.team_branden);
+        themerEntities.add(branden);
+        GalleryEntity ivan = new GalleryEntity();
+        ivan.imgUrl = getString(R.string.team_ivan_link);
+        ivan.title = getString(R.string.team_ivan);
+        themerEntities.add(ivan);
+        themers.get(0).addGalleryData(themerEntities);
+        themerEntities.clear();
 
-        CardView syko = (CardView) root.findViewById(R.id.syko);
-        syko.setOnClickListener(v -> {
-            try {
-                String playURL = getString(R.string.team_syko_link);
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(playURL));
-                startActivity(i);
-            } catch (ActivityNotFoundException activityNotFoundException) {
-                //
-            }
-        });
+        GalleryEntity dave = new GalleryEntity();
+        dave.imgUrl = getString(R.string.team_dave_link);
+        dave.title = getString(R.string.team_dave);
+        themerEntities.add(dave);
+        GalleryEntity jeremy = new GalleryEntity();
+        jeremy.imgUrl = getString(R.string.team_jeremy_link);
+        jeremy.title = getString(R.string.team_jeremy);
+        themerEntities.add(jeremy);
+        themers.get(1).addGalleryData(themerEntities);
+        themerEntities.clear();
 
-        CardView george = (CardView) root.findViewById(R.id.george);
-        george.setOnClickListener(v -> {
-            try {
-                String playURL = getString(R.string.team_george_link);
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(playURL));
-                startActivity(i);
-            } catch (ActivityNotFoundException activityNotFoundException) {
-                //
-            }
-        });
+        GalleryEntity dejan = new GalleryEntity();
+        dejan.imgUrl = getString(R.string.team_dejan_link);
+        dejan.title = getString(R.string.team_dejan);
+        themerEntities.add(dejan);
+        GalleryEntity jimmy = new GalleryEntity();
+        jimmy.imgUrl = getString(R.string.team_jimmy_link);
+        jimmy.title = getString(R.string.team_jimmy);
+        themerEntities.add(jimmy);
+        themers.get(2).addGalleryData(themerEntities);
+        themerEntities.clear();
 
-        CardView cory = (CardView) root.findViewById(R.id.cory);
-        cory.setOnClickListener(v -> {
-            try {
-                String playURL = getString(R.string.team_cory_link);
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(playURL));
-                startActivity(i);
-            } catch (ActivityNotFoundException activityNotFoundException) {
-                //
-            }
-        });
+        Timer timer = new Timer();
+        timer.schedule(new FlipTheThemers(), 0, 3000);
 
-        // Begin Team Themers
+        // Begin Developers
 
-        CardView branden = (CardView) root.findViewById(R.id.branden);
-        branden.setOnClickListener(v -> {
-            try {
-                String playURL = getString(R.string.team_branden_link);
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(playURL));
-                startActivity(i);
-            } catch (ActivityNotFoundException activityNotFoundException) {
-                //
-            }
-        });
+        developers.add((GalleryView) root.findViewById(R.id.developer1));
+        developers.add((GalleryView) root.findViewById(R.id.developer2));
+        developers.add((GalleryView) root.findViewById(R.id.developer3));
 
-        CardView dave = (CardView) root.findViewById(R.id.dave);
-        dave.setOnClickListener(v -> {
-            try {
-                String playURL = getString(R.string.team_dave_link);
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(playURL));
-                startActivity(i);
-            } catch (ActivityNotFoundException activityNotFoundException) {
-                //
-            }
-        });
+        GalleryEntity cory = new GalleryEntity();
+        cory.imgUrl = getString(R.string.team_cory_link);
+        cory.title = getString(R.string.team_cory);
+        developerEntities.add(cory);
+        ivan = new GalleryEntity();
+        ivan.imgUrl = getString(R.string.team_ivan_link);
+        ivan.title = getString(R.string.team_ivan);
+        developerEntities.add(ivan);
+        developers.get(0).addGalleryData(developerEntities);
+        developerEntities.clear();
 
-        CardView jeremy = (CardView) root.findViewById(R.id.jeremy);
-        jeremy.setOnClickListener(v -> {
-            try {
-                String playURL = getString(R.string.team_jeremy_link);
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(playURL));
-                startActivity(i);
-            } catch (ActivityNotFoundException activityNotFoundException) {
-                //
-            }
-        });
+        GalleryEntity george = new GalleryEntity();
+        george.imgUrl = getString(R.string.team_george_link);
+        george.title = getString(R.string.team_george);
+        developerEntities.add(george);
+        GalleryEntity raja = new GalleryEntity();
+        raja.imgUrl = getString(R.string.team_raja_link);
+        raja.title = getString(R.string.team_raja);
+        developerEntities.add(raja);
+        developers.get(1).addGalleryData(developerEntities);
+        developerEntities.clear();
 
-        CardView jimmy = (CardView) root.findViewById(R.id.jimmy);
-        jimmy.setOnClickListener(v -> {
-            try {
-                String playURL = getString(R.string.team_jimmy_link);
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(playURL));
-                startActivity(i);
-            } catch (ActivityNotFoundException activityNotFoundException) {
-                //
-            }
-        });
+        GalleryEntity jacob = new GalleryEntity();
+        jacob.imgUrl = getString(R.string.team_jacob_link);
+        jacob.title = getString(R.string.team_jacob);
+        developerEntities.add(jacob);
+        GalleryEntity surge = new GalleryEntity();
+        surge.imgUrl = getString(R.string.team_surge_link);
+        surge.title = getString(R.string.team_surge);
+        developerEntities.add(surge);
+        developers.get(2).addGalleryData(developerEntities);
+        developerEntities.clear();
+
+        Timer timer2 = new Timer();
+        timer2.schedule(new FlipTheDevelopers(), 0, 3000);
 
         // Begin Contributors
 
-        CardView ben = (CardView) root.findViewById(R.id.ben);
-        ben.setOnClickListener(v -> {
-            try {
-                String playURL = getString(R.string.contributor_ben_link);
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(playURL));
-                startActivity(i);
-            } catch (ActivityNotFoundException activityNotFoundException) {
-                //
-            }
+        contributors.add((GalleryView) root.findViewById(R.id.contributor1));
+        contributors.add((GalleryView) root.findViewById(R.id.contributor2));
+        contributors.add((GalleryView) root.findViewById(R.id.contributor3));
+
+        GalleryEntity ben = new GalleryEntity();
+        ben.imgUrl = getString(R.string.contributor_ben_link);
+        ben.title = getString(R.string.contributor_ben);
+        contributorEntities.add(ben);
+        GalleryEntity idan = new GalleryEntity();
+        idan.imgUrl = getString(R.string.contributor_idan_link);
+        idan.title = getString(R.string.contributor_idan);
+        contributorEntities.add(idan);
+        contributors.get(0).addGalleryData(contributorEntities);
+        contributorEntities.clear();
+
+        GalleryEntity char_g = new GalleryEntity();
+        char_g.imgUrl = getString(R.string.contributor_char_link);
+        char_g.title = getString(R.string.contributor_char);
+        contributorEntities.add(char_g);
+        GalleryEntity sajid = new GalleryEntity();
+        sajid.imgUrl = getString(R.string.contributor_sajid_link);
+        sajid.title = getString(R.string.contributor_sajid);
+        contributorEntities.add(sajid);
+        contributors.get(1).addGalleryData(contributorEntities);
+        contributorEntities.clear();
+
+        GalleryEntity nathan = new GalleryEntity();
+        nathan.imgUrl = getString(R.string.contributor_nathan_link);
+        nathan.title = getString(R.string.contributor_nathan);
+        contributorEntities.add(nathan);
+        GalleryEntity travis = new GalleryEntity();
+        travis.imgUrl = getString(R.string.contributor_travis_link);
+        travis.title = getString(R.string.contributor_travis);
+        contributorEntities.add(travis);
+        contributors.get(2).addGalleryData(contributorEntities);
+        contributorEntities.clear();
+
+        Timer timer3 = new Timer();
+        timer3.schedule(new FlipTheContributors(), 0, 3000);
+
+        Button layers = (Button) root.findViewById(R.id.list_button_layers);
+        layers.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setItems(getResources().getStringArray(R.array.layers_contributors),
+                    (dialog, item) -> {
+                    });
+            builder.setPositiveButton(R.string.dialog_ok, (dialog, item) -> dialog.cancel());
+            AlertDialog alert = builder.create();
+            alert.show();
         });
-        ben.setOnLongClickListener(v -> {
+        layers.setOnLongClickListener(v -> {
             try {
                 Intent intent = new Intent(getActivity(), LLandActivity.class);
                 startActivity(intent);
             } catch (ActivityNotFoundException activityNotFoundException) {
-                //
+                // Suppress warning
             }
             return true;
         });
-
-        CardView charcat = (CardView) root.findViewById(R.id.charcat);
-        charcat.setOnClickListener(v -> {
-            try {
-                String playURL = getString(R.string.contributor_char_link);
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(playURL));
-                startActivity(i);
-            } catch (ActivityNotFoundException activityNotFoundException) {
-                //
-            }
-        });
-
-        CardView nathan = (CardView) root.findViewById(R.id.nathan);
-        nathan.setOnClickListener(v -> {
-            try {
-                String playURL = getString(R.string.contributor_nathan_link);
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(playURL));
-                startActivity(i);
-            } catch (ActivityNotFoundException activityNotFoundException) {
-                //
-            }
-        });
-
-        // Begin Development Contributors
-
-        CardView ivan = (CardView) root.findViewById(R.id.ivan);
-        ivan.setOnClickListener(v -> {
-            try {
-                String playURL = getString(R.string.team_ivan_link);
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(playURL));
-                startActivity(i);
-            } catch (ActivityNotFoundException activityNotFoundException) {
-                //
-            }
-        });
-
-        CardView jacob = (CardView) root.findViewById(R.id.jacob);
-        jacob.setOnClickListener(v -> {
-            try {
-                String playURL = getString(R.string.team_jacob_link);
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(playURL));
-                startActivity(i);
-            } catch (ActivityNotFoundException activityNotFoundException) {
-                //
-            }
-        });
-
-        CardView raja = (CardView) root.findViewById(R.id.raja);
-        raja.setOnClickListener(v -> {
-            try {
-                String playURL = getString(R.string.team_raja_link);
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(playURL));
-                startActivity(i);
-            } catch (ActivityNotFoundException activityNotFoundException) {
-                //
-            }
-        });
-
-        CardView surge = (CardView) root.findViewById(R.id.surge);
-        surge.setOnClickListener(v -> {
-            try {
-                String playURL = getString(R.string.team_surge_link);
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(playURL));
-                startActivity(i);
-            } catch (ActivityNotFoundException activityNotFoundException) {
-                //
-            }
-        });
-
-        // Begin Designers
-
-        CardView idan = (CardView) root.findViewById(R.id.idan);
-        idan.setOnClickListener(v -> {
-            try {
-                String playURL = getString(R.string.contributor_idan_link);
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(playURL));
-                startActivity(i);
-            } catch (ActivityNotFoundException activityNotFoundException) {
-                //
-            }
-        });
-
-        CardView mihir = (CardView) root.findViewById(R.id.mihir);
-        mihir.setOnClickListener(v -> {
-            try {
-                String playURL = getString(R.string.contributor_mihir_link);
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(playURL));
-                startActivity(i);
-            } catch (ActivityNotFoundException activityNotFoundException) {
-                //
-            }
-        });
-
-        CardView sajid = (CardView) root.findViewById(R.id.sajid);
-        sajid.setOnClickListener(v -> {
-            try {
-                String playURL = getString(R.string.contributor_sajid_link);
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(playURL));
-                startActivity(i);
-            } catch (ActivityNotFoundException activityNotFoundException) {
-                //
-            }
-        });
-
-        CardView travis = (CardView) root.findViewById(R.id.travis);
-        travis.setOnClickListener(v -> {
-            try {
-                String playURL = getString(R.string.contributor_travis_link);
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(playURL));
-                startActivity(i);
-            } catch (ActivityNotFoundException activityNotFoundException) {
-                //
-            }
-        });
-
-        // Begin Translators
-
-        CardView chrys = (CardView) root.findViewById(R.id.chrys);
-        chrys.setOnClickListener(v -> {
-            try {
-                String playURL = getString(R.string.translator_chrys_link);
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(playURL));
-                startActivity(i);
-            } catch (ActivityNotFoundException activityNotFoundException) {
-                //
-            }
-        });
-
-        CardView david = (CardView) root.findViewById(R.id.david);
-        david.setOnClickListener(v -> {
-            try {
-                String playURL = getString(R.string.translator_david_link);
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(playURL));
-                startActivity(i);
-            } catch (ActivityNotFoundException activityNotFoundException) {
-                //
-            }
-        });
-
-        CardView gautham = (CardView) root.findViewById(R.id.gautham);
-        gautham.setOnClickListener(v -> {
-            try {
-                String playURL = getString(R.string.translator_gautham_link);
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(playURL));
-                startActivity(i);
-            } catch (ActivityNotFoundException activityNotFoundException) {
-                //
-            }
-        });
-
-        CardView gediminas = (CardView) root.findViewById(R.id.gediminas);
-        gediminas.setOnClickListener(v -> {
-            try {
-                String playURL = getString(R.string.translator_gediminas_link);
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(playURL));
-                startActivity(i);
-            } catch (ActivityNotFoundException activityNotFoundException) {
-                //
-            }
-        });
-
-        CardView jorge = (CardView) root.findViewById(R.id.jorge);
-        jorge.setOnClickListener(v -> {
-            try {
-                String playURL = getString(R.string.translator_jorge_link);
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(playURL));
-                startActivity(i);
-            } catch (ActivityNotFoundException activityNotFoundException) {
-                //
-            }
-        });
-
-        CardView kevin = (CardView) root.findViewById(R.id.kevin);
-        kevin.setOnClickListener(v -> {
-            try {
-                String playURL = getString(R.string.translator_kevin_link);
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(playURL));
-                startActivity(i);
-            } catch (ActivityNotFoundException activityNotFoundException) {
-                //
-            }
-        });
-
-        CardView nils = (CardView) root.findViewById(R.id.nils);
-        nils.setOnClickListener(v -> {
-            try {
-                String playURL = getString(R.string.translator_nils_link);
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(playURL));
-                startActivity(i);
-            } catch (ActivityNotFoundException activityNotFoundException) {
-                //
-            }
-        });
-
-        CardView wasita = (CardView) root.findViewById(R.id.wasita);
-        wasita.setOnClickListener(v -> {
-            try {
-                String playURL = getString(R.string.translator_wasita_link);
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(playURL));
-                startActivity(i);
-            } catch (ActivityNotFoundException activityNotFoundException) {
-                //
-            }
-        });
-
-        // Begin Layers Crew
-
-        CardView reinhard = (CardView) root.findViewById(R.id.reinhard);
-        reinhard.setOnClickListener(v -> {
-            try {
-                String playURL = getString(R.string.contributor_reinhard_link);
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(playURL));
-                startActivity(i);
-            } catch (ActivityNotFoundException activityNotFoundException) {
-                //
-            }
-        });
-
-        CardView brian = (CardView) root.findViewById(R.id.brian);
-        brian.setOnClickListener(v -> {
-            try {
-                String playURL = getString(R.string.contributor_brian_link);
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(playURL));
-                startActivity(i);
-            } catch (ActivityNotFoundException activityNotFoundException) {
-                //
-            }
-        });
-
-        CardView aldrin = (CardView) root.findViewById(R.id.aldrin);
-        aldrin.setOnClickListener(v -> {
-            try {
-                String playURL = getString(R.string.contributor_aldrin_link);
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(playURL));
-                startActivity(i);
-            } catch (ActivityNotFoundException activityNotFoundException) {
-                //
-            }
-        });
-
-        CardView steve = (CardView) root.findViewById(R.id.steve);
-        steve.setOnClickListener(v -> {
-            try {
-                String playURL = getString(R.string.contributor_steve_link);
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(playURL));
-                startActivity(i);
-            } catch (ActivityNotFoundException activityNotFoundException) {
-                //
-            }
-        });
-
-        CardView niklas = (CardView) root.findViewById(R.id.niklas);
-        niklas.setOnClickListener(v -> {
-            try {
-                String playURL = getString(R.string.contributor_niklas_link);
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(playURL));
-                startActivity(i);
-            } catch (ActivityNotFoundException activityNotFoundException) {
-                //
-            }
-        });
-
-        CardView andrzej = (CardView) root.findViewById(R.id.andrzej);
-        andrzej.setOnClickListener(v -> {
-            try {
-                String playURL = getString(R.string.contributor_andrzej_link);
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(playURL));
-                startActivity(i);
-            } catch (ActivityNotFoundException activityNotFoundException) {
-                //
-            }
-        });
-
-        CardView denis = (CardView) root.findViewById(R.id.denis);
-        denis.setOnClickListener(v -> {
-            try {
-                String playURL = getString(R.string.contributor_denis_link);
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(playURL));
-                startActivity(i);
-            } catch (ActivityNotFoundException activityNotFoundException) {
-                //
-            }
-        });
-
         return root;
+    }
+
+    private class FlipTheThemers extends TimerTask {
+        public void run() {
+            if (flipThemers) {
+                startSmooth();
+            }
+            flipThemers = !flipThemers;
+        }
+
+        private void startSmooth() {
+            for (int i = 0; i < themers.size(); i++) {
+                final int index = i;
+                themers.get(i).postDelayed(() -> themers.get(index).startSmooth(), 100 * i);
+            }
+        }
+    }
+
+    private class FlipTheDevelopers extends TimerTask {
+        public void run() {
+            if (flipDevelopers) {
+                startSmooth();
+            }
+            flipDevelopers = !flipDevelopers;
+        }
+
+        private void startSmooth() {
+            for (int i = 0; i < developers.size(); i++) {
+                final int index = i;
+                developers.get(i).postDelayed(() -> developers.get(index).startSmooth(), 100 * i);
+            }
+        }
+    }
+
+    private class FlipTheContributors extends TimerTask {
+        public void run() {
+            if (flipContributors) {
+                startSmooth();
+            }
+            flipContributors = !flipContributors;
+        }
+
+        private void startSmooth() {
+            for (int i = 0; i < contributors.size(); i++) {
+                final int index = i;
+                contributors.get(i).postDelayed(() -> contributors.get(index).startSmooth(), 100 * i);
+            }
+        }
     }
 }

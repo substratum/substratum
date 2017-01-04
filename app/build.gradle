@@ -20,8 +20,8 @@ android {
         applicationId "projekt.substratum"
         minSdkVersion 24
         targetSdkVersion 25
-        versionCode 519
-        versionName "five hundred nineteen"
+        versionCode 520
+        versionName "five hundred twenty"
         renderscriptTargetApi 23
         renderscriptSupportModeEnabled true
     }
@@ -88,6 +88,7 @@ dependencies {
     compile 'com.thesurix.gesturerecycler:gesture-recycler:1.3.1'
     // Animated ImageView
     compile 'com.flaviofaria:kenburnsview:1.0.7'
+    compile 'me.wangyuwei:GalleryView:1.0.0'
     // ZT Zip
     compile 'org.zeroturnaround:zt-zip:1.8'
     // Dialogs

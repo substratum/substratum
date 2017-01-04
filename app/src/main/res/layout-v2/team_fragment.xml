@@ -13,8 +13,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            android:layout_marginStart="5dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:text="@string/team_title_1"
             android:textColor="@color/settings_title_color"
@@ -23,33 +23,77 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            android:layout_marginStart="5dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:text="@string/team_text_1" />
 
-        <include
-            android:id="@+id/nicholas"
-            layout="@layout/team_card_nicholas" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="10dp">
 
-        <include
-            android:id="@+id/syko"
-            layout="@layout/team_card_syko" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:layout_weight="1">
 
-        <include
-            android:id="@+id/george"
-            layout="@layout/team_card_george" />
+                <ImageView
+                    android:id="@+id/nicholas"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/team_nicholas" />
 
-        <include
-            android:id="@+id/cory"
-            layout="@layout/team_card_cory" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/nicholas"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:gravity="left"
+                    android:text="@string/team_nicholas"
+                    android:textColor="@color/main_screen_card_theme_title"
+                    android:textSize="18sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/syko"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/team_syko" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/syko"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:gravity="left"
+                    android:text="@string/team_syko"
+                    android:textColor="@color/main_screen_card_theme_title"
+                    android:textSize="18sp" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
             android:text="@string/team_title_2"
             android:textColor="@color/settings_title_color"
             android:textStyle="bold" />
@@ -57,33 +101,46 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            android:layout_marginStart="5dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:text="@string/team_text_2" />
 
-        <include
-            android:id="@+id/ivan"
-            layout="@layout/team_card_ivan" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="10dp">
 
-        <include
-            android:id="@+id/jacob"
-            layout="@layout/team_card_jacob" />
+            <me.wangyuwei.galleryview.GalleryView
+                android:id="@+id/developer1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1" />
 
-        <include
-            android:id="@+id/raja"
-            layout="@layout/team_card_raja" />
+            <me.wangyuwei.galleryview.GalleryView
+                android:id="@+id/developer2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1" />
 
-        <include
-            android:id="@+id/surge"
-            layout="@layout/team_card_surge" />
+            <me.wangyuwei.galleryview.GalleryView
+                android:id="@+id/developer3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1" />
+
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
             android:text="@string/team_title_3"
             android:textColor="@color/settings_title_color"
             android:textStyle="bold" />
@@ -91,185 +148,145 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            android:layout_marginStart="5dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:text="@string/team_text_3" />
 
-        <include
-            android:id="@+id/branden"
-            layout="@layout/team_card_branden" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="10dp">
 
-        <include
-            android:id="@+id/dave"
-            layout="@layout/team_card_dave" />
+            <me.wangyuwei.galleryview.GalleryView
+                android:id="@+id/designer1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1" />
 
-        <include
-            android:id="@+id/jeremy"
-            layout="@layout/team_card_jeremy" />
+            <me.wangyuwei.galleryview.GalleryView
+                android:id="@+id/designer2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1" />
 
-        <include
-            android:id="@+id/jimmy"
-            layout="@layout/team_card_jimmy" />
+            <me.wangyuwei.galleryview.GalleryView
+                android:id="@+id/designer3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1" />
+
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="30dp"
-            android:text="@string/contributor_title_3"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/team_title_4"
             android:textColor="@color/settings_title_color"
             android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            android:layout_marginStart="5dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:text="@string/contributor_text_3" />
+            android:text="@string/team_text_4" />
 
-        <include
-            android:id="@+id/ben"
-            layout="@layout/contributor_card_ben" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="10dp">
 
-        <include
-            android:id="@+id/charcat"
-            layout="@layout/contributor_card_char" />
+            <me.wangyuwei.galleryview.GalleryView
+                android:id="@+id/contributor1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1" />
 
-        <include
-            android:id="@+id/nathan"
-            layout="@layout/contributor_card_nathan" />
+            <me.wangyuwei.galleryview.GalleryView
+                android:id="@+id/contributor2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1" />
+
+            <me.wangyuwei.galleryview.GalleryView
+                android:id="@+id/contributor3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1" />
+
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="30dp"
-            android:text="@string/contributor_title_1"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/team_title_5"
             android:textColor="@color/settings_title_color"
             android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            android:layout_marginStart="5dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:text="@string/contributor_text_1" />
+            android:text="@string/team_text_5" />
 
-        <include
-            android:id="@+id/idan"
-            layout="@layout/contributor_card_idan" />
-
-        <include
-            android:id="@+id/mihir"
-            layout="@layout/contributor_card_mihir" />
-
-        <include
-            android:id="@+id/sajid"
-            layout="@layout/contributor_card_sajid" />
-
-        <include
-            android:id="@+id/travis"
-            layout="@layout/contributor_card_travis" />
+        <Button
+            android:id="@+id/list_button_translators"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/restore_spinner"
+            android:layout_margin="10dp"
+            android:background="@color/restore_button"
+            android:clickable="true"
+            android:foreground="?android:selectableItemBackground"
+            android:text="@string/team_button_5"
+            android:textColor="@color/restore_button_text_color" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="30dp"
-            android:text="@string/translator_title"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/team_title_6"
             android:textColor="@color/settings_title_color"
             android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            android:layout_marginStart="5dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:text="@string/translator_text" />
+            android:text="@string/team_text_6" />
 
-        <include
-            android:id="@+id/kevin"
-            layout="@layout/translator_card_kevin" />
-
-        <include
-            android:id="@+id/nils"
-            layout="@layout/translator_card_nils" />
-
-        <include
-            android:id="@+id/david"
-            layout="@layout/translator_card_david" />
-
-        <include
-            android:id="@+id/wasita"
-            layout="@layout/translator_card_wasita" />
-
-        <include
-            android:id="@+id/gediminas"
-            layout="@layout/translator_card_gediminas" />
-
-        <include
-            android:id="@+id/chrys"
-            layout="@layout/translator_card_chrys" />
-
-        <include
-            android:id="@+id/jorge"
-            layout="@layout/translator_card_jorge" />
-
-        <include
-            android:id="@+id/gautham"
-            layout="@layout/translator_card_gautham" />
-
-        <TextView
+        <Button
+            android:id="@+id/list_button_layers"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="30dp"
-            android:text="@string/contributor_title_2"
-            android:textColor="@color/settings_title_color"
-            android:textStyle="bold" />
+            android:layout_margin="10dp"
+            android:background="@color/restore_button"
+            android:clickable="true"
+            android:foreground="?android:selectableItemBackground"
+            android:text="@string/team_button_6"
+            android:textColor="@color/restore_button_text_color" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/contributor_text_2" />
-
-        <include
-            android:id="@+id/reinhard"
-            layout="@layout/contributor_card_reinhard" />
-
-        <include
-            android:id="@+id/brian"
-            layout="@layout/contributor_card_brian" />
-
-        <include
-            android:id="@+id/aldrin"
-            layout="@layout/contributor_card_aldrin" />
-
-        <include
-            android:id="@+id/steve"
-            layout="@layout/contributor_card_steve" />
-
-        <include
-            android:id="@+id/niklas"
-            layout="@layout/contributor_card_niklas" />
-
-        <include
-            android:id="@+id/andrzej"
-            layout="@layout/contributor_card_andrzej" />
-
-        <include
-            android:id="@+id/denis"
-            layout="@layout/contributor_card_denis" />
     </LinearLayout>
 </ScrollView>

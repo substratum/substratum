@@ -9,4 +9,28 @@
         <item>@string/contributor_andrzej</item>
         <item>@string/contributor_denis</item>
     </string-array>
+
+    <string-array name="translations">
+        <item>中文翻译（简体）</item>
+    </string-array>
+
+    <string-array name="chinese_translators">
+        <item>高志鹏 (martincz)</item>
+        <item>xdygxh</item>
+        <item>iconteral</item>
+        <item>weixuan (weixuanxie)</item>
+        <item>phytomorphogenesis</item>
+        <item>梁灿耀 (yezizhai)</item>
+        <item>李涛 (crixec)</item>
+        <item>筱穆 (xm12578)</item>
+        <item>luosir</item>
+        <item>riouts</item>
+        <item>那年明月 (vanson_pc)</item>
+        <item>410054165</item>
+        <item>Craig Hart (craigaryhart)</item>
+        <item>Tong Wu (wutong07163)</item>
+        <item>Lu Chang (Ludoux)</item>
+        <item>林毅华 (linyihua1996)</item>
+        <item>周羿吉 (zhouyiji)</item>
+    </string-array>
 </resources>

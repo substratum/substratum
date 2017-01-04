@@ -201,6 +201,29 @@ public class TeamFragment extends Fragment {
             }
             return true;
         });
+
+        Button translators = (Button) root.findViewById(R.id.list_button_translators);
+        translators.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setItems(getResources().getStringArray(R.array.translations),
+                    (dialog, item) -> {
+                        dialog.cancel();
+                        AlertDialog.Builder builder2 = new AlertDialog.Builder(getActivity());
+                        switch (item) {
+                            // Chinese (Simplified) Translations
+                            case 0:
+                                builder2.setItems(
+                                        getResources().getStringArray(R.array.chinese_translators),
+                                        (dialog2, item2) -> {
+                                        });
+                        }
+                        AlertDialog alert2 = builder2.create();
+                        alert2.show();
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+        });
+        
         return root;
     }
 

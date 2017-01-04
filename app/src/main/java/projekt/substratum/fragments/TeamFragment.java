@@ -216,6 +216,13 @@ public class TeamFragment extends Fragment {
                                         getResources().getStringArray(R.array.chinese_translators),
                                         (dialog2, item2) -> {
                                         });
+                                break;
+                            case 1:
+                                builder2.setItems(
+                                        getResources().getStringArray(R.array.portuguese_brazillian_translators),
+                                        (dialog2, item2) -> {
+                                        });
+                                break;
                         }
                         AlertDialog alert2 = builder2.create();
                         alert2.show();
@@ -223,7 +230,7 @@ public class TeamFragment extends Fragment {
             AlertDialog alert = builder.create();
             alert.show();
         });
-        
+
         return root;
     }
 

@@ -12,6 +12,13 @@
 
     <string-array name="translations">
         <item>中文翻译（简体）</item>
+        <item>Tradução Português (Brasileiro)</item>
+    </string-array>
+
+    <string-array name="portuguese_brazillian_translators">
+        <item>Chrys B (abacate123)</item>
+        <item>Felipe Silva (felipesilva2655)</item>
+        <item>Fred “Virkkunen” Schauß (zkaarface)</item>
     </string-array>
 
     <string-array name="chinese_translators">

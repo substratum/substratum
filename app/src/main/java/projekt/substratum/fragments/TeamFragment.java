@@ -188,7 +188,6 @@ public class TeamFragment extends Fragment {
             builder.setItems(getResources().getStringArray(R.array.layers_contributors),
                     (dialog, item) -> {
                     });
-            builder.setPositiveButton(R.string.dialog_ok, (dialog, item) -> dialog.cancel());
             AlertDialog alert = builder.create();
             alert.show();
         });

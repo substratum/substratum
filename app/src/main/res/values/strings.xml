@@ -762,4 +762,11 @@
     <string name="profile_pending_notification">Profile will be changed after screen is off.</string>
     <string name="profile_success_notification">Profile successfully applied!</string>
     <string name="profile_failed_notification">Profile failed to apply&#8230;</string>
+
+    <string name="theme_debug_mode_title">Theme debug mode</string>
+    <string name="theme_debug_mode_summary">Disable legacy compiler fallback.</string>
+    <string name="theme_debug_mode_dialog_title">WARNING Dragon ahead!</string>
+    <string name="theme_debug_mode_dialog_content">This may broke compilation process. Only enable this option if you know what you are doing.</string>
+    <string name="theme_debug_mode_dialog_continue">Continue</string>
+    <string name="theme_debug_mode_dialog_cancel">Cancel</string>
 </resources>

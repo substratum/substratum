@@ -256,6 +256,31 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                             return false;
                         }
                     });
+
+            final CheckBoxPreference debugTheme = (CheckBoxPreference)
+                    getPreferenceManager().findPreference("theme_debug");
+            debugTheme.setChecked(prefs.getBoolean("theme_debug", false));
+            debugTheme.setOnPreferenceChangeListener(
+                    (preference, newValue) -> {
+                        boolean isChecked = (Boolean) newValue;
+                        if (isChecked) {
+                            final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                            builder.setTitle(R.string.theme_debug_mode_dialog_title);
+                            builder.setMessage(R.string.theme_debug_mode_dialog_content);
+                            builder.setNegativeButton(R.string.theme_debug_mode_dialog_cancel,
+                                    (dialog, id) -> dialog.dismiss());
+                            builder.setPositiveButton(R.string.theme_debug_mode_dialog_continue,
+                                    (dialog, id) -> {prefs.edit()
+                                            .putBoolean("theme_debug", true).apply();
+                                        debugTheme.setChecked(true);
+                            });
+                            builder.show();
+                        } else {
+                            prefs.edit().putBoolean("theme_debug", false).apply();
+                            debugTheme.setChecked(false);
+                        }
+                        return false;
+                    });
         }
 
         final Preference purgeCache = getPreferenceManager().findPreference("purge_cache");

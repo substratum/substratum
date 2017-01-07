@@ -44,6 +44,13 @@
             android:summary="@string/settings_aapt"
             android:title="@string/settings_aopt_switcher_title" />
 
+        <CheckBoxPreference
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:key="theme_debug"
+            android:summary="@string/theme_debug_mode_summary"
+            android:title="@string/theme_debug_mode_title" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

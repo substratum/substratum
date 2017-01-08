@@ -49,13 +49,14 @@ import projekt.substratum.util.ViewAnimationUtils;
 
 public class ProfileFragment extends Fragment {
 
-    private static final String SCHEDULED_PROFILE_ENABLED = "scheduled_profile_enabled";
-    private static final String NIGHT_PROFILE = "night_profile";
-    private static final String NIGHT_PROFILE_HOUR = "night_profile_hour";
-    private static final String NIGHT_PROFILE_MINUTE = "night_profile_minute";
-    private static final String DAY_PROFILE = "day_profile";
-    private static final String DAY_PROFILE_HOUR = "day_profile_hour";
-    private static final String DAY_PROFILE_MINUTE = "day_profile_minute";
+    public static final String SCHEDULED_PROFILE_ENABLED = "scheduled_profile_enabled";
+    public static final String SCHEDULED_PROFILE_TYPE_EXTRA = "type";
+    public static final String NIGHT_PROFILE = "night_profile";
+    public static final String NIGHT_PROFILE_HOUR = "night_profile_hour";
+    public static final String NIGHT_PROFILE_MINUTE = "night_profile_minute";
+    public static final String DAY_PROFILE = "day_profile";
+    public static final String DAY_PROFILE_HOUR = "day_profile_hour";
+    public static final String DAY_PROFILE_MINUTE = "day_profile_minute";
     private static int nightHour, nightMinute, dayHour, dayMinute;
 
     private List<String> list;
@@ -246,7 +247,8 @@ public class ProfileFragment extends Fragment {
         });
 
         final CardView scheduledProfileCard = (CardView) root.findViewById(R.id.cardListView3);
-        if (References.checkOMS(getActivity())) {
+        if (References.checkOMS(getActivity()) && References.isPackageInstalled(getActivity(),
+                "masquerade.substratum")) {
             final LinearLayout scheduledProfileLayout = (LinearLayout) root.findViewById(
                     R.id.scheduled_profile_card_content);
             final Switch dayNightSwitch = (Switch) root.findViewById(R.id.profile_switch);
@@ -348,10 +350,10 @@ public class ProfileFragment extends Fragment {
         AlarmManager alarmMgr = (AlarmManager) getActivity()
                 .getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(getActivity(), ScheduledProfileReceiver.class);
-        intent.putExtra("type", getString(R.string.night));
+        intent.putExtra(SCHEDULED_PROFILE_TYPE_EXTRA, getString(R.string.night));
         PendingIntent nightIntent = PendingIntent.getBroadcast(getActivity(), 0, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
-        intent.putExtra("type", getString(R.string.day));
+        intent.putExtra(SCHEDULED_PROFILE_TYPE_EXTRA, getString(R.string.day));
         PendingIntent dayIntent = PendingIntent.getBroadcast(getActivity(), 1, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -367,8 +369,8 @@ public class ProfileFragment extends Fragment {
             if (calendar.getTimeInMillis() < System.currentTimeMillis()) {
                 calendar.add(Calendar.DAY_OF_YEAR, 1);
             }
-            alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                    AlarmManager.INTERVAL_DAY, nightIntent);
+            alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                    nightIntent);
             editor.putString(NIGHT_PROFILE, nightProfile.getSelectedItem().toString());
             editor.putInt(NIGHT_PROFILE_HOUR, nightHour);
             editor.putInt(NIGHT_PROFILE_MINUTE, nightMinute);
@@ -379,8 +381,8 @@ public class ProfileFragment extends Fragment {
             if (calendar.getTimeInMillis() < System.currentTimeMillis()) {
                 calendar.add(Calendar.DAY_OF_YEAR, 1);
             }
-            alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                    AlarmManager.INTERVAL_DAY, dayIntent);
+            alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                    dayIntent);
             editor.putString(DAY_PROFILE, dayProfile.getSelectedItem().toString());
             editor.putInt(DAY_PROFILE_HOUR, dayHour);
             editor.putInt(DAY_PROFILE_MINUTE, dayMinute);

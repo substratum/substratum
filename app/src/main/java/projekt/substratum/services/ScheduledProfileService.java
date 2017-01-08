@@ -1,5 +1,6 @@
 package projekt.substratum.services;
 
+import android.app.AlarmManager;
 import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -18,12 +19,21 @@ import android.util.Log;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import projekt.substratum.ProfileErrorInfoActivity;
 import projekt.substratum.R;
 import projekt.substratum.config.References;
 import projekt.substratum.util.ReadOverlaysFile;
+
+import static projekt.substratum.fragments.ProfileFragment.DAY_PROFILE;
+import static projekt.substratum.fragments.ProfileFragment.DAY_PROFILE_HOUR;
+import static projekt.substratum.fragments.ProfileFragment.DAY_PROFILE_MINUTE;
+import static projekt.substratum.fragments.ProfileFragment.NIGHT_PROFILE;
+import static projekt.substratum.fragments.ProfileFragment.NIGHT_PROFILE_HOUR;
+import static projekt.substratum.fragments.ProfileFragment.NIGHT_PROFILE_MINUTE;
+import static projekt.substratum.fragments.ProfileFragment.SCHEDULED_PROFILE_TYPE_EXTRA;
 
 public class ScheduledProfileService extends IntentService {
 
@@ -51,7 +61,7 @@ public class ScheduledProfileService extends IntentService {
 
     @Override
     public void onHandleIntent(Intent intent) {
-        extra = intent.getStringExtra("type");
+        extra = intent.getStringExtra(SCHEDULED_PROFILE_TYPE_EXTRA);
 
         String title_parse = String.format(getString(R.string.profile_notification_title), extra);
         mBuilder.setContentTitle(title_parse)
@@ -62,14 +72,13 @@ public class ScheduledProfileService extends IntentService {
         mNotifyManager.notify(NOTIFICATION_ID, mBuilder.build());
 
         PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
-        do {
+        while (powerManager.isInteractive()) {
             try {
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
-        } while (powerManager.isInteractive());
-
+        }
         applyScheduledProfile(intent);
     }
 
@@ -82,9 +91,9 @@ public class ScheduledProfileService extends IntentService {
         mBuilder.setContentText(getString(R.string.profile_success_notification));
 
         if (extra.equals(getString(R.string.day))) {
-            type = "day_profile";
+            type = DAY_PROFILE;
         } else if (extra.equals(getString(R.string.night))) {
-            type = "night_profile";
+            type = NIGHT_PROFILE;
         } else {
             mBuilder.setContentText(getString(R.string.profile_failed_notification));
             type = "";
@@ -208,27 +217,21 @@ public class ScheduledProfileService extends IntentService {
                 to_be_run_commands = to_be_run_commands + " && pkill -f com.android.systemui";
             }
 
-            if (cannot_run_overlays.size() > 0) {
+            if (cannot_run_overlays.size() == 0) {
+                Intent runCommand = new Intent();
+                runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                runCommand.setAction("masquerade.substratum.COMMANDS");
+                runCommand.putExtra("om-commands", to_be_run_commands);
+                mContext.sendBroadcast(runCommand);
+            } else {
                 Intent notifyIntent = new Intent(mContext, ProfileErrorInfoActivity.class);
                 notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 notifyIntent.putExtra("dialog_message", dialog_message);
                 PendingIntent contentIntent = PendingIntent.getActivity(mContext, 0, notifyIntent, 0);
 
-                mBuilder.setContentTitle("Failed to apply profile")
-                        .setContentText("Click for more info.")
+                mBuilder.setContentTitle(getString(R.string.profile_failed_notification))
+                        .setContentText(getString(R.string.profile_failed_info_notification))
                         .setContentIntent(contentIntent);
-            } else {
-                if (References.isPackageInstalled(mContext, "masquerade.substratum")) {
-                    Intent runCommand = new Intent();
-                    runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                    runCommand.setAction("masquerade.substratum.COMMANDS");
-                    runCommand.putExtra("om-commands", to_be_run_commands);
-                    mContext.sendBroadcast(runCommand);
-                } else {
-                    Log.e(References.SUBSTRATUM_LOG, "masquerade not found!");
-                    mBuilder.setContentTitle("Failed to apply profile")
-                            .setContentText("masquerade not found!");
-                }
             }
 
             // Restore wallpapers
@@ -257,6 +260,28 @@ public class ScheduledProfileService extends IntentService {
             }
             Log.d(References.SUBSTRATUM_LOG, to_be_run_commands);
         }
+
+        //create new alarm
+        boolean isNight = extra.equals(getResources().getString(R.string.night));
+        int hour = isNight ? prefs.getInt(NIGHT_PROFILE_HOUR, 0) :
+                prefs.getInt(DAY_PROFILE_HOUR, 0);
+        int minute = isNight ? prefs.getInt(NIGHT_PROFILE_MINUTE, 0) :
+                prefs.getInt(DAY_PROFILE_MINUTE, 0);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        calendar.set(Calendar.MINUTE, minute);
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+
+        Intent i = new Intent(mContext, ScheduledProfileReceiver.class);
+        i.putExtra(SCHEDULED_PROFILE_TYPE_EXTRA, extra);
+        PendingIntent newIntent = PendingIntent.getBroadcast(mContext, isNight ? 0 : 1, i,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManager alarmMgr = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
+        alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                newIntent);
 
         //all set, notify user the output
         mNotifyManager.notify(NOTIFICATION_ID, mBuilder.build());

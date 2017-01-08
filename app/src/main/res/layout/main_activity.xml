@@ -18,8 +18,7 @@
     <FrameLayout
         android:id="@+id/drawer_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/toolbar">
+        android:layout_height="match_parent">
 
         <FrameLayout
             android:id="@+id/main"

@@ -108,7 +108,7 @@
                 android:gravity="center"
                 android:text="@string/error_loading_pack"
                 android:textColor="@color/sounds_text"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:textStyle="italic" />
 
         </RelativeLayout>

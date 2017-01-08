@@ -72,7 +72,7 @@
                     android:gravity="center"
                     android:text="@string/font_placeholder_text"
                     android:textColor="@color/font_text"
-                    android:textSize="20dp"
+                    android:textSize="20sp"
                     android:textStyle="italic" />
 
             </RelativeLayout>
@@ -99,7 +99,7 @@
                     android:gravity="center"
                     android:text="@string/fonts_defaults_text"
                     android:textColor="@color/font_text"
-                    android:textSize="20dp"
+                    android:textSize="20sp"
                     android:textStyle="italic" />
 
             </RelativeLayout>
@@ -116,7 +116,7 @@
                     android:gravity="center"
                     android:text="AaBbCcDd123"
                     android:textColor="@color/font_text"
-                    android:textSize="50dp" />
+                    android:textSize="50sp" />
 
                 <TextView
                     android:id="@+id/text_bold"
@@ -126,7 +126,7 @@
                     android:gravity="center"
                     android:text="AaBbCcDd123"
                     android:textColor="@color/font_text"
-                    android:textSize="50dp"
+                    android:textSize="50sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -148,7 +148,7 @@
                     android:gravity="center"
                     android:text="AaBbCcDd123"
                     android:textColor="@color/font_text"
-                    android:textSize="50dp"
+                    android:textSize="50sp"
                     android:textStyle="italic|bold" />
             </RelativeLayout>
         </RelativeLayout>

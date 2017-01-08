@@ -36,7 +36,7 @@
                 android:clipToPadding="false"
                 android:paddingBottom="15dp"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"></android.support.v7.widget.RecyclerView>
+                android:paddingRight="@dimen/activity_horizontal_margin" />
 
         </LinearLayout>
 

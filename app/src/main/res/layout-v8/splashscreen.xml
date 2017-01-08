@@ -19,7 +19,7 @@
         android:layout_width="280dp"
         android:layout_height="80dp"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="55dp"
+        android:layout_marginStart="55dp"
         android:layout_marginTop="25dp"
         android:src="@drawable/egg_title_1"
         android:visibility="gone" />
@@ -29,7 +29,7 @@
         android:layout_width="55dp"
         android:layout_height="80dp"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="200dp"
+        android:layout_marginStart="200dp"
         android:layout_marginTop="79dp"
         android:src="@drawable/egg_title_2"
         android:visibility="gone" />
@@ -39,7 +39,7 @@
         android:layout_width="fill_parent"
         android:layout_height="135dp"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="1dp"
+        android:layout_marginStart="1dp"
         android:layout_marginTop="90dp"
         android:src="@drawable/egg_title_3"
         android:visibility="gone" />
@@ -67,9 +67,9 @@
         android:layout_width="126dp"
         android:layout_height="111dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_marginBottom="288dp"
-        android:layout_marginRight="25dp"
+        android:layout_marginEnd="25dp"
         android:visibility="gone" />
 
     <TextView
@@ -77,8 +77,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="18dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="18dp"
         android:shadowColor="@color/easteregg_best_score_shadow"
         android:shadowDx="-7"
         android:shadowDy="8"

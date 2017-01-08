@@ -220,12 +220,9 @@ public class LLandActivity extends Activity {
                                         wink.setVisibility(View.VISIBLE);
                                         winkVisible = true;
                                         Handler handler = new Handler();
-                                        handler.postDelayed(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                wink.setVisibility(View.GONE);
-                                                winkVisible = false;
-                                            }
+                                        handler.postDelayed(() -> {
+                                            wink.setVisibility(View.GONE);
+                                            winkVisible = false;
                                         }, 300);
                                     }
                                     wHandler.postDelayed(this, 5000);

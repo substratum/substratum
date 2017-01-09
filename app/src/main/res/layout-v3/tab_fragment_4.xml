@@ -56,7 +56,7 @@
                 android:gravity="center"
                 android:text="@string/sounds_spinner_defaults_text"
                 android:textColor="@color/font_text"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:textStyle="italic" />
 
         </RelativeLayout>
@@ -82,7 +82,7 @@
                 android:gravity="center"
                 android:text="@string/sounds_placeholder_text"
                 android:textColor="@color/sounds_text"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:textStyle="italic" />
 
         </RelativeLayout>

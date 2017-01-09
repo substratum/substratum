@@ -28,7 +28,7 @@
             android:gravity="center"
             android:text="@string/wallpaper_no_wallpapers"
             android:textColor="@color/font_text"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textStyle="italic" />
 
     </RelativeLayout>

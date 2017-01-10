@@ -76,7 +76,7 @@ public class AdvancedManagerFragment extends Fragment {
         View sheetView = root.findViewById(R.id.fab_sheet);
         View overlay = root.findViewById(R.id.overlay);
         int sheetColor = getContext().getColor(R.color.fab_menu_background_card);
-        int fabColor = getContext().getColor(R.color.colorAccent);
+        int fabColor = getContext().getColor(R.color.fab_background_color);
 
         progressBar = (MaterialProgressBar) root.findViewById(R.id.progress_bar_loader);
 

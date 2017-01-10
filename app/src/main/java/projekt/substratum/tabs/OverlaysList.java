@@ -189,7 +189,7 @@ public class OverlaysList extends Fragment {
         View sheetView = root.findViewById(R.id.fab_sheet);
         View overlay = root.findViewById(R.id.overlay);
         int sheetColor = getContext().getColor(R.color.fab_menu_background_card);
-        int fabColor = getContext().getColor(R.color.colorAccent);
+        int fabColor = getContext().getColor(R.color.fab_background_color);
 
         final FloatingActionMenu floatingActionButton = (FloatingActionMenu) root.findViewById(R
                 .id.apply_fab);

@@ -43,6 +43,10 @@
     <string name="failed_to_install_title_notification">Failed to install OMS theme</string>
     <string name="failed_to_install_text_notification">%s failed to install</string>
 
+    <string name="actionbar_theme_count_singular">%s theme</string>
+    <string name="actionbar_theme_count_plural">%s themes</string>
+    <string name="actionbar_theme_count_loading">loading&#8230;</string>
+
     <string name="settings_icons">Settings Icons</string>
     <string name="systemui_headers">System UI Headers</string>
     <string name="systemui_navigation">System UI Navigation</string>

@@ -26,6 +26,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
+import projekt.substratum.MainActivity;
 import projekt.substratum.R;
 import projekt.substratum.adapters.ThemeEntryAdapter;
 import projekt.substratum.config.References;
@@ -65,6 +66,9 @@ public class ThemeFragment extends Fragment {
         if (bundle != null) {
             home_type = bundle.getString("home_type");
         }
+
+        // Initialize a proper loading sequence so the user does not see the unparsed string
+        MainActivity.actionbar_content.setText(getString(R.string.actionbar_theme_count_loading));
 
         substratum_packages = new HashMap<>();
         recyclerView = (RecyclerView) root.findViewById(R.id.theme_list);
@@ -208,6 +212,17 @@ public class ThemeFragment extends Fragment {
             cardView.setVisibility(View.GONE);
             recyclerView.setVisibility(View.VISIBLE);
         }
+
+        // Now let's place the proper amount of theme count into the context text
+        String parse;
+        if (substratum_packages.size() > 1) {
+            parse = String.format(getString(R.string.actionbar_theme_count_plural),
+                    String.valueOf(substratum_packages.size()));
+        } else {
+            parse = String.format(getString(R.string.actionbar_theme_count_singular),
+                    String.valueOf(substratum_packages.size()));
+        }
+        MainActivity.actionbar_content.setText(parse);
 
         // Now we need to sort the buffered installed Layers themes
         map = new TreeMap<>(substratum_packages);

@@ -62,12 +62,15 @@ public class MainActivity extends AppCompatActivity implements
 
     private static final int PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
     private static final int PERMISSIONS_REQUEST_GET_ACCOUNTS = 2;
+    public static TextView actionbar_title, actionbar_content;
     private Drawer drawer;
     private int permissionCheck, permissionCheck2;
     private ProgressDialog mProgressDialog;
     private SharedPreferences prefs;
 
     private void switchFragment(String title, String fragment) {
+        actionbar_content.setVisibility(View.GONE);
+        actionbar_title.setVisibility(View.GONE);
         if (getSupportActionBar() != null) getSupportActionBar().setTitle(title);
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
         tx.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
@@ -82,7 +85,10 @@ public class MainActivity extends AppCompatActivity implements
         bundle.putString("home_type", home_type);
         fragment.setArguments(bundle);
 
-        if (getSupportActionBar() != null) getSupportActionBar().setTitle(title);
+        if (getSupportActionBar() != null) getSupportActionBar().setTitle("");
+        actionbar_content.setVisibility(View.VISIBLE);
+        actionbar_title.setVisibility(View.VISIBLE);
+        actionbar_title.setText(title);
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
         tx.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         tx.replace(R.id.main, fragment);
@@ -90,6 +96,8 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void switchFragmentToLicenses(String title, LibsSupportFragment fragment) {
+        actionbar_content.setVisibility(View.GONE);
+        actionbar_title.setVisibility(View.GONE);
         if (getSupportActionBar() != null) getSupportActionBar().setTitle(title);
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
         tx.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
@@ -141,6 +149,9 @@ public class MainActivity extends AppCompatActivity implements
         prefs = PreferenceManager.getDefaultSharedPreferences(
                 getApplicationContext());
 
+        actionbar_title = (TextView) findViewById(R.id.activity_title);
+        actionbar_content = (TextView) findViewById(R.id.theme_count);
+
         References.setAndCheckOMS(getApplicationContext());
         startService(new Intent(this, ThemeService.class));
 
@@ -150,6 +161,7 @@ public class MainActivity extends AppCompatActivity implements
             if (getSupportActionBar() != null) {
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                 getSupportActionBar().setHomeButtonEnabled(false);
+                getSupportActionBar().setTitle("");
             }
         }
 

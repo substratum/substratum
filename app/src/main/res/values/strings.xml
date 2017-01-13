@@ -762,7 +762,7 @@
     <string name="profile_pending_notification">Profile will be changed after screen is off.</string>
     <string name="profile_success_notification">Profile successfully applied!</string>
     <string name="profile_failed_notification">Profile failed to apply&#8230;</string>
-    <string name="profile_failed_info_notification">Touch for more info.</string>
+    <string name="profile_failed_info_notification">Touch for more information</string>
 
     <string name="theme_debug_mode_title">Theme Debugging Mode</string>
     <string name="theme_debug_mode_summary">Disable the legacy compiler fallback</string>

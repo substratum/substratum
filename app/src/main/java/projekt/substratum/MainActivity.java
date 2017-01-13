@@ -558,13 +558,10 @@ public class MainActivity extends AppCompatActivity implements
         } else {
             getMenuInflater().inflate(R.menu.activity_menu_legacy, menu);
         }
-
         MenuItem searchItem = menu.findItem(R.id.action_search);
         searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setOnQueryTextListener(this);
-        searchView.setQueryHint(getString(R.string.actionbar_search_query_hint));
         searchItem.setVisible(!hideSearch);
-
         return true;
     }
 

@@ -370,7 +370,8 @@
     <string name="logcat_dialog_title">\"LogChar\" Debug Report</string>
     <string name="logcat_dialog_copy_success">Successfully copied error log to clipboard!</string>
     <string name="logcat_email_subject">%s: Theme Bug Report</string>
-    <string name="logcat_email_body" formatted="false">Hey %s,\n\nI have an issue with %s, and would
+    <string name="logcat_email_body" formatted="false" translatable="false">
+        Hey %s,\n\nI have an issue with %s, and would
         like to see if you could help me resolve this issue.\n\nDevice:%s\n\nReport:\n\n%s
     </string>
     <string name="logcat_email_activity">Send bug report using&#8230;</string>

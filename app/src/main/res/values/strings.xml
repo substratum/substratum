@@ -564,16 +564,6 @@
     <string name="substratum_restart_toast">Substratum restarted automatically after a settings
         change.
     </string>
-    <string name="masquerade_check_title">il bacio della morte</string>
-    <string name="masquerade_check_subtext">Ensure the system\'s presence and integrity of the
-        Masquerade theme system. If Masquerade does not report back positively, please perform a
-        soft/hard reboot and try again!
-    </string>
-    <string name="masquerade_check_installed">Quiet child, as the dance has already begun!</string>
-    <string name="masquerade_check_not_installed">masquerade is not installed.</string>
-    <string name="masquerade_check_not_supported">masquerade is not supported on substratum
-        legacy.
-    </string>
     <string name="purge_cache">Reset Theme Cache</string>
     <string name="purge_cache_subtext">Invalidate Substratum\'s theme and application cache, as well
         as reset all flags relating to theme rebuilding.

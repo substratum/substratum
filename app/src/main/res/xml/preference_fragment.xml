@@ -33,13 +33,6 @@
         <Preference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:key="masquerade_check"
-            android:summary="@string/masquerade_check_subtext"
-            android:title="@string/masquerade_check_title" />
-
-        <Preference
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:key="purge_cache"
             android:summary="@string/purge_cache_subtext"
             android:title="@string/purge_cache" />

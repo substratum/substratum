@@ -158,25 +158,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             } catch (Exception e) {
                 // Masquerade was not installed
             }
-            final Preference masqueradeCheck = getPreferenceManager().findPreference
-                    ("masquerade_check");
-            masqueradeCheck.setOnPreferenceClickListener(
-                    preference -> {
-                        if (References.isPackageInstalled(getContext(),
-                                "masquerade.substratum")) {
-                            Intent runCommand = new Intent();
-                            runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                            runCommand.setAction("masquerade.substratum.COMMANDS");
-                            runCommand.putExtra("substratum-check", "masquerade-ball");
-                            getContext().sendBroadcast(runCommand);
-                        } else {
-                            Snackbar.make(getView(),
-                                    getString(R.string.masquerade_check_not_installed),
-                                    Snackbar.LENGTH_LONG)
-                                    .show();
-                        }
-                        return false;
-                    });
 
             final CheckBoxPreference hide_app_checkbox = (CheckBoxPreference)
                     getPreferenceManager().findPreference("hide_app_checkbox");

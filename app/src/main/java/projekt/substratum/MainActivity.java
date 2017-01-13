@@ -555,6 +555,7 @@ public class MainActivity extends AppCompatActivity implements
         searchItem = menu.findItem(R.id.action_search);
         searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setOnQueryTextListener(this);
+        searchView.setQueryHint(getString(R.string.actionbar_search_query_hint));
 
         return true;
     }

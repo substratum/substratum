@@ -1052,9 +1052,11 @@ public class References {
             AssetManager am = otherContext.getAssets();
             if (appInfo.metaData != null) {
                 boolean can_continue = true;
-                if (appInfo.metaData.getString(References.metadataName) != null) {
+                if (appInfo.metaData.getString(References.metadataName) != null &&
+                        appInfo.metaData.getString(References.metadataAuthor) != null) {
                     if (search_filter != null && search_filter.length() > 0) {
-                        String name = appInfo.metaData.getString(References.metadataName);
+                        String name = appInfo.metaData.getString(References.metadataName) + " " +
+                                appInfo.metaData.getString(References.metadataAuthor);
                         can_continue = name != null && name.toLowerCase()
                                 .contains(search_filter.toLowerCase());
                     }
@@ -1113,9 +1115,11 @@ public class References {
                             packageName, PackageManager.GET_META_DATA);
 
                     Boolean can_continue = true;
-                    if (appInfo.metaData.getString(References.metadataName) != null) {
+                    if (appInfo.metaData.getString(References.metadataName) != null &&
+                            appInfo.metaData.getString(References.metadataAuthor) != null) {
                         if (search_filter != null && search_filter.length() > 0) {
-                            String name = appInfo.metaData.getString(References.metadataName);
+                            String name = appInfo.metaData.getString(References.metadataName) +
+                                    " " + appInfo.metaData.getString(References.metadataAuthor);
                             if (name != null && !name.toLowerCase().contains(
                                     search_filter.toLowerCase())) {
                                 can_continue = false;

@@ -47,6 +47,7 @@
     <string name="actionbar_theme_count_plural">%s themes</string>
     <string name="actionbar_theme_count_loading">loading&#8230;</string>
     <string name="actionbar_search">Search</string>
+    <string name="actionbar_search_query_hint">Search theme or author&#8230;</string>
 
     <string name="settings_icons">Settings Icons</string>
     <string name="systemui_headers">System UI Headers</string>

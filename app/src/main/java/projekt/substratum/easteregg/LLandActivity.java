@@ -88,7 +88,7 @@ public class LLandActivity extends Activity {
         deathText1 = (ImageView) findViewById(R.id.deadtext1);
         deathText2 = (ImageView) findViewById(R.id.deadtext2);
         deathText3 = (ImageView) findViewById(R.id.deadtext3);
-        newHighView = (View) findViewById(R.id.new_high_view);
+        newHighView = findViewById(R.id.new_high_view);
         newHigh1 = (TextView) findViewById(R.id.new_high_score_1);
         newHigh2 = (TextView) findViewById(R.id.new_high_score_2);
         newHigh3 = (TextView) findViewById(R.id.new_high_score_3);
@@ -120,7 +120,7 @@ public class LLandActivity extends Activity {
         splashDialog.show();
         splashAnimating = true;
 
-        splashBG = (View) splashDialog.findViewById(R.id.splashpic);
+        splashBG = splashDialog.findViewById(R.id.splashpic);
         titleOne = (ImageView) splashDialog.findViewById(R.id.title1);
         titleTwo = (ImageView) splashDialog.findViewById(R.id.title2);
         titleThree = (ImageView) splashDialog.findViewById(R.id.title3);
@@ -152,12 +152,9 @@ public class LLandActivity extends Activity {
         final int y2 = (int) (screenHeight / b);
         yTranslation = y1;
 
-        dismissDialogView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!splashAnimating) {
-                    removeSplash();
-                }
+        dismissDialogView.setOnClickListener(v -> {
+            if (!splashAnimating) {
+                removeSplash();
             }
         });
 
@@ -171,12 +168,9 @@ public class LLandActivity extends Activity {
                     speechBubble.setVisibility(View.VISIBLE);
                     bubbleVisible = true;
                     Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            speechBubble.setVisibility(View.GONE);
-                            bubbleVisible = false;
-                        }
+                    handler.postDelayed(() -> {
+                        speechBubble.setVisibility(View.GONE);
+                        bubbleVisible = false;
                     }, 2500);
                 }
                 mHandler.postDelayed(this, 10000);
@@ -194,13 +188,10 @@ public class LLandActivity extends Activity {
                     bubbleVisible = true;
                     touchBubbleVisible = true;
                     Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            speechBubble.setVisibility(View.GONE);
-                            bubbleVisible = false;
-                            touchBubbleVisible = false;
-                        }
+                    handler.postDelayed(() -> {
+                        speechBubble.setVisibility(View.GONE);
+                        bubbleVisible = false;
+                        touchBubbleVisible = false;
                     }, 2500);
                     cockpunch++;
                     if (cockpunch == 5) {
@@ -220,12 +211,9 @@ public class LLandActivity extends Activity {
                                         wink.setVisibility(View.VISIBLE);
                                         winkVisible = true;
                                         Handler handler = new Handler();
-                                        handler.postDelayed(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                wink.setVisibility(View.GONE);
-                                                winkVisible = false;
-                                            }
+                                        handler.postDelayed(() -> {
+                                            wink.setVisibility(View.GONE);
+                                            winkVisible = false;
                                         }, 300);
                                     }
                                     wHandler.postDelayed(this, 5000);

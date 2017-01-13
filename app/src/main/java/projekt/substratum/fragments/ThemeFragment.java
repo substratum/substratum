@@ -90,7 +90,7 @@ public class ThemeFragment extends Fragment {
                 .GET_META_DATA);
 
         swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipeRefreshLayout);
-        swipeRefreshLayout.setOnRefreshListener(() -> refreshLayout());
+        swipeRefreshLayout.setOnRefreshListener(this::refreshLayout);
 
         if (home_type.equals("")) {
             // We use this because our splash screen is meant to hang (to load) than show a wheel

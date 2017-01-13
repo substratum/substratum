@@ -48,9 +48,9 @@
                 android:id="@+id/theme_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:gravity="right"
-                android:paddingRight="20dp"
+                android:layout_gravity="end"
+                android:gravity="end"
+                android:paddingEnd="20dp"
                 android:text="THEME_NAME"
                 android:textAllCaps="true"
                 android:textColor="@color/main_screen_card_theme_title"
@@ -62,8 +62,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/theme_name"
-                android:gravity="right"
-                android:paddingRight="20dp"
+                android:gravity="end"
+                android:paddingEnd="20dp"
                 android:text="THEME_AUTHOR"
                 android:textAllCaps="true"
                 android:textColor="@color/main_screen_card_theme_title"
@@ -73,7 +73,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/theme_author"
-                android:paddingRight="20dp"
+                android:paddingEnd="20dp"
                 android:paddingTop="3dp">
 
                 <ImageView
@@ -88,7 +88,7 @@
                     android:id="@+id/theme_sounds"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@id/theme_wallpapers"
+                    android:layout_toStartOf="@id/theme_wallpapers"
                     android:paddingStart="2.5dp"
                     android:src="@drawable/nav_sounds" />
 
@@ -96,7 +96,7 @@
                     android:id="@+id/theme_fonts"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@id/theme_sounds"
+                    android:layout_toStartOf="@id/theme_sounds"
                     android:paddingStart="2.5dp"
                     android:src="@drawable/nav_fonts" />
 
@@ -104,7 +104,7 @@
                     android:id="@+id/theme_bootanimations"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@id/theme_fonts"
+                    android:layout_toStartOf="@id/theme_fonts"
                     android:paddingStart="2.5dp"
                     android:src="@drawable/nav_bootanim" />
 
@@ -112,7 +112,7 @@
                     android:id="@+id/theme_overlays"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@id/theme_bootanimations"
+                    android:layout_toStartOf="@id/theme_bootanimations"
                     android:paddingStart="2.5dp"
                     android:src="@drawable/nav_overlays" />
 

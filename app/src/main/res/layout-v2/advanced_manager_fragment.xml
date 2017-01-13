@@ -92,7 +92,7 @@
         android:id="@+id/apply_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center|bottom|right"
+        android:layout_gravity="center|bottom|end"
         android:layout_margin="16dp"
         android:src="@drawable/floating_action_button_icon"
         android:visibility="visible"

@@ -40,7 +40,7 @@
                 android:text="@string/sb_phase_3_loader"
                 android:textAllCaps="true"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textSize="16dp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -56,7 +56,7 @@
                 android:text="@string/studio_applying"
                 android:textAllCaps="true"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textSize="16dp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <ProgressBar

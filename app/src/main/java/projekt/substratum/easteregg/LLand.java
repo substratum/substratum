@@ -99,33 +99,33 @@ public class LLand extends FrameLayout {
         mTimeOfDay = irand(0, SKIES.length);
     }
 
-    public static final void L(String s, Object... objects) {
+    public static void L(String s, Object... objects) {
         if (DEBUG) {
             Log.d(TAG, String.format(s, objects));
         }
     }
 
-    public static final float lerp(float x, float a, float b) {
+    public static float lerp(float x, float a, float b) {
         return (b - a) * x + a;
     }
 
-    public static final float rlerp(float v, float a, float b) {
+    public static float rlerp(float v, float a, float b) {
         return (v - a) / (b - a);
     }
 
-    public static final float clamp(float f) {
+    public static float clamp(float f) {
         return f < 0f ? 0f : f > 1f ? 1f : f;
     }
 
-    public static final float frand() {
+    public static float frand() {
         return (float) Math.random();
     }
 
-    public static final float frand(float a, float b) {
+    public static float frand(float a, float b) {
         return lerp(frand(), a, b);
     }
 
-    public static final int irand(int a, int b) {
+    public static int irand(int a, int b) {
         return (int) lerp(frand(), (float) a, (float) b);
     }
 
@@ -177,7 +177,6 @@ public class LLand extends FrameLayout {
         L("reset");
         final Drawable sky = new GradientDrawable(
                 GradientDrawable.Orientation.BOTTOM_TOP, SKIES[mTimeOfDay]);
-        sky.setDither(true);
         setBackground(sky);
 
         mFlipped = frand() > 0.5f;
@@ -284,12 +283,7 @@ public class LLand extends FrameLayout {
                 new LayoutParams(PARAMS.PLAYER_SIZE, PARAMS.PLAYER_SIZE));
 
         mAnim = new TimeAnimator();
-        mAnim.setTimeListener(new TimeAnimator.TimeListener() {
-            @Override
-            public void onTimeUpdate(TimeAnimator timeAnimator, long t, long dt) {
-                step(t, dt);
-            }
-        });
+        mAnim.setTimeListener((timeAnimator, t1, dt1) -> step(t1, dt1));
     }
 
     private void setScore(int score) {
@@ -352,12 +346,9 @@ public class LLand extends FrameLayout {
             mFrozen = true;
             showDeathText();
 
-            postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    hideDummy();
-                    mFrozen = false;
-                }
+            postDelayed(() -> {
+                hideDummy();
+                mFrozen = false;
             }, 2800);
         }
     }
@@ -433,33 +424,21 @@ public class LLand extends FrameLayout {
         deathAnimating = true;
 
         Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                deathText1.setVisibility(View.VISIBLE);
-                Handler mHandler = new Handler();
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        deathText2.setVisibility(View.VISIBLE);
-                        Handler mHandler2 = new Handler();
-                        mHandler2.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                deathText3.setVisibility(View.VISIBLE);
-                                Handler mHandler3 = new Handler();
-                                mHandler3.postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        deathBlood.setVisibility(View.GONE);
-                                        deathAnimating = false;
-                                    }
-                                }, 100);
-                            }
-                        }, 700);
-                    }
+        handler.postDelayed(() -> {
+            deathText1.setVisibility(View.VISIBLE);
+            Handler mHandler = new Handler();
+            mHandler.postDelayed(() -> {
+                deathText2.setVisibility(View.VISIBLE);
+                Handler mHandler2 = new Handler();
+                mHandler2.postDelayed(() -> {
+                    deathText3.setVisibility(View.VISIBLE);
+                    Handler mHandler3 = new Handler();
+                    mHandler3.postDelayed(() -> {
+                        deathBlood.setVisibility(View.GONE);
+                        deathAnimating = false;
+                    }, 100);
                 }, 700);
-            }
+            }, 700);
         }, 600);
     }
 
@@ -503,7 +482,7 @@ public class LLand extends FrameLayout {
                 if (mScore > highScore) {
                     SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences
                             (getContext());
-                    pref.edit().putInt("kofferland_high_score", mScore).commit();
+                    pref.edit().putInt("kofferland_high_score", mScore).apply();
                     newBest = true;
                 }
             } else if (ob.cleared(mBubba)) {
@@ -547,7 +526,7 @@ public class LLand extends FrameLayout {
             final Obstacle s1 = new Stem(getContext(), obstacley - yinset,
                     false);
             addView(s1, new LayoutParams(PARAMS.OBSTACLE_STEM_WIDTH,
-                    (int) s1.h, Gravity.TOP | Gravity.LEFT));
+                    (int) s1.h, Gravity.TOP | Gravity.START));
             s1.setTranslationX(mWidth + inset);
             s1.setTranslationY(-s1.h - yinset);
             s1.setTranslationZ(PARAMS.OBSTACLE_Z * 0.75f);
@@ -556,7 +535,7 @@ public class LLand extends FrameLayout {
 
             final Obstacle p1 = new Pop(getContext(), PARAMS.OBSTACLE_WIDTH);
             addView(p1, new LayoutParams(PARAMS.OBSTACLE_WIDTH,
-                    PARAMS.OBSTACLE_WIDTH, Gravity.TOP | Gravity.LEFT));
+                    PARAMS.OBSTACLE_WIDTH, Gravity.TOP | Gravity.START));
             p1.setTranslationX(mWidth);
             p1.setTranslationY(-PARAMS.OBSTACLE_WIDTH);
             p1.setTranslationZ(PARAMS.OBSTACLE_Z);
@@ -570,7 +549,7 @@ public class LLand extends FrameLayout {
             final Obstacle s2 = new Stem(getContext(), mHeight - obstacley
                     - PARAMS.OBSTACLE_GAP - yinset, true);
             addView(s2, new LayoutParams(PARAMS.OBSTACLE_STEM_WIDTH,
-                    (int) s2.h, Gravity.TOP | Gravity.LEFT));
+                    (int) s2.h, Gravity.TOP | Gravity.START));
             s2.setTranslationX(mWidth + inset);
             s2.setTranslationY(mHeight + yinset);
             s2.setTranslationZ(PARAMS.OBSTACLE_Z * 0.75f);
@@ -580,7 +559,7 @@ public class LLand extends FrameLayout {
 
             final Obstacle p2 = new Pop(getContext(), PARAMS.OBSTACLE_WIDTH);
             addView(p2, new LayoutParams(PARAMS.OBSTACLE_WIDTH,
-                    PARAMS.OBSTACLE_WIDTH, Gravity.TOP | Gravity.LEFT));
+                    PARAMS.OBSTACLE_WIDTH, Gravity.TOP | Gravity.START));
             p2.setTranslationX(mWidth);
             p2.setTranslationY(mHeight);
             p2.setTranslationZ(PARAMS.OBSTACLE_Z);
@@ -751,27 +730,27 @@ public class LLand extends FrameLayout {
     }
 
     private interface GameView {
-        public void step(long t_ms, long dt_ms, float t, float dt);
+        void step(long t_ms, long dt_ms, float t, float dt);
     }
 
     private static class Params {
-        public float TRANSLATION_PER_SEC;
-        public int OBSTACLE_SPACING, OBSTACLE_PERIOD;
-        public int BOOST_DV;
-        public int PLAYER_HIT_SIZE;
-        public int PLAYER_SIZE;
-        public int OBSTACLE_WIDTH, OBSTACLE_STEM_WIDTH;
-        public int OBSTACLE_GAP;
-        public int OBSTACLE_MIN;
-        public int BUILDING_WIDTH_MIN, BUILDING_WIDTH_MAX;
-        public int BUILDING_HEIGHT_MIN;
-        public int CLOUD_SIZE_MIN, CLOUD_SIZE_MAX;
-        public int STAR_SIZE_MIN, STAR_SIZE_MAX;
-        public int G;
-        public int MAX_V;
-        public float SCENERY_Z, OBSTACLE_Z, PLAYER_Z, PLAYER_Z_BOOST, HUD_Z;
+        float TRANSLATION_PER_SEC;
+        int OBSTACLE_SPACING, OBSTACLE_PERIOD;
+        int BOOST_DV;
+        int PLAYER_HIT_SIZE;
+        int PLAYER_SIZE;
+        int OBSTACLE_WIDTH, OBSTACLE_STEM_WIDTH;
+        int OBSTACLE_GAP;
+        int OBSTACLE_MIN;
+        int BUILDING_WIDTH_MIN, BUILDING_WIDTH_MAX;
+        int BUILDING_HEIGHT_MIN;
+        int CLOUD_SIZE_MIN, CLOUD_SIZE_MAX;
+        int STAR_SIZE_MIN, STAR_SIZE_MAX;
+        int G;
+        int MAX_V;
+        float SCENERY_Z, OBSTACLE_Z, PLAYER_Z, PLAYER_Z_BOOST, HUD_Z;
 
-        public Params(Resources res) {
+        Params(Resources res) {
             TRANSLATION_PER_SEC = res.getDimension(R.dimen.translation_per_sec);
             OBSTACLE_SPACING = res
                     .getDimensionPixelSize(R.dimen.obstacle_spacing);

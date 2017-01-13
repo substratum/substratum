@@ -59,7 +59,7 @@
                     android:gravity="center"
                     android:text="@string/showcase_no_connection"
                     android:textColor="@color/main_screen_card_theme_title"
-                    android:textSize="20dp"
+                    android:textSize="20sp"
                     android:textStyle="italic" />
 
             </RelativeLayout>

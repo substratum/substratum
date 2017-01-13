@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements
     private SharedPreferences prefs;
     private MenuItem searchItem;
     private SearchView searchView;
+    private boolean hideSearch;
 
     private void switchFragment(String title, String fragment) {
         if (searchView != null) {
@@ -90,6 +91,8 @@ public class MainActivity extends AppCompatActivity implements
         tx.replace(R.id.main, Fragment.instantiate(MainActivity.this, "projekt.substratum" +
                 ".fragments." + fragment));
         tx.commit();
+        hideSearch = true;
+        supportInvalidateOptionsMenu();
     }
 
     private void switchThemeFragment(String title, String home_type) {
@@ -111,6 +114,8 @@ public class MainActivity extends AppCompatActivity implements
         tx.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         tx.replace(R.id.main, fragment);
         tx.commit();
+        hideSearch = false;
+        supportInvalidateOptionsMenu();
     }
 
     private void switchFragmentToLicenses(String title, LibsSupportFragment fragment) {
@@ -126,6 +131,8 @@ public class MainActivity extends AppCompatActivity implements
         tx.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         tx.replace(R.id.main, fragment);
         tx.commit();
+        hideSearch = true;
+        supportInvalidateOptionsMenu();
     }
 
     private void printFCMtoken() {
@@ -556,6 +563,7 @@ public class MainActivity extends AppCompatActivity implements
         searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setOnQueryTextListener(this);
         searchView.setQueryHint(getString(R.string.actionbar_search_query_hint));
+        searchItem.setVisible(!hideSearch);
 
         return true;
     }

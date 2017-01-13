@@ -270,10 +270,11 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                             builder.setNegativeButton(R.string.theme_debug_mode_dialog_cancel,
                                     (dialog, id) -> dialog.dismiss());
                             builder.setPositiveButton(R.string.theme_debug_mode_dialog_continue,
-                                    (dialog, id) -> {prefs.edit()
-                                            .putBoolean("theme_debug", true).apply();
+                                    (dialog, id) -> {
+                                        prefs.edit()
+                                                .putBoolean("theme_debug", true).apply();
                                         debugTheme.setChecked(true);
-                            });
+                                    });
                             builder.show();
                         } else {
                             prefs.edit().putBoolean("theme_debug", false).apply();

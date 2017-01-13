@@ -11,7 +11,6 @@ import android.support.v7.preference.PreferenceManager;
 import java.util.Calendar;
 
 import projekt.substratum.R;
-import projekt.substratum.config.References;
 
 import static projekt.substratum.fragments.ProfileFragment.DAY_PROFILE_HOUR;
 import static projekt.substratum.fragments.ProfileFragment.NIGHT_PROFILE_HOUR;

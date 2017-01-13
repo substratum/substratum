@@ -31,7 +31,6 @@ import projekt.substratum.R;
 import projekt.substratum.adapters.ThemeEntryAdapter;
 import projekt.substratum.config.References;
 import projekt.substratum.model.ThemeInfo;
-import projekt.substratum.util.AOPTCheck;
 import projekt.substratum.util.ReadOverlays;
 
 public class ThemeFragment extends Fragment {
@@ -161,15 +160,6 @@ public class ThemeFragment extends Fragment {
     }
 
     private void refreshLayout() {
-        if (home_type.length() == 0) {
-            try {
-                new AOPTCheck().injectAOPT(getContext(), false);
-            } catch (Exception e) {
-                Log.e(References.SUBSTRATUM_LOG,
-                        "AOPT could not be checked or injected at this time.");
-            }
-        }
-
         MaterialProgressBar materialProgressBar = (MaterialProgressBar) root.findViewById(R.id
                 .progress_bar_loader);
         materialProgressBar.setVisibility(View.VISIBLE);

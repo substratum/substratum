@@ -56,6 +56,7 @@ import projekt.substrate.LetsGetStarted;
 import projekt.substratum.config.References;
 import projekt.substratum.fragments.ThemeFragment;
 import projekt.substratum.services.ThemeService;
+import projekt.substratum.util.AOPTCheck;
 import projekt.substratum.util.Root;
 
 import static projekt.substratum.config.References.SUBSTRATUM_LOG;
@@ -820,6 +821,12 @@ public class MainActivity extends AppCompatActivity implements
                 References.createNewFolder(cacheDir.getAbsolutePath());
             } else {
                 References.createNewFolder(cacheDir.getAbsolutePath());
+            }
+            try {
+                new AOPTCheck().injectAOPT(getApplicationContext(), false);
+            } catch (Exception e) {
+                Log.e(References.SUBSTRATUM_LOG,
+                        "AOPT could not be checked or injected at this time.");
             }
             return return_value;
         }

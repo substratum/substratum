@@ -217,11 +217,13 @@ public class ThemeFragment extends Fragment {
 
         // Now let's place the proper amount of theme count into the context text
         String parse;
-        if (substratum_packages.size() > 1) {
-            parse = String.format(getString(R.string.actionbar_theme_count_plural),
+        if (substratum_packages.size() == 0) {
+            parse = getString(R.string.actionbar_theme_count_none);
+        } else if (substratum_packages.size() == 1) {
+            parse = String.format(getString(R.string.actionbar_theme_count_singular),
                     String.valueOf(substratum_packages.size()));
         } else {
-            parse = String.format(getString(R.string.actionbar_theme_count_singular),
+            parse = String.format(getString(R.string.actionbar_theme_count_plural),
                     String.valueOf(substratum_packages.size()));
         }
         MainActivity.actionbar_content.setText(parse);

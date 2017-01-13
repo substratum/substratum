@@ -1,6 +1,7 @@
 package projekt.substratum;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -20,7 +21,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -58,17 +61,27 @@ import projekt.substratum.util.Root;
 import static projekt.substratum.config.References.SUBSTRATUM_LOG;
 
 public class MainActivity extends AppCompatActivity implements
-        ActivityCompat.OnRequestPermissionsResultCallback {
+        ActivityCompat.OnRequestPermissionsResultCallback, SearchView.OnQueryTextListener {
 
     private static final int PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
     private static final int PERMISSIONS_REQUEST_GET_ACCOUNTS = 2;
+
+    @SuppressLint("StaticFieldLeak")
     public static TextView actionbar_title, actionbar_content;
+    public static String userInput;
     private Drawer drawer;
     private int permissionCheck, permissionCheck2;
     private ProgressDialog mProgressDialog;
     private SharedPreferences prefs;
+    private MenuItem searchItem;
+    private SearchView searchView;
 
     private void switchFragment(String title, String fragment) {
+        if (searchView != null) {
+            if (!searchView.isIconified()) {
+                searchView.setIconified(true);
+            }
+        }
         actionbar_content.setVisibility(View.GONE);
         actionbar_title.setVisibility(View.GONE);
         if (getSupportActionBar() != null) getSupportActionBar().setTitle(title);
@@ -80,6 +93,11 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void switchThemeFragment(String title, String home_type) {
+        if (searchView != null) {
+            if (!searchView.isIconified()) {
+                searchView.setIconified(true);
+            }
+        }
         Fragment fragment = new ThemeFragment();
         Bundle bundle = new Bundle();
         bundle.putString("home_type", home_type);
@@ -96,6 +114,11 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void switchFragmentToLicenses(String title, LibsSupportFragment fragment) {
+        if (searchView != null) {
+            if (!searchView.isIconified()) {
+                searchView.setIconified(true);
+            }
+        }
         actionbar_content.setVisibility(View.GONE);
         actionbar_title.setVisibility(View.GONE);
         if (getSupportActionBar() != null) getSupportActionBar().setTitle(title);
@@ -528,6 +551,11 @@ public class MainActivity extends AppCompatActivity implements
         } else {
             getMenuInflater().inflate(R.menu.activity_menu_legacy, menu);
         }
+
+        searchItem = menu.findItem(R.id.action_search);
+        searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView.setOnQueryTextListener(this);
+
         return true;
     }
 
@@ -567,12 +595,16 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onBackPressed() {
-        if (drawer != null && drawer.isDrawerOpen()) {
-            drawer.closeDrawer();
-        } else if (drawer != null && drawer.getCurrentSelectedPosition() > 1) {
-            drawer.setSelectionAtPosition(1);
-        } else if (drawer != null && drawer.getCurrentSelectedPosition() == 1) {
-            this.finish();
+        if (!searchView.isIconified()) {
+            searchView.setIconified(true);
+        } else {
+            if (drawer != null && drawer.isDrawerOpen()) {
+                drawer.closeDrawer();
+            } else if (drawer != null && drawer.getCurrentSelectedPosition() > 1) {
+                drawer.setSelectionAtPosition(1);
+            } else if (drawer != null && drawer.getCurrentSelectedPosition() == 1) {
+                this.finish();
+            }
         }
     }
 
@@ -653,6 +685,26 @@ public class MainActivity extends AppCompatActivity implements
                 break;
             }
         }
+    }
+
+    @Override
+    public boolean onQueryTextChange(String query) {
+        userInput = query;
+        Fragment f = getSupportFragmentManager().findFragmentById(R.id.main);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .detach(f)
+                .commitNowAllowingStateLoss();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .attach(f)
+                .commitAllowingStateLoss();
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
     }
 
     private class RootRequester extends AsyncTask<String, Integer, Boolean> {

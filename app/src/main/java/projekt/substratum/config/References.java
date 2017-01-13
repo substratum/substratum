@@ -1040,62 +1040,69 @@ public class References {
                                                                   String package_name,
                                                                   HashMap packages,
                                                                   String home_type,
-                                                                  Boolean old_algorithm) {
-        if (old_algorithm) {
-            // This algorithm was used during 490 and below and runs at a speed where the number of
-            // overlay packages installed would affect the theme reload time. We are keeping this to
-            // retain the old filter to show pre-6.0.0 themes.
-            try {
-                ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
-                        package_name, PackageManager.GET_META_DATA);
-                Context otherContext = context.createPackageContext(package_name, 0);
-                AssetManager am = otherContext.getAssets();
-                if (appInfo.metaData != null) {
-                    boolean can_continue = true;
-                    if (!References.checkOMS(context)) {
-                        if (!appInfo.metaData.getBoolean(References.metadataLegacy, true)) {
-                            can_continue = false;
-                        }
+                                                                  Boolean old_algorithm,
+                                                                  String search_filter) {
+        // This algorithm was used during 490 and below and runs at a speed where the number of
+// overlay packages installed would affect the theme reload time. We are keeping this to
+// retain the old filter to show pre-6.0.0 themes.
+        if (old_algorithm) try {
+            ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
+                    package_name, PackageManager.GET_META_DATA);
+            Context otherContext = context.createPackageContext(package_name, 0);
+            AssetManager am = otherContext.getAssets();
+            if (appInfo.metaData != null) {
+                boolean can_continue = true;
+                if (appInfo.metaData.getString(References.metadataName) != null) {
+                    if (search_filter != null && search_filter.length() > 0) {
+                        String name = appInfo.metaData.getString(References.metadataName);
+                        can_continue = name != null && name.toLowerCase()
+                                .contains(search_filter.toLowerCase());
                     }
-                    if (can_continue) {
-                        if (appInfo.metaData.getString(References.metadataName) != null) {
-                            if (appInfo.metaData.getString(References.metadataAuthor) != null) {
-                                if (home_type.equals("wallpapers")) {
-                                    if (appInfo.metaData.getString(References.metadataWallpapers)
-                                            != null) {
-                                        String[] data = {appInfo.metaData.getString
-                                                (References.metadataAuthor), package_name};
-                                        packages.put(appInfo.metaData.getString(
-                                                References.metadataName), data);
-                                    }
-                                } else if (home_type.length() == 0) {
+                }
+                if (!References.checkOMS(context)) {
+                    if (!appInfo.metaData.getBoolean(References.metadataLegacy, true)) {
+                        can_continue = false;
+                    }
+                }
+                if (can_continue) {
+                    if (appInfo.metaData.getString(References.metadataName) != null) {
+                        if (appInfo.metaData.getString(References.metadataAuthor) != null) {
+                            if (home_type.equals("wallpapers")) {
+                                if (appInfo.metaData.getString(References.metadataWallpapers)
+                                        != null) {
                                     String[] data = {appInfo.metaData.getString
                                             (References.metadataAuthor), package_name};
-                                    packages.put(appInfo.metaData.getString
-                                            (References.metadataName), data);
-                                    Log.d("Substratum Ready Theme", package_name);
-                                } else {
-                                    try {
-                                        String[] stringArray = am.list("");
-                                        if (Arrays.asList(stringArray).contains(home_type)) {
-                                            String[] data = {appInfo.metaData.getString
-                                                    (References.metadataAuthor), package_name};
-                                            packages.put(appInfo.metaData.getString
-                                                    (References.metadataName), data);
-                                        }
-                                    } catch (Exception e) {
-                                        Log.e(References.SUBSTRATUM_LOG,
-                                                "Unable to find package identifier");
+                                    packages.put(appInfo.metaData.getString(
+                                            References.metadataName), data);
+                                }
+                            } else if (home_type.length() == 0) {
+                                String[] data = {appInfo.metaData.getString
+                                        (References.metadataAuthor), package_name};
+                                packages.put(appInfo.metaData.getString
+                                        (References.metadataName), data);
+                                Log.d("Substratum Ready Theme", package_name);
+                            } else {
+                                try {
+                                    String[] stringArray = am.list("");
+                                    if (Arrays.asList(stringArray).contains(home_type)) {
+                                        String[] data = {appInfo.metaData.getString
+                                                (References.metadataAuthor), package_name};
+                                        packages.put(appInfo.metaData.getString
+                                                (References.metadataName), data);
                                     }
+                                } catch (Exception e) {
+                                    Log.e(References.SUBSTRATUM_LOG,
+                                            "Unable to find package identifier");
                                 }
                             }
                         }
                     }
                 }
-            } catch (Exception e) {
-                // Exception
             }
-        } else {
+        } catch (Exception e) {
+            // Exception
+        }
+        else {
             // This algorithm was used during 499 and above runs at a speed where the number of
             // overlay packages installed DOES NOT affect the theme reload time.
             try {
@@ -1104,37 +1111,51 @@ public class References {
                     String packageName = ri.activityInfo.packageName;
                     ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
                             packageName, PackageManager.GET_META_DATA);
-                    Context otherContext = context.createPackageContext(packageName, 0);
-                    AssetManager am = otherContext.getAssets();
-                    if (home_type.equals(References.wallpaperFragment)) {
-                        if (appInfo.metaData.getString(References.metadataWallpapers) != null) {
-                            String[] data = {appInfo.metaData.getString
-                                    (References.metadataAuthor),
-                                    packageName};
-                            packages.put(appInfo.metaData.getString(
-                                    References.metadataName), data);
+
+                    Boolean can_continue = true;
+                    if (appInfo.metaData.getString(References.metadataName) != null) {
+                        if (search_filter != null && search_filter.length() > 0) {
+                            String name = appInfo.metaData.getString(References.metadataName);
+                            if (name != null && !name.toLowerCase().contains(
+                                    search_filter.toLowerCase())) {
+                                can_continue = false;
+                            }
                         }
-                    } else {
-                        if (home_type.length() == 0) {
-                            String[] data = {appInfo.metaData.getString
-                                    (References.metadataAuthor),
-                                    packageName};
-                            packages.put(appInfo.metaData.getString
-                                    (References.metadataName), data);
-                            Log.d("Substratum Ready Theme", packageName);
+                    }
+
+                    if (can_continue) {
+                        Context otherContext = context.createPackageContext(packageName, 0);
+                        AssetManager am = otherContext.getAssets();
+                        if (home_type.equals(References.wallpaperFragment)) {
+                            if (appInfo.metaData.getString(References.metadataWallpapers) != null) {
+                                String[] data = {appInfo.metaData.getString
+                                        (References.metadataAuthor),
+                                        packageName};
+                                packages.put(appInfo.metaData.getString(
+                                        References.metadataName), data);
+                            }
                         } else {
-                            try {
-                                String[] stringArray = am.list("");
-                                if (Arrays.asList(stringArray).contains(home_type)) {
-                                    String[] data = {appInfo.metaData.getString
-                                            (References.metadataAuthor),
-                                            packageName};
-                                    packages.put(appInfo.metaData.getString
-                                            (References.metadataName), data);
+                            if (home_type.length() == 0) {
+                                String[] data = {appInfo.metaData.getString
+                                        (References.metadataAuthor),
+                                        packageName};
+                                packages.put(appInfo.metaData.getString
+                                        (References.metadataName), data);
+                                Log.d("Substratum Ready Theme", packageName);
+                            } else {
+                                try {
+                                    String[] stringArray = am.list("");
+                                    if (Arrays.asList(stringArray).contains(home_type)) {
+                                        String[] data = {appInfo.metaData.getString
+                                                (References.metadataAuthor),
+                                                packageName};
+                                        packages.put(appInfo.metaData.getString
+                                                (References.metadataName), data);
+                                    }
+                                } catch (Exception e) {
+                                    Log.e(References.SUBSTRATUM_LOG,
+                                            "Unable to find package identifier");
                                 }
-                            } catch (Exception e) {
-                                Log.e(References.SUBSTRATUM_LOG,
-                                        "Unable to find package identifier");
                             }
                         }
                     }
@@ -1146,6 +1167,7 @@ public class References {
         return packages;
     }
 
+    @SuppressWarnings("deprecation")
     public static String parseTime(Context context, int hour, int minute) {
         Locale locale;
         String parse;

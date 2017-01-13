@@ -188,7 +188,8 @@ public class ThemeFragment extends Fragment {
                             packageInfo.packageName,
                             substratum_packages,
                             home_type,
-                            true));
+                            true,
+                            MainActivity.userInput));
             Log.d(References.SUBSTRATUM_LOG, "Substratum has loaded themes using the pre-499 " +
                     "theme database filter");
         } else {
@@ -197,7 +198,8 @@ public class ThemeFragment extends Fragment {
                     null,
                     substratum_packages,
                     home_type,
-                    false);
+                    false,
+                    MainActivity.userInput);
             Log.d(References.SUBSTRATUM_LOG, "Substratum has loaded themes using the post-499 " +
                     "theme database filter");
         }
@@ -271,7 +273,8 @@ public class ThemeFragment extends Fragment {
                                             packageInfo.packageName,
                                             substratum_packages,
                                             home_type,
-                                            true));
+                                            true,
+                                            MainActivity.userInput));
                     Log.d(References.SUBSTRATUM_LOG, "Substratum has loaded themes using the" +
                             "pre-499 theme database filter");
                 } else {
@@ -280,7 +283,8 @@ public class ThemeFragment extends Fragment {
                             null,
                             substratum_packages,
                             home_type,
-                            false);
+                            false,
+                            MainActivity.userInput);
                     Log.d(References.SUBSTRATUM_LOG, "Substratum has loaded themes using the " +
                             "post-499 theme database filter");
                 }

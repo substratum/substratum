@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements
     @SuppressLint("StaticFieldLeak")
     public static TextView actionbar_title, actionbar_content;
     public static String userInput = "";
+    @SuppressLint("StaticFieldLeak")
     public static SearchView searchView;
     private Drawer drawer;
     private int permissionCheck, permissionCheck2;

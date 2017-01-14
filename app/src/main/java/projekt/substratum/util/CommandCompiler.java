@@ -1,6 +1,7 @@
 package projekt.substratum.util;
 
 import android.content.Context;
+import android.os.Environment;
 
 import projekt.substratum.config.References;
 
@@ -116,7 +117,11 @@ class CommandCompiler {
                 "-F " + work_area + "/" + overlay_package + "." + theme_name + "-unsigned.apk " +
 
                 // Final arguments to conclude the AOPT build
-                ((References.AOPT_TEST) ? "--app-as-shared-lib -P /sdcard/substratum/defs.xml " : "") + "-f --include-meta-data --auto-add-overlay " +
+                ((References.ENABLE_AOPT_DEBUG) ?
+                        "--app-as-shared-lib -P " +
+                                Environment.getExternalStorageDirectory().getAbsolutePath() +
+                                "/.substratum/debug.xml " : "") +
+                "-f --include-meta-data --auto-add-overlay " +
 
                 ((References.ENABLE_AOPT_OUTPUT) ? " -v" : "") +
 

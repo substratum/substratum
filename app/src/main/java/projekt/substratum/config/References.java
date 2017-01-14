@@ -57,7 +57,6 @@ public class References {
     // These are specific log tags for different classes
     public static final Boolean ENABLE_SIGNING = true;
     public static final Boolean ENABLE_AOPT_OUTPUT = false; // WARNING, DEVELOPERS - BREAKS COMPILE
-    public static  Boolean AOPT_TEST = true;
     public static final String SUBSTRATUM_BUILDER = "SubstratumBuilder";
     public static final String SUBSTRATUM_LOG = "SubstratumLogger";
     public static final String SUBSTRATUM_ICON_BUILDER = "SubstratumIconBuilder";
@@ -70,6 +69,8 @@ public class References {
     private static final String NOVA_LAUNCHER = "com.novalauncher.THEME";
     // November security update (incompatible firmware) timestamp;
     private static final long NOVEMBER_PATCH_TIMESTAMP = 1478304000000L;
+    // Compiler
+    public static Boolean ENABLE_AOPT_DEBUG = true;
     // Lucky Patcher's Package Name
     public static String lp_package_identifier = "com.android.vending.billing" +
             ".InAppBillingService.LOCK";
@@ -108,7 +109,6 @@ public class References {
     private static String metadataWallpapers = "Substratum_Wallpapers";
     private static String metadataVersion = "Substratum_Plugin";
     private static String metadataThemeReady = "Substratum_ThemeReady";
-    // Compiler
 
     // This method is used to check the version of the masquerade theme system
     public static int checkMasquerade(Context context) {

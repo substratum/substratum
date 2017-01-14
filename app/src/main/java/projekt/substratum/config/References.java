@@ -70,7 +70,7 @@ public class References {
     // November security update (incompatible firmware) timestamp;
     private static final long NOVEMBER_PATCH_TIMESTAMP = 1478304000000L;
     // Compiler
-    public static Boolean ENABLE_AOPT_DEBUG = true;
+    public static Boolean ENABLE_AOPT_DEBUG = false;
     // Lucky Patcher's Package Name
     public static String lp_package_identifier = "com.android.vending.billing" +
             ".InAppBillingService.LOCK";

@@ -13,6 +13,7 @@
     <string-array name="translations">
         <item>中文翻译（简体）</item>
         <item>Traductions en français</item>
+        <item>Deutsche Übersetzungen</item>
         <item>Magyar Fordítás</item>
         <item>Traduzioni Italiane</item>
         <item>Lietuvos Vertimai</item>
@@ -28,6 +29,15 @@
         <item>Julien Quintal (julzquintal)</item>
         <item>Marin (MannaHoc)</item>
         <item>Régis SIMEON (rage57frth)</item>
+    </string-array>
+
+    <string-array name="german_translators">
+        <item>Leon Zewe (TechnoPeter)</item>
+        <item>Christian Horch (nazfalas)</item>
+        <item>Christian (Blackbird1997)</item>
+        <item>Jérôme Willing (JmWilling)</item>
+        <item>Mirko Weser (fraz140)</item>
+        <item>Mardon (markusmenzel)</item>
     </string-array>
 
     <string-array name="hungarian_translators">

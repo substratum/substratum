@@ -72,11 +72,11 @@ public class MainActivity extends AppCompatActivity implements
     @SuppressLint("StaticFieldLeak")
     public static TextView actionbar_title, actionbar_content;
     public static String userInput;
+    public static SearchView searchView;
     private Drawer drawer;
     private int permissionCheck, permissionCheck2;
     private ProgressDialog mProgressDialog;
     private SharedPreferences prefs;
-    private SearchView searchView;
     private boolean hideBundle;
 
     private void switchFragment(String title, String fragment) {
@@ -212,7 +212,7 @@ public class MainActivity extends AppCompatActivity implements
                                 (BuildConfig.VERSION_NAME))
                 .withCurrentProfileHiddenInList(true)
                 .build();
-        
+
         LibsConfiguration.getInstance().setItemAnimator(new SlideDownAlphaAnimator());
         final LibsSupportFragment fragment = new LibsBuilder().supportFragment();
 

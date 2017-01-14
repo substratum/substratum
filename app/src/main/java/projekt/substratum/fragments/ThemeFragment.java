@@ -18,6 +18,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,6 +49,8 @@ public class ThemeFragment extends Fragment {
     private ViewGroup root;
     private String home_type = "";
     private SharedPreferences prefs;
+    private TextView cardViewText;
+    private ImageView cardViewImage;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
@@ -86,6 +90,8 @@ public class ThemeFragment extends Fragment {
                 }
         );
         cardView.setVisibility(View.GONE);
+        cardViewText = (TextView) cardView.findViewById(R.id.no_themes_description);
+        cardViewImage = (ImageView) cardView.findViewById(R.id.no_themes_installed);
 
         // Create it so it uses a recyclerView to parse substratum-based themes
         PackageManager packageManager = mContext.getPackageManager();
@@ -198,6 +204,24 @@ public class ThemeFragment extends Fragment {
         cleanUp.execute("");
 
         if (substratum_packages.size() == 0) {
+            if (MainActivity.searchView != null && !MainActivity.searchView.isIconified()) {
+                if (MainActivity.userInput.length() > 0) {
+                    String parse = String.format(
+                            getString(
+                                    R.string.no_themes_description_search), MainActivity.userInput);
+                    cardViewText.setText(parse);
+                    cardViewImage.setImageDrawable(getContext()
+                            .getDrawable(R.drawable.no_themes_found));
+                } else {
+                    cardViewText.setText(getString(R.string.no_themes_description));
+                    cardViewImage.setImageDrawable(getContext()
+                            .getDrawable(R.drawable.no_themes_installed));
+                }
+            } else {
+                cardViewText.setText(getString(R.string.no_themes_description));
+                cardViewImage.setImageDrawable(getContext()
+                        .getDrawable(R.drawable.no_themes_installed));
+            }
             cardView.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.GONE);
         } else {
@@ -244,6 +268,25 @@ public class ThemeFragment extends Fragment {
         protected void onPostExecute(String result) {
             refreshLayout();
             if (substratum_packages.size() == 0) {
+                if (MainActivity.searchView != null && !MainActivity.searchView.isIconified()) {
+                    if (MainActivity.userInput.length() > 0) {
+                        String parse = String.format(
+                                getString(
+                                        R.string.no_themes_description_search),
+                                MainActivity.userInput);
+                        cardViewText.setText(parse);
+                        cardViewImage.setImageDrawable(getContext()
+                                .getDrawable(R.drawable.no_themes_found));
+                    } else {
+                        cardViewText.setText(getString(R.string.no_themes_description));
+                        cardViewImage.setImageDrawable(getContext()
+                                .getDrawable(R.drawable.no_themes_installed));
+                    }
+                } else {
+                    cardViewText.setText(getString(R.string.no_themes_description));
+                    cardViewImage.setImageDrawable(getContext()
+                            .getDrawable(R.drawable.no_themes_installed));
+                }
                 cardView.setVisibility(View.VISIBLE);
                 recyclerView.setVisibility(View.GONE);
             } else {

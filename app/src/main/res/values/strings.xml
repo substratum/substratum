@@ -259,6 +259,7 @@
     <string name="manage_system_overlay_text">Disables all enabled overlays and restores the stock
         theme
     </string>
+    <string name="manage_system_not_permitted">Could not enable a few overlays due to main theme not being present.</string>
     <string name="manage_wallpaper_title">Restore Stock Wallpaper</string>
     <string name="manage_wallpaper_text">Restores the default wallpaper on your device</string>
     <string name="manage_wallpaper_home">Home screen wallpaper</string>

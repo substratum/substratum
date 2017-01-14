@@ -16,6 +16,7 @@
         <item>Traduzioni Italiane</item>
         <item>Tradução Português (Brasileiro)</item>
         <item>Русский перевод</item>
+        <item>Traducciones españolas</item>
     </string-array>
 
     <string-array name="hungarian_translators">
@@ -44,6 +45,18 @@
         <item>Iskan Ivanov (iskan998979145561)</item>
         <item>Vladimir Burylov (Vovan77rus59)</item>
         <item>SerJo87</item>
+    </string-array>
+
+    <string-array name="spanish_translators">
+        <item>Jorge Abel (JorgeAbel)</item>
+        <item>dark8899</item>
+        <item>Ibai Cruz (ibaiitugarpe)</item>
+        <item>jacbarahona72</item>
+        <item>Álvaro Amador J. (amador.alvaro)</item>
+        <item>PsekDoms17</item>
+        <item>Renzo Sparta (exequiel0210)</item>
+        <item>Jesus Roldan Roldan (jesusroldanroldan)</item>
+        <item>Ibai Lope (ibaraka95)</item>
     </string-array>
 
     <string-array name="portuguese_brazillian_translators">

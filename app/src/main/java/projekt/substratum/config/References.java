@@ -4,6 +4,7 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -49,6 +50,7 @@ import java.util.Locale;
 import projekt.substrate.LetsGetStarted;
 import projekt.substrate.ShowMeYourFierceEyes;
 import projekt.substratum.BuildConfig;
+import projekt.substratum.MainActivity;
 import projekt.substratum.R;
 import projekt.substratum.util.AOPTCheck;
 import projekt.substratum.util.CacheCreator;
@@ -807,6 +809,17 @@ public class References {
             }
         }
         return false;
+    }
+
+    // Check if notification is visible for the user
+    public static boolean isNotificationVisible(Context mContext, int notification_id) {
+        Intent notificationIntent = new Intent(mContext, MainActivity.class);
+        PendingIntent notificationTest = PendingIntent.getActivity(
+                mContext,
+                notification_id,
+                notificationIntent,
+                PendingIntent.FLAG_NO_CREATE);
+        return notificationTest != null;
     }
 
     // Launch intent for a theme

@@ -1,5 +1,6 @@
 package projekt.substratum.adapters;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
@@ -44,6 +45,7 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
     private SharedPreferences prefs;
     private ProgressDialog mProgressDialog;
     private ThemeInfo currentObject;
+    private Activity mActivity;
 
     public ThemeEntryAdapter(ArrayList<ThemeInfo> information) {
         this.information = information;
@@ -67,6 +69,8 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int pos) {
         final int i = pos;
+        mContext = information.get(i).getContext();
+        mActivity = information.get(i).getActivity();
         viewHolder.theme_name.setText(information.get(i).getThemeName());
         viewHolder.theme_author.setText(information.get(i).getThemeAuthor());
         if (information.get(i).getPluginVersion() != null) {
@@ -144,11 +148,25 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
                             information.get(i).getActivity().recreate();
                         }
                     } else {
-                        Snackbar.make(v,
-                                information.get(pos).getContext()
-                                        .getString(R.string.background_updating_toast),
-                                Snackbar.LENGTH_LONG)
-                                .show();
+                        if (References.isNotificationVisible(
+                                mContext, References.notification_id)) {
+                            Snackbar.make(v,
+                                    information.get(pos).getContext()
+                                            .getString(R.string.background_updating_toast),
+                                    Snackbar.LENGTH_LONG)
+                                    .show();
+                        } else {
+                            Snackbar.make(v,
+                                    information.get(pos).getContext()
+                                            .getString(R.string.background_needs_invalidating),
+                                    Snackbar.LENGTH_INDEFINITE)
+                                    .setAction(mContext.getString(
+                                            R.string.background_needs_invalidating_button),
+                                            view -> {
+                                                new deleteCache().execute("");
+                                            })
+                                    .show();
+                        }
                     }
                 });
 
@@ -414,6 +432,62 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
             }
             editor.apply();
             return null;
+        }
+    }
+
+    private class deleteCache extends AsyncTask<String, Integer, String> {
+        @Override
+        protected void onPreExecute() {
+            mProgressDialog = new ProgressDialog(mContext);
+            mProgressDialog.setMessage(
+                    mContext.getString(R.string.substratum_cache_clear_initial_toast));
+            mProgressDialog.setIndeterminate(true);
+            mProgressDialog.setCancelable(false);
+            mProgressDialog.show();
+            // Clear the notification of building theme if shown
+            NotificationManager manager = (NotificationManager)
+                    mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+            manager.cancel(References.notification_id);
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            // Since the cache is invalidated, better relaunch the app now
+            mProgressDialog.cancel();
+            mActivity.finish();
+            mContext.startActivity(mActivity.getIntent());
+        }
+
+        @Override
+        protected String doInBackground(String... sUrl) {
+            // Delete the directory
+            try {
+                File dir = new File(mContext.getCacheDir().getAbsolutePath() +
+                        "/SubstratumBuilder/");
+                deleteDir(dir);
+            } catch (Exception e) {
+                // Suppress warning
+            }
+            // Reset the flag for is_updating
+            SharedPreferences prefsPrivate =
+                    mContext.getSharedPreferences("substratum_state",
+                            Context.MODE_PRIVATE);
+            prefsPrivate.edit().remove("is_updating").apply();
+            return null;
+        }
+
+        boolean deleteDir(File dir) {
+            if (dir != null && dir.isDirectory()) {
+                String[] children = dir.list();
+                for (String aChildren : children) {
+                    boolean success = deleteDir(new File(dir, aChildren));
+                    if (!success) {
+                        return false;
+                    }
+                }
+                return dir.delete();
+            } else
+                return dir != null && dir.isFile() && dir.delete();
         }
     }
 }

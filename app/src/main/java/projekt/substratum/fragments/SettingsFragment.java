@@ -458,7 +458,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 });
     }
 
-    public class deleteCache extends AsyncTask<String, Integer, String> {
+    private class deleteCache extends AsyncTask<String, Integer, String> {
         @Override
         protected void onPreExecute() {
             mProgressDialog = new ProgressDialog(getContext());

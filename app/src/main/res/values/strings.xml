@@ -38,6 +38,8 @@
     <string name="background_updating_toast">Substratum is getting a theme ready in the background,
         please wait for this to finish!
     </string>
+    <string name="background_needs_invalidating">Oops! A corruption in the cache has occurred.</string>
+    <string name="background_needs_invalidating_button">Wipe</string>
     <string name="background_updated_toast">Resource cache has been built!</string>
     <string name="background_updated_toast_cancel">This theme needs to upgrade its resource cache
         before it is functional!

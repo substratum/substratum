@@ -49,6 +49,7 @@ import projekt.substrate.LetsGetStarted;
 import projekt.substrate.ShowMeYourFierceEyes;
 import projekt.substratum.BuildConfig;
 import projekt.substratum.R;
+import projekt.substratum.util.AOPTCheck;
 import projekt.substratum.util.CacheCreator;
 import projekt.substratum.util.Root;
 
@@ -288,6 +289,7 @@ public class References {
         prefs.edit().putBoolean("vibrate_on_compiled", false).apply();
         prefs.edit().putBoolean("nougat_style_cards", false).apply();
         prefs.edit().putString("compiler", "aapt").apply();
+        new AOPTCheck().injectAOPT(context, true);
         prefs.edit().putBoolean("aopt_debug", false).apply();
         prefs.edit().putBoolean("display_old_themes", true).apply();
         prefs = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);

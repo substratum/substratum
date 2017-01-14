@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements
 
     @SuppressLint("StaticFieldLeak")
     public static TextView actionbar_title, actionbar_content;
-    public static String userInput;
+    public static String userInput = "";
     public static SearchView searchView;
     private Drawer drawer;
     private int permissionCheck, permissionCheck2;
@@ -705,7 +705,7 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public boolean onQueryTextChange(String query) {
-        if (query.length() > 0 && userInput != query) {
+        if (!userInput.equals(query)) {
             userInput = query;
             Fragment f = getSupportFragmentManager().findFragmentById(R.id.main);
             getSupportFragmentManager()

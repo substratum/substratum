@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements
     private ProgressDialog mProgressDialog;
     private SharedPreferences prefs;
     private SearchView searchView;
-    private boolean hideSearch;
+    private boolean hideBundle;
 
     private void switchFragment(String title, String fragment) {
         if (searchView != null) {
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements
         tx.replace(R.id.main, Fragment.instantiate(MainActivity.this, "projekt.substratum" +
                 ".fragments." + fragment));
         tx.commit();
-        hideSearch = true;
+        hideBundle = true;
         supportInvalidateOptionsMenu();
     }
 
@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements
         tx.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         tx.replace(R.id.main, fragment);
         tx.commit();
-        hideSearch = false;
+        hideBundle = false;
         supportInvalidateOptionsMenu();
     }
 
@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements
         tx.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         tx.replace(R.id.main, fragment);
         tx.commit();
-        hideSearch = true;
+        hideBundle = true;
         supportInvalidateOptionsMenu();
     }
 
@@ -564,9 +564,11 @@ public class MainActivity extends AppCompatActivity implements
             getMenuInflater().inflate(R.menu.activity_menu_legacy, menu);
         }
         MenuItem searchItem = menu.findItem(R.id.action_search);
+        MenuItem showcase = menu.findItem(R.id.search);
         searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setOnQueryTextListener(this);
-        searchItem.setVisible(!hideSearch);
+        searchItem.setVisible(!hideBundle);
+        showcase.setVisible(!hideBundle);
         return true;
     }
 

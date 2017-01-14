@@ -13,6 +13,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
@@ -88,6 +89,18 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
         }
         themePlatform.setIcon(getContext().getDrawable(R.mipmap.projekt_icon));
+
+        Preference systemPlatform = getPreferenceManager().findPreference
+                ("system_platform");
+        systemPlatform.setSummary(
+                getString(R.string.android) + " " + References.getProp("ro.build.version.release") +
+                        " (" + Build.ID + ")\n" +
+                        getString(R.string.device) + " " + Build.MODEL + " (" + Build.DEVICE + ")" +
+                        "\n" +
+                        getString(R.string.vendor) + " " +
+                        References.getProp("ro.build.version.security_patch") + ""
+        );
+        systemPlatform.setIcon(References.grabAppIcon(getContext(), "com.android.systemui"));
 
         final Preference aoptSwitcher = getPreferenceManager().findPreference
                 ("aopt_switcher");

@@ -23,6 +23,11 @@
             android:summary="@string/settings_about_rro_version_2"
             android:title="@string/settings_about_oms_rro_version" />
 
+        <Preference
+            android:key="system_platform"
+            android:summary="@string/settings_about_system_content"
+            android:title="@string/settings_about_system_version" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

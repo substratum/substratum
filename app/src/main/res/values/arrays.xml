@@ -15,6 +15,7 @@
         <item>Traductions en français</item>
         <item>Magyar Fordítás</item>
         <item>Traduzioni Italiane</item>
+        <item>Lietuvos Vertimai</item>
         <item>Tradução Português (Brasileiro)</item>
         <item>Русский перевод</item>
         <item>Traducciones españolas</item>
@@ -33,6 +34,10 @@
         <item>Márk Kaszás (kaszasm)</item>
         <item>Gábor Vecsera (Wechy77)</item>
         <item>László Szécsényi (szecslasz)</item>
+    </string-array>
+
+    <string-array name="lithuanian_translators">
+        <item>Gediminas Kiaunė (gedablo666)</item>
     </string-array>
 
     <string-array name="italian_translators">

@@ -1,7 +1,5 @@
 package projekt.substratum.fragments;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,11 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -25,10 +18,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashSet;
 import java.util.Map;
-import java.util.Set;
 
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.R;
@@ -68,39 +58,6 @@ public class ShowcaseTab extends Fragment {
         refreshLayout();
 
         return root;
-    }
-
-    @SuppressWarnings("unchecked")
-    private boolean saveArray(String[] array, String arrayName, Context mContext) {
-        SharedPreferences prefs = mContext.getSharedPreferences("showcase_tabs", 0);
-        SharedPreferences.Editor editor = prefs.edit();
-
-        int initial = 1000;
-        Set set = new LinkedHashSet();
-        for (String value : array) {
-            set.add(initial + "_" + value);
-            initial += 1;
-        }
-        editor.putStringSet(arrayName, set);
-        return editor.commit();
-    }
-
-    @SuppressWarnings("unchecked")
-    private ArrayList loadArray(String arrayName, Context mContext) {
-        SharedPreferences prefs = mContext.getSharedPreferences("showcase_tabs", 0);
-
-        Set fallback = new LinkedHashSet();
-        Set cache = prefs.getStringSet(arrayName, fallback);
-
-        ArrayList arrayList = new ArrayList<>();
-        arrayList.addAll(cache);
-        Collections.sort(arrayList);
-        return arrayList;
-    }
-
-    private void clearArray(String arrayName, Context mContext) {
-        SharedPreferences prefs = mContext.getSharedPreferences("showcase_tabs", 0);
-        prefs.edit().remove(arrayName).apply();
     }
 
     private void refreshLayout() {
@@ -154,7 +111,6 @@ public class ShowcaseTab extends Fragment {
         protected ArrayList doInBackground(String... sUrl) {
             String inputFileName = sUrl[1];
             ArrayList<ShowcaseItem> wallpapers = new ArrayList<>();
-            Boolean cached = false;
             try {
                 InputStream input = null;
                 OutputStream output = null;
@@ -174,7 +130,6 @@ public class ShowcaseTab extends Fragment {
                     // We create a temporary file to check whether we should be replacing the
                     // current
                     inputFileName = inputFileName.substring(0, inputFileName.length() - 4) +
-                            "-temp" +
                             ".xml";
                 }
 
@@ -244,17 +199,14 @@ public class ShowcaseTab extends Fragment {
                                 sUrl[1].substring(0, sUrl[1].length() - 4) + "-temp.xml");
                         Boolean renamed = renameMe.renameTo(new File(getContext().getCacheDir() +
                                 "/ShowcaseCache/" + sUrl[1]));
-                        clearArray(sUrl[1].substring(0, sUrl[1].length() - 4), getContext());
                         if (!renamed) Log.e(References.SUBSTRATUM_LOG,
                                 "Could not replace the old tab file with the new tab file...");
-                        cached = false;
                     } else {
                         File deleteMe = new File(getContext().getCacheDir() +
                                 "/" + inputFileName);
                         Boolean deleted = deleteMe.delete();
                         if (!deleted) Log.e(References.SUBSTRATUM_LOG,
                                 "Could not delete temporary tab file...");
-                        cached = true;
                     }
                 }
 
@@ -267,65 +219,26 @@ public class ShowcaseTab extends Fragment {
                 final Map<String, String> newArray = ReadCloudShowcaseFile.main(checkerCommands);
                 ShowcaseItem newEntry = new ShowcaseItem();
 
-                @SuppressWarnings("unchecked")
-                ArrayList<String> cacheImages = loadArray(inputFileName.substring(0,
-                        inputFileName.length() - 4), getContext());
-                ArrayList<String> prefList = new ArrayList<>();
-                int image_counter = 0;
                 for (String key : newArray.keySet()) {
                     if (!key.toLowerCase().contains("-".toLowerCase())) {
                         newEntry.setContext(getContext());
                         newEntry.setThemeName(key);
                         newEntry.setThemeLink(newArray.get(key));
-                        if (cached) {
-                            newEntry.setThemeIcon(cacheImages.get(image_counter).substring(5));
-                        } else {
-                            try {
-                                Document doc = Jsoup.connect(newArray.get(key)).get();
-                                Element main_head = doc.select("div.main-content").first();
-                                Elements links = main_head.getElementsByTag("img");
-
-                                for (Element link : links) {
-                                    String linkClass = link.className();
-                                    String linkAttr = link.attr("src");
-                                    if (linkClass.equals("cover-image")) {
-                                        prefList.add("http://" + linkAttr.substring(2));
-                                        newEntry.setThemeIcon("http://" + linkAttr.substring(2));
-                                        break;
-                                    }
-                                }
-                            } catch (Exception e) {
-                                // Suppress
-                            }
-                        }
                     } else {
                         if (key.toLowerCase().contains("-author".toLowerCase())) {
                             newEntry.setThemeAuthor(newArray.get(key));
                         } else if (key.toLowerCase().contains("-pricing".toLowerCase())) {
                             newEntry.setThemePricing(newArray.get(key));
                         } else if (key.toLowerCase().contains("-image-override")) {
-                            if (cached) {
-                                newEntry.setThemeIcon(cacheImages.get(image_counter).substring(5));
-                            } else {
-                                prefList.add(newArray.get(key));
-                                newEntry.setThemeIcon(newArray.get(key));
-                            }
+                            newEntry.setThemeIcon(newArray.get(key));
                         } else if (key.toLowerCase().contains("-support".toLowerCase())) {
                             newEntry.setThemeSupport(newArray.get(key));
                             wallpapers.add(newEntry);
                             newEntry = new ShowcaseItem();
                             newEntry.setContext(getContext());
-                            image_counter += 1;
                         }
                     }
                 }
-                String[] prefToAdd = new String[prefList.size()];
-                for (int i = 0; i < prefList.size(); i++) {
-                    prefToAdd[i] = prefList.get(i);
-                }
-                if (!cached)
-                    saveArray(prefToAdd, inputFileName.substring(0,
-                            inputFileName.length() - 4), getContext());
             } catch (Exception e) {
                 //
             }

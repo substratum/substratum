@@ -97,8 +97,6 @@ dependencies {
     compile 'com.eightbitlab:blurview:1.1.2'
     // Image Processing
     compile 'com.theartofdev.edmodo:android-image-cropper:2.3.1'
-    // HTML Processing
-    compile 'org.jsoup:jsoup:1.7.3'
     // Direct Interface to the Overlay Manager Service
     compile files('src/main/libs/overlay-manager-service.jar')
 }

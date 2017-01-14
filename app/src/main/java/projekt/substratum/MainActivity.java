@@ -195,6 +195,11 @@ public class MainActivity extends AppCompatActivity implements
             }
         }
 
+        actionbar_content.setVisibility(View.GONE);
+        actionbar_title.setVisibility(View.GONE);
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setTitle(getString(R.string.app_name));
+
         AccountHeader header = new AccountHeaderBuilder()
                 .withActivity(this)
                 .withHeaderBackground(R.drawable.material_drawer_header_background)

@@ -51,9 +51,11 @@ public class ProfileFragment extends Fragment {
 
     public static final String SCHEDULED_PROFILE_ENABLED = "scheduled_profile_enabled";
     public static final String SCHEDULED_PROFILE_TYPE_EXTRA = "type";
+    public static final String NIGHT = "night";
     public static final String NIGHT_PROFILE = "night_profile";
     public static final String NIGHT_PROFILE_HOUR = "night_profile_hour";
     public static final String NIGHT_PROFILE_MINUTE = "night_profile_minute";
+    public static final String DAY = "day";
     public static final String DAY_PROFILE = "day_profile";
     public static final String DAY_PROFILE_HOUR = "day_profile_hour";
     public static final String DAY_PROFILE_MINUTE = "day_profile_minute";
@@ -350,20 +352,19 @@ public class ProfileFragment extends Fragment {
         AlarmManager alarmMgr = (AlarmManager) getActivity()
                 .getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(getActivity(), ScheduledProfileReceiver.class);
-        intent.putExtra(SCHEDULED_PROFILE_TYPE_EXTRA, getString(R.string.night));
+        intent.putExtra(SCHEDULED_PROFILE_TYPE_EXTRA, NIGHT);
         PendingIntent nightIntent = PendingIntent.getBroadcast(getActivity(), 0, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
-        intent.putExtra(SCHEDULED_PROFILE_TYPE_EXTRA, getString(R.string.day));
+        intent.putExtra(SCHEDULED_PROFILE_TYPE_EXTRA, DAY);
         PendingIntent dayIntent = PendingIntent.getBroadcast(getActivity(), 1, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
         if (dayNightEnabled) {
             Calendar calendar = Calendar.getInstance();
-            calendar.setTimeInMillis(System.currentTimeMillis());
-
             editor.putBoolean(SCHEDULED_PROFILE_ENABLED, dayNightEnabled);
 
             // night time
+            calendar.setTimeInMillis(System.currentTimeMillis());
             calendar.set(Calendar.HOUR_OF_DAY, nightHour);
             calendar.set(Calendar.MINUTE, nightMinute);
             if (calendar.getTimeInMillis() < System.currentTimeMillis()) {
@@ -376,6 +377,7 @@ public class ProfileFragment extends Fragment {
             editor.putInt(NIGHT_PROFILE_MINUTE, nightMinute);
 
             // day time
+            calendar.setTimeInMillis(System.currentTimeMillis());
             calendar.set(Calendar.HOUR_OF_DAY, dayHour);
             calendar.set(Calendar.MINUTE, dayMinute);
             if (calendar.getTimeInMillis() < System.currentTimeMillis()) {

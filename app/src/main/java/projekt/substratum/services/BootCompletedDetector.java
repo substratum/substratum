@@ -10,9 +10,9 @@ import android.support.v7.preference.PreferenceManager;
 
 import java.util.Calendar;
 
-import projekt.substratum.R;
-
+import static projekt.substratum.fragments.ProfileFragment.DAY;
 import static projekt.substratum.fragments.ProfileFragment.DAY_PROFILE_HOUR;
+import static projekt.substratum.fragments.ProfileFragment.NIGHT;
 import static projekt.substratum.fragments.ProfileFragment.NIGHT_PROFILE_HOUR;
 import static projekt.substratum.fragments.ProfileFragment.NIGHT_PROFILE_MINUTE;
 import static projekt.substratum.fragments.ProfileFragment.SCHEDULED_PROFILE_ENABLED;
@@ -36,11 +36,12 @@ public class BootCompletedDetector extends BroadcastReceiver {
 
     private void setupScheduledProfile(Context context) {
         AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        Calendar calendar = Calendar.getInstance();
         Intent intent = new Intent(context, ScheduledProfileReceiver.class);
-        intent.putExtra(SCHEDULED_PROFILE_TYPE_EXTRA, context.getString(R.string.night));
+        intent.putExtra(SCHEDULED_PROFILE_TYPE_EXTRA, NIGHT);
         PendingIntent nightIntent = PendingIntent.getBroadcast(context, 0, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
-        intent.putExtra(SCHEDULED_PROFILE_TYPE_EXTRA, R.string.day);
+        intent.putExtra(SCHEDULED_PROFILE_TYPE_EXTRA, DAY);
         PendingIntent dayIntent = PendingIntent.getBroadcast(context, 1, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -49,10 +50,8 @@ public class BootCompletedDetector extends BroadcastReceiver {
         final int nightHour = prefs.getInt(NIGHT_PROFILE_HOUR, 0);
         final int nightMinute = prefs.getInt(NIGHT_PROFILE_MINUTE, 0);
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-
         // night time
+        calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.set(Calendar.HOUR_OF_DAY, nightHour);
         calendar.set(Calendar.MINUTE, nightMinute);
         if (calendar.getTimeInMillis() < System.currentTimeMillis()) {
@@ -62,6 +61,7 @@ public class BootCompletedDetector extends BroadcastReceiver {
                 nightIntent);
 
         // day time
+        calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.set(Calendar.HOUR_OF_DAY, dayHour);
         calendar.set(Calendar.MINUTE, dayMinute);
         if (calendar.getTimeInMillis() < System.currentTimeMillis()) {

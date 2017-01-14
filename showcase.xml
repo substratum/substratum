@@ -1,18 +1,18 @@
 <?xml version="1.0"?>
 <substratum>
     <tab id="Dark Themes">
-        <link>http://pastebin.com/raw/rVFGUmhc</link>
+        <link>http://projektsubstratum.com/.showcase/substratum-showcase/substratum_tab_darkthemes.xml</link>
     </tab>
     <tab id="Light Themes">
-        <link>http://pastebin.com/raw/HKu1xJcN</link>
+        <link>http://projektsubstratum.com/.showcase/substratum-showcase/substratum_tab_lightthemes.xml</link>
     </tab>
     <tab id="Clear Themes">
-        <link>http://pastebin.com/raw/ve0yVaj8</link>
+        <link>http://projektsubstratum.com/.showcase/substratum-showcase/substratum_tab_clearthemes.xml</link>
     </tab>
     <tab id="Plugins">
-        <link>http://pastebin.com/raw/TcpMsi0i</link>
+        <link>http://projektsubstratum.com/.showcase/substratum-showcase/substratum_tab_plugins.xml</link>
     </tab>
     <tab id="Utilities">
-        <link>http://pastebin.com/raw/RSV2GDZt</link>
+        <link>http://projektsubstratum.com/.showcase/substratum-showcase/substratum_tab_apps.xml</link>
     </tab>
 </substratum>

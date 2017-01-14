@@ -18,6 +18,7 @@
         <item>Traduzioni Italiane</item>
         <item>Lietuvos Vertimai</item>
         <item>Tradução Português (Brasileiro)</item>
+        <item>Tradução Português</item>
         <item>Русский перевод</item>
         <item>Traducciones españolas</item>
     </string-array>
@@ -89,6 +90,10 @@
         <item>Christian Schuler (christian_carro)</item>
         <item>Felipe Silva (felipesilva2655)</item>
         <item>Fred “Virkkunen” Schauß (zkaarface)</item>
+    </string-array>
+
+    <string-array name="portuguese_translators">
+        <item>Carlos (lloco73)</item>
     </string-array>
 
     <string-array name="chinese_translators">

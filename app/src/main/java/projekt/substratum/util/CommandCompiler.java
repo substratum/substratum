@@ -1,10 +1,14 @@
 package projekt.substratum.util;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Environment;
+import android.preference.PreferenceManager;
+import android.util.Log;
 
 import projekt.substratum.config.References;
 
+import static projekt.substratum.config.References.SUBSTRATUM_BUILDER;
 import static projekt.substratum.config.References.getDeviceID;
 
 class CommandCompiler {
@@ -93,7 +97,12 @@ class CommandCompiler {
 
     static String createAOPTShellCommands(String work_area, String targetPkg,
                                           String overlay_package, String theme_name,
-                                          boolean legacySwitch, String additional_variant) {
+                                          boolean legacySwitch, String additional_variant,
+                                          Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        Boolean aopt_debug = prefs.getBoolean("aopt_debug", false);
+        if (aopt_debug) Log.d(SUBSTRATUM_BUILDER,
+                "The AOPT debug flag has been enabled for this session");
 
         return "aopt p " +
 
@@ -117,7 +126,7 @@ class CommandCompiler {
                 "-F " + work_area + "/" + overlay_package + "." + theme_name + "-unsigned.apk " +
 
                 // Final arguments to conclude the AOPT build
-                ((References.ENABLE_AOPT_DEBUG) ?
+                ((aopt_debug) ?
                         "--app-as-shared-lib -P " +
                                 Environment.getExternalStorageDirectory().getAbsolutePath() +
                                 "/.substratum/debug.xml " : "") +

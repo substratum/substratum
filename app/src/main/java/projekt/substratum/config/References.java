@@ -69,8 +69,6 @@ public class References {
     private static final String NOVA_LAUNCHER = "com.novalauncher.THEME";
     // November security update (incompatible firmware) timestamp;
     private static final long NOVEMBER_PATCH_TIMESTAMP = 1478304000000L;
-    // Compiler
-    public static Boolean ENABLE_AOPT_DEBUG = false;
     // Lucky Patcher's Package Name
     public static String lp_package_identifier = "com.android.vending.billing" +
             ".InAppBillingService.LOCK";
@@ -140,8 +138,7 @@ public class References {
             prefs.edit().putBoolean("oms_state", true).apply();
             prefs.edit().putInt("oms_version", 3).apply();
             Log.d(References.SUBSTRATUM_LOG, "Initializing Substratum with the third iteration of" +
-                    " " +
-                    "the Overlay Manager Service...");
+                    " the Overlay Manager Service...");
         } else {
             // At this point, we must perform an OMS7 check
             try {
@@ -291,6 +288,7 @@ public class References {
         prefs.edit().putBoolean("vibrate_on_compiled", false).apply();
         prefs.edit().putBoolean("nougat_style_cards", false).apply();
         prefs.edit().putString("compiler", "aapt").apply();
+        prefs.edit().putBoolean("aopt_debug", false).apply();
         prefs.edit().putBoolean("display_old_themes", true).apply();
         prefs = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
         prefs.edit().putBoolean("is_updating", false).apply();

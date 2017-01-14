@@ -130,16 +130,14 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                             case 0:
                                 prefs1.edit().remove("compiler").apply();
                                 prefs1.edit().putString("compiler", "aapt").apply();
-                                References.ENABLE_AOPT_DEBUG = false;
-                                prefs1.edit().putString("aopt_debug", "false").apply();
+                                prefs1.edit().putBoolean("aopt_debug", false).apply();
                                 aoptSwitcher.setSummary(R.string.settings_aapt);
                                 new AOPTCheck().injectAOPT(getContext(), true);
                                 break;
                             case 1:
                                 prefs1.edit().remove("compiler").apply();
                                 prefs1.edit().putString("compiler", "aopt").apply();
-                                References.ENABLE_AOPT_DEBUG = true;
-                                prefs1.edit().putString("aopt_debug", "true").apply();
+                                prefs1.edit().putBoolean("aopt_debug", true).apply();
                                 aoptSwitcher.setSummary(R.string.settings_aopt);
                                 new AOPTCheck().injectAOPT(getContext(), true);
                                 break;

@@ -45,7 +45,7 @@ public class SubstratumBuilder {
     private String processAOPTCommands(String work_area, String targetPkg,
                                        String theme_name, String overlay_package,
                                        String variant, String additional_variant,
-                                       int typeMode, boolean legacySwitch) {
+                                       int typeMode, boolean legacySwitch, Context context) {
         String commands;
         if (typeMode == 1) {
             commands = CommandCompiler.createAOPTShellCommands(
@@ -54,7 +54,8 @@ public class SubstratumBuilder {
                     overlay_package,
                     theme_name,
                     legacySwitch,
-                    null);
+                    null,
+                    context);
         } else {
             if (variant != null) {
                 commands = CommandCompiler.createAOPTShellCommands(
@@ -63,7 +64,8 @@ public class SubstratumBuilder {
                         overlay_package,
                         theme_name,
                         legacySwitch,
-                        additional_variant);
+                        additional_variant,
+                        context);
             } else {
                 commands = CommandCompiler.createAOPTShellCommands(
                         work_area,
@@ -71,7 +73,8 @@ public class SubstratumBuilder {
                         overlay_package,
                         theme_name,
                         legacySwitch,
-                        null);
+                        null,
+                        context);
             }
         }
         return commands;
@@ -81,7 +84,7 @@ public class SubstratumBuilder {
                                      String targetPkg, String theme_name,
                                      String overlay_package, String variant,
                                      String additional_variant, int typeMode,
-                                     boolean legacySwitch) {
+                                     boolean legacySwitch, Context context) {
         Process nativeApp = null;
         try {
             String line;
@@ -101,11 +104,11 @@ public class SubstratumBuilder {
                                             "style, now falling back to legacy compiler...");
                             String new_commands = processAOPTCommands(work_area, targetPkg,
                                     theme_name, overlay_package, variant, additional_variant,
-                                    typeMode, true);
+                                    typeMode, true, context);
                             return runShellCommands(
                                     new_commands, work_area, targetPkg, theme_name,
                                     overlay_package, variant, additional_variant, typeMode,
-                                    true);
+                                    true, context);
                         } else {
                             dumpErrorLogs(
                                     References.SUBSTRATUM_BUILDER, overlay_package, line);
@@ -332,11 +335,12 @@ public class SubstratumBuilder {
                     variant,
                     additional_variant,
                     typeMode,
-                    false);
+                    false,
+                    context);
 
             has_errored_out = !runShellCommands(
                     commands, work_area, targetPkg, parse2_themeName, overlay_package,
-                    variant, additional_variant, typeMode, false);
+                    variant, additional_variant, typeMode, false, context);
         }
 
         // 7. Sign the apk

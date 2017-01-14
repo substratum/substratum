@@ -3,6 +3,7 @@ package projekt.substratum.config;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -813,8 +814,40 @@ public class References {
                                       Boolean notification) {
         Intent initializer = LetsGetStarted.initialize(mContext, package_name,
                 !References.checkOMS(mContext), theme_mode, notification);
-        if (initializer != null) {
-            mContext.startActivity(initializer);
+        String integrityCheck = new AOPTCheck().checkAOPTIntegrity();
+        if (integrityCheck != null &&
+                (integrityCheck.equals(mContext.getString(R.string.aapt_version)) ||
+                        integrityCheck.equals(mContext.getString(R.string.aopt_version)))) {
+            if (initializer != null) {
+                mContext.startActivity(initializer);
+            }
+        } else {
+            // At this point, AOPT is not found and must be injected in!
+            Log.e(SUBSTRATUM_LOG, "Android Assets Packaging Tool was not found, " +
+                    "trying to reinject...");
+
+            new AOPTCheck().injectAOPT(mContext, true);
+
+            String integrityCheck2 = new AOPTCheck().checkAOPTIntegrity();
+            if (integrityCheck2 != null &&
+                    (integrityCheck2.equals(mContext.getString(R.string.aapt_version)) ||
+                            integrityCheck2.equals(mContext.getString(R.string.aopt_version)))) {
+                SharedPreferences prefs =
+                        PreferenceManager.getDefaultSharedPreferences(mContext);
+                prefs.edit().putString("compiler", "aapt").apply();
+                if (initializer != null) {
+                    mContext.startActivity(initializer);
+                }
+            } else {
+                new AlertDialog.Builder(mContext)
+                        .setCancelable(false)
+                        .setIcon(R.drawable.dialog_warning_icon)
+                        .setTitle(R.string.aopt_warning_title)
+                        .setMessage(R.string.aopt_warning_text)
+                        .setPositiveButton(R.string.dialog_ok, (dialog, i) -> {
+                            dialog.cancel();
+                        }).show();
+            }
         }
         return false;
     }

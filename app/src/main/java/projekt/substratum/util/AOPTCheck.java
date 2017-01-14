@@ -159,7 +159,7 @@ public class AOPTCheck {
         }
     }
 
-    private String checkAOPTIntegrity() {
+    public String checkAOPTIntegrity() {
         Process proc = null;
         try {
             Runtime rt = Runtime.getRuntime();

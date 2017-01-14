@@ -69,6 +69,9 @@
     </string>
     <string name="tbo_dialog_proceed">Download</string>
 
+    <string name="aopt_warning_title">Wait up!</string>
+    <string name="aopt_warning_text">The overlay compiler was not found on your system! Substratum tried to inject it but failed twice.\n\nIs your root running fine? On certain Superuser distributions such as CM/phh, you may need to grant Substratum default root permissions!\n\nAnother possibility is your /system partition is full and Substratum is unable to add its compiler.\n\nIf you believe you are getting this error by mistake, try switching to a different overlay compiler in Settings.</string>
+
     <string name="warning_title">WARNING!</string>
     <string name="dangerous_warning_content">Substratum has detected that it is running on a
         BOOTLOOP-KNOWN FIRMWARE (Update after November, N/N-MR1) and is strongly advising against

@@ -12,8 +12,20 @@
 
     <string-array name="translations">
         <item>中文翻译（简体）</item>
+        <item>Traduzioni Italiane</item>
         <item>Tradução Português (Brasileiro)</item>
         <item>Русский перевод</item>
+    </string-array>
+
+    <string-array name="italian_translators">
+        <item>Francesco De Feo (fracazzo1995)</item>
+        <item>axxx007xxxz</item>
+        <item>Cristiano Terlizzi (Terlo)</item>
+        <item>nisby</item>
+        <item>luca stracquadanio (lucastracquadanio)</item>
+        <item>Iskan Ivanov (iskan998979145561)</item>
+        <item>Lore Concas (lore96jr)</item>
+        <item>matoxxi</item>
     </string-array>
 
     <string-array name="russian_translators">

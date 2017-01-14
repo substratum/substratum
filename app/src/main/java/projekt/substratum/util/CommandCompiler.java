@@ -116,7 +116,7 @@ class CommandCompiler {
                 "-F " + work_area + "/" + overlay_package + "." + theme_name + "-unsigned.apk " +
 
                 // Final arguments to conclude the AOPT build
-                "-f --include-meta-data --auto-add-overlay" +
+                ((References.AOPT_TEST) ? "--app-as-shared-lib -P /sdcard/substratum/defs.xml " : "") + "-f --include-meta-data --auto-add-overlay " +
 
                 ((References.ENABLE_AOPT_OUTPUT) ? " -v" : "") +
 

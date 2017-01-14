@@ -57,6 +57,7 @@ public class References {
     // These are specific log tags for different classes
     public static final Boolean ENABLE_SIGNING = true;
     public static final Boolean ENABLE_AOPT_OUTPUT = false; // WARNING, DEVELOPERS - BREAKS COMPILE
+    public static  Boolean AOPT_TEST = true;
     public static final String SUBSTRATUM_BUILDER = "SubstratumBuilder";
     public static final String SUBSTRATUM_LOG = "SubstratumLogger";
     public static final String SUBSTRATUM_ICON_BUILDER = "SubstratumIconBuilder";
@@ -107,6 +108,7 @@ public class References {
     private static String metadataWallpapers = "Substratum_Wallpapers";
     private static String metadataVersion = "Substratum_Plugin";
     private static String metadataThemeReady = "Substratum_ThemeReady";
+    // Compiler
 
     // This method is used to check the version of the masquerade theme system
     public static int checkMasquerade(Context context) {

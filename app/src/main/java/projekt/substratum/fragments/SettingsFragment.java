@@ -32,6 +32,8 @@ import projekt.substratum.R;
 import projekt.substratum.config.References;
 import projekt.substratum.util.AOPTCheck;
 
+import static projekt.substratum.config.References.AOPT_TEST;
+
 public class SettingsFragment extends PreferenceFragmentCompat {
 
     private ProgressDialog mProgressDialog;
@@ -130,12 +132,16 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                             case 0:
                                 prefs1.edit().remove("compiler").apply();
                                 prefs1.edit().putString("compiler", "aapt").apply();
+                                References.AOPT_TEST = false;
+                                prefs1.edit().putString("aopt_debug", "false").apply();
                                 aoptSwitcher.setSummary(R.string.settings_aapt);
                                 new AOPTCheck().injectAOPT(getContext(), true);
                                 break;
                             case 1:
                                 prefs1.edit().remove("compiler").apply();
                                 prefs1.edit().putString("compiler", "aopt").apply();
+                                References.AOPT_TEST = true;
+                                prefs1.edit().putString("aopt_debug", "true").apply();
                                 aoptSwitcher.setSummary(R.string.settings_aopt);
                                 new AOPTCheck().injectAOPT(getContext(), true);
                                 break;

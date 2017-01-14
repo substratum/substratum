@@ -10,7 +10,7 @@
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/search"
-        android:icon="@drawable/shortcut_store"
+        android:icon="@drawable/actionbar_playstore"
         android:menuCategory="secondary"
         android:orderInCategory="2"
         android:title="@string/menu_search_icon_packs"

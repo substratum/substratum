@@ -34,7 +34,9 @@ import android.widget.TextView;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.mikepenz.aboutlibraries.LibsBuilder;
+import com.mikepenz.aboutlibraries.LibsConfiguration;
 import com.mikepenz.aboutlibraries.ui.LibsSupportFragment;
+import com.mikepenz.itemanimators.SlideDownAlphaAnimator;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
@@ -210,7 +212,8 @@ public class MainActivity extends AppCompatActivity implements
                                 (BuildConfig.VERSION_NAME))
                 .withCurrentProfileHiddenInList(true)
                 .build();
-
+        
+        LibsConfiguration.getInstance().setItemAnimator(new SlideDownAlphaAnimator());
         final LibsSupportFragment fragment = new LibsBuilder().supportFragment();
 
         DrawerBuilder drawerBuilder = new DrawerBuilder();

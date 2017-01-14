@@ -75,11 +75,12 @@ dependencies {
     // Floating Action Buttons
     compile 'com.gordonwong:material-sheet-fab:1.2.1'
     // Material Drawer
-    compile('com.mikepenz:materialdrawer:5.5.0@aar') {
+    compile('com.mikepenz:materialdrawer:5.8.1@aar') {
         transitive = true
     }
     // About Libraries
-    compile('com.mikepenz:aboutlibraries:5.7.1@aar') {
+    compile 'com.mikepenz:itemanimators:0.5.0@aar'
+    compile('com.mikepenz:aboutlibraries:5.9.0@aar') {
         transitive = true
     }
     // EditTexts

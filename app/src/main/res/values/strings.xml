@@ -320,6 +320,8 @@
     <string name="menu_showcase">Showcase</string>
     <string name="menu_uninstall">Uninstall Theme</string>
 
+    <string name="menu_favorite_snackbar">Successfully set %s as an app shortcut!</string>
+
     <string name="coming_soon">Stolen by Char!</string>
     <string name="legacy_theme_notification_title">Deprecated Theme Warning</string>
     <string name="legacy_theme_notification_text">To use outdated themes,

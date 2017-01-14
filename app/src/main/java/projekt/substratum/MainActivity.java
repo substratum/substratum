@@ -705,16 +705,18 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public boolean onQueryTextChange(String query) {
-        userInput = query;
-        Fragment f = getSupportFragmentManager().findFragmentById(R.id.main);
-        getSupportFragmentManager()
-                .beginTransaction()
-                .detach(f)
-                .commitNowAllowingStateLoss();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .attach(f)
-                .commitAllowingStateLoss();
+        if (query.length() > 0 && userInput != query) {
+            userInput = query;
+            Fragment f = getSupportFragmentManager().findFragmentById(R.id.main);
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .detach(f)
+                    .commitNowAllowingStateLoss();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .attach(f)
+                    .commitAllowingStateLoss();
+        }
         return true;
     }
 

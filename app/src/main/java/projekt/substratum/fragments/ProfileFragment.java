@@ -26,12 +26,11 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Switch;
-
-import com.alimuzaffar.lib.widgets.AnimatedEditText;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
 import net.cachapa.expandablelayout.util.FastOutSlowInInterpolator;
@@ -65,8 +64,8 @@ public class ProfileFragment extends Fragment {
     private List<String> list;
     private ProgressBar headerProgress;
     private Spinner profile_selector, dayProfile, nightProfile;
-    private AnimatedEditText aet_backup;
-    private String aet_getText;
+    private EditText backup_name;
+    private String backup_getText;
     private String to_be_run_commands;
     private ArrayAdapter<String> adapter;
     private List<String> cannot_run_overlays;
@@ -141,12 +140,12 @@ public class ProfileFragment extends Fragment {
         }
 
         // Handle Backups
-        aet_backup = (AnimatedEditText) root.findViewById(R.id.edittext);
+        backup_name = (EditText) root.findViewById(R.id.edittext);
 
         final Button backupButton = (Button) root.findViewById(R.id.backupButton);
         backupButton.setOnClickListener(v -> {
-            if (aet_backup.getText().length() > 0) {
-                aet_getText = aet_backup.getText().toString();
+            if (backup_name.getText().length() > 0) {
+                backup_getText = backup_name.getText().toString();
                 BackupFunction backupFunction = new BackupFunction();
                 backupFunction.execute();
                 InputMethodManager imm = (InputMethodManager)
@@ -429,14 +428,14 @@ public class ProfileFragment extends Fragment {
             headerProgress.setVisibility(View.GONE);
             if (References.checkOMS(getContext())) {
                 String directory_parse = String.format(getString(R.string.toast_backup_success),
-                        aet_getText + ".substratum");
+                        backup_getText + ".substratum");
                 Snackbar.make(getView(),
                         directory_parse,
                         Snackbar.LENGTH_LONG)
                         .show();
             } else {
                 String directory_parse = String.format(getString(R.string.toast_backup_success),
-                        aet_getText + "/");
+                        backup_getText + "/");
                 Snackbar.make(getView(),
                         directory_parse,
                         Snackbar.LENGTH_LONG)
@@ -452,15 +451,15 @@ public class ProfileFragment extends Fragment {
             if (References.checkOMS(getContext())) {
                 References.copy("/data/system/overlays.xml",
                         Environment.getExternalStorageDirectory().getAbsolutePath() +
-                                "/substratum/profiles/" + aet_getText + ".substratum");
+                                "/substratum/profiles/" + backup_getText + ".substratum");
 
                 File makeProfileDir = new File(Environment
                         .getExternalStorageDirectory().getAbsolutePath() +
-                        "/substratum/profiles/" + aet_getText + "/");
+                        "/substratum/profiles/" + backup_getText + "/");
                 if (makeProfileDir.exists()) {
                     References.delete(
                             Environment.getExternalStorageDirectory().getAbsolutePath() +
-                                    "/substratum/profiles/" + aet_getText);
+                                    "/substratum/profiles/" + backup_getText);
                     boolean created = makeProfileDir.mkdir();
                     if (!created)
                         Log.e(References.SUBSTRATUM_LOG, "Could not create profile directory.");
@@ -484,21 +483,21 @@ public class ProfileFragment extends Fragment {
                 // Backup the entire /data/system/theme/ folder
                 References.copyDir("/data/system/theme/",
                         Environment.getExternalStorageDirectory().getAbsolutePath() +
-                                "/substratum/profiles/" + aet_getText);
+                                "/substratum/profiles/" + backup_getText);
 
                 // Backup wallpapers
                 References.copy("/data/system/users/" + uid + "/wallpaper",
                         Environment.getExternalStorageDirectory().getAbsolutePath()
-                                + "/substratum/profiles/" + aet_getText + "/wallpaper.png");
+                                + "/substratum/profiles/" + backup_getText + "/wallpaper.png");
                 References.copy("/data/system/users/" + uid + "/wallpaper_lock",
                         Environment.getExternalStorageDirectory().getAbsolutePath()
-                                + "/substratum/profiles/" + aet_getText + "/wallpaper_lock.png");
+                                + "/substratum/profiles/" + backup_getText + "/wallpaper_lock.png");
 
                 // Backup system bootanimation if encrypted
                 if (getDeviceEncryptionStatus() >= 2) {
                     References.copy("/system/media/bootanimation.zip",
                             Environment.getExternalStorageDirectory().getAbsolutePath()
-                                    + "/substratum/profiles/" + aet_getText + "/bootanimation.zip");
+                                    + "/substratum/profiles/" + backup_getText + "/bootanimation.zip");
                 }
             } else {
                 String current_directory;
@@ -516,7 +515,7 @@ public class ProfileFragment extends Fragment {
                     File oldFolder = new File(Environment.getExternalStorageDirectory()
                             .getAbsolutePath() + "/substratum/profiles/overlay");
                     File newFolder = new File(Environment.getExternalStorageDirectory()
-                            .getAbsolutePath() + "/substratum/profiles/" + aet_getText);
+                            .getAbsolutePath() + "/substratum/profiles/" + backup_getText);
                     boolean success = oldFolder.renameTo(newFolder);
                     if (!success)
                         Log.e(References.SUBSTRATUM_LOG, "Could not move profile directory...");
@@ -524,7 +523,7 @@ public class ProfileFragment extends Fragment {
                     // Now begin backing up sounds
                     References.copyDir("/data/system/theme/audio/",
                             Environment.getExternalStorageDirectory()
-                                    .getAbsolutePath() + "/substratum/profiles/" + aet_getText);
+                                    .getAbsolutePath() + "/substratum/profiles/" + backup_getText);
                     References.mountRO();
 
                     // Don't forget the wallpaper
@@ -533,19 +532,19 @@ public class ProfileFragment extends Fragment {
                     if (homeWall.exists()) {
                         References.copy(homeWall.getAbsolutePath(),
                                 Environment.getExternalStorageDirectory().getAbsolutePath()
-                                        + "/substratum/profiles/" + aet_getText + "/wallpaper.png");
+                                        + "/substratum/profiles/" + backup_getText + "/wallpaper.png");
                     }
                     if (lockWall.exists()) {
                         References.copy(lockWall.getAbsolutePath(),
                                 Environment.getExternalStorageDirectory().getAbsolutePath()
-                                        + "/substratum/profiles/" + aet_getText +
+                                        + "/substratum/profiles/" + backup_getText +
                                         "/wallpaper_lock.png");
                     }
 
                     // And bootanimation
                     References.copy("/system/media/bootanimation.zip",
                             Environment.getExternalStorageDirectory().getAbsolutePath()
-                                    + "/substratum/profiles/" + aet_getText);
+                                    + "/substratum/profiles/" + backup_getText);
                 } else {
                     Snackbar.make(getView(),
                             getString(R.string.backup_no_overlays),

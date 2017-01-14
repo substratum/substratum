@@ -65,7 +65,7 @@
                         android:layout_marginTop="20dp"
                         android:text="@string/profile_edittext_title" />
 
-                    <com.alimuzaffar.lib.widgets.AnimatedEditText
+                    <EditText
                         android:id="@+id/edittext"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -79,11 +79,7 @@
                         android:imeOptions="actionNext"
                         android:inputType="textNoSuggestions"
                         android:maxLines="1"
-                        android:nextFocusDown="@+id/edittext2"
-                        android:textSize="15sp"
-                        app:animateCursor="true"
-                        app:animateTextClear="true"
-                        app:animationType="popIn" />
+                        android:textSize="15sp"/>
 
                     <Button
                         android:id="@+id/backupButton"

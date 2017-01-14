@@ -17,12 +17,14 @@
 
     <string-array name="portuguese_brazillian_translators">
         <item>Chrys B (abacate123)</item>
+        <item>Christian Schuler (christian_carro)</item>
         <item>Felipe Silva (felipesilva2655)</item>
         <item>Fred “Virkkunen” Schauß (zkaarface)</item>
     </string-array>
 
     <string-array name="chinese_translators">
         <item>马丁龙猪 (martincz)</item>
+        <item>luosir</item>
         <item>xdygxh</item>
         <item>iconteral</item>
         <item>weixuan (weixuanxie)</item>
@@ -30,14 +32,20 @@
         <item>梁灿耀 (yezizhai)</item>
         <item>李涛 (crixec)</item>
         <item>筱穆 (xm12578)</item>
-        <item>luosir</item>
         <item>riouts</item>
         <item>那年明月 (vanson_pc)</item>
-        <item>410054165</item>
+        <item>闲云野鹤 (410054165)</item>
         <item>Craig Hart (craigaryhart)</item>
         <item>Tong Wu (wutong07163)</item>
         <item>Lu Chang (Ludoux)</item>
         <item>林毅华 (linyihua1996)</item>
         <item>周羿吉 (zhouyiji)</item>
+        <item>Ariver</item>
+        <item>AltracasysHC phixxGs (WarRock_Ryusei)</item>
+        <item>罗July (LuoJuly)</item>
+        <item>jokeroller</item>
+        <item>panming</item>
+        <item>SakuraSa233</item>
+        <item>Me Bite (710623726)</item>
     </string-array>
 </resources>

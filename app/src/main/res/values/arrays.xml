@@ -12,9 +12,16 @@
 
     <string-array name="translations">
         <item>中文翻译（简体）</item>
+        <item>Magyar Fordítás</item>
         <item>Traduzioni Italiane</item>
         <item>Tradução Português (Brasileiro)</item>
         <item>Русский перевод</item>
+    </string-array>
+
+    <string-array name="hungarian_translators">
+        <item>Márk Kaszás (kaszasm)</item>
+        <item>Gábor Vecsera (Wechy77)</item>
+        <item>László Szécsényi (szecslasz)</item>
     </string-array>
 
     <string-array name="italian_translators">

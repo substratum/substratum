@@ -296,13 +296,11 @@ public class MainActivity extends AppCompatActivity implements
                         .withName(R.string.nav_priorities)
                         .withIcon(R.drawable.nav_drawer_priorities)
                         .withIdentifier(10));
-        if (BuildConfig.VERSION_NAME.contains("-")) {
-            drawerBuilder.addDrawerItems(
-                    new PrimaryDrawerItem()
-                            .withName(R.string.nav_backup_restore)
-                            .withIcon(R.drawable.nav_drawer_profiles)
-                            .withIdentifier(11));
-        }
+        drawerBuilder.addDrawerItems(
+                new PrimaryDrawerItem()
+                        .withName(R.string.nav_backup_restore)
+                        .withIcon(R.drawable.nav_drawer_profiles)
+                        .withIdentifier(11));
         drawerBuilder.addDrawerItems(
                 new SectionDrawerItem()
                         .withName(R.string.nav_section_header_more));

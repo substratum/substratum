@@ -13,6 +13,18 @@
     <string-array name="translations">
         <item>中文翻译（简体）</item>
         <item>Tradução Português (Brasileiro)</item>
+        <item>Русский перевод</item>
+    </string-array>
+
+    <string-array name="russian_translators">
+        <item>Николай Шахов (shjin777)</item>
+        <item>Vel_Djentleman</item>
+        <item>itaysonlab</item>
+        <item>123321artyom</item>
+        <item>Alex M (beroid3)</item>
+        <item>Iskan Ivanov (iskan998979145561)</item>
+        <item>Vladimir Burylov (Vovan77rus59)</item>
+        <item>SerJo87</item>
     </string-array>
 
     <string-array name="portuguese_brazillian_translators">

@@ -209,7 +209,6 @@ public class TeamFragment extends Fragment {
                         dialog.cancel();
                         AlertDialog.Builder builder2 = new AlertDialog.Builder(getActivity());
                         switch (item) {
-                            // Chinese (Simplified) Translations
                             case 0:
                                 builder2.setItems(
                                         getResources().getStringArray(R.array.chinese_translators),
@@ -219,6 +218,12 @@ public class TeamFragment extends Fragment {
                             case 1:
                                 builder2.setItems(
                                         getResources().getStringArray(R.array.portuguese_brazillian_translators),
+                                        (dialog2, item2) -> {
+                                        });
+                                break;
+                            case 2:
+                                builder2.setItems(
+                                        getResources().getStringArray(R.array.russian_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;

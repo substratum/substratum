@@ -4,6 +4,9 @@
   <string name="showcase">bendruomenės vitrina</string>
   <string name="helper_name">\"substratum\" perdangų pagalbininkas</string>
   <string name="restore_app_name">atkurti temą</string>
+  <string name="android">\"Android\" versija:</string>
+  <string name="device">Įrenginio modelis:</string>
+  <string name="vendor">Saugumo pataisos lygis:</string>
   <string name="showcase_no_connection">kad veiktu, temos vitrina reikalauja interneto ryšio!</string>
   <string name="showcase_no_themes">atrodo, kad įvyko klaida spartinant vitrinos duomenų bazę šiame skirtuke. atnaujinkite duomenų bazę su mygtuku viršuje.</string>
   <string name="showcase_dialog_title">Atsakomybės apribojimas!</string>
@@ -17,6 +20,11 @@
   <string name="background_updated_toast_cleaning">\"Substratum\" dabar valo šios temos išteklių talpyklą&#8230;</string>
   <string name="failed_to_install_title_notification">Klaida įdiegiant \"OMS\" temą</string>
   <string name="failed_to_install_text_notification">%s nepavyko įdiegti</string>
+  <string name="actionbar_theme_count_singular">%s tema</string>
+  <string name="actionbar_theme_count_plural">%s temos</string>
+  <string name="actionbar_theme_count_none">nerasta jokių temų</string>
+  <string name="actionbar_theme_count_loading">kraunama&#8230;</string>
+  <string name="actionbar_search">Ieškoti</string>
   <string name="settings_icons">Nustatymų Piktogramos</string>
   <string name="systemui_headers">Sistemos NS Antraštės</string>
   <string name="systemui_navigation">Sistemos NS Navigacija</string>
@@ -116,6 +124,7 @@
   <string name="settings_about_oms_version_3">perdangų tvarkyklės tarnyba - iteracija 3 (oms3)</string>
   <string name="settings_about_oms_version_7">perdangų tvarkyklės tarnyba - iteracija 7 (oms7)</string>
   <string name="settings_about_rro_version_2">išteklių veikimo laiko perdangos - iteracija 2 (rro2/legacy)</string>
+  <string name="settings_about_system_version">sistemos platforma</string>
   <string name="settings_aopt_switcher_title">\"Substratum\" Perdangų Kompiliatorius</string>
   <string name="settings_aapt">AAPT (Stabilus)</string>
   <string name="settings_aopt">AOPT (Pjovimo Kraštas)</string>
@@ -328,7 +337,6 @@ ateities atnaujinimams.
   <string name="toast_uninstalled">Jūs ką tik išdiegėte šią temą! Aš išnyksiu per kitą atnaujinimą!</string>
   <string name="toast_uninstalling">Dabar išdiegiamos pasirinktos perdangos, prašome palaukti&#8230;</string>
   <string name="toast_updating">Dabar \"Substratum\" paruošia jūsų temą fone!</string>
-  <string name="no_themes_title">neįdiegta jokių temų&#8230;</string>
   <string name="no_themes_description">prašome įdiegti suderinamą temą!</string>
   <string name="toast_on_back_press_compiling">Jūs galite naudoti kitas programėles paspausdami Namų/Paskiausių mygtukus!</string>
   <string name="toast_needs_caching">Substratum talpykla buvo pašalinta, prieš tęsiant prašome atstatyti temą!</string>
@@ -443,6 +451,7 @@ ateities atnaujinimams.
   <string name="scheduled_profile_card_content">Ši funkcija suteikia jums galimybę automatiškai perjungti profilius remiantis dienos metu.</string>
   <string name="scheduled_profile_apply_success">Planuojamas profilis sėkmingai pritaikytas!</string>
   <string name="scheduled_profile_disable_success">Planuojamas profilis sėkmingai išjungtas!</string>
+  <string name="active_time">Nakties grafikas</string>
   <string name="start_time">Pradžia</string>
   <string name="end_time">Pabaiga</string>
   <string name="day_profile">Dienos profilis</string>
@@ -456,6 +465,11 @@ ateities atnaujinimams.
   <string name="profile_pending_notification">Profilis bus pakeistas po ekrano išjungimo.</string>
   <string name="profile_success_notification">Profilis sėkmingai pritaikytas!</string>
   <string name="profile_failed_notification">Profilio nepavyko pritaikyti&#8230;</string>
+  <string name="profile_failed_info_notification">Palieskite norėdami gauti daugiau informacijos</string>
+  <string name="theme_debug_mode_title">Temos derinimo režimas</string>
+  <string name="theme_debug_mode_summary">Išjungti \"legacy\" kompiliatoriaus atsarginę priemonę</string>
+  <string name="theme_debug_mode_dialog_title">ĮSPĖJIMAS</string>
+  <string name="theme_debug_mode_dialog_content">Tai gali visiškai nutraukti kompiliavimo procesą. Įjungite šią parinktį, jei žinote, ką darote!</string>
   <string name="theme_debug_mode_dialog_continue">Tęsti</string>
   <string name="theme_debug_mode_dialog_cancel">Atšaukti</string>
 </resources>

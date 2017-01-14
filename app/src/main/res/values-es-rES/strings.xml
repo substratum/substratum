@@ -4,6 +4,9 @@
   <string name="showcase">mostrador de la comunidad</string>
   <string name="helper_name">ayudante de capas de substratum</string>
   <string name="restore_app_name">restaurar tema</string>
+  <string name="android">Versión de Android:</string>
+  <string name="device">Modelo del dispositivo:</string>
+  <string name="vendor">Nivel de parche de seguridad:</string>
   <string name="showcase_no_connection">¡el mostrador de temas requiere una conexión de internet para funcionar!     </string>
   <string name="showcase_no_themes">Parece que hubo un error en almacenamiento de caché de la base de datos del mostrador en esta sección. recarga la base de datos con el botón de actualizar que está arriba.</string>
   <string name="showcase_dialog_title">¡Renuncia!</string>
@@ -17,6 +20,11 @@
   <string name="background_updated_toast_cleaning">Substratum está aclarando la caché de recursos de este tema&#8230;</string>
   <string name="failed_to_install_title_notification">Falló la instalación del tema OMS</string>
   <string name="failed_to_install_text_notification">%s falló en instalar</string>
+  <string name="actionbar_theme_count_singular">%s tema</string>
+  <string name="actionbar_theme_count_plural">%s temas</string>
+  <string name="actionbar_theme_count_none">no se encontraron temas</string>
+  <string name="actionbar_theme_count_loading">cargando&#8230;</string>
+  <string name="actionbar_search">Buscar</string>
   <string name="settings_icons">Iconos de Ajustes</string>
   <string name="systemui_headers">System UI Cabeceras</string>
   <string name="systemui_navigation">System UI Barra de Navegación</string>
@@ -121,6 +129,7 @@ correctamente&#8230;</string>
   <string name="settings_about_oms_version_7">overlay manager service - iteration 7 (oms7)</string>
   <string name="settings_about_rro_version_2">resource runtime overlay - iteration 2
 (rro2/legacy)</string>
+  <string name="settings_about_system_version">plataforma del sistema</string>
   <string name="settings_aopt_switcher_title">Compilador de capas Substratum</string>
   <string name="settings_aapt">AAPT (Estable)</string>
   <string name="settings_aopt">AOPT (Innovador)</string>
@@ -313,7 +322,6 @@ o la aplicación no compilará capas dependientes del dispositivo correctamente!
   <string name="toast_uninstalled">Usted acaba de desinstalar este tema! Estará fuera en su próxima actualización!</string>
   <string name="toast_uninstalling">Desinstalando capas seleccionadas, por favor espere&#8230;</string>
   <string name="toast_updating">Compilando/Actualizando en el panel de notificaciones, puede utilizar otras aplicaciones haciendo clic en Inicio/Recientes!</string>
-  <string name="no_themes_title">Sin temas instalados&#8230;</string>
   <string name="no_themes_description">Por favor, instala un tema compatible!</string>
   <string name="toast_on_back_press_compiling">Puede usar otras aplicaciones durante la compilación haciendo clic en botones Inicio/Recientes.</string>
   <string name="toast_needs_caching">Se borró la caché de Substratum, recompile este tema antes de continuar.</string>
@@ -428,6 +436,7 @@ resuelve este problema.</string>
   <string name="scheduled_profile_card_content">Esta función le da la posibilidad de cambiar automáticamente entre perfiles, basados en la hora del día.</string>
   <string name="scheduled_profile_apply_success">¡El perfil programado se ha aplicado correctamente!</string>
   <string name="scheduled_profile_disable_success">¡El perfil programado se ha deshabilitado correctamente!</string>
+  <string name="active_time">Programación noctuna</string>
   <string name="start_time">Inicio</string>
   <string name="end_time">Final</string>
   <string name="day_profile">Perfil de día</string>
@@ -441,6 +450,11 @@ resuelve este problema.</string>
   <string name="profile_pending_notification">Perfil cambiará después de que la pantalla este apagada.</string>
   <string name="profile_success_notification">¡Perfil aplicado con éxito!</string>
   <string name="profile_failed_notification">Perfil fallo en aplicarse...</string>
+  <string name="profile_failed_info_notification">Toque para más información</string>
+  <string name="theme_debug_mode_title">Modo de depuración del tema</string>
+  <string name="theme_debug_mode_summary">Desactivar el compilador heredado de reserva</string>
+  <string name="theme_debug_mode_dialog_title">ADVERTENCIA</string>
+  <string name="theme_debug_mode_dialog_content">Esto puede romper completamente el proceso de compilación. ¡Sólo active esta opción si sabe lo que está haciendo!</string>
   <string name="theme_debug_mode_dialog_continue">Continuar</string>
   <string name="theme_debug_mode_dialog_cancel">Cancelar</string>
 </resources>

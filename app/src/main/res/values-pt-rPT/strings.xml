@@ -332,7 +332,6 @@ clique em
   <string name="toast_uninstalled">Você acabou de desinstalar este tema! Será finalizado na próxima atualização!</string>
   <string name="toast_uninstalling">Agora desinstalando camadas selecionadas, favor aguardar&#8230;</string>
   <string name="toast_updating">Compilando/atualizando no painel de notificações, você pode usar outros aplicativos clicando no botão Home/Recentes!</string>
-  <string name="no_themes_title">nenhum tema instalado&#8230;</string>
   <string name="no_themes_description">favor instalar um tema compatível!</string>
   <string name="toast_on_back_press_compiling">Você pode usar outros aplicativos enquanto compilando clicando em Home/Recentes.</string>
   <string name="toast_needs_caching">Cache do Substratum foi limpo, favor reconstruir este tema antes de continuar!</string>

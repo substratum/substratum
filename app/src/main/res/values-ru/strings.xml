@@ -4,6 +4,9 @@
   <string name="showcase">общественный каталог</string>
   <string name="helper_name">помощник по слоям substratum</string>
   <string name="restore_app_name">восстановить тему</string>
+  <string name="android">Версия Android:</string>
+  <string name="device">Модель устройства:</string>
+  <string name="vendor">Патч безопасности:</string>
   <string name="showcase_no_connection">каталог тем требует подключения к интернету!    </string>
   <string name="showcase_no_themes">похоже произошла ошибка кэширования базы данных каталога на этой странице. Перезагрузите каталог с помощью кнопки перезагрузки на верхнем баре.    </string>
   <string name="showcase_dialog_title">Предупреждение!</string>
@@ -119,6 +122,7 @@
     </string>
   <string name="settings_about_rro_version_2">resource runtime overlay - поколение 2 (rro2/совместимая)
     </string>
+  <string name="settings_about_system_version">системная платформа</string>
   <string name="settings_aopt_switcher_title">Сборщик наслоений Substratum</string>
   <string name="settings_aapt">AAPT (Cтабильный)</string>
   <string name="settings_aopt">AOPT (Передовой)</string>
@@ -319,7 +323,6 @@
   <string name="toast_uninstalling">Удаление выбранных наслоений, пожалуйста, подождите&#8230;</string>
   <string name="toast_updating">Substratum подготавливает тему в фоне!
     </string>
-  <string name="no_themes_title">нет установленных тем&#8230;</string>
   <string name="no_themes_description">установите любую совместимую тему!</string>
   <string name="toast_on_back_press_compiling">Можете использовать другие приложения во время сборки по нажатию кнопок Домой/Недавние</string>
   <string name="toast_needs_caching">Кэш Substratum был сброшен, сначала пересоберите данную тему!

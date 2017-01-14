@@ -4,6 +4,9 @@
   <string name="showcase">社区展示</string>
   <string name="helper_name">Substratum 叠加层助手</string>
   <string name="restore_app_name">还原主题</string>
+  <string name="android">安卓版本：</string>
+  <string name="device">设备型号：</string>
+  <string name="vendor">安全补丁程序级别：</string>
   <string name="showcase_no_connection">主题展示需要网络连接才能工作！</string>
   <string name="showcase_no_themes">似乎在缓存此项数据库时出错。请点击上方刷新按钮重新加载数据库。    </string>
   <string name="showcase_dialog_title">免责声明 ！</string>
@@ -116,6 +119,7 @@
   <string name="settings_about_oms_version_3">第三代叠加层管理服务（OMS3）</string>
   <string name="settings_about_oms_version_7">第七代叠加层管理服务（OMS7）</string>
   <string name="settings_about_rro_version_2">第二代叠加层管理服务（RRO2/旧版）    </string>
+  <string name="settings_about_system_version">系统平台</string>
   <string name="settings_aopt_switcher_title">Substratum 叠加层编译器</string>
   <string name="settings_aapt">AAPT （稳定）</string>
   <string name="settings_aopt">AOPT （最新）</string>
@@ -309,7 +313,6 @@
   <string name="toast_uninstalled">您刚刚卸载了此主题！刷新之后就看不见了哦！</string>
   <string name="toast_uninstalling">正在卸载所选叠加层，请稍候</string>
   <string name="toast_updating">Substratum 正在后台准备您的主题！</string>
-  <string name="no_themes_title">没有已安装的主题</string>
   <string name="no_themes_description">请安装一个兼容的主题 ！</string>
   <string name="toast_on_back_press_compiling">按下 Home/Recents 键，可以在编译过程中使用其他应用。</string>
   <string name="toast_needs_caching">Substratum 的缓存已清除，请在继续之前重新编译此主题！    </string>

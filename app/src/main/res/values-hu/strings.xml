@@ -4,6 +4,9 @@
   <string name="showcase">közösségi bemutató</string>
   <string name="helper_name">substratum fedvény segéd</string>
   <string name="restore_app_name">téma visszaállítása</string>
+  <string name="android">Android verzió:</string>
+  <string name="device">Eszköz model:</string>
+  <string name="vendor">Biztonsági javítási szint:</string>
   <string name="showcase_no_connection">a téma-bemutatóhoz internetkapcsolat szükséges, hogy
         működjön!
     </string>
@@ -31,6 +34,7 @@
   <string name="failed_to_install_text_notification">%s telepítése sikertelen</string>
   <string name="actionbar_theme_count_singular">%s téma</string>
   <string name="actionbar_theme_count_plural">%s téma</string>
+  <string name="actionbar_theme_count_none">nincsenek témák</string>
   <string name="actionbar_theme_count_loading">betöltés&#8230;</string>
   <string name="actionbar_search">Keresés</string>
   <string name="settings_icons">Beállítás ikonok</string>
@@ -185,6 +189,7 @@
   <string name="settings_about_rro_version_2">erőforrás futtató fedvény - iteration 2
         (rro2/legacy)
     </string>
+  <string name="settings_about_system_version">rendszer platform</string>
   <string name="settings_aopt_switcher_title">Substratum Fedvény Összeállító</string>
   <string name="settings_aapt">AAPT (stabil)</string>
   <string name="settings_aopt">AOPT (fejlesztés alatt)</string>
@@ -448,7 +453,6 @@
         várjon&#8230;</string>
   <string name="toast_updating">Substratum a háttérben a témáit készíti elő!
     </string>
-  <string name="no_themes_title">nincsenek témák telepítve&#8230;</string>
   <string name="no_themes_description">kérjük telepítsen egy kompatibilis témát!</string>
   <string name="toast_on_back_press_compiling">Más alkalmazást is használhat az összeállítás során a
         Kezdőlap/Előzmények gomb megnyomásával.
@@ -606,6 +610,7 @@
   <string name="scheduled_profile_card_content">Ez a funkció lehetőséget biztosít arra, hogy automatikusan váltson profilokat időpontok alapján.</string>
   <string name="scheduled_profile_apply_success">Ütemezett profil sikeresen alkalmazva!</string>
   <string name="scheduled_profile_disable_success">Ütemezett profil sikeresen tiltva!</string>
+  <string name="active_time">Éjszakai ütemezés</string>
   <string name="start_time">Kezdési</string>
   <string name="end_time">Befejezési</string>
   <string name="day_profile">Nappali profil</string>
@@ -619,6 +624,11 @@
   <string name="profile_pending_notification">Profil változtatásra kerül, miután a képernyő kikapcsol.</string>
   <string name="profile_success_notification">Profil sikeresen alkalmazva!</string>
   <string name="profile_failed_notification">Profil alkalmazása sikertelen&#8230;</string>
+  <string name="profile_failed_info_notification">További információkért érintse meg</string>
+  <string name="theme_debug_mode_title">Téma hibakereső üzemmód</string>
+  <string name="theme_debug_mode_summary">Legacy compiler fallback letiltása</string>
+  <string name="theme_debug_mode_dialog_title">FIGYELMEZTETÉS</string>
+  <string name="theme_debug_mode_dialog_content">Ez teljesen megszakíthatja az összeállítási folyamatot. Csak akkor engedélyezze ezt a beállítást, ha tudja mit csinál!</string>
   <string name="theme_debug_mode_dialog_continue">Folytatás</string>
   <string name="theme_debug_mode_dialog_cancel">Mégse</string>
 </resources>

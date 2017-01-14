@@ -303,7 +303,6 @@
   <string name="toast_uninstalled">Vous venez de désinstaller ce thème !</string>
   <string name="toast_uninstalling">Désinstallation des surcouches sélectionnées en cours, veuillez patienter&#8230;</string>
   <string name="toast_updating">Compilation/Mise à jour visible dans le volet de notification, vous pouvez utiliser une autre application en utilisant les boutons \"Accueil\" ou \"Applications récentes\" !</string>
-  <string name="no_themes_title">Aucun thème installé&#8230;</string>
   <string name="no_themes_description">Installez un thème compatible !</string>
   <string name="toast_on_back_press_compiling">Vous pouvez utiliser une autre application pendant la compilation en utilisant les boutons \"Accueil\" ou \"Applications récentes\".</string>
   <string name="toast_needs_caching">Le cache de Substratum a été effacé. Veuillez recompiler ce thème avant de continuer !</string>

@@ -4,6 +4,9 @@
   <string name="showcase">Vetrina della community</string>
   <string name="helper_name">substratum overlay helper</string>
   <string name="restore_app_name">ripristina il tema</string>
+  <string name="android">Versione Android:</string>
+  <string name="device">Modello dispositivo:</string>
+  <string name="vendor">Livello patch di sicurezza:</string>
   <string name="showcase_no_connection">La vetrina dei temi richiede una connessione ad internet per funzionare!</string>
   <string name="showcase_no_themes">Sembra che ci sia un errore nel caching del database della vetrina per questa scheda. Ricarica il database con il pulsante aggiorna sopra.</string>
   <string name="showcase_dialog_title">Disclaimer!</string>
@@ -19,6 +22,7 @@
   <string name="failed_to_install_text_notification">L\'installazione di %s è fallita</string>
   <string name="actionbar_theme_count_singular">%s tema</string>
   <string name="actionbar_theme_count_plural">%s temi</string>
+  <string name="actionbar_theme_count_none">nessun tema trovato</string>
   <string name="actionbar_theme_count_loading">caricamento&#8230;</string>
   <string name="actionbar_search">Cerca</string>
   <string name="settings_icons">Icone delle impostazioni</string>
@@ -117,6 +121,7 @@
   <string name="settings_about_rro_version_2">resource runtime overlay - iteration 2
         (rro2/legacy)
     </string>
+  <string name="settings_about_system_version">piattaforma di sistema</string>
   <string name="settings_aopt_switcher_title">Substratum Overlay Compiler</string>
   <string name="settings_aapt">AAPT (stabile)</string>
   <string name="settings_aopt">AOPT (Cutting Edge)</string>
@@ -188,6 +193,7 @@
   <string name="menu_search_icon_packs">Pacchetti di Icone Play Store</string>
   <string name="menu_showcase">Vetrina</string>
   <string name="menu_uninstall">Disinstalla</string>
+  <string name="menu_favorite_snackbar">Impostato correttamente %s come collegamento a un app!</string>
   <string name="coming_soon">Rubato da Char!</string>
   <string name="legacy_theme_notification_title">Avviso di tema deprecato</string>
   <string name="legacy_theme_notification_text">Per utilizzare temi obsoleti, si prega di attivarlo nelle impostazioni.</string>
@@ -309,8 +315,9 @@ Vuoi ripristinare le icone predefinite di sistema?    </string>
   <string name="toast_uninstalled">Tu hai appena disinstallato questo tema! Sarà completato al prossimo aggiorna!</string>
   <string name="toast_uninstalling">Ora sto disistallando gli overlays selezionati, per favore aspetta&#8230;</string>
   <string name="toast_updating">Sto compilando/aggiornando nel pannello delle notifiche, puoi utilizzare le altre applicazioni cliccando home/recenti!</string>
-  <string name="no_themes_title">Nessun tema installato&#8230;</string>
+  <string name="no_themes_title">nessun tema trovato&#8230;</string>
   <string name="no_themes_description">Per favore installa un tema compatibile!</string>
+  <string name="no_themes_description_search">\"%s\" non è stato trovato nell\'elenco dei temi installati&#8230;</string>
   <string name="toast_on_back_press_compiling">Puoi utilizzare le altre applicazioni durante una compilazione cliccando i pulsanti home/recenti.</string>
   <string name="toast_needs_caching">La cache di substratum è stata cancellata, per favore ri costruisci il tema prima di continuare!</string>
   <string name="notification_theme_installed">Installato</string>
@@ -422,6 +429,7 @@ Vuoi ripristinare le icone predefinite di sistema?    </string>
   <string name="scheduled_profile_card_content">Questa funzione vi dà la possibilità di passare automaticamente tra i profili in base all\'ora del giorno.</string>
   <string name="scheduled_profile_apply_success">Profilo pianificato applicato con successo!</string>
   <string name="scheduled_profile_disable_success">Profilo pianificato disattivato con successo!</string>
+  <string name="active_time">Programma notturno</string>
   <string name="start_time">Inizio</string>
   <string name="end_time">Fine</string>
   <string name="day_profile">Profilo Giornaliero</string>
@@ -435,6 +443,11 @@ Vuoi ripristinare le icone predefinite di sistema?    </string>
   <string name="profile_pending_notification">Il profilo verrà modificato dopo che lo schermo è spento.</string>
   <string name="profile_success_notification">Profilo applicato con successo!</string>
   <string name="profile_failed_notification">Applicazione profilo fallita&#8230;</string>
+  <string name="profile_failed_info_notification">Tocco per ulteriori informazioni</string>
+  <string name="theme_debug_mode_title">Modalità debug temi</string>
+  <string name="theme_debug_mode_summary">Disabilita il legacy compiler fallback</string>
+  <string name="theme_debug_mode_dialog_title">ATTENZIONE</string>
+  <string name="theme_debug_mode_dialog_content">Ciò può distruggere completamente il processo di compilazione. Abilita questa opzione solo se si sa cosa si sta facendo!</string>
   <string name="theme_debug_mode_dialog_continue">Continua</string>
   <string name="theme_debug_mode_dialog_cancel">Cancella</string>
 </resources>

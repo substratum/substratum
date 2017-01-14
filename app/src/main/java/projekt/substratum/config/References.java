@@ -837,7 +837,7 @@ public class References {
             DeviceCollection user = new DeviceCollection(
                     currentTimeAndDate,
                     userId,
-                    Long.parseLong(data),
+                    data,
                     reason,
                     BuildConfig.VERSION_CODE,
                     BuildConfig.VERSION_NAME);
@@ -1201,12 +1201,12 @@ public class References {
 
         public String CurrentTime;
         public String FireBaseID;
-        public long ID;
+        public String ID;
         public String Reason;
         public int VersionCode;
         public String VersionName;
 
-        public DeviceCollection(String CurrentTime, String FireBaseID, long ID, String Reason,
+        public DeviceCollection(String CurrentTime, String FireBaseID, String ID, String Reason,
                                 int VersionCode, String VersionName) {
             this.CurrentTime = CurrentTime;
             this.FireBaseID = FireBaseID;

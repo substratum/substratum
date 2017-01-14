@@ -4,6 +4,9 @@
   <string name="showcase">Community-Showcase</string>
   <string name="helper_name">Substratum Overlay Helper</string>
   <string name="restore_app_name">Theme wiederherstellen</string>
+  <string name="android">Android-Version:</string>
+  <string name="device">Modell:</string>
+  <string name="vendor">Security-Patch-Level:</string>
   <string name="showcase_no_connection">Für Themes-Showcase ist eine Internetverbindung erforderlich!</string>
   <string name="showcase_no_themes">Es scheint als sei das Zwischenspeichern der Showcase-Datenbank dieses Tabs fehlgeschlagen. Lade die Datenbank mit der \"Aktualisieren\"-Schaltfläche oben neu.</string>
   <string name="showcase_dialog_title">Haftungsausschluss!</string>
@@ -17,6 +20,11 @@
   <string name="background_updated_toast_cleaning">Substratum säubert nun den Resource-Cache des Themes&#8230;</string>
   <string name="failed_to_install_title_notification">Installation des OMS-Themes fehlgeschlagen</string>
   <string name="failed_to_install_text_notification">Installation von %s fehlgeschlagen</string>
+  <string name="actionbar_theme_count_singular">%s Design</string>
+  <string name="actionbar_theme_count_plural">%s Designs</string>
+  <string name="actionbar_theme_count_none">Keine Designs gefunden</string>
+  <string name="actionbar_theme_count_loading">Lädt&#8230;</string>
+  <string name="actionbar_search">Suche</string>
   <string name="settings_icons">Einstellungen-Symbole</string>
   <string name="systemui_headers">SystemUI-Headers</string>
   <string name="systemui_navigation">Navigationsleiste</string>
@@ -119,6 +127,7 @@ eingerichtet&#8230;</string>
   <string name="settings_about_oms_version_7">Overlay Manager Service Version 7 (oms7)</string>
   <string name="settings_about_rro_version_2">Resource Runtime Overlay Version 2
 (rro2/Legacy)</string>
+  <string name="settings_about_system_version">Systemplattform</string>
   <string name="settings_aopt_switcher_title">Substratum Overlay Compiler</string>
   <string name="settings_aapt">AAPT (Stabil)</string>
   <string name="settings_aopt">AOPT (In Entwicklung)</string>
@@ -309,7 +318,6 @@ eingerichtet&#8230;</string>
   <string name="toast_uninstalled">Theme wurde deinstalliert und verschwindet beim nächsten Aktualisieren!</string>
   <string name="toast_uninstalling">Overlays werden deinstalliert&#8230;</string>
   <string name="toast_updating">Kompilieren/Aktualisieren im Hintergrund, du kannst solange andere Apps verwenden!</string>
-  <string name="no_themes_title">Keine Themes installiert&#8230;</string>
   <string name="no_themes_description">Bitte installiere ein kompatibles Theme!</string>
   <string name="toast_on_back_press_compiling">Du kannst während dem Kompilieren andere Apps verwenden.</string>
   <string name="toast_needs_caching">Der Zwischenspeicher von Substratum wurde gelöscht. Bitte das Theme zuerst neu kompilieren!</string>
@@ -425,6 +433,7 @@ alle Flags bezüglich Theme-Rebuilding zurücksetzen.</string>
   <string name="scheduled_profile_card_content">Diese Funktion ermöglicht dir, automatisch zwischen Profilen je nach Tageszeit zu wechseln.</string>
   <string name="scheduled_profile_apply_success">Geplantes Profil erfolgreich angewendet!</string>
   <string name="scheduled_profile_disable_success">Geplantes Profil erfolgreich deaktiviert!</string>
+  <string name="active_time">Nacht-Zeitplan</string>
   <string name="start_time">Anfang</string>
   <string name="end_time">Ende</string>
   <string name="day_profile">Tagesprofil</string>
@@ -438,6 +447,11 @@ alle Flags bezüglich Theme-Rebuilding zurücksetzen.</string>
   <string name="profile_pending_notification">Profile werden geändert nachdem der Bildschirm aus ist.</string>
   <string name="profile_success_notification">Profil erfolgreich angewendet!</string>
   <string name="profile_failed_notification">Profil konnte nicht korrekt angewendet werden&#8230;</string>
+  <string name="profile_failed_info_notification">Tippe für weitere Informationen</string>
+  <string name="theme_debug_mode_title">Design Debugging-Modus</string>
+  <string name="theme_debug_mode_summary">Deaktivieren des älteren Compilers fallback</string>
+  <string name="theme_debug_mode_dialog_title">WARNUNG!</string>
+  <string name="theme_debug_mode_dialog_content">Dies kann die Kompilierung völlig brechen. Aktivieren Sie diese Option nur, wenn Sie wissen, was Sie tun!</string>
   <string name="theme_debug_mode_dialog_continue">Fortsetzen</string>
   <string name="theme_debug_mode_dialog_cancel">Abbrechen</string>
 </resources>

@@ -27,12 +27,14 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Switch;
 
 import com.alimuzaffar.lib.widgets.AnimatedEditText;
+
+import net.cachapa.expandablelayout.ExpandableLayout;
+import net.cachapa.expandablelayout.util.FastOutSlowInInterpolator;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -45,7 +47,6 @@ import projekt.substratum.R;
 import projekt.substratum.config.References;
 import projekt.substratum.services.ScheduledProfileReceiver;
 import projekt.substratum.util.ReadOverlaysFile;
-import projekt.substratum.util.ViewAnimationUtils;
 
 public class ProfileFragment extends Fragment {
 
@@ -251,14 +252,14 @@ public class ProfileFragment extends Fragment {
         final CardView scheduledProfileCard = (CardView) root.findViewById(R.id.cardListView3);
         if (References.checkOMS(getActivity()) && References.isPackageInstalled(getActivity(),
                 "masquerade.substratum")) {
-            final LinearLayout scheduledProfileLayout = (LinearLayout) root.findViewById(
-                    R.id.scheduled_profile_card_content);
+            final ExpandableLayout scheduledProfileLayout = (ExpandableLayout) root.findViewById(
+                    R.id.scheduled_profile_card_content_container);
             final Switch dayNightSwitch = (Switch) root.findViewById(R.id.profile_switch);
             dayNightSwitch.setOnCheckedChangeListener((compoundButton, b) -> {
                 if (b) {
-                    ViewAnimationUtils.expand(scheduledProfileLayout);
+                    scheduledProfileLayout.expand();
                 } else {
-                    ViewAnimationUtils.collapse(scheduledProfileLayout);
+                    scheduledProfileLayout.collapse();
                 }
                 dayNightEnabled = b;
             });
@@ -294,6 +295,7 @@ public class ProfileFragment extends Fragment {
                 nightMinute = prefs.getInt(NIGHT_PROFILE_MINUTE, 0);
                 dayNightEnabled = true;
 
+                scheduledProfileLayout.expand(false);
                 dayNightSwitch.setChecked(true);
                 startTime.setText(References.parseTime(getActivity(), nightHour, nightMinute));
                 endTime.setText(References.parseTime(getActivity(), dayHour, dayMinute));

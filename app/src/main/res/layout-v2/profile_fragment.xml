@@ -221,106 +221,113 @@
                         android:layout_marginTop="10dp"
                         android:text="@string/scheduled_profile_card_content" />
 
-                    <LinearLayout
-                        android:id="@+id/scheduled_profile_card_content"
+                    <net.cachapa.expandablelayout.ExpandableLayout
+                        android:id="@+id/scheduled_profile_card_content_container"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/tv_content_3"
-                        android:orientation="vertical"
-                        android:visibility="gone">
-
+                        app:el_duration="300"
+                        app:el_expanded="false"
+                        app:el_parallax="0.5">
                         <LinearLayout
-                            android:id="@+id/night_profile_time"
+                            android:id="@+id/scheduled_profile_card_content"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="16dp"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginTop="8dp"
-                            android:gravity="center"
-                            android:orientation="horizontal"
-                            android:weightSum="1">
+                            android:orientation="vertical">
 
-                            <TextView
-                                android:layout_width="80dp"
-                                android:layout_height="wrap_content"
-                                android:text="@string/active_time" />
-
-                            <Button
-                                android:id="@+id/night_start_time"
-                                style="?borderlessButtonStyle"
-                                android:layout_width="wrap_content"
-                                android:layout_height="48dp"
-                                android:layout_marginStart="10dp"
-                                android:layout_weight="0.5"
-                                android:text="@string/start_time" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="-"
-                                android:textStyle="bold" />
-
-                            <Button
-                                android:id="@+id/night_end_time"
-                                style="?borderlessButtonStyle"
-                                android:layout_width="wrap_content"
-                                android:layout_height="48dp"
-                                android:layout_weight="0.5"
-                                android:text="@string/end_time" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/day"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="16dp"
-                            android:layout_marginStart="16dp"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="80dp"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:text="@string/day_profile" />
-
-                            <Spinner
-                                android:id="@+id/day_spinner"
+                            <LinearLayout
+                                android:id="@+id/night_profile_time"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="10dp"
-                                android:layout_marginStart="10dp"
-                                android:layout_marginTop="10dp" />
-                        </LinearLayout>
+                                android:layout_marginEnd="16dp"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginTop="8dp"
+                                android:gravity="center"
+                                android:orientation="horizontal"
+                                android:weightSum="1">
 
-                        <LinearLayout
-                            android:id="@+id/night"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="16dp"
-                            android:layout_marginStart="16dp"
-                            android:orientation="horizontal">
+                                <TextView
+                                    android:layout_width="80dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/active_time" />
 
-                            <TextView
-                                android:id="@+id/textView"
-                                android:layout_width="80dp"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="bottom"
-                                android:text="@string/night_profile" />
+                                <Button
+                                    android:id="@+id/night_start_time"
+                                    style="?borderlessButtonStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="48dp"
+                                    android:layout_marginStart="10dp"
+                                    android:layout_weight="0.5"
+                                    android:text="@string/start_time" />
 
-                            <Spinner
-                                android:id="@+id/night_spinner"
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="-"
+                                    android:textStyle="bold" />
+
+                                <Button
+                                    android:id="@+id/night_end_time"
+                                    style="?borderlessButtonStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="48dp"
+                                    android:layout_weight="0.5"
+                                    android:text="@string/end_time" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/day"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="10dp"
-                                android:layout_marginTop="10dp" />
+                                android:layout_marginEnd="16dp"
+                                android:layout_marginStart="16dp"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="80dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:text="@string/day_profile" />
+
+                                <Spinner
+                                    android:id="@+id/day_spinner"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:layout_marginStart="10dp"
+                                    android:layout_marginTop="10dp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/night"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="16dp"
+                                android:layout_marginStart="16dp"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/textView"
+                                    android:layout_width="80dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="bottom"
+                                    android:text="@string/night_profile" />
+
+                                <Spinner
+                                    android:id="@+id/night_spinner"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="10dp"
+                                    android:layout_marginTop="10dp" />
+                            </LinearLayout>
                         </LinearLayout>
-                    </LinearLayout>
+                    </net.cachapa.expandablelayout.ExpandableLayout>
 
                     <Button
                         android:id="@+id/apply_schedule_button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/scheduled_profile_card_content"
+                        android:layout_below="@id/scheduled_profile_card_content_container"
                         android:layout_marginTop="16dp"
                         android:background="@color/restore_button"
                         android:clickable="true"

@@ -406,4 +406,22 @@
     <string name="library_jikegallery_classPath">me.wangyuwei:GalleryView</string>
     <!-- License section -->
     <string name="library_jikegallery_licenseId">apache_2_0</string>
+
+    <!-- ExpandableLayout -->
+    <string name="define_expandablelayout" />
+    <!-- Author section -->
+    <string name="library_expandablelayout_author" translatable="false">Daniel Cachapa</string>
+    <string name="library_expandablelayout_authorWebsite" translatable="false">https://github.com/cachapa</string>
+    <!-- Library section -->
+    <string name="library_expandablelayout_libraryName" translatable="false">ExpandableLayout</string>
+    <string name="library_expandablelayout_libraryDescription">An Android layout class that supports animating the expansion and collapse of its child views.</string>
+    <string name="library_expandablelayout_libraryWebsite" translatable="false">https://github.com/cachapa/ExpandableLayout</string>
+    <string name="library_expandablelayout_libraryVersion" translatable="false">2.6</string>
+    <!-- OpenSource section -->
+    <string name="library_expandablelayout_isOpenSource" translatable="false">true</string>
+    <string name="library_expandablelayout_repositoryLink" translatable="false">https://github.com/cachapa/ExpandableLayout</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_expandablelayout_classPath" translatable="false">net.cachapa.expandablelayout:expandablelayout</string>
+    <!-- License section -->
+    <string name="library_expandablelayout_licenseId" translatable="false">apache_2_0</string>
 </resources>

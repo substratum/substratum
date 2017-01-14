@@ -100,5 +100,7 @@ dependencies {
     compile 'com.theartofdev.edmodo:android-image-cropper:2.3.1'
     // Direct Interface to the Overlay Manager Service
     compile files('src/main/libs/overlay-manager-service.jar')
+    // Expandable Layout
+    compile 'net.cachapa.expandablelayout:expandablelayout:2.6'
 }
 apply plugin: 'com.google.gms.google-services'

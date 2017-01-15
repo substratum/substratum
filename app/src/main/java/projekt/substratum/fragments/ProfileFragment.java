@@ -59,7 +59,7 @@ public class ProfileFragment extends Fragment {
     public static final String DAY_PROFILE = "day_profile";
     public static final String DAY_PROFILE_HOUR = "day_profile_hour";
     public static final String DAY_PROFILE_MINUTE = "day_profile_minute";
-    private static int nightHour, nightMinute, dayHour, dayMinute;
+    public static int nightHour, nightMinute, dayHour, dayMinute;
 
     private List<String> list;
     private ProgressBar headerProgress;
@@ -267,14 +267,24 @@ public class ProfileFragment extends Fragment {
             final Button startTime = (Button) root.findViewById(R.id.night_start_time);
             startTime.setOnClickListener(view -> {
                 DialogFragment timePickerFragment = new TimePickerFragment();
-                TimePickerFragment.setFlag(TimePickerFragment.FLAG_START_TIME);
+                if (startTime.getText().equals(getResources().getString(R.string.start_time))) {
+                    TimePickerFragment.setFlag(TimePickerFragment.FLAG_START_TIME);
+                } else {
+                    TimePickerFragment.setFlag(TimePickerFragment.FLAG_START_TIME
+                            | TimePickerFragment.FLAG_GET_VALUE);
+                }
                 timePickerFragment.show(fm, "TimePicker");
             });
 
             final Button endTime = (Button) root.findViewById(R.id.night_end_time);
             endTime.setOnClickListener(view -> {
                 DialogFragment timePickerFragment = new TimePickerFragment();
-                TimePickerFragment.setFlag(TimePickerFragment.FLAG_END_TIME);
+                if (endTime.getText().equals(getResources().getString(R.string.end_time))) {
+                    TimePickerFragment.setFlag(TimePickerFragment.FLAG_END_TIME);
+                } else {
+                    TimePickerFragment.setFlag(TimePickerFragment.FLAG_END_TIME
+                            | TimePickerFragment.FLAG_GET_VALUE);
+                }
                 timePickerFragment.show(fm, "TimePicker");
             });
 

@@ -311,7 +311,15 @@ public class ProfileFragment extends Fragment {
                         if (!startTime.getText().equals(getResources()
                                 .getString(R.string.start_time)) && !endTime.getText()
                                 .equals(getResources().getString(R.string.end_time))) {
-                            setupScheduledProfile();
+                            if (dayHour != nightHour) {
+                                setupScheduledProfile();
+                            } else if (dayMinute != nightMinute) {
+                                setupScheduledProfile();
+                            } else {
+                                Snackbar.make(getView(), R.string.time_equal_warning,
+                                        Snackbar.LENGTH_LONG)
+                                        .show();
+                            }
                         } else {
                             Snackbar.make(getView(), R.string.time_empty_warning,
                                     Snackbar.LENGTH_LONG)

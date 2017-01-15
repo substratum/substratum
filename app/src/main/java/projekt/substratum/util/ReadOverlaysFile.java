@@ -44,4 +44,40 @@ public class ReadOverlaysFile {
         }
         return list;
     }
+
+    public static List<List<String>> withTargetPackage(String argv[]) {
+        File current_overlays = new File(Environment
+                .getExternalStorageDirectory().getAbsolutePath() +
+                "/.substratum/current_overlays.xml");
+        if (current_overlays.exists()) {
+            References.delete(Environment
+                    .getExternalStorageDirectory().getAbsolutePath() +
+                    "/.substratum/current_overlays.xml");
+        }
+        References.copy("/data/system/overlays.xml", Environment
+                .getExternalStorageDirectory().getAbsolutePath() +
+                "/.substratum/current_overlays.xml");
+
+        File file = new File(argv[0]);
+        int state_count = Integer.parseInt(argv[1]);
+        List<List<String>> list = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            for (String line; (line = br.readLine()) != null; ) {
+                List<String> overlays = new ArrayList<>();
+                if (line.contains("state=\"" + state_count + "\"")) {
+                    String[] split = line.substring(22).split("\\s+");
+                    String packageName = split[0].substring(1, split[0].length() - 1);
+                    String targetPackage = split[2].substring(19, split[2].length() - 1);
+
+                    overlays.add(packageName);
+                    overlays.add(targetPackage);
+                    list.add(overlays);
+                }
+            }
+        } catch (IOException ioe) {
+            // Exception
+        }
+        return list;
+    }
 }

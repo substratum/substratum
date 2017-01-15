@@ -132,7 +132,7 @@ public class ScheduledProfileService extends IntentService {
                 .getAbsolutePath() +
                 "/substratum/profiles/" + processed + ".substratum", "5"};
 
-        List<String> profile = ReadOverlaysFile.main(commands);
+        List<List<String>> profile = ReadOverlaysFile.withTargetPackage(commands);
         List<String> system = ReadOverlaysFile.main(commandsSystem4);
         system.addAll(ReadOverlaysFile.main(commandsSystem5));
         List<String> to_be_run = new ArrayList<>();
@@ -142,12 +142,16 @@ public class ScheduledProfileService extends IntentService {
 
         // Now process the overlays to be enabled
         List<String> cannot_run_overlays = new ArrayList<>();
-        for (int i = 0; i < profile.size(); i++) {
-            if (!profile.get(i).endsWith(".icon")) {
-                if (system.contains(profile.get(i))) {
-                    to_be_run.add(profile.get(i));
-                } else {
-                    cannot_run_overlays.add(profile.get(i));
+        for (int i = 0, size = profile.size(); i < size; i++) {
+            String packageName = profile.get(i).get(0);
+            String targetPackage = profile.get(i).get(1);
+            if (References.isPackageInstalled(mContext, targetPackage)) {
+                if (!packageName.endsWith(".icon")) {
+                    if (system.contains(packageName)) {
+                        to_be_run.add(packageName);
+                    } else {
+                        cannot_run_overlays.add(packageName);
+                    }
                 }
             }
         }

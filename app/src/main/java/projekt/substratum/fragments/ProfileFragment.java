@@ -33,7 +33,6 @@ import android.widget.Spinner;
 import android.widget.Switch;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
-import net.cachapa.expandablelayout.util.FastOutSlowInInterpolator;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -153,7 +152,7 @@ public class ProfileFragment extends Fragment {
                 imm.hideSoftInputFromWindow(backupButton.getWindowToken(),
                         InputMethodManager.RESULT_UNCHANGED_SHOWN);
             } else {
-                Snackbar.make(getView(),
+                Snackbar.make(container,
                         getString(R.string.profile_edittext_empty_toast),
                         Snackbar.LENGTH_LONG)
                         .show();
@@ -228,7 +227,7 @@ public class ProfileFragment extends Fragment {
                         .setNegativeButton(getString(R.string.delete_dialog_cancel), (dialog, which) -> dialog.cancel())
                         .create().show();
             } else {
-                Snackbar.make(getView(),
+                Snackbar.make(container,
                         getString(R.string.profile_delete_button_none_selected_toast),
                         Snackbar.LENGTH_LONG)
                         .show();
@@ -241,7 +240,7 @@ public class ProfileFragment extends Fragment {
                 RestoreFunction restoreFunction = new RestoreFunction();
                 restoreFunction.execute(profile_selector.getSelectedItem().toString());
             } else {
-                Snackbar.make(getView(),
+                Snackbar.make(container,
                         getString(R.string.restore_button_none_selected_toast),
                         Snackbar.LENGTH_LONG)
                         .show();
@@ -321,17 +320,17 @@ public class ProfileFragment extends Fragment {
                                         .show();
                             }
                         } else {
-                            Snackbar.make(getView(), R.string.time_empty_warning,
+                            Snackbar.make(container, R.string.time_empty_warning,
                                     Snackbar.LENGTH_LONG)
                                     .show();
                         }
                     } else {
-                        Snackbar.make(getView(), R.string.profile_empty_warning,
+                        Snackbar.make(container, R.string.profile_empty_warning,
                                 Snackbar.LENGTH_LONG)
                                 .show();
                     }
                 } else {
-                    setupScheduledProfile();
+                    setupScheduledProfile(container);
                 }
             });
         } else {
@@ -356,7 +355,7 @@ public class ProfileFragment extends Fragment {
         return status;
     }
 
-    private void setupScheduledProfile() {
+    private void setupScheduledProfile(ViewGroup container) {
         SharedPreferences.Editor editor = prefs.edit();
         AlarmManager alarmMgr = (AlarmManager) getActivity()
                 .getSystemService(Context.ALARM_SERVICE);
@@ -399,7 +398,7 @@ public class ProfileFragment extends Fragment {
             editor.putInt(DAY_PROFILE_MINUTE, dayMinute);
             editor.apply();
 
-            Snackbar.make(getView(), R.string.scheduled_profile_apply_success,
+            Snackbar.make(container, R.string.scheduled_profile_apply_success,
                     Snackbar.LENGTH_LONG)
                     .show();
         } else {
@@ -416,7 +415,7 @@ public class ProfileFragment extends Fragment {
                         .remove(NIGHT_PROFILE_HOUR)
                         .remove(NIGHT_PROFILE_MINUTE)
                         .apply();
-                Snackbar.make(getView(), R.string.scheduled_profile_disable_success,
+                Snackbar.make(container, R.string.scheduled_profile_disable_success,
                         Snackbar.LENGTH_LONG)
                         .show();
             }

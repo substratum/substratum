@@ -74,7 +74,7 @@ public class LLand extends FrameLayout {
     private TextView mScoreField;
     private View mSplash;
     private Player mBubba;
-    private ArrayList<Obstacle> mObstaclesInPlay = new ArrayList<Obstacle>();
+    private ArrayList<Obstacle> mObstaclesInPlay = new ArrayList<>();
     private float t, dt;
     private int mScore;
     private float mLastPipeTime; // in sec

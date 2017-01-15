@@ -857,9 +857,7 @@ public class References {
                         .setIcon(R.drawable.dialog_warning_icon)
                         .setTitle(R.string.aopt_warning_title)
                         .setMessage(R.string.aopt_warning_text)
-                        .setPositiveButton(R.string.dialog_ok, (dialog, i) -> {
-                            dialog.cancel();
-                        }).show();
+                        .setPositiveButton(R.string.dialog_ok, (dialog, i) -> dialog.cancel()).show();
             }
         }
         return false;
@@ -1105,7 +1103,7 @@ public class References {
                     if (search_filter != null && search_filter.length() > 0) {
                         String name = appInfo.metaData.getString(References.metadataName) + " " +
                                 appInfo.metaData.getString(References.metadataAuthor);
-                        can_continue = name != null && name.toLowerCase()
+                        can_continue = name.toLowerCase()
                                 .contains(search_filter.toLowerCase());
                     }
                 }
@@ -1168,7 +1166,7 @@ public class References {
                         if (search_filter != null && search_filter.length() > 0) {
                             String name = appInfo.metaData.getString(References.metadataName) +
                                     " " + appInfo.metaData.getString(References.metadataAuthor);
-                            if (name != null && !name.toLowerCase().contains(
+                            if (!name.toLowerCase().contains(
                                     search_filter.toLowerCase())) {
                                 can_continue = false;
                             }

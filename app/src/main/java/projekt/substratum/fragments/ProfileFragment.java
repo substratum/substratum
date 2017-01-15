@@ -815,10 +815,12 @@ public class ProfileFragment extends Fragment {
 
                 cannot_run_overlays = new ArrayList<>();
                 for (int i = 0; i < profile.size(); i++) {
-                    if (system.contains(profile.get(i))) {
-                        to_be_run.add(profile.get(i));
-                    } else {
-                        cannot_run_overlays.add(profile.get(i));
+                    if (!profile.get(i).endsWith(".icon")) {
+                        if (system.contains(profile.get(i))) {
+                            to_be_run.add(profile.get(i));
+                        } else {
+                            cannot_run_overlays.add(profile.get(i));
+                        }
                     }
                 }
                 dialog_message = "";

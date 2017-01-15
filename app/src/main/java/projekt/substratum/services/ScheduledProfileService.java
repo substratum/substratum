@@ -143,10 +143,12 @@ public class ScheduledProfileService extends IntentService {
         // Now process the overlays to be enabled
         List<String> cannot_run_overlays = new ArrayList<>();
         for (int i = 0; i < profile.size(); i++) {
-            if (system.contains(profile.get(i))) {
-                to_be_run.add(profile.get(i));
-            } else {
-                cannot_run_overlays.add(profile.get(i));
+            if (!profile.get(i).endsWith(".icon")) {
+                if (system.contains(profile.get(i))) {
+                    to_be_run.add(profile.get(i));
+                } else {
+                    cannot_run_overlays.add(profile.get(i));
+                }
             }
         }
         String dialog_message = "";

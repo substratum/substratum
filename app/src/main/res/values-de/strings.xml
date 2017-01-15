@@ -15,6 +15,8 @@
   <string name="on_demand_updating_title">Resource Cache Initialisierer</string>
   <string name="on_demand_updating_text">Cache von %s wird neu erstellt&#8230;</string>
   <string name="background_updating_toast">Substratum bereitet ein Theme im Hintergrund vor, bitte warte bis es fertig ist!    </string>
+  <string name="background_needs_invalidating">Hoppla! Die Cache wurde beschädigt.</string>
+  <string name="background_needs_invalidating_button">Löschen</string>
   <string name="background_updated_toast">Resource-Cache wurde erstellt!</string>
   <string name="background_updated_toast_cancel">Dieses Theme muss erst seinen Resource-Cache aktualisieren bevor es verwendet werden kann!</string>
   <string name="background_updated_toast_cleaning">Substratum säubert nun den Resource-Cache des Themes&#8230;</string>
@@ -33,6 +35,8 @@
   <string name="tbo_description">Dieses Theme unterstützt die \"Theme Ready Google Apps\" von Team BlackOut. Klicke \"Herunterladen\" um zum Herunterladen dieser zu XDA weitergeleitet zu werden oder \"Abbrechen\", falls du diese schon installiert hast!</string>
   <string name="two_description">Dieses Theme unterstützt die Apps von Google, wie sie standardmäßig gemacht sind. Falls du dieses Theme verwenden willst, allerdings die \"Theme Ready Google Apps\" von Team BlackOut installiert hast, erhältst du bei Problemen keinen Support vom Theme-Entwickler!</string>
   <string name="tbo_dialog_proceed">Herunterladen</string>
+  <string name="aopt_warning_title">Warte!</string>
+  <string name="aopt_warning_text">Der Overlay Kompilierer wurde in deinem System nicht gefunden! Substratum hat versucht ihn zu injizieren, aber dies ist zwei mal fehlgeschlagen.\n\nFunktioniert dein Root? Bei bestimmten SuperUser Fassungen wie CM oder phh musst du vielleicht Substratum standard Root Rechte gewähren!\n\nEine andere Möglichkeit ist das deine /system Partition voll ist und Substratum seinen Kompiler deshalb nicht hinzufügen kann.\n\nWenn du glaubst das du diesen Error wegen eines Irrtums erhälst, kannst du versuchen in den Einstellungen zu einem anderen Overlay Kompilierer zu wechseln.</string>
   <string name="warning_title">WARNUNG!</string>
   <string name="dangerous_warning_content">Substratum hat festgestellt, dass es auf einer 
 BOOTLOOP-GEFÄHRDETEN FIRMWARE (nach November-Update N/N-MR1) ausgeführt wird. Es sollte auf keinen Fall ein
@@ -110,7 +114,7 @@ aktiviere \"Änderung von Systemeinstellungen zulassen\".</string>
 aktiviere \"Änderung von Systemeinstellungen zulassen\".</string>
   <string name="error_loading_pack">Anscheinend wurde dieses Paket nicht richtig 
 eingerichtet&#8230;</string>
-  <string name="content_resolver_alarm_metadata">Substratum-Wecker-Theme</string>
+  <string name="content_resolver_alarm_metadata">Substratum-Theme-Wecker</string>
   <string name="content_resolver_notification_metadata">Substratum-Theme-Benachrichtigung</string>
   <string name="content_resolver_ringtone_metadata">Substratum-Theme-Klingelton</string>
   <string name="sounds_alarm">Wecker</string>
@@ -156,6 +160,7 @@ eingerichtet&#8230;</string>
   <string name="manage_system_overlay_toast">System-Theme wird wiederhergestellt&#8230;</string>
   <string name="manage_system_overlay_uninstall_toast">Overlays werden im Hintergrund deinstalliert&#8230;</string>
   <string name="manage_system_overlay_text">Alle aktiven Overlays deaktivieren und das Stock-Theme wiederherstellen</string>
+  <string name="manage_system_not_permitted">Manche Overlays konnten nicht aktiviert werden weil das Haupt-Theme nicht vorhanden ist.</string>
   <string name="manage_wallpaper_title">Standard-Hintergrundbild wiederherstellen</string>
   <string name="manage_wallpaper_text">Standard-Hintergrund des Geräts wiederherstellen</string>
   <string name="manage_wallpaper_home">Startbildschirm-Hintergrund</string>
@@ -197,8 +202,9 @@ eingerichtet&#8230;</string>
   <string name="menu_restart_systemui">SystemUI neustarten</string>
   <string name="menu_search">Themes im Play Store</string>
   <string name="menu_search_icon_packs">Play-Shop-Icon-Packs</string>
-  <string name="menu_showcase">Schaukasten</string>
+  <string name="menu_showcase">Showcase</string>
   <string name="menu_uninstall">Deinstallieren</string>
+  <string name="menu_favorite_snackbar">%s wurde erfolgreich als App-Verknüpfung gesetzt!</string>
   <string name="coming_soon">Gestohlen von Char!</string>
   <string name="legacy_theme_notification_title">Warnung über veraltetes Theme</string>
   <string name="legacy_theme_notification_text">Um veraltete Themen zu verwenden, aktivieren Sie dies bitte in Einstellungen.</string>
@@ -207,7 +213,7 @@ eingerichtet&#8230;</string>
   <string name="studio_system_reset_dialog_toast">Alle selbsterstellten Icons wurden deaktiviert!</string>
   <string name="studio_system_reset_dialog">Möchtest du die aktuellen Symbole durch die Standard-Symbole des System ersetzen?</string>
   <string name="studio_refresh_dialog_title">Bestätigung der Konfigurationsänderung</string>
-  <string name="studio_refresh_dialog_content">Substratum wird jetzt deine Systemkonfiguration ändern, so dass alle Anwendungen die neuen Icons schnell erkennen.\n\nDeine Systemsprache wird für einen Moment Japanisch sein nachdem die Icons an deinem Launcher angewendet wurden. Danach ändert sie sich wieder in deine Standardsprache. Wenn sich die Icons nicht ändern, clicke auf die Aktualisiere Icon Konfiguration Taste auf der Hauptseite des Icon Studios!\n\nNachdem du Okay gedrückt hast, berühre dein Gerät nicht bis eine Nachricht angezeigt wird die dir sagt, das das Icon Pack erfolgreich angewendet wurde!</string>
+  <string name="studio_refresh_dialog_content">Substratum wird jetzt deine Systemkonfiguration ändern, so dass alle Anwendungen die neuen Icons schnell erkennen.\n\nDeine Systemsprache wird für einen Moment Japanisch sein nachdem die Icons an deinem Launcher angewendet wurden. Danach ändert sie sich wieder in deine Standardsprache. Wenn sich die Icons nicht ändern, klicke auf die Aktualisiere Icon Konfiguration Taste auf der Hauptseite des Icon Studios!\n\nNachdem du Okay gedrückt hast, berühre dein Gerät nicht bis eine Nachricht angezeigt wird die dir sagt, das das Icon Pack erfolgreich angewendet wurde!</string>
   <string name="studio_custom">Kreativmodus (kommt bald)</string>
   <string name="studio_icon_packs">Eigene Icons</string>
   <string name="studio_pack_title">Heruntergeladene Icon-Pakete</string>
@@ -268,12 +274,12 @@ eingerichtet&#8230;</string>
   <string name="restore_button">PROFIL WIEDERHERSTELLEN</string>
   <string name="restore_button_none_selected_toast">Bitte wähle ein Profil aus der Liste bevor du versuchst es wiederherzustellen!</string>
   <string name="profile_delete_button_none_selected_toast">Bitte wähle ein Profil aus der Liste bevor du versuchst es zu löschen!</string>
-  <string name="profile_edittext_hint">Bitte Tipps einen Namen für dein Profil&amp;#8230</string>
+  <string name="profile_edittext_hint">Bitte gib einen Namen für dein Profil ein&#8230;</string>
   <string name="profile_edittext_empty_toast">Bitte tippe einen Namen für dein Profil bevor du ein Backup erstellst</string>
   <string name="profile_edittext_empty_toast_sysui">Substratum Font Helper wurde nicht gefunden. Bitte aktiviere eine Schriftart um den Helper zu installieren und den dynamisches Schriftarten Wechsel zu aktivieren</string>
   <string name="profile_edittext_title">Neues Profil:</string>
   <string name="toast_backup_success">Aktuelle Overlay Liste wurde gespeichert nach \"/storage/emulated/0/substratum/profiles/%s\"</string>
-  <string name="spinner_default_item">wähle ein profil&#8230;</string>
+  <string name="spinner_default_item">Wähle ein profil&#8230;</string>
   <string name="select_to_toggle_all_overlays">Wähle um alle Overlays zu aktivieren</string>
   <string name="fab_menu_select_to_toggle_all_overlays">Wähle alle Overlays</string>
   <string name="overflow_description">Weitere Optionen</string>
@@ -318,7 +324,9 @@ eingerichtet&#8230;</string>
   <string name="toast_uninstalled">Theme wurde deinstalliert und verschwindet beim nächsten Aktualisieren!</string>
   <string name="toast_uninstalling">Overlays werden deinstalliert&#8230;</string>
   <string name="toast_updating">Kompilieren/Aktualisieren im Hintergrund, du kannst solange andere Apps verwenden!</string>
+  <string name="no_themes_title">keine themes gefunden&#8230;</string>
   <string name="no_themes_description">Bitte installiere ein kompatibles Theme!</string>
+  <string name="no_themes_description_search">\"%s\" wurde nicht in der Liste von installierten Themes gefunden&#8230;</string>
   <string name="toast_on_back_press_compiling">Du kannst während dem Kompilieren andere Apps verwenden.</string>
   <string name="toast_needs_caching">Der Zwischenspeicher von Substratum wurde gelöscht. Bitte das Theme zuerst neu kompilieren!</string>
   <string name="notification_theme_installed">installiert</string>
@@ -442,6 +450,7 @@ alle Flags bezüglich Theme-Rebuilding zurücksetzen.</string>
   <string name="night">Nacht</string>
   <string name="apply">Anwenden</string>
   <string name="time_empty_warning">Bitte konfiguriere Anfangs- und Endzeiten!</string>
+  <string name="time_equal_warning">Bitte wählen Sie unterschiedliche Aktivierungszeiten!</string>
   <string name="profile_empty_warning">Bitte wähle alle Profile die du anschalten willst!</string>
   <string name="profile_notification_title">%sProfil</string>
   <string name="profile_pending_notification">Profile werden geändert nachdem der Bildschirm aus ist.</string>
@@ -450,7 +459,7 @@ alle Flags bezüglich Theme-Rebuilding zurücksetzen.</string>
   <string name="profile_failed_info_notification">Tippe für weitere Informationen</string>
   <string name="theme_debug_mode_title">Design Debugging-Modus</string>
   <string name="theme_debug_mode_summary">Deaktivieren des älteren Compilers fallback</string>
-  <string name="theme_debug_mode_dialog_title">WARNUNG!</string>
+  <string name="theme_debug_mode_dialog_title">WARNUNG</string>
   <string name="theme_debug_mode_dialog_content">Dies kann die Kompilierung völlig brechen. Aktivieren Sie diese Option nur, wenn Sie wissen, was Sie tun!</string>
   <string name="theme_debug_mode_dialog_continue">Fortsetzen</string>
   <string name="theme_debug_mode_dialog_cancel">Abbrechen</string>

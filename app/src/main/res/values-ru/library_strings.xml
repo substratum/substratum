@@ -175,6 +175,7 @@
   <string name="define_expandablelayout"></string>
   <!-- Author section -->
   <!-- Library section -->
+  <string name="library_expandablelayout_libraryDescription">Класс для Android макета с поддержкой анимированного расширения и уменьшения дочерних отображений.</string>
   <!-- OpenSource section -->
   <!-- ClassPath for autoDetect section -->
   <!-- License section -->

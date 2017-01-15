@@ -15,6 +15,8 @@
   <string name="on_demand_updating_title">Инициализация кэша ресурсов</string>
   <string name="on_demand_updating_text"> %s сейчас кэш пересоздается...</string>
   <string name="background_updating_toast">Substratum подготавливает тему в фоне, подождите!    </string>
+  <string name="background_needs_invalidating">Опаньки! Кэш поврежден.</string>
+  <string name="background_needs_invalidating_button">Очистить</string>
   <string name="background_updated_toast">Кэш ресурсов был создан!</string>
   <string name="background_updated_toast_cancel">Ресурсы этой темы нужно обновить перед использованием!    </string>
   <string name="background_updated_toast_cleaning">Substratum очищает ресурсы этой темы&#8230;</string>
@@ -33,6 +35,8 @@
   <string name="tbo_description">Эта тема поддерживает Theme Ready GApps от Team Black Out. Если они не установлены, нажмите \"Скачать\" для перехода в XDA или нажмите \"Отмена\" если они уже установлены!    </string>
   <string name="two_description">Тема поддерживает оригинальные приложения Google! Если Ваш набор Gapps от Team Black Out, но Вы хотели бы использовать эту тему, то, пожалуйста, удалите их для возобновления поддержки от автора темы!     </string>
   <string name="tbo_dialog_proceed">Загрузить</string>
+  <string name="aopt_warning_title">Погодите-ка!</string>
+  <string name="aopt_warning_text">Сборщик наслоений не найден в системе! Двукратная попытка Substratum внедрить его не увенчалась успехом.\n\nТочно ли система предоставляет root-права? В некоторых реализациях прав Суперпользователя, например CM/phh, может потребоваться предоставление стандартных root-прав Substratum!\n\nНе исключено, что раздел /system переполнен и Substratum не может добавить туда сборщик.\n\nЕсли вы уверены, что видите эту ошибку случайно, попробуйте сменить сборщик наслоений в Настройках.</string>
   <string name="warning_title">ВНИМАНИЕ!</string>
   <string name="dangerous_warning_content">Substratum запущен на ПОДВЕРЖЕННОЙ ВЕЧНОЙ ЗАГРУЗКЕ ПРОШИВКЕ (пост-ноябрьский патч безопасности, N/N-MR1) и настоятельно рекомендует не применять никаких наслоений для фреймвоков/системы Android.\n\nЕсли Вы решитесь продолжить и попадете в вечную загрузку, прошейте архив восстановления из папки \"/storage/emulated/0/substratum/\"     </string>
   <string name="legacy_warning_content">Режим совместимости предоставляется как-есть, так как мы не можем гарантировать, что он заработает у Вас. Убедитесь, что у вас на устройстве установлено кастомное рекавери и Вы имеете представление о том, как восстановиться после вечной загрузки до предпринятия каких-либо действий.n\nМы не можем исправить то, что не оформляется в режиме совместимости, так как это требует вмешательства в систему.</string>
@@ -151,6 +155,7 @@
   <string name="manage_system_overlay_toast">Возвращаем системное оформление&#8230;</string>
   <string name="manage_system_overlay_uninstall_toast">Слои будут удалены в фоновом режиме&#8230;</string>
   <string name="manage_system_overlay_text">Отключает все включенные наслоения и возвращает стандартное оформление</string>
+  <string name="manage_system_not_permitted">Не удалось активировать несколько наслоений из-за отсутствия основной темы.</string>
   <string name="manage_wallpaper_title">Восстановить обои</string>
   <string name="manage_wallpaper_text">Возвращает обои по умолчанию</string>
   <string name="manage_wallpaper_home">На домашний экран</string>
@@ -199,6 +204,7 @@
   <string name="menu_search_icon_packs">Наборы значков из Play Маркет</string>
   <string name="menu_showcase">Каталог</string>
   <string name="menu_uninstall">Удалить тему</string>
+  <string name="menu_favorite_snackbar">Ярлык для %s установлен! </string>
   <string name="coming_soon">Char утащила!</string>
   <string name="legacy_theme_notification_title">Внимание, тема устарела</string>
   <string name="legacy_theme_notification_text">Чтобы использовать устаревшие темы, активируйте такую возможность в настройках.</string>
@@ -323,7 +329,9 @@
   <string name="toast_uninstalling">Удаление выбранных наслоений, пожалуйста, подождите&#8230;</string>
   <string name="toast_updating">Substratum подготавливает тему в фоне!
     </string>
+  <string name="no_themes_title">не найдено тем&#8230;</string>
   <string name="no_themes_description">установите любую совместимую тему!</string>
+  <string name="no_themes_description_search">Среди установленных тем нет \"%s\"&#8230;</string>
   <string name="toast_on_back_press_compiling">Можете использовать другие приложения во время сборки по нажатию кнопок Домой/Недавние</string>
   <string name="toast_needs_caching">Кэш Substratum был сброшен, сначала пересоберите данную тему!
     </string>
@@ -447,6 +455,7 @@
   <string name="night">Ночь</string>
   <string name="apply">Применить</string>
   <string name="time_empty_warning">Пожалуйста, настройте время начала и окончания!</string>
+  <string name="time_equal_warning">Времена начала и окончания не должны совпадать!</string>
   <string name="profile_empty_warning">Пожалуйста, выберите все профили, которые вы хотите включить!</string>
   <string name="profile_notification_title">Профиль %s</string>
   <string name="profile_pending_notification">Профиль будет изменен после выключения экрана.</string>

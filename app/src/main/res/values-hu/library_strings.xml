@@ -170,6 +170,7 @@
   <string name="define_expandablelayout"></string>
   <!-- Author section -->
   <!-- Library section -->
+  <string name="library_expandablelayout_libraryDescription">Egy Android elrendezési osztály, amely támogatja az animált kibontást és összecsukást az alárendelt nézeteiben.</string>
   <!-- OpenSource section -->
   <!-- ClassPath for autoDetect section -->
   <!-- License section -->

@@ -48,7 +48,9 @@
   <string name="define_materialprogressbar"></string>
   <!-- Author section -->
   <!-- Library section -->
-  <string name="library_materialprogressbar_libraryDescription">\"Material\" Dizaino ProgresoJuosta su atitinkama išvaizda ant \"Android 4.0+\".</string>
+  <string name="library_materialprogressbar_libraryDescription">\"Material\" Dizaino Progreso Juosta
+        su atitinkama išvaizda ant \"Android 4.0+\".
+    </string>
   <!-- OpenSource section -->
   <!-- ClassPath for autoDetect section -->
   <!-- License section -->

@@ -4,6 +4,9 @@
   <string name="showcase">Galerie de thème</string>
   <string name="helper_name">Assistant Substratum</string>
   <string name="restore_app_name">Rétablir le thème</string>
+  <string name="android">Version Android :</string>
+  <string name="device">Modèle :</string>
+  <string name="vendor">Niveau du correctif de sécurité Android :</string>
   <string name="showcase_no_connection">La galerie de thème nécessite une connexion Internet pour fonctionner !</string>
   <string name="showcase_no_themes">Une erreur est survenue lors de la mise en cache de la base de données de la galerie de thème pour cet onglet. Rechargez la base de données avec le bouton d\'actualisation ci-dessus.</string>
   <string name="showcase_dialog_title">Avertissement !</string>
@@ -12,11 +15,18 @@
   <string name="on_demand_updating_title">Première configuration du cache des ressources</string>
   <string name="on_demand_updating_text">Compilation du cache de %s en cours&#8230;</string>
   <string name="background_updating_toast">Mise à niveau en cours d\'un thème en arrière-plan, veuillez patienter !</string>
+  <string name="background_needs_invalidating">Mince ! Une corruption dans le cache est survenue.</string>
+  <string name="background_needs_invalidating_button">Supprimer</string>
   <string name="background_updated_toast">Compilation du cache effectuée !</string>
   <string name="background_updated_toast_cancel">Ce thème a besoin de mettre à jour son cache de ressources avant d\'être fonctionnel !</string>
   <string name="background_updated_toast_cleaning">Substratum nettoie le cache de ressources de ce thème&#8230;</string>
   <string name="failed_to_install_title_notification">Échec de l\'installation du thème</string>
   <string name="failed_to_install_text_notification">Échec de l\'installation de %s</string>
+  <string name="actionbar_theme_count_singular">%s thème</string>
+  <string name="actionbar_theme_count_plural">%s thèmes</string>
+  <string name="actionbar_theme_count_none">Aucun thème trouvé</string>
+  <string name="actionbar_theme_count_loading">Chargement en cours&#8230;</string>
+  <string name="actionbar_search">Rechercher</string>
   <string name="settings_icons">Icônes</string>
   <string name="systemui_headers">En-têtes</string>
   <string name="systemui_navigation">Navigation</string>
@@ -25,6 +35,8 @@
   <string name="tbo_description">Ce thème prend en charge les Google Apps \"Theme Ready\" de la \"Team Black Out\". Si vous ne les avez pas, vous pouvez appuyer sur \"Télécharger\" pour être redirigé vers leur fil de discussion XDA, ou \"Annuler\" si vous les avez déjà !</string>
   <string name="two_description">Ce thème prend en charge les Google Apps d\'origines, comme elles ont été faites ! Si vous avez les Google Apps de la \"Team Black Out\" installées, mais souhaiteriez utiliser ce thème, veuillez les supprimer afin de récupérer la prise en charge du créateur de thème !</string>
   <string name="tbo_dialog_proceed">Télécharger</string>
+  <string name="aopt_warning_title">AVERTISSEMENT !</string>
+  <string name="aopt_warning_text">Le compilateur de surcouche est introuvable sur votre système ! Substratum a tenté, sans succès, de l\'injecter à deux reprises.\n\nVotre gestionnaire de droit \"Root\" fonctionne-t-il correctement ? Sur certaines distributions de gestionnaire de droit \"Root\" comme CM/phh, vous devrez peut-être accorder à Substratum les autorisations \"Root\" par défaut.\n\nUne autre possibilité est que votre partition \"Système\" est pleine, et que Substratum est incapable d\'ajouter son compilateur.\n\nSi vous pensez que le présent message est erroné, essayez de changer de compilateur de surcouche dans Paramètres.</string>
   <string name="warning_title">AVERTISSEMENT !</string>
   <string name="dangerous_warning_content">Substratum a détecté qu\'il est en cours d\'exécution sur une VERSION D\'ANDROID CONNUE POUR GÉNÉRER DES REDÉMARRAGES EN BOUCLE (Mise à jour de novembre N/N-MR1). Il est fortement déconseillé D\'appliquer des surcouches Système, car vous finirez avec un redémarrage en boucle.\n\nSi vous vous retrouvez dans ce cas de figure, veuillez installer depuis votre recovery l\'archive de secours présente dans \"/storage/emulated/0/substratum/\".</string>
   <string name="legacy_warning_content">\"Legacy\" est fourni en l\'état, sans aucune garantie de bon fonctionnement.\nAssurez-vous de l\'existence d\'un \"recovery custom\" pour votre appareil\n et de posséder les connaissances nécessaires pour rétablir votre appareil en cas de redémarrages en boucle avant de continuer.\n\nCertains éléments graphiques ne sont pas pris en charge par les thèmes pour \"Legacy\", car ils nécessitent des changements dans le système.</string>
@@ -111,6 +123,7 @@
   <string name="settings_about_oms_version_3">Gestionnaire de service de surcouche : version 3 (OMS3)</string>
   <string name="settings_about_oms_version_7">Gestionnaire de service de surcouche : version 7 (OMS7)</string>
   <string name="settings_about_rro_version_2">Système de superposition (RRO) : version 2\n(RRO2/Legacy)</string>
+  <string name="settings_about_system_version">Plate-forme système</string>
   <string name="settings_aopt_switcher_title">Compilateur de Surcouche Substratum</string>
   <string name="settings_aapt">AAPT (Stable)</string>
   <string name="settings_aopt">AOPT (Avant-garde)</string>
@@ -139,6 +152,7 @@
   <string name="manage_system_overlay_toast">Restauration du thème système en cours&#8230;</string>
   <string name="manage_system_overlay_uninstall_toast">Désinstallation en arrière-plan des surcouches en cours&#8230;</string>
   <string name="manage_system_overlay_text">Désactiver toutes les surcouches installées et rétablir le thème d\'origine</string>
+  <string name="manage_system_not_permitted">Activation de plusieurs surcouches impossible, en raison de l\'absence du thème principal.</string>
   <string name="manage_wallpaper_title">Rétablir le fond d\'écran d\'origine</string>
   <string name="manage_wallpaper_text">Rétablit le fond d\'écran par défaut sur votre appareil</string>
   <string name="manage_wallpaper_home">Écran d\'accueil</string>
@@ -182,6 +196,7 @@
   <string name="menu_search_icon_packs">Paquets d\'icônes sur le Play Store</string>
   <string name="menu_showcase">Galerie de thème</string>
   <string name="menu_uninstall">Désinstaller</string>
+  <string name="menu_favorite_snackbar">%s défini comme raccourci d\'application !</string>
   <string name="coming_soon">Dérobé par Char !</string>
   <string name="legacy_theme_notification_title">Avertissement de thème obsolète</string>
   <string name="legacy_theme_notification_text">Pour utiliser des thèmes obsolètes, veuillez en activer l\'option dans \"Paramètres\".</string>
@@ -303,7 +318,9 @@
   <string name="toast_uninstalled">Vous venez de désinstaller ce thème !</string>
   <string name="toast_uninstalling">Désinstallation des surcouches sélectionnées en cours, veuillez patienter&#8230;</string>
   <string name="toast_updating">Compilation/Mise à jour visible dans le volet de notification, vous pouvez utiliser une autre application en utilisant les boutons \"Accueil\" ou \"Applications récentes\" !</string>
+  <string name="no_themes_title">Aucun thème trouvé&#8230;</string>
   <string name="no_themes_description">Installez un thème compatible !</string>
+  <string name="no_themes_description_search">\"%s\" est introuvable dans la liste des thèmes installés&#8230;</string>
   <string name="toast_on_back_press_compiling">Vous pouvez utiliser une autre application pendant la compilation en utilisant les boutons \"Accueil\" ou \"Applications récentes\".</string>
   <string name="toast_needs_caching">Le cache de Substratum a été effacé. Veuillez recompiler ce thème avant de continuer !</string>
   <string name="notification_theme_installed">Installé</string>
@@ -415,6 +432,7 @@
   <string name="scheduled_profile_card_content">Fonction permettant de basculer automatiquement entre différents profils, selon l\'heure.</string>
   <string name="scheduled_profile_apply_success">Profil contextuel appliqué !</string>
   <string name="scheduled_profile_disable_success">Profil contextuel désactivé !</string>
+  <string name="active_time">Horaire de nuit</string>
   <string name="start_time">Début</string>
   <string name="end_time">Fin</string>
   <string name="day_profile">Profil \"Jour\"</string>
@@ -423,11 +441,17 @@
   <string name="night">Nuit</string>
   <string name="apply">Appliquer</string>
   <string name="time_empty_warning">Veuillez définir les horaires de début et de fin !</string>
+  <string name="time_equal_warning">Veuillez modifier les heures d\'activation !</string>
   <string name="profile_empty_warning">Veuillez sélectionner tous les profils à activer !</string>
   <string name="profile_notification_title">Profil %s</string>
   <string name="profile_pending_notification">Le profil sera modifié après l’extinction de l\'écran.</string>
   <string name="profile_success_notification">Profil appliqué !</string>
   <string name="profile_failed_notification">Échec de la mise en place du profil&#8230;</string>
+  <string name="profile_failed_info_notification">Afficher les détails</string>
+  <string name="theme_debug_mode_title">Mode de débogage de thème</string>
+  <string name="theme_debug_mode_summary">Désactive la sauvegarde de secours du compilateur \"Legacy\"</string>
+  <string name="theme_debug_mode_dialog_title">AVERTISSEMENT</string>
+  <string name="theme_debug_mode_dialog_content">Cela peut complètement briser le processus de compilation. Activez cette option uniquement si vous savez ce que vous faites !</string>
   <string name="theme_debug_mode_dialog_continue">Continuer</string>
   <string name="theme_debug_mode_dialog_cancel">Annuler</string>
 </resources>

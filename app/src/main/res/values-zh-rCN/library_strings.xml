@@ -134,6 +134,7 @@
   <string name="define_expandablelayout"></string>
   <!-- Author section -->
   <!-- Library section -->
+  <string name="library_expandablelayout_libraryDescription">一个 Android 布局类，支持动画扩张和子视图折叠。</string>
   <!-- OpenSource section -->
   <!-- ClassPath for autoDetect section -->
   <!-- License section -->

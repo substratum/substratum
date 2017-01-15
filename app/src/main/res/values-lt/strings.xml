@@ -15,6 +15,8 @@
   <string name="on_demand_updating_title">Išteklių Talpyklos Iniciavimas</string>
   <string name="on_demand_updating_text">%s talpyklos perkuriamos&#8230;</string>
   <string name="background_updating_toast">Tema atnaujinama fone, prašome palaukti kol tai bus baigta!</string>
+  <string name="background_needs_invalidating">Oi! Įvyko gedimas talpykloje.</string>
+  <string name="background_needs_invalidating_button">Išvalyti</string>
   <string name="background_updated_toast">Išteklių talpykla buvo sukurta!</string>
   <string name="background_updated_toast_cancel">Šiai temai reikia atnaujinti išteklių talpyklą, kol ji yra funkcionali!</string>
   <string name="background_updated_toast_cleaning">\"Substratum\" dabar valo šios temos išteklių talpyklą&#8230;</string>
@@ -33,6 +35,7 @@
   <string name="tbo_description">Ši tema palaiko \"Team Black Out\'s Theme Ready Google Apps\", jei jūs jų neturite, jūs galite paspausti Atsisiųsti, kad būtumėte nukreipti į jų \"XDA\" puslapį arba Atšaukti jei jūs juos jau turite!</string>
   <string name="two_description">Ši tema palaiko \"Google\" įprastas programėles, tokie kokie buvo sukurti! Jei jūs turite įdiegę \"Team Black Out\'s Google Apps\", bet norite naudoti šią temą, prašome juos pašalinti, kad gautumėte palaikymą iš kūrėjų.</string>
   <string name="tbo_dialog_proceed">Atsisiųsti</string>
+  <string name="aopt_warning_title">Palaukite!</string>
   <string name="warning_title">DĖMESIO!</string>
   <string name="dangerous_warning_content">\"Substratum\" aptiko, kad jis veikia ĮKROVOS KILPOS-ŽINOMOJE PROGRAMINĖJE ĮRANGOJE (Lapkričio atnaujinimas N/N-MR1) ir labai rekomenduojame prieš pritaikant bet kurias struktūras/Android Sistemos perdangas, arba jūs baigsite įkrovos kilpoje.\n\nJei taip nutiko, prašome įrašyti išsigelbėjimo archyvą, kurį rasite \"/storage/emulated/0/substratum/\".</string>
   <string name="legacy_warning_content">\"Legacy\" yra numatyta ir mes negarantuojame, kad tai jums veiks. Prašome įsitikinti, kad jūs turite pasirinktinį atkūrimo režimą savo įrenginyje ir suprantate, kaip atstatyti įkrovos kilpą prieš tęsiant toliau.\n\nMes negalime sutvarkyti dalykus, kurie negauna apipavidalinimo ant \"legacy\", nes jie reikalauja pakeitimų iš sistemos pusės.</string>
@@ -130,9 +133,9 @@
   <string name="settings_aopt">AOPT (Pjovimo Kraštas)</string>
   <string name="theme_information_tab_one">Greitas Pritaikymas</string>
   <string name="theme_information_tab_two">Perdangų Tvarkyklė</string>
-  <string name="theme_information_tab_three">Įjungimo animacijos</string>
-  <string name="theme_information_tab_four">Šriftų Paketai</string>
-  <string name="theme_information_tab_five">Garsų Paketai</string>
+  <string name="theme_information_tab_three">Šriftų Paketai</string>
+  <string name="theme_information_tab_four">Garsų Paketai</string>
+  <string name="theme_information_tab_five">Užsklandos</string>
   <string name="nougat_style_cards_title">\"Nougat\" Stiliaus Kortelių Išdėstymas</string>
   <string name="nougat_style_cards_subtext">Įjungti \"Android Nougat\" Pranešimų stiliaus temų korteles.</string>
   <string name="manage_dialog_text">Ar jūs tikrai norite atlikti šį veiksmą?</string>
@@ -153,6 +156,7 @@
   <string name="manage_system_overlay_toast">Sistemos tema atkuriama&#8230;</string>
   <string name="manage_system_overlay_uninstall_toast">Perdangos išdiegiamos fone&#8230;</string>
   <string name="manage_system_overlay_text">Išjungia visas įjungtas perdangas ir atkuria numatytają temą</string>
+  <string name="manage_system_not_permitted">Nepavyko įjungti keletos perdangų, nes pagrindinė tema nebuvo pateikta.</string>
   <string name="manage_wallpaper_title">Atkurti Numatytąją Užsklandą</string>
   <string name="manage_wallpaper_text">Atkuria numatytąją užsklandą jūsų įrenginyje</string>
   <string name="manage_wallpaper_home">Pradžios ekrano užsklanda</string>
@@ -208,6 +212,7 @@ ateities atnaujinimams.
   <string name="menu_search_icon_packs">\"Play\" Parduotuvės Piktogramų Paketai</string>
   <string name="menu_showcase">Vitrina</string>
   <string name="menu_uninstall">Išdiegti Temą</string>
+  <string name="menu_favorite_snackbar">%s sėkmingai nustatyta, kaip programėlės piktograma!</string>
   <string name="coming_soon">Pavogta \"Char\'o\"!</string>
   <string name="legacy_theme_notification_title">Nebenaudojamų Temų Įspėjimas</string>
   <string name="legacy_theme_notification_text">Norėdami naudoti pasenusias temas,
@@ -241,9 +246,9 @@ ateities atnaujinimams.
   <string name="nav_home">Temų Paketai</string>
   <string name="nav_overlays">Perdangos</string>
   <string name="nav_bootanim">Įjungimo Animacijos</string>
-  <string name="nav_fonts">Įjungimo animacijos</string>
-  <string name="nav_sounds">Šriftų Paketai</string>
-  <string name="nav_wallpapers">Garsų Paketai</string>
+  <string name="nav_fonts">Šriftų Paketai</string>
+  <string name="nav_sounds">Garsų Paketai</string>
+  <string name="nav_wallpapers">Užsklandos</string>
   <string name="nav_section_header_utilities">Įrankiai</string>
   <string name="nav_section_header_more">Daugiau</string>
   <string name="nav_manage">Numatytoji Tvarkyklė</string>
@@ -315,7 +320,7 @@ ateities atnaujinimams.
   <string name="uninstall_dialog_okay">Gerai</string>
   <string name="failed_to_install_overlay_toast">Nepavyko kompiliuoti \"%s\" perdangos</string>
   <string name="sb_phase_1_loader">išpakuojama tema</string>
-  <string name="sb_phase_2_loader">įdiegiama(os) perdanga(os)</string>
+  <string name="sb_phase_2_loader">įdiegiamos perdangos</string>
   <string name="sb_phase_3_loader">įterpiami piktogramų resursai</string>
   <string name="root_rejected_title">Superuser leidimas atmestas</string>
   <string name="root_rejected_text_cm_phh">negalima tęsti be \"root\"&#8230;</string>
@@ -337,7 +342,9 @@ ateities atnaujinimams.
   <string name="toast_uninstalled">Jūs ką tik išdiegėte šią temą! Aš išnyksiu per kitą atnaujinimą!</string>
   <string name="toast_uninstalling">Dabar išdiegiamos pasirinktos perdangos, prašome palaukti&#8230;</string>
   <string name="toast_updating">Dabar \"Substratum\" paruošia jūsų temą fone!</string>
+  <string name="no_themes_title">nerasta jokių temų&#8230;</string>
   <string name="no_themes_description">prašome įdiegti suderinamą temą!</string>
+  <string name="no_themes_description_search">\"%s\" nepavyko rasti tarp įdiegtų temų&#8230;</string>
   <string name="toast_on_back_press_compiling">Jūs galite naudoti kitas programėles paspausdami Namų/Paskiausių mygtukus!</string>
   <string name="toast_needs_caching">Substratum talpykla buvo pašalinta, prieš tęsiant prašome atstatyti temą!</string>
   <string name="notification_theme_installed">įdiegta</string>
@@ -383,8 +390,10 @@ ateities atnaujinimams.
   <string name="restart_systemui_toast_disabled">SistemosNS paleis iš naujo vietoj atkūrimo!</string>
   <string name="show_theme_template_version">Rodyti išplėstinę temos informaciją</string>
   <string name="show_theme_template_version_description">Rodyti kiekvienos temos \"SDK\" lygį, temos ir įskiepio versiją kaip žymą kiekvienos temos kortelėje.</string>
-  <string name="vibrate_on_compiled">Praneškite kai tema sukompiliuota</string>
-  <string name="vibrate_on_compiled_description">Vibruoti kai tema sukompiliuota, kad pranešti naudotojui, jog kompiliavimas baigtas.</string>
+  <string name="vibrate_on_compiled">Pranešti, kai tema sukompiliuota</string>
+  <string name="vibrate_on_compiled_description">Kai tema sukompiliuota, suvibruoti,
+        kad praneštu vartotojui apie užbaigtą kompiliavimą.
+    </string>
   <string name="hide_app_icon">Rodyti programėlės piktogramą</string>
   <string name="hide_app_icon_toast_enabled">Programėlės piktograma buvo pašalinta iš jūsų paleidimo priemonės!</string>
   <string name="hide_app_icon_toast_disabled">Programėlės piktograma buvo pridėta į jūsų paleidimo priemonę!</string>
@@ -460,6 +469,7 @@ ateities atnaujinimams.
   <string name="night">Naktis</string>
   <string name="apply">Taikyti</string>
   <string name="time_empty_warning">Prašome sukonfigūruokite Pradžios ir Pabaigos laiką!</string>
+  <string name="time_equal_warning">Prašome pasirinkti skirtingus aktyvinimo laikus!</string>
   <string name="profile_empty_warning">Prašome pasirinkti visus profilius, kuriuos norite įjungti!</string>
   <string name="profile_notification_title">%s profilis</string>
   <string name="profile_pending_notification">Profilis bus pakeistas po ekrano išjungimo.</string>

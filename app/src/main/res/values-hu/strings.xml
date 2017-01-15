@@ -24,6 +24,8 @@
   <string name="background_updating_toast">Substratum egy témát készít el a háttérben,
         kérjük várjon, míg befejeződik!
     </string>
+  <string name="background_needs_invalidating">Hoppá! A gyorsítótár megsérült.</string>
+  <string name="background_needs_invalidating_button">Törlés</string>
   <string name="background_updated_toast">Erőforrás-gyorsítótár felépítve!</string>
   <string name="background_updated_toast_cancel">Ez a téma az erőforrás-gyorsítótárának frissítését kéri,
         mielőtt működhetne!
@@ -51,6 +53,8 @@
         kérjük, távolítsa el őket, hogy visszanyerje a téma készítőjének támogatását!
     </string>
   <string name="tbo_dialog_proceed">Letöltés</string>
+  <string name="aopt_warning_title">Várjon!</string>
+  <string name="aopt_warning_text">A fedvény összeállító nem található a rendszerben! Substratum megpróbálta kétszer injektálni, de nem sikerült.\n\nA rootja biztosan jó? Bizonyos Superuser disztribúciók esetében, mint például a CM/phh, szüksége lehet a Substratum alapértelmezett root engedélyek megadására!\n\nEgy másik lehetőség az, hogy a /system partíciója teli van, és a Substratum nem tudja hozzáadni az összeállítót.\n\nHa úgy gondolja, hogy ezt a hibaüzenetet tévedésből kapta, próbáljon egy másik fedvény összeállítóra váltani a beállításokban.</string>
   <string name="warning_title">FIGYELEM!</string>
   <string name="dangerous_warning_content">A Substratum azt észlelte, hogy eszközén egy
         BOOTLOOP-ISMERT FIRMWARE (November utáni frissítés, N/N-MR1) fut, így erősen javasolt, hogy NE
@@ -224,6 +228,7 @@
   <string name="manage_system_overlay_text">Letiltja az összes engedélyezett fedvényt és visszaállítja agyári
         témát
     </string>
+  <string name="manage_system_not_permitted">Néhány fedvény engedélyezése nem sikerült, mert a fő téma nem áll rendelkezése.</string>
   <string name="manage_wallpaper_title">Gyári háttérkép visszaállítása</string>
   <string name="manage_wallpaper_text">Visszaállítja az alapértelmezett háttérképet a készülékén</string>
   <string name="manage_wallpaper_home">Kezdőképernyő háttérkép</string>
@@ -278,6 +283,7 @@
   <string name="menu_search_icon_packs">Play Áruház ikoncsomagok</string>
   <string name="menu_showcase">Bemutató</string>
   <string name="menu_uninstall">Téma eltávolítása</string>
+  <string name="menu_favorite_snackbar">%s sikeresen beállítva parancsikonként!</string>
   <string name="coming_soon">Char ellopta!</string>
   <string name="legacy_theme_notification_title">Elavult téma figyelmeztetés</string>
   <string name="legacy_theme_notification_text">Elavult témák használatához
@@ -453,7 +459,9 @@
         várjon&#8230;</string>
   <string name="toast_updating">Substratum a háttérben a témáit készíti elő!
     </string>
+  <string name="no_themes_title">nincsenek témák&#8230;</string>
   <string name="no_themes_description">kérjük telepítsen egy kompatibilis témát!</string>
+  <string name="no_themes_description_search">\"%s\" a telepített témák listájában nem található&#8230;</string>
   <string name="toast_on_back_press_compiling">Más alkalmazást is használhat az összeállítás során a
         Kezdőlap/Előzmények gomb megnyomásával.
     </string>
@@ -619,6 +627,7 @@
   <string name="night">Éjszakai</string>
   <string name="apply">Alkalmaz</string>
   <string name="time_empty_warning">Kérjük, állítsa be a Kezdési és Befejezési időpontokat!</string>
+  <string name="time_equal_warning">Kérjük, válasszon másik aktiválási időket!</string>
   <string name="profile_empty_warning">Kérjük, válassza ki az összes engedélyezni kívánt profilt!</string>
   <string name="profile_notification_title">%s profil</string>
   <string name="profile_pending_notification">Profil változtatásra kerül, miután a képernyő kikapcsol.</string>

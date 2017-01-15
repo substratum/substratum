@@ -15,6 +15,8 @@
   <string name="on_demand_updating_title">Inizio caricamento della risorsa della cache</string>
   <string name="on_demand_updating_text">%s\'s la cache si sta rigenerando&#8230;</string>
   <string name="background_updating_toast">Un tema si sta aggiornando in background, per favore aspetta che finisca l\'operazione!</string>
+  <string name="background_needs_invalidating">Oops! Si è verificato un danneggiamento nella cache.</string>
+  <string name="background_needs_invalidating_button">Cancella</string>
   <string name="background_updated_toast">La risorsa della cache è stata buildata con successo!</string>
   <string name="background_updated_toast_cancel">Questo tema necessita di aggiornare le sua risorse della cache prima che sia funzionante!    </string>
   <string name="background_updated_toast_cleaning">Substratum sta pulendo la risorse della cache di questo tema&#8230;</string>
@@ -33,6 +35,8 @@
   <string name="tbo_description">Questo tema supporta le Theme Ready gapps del Team Black Out, se non le hai, puoi cliccare su Download per essere reindirizzato alla loro discussione su XDA, o su Cancella se le hai già installate!    </string>
   <string name="two_description">Questo tema supporta le app stock di Google, nella modo in cui sono fatte! Se hai le gapps del  Team Black Out installate, ma desideri utilizzare questo tema, per favore rimuovile  per ottenere il tema funzionante!    </string>
   <string name="tbo_dialog_proceed">Scarica</string>
+  <string name="aopt_warning_title">Aspetta!</string>
+  <string name="aopt_warning_text">Il compilatore degli overlay non è stato trovato nel tuo sistema! Substratum ha provato a inserirlo ma ha fallito due volte.\n\nIl root funziona correttamente? Su certe distribuzioni di Superuser come quelle CM/phh, potresti aver bisogno di garantire i pemessi di root di default a Substratum!\n\nUn\'altra possibilità è che la tua partizione /system sia piena e che Substratum non riesca ad aggiungere il suo compilatore.\n\nSe credi che ciò sia un errore, prova a cambiare compilatore nelle impostazioni.</string>
   <string name="warning_title">ATTENZIONE!</string>
   <string name="dangerous_warning_content">Substratum ha rilevato che è in esecuzione su un BOOTLOOP-KNOWN FIRMWARE (aggiornamento dopo novembre, N/N-MR1) ed è  fortemente consigliato  non applicare qualsiasi framework/Android System overlays.\n\n Se si sceglie di continuare il sistema andrá in bootloop, per favore fai il flash dell\'archivio di recupero trovato in \"/storage/emulated/0/substratum/\".    </string>
   <string name="legacy_warning_content">Legacy è fornito così com\'è, non possiamo garantire la piena compatibilità con i colori. Assicurati di avere una custom recovery per il tuo dispositivo e di sapere come ripristinare da un bootloop prima di procedere.\n\nNoi non possiamo sistemare le cose che non vengono temate in Legacy mode perché richiedono modifiche di sistema.    </string>
@@ -150,6 +154,7 @@
   <string name="manage_system_overlay_toast">Il tema di sistema su sta ripristinando&#8230;</string>
   <string name="manage_system_overlay_uninstall_toast">Le sovrapposizioni si stanno disistallando nel background&#8230;</string>
   <string name="manage_system_overlay_text">Disabilita tutte le sovrapposizioni attivate e ripristina il tema originario</string>
+  <string name="manage_system_not_permitted">Impossibile attivare alcuni overlay perchè il tema principale non è presente.</string>
   <string name="manage_wallpaper_title">Ripristina il wallpaper originario</string>
   <string name="manage_wallpaper_text">Ripristina il tuo sfondo originario sul tuo telefono</string>
   <string name="manage_wallpaper_home">Sfondo della schermata home</string>
@@ -438,6 +443,7 @@ Vuoi ripristinare le icone predefinite di sistema?    </string>
   <string name="night">Notte</string>
   <string name="apply">Applica</string>
   <string name="time_empty_warning">Si prega di configurare orari di inizio e fine!</string>
+  <string name="time_equal_warning">Si prega di scegliere tempi di attivazione diversi!</string>
   <string name="profile_empty_warning">Si prega di selezionare tutti i profili che desideri attivare!</string>
   <string name="profile_notification_title">Profilo %s</string>
   <string name="profile_pending_notification">Il profilo verrà modificato dopo che lo schermo è spento.</string>

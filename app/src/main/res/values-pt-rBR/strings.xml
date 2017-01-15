@@ -15,6 +15,8 @@
   <string name="on_demand_updating_title">Inicializador do Cache de Recursos</string>
   <string name="on_demand_updating_text">%s do cache está agora reconstruindo&#8230;</string>
   <string name="background_updating_toast">Um tema de está atualizando de fundo, por favor aguarde que ele finalize!</string>
+  <string name="background_needs_invalidating">Opa! O cache está corrompido.</string>
+  <string name="background_needs_invalidating_button">Apagar</string>
   <string name="background_updated_toast">Recursos do cache foram construídos!</string>
   <string name="background_updated_toast_cancel">Esse tema precisa atualizar seus cache de recursos antes que esteja funcional!</string>
   <string name="background_updated_toast_cleaning">Substratum está agora limpando o cache de recursos deste tema&#8230;</string>
@@ -33,6 +35,8 @@
   <string name="tbo_description">Este tema suporta o Google Apps do Team Black Out, se você não o tem, você pode clicar em Download para ser redirecionado para seu tópico de discussão no XDA ou Cancelar se você já os tem!</string>
   <string name="two_description">Este tema é compatível com os aplicativos stock da Google, da forma como eles foram feitos! Se tiver o Google Apps Team Black Out instalado, mas gostaria de usar este tema, por favor, remova-os para recuperar o apoio do criador do tema!</string>
   <string name="tbo_dialog_proceed">Baixar</string>
+  <string name="aopt_warning_title">Espere!</string>
+  <string name="aopt_warning_text">O compilador de overlays não foi encontrado em seu sistema! Substratum tentou injetá-lo mas falhou duas vezes.\n\nSeu root está funcionando? Em algumas distribuições do Superuser, como a CM/phh, você pode precisar conceder permissões padrões de root ao Substratum!\n\nOutra possibilidade é sua partição /system estar cheia e Substratum é incapaz de adicionar seu compilador.\n\nSe você acredita que você está recebendo este erro por engano, tente mudar para outro compilador nas configurações.</string>
   <string name="warning_title">AVISO!</string>
   <string name="dangerous_warning_content">Substratum detectou que está sendo executado em um
 FIRMWARE CONHECIDO POR BOOTLOOP (atualização de novembro N/N-MR1) e é fortemente aconselhando não aplicar
@@ -159,6 +163,7 @@ corretamente&#8230;</string>
   <string name="manage_system_overlay_toast">Tema do Sistema está agora restaurando&#8230;</string>
   <string name="manage_system_overlay_uninstall_toast">Camadas estão agora sendo desinstaladas de fundo&#8230;</string>
   <string name="manage_system_overlay_text">Desabilita todas as camadas habilitadas e restaura o tema stock</string>
+  <string name="manage_system_not_permitted">Não foi possível habilitar alguns overlays pois o tema principal não está presente.</string>
   <string name="manage_wallpaper_title">Restaurar Papel de Parede Padrão</string>
   <string name="manage_wallpaper_text">Restaura o papel de parede padrão no seu aparelho</string>
   <string name="manage_wallpaper_home">Papel de Parede da Tela de Início</string>
@@ -213,6 +218,7 @@ corretamente&#8230;</string>
   <string name="menu_search_icon_packs">Pacotes de Ícones da Play Store</string>
   <string name="menu_showcase">Mostruário</string>
   <string name="menu_uninstall">Desinstalar</string>
+  <string name="menu_favorite_snackbar">%s foi colocado como atalho com sucesso!</string>
   <string name="coming_soon">Roubado por Char!</string>
   <string name="legacy_theme_notification_title">Aviso de tema preterido</string>
   <string name="legacy_theme_notification_text">Para usar temas desatualizados, por favor habilite essa opção nas Configurações.</string>
@@ -337,7 +343,9 @@ corretamente&#8230;</string>
   <string name="toast_uninstalled">Você acabou de desinstalar este tema! Será finalizado na próxima atualização!</string>
   <string name="toast_uninstalling">Agora desinstalando camadas selecionadas, favor aguardar&#8230;</string>
   <string name="toast_updating">Compilando/atualizando no painel de notificações, você pode usar outros aplicativos clicando no botão Home/Recentes!</string>
+  <string name="no_themes_title">nenhum tema encontrado&#8230;</string>
   <string name="no_themes_description">favor instalar um tema compatível!</string>
+  <string name="no_themes_description_search">\"%s\" não foi encontrado na lista de temas instalados&#8230;</string>
   <string name="toast_on_back_press_compiling">Você pode usar outros aplicativos enquanto compilando clicando em Home/Recentes.</string>
   <string name="toast_needs_caching">Cache do Substratum foi limpo, favor reconstruir este tema antes de continuar!</string>
   <string name="notification_theme_installed">instalado</string>
@@ -460,6 +468,7 @@ resolver este problema.</string>
   <string name="night">Noite</string>
   <string name="apply">Aplicar</string>
   <string name="time_empty_warning">Por favor configurar horários de início e fim!</string>
+  <string name="time_equal_warning">Por favor escolha horários de ativação diferentes!</string>
   <string name="profile_empty_warning">Por favor selecione todos os perfis que quer habilitar!</string>
   <string name="profile_notification_title">Perfil de %s</string>
   <string name="profile_pending_notification">Perfil será aplicado após a tela desligar.</string>

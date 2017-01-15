@@ -33,7 +33,7 @@
   <string name="library_kenburnsview_authorWebsite" formatted="false">
 https://plus.google.com/+Fl%C3%A1vioFaria1/posts    </string>
   <!-- Library section -->
-  <string name="library_kenburnsview_libraryDescription">Android library that provides an extension to ImageView that creates an immersive experience by animating its drawable using the Ken Burns Effect.</string>
+  <string name="library_kenburnsview_libraryDescription">Android library that provides an extension to ImageView that creates an immersive experience by animating its drawable using the Ken Burns Effect.    </string>
   <!-- OpenSource section -->
   <!-- ClassPath for autoDetect section -->
   <!-- License section -->
@@ -41,7 +41,7 @@ https://plus.google.com/+Fl%C3%A1vioFaria1/posts    </string>
   <string name="define_libsuperuser"></string>
   <!-- Author section -->
   <!-- Library section -->
-  <string name="library_libsuperuser_libraryDescription">El objetivo de esta biblioteca es demostrar la técnica de que es posible que desee reutilización en su raíz de la aplicación de el trabajo en torno a los problemas más comunes, teniendo el mínimo de código como sea posible.</string>
+  <string name="library_libsuperuser_libraryDescription">El objetivo de esta biblioteca es demostrar la técnica de que es posible que desee reutilización en su raíz de la aplicación de el trabajo en torno a los problemas más comunes, teniendo el mínimo de código como sea posible.    </string>
   <!-- OpenSource section -->
   <!-- ClassPath for autoDetect section -->
   <!-- License section -->
@@ -49,7 +49,7 @@ https://plus.google.com/+Fl%C3%A1vioFaria1/posts    </string>
   <string name="define_materialprogressbar"></string>
   <!-- Author section -->
   <!-- Library section -->
-  <string name="library_materialprogressbar_libraryDescription">Material Design ProgressBar de apariencia consistente en Android 4.0+.</string>
+  <string name="library_materialprogressbar_libraryDescription">Material Design ProgressBar de apariencia consistente en Android 4.0+.    </string>
   <!-- OpenSource section -->
   <!-- ClassPath for autoDetect section -->
   <!-- License section -->
@@ -57,7 +57,7 @@ https://plus.google.com/+Fl%C3%A1vioFaria1/posts    </string>
   <string name="define_materialsheetfab"></string>
   <!-- Author section -->
   <!-- Library section -->
-  <string name="library_materialsheetfab_libraryDescription">Biblioteca que implementa el botón de acción flotante para la transición de hojas de la documentación de Material Design de Google. Puede ser utilizado con cualquier biblioteca de Fab en Android 4.0 o superior (niveles de API&gt; = 14).</string>
+  <string name="library_materialsheetfab_libraryDescription">Biblioteca que implementa el botón de acción flotante para la transición de hojas de la documentación de Material Design de Google. Puede ser utilizado con cualquier biblioteca de Fab en Android 4.0 o superior (niveles de API&gt; = 14).    </string>
   <!-- OpenSource section -->
   <!-- ClassPath for autoDetect section -->
   <!-- License section -->
@@ -65,7 +65,7 @@ https://plus.google.com/+Fl%C3%A1vioFaria1/posts    </string>
   <string name="define_welcome_android"></string>
   <!-- Author section -->
   <!-- Library section -->
-  <string name="library_welcome_android_libraryDescription">Facilidad para usar y pantalla de bienvenida personalizable para aplicaciones de Android.</string>
+  <string name="library_welcome_android_libraryDescription">Facilidad para usar y pantalla de bienvenida personalizable para aplicaciones de Android.    </string>
   <!-- OpenSource section -->
   <!-- ClassPath for autoDetect section -->
   <!-- License section -->
@@ -73,7 +73,7 @@ https://plus.google.com/+Fl%C3%A1vioFaria1/posts    </string>
   <string name="define_zipsigner"></string>
   <!-- Author section -->
   <!-- Library section -->
-  <string name="library_zipsigner_libraryDescription">ZipSigner es una biblioteca de Android para la firma de los archivos Zip, APK, y/o archivos Jar a bordo de  dispositivos Android.</string>
+  <string name="library_zipsigner_libraryDescription">ZipSigner es una biblioteca de Android para la firma de los archivos Zip, Apk, y/o archivos Jar a bordo de  dispositivos Android.    </string>
   <!-- OpenSource section -->
   <!-- ClassPath for autoDetect section -->
   <!-- License section -->
@@ -81,7 +81,7 @@ https://plus.google.com/+Fl%C3%A1vioFaria1/posts    </string>
   <string name="define_zt_zip"></string>
   <!-- Author section -->
   <!-- Library section -->
-  <string name="library_zt_zip_libraryDescription">El proyecto se construye a partir de java.util.zip. * basado en paquetes de flujo de acceso. También se admite la mayoría de los métodos de conveniencia para el uso del sistema de archivos.</string>
+  <string name="library_zt_zip_libraryDescription">El proyecto se construye a partir de java.util.zip. * basado en paquetes de flujo de acceso. También se admite la mayoría de los métodos de conveniencia para el uso del sistema de archivos.    </string>
   <!-- OpenSource section -->
   <!-- ClassPath for autoDetect section -->
   <!-- License section -->
@@ -93,11 +93,13 @@ https://plus.google.com/+Fl%C3%A1vioFaria1/posts    </string>
   <!-- Library section -->
   <string name="library_avloadingindicatorview_libraryName">AVLoadingIndicatorView</string>
   <string name="library_avloadingindicatorview_libraryDescription">AVLoadingIndicatorView es una
-colección de animaciones de carga agradable para Android.</string>
-  <string name="library_avloadingindicatorview_libraryWebsite">https://github.com/81813780/AVLoadingIndicatorView</string>
+colección de animaciones de carga agradable para Android.    </string>
+  <string name="library_avloadingindicatorview_libraryWebsite">
+https://github.com/81813780/AVLoadingIndicatorView    </string>
   <string name="library_avloadingindicatorview_libraryVersion">2.1.3</string>
   <!-- OpenSource section -->
-  <string name="library_avloadingindicatorview_repositoryLink">https://github.com/81813780/AVLoadingIndicatorView</string>
+  <string name="library_avloadingindicatorview_repositoryLink">
+https://github.com/81813780/AVLoadingIndicatorView    </string>
   <!-- ClassPath for autoDetect section -->
   <string name="library_avloadingindicatorview_classPath">com.wang.avi:library</string>
   <!-- License section -->
@@ -105,7 +107,7 @@ colección de animaciones de carga agradable para Android.</string>
   <string name="define_blurview"></string>
   <!-- Author section -->
   <!-- Library section -->
-  <string name="library_blurview_libraryDescription">Dynamic iOS-like blur of underlying Views for Android.</string>
+  <string name="library_blurview_libraryDescription">Dynamic iOS-like blur of underlying Views for Android.    </string>
   <!-- OpenSource section -->
   <!-- ClassPath for autoDetect section -->
   <!-- License section -->
@@ -113,7 +115,7 @@ colección de animaciones de carga agradable para Android.</string>
   <string name="define_androidimagecropper"></string>
   <!-- Author section -->
   <!-- Library section -->
-  <string name="library_androidimagecropper_libraryDescription">Powerful (Zoom, Rotation, Multi-Source), customizable (Shape, Limits, Style), optimized (Async, Sampling, Matrix) and simple image cropping library for Android</string>
+  <string name="library_androidimagecropper_libraryDescription">Powerful (Zoom, Rotation, Multi-Source), customizable (Shape, Limits, Style), optimized (Async, Sampling, Matrix) and simple image cropping library for Android.    </string>
   <!-- OpenSource section -->
   <!-- ClassPath for autoDetect section -->
   <!-- License section -->
@@ -135,6 +137,7 @@ colección de animaciones de carga agradable para Android.</string>
   <string name="define_expandablelayout"></string>
   <!-- Author section -->
   <!-- Library section -->
+  <string name="library_expandablelayout_libraryDescription">Una clase de diseño de Android que soporta animar la expansión y el colapso de sus vistas secundarias.</string>
   <!-- OpenSource section -->
   <!-- ClassPath for autoDetect section -->
   <!-- License section -->

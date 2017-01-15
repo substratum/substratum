@@ -162,9 +162,7 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
                                     Snackbar.LENGTH_INDEFINITE)
                                     .setAction(mContext.getString(
                                             R.string.background_needs_invalidating_button),
-                                            view -> {
-                                                new deleteCache().execute("");
-                                            })
+                                            view -> new deleteCache().execute(""))
                                     .show();
                         }
                     }

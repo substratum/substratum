@@ -857,9 +857,7 @@ public class References {
                         .setIcon(R.drawable.dialog_warning_icon)
                         .setTitle(R.string.aopt_warning_title)
                         .setMessage(R.string.aopt_warning_text)
-                        .setPositiveButton(R.string.dialog_ok, (dialog, i) -> {
-                            dialog.cancel();
-                        }).show();
+                        .setPositiveButton(R.string.dialog_ok, (dialog, i) -> dialog.cancel()).show();
             }
         }
         return false;

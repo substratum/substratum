@@ -35,6 +35,7 @@
                 android:layout_marginEnd="20dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
+                android:textColor="@color/main_screen_card_theme_title"
                 android:text="@string/priority_card_content" />
 
         </RelativeLayout>

@@ -533,9 +533,9 @@ public class AdvancedManagerFragment extends Fragment {
                 File currentDir = new File(current_directory);
                 if (currentDir.exists() && currentDir.isDirectory()) {
                     String[] listed = currentDir.list();
-                    for (int i = 0; i < listed.length; i++) {
-                        if (listed[i].substring(listed[i].length() - 4).equals(".apk")) {
-                            activated_overlays.add(listed[i].substring(0, listed[i].length() - 4));
+                    for (String aListed : listed) {
+                        if (aListed.substring(aListed.length() - 4).equals(".apk")) {
+                            activated_overlays.add(aListed.substring(0, aListed.length() - 4));
                         }
                     }
                     Collections.sort(activated_overlays);

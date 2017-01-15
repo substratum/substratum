@@ -54,6 +54,7 @@
                         android:layout_marginEnd="16dp"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="10dp"
+                        android:textColor="@color/main_screen_card_theme_title"
                         android:text="@string/backup_card_content" />
 
                     <TextView
@@ -62,6 +63,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/tv_content_1"
                         android:layout_marginStart="16dp"
+                        android:textColor="@color/main_screen_card_theme_title"
                         android:layout_marginTop="20dp"
                         android:text="@string/profile_edittext_title" />
 
@@ -76,6 +78,7 @@
                         android:layout_toEndOf="@+id/tv1"
                         android:digits="0123456789abcdefghijklmnopqrstuvwxyz"
                         android:hint="@string/profile_edittext_hint"
+                        android:textColor="@color/main_screen_card_theme_title"
                         android:imeOptions="actionNext"
                         android:inputType="textNoSuggestions"
                         android:maxLines="1"
@@ -127,6 +130,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/tv3"
+                        android:textColor="@color/main_screen_card_theme_title"
                         android:layout_marginEnd="16dp"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="10dp"
@@ -137,6 +141,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_below="@id/tv_content_2"
+                        android:textColor="@color/main_screen_card_theme_title"
                         android:layout_marginBottom="16dp"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
@@ -213,6 +218,7 @@
                         android:layout_marginEnd="16dp"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="10dp"
+                        android:textColor="@color/main_screen_card_theme_title"
                         android:text="@string/scheduled_profile_card_content" />
 
                     <net.cachapa.expandablelayout.ExpandableLayout
@@ -243,6 +249,7 @@
                                 <TextView
                                     android:layout_width="80dp"
                                     android:layout_height="wrap_content"
+                                    android:textColor="@color/main_screen_card_theme_title"
                                     android:text="@string/active_time" />
 
                                 <Button
@@ -251,12 +258,14 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="48dp"
                                     android:layout_marginStart="10dp"
+                                    android:textColor="@color/main_screen_card_theme_title"
                                     android:layout_weight="0.5"
                                     android:text="@string/start_time" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:textColor="@color/main_screen_card_theme_title"
                                     android:text="-"
                                     android:textStyle="bold" />
 
@@ -265,6 +274,7 @@
                                     style="?borderlessButtonStyle"
                                     android:layout_width="wrap_content"
                                     android:layout_height="48dp"
+                                    android:textColor="@color/main_screen_card_theme_title"
                                     android:layout_weight="0.5"
                                     android:text="@string/end_time" />
                             </LinearLayout>
@@ -281,12 +291,14 @@
                                     android:layout_width="80dp"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_vertical"
+                                    android:textColor="@color/main_screen_card_theme_title"
                                     android:text="@string/day_profile" />
 
                                 <Spinner
                                     android:id="@+id/day_spinner"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:textColor="@color/main_screen_card_theme_title"
                                     android:layout_marginBottom="10dp"
                                     android:layout_marginStart="10dp"
                                     android:layout_marginTop="10dp" />
@@ -305,11 +317,13 @@
                                     android:layout_width="80dp"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="bottom"
+                                    android:textColor="@color/main_screen_card_theme_title"
                                     android:text="@string/night_profile" />
 
                                 <Spinner
                                     android:id="@+id/night_spinner"
                                     android:layout_width="match_parent"
+                                    android:textColor="@color/main_screen_card_theme_title"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="10dp"
                                     android:layout_marginTop="10dp" />

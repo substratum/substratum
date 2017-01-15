@@ -96,6 +96,7 @@
         android:layout_margin="16dp"
         android:src="@drawable/floating_action_button_icon"
         android:visibility="visible"
+        app:backgroundTint="@color/fab_background_color"
         app:layout_anchorGravity="bottom|right|end" />
 
     <!-- Overlay that dims the screen -->

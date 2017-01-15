@@ -1,6 +1,7 @@
 package projekt.substratum;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -20,7 +21,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -31,7 +34,9 @@ import android.widget.TextView;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.mikepenz.aboutlibraries.LibsBuilder;
+import com.mikepenz.aboutlibraries.LibsConfiguration;
 import com.mikepenz.aboutlibraries.ui.LibsSupportFragment;
+import com.mikepenz.itemanimators.SlideDownAlphaAnimator;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
@@ -53,51 +58,89 @@ import projekt.substrate.LetsGetStarted;
 import projekt.substratum.config.References;
 import projekt.substratum.fragments.ThemeFragment;
 import projekt.substratum.services.ThemeService;
+import projekt.substratum.util.AOPTCheck;
 import projekt.substratum.util.Root;
 
+import static projekt.substratum.config.References.SUBSTRATUM_LOG;
+
 public class MainActivity extends AppCompatActivity implements
-        ActivityCompat.OnRequestPermissionsResultCallback {
+        ActivityCompat.OnRequestPermissionsResultCallback, SearchView.OnQueryTextListener {
 
     private static final int PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
     private static final int PERMISSIONS_REQUEST_GET_ACCOUNTS = 2;
+
+    @SuppressLint("StaticFieldLeak")
+    public static TextView actionbar_title, actionbar_content;
+    public static String userInput = "";
+    @SuppressLint("StaticFieldLeak")
+    public static SearchView searchView;
     private Drawer drawer;
     private int permissionCheck, permissionCheck2;
     private ProgressDialog mProgressDialog;
     private SharedPreferences prefs;
+    private boolean hideBundle;
 
     private void switchFragment(String title, String fragment) {
+        if (searchView != null) {
+            if (!searchView.isIconified()) {
+                searchView.setIconified(true);
+            }
+        }
+        actionbar_content.setVisibility(View.GONE);
+        actionbar_title.setVisibility(View.GONE);
         if (getSupportActionBar() != null) getSupportActionBar().setTitle(title);
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
         tx.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         tx.replace(R.id.main, Fragment.instantiate(MainActivity.this, "projekt.substratum" +
                 ".fragments." + fragment));
         tx.commit();
+        hideBundle = true;
+        supportInvalidateOptionsMenu();
     }
 
     private void switchThemeFragment(String title, String home_type) {
+        if (searchView != null) {
+            if (!searchView.isIconified()) {
+                searchView.setIconified(true);
+            }
+        }
         Fragment fragment = new ThemeFragment();
         Bundle bundle = new Bundle();
         bundle.putString("home_type", home_type);
         fragment.setArguments(bundle);
 
-        if (getSupportActionBar() != null) getSupportActionBar().setTitle(title);
+        if (getSupportActionBar() != null) getSupportActionBar().setTitle("");
+        actionbar_content.setVisibility(View.VISIBLE);
+        actionbar_title.setVisibility(View.VISIBLE);
+        actionbar_title.setText(title);
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
         tx.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         tx.replace(R.id.main, fragment);
         tx.commit();
+        hideBundle = false;
+        supportInvalidateOptionsMenu();
     }
 
     private void switchFragmentToLicenses(String title, LibsSupportFragment fragment) {
+        if (searchView != null) {
+            if (!searchView.isIconified()) {
+                searchView.setIconified(true);
+            }
+        }
+        actionbar_content.setVisibility(View.GONE);
+        actionbar_title.setVisibility(View.GONE);
         if (getSupportActionBar() != null) getSupportActionBar().setTitle(title);
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
         tx.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         tx.replace(R.id.main, fragment);
         tx.commit();
+        hideBundle = true;
+        supportInvalidateOptionsMenu();
     }
 
     private void printFCMtoken() {
         String token = FirebaseInstanceId.getInstance().getToken();
-        Log.d(References.SUBSTRATUM_LOG, "FCM Registration Token: " + token);
+        Log.d(SUBSTRATUM_LOG, "FCM Registration Token: " + token);
     }
 
     private boolean copyRescueFile(Context context, String sourceFileName, String destFileName) {
@@ -107,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements
         File destParentDir = destFile.getParentFile();
         if (!destParentDir.exists()) {
             Boolean made = destParentDir.mkdir();
-            if (!made) Log.e(References.SUBSTRATUM_LOG,
+            if (!made) Log.e(SUBSTRATUM_LOG,
                     "Unable to create directories for rescue archive dumps.");
         }
 
@@ -139,6 +182,9 @@ public class MainActivity extends AppCompatActivity implements
         prefs = PreferenceManager.getDefaultSharedPreferences(
                 getApplicationContext());
 
+        actionbar_title = (TextView) findViewById(R.id.activity_title);
+        actionbar_content = (TextView) findViewById(R.id.theme_count);
+
         References.setAndCheckOMS(getApplicationContext());
         startService(new Intent(this, ThemeService.class));
 
@@ -148,8 +194,14 @@ public class MainActivity extends AppCompatActivity implements
             if (getSupportActionBar() != null) {
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                 getSupportActionBar().setHomeButtonEnabled(false);
+                getSupportActionBar().setTitle("");
             }
         }
+
+        actionbar_content.setVisibility(View.GONE);
+        actionbar_title.setVisibility(View.GONE);
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setTitle(getString(R.string.app_name));
 
         AccountHeader header = new AccountHeaderBuilder()
                 .withActivity(this)
@@ -162,6 +214,7 @@ public class MainActivity extends AppCompatActivity implements
                 .withCurrentProfileHiddenInList(true)
                 .build();
 
+        LibsConfiguration.getInstance().setItemAnimator(new SlideDownAlphaAnimator());
         final LibsSupportFragment fragment = new LibsBuilder().supportFragment();
 
         DrawerBuilder drawerBuilder = new DrawerBuilder();
@@ -181,7 +234,7 @@ public class MainActivity extends AppCompatActivity implements
             cls.getDeclaredMethod("getSystemFontDirLocation");
             cls.getDeclaredMethod("getThemeFontConfigLocation");
             cls.getDeclaredMethod("getThemeFontDirLocation");
-            Log.d(References.SUBSTRATUM_LOG, "This system fully supports font hotswapping.");
+            Log.d(SUBSTRATUM_LOG, "This system fully supports font hotswapping.");
             fonts_allowed = true;
         } catch (Exception ex) {
             // Suppress Fonts
@@ -243,13 +296,11 @@ public class MainActivity extends AppCompatActivity implements
                         .withName(R.string.nav_priorities)
                         .withIcon(R.drawable.nav_drawer_priorities)
                         .withIdentifier(10));
-        if (BuildConfig.VERSION_NAME.contains("-")) {
-            drawerBuilder.addDrawerItems(
-                    new PrimaryDrawerItem()
-                            .withName(R.string.nav_backup_restore)
-                            .withIcon(R.drawable.nav_drawer_profiles)
-                            .withIdentifier(11));
-        }
+        drawerBuilder.addDrawerItems(
+                new PrimaryDrawerItem()
+                        .withName(R.string.nav_backup_restore)
+                        .withIcon(R.drawable.nav_drawer_profiles)
+                        .withIdentifier(11));
         drawerBuilder.addDrawerItems(
                 new SectionDrawerItem()
                         .withName(R.string.nav_section_header_more));
@@ -369,14 +420,14 @@ public class MainActivity extends AppCompatActivity implements
                                     "/.substratum/");
                             if (!directory.exists()) {
                                 Boolean made = directory.mkdirs();
-                                if (!made) Log.e(References.SUBSTRATUM_LOG,
+                                if (!made) Log.e(SUBSTRATUM_LOG,
                                         "Unable to create directory");
                             }
                             File cacheDirectory = new File(getCacheDir(),
                                     "/SubstratumBuilder/");
                             if (!cacheDirectory.exists()) {
                                 Boolean made = cacheDirectory.mkdirs();
-                                if (!made) Log.e(References.SUBSTRATUM_LOG,
+                                if (!made) Log.e(SUBSTRATUM_LOG,
                                         "Unable to create cache directory");
                             }
                             File rescueFile = new File(
@@ -514,6 +565,12 @@ public class MainActivity extends AppCompatActivity implements
         } else {
             getMenuInflater().inflate(R.menu.activity_menu_legacy, menu);
         }
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        MenuItem showcase = menu.findItem(R.id.search);
+        searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView.setOnQueryTextListener(this);
+        searchItem.setVisible(!hideBundle);
+        showcase.setVisible(!hideBundle);
         return true;
     }
 
@@ -553,12 +610,16 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onBackPressed() {
-        if (drawer != null && drawer.isDrawerOpen()) {
-            drawer.closeDrawer();
-        } else if (drawer != null && drawer.getCurrentSelectedPosition() > 1) {
-            drawer.setSelectionAtPosition(1);
-        } else if (drawer != null && drawer.getCurrentSelectedPosition() == 1) {
-            this.finish();
+        if (!searchView.isIconified()) {
+            searchView.setIconified(true);
+        } else {
+            if (drawer != null && drawer.isDrawerOpen()) {
+                drawer.closeDrawer();
+            } else if (drawer != null && drawer.getCurrentSelectedPosition() > 1) {
+                drawer.setSelectionAtPosition(1);
+            } else if (drawer != null && drawer.getCurrentSelectedPosition() == 1) {
+                this.finish();
+            }
         }
     }
 
@@ -574,7 +635,7 @@ public class MainActivity extends AppCompatActivity implements
                             "/.substratum/");
                     if (!directory.exists()) {
                         Boolean made = directory.mkdirs();
-                        if (!made) Log.e(References.SUBSTRATUM_LOG,
+                        if (!made) Log.e(SUBSTRATUM_LOG,
                                 "Could not make internal substratum directory.");
                     }
                     File cacheDirectory = new File(getCacheDir(),
@@ -582,7 +643,7 @@ public class MainActivity extends AppCompatActivity implements
                     if (!cacheDirectory.exists()) {
                         Boolean made = cacheDirectory.mkdirs();
                         if (!made)
-                            Log.e(References.SUBSTRATUM_LOG, "Could not create cache directory.");
+                            Log.e(SUBSTRATUM_LOG, "Could not create cache directory.");
                     }
                     File[] fileList = new File(getCacheDir().getAbsolutePath() +
                             "/SubstratumBuilder/").listFiles();
@@ -641,6 +702,28 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
+    @Override
+    public boolean onQueryTextChange(String query) {
+        if (!userInput.equals(query)) {
+            userInput = query;
+            Fragment f = getSupportFragmentManager().findFragmentById(R.id.main);
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .detach(f)
+                    .commitNowAllowingStateLoss();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .attach(f)
+                    .commitAllowingStateLoss();
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
     private class RootRequester extends AsyncTask<String, Integer, Boolean> {
 
         @Override
@@ -691,6 +774,7 @@ public class MainActivity extends AppCompatActivity implements
                     LetsGetStarted.kissMe();
                 }
             }
+            new ClearSubstratumAPKs().execute("");
             super.onPostExecute(result);
         }
 
@@ -714,13 +798,45 @@ public class MainActivity extends AppCompatActivity implements
                                 "/.substratum/");
                         if (!directory.exists()) {
                             Boolean made = directory.mkdirs();
-                            if (!made) Log.e(References.SUBSTRATUM_LOG,
+                            if (!made) Log.e(SUBSTRATUM_LOG,
                                     "Could not make substratum directory on internal storage.");
                         }
                     }
                 }
             }
             return receivedRoot;
+        }
+    }
+
+    private class ClearSubstratumAPKs extends AsyncTask<String, Integer, Boolean> {
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            super.onPostExecute(result);
+            if (result) {
+                Log.d(SUBSTRATUM_LOG,
+                        "Successfully cleared work directory from the internal storage");
+            }
+        }
+
+        @Override
+        protected Boolean doInBackground(String... sUrl) {
+            File cacheDir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() +
+                    "/.substratum/");
+            Boolean return_value = cacheDir.exists();
+            if (return_value) {
+                References.delete(cacheDir.getAbsolutePath());
+                References.createNewFolder(cacheDir.getAbsolutePath());
+            } else {
+                References.createNewFolder(cacheDir.getAbsolutePath());
+            }
+            try {
+                new AOPTCheck().injectAOPT(getApplicationContext(), false);
+            } catch (Exception e) {
+                Log.e(References.SUBSTRATUM_LOG,
+                        "AOPT could not be checked or injected at this time.");
+            }
+            return return_value;
         }
     }
 }

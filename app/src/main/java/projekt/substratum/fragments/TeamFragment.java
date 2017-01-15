@@ -209,7 +209,6 @@ public class TeamFragment extends Fragment {
                         dialog.cancel();
                         AlertDialog.Builder builder2 = new AlertDialog.Builder(getActivity());
                         switch (item) {
-                            // Chinese (Simplified) Translations
                             case 0:
                                 builder2.setItems(
                                         getResources().getStringArray(R.array.chinese_translators),
@@ -218,7 +217,55 @@ public class TeamFragment extends Fragment {
                                 break;
                             case 1:
                                 builder2.setItems(
+                                        getResources().getStringArray(R.array.french_translators),
+                                        (dialog2, item2) -> {
+                                        });
+                                break;
+                            case 2:
+                                builder2.setItems(
+                                        getResources().getStringArray(R.array.german_translators),
+                                        (dialog2, item2) -> {
+                                        });
+                                break;
+                            case 3:
+                                builder2.setItems(
+                                        getResources().getStringArray(R.array.hungarian_translators),
+                                        (dialog2, item2) -> {
+                                        });
+                                break;
+                            case 4:
+                                builder2.setItems(
+                                        getResources().getStringArray(R.array.italian_translators),
+                                        (dialog2, item2) -> {
+                                        });
+                                break;
+                            case 5:
+                                builder2.setItems(
+                                        getResources().getStringArray(R.array.lithuanian_translators),
+                                        (dialog2, item2) -> {
+                                        });
+                                break;
+                            case 6:
+                                builder2.setItems(
                                         getResources().getStringArray(R.array.portuguese_brazillian_translators),
+                                        (dialog2, item2) -> {
+                                        });
+                                break;
+                            case 7:
+                                builder2.setItems(
+                                        getResources().getStringArray(R.array.portuguese_translators),
+                                        (dialog2, item2) -> {
+                                        });
+                                break;
+                            case 8:
+                                builder2.setItems(
+                                        getResources().getStringArray(R.array.russian_translators),
+                                        (dialog2, item2) -> {
+                                        });
+                                break;
+                            case 9:
+                                builder2.setItems(
+                                        getResources().getStringArray(R.array.spanish_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;

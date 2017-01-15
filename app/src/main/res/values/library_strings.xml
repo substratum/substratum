@@ -2,37 +2,6 @@
 
 <resources>
     <!-- http://def-builder.mikepenz.com/ -->
-
-    <!-- AnimatedEditText -->
-    <string name="define_animatededittext" />
-    <!-- Author section -->
-    <string name="library_animatededittext_author" translatable="false">Ali Muzaffar</string>
-    <string name="library_animatededittext_authorWebsite" translatable="false">
-        http://alimuzaffar.com/
-    </string>
-    <!-- Library section -->
-    <string name="library_animatededittext_libraryName" translatable="false">AnimatedEditText
-    </string>
-    <string name="library_animatededittext_libraryDescription">This repository contains
-        AnimatedEditText and TextDrawable all of which extend the behaviour of EditText and
-        implement features that are otherwise not available.
-    </string>
-    <string name="library_animatededittext_libraryWebsite" translatable="false">
-        https://github.com/alphamu/AnimatedEditText
-    </string>
-    <string name="library_animatededittext_libraryVersion" translatable="false">1.0</string>
-    <!-- OpenSource section -->
-    <string name="library_animatededittext_isOpenSource" translatable="false">true</string>
-    <string name="library_animatededittext_repositoryLink" translatable="false">
-        https://github.com/alphamu/AnimatedEditText
-    </string>
-    <!-- ClassPath for autoDetect section -->
-    <string name="library_animatededittext_classPath" translatable="false">
-        com.alimuzaffar.lib:animated-edit-text
-    </string>
-    <!-- License section -->
-    <string name="library_animatededittext_licenseId" translatable="false">apache_2_0</string>
-
     <!-- commons-io -->
     <string name="define_commons_io" />
     <!-- Author section -->
@@ -406,4 +375,22 @@
     <string name="library_jikegallery_classPath">me.wangyuwei:GalleryView</string>
     <!-- License section -->
     <string name="library_jikegallery_licenseId">apache_2_0</string>
+
+    <!-- ExpandableLayout -->
+    <string name="define_expandablelayout" />
+    <!-- Author section -->
+    <string name="library_expandablelayout_author" translatable="false">Daniel Cachapa</string>
+    <string name="library_expandablelayout_authorWebsite" translatable="false">https://github.com/cachapa</string>
+    <!-- Library section -->
+    <string name="library_expandablelayout_libraryName" translatable="false">ExpandableLayout</string>
+    <string name="library_expandablelayout_libraryDescription">An Android layout class that supports animating the expansion and collapse of its child views.</string>
+    <string name="library_expandablelayout_libraryWebsite" translatable="false">https://github.com/cachapa/ExpandableLayout</string>
+    <string name="library_expandablelayout_libraryVersion" translatable="false">2.6</string>
+    <!-- OpenSource section -->
+    <string name="library_expandablelayout_isOpenSource" translatable="false">true</string>
+    <string name="library_expandablelayout_repositoryLink" translatable="false">https://github.com/cachapa/ExpandableLayout</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_expandablelayout_classPath" translatable="false">net.cachapa.expandablelayout:expandablelayout</string>
+    <!-- License section -->
+    <string name="library_expandablelayout_licenseId" translatable="false">apache_2_0</string>
 </resources>

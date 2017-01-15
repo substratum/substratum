@@ -481,7 +481,6 @@ public class InformationActivity extends AppCompatActivity {
                         }
                     });
         }
-        new AppShortcutCreator().execute("last_opened");
     }
 
     @Override
@@ -853,6 +852,15 @@ public class InformationActivity extends AppCompatActivity {
     private class AppShortcutCreator extends AsyncTask<String, Integer, String> {
 
         @Override
+        protected void onPostExecute(String result) {
+            String format = String.format(getString(R.string.menu_favorite_snackbar), result);
+            Snackbar.make(findViewById(android.R.id.content),
+                    format,
+                    Snackbar.LENGTH_LONG)
+                    .show();
+        }
+
+        @Override
         protected String doInBackground(String... sUrl) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
                 ShortcutManager shortcutManager = getSystemService(ShortcutManager.class);
@@ -870,10 +878,8 @@ public class InformationActivity extends AppCompatActivity {
 
                     ShortcutInfo shortcut =
                             new ShortcutInfo.Builder(getApplicationContext(), sUrl[0])
-                                    .setShortLabel(((sUrl[0].equals("favorite")) ? "♥ " : "") +
-                                            theme_name)
-                                    .setLongLabel(((sUrl[0].equals("favorite")) ? "♥ " : "") +
-                                            theme_name)
+                                    .setShortLabel(theme_name)
+                                    .setLongLabel(theme_name)
                                     .setIcon(Icon.createWithBitmap(app_icon))
                                     .setIntent(myIntent)
                                     .build();
@@ -884,7 +890,7 @@ public class InformationActivity extends AppCompatActivity {
                     // Suppress warning
                 }
             }
-            return null;
+            return theme_name;
         }
     }
 

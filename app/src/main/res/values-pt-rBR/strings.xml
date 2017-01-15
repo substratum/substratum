@@ -4,6 +4,9 @@
   <string name="showcase">mostruário da comunidade</string>
   <string name="helper_name">ajudante de camadas substratum</string>
   <string name="restore_app_name">restaurar tema</string>
+  <string name="android">Versão do Android:</string>
+  <string name="device">Modelo do dispositivo:</string>
+  <string name="vendor">Nível de patch de segurança:</string>
   <string name="showcase_no_connection">o mostruário de temas requer uma conexão com a internet para funcionar!</string>
   <string name="showcase_no_themes">parace que houve um erro ao coletar a base de dados do mostruário para essa aba. reinicie a base de dados com o botão de atualizar acima.</string>
   <string name="showcase_dialog_title">Aviso Legal!</string>
@@ -17,6 +20,11 @@
   <string name="background_updated_toast_cleaning">Substratum está agora limpando o cache de recursos deste tema&#8230;</string>
   <string name="failed_to_install_title_notification">Falha ao instalar um tema OMS</string>
   <string name="failed_to_install_text_notification">%s falhou ao instalar</string>
+  <string name="actionbar_theme_count_singular">%s tema</string>
+  <string name="actionbar_theme_count_plural">%s temas</string>
+  <string name="actionbar_theme_count_none">nenhum tema encontrado</string>
+  <string name="actionbar_theme_count_loading">carregando&#8230;</string>
+  <string name="actionbar_search">Pesquisar</string>
   <string name="settings_icons">Ícones das Configurações</string>
   <string name="systemui_headers">Cabeçalhos do System UI</string>
   <string name="systemui_navigation">Navegação do System UI</string>
@@ -122,6 +130,7 @@ corretamente&#8230;</string>
   <string name="settings_about_oms_version_7">serviço gerenciador de camadas - iteração 7 (oms7)</string>
   <string name="settings_about_rro_version_2">camadas de recursos em execução - iteração 2
 (rro2/legacy)</string>
+  <string name="settings_about_system_version">plataforma de sistema</string>
   <string name="settings_aopt_switcher_title">Compilador de Camadas do Substratum</string>
   <string name="settings_aapt">AAPT (Estável)</string>
   <string name="settings_aopt">AOPT (Em Testes)</string>
@@ -250,7 +259,6 @@ corretamente&#8230;</string>
   <string name="logcat_dialog_title">Reporte Debug \"LogChar\"</string>
   <string name="logcat_dialog_copy_success">Log copiado para a área de transferência com sucesso!</string>
   <string name="logcat_email_subject">%s: Reportar Bug do Tema</string>
-  <string name="logcat_email_body" formatted="false">Olá %s,\n\nEu tenho um problema com %s, e eu gostaria de ver se você poderia me ajudar a resolver este problema.\n\nAparelho:%s\n\nReporte:\n\n%s</string>
   <string name="logcat_email_activity">Enviar reporte de bug usando&#8230;</string>
   <string name="logcat_email_activity_error">Não há clientes de email instalados.</string>
   <string name="logcat_email_xposed_check">Framework Xposed</string>
@@ -329,7 +337,6 @@ corretamente&#8230;</string>
   <string name="toast_uninstalled">Você acabou de desinstalar este tema! Será finalizado na próxima atualização!</string>
   <string name="toast_uninstalling">Agora desinstalando camadas selecionadas, favor aguardar&#8230;</string>
   <string name="toast_updating">Compilando/atualizando no painel de notificações, você pode usar outros aplicativos clicando no botão Home/Recentes!</string>
-  <string name="no_themes_title">nenhum tema instalado&#8230;</string>
   <string name="no_themes_description">favor instalar um tema compatível!</string>
   <string name="toast_on_back_press_compiling">Você pode usar outros aplicativos enquanto compilando clicando em Home/Recentes.</string>
   <string name="toast_needs_caching">Cache do Substratum foi limpo, favor reconstruir este tema antes de continuar!</string>
@@ -370,11 +377,6 @@ resolver este problema.</string>
   <string name="substratum_cache_clear_initial_toast">O cache do Substratum está sendo apagado&#8230;</string>
   <string name="substratum_cache_clear_toast">O cache do Substratum foi apagado!</string>
   <string name="substratum_restart_toast">Substratum reiniciou automaticamente após uma mudança de configuração.</string>
-  <string name="masquerade_check_title">Honraria este masquerade com uma dança?</string>
-  <string name="masquerade_check_subtext">Assegure-se da presença do sistema e integridade do sistema de tema Masquerade. Se Masquerade não reportar positivamente, favor executar uma reinicialização suave/completa e tente novamente!</string>
-  <string name="masquerade_check_installed">Coloque sua máscara, pegue minha mão e lidere o caminho!</string>
-  <string name="masquerade_check_not_installed">masquerade não está instalado.</string>
-  <string name="masquerade_check_not_supported">masquerade não é suportado no substratum legacy.</string>
   <string name="purge_cache">Resetar Cache do Tema</string>
   <string name="purge_cache_subtext">Invalidar tema do Substratum e cache da aplicação, também redefinir todas as bandeiras relacionadas à reconstrução de temas.</string>
   <string name="restart_systemui">Habilitar após recriar o SystemUI </string>
@@ -449,7 +451,7 @@ resolver este problema.</string>
   <string name="scheduled_profile_card_content">Esta função lhe dará a possibilidade de alternar automaticamente entre perfis com base na hora do dia.</string>
   <string name="scheduled_profile_apply_success">Perfil programado aplicado com sucesso!</string>
   <string name="scheduled_profile_disable_success">Perfil programado desativado com sucesso!</string>
-  <string name="active_time">Horas ativas</string>
+  <string name="active_time">Agenda da noite</string>
   <string name="start_time">Início</string>
   <string name="end_time">Final</string>
   <string name="day_profile">Perfil de dia</string>
@@ -463,4 +465,11 @@ resolver este problema.</string>
   <string name="profile_pending_notification">Perfil será aplicado após a tela desligar.</string>
   <string name="profile_success_notification">Perfil aplicado com sucesso!</string>
   <string name="profile_failed_notification">Perfil não aplicado&#8230;</string>
+  <string name="profile_failed_info_notification">Toque para obter mais informações</string>
+  <string name="theme_debug_mode_title">Modo de depuração do tema</string>
+  <string name="theme_debug_mode_summary">Desativar o compilador legado herdado</string>
+  <string name="theme_debug_mode_dialog_title">AVISO</string>
+  <string name="theme_debug_mode_dialog_content">Isto pode falhar o processo de compilação. Só habilite esta opção se você sabe o que está fazendo!</string>
+  <string name="theme_debug_mode_dialog_continue">Continuar</string>
+  <string name="theme_debug_mode_dialog_cancel">Cancelar</string>
 </resources>

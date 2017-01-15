@@ -18,6 +18,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,11 +28,11 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
+import projekt.substratum.MainActivity;
 import projekt.substratum.R;
 import projekt.substratum.adapters.ThemeEntryAdapter;
 import projekt.substratum.config.References;
 import projekt.substratum.model.ThemeInfo;
-import projekt.substratum.util.AOPTCheck;
 import projekt.substratum.util.ReadOverlays;
 
 public class ThemeFragment extends Fragment {
@@ -47,6 +49,8 @@ public class ThemeFragment extends Fragment {
     private ViewGroup root;
     private String home_type = "";
     private SharedPreferences prefs;
+    private TextView cardViewText;
+    private ImageView cardViewImage;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
@@ -66,6 +70,9 @@ public class ThemeFragment extends Fragment {
             home_type = bundle.getString("home_type");
         }
 
+        // Initialize a proper loading sequence so the user does not see the unparsed string
+        MainActivity.actionbar_content.setText(getString(R.string.actionbar_theme_count_loading));
+
         substratum_packages = new HashMap<>();
         recyclerView = (RecyclerView) root.findViewById(R.id.theme_list);
         cardView = root.findViewById(R.id.no_entry_card_view);
@@ -83,6 +90,8 @@ public class ThemeFragment extends Fragment {
                 }
         );
         cardView.setVisibility(View.GONE);
+        cardViewText = (TextView) cardView.findViewById(R.id.no_themes_description);
+        cardViewImage = (ImageView) cardView.findViewById(R.id.no_themes_installed);
 
         // Create it so it uses a recyclerView to parse substratum-based themes
         PackageManager packageManager = mContext.getPackageManager();
@@ -157,15 +166,6 @@ public class ThemeFragment extends Fragment {
     }
 
     private void refreshLayout() {
-        if (home_type.length() == 0) {
-            try {
-                new AOPTCheck().injectAOPT(getContext(), false);
-            } catch (Exception e) {
-                Log.e(References.SUBSTRATUM_LOG,
-                        "AOPT could not be checked or injected at this time.");
-            }
-        }
-
         MaterialProgressBar materialProgressBar = (MaterialProgressBar) root.findViewById(R.id
                 .progress_bar_loader);
         materialProgressBar.setVisibility(View.VISIBLE);
@@ -184,7 +184,8 @@ public class ThemeFragment extends Fragment {
                             packageInfo.packageName,
                             substratum_packages,
                             home_type,
-                            true));
+                            true,
+                            MainActivity.userInput));
             Log.d(References.SUBSTRATUM_LOG, "Substratum has loaded themes using the pre-499 " +
                     "theme database filter");
         } else {
@@ -193,7 +194,8 @@ public class ThemeFragment extends Fragment {
                     null,
                     substratum_packages,
                     home_type,
-                    false);
+                    false,
+                    MainActivity.userInput);
             Log.d(References.SUBSTRATUM_LOG, "Substratum has loaded themes using the post-499 " +
                     "theme database filter");
         }
@@ -202,12 +204,43 @@ public class ThemeFragment extends Fragment {
         cleanUp.execute("");
 
         if (substratum_packages.size() == 0) {
+            if (MainActivity.searchView != null && !MainActivity.searchView.isIconified()) {
+                if (MainActivity.userInput.length() > 0) {
+                    String parse = String.format(
+                            getString(
+                                    R.string.no_themes_description_search), MainActivity.userInput);
+                    cardViewText.setText(parse);
+                    cardViewImage.setImageDrawable(getContext()
+                            .getDrawable(R.drawable.no_themes_found));
+                } else {
+                    cardViewText.setText(getString(R.string.no_themes_description));
+                    cardViewImage.setImageDrawable(getContext()
+                            .getDrawable(R.drawable.no_themes_installed));
+                }
+            } else {
+                cardViewText.setText(getString(R.string.no_themes_description));
+                cardViewImage.setImageDrawable(getContext()
+                        .getDrawable(R.drawable.no_themes_installed));
+            }
             cardView.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.GONE);
         } else {
             cardView.setVisibility(View.GONE);
             recyclerView.setVisibility(View.VISIBLE);
         }
+
+        // Now let's place the proper amount of theme count into the context text
+        String parse;
+        if (substratum_packages.size() == 0) {
+            parse = getString(R.string.actionbar_theme_count_none);
+        } else if (substratum_packages.size() == 1) {
+            parse = String.format(getString(R.string.actionbar_theme_count_singular),
+                    String.valueOf(substratum_packages.size()));
+        } else {
+            parse = String.format(getString(R.string.actionbar_theme_count_plural),
+                    String.valueOf(substratum_packages.size()));
+        }
+        MainActivity.actionbar_content.setText(parse);
 
         // Now we need to sort the buffered installed Layers themes
         map = new TreeMap<>(substratum_packages);
@@ -235,6 +268,25 @@ public class ThemeFragment extends Fragment {
         protected void onPostExecute(String result) {
             refreshLayout();
             if (substratum_packages.size() == 0) {
+                if (MainActivity.searchView != null && !MainActivity.searchView.isIconified()) {
+                    if (MainActivity.userInput.length() > 0) {
+                        String parse = String.format(
+                                getString(
+                                        R.string.no_themes_description_search),
+                                MainActivity.userInput);
+                        cardViewText.setText(parse);
+                        cardViewImage.setImageDrawable(getContext()
+                                .getDrawable(R.drawable.no_themes_found));
+                    } else {
+                        cardViewText.setText(getString(R.string.no_themes_description));
+                        cardViewImage.setImageDrawable(getContext()
+                                .getDrawable(R.drawable.no_themes_installed));
+                    }
+                } else {
+                    cardViewText.setText(getString(R.string.no_themes_description));
+                    cardViewImage.setImageDrawable(getContext()
+                            .getDrawable(R.drawable.no_themes_installed));
+                }
                 cardView.setVisibility(View.VISIBLE);
                 recyclerView.setVisibility(View.GONE);
             } else {
@@ -256,7 +308,8 @@ public class ThemeFragment extends Fragment {
                                             packageInfo.packageName,
                                             substratum_packages,
                                             home_type,
-                                            true));
+                                            true,
+                                            MainActivity.userInput));
                     Log.d(References.SUBSTRATUM_LOG, "Substratum has loaded themes using the" +
                             "pre-499 theme database filter");
                 } else {
@@ -265,7 +318,8 @@ public class ThemeFragment extends Fragment {
                             null,
                             substratum_packages,
                             home_type,
-                            false);
+                            false,
+                            MainActivity.userInput);
                     Log.d(References.SUBSTRATUM_LOG, "Substratum has loaded themes using the " +
                             "post-499 theme database filter");
                 }

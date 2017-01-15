@@ -2,6 +2,7 @@ package projekt.substratum.util;
 
 import android.content.Context;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -24,6 +25,7 @@ public class SubstratumBuilder {
     public Boolean has_errored_out = false;
     public String no_install = "";
     private String error_logs = "";
+    private boolean debug;
 
     public String getErrorLogs() {
         return error_logs;
@@ -43,7 +45,7 @@ public class SubstratumBuilder {
     private String processAOPTCommands(String work_area, String targetPkg,
                                        String theme_name, String overlay_package,
                                        String variant, String additional_variant,
-                                       int typeMode, boolean legacySwitch) {
+                                       int typeMode, boolean legacySwitch, Context context) {
         String commands;
         if (typeMode == 1) {
             commands = CommandCompiler.createAOPTShellCommands(
@@ -52,7 +54,8 @@ public class SubstratumBuilder {
                     overlay_package,
                     theme_name,
                     legacySwitch,
-                    null);
+                    null,
+                    context);
         } else {
             if (variant != null) {
                 commands = CommandCompiler.createAOPTShellCommands(
@@ -61,7 +64,8 @@ public class SubstratumBuilder {
                         overlay_package,
                         theme_name,
                         legacySwitch,
-                        additional_variant);
+                        additional_variant,
+                        context);
             } else {
                 commands = CommandCompiler.createAOPTShellCommands(
                         work_area,
@@ -69,7 +73,8 @@ public class SubstratumBuilder {
                         overlay_package,
                         theme_name,
                         legacySwitch,
-                        null);
+                        null,
+                        context);
             }
         }
         return commands;
@@ -79,7 +84,7 @@ public class SubstratumBuilder {
                                      String targetPkg, String theme_name,
                                      String overlay_package, String variant,
                                      String additional_variant, int typeMode,
-                                     boolean legacySwitch) {
+                                     boolean legacySwitch, Context context) {
         Process nativeApp = null;
         try {
             String line;
@@ -93,17 +98,17 @@ public class SubstratumBuilder {
                 Boolean errored = false;
                 try (BufferedReader br = new BufferedReader(new InputStreamReader(stderr))) {
                     while ((line = br.readLine()) != null) {
-                        if (line.contains("types not allowed") && !legacySwitch) {
+                        if (line.contains("types not allowed") && !legacySwitch && !debug) {
                             Log.e(References.SUBSTRATUM_BUILDER,
                                     "This overlay was designed using a legacy theming " +
                                             "style, now falling back to legacy compiler...");
                             String new_commands = processAOPTCommands(work_area, targetPkg,
                                     theme_name, overlay_package, variant, additional_variant,
-                                    typeMode, true);
+                                    typeMode, true, context);
                             return runShellCommands(
                                     new_commands, work_area, targetPkg, theme_name,
                                     overlay_package, variant, additional_variant, typeMode,
-                                    true);
+                                    true, context);
                         } else {
                             dumpErrorLogs(
                                     References.SUBSTRATUM_BUILDER, overlay_package, line);
@@ -151,6 +156,8 @@ public class SubstratumBuilder {
                             String base_variant, String versionName, Boolean theme_oms, String
                                     theme_parent) {
         has_errored_out = false;
+
+        debug = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("theme_debug", false);
 
         // 1. Quickly filter out what kind of type this overlay will be compiled with
         int typeMode = 1;
@@ -328,11 +335,12 @@ public class SubstratumBuilder {
                     variant,
                     additional_variant,
                     typeMode,
-                    false);
+                    false,
+                    context);
 
             has_errored_out = !runShellCommands(
                     commands, work_area, targetPkg, parse2_themeName, overlay_package,
-                    variant, additional_variant, typeMode, false);
+                    variant, additional_variant, typeMode, false, context);
         }
 
         // 7. Sign the apk

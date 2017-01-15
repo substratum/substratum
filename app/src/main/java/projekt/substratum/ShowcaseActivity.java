@@ -1,9 +1,7 @@
 package projekt.substratum;
 
-import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -71,15 +69,6 @@ public class ShowcaseActivity extends AppCompatActivity {
                             .show();
                 }
                 return true;
-            case R.id.refresh:
-                References.delete(getApplicationContext().getCacheDir().getAbsolutePath() +
-                        "/ShowcaseCache/");
-                SharedPreferences prefs = getApplicationContext().getSharedPreferences(
-                        "showcase_tabs", 0);
-                prefs.edit().clear().apply();
-                finish();
-                startActivity(getIntent());
-                return true;
         }
         return false;
     }
@@ -96,23 +85,6 @@ public class ShowcaseActivity extends AppCompatActivity {
     private void refreshLayout() {
         if (References.isNetworkAvailable(getApplicationContext())) {
             no_network.setVisibility(View.GONE);
-
-            final SharedPreferences prefs = getApplicationContext().getSharedPreferences(
-                    "showcase_tabs", 0);
-            if (!prefs.contains("acknowledgement")) {
-                final AlertDialog.Builder alertDialogBuilder =
-                        new AlertDialog.Builder(this);
-                alertDialogBuilder.setTitle(R.string.showcase_dialog_title);
-                alertDialogBuilder.setMessage(R.string.showcase_dialog_content);
-                alertDialogBuilder.setCancelable(false);
-                alertDialogBuilder
-                        .setPositiveButton(R.string.showcase_dialog_agree, (dialog, id) -> {
-                            prefs.edit().putBoolean("acknowledgement", true).apply();
-                            dialog.cancel();
-                        });
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
-            }
             DownloadTabs downloadTabs = new DownloadTabs();
             downloadTabs.execute(getString(R.string.showcase_tabs), "showcase_tabs.xml");
         } else {
@@ -134,6 +106,14 @@ public class ShowcaseActivity extends AppCompatActivity {
                 getSupportActionBar().setTitle(R.string.showcase);
             }
             toolbar.setNavigationOnClickListener((view) -> onBackPressed());
+        }
+
+        File showcase_directory = new File(getApplicationContext().getCacheDir() +
+                "/ShowcaseCache/");
+        if (!showcase_directory.exists()) {
+            Boolean made = showcase_directory.mkdir();
+            if (!made)
+                Log.e(References.SUBSTRATUM_LOG, "Could not make showcase directory...");
         }
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
@@ -163,27 +143,21 @@ public class ShowcaseActivity extends AppCompatActivity {
 
             if (resultant.endsWith("-temp.xml")) {
                 String existing = MD5.calculateMD5(new File(getApplicationContext().getCacheDir() +
-                        "/" + "showcase_tabs.xml"));
+                        "/ShowcaseCache/" + "showcase_tabs.xml"));
                 String new_file = MD5.calculateMD5(new File(getApplicationContext().getCacheDir() +
-                        "/" + "showcase_tabs-temp.xml"));
+                        "/ShowcaseCache/" + "showcase_tabs-temp.xml"));
                 if (existing != null && !existing.equals(new_file)) {
                     // MD5s don't match
                     File renameMe = new File(getApplicationContext().getCacheDir() +
-                            "/" + "showcase_tabs-temp.xml");
+                            "/ShowcaseCache/" + "showcase_tabs-temp.xml");
                     boolean move = renameMe.renameTo(
                             new File(getApplicationContext().getCacheDir() +
-                                    "/" + "showcase_tabs.xml"));
-                    if (move) {
-                        // Also clear the tabs cache
-                        References.delete(getApplicationContext().getCacheDir().getAbsolutePath() +
-                                "/ShowcaseCache/");
-                        SharedPreferences prefs = getApplicationContext().getSharedPreferences(
-                                "showcase_tabs", 0);
-                        prefs.edit().clear().apply();
-                    }
+                                    "/ShowcaseCache/" + "showcase_tabs.xml"));
+                    if (move) Log.e("SubstratumShowcase",
+                            "Successfully updated the showcase tabs database");
                 } else {
                     File deleteMe = new File(getApplicationContext().getCacheDir() +
-                            "/" + "showcase_tabs-temp.xml");
+                            "/ShowcaseCache/" + "showcase_tabs-temp.xml");
                     boolean deleted = deleteMe.delete();
                     if (!deleted) Log.e("SubstratumShowcase",
                             "Unable to delete temporary tab file.");
@@ -192,19 +166,18 @@ public class ShowcaseActivity extends AppCompatActivity {
 
             resultant = "showcase_tabs.xml";
 
-            String[] checkerCommands = {getApplicationContext().getCacheDir() + "/" + resultant};
+            String[] checkerCommands = {getApplicationContext().getCacheDir() +
+                    "/ShowcaseCache/" + resultant};
 
             @SuppressWarnings("unchecked")
             final Map<String, String> newArray = ReadShowcaseTabsFile.main(checkerCommands);
 
             ArrayList<String> links = new ArrayList<>();
 
-            for (String key : newArray.keySet()) {
-                if (tabLayout != null) {
-                    links.add(newArray.get(key));
-                    tabLayout.addTab(tabLayout.newTab().setText(key));
-                }
-            }
+            newArray.keySet().stream().filter(key -> tabLayout != null).forEach(key -> {
+                links.add(newArray.get(key));
+                tabLayout.addTab(tabLayout.newTab().setText(key));
+            });
             final ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
             final ShowcaseTabsAdapter adapter = new ShowcaseTabsAdapter
                     (getSupportFragmentManager(), tabLayout.getTabCount(), links);
@@ -248,7 +221,7 @@ public class ShowcaseActivity extends AppCompatActivity {
             HttpURLConnection connection = null;
 
             File current_wallpapers = new File(getApplicationContext().getCacheDir() +
-                    "/" + inputFileName);
+                    "/ShowcaseCache/" + inputFileName);
             if (current_wallpapers.exists()) {
                 // We create a temporary file to check whether we should be replacing the current
                 inputFileName = inputFileName.substring(0, inputFileName.length() - 4) + "-temp" +
@@ -275,8 +248,8 @@ public class ShowcaseActivity extends AppCompatActivity {
                 input = connection.getInputStream();
 
                 output = new FileOutputStream(
-                        getApplicationContext().getCacheDir().getAbsolutePath() + "/" +
-                                inputFileName);
+                        getApplicationContext().getCacheDir().getAbsolutePath() +
+                                "/ShowcaseCache/" + inputFileName);
 
                 byte data[] = new byte[4096];
                 long total = 0;

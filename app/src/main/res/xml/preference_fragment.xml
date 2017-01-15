@@ -23,19 +23,17 @@
             android:summary="@string/settings_about_rro_version_2"
             android:title="@string/settings_about_oms_rro_version" />
 
+        <Preference
+            android:key="system_platform"
+            android:summary="@string/settings_about_system_content"
+            android:title="@string/settings_about_system_version" />
+
     </PreferenceCategory>
 
     <PreferenceCategory
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:title="@string/settings_title_clickable">
-
-        <Preference
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:key="masquerade_check"
-            android:summary="@string/masquerade_check_subtext"
-            android:title="@string/masquerade_check_title" />
 
         <Preference
             android:layout_width="match_parent"
@@ -50,6 +48,13 @@
             android:key="aopt_switcher"
             android:summary="@string/settings_aapt"
             android:title="@string/settings_aopt_switcher_title" />
+
+        <CheckBoxPreference
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:key="theme_debug"
+            android:summary="@string/theme_debug_mode_summary"
+            android:title="@string/theme_debug_mode_title" />
 
     </PreferenceCategory>
 

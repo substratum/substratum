@@ -37,13 +37,6 @@
                 <data android:scheme="package" />
             </intent-filter>
         </receiver>
-        <receiver
-            android:name=".services.MasqueradeBall"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="projekt.substratum.MASQUERADE_BALL" />
-            </intent-filter>
-        </receiver>
         <receiver android:name=".services.NotificationButtonReceiver" />
         <receiver android:name=".services.NotificationUpgradeReceiver" />
         <receiver android:name=".services.ThemeCacher">
@@ -79,16 +72,6 @@
             android:enabled="true"
             android:icon="@drawable/ic_cookie_non_bitten"
             android:label="@string/cookie_non_bitten"
-            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
-            <intent-filter>
-                <action android:name="android.service.quicksettings.action.QS_TILE" />
-            </intent-filter>
-        </service>
-        <service
-            android:name=".services.MasqueradeTile"
-            android:enabled="true"
-            android:icon="@drawable/ic_masquerade"
-            android:label="@string/masquerade"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />

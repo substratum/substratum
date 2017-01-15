@@ -7,6 +7,10 @@
     <string name="drawer_name" translatable="false">projekt substratum</string>
     <string name="restore_app_name">restore theme</string>
 
+    <string name="android">Android version:</string>
+    <string name="device">Device model:</string>
+    <string name="vendor">Security patch level:</string>
+
     <string name="search_play_store_url" translatable="false">https://play.google.com/store/search?q=Substratum%20Theme&amp;c=apps</string>
     <string name="search_play_store_url_icon_packs" translatable="false">https://play.google.com/store/search?q=Icon%20Pack&amp;c=apps</string>
     <string name="search_play_store_url_legacy" translatable="false">https://play.google.com/store/search?q=Substratum%20Legacy%20Theme&amp;c=apps</string>
@@ -34,6 +38,8 @@
     <string name="background_updating_toast">Substratum is getting a theme ready in the background,
         please wait for this to finish!
     </string>
+    <string name="background_needs_invalidating">Oops! A corruption in the cache has occurred.</string>
+    <string name="background_needs_invalidating_button">Wipe</string>
     <string name="background_updated_toast">Resource cache has been built!</string>
     <string name="background_updated_toast_cancel">This theme needs to upgrade its resource cache
         before it is functional!
@@ -42,6 +48,12 @@
         resource cache&#8230;</string>
     <string name="failed_to_install_title_notification">Failed to install OMS theme</string>
     <string name="failed_to_install_text_notification">%s failed to install</string>
+
+    <string name="actionbar_theme_count_singular">%s theme</string>
+    <string name="actionbar_theme_count_plural">%s themes</string>
+    <string name="actionbar_theme_count_none">no themes found</string>
+    <string name="actionbar_theme_count_loading">loading&#8230;</string>
+    <string name="actionbar_search">Search</string>
 
     <string name="settings_icons">Settings Icons</string>
     <string name="systemui_headers">System UI Headers</string>
@@ -58,6 +70,9 @@
         please remove them to regain support from the themer!
     </string>
     <string name="tbo_dialog_proceed">Download</string>
+
+    <string name="aopt_warning_title">Wait up!</string>
+    <string name="aopt_warning_text">The overlay compiler was not found on your system! Substratum tried to inject it but failed twice.\n\nIs your root running fine? On certain Superuser distributions such as CM/phh, you may need to grant Substratum default root permissions!\n\nAnother possibility is your /system partition is full and Substratum is unable to add its compiler.\n\nIf you believe you are getting this error by mistake, try switching to a different overlay compiler in Settings.</string>
 
     <string name="warning_title">WARNING!</string>
     <string name="dangerous_warning_content">Substratum has detected that it is running on a
@@ -209,6 +224,9 @@
         (rro2/legacy)
     </string>
 
+    <string name="settings_about_system_version">system platform</string>
+    <string name="settings_about_system_content" translatable="false">%NULL$</string>
+
     <string name="settings_aopt_switcher_title">Substratum Overlay Compiler</string>
     <string name="settings_aapt">AAPT (Stable)</string>
     <string name="settings_aopt">AOPT (Cutting Edge)</string>
@@ -246,6 +264,7 @@
     <string name="manage_system_overlay_text">Disables all enabled overlays and restores the stock
         theme
     </string>
+    <string name="manage_system_not_permitted">Could not enable a few overlays due to main theme not being present.</string>
     <string name="manage_wallpaper_title">Restore Stock Wallpaper</string>
     <string name="manage_wallpaper_text">Restores the default wallpaper on your device</string>
     <string name="manage_wallpaper_home">Home screen wallpaper</string>
@@ -307,6 +326,8 @@
     <string name="menu_showcase">Showcase</string>
     <string name="menu_uninstall">Uninstall Theme</string>
 
+    <string name="menu_favorite_snackbar">Successfully set %s as an app shortcut!</string>
+
     <string name="coming_soon">Stolen by Char!</string>
     <string name="legacy_theme_notification_title">Deprecated Theme Warning</string>
     <string name="legacy_theme_notification_text">To use outdated themes,
@@ -366,7 +387,8 @@
     <string name="logcat_dialog_title">\"LogChar\" Debug Report</string>
     <string name="logcat_dialog_copy_success">Successfully copied error log to clipboard!</string>
     <string name="logcat_email_subject">%s: Theme Bug Report</string>
-    <string name="logcat_email_body" formatted="false">Hey %s,\n\nI have an issue with %s, and would
+    <string name="logcat_email_body" formatted="false" translatable="false">
+        Hey %s,\n\nI have an issue with %s, and would
         like to see if you could help me resolve this issue.\n\nDevice:%s\n\nReport:\n\n%s
     </string>
     <string name="logcat_email_activity">Send bug report using&#8230;</string>
@@ -501,8 +523,9 @@
         wait&#8230;</string>
     <string name="toast_updating">Substratum is now getting your theme ready in the background!
     </string>
-    <string name="no_themes_title">no themes installed&#8230;</string>
+    <string name="no_themes_title">no themes found&#8230;</string>
     <string name="no_themes_description">please install a compatible theme!</string>
+    <string name="no_themes_description_search">\"%s\" was not found in the list of themes installed&#8230;</string>
 
     <string name="toast_on_back_press_compiling">You can use other apps during compile by clicking
         Home/Recents buttons.
@@ -558,16 +581,6 @@
     <string name="substratum_cache_clear_toast">Substratum\'s cache has been wiped!</string>
     <string name="substratum_restart_toast">Substratum restarted automatically after a settings
         change.
-    </string>
-    <string name="masquerade_check_title">il bacio della morte</string>
-    <string name="masquerade_check_subtext">Ensure the system\'s presence and integrity of the
-        Masquerade theme system. If Masquerade does not report back positively, please perform a
-        soft/hard reboot and try again!
-    </string>
-    <string name="masquerade_check_installed">Quiet child, as the dance has already begun!</string>
-    <string name="masquerade_check_not_installed">masquerade is not installed.</string>
-    <string name="masquerade_check_not_supported">masquerade is not supported on substratum
-        legacy.
     </string>
     <string name="purge_cache">Reset Theme Cache</string>
     <string name="purge_cache_subtext">Invalidate Substratum\'s theme and application cache, as well
@@ -751,7 +764,7 @@
     <string name="scheduled_profile_card_content">This function gives you the possibility to automatically switch between profiles based on the time of day.</string>
     <string name="scheduled_profile_apply_success">Scheduled profile successfully applied!</string>
     <string name="scheduled_profile_disable_success">Scheduled profile successfully disabled!</string>
-    <string name="active_time">Active times</string>
+    <string name="active_time">Night schedule</string>
     <string name="start_time">Start</string>
     <string name="end_time">End</string>
     <string name="day_profile">Day profile</string>
@@ -765,4 +778,12 @@
     <string name="profile_pending_notification">Profile will be changed after screen is off.</string>
     <string name="profile_success_notification">Profile successfully applied!</string>
     <string name="profile_failed_notification">Profile failed to apply&#8230;</string>
+    <string name="profile_failed_info_notification">Touch for more information</string>
+
+    <string name="theme_debug_mode_title">Theme Debugging Mode</string>
+    <string name="theme_debug_mode_summary">Disable the legacy compiler fallback</string>
+    <string name="theme_debug_mode_dialog_title">WARNING</string>
+    <string name="theme_debug_mode_dialog_content">This may completely break the compilation process. Only enable this option if you know what you are doing!</string>
+    <string name="theme_debug_mode_dialog_continue">Continue</string>
+    <string name="theme_debug_mode_dialog_cancel">Cancel</string>
 </resources>

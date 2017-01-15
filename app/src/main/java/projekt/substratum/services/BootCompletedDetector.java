@@ -10,7 +10,13 @@ import android.support.v7.preference.PreferenceManager;
 
 import java.util.Calendar;
 
-import projekt.substratum.R;
+import static projekt.substratum.fragments.ProfileFragment.DAY;
+import static projekt.substratum.fragments.ProfileFragment.DAY_PROFILE_HOUR;
+import static projekt.substratum.fragments.ProfileFragment.NIGHT;
+import static projekt.substratum.fragments.ProfileFragment.NIGHT_PROFILE_HOUR;
+import static projekt.substratum.fragments.ProfileFragment.NIGHT_PROFILE_MINUTE;
+import static projekt.substratum.fragments.ProfileFragment.SCHEDULED_PROFILE_ENABLED;
+import static projekt.substratum.fragments.ProfileFragment.SCHEDULED_PROFILE_TYPE_EXTRA;
 
 public class BootCompletedDetector extends BroadcastReceiver {
 
@@ -23,45 +29,45 @@ public class BootCompletedDetector extends BroadcastReceiver {
             context.startService(pushIntent);
 
             prefs = PreferenceManager.getDefaultSharedPreferences(context);
-            if (prefs.getBoolean("scheduled_profile_enabled", false))
+            if (prefs.getBoolean(SCHEDULED_PROFILE_ENABLED, false))
                 setupScheduledProfile(context);
         }
     }
 
     private void setupScheduledProfile(Context context) {
         AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        Calendar calendar = Calendar.getInstance();
         Intent intent = new Intent(context, ScheduledProfileReceiver.class);
-        intent.putExtra("type", context.getString(R.string.night));
+        intent.putExtra(SCHEDULED_PROFILE_TYPE_EXTRA, NIGHT);
         PendingIntent nightIntent = PendingIntent.getBroadcast(context, 0, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
-        intent.putExtra("type", R.string.day);
+        intent.putExtra(SCHEDULED_PROFILE_TYPE_EXTRA, DAY);
         PendingIntent dayIntent = PendingIntent.getBroadcast(context, 1, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
-        final int dayHour = prefs.getInt("day_profile_hour", 0);
-        final int dayMinute = prefs.getInt("night_profile_minute", 0);
-        final int nightHour = prefs.getInt("night_profile_hour", 0);
-        final int nightMinute = prefs.getInt("night_profile_minute", 0);
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
+        final int dayHour = prefs.getInt(DAY_PROFILE_HOUR, 0);
+        final int dayMinute = prefs.getInt(NIGHT_PROFILE_MINUTE, 0);
+        final int nightHour = prefs.getInt(NIGHT_PROFILE_HOUR, 0);
+        final int nightMinute = prefs.getInt(NIGHT_PROFILE_MINUTE, 0);
 
         // night time
+        calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.set(Calendar.HOUR_OF_DAY, nightHour);
         calendar.set(Calendar.MINUTE, nightMinute);
         if (calendar.getTimeInMillis() < System.currentTimeMillis()) {
             calendar.add(Calendar.DAY_OF_YEAR, 1);
         }
-        alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                AlarmManager.INTERVAL_DAY, nightIntent);
+        alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                nightIntent);
 
         // day time
+        calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.set(Calendar.HOUR_OF_DAY, dayHour);
         calendar.set(Calendar.MINUTE, dayMinute);
         if (calendar.getTimeInMillis() < System.currentTimeMillis()) {
             calendar.add(Calendar.DAY_OF_YEAR, 1);
         }
-        alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                AlarmManager.INTERVAL_DAY, dayIntent);
+        alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                dayIntent);
     }
 }

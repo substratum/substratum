@@ -83,7 +83,7 @@ public class AOPTCheck {
                     (integrityCheck.equals("Android Asset Packaging Tool, v0.2-") ||
                             integrityCheck.equals(
                                     "Android Overlay Packaging Tool, v0.2-android-7" +
-                                            ".0-userdebug")
+                                            ".1.1-userdebug")
                     )) {
                 Log.d(References.SUBSTRATUM_LOG, "The system partition already contains an " +
                         "existing " +
@@ -159,7 +159,7 @@ public class AOPTCheck {
         }
     }
 
-    private String checkAOPTIntegrity() {
+    public String checkAOPTIntegrity() {
         Process proc = null;
         try {
             Runtime rt = Runtime.getRuntime();

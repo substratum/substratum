@@ -13,6 +13,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
@@ -89,6 +90,18 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         }
         themePlatform.setIcon(getContext().getDrawable(R.mipmap.projekt_icon));
 
+        Preference systemPlatform = getPreferenceManager().findPreference
+                ("system_platform");
+        systemPlatform.setSummary(
+                getString(R.string.android) + " " + References.getProp("ro.build.version.release") +
+                        " (" + Build.ID + ")\n" +
+                        getString(R.string.device) + " " + Build.MODEL + " (" + Build.DEVICE + ")" +
+                        "\n" +
+                        getString(R.string.vendor) + " " +
+                        References.getProp("ro.build.version.security_patch") + ""
+        );
+        systemPlatform.setIcon(References.grabAppIcon(getContext(), "com.android.systemui"));
+
         final Preference aoptSwitcher = getPreferenceManager().findPreference
                 ("aopt_switcher");
         if (prefs.getString("compiler", "aapt").equals("aapt")) {
@@ -117,12 +130,14 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                             case 0:
                                 prefs1.edit().remove("compiler").apply();
                                 prefs1.edit().putString("compiler", "aapt").apply();
+                                prefs1.edit().putBoolean("aopt_debug", false).apply();
                                 aoptSwitcher.setSummary(R.string.settings_aapt);
                                 new AOPTCheck().injectAOPT(getContext(), true);
                                 break;
                             case 1:
                                 prefs1.edit().remove("compiler").apply();
                                 prefs1.edit().putString("compiler", "aopt").apply();
+                                prefs1.edit().putBoolean("aopt_debug", true).apply();
                                 aoptSwitcher.setSummary(R.string.settings_aopt);
                                 new AOPTCheck().injectAOPT(getContext(), true);
                                 break;
@@ -158,25 +173,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             } catch (Exception e) {
                 // Masquerade was not installed
             }
-            final Preference masqueradeCheck = getPreferenceManager().findPreference
-                    ("masquerade_check");
-            masqueradeCheck.setOnPreferenceClickListener(
-                    preference -> {
-                        if (References.isPackageInstalled(getContext(),
-                                "masquerade.substratum")) {
-                            Intent runCommand = new Intent();
-                            runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                            runCommand.setAction("masquerade.substratum.COMMANDS");
-                            runCommand.putExtra("substratum-check", "masquerade-ball");
-                            getContext().sendBroadcast(runCommand);
-                        } else {
-                            Snackbar.make(getView(),
-                                    getString(R.string.masquerade_check_not_installed),
-                                    Snackbar.LENGTH_LONG)
-                                    .show();
-                        }
-                        return false;
-                    });
 
             final CheckBoxPreference hide_app_checkbox = (CheckBoxPreference)
                     getPreferenceManager().findPreference("hide_app_checkbox");
@@ -274,6 +270,32 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                             manager_disabled_overlays.setChecked(false);
                             return false;
                         }
+                    });
+
+            final CheckBoxPreference debugTheme = (CheckBoxPreference)
+                    getPreferenceManager().findPreference("theme_debug");
+            debugTheme.setChecked(prefs.getBoolean("theme_debug", false));
+            debugTheme.setOnPreferenceChangeListener(
+                    (preference, newValue) -> {
+                        boolean isChecked = (Boolean) newValue;
+                        if (isChecked) {
+                            final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                            builder.setTitle(R.string.theme_debug_mode_dialog_title);
+                            builder.setMessage(R.string.theme_debug_mode_dialog_content);
+                            builder.setNegativeButton(R.string.theme_debug_mode_dialog_cancel,
+                                    (dialog, id) -> dialog.dismiss());
+                            builder.setPositiveButton(R.string.theme_debug_mode_dialog_continue,
+                                    (dialog, id) -> {
+                                        prefs.edit()
+                                                .putBoolean("theme_debug", true).apply();
+                                        debugTheme.setChecked(true);
+                                    });
+                            builder.show();
+                        } else {
+                            prefs.edit().putBoolean("theme_debug", false).apply();
+                            debugTheme.setChecked(false);
+                        }
+                        return false;
                     });
         }
 
@@ -436,7 +458,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 });
     }
 
-    public class deleteCache extends AsyncTask<String, Integer, String> {
+    private class deleteCache extends AsyncTask<String, Integer, String> {
         @Override
         protected void onPreExecute() {
             mProgressDialog = new ProgressDialog(getContext());

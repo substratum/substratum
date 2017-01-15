@@ -12,17 +12,93 @@
 
     <string-array name="translations">
         <item>中文翻译（简体）</item>
+        <item>Traductions en français</item>
+        <item>Deutsche Übersetzungen</item>
+        <item>Magyar Fordítás</item>
+        <item>Traduzioni Italiane</item>
+        <item>Lietuvos Vertimai</item>
         <item>Tradução Português (Brasileiro)</item>
+        <item>Tradução Português</item>
+        <item>Русский перевод</item>
+        <item>Traducciones españolas</item>
+    </string-array>
+
+    <string-array name="french_translators">
+        <item>Kevin Minions (Kevin_Minions)</item>
+        <item>Kortxero</item>
+        <item>Thomas DE SA (dekefake)</item>
+        <item>Julien Quintal (julzquintal)</item>
+        <item>Marin (MannaHoc)</item>
+        <item>Régis SIMEON (rage57frth)</item>
+    </string-array>
+
+    <string-array name="german_translators">
+        <item>Leon Zewe (TechnoPeter)</item>
+        <item>Christian Horch (nazfalas)</item>
+        <item>Christian (Blackbird1997)</item>
+        <item>Jérôme Willing (JmWilling)</item>
+        <item>Mirko Weser (fraz140)</item>
+        <item>Mardon (markusmenzel)</item>
+    </string-array>
+
+    <string-array name="hungarian_translators">
+        <item>Márk Kaszás (kaszasm)</item>
+        <item>Gábor Vecsera (Wechy77)</item>
+        <item>László Szécsényi (szecslasz)</item>
+    </string-array>
+
+    <string-array name="lithuanian_translators">
+        <item>Gediminas Kiaunė (gedablo666)</item>
+    </string-array>
+
+    <string-array name="italian_translators">
+        <item>Francesco De Feo (fracazzo1995)</item>
+        <item>axxx007xxxz</item>
+        <item>Cristiano Terlizzi (Terlo)</item>
+        <item>nisby</item>
+        <item>luca stracquadanio (lucastracquadanio)</item>
+        <item>Iskan Ivanov (iskan998979145561)</item>
+        <item>Lore Concas (lore96jr)</item>
+        <item>matoxxi</item>
+    </string-array>
+
+    <string-array name="russian_translators">
+        <item>Николай Шахов (shjin777)</item>
+        <item>Vel_Djentleman</item>
+        <item>itaysonlab</item>
+        <item>123321artyom</item>
+        <item>Alex M (beroid3)</item>
+        <item>Iskan Ivanov (iskan998979145561)</item>
+        <item>Vladimir Burylov (Vovan77rus59)</item>
+        <item>SerJo87</item>
+    </string-array>
+
+    <string-array name="spanish_translators">
+        <item>Jorge Abel (JorgeAbel)</item>
+        <item>dark8899</item>
+        <item>Ibai Cruz (ibaiitugarpe)</item>
+        <item>jacbarahona72</item>
+        <item>Álvaro Amador J. (amador.alvaro)</item>
+        <item>PsekDoms17</item>
+        <item>Renzo Sparta (exequiel0210)</item>
+        <item>Jesus Roldan Roldan (jesusroldanroldan)</item>
+        <item>Ibai Lope (ibaraka95)</item>
     </string-array>
 
     <string-array name="portuguese_brazillian_translators">
         <item>Chrys B (abacate123)</item>
+        <item>Christian Schuler (christian_carro)</item>
         <item>Felipe Silva (felipesilva2655)</item>
         <item>Fred “Virkkunen” Schauß (zkaarface)</item>
     </string-array>
 
+    <string-array name="portuguese_translators">
+        <item>Carlos (lloco73)</item>
+    </string-array>
+
     <string-array name="chinese_translators">
         <item>马丁龙猪 (martincz)</item>
+        <item>luosir</item>
         <item>xdygxh</item>
         <item>iconteral</item>
         <item>weixuan (weixuanxie)</item>
@@ -30,14 +106,20 @@
         <item>梁灿耀 (yezizhai)</item>
         <item>李涛 (crixec)</item>
         <item>筱穆 (xm12578)</item>
-        <item>luosir</item>
         <item>riouts</item>
         <item>那年明月 (vanson_pc)</item>
-        <item>410054165</item>
+        <item>闲云野鹤 (410054165)</item>
         <item>Craig Hart (craigaryhart)</item>
         <item>Tong Wu (wutong07163)</item>
         <item>Lu Chang (Ludoux)</item>
         <item>林毅华 (linyihua1996)</item>
         <item>周羿吉 (zhouyiji)</item>
+        <item>Ariver</item>
+        <item>AltracasysHC phixxGs (WarRock_Ryusei)</item>
+        <item>罗July (LuoJuly)</item>
+        <item>jokeroller</item>
+        <item>panming</item>
+        <item>SakuraSa233</item>
+        <item>Me Bite (710623726)</item>
     </string-array>
 </resources>

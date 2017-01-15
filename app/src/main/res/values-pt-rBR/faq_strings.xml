@@ -20,7 +20,7 @@
   <string name="question_nine">Alguns elementos parecem bagunçados depois de eu aplicar o tema, o que aconteceu?</string>
   <string name="answer_nine">1. Reinicie o SystemUI caso já não o tenha sido feito automaticamente.\n2. Reinicie o aparelho.\n3. Remova e/ou apague as camadas, recompile, e reaplique.</string>
   <string name="question_ten">Aonde estão instaladas as camadas?</string>
-  <string name="answer_ten">As camadas estão instaladas no diretório /data/app, no qual significa que cada camada recebe sua própria pasta.</string>
+  <string name="answer_ten">As camadas estão instaladas no diretório /data/app, o que significa que cada camada recebe sua própria pasta.    </string>
   <string name="question_eleven">Estou tendo um erro quando tento atualizar um tema na Play Store.</string>
   <string name="answer_eleven">Desinstale o tema e o reinstale.</string>
   <string name="question_twelve">Quem eu devo contatar se eu tiver uma dúvida séria não resolvida lendo esses passos?</string>

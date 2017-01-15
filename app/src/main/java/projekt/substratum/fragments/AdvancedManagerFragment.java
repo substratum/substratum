@@ -76,7 +76,7 @@ public class AdvancedManagerFragment extends Fragment {
         View sheetView = root.findViewById(R.id.fab_sheet);
         View overlay = root.findViewById(R.id.overlay);
         int sheetColor = getContext().getColor(R.color.fab_menu_background_card);
-        int fabColor = getContext().getColor(R.color.colorAccent);
+        int fabColor = getContext().getColor(R.color.fab_background_color);
 
         progressBar = (MaterialProgressBar) root.findViewById(R.id.progress_bar_loader);
 
@@ -157,7 +157,7 @@ public class AdvancedManagerFragment extends Fragment {
                     }
                     Toast toast = Toast.makeText(getContext(), getString(R
                                     .string.toast_disabled),
-                            Toast.LENGTH_LONG);
+                            Toast.LENGTH_SHORT);
                     toast.show();
                     if (References.isPackageInstalled(getContext(),
                             "masquerade.substratum")) {
@@ -257,41 +257,61 @@ public class AdvancedManagerFragment extends Fragment {
                 String data = References.enableOverlay();
                 List<OverlayManager> overlayList = ((OverlayManagerAdapter) mAdapter)
                         .getOverlayManagerList();
+                Boolean has_failed = false;
                 for (int i = 0; i < overlayList.size(); i++) {
                     OverlayManager overlay12 = overlayList.get(i);
                     if (overlay12.isSelected()) {
-                        data = data + " " + overlay12.getName();
+                        if (References.isPackageInstalled(getContext(),
+                                References.grabOverlayParent(getContext(), overlay12.getName()))) {
+                            data = data + " " + overlay12.getName();
+                        } else {
+                            has_failed = true;
+                        }
                     }
                 }
-                if (!prefs.getBoolean("systemui_recreate", false) &&
-                        data.contains("systemui")) {
-                    data = data + " && pkill -f com.android.systemui";
-                }
-                Toast toast = Toast.makeText(getContext(), getString(R
-                                .string.toast_enabled),
-                        Toast.LENGTH_LONG);
-                toast.show();
-                if (References.isPackageInstalled(getContext(), "masquerade.substratum")) {
-                    Intent runCommand = new Intent();
-                    runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                    runCommand.setAction("masquerade.substratum.COMMANDS");
-                    runCommand.putExtra("om-commands", data);
-                    getContext().sendBroadcast(runCommand);
+                if (!data.equals(References.enableOverlay())) {
+                    if (!prefs.getBoolean("systemui_recreate", false) &&
+                            data.contains("systemui")) {
+                        data = data + " && pkill -f com.android.systemui";
+                    }
+                    Toast toast = Toast.makeText(getContext(), getString(R
+                                    .string.toast_enabled),
+                            Toast.LENGTH_SHORT);
+                    toast.show();
+                    if (has_failed) {
+                        Toast toast2 = Toast.makeText(getContext(), getString(R
+                                        .string.manage_system_not_permitted),
+                                Toast.LENGTH_LONG);
+                        toast2.show();
+                    }
+                    if (References.isPackageInstalled(getContext(), "masquerade.substratum")) {
+                        Intent runCommand = new Intent();
+                        runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                        runCommand.setAction("masquerade.substratum.COMMANDS");
+                        runCommand.putExtra("om-commands", data);
+                        getContext().sendBroadcast(runCommand);
+                    } else {
+                        new References.ThreadRunner().execute(data);
+                    }
+                    if (References.checkOMSVersion(getContext()) == 7 &&
+                            !data.contains("projekt.substratum")) {
+                        Handler handler = new Handler();
+                        handler.postDelayed(() -> {
+                            // OMS may not have written all the changes so quickly just yet
+                            // so we may need to have a small delay
+                            try {
+                                getActivity().recreate();
+                            } catch (Exception e) {
+                                // Consume window refresh
+                            }
+                        }, REFRESH_WINDOW_DELAY);
+                    }
                 } else {
-                    new References.ThreadRunner().execute(data);
-                }
-                if (References.checkOMSVersion(getContext()) == 7 &&
-                        !data.contains("projekt.substratum")) {
-                    Handler handler = new Handler();
-                    handler.postDelayed(() -> {
-                        // OMS may not have written all the changes so quickly just yet
-                        // so we may need to have a small delay
-                        try {
-                            getActivity().recreate();
-                        } catch (Exception e) {
-                            // Consume window refresh
-                        }
-                    }, REFRESH_WINDOW_DELAY);
+                    loadingBar.setVisibility(View.GONE);
+                    Toast toast = Toast.makeText(getContext(), getString(R
+                                    .string.manage_system_not_permitted),
+                            Toast.LENGTH_LONG);
+                    toast.show();
                 }
             });
 
@@ -488,13 +508,12 @@ public class AdvancedManagerFragment extends Fragment {
                         // Sort the values list
                         List<Pair<String, String>> sortedMap = sortMapByValues(unsortedMap);
 
-                        for (Pair<String, String> entry : sortedMap) {
-                            if (activated_overlays.contains(entry.first)) {
-                                OverlayManager st = new OverlayManager(mContext,
-                                        entry.first, true);
-                                overlaysList.add(st);
-                            }
-                        }
+                        sortedMap.stream().filter(entry ->
+                                activated_overlays.contains(entry.first)).forEach(entry -> {
+                            OverlayManager st = new OverlayManager(mContext,
+                                    entry.first, true);
+                            overlaysList.add(st);
+                        });
                     } catch (Exception e) {
                         Toast toast = Toast.makeText(getContext(), getString(R
                                         .string.advanced_manager_overlay_read_error),

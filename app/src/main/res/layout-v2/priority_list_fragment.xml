@@ -81,6 +81,7 @@
             android:layout_marginBottom="15dp"
             android:layout_marginEnd="15dp"
             android:src="@drawable/fab_profile_save"
+            app:backgroundTint="@color/fab_background_color"
             app:layout_windowInsets="bottom"
             app:layout_windowInsetsUseMargin="true" />
 

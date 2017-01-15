@@ -2,7 +2,7 @@
 <shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
     <shortcut
         android:enabled="true"
-        android:icon="@drawable/shortcut_store"
+        android:icon="@drawable/app_shortcut_store"
         android:shortcutDisabledMessage="@string/shortcut_store_disabled"
         android:shortcutId="static"
         android:shortcutLongLabel="@string/shortcut_store"

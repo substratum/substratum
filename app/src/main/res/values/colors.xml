@@ -127,4 +127,5 @@
     <color name="fab_menu_icon_color">#ff000000</color>
     <color name="fab_menu_text_color">#de000000</color>
     <color name="fab_menu_divider">#4a000000</color>
+    <color name="fab_background_color">@color/colorAccent</color>
 </resources>

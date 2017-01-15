@@ -1,0 +1,4 @@
+<resources>
+    <string name="aapt_version" translatable="false">"Android Asset Packaging Tool, v0.2-"</string>
+    <string name="aopt_version" translatable="false">"Android Overlay Packaging Tool, v0.2-android-7.1.1-userdebug"</string>
+</resources>

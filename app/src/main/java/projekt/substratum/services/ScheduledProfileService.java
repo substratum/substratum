@@ -19,6 +19,7 @@ import android.util.Log;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -141,7 +142,7 @@ public class ScheduledProfileService extends IntentService {
         String to_be_disabled = References.disableAllOverlays();
 
         // Now process the overlays to be enabled
-        List<String> cannot_run_overlays = new ArrayList<>();
+        List<List<String>> cannot_run_overlays = new ArrayList<>();
         for (int i = 0, size = profile.size(); i < size; i++) {
             String packageName = profile.get(i).get(0);
             String targetPackage = profile.get(i).get(1);
@@ -150,30 +151,27 @@ public class ScheduledProfileService extends IntentService {
                     if (system.contains(packageName)) {
                         to_be_run.add(packageName);
                     } else {
-                        cannot_run_overlays.add(packageName);
+                        cannot_run_overlays.add(profile.get(i));
                     }
                 }
             }
         }
         String dialog_message = "";
         for (int i = 0; i < cannot_run_overlays.size(); i++) {
-            String not_split = cannot_run_overlays.get(i);
-            String[] split = not_split.split("\\.");
-            String theme_name = split[split.length - 1];
-            String package_id = not_split.substring(0, not_split.length() - theme_name
-                    .length() - 1);
+            String packageName = cannot_run_overlays.get(i).get(0);
+            String targetPackage = cannot_run_overlays.get(i).get(1);
+            String packageDetail = packageName.replace(targetPackage + ".", "");
+            String detailSplit = Arrays.toString(packageDetail.split("\\."))
+                    .replace("[", "")
+                    .replace("]", "")
+                    .replace(",", " ");
 
-            if (i == 0) {
-                dialog_message = dialog_message + "\u2022 " + package_id + " {" +
-                        theme_name + ")";
+            if (dialog_message.length() == 0) {
+                dialog_message = dialog_message + "\u2022 " + targetPackage + " (" +
+                        detailSplit + ")";
             } else {
-                if (i > 0 && dialog_message.length() == 0) {
-                    dialog_message = dialog_message + "\u2022 " + package_id + " (" +
-                            theme_name + ")";
-                } else {
-                    dialog_message = dialog_message + "\n" + "\u2022 " + package_id + " (" +
-                            theme_name + ")";
-                }
+                dialog_message = dialog_message + "\n" + "\u2022 " + targetPackage
+                        + " (" + detailSplit + ")";
             }
         }
 

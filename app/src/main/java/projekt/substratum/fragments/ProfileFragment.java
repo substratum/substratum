@@ -38,6 +38,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -67,7 +68,7 @@ public class ProfileFragment extends Fragment {
     private String backup_getText;
     private String to_be_run_commands;
     private ArrayAdapter<String> adapter;
-    private List<String> cannot_run_overlays;
+    private List<List<String>> cannot_run_overlays;
     private String dialog_message;
     private boolean helper_exists = true;
     private SharedPreferences prefs;
@@ -821,42 +822,27 @@ public class ProfileFragment extends Fragment {
                             if (system.contains(packageName)) {
                                 to_be_run.add(packageName);
                             } else {
-                                cannot_run_overlays.add(packageName);
+                                cannot_run_overlays.add(profile.get(i));
                             }
                         }
                     }
                 }
                 dialog_message = "";
                 for (int i = 0; i < cannot_run_overlays.size(); i++) {
-                    String not_split = cannot_run_overlays.get(i);
-                    String[] split = not_split.split("\\.");
-                    String theme_name = split[split.length - 1];
-                    String package_id = not_split.substring(0, not_split.length() - theme_name
-                            .length() - 1);
-                    String package_name = "";
-                    try {
-                        ApplicationInfo applicationInfo = getContext().getPackageManager()
-                                .getApplicationInfo
-                                        (package_id, 0);
-                        package_name = getContext().getPackageManager().getApplicationLabel
-                                (applicationInfo).toString();
-                    } catch (Exception e) {
-                        Log.e(References.SUBSTRATUM_LOG, "Could not find explicit package " +
-                                "identifier" +
-                                " in package manager list.");
-                    }
+                    String packageName = cannot_run_overlays.get(i).get(0);
+                    String targetPackage = cannot_run_overlays.get(i).get(1);
+                    String packageDetail = packageName.replace(targetPackage + ".", "");
+                    String detailSplit = Arrays.toString(packageDetail.split("\\."))
+                            .replace("[", "")
+                            .replace("]", "")
+                            .replace(",", " ");
 
-                    if (i == 0) {
-                        dialog_message = dialog_message + "\u2022 " + theme_name + " [" +
-                                package_name + "]";
+                    if (dialog_message.length() == 0) {
+                        dialog_message = dialog_message + "\u2022 " + targetPackage + " (" +
+                                detailSplit + ")";
                     } else {
-                        if (i > 0 && dialog_message.length() == 0) {
-                            dialog_message = dialog_message + "\u2022 " + theme_name + " [" +
-                                    package_name + "]";
-                        } else {
-                            dialog_message = dialog_message + "\n" + "\u2022 " + theme_name + " [" +
-                                    package_name + "]";
-                        }
+                        dialog_message = dialog_message + "\n" + "\u2022 " + targetPackage
+                                + " (" + detailSplit + ")";
                     }
                 }
 

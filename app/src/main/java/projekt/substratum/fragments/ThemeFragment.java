@@ -233,6 +233,7 @@ public class ThemeFragment extends Fragment {
         String parse;
         if (substratum_packages.size() == 0) {
             parse = getString(R.string.actionbar_theme_count_none);
+            MainActivity.actionbar_content.setVisibility(View.GONE);
         } else if (substratum_packages.size() == 1) {
             parse = String.format(getString(R.string.actionbar_theme_count_singular),
                     String.valueOf(substratum_packages.size()));

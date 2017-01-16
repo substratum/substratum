@@ -99,10 +99,8 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void switchThemeFragment(String title, String home_type) {
-        if (searchView != null) {
-            if (!searchView.isIconified()) {
-                searchView.setIconified(true);
-            }
+        if (searchView != null && !searchView.isIconified()) {
+            searchView.setIconified(true);
         }
         Fragment fragment = new ThemeFragment();
         Bundle bundle = new Bundle();
@@ -122,10 +120,8 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void switchFragmentToLicenses(String title, LibsSupportFragment fragment) {
-        if (searchView != null) {
-            if (!searchView.isIconified()) {
-                searchView.setIconified(true);
-            }
+        if (searchView != null && !searchView.isIconified()) {
+            searchView.setIconified(true);
         }
         actionbar_content.setVisibility(View.GONE);
         actionbar_title.setVisibility(View.GONE);

@@ -4,8 +4,9 @@
 
     <dimen name="action_bar_elevation">4dp</dimen>
 
-    <dimen name="main_screen_card_corner_elevation">2dp</dimen>
+    <dimen name="main_screen_card_elevation">2dp</dimen>
     <dimen name="main_screen_card_corner_radius">2dp</dimen>
+    <dimen name="main_screen_n_card_elevation">0dp</dimen>
 
     <dimen name="theme_information_card_corner_elevation">5dp</dimen>
     <dimen name="theme_information_card_corner_radius">5dp</dimen>
@@ -49,4 +50,5 @@
     <!-- Grid item -->
     <dimen name="grid_image_height">180dp</dimen>
     <dimen name="grid_text_padding">10dp</dimen>
+
 </resources>

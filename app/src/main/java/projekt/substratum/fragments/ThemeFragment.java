@@ -237,9 +237,11 @@ public class ThemeFragment extends Fragment {
         } else if (substratum_packages.size() == 1) {
             parse = String.format(getString(R.string.actionbar_theme_count_singular),
                     String.valueOf(substratum_packages.size()));
+            MainActivity.actionbar_content.setVisibility(View.VISIBLE);
         } else {
             parse = String.format(getString(R.string.actionbar_theme_count_plural),
                     String.valueOf(substratum_packages.size()));
+            MainActivity.actionbar_content.setVisibility(View.VISIBLE);
         }
         MainActivity.actionbar_content.setText(parse);
 

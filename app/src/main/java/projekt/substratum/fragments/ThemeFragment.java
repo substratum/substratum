@@ -47,7 +47,7 @@ public class ThemeFragment extends Fragment {
     private ThemeEntryAdapter adapter;
     private View cardView;
     private ViewGroup root;
-    private String home_type = "";
+    private String home_type = "", title = "";
     private SharedPreferences prefs;
     private TextView cardViewText;
     private ImageView cardViewImage;
@@ -68,6 +68,7 @@ public class ThemeFragment extends Fragment {
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             home_type = bundle.getString("home_type");
+            title = bundle.getString("title");
         }
 
         // Initialize a proper loading sequence so the user does not see the unparsed string
@@ -232,23 +233,20 @@ public class ThemeFragment extends Fragment {
         // Now let's place the proper amount of theme count into the context text
         String parse;
         if (substratum_packages.size() == 0) {
-            parse = getString(R.string.actionbar_theme_count_none);
-            MainActivity.actionbar_content.setVisibility(View.GONE);
+            MainActivity.switchToStockToolbar(title);
         } else if (substratum_packages.size() == 1) {
             parse = String.format(getString(R.string.actionbar_theme_count_singular),
                     String.valueOf(substratum_packages.size()));
-            MainActivity.actionbar_content.setVisibility(View.VISIBLE);
+            MainActivity.switchToCustomToolbar(title, parse);
         } else {
             parse = String.format(getString(R.string.actionbar_theme_count_plural),
                     String.valueOf(substratum_packages.size()));
-            MainActivity.actionbar_content.setVisibility(View.VISIBLE);
+            MainActivity.switchToCustomToolbar(title, parse);
         }
-        MainActivity.actionbar_content.setText(parse);
 
         // Now we need to sort the buffered installed Layers themes
         map = new TreeMap<>(substratum_packages);
-        ArrayList<ThemeInfo> themeInfos = prepareData();
-        adapter = new ThemeEntryAdapter(themeInfos);
+        adapter = new ThemeEntryAdapter(prepareData());
         recyclerView.setAdapter(adapter);
         swipeRefreshLayout.setRefreshing(false);
         materialProgressBar.setVisibility(View.GONE);

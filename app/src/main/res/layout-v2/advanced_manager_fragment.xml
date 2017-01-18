@@ -58,7 +58,8 @@
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="3dp">
+        android:clipToPadding="false"
+        android:paddingTop="3dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -77,9 +78,7 @@
                 android:id="@+id/overlays_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginEnd="5dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
+                android:padding="5dp"
                 android:clipToPadding="false"
                 android:paddingBottom="90dp"
                 android:scrollbars="vertical" />

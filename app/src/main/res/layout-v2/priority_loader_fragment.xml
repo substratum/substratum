@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         card_view:cardBackgroundColor="@color/main_screen_card_background"
         card_view:cardCornerRadius="0dp"
-        card_view:cardElevation="@dimen/main_screen_card_corner_elevation">
+        card_view:cardElevation="@dimen/main_screen_card_elevation">
 
         <RelativeLayout
             android:layout_width="match_parent"

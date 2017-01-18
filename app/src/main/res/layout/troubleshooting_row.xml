@@ -12,7 +12,7 @@
     android:foreground="?android:selectableItemBackground"
     card_view:cardBackgroundColor="@color/main_screen_card_background"
     card_view:cardCornerRadius="@dimen/main_screen_card_corner_radius"
-    card_view:cardElevation="@dimen/main_screen_card_corner_elevation">
+    card_view:cardElevation="@dimen/main_screen_card_elevation">
 
     <RelativeLayout
         android:layout_width="match_parent"

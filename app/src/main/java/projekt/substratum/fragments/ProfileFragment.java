@@ -51,6 +51,7 @@ public class ProfileFragment extends Fragment {
 
     public static final String SCHEDULED_PROFILE_ENABLED = "scheduled_profile_enabled";
     public static final String SCHEDULED_PROFILE_TYPE_EXTRA = "type";
+    public static final String SCHEDULED_PROFILE_CURRENT_PROFILE = "current_profile";
     public static final String NIGHT = "night";
     public static final String NIGHT_PROFILE = "night_profile";
     public static final String NIGHT_PROFILE_HOUR = "night_profile_hour";
@@ -381,14 +382,11 @@ public class ProfileFragment extends Fragment {
         if (dayNightEnabled) {
             Calendar calendar = Calendar.getInstance();
             editor.putBoolean(SCHEDULED_PROFILE_ENABLED, dayNightEnabled);
+            calendar.setTimeInMillis(System.currentTimeMillis());
 
             // night time
-            calendar.setTimeInMillis(System.currentTimeMillis());
             calendar.set(Calendar.HOUR_OF_DAY, nightHour);
             calendar.set(Calendar.MINUTE, nightMinute);
-            if (calendar.getTimeInMillis() < System.currentTimeMillis()) {
-                calendar.add(Calendar.DAY_OF_YEAR, 1);
-            }
             alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                     nightIntent);
             editor.putString(NIGHT_PROFILE, nightProfile.getSelectedItem().toString());
@@ -396,12 +394,11 @@ public class ProfileFragment extends Fragment {
             editor.putInt(NIGHT_PROFILE_MINUTE, nightMinute);
 
             // day time
-            calendar.setTimeInMillis(System.currentTimeMillis());
-            calendar.set(Calendar.HOUR_OF_DAY, dayHour);
-            calendar.set(Calendar.MINUTE, dayMinute);
-            if (calendar.getTimeInMillis() < System.currentTimeMillis()) {
+            if (System.currentTimeMillis() > calendar.getTimeInMillis()) {
                 calendar.add(Calendar.DAY_OF_YEAR, 1);
             }
+            calendar.set(Calendar.HOUR_OF_DAY, dayHour);
+            calendar.set(Calendar.MINUTE, dayMinute);
             alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                     dayIntent);
             editor.putString(DAY_PROFILE, dayProfile.getSelectedItem().toString());

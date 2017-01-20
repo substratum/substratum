@@ -35,6 +35,7 @@ import static projekt.substratum.fragments.ProfileFragment.NIGHT;
 import static projekt.substratum.fragments.ProfileFragment.NIGHT_PROFILE;
 import static projekt.substratum.fragments.ProfileFragment.NIGHT_PROFILE_HOUR;
 import static projekt.substratum.fragments.ProfileFragment.NIGHT_PROFILE_MINUTE;
+import static projekt.substratum.fragments.ProfileFragment.SCHEDULED_PROFILE_CURRENT_PROFILE;
 import static projekt.substratum.fragments.ProfileFragment.SCHEDULED_PROFILE_TYPE_EXTRA;
 
 public class ScheduledProfileService extends IntentService {
@@ -291,6 +292,9 @@ public class ScheduledProfileService extends IntentService {
         AlarmManager alarmMgr = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
         alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                 newIntent);
+
+        //save current profile
+        prefs.edit().putString(SCHEDULED_PROFILE_CURRENT_PROFILE, extra).apply();
 
         //all set, notify user the output
         mNotifyManager.notify(NOTIFICATION_ID, mBuilder.build());

@@ -15,6 +15,7 @@ import static projekt.substratum.fragments.ProfileFragment.DAY_PROFILE_HOUR;
 import static projekt.substratum.fragments.ProfileFragment.NIGHT;
 import static projekt.substratum.fragments.ProfileFragment.NIGHT_PROFILE_HOUR;
 import static projekt.substratum.fragments.ProfileFragment.NIGHT_PROFILE_MINUTE;
+import static projekt.substratum.fragments.ProfileFragment.SCHEDULED_PROFILE_CURRENT_PROFILE;
 import static projekt.substratum.fragments.ProfileFragment.SCHEDULED_PROFILE_ENABLED;
 import static projekt.substratum.fragments.ProfileFragment.SCHEDULED_PROFILE_TYPE_EXTRA;
 
@@ -45,6 +46,7 @@ public class BootCompletedDetector extends BroadcastReceiver {
         PendingIntent dayIntent = PendingIntent.getBroadcast(context, 1, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
+        final String currentProfile = prefs.getString(SCHEDULED_PROFILE_CURRENT_PROFILE, "");
         final int dayHour = prefs.getInt(DAY_PROFILE_HOUR, 0);
         final int dayMinute = prefs.getInt(NIGHT_PROFILE_MINUTE, 0);
         final int nightHour = prefs.getInt(NIGHT_PROFILE_HOUR, 0);
@@ -54,7 +56,7 @@ public class BootCompletedDetector extends BroadcastReceiver {
         calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.set(Calendar.HOUR_OF_DAY, nightHour);
         calendar.set(Calendar.MINUTE, nightMinute);
-        if (calendar.getTimeInMillis() < System.currentTimeMillis()) {
+        if (currentProfile.equals(NIGHT)) {
             calendar.add(Calendar.DAY_OF_YEAR, 1);
         }
         alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
@@ -64,7 +66,7 @@ public class BootCompletedDetector extends BroadcastReceiver {
         calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.set(Calendar.HOUR_OF_DAY, dayHour);
         calendar.set(Calendar.MINUTE, dayMinute);
-        if (calendar.getTimeInMillis() < System.currentTimeMillis()) {
+        if (currentProfile.equals(DAY)) {
             calendar.add(Calendar.DAY_OF_YEAR, 1);
         }
         alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),

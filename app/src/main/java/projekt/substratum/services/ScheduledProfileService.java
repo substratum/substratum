@@ -116,7 +116,9 @@ public class ScheduledProfileService extends IntentService {
 
         // Cancel ongoing notification
         mNotifyManager.cancel(NOTIFICATION_ID);
-        mBuilder.setOngoing(false).setPriority(Notification.PRIORITY_MAX);
+        mBuilder.setOngoing(false)
+                .setPriority(Notification.PRIORITY_MAX)
+                .setSmallIcon(R.drawable.ic_substratum);
         mBuilder.setContentText(getString(R.string.profile_success_notification));
 
         if (extra.equals(NIGHT)) {

@@ -466,10 +466,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             mProgressDialog.setIndeterminate(true);
             mProgressDialog.setCancelable(false);
             mProgressDialog.show();
-            // Clear the notification of building theme if shown
-            NotificationManager manager = (NotificationManager)
-                    getContext().getSystemService(Context.NOTIFICATION_SERVICE);
-            manager.cancel(References.notification_id);
+            References.clearAllNotifications(getContext());
         }
 
         @Override

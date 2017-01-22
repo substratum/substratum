@@ -442,10 +442,7 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
             mProgressDialog.setIndeterminate(true);
             mProgressDialog.setCancelable(false);
             mProgressDialog.show();
-            // Clear the notification of building theme if shown
-            NotificationManager manager = (NotificationManager)
-                    mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-            manager.cancel(References.notification_id);
+            References.clearAllNotifications(mContext);
         }
 
         @Override

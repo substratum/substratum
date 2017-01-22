@@ -825,6 +825,19 @@ public class References {
         return false;
     }
 
+    // Clear all of the current notifications of Substratum when a cache clear is called
+    public static void clearAllNotifications(Context mContext) {
+        NotificationManager mNotificationManager = (NotificationManager)
+                mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+        StatusBarNotification[] notifications =
+                mNotificationManager.getActiveNotifications();
+        for (StatusBarNotification notification : notifications) {
+            if (notification.getPackageName() == mContext.getPackageName()) {
+                mNotificationManager.cancel(notification.getId());
+            }
+        }
+    }
+
     // Launch intent for a theme
     public static boolean launchTheme(Context mContext, String package_name, String theme_mode,
                                       Boolean notification) {

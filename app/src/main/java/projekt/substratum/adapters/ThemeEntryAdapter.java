@@ -149,7 +149,7 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
                         }
                     } else {
                         if (References.isNotificationVisible(
-                                mContext, References.notification_id)) {
+                                mContext, References.notification_id_upgrade)) {
                             Snackbar.make(v,
                                     information.get(pos).getContext()
                                             .getString(R.string.background_updating_toast),

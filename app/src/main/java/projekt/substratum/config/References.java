@@ -4,7 +4,7 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.app.PendingIntent;
+import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -22,6 +22,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
+import android.service.notification.StatusBarNotification;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
@@ -50,7 +51,6 @@ import java.util.Locale;
 import projekt.substrate.LetsGetStarted;
 import projekt.substrate.ShowMeYourFierceEyes;
 import projekt.substratum.BuildConfig;
-import projekt.substratum.MainActivity;
 import projekt.substratum.R;
 import projekt.substratum.util.AOPTCheck;
 import projekt.substratum.util.CacheCreator;
@@ -813,13 +813,16 @@ public class References {
 
     // Check if notification is visible for the user
     public static boolean isNotificationVisible(Context mContext, int notification_id) {
-        Intent notificationIntent = new Intent(mContext, MainActivity.class);
-        PendingIntent notificationTest = PendingIntent.getActivity(
-                mContext,
-                notification_id,
-                notificationIntent,
-                PendingIntent.FLAG_NO_CREATE);
-        return notificationTest != null;
+        NotificationManager mNotificationManager = (NotificationManager)
+                mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+        StatusBarNotification[] notifications =
+                mNotificationManager.getActiveNotifications();
+        for (StatusBarNotification notification : notifications) {
+            if (notification.getId() == notification_id) {
+                return true;
+            }
+        }
+        return false;
     }
 
     // Launch intent for a theme

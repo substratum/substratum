@@ -61,8 +61,6 @@ import projekt.substratum.services.ThemeService;
 import projekt.substratum.util.AOPTCheck;
 import projekt.substratum.util.Root;
 
-import static projekt.substratum.config.References.SUBSTRATUM_LOG;
-
 public class MainActivity extends AppCompatActivity implements
         ActivityCompat.OnRequestPermissionsResultCallback, SearchView.OnQueryTextListener {
 
@@ -140,7 +138,7 @@ public class MainActivity extends AppCompatActivity implements
 
     private void printFCMtoken() {
         String token = FirebaseInstanceId.getInstance().getToken();
-        Log.d(SUBSTRATUM_LOG, "FCM Registration Token: " + token);
+        Log.d(References.SUBSTRATUM_LOG, "FCM Registration Token: " + token);
     }
 
     private boolean copyRescueFile(Context context, String sourceFileName, String destFileName) {
@@ -150,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements
         File destParentDir = destFile.getParentFile();
         if (!destParentDir.exists()) {
             Boolean made = destParentDir.mkdir();
-            if (!made) Log.e(SUBSTRATUM_LOG,
+            if (!made) Log.e(References.SUBSTRATUM_LOG,
                     "Unable to create directories for rescue archive dumps.");
         }
 
@@ -234,7 +232,7 @@ public class MainActivity extends AppCompatActivity implements
             cls.getDeclaredMethod("getSystemFontDirLocation");
             cls.getDeclaredMethod("getThemeFontConfigLocation");
             cls.getDeclaredMethod("getThemeFontDirLocation");
-            Log.d(SUBSTRATUM_LOG, "This system fully supports font hotswapping.");
+            Log.d(References.SUBSTRATUM_LOG, "This system fully supports font hotswapping.");
             fonts_allowed = true;
         } catch (Exception ex) {
             // Suppress Fonts
@@ -420,14 +418,14 @@ public class MainActivity extends AppCompatActivity implements
                                     "/.substratum/");
                             if (!directory.exists()) {
                                 Boolean made = directory.mkdirs();
-                                if (!made) Log.e(SUBSTRATUM_LOG,
+                                if (!made) Log.e(References.SUBSTRATUM_LOG,
                                         "Unable to create directory");
                             }
                             File cacheDirectory = new File(getCacheDir(),
                                     "/SubstratumBuilder/");
                             if (!cacheDirectory.exists()) {
                                 Boolean made = cacheDirectory.mkdirs();
-                                if (!made) Log.e(SUBSTRATUM_LOG,
+                                if (!made) Log.e(References.SUBSTRATUM_LOG,
                                         "Unable to create cache directory");
                             }
                             File rescueFile = new File(
@@ -635,7 +633,7 @@ public class MainActivity extends AppCompatActivity implements
                             "/.substratum/");
                     if (!directory.exists()) {
                         Boolean made = directory.mkdirs();
-                        if (!made) Log.e(SUBSTRATUM_LOG,
+                        if (!made) Log.e(References.SUBSTRATUM_LOG,
                                 "Could not make internal substratum directory.");
                     }
                     File cacheDirectory = new File(getCacheDir(),
@@ -643,7 +641,7 @@ public class MainActivity extends AppCompatActivity implements
                     if (!cacheDirectory.exists()) {
                         Boolean made = cacheDirectory.mkdirs();
                         if (!made)
-                            Log.e(SUBSTRATUM_LOG, "Could not create cache directory.");
+                            Log.e(References.SUBSTRATUM_LOG, "Could not create cache directory.");
                     }
                     File[] fileList = new File(getCacheDir().getAbsolutePath() +
                             "/SubstratumBuilder/").listFiles();
@@ -774,7 +772,6 @@ public class MainActivity extends AppCompatActivity implements
                     LetsGetStarted.kissMe();
                 }
             }
-            new ClearSubstratumAPKs().execute("");
             super.onPostExecute(result);
         }
 
@@ -798,45 +795,13 @@ public class MainActivity extends AppCompatActivity implements
                                 "/.substratum/");
                         if (!directory.exists()) {
                             Boolean made = directory.mkdirs();
-                            if (!made) Log.e(SUBSTRATUM_LOG,
+                            if (!made) Log.e(References.SUBSTRATUM_LOG,
                                     "Could not make substratum directory on internal storage.");
                         }
                     }
                 }
             }
             return receivedRoot;
-        }
-    }
-
-    private class ClearSubstratumAPKs extends AsyncTask<String, Integer, Boolean> {
-
-        @Override
-        protected void onPostExecute(Boolean result) {
-            super.onPostExecute(result);
-            if (result) {
-                Log.d(SUBSTRATUM_LOG,
-                        "Successfully cleared work directory from the internal storage");
-            }
-        }
-
-        @Override
-        protected Boolean doInBackground(String... sUrl) {
-            File cacheDir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() +
-                    "/.substratum/");
-            Boolean return_value = cacheDir.exists();
-            if (return_value) {
-                References.delete(cacheDir.getAbsolutePath());
-                References.createNewFolder(cacheDir.getAbsolutePath());
-            } else {
-                References.createNewFolder(cacheDir.getAbsolutePath());
-            }
-            try {
-                new AOPTCheck().injectAOPT(getApplicationContext(), false);
-            } catch (Exception e) {
-                Log.e(References.SUBSTRATUM_LOG,
-                        "AOPT could not be checked or injected at this time.");
-            }
-            return return_value;
         }
     }
 }

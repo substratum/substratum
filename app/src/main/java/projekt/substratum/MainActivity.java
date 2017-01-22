@@ -22,6 +22,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
@@ -77,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements
     private ProgressDialog mProgressDialog;
     private SharedPreferences prefs;
     private boolean hideBundle;
+    private static ActionBar supportActionBar;
 
     private void switchFragment(String title, String fragment) {
         if (searchView != null) {
@@ -84,9 +86,7 @@ public class MainActivity extends AppCompatActivity implements
                 searchView.setIconified(true);
             }
         }
-        actionbar_content.setVisibility(View.GONE);
-        actionbar_title.setVisibility(View.GONE);
-        if (getSupportActionBar() != null) getSupportActionBar().setTitle(title);
+        switchToStockToolbar(title);
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
         tx.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         tx.replace(R.id.main, Fragment.instantiate(MainActivity.this, "projekt.substratum" +
@@ -97,20 +97,16 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void switchThemeFragment(String title, String home_type) {
-        if (searchView != null) {
-            if (!searchView.isIconified()) {
-                searchView.setIconified(true);
-            }
+        if (searchView != null && !searchView.isIconified()) {
+            searchView.setIconified(true);
         }
         Fragment fragment = new ThemeFragment();
         Bundle bundle = new Bundle();
         bundle.putString("home_type", home_type);
+        bundle.putString("title", title);
         fragment.setArguments(bundle);
 
-        if (getSupportActionBar() != null) getSupportActionBar().setTitle("");
-        actionbar_content.setVisibility(View.VISIBLE);
-        actionbar_title.setVisibility(View.VISIBLE);
-        actionbar_title.setText(title);
+        switchToStockToolbar(title);
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
         tx.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         tx.replace(R.id.main, fragment);
@@ -120,14 +116,10 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void switchFragmentToLicenses(String title, LibsSupportFragment fragment) {
-        if (searchView != null) {
-            if (!searchView.isIconified()) {
-                searchView.setIconified(true);
-            }
+        if (searchView != null && !searchView.isIconified()) {
+            searchView.setIconified(true);
         }
-        actionbar_content.setVisibility(View.GONE);
-        actionbar_title.setVisibility(View.GONE);
-        if (getSupportActionBar() != null) getSupportActionBar().setTitle(title);
+        switchToStockToolbar(title);
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
         tx.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         tx.replace(R.id.main, fragment);
@@ -195,11 +187,8 @@ public class MainActivity extends AppCompatActivity implements
                 getSupportActionBar().setTitle("");
             }
         }
-
-        actionbar_content.setVisibility(View.GONE);
-        actionbar_title.setVisibility(View.GONE);
-        if (getSupportActionBar() != null)
-            getSupportActionBar().setTitle(getString(R.string.app_name));
+        supportActionBar = getSupportActionBar();
+        switchToStockToolbar(getString(R.string.app_name));
 
         AccountHeader header = new AccountHeaderBuilder()
                 .withActivity(this)
@@ -715,6 +704,20 @@ public class MainActivity extends AppCompatActivity implements
                     .commitAllowingStateLoss();
         }
         return true;
+    }
+
+    public static void switchToCustomToolbar(String title, String content) {
+        if (supportActionBar != null) supportActionBar.setTitle("");
+        actionbar_content.setVisibility(View.VISIBLE);
+        actionbar_title.setVisibility(View.VISIBLE);
+        actionbar_title.setText(title);
+        actionbar_content.setText(content);
+    }
+
+    public static void switchToStockToolbar(String title) {
+        actionbar_content.setVisibility(View.GONE);
+        actionbar_title.setVisibility(View.GONE);
+        if (supportActionBar != null) supportActionBar.setTitle(title);
     }
 
     @Override

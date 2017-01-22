@@ -132,17 +132,18 @@ public class ManageFragment extends Fragment {
                                         new References.ThreadRunner().execute(commands);
                                     }
                                 } else {
-                                    String current_directory;
-                                    if (References.inNexusFilter()) {
-                                        current_directory = "/system/overlay/";
-                                    } else {
-                                        current_directory = "/system/vendor/overlay/";
+                                    File vendor_location = new File("/system/vendor/overlay/");
+                                    File overlay_location = new File("/system/overlay/");
+                                    References.mountRW();
+                                    if (vendor_location.exists()) {
+                                        References.mountRWVendor();
+                                        References.delete(vendor_location.getAbsolutePath());
+                                        References.mountROVendor();
                                     }
-                                    File file = new File(current_directory);
-                                    if (file.exists()) {
-                                        References.mountRW();
-                                        References.delete(current_directory);
+                                    if (overlay_location.exists()) {
+                                        References.delete(overlay_location.getAbsolutePath());
                                     }
+                                    References.mountRO();
                                     Snackbar.make(getView(),
                                             getString(R.string.
                                                     abort_overlay_toast_success),

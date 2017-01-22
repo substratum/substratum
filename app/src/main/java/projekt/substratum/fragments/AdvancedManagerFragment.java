@@ -183,19 +183,22 @@ public class AdvancedManagerFragment extends Fragment {
                         }, REFRESH_WINDOW_DELAY);
                     }
                 } else {
-                    String current_directory;
-                    if (References.inNexusFilter()) {
-                        current_directory = "/system/overlay/";
-                    } else {
-                        current_directory = "/system/vendor/overlay/";
-                    }
-
                     for (int i = 0; i < overlaysList.size(); i++) {
                         if (overlaysList.get(i).isSelected()) {
                             Log.e("overlays", overlaysList.get(i).getName());
                             References.mountRW();
-                            References.delete(current_directory +
-                                    overlaysList.get(i).getName() + ".apk");
+                            if (References.inNexusFilter()) {
+                                References.mountRWVendor();
+                                References.delete("/system/overlay/" +
+                                        overlaysList.get(i).getName() + ".apk");
+                                References.delete("/vendor/overlay/" +
+                                        overlaysList.get(i).getName() + ".apk");
+                                References.mountROVendor();
+                            } else {
+                                References.delete("/system/vendor/overlay/" +
+                                        overlaysList.get(i).getName() + ".apk");
+                            }
+                            References.mountRO();
                         }
                     }
 
@@ -204,13 +207,8 @@ public class AdvancedManagerFragment extends Fragment {
 
                     activated_overlays.clear();
                     overlaysList.clear();
-                    if (References.inNexusFilter()) {
-                        current_directory = "/system/overlay/";
-                    } else {
-                        current_directory = "/system/vendor/overlay/";
-                    }
 
-                    File currentDir = new File(current_directory);
+                    File currentDir = new File("/system/vendor/overlay/");
                     String[] listed = currentDir.list();
                     for (String file : listed) {
                         if (file.substring(file.length() - 4).equals(".apk")) {
@@ -523,14 +521,7 @@ public class AdvancedManagerFragment extends Fragment {
                 }
             } else {
                 // At this point, the object is an RRO formatted check
-                String current_directory;
-                if (References.inNexusFilter()) {
-                    current_directory = "/system/overlay/";
-                } else {
-                    current_directory = "/system/vendor/overlay/";
-                }
-
-                File currentDir = new File(current_directory);
+                File currentDir = new File("/system/vendor/overlay/");
                 if (currentDir.exists() && currentDir.isDirectory()) {
                     String[] listed = currentDir.list();
                     for (String aListed : listed) {

@@ -439,8 +439,7 @@ public class SubstratumBuilder {
                         } else {
                             References.mountRWVendor();
                             References.createNewFolder(vendor_symlink);
-                            References.symlink(vendor_symlink, "/vendor");
-                            References.setPermissions(755, vendor_partition);
+                            References.createNewFolder(vendor_partition);
                             References.mountROVendor();
                         }
                     }
@@ -453,13 +452,29 @@ public class SubstratumBuilder {
                         References.setPermissions(755, vendor_location);
                         References.setContext(vendor_location);
                     } else {
-                        References.move(Environment.getExternalStorageDirectory()
-                                .getAbsolutePath() + "/.substratum/" + overlay_package +
-                                "." + parse2_themeName + "-signed.apk", vendor_symlink +
-                                "/" + overlay_package + "." + parse2_themeName + ".apk");
+                        References.mountRWVendor();
+                        // On nexus devices, put framework overlay to /vendor/overlay/
+                        if (overlay_package.equals("android")) {
+                            String android_overlay = vendor_partition + "/" + overlay_package + "."
+                                    + parse2_themeName + ".apk";
+                            References.move(Environment.getExternalStorageDirectory()
+                                    .getAbsolutePath() + "/.substratum/" + overlay_package +
+                                    "." + parse2_themeName + "-signed.apk", android_overlay);
+                        } else {
+                            String overlay = vendor_symlink + "/" + overlay_package + "." +
+                                    parse2_themeName + ".apk";
+                            References.move(Environment.getExternalStorageDirectory()
+                                    .getAbsolutePath() + "/.substratum/" + overlay_package +
+                                    "." + parse2_themeName + "-signed.apk", overlay);
+                            References.symlink(overlay, vendor_partition);
+                        }
                         References.setPermissionsRecursively(644, vendor_symlink);
+                        References.setPermissionsRecursively(644, vendor_partition);
                         References.setPermissions(755, vendor_symlink);
+                        References.setPermissions(755, vendor_partition);
                         References.setContext(vendor_symlink);
+                        References.setContext(vendor_partition);
+                        References.mountROVendor();
                     }
                     References.mountRO();
                 }

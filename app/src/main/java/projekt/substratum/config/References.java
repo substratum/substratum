@@ -73,6 +73,7 @@ public class References {
     private static final String NOVA_LAUNCHER = "com.novalauncher.THEME";
     // November security update (incompatible firmware) timestamp;
     private static final long NOVEMBER_PATCH_TIMESTAMP = 1478304000000L;
+    private static final long JANUARY_PATCH_TIMESTAMP = 1483549200000L;
     // Lucky Patcher's Package Name
     public static String lp_package_identifier = "com.android.vending.billing" +
             ".InAppBillingService.LOCK";
@@ -1086,8 +1087,8 @@ public class References {
         try {
             Date date = format.parse(currentPatch);
             long currentPatchTimestamp = date.getTime();
-
-            return currentPatchTimestamp > NOVEMBER_PATCH_TIMESTAMP;
+            return currentPatchTimestamp > NOVEMBER_PATCH_TIMESTAMP &&
+                    currentPatchTimestamp < JANUARY_PATCH_TIMESTAMP;
         } catch (ParseException pe) {
             pe.printStackTrace();
         }

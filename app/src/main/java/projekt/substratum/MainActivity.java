@@ -59,7 +59,6 @@ import projekt.substrate.LetsGetStarted;
 import projekt.substratum.config.References;
 import projekt.substratum.fragments.ThemeFragment;
 import projekt.substratum.services.ThemeService;
-import projekt.substratum.util.AOPTCheck;
 import projekt.substratum.util.Root;
 
 public class MainActivity extends AppCompatActivity implements
@@ -73,12 +72,26 @@ public class MainActivity extends AppCompatActivity implements
     public static String userInput = "";
     @SuppressLint("StaticFieldLeak")
     public static SearchView searchView;
+    private static ActionBar supportActionBar;
     private Drawer drawer;
     private int permissionCheck, permissionCheck2;
     private ProgressDialog mProgressDialog;
     private SharedPreferences prefs;
     private boolean hideBundle;
-    private static ActionBar supportActionBar;
+
+    public static void switchToCustomToolbar(String title, String content) {
+        if (supportActionBar != null) supportActionBar.setTitle("");
+        actionbar_content.setVisibility(View.VISIBLE);
+        actionbar_title.setVisibility(View.VISIBLE);
+        actionbar_title.setText(title);
+        actionbar_content.setText(content);
+    }
+
+    public static void switchToStockToolbar(String title) {
+        actionbar_content.setVisibility(View.GONE);
+        actionbar_title.setVisibility(View.GONE);
+        if (supportActionBar != null) supportActionBar.setTitle(title);
+    }
 
     private void switchFragment(String title, String fragment) {
         if (searchView != null) {
@@ -704,20 +717,6 @@ public class MainActivity extends AppCompatActivity implements
                     .commitAllowingStateLoss();
         }
         return true;
-    }
-
-    public static void switchToCustomToolbar(String title, String content) {
-        if (supportActionBar != null) supportActionBar.setTitle("");
-        actionbar_content.setVisibility(View.VISIBLE);
-        actionbar_title.setVisibility(View.VISIBLE);
-        actionbar_title.setText(title);
-        actionbar_content.setText(content);
-    }
-
-    public static void switchToStockToolbar(String title) {
-        actionbar_content.setVisibility(View.GONE);
-        actionbar_title.setVisibility(View.GONE);
-        if (supportActionBar != null) supportActionBar.setTitle(title);
     }
 
     @Override

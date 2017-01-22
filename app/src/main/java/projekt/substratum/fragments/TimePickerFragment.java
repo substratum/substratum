@@ -15,8 +15,8 @@ import projekt.substratum.R;
 import projekt.substratum.config.References;
 
 import static projekt.substratum.fragments.ProfileFragment.dayHour;
-import static projekt.substratum.fragments.ProfileFragment.nightHour;
 import static projekt.substratum.fragments.ProfileFragment.dayMinute;
+import static projekt.substratum.fragments.ProfileFragment.nightHour;
 import static projekt.substratum.fragments.ProfileFragment.nightMinute;
 
 

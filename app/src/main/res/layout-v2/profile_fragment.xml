@@ -79,7 +79,7 @@
                         android:imeOptions="actionNext"
                         android:inputType="textNoSuggestions"
                         android:maxLines="1"
-                        android:textSize="15sp"/>
+                        android:textSize="15sp" />
 
                     <Button
                         android:id="@+id/backupButton"
@@ -223,6 +223,7 @@
                         app:el_duration="300"
                         app:el_expanded="false"
                         app:el_parallax="0.5">
+
                         <LinearLayout
                             android:id="@+id/scheduled_profile_card_content"
                             android:layout_width="match_parent"

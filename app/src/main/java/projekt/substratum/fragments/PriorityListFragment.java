@@ -210,11 +210,13 @@ public class PriorityListFragment extends Fragment {
 
         applyFab.setOnClickListener(v -> {
             applyFab.hide();
-            Snackbar.make(getView(),
-                    getString(R.string.
-                            priority_success_toast),
-                    Snackbar.LENGTH_INDEFINITE)
-                    .show();
+            if (getView() != null) {
+                Snackbar.make(getView(),
+                        getString(R.string.
+                                priority_success_toast),
+                        Snackbar.LENGTH_INDEFINITE)
+                        .show();
+            }
             headerProgress.setVisibility(View.VISIBLE);
             new java.util.Timer().schedule(
                     new java.util.TimerTask() {

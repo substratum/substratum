@@ -153,10 +153,12 @@ public class ProfileFragment extends Fragment {
                 imm.hideSoftInputFromWindow(backupButton.getWindowToken(),
                         InputMethodManager.RESULT_UNCHANGED_SHOWN);
             } else {
-                Snackbar.make(getView(),
-                        getString(R.string.profile_edittext_empty_toast),
-                        Snackbar.LENGTH_LONG)
-                        .show();
+                if (getView() != null) {
+                    Snackbar.make(getView(),
+                            getString(R.string.profile_edittext_empty_toast),
+                            Snackbar.LENGTH_LONG)
+                            .show();
+                }
             }
         });
 
@@ -228,10 +230,12 @@ public class ProfileFragment extends Fragment {
                         .setNegativeButton(getString(R.string.delete_dialog_cancel), (dialog, which) -> dialog.cancel())
                         .create().show();
             } else {
-                Snackbar.make(getView(),
-                        getString(R.string.profile_delete_button_none_selected_toast),
-                        Snackbar.LENGTH_LONG)
-                        .show();
+                if (getView() != null) {
+                    Snackbar.make(getView(),
+                            getString(R.string.profile_delete_button_none_selected_toast),
+                            Snackbar.LENGTH_LONG)
+                            .show();
+                }
             }
         });
 
@@ -241,10 +245,12 @@ public class ProfileFragment extends Fragment {
                 RestoreFunction restoreFunction = new RestoreFunction();
                 restoreFunction.execute(profile_selector.getSelectedItem().toString());
             } else {
-                Snackbar.make(getView(),
-                        getString(R.string.restore_button_none_selected_toast),
-                        Snackbar.LENGTH_LONG)
-                        .show();
+                if (getView() != null) {
+                    Snackbar.make(getView(),
+                            getString(R.string.restore_button_none_selected_toast),
+                            Snackbar.LENGTH_LONG)
+                            .show();
+                }
             }
         });
 
@@ -326,19 +332,25 @@ public class ProfileFragment extends Fragment {
                             } else if (dayMinute != nightMinute) {
                                 setupScheduledProfile();
                             } else {
-                                Snackbar.make(getView(), R.string.time_equal_warning,
+                                if (getView() != null) {
+                                    Snackbar.make(getView(), R.string.time_equal_warning,
+                                            Snackbar.LENGTH_LONG)
+                                            .show();
+                                }
+                            }
+                        } else {
+                            if (getView() != null) {
+                                Snackbar.make(getView(), R.string.time_empty_warning,
                                         Snackbar.LENGTH_LONG)
                                         .show();
                             }
-                        } else {
-                            Snackbar.make(getView(), R.string.time_empty_warning,
+                        }
+                    } else {
+                        if (getView() != null) {
+                            Snackbar.make(getView(), R.string.profile_empty_warning,
                                     Snackbar.LENGTH_LONG)
                                     .show();
                         }
-                    } else {
-                        Snackbar.make(getView(), R.string.profile_empty_warning,
-                                Snackbar.LENGTH_LONG)
-                                .show();
                     }
                 } else {
                     setupScheduledProfile();
@@ -405,9 +417,11 @@ public class ProfileFragment extends Fragment {
             editor.putInt(DAY_PROFILE_MINUTE, dayMinute);
             editor.apply();
 
-            Snackbar.make(getView(), R.string.scheduled_profile_apply_success,
-                    Snackbar.LENGTH_LONG)
-                    .show();
+            if (getView() != null) {
+                Snackbar.make(getView(), R.string.scheduled_profile_apply_success,
+                        Snackbar.LENGTH_LONG)
+                        .show();
+            }
         } else {
             if (alarmMgr != null) {
                 alarmMgr.cancel(nightIntent);
@@ -422,9 +436,11 @@ public class ProfileFragment extends Fragment {
                         .remove(NIGHT_PROFILE_HOUR)
                         .remove(NIGHT_PROFILE_MINUTE)
                         .apply();
-                Snackbar.make(getView(), R.string.scheduled_profile_disable_success,
-                        Snackbar.LENGTH_LONG)
-                        .show();
+                if (getView() != null) {
+                    Snackbar.make(getView(), R.string.scheduled_profile_disable_success,
+                            Snackbar.LENGTH_LONG)
+                            .show();
+                }
             }
         }
     }
@@ -443,17 +459,21 @@ public class ProfileFragment extends Fragment {
             if (References.checkOMS(getContext())) {
                 String directory_parse = String.format(getString(R.string.toast_backup_success),
                         backup_getText + ".substratum");
-                Snackbar.make(getView(),
-                        directory_parse,
-                        Snackbar.LENGTH_LONG)
-                        .show();
+                if (getView() != null) {
+                    Snackbar.make(getView(),
+                            directory_parse,
+                            Snackbar.LENGTH_LONG)
+                            .show();
+                }
             } else {
                 String directory_parse = String.format(getString(R.string.toast_backup_success),
                         backup_getText + "/");
-                Snackbar.make(getView(),
-                        directory_parse,
-                        Snackbar.LENGTH_LONG)
-                        .show();
+                if (getView() != null) {
+                    Snackbar.make(getView(),
+                            directory_parse,
+                            Snackbar.LENGTH_LONG)
+                            .show();
+                }
             }
             RefreshSpinner();
         }
@@ -560,10 +580,12 @@ public class ProfileFragment extends Fragment {
                             Environment.getExternalStorageDirectory().getAbsolutePath()
                                     + "/substratum/profiles/" + backup_getText);
                 } else {
-                    Snackbar.make(getView(),
-                            getString(R.string.backup_no_overlays),
-                            Snackbar.LENGTH_LONG)
-                            .show();
+                    if (getView() != null) {
+                        Snackbar.make(getView(),
+                                getString(R.string.backup_no_overlays),
+                                Snackbar.LENGTH_LONG)
+                                .show();
+                    }
                 }
             }
             return null;
@@ -598,21 +620,25 @@ public class ProfileFragment extends Fragment {
 
                                     getContext().sendBroadcast(runCommand);
                                     if (!helper_exists) {
-                                        Snackbar.make(getView(),
-                                                getString(R.string.
-                                                        profile_edittext_empty_toast_sysui),
-                                                Snackbar.LENGTH_LONG)
-                                                .show();
+                                        if (getView() != null) {
+                                            Snackbar.make(getView(),
+                                                    getString(R.string.
+                                                            profile_edittext_empty_toast_sysui),
+                                                    Snackbar.LENGTH_LONG)
+                                                    .show();
+                                        }
                                     }
                                 } else {
                                     new References.ThreadRunner().execute
                                             (to_be_run_commands);
                                     if (!helper_exists) {
-                                        Snackbar.make(getView(),
-                                                getString(R.string.
-                                                        profile_edittext_empty_toast_sysui),
-                                                Snackbar.LENGTH_LONG)
-                                                .show();
+                                        if (getView() != null) {
+                                            Snackbar.make(getView(),
+                                                    getString(R.string.
+                                                            profile_edittext_empty_toast_sysui),
+                                                    Snackbar.LENGTH_LONG)
+                                                    .show();
+                                        }
                                     }
                                 }
                             })
@@ -627,20 +653,24 @@ public class ProfileFragment extends Fragment {
                         runCommand.putExtra("om-commands", to_be_run_commands);
                         getContext().sendBroadcast(runCommand);
                         if (!helper_exists) {
-                            Snackbar.make(getView(),
-                                    getString(R.string.
-                                            profile_edittext_empty_toast_sysui),
-                                    Snackbar.LENGTH_LONG)
-                                    .show();
+                            if (getView() != null) {
+                                Snackbar.make(getView(),
+                                        getString(R.string.
+                                                profile_edittext_empty_toast_sysui),
+                                        Snackbar.LENGTH_LONG)
+                                        .show();
+                            }
                         }
                     } else {
                         new References.ThreadRunner().execute(to_be_run_commands);
                         if (!helper_exists) {
-                            Snackbar.make(getView(),
-                                    getString(R.string.
-                                            profile_edittext_empty_toast_sysui),
-                                    Snackbar.LENGTH_LONG)
-                                    .show();
+                            if (getView() != null) {
+                                Snackbar.make(getView(),
+                                        getString(R.string.
+                                                profile_edittext_empty_toast_sysui),
+                                        Snackbar.LENGTH_LONG)
+                                        .show();
+                            }
                         }
                     }
                 }

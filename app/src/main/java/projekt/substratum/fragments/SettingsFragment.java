@@ -1,7 +1,6 @@
 package projekt.substratum.fragments;
 
 import android.app.AlertDialog;
-import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
@@ -198,10 +197,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                             p.setComponentEnabledSetting(componentName, PackageManager
                                     .COMPONENT_ENABLED_STATE_ENABLED, PackageManager
                                     .DONT_KILL_APP);
-                            Snackbar.make(getView(),
-                                    getString(R.string.hide_app_icon_toast_disabled),
-                                    Snackbar.LENGTH_LONG)
-                                    .show();
+                            if (getView() != null) {
+                                Snackbar.make(getView(),
+                                        getString(R.string.hide_app_icon_toast_disabled),
+                                        Snackbar.LENGTH_LONG)
+                                        .show();
+                            }
                             hide_app_checkbox.setChecked(true);
                         } else {
                             prefs.edit().putBoolean("show_app_icon", false).apply();
@@ -211,11 +212,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                             p.setComponentEnabledSetting(componentName, PackageManager
                                     .COMPONENT_ENABLED_STATE_DISABLED, PackageManager
                                     .DONT_KILL_APP);
-
-                            Snackbar.make(getView(),
-                                    getString(R.string.hide_app_icon_toast_enabled),
-                                    Snackbar.LENGTH_LONG)
-                                    .show();
+                            if (getView() != null) {
+                                Snackbar.make(getView(),
+                                        getString(R.string.hide_app_icon_toast_enabled),
+                                        Snackbar.LENGTH_LONG)
+                                        .show();
+                            }
                             hide_app_checkbox.setChecked(false);
                         }
                         return false;
@@ -233,17 +235,21 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         boolean isChecked = (Boolean) newValue;
                         if (isChecked) {
                             prefs.edit().putBoolean("systemui_recreate", true).apply();
-                            Snackbar.make(getView(),
-                                    getString(R.string.restart_systemui_toast_enabled),
-                                    Snackbar.LENGTH_LONG)
-                                    .show();
+                            if (getView() != null) {
+                                Snackbar.make(getView(),
+                                        getString(R.string.restart_systemui_toast_enabled),
+                                        Snackbar.LENGTH_LONG)
+                                        .show();
+                            }
                             systemUIRestart.setChecked(true);
                         } else {
                             prefs.edit().putBoolean("systemui_recreate", false).apply();
-                            Snackbar.make(getView(),
-                                    getString(R.string.restart_systemui_toast_disabled),
-                                    Snackbar.LENGTH_LONG)
-                                    .show();
+                            if (getView() != null) {
+                                Snackbar.make(getView(),
+                                        getString(R.string.restart_systemui_toast_disabled),
+                                        Snackbar.LENGTH_LONG)
+                                        .show();
+                            }
                             systemUIRestart.setChecked(false);
                         }
                         return false;

@@ -128,11 +128,6 @@
     <string name="settings_aopt_switcher_title">Substratum Overlay Compiler</string>
     <string name="settings_aapt">AAPT (stabile)</string>
     <string name="settings_aopt">AOPT (Cutting Edge)</string>
-    <string name="theme_information_tab_one">Applicazione veloce</string>
-    <string name="theme_information_tab_two">Gestore delle sovrapposizioni</string>
-    <string name="theme_information_tab_three">Animazioni d\'avvio</string>
-    <string name="theme_information_tab_four">Pacchetti di caratteri</string>
-    <string name="theme_information_tab_five">Pacchetti di suoni</string>
     <string name="nougat_style_cards_title">Stile Layout di Nougat</string>
     <string name="nougat_style_cards_subtext">Abilita le notifiche di Android Nougat come le carte temi.</string>
     <string name="manage_dialog_text">Sei sicuro di voler effettuare quest\'azione?</string>
@@ -225,9 +220,6 @@ Vuoi ripristinare le icone predefinite di sistema?    </string>
     <string name="nav_home">Pacchetti di temi</string>
     <string name="nav_overlays">Sovrapposizioni</string>
     <string name="nav_bootanim">Animazione d\'avvio</string>
-    <string name="nav_fonts">Animazioni d\'avvio</string>
-    <string name="nav_sounds">Pacchetti di caratteri</string>
-    <string name="nav_wallpapers">Pacchetti di suoni</string>
     <string name="nav_section_header_utilities">Utilità </string>
     <string name="nav_section_header_more">Altro</string>
     <string name="nav_manage">Manager di default</string>

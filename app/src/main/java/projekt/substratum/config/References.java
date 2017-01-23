@@ -25,6 +25,7 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.service.notification.StatusBarNotification;
 import android.support.annotation.NonNull;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -191,6 +192,38 @@ public class References {
             // Suppress warning
         }
         return 0;
+    }
+
+    // This method is used to force the application to use English
+    public static boolean forceEnglishLocale(Context context) {
+        // Please only use getApplicationContext on context, or else it would not change correctly
+        try {
+            Resources res = context.getResources();
+            DisplayMetrics dm = res.getDisplayMetrics();
+            android.content.res.Configuration conf = res.getConfiguration();
+            conf.locale = new Locale(Locale.ENGLISH.getLanguage());
+            res.updateConfiguration(conf, dm);
+            return true;
+        } catch (Exception e) {
+            // Suppress warning
+        }
+        return false;
+    }
+
+    // This method restores the system language
+    public static boolean forceSystemLocale(Context context) {
+        // Please only use getApplicationContext on context, or else it would not change correctly
+        try {
+            Resources res = context.getResources();
+            DisplayMetrics dm = res.getDisplayMetrics();
+            android.content.res.Configuration conf = res.getConfiguration();
+            conf.locale = new Locale(Locale.getDefault().getLanguage());
+            res.updateConfiguration(conf, dm);
+            return true;
+        } catch (Exception e) {
+            // Suppress warning
+        }
+        return false;
     }
 
     // This method is used to determine whether there the system is initiated with OMS
@@ -364,6 +397,7 @@ public class References {
         new AOPTCheck().injectAOPT(context, true);
         prefs.edit().putBoolean("aopt_debug", false).apply();
         prefs.edit().putBoolean("display_old_themes", true).apply();
+        prefs.edit().putBoolean("force_english", false).apply();
         prefs = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
         prefs.edit().putBoolean("is_updating", false).apply();
     }

@@ -101,6 +101,39 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         );
         systemPlatform.setIcon(References.grabAppIcon(getContext(), "com.android.systemui"));
 
+        final CheckBoxPreference forceEnglish = (CheckBoxPreference)
+                getPreferenceManager().findPreference("force_english_locale");
+        boolean force = prefs.getBoolean("force_english", false);
+        if (force) {
+            forceEnglish.setChecked(true);
+        } else {
+            forceEnglish.setChecked(false);
+        }
+        forceEnglish.setOnPreferenceChangeListener(
+                (preference, newValue) -> {
+                    boolean isChecked = (Boolean) newValue;
+                    if (isChecked) {
+                        forceEnglish.setChecked(true);
+                        Toast toast = Toast.makeText(getContext(), getString(R.string
+                                        .settings_force_english_toast_success),
+                                Toast.LENGTH_SHORT);
+                        toast.show();
+                        prefs.edit().putBoolean("force_english", true).apply();
+                        References.forceEnglishLocale(getActivity().getApplicationContext());
+                        getActivity().recreate();
+                    } else {
+                        forceEnglish.setChecked(false);
+                        Toast toast = Toast.makeText(getContext(), getString(R.string
+                                        .settings_force_english_toast_reverted),
+                                Toast.LENGTH_SHORT);
+                        toast.show();
+                        prefs.edit().putBoolean("force_english", false).apply();
+                        References.forceSystemLocale(getActivity().getApplicationContext());
+                        getActivity().recreate();
+                    }
+                    return false;
+                });
+
         final Preference aoptSwitcher = getPreferenceManager().findPreference
                 ("aopt_switcher");
         if (prefs.getString("compiler", "aapt").equals("aapt")) {

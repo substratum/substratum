@@ -66,6 +66,13 @@
         <CheckBoxPreference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:key="force_english_locale"
+            android:summary="@string/settings_force_english_text"
+            android:title="@string/settings_force_english_title" />
+
+        <CheckBoxPreference
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:key="vibrate_on_compiled"
             android:summary="@string/vibrate_on_compiled_description"
             android:title="@string/vibrate_on_compiled" />

@@ -2,9 +2,11 @@ package projekt.substratum;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -96,6 +98,16 @@ public class ShowcaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.showcase_activity);
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
+                getApplicationContext());
+
+        boolean languageCheck = prefs.getBoolean("force_english", false);
+        if (languageCheck) {
+            References.forceEnglishLocale(getApplicationContext());
+        } else {
+            References.forceSystemLocale(getApplicationContext());
+        }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {

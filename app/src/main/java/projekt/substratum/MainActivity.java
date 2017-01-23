@@ -150,6 +150,13 @@ public class MainActivity extends AppCompatActivity implements
         prefs = PreferenceManager.getDefaultSharedPreferences(
                 getApplicationContext());
 
+        boolean languageCheck = prefs.getBoolean("force_english", false);
+        if (languageCheck) {
+            References.forceEnglishLocale(getApplicationContext());
+        } else {
+            References.forceSystemLocale(getApplicationContext());
+        }
+
         actionbar_title = (TextView) findViewById(R.id.activity_title);
         actionbar_content = (TextView) findViewById(R.id.theme_count);
 

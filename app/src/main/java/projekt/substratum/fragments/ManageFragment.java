@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import projekt.substratum.R;
+import projekt.substratum.config.MasqueradeService;
 import projekt.substratum.config.References;
 import projekt.substratum.util.ReadOverlays;
 import projekt.substratum.util.SoundsHandler;
@@ -115,7 +116,7 @@ public class ManageFragment extends Fragment {
                                             Log.e(References.SUBSTRATUM_LOG,
                                                     "Initializing the " +
                                                             "Masquerade theme provider...");
-                                        Intent runCommand = new Intent();
+                                        Intent runCommand = MasqueradeService.getMasquerade(getContext());
                                         runCommand.addFlags(Intent
                                                 .FLAG_INCLUDE_STOPPED_PACKAGES);
                                         runCommand.setAction("masquerade.substratum" +
@@ -408,7 +409,7 @@ public class ManageFragment extends Fragment {
                 if (DEBUG)
                     Log.e(References.SUBSTRATUM_LOG, "Initializing the Masquerade theme " +
                             "provider...");
-                Intent runCommand = new Intent();
+                Intent runCommand = MasqueradeService.getMasquerade(getContext());
                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                 runCommand.setAction("masquerade.substratum.COMMANDS");
                 runCommand.putStringArrayListExtra("pm-uninstall", final_commands_array);
@@ -527,7 +528,7 @@ public class ManageFragment extends Fragment {
                     if (DEBUG)
                         Log.e(References.SUBSTRATUM_LOG, "Initializing the Masquerade theme " +
                                 "provider...");
-                    Intent runCommand = new Intent();
+                    Intent runCommand = MasqueradeService.getMasquerade(getContext());
                     runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                     runCommand.setAction("masquerade.substratum.COMMANDS");
                     runCommand.putExtra("om-commands", final_commands);
@@ -543,7 +544,7 @@ public class ManageFragment extends Fragment {
                     if (DEBUG)
                         Log.e(References.SUBSTRATUM_LOG, "Initializing the Masquerade theme " +
                                 "provider...");
-                    Intent runCommand = new Intent();
+                    Intent runCommand = MasqueradeService.getMasquerade(getContext());
                     runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                     runCommand.setAction("masquerade.substratum.COMMANDS");
                     runCommand.putExtra("om-commands", "setprop sys.refresh_theme 1");
@@ -600,7 +601,7 @@ public class ManageFragment extends Fragment {
             if (version == 7) References.setProp("sys.refresh_theme", "1");
             if (!prefs.getBoolean("systemui_recreate", false)) {
                 if (References.isPackageInstalled(getContext(), "masquerade.substratum")) {
-                    Intent runCommand = new Intent();
+                    Intent runCommand = MasqueradeService.getMasquerade(getContext());
                     runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                     runCommand.setAction("masquerade.substratum.COMMANDS");
                     runCommand.putExtra("om-commands", "pkill -f com.android.systemui");

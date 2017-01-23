@@ -33,6 +33,7 @@ import java.util.List;
 
 import projekt.substratum.R;
 import projekt.substratum.adapters.PrioritiesAdapter;
+import projekt.substratum.config.MasqueradeService;
 import projekt.substratum.config.References;
 import projekt.substratum.model.Priorities;
 import projekt.substratum.model.PrioritiesItem;
@@ -233,7 +234,7 @@ public class PriorityListFragment extends Fragment {
                                                 ".systemui";
                                     }
                                 }
-                                Intent runCommand = new Intent();
+                                Intent runCommand = MasqueradeService.getMasquerade(getContext());
                                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                                 runCommand.setAction("masquerade.substratum.COMMANDS");
                                 runCommand.putExtra("om-commands", commands);

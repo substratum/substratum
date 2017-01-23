@@ -65,6 +65,7 @@ import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
 import projekt.substratum.adapters.OverlaysAdapter;
+import projekt.substratum.config.MasqueradeService;
 import projekt.substratum.config.References;
 import projekt.substratum.model.OverlaysInfo;
 import projekt.substratum.services.NotificationButtonReceiver;
@@ -1341,7 +1342,7 @@ public class OverlaysList extends Fragment {
                                 final_commands = final_commands +
                                         " && " + References.refreshWindows();
                             }
-                            Intent runCommand = new Intent();
+                            Intent runCommand = MasqueradeService.getMasquerade(getContext());
                             runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                             runCommand.setAction("masquerade.substratum.COMMANDS");
                             runCommand.putExtra("om-commands", final_commands);
@@ -1411,7 +1412,7 @@ public class OverlaysList extends Fragment {
                                 final_commands = final_commands +
                                         " && " + References.refreshWindows();
                             }
-                            Intent runCommand = new Intent();
+                            Intent runCommand = MasqueradeService.getMasquerade(getContext());
                             runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                             runCommand.setAction("masquerade.substratum.COMMANDS");
                             runCommand.putExtra("om-commands",
@@ -1438,7 +1439,7 @@ public class OverlaysList extends Fragment {
                                 Log.e(References.SUBSTRATUM_LOG, "Initializing the Masquerade " +
                                         "theme " +
                                         "provider...");
-                            Intent runCommand = new Intent();
+                            Intent runCommand = MasqueradeService.getMasquerade(getContext());
                             runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                             runCommand.setAction("masquerade.substratum.COMMANDS");
                             runCommand.putExtra("om-commands", final_commands);
@@ -1512,7 +1513,7 @@ public class OverlaysList extends Fragment {
                                 Log.e(References.SUBSTRATUM_LOG, "Initializing the Masquerade " +
                                         "theme " +
                                         "provider...");
-                            Intent runCommand = new Intent();
+                            Intent runCommand = MasqueradeService.getMasquerade(getContext());
                             runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                             runCommand.setAction("masquerade.substratum.COMMANDS");
                             runCommand.putExtra("om-commands",
@@ -1539,7 +1540,7 @@ public class OverlaysList extends Fragment {
                                 Log.e(References.SUBSTRATUM_LOG, "Initializing the Masquerade " +
                                         "theme " +
                                         "provider...");
-                            Intent runCommand = new Intent();
+                            Intent runCommand = MasqueradeService.getMasquerade(getContext());
                             runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                             runCommand.setAction("masquerade.substratum.COMMANDS");
                             runCommand.putExtra("om-commands", final_commands);

@@ -26,6 +26,7 @@ import java.util.List;
 
 import projekt.substratum.ProfileErrorInfoActivity;
 import projekt.substratum.R;
+import projekt.substratum.config.MasqueradeService;
 import projekt.substratum.config.References;
 import projekt.substratum.util.ReadOverlaysFile;
 
@@ -338,7 +339,7 @@ public class ScheduledProfileService extends IntentService {
         }
 
         if (cannot_run_overlays.size() == 0) {
-            Intent runCommand = new Intent();
+            Intent runCommand = MasqueradeService.getMasquerade(mContext);
             runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
             runCommand.setAction("masquerade.substratum.COMMANDS");
             runCommand.putExtra("om-commands", to_be_run_commands);

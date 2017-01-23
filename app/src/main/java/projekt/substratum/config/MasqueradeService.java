@@ -26,7 +26,7 @@ public class MasqueradeService {
     private static final String COMMAND_VALUE_FONTS = "fonts";
     private static final String COMMAND_VALUE_AUDIO = "audio";
 
-    public static Intent getMasquerade(Context context) {
+    public static Intent getMasqueradeRootless(Context context) {
         Intent intent = new Intent();
         intent.setComponent(
                 new ComponentName(
@@ -38,15 +38,23 @@ public class MasqueradeService {
         return intent;
     }
 
+    public static Intent getMasquerade(Context context) {
+        Intent intent = new Intent();
+        PendingIntent pending = PendingIntent.getActivity(context, 0, new Intent(), 0);
+        intent.putExtra(MASQUERADE_TOKEN, pending);
+        intent.putExtra(JOB_TIME_KEY, System.currentTimeMillis());
+        return intent;
+    }
+
     public static void installOverlays(Context context, ArrayList<String> overlays) {
-        Intent masqIntent = getMasquerade(context);
+        Intent masqIntent = getMasqueradeRootless(context);
         masqIntent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_INSTALL);
         masqIntent.putExtra(INSTALL_LIST_KEY, overlays);
         context.startService(masqIntent);
     }
 
     public static void uninstallOverlays(Context context, ArrayList<String> overlays) {
-        Intent masqIntent = getMasquerade(context);
+        Intent masqIntent = getMasqueradeRootless(context);
         masqIntent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_UNINSTALL);
         masqIntent.putExtra(UNINSTALL_LIST_KEY, overlays);
         // only need to set if true, will restart SystemUI when done processing packages
@@ -55,19 +63,19 @@ public class MasqueradeService {
     }
 
     public static void restartSystemUI(Context context) {
-        Intent masqIntent = getMasquerade(context);
+        Intent masqIntent = getMasqueradeRootless(context);
         masqIntent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_RESTART_UI);
         context.startService(masqIntent);
     }
 
     public static void configurationChangeShim(Context context) {
-        Intent masqIntent = getMasquerade(context);
+        Intent masqIntent = getMasqueradeRootless(context);
         masqIntent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_CONFIGURATION_SHIM);
         context.startService(masqIntent);
     }
 
     public static void setBootAnimation(Context context, String bootanimation_location) {
-        Intent masqIntent = getMasquerade(context);
+        Intent masqIntent = getMasqueradeRootless(context);
         masqIntent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_BOOTANIMATION);
         if (bootanimation_location != null) {
             masqIntent.putExtra(BOOTANIMATION_FILE_NAME, bootanimation_location);
@@ -78,7 +86,7 @@ public class MasqueradeService {
     }
 
     public static void setFonts(Context context) {
-        Intent masqIntent = getMasquerade(context);
+        Intent masqIntent = getMasqueradeRootless(context);
         // will automatically load prepared font from Substratum font working folder
         masqIntent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_FONTS);
         // set true to restore to stock

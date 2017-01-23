@@ -25,6 +25,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 import projekt.substratum.R;
+import projekt.substratum.config.MasqueradeService;
 import projekt.substratum.config.References;
 
 public class FontHandler {
@@ -101,7 +102,7 @@ public class FontHandler {
                             final_commands = "";
                         }
                         if (References.isPackageInstalled(mContext, "masquerade.substratum")) {
-                            Intent runCommand = new Intent();
+                            Intent runCommand = MasqueradeService.getMasquerade(mContext);
                             runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                             runCommand.setAction("masquerade.substratum.COMMANDS");
                             runCommand.putExtra("om-commands", References.refreshWindows() +

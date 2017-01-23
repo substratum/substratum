@@ -52,6 +52,7 @@ import eightbitlab.com.blurview.BlurView;
 import eightbitlab.com.blurview.RenderScriptBlur;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.adapters.IconPackAdapter;
+import projekt.substratum.config.MasqueradeService;
 import projekt.substratum.config.References;
 import projekt.substratum.model.IconInfo;
 import projekt.substratum.util.ReadOverlays;
@@ -471,7 +472,7 @@ public class StudioPreviewActivity extends AppCompatActivity {
                                     finalized = finalized +
                                             " && " + References.refreshWindows();
                                 }
-                                Intent runCommand = new Intent();
+                                Intent runCommand = MasqueradeService.getMasquerade(getApplicationContext());
                                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                                 runCommand.setAction("masquerade.substratum.COMMANDS");
                                 ArrayList<String> final_array = new ArrayList<>();

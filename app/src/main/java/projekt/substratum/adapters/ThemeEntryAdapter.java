@@ -35,6 +35,7 @@ import java.util.List;
 
 import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
+import projekt.substratum.config.MasqueradeService;
 import projekt.substratum.config.References;
 import projekt.substratum.model.ThemeInfo;
 import projekt.substratum.util.ReadOverlays;
@@ -338,7 +339,7 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
 
             if (References.isPackageInstalled(currentObject.getContext(),
                     "masquerade.substratum")) {
-                Intent runCommand = new Intent();
+                Intent runCommand = MasqueradeService.getMasquerade(mContext);
                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                 runCommand.setAction("masquerade.substratum.COMMANDS");
                 runCommand.putStringArrayListExtra("pm-uninstall-specific", all_overlays);
@@ -368,7 +369,7 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
                 if (References.isPackageInstalled(
                         currentObject.getContext(),
                         "masquerade.substratum")) {
-                    Intent runCommand = new Intent();
+                    Intent runCommand = MasqueradeService.getMasquerade(mContext);
                     runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                     runCommand.setAction("masquerade.substratum.COMMANDS");
                     runCommand.putExtra("om-commands",
@@ -382,7 +383,7 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
                     if (References.isPackageInstalled(
                             currentObject.getContext(),
                             "masquerade.substratum")) {
-                        Intent runCommand = new Intent();
+                        Intent runCommand = MasqueradeService.getMasquerade(mContext);
                         runCommand.addFlags(
                                 Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                         runCommand.setAction("masquerade.substratum.COMMANDS");

@@ -13,6 +13,7 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import projekt.substratum.R;
+import projekt.substratum.config.MasqueradeService;
 import projekt.substratum.config.References;
 import projekt.substratum.util.SubstratumThemeUpdater;
 
@@ -75,7 +76,7 @@ public class ThemeCacher extends BroadcastReceiver {
 
                                 if (References.isPackageInstalled(mContext,
                                         "masquerade.substratum")) {
-                                    Intent runCommand = new Intent();
+                                    Intent runCommand = MasqueradeService.getMasquerade(mContext);
                                     runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                                     runCommand.setAction("masquerade.substratum.COMMANDS");
                                     runCommand.putExtra("om-commands", final_commands);

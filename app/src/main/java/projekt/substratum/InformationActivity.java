@@ -63,6 +63,7 @@ import java.util.List;
 
 import projekt.substrate.LetsGetStarted;
 import projekt.substratum.adapters.InformationTabsAdapter;
+import projekt.substratum.config.MasqueradeService;
 import projekt.substratum.config.References;
 import projekt.substratum.util.ReadOverlays;
 
@@ -550,7 +551,7 @@ public class InformationActivity extends AppCompatActivity {
 
                         if (References.isPackageInstalled(getApplicationContext(),
                                 "masquerade.substratum")) {
-                            Intent runCommand = new Intent();
+                            Intent runCommand = MasqueradeService.getMasquerade(getApplicationContext());
                             runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                             runCommand.setAction("masquerade.substratum.COMMANDS");
                             runCommand.putExtra("restart_systemui", true);
@@ -667,7 +668,7 @@ public class InformationActivity extends AppCompatActivity {
 
                         if (References.isPackageInstalled(getApplicationContext(),
                                 "masquerade.substratum")) {
-                            Intent runCommand = new Intent();
+                            Intent runCommand = MasqueradeService.getMasquerade(getApplicationContext());
                             runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                             runCommand.setAction("masquerade.substratum.COMMANDS");
                             runCommand.putExtra("om-commands", commands2);
@@ -735,7 +736,7 @@ public class InformationActivity extends AppCompatActivity {
 
                         if (References.isPackageInstalled(getApplicationContext(),
                                 "masquerade.substratum")) {
-                            Intent runCommand = new Intent();
+                            Intent runCommand = MasqueradeService.getMasquerade(getApplicationContext());
                             runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                             runCommand.setAction("masquerade.substratum.COMMANDS");
                             runCommand.putExtra("om-commands", commands2);
@@ -971,7 +972,7 @@ public class InformationActivity extends AppCompatActivity {
 
             if (References.isPackageInstalled(getApplicationContext(),
                     "masquerade.substratum")) {
-                Intent runCommand = new Intent();
+                Intent runCommand = MasqueradeService.getMasquerade(getApplicationContext());
                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                 runCommand.setAction("masquerade.substratum.COMMANDS");
                 runCommand.putStringArrayListExtra("pm-uninstall-specific",
@@ -1023,7 +1024,7 @@ public class InformationActivity extends AppCompatActivity {
                 if (!prefs.getBoolean("systemui_recreate", false)) {
                     if (References.isPackageInstalled(getApplicationContext(),
                             "masquerade.substratum")) {
-                        Intent runCommand = new Intent();
+                        Intent runCommand = MasqueradeService.getMasquerade(getApplicationContext());
                         runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                         runCommand.setAction("masquerade.substratum.COMMANDS");
                         runCommand.putExtra("om-commands", "pkill -f com.android.systemui");

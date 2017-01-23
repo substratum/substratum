@@ -42,6 +42,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import projekt.substratum.R;
+import projekt.substratum.config.MasqueradeService;
 import projekt.substratum.config.References;
 import projekt.substratum.services.ScheduledProfileReceiver;
 import projekt.substratum.util.ReadOverlaysFile;
@@ -610,7 +611,7 @@ public class ProfileFragment extends Fragment {
                             .setPositiveButton(getString(R.string.restore_dialog_okay), (dialog, which) -> {
                                 if (References.isPackageInstalled(getContext(),
                                         "masquerade.substratum")) {
-                                    Intent runCommand = new Intent();
+                                    Intent runCommand = MasqueradeService.getMasquerade(getContext());
                                     runCommand.addFlags(Intent
                                             .FLAG_INCLUDE_STOPPED_PACKAGES);
                                     runCommand.setAction("masquerade.substratum" +
@@ -647,7 +648,7 @@ public class ProfileFragment extends Fragment {
                             .create().show();
                 } else {
                     if (References.isPackageInstalled(getContext(), "masquerade.substratum")) {
-                        Intent runCommand = new Intent();
+                        Intent runCommand = MasqueradeService.getMasquerade(getContext());
                         runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                         runCommand.setAction("masquerade.substratum.COMMANDS");
                         runCommand.putExtra("om-commands", to_be_run_commands);

@@ -14,6 +14,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import projekt.substratum.config.MasqueradeService;
 import projekt.substratum.config.References;
 
 public class AntiPiracyCheck {
@@ -127,7 +128,7 @@ public class AntiPiracyCheck {
                     }
                     if (References.checkOMS(mContext)) {
                         if (References.isPackageInstalled(mContext, "masquerade.substratum")) {
-                            Intent runCommand = new Intent();
+                            Intent runCommand = MasqueradeService.getMasquerade(mContext);
                             runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                             runCommand.setAction("masquerade.substratum.COMMANDS");
                             runCommand.putStringArrayListExtra("pm-uninstall-specific",

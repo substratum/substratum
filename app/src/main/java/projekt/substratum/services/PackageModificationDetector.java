@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import projekt.substratum.R;
+import projekt.substratum.config.MasqueradeService;
 import projekt.substratum.config.References;
 
 import static projekt.substratum.config.References.DEBUG;
@@ -60,7 +61,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
                             if (DEBUG)
                                 Log.e(References.SUBSTRATUM_LOG, "Initializing the Masquerade " +
                                         "theme provider...");
-                            Intent runCommand = new Intent();
+                            Intent runCommand = MasqueradeService.getMasquerade(context);
                             runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                             runCommand.setAction("masquerade.substratum.COMMANDS");
                             ArrayList<String> final_array = new ArrayList<>();

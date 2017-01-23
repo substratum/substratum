@@ -36,6 +36,7 @@ import java.util.List;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.R;
 import projekt.substratum.adapters.OverlayManagerAdapter;
+import projekt.substratum.config.MasqueradeService;
 import projekt.substratum.config.References;
 import projekt.substratum.model.OverlayManager;
 import projekt.substratum.util.FloatingActionMenu;
@@ -161,7 +162,7 @@ public class AdvancedManagerFragment extends Fragment {
                     toast.show();
                     if (References.isPackageInstalled(getContext(),
                             "masquerade.substratum")) {
-                        Intent runCommand = new Intent();
+                        Intent runCommand = MasqueradeService.getMasquerade(getContext());
                         runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                         runCommand.setAction("masquerade.substratum.COMMANDS");
                         runCommand.putExtra("om-commands", data);
@@ -283,7 +284,7 @@ public class AdvancedManagerFragment extends Fragment {
                         toast2.show();
                     }
                     if (References.isPackageInstalled(getContext(), "masquerade.substratum")) {
-                        Intent runCommand = new Intent();
+                        Intent runCommand = MasqueradeService.getMasquerade(getContext());
                         runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                         runCommand.setAction("masquerade.substratum.COMMANDS");
                         runCommand.putExtra("om-commands", data);
@@ -347,7 +348,7 @@ public class AdvancedManagerFragment extends Fragment {
                         Toast.LENGTH_LONG);
                 toast.show();
                 if (References.isPackageInstalled(getContext(), "masquerade.substratum")) {
-                    Intent runCommand = new Intent();
+                    Intent runCommand = MasqueradeService.getMasquerade(getContext());
                     runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                     runCommand.setAction("masquerade.substratum.COMMANDS");
                     runCommand.putExtra("om-commands", data);

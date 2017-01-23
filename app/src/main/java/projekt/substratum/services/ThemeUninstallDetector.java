@@ -18,6 +18,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Set;
 
+import projekt.substratum.config.MasqueradeService;
 import projekt.substratum.config.References;
 
 public class ThemeUninstallDetector extends BroadcastReceiver {
@@ -108,7 +109,7 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
                         }
                         if (!prefs.getBoolean("systemui_recreate", false)) {
                             if (References.isPackageInstalled(context, "masquerade.substratum")) {
-                                Intent runCommand = new Intent();
+                                Intent runCommand = MasqueradeService.getMasquerade(context);
                                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                                 runCommand.setAction("masquerade.substratum.COMMANDS");
                                 runCommand.putExtra("om-commands", "pkill -f com.android.systemui");

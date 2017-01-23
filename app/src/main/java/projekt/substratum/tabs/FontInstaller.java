@@ -39,6 +39,7 @@ import java.util.zip.ZipInputStream;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
+import projekt.substratum.config.MasqueradeService;
 import projekt.substratum.config.References;
 import projekt.substratum.util.FontHandler;
 
@@ -230,7 +231,7 @@ public class FontInstaller extends Fragment {
                     if (DEBUG)
                         Log.e(References.SUBSTRATUM_LOG, "Initializing the Masquerade theme " +
                                 "provider...");
-                    Intent runCommand = new Intent();
+                    Intent runCommand = MasqueradeService.getMasquerade(getContext());
                     runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                     runCommand.setAction("masquerade.substratum.COMMANDS");
                     runCommand.putExtra("om-commands", final_commands);
@@ -246,7 +247,7 @@ public class FontInstaller extends Fragment {
                     if (DEBUG)
                         Log.e(References.SUBSTRATUM_LOG, "Initializing the Masquerade theme " +
                                 "provider...");
-                    Intent runCommand = new Intent();
+                    Intent runCommand = MasqueradeService.getMasquerade(getContext());
                     runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                     runCommand.setAction("masquerade.substratum.COMMANDS");
                     runCommand.putExtra("om-commands", "setprop sys.refresh_theme 1");
@@ -297,7 +298,7 @@ public class FontInstaller extends Fragment {
             if (version == 7) References.setProp("sys.refresh_theme", "1");
             if (!prefs.getBoolean("systemui_recreate", false)) {
                 if (References.isPackageInstalled(getContext(), "masquerade.substratum")) {
-                    Intent runCommand = new Intent();
+                    Intent runCommand = MasqueradeService.getMasquerade(getContext());
                     runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                     runCommand.setAction("masquerade.substratum.COMMANDS");
                     runCommand.putExtra("om-commands", "pkill -f com.android.systemui");

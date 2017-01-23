@@ -788,4 +788,14 @@
     <string name="theme_debug_mode_dialog_content">This may completely break the compilation process. Only enable this option if you know what you are doing!</string>
     <string name="theme_debug_mode_dialog_continue">Continue</string>
     <string name="theme_debug_mode_dialog_cancel">Cancel</string>
+
+    <string name="profile_dialog_title">select the items you want to backup</string>
+    <string name="profile_no_selection_warning">Please select at least one option!</string>
+    <string name="profile_boot_animation">Boot Animation</string>
+    <string name="profile_font">Fonts</string>
+    <string name="profile_overlay">Overlays</string>
+    <string name="profile_sound">Sounds</string>
+    <string name="profile_wallpaper">Wallpapers</string>
+    <string name="profile_dialog_ok">OK</string>
+    <string name="profile_dialog_cancel">Cancel</string>
 </resources>

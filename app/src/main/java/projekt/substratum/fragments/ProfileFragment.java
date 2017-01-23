@@ -30,6 +30,7 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
 
@@ -74,6 +75,7 @@ public class ProfileFragment extends Fragment {
     private boolean helper_exists = true;
     private SharedPreferences prefs;
     private boolean dayNightEnabled;
+    private ArrayList<CharSequence> selectedBackup;
 
     public static void setNightProfileStart(int hour, int minute) {
         nightHour = hour;
@@ -95,19 +97,8 @@ public class ProfileFragment extends Fragment {
         File[] files = f.listFiles();
         if (files != null) {
             for (File inFile : files) {
-                if (References.checkOMS(getContext())) {
-                    if (!inFile.isDirectory()) {
-                        if (inFile.getName().split("\\.")[inFile.getName().split("\\.").length - 1]
-                                .equals("substratum")) {
-                            list.add(inFile.getName().substring(0, inFile.getName().length() - 11));
-                        }
-                    }
-                } else {
-                    if (inFile.isDirectory()) {
-                        // Because overlays.xml does not exist in RRO, there shouldn't need these
-                        // files. Remove the .substratum filter.
-                        list.add(inFile.getName());
-                    }
+                if (inFile.isDirectory()) {
+                    list.add(inFile.getName());
                 }
             }
         }
@@ -146,9 +137,61 @@ public class ProfileFragment extends Fragment {
         final Button backupButton = (Button) root.findViewById(R.id.backupButton);
         backupButton.setOnClickListener(v -> {
             if (backup_name.getText().length() > 0) {
-                backup_getText = backup_name.getText().toString();
-                BackupFunction backupFunction = new BackupFunction();
-                backupFunction.execute();
+                selectedBackup = new ArrayList<>();
+                boolean fonts_allowed = false;
+                try {
+                    Class<?> cls = Class.forName("android.graphics.Typeface");
+                    cls.getDeclaredMethod("getSystemFontDirLocation");
+                    cls.getDeclaredMethod("getThemeFontConfigLocation");
+                    cls.getDeclaredMethod("getThemeFontDirLocation");
+                    fonts_allowed = true;
+                } catch (Exception ex) {
+                    // Suppress Fonts
+                }
+                CharSequence[] items;
+                if (References.checkOMS(getContext()) || fonts_allowed) {
+                    items = new CharSequence[]{
+                            getString(R.string.profile_boot_animation),
+                            getString(R.string.profile_font),
+                            getString(R.string.profile_overlay),
+                            getString(R.string.profile_sound),
+                            getString(R.string.profile_wallpaper)};
+                } else {
+                    items = new CharSequence[]{
+                            getString(R.string.profile_boot_animation),
+                            getString(R.string.profile_overlay),
+                            getString(R.string.profile_sound),
+                            getString(R.string.profile_wallpaper)};
+                }
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder
+                        .setTitle(R.string.profile_dialog_title)
+                        .setMultiChoiceItems(items, null, (dialog1, which, isChecked) -> {
+                            if (isChecked) {
+                                selectedBackup.add(items[which]);
+                            } else if (selectedBackup.contains(items[which])) {
+                                selectedBackup.remove(items[which]);
+                            }
+                        })
+                        .setPositiveButton(R.string.profile_dialog_ok, null)
+                        .setNegativeButton(R.string.profile_dialog_cancel, null);
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v1 -> {
+                    if (!selectedBackup.isEmpty()) {
+                        backup_getText = backup_name.getText().toString();
+                        BackupFunction backupFunction = new BackupFunction();
+                        backupFunction.execute();
+                        Log.d(References.SUBSTRATUM_LOG, selectedBackup.toString());
+                        dialog.dismiss();
+                    } else {
+                        Toast.makeText(getContext(), R.string.profile_no_selection_warning,
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
+
                 InputMethodManager imm = (InputMethodManager)
                         getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(backupButton.getWindowToken(),
@@ -176,19 +219,8 @@ public class ProfileFragment extends Fragment {
         File[] files = f.listFiles();
         if (files != null) {
             for (File inFile : files) {
-                if (References.checkOMS(getContext())) {
-                    if (!inFile.isDirectory()) {
-                        if (inFile.getName().split("\\.")[inFile.getName().split("\\.").length - 1]
-                                .equals("substratum")) {
-                            list.add(inFile.getName().substring(0, inFile.getName().length() - 11));
-                        }
-                    }
-                } else {
-                    if (inFile.isDirectory()) {
-                        // Because overlays.xml does not exist in RRO, there shouldn't need these
-                        // files. Remove the .substratum filter.
-                        list.add(inFile.getName());
-                    }
+                if (inFile.isDirectory()) {
+                    list.add(inFile.getName());
                 }
             }
         }
@@ -484,9 +516,11 @@ public class ProfileFragment extends Fragment {
             String uid = Environment.getExternalStorageDirectory().getAbsolutePath()
                     .split("/")[3];
             if (References.checkOMS(getContext())) {
-                References.copy("/data/system/overlays.xml",
-                        Environment.getExternalStorageDirectory().getAbsolutePath() +
-                                "/substratum/profiles/" + backup_getText + ".substratum");
+                if (selectedBackup.contains("Overlays")) {
+                    References.copy("/data/system/overlays.xml",
+                            Environment.getExternalStorageDirectory().getAbsolutePath() +
+                                    "/substratum/profiles/" + backup_getText + ".substratum");
+                }
 
                 File makeProfileDir = new File(Environment
                         .getExternalStorageDirectory().getAbsolutePath() +
@@ -520,19 +554,37 @@ public class ProfileFragment extends Fragment {
                         Environment.getExternalStorageDirectory().getAbsolutePath() +
                                 "/substratum/profiles/" + backup_getText);
 
-                // Backup wallpapers
-                References.copy("/data/system/users/" + uid + "/wallpaper",
-                        Environment.getExternalStorageDirectory().getAbsolutePath()
-                                + "/substratum/profiles/" + backup_getText + "/wallpaper.png");
-                References.copy("/data/system/users/" + uid + "/wallpaper_lock",
-                        Environment.getExternalStorageDirectory().getAbsolutePath()
-                                + "/substratum/profiles/" + backup_getText + "/wallpaper_lock.png");
+                // Delete the items user don't want to backup
+                if (!selectedBackup.contains("Boot Animation")) {
+                    References.delete(Environment.getExternalStorageDirectory().getAbsolutePath() +
+                            "/substratum/profiles/" + backup_getText + "/theme/bootanimation.zip");
+                }
+                if (!selectedBackup.contains("Fonts")) {
+                    References.delete(Environment.getExternalStorageDirectory().getAbsolutePath() +
+                            "/substratum/profiles/" + backup_getText + "/theme/fonts");
+                }
+                if (!selectedBackup.contains("Sounds")) {
+                    References.delete(Environment.getExternalStorageDirectory().getAbsolutePath() +
+                            "/substratum/profiles/" + backup_getText + "/theme/audio");
+                }
+
+                // Backup wallpapers if wanted
+                if (selectedBackup.contains("Wallpapers")) {
+                    References.copy("/data/system/users/" + uid + "/wallpaper",
+                            Environment.getExternalStorageDirectory().getAbsolutePath()
+                                    + "/substratum/profiles/" + backup_getText + "/wallpaper.png");
+                    References.copy("/data/system/users/" + uid + "/wallpaper_lock",
+                            Environment.getExternalStorageDirectory().getAbsolutePath()
+                                    + "/substratum/profiles/" + backup_getText +
+                                    "/wallpaper_lock.png");
+                }
 
                 // Backup system bootanimation if encrypted
-                if (getDeviceEncryptionStatus() >= 2) {
+                if (getDeviceEncryptionStatus() >= 2 && selectedBackup.contains("Boot Animation")) {
                     References.copy("/system/media/bootanimation.zip",
                             Environment.getExternalStorageDirectory().getAbsolutePath()
-                                    + "/substratum/profiles/" + backup_getText + "/bootanimation.zip");
+                                    + "/substratum/profiles/" + backup_getText +
+                                    "/bootanimation.zip");
                 }
             } else {
                 String current_directory;
@@ -544,42 +596,52 @@ public class ProfileFragment extends Fragment {
                 File file = new File(current_directory);
                 if (file.exists()) {
                     References.mountRW();
-                    References.copyDir(current_directory,
-                            Environment.getExternalStorageDirectory().getAbsolutePath() +
-                                    "/substratum/profiles/");
-                    File oldFolder = new File(Environment.getExternalStorageDirectory()
-                            .getAbsolutePath() + "/substratum/profiles/overlay");
-                    File newFolder = new File(Environment.getExternalStorageDirectory()
-                            .getAbsolutePath() + "/substratum/profiles/" + backup_getText);
-                    boolean success = oldFolder.renameTo(newFolder);
-                    if (!success)
-                        Log.e(References.SUBSTRATUM_LOG, "Could not move profile directory...");
+                    if (selectedBackup.contains("Overlays")) {
+                        References.copyDir(current_directory,
+                                Environment.getExternalStorageDirectory().getAbsolutePath() +
+                                        "/substratum/profiles/");
+                        File oldFolder = new File(Environment.getExternalStorageDirectory()
+                                .getAbsolutePath() + "/substratum/profiles/overlay");
+                        File newFolder = new File(Environment.getExternalStorageDirectory()
+                                .getAbsolutePath() + "/substratum/profiles/" + backup_getText);
+                        boolean success = oldFolder.renameTo(newFolder);
+                        if (!success)
+                            Log.e(References.SUBSTRATUM_LOG, "Could not move profile directory...");
+                    }
 
-                    // Now begin backing up sounds
-                    References.copyDir("/data/system/theme/audio/",
-                            Environment.getExternalStorageDirectory()
-                                    .getAbsolutePath() + "/substratum/profiles/" + backup_getText);
+                    if (selectedBackup.contains("Sounds")) {
+                        // Now begin backing up sounds
+                        References.copyDir("/data/system/theme/audio/",
+                                Environment.getExternalStorageDirectory()
+                                        .getAbsolutePath() + "/substratum/profiles/"
+                                        + backup_getText);
+                    }
                     References.mountRO();
 
-                    // Don't forget the wallpaper
-                    File homeWall = new File("/data/system/users/" + uid + "/wallpaper");
-                    File lockWall = new File("/data/system/users/" + uid + "/wallpaper_lock");
-                    if (homeWall.exists()) {
-                        References.copy(homeWall.getAbsolutePath(),
-                                Environment.getExternalStorageDirectory().getAbsolutePath()
-                                        + "/substratum/profiles/" + backup_getText + "/wallpaper.png");
-                    }
-                    if (lockWall.exists()) {
-                        References.copy(lockWall.getAbsolutePath(),
-                                Environment.getExternalStorageDirectory().getAbsolutePath()
-                                        + "/substratum/profiles/" + backup_getText +
-                                        "/wallpaper_lock.png");
+                    // Don't forget the wallpaper if wanted
+                    if (selectedBackup.contains("Wallpapers")) {
+                        File homeWall = new File("/data/system/users/" + uid + "/wallpaper");
+                        File lockWall = new File("/data/system/users/" + uid + "/wallpaper_lock");
+                        if (homeWall.exists()) {
+                            References.copy(homeWall.getAbsolutePath(),
+                                    Environment.getExternalStorageDirectory().getAbsolutePath()
+                                            + "/substratum/profiles/" + backup_getText +
+                                            "/wallpaper.png");
+                        }
+                        if (lockWall.exists()) {
+                            References.copy(lockWall.getAbsolutePath(),
+                                    Environment.getExternalStorageDirectory().getAbsolutePath()
+                                            + "/substratum/profiles/" + backup_getText +
+                                            "/wallpaper_lock.png");
+                        }
                     }
 
-                    // And bootanimation
-                    References.copy("/system/media/bootanimation.zip",
-                            Environment.getExternalStorageDirectory().getAbsolutePath()
-                                    + "/substratum/profiles/" + backup_getText);
+                    // And bootanimation if wanted
+                    if (selectedBackup.contains("Boot Animation")) {
+                        References.copy("/system/media/bootanimation.zip",
+                                Environment.getExternalStorageDirectory().getAbsolutePath()
+                                        + "/substratum/profiles/" + backup_getText);
+                    }
                 } else {
                     if (getView() != null) {
                         Snackbar.make(getView(),
@@ -812,110 +874,121 @@ public class ProfileFragment extends Fragment {
         protected String doInBackground(String... sUrl) {
 
             if (References.checkOMS(getContext())) {  // RRO doesn't need any of this
+                List<String> system = new ArrayList<>();
+                List<String> system_active = new ArrayList<>();
                 String profile_name = sUrl[0];
+                cannot_run_overlays = new ArrayList<>();
+                dialog_message = "";
                 helper_exists = true;
+                to_be_run_commands = "";
 
-                File current_overlays = new File(Environment
-                        .getExternalStorageDirectory().getAbsolutePath() +
-                        "/.substratum/current_overlays.xml");
-                if (current_overlays.exists()) {
-                    References.delete(Environment
+                File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath()
+                        + "/substratum/profiles/" + profile_name + ".substratum");
+
+                if (file.exists()) {
+                    File current_overlays = new File(Environment
                             .getExternalStorageDirectory().getAbsolutePath() +
                             "/.substratum/current_overlays.xml");
-                }
-                References.copy("/data/system/overlays.xml",
-                        Environment.getExternalStorageDirectory().getAbsolutePath() +
+                    if (current_overlays.exists()) {
+                        References.delete(Environment
+                                .getExternalStorageDirectory().getAbsolutePath() +
                                 "/.substratum/current_overlays.xml");
+                    }
+                    References.copy("/data/system/overlays.xml",
+                            Environment.getExternalStorageDirectory().getAbsolutePath() +
+                                    "/.substratum/current_overlays.xml");
 
-                String[] commandsSystem4 = {Environment.getExternalStorageDirectory()
-                        .getAbsolutePath() +
-                        "/.substratum/current_overlays.xml", "4"};
+                    String[] commandsSystem4 = {Environment.getExternalStorageDirectory()
+                            .getAbsolutePath() +
+                            "/.substratum/current_overlays.xml", "4"};
 
-                String[] commandsSystem5 = {Environment
-                        .getExternalStorageDirectory().getAbsolutePath() +
-                        "/.substratum/current_overlays.xml", "5"};
+                    String[] commandsSystem5 = {Environment
+                            .getExternalStorageDirectory().getAbsolutePath() +
+                            "/.substratum/current_overlays.xml", "5"};
 
-                String[] commands = {Environment.getExternalStorageDirectory()
-                        .getAbsolutePath() +
-                        "/substratum/profiles/" + profile_name + ".substratum", "5"};
+                    String[] commands = {Environment.getExternalStorageDirectory()
+                            .getAbsolutePath() +
+                            "/substratum/profiles/" + profile_name + ".substratum", "5"};
 
-                List<List<String>> profile = ReadOverlaysFile.withTargetPackage(commands);
-                List<String> system = ReadOverlaysFile.main(commandsSystem4);
-                List<String> system_active = ReadOverlaysFile.main(commandsSystem5);
-                system.addAll(ReadOverlaysFile.main(commandsSystem5));
-                List<String> to_be_run = new ArrayList<>();
+                    List<List<String>> profile = ReadOverlaysFile.withTargetPackage(commands);
+                    system = ReadOverlaysFile.main(commandsSystem4);
+                    system_active = ReadOverlaysFile.main(commandsSystem5);
+                    system.addAll(ReadOverlaysFile.main(commandsSystem5));
+                    List<String> to_be_run = new ArrayList<>();
 
-                // Disable everything enabled first
-                String to_be_disabled = References.disableAllOverlays();
+                    // Disable everything enabled first
+                    String to_be_disabled = References.disableAllOverlays();
 
-                // Now process the overlays to be enabled
+                    // Now process the overlays to be enabled
 
-                cannot_run_overlays = new ArrayList<>();
-                for (int i = 0, size = profile.size(); i < size; i++) {
-                    String packageName = profile.get(i).get(0);
-                    String targetPackage = profile.get(i).get(1);
-                    if (References.isPackageInstalled(getContext(), targetPackage)) {
-                        if (!packageName.endsWith(".icon")) {
-                            if (system.contains(packageName)) {
-                                to_be_run.add(packageName);
-                            } else {
-                                cannot_run_overlays.add(profile.get(i));
+                    for (int i = 0, size = profile.size(); i < size; i++) {
+                        String packageName = profile.get(i).get(0);
+                        String targetPackage = profile.get(i).get(1);
+                        if (References.isPackageInstalled(getContext(), targetPackage)) {
+                            if (!packageName.endsWith(".icon")) {
+                                if (system.contains(packageName)) {
+                                    to_be_run.add(packageName);
+                                } else {
+                                    cannot_run_overlays.add(profile.get(i));
+                                }
                             }
                         }
                     }
-                }
-                dialog_message = "";
-                for (int i = 0; i < cannot_run_overlays.size(); i++) {
-                    String packageName = cannot_run_overlays.get(i).get(0);
-                    String targetPackage = cannot_run_overlays.get(i).get(1);
-                    String packageDetail = packageName.replace(targetPackage + ".", "");
-                    String detailSplit = Arrays.toString(packageDetail.split("\\."))
-                            .replace("[", "")
-                            .replace("]", "")
-                            .replace(",", " ");
+                    for (int i = 0; i < cannot_run_overlays.size(); i++) {
+                        String packageName = cannot_run_overlays.get(i).get(0);
+                        String targetPackage = cannot_run_overlays.get(i).get(1);
+                        String packageDetail = packageName.replace(targetPackage + ".", "");
+                        String detailSplit = Arrays.toString(packageDetail.split("\\."))
+                                .replace("[", "")
+                                .replace("]", "")
+                                .replace(",", " ");
 
-                    if (dialog_message.length() == 0) {
-                        dialog_message = dialog_message + "\u2022 " + targetPackage + " (" +
-                                detailSplit + ")";
-                    } else {
-                        dialog_message = dialog_message + "\n" + "\u2022 " + targetPackage
-                                + " (" + detailSplit + ")";
-                    }
-                }
-
-                to_be_run_commands = "";
-                for (int i = 0; i < to_be_run.size(); i++) {
-                    if (!to_be_run.get(i).equals("substratum.helper")) {
-                        if (i == 0) {
-                            to_be_run_commands = References.enableOverlay() + " " +
-                                    to_be_run.get(i);
+                        if (dialog_message.length() == 0) {
+                            dialog_message = dialog_message + "\u2022 " + targetPackage + " (" +
+                                    detailSplit + ")";
                         } else {
-                            if (i > 0 && to_be_run_commands.length() == 0) {
+                            dialog_message = dialog_message + "\n" + "\u2022 " + targetPackage
+                                    + " (" + detailSplit + ")";
+                        }
+                    }
+
+                    for (int i = 0; i < to_be_run.size(); i++) {
+                        if (!to_be_run.get(i).equals("substratum.helper")) {
+                            if (i == 0) {
                                 to_be_run_commands = References.enableOverlay() + " " +
                                         to_be_run.get(i);
                             } else {
-                                to_be_run_commands = to_be_run_commands + " " + to_be_run
-                                        .get(i);
+                                if (i > 0 && to_be_run_commands.length() == 0) {
+                                    to_be_run_commands = References.enableOverlay() + " " +
+                                            to_be_run.get(i);
+                                } else {
+                                    to_be_run_commands = to_be_run_commands + " " + to_be_run
+                                            .get(i);
+                                }
                             }
                         }
                     }
-                }
-                if (to_be_run_commands.length() > 0) {
-                    to_be_run_commands = to_be_run_commands + " && cp /data/system/overlays.xml " +
-                            Environment.getExternalStorageDirectory().getAbsolutePath() +
-                            "/.substratum/current_overlays.xml";
-                    if (to_be_disabled.length() > 0) {
-                        to_be_run_commands = to_be_disabled + " && " + to_be_run_commands;
+                    if (to_be_run_commands.length() > 0) {
+                        to_be_run_commands = to_be_run_commands + " && cp /data/system/overlays.xml "
+                                + Environment.getExternalStorageDirectory().getAbsolutePath() +
+                                "/.substratum/current_overlays.xml";
+                        if (to_be_disabled.length() > 0) {
+                            to_be_run_commands = to_be_disabled + " && " + to_be_run_commands;
+                        }
+                    } else if (to_be_disabled.length() > 0) {
+                        to_be_run_commands = to_be_disabled;
                     }
-                } else if (to_be_disabled.length() > 0) {
-                    to_be_run_commands = to_be_disabled + to_be_run_commands;
                 }
 
                 File theme = new File(Environment.getExternalStorageDirectory().getAbsolutePath() +
                         "/substratum/profiles/" + profile_name + "/");
                 if (theme.length() > 0) {
                     // Restore the whole backed up profile back to /data/system/theme/
-                    to_be_run_commands = to_be_run_commands + " && rm -r " + "/data/system/theme";
+                    if (to_be_run_commands.length() > 0) {
+                        to_be_run_commands = to_be_run_commands + " && rm -r " + "/data/system/theme";
+                    } else {
+                        to_be_run_commands = "rm -r " + "/data/system/theme";
+                    }
 
                     // Set up work directory again
 

@@ -20,6 +20,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.service.notification.StatusBarNotification;
@@ -35,8 +36,11 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -112,6 +116,70 @@ public class References {
     private static String metadataWallpapers = "Substratum_Wallpapers";
     private static String metadataVersion = "Substratum_Plugin";
     private static String metadataThemeReady = "Substratum_ThemeReady";
+
+    // This method is used to place the Substratum Rescue archives if they are not present
+    public static void injectRescueArchives(Context context) {
+        File storageDirectory = new File(Environment
+                .getExternalStorageDirectory(),
+                "/substratum/");
+        if (!storageDirectory.exists()) {
+            Boolean made = storageDirectory.mkdirs();
+            if (!made) Log.e(References.SUBSTRATUM_LOG,
+                    "Unable to create storage directory");
+        }
+        File rescueFile = new File(
+                Environment.getExternalStorageDirectory().getAbsolutePath() +
+                        File.separator + "substratum" +
+                        File.separator + "SubstratumRescue.zip");
+        File rescueFileLegacy = new File(
+                Environment.getExternalStorageDirectory().getAbsolutePath() +
+                        File.separator + "substratum" +
+                        File.separator + "SubstratumRescue_Legacy.zip");
+        if (!rescueFile.exists()) {
+            copyRescueFile(context, "rescue.dat",
+                    Environment.getExternalStorageDirectory().getAbsolutePath() +
+                            java.io.File.separator + "substratum" +
+                            java.io.File.separator + "SubstratumRescue.zip");
+        }
+        if (!rescueFileLegacy.exists()) {
+            copyRescueFile(context, "rescue_legacy.dat",
+                    Environment.getExternalStorageDirectory().getAbsolutePath() +
+                            java.io.File.separator + "substratum" +
+                            java.io.File.separator +
+                            "SubstratumRescue_Legacy.zip");
+        }
+    }
+
+    private static boolean copyRescueFile(Context context, String sourceFileName, String destFileName) {
+        AssetManager assetManager = context.getAssets();
+
+        File destFile = new File(destFileName);
+        File destParentDir = destFile.getParentFile();
+        if (!destParentDir.exists()) {
+            Boolean made = destParentDir.mkdir();
+            if (!made) Log.e(References.SUBSTRATUM_LOG,
+                    "Unable to create directories for rescue archive dumps.");
+        }
+
+        InputStream in;
+        OutputStream out;
+        try {
+            in = assetManager.open(sourceFileName);
+            out = new FileOutputStream(destFile);
+            byte[] buffer = new byte[1024];
+            int read;
+            while ((read = in.read(buffer)) != -1) {
+                out.write(buffer, 0, read);
+            }
+            in.close();
+            out.flush();
+            out.close();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
     // This method is used to check the version of the masquerade theme system
     public static int checkMasquerade(Context context) {

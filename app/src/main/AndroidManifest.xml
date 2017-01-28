@@ -166,7 +166,8 @@
         <activity
             android:name=".InformationActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName="MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>

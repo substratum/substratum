@@ -9,6 +9,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import java.util.concurrent.ThreadLocalRandom;
 
 import projekt.substrate.LetsGetStarted;
+import projekt.substratum.InformationActivity;
 import projekt.substratum.MainActivity;
 import projekt.substratum.R;
 import projekt.substratum.config.References;
@@ -81,21 +83,17 @@ public class SubstratumThemeUpdater {
                 Intent notificationIntent;
                 PendingIntent intent;
                 try {
-                    if (!References.checkOMS(mContext)) {
+                    Intent myIntent = LetsGetStarted.initialize(mContext, packageName, false, null,
+                            true);
+                    if (myIntent != null) {
+                        TaskStackBuilder stackBuilder = TaskStackBuilder.create(mContext)
+                                .addParentStack(InformationActivity.class)
+                                .addNextIntent(myIntent);
+                        intent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_CANCEL_CURRENT);
+                    } else {
                         notificationIntent = new Intent(mContext, MainActivity.class);
                         intent = PendingIntent.getActivity(mContext, 0, notificationIntent,
                                 PendingIntent.FLAG_CANCEL_CURRENT);
-                    } else {
-                        Intent myIntent = LetsGetStarted.initialize(mContext, packageName,
-                                false, null, true);
-                        if (myIntent != null) {
-                            intent = PendingIntent.getActivity(mContext, 0, myIntent,
-                                    PendingIntent.FLAG_CANCEL_CURRENT);
-                        } else {
-                            notificationIntent = new Intent(mContext, MainActivity.class);
-                            intent = PendingIntent.getActivity(mContext, 0, notificationIntent,
-                                    PendingIntent.FLAG_CANCEL_CURRENT);
-                        }
                     }
 
                     // This is the time when the notification should be shown on the user's screen
@@ -127,21 +125,17 @@ public class SubstratumThemeUpdater {
                 Intent notificationIntent;
                 PendingIntent intent;
                 try {
-                    if (!References.checkOMS(mContext)) {
+                    Intent myIntent = LetsGetStarted.initialize(mContext, packageName, false, null,
+                            true);
+                    if (myIntent != null) {
+                        TaskStackBuilder stackBuilder = TaskStackBuilder.create(mContext)
+                                .addParentStack(InformationActivity.class)
+                                .addNextIntent(myIntent);
+                        intent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_CANCEL_CURRENT);
+                    } else {
                         notificationIntent = new Intent(mContext, MainActivity.class);
                         intent = PendingIntent.getActivity(mContext, 0, notificationIntent,
                                 PendingIntent.FLAG_CANCEL_CURRENT);
-                    } else {
-                        Intent myIntent = LetsGetStarted.initialize(mContext, packageName,
-                                false, null, true);
-                        if (myIntent != null) {
-                            intent = PendingIntent.getActivity(mContext, 0, myIntent,
-                                    PendingIntent.FLAG_CANCEL_CURRENT);
-                        } else {
-                            notificationIntent = new Intent(mContext, MainActivity.class);
-                            intent = PendingIntent.getActivity(mContext, 0, notificationIntent,
-                                    PendingIntent.FLAG_CANCEL_CURRENT);
-                        }
                     }
 
                     // This is the time when the notification should be shown on the user's screen

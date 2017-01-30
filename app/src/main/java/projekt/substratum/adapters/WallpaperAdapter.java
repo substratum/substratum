@@ -9,6 +9,7 @@ import android.os.PowerManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,7 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
     private ArrayList<WallpaperEntries> information;
     private Context mContext;
     private PowerManager.WakeLock mWakeLock;
+    private int height, width;
 
     public WallpaperAdapter(ArrayList<WallpaperEntries> information) {
         this.information = information;
@@ -55,6 +57,11 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
         final int i = pos;
 
         mContext = information.get(i).getContext();
+
+        // Get display ratio
+        DisplayMetrics metrics = mContext.getResources().getDisplayMetrics();
+        height = metrics.heightPixels;
+        width = metrics.widthPixels;
 
         Glide.with(information.get(i).getContext())
                 .load(information.get(i).getWallpaperPreview())
@@ -106,6 +113,9 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
                                 mContext.getCacheDir().getAbsolutePath() +
                                         "/" + "homescreen_wallpaper" + extension)))
                                 .setGuidelines(CropImageView.Guidelines.ON)
+                                .setFixAspectRatio(true)
+                                .setAspectRatio(width, height)
+                                .setInitialCropWindowPaddingRatio(0)
                                 .setActivityTitle(information.get(i).getWallpaperName())
                                 .setOutputUri(Uri.fromFile(new File(
                                         mContext.getCacheDir().getAbsolutePath() +
@@ -134,6 +144,9 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
                                 mContext.getCacheDir().getAbsolutePath() +
                                         "/" + "lockscreen_wallpaper" + extension2)))
                                 .setGuidelines(CropImageView.Guidelines.ON)
+                                .setFixAspectRatio(true)
+                                .setAspectRatio(width, height)
+                                .setInitialCropWindowPaddingRatio(0)
                                 .setActivityTitle(information.get(i).getWallpaperName())
                                 .setOutputUri(Uri.fromFile(new File(
                                         mContext.getCacheDir().getAbsolutePath() +
@@ -163,6 +176,9 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
                                 mContext.getCacheDir().getAbsolutePath() +
                                         "/" + "all_wallpaper" + extension3)))
                                 .setGuidelines(CropImageView.Guidelines.ON)
+                                .setFixAspectRatio(true)
+                                .setAspectRatio(width, height)
+                                .setInitialCropWindowPaddingRatio(0)
                                 .setActivityTitle(information.get(i).getWallpaperName())
                                 .setOutputUri(Uri.fromFile(new File(
                                         mContext.getCacheDir().getAbsolutePath() +

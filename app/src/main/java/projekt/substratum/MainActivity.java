@@ -9,12 +9,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -371,6 +373,18 @@ public class MainActivity extends AppCompatActivity implements
         drawerBuilder.withSelectedItemByPosition(1);
         drawer = drawerBuilder.build();
 
+        permissionCheck = ContextCompat.checkSelfPermission(
+                getApplicationContext(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        permissionCheck2 = ContextCompat.checkSelfPermission(
+                getApplicationContext(),
+                Manifest.permission.GET_ACCOUNTS);
+
+        if (permissionCheck != PackageManager.PERMISSION_GRANTED ||
+                permissionCheck2 != PackageManager.PERMISSION_GRANTED) {
+            prefs.edit().remove("permissions_ungranted").apply();
+        }
+
         if (prefs.getBoolean("permissions_ungranted", true)) {
             new AlertDialog.Builder(this)
                     .setCancelable(false)
@@ -378,13 +392,6 @@ public class MainActivity extends AppCompatActivity implements
                     .setMessage(R.string.permission_explanation_text)
                     .setPositiveButton(R.string.accept, (dialog, i) -> {
                         dialog.cancel();
-
-                        permissionCheck = ContextCompat.checkSelfPermission(
-                                getApplicationContext(),
-                                Manifest.permission.WRITE_EXTERNAL_STORAGE);
-                        permissionCheck2 = ContextCompat.checkSelfPermission(
-                                getApplicationContext(),
-                                Manifest.permission.GET_ACCOUNTS);
 
                         if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
                             // permission already granted, allow the program to continue running
@@ -626,7 +633,23 @@ public class MainActivity extends AppCompatActivity implements
                     new AlertDialog.Builder(this)
                             .setTitle(R.string.permission_not_granted_dialog_title)
                             .setMessage(R.string.permission_not_granted_dialog_message1)
-                            .setPositiveButton(R.string.dialog_ok, (dialog, which) -> MainActivity.this.finish())
+                            .setPositiveButton(R.string.dialog_ok, (dialog, which) -> {
+                                if (shouldShowRequestPermissionRationale(Manifest.permission.
+                                        WRITE_EXTERNAL_STORAGE)) {
+                                    MainActivity.this.finish();
+                                } else {
+                                    // User choose not to show request again
+                                    final Intent i = new Intent();
+                                    i.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                                    i.addCategory(Intent.CATEGORY_DEFAULT);
+                                    i.setData(Uri.parse("package:" + this.getPackageName()));
+                                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    i.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                                    i.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+                                    this.startActivity(i);
+                                    this.finish();
+                                }
+                            })
                             .show();
                     return;
                 }
@@ -646,8 +669,23 @@ public class MainActivity extends AppCompatActivity implements
                     new AlertDialog.Builder(this)
                             .setTitle(R.string.permission_not_granted_dialog_title)
                             .setMessage(R.string.permission_not_granted_dialog_message3)
-                            .setPositiveButton(R.string.dialog_ok, (dialog, which) ->
-                                    MainActivity.this.finish())
+                            .setPositiveButton(R.string.dialog_ok, (dialog, which) -> {
+                                if (shouldShowRequestPermissionRationale(Manifest.permission.
+                                        GET_ACCOUNTS)) {
+                                    MainActivity.this.finish();
+                                } else {
+                                    // User choose not to show request again
+                                    final Intent i = new Intent();
+                                    i.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                                    i.addCategory(Intent.CATEGORY_DEFAULT);
+                                    i.setData(Uri.parse("package:" + this.getPackageName()));
+                                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    i.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                                    i.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+                                    this.startActivity(i);
+                                    this.finish();
+                                }
+                            })
                             .show();
                     return;
                 }

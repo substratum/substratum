@@ -1199,6 +1199,14 @@ public class References {
         return false;
     }
 
+    // Credits for the method go to: http://www.journaldev.com/842/how-to-get-file-extension-in-java
+    public static String getFileExtension(File file) {
+        String fileName = file.getName();
+        if(fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0)
+            return fileName.substring(fileName.lastIndexOf(".")+1);
+        else return "";
+    }
+
     // This method checks whether these are legitimate packages for Substratum
     @SuppressWarnings("unchecked")
     public static HashMap<String, String[]> getSubstratumPackages(Context context,

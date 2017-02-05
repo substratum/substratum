@@ -132,7 +132,9 @@ public class SoundPackager extends Fragment {
             File[] fileArray = f.listFiles();
             ArrayList<String> archivedSounds = new ArrayList<>();
             for (File file : fileArray) {
-                archivedSounds.add(file.getName());
+                if (References.getFileExtension(file).equals("zip")) {
+                    archivedSounds.add(file.getName());
+                }
             }
             ArrayList<String> unarchivedSounds = new ArrayList<>();
             unarchivedSounds.add(getString(R.string.sounds_default_spinner));

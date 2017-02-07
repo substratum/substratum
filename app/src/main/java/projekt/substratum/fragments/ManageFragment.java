@@ -405,21 +405,7 @@ public class ManageFragment extends Fragment {
                         "many times, restarting current activity to preserve app " +
                         "integrity.");
             }
-            if (References.isPackageInstalled(getContext(), "masquerade.substratum")) {
-                if (DEBUG)
-                    Log.e(References.SUBSTRATUM_LOG, "Initializing the Masquerade theme " +
-                            "provider...");
-                Intent runCommand = MasqueradeService.getMasquerade(getContext());
-                runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                runCommand.setAction("masquerade.substratum.COMMANDS");
-                runCommand.putStringArrayListExtra("pm-uninstall", final_commands_array);
-                getContext().sendBroadcast(runCommand);
-            } else {
-                if (DEBUG)
-                    Log.e(References.SUBSTRATUM_LOG, "Masquerade was not found, falling back to " +
-                            "Substratum theme provider...");
-                new References.ThreadRunner().execute(final_commands);
-            }
+            References.uninstallOverlay(getContext(), final_commands_array);
         }
 
         @Override
@@ -437,8 +423,6 @@ public class ManageFragment extends Fragment {
             final_commands_array.addAll(state3);
             final_commands_array.addAll(state4);
             final_commands_array.addAll(state5);
-            if (final_commands_array.size() > 0)
-                final_commands_array.add(" && pkill -f com.android.systemui");
             return null;
         }
     }
@@ -518,7 +502,7 @@ public class ManageFragment extends Fragment {
                     Settings.System.putString(getContext().getContentResolver(),
                             Settings.System.FONT_SCALE, String.valueOf(fontSize + 0.0000001));
                     if (!prefs.getBoolean("systemui_recreate", false)) {
-                        References.restartSystemUI();
+                        References.restartSystemUI(getActivity().getApplicationContext());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -566,7 +550,7 @@ public class ManageFragment extends Fragment {
                                 .show();
                     }
                     if (!prefs.getBoolean("systemui_recreate", false)) {
-                        References.restartSystemUI();
+                        References.restartSystemUI(getActivity().getApplicationContext());
                     }
                 } else {
                     if (getView() != null) {
@@ -607,7 +591,7 @@ public class ManageFragment extends Fragment {
                     runCommand.putExtra("om-commands", "pkill -f com.android.systemui");
                     getContext().sendBroadcast(runCommand);
                 } else {
-                    References.restartSystemUI();
+                    References.restartSystemUI(getActivity().getApplicationContext());
                 }
             }
             return null;
@@ -638,7 +622,7 @@ public class ManageFragment extends Fragment {
                         Snackbar.LENGTH_LONG)
                         .show();
             }
-            References.restartSystemUI();
+            References.restartSystemUI(getActivity().getApplicationContext());
         }
 
         @Override

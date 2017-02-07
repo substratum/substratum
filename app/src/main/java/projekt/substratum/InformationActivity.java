@@ -782,7 +782,7 @@ public class InformationActivity extends AppCompatActivity {
 
         // Begin OMS based options
         if (id == R.id.restart_systemui) {
-            References.restartSystemUI();
+            References.restartSystemUI(getApplicationContext());
             return true;
         }
 
@@ -926,7 +926,7 @@ public class InformationActivity extends AppCompatActivity {
         protected String doInBackground(String... sUrl) {
             final SharedPreferences.Editor editor = prefs.edit();
 
-            References.uninstallOverlay(theme_pid);
+            References.uninstallOverlay(getApplicationContext(), theme_pid);
 
             // Begin uninstalling all overlays based on this package
             File current_overlays = new File(Environment
@@ -1030,7 +1030,7 @@ public class InformationActivity extends AppCompatActivity {
                         runCommand.putExtra("om-commands", "pkill -f com.android.systemui");
                         getApplicationContext().sendBroadcast(runCommand);
                     } else {
-                        References.restartSystemUI();
+                        References.restartSystemUI(getApplicationContext());
                     }
                 }
                 editor.remove("fonts_applied");

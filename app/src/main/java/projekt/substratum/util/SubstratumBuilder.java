@@ -384,7 +384,7 @@ public class SubstratumBuilder {
                 if (theme_oms) {
                     try {
                         if (variant != null) {
-                            References.installOverlay(Environment.getExternalStorageDirectory()
+                            References.installOverlay(context, Environment.getExternalStorageDirectory()
                                     .getAbsolutePath() + "/.substratum/" +
                                     overlay_package + "." + parse2_themeName +
                                     "-signed.apk");
@@ -399,7 +399,7 @@ public class SubstratumBuilder {
                                         "Overlay APK has failed to install!");
                             }
                         } else {
-                            References.installOverlay(Environment.getExternalStorageDirectory()
+                            References.installOverlay(context, Environment.getExternalStorageDirectory()
                                     .getAbsolutePath() +
                                     "/.substratum/" + overlay_package + "." +
                                     parse2_themeName + "-signed.apk");

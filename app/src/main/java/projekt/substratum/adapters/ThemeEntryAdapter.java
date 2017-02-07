@@ -292,7 +292,7 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
         protected String doInBackground(String... sUrl) {
             final SharedPreferences.Editor editor = prefs.edit();
 
-            References.uninstallOverlay(currentObject.getThemePackage());
+            References.uninstallOverlay(currentObject.getContext(), currentObject.getThemePackage());
 
             // Begin uninstalling all overlays based on this package
             File current_overlays = new File(Environment
@@ -390,7 +390,7 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
                         runCommand.putExtra("om-commands", "pkill -f com.android.systemui");
                         currentObject.getContext().sendBroadcast(runCommand);
                     } else {
-                        References.restartSystemUI();
+                        References.restartSystemUI(mContext);
                     }
                 }
                 editor.remove("fonts_applied");

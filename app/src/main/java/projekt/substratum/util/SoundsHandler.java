@@ -576,7 +576,7 @@ public class SoundsHandler {
                             .show();
                 }
             }
-            References.restartSystemUI();
+            References.restartSystemUI(mContext);
         }
 
         @Override

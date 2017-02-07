@@ -345,7 +345,7 @@ public class ThemeFragment extends Fragment {
             for (int i = 0; i < state1.size(); i++) {
                 Log.e("OverlayCleaner", "Target APK not found for \"" + state1.get(i) + "\" and " +
                         "will be removed.");
-                References.uninstallOverlay(state1.get(i));
+                References.uninstallOverlay(mContext, state1.get(i));
             }
             return null;
         }

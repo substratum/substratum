@@ -143,33 +143,23 @@ public class AdvancedManagerFragment extends Fragment {
                 materialSheetFab.hideSheet();
                 loadingBar.setVisibility(View.VISIBLE);
                 if (References.checkOMS(getContext())) {
-                    String data = References.disableOverlay();
+                    ArrayList data = new ArrayList<String>();
                     List<OverlayManager> overlayList = ((OverlayManagerAdapter) mAdapter)
                             .getOverlayManagerList();
                     for (int i = 0; i < overlayList.size(); i++) {
                         OverlayManager overlay13 = overlayList.get(i);
                         if (overlay13.isSelected()) {
-                            data = data + " " + overlay13.getName();
+                            data.add(overlay13.getName());
                         }
-                    }
-                    if (!prefs.getBoolean("systemui_recreate", false) &&
-                            data.contains("systemui")) {
-                        data = data + " && pkill -f com.android.systemui";
                     }
                     Toast toast = Toast.makeText(getContext(), getString(R
                                     .string.toast_disabled),
                             Toast.LENGTH_SHORT);
                     toast.show();
-                    if (References.isPackageInstalled(getContext(),
-                            "masquerade.substratum")) {
-                        Intent runCommand = MasqueradeService.getMasquerade(getContext());
-                        runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                        runCommand.setAction("masquerade.substratum.COMMANDS");
-                        runCommand.putExtra("om-commands", data);
-                        getContext().sendBroadcast(runCommand);
-                    } else {
-                        new References.ThreadRunner().execute(data);
-                    }
+
+                    // The magic goes here
+                    References.disableOverlay(data);
+
                     if (References.checkOMSVersion(getContext()) == 7 &&
                             !data.contains("projekt.substratum")) {
                         Handler handler = new Handler();
@@ -253,7 +243,7 @@ public class AdvancedManagerFragment extends Fragment {
             enable_selected.setOnClickListener(v -> {
                 materialSheetFab.hideSheet();
                 loadingBar.setVisibility(View.VISIBLE);
-                String data = References.enableOverlay();
+                ArrayList data = new ArrayList<String>();
                 List<OverlayManager> overlayList = ((OverlayManagerAdapter) mAdapter)
                         .getOverlayManagerList();
                 Boolean has_failed = false;
@@ -262,17 +252,13 @@ public class AdvancedManagerFragment extends Fragment {
                     if (overlay12.isSelected()) {
                         if (References.isPackageInstalled(getContext(),
                                 References.grabOverlayParent(getContext(), overlay12.getName()))) {
-                            data = data + " " + overlay12.getName();
+                            data.add(overlay12.getName());
                         } else {
                             has_failed = true;
                         }
                     }
                 }
-                if (!data.equals(References.enableOverlay())) {
-                    if (!prefs.getBoolean("systemui_recreate", false) &&
-                            data.contains("systemui")) {
-                        data = data + " && pkill -f com.android.systemui";
-                    }
+                if (!data.isEmpty()) {
                     Toast toast = Toast.makeText(getContext(), getString(R
                                     .string.toast_enabled),
                             Toast.LENGTH_SHORT);
@@ -283,15 +269,10 @@ public class AdvancedManagerFragment extends Fragment {
                                 Toast.LENGTH_LONG);
                         toast2.show();
                     }
-                    if (References.isPackageInstalled(getContext(), "masquerade.substratum")) {
-                        Intent runCommand = MasqueradeService.getMasquerade(getContext());
-                        runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                        runCommand.setAction("masquerade.substratum.COMMANDS");
-                        runCommand.putExtra("om-commands", data);
-                        getContext().sendBroadcast(runCommand);
-                    } else {
-                        new References.ThreadRunner().execute(data);
-                    }
+
+                    // The magic goes here
+                    References.enableOverlay(data);
+
                     if (References.checkOMSVersion(getContext()) == 7 &&
                             !data.contains("projekt.substratum")) {
                         Handler handler = new Handler();
@@ -321,41 +302,21 @@ public class AdvancedManagerFragment extends Fragment {
             uninstall_selected.setOnClickListener(v -> {
                 materialSheetFab.hideSheet();
                 loadingBar.setVisibility(View.VISIBLE);
-                String data = "";
+                ArrayList data = new ArrayList<String>();
                 List<OverlayManager> overlayList = ((OverlayManagerAdapter) mAdapter)
                         .getOverlayManagerList();
                 for (int i = 0; i < overlayList.size(); i++) {
                     OverlayManager overlay1 = overlayList.get(i);
-                    if (data.length() == 0) {
-                        if (overlay1.isSelected()) {
-                            data = "pm uninstall " + overlay1.getName();
-                        }
-                    } else {
-                        if (overlay1.isSelected()) {
-                            data = data + " && pm uninstall " + overlay1.getName();
-                        }
-                    }
-                }
-                if (!prefs.getBoolean("systemui_recreate", false) &&
-                        data.contains("systemui")) {
-                    data = data + " && " + References.refreshWindows() +
-                            " && pkill -f com.android.systemui";
-                } else {
-                    data += " && " + References.refreshWindows();
+                    data.add(overlay1.getName());
                 }
                 Toast toast = Toast.makeText(getContext(), getString(R
                                 .string.toast_uninstalling),
                         Toast.LENGTH_LONG);
                 toast.show();
-                if (References.isPackageInstalled(getContext(), "masquerade.substratum")) {
-                    Intent runCommand = MasqueradeService.getMasquerade(getContext());
-                    runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                    runCommand.setAction("masquerade.substratum.COMMANDS");
-                    runCommand.putExtra("om-commands", data);
-                    getContext().sendBroadcast(runCommand);
-                } else {
-                    new References.ThreadRunner().execute(data);
-                }
+
+                // The magic goes here
+                References.uninstallOverlay(getContext(), data);
+
                 if (References.checkOMSVersion(getContext()) == 7 &&
                         !data.contains("projekt.substratum")) {
                     Handler handler = new Handler();

@@ -365,7 +365,7 @@ public class SubstratumIconBuilder {
             if (update_mode) {
                 if (theme_oms) {
                     try {
-                        References.installOverlay(Environment.getExternalStorageDirectory()
+                        References.installOverlay(context, Environment.getExternalStorageDirectory()
                                 .getAbsolutePath() + "/.substratum/" +
                                 overlay_package + ".icon-signed.apk");
                         Log.d(References.SUBSTRATUM_ICON_BUILDER, "Silently installing APK...");

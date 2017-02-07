@@ -221,7 +221,7 @@ public class FontInstaller extends Fragment {
                     Settings.System.putString(getContext().getContentResolver(),
                             Settings.System.FONT_SCALE, String.valueOf(fontSize + 0.0000001));
                     if (!prefs.getBoolean("systemui_recreate", false)) {
-                        References.restartSystemUI();
+                        References.restartSystemUI(getContext());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -267,7 +267,7 @@ public class FontInstaller extends Fragment {
                             Toast.LENGTH_SHORT);
                     toast.show();
                     if (!prefs.getBoolean("systemui_recreate", false)) {
-                        References.restartSystemUI();
+                        References.restartSystemUI(getContext());
                     }
                 } else {
                     Toast toast = Toast.makeText(getContext(), getString(R.string
@@ -304,7 +304,7 @@ public class FontInstaller extends Fragment {
                     runCommand.putExtra("om-commands", "pkill -f com.android.systemui");
                     getContext().sendBroadcast(runCommand);
                 } else {
-                    References.restartSystemUI();
+                    References.restartSystemUI(getContext());
                 }
             }
             return null;

@@ -136,7 +136,7 @@ public class AntiPiracyCheck {
                             mContext.sendBroadcast(runCommand);
                         } else {
                             for (int i = 0; i < unauthorized_packages.size(); i++) {
-                                References.uninstallOverlay(unauthorized_packages.get(i));
+                                References.uninstallOverlay(mContext, unauthorized_packages.get(i));
                             }
                         }
                     } else {

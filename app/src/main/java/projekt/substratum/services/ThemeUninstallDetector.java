@@ -115,7 +115,7 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
                                 runCommand.putExtra("om-commands", "pkill -f com.android.systemui");
                                 context.sendBroadcast(runCommand);
                             } else {
-                                References.restartSystemUI();
+                                References.restartSystemUI(context);
                             }
                         }
                         editor.remove("fonts_applied");

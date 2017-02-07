@@ -53,12 +53,12 @@ public class MasqueradeService {
         context.startService(masqIntent);
     }
 
-    public static void uninstallOverlays(Context context, ArrayList<String> overlays) {
+    public static void uninstallOverlays(Context context, ArrayList<String> overlays, boolean restartUi) {
         Intent masqIntent = getMasqueradeRootless(context);
         masqIntent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_UNINSTALL);
         masqIntent.putExtra(UNINSTALL_LIST_KEY, overlays);
         // only need to set if true, will restart SystemUI when done processing packages
-        masqIntent.putExtra(WITH_RESTART_UI_KEY, true);
+        masqIntent.putExtra(WITH_RESTART_UI_KEY, restartUi);
         context.startService(masqIntent);
     }
 

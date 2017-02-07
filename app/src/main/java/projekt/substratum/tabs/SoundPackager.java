@@ -250,7 +250,7 @@ public class SoundPackager extends Fragment {
                     getString(R.string.manage_sounds_toast),
                     Snackbar.LENGTH_LONG)
                     .show();
-            References.restartSystemUI();
+            References.restartSystemUI(getContext());
         }
 
         @Override

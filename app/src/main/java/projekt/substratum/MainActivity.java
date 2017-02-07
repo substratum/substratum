@@ -549,7 +549,7 @@ public class MainActivity extends AppCompatActivity implements
             // Begin OMS based options
             case R.id.restart_systemui:
                 prefs.edit().clear().apply();
-                References.restartSystemUI();
+                References.restartSystemUI(getApplicationContext());
                 return true;
 
             // Begin RRO based options

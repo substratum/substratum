@@ -1161,7 +1161,7 @@ public class References {
     }
 
     public static void installOverlay(Context context, String overlay) {
-        if (checkMasquerade(context) <= 22) {
+        if (checkMasquerade(context) >= 22) {
             // TODO: It should not be like this
             ArrayList list = new ArrayList();
             list.add(overlay);
@@ -1189,7 +1189,7 @@ public class References {
     }
 
     public static void restartSystemUI(Context context) {
-        if (checkMasquerade(context) <= 22) {
+        if (checkMasquerade(context) >= 22) {
             MasqueradeService.restartSystemUI(context);
         } else {
             Root.runCommand("pkill -f com.android.systemui");
@@ -1234,7 +1234,7 @@ public class References {
             }
         }
 
-        if (checkMasquerade(context) <= 22) {
+        if (checkMasquerade(context) >= 22) {
             ArrayList list = new ArrayList();
             list.add(overlay);
             MasqueradeService.uninstallOverlays(context, list, shouldRestartUi);
@@ -1257,7 +1257,7 @@ public class References {
                 }
             }
         }
-        if (checkMasquerade(context) <= 22) {
+        if (checkMasquerade(context) >= 22) {
             MasqueradeService.uninstallOverlays(context, overlays, shouldRestartUi);
         } else {
             String command = "pm uninstall ";
@@ -1270,7 +1270,7 @@ public class References {
     }
 
     public static void setFonts(Context context, String theme_pid, String name) {
-        if (checkOMS(context) && checkMasquerade(context) <= 22) {
+        if (checkOMS(context) && checkMasquerade(context) >= 22) {
             MasqueradeService.setFonts(context, theme_pid, name);
         } else {
             // oms pre rootless masq or legacy
@@ -1405,7 +1405,7 @@ public class References {
     }
 
     public static void clearFonts(Context context) {
-        if (checkOMS(context) && checkMasquerade(context) <= 22) {
+        if (checkOMS(context) && checkMasquerade(context) >= 22) {
             MasqueradeService.clearFonts(context);
         } else {
             // oms with pre rootless masq and legacy

@@ -39,7 +39,6 @@ import projekt.substratum.util.SoundsHandler;
 public class ManageFragment extends Fragment {
 
     private ProgressDialog mProgressDialog;
-    private String final_commands;
     private ArrayList<String> final_commands_array;
     private Boolean DEBUG = References.DEBUG;
     private SharedPreferences prefs;
@@ -486,114 +485,40 @@ public class ManageFragment extends Fragment {
             editor.remove("fonts_applied");
             editor.apply();
 
-            // Finally, perform a window refresh
-            if (References.checkOMSVersion(getContext()) == 7) {
-                try {
-                    Class<?> cls = Class.forName("android.graphics.Typeface");
-                    cls.getDeclaredMethod("recreateDefaults");
-                    Log.e(References.SUBSTRATUM_LOG, "Reflected into the Android Framework and " +
-                            "initialized a font recreation!");
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-                try {
-                    float fontSize = Float.valueOf(Settings.System.getString(
-                            getContext().getContentResolver(), Settings.System.FONT_SCALE));
-                    Settings.System.putString(getContext().getContentResolver(),
-                            Settings.System.FONT_SCALE, String.valueOf(fontSize + 0.0000001));
-                    if (!prefs.getBoolean("systemui_recreate", false)) {
-                        References.restartSystemUI(getActivity().getApplicationContext());
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
+            if (References.checkOMS(getContext())) {
+                if (getView() != null) {
+                    Snackbar.make(getView(),
+                            getString(R.string.
+                                    manage_fonts_toast),
+                            Snackbar.LENGTH_LONG)
+                            .show();
                 }
             } else {
-                if (References.isPackageInstalled(getContext(), "masquerade.substratum")) {
-                    if (DEBUG)
-                        Log.e(References.SUBSTRATUM_LOG, "Initializing the Masquerade theme " +
-                                "provider...");
-                    Intent runCommand = MasqueradeService.getMasquerade(getContext());
-                    runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                    runCommand.setAction("masquerade.substratum.COMMANDS");
-                    runCommand.putExtra("om-commands", final_commands);
-                    getContext().sendBroadcast(runCommand);
-                } else {
-                    if (DEBUG)
-                        Log.e(References.SUBSTRATUM_LOG, "Masquerade was not found, falling back " +
-                                "to " +
-                                "Substratum theme provider...");
-                    new References.ThreadRunner().execute(final_commands);
+                if (getView() != null) {
+                    Snackbar.make(getView(),
+                            getString(R.string.
+                                    manage_fonts_toast),
+                            Snackbar.LENGTH_LONG)
+                            .show();
                 }
-                if (References.isPackageInstalled(getContext(), "masquerade.substratum")) {
-                    if (DEBUG)
-                        Log.e(References.SUBSTRATUM_LOG, "Initializing the Masquerade theme " +
-                                "provider...");
-                    Intent runCommand = MasqueradeService.getMasquerade(getContext());
-                    runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                    runCommand.setAction("masquerade.substratum.COMMANDS");
-                    runCommand.putExtra("om-commands", "setprop sys.refresh_theme 1");
-                    getContext().sendBroadcast(runCommand);
-                } else {
-                    if (DEBUG)
-                        Log.e(References.SUBSTRATUM_LOG, "Masquerade was not found, falling back " +
-                                "to " +
-                                "Substratum theme provider...");
-                    References.setProp("setprop sys.refresh_theme", "1");
-                }
-
-                if (References.checkOMS(getContext())) {
-                    if (getView() != null) {
-                        Snackbar.make(getView(),
-                                getString(R.string.
-                                        manage_fonts_toast),
-                                Snackbar.LENGTH_LONG)
-                                .show();
-                    }
-                    if (!prefs.getBoolean("systemui_recreate", false)) {
-                        References.restartSystemUI(getActivity().getApplicationContext());
-                    }
-                } else {
-                    if (getView() != null) {
-                        Snackbar.make(getView(),
-                                getString(R.string.
-                                        manage_fonts_toast),
-                                Snackbar.LENGTH_LONG)
-                                .show();
-                    }
-                    final AlertDialog.Builder alertDialogBuilder =
-                            new AlertDialog.Builder(getContext());
-                    alertDialogBuilder.setTitle(getString(R.string
-                            .legacy_dialog_soft_reboot_title));
-                    alertDialogBuilder.setMessage(getString(R.string
-                            .legacy_dialog_soft_reboot_text));
-                    alertDialogBuilder.setPositiveButton(android.R.string.ok,
-                            (dialog, id) -> References.reboot());
-                    alertDialogBuilder.setNegativeButton(R.string.remove_dialog_later,
-                            (dialog, id) -> dialog.dismiss());
-                    alertDialogBuilder.setCancelable(false);
-                    AlertDialog alertDialog = alertDialogBuilder.create();
-                    alertDialog.show();
-                }
+                final AlertDialog.Builder alertDialogBuilder =
+                        new AlertDialog.Builder(getContext());
+                alertDialogBuilder.setTitle(getString(R.string
+                        .legacy_dialog_soft_reboot_title));
+                alertDialogBuilder.setMessage(getString(R.string
+                        .legacy_dialog_soft_reboot_text));
+                alertDialogBuilder.setPositiveButton(android.R.string.ok, (dialog, id) -> References.reboot());
+                alertDialogBuilder.setNegativeButton(R.string.remove_dialog_later,
+                        (dialog, id) -> dialog.dismiss());
+                alertDialogBuilder.setCancelable(false);
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
             }
         }
 
         @Override
         protected String doInBackground(String... sUrl) {
-            int version = References.checkOMSVersion(getContext());
-            if (version == 3) final_commands = References.refreshWindows();
-            References.delete("/data/system/theme/fonts/");
-            if (version == 7) References.setProp("sys.refresh_theme", "1");
-            if (!prefs.getBoolean("systemui_recreate", false)) {
-                if (References.isPackageInstalled(getContext(), "masquerade.substratum")) {
-                    Intent runCommand = MasqueradeService.getMasquerade(getContext());
-                    runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                    runCommand.setAction("masquerade.substratum.COMMANDS");
-                    runCommand.putExtra("om-commands", "pkill -f com.android.systemui");
-                    getContext().sendBroadcast(runCommand);
-                } else {
-                    References.restartSystemUI(getActivity().getApplicationContext());
-                }
-            }
+            References.clearFonts(getContext());
             return null;
         }
     }

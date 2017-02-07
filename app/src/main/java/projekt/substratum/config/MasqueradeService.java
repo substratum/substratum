@@ -4,6 +4,7 @@ import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.Nullable;
 
 import java.util.ArrayList;
 
@@ -17,7 +18,8 @@ public class MasqueradeService {
     private static final String WITH_RESTART_UI_KEY = "with_restart_ui";
     private static final String BOOTANIMATION_PID_KEY = "bootanimation_pid";
     private static final String BOOTANIMATION_FILE_NAME = "bootanimation_file_name";
-    private static final String FONTS_RESET = "fonts_reset";
+    private static final String FONTS_FILENAME = "fonts_filename";
+    private static final String FONTS_PID = "fonts_pid";
     private static final String COMMAND_VALUE_INSTALL = "install";
     private static final String COMMAND_VALUE_UNINSTALL = "uninstall";
     private static final String COMMAND_VALUE_RESTART_UI = "restart_ui";
@@ -85,13 +87,17 @@ public class MasqueradeService {
         context.startService(masqIntent);
     }
 
-    public static void setFonts(Context context) {
+    public static void setFonts(Context context, String pid, String name) {
         Intent masqIntent = getMasqueradeRootless(context);
-        // will automatically load prepared font from Substratum font working folder
         masqIntent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_FONTS);
-        // set true to restore to stock
-        masqIntent.putExtra(FONTS_RESET, true);
+        masqIntent.putExtra(FONTS_FILENAME, name);
+        masqIntent.putExtra(FONTS_PID, pid);
         context.startService(masqIntent);
     }
 
+    public static void clearFonts(Context context) {
+        Intent masqIntent = getMasqueradeRootless(context);
+        masqIntent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_FONTS);
+        context.startService(masqIntent);
+    }
 }

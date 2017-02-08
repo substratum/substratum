@@ -56,7 +56,7 @@ public class FontHandler {
                 // Finally, refresh the window
                 if (References.checkMasquerade(mContext) < 22 && References.checkOMS(mContext)) {
                     new References.ThreadRunner().execute("pkill -f com.android.systemui");
-                } else {
+                } else if (!References.checkOMS(mContext)){
                     final AlertDialog.Builder alertDialogBuilder =
                             new AlertDialog.Builder(mContext);
                     alertDialogBuilder.setTitle(mContext.getString(

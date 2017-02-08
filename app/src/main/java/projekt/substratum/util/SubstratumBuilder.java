@@ -479,12 +479,18 @@ public class SubstratumBuilder {
                     References.mountRO();
                 }
             } else {
+                // TODO: Are we need this part? we need complete intent from masq so we need to install it anyway
                 Log.d(References.SUBSTRATUM_BUILDER,
                         "Update mode flag disabled, returning one-line parsable command");
                 no_install = "pm install -r " + Environment.getExternalStorageDirectory()
                         .getAbsolutePath() +
                         "/.substratum/" + overlay_package + "." + parse2_themeName +
                         "-signed.apk";
+
+                References.installOverlay(context, Environment.getExternalStorageDirectory()
+                        .getAbsolutePath() +
+                        "/.substratum/" + overlay_package + "." + parse2_themeName +
+                        "-signed.apk");
             }
         }
     }

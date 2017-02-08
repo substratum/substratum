@@ -143,7 +143,7 @@ public class AdvancedManagerFragment extends Fragment {
                 materialSheetFab.hideSheet();
                 loadingBar.setVisibility(View.VISIBLE);
                 if (References.checkOMS(getContext())) {
-                    ArrayList data = new ArrayList<String>();
+                    ArrayList<String> data = new ArrayList<>();
                     List<OverlayManager> overlayList = ((OverlayManagerAdapter) mAdapter)
                             .getOverlayManagerList();
                     for (int i = 0; i < overlayList.size(); i++) {
@@ -158,7 +158,7 @@ public class AdvancedManagerFragment extends Fragment {
                     toast.show();
 
                     // The magic goes here
-                    References.disableOverlay(data);
+                    References.disableOverlay(getContext(), data);
 
                     if (References.checkOMSVersion(getContext()) == 7 &&
                             !data.contains("projekt.substratum")) {
@@ -243,7 +243,7 @@ public class AdvancedManagerFragment extends Fragment {
             enable_selected.setOnClickListener(v -> {
                 materialSheetFab.hideSheet();
                 loadingBar.setVisibility(View.VISIBLE);
-                ArrayList data = new ArrayList<String>();
+                ArrayList<String> data = new ArrayList<>();
                 List<OverlayManager> overlayList = ((OverlayManagerAdapter) mAdapter)
                         .getOverlayManagerList();
                 Boolean has_failed = false;
@@ -271,7 +271,7 @@ public class AdvancedManagerFragment extends Fragment {
                     }
 
                     // The magic goes here
-                    References.enableOverlay(data);
+                    References.enableOverlay(getContext(), data);
 
                     if (References.checkOMSVersion(getContext()) == 7 &&
                             !data.contains("projekt.substratum")) {
@@ -302,7 +302,7 @@ public class AdvancedManagerFragment extends Fragment {
             uninstall_selected.setOnClickListener(v -> {
                 materialSheetFab.hideSheet();
                 loadingBar.setVisibility(View.VISIBLE);
-                ArrayList data = new ArrayList<String>();
+                ArrayList<String> data = new ArrayList<>();
                 List<OverlayManager> overlayList = ((OverlayManagerAdapter) mAdapter)
                         .getOverlayManagerList();
                 for (int i = 0; i < overlayList.size(); i++) {

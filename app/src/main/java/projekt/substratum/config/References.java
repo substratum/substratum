@@ -9,7 +9,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.om.OverlayInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -351,7 +350,7 @@ public class References {
     }
 
     // Future masquerade methods
-    public static void enableOverlay(ArrayList<String> overlays) {
+    public static void enableOverlay(Context context, ArrayList<String> overlays) {
         int size = overlays.size();
         for (int i = 0; i < size; i++) {
             if (i != size - 1) {
@@ -361,9 +360,10 @@ public class References {
                 OverlayManagerService.enable(overlays.get(i), false);
             }
         }
+        if (shouldRestartUi(context, overlays)) References.restartSystemUI(context);
     }
 
-    public static void disableOverlay(ArrayList<String> overlays) {
+    public static void disableOverlay(Context context, ArrayList<String> overlays) {
         int size = overlays.size();
         for (int i = 0; i < size; i++) {
             if (i != size - 1) {
@@ -373,6 +373,7 @@ public class References {
                 OverlayManagerService.disable(overlays.get(i), false);
             }
         }
+        if (shouldRestartUi(context, overlays)) References.restartSystemUI(context);
     }
 
     // This method is used to check whether a build.prop value is found
@@ -1163,7 +1164,7 @@ public class References {
     public static void installOverlay(Context context, String overlay) {
         if (checkMasquerade(context) >= 22) {
             // TODO: It should not be like this
-            ArrayList list = new ArrayList();
+            ArrayList<String> list = new ArrayList<>();
             list.add(overlay);
             MasqueradeService.installOverlays(context, list);
         } else {
@@ -1220,52 +1221,43 @@ public class References {
         Root.runCommand("ln -s " + source + " " + destination);
     }
 
-    public static void uninstallOverlay(Context context, String overlay) {
-        boolean shouldRestartUi = false;
-
+    private static boolean shouldRestartUi (Context context, String overlay) {
         if (checkOMS(context)) {
-            List<OverlayInfo> sysuiOverlays = OverlayManagerService.getOverlayInfosForTarget(
-                    "com.android.systemui");
-            if (sysuiOverlays != null) {
-                for (OverlayInfo oi : sysuiOverlays) {
-                    shouldRestartUi = oi.isEnabled() && overlay.equals("com.android.systemui");
-                    Log.d(SUBSTRATUM_LOG, oi.packageName + " is an enabled SystemUI overlay");
-                }
+            if (overlay.startsWith("com.android.systemui")) return true;
+        }
+        return false;
+    }
+
+    private static boolean shouldRestartUi (Context context, ArrayList<String> overlays) {
+        if (checkOMS(context)) {
+            for (String o : overlays) {
+                if (o.startsWith("com.android.systemui")) return true;
             }
         }
+        return false;
+    }
 
+    public static void uninstallOverlay(Context context, String overlay) {
         if (checkMasquerade(context) >= 22) {
-            ArrayList list = new ArrayList();
+            ArrayList<String> list = new ArrayList<>();
             list.add(overlay);
-            MasqueradeService.uninstallOverlays(context, list, shouldRestartUi);
+            MasqueradeService.uninstallOverlays(context, list, shouldRestartUi(context, overlay));
         } else {
             new ThreadRunner().execute("pm uninstall " + overlay);
-            if (checkOMS(context) && shouldRestartUi) restartSystemUI(context);
+            if (checkOMS(context) && shouldRestartUi(context, overlay)) restartSystemUI(context);
         }
     }
 
     public static void uninstallOverlay(Context context, ArrayList<String> overlays) {
-        boolean shouldRestartUi = false;
-
-        if (checkOMS(context)) {
-            List<OverlayInfo> sysuiOverlays = OverlayManagerService.getOverlayInfosForTarget(
-                    "com.android.systemui");
-            if (sysuiOverlays != null) {
-                for (OverlayInfo oi : sysuiOverlays) {
-                    shouldRestartUi = oi.isEnabled() && overlays.contains("com.android.systemui");
-                    Log.d(SUBSTRATUM_LOG, oi.packageName + " is an enabled SystemUI overlay");
-                }
-            }
-        }
         if (checkMasquerade(context) >= 22) {
-            MasqueradeService.uninstallOverlays(context, overlays, shouldRestartUi);
+            MasqueradeService.uninstallOverlays(context, overlays, shouldRestartUi(context, overlays));
         } else {
             String command = "pm uninstall ";
             for (String packageName : overlays) {
                 command += packageName + " ";
             }
             new ThreadRunner().execute(command);
-            if (checkOMS(context) && shouldRestartUi) restartSystemUI(context);
+            if (checkOMS(context) && shouldRestartUi(context, overlays)) restartSystemUI(context);
         }
     }
 

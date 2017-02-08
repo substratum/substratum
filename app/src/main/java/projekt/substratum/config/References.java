@@ -1455,7 +1455,6 @@ public class References {
         boolean ringtone = false;
 
         if (checkOMS(context) && checkMasquerade(context) >= 22) {
-            // TODO: fix bootloop
             MasqueradeService.setThemedSounds(context, theme_pid, name);
             ringtone = true; // Always assume that the process is succeeded;
         } else {
@@ -1592,7 +1591,7 @@ public class References {
             setDefaultUISounds("lock_sound", "Lock.ogg");
             setDefaultUISounds("unlock_sound", "Unlock.ogg");
             setDefaultUISounds("low_battery_sound", "LowBattery.ogg");
-
+            References.restartSystemUI(context);
         }
     }
 

@@ -45,6 +45,8 @@ import projekt.substratum.model.SoundsInfo;
 import projekt.substratum.util.RecyclerItemClickListener;
 import projekt.substratum.util.SoundsHandler;
 
+import static projekt.substratum.util.SoundsHandler.finishReceiver;
+
 public class SoundPackager extends Fragment {
 
     private String theme_pid;
@@ -218,6 +220,13 @@ public class SoundPackager extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         mp.release();
+
+        // Unregister finish receiver
+        try {
+            if (finishReceiver != null) getContext().unregisterReceiver(finishReceiver);
+        } catch (IllegalArgumentException e) {
+            // unregistered already
+        }
     }
 
     private void stopPlayer() {
@@ -250,7 +259,6 @@ public class SoundPackager extends Fragment {
                     getString(R.string.manage_sounds_toast),
                     Snackbar.LENGTH_LONG)
                     .show();
-            References.restartSystemUI(getContext());
         }
 
         @Override

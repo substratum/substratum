@@ -328,7 +328,8 @@ public class ManageFragment extends Fragment {
             alertDialogBuilder.setMessage(getString(R.string.manage_dialog_text));
             alertDialogBuilder
                     .setPositiveButton(android.R.string.ok, (dialog, id) -> {
-                        if (Settings.System.canWrite(getContext())) {
+                        if (References.checkMasquerade(getContext()) >= 22 ||
+                                Settings.System.canWrite(getContext())) {
                             new SoundsClearer().execute("");
                         } else {
                             Intent intent = new Intent(
@@ -522,7 +523,6 @@ public class ManageFragment extends Fragment {
                         Snackbar.LENGTH_LONG)
                         .show();
             }
-            References.restartSystemUI(getActivity().getApplicationContext());
         }
 
         @Override

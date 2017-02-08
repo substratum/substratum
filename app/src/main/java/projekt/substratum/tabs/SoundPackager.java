@@ -255,7 +255,6 @@ public class SoundPackager extends Fragment {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            References.delete("/data/system/theme/audio/");
             new SoundsHandler().SoundsClearer(getContext());
             return null;
         }

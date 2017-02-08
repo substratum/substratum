@@ -64,21 +64,7 @@ public class SoundsHandler {
     }
 
     public void SoundsClearer(Context context) {
-
-        // ATTENTION (to developers):
-        //
-        // Sounds that aren't cleared (for testing purposes), but removed from the folder
-        // are cleared on the next reboot. The way the ContentResolver SQL database works is that it
-        // checks the file integrity of _data (file path), and if the file is missing, the database
-        // entry is removed.
-
-        this.mContext = context;
-        setDefaultAudible(mContext, RingtoneManager.TYPE_ALARM);
-        setDefaultAudible(mContext, RingtoneManager.TYPE_NOTIFICATION);
-        setDefaultAudible(mContext, RingtoneManager.TYPE_RINGTONE);
-        setDefaultUISounds("lock_sound", "Lock.ogg");
-        setDefaultUISounds("unlock_sound", "Unlock.ogg");
-        setDefaultUISounds("low_battery_sound", "LowBattery.ogg");
+        References.clearSounds(context);
     }
 
     private void perform_action() {
@@ -576,93 +562,14 @@ public class SoundsHandler {
                             .show();
                 }
             }
-            References.restartSystemUI(mContext);
         }
 
         @Override
         protected String doInBackground(String... sUrl) {
 
-            has_failed = false;
-
-            // Move the file from assets folder to a new working area
-            Log.d("SoundsHandler", "Copying over the selected sounds to working directory...");
-
-            File cacheDirectory = new File(mContext.getCacheDir(), "/SoundsCache/");
-            if (!cacheDirectory.exists()) {
-                boolean created = cacheDirectory.mkdirs();
-                if (created) Log.d("SoundsHandler", "Sounds folder created");
-            }
-            File cacheDirectory2 = new File(mContext.getCacheDir(), "/SoundsCache/" +
-                    "SoundsInjector/");
-            if (!cacheDirectory2.exists()) {
-                boolean created = cacheDirectory2.mkdirs();
-                if (created) Log.d("SoundsHandler", "Sounds work folder created");
-            } else {
-                References.delete(mContext.getCacheDir().getAbsolutePath() +
-                        "/SoundsCache/SoundsInjector/");
-                boolean created = cacheDirectory2.mkdirs();
-                if (created) Log.d("SoundsHandler", "Sounds work folder recreated");
-            }
-
-            String sounds = sUrl[0];
-
-            if (!has_failed) {
-                Log.d("SoundsHandler", "Analyzing integrity of sounds archive file...");
-                try {
-                    Context otherContext = mContext.createPackageContext(theme_pid, 0);
-                    AssetManager am = otherContext.getAssets();
-                    try (InputStream inputStream = am.open("audio/" + sounds + ".zip");
-                         OutputStream outputStream = new FileOutputStream(mContext.getCacheDir()
-                                 .getAbsolutePath() + "/SoundsCache/SoundsInjector/" +
-                                 sounds + ".zip")) {
-                        CopyStream(inputStream, outputStream);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Log.e("SoundsHandler", "There is no sounds.zip found within the assets " +
-                            "of this theme!");
-                    has_failed = true;
-                }
-
-                // Rename the file
-                File workingDirectory = new File(mContext.getCacheDir()
-                        .getAbsolutePath() + "/SoundsCache/SoundsInjector/");
-                File from = new File(workingDirectory, sounds + ".zip");
-                sounds = sounds.replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+",
-                        "");
-                File to = new File(workingDirectory, sounds + ".zip");
-                boolean rename = from.renameTo(to);
-                if (rename)
-                    Log.d("SoundsHandler", "Sounds archive successfully moved to new " +
-                            "directory");
-
-                // Unzip the sounds archive to get it prepared for the preview
-                unzip(mContext.getCacheDir().getAbsolutePath() +
-                                "/SoundsCache/SoundsInjector/" + sounds + ".zip",
-                        mContext.getCacheDir().getAbsolutePath() +
-                                "/SoundsCache/SoundsInjector/");
-            }
-
-            if (!has_failed) {
-                Log.d("SoundsHandler", "Moving sounds to theme directory " +
-                        "and setting correct contextual parameters...");
-
-                File themeDirectory = new File("/data/system/theme/");
-                if (!themeDirectory.exists()) {
-                    References.mountRWData();
-                    References.createNewFolder("/data/system/theme/");
-                    References.setPermissions(755, "/data/system/theme/");
-                    References.mountROData();
-                }
-                File audioDirectory = new File("/data/system/theme/audio/");
-                if (!audioDirectory.exists()) {
-                    References.mountRWData();
-                    References.createNewFolder("/data/system/theme/audio/");
-                    References.setPermissions(755, "/data/system/theme/audio/");
-                    References.mountROData();
-                }
-                perform_action();
-            }
+            boolean[] results = References.setSounds(mContext, theme_pid, sUrl[0]);
+            has_failed = results[0];
+            ringtone = results[1];
 
             if (!has_failed) {
                 SharedPreferences.Editor editor = prefs.edit();
@@ -676,6 +583,7 @@ public class SoundsHandler {
                 References.delete(mContext.getCacheDir().getAbsolutePath() +
                         "/SoundsCache/SoundsInjector/");
             }
+
             return null;
         }
 

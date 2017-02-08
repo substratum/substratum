@@ -17,6 +17,8 @@ public class MasqueradeService {
     private static final String WITH_RESTART_UI_KEY = "with_restart_ui";
     private static final String BOOTANIMATION_PID_KEY = "bootanimation_pid";
     private static final String BOOTANIMATION_FILE_NAME = "bootanimation_file_name";
+    private static final String AUDIO_PID = "audio_pid";
+    private static final String AUDIO_FILENAME = "audio_filename";
     private static final String FONTS_FILENAME = "fonts_filename";
     private static final String FONTS_PID = "fonts_pid";
     private static final String COMMAND_VALUE_INSTALL = "install";
@@ -99,6 +101,20 @@ public class MasqueradeService {
     public static void clearFonts(Context context) {
         Intent masqIntent = getMasqueradeRootless(context);
         masqIntent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_FONTS);
+        context.startService(masqIntent);
+    }
+
+    public static void setThemedSounds(Context context, String pid, String name) {
+        Intent masqIntent = getMasqueradeRootless(context);
+        masqIntent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_AUDIO);
+        masqIntent.putExtra(AUDIO_PID, pid);
+        masqIntent.putExtra(AUDIO_FILENAME, name);
+        context.startService(masqIntent);
+    }
+
+    public static void clearThemedSounds(Context context) {
+        Intent masqIntent = getMasqueradeRootless(context);
+        masqIntent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_AUDIO);
         context.startService(masqIntent);
     }
 }

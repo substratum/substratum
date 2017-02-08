@@ -33,7 +33,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
 import projekt.substratum.config.MasqueradeService;
 import projekt.substratum.config.References;
@@ -397,7 +396,7 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
             }
             if (prefs.getString("bootanimation_applied", "").equals(
                     currentObject.getThemePackage())) {
-                if (InformationActivity.getDeviceEncryptionStatus(
+                if (References.getDeviceEncryptionStatus(
                         currentObject.getContext()) <= 1) {
                     References.delete("/data/system/theme/bootanimation.zip");
                 } else {

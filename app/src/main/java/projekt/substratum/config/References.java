@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
+import android.app.admin.DevicePolicyManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -1261,6 +1262,43 @@ public class References {
         }
     }
 
+    public static void setBootAnimation(Context context, String themeDirectory) {
+        String location = Environment.getExternalStorageDirectory().getAbsolutePath() +
+                "/.substratum/bootanimation.zip";
+        if (getDeviceEncryptionStatus(context) <= 1 && checkMasquerade(context) >= 22) {
+            Log.d("BootAnimationHandler",
+                    "No-root option has been enabled with the inclusion of " +
+                            "masquerade v22+...");
+            MasqueradeService.setBootAnimation(context, location);
+        } else {
+            Log.d("BootAnimationHandler", "Root option has been enabled");
+            References.mountRW();
+            References.setPermissions(755, themeDirectory);
+            References.mountRW();
+            References.move(location, themeDirectory + "/bootanimation.zip");
+            References.mountRW();
+            References.setPermissions(644, themeDirectory + "/bootanimation.zip");
+            References.mountRWData();
+            References.setContext(themeDirectory);
+        }
+    }
+
+    public static void clearBootAnimation(Context context) {
+        if (getDeviceEncryptionStatus(context) <= 1 && checkMasquerade(context) >= 22) {
+            // OMS with no-root masquerade
+            MasqueradeService.clearBootAnimation(context);
+        } else if (getDeviceEncryptionStatus(context) <= 1 && !References.checkOMS(context)) {
+            // Legacy unencrypted
+            References.delete("/data/system/theme/bootanimation.zip");
+        } else {
+            // Encrypted OMS and legacy
+            References.mountRW();
+            References.move("/system/media/bootanimation-backup.zip",
+                    "/system/media/bootanimation.zip");
+            References.delete("/system/addon.d/81-subsboot.sh");
+        }
+    }
+
     public static void setFonts(Context context, String theme_pid, String name) {
         if (checkOMS(context) && checkMasquerade(context) >= 22) {
             MasqueradeService.setFonts(context, theme_pid, name);
@@ -1404,6 +1442,22 @@ public class References {
             References.delete("/data/system/theme/fonts/");
             if (!checkOMS(context)) References.restartSystemUI(context);
         }
+    }
+
+    public static int getDeviceEncryptionStatus(Context context) {
+        // 0: ENCRYPTION_STATUS_UNSUPPORTED
+        // 1: ENCRYPTION_STATUS_INACTIVE
+        // 2: ENCRYPTION_STATUS_ACTIVATING
+        // 3: ENCRYPTION_STATUS_ACTIVE_DEFAULT_KEY
+        // 4: ENCRYPTION_STATUS_ACTIVE
+        // 5: ENCRYPTION_STATUS_ACTIVE_PER_USER
+        int status = DevicePolicyManager.ENCRYPTION_STATUS_UNSUPPORTED;
+        final DevicePolicyManager dpm = (DevicePolicyManager)
+                context.getSystemService(Context.DEVICE_POLICY_SERVICE);
+        if (dpm != null) {
+            status = dpm.getStorageEncryptionStatus();
+        }
+        return status;
     }
 
     public static boolean isIncompatibleFirmware() {

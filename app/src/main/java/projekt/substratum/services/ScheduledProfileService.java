@@ -6,7 +6,6 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.WallpaperManager;
-import android.app.admin.DevicePolicyManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -94,22 +93,6 @@ public class ScheduledProfileService extends IntentService {
             mNotifyManager.notify(NOTIFICATION_ID, mBuilder.build());
             ScheduledProfileReceiver.completeWakefulIntent(intent);
         }
-    }
-
-    private int getDeviceEncryptionStatus() {
-        // 0: ENCRYPTION_STATUS_UNSUPPORTED
-        // 1: ENCRYPTION_STATUS_INACTIVE
-        // 2: ENCRYPTION_STATUS_ACTIVATING
-        // 3: ENCRYPTION_STATUS_ACTIVE_DEFAULT_KEY
-        // 4: ENCRYPTION_STATUS_ACTIVE
-        // 5: ENCRYPTION_STATUS_ACTIVE_PER_USER
-        int status = DevicePolicyManager.ENCRYPTION_STATUS_UNSUPPORTED;
-        final DevicePolicyManager dpm = (DevicePolicyManager)
-                this.getSystemService(Context.DEVICE_POLICY_SERVICE);
-        if (dpm != null) {
-            status = dpm.getStorageEncryptionStatus();
-        }
-        return status;
     }
 
     private void applyScheduledProfile(Intent intent) {
@@ -241,7 +224,7 @@ public class ScheduledProfileService extends IntentService {
                     .getAbsolutePath() + "/substratum/profiles/" + processed +
                     "/bootanimation.zip");
             if (bootanimation.exists()) {
-                if (getDeviceEncryptionStatus() <= 1) {
+                if (References.getDeviceEncryptionStatus(mContext) <= 1) {
                     to_be_run_commands = to_be_run_commands +
                             " && chmod 644 /data/system/theme/bootanimation.zip";
                 } else {

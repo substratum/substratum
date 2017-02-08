@@ -1,7 +1,6 @@
 package projekt.substratum.services;
 
 import android.app.WallpaperManager;
-import android.app.admin.DevicePolicyManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -22,22 +21,6 @@ import projekt.substratum.config.MasqueradeService;
 import projekt.substratum.config.References;
 
 public class ThemeUninstallDetector extends BroadcastReceiver {
-
-    public static int getDeviceEncryptionStatus(Context context) {
-        // 0: ENCRYPTION_STATUS_UNSUPPORTED
-        // 1: ENCRYPTION_STATUS_INACTIVE
-        // 2: ENCRYPTION_STATUS_ACTIVATING
-        // 3: ENCRYPTION_STATUS_ACTIVE_DEFAULT_KEY
-        // 4: ENCRYPTION_STATUS_ACTIVE
-        // 5: ENCRYPTION_STATUS_ACTIVE_PER_USER
-        int status = DevicePolicyManager.ENCRYPTION_STATUS_UNSUPPORTED;
-        final DevicePolicyManager dpm = (DevicePolicyManager)
-                context.getSystemService(Context.DEVICE_POLICY_SERVICE);
-        if (dpm != null) {
-            status = dpm.getStorageEncryptionStatus();
-        }
-        return status;
-    }
 
     private void copyFile(InputStream in, OutputStream out) throws IOException {
         byte[] buffer = new byte[1024];
@@ -121,7 +104,7 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
                         editor.remove("fonts_applied");
                     }
                     if (prefs.getString("bootanimation_applied", "").equals(package_name)) {
-                        if (getDeviceEncryptionStatus(context) <= 1 && References.checkOMS(
+                        if (References.getDeviceEncryptionStatus(context) <= 1 && References.checkOMS(
                                 context)) {
                             References.delete("/data/system/theme/bootanimation.zip");
                         } else {

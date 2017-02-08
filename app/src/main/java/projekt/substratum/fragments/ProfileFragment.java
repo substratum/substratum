@@ -3,7 +3,6 @@ package projekt.substratum.fragments;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.WallpaperManager;
-import android.app.admin.DevicePolicyManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -395,22 +394,6 @@ public class ProfileFragment extends Fragment {
         return root;
     }
 
-    private int getDeviceEncryptionStatus() {
-        // 0: ENCRYPTION_STATUS_UNSUPPORTED
-        // 1: ENCRYPTION_STATUS_INACTIVE
-        // 2: ENCRYPTION_STATUS_ACTIVATING
-        // 3: ENCRYPTION_STATUS_ACTIVE_DEFAULT_KEY
-        // 4: ENCRYPTION_STATUS_ACTIVE
-        // 5: ENCRYPTION_STATUS_ACTIVE_PER_USER
-        int status = DevicePolicyManager.ENCRYPTION_STATUS_UNSUPPORTED;
-        final DevicePolicyManager dpm = (DevicePolicyManager)
-                getContext().getSystemService(Context.DEVICE_POLICY_SERVICE);
-        if (dpm != null) {
-            status = dpm.getStorageEncryptionStatus();
-        }
-        return status;
-    }
-
     private void setupScheduledProfile() {
         SharedPreferences.Editor editor = prefs.edit();
         AlarmManager alarmMgr = (AlarmManager) getActivity()
@@ -580,7 +563,8 @@ public class ProfileFragment extends Fragment {
                 }
 
                 // Backup system bootanimation if encrypted
-                if (getDeviceEncryptionStatus() >= 2 && selectedBackup.contains("Boot Animation")) {
+                if (References.getDeviceEncryptionStatus(getContext()) >= 2 &&
+                        selectedBackup.contains("Boot Animation")) {
                     References.copy("/system/media/bootanimation.zip",
                             Environment.getExternalStorageDirectory().getAbsolutePath()
                                     + "/substratum/profiles/" + backup_getText +
@@ -1002,7 +986,7 @@ public class ProfileFragment extends Fragment {
                             .getAbsolutePath() + "/substratum/profiles/" + profile_name +
                             "/bootanimation.zip");
                     if (bootanimation.exists()) {
-                        if (getDeviceEncryptionStatus() <= 1) {
+                        if (References.getDeviceEncryptionStatus(getContext()) <= 1) {
                             to_be_run_commands = to_be_run_commands +
                                     " && chmod 644 /data/system/theme/bootanimation.zip";
                         } else {

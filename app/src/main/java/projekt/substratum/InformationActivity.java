@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.app.WallpaperManager;
-import android.app.admin.DevicePolicyManager;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
@@ -134,22 +133,6 @@ public class InformationActivity extends AppCompatActivity {
                                 activity.getPackageName()));
             }
         });
-    }
-
-    public static int getDeviceEncryptionStatus(Context context) {
-        // 0: ENCRYPTION_STATUS_UNSUPPORTED
-        // 1: ENCRYPTION_STATUS_INACTIVE
-        // 2: ENCRYPTION_STATUS_ACTIVATING
-        // 3: ENCRYPTION_STATUS_ACTIVE_DEFAULT_KEY
-        // 4: ENCRYPTION_STATUS_ACTIVE
-        // 5: ENCRYPTION_STATUS_ACTIVE_PER_USER
-        int status = DevicePolicyManager.ENCRYPTION_STATUS_UNSUPPORTED;
-        final DevicePolicyManager dpm = (DevicePolicyManager)
-                context.getSystemService(Context.DEVICE_POLICY_SERVICE);
-        if (dpm != null) {
-            status = dpm.getStorageEncryptionStatus();
-        }
-        return status;
     }
 
     private boolean checkColorDarkness(int color) {
@@ -1036,8 +1019,8 @@ public class InformationActivity extends AppCompatActivity {
                 editor.remove("fonts_applied");
             }
             if (prefs.getString("bootanimation_applied", "").equals(theme_pid)) {
-                if (getDeviceEncryptionStatus(getApplicationContext()) <= 1 && References.checkOMS(
-                        getApplicationContext())) {
+                if (References.getDeviceEncryptionStatus(getApplicationContext()) <= 1 &&
+                        References.checkOMS(getApplicationContext())) {
                     References.delete("/data/system/theme/bootanimation.zip");
                 } else {
                     References.mountRW();

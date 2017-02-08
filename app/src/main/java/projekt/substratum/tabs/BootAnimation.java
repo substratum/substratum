@@ -1,8 +1,6 @@
 package projekt.substratum.tabs;
 
 import android.app.ProgressDialog;
-import android.app.admin.DevicePolicyManager;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
@@ -12,6 +10,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.NestedScrollView;
 import android.util.Log;
@@ -64,22 +63,6 @@ public class BootAnimation extends Fragment {
     private AsyncTask current;
     private NestedScrollView nsv;
 
-    private int getDeviceEncryptionStatus() {
-        // 0: ENCRYPTION_STATUS_UNSUPPORTED
-        // 1: ENCRYPTION_STATUS_INACTIVE
-        // 2: ENCRYPTION_STATUS_ACTIVATING
-        // 3: ENCRYPTION_STATUS_ACTIVE_DEFAULT_KEY
-        // 4: ENCRYPTION_STATUS_ACTIVE
-        // 5: ENCRYPTION_STATUS_ACTIVE_PER_USER
-        int status = DevicePolicyManager.ENCRYPTION_STATUS_UNSUPPORTED;
-        final DevicePolicyManager dpm = (DevicePolicyManager)
-                getContext().getSystemService(Context.DEVICE_POLICY_SERVICE);
-        if (dpm != null) {
-            status = dpm.getStorageEncryptionStatus();
-        }
-        return status;
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
@@ -104,6 +87,7 @@ public class BootAnimation extends Fragment {
         imageButton = (ImageButton) root.findViewById(R.id.checkBox);
         imageButton.setClickable(false);
         imageButton.setOnClickListener(v -> {
+            // TODO: Explanation dialog and asking for root on encrypted OMS device
             if (bootAnimationSelector.getSelectedItemPosition() == 1) {
                 new BootAnimationClearer().execute("");
             } else {
@@ -226,19 +210,18 @@ public class BootAnimation extends Fragment {
             SharedPreferences.Editor editor = prefs.edit();
             editor.remove("bootanimation_applied");
             editor.apply();
-
+            if (getView() != null) {
+                Snackbar.make(getView(),
+                        getString(R.string.
+                                manage_bootanimation_toast),
+                        Snackbar.LENGTH_LONG)
+                        .show();
+            }
         }
 
         @Override
         protected String doInBackground(String... sUrl) {
-            if (getDeviceEncryptionStatus() <= 1 && References.checkOMS(getContext())) {
-                References.delete("/data/system/theme/bootanimation.zip");
-            } else {
-                References.mountRW();
-                References.move("/system/media/bootanimation-backup.zip",
-                        "/system/media/bootanimation.zip");
-                References.delete("/system/addon.d/81-subsboot.sh");
-            }
+            References.clearBootAnimation(getContext());
             return null;
         }
     }

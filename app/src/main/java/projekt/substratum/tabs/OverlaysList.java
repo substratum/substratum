@@ -1133,10 +1133,15 @@ public class OverlaysList extends Fragment {
 
             if (!enable_mode && !disable_mode) {
                 TextView textView = (TextView) mProgressDialog.findViewById(R.id.current_object);
-                textView.setText("Finishing...");
-                if (finishReceiver == null) finishReceiver = new FinishReceiver();
-                IntentFilter intentFilter = new IntentFilter("masquerade.substratum.STATUS_CHANGED");
-                getContext().registerReceiver(finishReceiver, intentFilter);
+                textView.setText(getContext().getResources().getString(R.string.sb_finishing));
+                if (References.checkMasquerade(mContext) >= 22) {
+                    if (finishReceiver == null) finishReceiver = new FinishReceiver();
+                    IntentFilter intentFilter = new IntentFilter(
+                            "masquerade.substratum.STATUS_CHANGED");
+                    getContext().registerReceiver(finishReceiver, intentFilter);
+                } else {
+                    finishFunction(mContext);
+                }
             } else if (enable_mode) {
                 if (final_runner.size() > 0) {
                     if (References.checkOMSVersion(getContext()) == 3) {
@@ -1774,8 +1779,6 @@ public class OverlaysList extends Fragment {
                 }, REFRESH_WINDOW_DELAY);
             }
         }
-
-        context.unregisterReceiver(finishReceiver);
     }
 
     class FinishReceiver extends BroadcastReceiver {
@@ -1786,6 +1789,7 @@ public class OverlaysList extends Fragment {
             String command = intent.getStringExtra(PRIMARY_COMMAND_KEY);
 
             if (command.equals(COMMAND_VALUE_JOB_COMPLETE)) {
+                context.unregisterReceiver(finishReceiver);
                 finishFunction(context);
             }
         }

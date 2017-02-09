@@ -21,6 +21,8 @@ public class MasqueradeService {
     private static final String AUDIO_FILENAME = "audio_filename";
     private static final String FONTS_FILENAME = "fonts_filename";
     private static final String FONTS_PID = "fonts_pid";
+    private static final String ENABLE_LIST_KEY = "enable_list";
+    private static final String DISABLE_LIST_KEY = "disable_list";
     private static final String COMMAND_VALUE_INSTALL = "install";
     private static final String COMMAND_VALUE_UNINSTALL = "uninstall";
     private static final String COMMAND_VALUE_RESTART_UI = "restart_ui";
@@ -28,6 +30,8 @@ public class MasqueradeService {
     private static final String COMMAND_VALUE_BOOTANIMATION = "bootanimation";
     private static final String COMMAND_VALUE_FONTS = "fonts";
     private static final String COMMAND_VALUE_AUDIO = "audio";
+    private static final String COMMAND_VALUE_ENABLE = "enable";
+    private static final String COMMAND_VALUE_DISABLE = "disable";
 
     public static Intent getMasqueradeRootless(Context context) {
         Intent intent = new Intent();
@@ -62,6 +66,20 @@ public class MasqueradeService {
         masqIntent.putExtra(UNINSTALL_LIST_KEY, overlays);
         // only need to set if true, will restart SystemUI when done processing packages
         masqIntent.putExtra(WITH_RESTART_UI_KEY, restartUi);
+        context.startService(masqIntent);
+    }
+
+    public static void enableOverlays(Context context, ArrayList<String> overlays) {
+        Intent masqIntent = getMasqueradeRootless(context);
+        masqIntent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_ENABLE);
+        masqIntent.putExtra(ENABLE_LIST_KEY, overlays);
+        context.startService(masqIntent);
+    }
+
+    public static void disableOverlays(Context context, ArrayList<String> overlays) {
+        Intent masqIntent = getMasqueradeRootless(context);
+        masqIntent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_DISABLE);
+        masqIntent.putExtra(DISABLE_LIST_KEY, overlays);
         context.startService(masqIntent);
     }
 

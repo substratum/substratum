@@ -358,29 +358,37 @@ public class References {
 
     // Future masquerade methods
     public static void enableOverlay(Context context, ArrayList<String> overlays) {
-        int size = overlays.size();
-        for (int i = 0; i < size; i++) {
-            if (i != size - 1) {
-                OverlayManagerService.enable(overlays.get(i), true);
-            } else {
-                // End of method
-                OverlayManagerService.enable(overlays.get(i), false);
+        if (checkMasquerade(context) >= 22) {
+            MasqueradeService.enableOverlays(context, overlays);
+        } else {
+            int size = overlays.size();
+            for (int i = 0; i < size; i++) {
+                if (i != size - 1) {
+                    OverlayManagerService.enable(overlays.get(i), true);
+                } else {
+                    // End of method
+                    OverlayManagerService.enable(overlays.get(i), false);
+                }
             }
+            if (shouldRestartUi(context, overlays)) References.restartSystemUI(context);
         }
-        if (shouldRestartUi(context, overlays)) References.restartSystemUI(context);
     }
 
     public static void disableOverlay(Context context, ArrayList<String> overlays) {
-        int size = overlays.size();
-        for (int i = 0; i < size; i++) {
-            if (i != size - 1) {
-                OverlayManagerService.disable(overlays.get(i), true);
-            } else {
-                // End of method
-                OverlayManagerService.disable(overlays.get(i), false);
+        if (checkMasquerade(context) >= 22) {
+            MasqueradeService.disableOverlays(context, overlays);
+        } else {
+            int size = overlays.size();
+            for (int i = 0; i < size; i++) {
+                if (i != size - 1) {
+                    OverlayManagerService.disable(overlays.get(i), true);
+                } else {
+                    // End of method
+                    OverlayManagerService.disable(overlays.get(i), false);
+                }
             }
+            if (shouldRestartUi(context, overlays)) restartSystemUI(context);
         }
-        if (shouldRestartUi(context, overlays)) References.restartSystemUI(context);
     }
 
     // This method is used to check whether a build.prop value is found

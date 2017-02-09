@@ -391,6 +391,23 @@ public class References {
         }
     }
 
+    public static void setPriority(Context context, ArrayList<String> overlays) {
+        if (checkMasquerade(context) >= 22) {
+            MasqueradeService.setPriority(context, overlays);
+        } else {
+            String commands = "";
+            int size = overlays.size();
+            for (int i = 0; i < size-1; i++) {
+                String parentName = overlays.get(i);
+                String packageName = overlays.get(i+1);
+                commands += (commands.isEmpty() ? "" : " && ") + setPriority() + " " + packageName +
+                        " " + parentName;
+            }
+            new References.ThreadRunner().execute(commands);
+            if (shouldRestartUi(context, overlays)) restartSystemUI(context);
+        }
+    }
+
     // This method is used to check whether a build.prop value is found
     public static String getProp(String propName) {
         Process p;

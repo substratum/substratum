@@ -23,6 +23,7 @@ public class MasqueradeService {
     private static final String FONTS_PID = "fonts_pid";
     private static final String ENABLE_LIST_KEY = "enable_list";
     private static final String DISABLE_LIST_KEY = "disable_list";
+    private static final String PRIORITY_LIST_KEY = "priority_list";
     private static final String COMMAND_VALUE_INSTALL = "install";
     private static final String COMMAND_VALUE_UNINSTALL = "uninstall";
     private static final String COMMAND_VALUE_RESTART_UI = "restart_ui";
@@ -32,6 +33,7 @@ public class MasqueradeService {
     private static final String COMMAND_VALUE_AUDIO = "audio";
     private static final String COMMAND_VALUE_ENABLE = "enable";
     private static final String COMMAND_VALUE_DISABLE = "disable";
+    private static final String COMMAND_VALUE_PRIORITY = "priority";
 
     public static Intent getMasqueradeRootless(Context context) {
         Intent intent = new Intent();
@@ -133,6 +135,13 @@ public class MasqueradeService {
     public static void clearThemedSounds(Context context) {
         Intent masqIntent = getMasqueradeRootless(context);
         masqIntent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_AUDIO);
+        context.startService(masqIntent);
+    }
+
+    public static void setPriority(Context context, ArrayList<String> overlays) {
+        Intent masqIntent = getMasqueradeRootless(context);
+        masqIntent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_PRIORITY);
+        masqIntent.putExtra(PRIORITY_LIST_KEY, overlays);
         context.startService(masqIntent);
     }
 }

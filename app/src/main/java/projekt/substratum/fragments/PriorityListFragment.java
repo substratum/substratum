@@ -1,10 +1,7 @@
 package projekt.substratum.fragments;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -33,7 +30,6 @@ import java.util.List;
 
 import projekt.substratum.R;
 import projekt.substratum.adapters.PrioritiesAdapter;
-import projekt.substratum.config.MasqueradeService;
 import projekt.substratum.config.References;
 import projekt.substratum.model.Priorities;
 import projekt.substratum.model.PrioritiesItem;
@@ -41,8 +37,6 @@ import projekt.substratum.model.PrioritiesItem;
 import static projekt.substratum.config.References.REFRESH_WINDOW_DELAY;
 
 public class PriorityListFragment extends Fragment {
-
-    private String commands;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
@@ -84,8 +78,7 @@ public class PriorityListFragment extends Fragment {
         }
 
         final List<PrioritiesItem> prioritiesList = new ArrayList<>();
-        final List<String> workable_list = new ArrayList<>();
-        commands = "";
+        final ArrayList<String> workable_list = new ArrayList<>();
         Process nativeApp = null;
         try {
             nativeApp = Runtime.getRuntime().exec(References.listAllOverlays());
@@ -185,26 +178,12 @@ public class PriorityListFragment extends Fragment {
                 */
 
                 if (fromPos != toPos) {
-                    if (commands.length() == 0) {
-                        String move_package = workable_list.get(fromPos);
-                        commands = References.setPriority() + " " + move_package + " " +
-                                workable_list.get(toPos);
-
-                        // As workable list is a simulation of the priority list without object
-                        // values, we have to simulate the events such as adding above parents
-                        workable_list.remove(fromPos);
-                        workable_list.add(toPos, move_package);
-                        applyFab.show();
-                    } else {
-                        String move_package = workable_list.get(fromPos);
-                        commands = commands + " && " + References.setPriority() + " " +
-                                move_package + " " +
-                                workable_list.get(toPos);
-                        // As workable list is a simulation of the priority list without object
-                        // values, we have to simulate the events such as adding above parents
-                        workable_list.remove(fromPos);
-                        workable_list.add(toPos, move_package);
-                    }
+                    String move_package = workable_list.get(fromPos);
+                    // As workable list is a simulation of the priority list without object
+                    // values, we have to simulate the events such as adding above parents
+                    workable_list.remove(fromPos);
+                    workable_list.add(toPos, move_package);
+                    applyFab.show();
                 }
             }
         });
@@ -219,35 +198,9 @@ public class PriorityListFragment extends Fragment {
                         .show();
             }
             headerProgress.setVisibility(View.VISIBLE);
-            new java.util.Timer().schedule(
-                    new java.util.TimerTask() {
-                        @Override
-                        public void run() {
-                            if (References.isPackageInstalled(getContext(),
-                                    "masquerade.substratum")) {
-                                final SharedPreferences prefs =
-                                        PreferenceManager.getDefaultSharedPreferences(
-                                                getContext());
-                                if (!prefs.getBoolean("systemui_recreate", false)) {
-                                    if (commands.contains("systemui")) {
-                                        commands = commands + " && pkill -f com.android" +
-                                                ".systemui";
-                                    }
-                                }
-                                Intent runCommand = MasqueradeService.getMasquerade(getContext());
-                                runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                                runCommand.setAction("masquerade.substratum.COMMANDS");
-                                runCommand.putExtra("om-commands", commands);
-                                getContext().sendBroadcast(runCommand);
-                            } else {
-                                new References.ThreadRunner().execute(commands);
-                            }
-                        }
-                    },
-                    500
-            );
+            References.setPriority(getContext(), workable_list);
             if (References.checkOMSVersion(getContext()) == 7 &&
-                    !commands.contains("projekt.substratum")) {
+                    !workable_list.contains("projekt.substratum")) {
                 Handler handler = new Handler();
                 handler.postDelayed(() -> {
                     // OMS may not have written all the changes so

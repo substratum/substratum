@@ -1135,12 +1135,18 @@ public class OverlaysList extends Fragment {
                 TextView textView = (TextView) mProgressDialog.findViewById(R.id.current_object);
                 textView.setText(getContext().getResources().getString(R.string.sb_finishing));
                 if (References.checkMasquerade(mContext) >= 22) {
-                    if (finishReceiver == null) finishReceiver = new FinishReceiver();
-                    IntentFilter intentFilter = new IntentFilter(
-                            "masquerade.substratum.STATUS_CHANGED");
-                    getContext().registerReceiver(finishReceiver, intentFilter);
+                    if (checkedOverlays.size() != fail_count) {
+                        if (finishReceiver == null) finishReceiver = new FinishReceiver();
+                        IntentFilter intentFilter = new IntentFilter(
+                                "masquerade.substratum.STATUS_CHANGED");
+                        getContext().registerReceiver(finishReceiver, intentFilter);
+                    } else {
+                        finishFunction(mContext);
+                        failedFunction(mContext);
+                    }
                 } else {
                     finishFunction(mContext);
+                    if (has_failed) failedFunction(mContext);
                 }
             } else if (enable_mode) {
                 if (final_runner.size() > 0) {
@@ -1172,7 +1178,9 @@ public class OverlaysList extends Fragment {
                         if (toggle_all.isChecked()) toggle_all.setChecked(false);
                         References.enableOverlay(mContext, final_command);
                     }
-                    if (References.checkOMSVersion(getContext()) == 7) {
+
+                    progressBar.setVisibility(View.GONE);
+                    if (References.checkOMSVersion(getContext()) == 7 && !has_failed) {
                         Handler handler = new Handler();
                         handler.postDelayed(() -> {
                             // OMS may not have written all the changes so quickly just yet
@@ -1224,7 +1232,9 @@ public class OverlaysList extends Fragment {
                         if (toggle_all.isChecked()) toggle_all.setChecked(false);
                         References.disableOverlay(mContext, final_command);
                     }
-                    if (References.checkOMSVersion(getContext()) == 7) {
+
+                    progressBar.setVisibility(View.GONE);
+                    if (References.checkOMSVersion(getContext()) == 7 && !has_failed) {
                         Handler handler = new Handler();
                         handler.postDelayed(() -> {
                             // OMS may not have written all the changes so quickly just yet
@@ -1634,108 +1644,6 @@ public class OverlaysList extends Fragment {
                             .string.toast_compiled_updated),
                     Toast.LENGTH_LONG);
             toast.show();
-        } else {
-            // Closing off the persistent notification
-            if (checkActiveNotifications()) {
-                mNotifyManager.cancel(id);
-                mBuilder = new NotificationCompat.Builder(context);
-                mBuilder.setAutoCancel(true);
-                mBuilder.setProgress(0, 0, false);
-                mBuilder.setOngoing(false);
-                mBuilder.setContentIntent(intent);
-                mBuilder.setSmallIcon(R.drawable.notification_warning_icon);
-                mBuilder.setContentTitle(context.getString(R.string.notification_done_title));
-                mBuilder.setContentText(context.getString(R.string.notification_some_errors_found));
-                if (prefs.getBoolean("vibrate_on_compiled", false)) {
-                    mBuilder.setVibrate(new long[]{100, 200, 100, 500});
-                }
-                mNotifyManager.notify(id, mBuilder.build());
-            }
-
-            Toast toast = Toast.makeText(context, context.getString(R
-                            .string.toast_compiled_updated_with_errors),
-                    Toast.LENGTH_LONG);
-            toast.show();
-
-            final Dialog dialog = new Dialog(context, android.R.style
-                    .Theme_DeviceDefault_Dialog);
-            dialog.setContentView(R.layout.logcat_dialog);
-            dialog.setTitle(R.string.logcat_dialog_title);
-            if (dialog.getWindow() != null)
-                dialog.getWindow().setLayout(RecyclerView.LayoutParams.MATCH_PARENT,
-                        RecyclerView.LayoutParams.WRAP_CONTENT);
-
-            TextView text = (TextView) dialog.findViewById(R.id.textField);
-            text.setText(error_logs);
-            ImageButton confirm = (ImageButton) dialog.findViewById(R.id.confirm);
-            confirm.setOnClickListener(view -> dialog.dismiss());
-
-            ImageButton copy_clipboard = (ImageButton) dialog.findViewById(
-                    R.id.copy_clipboard);
-            copy_clipboard.setOnClickListener(v -> {
-                ClipboardManager clipboard = (ClipboardManager) context
-                        .getSystemService(CLIPBOARD_SERVICE);
-                ClipData clip = ClipData.newPlainText("substratum_log", error_logs);
-                clipboard.setPrimaryClip(clip);
-                Toast toast1 = Toast.makeText(context, context.getString(R
-                                .string.logcat_dialog_copy_success),
-                        Toast.LENGTH_SHORT);
-                toast1.show();
-            });
-
-            ImageButton send = (ImageButton) dialog.findViewById(
-                    R.id.send);
-            send.setVisibility(View.GONE);
-
-            theme_author = "";
-            themer_email = "";
-            try {
-                ApplicationInfo appInfo = context.getPackageManager()
-                        .getApplicationInfo(theme_pid, PackageManager.GET_META_DATA);
-                if (appInfo.metaData != null) {
-                    if (appInfo.metaData.getString("Substratum_Author") != null) {
-                        theme_author = appInfo.metaData.getString("Substratum_Author");
-                    }
-                    if (appInfo.metaData.getString("Substratum_Email") != null) {
-                        themer_email = appInfo.metaData.getString("Substratum_Email");
-                    }
-                }
-            } catch (Exception e) {
-                // NameNotFound
-            }
-
-            if (themer_email.length() > 0) {
-                send.setVisibility(View.VISIBLE);
-                send.setOnClickListener(v -> {
-                    String device = " " + Build.MODEL + " (" + Build.DEVICE + ") " +
-                            "[" + Build.FINGERPRINT + "]";
-                    String email_subject =
-                            String.format(context.getString(R.string.logcat_email_subject),
-                                    theme_name);
-                    String xposed = checkXposedVersion();
-                    if (xposed.length() > 0) {
-                        device += " {" + xposed + "}";
-                    }
-                    String email_body =
-                            String.format(context.getString(R.string.logcat_email_body),
-                                    theme_author, theme_name, device, error_logs);
-                    Intent i = new Intent(Intent.ACTION_SEND);
-                    i.setType("message/rfc822");
-                    i.putExtra(Intent.EXTRA_EMAIL, new String[]{themer_email});
-                    i.putExtra(Intent.EXTRA_SUBJECT, email_subject);
-                    i.putExtra(Intent.EXTRA_TEXT, email_body);
-                    try {
-                        startActivity(Intent.createChooser(
-                                i, context.getString(R.string.logcat_email_activity)));
-                    } catch (android.content.ActivityNotFoundException ex) {
-                        Toast.makeText(
-                                context,
-                                context.getString(R.string.logcat_email_activity_error),
-                                Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-            dialog.show();
         }
 
         if (!has_failed || final_runner.size() > fail_count) {
@@ -1766,7 +1674,9 @@ public class OverlaysList extends Fragment {
                 if (toggle_all.isChecked()) toggle_all.setChecked(false);
                 mAdapter.notifyDataSetChanged();
             }
-            if (References.checkOMSVersion(context) == 7) {
+
+            progressBar.setVisibility(View.GONE);
+            if (References.checkOMSVersion(context) == 7 && !has_failed) {
                 Handler handler = new Handler();
                 handler.postDelayed(() -> {
                     // OMS may not have written all the changes so quickly just yet
@@ -1781,6 +1691,119 @@ public class OverlaysList extends Fragment {
         }
     }
 
+    private void failedFunction(Context context) {
+        // Add dummy intent to be able to close the notification on click
+        Intent notificationIntent = new Intent(context, InformationActivity.class);
+        notificationIntent.putExtra("theme_name", theme_name);
+        notificationIntent.putExtra("theme_pid", theme_pid);
+        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        PendingIntent intent =
+                PendingIntent.getActivity(context, 0, notificationIntent,
+                        PendingIntent.FLAG_CANCEL_CURRENT);
+
+        // Closing off the persistent notification
+        if (checkActiveNotifications()) {
+            mNotifyManager.cancel(id);
+            mBuilder = new NotificationCompat.Builder(context);
+            mBuilder.setAutoCancel(true);
+            mBuilder.setProgress(0, 0, false);
+            mBuilder.setOngoing(false);
+            mBuilder.setContentIntent(intent);
+            mBuilder.setSmallIcon(R.drawable.notification_warning_icon);
+            mBuilder.setContentTitle(context.getString(R.string.notification_done_title));
+            mBuilder.setContentText(context.getString(R.string.notification_some_errors_found));
+            if (prefs.getBoolean("vibrate_on_compiled", false)) {
+                mBuilder.setVibrate(new long[]{100, 200, 100, 500});
+            }
+            mNotifyManager.notify(id, mBuilder.build());
+        }
+
+        Toast toast = Toast.makeText(context, context.getString(R
+                        .string.toast_compiled_updated_with_errors),
+                Toast.LENGTH_LONG);
+        toast.show();
+
+        final Dialog dialog = new Dialog(context, android.R.style
+                .Theme_DeviceDefault_Dialog);
+        dialog.setContentView(R.layout.logcat_dialog);
+        dialog.setTitle(R.string.logcat_dialog_title);
+        if (dialog.getWindow() != null)
+            dialog.getWindow().setLayout(RecyclerView.LayoutParams.MATCH_PARENT,
+                    RecyclerView.LayoutParams.WRAP_CONTENT);
+
+        TextView text = (TextView) dialog.findViewById(R.id.textField);
+        text.setText(error_logs);
+        ImageButton confirm = (ImageButton) dialog.findViewById(R.id.confirm);
+        confirm.setOnClickListener(view -> dialog.dismiss());
+
+        ImageButton copy_clipboard = (ImageButton) dialog.findViewById(
+                R.id.copy_clipboard);
+        copy_clipboard.setOnClickListener(v -> {
+            ClipboardManager clipboard = (ClipboardManager) context
+                    .getSystemService(CLIPBOARD_SERVICE);
+            ClipData clip = ClipData.newPlainText("substratum_log", error_logs);
+            clipboard.setPrimaryClip(clip);
+            Toast toast1 = Toast.makeText(context, context.getString(R
+                            .string.logcat_dialog_copy_success),
+                    Toast.LENGTH_SHORT);
+            toast1.show();
+        });
+
+        ImageButton send = (ImageButton) dialog.findViewById(
+                R.id.send);
+        send.setVisibility(View.GONE);
+
+        theme_author = "";
+        themer_email = "";
+        try {
+            ApplicationInfo appInfo = context.getPackageManager()
+                    .getApplicationInfo(theme_pid, PackageManager.GET_META_DATA);
+            if (appInfo.metaData != null) {
+                if (appInfo.metaData.getString("Substratum_Author") != null) {
+                    theme_author = appInfo.metaData.getString("Substratum_Author");
+                }
+                if (appInfo.metaData.getString("Substratum_Email") != null) {
+                    themer_email = appInfo.metaData.getString("Substratum_Email");
+                }
+            }
+        } catch (Exception e) {
+            // NameNotFound
+        }
+
+        if (themer_email.length() > 0) {
+            send.setVisibility(View.VISIBLE);
+            send.setOnClickListener(v -> {
+                String device = " " + Build.MODEL + " (" + Build.DEVICE + ") " +
+                        "[" + Build.FINGERPRINT + "]";
+                String email_subject =
+                        String.format(context.getString(R.string.logcat_email_subject),
+                                theme_name);
+                String xposed = checkXposedVersion();
+                if (xposed.length() > 0) {
+                    device += " {" + xposed + "}";
+                }
+                String email_body =
+                        String.format(context.getString(R.string.logcat_email_body),
+                                theme_author, theme_name, device, error_logs);
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.setType("message/rfc822");
+                i.putExtra(Intent.EXTRA_EMAIL, new String[]{themer_email});
+                i.putExtra(Intent.EXTRA_SUBJECT, email_subject);
+                i.putExtra(Intent.EXTRA_TEXT, email_body);
+                try {
+                    startActivity(Intent.createChooser(
+                            i, context.getString(R.string.logcat_email_activity)));
+                } catch (android.content.ActivityNotFoundException ex) {
+                    Toast.makeText(
+                            context,
+                            context.getString(R.string.logcat_email_activity_error),
+                            Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+        dialog.show();
+    }
     class FinishReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -1791,6 +1814,7 @@ public class OverlaysList extends Fragment {
             if (command.equals(COMMAND_VALUE_JOB_COMPLETE)) {
                 context.unregisterReceiver(finishReceiver);
                 finishFunction(context);
+                if (has_failed) failedFunction(context);
             }
         }
     }

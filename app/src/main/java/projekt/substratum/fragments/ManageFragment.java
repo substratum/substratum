@@ -83,38 +83,7 @@ public class ManageFragment extends Fragment {
                                                 Snackbar.LENGTH_LONG)
                                                 .show();
                                     }
-                                    final SharedPreferences prefs1 =
-                                            PreferenceManager.getDefaultSharedPreferences(
-                                                    getContext());
-                                    String commands = References.disableAllOverlays();
-                                    if (!prefs1.getBoolean("systemui_recreate", false)) {
-                                        commands = commands +
-                                                " && pkill -f com.android.systemui";
-                                    }
-                                    if (References.isPackageInstalled(getContext(),
-                                            "masquerade.substratum")) {
-                                        if (DEBUG)
-                                            Log.e(References.SUBSTRATUM_LOG,
-                                                    "Initializing the " +
-                                                            "Masquerade theme provider...");
-                                        Intent runCommand = MasqueradeService.getMasquerade(getContext());
-                                        runCommand.addFlags(Intent
-                                                .FLAG_INCLUDE_STOPPED_PACKAGES);
-                                        runCommand.setAction("masquerade.substratum" +
-                                                ".COMMANDS");
-                                        runCommand.putExtra("om-commands", commands);
-
-                                        getContext().sendBroadcast(runCommand);
-                                    } else {
-                                        if (DEBUG)
-                                            Log.e(References.SUBSTRATUM_LOG, "Masquerade " +
-                                                    "was not" +
-                                                    " " +
-                                                    "found, falling back to Substratum " +
-                                                    "theme " +
-                                                    "provider...");
-                                        new References.ThreadRunner().execute(commands);
-                                    }
+                                    References.disableAll(getContext());
                                 } else {
                                     File vendor_location = new File("/system/vendor/overlay/");
                                     File overlay_location = new File("/system/overlay/");

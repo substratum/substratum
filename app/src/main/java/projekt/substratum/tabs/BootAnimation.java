@@ -13,6 +13,7 @@ import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,6 +44,7 @@ import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
 import projekt.substratum.config.References;
 import projekt.substratum.util.BootAnimationHandler;
+import projekt.substratum.util.Root;
 
 public class BootAnimation extends Fragment {
 
@@ -87,13 +89,36 @@ public class BootAnimation extends Fragment {
         imageButton = (ImageButton) root.findViewById(R.id.checkBox);
         imageButton.setClickable(false);
         imageButton.setOnClickListener(v -> {
-            // TODO: Explanation dialog and asking for root on encrypted OMS device
-            if (bootAnimationSelector.getSelectedItemPosition() == 1) {
-                new BootAnimationClearer().execute("");
+            if (References.getDeviceEncryptionStatus(getContext()) <= 1 ||
+                    !References.checkOMS(getContext())) {
+                if (bootAnimationSelector.getSelectedItemPosition() == 1) {
+                    new BootAnimationClearer().execute("");
+                } else {
+                    new BootAnimationHandler().execute(nsv, bootAnimationSelector
+                            .getSelectedItem()
+                            .toString(), getContext(), theme_pid);
+                }
             } else {
-                new BootAnimationHandler().execute(nsv, bootAnimationSelector
-                        .getSelectedItem()
-                        .toString(), getContext(), theme_pid);
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle(R.string.root_required_title)
+                        .setMessage(R.string.root_required_boot_animation)
+                        .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                            dialog.dismiss();
+                            boolean granted = Root.requestRootAccess();
+                            if (granted) {
+                                if (bootAnimationSelector.getSelectedItemPosition() == 1) {
+                                    new BootAnimationClearer().execute("");
+                                } else {
+                                    new BootAnimationHandler().execute(nsv, bootAnimationSelector
+                                            .getSelectedItem()
+                                            .toString(), getContext(), theme_pid);
+                                }
+                            }
+                        })
+                        .setNegativeButton(android.R.string.cancel, (dialog, which) -> {
+                            dialog.cancel();
+                        })
+                        .show();
             }
         });
 

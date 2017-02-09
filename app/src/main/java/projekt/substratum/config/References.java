@@ -42,6 +42,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.IgnoreExtraProperties;
 import com.google.firebase.iid.FirebaseInstanceId;
 
+import org.apache.commons.io.FileUtils;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -1135,31 +1137,107 @@ public class References {
         return null;
     }
 
-    // Begin consolidation of Root commands in Substratum
+    // Begin consolidation of root optional commands in Substratum
+    public static void copy(String source, String destination) {
+        if (destination.startsWith(Environment.getExternalStorageDirectory().getAbsolutePath()) ||
+                destination.contains("/projekt.substratum/")) {
+            Log.d("CopyFunction", "using no-root operation for copying " + source + " to " + destination);
+            File in = new File(source);
+            File out = new File(destination);
+            try {
+                FileUtils.copyFile(in, out);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Log.d("CopyFunction", "operation " + (out.exists() ? "success" : "failed"));
+        } else {
+            Log.d("CopyFunction", "using root operation for copying " + source + " to " + destination);
+            Root.runCommand("cp -f " + source + " " + destination);
+        }
+    }
+
+    public static void copyDir(String source, String destination) {
+        if (destination.startsWith(Environment.getExternalStorageDirectory().getAbsolutePath()) ||
+                destination.contains("/projekt.substratum/")) {
+            Log.d("CopyFunction", "using no-root operation for copying " + source + " to " + destination);
+            File in = new File(source);
+            File out = new File(destination);
+            try {
+                FileUtils.copyDirectory(in, out);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Log.d("CopyFunction", "operation " + (out.exists() ? "success" : "failed"));
+        } else {
+            Log.d("CopyFunction", "using root operation for copying " + source + " to " + destination);
+            Root.runCommand("cp -rf " + source + " " + destination);
+        }
+    }
+
+    public static void createNewFolder(String foldername) {
+        if (foldername.startsWith(Environment.getExternalStorageDirectory().getAbsolutePath()) ||
+                foldername.contains("/projekt.substratum/")) {
+            Log.d("CreateFolderFunction", "using no-root operation for creating " + foldername);
+            File folder = new File(foldername);
+            if (!folder.exists()) {
+                Log.d("CreateFolderFunction", "operation " + (folder.mkdirs() ? "success" : "failed"));
+            } else {
+                Log.d("CreateFolderFunction", "folder already exist");
+            }
+        } else {
+            Log.d("CreateFolderFunction", "using root operation for creating " + foldername);
+            Root.runCommand("mkdir " + foldername);
+        }
+    }
+
+    public static void delete(String directory) {
+        if (directory.startsWith(Environment.getExternalStorageDirectory().getAbsolutePath()) ||
+                directory.contains("/projekt.substratum/")) {
+            Log.d("DeleteFunction", "using no-root operation for deleting " + directory);
+            File dir = new File(directory);
+            try {
+                if (dir.isDirectory()) {
+                    FileUtils.deleteDirectory(dir);
+                } else {
+                    FileUtils.deleteQuietly(dir);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Log.d("DeleteFunction", "operation " + (dir.exists() ? "failed" : "success"));
+        } else {
+            Log.d("DeleteFunction", "using root operation for deleting " + directory);
+            Root.runCommand("rm -rf " + directory);
+        }
+    }
+
+    public static void move(String source, String destination) {
+        if (destination.startsWith(Environment.getExternalStorageDirectory().getAbsolutePath()) ||
+                destination.contains("/projekt.substratum/")) {
+            Log.d("MoveFunction", "using no-root operation for moving " + source + " to " + destination);
+            File in = new File(source);
+            File out = new File(destination);
+            try {
+                if (in.isFile()) {
+                    FileUtils.moveFile(in, out);
+                } else {
+                    FileUtils.moveDirectory(in, out);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Log.d("MoveFunction", "operation " + (out.exists() ? "success" : "failed"));
+        } else {
+            Log.d("MoveFunction", "using root operation for moving " + source + " to " + destination);
+            Root.runCommand("mv -f " + source + " " + destination);
+        }
+    }
+
+    // Begin consolidation of root commands in Substratum
     public static void adjustContentProvider(final String uri,
                                              final String topic, final String fileName) {
         Root.runCommand("content insert --uri " + uri + " " +
                 "--bind name:s:" + topic + " --bind value:s:" + fileName);
-    }
-
-    public static void copy(final String source, final String destination) {
-        Root.runCommand("cp -f " + source + " " + destination);
-    }
-
-    public static void copyDir(final String source, final String destination) {
-        Root.runCommand("cp -rf " + source + " " + destination);
-    }
-
-    public static void createNewFolder(final String foldername) {
-        Root.runCommand("mkdir " + foldername);
-    }
-
-    public static void delete(final String directory) {
-        Root.runCommand("rm -rf " + directory);
-    }
-
-    public static void move(final String source, final String destination) {
-        Root.runCommand("mv -f " + source + " " + destination);
     }
 
     public static void mountRW() {

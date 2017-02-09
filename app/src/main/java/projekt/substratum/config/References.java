@@ -361,15 +361,12 @@ public class References {
         if (checkMasquerade(context) >= 22) {
             MasqueradeService.enableOverlays(context, overlays);
         } else {
+            String commands = enableOverlay();
             int size = overlays.size();
             for (int i = 0; i < size; i++) {
-                if (i != size - 1) {
-                    OverlayManagerService.enable(overlays.get(i), true);
-                } else {
-                    // End of method
-                    OverlayManagerService.enable(overlays.get(i), false);
-                }
+                commands += " " + overlays.get(i);
             }
+            new References.ThreadRunner().execute(commands);
             if (shouldRestartUi(context, overlays)) References.restartSystemUI(context);
         }
     }
@@ -378,15 +375,12 @@ public class References {
         if (checkMasquerade(context) >= 22) {
             MasqueradeService.disableOverlays(context, overlays);
         } else {
+            String commands = disableOverlay();
             int size = overlays.size();
             for (int i = 0; i < size; i++) {
-                if (i != size - 1) {
-                    OverlayManagerService.disable(overlays.get(i), true);
-                } else {
-                    // End of method
-                    OverlayManagerService.disable(overlays.get(i), false);
-                }
+                commands += " " + overlays.get(i);
             }
+            new References.ThreadRunner().execute(commands);
             if (shouldRestartUi(context, overlays)) restartSystemUI(context);
         }
     }

@@ -1,7 +1,6 @@
 package projekt.substratum.fragments;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.os.AsyncTask;
@@ -36,7 +35,6 @@ import java.util.List;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.R;
 import projekt.substratum.adapters.OverlayManagerAdapter;
-import projekt.substratum.config.MasqueradeService;
 import projekt.substratum.config.References;
 import projekt.substratum.model.OverlayManager;
 import projekt.substratum.util.FloatingActionMenu;
@@ -178,13 +176,13 @@ public class AdvancedManagerFragment extends Fragment {
                             References.mountRW();
                             if (References.inNexusFilter()) {
                                 References.mountRWVendor();
-                                References.delete("/system/overlay/" +
+                                References.delete(getContext(), "/system/overlay/" +
                                         overlaysList.get(i).getName() + ".apk");
-                                References.delete("/vendor/overlay/" +
+                                References.delete(getContext(), "/vendor/overlay/" +
                                         overlaysList.get(i).getName() + ".apk");
                                 References.mountROVendor();
                             } else {
-                                References.delete("/system/vendor/overlay/" +
+                                References.delete(getContext(), "/system/vendor/overlay/" +
                                         overlaysList.get(i).getName() + ".apk");
                             }
                             References.mountRO();

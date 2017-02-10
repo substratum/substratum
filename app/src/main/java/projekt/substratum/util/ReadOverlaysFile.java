@@ -1,7 +1,5 @@
 package projekt.substratum.util;
 
-import android.os.Environment;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -9,24 +7,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import projekt.substratum.config.References;
-
 public class ReadOverlaysFile {
 
     public static List<String> main(String argv[]) {
-
-        File current_overlays = new File(Environment
-                .getExternalStorageDirectory().getAbsolutePath() +
-                "/.substratum/current_overlays.xml");
-        if (current_overlays.exists()) {
-            References.delete(Environment
-                    .getExternalStorageDirectory().getAbsolutePath() +
-                    "/.substratum/current_overlays.xml");
-        }
-        References.copy("/data/system/overlays.xml", Environment
-                .getExternalStorageDirectory().getAbsolutePath() +
-                "/.substratum/current_overlays.xml");
-
+        // Current overlay list was copied in advance, outside this class
         File file = new File(argv[0]);
         int state_count = Integer.parseInt(argv[1]);
 
@@ -46,18 +30,7 @@ public class ReadOverlaysFile {
     }
 
     public static List<List<String>> withTargetPackage(String argv[]) {
-        File current_overlays = new File(Environment
-                .getExternalStorageDirectory().getAbsolutePath() +
-                "/.substratum/current_overlays.xml");
-        if (current_overlays.exists()) {
-            References.delete(Environment
-                    .getExternalStorageDirectory().getAbsolutePath() +
-                    "/.substratum/current_overlays.xml");
-        }
-        References.copy("/data/system/overlays.xml", Environment
-                .getExternalStorageDirectory().getAbsolutePath() +
-                "/.substratum/current_overlays.xml");
-
+        // Current overlay list was copied in advance, outside this class
         File file = new File(argv[0]);
         int state_count = Integer.parseInt(argv[1]);
         List<List<String>> list = new ArrayList<>();

@@ -298,11 +298,11 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
                     .getExternalStorageDirectory().getAbsolutePath() +
                     "/.substratum/current_overlays.xml");
             if (current_overlays.exists()) {
-                References.delete(Environment
+                References.delete(currentObject.getContext(), Environment
                         .getExternalStorageDirectory().getAbsolutePath() +
                         "/.substratum/current_overlays.xml");
             }
-            References.copy("/data/system/overlays.xml",
+            References.copy(currentObject.getContext(), "/data/system/overlays.xml",
                     Environment
                             .getExternalStorageDirectory().getAbsolutePath() +
                             "/.substratum/current_overlays.xml");
@@ -333,7 +333,7 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
                 }
             }
 
-            References.delete(currentObject.getContext().getCacheDir().getAbsolutePath() +
+            References.delete(currentObject.getContext(), currentObject.getContext().getCacheDir().getAbsolutePath() +
                     "/SubstratumBuilder/" + currentObject.getThemePackage());
 
             if (References.isPackageInstalled(currentObject.getContext(),
@@ -358,13 +358,13 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
             //Remove applied font, sounds, and bootanimation
             if (prefs.getString("sounds_applied", "").equals(
                     currentObject.getThemePackage())) {
-                References.delete("/data/system/theme/audio/ && pkill -f com" +
+                References.delete(currentObject.getContext(), "/data/system/theme/audio/ && pkill -f com" +
                         ".android.systemui");
                 editor.remove("sounds_applied");
             }
             if (prefs.getString("fonts_applied", "").equals(
                     currentObject.getThemePackage())) {
-                References.delete("/data/system/theme/fonts/");
+                References.delete(currentObject.getContext(), "/data/system/theme/fonts/");
                 if (References.isPackageInstalled(
                         currentObject.getContext(),
                         "masquerade.substratum")) {
@@ -398,9 +398,9 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
                     currentObject.getThemePackage())) {
                 if (References.getDeviceEncryptionStatus(
                         currentObject.getContext()) <= 1) {
-                    References.delete("/data/system/theme/bootanimation.zip");
+                    References.delete(currentObject.getContext(), "/data/system/theme/bootanimation.zip");
                 } else {
-                    References.delete("/system/media/bootanimation-encrypted.zip");
+                    References.delete(currentObject.getContext(), "/system/media/bootanimation-encrypted.zip");
                 }
                 editor.remove("bootanimation_applied");
             }

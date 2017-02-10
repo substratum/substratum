@@ -292,7 +292,7 @@ public class FontInstaller extends Fragment {
                             "template. Maybe it wasn't themed?");
                 }
 
-                References.delete(getContext().getCacheDir().getAbsolutePath() +
+                References.delete(getContext(), getContext().getCacheDir().getAbsolutePath() +
                         "/FontCache/font_preview/");
                 imageButton.setImageTintList(checked);
                 imageButton.setClickable(true);
@@ -318,7 +318,7 @@ public class FontInstaller extends Fragment {
                     boolean created = cacheDirectory2.mkdirs();
                     if (created) Log.d("FontHandler", "FontCache work folder created");
                 } else {
-                    References.delete(getContext().getCacheDir().getAbsolutePath() +
+                    References.delete(getContext(), getContext().getCacheDir().getAbsolutePath() +
                             "/FontCache/font_preview/");
                     boolean created = cacheDirectory2.mkdirs();
                     if (created) Log.d("FontHandler", "FontCache folder recreated");

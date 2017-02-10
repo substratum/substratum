@@ -1137,97 +1137,138 @@ public class References {
         return null;
     }
 
-    // Begin consolidation of root optional commands in Substratum
-    public static void copy(String source, String destination) {
-        if (destination.startsWith(Environment.getExternalStorageDirectory().getAbsolutePath()) ||
-                destination.contains("/projekt.substratum/")) {
-            Log.d("CopyFunction", "using no-root operation for copying " + source + " to " + destination);
-            File in = new File(source);
-            File out = new File(destination);
-            try {
-                FileUtils.copyFile(in, out);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            Log.d("CopyFunction", "operation " + (out.exists() ? "success" : "failed"));
+    // Begin consolidation of IO commands in Substratum
+    public static void copy(Context context, String source, String destination) {
+        String dataDir = context.getDataDir().getAbsolutePath();
+        String externalDir = Environment.getExternalStorageDirectory().getAbsolutePath();
+        boolean needRoot = (!source.startsWith(dataDir) && !source.startsWith(externalDir)) ||
+                (!destination.startsWith(dataDir) && !destination.startsWith(externalDir));
+        if (checkMasquerade(context) >= 22 && needRoot) {
+            Log.d("CopyFunction", "using masquerade no-root operation for copying " + source + " to " + destination);
+            MasqueradeService.copy(context, source, destination);
         } else {
+            copy(source, destination);
+        }
+    }
+
+    public static void copyDir(Context context, String source, String destination) {
+        String dataDir = context.getDataDir().getAbsolutePath();
+        String externalDir = Environment.getExternalStorageDirectory().getAbsolutePath();
+        boolean needRoot = (!source.startsWith(dataDir) && !source.startsWith(externalDir)) ||
+                (!destination.startsWith(dataDir) && !destination.startsWith(externalDir));
+        if (checkMasquerade(context) >= 22 && needRoot) {
+            copy(context, source, destination);
+        } else {
+            copyDir(source, destination);
+        }
+    }
+
+    public static void delete(Context context, String directory) {
+        String dataDir = context.getDataDir().getAbsolutePath();
+        String externalDir = Environment.getExternalStorageDirectory().getAbsolutePath();
+        boolean needRoot = (!directory.startsWith(dataDir) && !directory.startsWith(externalDir));
+        if (checkMasquerade(context) >= 22 && needRoot) {
+            Log.d("DeleteFunction", "using masquerade no-root operation for deleting " + directory);
+            MasqueradeService.delete(context, directory);
+        } else {
+            delete(directory);
+        }
+    }
+
+    public static void move(Context context, String source, String destination) {
+        String dataDir = context.getDataDir().getAbsolutePath();
+        String externalDir = Environment.getExternalStorageDirectory().getAbsolutePath();
+        boolean needRoot = (!source.startsWith(dataDir) && !source.startsWith(externalDir)) ||
+                (!destination.startsWith(dataDir) && !destination.startsWith(externalDir));
+        if (checkMasquerade(context) >= 22 && needRoot) {
+            Log.d("MoveFunction", "using masquerade no-root operation for moving " + source + " to " + destination);
+            MasqueradeService.move(context, source, destination);
+        } else {
+            move(source, destination);
+        }
+    }
+
+    public static void createNewFolder(String foldername) {
+        Log.d("CreateFolderFunction", "using no-root operation for creating " + foldername);
+        File folder = new File(foldername);
+        if (!folder.exists()) {
+            Log.d("CreateFolderFunction", "operation " + (folder.mkdirs() ? "success" : "failed"));
+            if (!folder.exists()) {
+                Log.d("CreateFolderFunction", "using root operation for creating " + foldername);
+                Root.runCommand("mkdir " + foldername);
+            }
+        } else {
+            Log.d("CreateFolderFunction", "folder already exist");
+        }
+    }
+
+    // These inner IO commands only be called by outer commands
+    private static void copy(String source, String destination) {
+        Log.d("CopyFunction", "using no-root operation for copying " + source + " to " + destination);
+        File in = new File(source);
+        File out = new File(destination);
+        try {
+            FileUtils.copyFile(in, out);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Log.d("CopyFunction", "operation " + (out.exists() ? "success" : "failed"));
+        if (!out.exists()) {
             Log.d("CopyFunction", "using root operation for copying " + source + " to " + destination);
             Root.runCommand("cp -f " + source + " " + destination);
         }
     }
 
-    public static void copyDir(String source, String destination) {
-        if (destination.startsWith(Environment.getExternalStorageDirectory().getAbsolutePath()) ||
-                destination.contains("/projekt.substratum/")) {
-            Log.d("CopyFunction", "using no-root operation for copying " + source + " to " + destination);
-            File in = new File(source);
-            File out = new File(destination);
-            try {
-                FileUtils.copyDirectory(in, out);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            Log.d("CopyFunction", "operation " + (out.exists() ? "success" : "failed"));
-        } else {
+    private static void copyDir(String source, String destination) {
+        Log.d("CopyFunction", "using no-root operation for copying " + source + " to " + destination);
+        File in = new File(source);
+        File out = new File(destination);
+        try {
+            FileUtils.copyDirectory(in, out);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Log.d("CopyFunction", "operation " + (out.exists() ? "success" : "failed"));
+        if (!out.exists()) {
             Log.d("CopyFunction", "using root operation for copying " + source + " to " + destination);
             Root.runCommand("cp -rf " + source + " " + destination);
         }
     }
 
-    public static void createNewFolder(String foldername) {
-        if (foldername.startsWith(Environment.getExternalStorageDirectory().getAbsolutePath()) ||
-                foldername.contains("/projekt.substratum/")) {
-            Log.d("CreateFolderFunction", "using no-root operation for creating " + foldername);
-            File folder = new File(foldername);
-            if (!folder.exists()) {
-                Log.d("CreateFolderFunction", "operation " + (folder.mkdirs() ? "success" : "failed"));
+    private static void delete(String directory) {
+        Log.d("DeleteFunction", "using no-root operation for deleting " + directory);
+        File dir = new File(directory);
+        try {
+            if (dir.isDirectory()) {
+                FileUtils.deleteDirectory(dir);
             } else {
-                Log.d("CreateFolderFunction", "folder already exist");
+                FileUtils.deleteQuietly(dir);
             }
-        } else {
-            Log.d("CreateFolderFunction", "using root operation for creating " + foldername);
-            Root.runCommand("mkdir " + foldername);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-    }
-
-    public static void delete(String directory) {
-        if (directory.startsWith(Environment.getExternalStorageDirectory().getAbsolutePath()) ||
-                directory.contains("/projekt.substratum/")) {
-            Log.d("DeleteFunction", "using no-root operation for deleting " + directory);
-            File dir = new File(directory);
-            try {
-                if (dir.isDirectory()) {
-                    FileUtils.deleteDirectory(dir);
-                } else {
-                    FileUtils.deleteQuietly(dir);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            Log.d("DeleteFunction", "operation " + (dir.exists() ? "failed" : "success"));
-        } else {
+        Log.d("DeleteFunction", "operation " + (dir.exists() ? "failed" : "success"));
+        if (dir.exists()) {
             Log.d("DeleteFunction", "using root operation for deleting " + directory);
             Root.runCommand("rm -rf " + directory);
         }
     }
 
-    public static void move(String source, String destination) {
-        if (destination.startsWith(Environment.getExternalStorageDirectory().getAbsolutePath()) ||
-                destination.contains("/projekt.substratum/")) {
-            Log.d("MoveFunction", "using no-root operation for moving " + source + " to " + destination);
-            File in = new File(source);
-            File out = new File(destination);
-            try {
-                if (in.isFile()) {
-                    FileUtils.moveFile(in, out);
-                } else {
-                    FileUtils.moveDirectory(in, out);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
+    private static void move(String source, String destination) {
+        Log.d("MoveFunction", "using no-root operation for moving " + source + " to " + destination);
+        File in = new File(source);
+        File out = new File(destination);
+        try {
+            if (in.isFile()) {
+                FileUtils.moveFile(in, out);
+            } else {
+                FileUtils.moveDirectory(in, out);
             }
-            Log.d("MoveFunction", "operation " + (out.exists() ? "success" : "failed"));
-        } else {
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Log.d("MoveFunction", "operation " + (out.exists() ? "success" : "failed"));
+        if (!out.exists()) {
             Log.d("MoveFunction", "using root operation for moving " + source + " to " + destination);
             Root.runCommand("mv -f " + source + " " + destination);
         }
@@ -1423,7 +1464,7 @@ public class References {
             References.mountRW();
             References.setPermissions(755, themeDirectory);
             References.mountRW();
-            References.move(location, themeDirectory + "/bootanimation.zip");
+            References.move(context, location, themeDirectory + "/bootanimation.zip");
             References.mountRW();
             References.setPermissions(644, themeDirectory + "/bootanimation.zip");
             References.mountRWData();
@@ -1437,13 +1478,13 @@ public class References {
             MasqueradeService.clearBootAnimation(context);
         } else if (getDeviceEncryptionStatus(context) <= 1 && !References.checkOMS(context)) {
             // Legacy unencrypted
-            References.delete("/data/system/theme/bootanimation.zip");
+            References.delete(context, "/data/system/theme/bootanimation.zip");
         } else {
             // Encrypted OMS and legacy
             References.mountRW();
-            References.move("/system/media/bootanimation-backup.zip",
+            References.move(context, "/system/media/bootanimation-backup.zip",
                     "/system/media/bootanimation.zip");
-            References.delete("/system/addon.d/81-subsboot.sh");
+            References.delete(context, "/system/addon.d/81-subsboot.sh");
         }
     }
 
@@ -1469,7 +1510,7 @@ public class References {
                     if (created) Log.d("FontHandler", "Successfully created cache folder work " +
                             "directory!");
                 } else {
-                    References.delete(context.getCacheDir().getAbsolutePath() +
+                    References.delete(context, context.getCacheDir().getAbsolutePath() +
                             "/FontCache/FontCreator/");
                     boolean created = cacheDirectory2.mkdirs();
                     if (created) Log.d("FontHandler", "Successfully recreated cache folder work " +
@@ -1537,7 +1578,7 @@ public class References {
                     References.mountRWData();
                     References.createNewFolder("/data/system/theme/fonts");
                 } else {
-                    References.delete("/data/system/theme/fonts/");
+                    References.delete(context, "/data/system/theme/fonts/");
                     References.mountRWData();
                     References.createNewFolder("/data/system/theme/fonts");
                 }
@@ -1562,10 +1603,10 @@ public class References {
                     }
                 }
 
-                References.copy("/system/fonts/*", "/data/system/theme/fonts/");
+                References.copy(context, "/system/fonts/*", "/data/system/theme/fonts/");
 
                 // Copy all the files from work directory to /data/system/theme/fonts
-                References.copy(context.getCacheDir().getAbsolutePath() +
+                References.copy(context, context.getCacheDir().getAbsolutePath() +
                         "/FontCache/FontCreator/*", "/data/system/theme/fonts/");
 
                 // Check for correct permissions and system file context integrity.
@@ -1587,7 +1628,7 @@ public class References {
             MasqueradeService.clearFonts(context);
         } else {
             // oms with pre rootless masq and legacy
-            References.delete("/data/system/theme/fonts/");
+            References.delete(context, "/data/system/theme/fonts/");
             if (!checkOMS(context)) References.restartSystemUI(context);
         }
     }
@@ -1614,7 +1655,7 @@ public class References {
                 boolean created = cacheDirectory2.mkdirs();
                 if (created) Log.d("SoundsHandler", "Sounds work folder created");
             } else {
-                References.delete(context.getCacheDir().getAbsolutePath() +
+                References.delete(context, context.getCacheDir().getAbsolutePath() +
                         "/SoundsCache/SoundsInjector/");
                 boolean created = cacheDirectory2.mkdirs();
                 if (created) Log.d("SoundsHandler", "Sounds work folder recreated");
@@ -1726,7 +1767,7 @@ public class References {
         if (checkOMS(context) && checkMasquerade(context) >= 22) {
             MasqueradeService.clearThemedSounds(context);
         } else {
-            References.delete("/data/system/theme/audio/");
+            References.delete(context, "/data/system/theme/audio/");
             setDefaultAudible(context, RingtoneManager.TYPE_ALARM);
             setDefaultAudible(context, RingtoneManager.TYPE_NOTIFICATION);
             setDefaultAudible(context, RingtoneManager.TYPE_RINGTONE);
@@ -1756,7 +1797,7 @@ public class References {
                 "/SoundsCache/SoundsInjector/ui/");
         File ui_temp = new File("/data/system/theme/audio/ui/");
         if (ui_temp.exists()) {
-            References.delete("/data/system/theme/audio/ui/");
+            References.delete(context, "/data/system/theme/audio/ui/");
         }
         if (ui.exists()) {
             References.createNewFolder("/data/system/theme/audio/ui/");
@@ -1769,7 +1810,7 @@ public class References {
                 boolean mp3 = effect_tick_mp3.exists();
                 boolean ogg = effect_tick_ogg.exists();
                 if (mp3) {
-                    References.copyDir(context.getCacheDir().getAbsolutePath() +
+                    References.copyDir(context, context.getCacheDir().getAbsolutePath() +
                                     "/SoundsCache/SoundsInjector/ui/Effect_Tick.mp3",
                             "/data/system/theme/audio/ui/Effect_Tick.mp3");
                     setUIAudible(context, effect_tick_mp3, new File
@@ -1777,7 +1818,7 @@ public class References {
                             .TYPE_RINGTONE, "Effect_Tick");
                 }
                 if (ogg) {
-                    References.copyDir(context.getCacheDir().getAbsolutePath() +
+                    References.copyDir(context, context.getCacheDir().getAbsolutePath() +
                                     "/SoundsCache/SoundsInjector/ui/Effect_Tick.ogg",
                             "/data/system/theme/audio/ui/Effect_Tick.ogg");
                     setUIAudible(context, effect_tick_ogg, new File
@@ -1796,13 +1837,13 @@ public class References {
                 boolean mp3 = new_lock_mp3.exists();
                 boolean ogg = new_lock_ogg.exists();
                 if (mp3) {
-                    References.move(context.getCacheDir().getAbsolutePath() +
+                    References.move(context, context.getCacheDir().getAbsolutePath() +
                                     "/SoundsCache/SoundsInjector/ui/Lock.mp3",
                             "/data/system/theme/audio/ui/Lock.mp3");
                     setUISounds("lock_sound", "/data/system/theme/audio/ui/Lock.mp3");
                 }
                 if (ogg) {
-                    References.move(context.getCacheDir().getAbsolutePath() +
+                    References.move(context, context.getCacheDir().getAbsolutePath() +
                                     "/SoundsCache/SoundsInjector/ui/Lock.ogg",
                             "/data/system/theme/audio/ui/Lock.ogg");
                     setUISounds("lock_sound", "/data/system/theme/audio/ui/Lock.ogg");
@@ -1819,13 +1860,13 @@ public class References {
                 boolean mp3 = new_unlock_mp3.exists();
                 boolean ogg = new_unlock_ogg.exists();
                 if (mp3) {
-                    References.move(context.getCacheDir().getAbsolutePath() +
+                    References.move(context, context.getCacheDir().getAbsolutePath() +
                                     "/SoundsCache/SoundsInjector/ui/Unlock.mp3",
                             "/data/system/theme/audio/ui/Unlock.mp3");
                     setUISounds("unlock_sound", "/data/system/theme/audio/ui/Unlock.mp3");
                 }
                 if (ogg) {
-                    References.move(context.getCacheDir().getAbsolutePath() +
+                    References.move(context, context.getCacheDir().getAbsolutePath() +
                                     "/SoundsCache/SoundsInjector/ui/Unlock.ogg",
                             "/data/system/theme/audio/ui/Unlock.ogg");
                     setUISounds("unlock_sound", "/data/system/theme/audio/ui/Unlock.ogg");
@@ -1842,14 +1883,14 @@ public class References {
                 boolean mp3 = new_lowbattery_mp3.exists();
                 boolean ogg = new_lowbattery_ogg.exists();
                 if (mp3) {
-                    References.move(context.getCacheDir().getAbsolutePath() +
+                    References.move(context, context.getCacheDir().getAbsolutePath() +
                                     "/SoundsCache/SoundsInjector/ui/LowBattery.mp3",
                             "/data/system/theme/audio/ui/LowBattery.mp3");
                     setUISounds("low_battery_sound",
                             "/data/system/theme/audio/ui/LowBattery.mp3");
                 }
                 if (ogg) {
-                    References.move(context.getCacheDir().getAbsolutePath() +
+                    References.move(context, context.getCacheDir().getAbsolutePath() +
                                     "/SoundsCache/SoundsInjector/ui/LowBattery.ogg",
                             "/data/system/theme/audio/ui/LowBattery.ogg");
                     setUISounds("low_battery_sound",
@@ -1869,7 +1910,7 @@ public class References {
         File alarms = new File(context.getCacheDir().getAbsolutePath() +
                 "/SoundsCache/SoundsInjector/alarms/");
         File alarms_temp = new File("/data/system/theme/audio/alarms/");
-        if (alarms_temp.exists()) References.delete("/data/system/theme/audio/alarms/");
+        if (alarms_temp.exists()) References.delete(context, "/data/system/theme/audio/alarms/");
         if (alarms.exists()) {
             File new_alarm_mp3 = new File(context.getCacheDir().getAbsolutePath() +
                     "/SoundsCache/SoundsInjector/alarms/" + "/alarm.mp3");
@@ -1879,7 +1920,7 @@ public class References {
                 boolean mp3 = new_alarm_mp3.exists();
                 boolean ogg = new_alarm_ogg.exists();
 
-                References.copyDir(context.getCacheDir().getAbsolutePath() +
+                References.copyDir(context, context.getCacheDir().getAbsolutePath() +
                                 "/SoundsCache/SoundsInjector/alarms/",
                         "/data/system/theme/audio/");
                 References.setPermissionsRecursively(644, "/data/system/theme/audio/alarms/");
@@ -1909,7 +1950,7 @@ public class References {
                 "/SoundsCache/SoundsInjector/notifications/");
         File notifications_temp = new File("/data/system/theme/audio/notifications/");
         if (notifications_temp.exists())
-            References.delete("/data/system/theme/audio/notifications/");
+            References.delete(context, "/data/system/theme/audio/notifications/");
         if (notifications.exists()) {
             ringtone = true;
             File new_notifications_mp3 = new File(context.getCacheDir()
@@ -1922,7 +1963,7 @@ public class References {
                 boolean mp3 = new_notifications_mp3.exists();
                 boolean ogg = new_notifications_ogg.exists();
 
-                References.copyDir(context.getCacheDir().getAbsolutePath() +
+                References.copyDir(context, context.getCacheDir().getAbsolutePath() +
                                 "/SoundsCache/SoundsInjector/notifications/",
                         "/data/system/theme/audio/");
                 References.setPermissionsRecursively(644,
@@ -1956,7 +1997,7 @@ public class References {
                 "/SoundsCache/SoundsInjector/ringtones/");
         File ringtones_temp = new File("/data/system/theme/audio/ringtones/");
         if (ringtones_temp.exists())
-            References.delete("/data/system/theme/audio/ringtones/");
+            References.delete(context, "/data/system/theme/audio/ringtones/");
         if (ringtones.exists()) {
             ringtone = true;
             File new_ringtones_mp3 = new File(context.getCacheDir().getAbsolutePath() +
@@ -1967,7 +2008,7 @@ public class References {
                 boolean mp3 = new_ringtones_mp3.exists();
                 boolean ogg = new_ringtones_ogg.exists();
 
-                References.copyDir(context.getCacheDir().getAbsolutePath() +
+                References.copyDir(context, context.getCacheDir().getAbsolutePath() +
                                 "/SoundsCache/SoundsInjector/ringtones/",
                         "/data/system/theme/audio/");
                 References.setPermissionsRecursively(644, "/data/system/theme/audio/ringtones/");

@@ -57,26 +57,26 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
                 if (installed_themes != null && installed_themes.contains(package_name)) {
                     Log.d(References.SUBSTRATUM_LOG, "Now purging caches for \"" + package_name +
                             "\"...");
-                    References.delete(context.getCacheDir().getAbsolutePath() +
+                    References.delete(context, context.getCacheDir().getAbsolutePath() +
                             "/SubstratumBuilder/" + package_name + "/");
 
                     final SharedPreferences.Editor editor = prefs.edit();
                     if (prefs.getString("sounds_applied", "").equals(package_name)) {
-                        References.delete("/data/system/theme/audio/ && pkill -f com" +
+                        References.delete(context, "/data/system/theme/audio/ && pkill -f com" +
                                 ".android.systemui");
                         editor.remove("sounds_applied");
                     }
                     if (prefs.getString("fonts_applied", "").equals(package_name)) {
                         int version = References.checkOMSVersion(context);
                         if (version == 3) {
-                            References.delete("/data/system/theme/fonts/");
+                            References.delete(context, "/data/system/theme/fonts/");
                             References.runCommands(References.refreshWindows());
                         } else if (version == 7) {
-                            References.delete("/data/system/theme/fonts/");
+                            References.delete(context, "/data/system/theme/fonts/");
                             References.mountRWData();
-                            References.copyDir("/system/fonts/", "/data/system/theme/");
+                            References.copyDir(context, "/system/fonts/", "/data/system/theme/");
                             copyAssets(context);
-                            References.move(context.getCacheDir().getAbsolutePath() +
+                            References.move(context, context.getCacheDir().getAbsolutePath() +
                                             "/FontCache/FontCreator/fonts.xml",
                                     "/data/system/theme/fonts/");
 
@@ -88,7 +88,7 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
                             References.setProp("sys.refresh_theme", "1");
                             References.mountROData();
                         } else if (version == 0) {
-                            References.delete("/data/system/theme/fonts/");
+                            References.delete(context, "/data/system/theme/fonts/");
                         }
                         if (!prefs.getBoolean("systemui_recreate", false)) {
                             if (References.isPackageInstalled(context, "masquerade.substratum")) {
@@ -106,12 +106,12 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
                     if (prefs.getString("bootanimation_applied", "").equals(package_name)) {
                         if (References.getDeviceEncryptionStatus(context) <= 1 && References.checkOMS(
                                 context)) {
-                            References.delete("/data/system/theme/bootanimation.zip");
+                            References.delete(context, "/data/system/theme/bootanimation.zip");
                         } else {
                             References.mountRW();
-                            References.move("/system/media/bootanimation-backup.zip",
+                            References.move(context, "/system/media/bootanimation-backup.zip",
                                     "/system/media/bootanimation.zip");
-                            References.delete("/system/addon.d/81-subsboot.sh");
+                            References.delete(context, "/system/addon.d/81-subsboot.sh");
                         }
                         editor.remove("bootanimation_applied");
                     }

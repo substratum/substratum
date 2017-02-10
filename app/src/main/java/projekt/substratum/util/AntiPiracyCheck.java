@@ -142,7 +142,7 @@ public class AntiPiracyCheck {
                     } else {
                         References.mountRW();
                         for (int i = 0; i < final_commands_array.size(); i++) {
-                            References.delete(References.getInstalledDirectory(mContext,
+                            References.delete(mContext, References.getInstalledDirectory(mContext,
                                     final_commands_array.get(i)));
                         }
                         References.mountRO();

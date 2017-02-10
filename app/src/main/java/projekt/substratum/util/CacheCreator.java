@@ -100,7 +100,7 @@ public class CacheCreator {
         File myDir2 = new File(mContext.getCacheDir().getAbsoluteFile() +
                 "/SubstratumBuilder/" + package_identifier);
         if (myDir2.exists()) {
-            References.delete(myDir2.getAbsolutePath());
+            References.delete(mContext, myDir2.getAbsolutePath());
             return myDir2.mkdir();
         }
         return false;
@@ -126,7 +126,7 @@ public class CacheCreator {
                 if (!created)
                     Log.e(References.SUBSTRATUM_LOG, "Could not create theme cache folder...");
             } else {
-                References.delete(myDir2.getAbsolutePath());
+                References.delete(mContext, myDir2.getAbsolutePath());
                 boolean created = myDir2.mkdir();
                 if (!created)
                     Log.e(References.SUBSTRATUM_LOG, "Could not create theme cache folder...");

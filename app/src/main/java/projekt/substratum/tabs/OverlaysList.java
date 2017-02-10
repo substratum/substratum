@@ -386,7 +386,7 @@ public class OverlaysList extends Fragment {
                         if (!checkedOverlays.isEmpty()) {
                             for (int i = 0; i < checkedOverlays.size(); i++) {
                                 References.mountRW();
-                                References.delete(current_directory +
+                                References.delete(getContext(), current_directory +
                                         checkedOverlays.get(i).getPackageName() + "." +
                                         checkedOverlays.get(i).getThemeName() + ".apk");
                                 mAdapter.notifyDataSetChanged();
@@ -1290,7 +1290,7 @@ public class OverlaysList extends Fragment {
                 File file = new File(current_directory);
                 if (file.exists()) {
                     References.mountRW();
-                    References.delete(current_directory);
+                    References.delete(mContext, current_directory);
                 }
             }
 
@@ -1399,7 +1399,7 @@ public class OverlaysList extends Fragment {
                                 ((sUrl[0].length() != 0) ? "/type3_" + sUrl[0] : "/res"));
                         File destDir = new File(workingDirectory + "/workdir");
                         if (destDir.exists()) {
-                            References.delete(destDir.getAbsolutePath());
+                            References.delete(getContext(), destDir.getAbsolutePath());
                         }
                         FileUtils.copyDirectory(srcDir, destDir);
 
@@ -1416,7 +1416,7 @@ public class OverlaysList extends Fragment {
                                         checkedOverlays.get(i).getSelectedVariantName() + "\"");
                                 Log.d("SubstratumBuilder", "Moving variant file to: " +
                                         targetLocation);
-                                References.copyDir(sourceLocation, targetLocation);
+                                References.copyDir(getContext(), sourceLocation, targetLocation);
                             }
 
                             // Type 1b
@@ -1431,7 +1431,7 @@ public class OverlaysList extends Fragment {
                                         checkedOverlays.get(i).getSelectedVariantName2() + "\"");
                                 Log.d("SubstratumBuilder", "Moving variant file to: " +
                                         targetLocation2);
-                                References.copyDir(sourceLocation2, targetLocation2);
+                                References.copyDir(getContext(), sourceLocation2, targetLocation2);
                             }
                             // Type 1c
                             if (checkedOverlays.get(i).is_variant_chosen3) {
@@ -1446,7 +1446,7 @@ public class OverlaysList extends Fragment {
                                 Log.d("SubstratumBuilder", "Moving variant file to: " +
                                         targetLocation3);
 
-                                References.copyDir(sourceLocation3, targetLocation3);
+                                References.copyDir(getContext(), sourceLocation3, targetLocation3);
                             }
 
                             String packageName =

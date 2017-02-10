@@ -24,6 +24,8 @@ public class MasqueradeService {
     private static final String ENABLE_LIST_KEY = "enable_list";
     private static final String DISABLE_LIST_KEY = "disable_list";
     private static final String PRIORITY_LIST_KEY = "priority_list";
+    private static final String SOURCE_FILE_KEY = "source_file";
+    private static final String DESTINATION_FILE_KEY = "destination_file";
     private static final String COMMAND_VALUE_INSTALL = "install";
     private static final String COMMAND_VALUE_UNINSTALL = "uninstall";
     private static final String COMMAND_VALUE_RESTART_UI = "restart_ui";
@@ -34,6 +36,9 @@ public class MasqueradeService {
     private static final String COMMAND_VALUE_ENABLE = "enable";
     private static final String COMMAND_VALUE_DISABLE = "disable";
     private static final String COMMAND_VALUE_PRIORITY = "priority";
+    private static final String COMMAND_VALUE_COPY = "copy";
+    private static final String COMMAND_VALUE_MOVE = "move";
+    private static final String COMMAND_VALUE_DELETE = "delete";
 
     public static Intent getMasqueradeRootless(Context context) {
         Intent intent = new Intent();
@@ -142,6 +147,29 @@ public class MasqueradeService {
         Intent masqIntent = getMasqueradeRootless(context);
         masqIntent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_PRIORITY);
         masqIntent.putExtra(PRIORITY_LIST_KEY, overlays);
+        context.startService(masqIntent);
+    }
+
+    public static void copy(Context context, String source, String destination) {
+        Intent masqIntent = getMasqueradeRootless(context);
+        masqIntent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_COPY);
+        masqIntent.putExtra(SOURCE_FILE_KEY, source);
+        masqIntent.putExtra(DESTINATION_FILE_KEY, destination);
+        context.startService(masqIntent);
+    }
+
+    public static void move(Context context, String source, String destination) {
+        Intent masqIntent = getMasqueradeRootless(context);
+        masqIntent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_MOVE);
+        masqIntent.putExtra(SOURCE_FILE_KEY, source);
+        masqIntent.putExtra(DESTINATION_FILE_KEY, destination);
+        context.startService(masqIntent);
+    }
+
+    public static void delete(Context context, String directory) {
+        Intent masqIntent = getMasqueradeRootless(context);
+        masqIntent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_DELETE);
+        masqIntent.putExtra(SOURCE_FILE_KEY, directory);
         context.startService(masqIntent);
     }
 }

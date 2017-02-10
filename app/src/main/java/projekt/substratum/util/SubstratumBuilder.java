@@ -348,7 +348,7 @@ public class SubstratumBuilder {
         if (!has_errored_out) {
             try {
                 // Delete the previous APK if it exists in the dashboard folder
-                References.delete(Environment.getExternalStorageDirectory().getAbsolutePath() +
+                References.delete(context, Environment.getExternalStorageDirectory().getAbsolutePath() +
                         "/.substratum/" + overlay_package + "." + parse2_themeName +
                         "-signed.apk");
 
@@ -444,7 +444,7 @@ public class SubstratumBuilder {
                         }
                     }
                     if (current_vendor.equals(vendor_location)) {
-                        References.move(Environment.getExternalStorageDirectory()
+                        References.move(context, Environment.getExternalStorageDirectory()
                                 .getAbsolutePath() + "/.substratum/" + overlay_package +
                                 "." + parse2_themeName + "-signed.apk", vendor_location +
                                 overlay_package + "." + parse2_themeName + ".apk");
@@ -457,13 +457,13 @@ public class SubstratumBuilder {
                         if (overlay_package.equals("android")) {
                             String android_overlay = vendor_partition + "/" + overlay_package + "."
                                     + parse2_themeName + ".apk";
-                            References.move(Environment.getExternalStorageDirectory()
+                            References.move(context, Environment.getExternalStorageDirectory()
                                     .getAbsolutePath() + "/.substratum/" + overlay_package +
                                     "." + parse2_themeName + "-signed.apk", android_overlay);
                         } else {
                             String overlay = vendor_symlink + "/" + overlay_package + "." +
                                     parse2_themeName + ".apk";
-                            References.move(Environment.getExternalStorageDirectory()
+                            References.move(context, Environment.getExternalStorageDirectory()
                                     .getAbsolutePath() + "/.substratum/" + overlay_package +
                                     "." + parse2_themeName + "-signed.apk", overlay);
                             References.symlink(overlay, vendor_partition);

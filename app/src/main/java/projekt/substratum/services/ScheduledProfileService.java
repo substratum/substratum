@@ -117,11 +117,11 @@ public class ScheduledProfileService extends IntentService {
                 .getExternalStorageDirectory().getAbsolutePath() +
                 "/.substratum/current_overlays.xml");
         if (current_overlays.exists()) {
-            References.delete(Environment
+            References.delete(mContext, Environment
                     .getExternalStorageDirectory().getAbsolutePath() +
                     "/.substratum/current_overlays.xml");
         }
-        References.copy("/data/system/overlays.xml",
+        References.copy(mContext, "/data/system/overlays.xml",
                 Environment.getExternalStorageDirectory().getAbsolutePath() +
                         "/.substratum/current_overlays.xml");
 

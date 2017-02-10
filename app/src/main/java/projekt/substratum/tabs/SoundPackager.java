@@ -321,7 +321,7 @@ public class SoundPackager extends Fragment {
                     boolean created = cacheDirectory2.mkdirs();
                     if (created) Log.d("SoundsHandler", "Sounds work folder created");
                 } else {
-                    References.delete(getContext().getCacheDir().getAbsolutePath() +
+                    References.delete(getContext(), getContext().getCacheDir().getAbsolutePath() +
                             "/SoundsCache/sounds_preview/");
                     boolean created = cacheDirectory2.mkdirs();
                     if (created) Log.d("SoundsHandler", "Sounds folder recreated");

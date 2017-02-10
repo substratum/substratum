@@ -120,7 +120,7 @@ public class SubstratumIconBuilder {
         File workArea = new File(work_area);
         if (new File(work_area).exists()) {
             // Every time this executes, ALWAYS reset the previous set up
-            References.delete(work_area);
+            References.delete(context, work_area);
             boolean created = workArea.mkdir();
             if (!created) Log.e(References.SUBSTRATUM_ICON_BUILDER,
                     "Failed to create directory structure");
@@ -138,7 +138,7 @@ public class SubstratumIconBuilder {
 
         File res = new File(work_area + "/res");
         if (res.exists()) {
-            References.delete(res.getAbsolutePath());
+            References.delete(context, res.getAbsolutePath());
             boolean created = res.mkdir();
             if (!created) Log.e(References.SUBSTRATUM_ICON_BUILDER,
                     "Failed to create directory structure");
@@ -332,7 +332,7 @@ public class SubstratumIconBuilder {
         if (!has_errored_out) {
             try {
                 // Delete the previous APK if it exists in the dashboard folder
-                References.delete(Environment.getExternalStorageDirectory().getAbsolutePath() +
+                References.delete(context, Environment.getExternalStorageDirectory().getAbsolutePath() +
                         "/.substratum/" + overlay_package + ".icon-signed.apk");
 
                 // Sign with the built-in test key/certificate.
@@ -409,7 +409,7 @@ public class SubstratumIconBuilder {
                         }
                     }
                     if (current_vendor.equals(vendor_location)) {
-                        References.move(Environment.getExternalStorageDirectory()
+                        References.move(context, Environment.getExternalStorageDirectory()
                                 .getAbsolutePath() + "/.substratum/" + overlay_package +
                                 ".icon-signed.apk", vendor_location +
                                 overlay_package + ".icon.apk");
@@ -417,7 +417,7 @@ public class SubstratumIconBuilder {
                         References.setPermissions(755, vendor_location);
                         References.setContext(vendor_location);
                     } else {
-                        References.move(Environment.getExternalStorageDirectory()
+                        References.move(context, Environment.getExternalStorageDirectory()
                                 .getAbsolutePath() + "/.substratum/" + overlay_package +
                                 ".icon-signed.apk", vendor_symlink +
                                 "/" + overlay_package + ".icon.apk");

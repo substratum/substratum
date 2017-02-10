@@ -82,11 +82,11 @@ public class SoundsHandler {
                 editor.putString("sounds_applied", theme_pid);
                 editor.apply();
                 Log.d("SoundsHandler", "Sound pack installed!");
-                References.delete(mContext.getCacheDir().getAbsolutePath() +
+                References.delete(mContext, mContext.getCacheDir().getAbsolutePath() +
                         "/SoundsCache/SoundsInjector/");
             } else {
                 Log.e("SoundsHandler", "Sound installation aborted!");
-                References.delete(mContext.getCacheDir().getAbsolutePath() +
+                References.delete(mContext, mContext.getCacheDir().getAbsolutePath() +
                         "/SoundsCache/SoundsInjector/");
             }
 

@@ -29,7 +29,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import projekt.substratum.R;
-import projekt.substratum.config.MasqueradeService;
 import projekt.substratum.config.References;
 import projekt.substratum.util.ReadOverlays;
 import projekt.substratum.util.SoundsHandler;
@@ -90,11 +89,11 @@ public class ManageFragment extends Fragment {
                                     References.mountRW();
                                     if (vendor_location.exists()) {
                                         References.mountRWVendor();
-                                        References.delete(vendor_location.getAbsolutePath());
+                                        References.delete(getContext(), vendor_location.getAbsolutePath());
                                         References.mountROVendor();
                                     }
                                     if (overlay_location.exists()) {
-                                        References.delete(overlay_location.getAbsolutePath());
+                                        References.delete(getContext(), overlay_location.getAbsolutePath());
                                     }
                                     References.mountRO();
                                     if (getView() != null) {

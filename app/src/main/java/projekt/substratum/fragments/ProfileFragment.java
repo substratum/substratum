@@ -251,7 +251,7 @@ public class ProfileFragment extends Fragment {
                                         Log.e(References.SUBSTRATUM_LOG, "Could not " +
                                                 "delete " +
                                                 "profile directory.");
-                                    References.delete(
+                                    References.delete(getContext(),
                                             Environment.getExternalStorageDirectory()
                                                     .getAbsolutePath() +
                                                     "/substratum/profiles/" +
@@ -500,7 +500,7 @@ public class ProfileFragment extends Fragment {
                     .split("/")[3];
             if (References.checkOMS(getContext())) {
                 if (selectedBackup.contains("Overlays")) {
-                    References.copy("/data/system/overlays.xml",
+                    References.copy(getContext(), "/data/system/overlays.xml",
                             Environment.getExternalStorageDirectory().getAbsolutePath() +
                                     "/substratum/profiles/" + backup_getText + ".substratum");
                 }
@@ -509,7 +509,7 @@ public class ProfileFragment extends Fragment {
                         .getExternalStorageDirectory().getAbsolutePath() +
                         "/substratum/profiles/" + backup_getText + "/");
                 if (makeProfileDir.exists()) {
-                    References.delete(
+                    References.delete(getContext(),
                             Environment.getExternalStorageDirectory().getAbsolutePath() +
                                     "/substratum/profiles/" + backup_getText);
                     boolean created = makeProfileDir.mkdir();
@@ -533,30 +533,30 @@ public class ProfileFragment extends Fragment {
                 }
 
                 // Backup the entire /data/system/theme/ folder
-                References.copyDir("/data/system/theme/",
+                References.copyDir(getContext(), "/data/system/theme/",
                         Environment.getExternalStorageDirectory().getAbsolutePath() +
                                 "/substratum/profiles/" + backup_getText);
 
                 // Delete the items user don't want to backup
                 if (!selectedBackup.contains("Boot Animation")) {
-                    References.delete(Environment.getExternalStorageDirectory().getAbsolutePath() +
+                    References.delete(getContext(), Environment.getExternalStorageDirectory().getAbsolutePath() +
                             "/substratum/profiles/" + backup_getText + "/theme/bootanimation.zip");
                 }
                 if (!selectedBackup.contains("Fonts")) {
-                    References.delete(Environment.getExternalStorageDirectory().getAbsolutePath() +
+                    References.delete(getContext(), Environment.getExternalStorageDirectory().getAbsolutePath() +
                             "/substratum/profiles/" + backup_getText + "/theme/fonts");
                 }
                 if (!selectedBackup.contains("Sounds")) {
-                    References.delete(Environment.getExternalStorageDirectory().getAbsolutePath() +
+                    References.delete(getContext(), Environment.getExternalStorageDirectory().getAbsolutePath() +
                             "/substratum/profiles/" + backup_getText + "/theme/audio");
                 }
 
                 // Backup wallpapers if wanted
                 if (selectedBackup.contains("Wallpapers")) {
-                    References.copy("/data/system/users/" + uid + "/wallpaper",
+                    References.copy(getContext(), "/data/system/users/" + uid + "/wallpaper",
                             Environment.getExternalStorageDirectory().getAbsolutePath()
                                     + "/substratum/profiles/" + backup_getText + "/wallpaper.png");
-                    References.copy("/data/system/users/" + uid + "/wallpaper_lock",
+                    References.copy(getContext(), "/data/system/users/" + uid + "/wallpaper_lock",
                             Environment.getExternalStorageDirectory().getAbsolutePath()
                                     + "/substratum/profiles/" + backup_getText +
                                     "/wallpaper_lock.png");
@@ -565,7 +565,7 @@ public class ProfileFragment extends Fragment {
                 // Backup system bootanimation if encrypted
                 if (References.getDeviceEncryptionStatus(getContext()) >= 2 &&
                         selectedBackup.contains("Boot Animation")) {
-                    References.copy("/system/media/bootanimation.zip",
+                    References.copy(getContext(), "/system/media/bootanimation.zip",
                             Environment.getExternalStorageDirectory().getAbsolutePath()
                                     + "/substratum/profiles/" + backup_getText +
                                     "/bootanimation.zip");
@@ -581,7 +581,7 @@ public class ProfileFragment extends Fragment {
                 if (file.exists()) {
                     References.mountRW();
                     if (selectedBackup.contains("Overlays")) {
-                        References.copyDir(current_directory,
+                        References.copyDir(getContext(), current_directory,
                                 Environment.getExternalStorageDirectory().getAbsolutePath() +
                                         "/substratum/profiles/");
                         File oldFolder = new File(Environment.getExternalStorageDirectory()
@@ -595,7 +595,7 @@ public class ProfileFragment extends Fragment {
 
                     if (selectedBackup.contains("Sounds")) {
                         // Now begin backing up sounds
-                        References.copyDir("/data/system/theme/audio/",
+                        References.copyDir(getContext(), "/data/system/theme/audio/",
                                 Environment.getExternalStorageDirectory()
                                         .getAbsolutePath() + "/substratum/profiles/"
                                         + backup_getText);
@@ -607,13 +607,13 @@ public class ProfileFragment extends Fragment {
                         File homeWall = new File("/data/system/users/" + uid + "/wallpaper");
                         File lockWall = new File("/data/system/users/" + uid + "/wallpaper_lock");
                         if (homeWall.exists()) {
-                            References.copy(homeWall.getAbsolutePath(),
+                            References.copy(getContext(), homeWall.getAbsolutePath(),
                                     Environment.getExternalStorageDirectory().getAbsolutePath()
                                             + "/substratum/profiles/" + backup_getText +
                                             "/wallpaper.png");
                         }
                         if (lockWall.exists()) {
-                            References.copy(lockWall.getAbsolutePath(),
+                            References.copy(getContext(), lockWall.getAbsolutePath(),
                                     Environment.getExternalStorageDirectory().getAbsolutePath()
                                             + "/substratum/profiles/" + backup_getText +
                                             "/wallpaper_lock.png");
@@ -622,7 +622,7 @@ public class ProfileFragment extends Fragment {
 
                     // And bootanimation if wanted
                     if (selectedBackup.contains("Boot Animation")) {
-                        References.copy("/system/media/bootanimation.zip",
+                        References.copy(getContext(), "/system/media/bootanimation.zip",
                                 Environment.getExternalStorageDirectory().getAbsolutePath()
                                         + "/substratum/profiles/" + backup_getText);
                     }
@@ -732,8 +732,8 @@ public class ProfileFragment extends Fragment {
                 if (file.exists()) {
                     // Delete destination overlays
                     References.mountRW();
-                    References.delete(current_directory);
-                    References.delete("/data/system/theme/");
+                    References.delete(getContext(), current_directory);
+                    References.delete(getContext(), "/data/system/theme/");
                     References.createNewFolder(current_directory);
                     References.createNewFolder("/data/system/theme/");
                     References.setPermissions(755, "/data/system/theme/");
@@ -744,12 +744,12 @@ public class ProfileFragment extends Fragment {
                     String[] located_files = profile_apk_files.list();
                     for (String found : located_files) {
                         if (!found.equals("audio")) {
-                            References.copyDir(Environment.getExternalStorageDirectory()
+                            References.copyDir(getContext(), Environment.getExternalStorageDirectory()
                                     .getAbsolutePath() +
                                     "/substratum/profiles/" + profile_selector.getSelectedItem() +
                                     "/" + found, current_directory);
                         } else {
-                            References.copyDir(Environment.getExternalStorageDirectory()
+                            References.copyDir(getContext(), Environment.getExternalStorageDirectory()
                                     .getAbsolutePath() +
                                     "/substratum/profiles/" + profile_selector.getSelectedItem() +
                                     "/" + found + "/", "/data/system/theme/audio/");
@@ -782,7 +782,7 @@ public class ProfileFragment extends Fragment {
                         }
                     }
 
-                    References.delete("/data/system/theme/");
+                    References.delete(getContext(), "/data/system/theme/");
                     References.createNewFolder("/data/system/theme/");
 
                     File profile_apk_files = new File(Environment.getExternalStorageDirectory()
@@ -791,13 +791,13 @@ public class ProfileFragment extends Fragment {
                     String[] located_files = profile_apk_files.list();
                     for (String found : located_files) {
                         if (!found.equals("audio")) {
-                            References.copyDir(Environment.getExternalStorageDirectory()
+                            References.copyDir(getContext(), Environment.getExternalStorageDirectory()
                                     .getAbsolutePath() +
                                     "/substratum/profiles/" + profile_selector.getSelectedItem() +
                                     "/" + found, current_directory);
                         } else {
                             References.setPermissions(755, "/data/system/theme/");
-                            References.copyDir(Environment.getExternalStorageDirectory()
+                            References.copyDir(getContext(), Environment.getExternalStorageDirectory()
                                     .getAbsolutePath() +
                                     "/substratum/profiles/" + profile_selector.getSelectedItem() +
                                     "/" + found + "/", "/data/system/theme/audio/");
@@ -874,11 +874,11 @@ public class ProfileFragment extends Fragment {
                             .getExternalStorageDirectory().getAbsolutePath() +
                             "/.substratum/current_overlays.xml");
                     if (current_overlays.exists()) {
-                        References.delete(Environment
+                        References.delete(getContext(), Environment
                                 .getExternalStorageDirectory().getAbsolutePath() +
                                 "/.substratum/current_overlays.xml");
                     }
-                    References.copy("/data/system/overlays.xml",
+                    References.copy(getContext(), "/data/system/overlays.xml",
                             Environment.getExternalStorageDirectory().getAbsolutePath() +
                                     "/.substratum/current_overlays.xml");
 

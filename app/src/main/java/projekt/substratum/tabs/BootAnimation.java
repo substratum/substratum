@@ -279,7 +279,7 @@ public class BootAnimation extends Fragment {
                     bootAnimationPreview.setImageDrawable(animation);
                     animation.start();
                 }
-                References.delete(getContext().getCacheDir().getAbsolutePath() +
+                References.delete(getContext(), getContext().getCacheDir().getAbsolutePath() +
                         "/BootAnimationCache/animation_preview/");
                 imageButton.setImageTintList(checked);
                 imageButton.setClickable(true);
@@ -305,7 +305,7 @@ public class BootAnimation extends Fragment {
                     boolean created = cacheDirectory2.mkdirs();
                     if (created) Log.d("BootAnimationHandler", "Bootanimation work folder created");
                 } else {
-                    References.delete(getContext().getCacheDir().getAbsolutePath() +
+                    References.delete(getContext(), getContext().getCacheDir().getAbsolutePath() +
                             "/BootAnimationCache/animation_preview/");
                     boolean created = cacheDirectory2.mkdirs();
                     if (created) Log.d("BootAnimationHandler", "Bootanimation folder recreated");

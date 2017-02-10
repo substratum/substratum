@@ -570,7 +570,7 @@ public class InformationActivity extends AppCompatActivity {
             builder.setIcon(References.grabAppIcon(getApplicationContext(), theme_pid));
             builder.setMessage(R.string.clean_cache_dialog_body)
                     .setPositiveButton(R.string.uninstall_dialog_okay, (dialog, id110) -> {
-                        References.delete(getCacheDir().getAbsolutePath() +
+                        References.delete(getApplicationContext(), getCacheDir().getAbsolutePath() +
                                 "/SubstratumBuilder/" + theme_pid + "/");
                         String format =
                                 String.format(
@@ -598,11 +598,11 @@ public class InformationActivity extends AppCompatActivity {
                                 .getExternalStorageDirectory().getAbsolutePath() +
                                 "/.substratum/current_overlays.xml");
                         if (current_overlays.exists()) {
-                            References.delete(Environment
+                            References.delete(getApplicationContext(), Environment
                                     .getExternalStorageDirectory().getAbsolutePath() +
                                     "/.substratum/current_overlays.xml");
                         }
-                        References.copy("/data/system/overlays.xml",
+                        References.copy(getApplicationContext(), "/data/system/overlays.xml",
                                 Environment
                                         .getExternalStorageDirectory().getAbsolutePath() +
                                         "/.substratum/current_overlays.xml");
@@ -916,11 +916,11 @@ public class InformationActivity extends AppCompatActivity {
                     .getExternalStorageDirectory().getAbsolutePath() +
                     "/.substratum/current_overlays.xml");
             if (current_overlays.exists()) {
-                References.delete(Environment
+                References.delete(getApplicationContext(), Environment
                         .getExternalStorageDirectory().getAbsolutePath() +
                         "/.substratum/current_overlays.xml");
             }
-            References.copy("/data/system/overlays.xml",
+            References.copy(getApplicationContext(), "/data/system/overlays.xml",
                     Environment
                             .getExternalStorageDirectory().getAbsolutePath() +
                             "/.substratum/current_overlays.xml");
@@ -950,7 +950,7 @@ public class InformationActivity extends AppCompatActivity {
                 }
             }
 
-            References.delete(getCacheDir().getAbsolutePath() +
+            References.delete(getApplicationContext(), getCacheDir().getAbsolutePath() +
                     "/SubstratumBuilder/" + getThemePID());
 
             if (References.isPackageInstalled(getApplicationContext(),
@@ -977,22 +977,23 @@ public class InformationActivity extends AppCompatActivity {
 
             //Remove applied font, sounds, and bootanimation
             if (prefs.getString("sounds_applied", "").equals(theme_pid)) {
-                References.delete("/data/system/theme/audio/ && pkill -f com" +
+                References.delete(getApplicationContext(), "/data/system/theme/audio/ && pkill -f com" +
                         ".android.systemui");
                 editor.remove("sounds_applied");
             }
             if (prefs.getString("fonts_applied", "").equals(theme_pid)) {
                 int version = References.checkOMSVersion(getApplicationContext());
                 if (version == 3) {
-                    References.delete("/data/system/theme/fonts/");
+                    References.delete(getApplicationContext(), "/data/system/theme/fonts/");
                     References.runCommands(References.refreshWindows());
                 } else if (version == 7) {
-                    References.delete("/data/system/theme/fonts/");
+                    References.delete(getApplicationContext(), "/data/system/theme/fonts/");
                     References.mountRWData();
-                    References.copyDir("/system/fonts/", "/data/system/theme/");
+                    References.copyDir(getApplicationContext(), "/system/fonts/", "/data/system/theme/");
                     copyAssets();
-                    References.move(getApplicationContext().getCacheDir().getAbsolutePath() +
-                            "/FontCache/FontCreator/fonts.xml", "/data/system/theme/fonts/");
+                    References.move(getApplicationContext(), getApplicationContext().getCacheDir()
+                            .getAbsolutePath() + "/FontCache/FontCreator/fonts.xml",
+                            "/data/system/theme/fonts/");
 
                     // Check for correct permissions and system file context integrity.
                     References.setPermissions(755, "/data/system/theme/");
@@ -1002,7 +1003,7 @@ public class InformationActivity extends AppCompatActivity {
                     References.setProp("sys.refresh_theme", "1");
                     References.mountROData();
                 } else if (version == 0) {
-                    References.delete("/data/system/theme/fonts/");
+                    References.delete(getApplicationContext(), "/data/system/theme/fonts/");
                 }
                 if (!prefs.getBoolean("systemui_recreate", false)) {
                     if (References.isPackageInstalled(getApplicationContext(),
@@ -1021,12 +1022,12 @@ public class InformationActivity extends AppCompatActivity {
             if (prefs.getString("bootanimation_applied", "").equals(theme_pid)) {
                 if (References.getDeviceEncryptionStatus(getApplicationContext()) <= 1 &&
                         References.checkOMS(getApplicationContext())) {
-                    References.delete("/data/system/theme/bootanimation.zip");
+                    References.delete(getApplicationContext(), "/data/system/theme/bootanimation.zip");
                 } else {
                     References.mountRW();
-                    References.move("/system/media/bootanimation-backup.zip",
+                    References.move(getApplicationContext(), "/system/media/bootanimation-backup.zip",
                             "/system/media/bootanimation.zip");
-                    References.delete("/system/addon.d/81-subsboot.sh");
+                    References.delete(getApplicationContext(), "/system/addon.d/81-subsboot.sh");
                 }
                 editor.remove("bootanimation_applied");
             }

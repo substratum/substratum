@@ -608,7 +608,7 @@ public class MainActivity extends AppCompatActivity implements
                     File[] fileList = new File(getCacheDir().getAbsolutePath() +
                             "/SubstratumBuilder/").listFiles();
                     for (File file : fileList) {
-                        References.delete(getCacheDir().getAbsolutePath() +
+                        References.delete(getApplicationContext(), getCacheDir().getAbsolutePath() +
                                 "/SubstratumBuilder/" + file.getName());
                     }
                     Log.d("SubstratumBuilder", "The cache has been flushed!");
@@ -777,12 +777,14 @@ public class MainActivity extends AppCompatActivity implements
                     if (!prefs.getBoolean("substratum_oms", true)) {
                         if (!new File(Environment.getExternalStorageDirectory()
                                 .getAbsolutePath() + "/.substratum/").exists()) {
-                            References.delete(Environment.getExternalStorageDirectory()
+                            References.delete(getApplicationContext(),
+                                    Environment.getExternalStorageDirectory()
                                     .getAbsolutePath() + "/.substratum/");
                         }
                         if (!new File(Environment.getExternalStorageDirectory()
                                 .getAbsolutePath() + "/substratum/").exists()) {
-                            References.delete(Environment.getExternalStorageDirectory()
+                            References.delete(getApplicationContext(),
+                                    Environment.getExternalStorageDirectory()
                                     .getAbsolutePath() + "/substratum/");
                         }
                         File directory = new File(Environment.getExternalStorageDirectory(),

@@ -1051,7 +1051,7 @@ public class References {
                                       Boolean notification) {
         Intent initializer = LetsGetStarted.initialize(mContext, package_name,
                 !References.checkOMS(mContext), theme_mode, notification);
-        String integrityCheck = new AOPTCheck().checkAOPTIntegrity();
+        String integrityCheck = new AOPTCheck().checkAOPTIntegrity(mContext);
         if (integrityCheck != null &&
                 (integrityCheck.equals(mContext.getString(R.string.aapt_version)) ||
                         integrityCheck.equals(mContext.getString(R.string.aopt_version)))) {
@@ -1065,7 +1065,7 @@ public class References {
 
             new AOPTCheck().injectAOPT(mContext, true);
 
-            String integrityCheck2 = new AOPTCheck().checkAOPTIntegrity();
+            String integrityCheck2 = new AOPTCheck().checkAOPTIntegrity(mContext);
             if (integrityCheck2 != null &&
                     (integrityCheck2.equals(mContext.getString(R.string.aapt_version)) ||
                             integrityCheck2.equals(mContext.getString(R.string.aopt_version)))) {

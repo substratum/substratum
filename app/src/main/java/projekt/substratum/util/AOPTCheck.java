@@ -15,6 +15,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.Arrays;
 
+import projekt.substratum.R;
 import projekt.substratum.config.References;
 
 public class AOPTCheck {
@@ -27,7 +28,7 @@ public class AOPTCheck {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 
         // Check if AOPT is installed on the device
-        File aopt = new File("/system/bin/aopt");
+        File aopt = new File(context.getFilesDir().getAbsolutePath() + "/aopt");
         if (!aopt.exists() || forced) {
             if (!Arrays.toString(Build.SUPPORTED_ABIS).contains("86")) {
                 // Developers: AOPT-ARM (32bit) is using the legacy AAPT binary, while AAPT-ARM64
@@ -37,22 +38,11 @@ public class AOPTCheck {
                 try {
                     if (prefs.getString("compiler", "aopt").equals("aopt")) {
                         copyAOPT("aopt" + (architecture.equals("ARM64") ? "64" : ""));
-                        References.mountRW();
-                        References.copy(context.getFilesDir().getAbsolutePath() +
-                                        "/aopt" + (architecture.equals("ARM64") ? "64" : ""),
-                                "/system/bin/aopt");
-                        References.setPermissions(777, "/system/bin/aopt");
-                        References.mountRO();
                         Log.d(References.SUBSTRATUM_LOG,
                                 "Android Overlay Packaging Tool (" + architecture + ") has been"
                                         + " added into the system partition.");
                     } else {
                         copyAOPT("aapt");
-                        References.mountRW();
-                        References.copy(context.getFilesDir().getAbsolutePath() +
-                                "/aapt", "/system/bin/aopt");
-                        References.setPermissions(777, "/system/bin/aopt");
-                        References.mountRO();
                         Log.d(References.SUBSTRATUM_LOG,
                                 "Android Assets Packaging Tool (" + architecture + ") has been"
                                         + " added into the system partition.");
@@ -64,11 +54,6 @@ public class AOPTCheck {
                 // Take account for x86 devices
                 try {
                     copyAOPT("aapt86");
-                    References.mountRW();
-                    References.copy(context.getFilesDir().getAbsolutePath() +
-                            "/aapt86", "/system/bin/aopt");
-                    References.setPermissions(777, "/system/bin/aopt");
-                    References.mountRO();
                     Log.d(References.SUBSTRATUM_LOG, "Android Assets Packaging Tool (x86) has " +
                             "been" +
                             " added into the system partition.");
@@ -77,14 +62,11 @@ public class AOPTCheck {
                 }
             }
         } else if (aopt.exists()) {
-            String integrityCheck = checkAOPTIntegrity();
+            String integrityCheck = checkAOPTIntegrity(mContext);
             // AOPT outputs different ui
             if (integrityCheck != null &&
-                    (integrityCheck.equals("Android Asset Packaging Tool, v0.2-") ||
-                            integrityCheck.equals(
-                                    "Android Overlay Packaging Tool, v0.2-android-7" +
-                                            ".1.1-userdebug")
-                    )) {
+                    (integrityCheck.equals(mContext.getString(R.string.aapt_version)) ||
+                            integrityCheck.equals(R.string.aopt_version))) {
                 Log.d(References.SUBSTRATUM_LOG, "The system partition already contains an " +
                         "existing " +
                         "compiler and Substratum is locked and loaded!");
@@ -100,22 +82,11 @@ public class AOPTCheck {
                     try {
                         if (prefs.getString("compiler", "aopt").equals("aopt")) {
                             copyAOPT("aopt" + (architecture.equals("ARM64") ? "64" : ""));
-                            References.mountRW();
-                            References.copy(context.getFilesDir().getAbsolutePath() +
-                                            "/aopt" + (architecture.equals("ARM64") ? "64" : ""),
-                                    "/system/bin/aopt");
-                            References.setPermissions(777, "/system/bin/aopt");
-                            References.mountRO();
                             Log.d(References.SUBSTRATUM_LOG,
                                     "Android Overlay Packaging Tool (" + architecture + ") has been"
                                             + " added into the system partition.");
                         } else {
                             copyAOPT("aapt");
-                            References.mountRW();
-                            References.copy(context.getFilesDir().getAbsolutePath() +
-                                    "/aapt", "/system/bin/aopt");
-                            References.setPermissions(777, "/system/bin/aopt");
-                            References.mountRO();
                             Log.d(References.SUBSTRATUM_LOG,
                                     "Android Assets Packaging Tool (" + architecture + ") has been"
                                             + " added into the system partition.");
@@ -127,11 +98,6 @@ public class AOPTCheck {
                     // Take account for x86 devices
                     try {
                         copyAOPT("aapt86");
-                        References.mountRW();
-                        References.copy(context.getFilesDir().getAbsolutePath() +
-                                "/aapt86", "/system/bin/aopt");
-                        References.setPermissions(777, "/system/bin/aopt");
-                        References.mountRO();
                         Log.d(References.SUBSTRATUM_LOG, "Android Assets Packaging Tool (x86) has" +
                                 " been" +
                                 " added into the system partition.");
@@ -143,10 +109,9 @@ public class AOPTCheck {
         }
     }
 
-    private void copyAOPT(String filename) {
+    private boolean copyAOPT(String filename) {
         AssetManager assetManager = mContext.getAssets();
-        String TARGET_BASE_PATH = mContext.getFilesDir().getAbsolutePath() + "/";
-        String newFileName = TARGET_BASE_PATH + filename;
+        String newFileName = mContext.getFilesDir().getAbsolutePath() + "/aopt";
         try (InputStream in = assetManager.open(filename);
              OutputStream out = new FileOutputStream(newFileName)) {
             byte[] buffer = new byte[1024];
@@ -157,13 +122,15 @@ public class AOPTCheck {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return new File(newFileName).setExecutable(true, true);
     }
 
-    public String checkAOPTIntegrity() {
+    public String checkAOPTIntegrity(Context context) {
         Process proc = null;
         try {
+            String aopt = context.getFilesDir().getAbsolutePath() + "/aopt";
             Runtime rt = Runtime.getRuntime();
-            proc = rt.exec(new String[]{"aopt", "version"});
+            proc = rt.exec(new String[]{aopt, "version"});
             try (BufferedReader stdInput = new BufferedReader(new
                     InputStreamReader(proc.getInputStream()))) {
                 return stdInput.readLine();

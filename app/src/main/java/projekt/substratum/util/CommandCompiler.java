@@ -104,7 +104,7 @@ class CommandCompiler {
         if (aopt_debug) Log.d(SUBSTRATUM_BUILDER,
                 "The AOPT debug flag has been enabled for this session");
 
-        return "aopt p " +
+        return context.getFilesDir().getAbsolutePath() + "/aopt p " +
 
                 // Compile with manifest
                 "-M " + work_area + "/AndroidManifest.xml " +

@@ -148,9 +148,7 @@ public class AdvancedManagerFragment extends Fragment {
                             .getOverlayManagerList();
                     for (int i = 0; i < overlayList.size(); i++) {
                         OverlayManager overlay13 = overlayList.get(i);
-                        if (overlay13.isSelected()) {
-                            data.add(overlay13.getName());
-                        }
+                        if (overlay13.isSelected()) data.add(overlay13.getName());
                     }
                     Toast toast = Toast.makeText(getContext(), getString(R
                                     .string.toast_disabled),
@@ -307,7 +305,7 @@ public class AdvancedManagerFragment extends Fragment {
                         .getOverlayManagerList();
                 for (int i = 0; i < overlayList.size(); i++) {
                     OverlayManager overlay1 = overlayList.get(i);
-                    data.add(overlay1.getName());
+                    if (overlay1.isSelected()) data.add(overlay1.getName());
                 }
                 Toast toast = Toast.makeText(getContext(), getString(R
                                 .string.toast_uninstalling),

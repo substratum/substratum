@@ -894,10 +894,10 @@ public class ProfileFragment extends Fragment {
                             .getAbsolutePath() +
                             "/substratum/profiles/" + profile_name + ".substratum", "5"};
 
-                    List<List<String>> profile = ReadOverlaysFile.withTargetPackage(commands);
-                    system = ReadOverlaysFile.main(commandsSystem4);
-                    system_active = ReadOverlaysFile.main(commandsSystem5);
-                    system.addAll(ReadOverlaysFile.main(commandsSystem5));
+                    List<List<String>> profile = ReadOverlaysFile.withTargetPackage(getContext(), commands);
+                    system = ReadOverlaysFile.main(getContext(), commandsSystem4);
+                    system_active = ReadOverlaysFile.main(getContext(), commandsSystem5);
+                    system.addAll(ReadOverlaysFile.main(getContext(), commandsSystem5));
                     List<String> to_be_run = new ArrayList<>();
 
                     // Disable everything enabled first

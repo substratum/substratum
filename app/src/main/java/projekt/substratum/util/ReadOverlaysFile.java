@@ -1,5 +1,7 @@
 package projekt.substratum.util;
 
+import android.content.Context;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -7,16 +9,23 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import projekt.substratum.config.References;
+
 public class ReadOverlaysFile {
 
-    public static List<String> main(String argv[]) {
-        // Current overlay list was copied in advance, outside this class
-        File file = new File(argv[0]);
+    public static List<String> main(Context context, String argv[]) {
+        // Copy overlays.xml to the provided path
+        File current_overlays = new File(argv[0]);
+        if (current_overlays.exists()) {
+            References.delete(context, current_overlays.getAbsolutePath());
+        }
+        References.copy(context, "/data/system/overlays.xml", current_overlays.getAbsolutePath());
+
+        // Parse provided state count
         int state_count = Integer.parseInt(argv[1]);
 
         List<String> list = new ArrayList<>();
-
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(current_overlays))) {
             for (String line; (line = br.readLine()) != null; ) {
                 if (line.contains("state=\"" + state_count + "\"")) {
                     String[] split = line.substring(22).split("\\s+");
@@ -29,13 +38,19 @@ public class ReadOverlaysFile {
         return list;
     }
 
-    public static List<List<String>> withTargetPackage(String argv[]) {
-        // Current overlay list was copied in advance, outside this class
-        File file = new File(argv[0]);
-        int state_count = Integer.parseInt(argv[1]);
-        List<List<String>> list = new ArrayList<>();
+    public static List<List<String>> withTargetPackage(Context context, String argv[]) {
+        // Copy overlays.xml to the provided path
+        File current_overlays = new File(argv[0]);
+        if (current_overlays.exists()) {
+            References.delete(context, current_overlays.getAbsolutePath());
+        }
+        References.copy(context, "/data/system/overlays.xml", current_overlays.getAbsolutePath());
 
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+        // Parse provided state count
+        int state_count = Integer.parseInt(argv[1]);
+
+        List<List<String>> list = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(current_overlays))) {
             for (String line; (line = br.readLine()) != null; ) {
                 List<String> overlays = new ArrayList<>();
                 if (line.contains("state=\"" + state_count + "\"")) {

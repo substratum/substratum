@@ -137,9 +137,9 @@ public class ScheduledProfileService extends IntentService {
                 .getAbsolutePath() +
                 "/substratum/profiles/" + processed + ".substratum", "5"};
 
-        List<List<String>> profile = ReadOverlaysFile.withTargetPackage(commands);
-        List<String> system = ReadOverlaysFile.main(commandsSystem4);
-        system.addAll(ReadOverlaysFile.main(commandsSystem5));
+        List<List<String>> profile = ReadOverlaysFile.withTargetPackage(mContext, commands);
+        List<String> system = ReadOverlaysFile.main(mContext, commandsSystem4);
+        system.addAll(ReadOverlaysFile.main(mContext, commandsSystem5));
         List<String> to_be_run = new ArrayList<>();
 
         // Disable everything enabled first

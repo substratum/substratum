@@ -12,7 +12,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.om.OverlayInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -65,7 +64,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -75,6 +73,7 @@ import projekt.substratum.BuildConfig;
 import projekt.substratum.R;
 import projekt.substratum.util.AOPTCheck;
 import projekt.substratum.util.CacheCreator;
+import projekt.substratum.util.ReadOverlaysFile;
 import projekt.substratum.util.Root;
 
 public class References {
@@ -408,42 +407,10 @@ public class References {
 
     public static void disableAll(Context context) {
         if (checkMasquerade(context) >= 22) {
-            // TODO: Move this bulky thing to masquerade
-            Map<String, List<OverlayInfo>> targetsAndOverlays = OverlayManagerService.getAllOverlays();
-            int iterator = 0;
-            int overlaySize = targetsAndOverlays.entrySet().size();
-            for (Map.Entry<String, List<OverlayInfo>> targetEntry : targetsAndOverlays.entrySet()) {
-                int iterator_nested = 0;
-                int targetSize_nested = targetEntry.getValue().size();
-                iterator++;
-                for (OverlayInfo oi : targetEntry.getValue()) {
-                    if (iterator_nested < targetSize_nested) {
-                        if (oi.isEnabled()) {
-                            boolean worked = OverlayManagerService.disable(oi.packageName, true);
-                            if (!worked) {
-                                System.err.println("Failed to disable " + oi.packageName);
-                            }
-                        }
-                    } else {
-                        if (iterator == overlaySize) {
-                            if (oi.isEnabled()) {
-                                boolean worked = OverlayManagerService.disable(oi.packageName, false);
-                                if (!worked) {
-                                    System.err.println("Failed to disable " + oi.packageName);
-                                }
-                            }
-                        } else {
-                            if (oi.isEnabled()) {
-                                boolean worked = OverlayManagerService.disable(oi.packageName, true);
-                                if (!worked) {
-                                    System.err.println("Failed to disable " + oi.packageName);
-                                }
-                            }
-                        }
-                    }
-                    iterator_nested++;
-                }
-            }
+            String[] command = {Environment.getExternalStorageDirectory().getAbsolutePath() +
+                    "/.substratum/current_overlays.xml", "5"};
+            List<String> list = ReadOverlaysFile.main(context, command);
+            MasqueradeService.disableOverlays(context, new ArrayList<>(list));
         } else {
             new ThreadRunner().execute(disableAllOverlays());
         }

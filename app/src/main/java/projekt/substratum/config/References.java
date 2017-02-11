@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
+import android.app.WallpaperManager;
 import android.app.admin.DevicePolicyManager;
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -27,6 +28,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
+import android.os.ParcelFileDescriptor;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.provider.Settings;
@@ -1459,6 +1461,74 @@ public class References {
             }
             new ThreadRunner().execute(command);
             if (checkOMS(context) && shouldRestartUi(context, overlays)) restartSystemUI(context);
+        }
+    }
+
+    public static void setWallpaper(Context context, String path, String which) throws IOException {
+        WallpaperManager wallpaperManager = WallpaperManager.getInstance(context);
+        switch (which) {
+            case "home":
+                // Set home screen wallpaper
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    // Get current lock screen wallpaper to be applied later
+                    ParcelFileDescriptor lockFile = wallpaperManager
+                            .getWallpaperFile(WallpaperManager.FLAG_LOCK);
+                    InputStream input = new FileInputStream(lockFile.getFileDescriptor());
+                    // Now apply the wallpapers
+                    wallpaperManager.setStream(new FileInputStream(path), null, true,
+                            WallpaperManager.FLAG_SYSTEM);
+                    // Reapply previous lock screen wallpaper
+                    wallpaperManager.setStream(input, null, true, WallpaperManager.FLAG_LOCK);
+                } else {
+                    wallpaperManager.setStream(new FileInputStream(path));
+                }
+                break;
+            case "lock":
+                // Set lock screen wallpaper
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    wallpaperManager.setStream(new FileInputStream(path), null, true,
+                            WallpaperManager.FLAG_LOCK);
+                }
+                break;
+            case "all":
+                // Apply both wallpaper
+                wallpaperManager.setStream(new FileInputStream(path));
+                break;
+            default:
+                Log.e("SetWallpaper", "wrong choice bud");
+        }
+    }
+
+    public static void clearWallpaper(Context context, String which) throws IOException {
+        WallpaperManager wallpaperManager = WallpaperManager.getInstance(context);
+        switch (which) {
+            case "home":
+                // Clear home screen wallpaper
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    // Get current lock screen wallpaper to be applied later
+                    ParcelFileDescriptor lockFile = wallpaperManager
+                            .getWallpaperFile(WallpaperManager.FLAG_LOCK);
+                    InputStream input = new FileInputStream(lockFile.getFileDescriptor());
+                    // Clear home wallpaper
+                    wallpaperManager.clear(WallpaperManager.FLAG_SYSTEM);
+                    // Reapply lock screen wallpaper
+                    wallpaperManager.setStream(input, null, true, WallpaperManager.FLAG_LOCK);
+                } else {
+                    wallpaperManager.clear();
+                }
+                break;
+            case "lock":
+                // clear lock screen wallpaper
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    wallpaperManager.clear(WallpaperManager.FLAG_LOCK);
+                }
+                break;
+            case "all":
+                // Clear both wallpaper
+                wallpaperManager.clear();
+                break;
+            default:
+                Log.e("ClearWallpaper", "wrong choice bud");
         }
     }
 

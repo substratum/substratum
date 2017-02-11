@@ -3,7 +3,6 @@ package projekt.substratum;
 import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
-import android.app.WallpaperManager;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
@@ -25,7 +24,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -50,23 +48,15 @@ import com.theartofdev.edmodo.cropper.CropImage;
 
 import org.apache.commons.io.output.ByteArrayOutputStream;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import projekt.substrate.LetsGetStarted;
 import projekt.substratum.adapters.InformationTabsAdapter;
-import projekt.substratum.config.MasqueradeService;
 import projekt.substratum.config.References;
 import projekt.substratum.util.ReadOverlays;
-
-import static projekt.substratum.config.References.SYSTEMUI_PAUSE;
 
 public class InformationActivity extends AppCompatActivity {
 
@@ -164,21 +154,13 @@ public class InformationActivity extends AppCompatActivity {
         // Image Cropper Request Capture
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
-            WallpaperManager myWallpaperManager
-                    = WallpaperManager.getInstance(getApplicationContext());
             if (resultCode == RESULT_OK) {
                 SharedPreferences.Editor editor = prefs.edit();
                 Uri resultUri = result.getUri();
                 if (resultUri.toString().contains("homescreen_wallpaper")) {
                     try {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                            myWallpaperManager.setStream(new FileInputStream(
-                                            resultUri.toString().substring(7)), null, true,
-                                    WallpaperManager.FLAG_SYSTEM);
-                        } else {
-                            myWallpaperManager.setStream(new FileInputStream(
-                                    resultUri.toString().substring(7)));
-                        }
+                        References.setWallpaper(getApplicationContext(),
+                                resultUri.toString().substring(7), "home");
                         editor.putString("home_wallpaper_applied", theme_pid);
                         Snackbar.make(findViewById(android.R.id.content),
                                 getString(R.string.wallpaper_homescreen_success),
@@ -193,11 +175,8 @@ public class InformationActivity extends AppCompatActivity {
                     }
                 } else if (resultUri.toString().contains("lockscreen_wallpaper")) {
                     try {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                            myWallpaperManager.setStream(new FileInputStream(
-                                            resultUri.toString().substring(7)), null, true,
-                                    WallpaperManager.FLAG_LOCK);
-                        }
+                        References.setWallpaper(getApplicationContext(),
+                                resultUri.toString().substring(7), "lock");
                         editor.putString("lock_wallpaper_applied", theme_pid);
                         Snackbar.make(findViewById(android.R.id.content),
                                 getString(R.string.wallpaper_lockscreen_success),
@@ -212,12 +191,8 @@ public class InformationActivity extends AppCompatActivity {
                     }
                 } else if (resultUri.toString().contains("all_wallpaper")) {
                     try {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                            myWallpaperManager.setStream(new FileInputStream(
-                                            resultUri.toString().substring(7)), null, true,
-                                    WallpaperManager.FLAG_SYSTEM);
-                            myWallpaperManager.clear(WallpaperManager.FLAG_LOCK);
-                        }
+                        References.setWallpaper(getApplicationContext(),
+                                resultUri.toString().substring(7), "all");
                         editor.putString("home_wallpaper_applied", theme_pid);
                         editor.putString("lock_wallpaper_applied", theme_pid);
                         Snackbar.make(findViewById(android.R.id.content),
@@ -866,25 +841,18 @@ public class InformationActivity extends AppCompatActivity {
                 References.clearBootAnimation(getApplicationContext());
                 editor.remove("bootanimation_applied");
             }
-            WallpaperManager wm = WallpaperManager.getInstance(getApplicationContext());
             if (prefs.getString("home_wallpaper_applied", "").equals(theme_pid)) {
                 try {
-                    wm.clear();
-                    editor.remove("home_wallpaper_applied");
+                    References.clearWallpaper(getApplicationContext(), "home");
                 } catch (IOException e) {
-                    Log.e("InformationActivity", "Failed to restore home screen " +
-                            "wallpaper!");
+                    Log.e("InformationActivity", "Failed to restore home screen wallpaper!");
                 }
             }
             if (prefs.getString("lock_wallpaper_applied", "").equals(theme_pid)) {
                 try {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        wm.clear(WallpaperManager.FLAG_LOCK);
-                        editor.remove("lock_wallpaper_applied");
-                    }
+                    References.clearWallpaper(getApplicationContext(), "lock");
                 } catch (IOException e) {
-                    Log.e("InformationActivity", "Failed to restore lock screen " +
-                            "wallpaper!");
+                    Log.e("InformationActivity", "Failed to restore lock screen wallpaper!");
                 }
             }
             editor.apply();

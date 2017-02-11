@@ -1,14 +1,12 @@
 package projekt.substratum.fragments;
 
 import android.app.ProgressDialog;
-import android.app.WallpaperManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.ParcelFileDescriptor;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.design.widget.Snackbar;
@@ -22,9 +20,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -136,7 +132,6 @@ public class ManageFragment extends Fragment {
                 final AlertDialog.Builder builderSingle = new AlertDialog.Builder(getContext());
                 final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getContext(),
                         R.layout.dialog_listview);
-                final WallpaperManager wm = WallpaperManager.getInstance(getContext());
 
                 arrayAdapter.add(getString(R.string.manage_wallpaper_home));
                 arrayAdapter.add(getString(R.string.manage_wallpaper_lock));
@@ -151,14 +146,7 @@ public class ManageFragment extends Fragment {
                     switch (which) {
                         case 0:
                             try {
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                    ParcelFileDescriptor lockFile = wm
-                                            .getWallpaperFile(WallpaperManager.FLAG_LOCK);
-                                    InputStream input = new FileInputStream(
-                                            lockFile.getFileDescriptor());
-                                    wm.clear(WallpaperManager.FLAG_SYSTEM);
-                                    wm.setStream(input, null, true, WallpaperManager.FLAG_LOCK);
-                                }
+                                References.clearWallpaper(getContext(), "home");
                                 if (getView() != null) {
                                     Snackbar.make(getView(),
                                             getString(R.string.
@@ -168,8 +156,7 @@ public class ManageFragment extends Fragment {
                                 }
                             } catch (IOException e) {
                                 Log.e(References.SUBSTRATUM_LOG, "Failed to restore home " +
-                                        "screen " +
-                                        "wallpaper!");
+                                        "screen wallpaper!");
                             } catch (NullPointerException e) {
                                 Log.e(References.SUBSTRATUM_LOG, "Cannot retrieve lock screen " +
                                         "wallpaper!");
@@ -177,9 +164,7 @@ public class ManageFragment extends Fragment {
                             break;
                         case 1:
                             try {
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                    wm.clear(WallpaperManager.FLAG_LOCK);
-                                }
+                                References.clearWallpaper(getContext(), "lock");
                                 if (getView() != null) {
                                     Snackbar.make(getView(),
                                             getString(R.string.
@@ -189,16 +174,12 @@ public class ManageFragment extends Fragment {
                                 }
                             } catch (IOException e) {
                                 Log.e(References.SUBSTRATUM_LOG, "Failed to restore lock " +
-                                        "screen " +
-                                        "wallpaper!");
+                                        "screen wallpaper!");
                             }
                             break;
                         case 2:
                             try {
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                    wm.clear(WallpaperManager.FLAG_SYSTEM);
-                                    wm.clear(WallpaperManager.FLAG_LOCK);
-                                }
+                                References.clearWallpaper(getContext(), "all");
                                 if (getView() != null) {
                                     Snackbar.make(getView(),
                                             getString(R.string.
@@ -207,8 +188,7 @@ public class ManageFragment extends Fragment {
                                             .show();
                                 }
                             } catch (IOException e) {
-                                Log.e(References.SUBSTRATUM_LOG, "Failed to restore " +
-                                        "wallpapers!");
+                                Log.e(References.SUBSTRATUM_LOG, "Failed to restore wallpapers!");
                             }
                             break;
                     }
@@ -218,12 +198,9 @@ public class ManageFragment extends Fragment {
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
                 alertDialogBuilder.setTitle(getString(R.string.manage_wallpaper_title));
                 alertDialogBuilder.setMessage(getString(R.string.manage_dialog_text));
-                alertDialogBuilder
-                        .setPositiveButton(android.R.string.ok, (dialog, id) -> {
-                            WallpaperManager wm = WallpaperManager.getInstance(getContext
-                                    ());
+                alertDialogBuilder.setPositiveButton(android.R.string.ok, (dialog, id) -> {
                             try {
-                                wm.clear();
+                                References.clearWallpaper(getContext(), "all");
                                 if (getView() != null) {
                                     Snackbar.make(getView(),
                                             getString(R.string.
@@ -232,9 +209,7 @@ public class ManageFragment extends Fragment {
                                             .show();
                                 }
                             } catch (IOException e) {
-                                Log.e(References.SUBSTRATUM_LOG, "Failed to restore home " +
-                                        "screen " +
-                                        "wallpaper!");
+                                Log.e(References.SUBSTRATUM_LOG, "Failed to restore wallpaper!");
                             }
                         })
                         .setNegativeButton(android.R.string.cancel,

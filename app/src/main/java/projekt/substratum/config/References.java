@@ -1110,8 +1110,9 @@ public class References {
     public static void copy(Context context, String source, String destination) {
         String dataDir = context.getDataDir().getAbsolutePath();
         String externalDir = Environment.getExternalStorageDirectory().getAbsolutePath();
-        boolean needRoot = (!source.startsWith(dataDir) && !source.startsWith(externalDir)) ||
-                (!destination.startsWith(dataDir) && !destination.startsWith(externalDir));
+        boolean needRoot = (!source.startsWith(dataDir) && !source.startsWith(externalDir) &&
+                !source.startsWith("/system")) || (!destination.startsWith(dataDir) &&
+                 !destination.startsWith(externalDir) && !destination.startsWith("/system"));
         if (checkMasquerade(context) >= 22 && needRoot) {
             Log.d("CopyFunction", "using masquerade no-root operation for copying " + source +
                     " to " + destination);
@@ -1138,8 +1139,9 @@ public class References {
     public static void copyDir(Context context, String source, String destination) {
         String dataDir = context.getDataDir().getAbsolutePath();
         String externalDir = Environment.getExternalStorageDirectory().getAbsolutePath();
-        boolean needRoot = (!source.startsWith(dataDir) && !source.startsWith(externalDir)) ||
-                (!destination.startsWith(dataDir) && !destination.startsWith(externalDir));
+        boolean needRoot = (!source.startsWith(dataDir) && !source.startsWith(externalDir) &&
+                !source.startsWith("/system")) || (!destination.startsWith(dataDir) &&
+                !destination.startsWith(externalDir) && !destination.startsWith("/system"));
         if (checkMasquerade(context) >= 22 && needRoot) {
             copy(context, source, destination);
         } else {
@@ -1150,7 +1152,8 @@ public class References {
     public static void delete(Context context, String directory) {
         String dataDir = context.getDataDir().getAbsolutePath();
         String externalDir = Environment.getExternalStorageDirectory().getAbsolutePath();
-        boolean needRoot = (!directory.startsWith(dataDir) && !directory.startsWith(externalDir));
+        boolean needRoot = (!directory.startsWith(dataDir) && !directory.startsWith(externalDir) &&
+                !directory.startsWith("/system"));
         if (checkMasquerade(context) >= 22 && needRoot) {
             Log.d("DeleteFunction", "using masquerade no-root operation for deleting " + directory);
             MasqueradeService.delete(context, directory);
@@ -1176,8 +1179,9 @@ public class References {
     public static void move(Context context, String source, String destination) {
         String dataDir = context.getDataDir().getAbsolutePath();
         String externalDir = Environment.getExternalStorageDirectory().getAbsolutePath();
-        boolean needRoot = (!source.startsWith(dataDir) && !source.startsWith(externalDir)) ||
-                (!destination.startsWith(dataDir) && !destination.startsWith(externalDir));
+        boolean needRoot = (!source.startsWith(dataDir) && !source.startsWith(externalDir) &&
+                !source.startsWith("/system")) || (!destination.startsWith(dataDir) &&
+                !destination.startsWith(externalDir) && !destination.startsWith("/system"));
         if (checkMasquerade(context) >= 22 && needRoot) {
             Log.d("MoveFunction", "using masquerade no-root operation for moving " + source +
                     " to " + destination);
@@ -1223,13 +1227,10 @@ public class References {
         try {
             FileUtils.copyFile(in, out);
         } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Log.d("CopyFunction", "operation " + (out.exists() ? "success" : "failed"));
-        if (!out.exists()) {
-            Log.d("CopyFunction", "using root operation for copying " + source + " to " + destination);
+            Log.d("CopyFunction", "using no-root operation failed, fallback to root mode...");
             Root.runCommand("cp -f " + source + " " + destination);
         }
+        Log.d("CopyFunction", "operation " + (out.exists() ? "success" : "failed"));
     }
 
     private static void copyDir(String source, String destination) {
@@ -1239,13 +1240,10 @@ public class References {
         try {
             FileUtils.copyDirectory(in, out);
         } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Log.d("CopyFunction", "operation " + (out.exists() ? "success" : "failed"));
-        if (!out.exists()) {
-            Log.d("CopyFunction", "using root operation for copying " + source + " to " + destination);
+            Log.d("CopyFunction", "using no-root operation failed, fallback to root mode...");
             Root.runCommand("cp -rf " + source + " " + destination);
         }
+        Log.d("CopyFunction", "operation " + (out.exists() ? "success" : "failed"));
     }
 
     private static void delete(String directory) {
@@ -1258,13 +1256,10 @@ public class References {
                 FileUtils.deleteQuietly(dir);
             }
         } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Log.d("DeleteFunction", "operation " + (dir.exists() ? "failed" : "success"));
-        if (dir.exists()) {
-            Log.d("DeleteFunction", "using root operation for deleting " + directory);
+            Log.d("DeleteFunction", "using no-root operation failed, fallback to root mode...");
             Root.runCommand("rm -rf " + directory);
         }
+        Log.d("DeleteFunction", "operation " + (!dir.exists() ? "success" : "failed"));
     }
 
     private static void move(String source, String destination) {
@@ -1278,13 +1273,10 @@ public class References {
                 FileUtils.moveDirectory(in, out);
             }
         } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Log.d("MoveFunction", "operation " + (out.exists() ? "success" : "failed"));
-        if (!out.exists()) {
-            Log.d("MoveFunction", "using root operation for moving " + source + " to " + destination);
+            Log.d("MoveFunction", "using no-root operation failed, fallback to root mode... ");
             Root.runCommand("mv -f " + source + " " + destination);
         }
+        Log.d("MoveFunction", "operation " + (!in.exists() && out.exists() ? "success" : "failed"));
     }
 
     // Begin consolidation of root commands in Substratum

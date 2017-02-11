@@ -240,7 +240,8 @@ public class ManageFragment extends Fragment {
             alertDialogBuilder.setMessage(getString(R.string.manage_dialog_text));
             alertDialogBuilder
                     .setPositiveButton(android.R.string.ok, (dialog, id) -> {
-                        if (Settings.System.canWrite(getContext())) {
+                        if (References.checkMasquerade(getContext()) >= 22 ||
+                                Settings.System.canWrite(getContext())) {
                             new FontsClearer().execute("");
                         } else {
                             Intent intent = new Intent(
@@ -295,7 +296,6 @@ public class ManageFragment extends Fragment {
             AlertDialog alertDialog = alertDialogBuilder.create();
             alertDialog.show();
         });
-
 
         return root;
     }
@@ -366,9 +366,10 @@ public class ManageFragment extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             mProgressDialog.dismiss();
+
             SharedPreferences.Editor editor = prefs.edit();
-            editor.remove("bootanimation_applied");
-            editor.apply();
+            editor.remove("bootanimation_applied").apply();
+
             if (getView() != null) {
                 Snackbar.make(getView(),
                         getString(R.string.
@@ -401,8 +402,7 @@ public class ManageFragment extends Fragment {
             mProgressDialog.dismiss();
 
             SharedPreferences.Editor editor = prefs.edit();
-            editor.remove("fonts_applied");
-            editor.apply();
+            editor.remove("fonts_applied").apply();
 
             if (References.checkOMS(getContext())) {
                 if (getView() != null) {
@@ -456,9 +456,10 @@ public class ManageFragment extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             mProgressDialog.dismiss();
+
             SharedPreferences.Editor editor = prefs.edit();
-            editor.remove("sounds_applied");
-            editor.apply();
+            editor.remove("sounds_applied").apply();
+
             if (getView() != null) {
                 Snackbar.make(getView(),
                         getString(R.string.

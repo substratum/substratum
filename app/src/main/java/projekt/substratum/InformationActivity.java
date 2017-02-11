@@ -500,7 +500,7 @@ public class InformationActivity extends AppCompatActivity {
             builder.setIcon(References.grabAppIcon(getApplicationContext(), theme_pid));
             builder.setMessage(R.string.clean_dialog_body)
                     .setPositiveButton(R.string.uninstall_dialog_okay, (dialog, id18) -> {
-                        // Begin uninstalling all overlays based on this package
+                        // Get all installed overlays
                         List<String> stateAll = ReadOverlays.main(4, getApplicationContext());
                         stateAll.addAll(ReadOverlays.main(5, getApplicationContext()));
 
@@ -509,14 +509,11 @@ public class InformationActivity extends AppCompatActivity {
                             try {
                                 String current = stateAll.get(j);
                                 ApplicationInfo appInfo = getApplicationContext()
-                                        .getPackageManager()
-                                        .getApplicationInfo(
+                                        .getPackageManager().getApplicationInfo(
                                                 current, PackageManager.GET_META_DATA);
                                 if (appInfo.metaData != null &&
-                                        appInfo.metaData.getString(
-                                                "Substratum_Parent") != null) {
-                                    String parent =
-                                            appInfo.metaData.getString("Substratum_Parent");
+                                        appInfo.metaData.getString("Substratum_Parent") != null) {
+                                    String parent = appInfo.metaData.getString("Substratum_Parent");
                                     if (parent != null && parent.equals(theme_pid)) {
                                         all_overlays.add(current);
                                     }
@@ -532,28 +529,8 @@ public class InformationActivity extends AppCompatActivity {
                                 Toast.LENGTH_LONG);
                         toast.show();
 
-                        if (References.isPackageInstalled(getApplicationContext(),
-                                "masquerade.substratum")) {
-                            Intent runCommand = MasqueradeService.getMasquerade(getApplicationContext());
-                            runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                            runCommand.setAction("masquerade.substratum.COMMANDS");
-                            runCommand.putExtra("restart_systemui", true);
-                            runCommand.putStringArrayListExtra("pm-uninstall-specific",
-                                    all_overlays);
-                            getApplicationContext().sendBroadcast(runCommand);
-                        } else {
-                            String commands2 = "";
-                            for (int i = 0; i < all_overlays.size(); i++) {
-                                if (i == 0) {
-                                    commands2 = commands2 + "pm uninstall " +
-                                            all_overlays.get(i);
-                                } else {
-                                    commands2 = commands2 + " && pm uninstall " +
-                                            all_overlays.get(i);
-                                }
-                            }
-                            new References.ThreadRunner().execute(commands2);
-                        }
+                        // Begin uninstalling overlays for this package
+                        References.uninstallOverlay(getApplicationContext(), all_overlays);
                     })
                     .setNegativeButton(R.string.uninstall_dialog_cancel, (dialog, id19) -> {
                         // User cancelled the dialog
@@ -593,36 +570,19 @@ public class InformationActivity extends AppCompatActivity {
             builder.setIcon(References.grabAppIcon(getApplicationContext(), theme_pid));
             builder.setMessage(R.string.disable_dialog_body)
                     .setPositiveButton(R.string.uninstall_dialog_okay, (dialog, id16) -> {
-                        // Begin disabling all overlays based on this package
-                        File current_overlays = new File(Environment
-                                .getExternalStorageDirectory().getAbsolutePath() +
-                                "/.substratum/current_overlays.xml");
-                        if (current_overlays.exists()) {
-                            References.delete(getApplicationContext(), Environment
-                                    .getExternalStorageDirectory().getAbsolutePath() +
-                                    "/.substratum/current_overlays.xml");
-                        }
-                        References.copy(getApplicationContext(), "/data/system/overlays.xml",
-                                Environment
-                                        .getExternalStorageDirectory().getAbsolutePath() +
-                                        "/.substratum/current_overlays.xml");
-
-                        List<String> stateAll = ReadOverlays.main(4, getApplicationContext());
-                        stateAll.addAll(ReadOverlays.main(5, getApplicationContext()));
+                        // Get all enabled overlays
+                        List<String> stateAll = ReadOverlays.main(5, getApplicationContext());
 
                         ArrayList<String> all_overlays = new ArrayList<>();
                         for (int j = 0; j < stateAll.size(); j++) {
                             try {
                                 String current = stateAll.get(j);
                                 ApplicationInfo appInfo = getApplicationContext()
-                                        .getPackageManager()
-                                        .getApplicationInfo(
+                                        .getPackageManager().getApplicationInfo(
                                                 current, PackageManager.GET_META_DATA);
                                 if (appInfo.metaData != null &&
-                                        appInfo.metaData.getString(
-                                                "Substratum_Parent") != null) {
-                                    String parent =
-                                            appInfo.metaData.getString("Substratum_Parent");
+                                        appInfo.metaData.getString("Substratum_Parent") != null) {
+                                    String parent = appInfo.metaData.getString("Substratum_Parent");
                                     if (parent != null && parent.equals(theme_pid)) {
                                         all_overlays.add(current);
                                     }
@@ -632,33 +592,14 @@ public class InformationActivity extends AppCompatActivity {
                             }
                         }
 
-                        String commands2 = References.disableOverlay() + " ";
-                        for (int i = 0; i < all_overlays.size(); i++) {
-                            commands2 = commands2 + all_overlays.get(i) + " ";
-                        }
-
                         Toast toast = Toast.makeText(getApplicationContext(),
                                 getString(R.string
                                         .disable_completion),
                                 Toast.LENGTH_LONG);
                         toast.show();
 
-                        if (!prefs.getBoolean("systemui_recreate", false) &&
-                                commands2.contains("systemui")) {
-                            commands2 = commands2 + " && sleep " + SYSTEMUI_PAUSE + " && " +
-                                    "pkill -f com.android.systemui";
-                        }
-
-                        if (References.isPackageInstalled(getApplicationContext(),
-                                "masquerade.substratum")) {
-                            Intent runCommand = MasqueradeService.getMasquerade(getApplicationContext());
-                            runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                            runCommand.setAction("masquerade.substratum.COMMANDS");
-                            runCommand.putExtra("om-commands", commands2);
-                            getApplicationContext().sendBroadcast(runCommand);
-                        } else {
-                            new References.ThreadRunner().execute(commands2);
-                        }
+                        // Begin disabling overlays
+                        References.disableOverlay(getApplicationContext(), all_overlays);
                     })
                     .setNegativeButton(R.string.uninstall_dialog_cancel, (dialog, id15) -> {
                         // User cancelled the dialog
@@ -674,23 +615,19 @@ public class InformationActivity extends AppCompatActivity {
             builder.setIcon(References.grabAppIcon(getApplicationContext(), theme_pid));
             builder.setMessage(R.string.enable_dialog_body)
                     .setPositiveButton(R.string.uninstall_dialog_okay, (dialog, id14) -> {
-                        // Begin enabling all overlays based on this package
+                        // Get all disabled overlays
                         List<String> stateAll = ReadOverlays.main(4, getApplicationContext());
-                        stateAll.addAll(ReadOverlays.main(5, getApplicationContext()));
 
                         ArrayList<String> all_overlays = new ArrayList<>();
                         for (int j = 0; j < stateAll.size(); j++) {
                             try {
                                 String current = stateAll.get(j);
                                 ApplicationInfo appInfo = getApplicationContext()
-                                        .getPackageManager()
-                                        .getApplicationInfo(
+                                        .getPackageManager().getApplicationInfo(
                                                 current, PackageManager.GET_META_DATA);
                                 if (appInfo.metaData != null &&
-                                        appInfo.metaData.getString(
-                                                "Substratum_Parent") != null) {
-                                    String parent =
-                                            appInfo.metaData.getString("Substratum_Parent");
+                                        appInfo.metaData.getString("Substratum_Parent") != null) {
+                                    String parent = appInfo.metaData.getString("Substratum_Parent");
                                     if (parent != null && parent.equals(theme_pid)) {
                                         all_overlays.add(current);
                                     }
@@ -700,33 +637,14 @@ public class InformationActivity extends AppCompatActivity {
                             }
                         }
 
-                        String commands2 = References.enableOverlay() + " ";
-                        for (int i = 0; i < all_overlays.size(); i++) {
-                            commands2 = commands2 + all_overlays.get(i) + " ";
-                        }
-
                         Toast toast = Toast.makeText(getApplicationContext(),
                                 getString(R.string
                                         .enable_completion),
                                 Toast.LENGTH_LONG);
                         toast.show();
 
-                        if (!prefs.getBoolean("systemui_recreate", false) &&
-                                commands2.contains("systemui")) {
-                            commands2 = commands2 + " && sleep " + SYSTEMUI_PAUSE + " && " +
-                                    "pkill -f com.android.systemui";
-                        }
-
-                        if (References.isPackageInstalled(getApplicationContext(),
-                                "masquerade.substratum")) {
-                            Intent runCommand = MasqueradeService.getMasquerade(getApplicationContext());
-                            runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                            runCommand.setAction("masquerade.substratum.COMMANDS");
-                            runCommand.putExtra("om-commands", commands2);
-                            getApplicationContext().sendBroadcast(runCommand);
-                        } else {
-                            new References.ThreadRunner().execute(commands2);
-                        }
+                        // Begin enabling overlays
+                        References.enableOverlay(getApplicationContext(), all_overlays);
                     })
                     .setNegativeButton(R.string.uninstall_dialog_cancel, (dialog, id13) -> dialog.cancel());
             // Create the AlertDialog object and return it
@@ -811,15 +729,6 @@ public class InformationActivity extends AppCompatActivity {
                 LetsGetStarted.kissMe();
             } else {
                 Glide.with(getApplicationContext()).load(byteArray).centerCrop().into(kenBurnsView);
-            }
-
-            // Now, let's grab root on the helper
-            Intent rootIntent = new Intent(Intent.ACTION_MAIN);
-            rootIntent.setAction("masquerade.substratum.INITIALIZE");
-            try {
-                startActivity(rootIntent);
-            } catch (RuntimeException re) {
-                // Exception: At this point, Masquerade is not installed at all.
             }
         }
 
@@ -911,20 +820,7 @@ public class InformationActivity extends AppCompatActivity {
 
             References.uninstallOverlay(getApplicationContext(), theme_pid);
 
-            // Begin uninstalling all overlays based on this package
-            File current_overlays = new File(Environment
-                    .getExternalStorageDirectory().getAbsolutePath() +
-                    "/.substratum/current_overlays.xml");
-            if (current_overlays.exists()) {
-                References.delete(getApplicationContext(), Environment
-                        .getExternalStorageDirectory().getAbsolutePath() +
-                        "/.substratum/current_overlays.xml");
-            }
-            References.copy(getApplicationContext(), "/data/system/overlays.xml",
-                    Environment
-                            .getExternalStorageDirectory().getAbsolutePath() +
-                            "/.substratum/current_overlays.xml");
-
+            // Get all installed overlays for this package
             List<String> stateAll = ReadOverlays.main(4, getApplicationContext());
             stateAll.addAll(ReadOverlays.main(5, getApplicationContext()));
 
@@ -950,89 +846,27 @@ public class InformationActivity extends AppCompatActivity {
                 }
             }
 
-            References.delete(getApplicationContext(), getCacheDir().getAbsolutePath() +
-                    "/SubstratumBuilder/" + getThemePID());
+            // Uninstall all overlays for this package
+            References.uninstallOverlay(getApplicationContext(), all_overlays);
 
-            if (References.isPackageInstalled(getApplicationContext(),
-                    "masquerade.substratum")) {
-                Intent runCommand = MasqueradeService.getMasquerade(getApplicationContext());
-                runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                runCommand.setAction("masquerade.substratum.COMMANDS");
-                runCommand.putStringArrayListExtra("pm-uninstall-specific",
-                        all_overlays);
-                getApplicationContext().sendBroadcast(runCommand);
-            } else {
-                String commands2 = "";
-                for (int i = 0; i < all_overlays.size(); i++) {
-                    if (i == 0) {
-                        commands2 = commands2 + "pm uninstall " +
-                                all_overlays.get(i);
-                    } else {
-                        commands2 = commands2 + " && pm uninstall " +
-                                all_overlays.get(i);
-                    }
-                }
-                References.runCommands(commands2);
-            }
+            // Clear SubstratumBuilder cache for this package
+            References.delete(getApplicationContext(), getCacheDir().getAbsolutePath() +
+                    "/SubstratumBuilder/" + theme_pid);
 
             //Remove applied font, sounds, and bootanimation
             if (prefs.getString("sounds_applied", "").equals(theme_pid)) {
-                References.delete(getApplicationContext(), "/data/system/theme/audio/ && pkill -f com" +
-                        ".android.systemui");
+                References.clearSounds(getApplicationContext());
                 editor.remove("sounds_applied");
             }
             if (prefs.getString("fonts_applied", "").equals(theme_pid)) {
-                int version = References.checkOMSVersion(getApplicationContext());
-                if (version == 3) {
-                    References.delete(getApplicationContext(), "/data/system/theme/fonts/");
-                    References.runCommands(References.refreshWindows());
-                } else if (version == 7) {
-                    References.delete(getApplicationContext(), "/data/system/theme/fonts/");
-                    References.mountRWData();
-                    References.copyDir(getApplicationContext(), "/system/fonts/", "/data/system/theme/");
-                    copyAssets();
-                    References.move(getApplicationContext(), getApplicationContext().getCacheDir()
-                            .getAbsolutePath() + "/FontCache/FontCreator/fonts.xml",
-                            "/data/system/theme/fonts/");
-
-                    // Check for correct permissions and system file context integrity.
-                    References.setPermissions(755, "/data/system/theme/");
-                    References.setPermissionsRecursively(747, "/data/system/theme/fonts/");
-                    References.setPermissions(775, "/data/system/theme/fonts/");
-                    References.setContext("/data/system/theme");
-                    References.setProp("sys.refresh_theme", "1");
-                    References.mountROData();
-                } else if (version == 0) {
-                    References.delete(getApplicationContext(), "/data/system/theme/fonts/");
-                }
-                if (!prefs.getBoolean("systemui_recreate", false)) {
-                    if (References.isPackageInstalled(getApplicationContext(),
-                            "masquerade.substratum")) {
-                        Intent runCommand = MasqueradeService.getMasquerade(getApplicationContext());
-                        runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                        runCommand.setAction("masquerade.substratum.COMMANDS");
-                        runCommand.putExtra("om-commands", "pkill -f com.android.systemui");
-                        getApplicationContext().sendBroadcast(runCommand);
-                    } else {
-                        References.restartSystemUI(getApplicationContext());
-                    }
-                }
+                References.clearFonts(getApplicationContext());
                 editor.remove("fonts_applied");
             }
             if (prefs.getString("bootanimation_applied", "").equals(theme_pid)) {
-                if (References.getDeviceEncryptionStatus(getApplicationContext()) <= 1 &&
-                        References.checkOMS(getApplicationContext())) {
-                    References.delete(getApplicationContext(), "/data/system/theme/bootanimation.zip");
-                } else {
-                    References.mountRW();
-                    References.move(getApplicationContext(), "/system/media/bootanimation-backup.zip",
-                            "/system/media/bootanimation.zip");
-                    References.delete(getApplicationContext(), "/system/addon.d/81-subsboot.sh");
-                }
+                References.clearBootAnimation(getApplicationContext());
                 editor.remove("bootanimation_applied");
             }
-            WallpaperManager wm = WallpaperManager.getInstance(
-                    getApplicationContext());
+            WallpaperManager wm = WallpaperManager.getInstance(getApplicationContext());
             if (prefs.getString("home_wallpaper_applied", "").equals(theme_pid)) {
                 try {
                     wm.clear();
@@ -1055,28 +889,6 @@ public class InformationActivity extends AppCompatActivity {
             }
             editor.apply();
             return null;
-        }
-
-        private void copyFile(InputStream in, OutputStream out) throws IOException {
-            byte[] buffer = new byte[1024];
-            int read;
-            while ((read = in.read(buffer)) != -1) {
-                out.write(buffer, 0, read);
-            }
-        }
-
-        private void copyAssets() {
-            AssetManager assetManager = getApplicationContext().getAssets();
-            final String filename = "fonts.xml";
-            try (InputStream in = assetManager.open(filename);
-                 OutputStream out = new FileOutputStream(getApplicationContext().getCacheDir()
-                         .getAbsolutePath() +
-                         "/FontCache/FontCreator/" + filename)) {
-                copyFile(in, out);
-            } catch (IOException e) {
-                Log.e("FontHandler", "Failed to move font configuration file to working " +
-                        "directory!");
-            }
         }
     }
 }

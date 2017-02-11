@@ -1,6 +1,7 @@
 package projekt.substratum.util;
 
 import android.content.Context;
+import android.os.Environment;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -14,12 +15,14 @@ import projekt.substratum.config.References;
 public class ReadOverlaysFile {
 
     public static List<String> main(Context context, String argv[]) {
-        // Copy overlays.xml to the provided path
-        File current_overlays = new File(argv[0]);
+        // Copy provided overlays xml path
+        File current_overlays = new File(Environment
+                .getExternalStorageDirectory().getAbsolutePath() +
+                "/.substratum/current_overlays.xml");
         if (current_overlays.exists()) {
             References.delete(context, current_overlays.getAbsolutePath());
         }
-        References.copy(context, "/data/system/overlays.xml", current_overlays.getAbsolutePath());
+        References.copy(context, argv[0], current_overlays.getAbsolutePath());
 
         // Parse provided state count
         int state_count = Integer.parseInt(argv[1]);
@@ -39,12 +42,14 @@ public class ReadOverlaysFile {
     }
 
     public static List<List<String>> withTargetPackage(Context context, String argv[]) {
-        // Copy overlays.xml to the provided path
-        File current_overlays = new File(argv[0]);
+        // Copy provided overlays xml path
+        File current_overlays = new File(Environment
+                .getExternalStorageDirectory().getAbsolutePath() +
+                "/.substratum/current_overlays.xml");
         if (current_overlays.exists()) {
             References.delete(context, current_overlays.getAbsolutePath());
         }
-        References.copy(context, "/data/system/overlays.xml", current_overlays.getAbsolutePath());
+        References.copy(context, argv[0], current_overlays.getAbsolutePath());
 
         // Parse provided state count
         int state_count = Integer.parseInt(argv[1]);

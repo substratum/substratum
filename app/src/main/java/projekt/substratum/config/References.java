@@ -409,8 +409,7 @@ public class References {
 
     public static void disableAll(Context context) {
         if (checkMasquerade(context) >= 22) {
-            String[] command = {Environment.getExternalStorageDirectory().getAbsolutePath() +
-                    "/.substratum/current_overlays.xml", "5"};
+            String[] command = {"/data/system/overlays.xml", "5"};
             List<String> list = ReadOverlaysFile.main(context, command);
             MasqueradeService.disableOverlays(context, new ArrayList<>(list));
         } else {

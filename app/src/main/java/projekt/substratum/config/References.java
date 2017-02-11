@@ -1111,8 +1111,23 @@ public class References {
         boolean needRoot = (!source.startsWith(dataDir) && !source.startsWith(externalDir)) ||
                 (!destination.startsWith(dataDir) && !destination.startsWith(externalDir));
         if (checkMasquerade(context) >= 22 && needRoot) {
-            Log.d("CopyFunction", "using masquerade no-root operation for copying " + source + " to " + destination);
+            Log.d("CopyFunction", "using masquerade no-root operation for copying " + source +
+                    " to " + destination);
             MasqueradeService.copy(context, source, destination);
+
+            // Wait until copy success
+            File file = new File(destination);
+            try {
+                int retryCount = 0;
+                while (!file.exists() && retryCount < 5) {
+                    Thread.sleep(1000);
+                    retryCount++;
+                }
+                if (retryCount == 5) Log.d("CopyFunction", "Operation timeout");
+                Log.d("CopyFunction", "Operation " + (file.exists() ? "success" : "failed"));
+            } catch (InterruptedException e) {
+                Thread.interrupted();
+            }
         } else {
             copy(source, destination);
         }
@@ -1137,6 +1152,20 @@ public class References {
         if (checkMasquerade(context) >= 22 && needRoot) {
             Log.d("DeleteFunction", "using masquerade no-root operation for deleting " + directory);
             MasqueradeService.delete(context, directory);
+
+            // Wait until delete success
+            File file = new File(directory);
+            try {
+                int retryCount = 0;
+                while (file.exists() && retryCount < 5) {
+                    Thread.sleep(1000);
+                    retryCount++;
+                }
+                if (retryCount == 5) Log.d("DeleteFunction", "Operation timeout");
+                Log.d("DeleteFunction", "Operation " + (!file.exists() ? "success" : "failed"));
+            } catch (InterruptedException e) {
+                Thread.interrupted();
+            }
         } else {
             delete(directory);
         }
@@ -1148,8 +1177,23 @@ public class References {
         boolean needRoot = (!source.startsWith(dataDir) && !source.startsWith(externalDir)) ||
                 (!destination.startsWith(dataDir) && !destination.startsWith(externalDir));
         if (checkMasquerade(context) >= 22 && needRoot) {
-            Log.d("MoveFunction", "using masquerade no-root operation for moving " + source + " to " + destination);
+            Log.d("MoveFunction", "using masquerade no-root operation for moving " + source +
+                    " to " + destination);
             MasqueradeService.move(context, source, destination);
+
+            // Wait until move success
+            File file = new File(destination);
+            try {
+                int retryCount = 0;
+                while (!file.exists() && retryCount < 5) {
+                    Thread.sleep(1000);
+                    retryCount++;
+                }
+                if (retryCount == 5) Log.d("MoveFunction", "Operation timeout");
+                Log.d("MoveFunction", "Operation " + (file.exists() ? "success" : "failed"));
+            } catch (InterruptedException e) {
+                Thread.interrupted();
+            }
         } else {
             move(source, destination);
         }

@@ -1149,19 +1149,25 @@ public class References {
     }
 
     public static void delete(Context context, String directory) {
+        delete(context, directory, true);
+    }
+
+    public static void delete(Context context, String directory, boolean deleteParent) {
         String dataDir = context.getDataDir().getAbsolutePath();
         String externalDir = Environment.getExternalStorageDirectory().getAbsolutePath();
         boolean needRoot = (!directory.startsWith(dataDir) && !directory.startsWith(externalDir) &&
                 !directory.startsWith("/system"));
         if (checkMasquerade(context) >= 22 && needRoot) {
             Log.d("DeleteFunction", "using masquerade no-root operation for deleting " + directory);
-            MasqueradeService.delete(context, directory);
+            MasqueradeService.delete(context, directory, deleteParent);
 
             // Wait until delete success
             File file = new File(directory);
             try {
                 int retryCount = 0;
-                while (file.exists() && retryCount < 5) {
+                boolean notDone = (deleteParent && file.exists()) ||
+                        (!deleteParent && file.list().length == 0);
+                while (notDone && retryCount < 5) {
                     Thread.sleep(1000);
                     retryCount++;
                 }
@@ -1171,7 +1177,7 @@ public class References {
                 Thread.interrupted();
             }
         } else {
-            delete(directory);
+            delete(directory, deleteParent);
         }
     }
 
@@ -1245,18 +1251,34 @@ public class References {
         Log.d("CopyFunction", "operation " + (out.exists() ? "success" : "failed"));
     }
 
-    private static void delete(String directory) {
+    private static void delete(String directory, boolean deleteParent) {
         Log.d("DeleteFunction", "using no-root operation for deleting " + directory);
         File dir = new File(directory);
         try {
             if (dir.isDirectory()) {
-                FileUtils.deleteDirectory(dir);
+                for (File child : dir.listFiles()) {
+                    FileUtils.forceDelete(child);
+                }
+                if (deleteParent) FileUtils.forceDelete(dir);
             } else {
-                FileUtils.deleteQuietly(dir);
+                FileUtils.forceDelete(dir);
             }
         } catch (IOException e) {
+            e.printStackTrace();
             Log.d("DeleteFunction", "using no-root operation failed, fallback to root mode...");
-            Root.runCommand("rm -rf " + directory);
+            if (deleteParent) {
+                Root.runCommand("rm -rf " + directory);
+            } else {
+                String command = "rm -rf ";
+                if (dir.isDirectory()) {
+                    for (File child : dir.listFiles()) {
+                        command += child.getAbsolutePath() + " ";
+                    }
+                    Root.runCommand(command);
+                } else {
+                    Root.runCommand(command + directory);
+                }
+            }
         }
         Log.d("DeleteFunction", "operation " + (!dir.exists() ? "success" : "failed"));
     }
@@ -1415,14 +1437,14 @@ public class References {
         Root.runCommand("ln -s " + source + " " + destination);
     }
 
-    private static boolean shouldRestartUi (Context context, String overlay) {
+    public static boolean shouldRestartUi (Context context, String overlay) {
         if (checkOMS(context)) {
             if (overlay.startsWith("com.android.systemui")) return true;
         }
         return false;
     }
 
-    private static boolean shouldRestartUi (Context context, ArrayList<String> overlays) {
+    public static boolean shouldRestartUi (Context context, ArrayList<String> overlays) {
         if (checkOMS(context)) {
             for (String o : overlays) {
                 if (o.startsWith("com.android.systemui")) return true;

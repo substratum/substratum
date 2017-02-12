@@ -15,7 +15,6 @@ public class MasqueradeService {
     private static final String INSTALL_LIST_KEY = "install_list";
     private static final String UNINSTALL_LIST_KEY = "uninstall_list";
     private static final String WITH_RESTART_UI_KEY = "with_restart_ui";
-    private static final String BOOTANIMATION_PID_KEY = "bootanimation_pid";
     private static final String BOOTANIMATION_FILE_NAME = "bootanimation_file_name";
     private static final String AUDIO_PID = "audio_pid";
     private static final String AUDIO_FILENAME = "audio_filename";
@@ -26,6 +25,8 @@ public class MasqueradeService {
     private static final String PRIORITY_LIST_KEY = "priority_list";
     private static final String SOURCE_FILE_KEY = "source_file";
     private static final String DESTINATION_FILE_KEY = "destination_file";
+    private static final String WITH_DELETE_PARENT_KEY = "with_delete_parent";
+    private static final String PROFILE_NAME_KEY = "profile_name";
     private static final String COMMAND_VALUE_INSTALL = "install";
     private static final String COMMAND_VALUE_UNINSTALL = "uninstall";
     private static final String COMMAND_VALUE_RESTART_UI = "restart_ui";
@@ -39,6 +40,8 @@ public class MasqueradeService {
     private static final String COMMAND_VALUE_COPY = "copy";
     private static final String COMMAND_VALUE_MOVE = "move";
     private static final String COMMAND_VALUE_DELETE = "delete";
+    private static final String COMMAND_VALUE_PROFILE = "profile";
+
 
     public static Intent getMasqueradeRootless(Context context) {
         Intent intent = new Intent();
@@ -166,10 +169,21 @@ public class MasqueradeService {
         context.startService(masqIntent);
     }
 
-    public static void delete(Context context, String directory) {
+    public static void delete(Context context, String directory, boolean deleteParent) {
         Intent masqIntent = getMasqueradeRootless(context);
         masqIntent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_DELETE);
         masqIntent.putExtra(SOURCE_FILE_KEY, directory);
+        masqIntent.putExtra(WITH_DELETE_PARENT_KEY, deleteParent);
+        context.startService(masqIntent);
+    }
+
+    public static void applyProfile(Context context, String name, ArrayList<String> toBeDisabled,
+                                    ArrayList<String> toBeEnabled) {
+        Intent masqIntent = getMasqueradeRootless(context);
+        masqIntent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_PROFILE);
+        masqIntent.putExtra(PROFILE_NAME_KEY, name);
+        masqIntent.putExtra(DISABLE_LIST_KEY, toBeDisabled);
+        masqIntent.putExtra(ENABLE_LIST_KEY, toBeEnabled);
         context.startService(masqIntent);
     }
 }

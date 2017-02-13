@@ -54,6 +54,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
                                         getSubstratumPackages(context,
                                                 packageInfo.packageName));
                         String final_commands = References.disableOverlay();
+                        // TODO: do something with this
                         for (int i = 0; i < to_be_disabled.size(); i++) {
                             final_commands = final_commands + " " + to_be_disabled.get(i);
                         }

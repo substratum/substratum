@@ -72,18 +72,7 @@ public class ThemeCacher extends BroadcastReceiver {
                                 notificationManager.notify(
                                         References.notification_id, notification);
 
-                                String final_commands = "pm uninstall " + package_name;
-
-                                if (References.isPackageInstalled(mContext,
-                                        "masquerade.substratum")) {
-                                    Intent runCommand = MasqueradeService.getMasquerade(mContext);
-                                    runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                                    runCommand.setAction("masquerade.substratum.COMMANDS");
-                                    runCommand.putExtra("om-commands", final_commands);
-                                    mContext.sendBroadcast(runCommand);
-                                } else {
-                                    new References.ThreadRunner().execute(final_commands);
-                                }
+                                References.uninstallOverlay(mContext, package_name);
                                 return false;
                             }
                         }

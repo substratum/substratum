@@ -122,9 +122,7 @@ public class DetectionReceiver extends BroadcastReceiver {
                                     notificationManager.notify(
                                             References.notification_id, notification);
 
-                                    String final_commands = "pm uninstall " +
-                                            packageInfo.packageName;
-                                    References.runCommands(final_commands);
+                                    References.uninstallOverlay(mContext, packageInfo.packageName);
                                 }
                             }
                         }

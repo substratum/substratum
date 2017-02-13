@@ -1,48 +1,19 @@
 package projekt.substratum.services;
 
-import android.app.WallpaperManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.AssetManager;
 import android.net.Uri;
-import android.os.Build;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.Set;
 
-import projekt.substratum.config.MasqueradeService;
 import projekt.substratum.config.References;
 
 public class ThemeUninstallDetector extends BroadcastReceiver {
-
-    private void copyFile(InputStream in, OutputStream out) throws IOException {
-        byte[] buffer = new byte[1024];
-        int read;
-        while ((read = in.read(buffer)) != -1) {
-            out.write(buffer, 0, read);
-        }
-    }
-
-    private void copyAssets(Context context) {
-        AssetManager assetManager = context.getAssets();
-        final String filename = "fonts.xml";
-        try (InputStream in = assetManager.open(filename);
-             OutputStream out = new FileOutputStream(context.getCacheDir()
-                     .getAbsolutePath() +
-                     "/FontCache/FontCreator/" + filename)) {
-            copyFile(in, out);
-        } catch (IOException e) {
-            Log.e("FontHandler", "Failed to move font configuration file to working " +
-                    "directory!");
-        }
-    }
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -62,78 +33,31 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
 
                     final SharedPreferences.Editor editor = prefs.edit();
                     if (prefs.getString("sounds_applied", "").equals(package_name)) {
-                        References.delete(context, "/data/system/theme/audio/ && pkill -f com" +
-                                ".android.systemui");
+                        References.clearSounds(context);
                         editor.remove("sounds_applied");
                     }
                     if (prefs.getString("fonts_applied", "").equals(package_name)) {
-                        int version = References.checkOMSVersion(context);
-                        if (version == 3) {
-                            References.delete(context, "/data/system/theme/fonts/");
-                            References.runCommands(References.refreshWindows());
-                        } else if (version == 7) {
-                            References.delete(context, "/data/system/theme/fonts/");
-                            References.mountRWData();
-                            References.copyDir(context, "/system/fonts/", "/data/system/theme/");
-                            copyAssets(context);
-                            References.move(context, context.getCacheDir().getAbsolutePath() +
-                                            "/FontCache/FontCreator/fonts.xml",
-                                    "/data/system/theme/fonts/");
-
-                            // Check for correct permissions and system file context integrity.
-                            References.setPermissions(755, "/data/system/theme/");
-                            References.setPermissionsRecursively(747, "/data/system/theme/fonts/");
-                            References.setPermissions(775, "/data/system/theme/fonts/");
-                            References.setContext("/data/system/theme");
-                            References.setProp("sys.refresh_theme", "1");
-                            References.mountROData();
-                        } else if (version == 0) {
-                            References.delete(context, "/data/system/theme/fonts/");
-                        }
-                        if (!prefs.getBoolean("systemui_recreate", false)) {
-                            if (References.isPackageInstalled(context, "masquerade.substratum")) {
-                                Intent runCommand = MasqueradeService.getMasquerade(context);
-                                runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                                runCommand.setAction("masquerade.substratum.COMMANDS");
-                                runCommand.putExtra("om-commands", "pkill -f com.android.systemui");
-                                context.sendBroadcast(runCommand);
-                            } else {
-                                References.restartSystemUI(context);
-                            }
-                        }
+                        References.clearFonts(context);
                         editor.remove("fonts_applied");
                     }
                     if (prefs.getString("bootanimation_applied", "").equals(package_name)) {
-                        if (References.getDeviceEncryptionStatus(context) <= 1 && References.checkOMS(
-                                context)) {
-                            References.delete(context, "/data/system/theme/bootanimation.zip");
-                        } else {
-                            References.mountRW();
-                            References.move(context, "/system/media/bootanimation-backup.zip",
-                                    "/system/media/bootanimation.zip");
-                            References.delete(context, "/system/addon.d/81-subsboot.sh");
-                        }
+                        References.clearBootAnimation(context);
                         editor.remove("bootanimation_applied");
                     }
-                    WallpaperManager wm = WallpaperManager.getInstance(
-                            context);
                     if (prefs.getString("home_wallpaper_applied", "").equals(package_name)) {
                         try {
-                            wm.clear();
+                            References.clearWallpaper(context, "home");
                             editor.remove("home_wallpaper_applied");
                         } catch (IOException e) {
-                            Log.e("InformationActivity", "Failed to restore home screen " +
+                            Log.e("ThemeUninstallDetector", "Failed to restore home screen " +
                                     "wallpaper!");
                         }
                     }
                     if (prefs.getString("lock_wallpaper_applied", "").equals(package_name)) {
                         try {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                wm.clear(WallpaperManager.FLAG_LOCK);
-                                editor.remove("lock_wallpaper_applied");
-                            }
+                            References.clearWallpaper(context, "lock");
                         } catch (IOException e) {
-                            Log.e("InformationActivity", "Failed to restore lock screen " +
+                            Log.e("ThemeUninstallDetector", "Failed to restore lock screen " +
                                     "wallpaper!");
                         }
                     }

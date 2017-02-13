@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
@@ -283,8 +284,7 @@ public class ProfileFragment extends Fragment {
         });
 
         final CardView scheduledProfileCard = (CardView) root.findViewById(R.id.cardListView3);
-        if (References.checkOMS(getActivity()) && References.isPackageInstalled(getActivity(),
-                "masquerade.substratum")) {
+        if (References.checkOMS(getContext()) && References.checkMasquerade(getContext()) >= 22) {
             final ExpandableLayout scheduledProfileLayout = (ExpandableLayout) root.findViewById(
                     R.id.scheduled_profile_card_content_container);
             final Switch dayNightSwitch = (Switch) root.findViewById(R.id.profile_switch);
@@ -403,31 +403,51 @@ public class ProfileFragment extends Fragment {
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
         if (dayNightEnabled) {
-            Calendar calendar = Calendar.getInstance();
-            editor.putBoolean(SCHEDULED_PROFILE_ENABLED, dayNightEnabled);
-            calendar.setTimeInMillis(System.currentTimeMillis());
+            // Set up current calendar instance
+            Calendar current = Calendar.getInstance();
+            current.setTimeInMillis(System.currentTimeMillis());
 
-            // night time
-            calendar.set(Calendar.HOUR_OF_DAY, nightHour);
-            calendar.set(Calendar.MINUTE, nightMinute);
-            alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                    nightIntent);
-            editor.putString(NIGHT_PROFILE, nightProfile.getSelectedItem().toString());
-            editor.putInt(NIGHT_PROFILE_HOUR, nightHour);
-            editor.putInt(NIGHT_PROFILE_MINUTE, nightMinute);
+            // Set up day night calendar instance
+            Calendar calendarNight = Calendar.getInstance();
+            calendarNight.setTimeInMillis(System.currentTimeMillis());
+            calendarNight.set(Calendar.HOUR_OF_DAY, nightHour);
+            calendarNight.set(Calendar.MINUTE, nightMinute);
 
-            // day time
-            if (System.currentTimeMillis() > calendar.getTimeInMillis()) {
-                calendar.add(Calendar.DAY_OF_YEAR, 1);
+            Calendar calendarDay = Calendar.getInstance();
+            calendarDay.setTimeInMillis(System.currentTimeMillis());
+            calendarDay.set(Calendar.HOUR_OF_DAY, dayHour);
+            calendarDay.set(Calendar.MINUTE, dayMinute);
+
+            // Apply night profile
+            if (calendarDay.after(current) && calendarNight.after(current)) {
+                // We will go here when we apply in night profile time on different day,
+                // make sure we apply the night profile directly
+                calendarNight.add(Calendar.DAY_OF_YEAR, -1);
             }
-            calendar.set(Calendar.HOUR_OF_DAY, dayHour);
-            calendar.set(Calendar.MINUTE, dayMinute);
-            alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+            alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendarNight.getTimeInMillis(),
+                    nightIntent);
+
+            // Bring back the day in case we went to the conditional if before
+            calendarNight.set(Calendar.DAY_OF_YEAR, current.get(Calendar.DAY_OF_YEAR));
+
+            // Apply day profile
+            if (calendarNight.before(current)) {
+                // We will go here when we apply inside night profile time, this prevent day profile
+                // to be triggered
+                calendarDay.add(Calendar.DAY_OF_YEAR, 1);
+            }
+            alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendarDay.getTimeInMillis(),
                     dayIntent);
-            editor.putString(DAY_PROFILE, dayProfile.getSelectedItem().toString());
-            editor.putInt(DAY_PROFILE_HOUR, dayHour);
-            editor.putInt(DAY_PROFILE_MINUTE, dayMinute);
-            editor.apply();
+
+            // Apply prefs
+            editor.putBoolean(SCHEDULED_PROFILE_ENABLED, dayNightEnabled)
+                    .putString(NIGHT_PROFILE, nightProfile.getSelectedItem().toString())
+                    .putString(DAY_PROFILE, dayProfile.getSelectedItem().toString())
+                    .putInt(NIGHT_PROFILE_HOUR, nightHour)
+                    .putInt(NIGHT_PROFILE_MINUTE, nightMinute)
+                    .putInt(DAY_PROFILE_HOUR, dayHour)
+                    .putInt(DAY_PROFILE_MINUTE, dayMinute)
+                    .apply();
 
             if (getView() != null) {
                 Snackbar.make(getView(), R.string.scheduled_profile_apply_success,
@@ -439,8 +459,7 @@ public class ProfileFragment extends Fragment {
                 alarmMgr.cancel(nightIntent);
                 alarmMgr.cancel(dayIntent);
 
-                editor
-                        .remove(SCHEDULED_PROFILE_ENABLED)
+                editor.remove(SCHEDULED_PROFILE_ENABLED)
                         .remove(DAY_PROFILE)
                         .remove(DAY_PROFILE_HOUR)
                         .remove(DAY_PROFILE_MINUTE)

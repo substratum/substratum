@@ -37,7 +37,6 @@ public class BootCompletedDetector extends BroadcastReceiver {
 
     private void setupScheduledProfile(Context context) {
         AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Calendar calendar = Calendar.getInstance();
         Intent intent = new Intent(context, ScheduledProfileReceiver.class);
         intent.putExtra(SCHEDULED_PROFILE_TYPE_EXTRA, NIGHT);
         PendingIntent nightIntent = PendingIntent.getBroadcast(context, 0, intent,
@@ -52,24 +51,36 @@ public class BootCompletedDetector extends BroadcastReceiver {
         final int nightHour = prefs.getInt(NIGHT_PROFILE_HOUR, 0);
         final int nightMinute = prefs.getInt(NIGHT_PROFILE_MINUTE, 0);
 
+        // Set up current calendar instance
+        Calendar current = Calendar.getInstance();
+        current.setTimeInMillis(System.currentTimeMillis());
+
+        // Set up day night calendar instance
+        Calendar calendarNight = Calendar.getInstance();
+        calendarNight.setTimeInMillis(System.currentTimeMillis());
+        calendarNight.set(Calendar.HOUR_OF_DAY, nightHour);
+        calendarNight.set(Calendar.MINUTE, nightMinute);
+
+        Calendar calendarDay = Calendar.getInstance();
+        calendarDay.setTimeInMillis(System.currentTimeMillis());
+        calendarDay.set(Calendar.HOUR_OF_DAY, dayHour);
+        calendarDay.set(Calendar.MINUTE, dayMinute);
+
         // night time
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, nightHour);
-        calendar.set(Calendar.MINUTE, nightMinute);
         if (currentProfile.equals(NIGHT)) {
-            calendar.add(Calendar.DAY_OF_YEAR, 1);
+            calendarNight.add(Calendar.DAY_OF_YEAR, 1);
         }
-        alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+        alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendarNight.getTimeInMillis(),
                 nightIntent);
 
+        // Bring back the day in case we went to the conditional if before
+        calendarNight.set(Calendar.DAY_OF_YEAR, current.get(Calendar.DAY_OF_YEAR));
+
         // day time
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, dayHour);
-        calendar.set(Calendar.MINUTE, dayMinute);
-        if (currentProfile.equals(DAY)) {
-            calendar.add(Calendar.DAY_OF_YEAR, 1);
+        if (currentProfile.equals(DAY) || current.after(calendarNight)) {
+            calendarDay.add(Calendar.DAY_OF_YEAR, 1);
         }
-        alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+        alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendarDay.getTimeInMillis(),
                 dayIntent);
     }
 }

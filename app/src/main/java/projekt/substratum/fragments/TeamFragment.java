@@ -229,7 +229,8 @@ public class TeamFragment extends Fragment {
                                 break;
                             case 3:
                                 builder2.setItems(
-                                        getResources().getStringArray(R.array.hungarian_translators),
+                                        getResources().getStringArray(R.array
+                                                .hungarian_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;
@@ -241,19 +242,22 @@ public class TeamFragment extends Fragment {
                                 break;
                             case 5:
                                 builder2.setItems(
-                                        getResources().getStringArray(R.array.lithuanian_translators),
+                                        getResources().getStringArray(R.array
+                                                .lithuanian_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;
                             case 6:
                                 builder2.setItems(
-                                        getResources().getStringArray(R.array.portuguese_brazillian_translators),
+                                        getResources().getStringArray(R.array
+                                                .portuguese_brazillian_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;
                             case 7:
                                 builder2.setItems(
-                                        getResources().getStringArray(R.array.portuguese_translators),
+                                        getResources().getStringArray(R.array
+                                                .portuguese_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;
@@ -323,7 +327,8 @@ public class TeamFragment extends Fragment {
         private void startSmooth() {
             for (int i = 0; i < contributors.size(); i++) {
                 final int index = i;
-                contributors.get(i).postDelayed(() -> contributors.get(index).startSmooth(), 100 * i);
+                contributors.get(i).postDelayed(() -> contributors.get(index).startSmooth(), 100
+                        * i);
             }
         }
     }

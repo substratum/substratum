@@ -416,7 +416,8 @@ public class OverlaysList extends Fragment {
                                     .setPositiveButton(android.R.string.ok,
                                             (dialog, id12) -> References.reboot());
                             alertDialogBuilder
-                                    .setNegativeButton(R.string.remove_dialog_later, (dialog, id1) -> {
+                                    .setNegativeButton(R.string.remove_dialog_later, (dialog,
+                                                                                      id1) -> {
                                         progressBar.setVisibility(View.GONE);
                                         dialog.dismiss();
                                     });
@@ -1468,7 +1469,8 @@ public class OverlaysList extends Fragment {
                 alertDialogBuilder
                         .setMessage(getString(R.string.legacy_dialog_soft_reboot_text));
                 alertDialogBuilder
-                        .setPositiveButton(android.R.string.ok, (dialog, id12) -> References.reboot());
+                        .setPositiveButton(android.R.string.ok, (dialog, id12) -> References
+                                .reboot());
                 alertDialogBuilder
                         .setNegativeButton(R.string.remove_dialog_later, (dialog, id1) -> {
                             progressBar.setVisibility(View.GONE);

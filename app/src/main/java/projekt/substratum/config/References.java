@@ -8,11 +8,13 @@ import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.app.WallpaperManager;
 import android.app.admin.DevicePolicyManager;
+import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -69,8 +71,6 @@ import java.util.Locale;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import projekt.substrate.LetsGetStarted;
-import projekt.substrate.ShowMeYourFierceEyes;
 import projekt.substratum.BuildConfig;
 import projekt.substratum.R;
 import projekt.substratum.util.AOPTCheck;
@@ -179,7 +179,8 @@ public class References {
         }
     }
 
-    private static boolean copyRescueFile(Context context, String sourceFileName, String destFileName) {
+    private static boolean copyRescueFile(Context context, String sourceFileName, String
+            destFileName) {
         AssetManager assetManager = context.getAssets();
 
         File destFile = new File(destFileName);
@@ -989,13 +990,22 @@ public class References {
     }
 
     public static Boolean spreadYourWingsAndFly(Context context) {
-        String[] checker = ShowMeYourFierceEyes.withSomeMascaraOn();
+        String[] checker = checkPackageSupport();
         for (String check : checker) {
             if (References.isPackageInstalled(context, check)) {
                 return true;
             }
         }
         return false;
+    }
+
+    // Check for the denied packages if existing on the device
+    public static String[] checkPackageSupport() {
+        return new String[]{
+                "com.android.vending.billing.InAppBillingService.LOCK",
+                "com.android.vending.billing.InAppBillingService.LACK",
+                "uret.jasi2169.patcher"
+        };
     }
 
     // Check if notification is visible for the user
@@ -1025,10 +1035,50 @@ public class References {
         }
     }
 
+    // Locate the proper launch intent for the themes
+    public static Intent sendLaunchIntent(Context mContext, String currentTheme,
+                                          boolean theme_legacy, String theme_mode,
+                                          Boolean notification) {
+        Intent originalIntent = new Intent(Intent.ACTION_MAIN);
+        if (theme_legacy)
+            originalIntent.putExtra("theme_legacy", true);
+        if (theme_mode != null) {
+            originalIntent.putExtra("theme_mode", theme_mode);
+        }
+        if (notification) {
+            originalIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                    Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            originalIntent.putExtra("refresh_mode", true);
+        }
+        try {
+            PackageManager pm = mContext.getPackageManager();
+            PackageInfo info = pm.getPackageInfo(currentTheme, PackageManager.GET_ACTIVITIES);
+            ActivityInfo[] list = info.activities;
+            for (int i = 0; i < list.length; i++) {
+                // We need to look for what the themer assigned the class to be! This is a dynamic
+                // function that only launches the correct SubstratumLauncher class. Having it
+                // hardcoded is bad.
+                if (list[i].name.equals(currentTheme + ".SubstratumLauncher")) {
+                    originalIntent.setComponent(
+                            new ComponentName(currentTheme, currentTheme + ".SubstratumLauncher"));
+                    return originalIntent;
+                } else if (list[i].name.equals("substratum.theme.template.SubstratumLauncher")) {
+                    originalIntent.setComponent(
+                            new ComponentName(
+                                    currentTheme, "substratum.theme.template.SubstratumLauncher"));
+                    return originalIntent;
+                }
+            }
+        } catch (Exception e) {
+            // Suppress warning
+        }
+        return null;
+    }
+
     // Launch intent for a theme
     public static boolean launchTheme(Context mContext, String package_name, String theme_mode,
                                       Boolean notification) {
-        Intent initializer = LetsGetStarted.initialize(mContext, package_name,
+        Intent initializer = sendLaunchIntent(mContext, package_name,
                 !References.checkOMS(mContext), theme_mode, notification);
         String integrityCheck = new AOPTCheck().checkAOPTIntegrity(mContext);
         if (integrityCheck != null &&
@@ -1060,7 +1110,8 @@ public class References {
                         .setIcon(R.drawable.dialog_warning_icon)
                         .setTitle(R.string.aopt_warning_title)
                         .setMessage(R.string.aopt_warning_text)
-                        .setPositiveButton(R.string.dialog_ok, (dialog, i) -> dialog.cancel()).show();
+                        .setPositiveButton(R.string.dialog_ok, (dialog, i) -> dialog.cancel())
+                        .show();
             }
         }
         return false;
@@ -1237,7 +1288,8 @@ public class References {
 
     // These inner IO commands only be called by outer commands
     private static void copy(String source, String destination) {
-        Log.d("CopyFunction", "using no-root operation for copying " + source + " to " + destination);
+        Log.d("CopyFunction", "using no-root operation for copying " + source + " to " +
+                destination);
         File in = new File(source);
         File out = new File(destination);
         try {
@@ -1250,7 +1302,8 @@ public class References {
     }
 
     private static void copyDir(String source, String destination) {
-        Log.d("CopyFunction", "using no-root operation for copying " + source + " to " + destination);
+        Log.d("CopyFunction", "using no-root operation for copying " + source + " to " +
+                destination);
         File in = new File(source);
         File out = new File(destination);
         try {
@@ -1295,7 +1348,8 @@ public class References {
     }
 
     private static void move(String source, String destination) {
-        Log.d("MoveFunction", "using no-root operation for moving " + source + " to " + destination);
+        Log.d("MoveFunction", "using no-root operation for moving " + source + " to " +
+                destination);
         File in = new File(source);
         File out = new File(destination);
         try {
@@ -1477,7 +1531,8 @@ public class References {
 
     public static void uninstallOverlay(Context context, ArrayList<String> overlays) {
         if (checkMasquerade(context) >= 22) {
-            MasqueradeService.uninstallOverlays(context, overlays, shouldRestartUi(context, overlays));
+            MasqueradeService.uninstallOverlays(context, overlays, shouldRestartUi(context,
+                    overlays));
         } else {
             String command = "pm uninstall ";
             for (String packageName : overlays) {
@@ -1644,7 +1699,8 @@ public class References {
                 }
 
                 // Unzip the fonts to get it prepared for the preview
-                String source = context.getCacheDir().getAbsolutePath() + "/FontCache/" + sourceFile;
+                String source = context.getCacheDir().getAbsolutePath() + "/FontCache/" +
+                        sourceFile;
                 String destination = context.getCacheDir().getAbsolutePath() +
                         "/FontCache/FontCreator/";
 

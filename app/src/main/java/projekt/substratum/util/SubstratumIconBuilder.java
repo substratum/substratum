@@ -332,7 +332,8 @@ public class SubstratumIconBuilder {
         if (!has_errored_out) {
             try {
                 // Delete the previous APK if it exists in the dashboard folder
-                References.delete(context, Environment.getExternalStorageDirectory().getAbsolutePath() +
+                References.delete(context, Environment.getExternalStorageDirectory()
+                        .getAbsolutePath() +
                         "/.substratum/" + overlay_package + ".icon-signed.apk");
 
                 // Sign with the built-in test key/certificate.

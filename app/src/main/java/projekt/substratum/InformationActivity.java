@@ -53,7 +53,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import projekt.substrate.LetsGetStarted;
 import projekt.substratum.adapters.InformationTabsAdapter;
 import projekt.substratum.config.References;
 import projekt.substratum.util.ReadOverlays;
@@ -532,7 +531,8 @@ public class InformationActivity extends AppCompatActivity {
                         toast.show();
                         finish();
                     })
-                    .setNegativeButton(R.string.uninstall_dialog_cancel, (dialog, id17) -> dialog.cancel());
+                    .setNegativeButton(R.string.uninstall_dialog_cancel, (dialog, id17) -> dialog
+                            .cancel());
             // Create the AlertDialog object and return it
             builder.create();
             builder.show();
@@ -621,7 +621,8 @@ public class InformationActivity extends AppCompatActivity {
                         // Begin enabling overlays
                         References.enableOverlay(getApplicationContext(), all_overlays);
                     })
-                    .setNegativeButton(R.string.uninstall_dialog_cancel, (dialog, id13) -> dialog.cancel());
+                    .setNegativeButton(R.string.uninstall_dialog_cancel, (dialog, id13) -> dialog
+                            .cancel());
             // Create the AlertDialog object and return it
             builder.create();
             builder.show();
@@ -646,7 +647,8 @@ public class InformationActivity extends AppCompatActivity {
             builder.setTitle(theme_name);
             builder.setIcon(References.grabAppIcon(getApplicationContext(), theme_pid));
             builder.setMessage(R.string.uninstall_dialog_body)
-                    .setPositiveButton(R.string.uninstall_dialog_okay, (dialog, id12) -> new uninstallTheme().execute(""))
+                    .setPositiveButton(R.string.uninstall_dialog_okay, (dialog, id12) -> new
+                            uninstallTheme().execute(""))
                     .setNegativeButton(R.string.uninstall_dialog_cancel, (dialog, id1) -> {
                         // User cancelled the dialog
                     });
@@ -692,8 +694,7 @@ public class InformationActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-            if (References.spreadYourWingsAndFly(getApplicationContext()) ||
-                    LetsGetStarted.overcomeMyBeauty()) {
+            if (References.spreadYourWingsAndFly(getApplicationContext())) {
                 gradientView.setVisibility(View.GONE);
                 kenBurnsView.setBackgroundColor(Color.parseColor("#ffff00"));
                 collapsingToolbarLayout.setStatusBarScrimColor(Color.parseColor("#ffff00"));
@@ -701,7 +702,6 @@ public class InformationActivity extends AppCompatActivity {
                 appBarLayout.setBackgroundColor(Color.parseColor("#ffff00"));
                 tabLayout.setBackgroundColor(Color.parseColor("#ffff00"));
                 getWindow().setNavigationBarColor(Color.parseColor("#ffff00"));
-                LetsGetStarted.kissMe();
             } else {
                 Glide.with(getApplicationContext()).load(byteArray).centerCrop().into(kenBurnsView);
             }

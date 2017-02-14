@@ -318,7 +318,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     (preference, newValue) -> {
                         boolean isChecked = (Boolean) newValue;
                         if (isChecked) {
-                            final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                            final AlertDialog.Builder builder = new AlertDialog.Builder
+                                    (getContext());
                             builder.setTitle(R.string.theme_debug_mode_dialog_title);
                             builder.setMessage(R.string.theme_debug_mode_dialog_content);
                             builder.setNegativeButton(R.string.theme_debug_mode_dialog_cancel,

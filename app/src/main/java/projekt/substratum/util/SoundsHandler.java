@@ -114,7 +114,8 @@ public class SoundsHandler {
         protected void onPostExecute(String result) {
             if (References.checkMasquerade(mContext) >= 22) {
                 if (finishReceiver == null) finishReceiver = new FinishReceiver();
-                IntentFilter intentFilter = new IntentFilter("masquerade.substratum.STATUS_CHANGED");
+                IntentFilter intentFilter = new IntentFilter("masquerade.substratum" +
+                        ".STATUS_CHANGED");
                 mContext.registerReceiver(finishReceiver, intentFilter);
             } else {
                 finishFunction();

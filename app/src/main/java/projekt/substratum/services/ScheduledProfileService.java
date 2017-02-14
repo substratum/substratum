@@ -64,7 +64,8 @@ public class ScheduledProfileService extends IntentService {
         extra = intent.getStringExtra(SCHEDULED_PROFILE_TYPE_EXTRA);
 
         if (extra != null && !extra.isEmpty()) {
-            String title_parse = String.format(getString(R.string.profile_notification_title), extra);
+            String title_parse = String.format(getString(R.string.profile_notification_title),
+                    extra);
             mBuilder.setContentTitle(title_parse)
                     .setSmallIcon(R.drawable.ic_substratum)
                     .setPriority(Notification.PRIORITY_DEFAULT)

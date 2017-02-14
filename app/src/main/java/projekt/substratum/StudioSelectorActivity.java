@@ -186,7 +186,8 @@ public class StudioSelectorActivity extends AppCompatActivity {
                                     "Initializing the Masquerade theme " +
                                             "provider...");
 
-                        Intent runCommand = MasqueradeService.getMasquerade(getApplicationContext());
+                        Intent runCommand = MasqueradeService.getMasquerade(getApplicationContext
+                                ());
                         runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                         runCommand.setAction("masquerade.substratum.COMMANDS");
                         ArrayList<String> final_array = new ArrayList<>();
@@ -213,7 +214,8 @@ public class StudioSelectorActivity extends AppCompatActivity {
                             .show();
                 }
             });
-            builder.setNegativeButton(R.string.restore_dialog_cancel, (dialog, id) -> dialog.dismiss());
+            builder.setNegativeButton(R.string.restore_dialog_cancel, (dialog, id) -> dialog
+                    .dismiss());
             builder.create();
             builder.show();
         });

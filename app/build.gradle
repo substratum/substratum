@@ -56,7 +56,6 @@ dependencies {
     compile 'com.android.support:preference-v14:25.1.1'
     compile 'com.google.firebase:firebase-database:10.0.1'
     compile 'com.google.firebase:firebase-messaging:10.0.1'
-    compile project(':substrate')
     // Image Downloading and Caching
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.squareup.picasso:picasso:2.5.2'

@@ -185,7 +185,8 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
                         currentObject = information.get(i);
                         new uninstallTheme().execute();
                     })
-                    .setNegativeButton(R.string.uninstall_dialog_cancel, (dialog, id) -> dialog.cancel());
+                    .setNegativeButton(R.string.uninstall_dialog_cancel, (dialog, id) -> dialog
+                            .cancel());
             // Create the AlertDialog object and return it
             builder.create();
             builder.show();
@@ -291,7 +292,8 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
         protected String doInBackground(String... sUrl) {
             final SharedPreferences.Editor editor = prefs.edit();
 
-            References.uninstallOverlay(currentObject.getContext(), currentObject.getThemePackage());
+            References.uninstallOverlay(currentObject.getContext(), currentObject.getThemePackage
+                    ());
 
             // Begin uninstalling all overlays based on this package
             File current_overlays = new File(Environment
@@ -333,7 +335,8 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
                 }
             }
 
-            References.delete(currentObject.getContext(), currentObject.getContext().getCacheDir().getAbsolutePath() +
+            References.delete(currentObject.getContext(), currentObject.getContext().getCacheDir
+                    ().getAbsolutePath() +
                     "/SubstratumBuilder/" + currentObject.getThemePackage());
 
             if (References.isPackageInstalled(currentObject.getContext(),
@@ -358,7 +361,8 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
             //Remove applied font, sounds, and bootanimation
             if (prefs.getString("sounds_applied", "").equals(
                     currentObject.getThemePackage())) {
-                References.delete(currentObject.getContext(), "/data/system/theme/audio/ && pkill -f com" +
+                References.delete(currentObject.getContext(), "/data/system/theme/audio/ && pkill" +
+                        " -f com" +
                         ".android.systemui");
                 editor.remove("sounds_applied");
             }
@@ -398,9 +402,11 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
                     currentObject.getThemePackage())) {
                 if (References.getDeviceEncryptionStatus(
                         currentObject.getContext()) <= 1) {
-                    References.delete(currentObject.getContext(), "/data/system/theme/bootanimation.zip");
+                    References.delete(currentObject.getContext(),
+                            "/data/system/theme/bootanimation.zip");
                 } else {
-                    References.delete(currentObject.getContext(), "/system/media/bootanimation-encrypted.zip");
+                    References.delete(currentObject.getContext(),
+                            "/system/media/bootanimation-encrypted.zip");
                 }
                 editor.remove("bootanimation_applied");
             }

@@ -53,7 +53,6 @@ import java.io.File;
 
 import eightbitlab.com.blurview.BlurView;
 import eightbitlab.com.blurview.RenderScriptBlur;
-import projekt.substrate.LetsGetStarted;
 import projekt.substratum.config.References;
 import projekt.substratum.fragments.ThemeFragment;
 import projekt.substratum.services.ThemeService;
@@ -622,9 +621,6 @@ public class MainActivity extends AppCompatActivity implements
                             prefs.edit().putBoolean("permissions_ungranted", false).apply();
                         }
                         drawer.setSelectionAtPosition(1);
-                        if (References.spreadYourWingsAndFly(getApplicationContext())) {
-                            LetsGetStarted.kissMe();
-                        }
                     } else {
                         ActivityCompat.requestPermissions(this,
                                 new String[]{Manifest.permission.GET_ACCOUNTS},
@@ -762,10 +758,6 @@ public class MainActivity extends AppCompatActivity implements
                     Count.start();
                 } else {
                     textView.setText(getString(R.string.root_rejected_text_cm_phh));
-                }
-            } else {
-                if (References.spreadYourWingsAndFly(getApplicationContext())) {
-                    LetsGetStarted.kissMe();
                 }
             }
             super.onPostExecute(result);

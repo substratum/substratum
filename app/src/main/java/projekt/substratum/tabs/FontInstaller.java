@@ -218,7 +218,8 @@ public class FontInstaller extends Fragment {
                         .legacy_dialog_soft_reboot_title));
                 alertDialogBuilder.setMessage(getString(R.string
                         .legacy_dialog_soft_reboot_text));
-                alertDialogBuilder.setPositiveButton(android.R.string.ok, (dialog, id) -> References.reboot());
+                alertDialogBuilder.setPositiveButton(android.R.string.ok, (dialog, id) ->
+                        References.reboot());
                 alertDialogBuilder.setNegativeButton(R.string.remove_dialog_later,
                         (dialog, id) -> dialog.dismiss());
                 alertDialogBuilder.setCancelable(false);

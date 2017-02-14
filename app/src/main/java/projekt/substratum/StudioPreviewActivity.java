@@ -349,7 +349,8 @@ public class StudioPreviewActivity extends AppCompatActivity {
             builder.setMessage(formatter);
             builder.setPositiveButton(R.string.dialog_ok,
                     (dialog, id) -> new IconPackInstaller().execute(""));
-            builder.setNegativeButton(R.string.restore_dialog_cancel, (dialog, id) -> dialog.dismiss());
+            builder.setNegativeButton(R.string.restore_dialog_cancel, (dialog, id) -> dialog
+                    .dismiss());
             builder.create();
             builder.show();
         });
@@ -472,7 +473,8 @@ public class StudioPreviewActivity extends AppCompatActivity {
                                     finalized = finalized +
                                             " && " + References.refreshWindows();
                                 }
-                                Intent runCommand = MasqueradeService.getMasquerade(getApplicationContext());
+                                Intent runCommand = MasqueradeService.getMasquerade
+                                        (getApplicationContext());
                                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                                 runCommand.setAction("masquerade.substratum.COMMANDS");
                                 ArrayList<String> final_array = new ArrayList<>();

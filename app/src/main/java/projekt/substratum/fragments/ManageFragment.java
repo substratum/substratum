@@ -85,11 +85,13 @@ public class ManageFragment extends Fragment {
                                     References.mountRW();
                                     if (vendor_location.exists()) {
                                         References.mountRWVendor();
-                                        References.delete(getContext(), vendor_location.getAbsolutePath());
+                                        References.delete(getContext(), vendor_location
+                                                .getAbsolutePath());
                                         References.mountROVendor();
                                     }
                                     if (overlay_location.exists()) {
-                                        References.delete(getContext(), overlay_location.getAbsolutePath());
+                                        References.delete(getContext(), overlay_location
+                                                .getAbsolutePath());
                                     }
                                     References.mountRO();
                                     if (getView() != null) {
@@ -426,7 +428,8 @@ public class ManageFragment extends Fragment {
                         .legacy_dialog_soft_reboot_title));
                 alertDialogBuilder.setMessage(getString(R.string
                         .legacy_dialog_soft_reboot_text));
-                alertDialogBuilder.setPositiveButton(android.R.string.ok, (dialog, id) -> References.reboot());
+                alertDialogBuilder.setPositiveButton(android.R.string.ok, (dialog, id) ->
+                        References.reboot());
                 alertDialogBuilder.setNegativeButton(R.string.remove_dialog_later,
                         (dialog, id) -> dialog.dismiss());
                 alertDialogBuilder.setCancelable(false);

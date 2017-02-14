@@ -70,7 +70,8 @@ public class MasqueradeService {
         context.startService(masqIntent);
     }
 
-    public static void uninstallOverlays(Context context, ArrayList<String> overlays, boolean restartUi) {
+    public static void uninstallOverlays(Context context, ArrayList<String> overlays, boolean
+            restartUi) {
         Intent masqIntent = getMasqueradeRootless(context);
         masqIntent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_UNINSTALL);
         masqIntent.putExtra(UNINSTALL_LIST_KEY, overlays);

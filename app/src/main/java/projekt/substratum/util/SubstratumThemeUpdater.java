@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-import projekt.substrate.LetsGetStarted;
 import projekt.substratum.InformationActivity;
 import projekt.substratum.MainActivity;
 import projekt.substratum.R;
@@ -83,13 +82,14 @@ public class SubstratumThemeUpdater {
                 Intent notificationIntent;
                 PendingIntent intent;
                 try {
-                    Intent myIntent = LetsGetStarted.initialize(mContext, packageName, false, null,
-                            true);
+                    Intent myIntent = References.sendLaunchIntent(mContext, packageName, false,
+                            null, true);
                     if (myIntent != null) {
                         TaskStackBuilder stackBuilder = TaskStackBuilder.create(mContext)
                                 .addParentStack(InformationActivity.class)
                                 .addNextIntent(myIntent);
-                        intent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_CANCEL_CURRENT);
+                        intent = stackBuilder.getPendingIntent(0, PendingIntent
+                                .FLAG_CANCEL_CURRENT);
                     } else {
                         notificationIntent = new Intent(mContext, MainActivity.class);
                         intent = PendingIntent.getActivity(mContext, 0, notificationIntent,
@@ -125,13 +125,14 @@ public class SubstratumThemeUpdater {
                 Intent notificationIntent;
                 PendingIntent intent;
                 try {
-                    Intent myIntent = LetsGetStarted.initialize(mContext, packageName, false, null,
-                            true);
+                    Intent myIntent = References.sendLaunchIntent(mContext, packageName, false,
+                            null, true);
                     if (myIntent != null) {
                         TaskStackBuilder stackBuilder = TaskStackBuilder.create(mContext)
                                 .addParentStack(InformationActivity.class)
                                 .addNextIntent(myIntent);
-                        intent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_CANCEL_CURRENT);
+                        intent = stackBuilder.getPendingIntent(0, PendingIntent
+                                .FLAG_CANCEL_CURRENT);
                     } else {
                         notificationIntent = new Intent(mContext, MainActivity.class);
                         intent = PendingIntent.getActivity(mContext, 0, notificationIntent,

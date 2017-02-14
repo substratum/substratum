@@ -156,7 +156,8 @@ public class SubstratumBuilder {
                                     theme_parent) {
         has_errored_out = false;
 
-        debug = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("theme_debug", false);
+        debug = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("theme_debug",
+                false);
 
         // 1. Quickly filter out what kind of type this overlay will be compiled with
         int typeMode = 1;
@@ -347,7 +348,8 @@ public class SubstratumBuilder {
         if (!has_errored_out) {
             try {
                 // Delete the previous APK if it exists in the dashboard folder
-                References.delete(context, Environment.getExternalStorageDirectory().getAbsolutePath() +
+                References.delete(context, Environment.getExternalStorageDirectory()
+                        .getAbsolutePath() +
                         "/.substratum/" + overlay_package + "." + parse2_themeName +
                         "-signed.apk");
 

@@ -20,7 +20,8 @@ import static projekt.substratum.fragments.ProfileFragment.nightHour;
 import static projekt.substratum.fragments.ProfileFragment.nightMinute;
 
 
-public class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
+public class TimePickerFragment extends DialogFragment implements TimePickerDialog
+        .OnTimeSetListener {
 
     public static final int FLAG_START_TIME = 1;
     public static final int FLAG_END_TIME = 2;

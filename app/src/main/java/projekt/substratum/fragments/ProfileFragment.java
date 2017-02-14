@@ -255,7 +255,9 @@ public class ProfileFragment extends Fragment {
                                                             .getSelectedItem());
                                     RefreshSpinner();
                                 })
-                        .setNegativeButton(getString(R.string.delete_dialog_cancel), (dialog, which) -> dialog.cancel())
+                        .setNegativeButton(getString(R.string.delete_dialog_cancel), (dialog,
+                                                                                      which) ->
+                                dialog.cancel())
                         .create().show();
             } else {
                 if (getView() != null) {
@@ -423,7 +425,8 @@ public class ProfileFragment extends Fragment {
                 // make sure we apply the night profile directly
                 calendarNight.add(Calendar.DAY_OF_YEAR, -1);
             }
-            alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendarNight.getTimeInMillis(),
+            alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendarNight
+                            .getTimeInMillis(),
                     nightIntent);
 
             // Bring back the day in case we went to the conditional if before
@@ -435,7 +438,8 @@ public class ProfileFragment extends Fragment {
                 // to be triggered
                 calendarDay.add(Calendar.DAY_OF_YEAR, 1);
             }
-            alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendarDay.getTimeInMillis(),
+            alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendarDay
+                            .getTimeInMillis(),
                     dayIntent);
 
             // Apply prefs
@@ -540,7 +544,8 @@ public class ProfileFragment extends Fragment {
                         Log.e(References.SUBSTRATUM_LOG, "Could not create profile directory.");
                 }
 
-                File profileFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath() +
+                File profileFile = new File(Environment.getExternalStorageDirectory()
+                        .getAbsolutePath() +
                         "/substratum/profiles/" + backup_getText + "/" + "overlays.xml");
                 if (profileFile.exists()) {
                     References.delete(getContext(), profileFile.getAbsolutePath());
@@ -689,7 +694,8 @@ public class ProfileFragment extends Fragment {
                             .setTitle(getString(R.string.restore_dialog_title))
                             .setMessage(dialog_message)
                             .setCancelable(false)
-                            .setPositiveButton(getString(R.string.restore_dialog_okay), (dialog, which) -> {
+                            .setPositiveButton(getString(R.string.restore_dialog_okay), (dialog,
+                                                                                         which) -> {
                                 dialog.dismiss();
                                 continueProcess();
                             })
@@ -723,12 +729,14 @@ public class ProfileFragment extends Fragment {
                     String[] located_files = profile_apk_files.list();
                     for (String found : located_files) {
                         if (!found.equals("audio")) {
-                            References.copyDir(getContext(), Environment.getExternalStorageDirectory()
+                            References.copyDir(getContext(), Environment
+                                    .getExternalStorageDirectory()
                                     .getAbsolutePath() +
                                     "/substratum/profiles/" + profile_selector.getSelectedItem() +
                                     "/" + found, current_directory);
                         } else {
-                            References.copyDir(getContext(), Environment.getExternalStorageDirectory()
+                            References.copyDir(getContext(), Environment
+                                    .getExternalStorageDirectory()
                                     .getAbsolutePath() +
                                     "/substratum/profiles/" + profile_selector.getSelectedItem() +
                                     "/" + found + "/", "/data/system/theme/audio/");
@@ -770,13 +778,15 @@ public class ProfileFragment extends Fragment {
                     String[] located_files = profile_apk_files.list();
                     for (String found : located_files) {
                         if (!found.equals("audio")) {
-                            References.copyDir(getContext(), Environment.getExternalStorageDirectory()
+                            References.copyDir(getContext(), Environment
+                                    .getExternalStorageDirectory()
                                     .getAbsolutePath() +
                                     "/substratum/profiles/" + profile_selector.getSelectedItem() +
                                     "/" + found, current_directory);
                         } else {
                             References.setPermissions(755, "/data/system/theme/");
-                            References.copyDir(getContext(), Environment.getExternalStorageDirectory()
+                            References.copyDir(getContext(), Environment
+                                    .getExternalStorageDirectory()
                                     .getAbsolutePath() +
                                     "/substratum/profiles/" + profile_selector.getSelectedItem() +
                                     "/" + found + "/", "/data/system/theme/audio/");

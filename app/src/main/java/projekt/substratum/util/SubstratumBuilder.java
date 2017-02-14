@@ -151,7 +151,7 @@ public class SubstratumBuilder {
     }
 
     public void beginAction(Context context, String theme_pid, String overlay_package, String
-            theme_name, Boolean update_mode, String variant, String additional_variant,
+            theme_name, String variant, String additional_variant,
                             String base_variant, String versionName, Boolean theme_oms, String
                                     theme_parent) {
         has_errored_out = false;
@@ -379,93 +379,85 @@ public class SubstratumBuilder {
         // Superuser needed as this requires elevated privileges to run these commands
 
         if (!has_errored_out) {
-            if (update_mode) {
-                if (theme_oms) {
-                    try {
-                        if (variant != null) {
-                            References.installOverlay(context, Environment.getExternalStorageDirectory()
-                                    .getAbsolutePath() + "/.substratum/" +
-                                    overlay_package + "." + parse2_themeName +
-                                    "-signed.apk");
-                            Log.d(References.SUBSTRATUM_BUILDER, "Silently installing APK...");
-                        } else {
-                            References.installOverlay(context, Environment.getExternalStorageDirectory()
-                                    .getAbsolutePath() +
-                                    "/.substratum/" + overlay_package + "." +
-                                    parse2_themeName + "-signed.apk");
-                            Log.d(References.SUBSTRATUM_BUILDER, "Silently installing APK...");
-                        }
-                    } catch (Exception e) {
-                        dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
-                                "Overlay APK has failed to install! \"(Exception)");
-                        has_errored_out = true;
-                        dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
-                                "Installation of \"" + overlay_package + "\" has failed.");
-                    }
-                } else {
-                    // At this point, it is detected to be legacy mode and Substratum will push to
-                    // vendor/overlays directly.
-
-                    String vendor_location = "/system/vendor/overlay/";
-                    String vendor_partition = "/vendor/overlay/";
-                    String vendor_symlink = "/system/overlay/";
-                    String current_vendor =
-                            ((References.inNexusFilter()) ? vendor_partition :
-                                    vendor_location);
-
-                    References.mountRW();
-                    File vendor = new File(current_vendor);
-                    if (!vendor.exists()) {
-                        if (current_vendor.equals(vendor_location)) {
-                            References.createNewFolder(current_vendor);
-                        } else {
-                            References.mountRWVendor();
-                            References.createNewFolder(vendor_symlink);
-                            References.createNewFolder(vendor_partition);
-                            References.mountROVendor();
-                        }
-                    }
-                    if (current_vendor.equals(vendor_location)) {
-                        References.move(context, Environment.getExternalStorageDirectory()
-                                .getAbsolutePath() + "/.substratum/" + overlay_package +
-                                "." + parse2_themeName + "-signed.apk", vendor_location +
-                                overlay_package + "." + parse2_themeName + ".apk");
-                        References.setPermissionsRecursively(644, vendor_location);
-                        References.setPermissions(755, vendor_location);
-                        References.setContext(vendor_location);
+            if (theme_oms) {
+                try {
+                    if (variant != null) {
+                        References.installOverlay(context, Environment.getExternalStorageDirectory()
+                                .getAbsolutePath() + "/.substratum/" +
+                                overlay_package + "." + parse2_themeName +
+                                "-signed.apk");
+                        Log.d(References.SUBSTRATUM_BUILDER, "Silently installing APK...");
                     } else {
-                        References.mountRWVendor();
-                        // On nexus devices, put framework overlay to /vendor/overlay/
-                        if (overlay_package.equals("android")) {
-                            String android_overlay = vendor_partition + "/" + overlay_package + "."
-                                    + parse2_themeName + ".apk";
-                            References.move(context, Environment.getExternalStorageDirectory()
-                                    .getAbsolutePath() + "/.substratum/" + overlay_package +
-                                    "." + parse2_themeName + "-signed.apk", android_overlay);
-                        } else {
-                            String overlay = vendor_symlink + "/" + overlay_package + "." +
-                                    parse2_themeName + ".apk";
-                            References.move(context, Environment.getExternalStorageDirectory()
-                                    .getAbsolutePath() + "/.substratum/" + overlay_package +
-                                    "." + parse2_themeName + "-signed.apk", overlay);
-                            References.symlink(overlay, vendor_partition);
-                        }
-                        References.setPermissionsRecursively(644, vendor_symlink);
-                        References.setPermissionsRecursively(644, vendor_partition);
-                        References.setPermissions(755, vendor_symlink);
-                        References.setPermissions(755, vendor_partition);
-                        References.setContext(vendor_symlink);
-                        References.setContext(vendor_partition);
-                        References.mountROVendor();
+                        References.installOverlay(context, Environment.getExternalStorageDirectory()
+                                .getAbsolutePath() +
+                                "/.substratum/" + overlay_package + "." +
+                                parse2_themeName + "-signed.apk");
+                        Log.d(References.SUBSTRATUM_BUILDER, "Silently installing APK...");
                     }
-                    References.mountRO();
+                } catch (Exception e) {
+                    dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
+                            "Overlay APK has failed to install! \"(Exception)");
+                    has_errored_out = true;
+                    dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
+                            "Installation of \"" + overlay_package + "\" has failed.");
                 }
             } else {
-                // TODO: Are we need this part? we need complete intent from masq so we need to install it anyway
-                References.installOverlay(context, Environment.getExternalStorageDirectory()
-                        .getAbsolutePath() +
-                        "/.substratum/" + overlay_package + "." + parse2_themeName +
-                        "-signed.apk");
+                // At this point, it is detected to be legacy mode and Substratum will push to
+                // vendor/overlays directly.
+
+                String vendor_location = "/system/vendor/overlay/";
+                String vendor_partition = "/vendor/overlay/";
+                String vendor_symlink = "/system/overlay/";
+                String current_vendor =
+                        ((References.inNexusFilter()) ? vendor_partition :
+                                vendor_location);
+
+                References.mountRW();
+                File vendor = new File(current_vendor);
+                if (!vendor.exists()) {
+                    if (current_vendor.equals(vendor_location)) {
+                        References.createNewFolder(current_vendor);
+                    } else {
+                        References.mountRWVendor();
+                        References.createNewFolder(vendor_symlink);
+                        References.createNewFolder(vendor_partition);
+                        References.mountROVendor();
+                    }
+                }
+                if (current_vendor.equals(vendor_location)) {
+                    References.move(context, Environment.getExternalStorageDirectory()
+                            .getAbsolutePath() + "/.substratum/" + overlay_package +
+                            "." + parse2_themeName + "-signed.apk", vendor_location +
+                            overlay_package + "." + parse2_themeName + ".apk");
+                    References.setPermissionsRecursively(644, vendor_location);
+                    References.setPermissions(755, vendor_location);
+                    References.setContext(vendor_location);
+                } else {
+                    References.mountRWVendor();
+                    // On nexus devices, put framework overlay to /vendor/overlay/
+                    if (overlay_package.equals("android")) {
+                        String android_overlay = vendor_partition + "/" + overlay_package + "."
+                                + parse2_themeName + ".apk";
+                        References.move(context, Environment.getExternalStorageDirectory()
+                                .getAbsolutePath() + "/.substratum/" + overlay_package +
+                                "." + parse2_themeName + "-signed.apk", android_overlay);
+                    } else {
+                        String overlay = vendor_symlink + "/" + overlay_package + "." +
+                                parse2_themeName + ".apk";
+                        References.move(context, Environment.getExternalStorageDirectory()
+                                .getAbsolutePath() + "/.substratum/" + overlay_package +
+                                "." + parse2_themeName + "-signed.apk", overlay);
+                        References.symlink(overlay, vendor_partition);
+                    }
+                    References.setPermissionsRecursively(644, vendor_symlink);
+                    References.setPermissionsRecursively(644, vendor_partition);
+                    References.setPermissions(755, vendor_symlink);
+                    References.setPermissions(755, vendor_partition);
+                    References.setContext(vendor_symlink);
+                    References.setContext(vendor_partition);
+                    References.mountROVendor();
+                }
+                References.mountRO();
             }
         }
     }

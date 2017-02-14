@@ -218,11 +218,11 @@ public class References {
         try {
             PackageInfo pInfo =
                     context.getPackageManager().getPackageInfo(MASQUERADE_PACKAGE, 0);
-            //return pInfo.versionCode;
+            return pInfo.versionCode;
         } catch (PackageManager.NameNotFoundException e) {
             // Suppress warning
         }
-        return 22;
+        return 0;
     }
 
     // This method is used to force the application to use English

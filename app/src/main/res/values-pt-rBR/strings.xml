@@ -34,8 +34,6 @@
     <string name="tbo_description">Este tema suporta o Google Apps do Team Black Out, se você não o tem, você pode clicar em Download para ser redirecionado para seu tópico de discussão no XDA ou Cancelar se você já os tem!</string>
     <string name="two_description">Este tema é compatível com os aplicativos stock da Google, da forma como eles foram feitos! Se tiver o Google Apps Team Black Out instalado, mas gostaria de usar este tema, por favor, remova-os para recuperar o apoio do criador do tema!</string>
     <string name="tbo_dialog_proceed">Baixar</string>
-    <string name="aopt_warning_title">Espere!</string>
-    <string name="aopt_warning_text">O compilador de overlays não foi encontrado em seu sistema! Substratum tentou injetá-lo mas falhou duas vezes.\n\nSeu root está funcionando? Em algumas distribuições do Superuser, como a CM/phh, você pode precisar conceder permissões padrões de root ao Substratum!\n\nOutra possibilidade é sua partição /system estar cheia e Substratum é incapaz de adicionar seu compilador.\n\nSe você acredita que você está recebendo este erro por engano, tente mudar para outro compilador nas configurações.</string>
     <string name="warning_title">AVISO!</string>
     <string name="dangerous_warning_content">Substratum detectou que está sendo executado em um
 FIRMWARE CONHECIDO POR BOOTLOOP (atualização de novembro N/N-MR1) e é fortemente aconselhando não aplicar

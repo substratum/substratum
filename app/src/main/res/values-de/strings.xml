@@ -34,8 +34,6 @@
     <string name="tbo_description">Dieses Theme unterstützt die \"Theme Ready Google Apps\" von Team BlackOut. Klicke \"Herunterladen\" um zum Herunterladen dieser zu XDA weitergeleitet zu werden oder \"Abbrechen\", falls du diese schon installiert hast!</string>
     <string name="two_description">Dieses Theme unterstützt die Apps von Google, wie sie standardmäßig gemacht sind. Falls du dieses Theme verwenden willst, allerdings die \"Theme Ready Google Apps\" von Team BlackOut installiert hast, erhältst du bei Problemen keinen Support vom Theme-Entwickler!</string>
     <string name="tbo_dialog_proceed">Herunterladen</string>
-    <string name="aopt_warning_title">Warte!</string>
-    <string name="aopt_warning_text">Der Overlay Kompilierer wurde in deinem System nicht gefunden! Substratum hat versucht ihn zu injizieren, aber dies ist zwei mal fehlgeschlagen.\n\nFunktioniert dein Root? Bei bestimmten SuperUser Fassungen wie CM oder phh musst du vielleicht Substratum standard Root Rechte gewähren!\n\nEine andere Möglichkeit ist das deine /system Partition voll ist und Substratum seinen Kompiler deshalb nicht hinzufügen kann.\n\nWenn du glaubst das du diesen Error wegen eines Irrtums erhälst, kannst du versuchen in den Einstellungen zu einem anderen Overlay Kompilierer zu wechseln.</string>
     <string name="warning_title">WARNUNG!</string>
     <string name="dangerous_warning_content">Substratum hat festgestellt, dass es auf einer
 BOOTLOOP-GEFÄHRDETEN FIRMWARE (nach November-Update N/N-MR1) ausgeführt wird. Es sollte auf keinen Fall ein

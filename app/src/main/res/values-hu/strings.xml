@@ -52,8 +52,6 @@
         kérjük, távolítsa el őket, hogy visszanyerje a téma készítőjének támogatását!
     </string>
     <string name="tbo_dialog_proceed">Letöltés</string>
-    <string name="aopt_warning_title">Várjon!</string>
-    <string name="aopt_warning_text">A fedvény összeállító nem található a rendszerben! Substratum megpróbálta kétszer injektálni, de nem sikerült.\n\nA rootja biztosan jó? Bizonyos Superuser disztribúciók esetében, mint például a CM/phh, szüksége lehet a Substratum alapértelmezett root engedélyek megadására!\n\nEgy másik lehetőség az, hogy a /system partíciója teli van, és a Substratum nem tudja hozzáadni az összeállítót.\n\nHa úgy gondolja, hogy ezt a hibaüzenetet tévedésből kapta, próbáljon egy másik fedvény összeállítóra váltani a beállításokban.</string>
     <string name="warning_title">FIGYELEM!</string>
     <string name="dangerous_warning_content">A Substratum azt észlelte, hogy eszközén egy
         BOOTLOOP-ISMERT FIRMWARE (November utáni frissítés, N/N-MR1) fut, így erősen javasolt, hogy NE

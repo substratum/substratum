@@ -1096,24 +1096,11 @@ public class References {
 
             new AOPTCheck().injectAOPT(mContext, true);
 
-            String integrityCheck2 = new AOPTCheck().checkAOPTIntegrity(mContext);
-            if (integrityCheck2 != null &&
-                    (integrityCheck2.equals(mContext.getString(R.string.aapt_version)) ||
-                            integrityCheck2.equals(mContext.getString(R.string.aopt_version)))) {
-                SharedPreferences prefs =
-                        PreferenceManager.getDefaultSharedPreferences(mContext);
-                prefs.edit().putString("compiler", "aapt").apply();
-                if (initializer != null) {
-                    mContext.startActivity(initializer);
-                }
-            } else {
-                new AlertDialog.Builder(mContext)
-                        .setCancelable(false)
-                        .setIcon(R.drawable.dialog_warning_icon)
-                        .setTitle(R.string.aopt_warning_title)
-                        .setMessage(R.string.aopt_warning_text)
-                        .setPositiveButton(R.string.dialog_ok, (dialog, i) -> dialog.cancel())
-                        .show();
+            SharedPreferences prefs =
+                    PreferenceManager.getDefaultSharedPreferences(mContext);
+            prefs.edit().putString("compiler", "aapt").apply();
+            if (initializer != null) {
+                mContext.startActivity(initializer);
             }
         }
         return false;

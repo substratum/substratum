@@ -35,8 +35,6 @@
     <string name="tbo_description">Este tema es compatible con Theme Ready GApps (TBO), si no los tiene, puede hacer click en Descargar para ser redirigido a su hilo en XDA, o Cancelar si ya los tiene!    </string>
     <string name="two_description">Este tema es compatible con Google\'s stock apps, las aplicaciones de fábrica! Si tiene instalado Theme Ready Gapps, pero le gustaría utilizar este tema, por favor elimínelas para obtener el apoyo del themer!    </string>
     <string name="tbo_dialog_proceed">Descargar</string>
-    <string name="aopt_warning_title">¡Espera!</string>
-    <string name="aopt_warning_text">¡El compilador de superposición no se encuentra en su sistema! Substratum trató de inyectarlo pero falló dos veces.\n\n¿Está funcionando bien su Root? ¡En ciertas distribuciones de Superuser como CM/phh, puede que necesite conceder a Substratum permisos de root por defecto!\n\nOtra posibilidad es que la partición /system esté llena y Substratum no pueda agregar a su compilador.\n\nSi usted cree que está recibiendo este fallo por error, trate de cambiar a un compilador de diseño diferente en la configuración de Substratum.</string>
     <string name="warning_title">¡ADVERTENCIA!</string>
     <string name="dangerous_warning_content">Substratum ha detectado que se está ejecutando un
 FIRMWARE CONOCIDO POR RIESGO DE BOOTLOOP (actualización de noviembre N/N-MR1) y recomienda encarecidamente no aplicar

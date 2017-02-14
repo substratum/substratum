@@ -34,8 +34,6 @@
     <string name="tbo_description">此主题支持 Black Out 团队的 Theme Ready Google Apps。如果您还没有这些应用，可以点击“下载”重定向到他们在 XDA 论坛的帖子。如果您已经拥有这些应用，请点击“取消”。</string>
     <string name="two_description">此主题在设计时仅支持 Google 原生应用。如果您已安装 Black Out 团队的 Theme Ready Google Apps，但想使用此主题的话，请移除这些应用并从主题制作者处获得支持！</string>
     <string name="tbo_dialog_proceed">下载</string>
-    <string name="aopt_warning_title">请稍等一下</string>
-    <string name="aopt_warning_text">无法在您的系统上找到叠加层编译器！Substratum 在尝试安装它的过程中已经失败了两次。\n\n请检查您的ROOT权限是否完整。在 CM/phh 等某些自带超级用户管理的第三方系统上，您需要授予 Substratum ROOT权限。\n\n也有可能是设备的 system 分区空间已满，导致 Substratum 无法添加叠加层编译器。如果您认为这个提示是错误的，请尝试在设置中切换不同的叠加层编译器。</string>
     <string name="warning_title">警告！</string>
     <string name="dangerous_warning_content">Substratum 已经检测到一个会导致设备无限重启的框架正在运行，强烈建议不要应用任何框架或系统叠加层。\n\n如果您选择继续应用而导致设备无限重启，请找到 /storage/emulated/0/substratum/ 下的救援文件并在恢复模式中刷写。</string>
     <string name="legacy_warning_content">我们之所以提供旧版是因为无法保证颜色的完全兼容。请确保您的设备刷写了第三方 recovery ，并知道如何从无限重启状态中恢复正常，而不会造成进一步的风险。\n\n因为需要系统层级的修改，所以我们无法修复旧版中未应用主题的项目。    </string>

@@ -34,7 +34,6 @@
     <string name="tbo_description">Ši tema palaiko \"Team Black Out\'s Theme Ready Google Apps\", jei jūs jų neturite, jūs galite paspausti Atsisiųsti, kad būtumėte nukreipti į jų \"XDA\" puslapį arba Atšaukti jei jūs juos jau turite!</string>
     <string name="two_description">Ši tema palaiko \"Google\" įprastas programėles, tokie kokie buvo sukurti! Jei jūs turite įdiegę \"Team Black Out\'s Google Apps\", bet norite naudoti šią temą, prašome juos pašalinti, kad gautumėte palaikymą iš kūrėjų.</string>
     <string name="tbo_dialog_proceed">Atsisiųsti</string>
-    <string name="aopt_warning_title">Palaukite!</string>
     <string name="warning_title">DĖMESIO!</string>
     <string name="dangerous_warning_content">\"Substratum\" aptiko, kad jis veikia ĮKROVOS KILPOS-ŽINOMOJE PROGRAMINĖJE ĮRANGOJE (Lapkričio atnaujinimas N/N-MR1) ir labai rekomenduojame prieš pritaikant bet kurias struktūras/Android Sistemos perdangas, arba jūs baigsite įkrovos kilpoje.\n\nJei taip nutiko, prašome įrašyti išsigelbėjimo archyvą, kurį rasite \"/storage/emulated/0/substratum/\".</string>
     <string name="legacy_warning_content">\"Legacy\" yra numatyta ir mes negarantuojame, kad tai jums veiks. Prašome įsitikinti, kad jūs turite pasirinktinį atkūrimo režimą savo įrenginyje ir suprantate, kaip atstatyti įkrovos kilpą prieš tęsiant toliau.\n\nMes negalime sutvarkyti dalykus, kurie negauna apipavidalinimo ant \"legacy\", nes jie reikalauja pakeitimų iš sistemos pusės.</string>

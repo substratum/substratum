@@ -242,7 +242,7 @@ public class ManageFragment extends Fragment {
             alertDialogBuilder.setMessage(getString(R.string.manage_dialog_text));
             alertDialogBuilder
                     .setPositiveButton(android.R.string.ok, (dialog, id) -> {
-                        if (References.checkMasquerade(getContext()) >= 22 ||
+                        if (References.checkMasqueradeJobService(getContext()) ||
                                 Settings.System.canWrite(getContext())) {
                             new FontsClearer().execute("");
                         } else {
@@ -274,7 +274,7 @@ public class ManageFragment extends Fragment {
             alertDialogBuilder.setMessage(getString(R.string.manage_dialog_text));
             alertDialogBuilder
                     .setPositiveButton(android.R.string.ok, (dialog, id) -> {
-                        if (References.checkMasquerade(getContext()) >= 22 ||
+                        if (References.checkMasqueradeJobService(getContext()) ||
                                 Settings.System.canWrite(getContext())) {
                             new SoundsClearer().execute("");
                         } else {

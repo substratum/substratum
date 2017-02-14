@@ -77,7 +77,7 @@ public class FontInstaller extends Fragment {
         imageButton = (ImageButton) root.findViewById(R.id.checkBox);
         imageButton.setClickable(false);
         imageButton.setOnClickListener(v -> {
-            if (References.checkMasquerade(getContext()) >= 22 ||
+            if (References.checkMasqueradeJobService(getContext()) ||
                     Settings.System.canWrite(getContext())) {
                 if (fontSelector.getSelectedItemPosition() == 1) {
                     new FontsClearer().execute("");

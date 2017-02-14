@@ -1341,7 +1341,7 @@ public class OverlaysList extends Fragment {
             if (!enable_mode && !disable_mode) {
                 TextView textView = (TextView) mProgressDialog.findViewById(R.id.current_object);
                 textView.setText(getContext().getResources().getString(R.string.sb_finishing));
-                if (References.checkMasquerade(mContext) >= 22) {
+                if (References.checkMasqueradeJobService(getContext())) {
                     if (checkedOverlays.size() != fail_count) {
                         if (finishReceiver == null) finishReceiver = new FinishReceiver();
                         IntentFilter intentFilter = new IntentFilter(

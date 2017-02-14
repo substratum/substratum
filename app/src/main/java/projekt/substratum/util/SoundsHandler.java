@@ -55,14 +55,14 @@ public class SoundsHandler {
                     .show();
         }
 
-        if (References.checkMasquerade(mContext) < 22) {
+        if (!References.checkMasqueradeJobService(mContext)) {
             References.mountROData();
             References.mountRO();
         }
 
         if (ringtone) {
             ringtone = false;
-            if (References.checkMasquerade(mContext) < 22 &&
+            if (!References.checkMasqueradeJobService(mContext) &&
                     !Settings.System.canWrite(mContext)) {
                 new AlertDialog.Builder(mContext)
                         .setTitle(mContext.getString(R.string.sounds_dialog_permissions_title))
@@ -101,7 +101,7 @@ public class SoundsHandler {
         @Override
         protected void onPreExecute() {
             // With masq 22+ dialog is started from receiver
-            if (References.checkMasquerade(mContext) < 22) {
+            if (!References.checkMasqueradeJobService(mContext)) {
                 progress = new ProgressDialog(mContext, R.style.AppTheme_DialogAlert);
                 progress.setMessage(mContext.getString(R.string.sounds_dialog_apply_text));
                 progress.setIndeterminate(false);
@@ -112,7 +112,7 @@ public class SoundsHandler {
 
         @Override
         protected void onPostExecute(String result) {
-            if (References.checkMasquerade(mContext) >= 22) {
+            if (References.checkMasqueradeJobService(mContext)) {
                 if (finishReceiver == null) finishReceiver = new FinishReceiver();
                 IntentFilter intentFilter = new IntentFilter("masquerade.substratum" +
                         ".STATUS_CHANGED");

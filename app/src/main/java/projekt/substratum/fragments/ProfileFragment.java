@@ -285,7 +285,7 @@ public class ProfileFragment extends Fragment {
         });
 
         final CardView scheduledProfileCard = (CardView) root.findViewById(R.id.cardListView3);
-        if (References.checkOMS(getContext()) && References.checkMasquerade(getContext()) >= 22) {
+        if (References.checkOMS(getContext()) && References.checkMasqueradeJobService(getContext())) {
             final ExpandableLayout scheduledProfileLayout = (ExpandableLayout) root.findViewById(
                     R.id.scheduled_profile_card_content_container);
             final Switch dayNightSwitch = (Switch) root.findViewById(R.id.profile_switch);
@@ -909,7 +909,7 @@ public class ProfileFragment extends Fragment {
                 References.mountRO();
             }
 
-            if (References.checkMasquerade(getContext()) >= 22) {
+            if (References.checkMasqueradeJobService(getContext())) {
                 MasqueradeService.applyProfile(getContext(), profile_name, new ArrayList<>(system),
                         to_be_run);
             } else {

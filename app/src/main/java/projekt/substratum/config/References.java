@@ -377,7 +377,7 @@ public class References {
 
     // Future masquerade methods
     public static void enableOverlay(Context context, ArrayList<String> overlays) {
-        if (checkMasquerade(context) >= 22) {
+        if (checkMasqueradeJobService(context)) {
             MasqueradeService.enableOverlays(context, overlays);
         } else {
             String commands = enableOverlay();
@@ -391,7 +391,7 @@ public class References {
     }
 
     public static void disableOverlay(Context context, ArrayList<String> overlays) {
-        if (checkMasquerade(context) >= 22) {
+        if (checkMasqueradeJobService(context)) {
             MasqueradeService.disableOverlays(context, overlays);
         } else {
             String commands = disableOverlay();
@@ -405,7 +405,7 @@ public class References {
     }
 
     public static void setPriority(Context context, ArrayList<String> overlays) {
-        if (checkMasquerade(context) >= 22) {
+        if (checkMasqueradeJobService(context)) {
             MasqueradeService.setPriority(context, overlays);
         } else {
             String commands = "";
@@ -422,7 +422,7 @@ public class References {
     }
 
     public static void disableAll(Context context) {
-        if (checkMasquerade(context) >= 22) {
+        if (checkMasqueradeJobService(context)) {
             String[] command = {"/data/system/overlays.xml", "5"};
             List<String> list = ReadOverlaysFile.main(context, command);
             MasqueradeService.disableOverlays(context, new ArrayList<>(list));
@@ -1180,7 +1180,7 @@ public class References {
         boolean needRoot = (!source.startsWith(dataDir) && !source.startsWith(externalDir) &&
                 !source.startsWith("/system")) || (!destination.startsWith(dataDir) &&
                 !destination.startsWith(externalDir) && !destination.startsWith("/system"));
-        if (checkMasquerade(context) >= 22 && needRoot) {
+        if (checkMasqueradeJobService(context) && needRoot) {
             Log.d("CopyFunction", "using masquerade no-root operation for copying " + source +
                     " to " + destination);
             MasqueradeService.copy(context, source, destination);
@@ -1209,7 +1209,7 @@ public class References {
         boolean needRoot = (!source.startsWith(dataDir) && !source.startsWith(externalDir) &&
                 !source.startsWith("/system")) || (!destination.startsWith(dataDir) &&
                 !destination.startsWith(externalDir) && !destination.startsWith("/system"));
-        if (checkMasquerade(context) >= 22 && needRoot) {
+        if (checkMasqueradeJobService(context) && needRoot) {
             copy(context, source, destination);
         } else {
             copyDir(source, destination);
@@ -1225,7 +1225,7 @@ public class References {
         String externalDir = Environment.getExternalStorageDirectory().getAbsolutePath();
         boolean needRoot = (!directory.startsWith(dataDir) && !directory.startsWith(externalDir) &&
                 !directory.startsWith("/system"));
-        if (checkMasquerade(context) >= 22 && needRoot) {
+        if (checkMasqueradeJobService(context) && needRoot) {
             Log.d("DeleteFunction", "using masquerade no-root operation for deleting " + directory);
             MasqueradeService.delete(context, directory, deleteParent);
 
@@ -1255,7 +1255,7 @@ public class References {
         boolean needRoot = (!source.startsWith(dataDir) && !source.startsWith(externalDir) &&
                 !source.startsWith("/system")) || (!destination.startsWith(dataDir) &&
                 !destination.startsWith(externalDir) && !destination.startsWith("/system"));
-        if (checkMasquerade(context) >= 22 && needRoot) {
+        if (checkMasqueradeJobService(context) && needRoot) {
             Log.d("MoveFunction", "using masquerade no-root operation for moving " + source +
                     " to " + destination);
             MasqueradeService.move(context, source, destination);
@@ -1446,7 +1446,7 @@ public class References {
     }
 
     public static void installOverlay(Context context, String overlay) {
-        if (checkMasquerade(context) >= 22) {
+        if (checkMasqueradeJobService(context)) {
             // TODO: It should not be like this
             ArrayList<String> list = new ArrayList<>();
             list.add(overlay);
@@ -1474,7 +1474,7 @@ public class References {
     }
 
     public static void restartSystemUI(Context context) {
-        if (checkMasquerade(context) >= 22) {
+        if (checkMasqueradeJobService(context)) {
             MasqueradeService.restartSystemUI(context);
         } else {
             Root.runCommand("pkill -f com.android.systemui");
@@ -1522,7 +1522,7 @@ public class References {
     }
 
     public static void uninstallOverlay(Context context, String overlay) {
-        if (checkMasquerade(context) >= 22) {
+        if (checkMasqueradeJobService(context)) {
             ArrayList<String> list = new ArrayList<>();
             list.add(overlay);
             MasqueradeService.uninstallOverlays(context, list, shouldRestartUi(context, overlay));
@@ -1533,7 +1533,7 @@ public class References {
     }
 
     public static void uninstallOverlay(Context context, ArrayList<String> overlays) {
-        if (checkMasquerade(context) >= 22) {
+        if (checkMasqueradeJobService(context)) {
             MasqueradeService.uninstallOverlays(context, overlays, shouldRestartUi(context,
                     overlays));
         } else {
@@ -1617,7 +1617,7 @@ public class References {
     public static void setBootAnimation(Context context, String themeDirectory) {
         String location = Environment.getExternalStorageDirectory().getAbsolutePath() +
                 "/.substratum/bootanimation.zip";
-        if (getDeviceEncryptionStatus(context) <= 1 && checkMasquerade(context) >= 22) {
+        if (getDeviceEncryptionStatus(context) <= 1 && checkMasqueradeJobService(context)) {
             Log.d("BootAnimationHandler",
                     "No-root option has been enabled with the inclusion of " +
                             "masquerade v22+...");
@@ -1636,7 +1636,7 @@ public class References {
     }
 
     public static void clearBootAnimation(Context context) {
-        if (getDeviceEncryptionStatus(context) <= 1 && checkMasquerade(context) >= 22) {
+        if (getDeviceEncryptionStatus(context) <= 1 && checkMasqueradeJobService(context)) {
             // OMS with no-root masquerade
             MasqueradeService.clearBootAnimation(context);
         } else if (getDeviceEncryptionStatus(context) <= 1 && !References.checkOMS(context)) {
@@ -1652,7 +1652,7 @@ public class References {
     }
 
     public static void setFonts(Context context, String theme_pid, String name) {
-        if (checkOMS(context) && checkMasquerade(context) >= 22) {
+        if (checkOMS(context) && checkMasqueradeJobService(context)) {
             MasqueradeService.setFonts(context, theme_pid, name);
         } else {
             // oms pre rootless masq or legacy
@@ -1788,7 +1788,7 @@ public class References {
     }
 
     public static void clearFonts(Context context) {
-        if (checkOMS(context) && checkMasquerade(context) >= 22) {
+        if (checkOMS(context) && checkMasqueradeJobService(context)) {
             MasqueradeService.clearFonts(context);
         } else {
             // oms with pre rootless masq and legacy
@@ -1801,7 +1801,7 @@ public class References {
         boolean has_failed = false;
         boolean ringtone = false;
 
-        if (checkOMS(context) && checkMasquerade(context) >= 22) {
+        if (checkOMS(context) && checkMasqueradeJobService(context)) {
             MasqueradeService.setThemedSounds(context, theme_pid, name);
             ringtone = true; // Always assume that the process is succeeded;
         } else {
@@ -1928,7 +1928,7 @@ public class References {
         // checks the file integrity of _data (file path), and if the file is missing, the database
         // entry is removed.
 
-        if (checkOMS(context) && checkMasquerade(context) >= 22) {
+        if (checkOMS(context) && checkMasqueradeJobService(context)) {
             MasqueradeService.clearThemedSounds(context);
         } else {
             References.delete(context, "/data/system/theme/audio/");

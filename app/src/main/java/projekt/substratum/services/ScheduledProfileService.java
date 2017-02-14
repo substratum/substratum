@@ -177,7 +177,7 @@ public class ScheduledProfileService extends IntentService {
                 References.mountRO();
             }
 
-            if (References.checkMasquerade(mContext) >= 22) {
+            if (References.checkMasqueradeJobService(mContext)) {
                 MasqueradeService.applyProfile(mContext, processed, new ArrayList<>(system),
                         to_be_run);
             } else {

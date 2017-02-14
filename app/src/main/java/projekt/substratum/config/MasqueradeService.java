@@ -42,7 +42,6 @@ public class MasqueradeService {
     private static final String COMMAND_VALUE_DELETE = "delete";
     private static final String COMMAND_VALUE_PROFILE = "profile";
 
-
     public static Intent getMasqueradeRootless(Context context) {
         Intent intent = new Intent();
         intent.setComponent(

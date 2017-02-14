@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
-import android.app.WallpaperManager;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -13,14 +12,11 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
-import android.os.Environment;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,12 +25,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import projekt.substratum.R;
-import projekt.substratum.config.MasqueradeService;
 import projekt.substratum.config.References;
 import projekt.substratum.model.ThemeInfo;
 import projekt.substratum.util.ReadOverlays;
@@ -42,7 +36,6 @@ import projekt.substratum.util.ReadOverlays;
 public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.ViewHolder> {
     private ArrayList<ThemeInfo> information;
     private Context mContext;
-    private SharedPreferences prefs;
     private ProgressDialog mProgressDialog;
     private ThemeInfo currentObject;
     private Activity mActivity;
@@ -53,7 +46,7 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
 
     @Override
     public ThemeEntryAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        prefs = PreferenceManager.getDefaultSharedPreferences(viewGroup
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(viewGroup
                 .getContext());
         View view;
         if (prefs.getBoolean("nougat_style_cards", false)) {
@@ -290,43 +283,23 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
 
         @Override
         protected String doInBackground(String... sUrl) {
-            final SharedPreferences.Editor editor = prefs.edit();
+            // Uninstall theme
+            References.uninstallOverlay(mContext, currentObject.getThemePackage());
 
-            References.uninstallOverlay(currentObject.getContext(), currentObject.getThemePackage
-                    ());
-
-            // Begin uninstalling all overlays based on this package
-            File current_overlays = new File(Environment
-                    .getExternalStorageDirectory().getAbsolutePath() +
-                    "/.substratum/current_overlays.xml");
-            if (current_overlays.exists()) {
-                References.delete(currentObject.getContext(), Environment
-                        .getExternalStorageDirectory().getAbsolutePath() +
-                        "/.substratum/current_overlays.xml");
-            }
-            References.copy(currentObject.getContext(), "/data/system/overlays.xml",
-                    Environment
-                            .getExternalStorageDirectory().getAbsolutePath() +
-                            "/.substratum/current_overlays.xml");
-
-            List<String> stateAll = ReadOverlays.main(4, currentObject.getContext());
-            stateAll.addAll(ReadOverlays.main(5, currentObject.getContext()));
+            // Get all installed overlays for this package
+            List<String> stateAll = ReadOverlays.main(4, mContext);
+            stateAll.addAll(ReadOverlays.main(5, mContext));
 
             ArrayList<String> all_overlays = new ArrayList<>();
             for (int j = 0; j < stateAll.size(); j++) {
                 try {
                     String current = stateAll.get(j);
-                    ApplicationInfo appInfo = currentObject.getContext()
-                            .getPackageManager()
-                            .getApplicationInfo(
-                                    current, PackageManager.GET_META_DATA);
-                    if (appInfo.metaData != null &&
-                            appInfo.metaData.getString(
-                                    "Substratum_Parent") != null) {
-                        String parent =
-                                appInfo.metaData.getString("Substratum_Parent");
-                        if (parent != null && parent.equals(
-                                currentObject.getThemePackage())) {
+                    ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
+                            current, PackageManager.GET_META_DATA);
+                    if (appInfo.metaData != null && appInfo.metaData.getString(
+                            "Substratum_Parent") != null) {
+                        String parent = appInfo.metaData.getString("Substratum_Parent");
+                        if (parent != null && parent.equals(currentObject.getThemePackage())) {
                             all_overlays.add(current);
                         }
                     }
@@ -335,106 +308,8 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
                 }
             }
 
-            References.delete(currentObject.getContext(), currentObject.getContext().getCacheDir
-                    ().getAbsolutePath() +
-                    "/SubstratumBuilder/" + currentObject.getThemePackage());
-
-            if (References.isPackageInstalled(currentObject.getContext(),
-                    "masquerade.substratum")) {
-                Intent runCommand = MasqueradeService.getMasquerade(mContext);
-                runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                runCommand.setAction("masquerade.substratum.COMMANDS");
-                runCommand.putStringArrayListExtra("pm-uninstall-specific", all_overlays);
-                currentObject.getContext().sendBroadcast(runCommand);
-            } else {
-                String commands2 = "";
-                for (int i = 0; i < all_overlays.size(); i++) {
-                    if (i == 0) {
-                        commands2 = commands2 + "pm uninstall " + all_overlays.get(i);
-                    } else {
-                        commands2 = commands2 + " && pm uninstall " + all_overlays.get(i);
-                    }
-                }
-                References.runCommands(commands2);
-            }
-
-            //Remove applied font, sounds, and bootanimation
-            if (prefs.getString("sounds_applied", "").equals(
-                    currentObject.getThemePackage())) {
-                References.delete(currentObject.getContext(), "/data/system/theme/audio/ && pkill" +
-                        " -f com" +
-                        ".android.systemui");
-                editor.remove("sounds_applied");
-            }
-            if (prefs.getString("fonts_applied", "").equals(
-                    currentObject.getThemePackage())) {
-                References.delete(currentObject.getContext(), "/data/system/theme/fonts/");
-                if (References.isPackageInstalled(
-                        currentObject.getContext(),
-                        "masquerade.substratum")) {
-                    Intent runCommand = MasqueradeService.getMasquerade(mContext);
-                    runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                    runCommand.setAction("masquerade.substratum.COMMANDS");
-                    runCommand.putExtra("om-commands",
-                            References.refreshWindows() + " && setprop sys.refresh_theme 1");
-                    currentObject.getContext().sendBroadcast(runCommand);
-                } else {
-                    References.setProp("sys.refresh_theme", "1");
-                    References.refreshWindow();
-                }
-                if (!prefs.getBoolean("systemui_recreate", false)) {
-                    if (References.isPackageInstalled(
-                            currentObject.getContext(),
-                            "masquerade.substratum")) {
-                        Intent runCommand = MasqueradeService.getMasquerade(mContext);
-                        runCommand.addFlags(
-                                Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                        runCommand.setAction("masquerade.substratum.COMMANDS");
-                        runCommand.putExtra("om-commands", "pkill -f com.android.systemui");
-                        currentObject.getContext().sendBroadcast(runCommand);
-                    } else {
-                        References.restartSystemUI(mContext);
-                    }
-                }
-                editor.remove("fonts_applied");
-            }
-            if (prefs.getString("bootanimation_applied", "").equals(
-                    currentObject.getThemePackage())) {
-                if (References.getDeviceEncryptionStatus(
-                        currentObject.getContext()) <= 1) {
-                    References.delete(currentObject.getContext(),
-                            "/data/system/theme/bootanimation.zip");
-                } else {
-                    References.delete(currentObject.getContext(),
-                            "/system/media/bootanimation-encrypted.zip");
-                }
-                editor.remove("bootanimation_applied");
-            }
-            WallpaperManager wm = WallpaperManager.getInstance(
-                    currentObject.getContext());
-            if (prefs.getString("home_wallpaper_applied", "")
-                    .equals(currentObject.getThemePackage())) {
-                try {
-                    wm.clear();
-                    editor.remove("home_wallpaper_applied");
-                } catch (IOException e) {
-                    Log.e("InformationActivity",
-                            "Failed to restore home screen wallpaper!");
-                }
-            }
-            if (prefs.getString("lock_wallpaper_applied", "")
-                    .equals(currentObject.getThemePackage())) {
-                try {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        wm.clear(WallpaperManager.FLAG_LOCK);
-                        editor.remove("lock_wallpaper_applied");
-                    }
-                } catch (IOException e) {
-                    Log.e("InformationActivity",
-                            "Failed to restore lock screen wallpaper!");
-                }
-            }
-            editor.apply();
+            // Uninstall all overlays for this package
+            References.uninstallOverlay(mContext, all_overlays);
             return null;
         }
     }
@@ -463,32 +338,16 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
         protected String doInBackground(String... sUrl) {
             // Delete the directory
             try {
-                File dir = new File(mContext.getCacheDir().getAbsolutePath() +
+                References.delete(mContext, mContext.getCacheDir().getAbsolutePath() +
                         "/SubstratumBuilder/");
-                deleteDir(dir);
             } catch (Exception e) {
                 // Suppress warning
             }
             // Reset the flag for is_updating
-            SharedPreferences prefsPrivate =
-                    mContext.getSharedPreferences("substratum_state",
+            SharedPreferences prefsPrivate = mContext.getSharedPreferences("substratum_state",
                             Context.MODE_PRIVATE);
             prefsPrivate.edit().remove("is_updating").apply();
             return null;
-        }
-
-        boolean deleteDir(File dir) {
-            if (dir != null && dir.isDirectory()) {
-                String[] children = dir.list();
-                for (String aChildren : children) {
-                    boolean success = deleteDir(new File(dir, aChildren));
-                    if (!success) {
-                        return false;
-                    }
-                }
-                return dir.delete();
-            } else
-                return dir != null && dir.isFile() && dir.delete();
         }
     }
 }

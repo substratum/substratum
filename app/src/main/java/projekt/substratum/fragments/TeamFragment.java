@@ -28,9 +28,11 @@ public class TeamFragment extends Fragment {
 
     private List<GalleryView> contributors = new ArrayList<>();
     private List<GalleryView> developers = new ArrayList<>();
+    private List<GalleryView> developersRootless = new ArrayList<>();
     private List<GalleryView> themers = new ArrayList<>();
     private List<GalleryEntity> contributorEntities = new ArrayList<>();
     private List<GalleryEntity> developerEntities = new ArrayList<>();
+    private List<GalleryEntity> developerRootlessEntities = new ArrayList<>();
     private List<GalleryEntity> themerEntities = new ArrayList<>();
 
     private boolean flipContributors = false;
@@ -124,6 +126,28 @@ public class TeamFragment extends Fragment {
 
         Timer timer2 = new Timer();
         timer2.schedule(new FlipTheDevelopers(), 0, PAGE_FLIP_DELAY);
+
+        // Begin Developers
+
+        developersRootless.add((GalleryView) root.findViewById(R.id.developerRootless1));
+        developersRootless.add((GalleryView) root.findViewById(R.id.developerRootless2));
+        developersRootless.add((GalleryView) root.findViewById(R.id.developerRootless3));
+
+        developerRootlessEntities.add(ivan);
+        developersRootless.get(0).addGalleryData(developerRootlessEntities);
+        developerRootlessEntities.clear();
+
+        GalleryEntity randallRootless = new GalleryEntity();
+        randallRootless.imgUrl = getString(R.string.contributor_randall_link);
+        randallRootless.title = getString(R.string.contributor_randall);
+        developerRootlessEntities.add(randallRootless);
+        developersRootless.get(1).addGalleryData(developerRootlessEntities);
+        developerRootlessEntities.clear();
+
+        developerEntities.add(surge);
+        developerRootlessEntities.add(surge);
+        developersRootless.get(2).addGalleryData(developerRootlessEntities);
+        developerRootlessEntities.clear();
 
         // Begin Contributors
 

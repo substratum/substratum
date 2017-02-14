@@ -684,6 +684,9 @@
     <string name="team_text_6">These people brought you Layers Manager in the past and have since went on to do many great things in getting Substratum ready for us!</string>
     <string name="team_button_6">Show Contributors</string>
 
+    <string name="team_title_7">Substratum Rootless Development Contributors</string>
+    <string name="team_text_7">These developers started out with a plan to phase out root, then delivered with flying colors!</string>
+
     <string name="contributor_reinhard" translatable="false">Reinhard Strauch</string>
     <string name="contributor_brian" translatable="false">Brian Gill (Bgill55)</string>
     <string name="contributor_aldrin" translatable="false">Aldrin Holmes (CallMeAldy)</string>
@@ -700,6 +703,9 @@
 
     <string name="contributor_nathan" translatable="false">Nathan Chancellor (The Flash)</string>
     <string name="contributor_nathan_link" translatable="false">https://lh3.googleusercontent.com/-q3fCjLU-tTA/AAAAAAAAAAI/AAAAAAAAbL8/lSpIJHV7Jsc/s120-c/photo.jpg</string>
+
+    <string name="contributor_randall" translatable="false">Randall Rushing (bigrushdog)</string>
+    <string name="contributor_randall_link" translatable="false">https://lh3.googleusercontent.com/-DmVuJxKRU6c/AAAAAAAAAAI/AAAAAAAA3Ls/ylaECV-Uer4/s120-c/photo.jpg</string>
 
     <string name="contributor_idan" translatable="false">Idan Shulman</string>
     <string name="contributor_idan_link" translatable="false">https://lh3.googleusercontent.com/-3B6IQ4CbIKs/AAAAAAAAAAI/AAAAAAAATIo/DlpTSfukFJ0/s120-c/photo.jpg</string>

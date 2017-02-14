@@ -82,7 +82,7 @@ public class References {
 
     // These are specific log tags for different classes
     public static final Boolean ENABLE_SIGNING = true;
-    public static final Boolean ENABLE_ROOT_CHECK = true;
+    public static final Boolean ENABLE_ROOT_CHECK = false;
     public static final Boolean ENABLE_AOPT_OUTPUT = false; // WARNING, DEVELOPERS - BREAKS COMPILE
     public static final String SUBSTRATUM_BUILDER = "SubstratumBuilder";
     public static final String SUBSTRATUM_LOG = "SubstratumLogger";

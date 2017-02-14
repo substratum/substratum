@@ -23,7 +23,6 @@ import projekt.substratum.config.References;
 public class SubstratumBuilder {
 
     public Boolean has_errored_out = false;
-    public String no_install = "";
     private String error_logs = "";
     private boolean debug;
 
@@ -389,29 +388,12 @@ public class SubstratumBuilder {
                                     overlay_package + "." + parse2_themeName +
                                     "-signed.apk");
                             Log.d(References.SUBSTRATUM_BUILDER, "Silently installing APK...");
-                            if (References.isPackageInstalled(context,
-                                    overlay_package + "." + parse2_themeName +
-                                            parse2_variantName + parse2_baseName)) {
-                                Log.d(References.SUBSTRATUM_BUILDER,
-                                        "Overlay APK has successfully been installed!");
-                            } else {
-                                dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
-                                        "Overlay APK has failed to install!");
-                            }
                         } else {
                             References.installOverlay(context, Environment.getExternalStorageDirectory()
                                     .getAbsolutePath() +
                                     "/.substratum/" + overlay_package + "." +
                                     parse2_themeName + "-signed.apk");
                             Log.d(References.SUBSTRATUM_BUILDER, "Silently installing APK...");
-                            if (References.isPackageInstalled(context,
-                                    overlay_package + "." + parse2_themeName)) {
-                                Log.d(References.SUBSTRATUM_BUILDER,
-                                        "Overlay APK has successfully been installed!");
-                            } else {
-                                dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
-                                        "Overlay APK has failed to install!");
-                            }
                         }
                     } catch (Exception e) {
                         dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
@@ -480,13 +462,6 @@ public class SubstratumBuilder {
                 }
             } else {
                 // TODO: Are we need this part? we need complete intent from masq so we need to install it anyway
-                Log.d(References.SUBSTRATUM_BUILDER,
-                        "Update mode flag disabled, returning one-line parsable command");
-                no_install = "pm install -r " + Environment.getExternalStorageDirectory()
-                        .getAbsolutePath() +
-                        "/.substratum/" + overlay_package + "." + parse2_themeName +
-                        "-signed.apk";
-
                 References.installOverlay(context, Environment.getExternalStorageDirectory()
                         .getAbsolutePath() +
                         "/.substratum/" + overlay_package + "." + parse2_themeName +

@@ -1338,13 +1338,10 @@ public class References {
         Log.d("DeleteFunction", "using no-root operation for deleting " + directory);
         File dir = new File(directory);
         try {
-            if (dir.isDirectory()) {
-                for (File child : dir.listFiles()) {
-                    FileUtils.forceDelete(child);
-                }
-                if (deleteParent) FileUtils.forceDelete(dir);
-            } else {
+            if (deleteParent) {
                 FileUtils.forceDelete(dir);
+            } else {
+                FileUtils.cleanDirectory(dir);
             }
         } catch (IOException e) {
             e.printStackTrace();

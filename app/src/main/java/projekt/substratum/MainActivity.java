@@ -779,13 +779,13 @@ public class MainActivity extends AppCompatActivity implements
                                 .getAbsolutePath() + "/.substratum/").exists()) {
                             References.delete(getApplicationContext(),
                                     Environment.getExternalStorageDirectory()
-                                    .getAbsolutePath() + "/.substratum/");
+                                            .getAbsolutePath() + "/.substratum/");
                         }
                         if (!new File(Environment.getExternalStorageDirectory()
                                 .getAbsolutePath() + "/substratum/").exists()) {
                             References.delete(getApplicationContext(),
                                     Environment.getExternalStorageDirectory()
-                                    .getAbsolutePath() + "/substratum/");
+                                            .getAbsolutePath() + "/substratum/");
                         }
                         File directory = new File(Environment.getExternalStorageDirectory(),
                                 "/.substratum/");

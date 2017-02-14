@@ -199,19 +199,19 @@ public class ManageFragment extends Fragment {
                 alertDialogBuilder.setTitle(getString(R.string.manage_wallpaper_title));
                 alertDialogBuilder.setMessage(getString(R.string.manage_dialog_text));
                 alertDialogBuilder.setPositiveButton(android.R.string.ok, (dialog, id) -> {
-                            try {
-                                References.clearWallpaper(getContext(), "all");
-                                if (getView() != null) {
-                                    Snackbar.make(getView(),
-                                            getString(R.string.
-                                                    manage_wallpaper_all_toast),
-                                            Snackbar.LENGTH_LONG)
-                                            .show();
-                                }
-                            } catch (IOException e) {
-                                Log.e(References.SUBSTRATUM_LOG, "Failed to restore wallpaper!");
-                            }
-                        })
+                    try {
+                        References.clearWallpaper(getContext(), "all");
+                        if (getView() != null) {
+                            Snackbar.make(getView(),
+                                    getString(R.string.
+                                            manage_wallpaper_all_toast),
+                                    Snackbar.LENGTH_LONG)
+                                    .show();
+                        }
+                    } catch (IOException e) {
+                        Log.e(References.SUBSTRATUM_LOG, "Failed to restore wallpaper!");
+                    }
+                })
                         .setNegativeButton(android.R.string.cancel,
                                 (dialog, id) -> dialog.cancel());
                 AlertDialog alertDialog = alertDialogBuilder.create();

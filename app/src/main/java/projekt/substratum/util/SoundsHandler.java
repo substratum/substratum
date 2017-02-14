@@ -42,58 +42,6 @@ public class SoundsHandler {
         References.clearSounds(context);
     }
 
-    private class SoundsHandlerAsync extends AsyncTask<String, Integer, String> {
-        ProgressDialog progress;
-
-        @Override
-        protected void onPreExecute() {
-            // With masq 22+ dialog is started from receiver
-            if (References.checkMasquerade(mContext) < 22) {
-                progress = new ProgressDialog(mContext, R.style.AppTheme_DialogAlert);
-                progress.setMessage(mContext.getString(R.string.sounds_dialog_apply_text));
-                progress.setIndeterminate(false);
-                progress.setCancelable(false);
-                progress.show();
-            }
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            if (References.checkMasquerade(mContext) >= 22) {
-                if (finishReceiver == null) finishReceiver = new FinishReceiver();
-                IntentFilter intentFilter = new IntentFilter("masquerade.substratum.STATUS_CHANGED");
-                mContext.registerReceiver(finishReceiver, intentFilter);
-            } else {
-                finishFunction();
-                progress.dismiss();
-                References.restartSystemUI(mContext);
-            }
-        }
-
-        @Override
-        protected String doInBackground(String... sUrl) {
-
-            boolean[] results = References.setSounds(mContext, theme_pid, sUrl[0]);
-            has_failed = results[0];
-            ringtone = results[1];
-
-            if (!has_failed) {
-                SharedPreferences.Editor editor = prefs.edit();
-                editor.putString("sounds_applied", theme_pid);
-                editor.apply();
-                Log.d("SoundsHandler", "Sound pack installed!");
-                References.delete(mContext, mContext.getCacheDir().getAbsolutePath() +
-                        "/SoundsCache/SoundsInjector/");
-            } else {
-                Log.e("SoundsHandler", "Sound installation aborted!");
-                References.delete(mContext, mContext.getCacheDir().getAbsolutePath() +
-                        "/SoundsCache/SoundsInjector/");
-            }
-
-            return null;
-        }
-    }
-
     private void finishFunction() {
         if (!has_failed) {
             Snackbar.make(view,
@@ -144,6 +92,58 @@ public class SoundsHandler {
                         .setIcon(mContext.getDrawable(R.drawable.sounds_dialog_alert))
                         .show();
             }
+        }
+    }
+
+    private class SoundsHandlerAsync extends AsyncTask<String, Integer, String> {
+        ProgressDialog progress;
+
+        @Override
+        protected void onPreExecute() {
+            // With masq 22+ dialog is started from receiver
+            if (References.checkMasquerade(mContext) < 22) {
+                progress = new ProgressDialog(mContext, R.style.AppTheme_DialogAlert);
+                progress.setMessage(mContext.getString(R.string.sounds_dialog_apply_text));
+                progress.setIndeterminate(false);
+                progress.setCancelable(false);
+                progress.show();
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            if (References.checkMasquerade(mContext) >= 22) {
+                if (finishReceiver == null) finishReceiver = new FinishReceiver();
+                IntentFilter intentFilter = new IntentFilter("masquerade.substratum.STATUS_CHANGED");
+                mContext.registerReceiver(finishReceiver, intentFilter);
+            } else {
+                finishFunction();
+                progress.dismiss();
+                References.restartSystemUI(mContext);
+            }
+        }
+
+        @Override
+        protected String doInBackground(String... sUrl) {
+
+            boolean[] results = References.setSounds(mContext, theme_pid, sUrl[0]);
+            has_failed = results[0];
+            ringtone = results[1];
+
+            if (!has_failed) {
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putString("sounds_applied", theme_pid);
+                editor.apply();
+                Log.d("SoundsHandler", "Sound pack installed!");
+                References.delete(mContext, mContext.getCacheDir().getAbsolutePath() +
+                        "/SoundsCache/SoundsInjector/");
+            } else {
+                Log.e("SoundsHandler", "Sound installation aborted!");
+                References.delete(mContext, mContext.getCacheDir().getAbsolutePath() +
+                        "/SoundsCache/SoundsInjector/");
+            }
+
+            return null;
         }
     }
 

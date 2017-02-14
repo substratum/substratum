@@ -96,6 +96,16 @@ public class References {
     // November security update (incompatible firmware) timestamp;
     private static final long NOVEMBER_PATCH_TIMESTAMP = 1478304000000L;
     private static final long JANUARY_PATCH_TIMESTAMP = 1483549200000L;
+    // Sounds processing methods
+    private static final String SYSTEM_MEDIA_PATH = "/system/media/audio";
+    private static final String SYSTEM_ALARMS_PATH =
+            SYSTEM_MEDIA_PATH + File.separator + "alarms";
+    private static final String SYSTEM_RINGTONES_PATH =
+            SYSTEM_MEDIA_PATH + File.separator + "ringtones";
+    private static final String SYSTEM_NOTIFICATIONS_PATH =
+            SYSTEM_MEDIA_PATH + File.separator + "notifications";
+    private static final String MEDIA_CONTENT_URI = "content://media/internal/audio/media";
+    private static final String SYSTEM_CONTENT_URI = "content://settings/global";
     // Lucky Patcher's Package Name
     public static String lp_package_identifier = "com.android.vending.billing" +
             ".InAppBillingService.LOCK";
@@ -396,9 +406,9 @@ public class References {
         } else {
             String commands = "";
             int size = overlays.size();
-            for (int i = 0; i < size-1; i++) {
+            for (int i = 0; i < size - 1; i++) {
                 String parentName = overlays.get(i);
-                String packageName = overlays.get(i+1);
+                String packageName = overlays.get(i + 1);
                 commands += (commands.isEmpty() ? "" : " && ") + setPriority() + " " + packageName +
                         " " + parentName;
             }
@@ -1111,7 +1121,7 @@ public class References {
         String externalDir = Environment.getExternalStorageDirectory().getAbsolutePath();
         boolean needRoot = (!source.startsWith(dataDir) && !source.startsWith(externalDir) &&
                 !source.startsWith("/system")) || (!destination.startsWith(dataDir) &&
-                 !destination.startsWith(externalDir) && !destination.startsWith("/system"));
+                !destination.startsWith(externalDir) && !destination.startsWith("/system"));
         if (checkMasquerade(context) >= 22 && needRoot) {
             Log.d("CopyFunction", "using masquerade no-root operation for copying " + source +
                     " to " + destination);
@@ -1437,14 +1447,14 @@ public class References {
         Root.runCommand("ln -s " + source + " " + destination);
     }
 
-    public static boolean shouldRestartUi (Context context, String overlay) {
+    public static boolean shouldRestartUi(Context context, String overlay) {
         if (checkOMS(context)) {
             if (overlay.startsWith("com.android.systemui")) return true;
         }
         return false;
     }
 
-    public static boolean shouldRestartUi (Context context, ArrayList<String> overlays) {
+    public static boolean shouldRestartUi(Context context, ArrayList<String> overlays) {
         if (checkOMS(context)) {
             for (String o : overlays) {
                 if (o.startsWith("com.android.systemui")) return true;
@@ -1635,7 +1645,7 @@ public class References {
                 // Unzip the fonts to get it prepared for the preview
                 String source = context.getCacheDir().getAbsolutePath() + "/FontCache/" + sourceFile;
                 String destination = context.getCacheDir().getAbsolutePath() +
-                                "/FontCache/FontCreator/";
+                        "/FontCache/FontCreator/";
 
                 try (ZipInputStream inputStream = new ZipInputStream(
                         new BufferedInputStream(new FileInputStream(source)))) {
@@ -1846,7 +1856,7 @@ public class References {
                 ringtone = perform_action(context);
             }
         }
-        return new boolean[] {has_failed, ringtone};
+        return new boolean[]{has_failed, ringtone};
     }
 
     public static void clearSounds(Context context) {
@@ -1871,17 +1881,6 @@ public class References {
             References.restartSystemUI(context);
         }
     }
-
-    // Sounds processing methods
-    private static final String SYSTEM_MEDIA_PATH = "/system/media/audio";
-    private static final String SYSTEM_ALARMS_PATH =
-            SYSTEM_MEDIA_PATH + File.separator + "alarms";
-    private static final String SYSTEM_RINGTONES_PATH =
-            SYSTEM_MEDIA_PATH + File.separator + "ringtones";
-    private static final String SYSTEM_NOTIFICATIONS_PATH =
-            SYSTEM_MEDIA_PATH + File.separator + "notifications";
-    private static final String MEDIA_CONTENT_URI = "content://media/internal/audio/media";
-    private static final String SYSTEM_CONTENT_URI = "content://settings/global";
 
     private static boolean perform_action(Context context) {
         boolean ringtone = false;
@@ -2171,7 +2170,7 @@ public class References {
     }
 
     private static boolean setAudible(Context context, File ringtone, File ringtoneCache, int type,
-                               String name) {
+                                      String name) {
         final String path = ringtone.getAbsolutePath();
         final String mimeType = name.endsWith(".ogg") ? "application/ogg" : "application/mp3";
         ContentValues values = new ContentValues();
@@ -2210,7 +2209,7 @@ public class References {
     }
 
     private static boolean setUIAudible(Context context, File localized_ringtone,
-                                 File ringtone_file, int type, String name) {
+                                        File ringtone_file, int type, String name) {
         final String path = ringtone_file.getAbsolutePath();
 
         final String path_clone = "/system/media/audio/ui/" + name + ".ogg";

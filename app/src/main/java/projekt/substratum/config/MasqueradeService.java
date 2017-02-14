@@ -108,7 +108,7 @@ public class MasqueradeService {
     public static void setBootAnimation(Context context, String bootanimation_location) {
         Intent masqIntent = getMasqueradeRootless(context);
         masqIntent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_BOOTANIMATION);
-            masqIntent.putExtra(BOOTANIMATION_FILE_NAME, bootanimation_location);
+        masqIntent.putExtra(BOOTANIMATION_FILE_NAME, bootanimation_location);
         context.startService(masqIntent);
     }
 

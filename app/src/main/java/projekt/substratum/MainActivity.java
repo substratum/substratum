@@ -59,6 +59,7 @@ import projekt.substratum.services.ThemeService;
 import projekt.substratum.util.Root;
 
 import static projekt.substratum.config.References.ENABLE_ROOT_CHECK;
+import static projekt.substratum.config.References.SUBSTRATUM_LOG;
 
 public class MainActivity extends AppCompatActivity implements
         ActivityCompat.OnRequestPermissionsResultCallback, SearchView.OnQueryTextListener {
@@ -718,7 +719,8 @@ public class MainActivity extends AppCompatActivity implements
 
         @Override
         protected void onPostExecute(Boolean result) {
-            if (!result && ENABLE_ROOT_CHECK) {
+            if (!result && ENABLE_ROOT_CHECK &&
+                    !References.checkMasqueradeJobService(getApplicationContext())) {
                 mProgressDialog.setCancelable(false);
                 mProgressDialog.show();
                 mProgressDialog.setContentView(R.layout.root_rejected_loader);
@@ -765,34 +767,15 @@ public class MainActivity extends AppCompatActivity implements
 
         @Override
         protected Boolean doInBackground(String... sUrl) {
-            Boolean receivedRoot = Root.requestRootAccess();
-            if (receivedRoot) {
-                if (References.checkOMS(getApplicationContext())) {
-                    if (!prefs.getBoolean("substratum_oms", true)) {
-                        if (!new File(Environment.getExternalStorageDirectory()
-                                .getAbsolutePath() + "/.substratum/").exists()) {
-                            References.delete(getApplicationContext(),
-                                    Environment.getExternalStorageDirectory()
-                                            .getAbsolutePath() + "/.substratum/");
-                        }
-                        if (!new File(Environment.getExternalStorageDirectory()
-                                .getAbsolutePath() + "/substratum/").exists()) {
-                            References.delete(getApplicationContext(),
-                                    Environment.getExternalStorageDirectory()
-                                            .getAbsolutePath() + "/substratum/");
-                        }
-                        File directory = new File(Environment.getExternalStorageDirectory(),
-                                "/.substratum/");
-                        if (!directory.exists()) {
-                            Boolean made = directory.mkdirs();
-                            if (!made) Log.e(References.SUBSTRATUM_LOG,
-                                    "Could not make substratum directory on internal storage.");
-                        }
-                    }
-                }
+            if (!References.checkMasqueradeJobService(getApplicationContext())) {
+                Boolean receivedRoot = Root.requestRootAccess();
+                if (receivedRoot) Log.d(SUBSTRATUM_LOG, "Substratum has loaded in rooted mode.");
+                References.injectRescueArchives(getApplicationContext());
+                return receivedRoot;
+            } else {
+                Log.d(SUBSTRATUM_LOG, "Substratum has loaded in rootless masquerade mode.");
+                return false;
             }
-            References.injectRescueArchives(getApplicationContext());
-            return receivedRoot;
         }
     }
 }

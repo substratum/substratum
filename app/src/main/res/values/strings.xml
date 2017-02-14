@@ -806,6 +806,12 @@
     <string name="profile_dialog_ok">OK</string>
     <string name="profile_dialog_cancel">Cancel</string>
 
+    <string name="settings_system_status">system certification</string>
+    <string name="settings_system_status_rooted">rooted mode</string>
+    <string name="settings_system_status_rootless">rootless mode</string>
+    <string name="settings_system_status_certified">certified</string>
+    <string name="settings_system_status_uncertified">uncertified</string>
+
     <string name="settings_force_english_title">Force English Language</string>
     <string name="settings_force_english_text">This will force the application to use the English language.</string>
     <string name="settings_force_english_toast_success" translatable="false">Successfully switched to English!</string>

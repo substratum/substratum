@@ -19,6 +19,11 @@
             android:title="@string/settings_about_oms_rro_version" />
 
         <Preference
+            android:key="system_status"
+            android:summary="@string/settings_system_status_rooted"
+            android:title="@string/settings_system_status" />
+
+        <Preference
             android:key="system_platform"
             android:summary="@string/settings_about_system_content"
             android:title="@string/settings_about_system_version" />

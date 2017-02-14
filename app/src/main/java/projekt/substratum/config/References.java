@@ -19,6 +19,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.content.pm.ServiceInfo;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -87,6 +88,7 @@ public class References {
     public static final String SUBSTRATUM_BUILDER = "SubstratumBuilder";
     public static final String SUBSTRATUM_LOG = "SubstratumLogger";
     public static final String SUBSTRATUM_ICON_BUILDER = "SubstratumIconBuilder";
+    public static final String MASQUERADE_PACKAGE = "masquerade.substratum";
     // Delays for Masquerade Icon Pack Handling
     public static final int MAIN_WINDOW_REFRESH_DELAY = 2000;
     public static final int FIRST_WINDOW_REFRESH_DELAY = 1000;
@@ -215,7 +217,7 @@ public class References {
     public static int checkMasquerade(Context context) {
         try {
             PackageInfo pInfo =
-                    context.getPackageManager().getPackageInfo("masquerade.substratum", 0);
+                    context.getPackageManager().getPackageInfo(MASQUERADE_PACKAGE, 0);
             //return pInfo.versionCode;
         } catch (PackageManager.NameNotFoundException e) {
             // Suppress warning
@@ -1167,6 +1169,23 @@ public class References {
         return null;
     }
 
+    // Begin check if device is running on the latest Masquerade
+    public static Boolean checkMasqueradeJobService(Context context) {
+        try {
+            PackageManager pm = context.getPackageManager();
+            PackageInfo info = pm.getPackageInfo(MASQUERADE_PACKAGE, PackageManager.GET_SERVICES);
+            ServiceInfo[] list = info.services;
+            for (int i = 0; i < list.length; i++) {
+                if (list[i].name.equals("masquerade.substratum.services.JobService")) {
+                    return true;
+                }
+            }
+        } catch (Exception e) {
+            // Suppress warning
+        }
+        return false;
+    }
+
     // Begin consolidation of IO commands in Substratum
     public static void copy(Context context, String source, String destination) {
         String dataDir = context.getDataDir().getAbsolutePath();
@@ -1467,7 +1486,7 @@ public class References {
     }
 
     public static void restartMasquerade() {
-        Root.runCommand("pkill -f masquerade.substratum");
+        Root.runCommand("pkill -f " + MASQUERADE_PACKAGE);
     }
 
     public static void restartSystemUI(Context context) {

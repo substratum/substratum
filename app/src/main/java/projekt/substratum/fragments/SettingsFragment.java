@@ -101,6 +101,19 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         );
         systemPlatform.setIcon(References.grabAppIcon(getContext(), "com.android.systemui"));
 
+        Preference systemStatus = getPreferenceManager().findPreference
+                ("system_status");
+        systemStatus.setSummary(
+                (References.checkMasqueradeJobService(getContext()) ?
+                        getString(R.string.settings_system_status_rootless) :
+                        getString(R.string.settings_system_status_rooted)) + " (" +
+                        (References.spreadYourWingsAndFly(
+                                getContext()) ? getString(R.string
+                                .settings_system_status_uncertified) :
+                                getString(R.string.settings_system_status_certified)) + ")"
+        );
+        systemStatus.setIcon(References.grabAppIcon(getContext(), "com.android.settings"));
+
         final CheckBoxPreference forceEnglish = (CheckBoxPreference)
                 getPreferenceManager().findPreference("force_english_locale");
         boolean force = prefs.getBoolean("force_english", false);

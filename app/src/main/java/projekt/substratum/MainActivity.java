@@ -59,6 +59,8 @@ import projekt.substratum.fragments.ThemeFragment;
 import projekt.substratum.services.ThemeService;
 import projekt.substratum.util.Root;
 
+import static projekt.substratum.config.References.ENABLE_ROOT_CHECK;
+
 public class MainActivity extends AppCompatActivity implements
         ActivityCompat.OnRequestPermissionsResultCallback, SearchView.OnQueryTextListener {
 
@@ -720,7 +722,7 @@ public class MainActivity extends AppCompatActivity implements
 
         @Override
         protected void onPostExecute(Boolean result) {
-            if (!result) {
+            if (!result && ENABLE_ROOT_CHECK) {
                 mProgressDialog.setCancelable(false);
                 mProgressDialog.show();
                 mProgressDialog.setContentView(R.layout.root_rejected_loader);

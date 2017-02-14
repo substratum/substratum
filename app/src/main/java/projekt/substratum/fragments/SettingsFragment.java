@@ -113,9 +113,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 getString(R.string.settings_system_status_certified)) + ")"
         );
         if (!References.spreadYourWingsAndFly(getContext())) {
-            systemStatus.setIcon(getContext().getDrawable(R.drawable.system_status_uncertified));
-        } else {
             systemStatus.setIcon(getContext().getDrawable(R.drawable.system_status_certified));
+        } else {
+            systemStatus.setIcon(getContext().getDrawable(R.drawable.system_status_uncertified));
         }
 
         final CheckBoxPreference forceEnglish = (CheckBoxPreference)

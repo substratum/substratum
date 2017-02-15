@@ -20,13 +20,19 @@ public class WallpaperManager {
                     // Get current lock screen wallpaper to be applied later
                     ParcelFileDescriptor lockFile = wallpaperManager
                             .getWallpaperFile(android.app.WallpaperManager.FLAG_LOCK);
-                    InputStream input = new FileInputStream(lockFile.getFileDescriptor());
-                    // Now apply the wallpapers
-                    wallpaperManager.setStream(new FileInputStream(path), null, true,
-                            android.app.WallpaperManager.FLAG_SYSTEM);
-                    // Reapply previous lock screen wallpaper
-                    wallpaperManager.setStream(input, null, true, android.app.WallpaperManager
-                            .FLAG_LOCK);
+                    if (lockFile != null) {
+                        InputStream input = new FileInputStream(lockFile.getFileDescriptor());
+                        // Now apply the wallpapers
+                        wallpaperManager.setStream(new FileInputStream(path), null, true,
+                                android.app.WallpaperManager.FLAG_SYSTEM);
+                        // Reapply previous lock screen wallpaper
+                        wallpaperManager.setStream(input, null, true, android.app.WallpaperManager
+                                .FLAG_LOCK);
+                    } else {
+                        // No lock screen wallpaper applied, just apply directly
+                        wallpaperManager.setStream(new FileInputStream(path), null, true,
+                                android.app.WallpaperManager.FLAG_SYSTEM);
+                    }
                 } else {
                     wallpaperManager.setStream(new FileInputStream(path));
                 }
@@ -55,12 +61,17 @@ public class WallpaperManager {
                     // Get current lock screen wallpaper to be applied later
                     ParcelFileDescriptor lockFile = wallpaperManager
                             .getWallpaperFile(android.app.WallpaperManager.FLAG_LOCK);
-                    InputStream input = new FileInputStream(lockFile.getFileDescriptor());
-                    // Clear home wallpaper
-                    wallpaperManager.clear(android.app.WallpaperManager.FLAG_SYSTEM);
-                    // Reapply lock screen wallpaper
-                    wallpaperManager.setStream(input, null, true, android.app.WallpaperManager
-                            .FLAG_LOCK);
+                    if (lockFile !=  null) {
+                        InputStream input = new FileInputStream(lockFile.getFileDescriptor());
+                        // Clear home wallpaper
+                        wallpaperManager.clear(android.app.WallpaperManager.FLAG_SYSTEM);
+                        // Reapply lock screen wallpaper
+                        wallpaperManager.setStream(input, null, true, android.app.WallpaperManager
+                                .FLAG_LOCK);
+                    } else {
+                        // No lock screen wallpaper applied, just apply directly
+                        wallpaperManager.clear(android.app.WallpaperManager.FLAG_SYSTEM);
+                    }
                 } else {
                     wallpaperManager.clear();
                 }

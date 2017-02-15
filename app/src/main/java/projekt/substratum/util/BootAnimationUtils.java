@@ -405,7 +405,6 @@ public class BootAnimationUtils {
                 editor.putString("bootanimation_applied", theme_pid);
                 editor.apply();
                 Log.d("BootAnimationUtils", "Boot animation installed!");
-                // TODO: Remove rm -rf call to delete our own cache file
                 FileOperations.delete(mContext, mContext.getCacheDir().getAbsolutePath() +
                         "/BootAnimationCache/AnimationCreator/");
             } else {

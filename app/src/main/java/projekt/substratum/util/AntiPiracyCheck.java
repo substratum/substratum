@@ -14,8 +14,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import projekt.substratum.config.FileOperations;
 import projekt.substratum.config.MasqueradeService;
 import projekt.substratum.config.References;
+import projekt.substratum.config.ThemeManager;
 
 public class AntiPiracyCheck {
 
@@ -136,16 +138,18 @@ public class AntiPiracyCheck {
                             mContext.sendBroadcast(runCommand);
                         } else {
                             for (int i = 0; i < unauthorized_packages.size(); i++) {
-                                References.uninstallOverlay(mContext, unauthorized_packages.get(i));
+                                ThemeManager.uninstallOverlay(mContext, unauthorized_packages.get
+                                        (i));
                             }
                         }
                     } else {
-                        References.mountRW();
+                        FileOperations.mountRW();
                         for (int i = 0; i < final_commands_array.size(); i++) {
-                            References.delete(mContext, References.getInstalledDirectory(mContext,
-                                    final_commands_array.get(i)));
+                            FileOperations.delete(mContext, References.getInstalledDirectory
+                                    (mContext,
+                                            final_commands_array.get(i)));
                         }
-                        References.mountRO();
+                        FileOperations.mountRO();
                     }
                 }
                 return null;

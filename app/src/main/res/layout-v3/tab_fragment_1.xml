@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/theme_information_background"
-    android:fitsSystemWindows="true"
-    tools:context=".MainActivity">
+                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                 xmlns:tools="http://schemas.android.com/tools"
+                                                 android:layout_width="match_parent"
+                                                 android:layout_height="match_parent"
+                                                 android:background="@color/theme_information_background"
+                                                 android:fitsSystemWindows="true"
+                                                 tools:context=".MainActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="-3dp"
-            android:indeterminate="true" />
+            android:indeterminate="true"/>
 
         <RelativeLayout
             android:id="@+id/toggle_zone"
@@ -36,7 +36,7 @@
                 android:paddingTop="5dp"
                 android:text="@string/select_to_toggle_all_overlays"
                 android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp" />
+                android:textSize="15sp"/>
 
             <Spinner
                 android:id="@+id/type3_spinner"
@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="2dp"
                 android:layout_marginStart="15dp"
-                android:layout_toStartOf="@+id/toggle_all_overlays" />
+                android:layout_toStartOf="@+id/toggle_all_overlays"/>
 
             <Switch
                 android:id="@+id/toggle_all_overlays"
@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="7dp"
-                android:layout_marginTop="12dp" />
+                android:layout_marginTop="12dp"/>
 
         </RelativeLayout>
 
@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center_vertical"
             android:layout_marginTop="100dp"
-            android:indeterminate="true" />
+            android:indeterminate="true"/>
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swipeRefreshLayout"
@@ -81,7 +81,7 @@
                 android:layout_marginTop="5dp"
                 android:clipToPadding="false"
                 android:paddingBottom="90dp"
-                android:scrollbars="vertical" />
+                android:scrollbars="vertical"/>
 
         </android.support.v4.widget.SwipeRefreshLayout>
 
@@ -96,13 +96,13 @@
         android:src="@drawable/floating_action_button_icon"
         android:visibility="visible"
         app:backgroundTint="@color/fab_background_color"
-        app:layout_anchorGravity="bottom|right|end" />
+        app:layout_anchorGravity="bottom|right|end"/>
 
     <!-- Overlay that dims the screen -->
     <com.gordonwong.materialsheetfab.DimOverlayFrameLayout
         android:id="@+id/overlay"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"/>
 
     <io.codetail.widget.RevealLinearLayout
         android:layout_width="match_parent"
@@ -128,30 +128,30 @@
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="10dp"
                     android:checked="false"
-                    android:text="@string/fab_menu_swap_toggle" />
+                    android:text="@string/fab_menu_swap_toggle"/>
 
                 <View
                     android:layout_width="@dimen/sheet_width"
                     android:layout_height="1dp"
-                    android:background="@color/fab_menu_divider" />
+                    android:background="@color/fab_menu_divider"/>
 
                 <TextView
                     android:id="@+id/compile_enable_selected"
                     style="@style/TextAppearance.MaterialSheetFab.Sheet.Item"
                     android:drawableStart="@drawable/fab_menu_compile_enable"
-                    android:text="@string/fab_menu_compile_enable" />
+                    android:text="@string/fab_menu_compile_enable"/>
 
                 <TextView
                     android:id="@+id/compile_update_selected"
                     style="@style/TextAppearance.MaterialSheetFab.Sheet.Item"
                     android:drawableStart="@drawable/fab_menu_compile_update"
-                    android:text="@string/fab_menu_compile_update" />
+                    android:text="@string/fab_menu_compile_update"/>
 
                 <TextView
                     android:id="@+id/disable_selected"
                     style="@style/TextAppearance.MaterialSheetFab.Sheet.Item"
                     android:drawableStart="@drawable/fab_menu_disable"
-                    android:text="@string/fab_menu_disable" />
+                    android:text="@string/fab_menu_disable"/>
 
                 <LinearLayout
                     android:id="@+id/enable"
@@ -162,7 +162,7 @@
                         android:id="@+id/enable_selected"
                         style="@style/TextAppearance.MaterialSheetFab.Sheet.Item"
                         android:drawableStart="@drawable/fab_menu_enable"
-                        android:text="@string/fab_menu_enable" />
+                        android:text="@string/fab_menu_enable"/>
                 </LinearLayout>
 
             </LinearLayout>

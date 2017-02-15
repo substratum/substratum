@@ -67,7 +67,10 @@ import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
 import projekt.substratum.adapters.OverlaysAdapter;
+import projekt.substratum.config.ElevatedCommands;
+import projekt.substratum.config.FileOperations;
 import projekt.substratum.config.References;
+import projekt.substratum.config.ThemeManager;
 import projekt.substratum.model.OverlaysInfo;
 import projekt.substratum.services.NotificationButtonReceiver;
 import projekt.substratum.util.CacheCreator;
@@ -80,7 +83,7 @@ import static projekt.substratum.config.References.REFRESH_WINDOW_DELAY;
 import static projekt.substratum.config.References.SUBSTRATUM_LOG;
 import static projekt.substratum.util.MapUtils.sortMapByValues;
 
-public class OverlaysList extends Fragment {
+public class Overlays extends Fragment {
 
     private TextView loader_string;
     private ProgressDialog mProgressDialog;
@@ -178,7 +181,7 @@ public class OverlaysList extends Fragment {
                             mAdapter.notifyDataSetChanged();
                         }
                     } catch (Exception e) {
-                        Log.e("OverlaysList", "Window has lost connection with the host.");
+                        Log.e("Overlays", "Window has lost connection with the host.");
                     }
                 });
 
@@ -385,8 +388,8 @@ public class OverlaysList extends Fragment {
 
                         if (!checkedOverlays.isEmpty()) {
                             for (int i = 0; i < checkedOverlays.size(); i++) {
-                                References.mountRW();
-                                References.delete(getContext(), current_directory +
+                                FileOperations.mountRW();
+                                FileOperations.delete(getContext(), current_directory +
                                         checkedOverlays.get(i).getPackageName() + "." +
                                         checkedOverlays.get(i).getThemeName() + ".apk");
                                 mAdapter.notifyDataSetChanged();
@@ -414,7 +417,7 @@ public class OverlaysList extends Fragment {
                                             R.string.legacy_dialog_soft_reboot_text));
                             alertDialogBuilder
                                     .setPositiveButton(android.R.string.ok,
-                                            (dialog, id12) -> References.reboot());
+                                            (dialog, id12) -> ElevatedCommands.reboot());
                             alertDialogBuilder
                                     .setNegativeButton(R.string.remove_dialog_later, (dialog,
                                                                                       id1) -> {
@@ -665,10 +668,10 @@ public class OverlaysList extends Fragment {
                         }
                     }
                 }
-                References.disableOverlay(context, disableBeforeEnabling);
+                ThemeManager.disableOverlay(context, disableBeforeEnabling);
             }
 
-            if (compile_enable_mode) References.enableOverlay(context, final_command);
+            if (compile_enable_mode) ThemeManager.enableOverlay(context, final_command);
 
             if (final_runner.size() == 0) {
                 if (base_spinner.getSelectedItemPosition() == 0) {
@@ -846,6 +849,7 @@ public class OverlaysList extends Fragment {
             super.onPostExecute(result);
         }
 
+        @SuppressWarnings("ConstantConditions")
         @Override
         protected String doInBackground(String... sUrl) {
             // Grab the current theme_pid's versionName so that we can version our overlays
@@ -1357,12 +1361,6 @@ public class OverlaysList extends Fragment {
                 }
             } else if (enable_mode) {
                 if (final_runner.size() > 0) {
-                    if (References.checkOMSVersion(getContext()) == 3) {
-                        Toast toast = Toast.makeText(getContext(), getString(R
-                                        .string.toast_enabled),
-                                Toast.LENGTH_LONG);
-                        toast.show();
-                    }
                     enable_mode = false;
 
                     if (mixAndMatchMode) {
@@ -1378,12 +1376,12 @@ public class OverlaysList extends Fragment {
                         }
                         progressBar.setVisibility(View.VISIBLE);
                         if (toggle_all.isChecked()) toggle_all.setChecked(false);
-                        References.disableOverlay(getContext(), disableBeforeEnabling);
-                        References.enableOverlay(getContext(), final_command);
+                        ThemeManager.disableOverlay(getContext(), disableBeforeEnabling);
+                        ThemeManager.enableOverlay(getContext(), final_command);
                     } else {
                         progressBar.setVisibility(View.VISIBLE);
                         if (toggle_all.isChecked()) toggle_all.setChecked(false);
-                        References.enableOverlay(mContext, final_command);
+                        ThemeManager.enableOverlay(mContext, final_command);
                     }
 
                     progressBar.setVisibility(View.GONE);
@@ -1421,23 +1419,17 @@ public class OverlaysList extends Fragment {
                             }
                         }
                     }
-                    if (References.checkOMSVersion(getContext()) == 3) {
-                        Toast toast = Toast.makeText(getContext(), getString(R
-                                        .string.toast_disabled),
-                                Toast.LENGTH_LONG);
-                        toast.show();
-                    }
                     disable_mode = false;
 
                     if (mixAndMatchMode) {
                         progressBar.setVisibility(View.VISIBLE);
                         if (toggle_all.isChecked()) toggle_all.setChecked(false);
-                        References.disableOverlay(getContext(), disableBeforeEnabling);
-                        References.enableOverlay(getContext(), final_command);
+                        ThemeManager.disableOverlay(getContext(), disableBeforeEnabling);
+                        ThemeManager.enableOverlay(getContext(), final_command);
                     } else {
                         progressBar.setVisibility(View.VISIBLE);
                         if (toggle_all.isChecked()) toggle_all.setChecked(false);
-                        References.disableOverlay(mContext, final_command);
+                        ThemeManager.disableOverlay(mContext, final_command);
                     }
 
                     progressBar.setVisibility(View.GONE);
@@ -1469,7 +1461,7 @@ public class OverlaysList extends Fragment {
                 alertDialogBuilder
                         .setMessage(getString(R.string.legacy_dialog_soft_reboot_text));
                 alertDialogBuilder
-                        .setPositiveButton(android.R.string.ok, (dialog, id12) -> References
+                        .setPositiveButton(android.R.string.ok, (dialog, id12) -> ElevatedCommands
                                 .reboot());
                 alertDialogBuilder
                         .setNegativeButton(R.string.remove_dialog_later, (dialog, id1) -> {
@@ -1497,8 +1489,8 @@ public class OverlaysList extends Fragment {
                 }
                 File file = new File(current_directory);
                 if (file.exists()) {
-                    References.mountRW();
-                    References.delete(mContext, current_directory);
+                    FileOperations.mountRW();
+                    FileOperations.delete(mContext, current_directory);
                 }
             }
 
@@ -1601,7 +1593,7 @@ public class OverlaysList extends Fragment {
                                 ((sUrl[0].length() != 0) ? "/type3_" + sUrl[0] : "/res"));
                         File destDir = new File(workingDirectory + "/workdir");
                         if (destDir.exists()) {
-                            References.delete(getContext(), destDir.getAbsolutePath());
+                            FileOperations.delete(getContext(), destDir.getAbsolutePath());
                         }
                         FileUtils.copyDirectory(srcDir, destDir);
 
@@ -1618,7 +1610,7 @@ public class OverlaysList extends Fragment {
                                         checkedOverlays.get(i).getSelectedVariantName() + "\"");
                                 Log.d("SubstratumBuilder", "Moving variant file to: " +
                                         targetLocation);
-                                References.copy(getContext(), sourceLocation, targetLocation);
+                                FileOperations.copy(getContext(), sourceLocation, targetLocation);
                             }
 
                             // Type 1b
@@ -1633,7 +1625,7 @@ public class OverlaysList extends Fragment {
                                         checkedOverlays.get(i).getSelectedVariantName2() + "\"");
                                 Log.d("SubstratumBuilder", "Moving variant file to: " +
                                         targetLocation2);
-                                References.copy(getContext(), sourceLocation2, targetLocation2);
+                                FileOperations.copy(getContext(), sourceLocation2, targetLocation2);
                             }
                             // Type 1c
                             if (checkedOverlays.get(i).is_variant_chosen3) {
@@ -1648,7 +1640,7 @@ public class OverlaysList extends Fragment {
                                 Log.d("SubstratumBuilder", "Moving variant file to: " +
                                         targetLocation3);
 
-                                References.copy(getContext(), sourceLocation3, targetLocation3);
+                                FileOperations.copy(getContext(), sourceLocation3, targetLocation3);
                             }
 
                             String packageName =

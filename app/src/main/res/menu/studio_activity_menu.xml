@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+      xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/refresh"
         android:icon="@drawable/toolbar_refresh"
         android:menuCategory="secondary"
         android:orderInCategory="1"
         android:title="@string/menu_refresh"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/open"
         android:icon="@drawable/studio_actionbar_openinapp"
         android:menuCategory="secondary"
         android:orderInCategory="1"
         android:title="@string/menu_open"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="ifRoom"/>
 </menu>

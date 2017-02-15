@@ -21,8 +21,11 @@ import java.util.List;
 
 import projekt.substratum.ProfileErrorInfoActivity;
 import projekt.substratum.R;
+import projekt.substratum.config.FileOperations;
 import projekt.substratum.config.MasqueradeService;
 import projekt.substratum.config.References;
+import projekt.substratum.config.ThemeManager;
+import projekt.substratum.config.WallpaperManager;
 import projekt.substratum.util.ReadOverlaysFile;
 
 import static projekt.substratum.fragments.ProfileFragment.DAY_PROFILE;
@@ -168,13 +171,13 @@ public class ScheduledProfileService extends IntentService {
             File bootanimation = new File(theme, "bootanimation.zip");
             if (bootanimation.exists() &&
                     References.getDeviceEncryptionStatus(mContext) > 1) {
-                References.mountRW();
-                References.move(mContext, "/system/media/bootanimation.zip",
+                FileOperations.mountRW();
+                FileOperations.move(mContext, "/system/media/bootanimation.zip",
                         "/system/madia/bootanimation-backup.zip");
-                References.copy(mContext, bootanimation.getAbsolutePath(),
+                FileOperations.copy(mContext, bootanimation.getAbsolutePath(),
                         "/system/media/bootanimation.zip");
-                References.setPermissions(644, "/system/media/bootanimation.zip");
-                References.mountRO();
+                FileOperations.setPermissions(644, "/system/media/bootanimation.zip");
+                FileOperations.mountRO();
             }
 
             if (References.checkMasqueradeJobService(mContext)) {
@@ -183,21 +186,21 @@ public class ScheduledProfileService extends IntentService {
             } else {
                 // Restore the whole backed up profile back to /data/system/theme/
                 if (theme.exists()) {
-                    References.delete(mContext, "/data/system/theme", false);
-                    References.copyDir(mContext, theme.getAbsolutePath(), "/data/system/theme");
-                    References.setPermissionsRecursively(644, "/data/system/theme/audio");
-                    References.setPermissions(755, "/data/system/theme/audio");
-                    References.setPermissions(755, "/data/system/theme/audio/alarms");
-                    References.setPermissions(755, "/data/system/theme/audio/notifications");
-                    References.setPermissions(755, "/data/system/theme/audio/ringtones");
-                    References.setPermissions(755, "/data/system/theme/audio/ringtones");
-                    References.setPermissionsRecursively(644, "/data/system/theme/fonts/");
-                    References.setPermissions(755, "/data/system/theme/fonts/");
-                    References.setContext("/data/system/theme");
+                    FileOperations.delete(mContext, "/data/system/theme", false);
+                    FileOperations.copyDir(mContext, theme.getAbsolutePath(), "/data/system/theme");
+                    FileOperations.setPermissionsRecursively(644, "/data/system/theme/audio");
+                    FileOperations.setPermissions(755, "/data/system/theme/audio");
+                    FileOperations.setPermissions(755, "/data/system/theme/audio/alarms");
+                    FileOperations.setPermissions(755, "/data/system/theme/audio/notifications");
+                    FileOperations.setPermissions(755, "/data/system/theme/audio/ringtones");
+                    FileOperations.setPermissions(755, "/data/system/theme/audio/ringtones");
+                    FileOperations.setPermissionsRecursively(644, "/data/system/theme/fonts/");
+                    FileOperations.setPermissions(755, "/data/system/theme/fonts/");
+                    FileOperations.setContext("/data/system/theme");
 
-                    References.disableAll(mContext);
-                    References.enableOverlay(mContext, to_be_run);
-                    References.restartSystemUI(mContext);
+                    ThemeManager.disableAll(mContext);
+                    ThemeManager.enableOverlay(mContext, to_be_run);
+                    ThemeManager.restartSystemUI(mContext);
                 }
             }
 
@@ -210,8 +213,8 @@ public class ScheduledProfileService extends IntentService {
             File lockWall = new File(lockWallPath);
             if (homeWall.exists() || lockWall.exists()) {
                 try {
-                    References.setWallpaper(mContext, homeWallPath, "home");
-                    References.setWallpaper(mContext, lockWallPath, "lock");
+                    WallpaperManager.setWallpaper(mContext, homeWallPath, "home");
+                    WallpaperManager.setWallpaper(mContext, lockWallPath, "lock");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

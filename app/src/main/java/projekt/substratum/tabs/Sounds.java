@@ -40,14 +40,15 @@ import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
 import projekt.substratum.adapters.SoundsAdapter;
+import projekt.substratum.config.FileOperations;
 import projekt.substratum.config.References;
 import projekt.substratum.model.SoundsInfo;
 import projekt.substratum.util.RecyclerItemClickListener;
-import projekt.substratum.util.SoundsHandler;
+import projekt.substratum.util.SoundUtils;
 
-import static projekt.substratum.util.SoundsHandler.finishReceiver;
+import static projekt.substratum.util.SoundUtils.finishReceiver;
 
-public class SoundPackager extends Fragment {
+public class Sounds extends Fragment {
 
     private String theme_pid;
     private ViewGroup root;
@@ -88,7 +89,7 @@ public class SoundPackager extends Fragment {
             if (soundsSelector.getSelectedItemPosition() == 1) {
                 new SoundsClearer().execute("");
             } else {
-                new SoundsHandler().execute(nsv, soundsSelector.getSelectedItem()
+                new SoundUtils().execute(nsv, soundsSelector.getSelectedItem()
                         .toString(), getContext(), theme_pid);
             }
         });
@@ -186,7 +187,7 @@ public class SoundPackager extends Fragment {
             });
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e("SoundsHandler", "There is no sounds.zip found within the assets " +
+            Log.e("SoundUtils", "There is no sounds.zip found within the assets " +
                     "of this theme!");
         }
 
@@ -207,7 +208,7 @@ public class SoundPackager extends Fragment {
                         }
                         previous_position = position;
                     } catch (IOException ioe) {
-                        Log.e("SoundsHandler", "Playback has failed for " + wordList.get
+                        Log.e("SoundUtils", "Playback has failed for " + wordList.get
                                 (position).getTitle());
                     }
                 })
@@ -263,7 +264,7 @@ public class SoundPackager extends Fragment {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            new SoundsHandler().SoundsClearer(getContext());
+            new SoundUtils().SoundsClearer(getContext());
             return null;
         }
     }
@@ -302,7 +303,7 @@ public class SoundPackager extends Fragment {
                 }
                 progressBar.setVisibility(View.GONE);
             } catch (Exception e) {
-                Log.e("SoundsHandler", "Window was destroyed before AsyncTask could " +
+                Log.e("SoundUtils", "Window was destroyed before AsyncTask could " +
                         "perform postExecute()");
             }
         }
@@ -313,18 +314,19 @@ public class SoundPackager extends Fragment {
                 File cacheDirectory = new File(getContext().getCacheDir(), "/SoundsCache/");
                 if (!cacheDirectory.exists()) {
                     boolean created = cacheDirectory.mkdirs();
-                    if (created) Log.d("SoundsHandler", "Sounds folder created");
+                    if (created) Log.d("SoundUtils", "Sounds folder created");
                 }
                 File cacheDirectory2 = new File(getContext().getCacheDir(), "/SoundCache/" +
                         "sounds_preview/");
                 if (!cacheDirectory2.exists()) {
                     boolean created = cacheDirectory2.mkdirs();
-                    if (created) Log.d("SoundsHandler", "Sounds work folder created");
+                    if (created) Log.d("SoundUtils", "Sounds work folder created");
                 } else {
-                    References.delete(getContext(), getContext().getCacheDir().getAbsolutePath() +
+                    FileOperations.delete(getContext(), getContext().getCacheDir()
+                            .getAbsolutePath() +
                             "/SoundsCache/sounds_preview/");
                     boolean created = cacheDirectory2.mkdirs();
-                    if (created) Log.d("SoundsHandler", "Sounds folder recreated");
+                    if (created) Log.d("SoundUtils", "Sounds folder recreated");
                 }
 
                 // Copy the sounds.zip from assets/sounds of the theme's assets
@@ -341,7 +343,7 @@ public class SoundPackager extends Fragment {
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Log.e("SoundsHandler", "There is no sounds.zip found within the" +
+                    Log.e("SoundUtils", "There is no sounds.zip found within the" +
                             " assets of this theme!");
                 }
 
@@ -357,7 +359,7 @@ public class SoundPackager extends Fragment {
                 listFilesForFolder(testDirectory);
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.e("SoundsHandler", "Unexpectedly lost connection to the application host");
+                Log.e("SoundUtils", "Unexpectedly lost connection to the application host");
             }
             return null;
         }
@@ -399,7 +401,7 @@ public class SoundPackager extends Fragment {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.e("SoundsHandler",
+                Log.e("SoundUtils",
                         "An issue has occurred while attempting to decompress this archive.");
             }
         }

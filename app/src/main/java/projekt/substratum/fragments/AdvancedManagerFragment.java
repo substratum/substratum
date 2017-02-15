@@ -35,7 +35,10 @@ import java.util.List;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.R;
 import projekt.substratum.adapters.OverlayManagerAdapter;
+import projekt.substratum.config.ElevatedCommands;
+import projekt.substratum.config.FileOperations;
 import projekt.substratum.config.References;
+import projekt.substratum.config.ThemeManager;
 import projekt.substratum.model.OverlayManager;
 import projekt.substratum.util.FloatingActionMenu;
 import projekt.substratum.util.ReadOverlays;
@@ -129,7 +132,7 @@ public class AdvancedManagerFragment extends Fragment {
                             mAdapter.notifyDataSetChanged();
                         }
                     } catch (Exception e) {
-                        Log.e("OverlaysList", "Window has lost connection with the host.");
+                        Log.e("Overlays", "Window has lost connection with the host.");
                     }
                 });
 
@@ -154,7 +157,7 @@ public class AdvancedManagerFragment extends Fragment {
                     toast.show();
 
                     // The magic goes here
-                    References.disableOverlay(getContext(), data);
+                    ThemeManager.disableOverlay(getContext(), data);
 
                     if (References.checkOMSVersion(getContext()) == 7 &&
                             !data.contains("projekt.substratum")) {
@@ -173,19 +176,19 @@ public class AdvancedManagerFragment extends Fragment {
                     for (int i = 0; i < overlaysList.size(); i++) {
                         if (overlaysList.get(i).isSelected()) {
                             Log.e("overlays", overlaysList.get(i).getName());
-                            References.mountRW();
+                            FileOperations.mountRW();
                             if (References.inNexusFilter()) {
-                                References.mountRWVendor();
-                                References.delete(getContext(), "/system/overlay/" +
+                                FileOperations.mountRWVendor();
+                                FileOperations.delete(getContext(), "/system/overlay/" +
                                         overlaysList.get(i).getName() + ".apk");
-                                References.delete(getContext(), "/vendor/overlay/" +
+                                FileOperations.delete(getContext(), "/vendor/overlay/" +
                                         overlaysList.get(i).getName() + ".apk");
-                                References.mountROVendor();
+                                FileOperations.mountROVendor();
                             } else {
-                                References.delete(getContext(), "/system/vendor/overlay/" +
+                                FileOperations.delete(getContext(), "/system/vendor/overlay/" +
                                         overlaysList.get(i).getName() + ".apk");
                             }
-                            References.mountRO();
+                            FileOperations.mountRO();
                         }
                     }
 
@@ -227,7 +230,7 @@ public class AdvancedManagerFragment extends Fragment {
                             .setMessage(getString(R.string.legacy_dialog_soft_reboot_text));
                     alertDialogBuilder
                             .setPositiveButton(android.R.string.ok,
-                                    (dialog, id) -> References.reboot());
+                                    (dialog, id) -> ElevatedCommands.reboot());
                     alertDialogBuilder.setCancelable(false);
                     AlertDialog alertDialog = alertDialogBuilder.create();
                     alertDialog.show();
@@ -267,7 +270,7 @@ public class AdvancedManagerFragment extends Fragment {
                     }
 
                     // The magic goes here
-                    References.enableOverlay(getContext(), data);
+                    ThemeManager.enableOverlay(getContext(), data);
 
                     if (References.checkOMSVersion(getContext()) == 7 &&
                             !data.contains("projekt.substratum")) {
@@ -311,7 +314,7 @@ public class AdvancedManagerFragment extends Fragment {
                 toast.show();
 
                 // The magic goes here
-                References.uninstallOverlay(getContext(), data);
+                ThemeManager.uninstallOverlay(getContext(), data);
 
                 if (References.checkOMSVersion(getContext()) == 7 &&
                         !data.contains("projekt.substratum")) {

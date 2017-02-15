@@ -22,6 +22,7 @@ public class AOPTCheck {
 
     private Context mContext;
 
+    @SuppressWarnings("EqualsBetweenInconvertibleTypes")
     public void injectAOPT(Context context, Boolean forced) {
         mContext = context;
 

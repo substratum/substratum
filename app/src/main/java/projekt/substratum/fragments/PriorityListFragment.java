@@ -31,6 +31,7 @@ import java.util.List;
 import projekt.substratum.R;
 import projekt.substratum.adapters.PrioritiesAdapter;
 import projekt.substratum.config.References;
+import projekt.substratum.config.ThemeManager;
 import projekt.substratum.model.Priorities;
 import projekt.substratum.model.PrioritiesItem;
 
@@ -81,7 +82,7 @@ public class PriorityListFragment extends Fragment {
         final ArrayList<String> workable_list = new ArrayList<>();
         Process nativeApp = null;
         try {
-            nativeApp = Runtime.getRuntime().exec(References.listAllOverlays());
+            nativeApp = Runtime.getRuntime().exec(ThemeManager.listAllOverlays);
 
             try (OutputStream stdin = nativeApp.getOutputStream();
                  InputStream stderr = nativeApp.getErrorStream();
@@ -100,18 +101,10 @@ public class PriorityListFragment extends Fragment {
                         } else {
                             if (current_header.equals(obtained_key)) {
                                 if (line.contains("[x]")) {
-                                    int version = References.checkOMSVersion(getContext());
-                                    if (version == 3) {
-                                        prioritiesList.add(new Priorities(line.substring(8),
-                                                References.grabAppIcon(getContext(),
-                                                        current_header)));
-                                        workable_list.add(line.substring(8));
-                                    } else if (version == 7) {
-                                        prioritiesList.add(new Priorities(line.substring(4),
-                                                References.grabAppIcon(getContext(),
-                                                        current_header)));
-                                        workable_list.add(line.substring(4));
-                                    }
+                                    prioritiesList.add(new Priorities(line.substring(4),
+                                            References.grabAppIcon(getContext(),
+                                                    current_header)));
+                                    workable_list.add(line.substring(4));
                                 } else if (!line.contains("[ ]")) {
                                     break;
                                 }
@@ -198,7 +191,7 @@ public class PriorityListFragment extends Fragment {
                         .show();
             }
             headerProgress.setVisibility(View.VISIBLE);
-            References.setPriority(getContext(), workable_list);
+            ThemeManager.setPriority(getContext(), workable_list);
             if (References.checkOMSVersion(getContext()) == 7 &&
                     !workable_list.contains("projekt.substratum")) {
                 Handler handler = new Handler();

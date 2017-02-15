@@ -52,8 +52,10 @@ import eightbitlab.com.blurview.BlurView;
 import eightbitlab.com.blurview.RenderScriptBlur;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.adapters.IconPackAdapter;
+import projekt.substratum.config.ElevatedCommands;
 import projekt.substratum.config.MasqueradeService;
 import projekt.substratum.config.References;
+import projekt.substratum.config.ThemeManager;
 import projekt.substratum.model.IconInfo;
 import projekt.substratum.util.ReadOverlays;
 import projekt.substratum.util.SubstratumIconBuilder;
@@ -361,7 +363,7 @@ public class StudioPreviewActivity extends AppCompatActivity {
         new loadIconPack().execute("");
     }
 
-    public class IconPackInstaller extends AsyncTask<String, Integer, String> {
+    private class IconPackInstaller extends AsyncTask<String, Integer, String> {
 
         @Override
         protected void onPreExecute() {
@@ -428,10 +430,10 @@ public class StudioPreviewActivity extends AppCompatActivity {
                 }
                 if (disable_me.size() > 0) {
                     if (final_commands.length() > 0) final_commands = final_commands + " && " +
-                            References.disableOverlay();
+                            ThemeManager.disableOverlay;
                     for (int j = 0; j < disable_me.size(); j++) {
                         if (final_commands.length() <= 0) {
-                            final_commands = References.disableOverlay() + " " +
+                            final_commands = ThemeManager.disableOverlay + " " +
                                     disable_me.get(j);
                         } else {
                             final_commands = final_commands + " " + disable_me.get(j);
@@ -440,10 +442,10 @@ public class StudioPreviewActivity extends AppCompatActivity {
                 }
                 if (enable_me.size() > 0) {
                     if (final_commands.length() > 0) final_commands = final_commands + " && " +
-                            References.enableOverlay();
+                            ThemeManager.enableOverlay;
                     for (int h = 0; h < enable_me.size(); h++) {
                         if (final_commands.length() <= 0) {
-                            final_commands = References.enableOverlay() + " " +
+                            final_commands = ThemeManager.enableOverlay + " " +
                                     enable_me.get(h);
                         } else {
                             final_commands = final_commands + " " + enable_me.get(h);
@@ -457,22 +459,16 @@ public class StudioPreviewActivity extends AppCompatActivity {
                         .setMessage(R.string.studio_refresh_dialog_content)
                         .setCancelable(false)
                         .setPositiveButton(R.string.dialog_ok, (dialog2, i2) -> {
-                            String finalized = final_runner;
                             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
                                     getApplicationContext());
                             prefs.edit().putString("installed_icon_pack", current_pack).apply();
 
                             if (References.isPackageInstalled(getApplicationContext(),
                                     "masquerade.substratum")) {
-                                References.restartMasquerade();
+                                ElevatedCommands.restartMasquerade();
                                 if (DEBUG)
                                     Log.e(References.SUBSTRATUM_ICON_BUILDER,
                                             "Initializing the Masquerade theme provider...");
-                                if (finalized.contains("pm install") &&
-                                        References.checkOMSVersion(getApplicationContext()) == 3) {
-                                    finalized = finalized +
-                                            " && " + References.refreshWindows();
-                                }
                                 Intent runCommand = MasqueradeService.getMasquerade
                                         (getApplicationContext());
                                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
@@ -480,8 +476,8 @@ public class StudioPreviewActivity extends AppCompatActivity {
                                 ArrayList<String> final_array = new ArrayList<>();
                                 final_array.add(0, References.grabPackageName(
                                         getApplicationContext(), current_pack));
-                                final_array.add(1, finalized);
-                                final_array.add(2, (finalized.contains("projekt.substratum") ?
+                                final_array.add(1, final_runner);
+                                final_array.add(2, (final_runner.contains("projekt.substratum") ?
                                         String.valueOf(MAIN_WINDOW_REFRESH_DELAY) :
                                         String.valueOf(0)));
                                 final_array.add(3, String.valueOf(FIRST_WINDOW_REFRESH_DELAY));
@@ -522,7 +518,7 @@ public class StudioPreviewActivity extends AppCompatActivity {
                         Log.e(References.SUBSTRATUM_ICON_BUILDER, "Sent the icon for disabling : " +
                                 activated_overlays.get(j));
                         disable_me.add(
-                                References.disableOverlay() + " " + activated_overlays.get(j));
+                                ThemeManager.disableOverlay + " " + activated_overlays.get(j));
                     }
                 }
             }
@@ -536,7 +532,7 @@ public class StudioPreviewActivity extends AppCompatActivity {
                         icons.get(i).getPackageDrawable().equals("null")) {
                     try {
                         // We must disable the icon from any further resource withdrawals
-                        References.runCommands(References.disableOverlay() + " " +
+                        ElevatedCommands.runCommands(ThemeManager.disableOverlay + " " +
                                 icons.get(i).getPackageName() + ".icon");
                         Thread.sleep(1500);
 
@@ -648,8 +644,8 @@ public class StudioPreviewActivity extends AppCompatActivity {
                                             resources,
                                             drawableMask);
 
-                                    /**
-                                     * Begin process of the mask icon
+                                    /*
+                                      Begin process of the mask icon
                                      */
                                     // Create an image with the same size as the base
                                     Bitmap imageWithBG = Bitmap.createBitmap(
@@ -683,9 +679,9 @@ public class StudioPreviewActivity extends AppCompatActivity {
                                             0, 0, imageWithBG.getWidth(),
                                             imageWithBG.getHeight());
 
-                                    /**
-                                     * Then finally perform the masking on the processed mask
-                                     * overlay
+                                    /*
+                                      Then finally perform the masking on the processed mask
+                                      overlay
                                      */
                                     Bitmap result = Bitmap.createBitmap(
                                             bMask.getWidth(),
@@ -879,7 +875,7 @@ public class StudioPreviewActivity extends AppCompatActivity {
         }
     }
 
-    public class loadIconPack extends AsyncTask<String, Integer, String> {
+    private class loadIconPack extends AsyncTask<String, Integer, String> {
         @Override
         protected void onPreExecute() {
             progressCircle.setVisibility(View.VISIBLE);
@@ -959,16 +955,16 @@ public class StudioPreviewActivity extends AppCompatActivity {
 
                         String[] component = parse.split("/"); // Remove the dash
                         if (component.length == 2) {
-                            /**
-                             * Icon Pack Studio -- Best Match System
-                             *
-                             * Only if the ComponentInfo is parsed properly, for example:
-                             * com.android.quicksearchbox/com.android.quicksearchbox.SearchActivity
-                             *
-                             * Check if the HashMap from the active intents list match up with the
-                             * one in the app filter, and only accept it ONCE!
-                             *
-                             * This also filters out icon packs from appearing on the list forcibly
+                            /*
+                              Icon Pack Studio -- Best Match System
+
+                              Only if the ComponentInfo is parsed properly, for example:
+                              com.android.quicksearchbox/com.android.quicksearchbox.SearchActivity
+
+                              Check if the HashMap from the active intents list match up with the
+                              one in the app filter, and only accept it ONCE!
+
+                              This also filters out icon packs from appearing on the list forcibly
                              */
                             if (hmap.get(component[0]) != null &&
                                     hmap.get(component[0]).equals(component[1]) &&

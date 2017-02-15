@@ -14,6 +14,7 @@ import android.util.Log;
 
 import projekt.substratum.R;
 import projekt.substratum.config.References;
+import projekt.substratum.config.ThemeManager;
 import projekt.substratum.util.SubstratumThemeUpdater;
 
 public class ThemeCacher extends BroadcastReceiver {
@@ -71,7 +72,7 @@ public class ThemeCacher extends BroadcastReceiver {
                                 notificationManager.notify(
                                         References.notification_id, notification);
 
-                                References.uninstallOverlay(mContext, package_name);
+                                ThemeManager.uninstallOverlay(mContext, package_name);
                                 return false;
                             }
                         }

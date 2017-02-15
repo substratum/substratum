@@ -18,7 +18,10 @@ import java.io.PrintWriter;
 import java.util.Arrays;
 
 import kellinwood.security.zipsigner.ZipSigner;
+import projekt.substratum.config.CompilerCommands;
+import projekt.substratum.config.FileOperations;
 import projekt.substratum.config.References;
+import projekt.substratum.config.ThemeManager;
 
 public class SubstratumBuilder {
 
@@ -47,7 +50,7 @@ public class SubstratumBuilder {
                                        int typeMode, boolean legacySwitch, Context context) {
         String commands;
         if (typeMode == 1) {
-            commands = CommandCompiler.createAOPTShellCommands(
+            commands = CompilerCommands.createAOPTShellCommands(
                     work_area,
                     targetPkg,
                     overlay_package,
@@ -57,7 +60,7 @@ public class SubstratumBuilder {
                     context);
         } else {
             if (variant != null) {
-                commands = CommandCompiler.createAOPTShellCommands(
+                commands = CompilerCommands.createAOPTShellCommands(
                         work_area,
                         targetPkg,
                         overlay_package,
@@ -66,7 +69,7 @@ public class SubstratumBuilder {
                         additional_variant,
                         context);
             } else {
-                commands = CommandCompiler.createAOPTShellCommands(
+                commands = CompilerCommands.createAOPTShellCommands(
                         work_area,
                         targetPkg,
                         overlay_package,
@@ -150,6 +153,7 @@ public class SubstratumBuilder {
         return false;
     }
 
+    @SuppressWarnings("ConstantConditions")
     public void beginAction(Context context, String theme_pid, String overlay_package, String
             theme_name, String variant, String additional_variant,
                             String base_variant, String versionName, Boolean theme_oms, String
@@ -262,7 +266,7 @@ public class SubstratumBuilder {
                 if (!created)
                     if (variant != null) {
                         String manifest =
-                                CommandCompiler.createOverlayManifest(
+                                CompilerCommands.createOverlayManifest(
                                         context,
                                         overlay_package,
                                         parse2_themeName,
@@ -279,7 +283,7 @@ public class SubstratumBuilder {
                     } else {
                         if (base_variant != null) {
                             String manifest =
-                                    CommandCompiler.createOverlayManifest(
+                                    CompilerCommands.createOverlayManifest(
                                             context,
                                             overlay_package,
                                             parse2_themeName,
@@ -295,7 +299,7 @@ public class SubstratumBuilder {
                             pw.write(manifest);
                         } else {
                             String manifest =
-                                    CommandCompiler.createOverlayManifest(
+                                    CompilerCommands.createOverlayManifest(
                                             context,
                                             overlay_package,
                                             parse2_themeName,
@@ -348,7 +352,7 @@ public class SubstratumBuilder {
         if (!has_errored_out) {
             try {
                 // Delete the previous APK if it exists in the dashboard folder
-                References.delete(context, Environment.getExternalStorageDirectory()
+                FileOperations.delete(context, Environment.getExternalStorageDirectory()
                         .getAbsolutePath() +
                         "/.substratum/" + overlay_package + "." + parse2_themeName +
                         "-signed.apk");
@@ -384,13 +388,15 @@ public class SubstratumBuilder {
             if (theme_oms) {
                 try {
                     if (variant != null) {
-                        References.installOverlay(context, Environment.getExternalStorageDirectory()
+                        ThemeManager.installOverlay(context, Environment
+                                .getExternalStorageDirectory()
                                 .getAbsolutePath() + "/.substratum/" +
                                 overlay_package + "." + parse2_themeName +
                                 "-signed.apk");
                         Log.d(References.SUBSTRATUM_BUILDER, "Silently installing APK...");
                     } else {
-                        References.installOverlay(context, Environment.getExternalStorageDirectory()
+                        ThemeManager.installOverlay(context, Environment
+                                .getExternalStorageDirectory()
                                 .getAbsolutePath() +
                                 "/.substratum/" + overlay_package + "." +
                                 parse2_themeName + "-signed.apk");
@@ -414,52 +420,52 @@ public class SubstratumBuilder {
                         ((References.inNexusFilter()) ? vendor_partition :
                                 vendor_location);
 
-                References.mountRW();
+                FileOperations.mountRW();
                 File vendor = new File(current_vendor);
                 if (!vendor.exists()) {
                     if (current_vendor.equals(vendor_location)) {
-                        References.createNewFolder(current_vendor);
+                        FileOperations.createNewFolder(current_vendor);
                     } else {
-                        References.mountRWVendor();
-                        References.createNewFolder(vendor_symlink);
-                        References.createNewFolder(vendor_partition);
-                        References.mountROVendor();
+                        FileOperations.mountRWVendor();
+                        FileOperations.createNewFolder(vendor_symlink);
+                        FileOperations.createNewFolder(vendor_partition);
+                        FileOperations.mountROVendor();
                     }
                 }
                 if (current_vendor.equals(vendor_location)) {
-                    References.move(context, Environment.getExternalStorageDirectory()
+                    FileOperations.move(context, Environment.getExternalStorageDirectory()
                             .getAbsolutePath() + "/.substratum/" + overlay_package +
                             "." + parse2_themeName + "-signed.apk", vendor_location +
                             overlay_package + "." + parse2_themeName + ".apk");
-                    References.setPermissionsRecursively(644, vendor_location);
-                    References.setPermissions(755, vendor_location);
-                    References.setContext(vendor_location);
+                    FileOperations.setPermissionsRecursively(644, vendor_location);
+                    FileOperations.setPermissions(755, vendor_location);
+                    FileOperations.setContext(vendor_location);
                 } else {
-                    References.mountRWVendor();
+                    FileOperations.mountRWVendor();
                     // On nexus devices, put framework overlay to /vendor/overlay/
                     if (overlay_package.equals("android")) {
                         String android_overlay = vendor_partition + "/" + overlay_package + "."
                                 + parse2_themeName + ".apk";
-                        References.move(context, Environment.getExternalStorageDirectory()
+                        FileOperations.move(context, Environment.getExternalStorageDirectory()
                                 .getAbsolutePath() + "/.substratum/" + overlay_package +
                                 "." + parse2_themeName + "-signed.apk", android_overlay);
                     } else {
                         String overlay = vendor_symlink + "/" + overlay_package + "." +
                                 parse2_themeName + ".apk";
-                        References.move(context, Environment.getExternalStorageDirectory()
+                        FileOperations.move(context, Environment.getExternalStorageDirectory()
                                 .getAbsolutePath() + "/.substratum/" + overlay_package +
                                 "." + parse2_themeName + "-signed.apk", overlay);
-                        References.symlink(overlay, vendor_partition);
+                        FileOperations.symlink(overlay, vendor_partition);
                     }
-                    References.setPermissionsRecursively(644, vendor_symlink);
-                    References.setPermissionsRecursively(644, vendor_partition);
-                    References.setPermissions(755, vendor_symlink);
-                    References.setPermissions(755, vendor_partition);
-                    References.setContext(vendor_symlink);
-                    References.setContext(vendor_partition);
-                    References.mountROVendor();
+                    FileOperations.setPermissionsRecursively(644, vendor_symlink);
+                    FileOperations.setPermissionsRecursively(644, vendor_partition);
+                    FileOperations.setPermissions(755, vendor_symlink);
+                    FileOperations.setPermissions(755, vendor_partition);
+                    FileOperations.setContext(vendor_symlink);
+                    FileOperations.setContext(vendor_partition);
+                    FileOperations.mountROVendor();
                 }
-                References.mountRO();
+                FileOperations.mountRO();
             }
         }
     }

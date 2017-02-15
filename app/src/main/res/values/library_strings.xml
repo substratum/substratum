@@ -3,7 +3,7 @@
 <resources>
     <!-- http://def-builder.mikepenz.com/ -->
     <!-- commons-io -->
-    <string name="define_commons_io" />
+    <string name="define_commons_io"/>
     <!-- Author section -->
     <string name="library_commons_io_author" translatable="false">Apache</string>
     <string name="library_commons_io_authorWebsite" translatable="false">
@@ -29,7 +29,7 @@
     <string name="library_commons_io_licenseId" translatable="false">apache_2_0</string>
 
     <!-- FAB Speed Dial -->
-    <string name="define_fab_speed_dial" />
+    <string name="define_fab_speed_dial"/>
     <!-- Author section -->
     <string name="library_fab_speed_dial_author" translatable="false">Yavor Ivanov</string>
     <string name="library_fab_speed_dial_authorWebsite" translatable="false">
@@ -57,7 +57,7 @@
     <string name="library_fab_speed_dial_licenseId" translatable="false">apache_2_0</string>
 
     <!-- Gesture RecyclerView -->
-    <string name="define_gesturerecycler" />
+    <string name="define_gesturerecycler"/>
     <!-- Author section -->
     <string name="library_gesturerecycler_author" translatable="false">Paweł Surówka</string>
     <string name="library_gesturerecycler_authorWebsite" translatable="false">
@@ -86,7 +86,7 @@
     <string name="library_gesturerecycler_licenseId" translatable="false">apache_2_0</string>
 
     <!-- KenBurnsView -->
-    <string name="define_kenburnsview" />
+    <string name="define_kenburnsview"/>
     <!-- Author section -->
     <string name="library_kenburnsview_author" formatted="false">Flávio Faria</string>
     <string name="library_kenburnsview_authorWebsite" formatted="false">
@@ -115,7 +115,7 @@
     <string name="library_kenburnsview_licenseId" translatable="false">apache_2_0</string>
 
     <!-- libsuperuser -->
-    <string name="define_libsuperuser" />
+    <string name="define_libsuperuser"/>
     <!-- Author section -->
     <string name="library_libsuperuser_author" translatable="false">Chainfire</string>
     <string name="library_libsuperuser_authorWebsite" translatable="false">http://su.chainfire.eu/
@@ -142,7 +142,7 @@
     <string name="library_libsuperuser_licenseId" translatable="false">apache_2_0</string>
 
     <!-- Material Progress Bar -->
-    <string name="define_materialprogressbar" />
+    <string name="define_materialprogressbar"/>
     <!-- Author section -->
     <string name="library_materialprogressbar_author" translatable="false">Zhang Hai</string>
     <string name="library_materialprogressbar_authorWebsite" translatable="false">
@@ -172,7 +172,7 @@
     <string name="library_materialprogressbar_licenseId" translatable="false">apache_2_0</string>
 
     <!-- Material Sheet Fab -->
-    <string name="define_materialsheetfab" />
+    <string name="define_materialsheetfab"/>
     <!-- Author section -->
     <string name="library_materialsheetfab_author" translatable="false">Gordon Wong</string>
     <string name="library_materialsheetfab_authorWebsite" translatable="false">
@@ -202,7 +202,7 @@
     <string name="library_materialsheetfab_licenseId" translatable="false">mit</string>
 
     <!-- Welcome -->
-    <string name="define_welcome_android" />
+    <string name="define_welcome_android"/>
     <!-- Author section -->
     <string name="library_welcome_android_author" translatable="false">Stephen Tuso</string>
     <string name="library_welcome_android_authorWebsite" translatable="false">
@@ -229,7 +229,7 @@
     <string name="library_welcome_android_licenseId" translatable="false">apache_2_0</string>
 
     <!-- ZipSigner -->
-    <string name="define_zipsigner" />
+    <string name="define_zipsigner"/>
     <!-- Author section -->
     <string name="library_zipsigner_author" translatable="false">Ken Ellinwood</string>
     <string name="library_zipsigner_authorWebsite" translatable="false">
@@ -256,7 +256,7 @@
     <string name="library_zipsigner_licenseId" translatable="false">apache_2_0</string>
 
     <!-- ZT-Zip -->
-    <string name="define_zt_zip" />
+    <string name="define_zt_zip"/>
     <!-- Author section -->
     <string name="library_zt_zip_author" translatable="false">ZeroTurnAround</string>
     <string name="library_zt_zip_authorWebsite" translatable="false">http://zeroturnaround.com/
@@ -282,7 +282,7 @@
     <string name="library_zt_zip_licenseId" translatable="false">apache_2_0</string>
 
     <!-- AV Loading Indicator View -->
-    <string name="define_avloadingindicatorview" />
+    <string name="define_avloadingindicatorview"/>
     <!-- Author section -->
     <string name="library_avloadingindicatorview_author">Jack Wang</string>
     <string name="library_avloadingindicatorview_authorWebsite">http://hlong.xyz/</string>
@@ -306,7 +306,7 @@
     <string name="library_avloadingindicatorview_licenseId">apache_2_0</string>
 
     <!-- BlurView -->
-    <string name="define_blurview" />
+    <string name="define_blurview"/>
     <!-- Author section -->
     <string name="library_blurview_author" translatable="false">Dmitry Saviuk</string>
     <string name="library_blurview_authorWebsite" translatable="false"></string>
@@ -330,7 +330,7 @@
     <string name="library_blurview_licenseId" translatable="false">apache_2_0</string>
 
     <!-- Android Image Cropper -->
-    <string name="define_androidimagecropper" />
+    <string name="define_androidimagecropper"/>
     <!-- Author section -->
     <string name="library_androidimagecropper_author" translatable="false">ArthurHub</string>
     <string name="library_androidimagecropper_authorWebsite" translatable="false"></string>
@@ -359,7 +359,7 @@
     <string name="library_androidimagecropper_licenseId" translatable="false">apache_2_0</string>
 
     <!-- Jike Gallery -->
-    <string name="define_jikegallery" />
+    <string name="define_jikegallery"/>
     <!-- Author section -->
     <string name="library_jikegallery_author">Jeason Wong</string>
     <string name="library_jikegallery_authorWebsite">http://wangyuwei.me/</string>
@@ -377,7 +377,7 @@
     <string name="library_jikegallery_licenseId">apache_2_0</string>
 
     <!-- ExpandableLayout -->
-    <string name="define_expandablelayout" />
+    <string name="define_expandablelayout"/>
     <!-- Author section -->
     <string name="library_expandablelayout_author" translatable="false">Daniel Cachapa</string>
     <string name="library_expandablelayout_authorWebsite" translatable="false">https://github.com/cachapa</string>

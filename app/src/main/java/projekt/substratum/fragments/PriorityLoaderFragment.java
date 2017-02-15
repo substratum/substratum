@@ -30,6 +30,7 @@ import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.R;
 import projekt.substratum.adapters.PrioritiesAdapter;
 import projekt.substratum.config.References;
+import projekt.substratum.config.ThemeManager;
 import projekt.substratum.model.Priorities;
 import projekt.substratum.model.PrioritiesItem;
 
@@ -121,7 +122,7 @@ public class PriorityLoaderFragment extends Fragment {
         protected String doInBackground(String... sUrl) {
             Process nativeApp = null;
             try {
-                nativeApp = Runtime.getRuntime().exec(References.listAllOverlays());
+                nativeApp = Runtime.getRuntime().exec(ThemeManager.listAllOverlays);
                 try (OutputStream stdin = nativeApp.getOutputStream();
                      InputStream stderr = nativeApp.getErrorStream();
                      InputStream stdout = nativeApp.getInputStream();

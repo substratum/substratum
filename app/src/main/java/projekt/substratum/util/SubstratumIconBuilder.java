@@ -21,7 +21,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import kellinwood.security.zipsigner.ZipSigner;
+import projekt.substratum.config.CompilerCommands;
+import projekt.substratum.config.FileOperations;
 import projekt.substratum.config.References;
+import projekt.substratum.config.ThemeManager;
 
 public class SubstratumIconBuilder {
 
@@ -120,7 +123,7 @@ public class SubstratumIconBuilder {
         File workArea = new File(work_area);
         if (new File(work_area).exists()) {
             // Every time this executes, ALWAYS reset the previous set up
-            References.delete(context, work_area);
+            FileOperations.delete(context, work_area);
             boolean created = workArea.mkdir();
             if (!created) Log.e(References.SUBSTRATUM_ICON_BUILDER,
                     "Failed to create directory structure");
@@ -138,7 +141,7 @@ public class SubstratumIconBuilder {
 
         File res = new File(work_area + "/res");
         if (res.exists()) {
-            References.delete(context, res.getAbsolutePath());
+            FileOperations.delete(context, res.getAbsolutePath());
             boolean created = res.mkdir();
             if (!created) Log.e(References.SUBSTRATUM_ICON_BUILDER,
                     "Failed to create directory structure");
@@ -235,7 +238,7 @@ public class SubstratumIconBuilder {
                  PrintWriter pw = new PrintWriter(bw)) {
                 Boolean created = root.createNewFile();
                 if (!created) {
-                    String manifest = CommandCompiler.createIconOverlayManifest(
+                    String manifest = CompilerCommands.createIconOverlayManifest(
                             context,
                             overlay_package,
                             theme_pack,
@@ -332,7 +335,7 @@ public class SubstratumIconBuilder {
         if (!has_errored_out) {
             try {
                 // Delete the previous APK if it exists in the dashboard folder
-                References.delete(context, Environment.getExternalStorageDirectory()
+                FileOperations.delete(context, Environment.getExternalStorageDirectory()
                         .getAbsolutePath() +
                         "/.substratum/" + overlay_package + ".icon-signed.apk");
 
@@ -366,7 +369,8 @@ public class SubstratumIconBuilder {
             if (update_mode) {
                 if (theme_oms) {
                     try {
-                        References.installOverlay(context, Environment.getExternalStorageDirectory()
+                        ThemeManager.installOverlay(context, Environment
+                                .getExternalStorageDirectory()
                                 .getAbsolutePath() + "/.substratum/" +
                                 overlay_package + ".icon-signed.apk");
                         Log.d(References.SUBSTRATUM_ICON_BUILDER, "Silently installing APK...");
@@ -396,37 +400,37 @@ public class SubstratumIconBuilder {
                             ((References.inNexusFilter()) ? vendor_partition :
                                     vendor_location);
 
-                    References.mountRW();
+                    FileOperations.mountRW();
                     File vendor = new File(current_vendor);
                     if (!vendor.exists()) {
                         if (current_vendor.equals(vendor_location)) {
-                            References.createNewFolder(current_vendor);
+                            FileOperations.createNewFolder(current_vendor);
                         } else {
-                            References.mountRWVendor();
-                            References.createNewFolder(vendor_symlink);
-                            References.symlink(vendor_symlink, "/vendor");
-                            References.setPermissions(755, vendor_partition);
-                            References.mountROVendor();
+                            FileOperations.mountRWVendor();
+                            FileOperations.createNewFolder(vendor_symlink);
+                            FileOperations.symlink(vendor_symlink, "/vendor");
+                            FileOperations.setPermissions(755, vendor_partition);
+                            FileOperations.mountROVendor();
                         }
                     }
                     if (current_vendor.equals(vendor_location)) {
-                        References.move(context, Environment.getExternalStorageDirectory()
+                        FileOperations.move(context, Environment.getExternalStorageDirectory()
                                 .getAbsolutePath() + "/.substratum/" + overlay_package +
                                 ".icon-signed.apk", vendor_location +
                                 overlay_package + ".icon.apk");
-                        References.setPermissionsRecursively(644, vendor_location);
-                        References.setPermissions(755, vendor_location);
-                        References.setContext(vendor_location);
+                        FileOperations.setPermissionsRecursively(644, vendor_location);
+                        FileOperations.setPermissions(755, vendor_location);
+                        FileOperations.setContext(vendor_location);
                     } else {
-                        References.move(context, Environment.getExternalStorageDirectory()
+                        FileOperations.move(context, Environment.getExternalStorageDirectory()
                                 .getAbsolutePath() + "/.substratum/" + overlay_package +
                                 ".icon-signed.apk", vendor_symlink +
                                 "/" + overlay_package + ".icon.apk");
-                        References.setPermissionsRecursively(644, vendor_symlink);
-                        References.setPermissions(755, vendor_symlink);
-                        References.setContext(vendor_symlink);
+                        FileOperations.setPermissionsRecursively(644, vendor_symlink);
+                        FileOperations.setPermissions(755, vendor_symlink);
+                        FileOperations.setContext(vendor_symlink);
                     }
-                    References.mountRO();
+                    FileOperations.mountRO();
                 }
             } else {
                 Log.d(References.SUBSTRATUM_ICON_BUILDER,

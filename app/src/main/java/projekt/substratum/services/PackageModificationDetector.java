@@ -19,8 +19,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import projekt.substratum.R;
+import projekt.substratum.config.ElevatedCommands;
 import projekt.substratum.config.MasqueradeService;
 import projekt.substratum.config.References;
+import projekt.substratum.config.ThemeManager;
 
 import static projekt.substratum.config.References.DEBUG;
 import static projekt.substratum.config.References.FIRST_WINDOW_REFRESH_DELAY;
@@ -53,7 +55,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
                                 packageInfo ->
                                         getSubstratumPackages(context,
                                                 packageInfo.packageName));
-                        String final_commands = References.disableOverlay();
+                        String final_commands = ThemeManager.disableOverlay;
                         // TODO: do something with this
                         for (int i = 0; i < to_be_disabled.size(); i++) {
                             final_commands = final_commands + " " + to_be_disabled.get(i);
@@ -80,7 +82,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
                         prefs.edit().remove("installed_icon_pack").apply();
                     }
                 }
-            } else if (package_name.equals(References.lp_package_identifier)) {
+            } else if (References.spreadYourWingsAndFly(context)) {
                 SharedPreferences prefsPrivate = context.getSharedPreferences(
                         "filter_state", Context.MODE_PRIVATE);
                 prefsPrivate.edit().clear().apply();
@@ -158,7 +160,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
                                             References.notification_id, notification);
 
                                     String final_commands = "pm uninstall " + package_name;
-                                    References.runCommands(final_commands);
+                                    ElevatedCommands.runCommands(final_commands);
                                 }
                             }
                         }

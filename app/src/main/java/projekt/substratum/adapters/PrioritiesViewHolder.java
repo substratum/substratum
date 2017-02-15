@@ -13,8 +13,8 @@ import projekt.substratum.R;
 class PrioritiesViewHolder extends GestureViewHolder {
 
     TextView mCardText;
-    ImageView mItemDrag;
     ImageView mAppIcon;
+    private ImageView mItemDrag;
 
     PrioritiesViewHolder(final View view) {
         super(view);

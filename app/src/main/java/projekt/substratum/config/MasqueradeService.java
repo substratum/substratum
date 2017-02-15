@@ -42,7 +42,7 @@ public class MasqueradeService {
     private static final String COMMAND_VALUE_DELETE = "delete";
     private static final String COMMAND_VALUE_PROFILE = "profile";
 
-    public static Intent getMasqueradeRootless(Context context) {
+    private static Intent getMasqueradeRootless(Context context) {
         Intent intent = new Intent();
         intent.setComponent(
                 new ComponentName(
@@ -62,14 +62,14 @@ public class MasqueradeService {
         return intent;
     }
 
-    public static void installOverlays(Context context, ArrayList<String> overlays) {
+    static void installOverlays(Context context, ArrayList<String> overlays) {
         Intent masqIntent = getMasqueradeRootless(context);
         masqIntent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_INSTALL);
         masqIntent.putExtra(INSTALL_LIST_KEY, overlays);
         context.startService(masqIntent);
     }
 
-    public static void uninstallOverlays(Context context, ArrayList<String> overlays, boolean
+    static void uninstallOverlays(Context context, ArrayList<String> overlays, boolean
             restartUi) {
         Intent masqIntent = getMasqueradeRootless(context);
         masqIntent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_UNINSTALL);
@@ -79,14 +79,14 @@ public class MasqueradeService {
         context.startService(masqIntent);
     }
 
-    public static void enableOverlays(Context context, ArrayList<String> overlays) {
+    static void enableOverlays(Context context, ArrayList<String> overlays) {
         Intent masqIntent = getMasqueradeRootless(context);
         masqIntent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_ENABLE);
         masqIntent.putExtra(ENABLE_LIST_KEY, overlays);
         context.startService(masqIntent);
     }
 
-    public static void disableOverlays(Context context, ArrayList<String> overlays) {
+    static void disableOverlays(Context context, ArrayList<String> overlays) {
         Intent masqIntent = getMasqueradeRootless(context);
         masqIntent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_DISABLE);
         masqIntent.putExtra(DISABLE_LIST_KEY, overlays);
@@ -105,20 +105,20 @@ public class MasqueradeService {
         context.startService(masqIntent);
     }
 
-    public static void setBootAnimation(Context context, String bootanimation_location) {
+    static void setBootAnimation(Context context, String bootanimation_location) {
         Intent masqIntent = getMasqueradeRootless(context);
         masqIntent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_BOOTANIMATION);
         masqIntent.putExtra(BOOTANIMATION_FILE_NAME, bootanimation_location);
         context.startService(masqIntent);
     }
 
-    public static void clearBootAnimation(Context context) {
+    static void clearBootAnimation(Context context) {
         Intent masqIntent = getMasqueradeRootless(context);
         masqIntent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_BOOTANIMATION);
         context.startService((masqIntent));
     }
 
-    public static void setFonts(Context context, String pid, String name) {
+    static void setFonts(Context context, String pid, String name) {
         Intent masqIntent = getMasqueradeRootless(context);
         masqIntent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_FONTS);
         masqIntent.putExtra(FONTS_FILENAME, name);
@@ -126,13 +126,13 @@ public class MasqueradeService {
         context.startService(masqIntent);
     }
 
-    public static void clearFonts(Context context) {
+    static void clearFonts(Context context) {
         Intent masqIntent = getMasqueradeRootless(context);
         masqIntent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_FONTS);
         context.startService(masqIntent);
     }
 
-    public static void setThemedSounds(Context context, String pid, String name) {
+    static void setThemedSounds(Context context, String pid, String name) {
         Intent masqIntent = getMasqueradeRootless(context);
         masqIntent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_AUDIO);
         masqIntent.putExtra(AUDIO_PID, pid);
@@ -140,13 +140,13 @@ public class MasqueradeService {
         context.startService(masqIntent);
     }
 
-    public static void clearThemedSounds(Context context) {
+    static void clearThemedSounds(Context context) {
         Intent masqIntent = getMasqueradeRootless(context);
         masqIntent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_AUDIO);
         context.startService(masqIntent);
     }
 
-    public static void setPriority(Context context, ArrayList<String> overlays) {
+    static void setPriority(Context context, ArrayList<String> overlays) {
         Intent masqIntent = getMasqueradeRootless(context);
         masqIntent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_PRIORITY);
         masqIntent.putExtra(PRIORITY_LIST_KEY, overlays);

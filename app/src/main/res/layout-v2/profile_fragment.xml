@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:card_view="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:card_view="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
     <ProgressBar
         android:id="@+id/header_loading_bar"
@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="-7dp"
-        android:indeterminate="true" />
+        android:indeterminate="true"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -44,7 +44,7 @@
                         android:layout_marginTop="10dp"
                         android:text="@string/backup"
                         android:textColor="@color/colorAccent"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:id="@+id/tv_content_1"
@@ -54,7 +54,7 @@
                         android:layout_marginEnd="16dp"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="10dp"
-                        android:text="@string/backup_card_content" />
+                        android:text="@string/backup_card_content"/>
 
                     <TextView
                         android:id="@+id/tv1"
@@ -63,7 +63,7 @@
                         android:layout_below="@id/tv_content_1"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="20dp"
-                        android:text="@string/profile_edittext_title" />
+                        android:text="@string/profile_edittext_title"/>
 
                     <EditText
                         android:id="@+id/edittext"
@@ -79,7 +79,7 @@
                         android:imeOptions="actionNext"
                         android:inputType="textNoSuggestions"
                         android:maxLines="1"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"/>
 
                     <Button
                         android:id="@+id/backupButton"
@@ -91,7 +91,7 @@
                         android:clickable="true"
                         android:foreground="?android:selectableItemBackground"
                         android:text="@string/backup_button"
-                        android:textColor="@color/backup_button_text_color" />
+                        android:textColor="@color/backup_button_text_color"/>
 
                 </RelativeLayout>
 
@@ -120,7 +120,7 @@
                         android:layout_marginTop="10dp"
                         android:text="@string/restore"
                         android:textColor="@color/colorAccent"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:id="@+id/tv_content_2"
@@ -130,7 +130,7 @@
                         android:layout_marginEnd="16dp"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="10dp"
-                        android:text="@string/restore_card_content" />
+                        android:text="@string/restore_card_content"/>
 
                     <Spinner
                         android:id="@+id/restore_spinner"
@@ -140,7 +140,7 @@
                         android:layout_marginBottom="16dp"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
-                        android:layout_toStartOf="@+id/remove_profile" />
+                        android:layout_toStartOf="@+id/remove_profile"/>
 
                     <ImageButton
                         android:id="@+id/remove_profile"
@@ -152,7 +152,7 @@
                         android:backgroundTint="@android:color/transparent"
                         android:clickable="true"
                         android:foreground="?android:selectableItemBackground"
-                        android:src="@drawable/spinner_remove_item" />
+                        android:src="@drawable/spinner_remove_item"/>
 
                     <Button
                         android:id="@+id/restoreButton"
@@ -164,7 +164,7 @@
                         android:clickable="true"
                         android:foreground="?android:selectableItemBackground"
                         android:text="@string/restore_button"
-                        android:textColor="@color/restore_button_text_color" />
+                        android:textColor="@color/restore_button_text_color"/>
 
                 </RelativeLayout>
 
@@ -194,7 +194,7 @@
                         android:gravity="center_vertical"
                         android:text="@string/scheduled_night_profile"
                         android:textColor="@color/colorAccent"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"/>
 
                     <Switch
                         android:id="@+id/profile_switch"
@@ -203,7 +203,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_marginEnd="16dp"
                         android:layout_marginStart="16dp"
-                        android:layout_marginTop="10dp" />
+                        android:layout_marginTop="10dp"/>
 
                     <TextView
                         android:id="@+id/tv_content_3"
@@ -213,7 +213,7 @@
                         android:layout_marginEnd="16dp"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="10dp"
-                        android:text="@string/scheduled_profile_card_content" />
+                        android:text="@string/scheduled_profile_card_content"/>
 
                     <net.cachapa.expandablelayout.ExpandableLayout
                         android:id="@+id/scheduled_profile_card_content_container"
@@ -244,7 +244,7 @@
                                 <TextView
                                     android:layout_width="80dp"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/active_time" />
+                                    android:text="@string/active_time"/>
 
                                 <Button
                                     android:id="@+id/night_start_time"
@@ -253,13 +253,13 @@
                                     android:layout_height="48dp"
                                     android:layout_marginStart="10dp"
                                     android:layout_weight="0.5"
-                                    android:text="@string/start_time" />
+                                    android:text="@string/start_time"/>
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="-"
-                                    android:textStyle="bold" />
+                                    android:textStyle="bold"/>
 
                                 <Button
                                     android:id="@+id/night_end_time"
@@ -267,7 +267,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="48dp"
                                     android:layout_weight="0.5"
-                                    android:text="@string/end_time" />
+                                    android:text="@string/end_time"/>
                             </LinearLayout>
 
                             <LinearLayout
@@ -282,7 +282,7 @@
                                     android:layout_width="80dp"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_vertical"
-                                    android:text="@string/day_profile" />
+                                    android:text="@string/day_profile"/>
 
                                 <Spinner
                                     android:id="@+id/day_spinner"
@@ -290,7 +290,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
                                     android:layout_marginStart="10dp"
-                                    android:layout_marginTop="10dp" />
+                                    android:layout_marginTop="10dp"/>
                             </LinearLayout>
 
                             <LinearLayout
@@ -306,14 +306,14 @@
                                     android:layout_width="80dp"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="bottom"
-                                    android:text="@string/night_profile" />
+                                    android:text="@string/night_profile"/>
 
                                 <Spinner
                                     android:id="@+id/night_spinner"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="10dp"
-                                    android:layout_marginTop="10dp" />
+                                    android:layout_marginTop="10dp"/>
                             </LinearLayout>
                         </LinearLayout>
                     </net.cachapa.expandablelayout.ExpandableLayout>
@@ -328,7 +328,7 @@
                         android:clickable="true"
                         android:foreground="?android:selectableItemBackground"
                         android:text="@string/apply"
-                        android:textColor="@color/restore_button_text_color" />
+                        android:textColor="@color/restore_button_text_color"/>
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
         </RelativeLayout>

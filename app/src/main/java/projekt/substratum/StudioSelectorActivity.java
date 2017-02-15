@@ -27,6 +27,7 @@ import java.util.List;
 import projekt.substratum.adapters.PackAdapter;
 import projekt.substratum.config.MasqueradeService;
 import projekt.substratum.config.References;
+import projekt.substratum.config.ThemeManager;
 import projekt.substratum.model.PackInfo;
 import projekt.substratum.util.ReadOverlays;
 
@@ -172,7 +173,7 @@ public class StudioSelectorActivity extends AppCompatActivity {
                 ArrayList<String> all = new ArrayList<>(state5);
 
                 // Filter out icon pack overlays from all overlays
-                String final_commands = References.disableOverlay();
+                String final_commands = ThemeManager.disableOverlay;
                 if (all.size() > 0) {
                     for (int i = 0; i < all.size(); i++) {
                         if (all.get(i).endsWith(".icon")) {

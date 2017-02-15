@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
     <android.support.v7.widget.CardView
         android:id="@+id/introduction_card"
@@ -24,7 +24,7 @@
                 android:layout_marginTop="10dp"
                 android:text="@string/priority_card_title"
                 android:textColor="@color/colorAccent"
-                android:textStyle="bold" />
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/tv_content_1"
@@ -35,7 +35,7 @@
                 android:layout_marginEnd="20dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
-                android:text="@string/priority_card_content" />
+                android:text="@string/priority_card_content"/>
 
         </RelativeLayout>
 
@@ -48,7 +48,7 @@
         android:layout_below="@+id/introduction_card"
         android:paddingEnd="15dp"
         android:paddingStart="15dp"
-        android:paddingTop="10dp" />
+        android:paddingTop="10dp"/>
 
     <me.zhanghai.android.materialprogressbar.MaterialProgressBar
         android:id="@+id/loading_priorities"
@@ -58,7 +58,7 @@
         android:layout_below="@+id/introduction_card"
         android:layout_centerInParent="true"
         android:layout_gravity="center_horizontal|center_vertical"
-        android:indeterminate="true" />
+        android:indeterminate="true"/>
 
     <RelativeLayout
         android:id="@+id/no_priorities_found"
@@ -73,7 +73,7 @@
             android:layout_width="130dp"
             android:layout_height="130dp"
             android:layout_centerInParent="true"
-            android:src="@drawable/no_priorities_loaded" />
+            android:src="@drawable/no_priorities_loaded"/>
 
         <TextView
             android:id="@+id/no_themes_title"
@@ -87,7 +87,7 @@
             android:text="@string/priority_no_multiple_overlays_title"
             android:textColor="@color/main_screen_card_theme_title"
             android:textSize="20sp"
-            android:textStyle="bold|italic" />
+            android:textStyle="bold|italic"/>
 
         <TextView
             android:id="@+id/no_themes_description"
@@ -99,7 +99,7 @@
             android:gravity="center"
             android:text="@string/priority_no_multiple_overlays_text"
             android:textColor="@color/main_screen_card_theme_title"
-            android:textSize="15sp" />
+            android:textSize="15sp"/>
     </RelativeLayout>
 
 </RelativeLayout>

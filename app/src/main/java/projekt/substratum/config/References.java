@@ -1,16 +1,10 @@
 package projekt.substratum.config;
 
-import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
-import android.app.WallpaperManager;
 import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
-import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,18 +16,13 @@ import android.content.pm.ResolveInfo;
 import android.content.pm.ServiceInfo;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
-import android.database.Cursor;
 import android.graphics.drawable.Drawable;
-import android.media.RingtoneManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
-import android.os.ParcelFileDescriptor;
 import android.preference.PreferenceManager;
-import android.provider.MediaStore;
 import android.provider.Settings;
 import android.service.notification.StatusBarNotification;
 import android.support.annotation.NonNull;
@@ -41,19 +30,9 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.IgnoreExtraProperties;
-import com.google.firebase.iid.FirebaseInstanceId;
-
-import org.apache.commons.io.FileUtils;
-
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -64,20 +43,15 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
+import java.util.Objects;
 
-import projekt.substratum.BuildConfig;
 import projekt.substratum.R;
 import projekt.substratum.util.AOPTCheck;
 import projekt.substratum.util.CacheCreator;
-import projekt.substratum.util.ReadOverlaysFile;
-import projekt.substratum.util.Root;
 
 public class References {
 
@@ -99,19 +73,6 @@ public class References {
     // November security update (incompatible firmware) timestamp;
     private static final long NOVEMBER_PATCH_TIMESTAMP = 1478304000000L;
     private static final long JANUARY_PATCH_TIMESTAMP = 1483549200000L;
-    // Sounds processing methods
-    private static final String SYSTEM_MEDIA_PATH = "/system/media/audio";
-    private static final String SYSTEM_ALARMS_PATH =
-            SYSTEM_MEDIA_PATH + File.separator + "alarms";
-    private static final String SYSTEM_RINGTONES_PATH =
-            SYSTEM_MEDIA_PATH + File.separator + "ringtones";
-    private static final String SYSTEM_NOTIFICATIONS_PATH =
-            SYSTEM_MEDIA_PATH + File.separator + "notifications";
-    private static final String MEDIA_CONTENT_URI = "content://media/internal/audio/media";
-    private static final String SYSTEM_CONTENT_URI = "content://settings/global";
-    // Lucky Patcher's Package Name
-    public static String lp_package_identifier = "com.android.vending.billing" +
-            ".InAppBillingService.LOCK";
     // This int controls the notification identifier
     public static int firebase_notification_id = 24862486;
     public static int notification_id = 2486;
@@ -147,6 +108,22 @@ public class References {
     private static String metadataWallpapers = "Substratum_Wallpapers";
     private static String metadataVersion = "Substratum_Plugin";
     private static String metadataThemeReady = "Substratum_ThemeReady";
+
+    public static int getDeviceEncryptionStatus(Context context) {
+        // 0: ENCRYPTION_STATUS_UNSUPPORTED
+        // 1: ENCRYPTION_STATUS_INACTIVE
+        // 2: ENCRYPTION_STATUS_ACTIVATING
+        // 3: ENCRYPTION_STATUS_ACTIVE_DEFAULT_KEY
+        // 4: ENCRYPTION_STATUS_ACTIVE
+        // 5: ENCRYPTION_STATUS_ACTIVE_PER_USER
+        int status = DevicePolicyManager.ENCRYPTION_STATUS_UNSUPPORTED;
+        final DevicePolicyManager dpm = (DevicePolicyManager)
+                context.getSystemService(Context.DEVICE_POLICY_SERVICE);
+        if (dpm != null) {
+            status = dpm.getStorageEncryptionStatus();
+        }
+        return status;
+    }
 
     // This method is used to place the Substratum Rescue archives if they are not present
     public static void injectRescueArchives(Context context) {
@@ -270,37 +247,28 @@ public class References {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         prefs.edit().remove("oms_state").apply();
 
-        File om = new File("/system/bin/om");
-        if (om.exists()) {
-            prefs.edit().putBoolean("oms_state", true).apply();
-            prefs.edit().putInt("oms_version", 3).apply();
-            Log.d(References.SUBSTRATUM_LOG, "Initializing Substratum with the third iteration of" +
-                    " the Overlay Manager Service...");
-        } else {
-            // At this point, we must perform an OMS7 check
-            try {
-                Process p = Runtime.getRuntime().exec("cmd overlay");
-                BufferedReader reader = new BufferedReader(
-                        new InputStreamReader(p.getInputStream()));
-                if (reader.readLine().equals(
-                        "The overlay manager has already been initialized.")) {
-                    prefs.edit().putBoolean("oms_state", true).apply();
-                    prefs.edit().putInt("oms_version", 7).apply();
-                    Log.d(References.SUBSTRATUM_LOG, "Initializing Substratum with the seventh " +
-                            "iteration of the Overlay Manager Service...");
-                } else {
-                    prefs.edit().putBoolean("oms_state", false).apply();
-                    prefs.edit().putInt("oms_version", 0).apply();
-                    Log.d(References.SUBSTRATUM_LOG, "Initializing Substratum with the second " +
-                            "iteration of the Resource Runtime Overlay system...");
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
+        try {
+            Process p = Runtime.getRuntime().exec("cmd overlay");
+            BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(p.getInputStream()));
+            if (reader.readLine().equals(
+                    "The overlay manager has already been initialized.")) {
+                prefs.edit().putBoolean("oms_state", true).apply();
+                prefs.edit().putInt("oms_version", 7).apply();
+                Log.d(References.SUBSTRATUM_LOG, "Initializing Substratum with the seventh " +
+                        "iteration of the Overlay Manager Service...");
+            } else {
                 prefs.edit().putBoolean("oms_state", false).apply();
                 prefs.edit().putInt("oms_version", 0).apply();
                 Log.d(References.SUBSTRATUM_LOG, "Initializing Substratum with the second " +
                         "iteration of the Resource Runtime Overlay system...");
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            prefs.edit().putBoolean("oms_state", false).apply();
+            prefs.edit().putInt("oms_version", 0).apply();
+            Log.d(References.SUBSTRATUM_LOG, "Initializing Substratum with the second " +
+                    "iteration of the Resource Runtime Overlay system...");
         }
     }
 
@@ -317,118 +285,6 @@ public class References {
     public static String getDeviceID(Context context) {
         return Settings.Secure.getString(context.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
-    }
-
-    // These methods are now used to interact with the console to output the proper commands whether
-    // it is being run on an OMS3 or an OMS7 device.
-    public static String enableOverlay() {
-        File om = new File("/system/bin/om");
-        if (om.exists()) {
-            return "om enable";
-        } else {
-            return "cmd overlay enable";
-        }
-    }
-
-    public static String disableOverlay() {
-        File om = new File("/system/bin/om");
-        if (om.exists()) {
-            return "om disable";
-        } else {
-            return "cmd overlay disable";
-        }
-    }
-
-    public static String disableAllOverlays() {
-        File om = new File("/system/bin/om");
-        if (om.exists()) {
-            return "om disable-all";
-        } else {
-            return "cmd overlay disable-all";
-        }
-    }
-
-    public static String listAllOverlays() {
-        File om = new File("/system/bin/om");
-        if (om.exists()) {
-            return "om list";
-        } else {
-            return "cmd overlay list";
-        }
-    }
-
-    public static String refreshWindows() {
-        File om = new File("/system/bin/om");
-        if (om.exists()) {
-            return "om refresh";
-        } else {
-            return "cmd overlay refresh";
-        }
-    }
-
-    public static String setPriority() {
-        File om = new File("/system/bin/om");
-        if (om.exists()) {
-            return "om set-priority";
-        } else {
-            return "cmd overlay set-priority";
-        }
-    }
-
-    // Future masquerade methods
-    public static void enableOverlay(Context context, ArrayList<String> overlays) {
-        if (checkMasqueradeJobService(context)) {
-            MasqueradeService.enableOverlays(context, overlays);
-        } else {
-            String commands = enableOverlay();
-            int size = overlays.size();
-            for (int i = 0; i < size; i++) {
-                commands += " " + overlays.get(i);
-            }
-            new References.ThreadRunner().execute(commands);
-            if (shouldRestartUi(context, overlays)) References.restartSystemUI(context);
-        }
-    }
-
-    public static void disableOverlay(Context context, ArrayList<String> overlays) {
-        if (checkMasqueradeJobService(context)) {
-            MasqueradeService.disableOverlays(context, overlays);
-        } else {
-            String commands = disableOverlay();
-            int size = overlays.size();
-            for (int i = 0; i < size; i++) {
-                commands += " " + overlays.get(i);
-            }
-            new References.ThreadRunner().execute(commands);
-            if (shouldRestartUi(context, overlays)) restartSystemUI(context);
-        }
-    }
-
-    public static void setPriority(Context context, ArrayList<String> overlays) {
-        if (checkMasqueradeJobService(context)) {
-            MasqueradeService.setPriority(context, overlays);
-        } else {
-            String commands = "";
-            int size = overlays.size();
-            for (int i = 0; i < size - 1; i++) {
-                String parentName = overlays.get(i);
-                String packageName = overlays.get(i + 1);
-                commands += (commands.isEmpty() ? "" : " && ") + setPriority() + " " + packageName +
-                        " " + parentName;
-            }
-            new References.ThreadRunner().execute(commands);
-            if (shouldRestartUi(context, overlays)) restartSystemUI(context);
-        }
-    }
-
-    public static void disableAll(Context context) {
-        if (checkMasqueradeJobService(context)) {
-            String[] command = {"/data/system/overlays.xml", "5"};
-            List<String> list = ReadOverlaysFile.main(context, command);
-            MasqueradeService.disableOverlays(context, new ArrayList<>(list));
-        } else {
-            new ThreadRunner().execute(disableAllOverlays());
-        }
     }
 
     // This method is used to check whether a build.prop value is found
@@ -452,18 +308,12 @@ public class References {
 
     // This method clears the app's cache
     public static void clearAppCache(Context mContext) {
-        if (Root.requestRootAccess()) {
-            Root.runCommand("rm -rf " + mContext.getCacheDir().getAbsolutePath());
-            Toast toast = Toast.makeText(mContext, mContext.getString(R.string
-                            .char_success),
-                    Toast.LENGTH_SHORT);
-            toast.show();
-        } else {
-            Toast toast = Toast.makeText(mContext, mContext.getString(R.string
-                            .char_error),
-                    Toast.LENGTH_SHORT);
-            toast.show();
-        }
+        FileOperations.delete(mContext, mContext.getCacheDir()
+                .getAbsolutePath() + "/SubstratumBuilder/");
+        Toast toast = Toast.makeText(mContext, mContext.getString(R.string
+                        .char_success),
+                Toast.LENGTH_SHORT);
+        toast.show();
     }
 
     // Load SharedPreference defaults
@@ -559,7 +409,7 @@ public class References {
     }
 
     // This string array contains all the SystemUI acceptable sound files
-    public static Boolean allowedUISound(String targetValue) {
+    static Boolean allowedUISound(String targetValue) {
         String[] allowed_themable = {
                 "lock_sound",
                 "unlock_sound",
@@ -1002,7 +852,7 @@ public class References {
     }
 
     // Check for the denied packages if existing on the device
-    public static String[] checkPackageSupport() {
+    private static String[] checkPackageSupport() {
         return new String[]{
                 "com.android.vending.billing.InAppBillingService.LOCK",
                 "com.android.vending.billing.InAppBillingService.LACK",
@@ -1031,7 +881,7 @@ public class References {
         StatusBarNotification[] notifications =
                 mNotificationManager.getActiveNotifications();
         for (StatusBarNotification notification : notifications) {
-            if (notification.getPackageName() == mContext.getPackageName()) {
+            if (Objects.equals(notification.getPackageName(), mContext.getPackageName())) {
                 mNotificationManager.cancel(notification.getId());
             }
         }
@@ -1056,15 +906,15 @@ public class References {
             PackageManager pm = mContext.getPackageManager();
             PackageInfo info = pm.getPackageInfo(currentTheme, PackageManager.GET_ACTIVITIES);
             ActivityInfo[] list = info.activities;
-            for (int i = 0; i < list.length; i++) {
+            for (ActivityInfo aList : list) {
                 // We need to look for what the themer assigned the class to be! This is a dynamic
                 // function that only launches the correct SubstratumLauncher class. Having it
                 // hardcoded is bad.
-                if (list[i].name.equals(currentTheme + ".SubstratumLauncher")) {
+                if (aList.name.equals(currentTheme + ".SubstratumLauncher")) {
                     originalIntent.setComponent(
                             new ComponentName(currentTheme, currentTheme + ".SubstratumLauncher"));
                     return originalIntent;
-                } else if (list[i].name.equals("substratum.theme.template.SubstratumLauncher")) {
+                } else if (aList.name.equals("substratum.theme.template.SubstratumLauncher")) {
                     originalIntent.setComponent(
                             new ComponentName(
                                     currentTheme, "substratum.theme.template.SubstratumLauncher"));
@@ -1106,64 +956,14 @@ public class References {
         return false;
     }
 
-    // Save data to Firebase
-    public static void backupDebuggableStatistics(Context mContext, String tag, String data,
-                                                  String reason) {
-        try {
-            FirebaseDatabase mDatabaseInstance = FirebaseDatabase.getInstance();
-            DatabaseReference mDatabase = mDatabaseInstance.getReference(tag);
-            String currentTimeAndDate = java.text.DateFormat.getDateTimeInstance().format(
-                    Calendar.getInstance().getTime());
-            Account[] accounts = AccountManager.get(mContext).getAccountsByType("com.google");
-            String main_acc = "null";
-            for (Account account : accounts) {
-                if (account.name != null) {
-                    main_acc = account.name.replace(".", "(dot)");
-                }
-            }
-            String entryId = main_acc;
-            String userId = FirebaseInstanceId.getInstance().getToken();
-            DeviceCollection user = new DeviceCollection(
-                    currentTimeAndDate,
-                    userId,
-                    data,
-                    reason,
-                    BuildConfig.VERSION_CODE,
-                    BuildConfig.VERSION_NAME);
-            mDatabase.child(entryId).child(data).setValue(user);
-        } catch (RuntimeException re) {
-            // Suppress Warning
-        }
-    }
-
-    // These methods allow for a more secure method to mount RW and mount RO
-    private static String checkMountCMD() {
-        Process process = null;
-        try {
-            Runtime rt = Runtime.getRuntime();
-            process = rt.exec(new String[]{"readlink", "/system/bin/mount"});
-            try (BufferedReader stdInput = new BufferedReader(new
-                    InputStreamReader(process.getInputStream()))) {
-                return stdInput.readLine();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (process != null) {
-                process.destroy();
-            }
-        }
-        return null;
-    }
-
     // Begin check if device is running on the latest Masquerade
     public static Boolean checkMasqueradeJobService(Context context) {
         try {
             PackageManager pm = context.getPackageManager();
             PackageInfo info = pm.getPackageInfo(MASQUERADE_PACKAGE, PackageManager.GET_SERVICES);
             ServiceInfo[] list = info.services;
-            for (int i = 0; i < list.length; i++) {
-                if (list[i].name.equals("masquerade.substratum.services.JobService")) {
+            for (ServiceInfo aList : list) {
+                if (aList.name.equals("masquerade.substratum.services.JobService")) {
                     return true;
                 }
             }
@@ -1173,1205 +973,7 @@ public class References {
         return false;
     }
 
-    // Begin consolidation of IO commands in Substratum
-    public static void copy(Context context, String source, String destination) {
-        String dataDir = context.getDataDir().getAbsolutePath();
-        String externalDir = Environment.getExternalStorageDirectory().getAbsolutePath();
-        boolean needRoot = (!source.startsWith(dataDir) && !source.startsWith(externalDir) &&
-                !source.startsWith("/system")) || (!destination.startsWith(dataDir) &&
-                !destination.startsWith(externalDir) && !destination.startsWith("/system"));
-        if (checkMasqueradeJobService(context) && needRoot) {
-            Log.d("CopyFunction", "using masquerade no-root operation for copying " + source +
-                    " to " + destination);
-            MasqueradeService.copy(context, source, destination);
-
-            // Wait until copy success
-            File file = new File(destination);
-            try {
-                int retryCount = 0;
-                while (!file.exists() && retryCount < 5) {
-                    Thread.sleep(1000);
-                    retryCount++;
-                }
-                if (retryCount == 5) Log.d("CopyFunction", "Operation timeout");
-                Log.d("CopyFunction", "Operation " + (file.exists() ? "success" : "failed"));
-            } catch (InterruptedException e) {
-                Thread.interrupted();
-            }
-        } else {
-            copy(source, destination);
-        }
-    }
-
-    public static void copyDir(Context context, String source, String destination) {
-        String dataDir = context.getDataDir().getAbsolutePath();
-        String externalDir = Environment.getExternalStorageDirectory().getAbsolutePath();
-        boolean needRoot = (!source.startsWith(dataDir) && !source.startsWith(externalDir) &&
-                !source.startsWith("/system")) || (!destination.startsWith(dataDir) &&
-                !destination.startsWith(externalDir) && !destination.startsWith("/system"));
-        if (checkMasqueradeJobService(context) && needRoot) {
-            copy(context, source, destination);
-        } else {
-            copyDir(source, destination);
-        }
-    }
-
-    public static void delete(Context context, String directory) {
-        delete(context, directory, true);
-    }
-
-    public static void delete(Context context, String directory, boolean deleteParent) {
-        String dataDir = context.getDataDir().getAbsolutePath();
-        String externalDir = Environment.getExternalStorageDirectory().getAbsolutePath();
-        boolean needRoot = (!directory.startsWith(dataDir) && !directory.startsWith(externalDir) &&
-                !directory.startsWith("/system"));
-        if (checkMasqueradeJobService(context) && needRoot) {
-            Log.d("DeleteFunction", "using masquerade no-root operation for deleting " + directory);
-            MasqueradeService.delete(context, directory, deleteParent);
-
-            // Wait until delete success
-            File file = new File(directory);
-            try {
-                int retryCount = 0;
-                boolean notDone = (deleteParent && file.exists()) ||
-                        (!deleteParent && file.list().length == 0);
-                while (notDone && retryCount < 5) {
-                    Thread.sleep(1000);
-                    retryCount++;
-                }
-                if (retryCount == 5) Log.d("DeleteFunction", "Operation timeout");
-                Log.d("DeleteFunction", "Operation " + (!file.exists() ? "success" : "failed"));
-            } catch (InterruptedException e) {
-                Thread.interrupted();
-            }
-        } else {
-            delete(directory, deleteParent);
-        }
-    }
-
-    public static void move(Context context, String source, String destination) {
-        String dataDir = context.getDataDir().getAbsolutePath();
-        String externalDir = Environment.getExternalStorageDirectory().getAbsolutePath();
-        boolean needRoot = (!source.startsWith(dataDir) && !source.startsWith(externalDir) &&
-                !source.startsWith("/system")) || (!destination.startsWith(dataDir) &&
-                !destination.startsWith(externalDir) && !destination.startsWith("/system"));
-        if (checkMasqueradeJobService(context) && needRoot) {
-            Log.d("MoveFunction", "using masquerade no-root operation for moving " + source +
-                    " to " + destination);
-            MasqueradeService.move(context, source, destination);
-
-            // Wait until move success
-            File file = new File(destination);
-            try {
-                int retryCount = 0;
-                while (!file.exists() && retryCount < 5) {
-                    Thread.sleep(1000);
-                    retryCount++;
-                }
-                if (retryCount == 5) Log.d("MoveFunction", "Operation timeout");
-                Log.d("MoveFunction", "Operation " + (file.exists() ? "success" : "failed"));
-            } catch (InterruptedException e) {
-                Thread.interrupted();
-            }
-        } else {
-            move(source, destination);
-        }
-    }
-
-    public static void createNewFolder(String foldername) {
-        Log.d("CreateFolderFunction", "using no-root operation for creating " + foldername);
-        File folder = new File(foldername);
-        if (!folder.exists()) {
-            Log.d("CreateFolderFunction", "operation " + (folder.mkdirs() ? "success" : "failed"));
-            if (!folder.exists()) {
-                Log.d("CreateFolderFunction", "using root operation for creating " + foldername);
-                Root.runCommand("mkdir " + foldername);
-            }
-        } else {
-            Log.d("CreateFolderFunction", "folder already exist");
-        }
-    }
-
-    // These inner IO commands only be called by outer commands
-    private static void copy(String source, String destination) {
-        Log.d("CopyFunction", "using no-root operation for copying " + source + " to " +
-                destination);
-        File in = new File(source);
-        File out = new File(destination);
-        try {
-            FileUtils.copyFile(in, out);
-        } catch (IOException e) {
-            Log.d("CopyFunction", "using no-root operation failed, fallback to root mode...");
-            Root.runCommand("cp -f " + source + " " + destination);
-        }
-        Log.d("CopyFunction", "operation " + (out.exists() ? "success" : "failed"));
-    }
-
-    private static void copyDir(String source, String destination) {
-        Log.d("CopyFunction", "using no-root operation for copying " + source + " to " +
-                destination);
-        File in = new File(source);
-        File out = new File(destination);
-        try {
-            FileUtils.copyDirectory(in, out);
-        } catch (IOException e) {
-            Log.d("CopyFunction", "using no-root operation failed, fallback to root mode...");
-            Root.runCommand("cp -rf " + source + " " + destination);
-        }
-        Log.d("CopyFunction", "operation " + (out.exists() ? "success" : "failed"));
-    }
-
-    private static void delete(String directory, boolean deleteParent) {
-        Log.d("DeleteFunction", "using no-root operation for deleting " + directory);
-        File dir = new File(directory);
-        try {
-            if (deleteParent) {
-                FileUtils.forceDelete(dir);
-            } else {
-                FileUtils.cleanDirectory(dir);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.d("DeleteFunction", "using no-root operation failed, fallback to root mode...");
-            if (deleteParent) {
-                Root.runCommand("rm -rf " + directory);
-            } else {
-                String command = "rm -rf ";
-                if (dir.isDirectory()) {
-                    for (File child : dir.listFiles()) {
-                        command += child.getAbsolutePath() + " ";
-                    }
-                    Root.runCommand(command);
-                } else {
-                    Root.runCommand(command + directory);
-                }
-            }
-        }
-        Log.d("DeleteFunction", "operation " + (!dir.exists() ? "success" : "failed"));
-    }
-
-    private static void move(String source, String destination) {
-        Log.d("MoveFunction", "using no-root operation for moving " + source + " to " +
-                destination);
-        File in = new File(source);
-        File out = new File(destination);
-        try {
-            if (in.isFile()) {
-                FileUtils.moveFile(in, out);
-            } else {
-                FileUtils.moveDirectory(in, out);
-            }
-        } catch (IOException e) {
-            Log.d("MoveFunction", "using no-root operation failed, fallback to root mode... ");
-            Root.runCommand("mv -f " + source + " " + destination);
-        }
-        Log.d("MoveFunction", "operation " + (!in.exists() && out.exists() ? "success" : "failed"));
-    }
-
-    // Begin consolidation of root commands in Substratum
-    public static void adjustContentProvider(final String uri,
-                                             final String topic, final String fileName) {
-        Root.runCommand("content insert --uri " + uri + " " +
-                "--bind name:s:" + topic + " --bind value:s:" + fileName);
-    }
-
-    public static void mountRW() {
-        String mountCMD = checkMountCMD();
-        if (mountCMD != null) {
-            if (mountCMD.equals("toybox")) {
-                Root.runCommand("mount -o rw,remount /system");
-            } else if (mountCMD.equals("toolbox")) {
-                Root.runCommand("mount -o remount,rw /system");
-            }
-        }
-    }
-
-    public static void mountRWData() {
-        String mountCMD = checkMountCMD();
-        if (mountCMD != null) {
-            if (mountCMD.equals("toybox")) {
-                Root.runCommand("mount -o rw,remount /data");
-            } else if (mountCMD.equals("toolbox")) {
-                Root.runCommand("mount -o remount,rw /data");
-            }
-        }
-    }
-
-    public static void mountRWVendor() {
-        String mountCMD = checkMountCMD();
-        if (mountCMD != null) {
-            if (mountCMD.equals("toybox")) {
-                Root.runCommand("mount -o rw,remount /vendor");
-            } else if (mountCMD.equals("toolbox")) {
-                Root.runCommand("mount -o remount,rw /vendor");
-            }
-        }
-    }
-
-    public static void mountRO() {
-        String mountCMD = checkMountCMD();
-        if (mountCMD != null) {
-            if (mountCMD.equals("toybox")) {
-                Root.runCommand("mount -o ro,remount /system");
-            } else if (mountCMD.equals("toolbox")) {
-                Root.runCommand("mount -o remount,ro /system");
-            }
-        }
-    }
-
-    public static void mountROData() {
-        String mountCMD = checkMountCMD();
-        if (mountCMD != null) {
-            if (mountCMD.equals("toybox")) {
-                Root.runCommand("mount -o ro,remount /data");
-            } else if (mountCMD.equals("toolbox")) {
-                Root.runCommand("mount -o remount,ro /data");
-            }
-        }
-    }
-
-    public static void mountROVendor() {
-        String mountCMD = checkMountCMD();
-        if (mountCMD != null) {
-            if (mountCMD.equals("toybox")) {
-                Root.runCommand("mount -o ro,remount /vendor");
-            } else if (mountCMD.equals("toolbox")) {
-                Root.runCommand("mount -o remount,ro /vendor");
-            }
-        }
-    }
-
-    public static void grantPermission(final String packager, final String permission) {
-        Root.runCommand("pm grant " + packager + " " + permission);
-    }
-
-    public static void installOverlay(Context context, String overlay) {
-        if (checkMasqueradeJobService(context)) {
-            // TODO: It should not be like this
-            ArrayList<String> list = new ArrayList<>();
-            list.add(overlay);
-            MasqueradeService.installOverlays(context, list);
-        } else {
-            new ThreadRunner().execute("pm install -r " + overlay);
-        }
-    }
-
-    public static void runCommands(final String commands) {
-        Root.runCommand(commands);
-    }
-
-    public static void reboot() {
-        Root.runCommand("reboot");
-    }
-
-    public static void refreshWindow() {
-        // This is a deprecated call for OMS3 only. Do not call this from OMS7
-        Root.runCommand(References.refreshWindows());
-    }
-
-    public static void restartMasquerade() {
-        Root.runCommand("pkill -f " + MASQUERADE_PACKAGE);
-    }
-
-    public static void restartSystemUI(Context context) {
-        if (checkMasqueradeJobService(context)) {
-            MasqueradeService.restartSystemUI(context);
-        } else {
-            Root.runCommand("pkill -f com.android.systemui");
-        }
-    }
-
-    public static void setContext(final String foldername) {
-        Root.runCommand("chcon -R u:object_r:system_file:s0 " + foldername);
-    }
-
-    public static void setPermissions(final int permission, final String foldername) {
-        Root.runCommand("chmod " + permission + " " + foldername);
-    }
-
-    public static void setPermissionsRecursively(final int permission, final String foldername) {
-        Root.runCommand("chmod -R " + permission + " " + foldername);
-    }
-
-    public static void setProp(final String propName, final String propValue) {
-        Root.runCommand("setprop " + propName + " " + propValue);
-    }
-
-    public static void softReboot() {
-        Root.runCommand("pkill -f zygote");
-    }
-
-    public static void symlink(final String source, final String destination) {
-        Root.runCommand("ln -s " + source + " " + destination);
-    }
-
-    public static boolean shouldRestartUi(Context context, String overlay) {
-        if (checkOMS(context)) {
-            if (overlay.startsWith("com.android.systemui")) return true;
-        }
-        return false;
-    }
-
-    public static boolean shouldRestartUi(Context context, ArrayList<String> overlays) {
-        if (checkOMS(context)) {
-            for (String o : overlays) {
-                if (o.startsWith("com.android.systemui")) return true;
-            }
-        }
-        return false;
-    }
-
-    public static void uninstallOverlay(Context context, String overlay) {
-        if (checkMasqueradeJobService(context)) {
-            ArrayList<String> list = new ArrayList<>();
-            list.add(overlay);
-            MasqueradeService.uninstallOverlays(context, list, shouldRestartUi(context, overlay));
-        } else {
-            new ThreadRunner().execute("pm uninstall " + overlay);
-            if (checkOMS(context) && shouldRestartUi(context, overlay)) restartSystemUI(context);
-        }
-    }
-
-    public static void uninstallOverlay(Context context, ArrayList<String> overlays) {
-        if (checkMasqueradeJobService(context)) {
-            MasqueradeService.uninstallOverlays(context, overlays, shouldRestartUi(context,
-                    overlays));
-        } else {
-            String command = "pm uninstall ";
-            for (String packageName : overlays) {
-                command += packageName + " ";
-            }
-            new ThreadRunner().execute(command);
-            if (checkOMS(context) && shouldRestartUi(context, overlays)) restartSystemUI(context);
-        }
-    }
-
-    public static void setWallpaper(Context context, String path, String which) throws IOException {
-        WallpaperManager wallpaperManager = WallpaperManager.getInstance(context);
-        switch (which) {
-            case "home":
-                // Set home screen wallpaper
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    // Get current lock screen wallpaper to be applied later
-                    ParcelFileDescriptor lockFile = wallpaperManager
-                            .getWallpaperFile(WallpaperManager.FLAG_LOCK);
-                    InputStream input = new FileInputStream(lockFile.getFileDescriptor());
-                    // Now apply the wallpapers
-                    wallpaperManager.setStream(new FileInputStream(path), null, true,
-                            WallpaperManager.FLAG_SYSTEM);
-                    // Reapply previous lock screen wallpaper
-                    wallpaperManager.setStream(input, null, true, WallpaperManager.FLAG_LOCK);
-                } else {
-                    wallpaperManager.setStream(new FileInputStream(path));
-                }
-                break;
-            case "lock":
-                // Set lock screen wallpaper
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    wallpaperManager.setStream(new FileInputStream(path), null, true,
-                            WallpaperManager.FLAG_LOCK);
-                }
-                break;
-            case "all":
-                // Apply both wallpaper
-                wallpaperManager.setStream(new FileInputStream(path));
-                break;
-            default:
-                Log.e("SetWallpaper", "wrong choice bud");
-        }
-    }
-
-    public static void clearWallpaper(Context context, String which) throws IOException {
-        WallpaperManager wallpaperManager = WallpaperManager.getInstance(context);
-        switch (which) {
-            case "home":
-                // Clear home screen wallpaper
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    // Get current lock screen wallpaper to be applied later
-                    ParcelFileDescriptor lockFile = wallpaperManager
-                            .getWallpaperFile(WallpaperManager.FLAG_LOCK);
-                    InputStream input = new FileInputStream(lockFile.getFileDescriptor());
-                    // Clear home wallpaper
-                    wallpaperManager.clear(WallpaperManager.FLAG_SYSTEM);
-                    // Reapply lock screen wallpaper
-                    wallpaperManager.setStream(input, null, true, WallpaperManager.FLAG_LOCK);
-                } else {
-                    wallpaperManager.clear();
-                }
-                break;
-            case "lock":
-                // clear lock screen wallpaper
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    wallpaperManager.clear(WallpaperManager.FLAG_LOCK);
-                }
-                break;
-            case "all":
-                // Clear both wallpaper
-                wallpaperManager.clear();
-                break;
-            default:
-                Log.e("ClearWallpaper", "wrong choice bud");
-        }
-    }
-
-    public static void setBootAnimation(Context context, String themeDirectory) {
-        String location = Environment.getExternalStorageDirectory().getAbsolutePath() +
-                "/.substratum/bootanimation.zip";
-        if (getDeviceEncryptionStatus(context) <= 1 && checkMasqueradeJobService(context)) {
-            Log.d("BootAnimationHandler",
-                    "No-root option has been enabled with the inclusion of " +
-                            "masquerade v22+...");
-            MasqueradeService.setBootAnimation(context, location);
-        } else {
-            Log.d("BootAnimationHandler", "Root option has been enabled");
-            References.mountRW();
-            References.setPermissions(755, themeDirectory);
-            References.mountRW();
-            References.move(context, location, themeDirectory + "/bootanimation.zip");
-            References.mountRW();
-            References.setPermissions(644, themeDirectory + "/bootanimation.zip");
-            References.mountRWData();
-            References.setContext(themeDirectory);
-        }
-    }
-
-    public static void clearBootAnimation(Context context) {
-        if (getDeviceEncryptionStatus(context) <= 1 && checkMasqueradeJobService(context)) {
-            // OMS with no-root masquerade
-            MasqueradeService.clearBootAnimation(context);
-        } else if (getDeviceEncryptionStatus(context) <= 1 && !References.checkOMS(context)) {
-            // Legacy unencrypted
-            References.delete(context, "/data/system/theme/bootanimation.zip");
-        } else {
-            // Encrypted OMS and legacy
-            References.mountRW();
-            References.move(context, "/system/media/bootanimation-backup.zip",
-                    "/system/media/bootanimation.zip");
-            References.delete(context, "/system/addon.d/81-subsboot.sh");
-        }
-    }
-
-    public static void setFonts(Context context, String theme_pid, String name) {
-        if (checkOMS(context) && checkMasqueradeJobService(context)) {
-            MasqueradeService.setFonts(context, theme_pid, name);
-        } else {
-            // oms pre rootless masq or legacy
-            try {
-                // Move the file from assets folder to a new working area
-                Log.d("FontHandler", "Copying over the selected fonts to working " +
-                        "directory...");
-
-                File cacheDirectory = new File(context.getCacheDir(), "/FontCache/");
-                if (!cacheDirectory.exists()) {
-                    boolean created = cacheDirectory.mkdirs();
-                    if (created) Log.d("FontHandler", "Successfully created cache folder!");
-                }
-                File cacheDirectory2 = new File(context.getCacheDir(), "/FontCache/" +
-                        "FontCreator/");
-                if (!cacheDirectory2.exists()) {
-                    boolean created = cacheDirectory2.mkdirs();
-                    if (created) Log.d("FontHandler", "Successfully created cache folder work " +
-                            "directory!");
-                } else {
-                    References.delete(context, context.getCacheDir().getAbsolutePath() +
-                            "/FontCache/FontCreator/");
-                    boolean created = cacheDirectory2.mkdirs();
-                    if (created) Log.d("FontHandler", "Successfully recreated cache folder work " +
-                            "directory!");
-                }
-
-                // Copy the font.zip from assets/fonts of the theme's assets
-                String sourceFile = name + ".zip";
-
-                try {
-                    Context otherContext = context.createPackageContext(theme_pid, 0);
-                    AssetManager am = otherContext.getAssets();
-                    try (InputStream inputStream = am.open("fonts/" + sourceFile);
-                         OutputStream outputStream = new FileOutputStream(context.getCacheDir()
-                                 .getAbsolutePath() + "/FontCache/" + sourceFile)) {
-                        byte[] buffer = new byte[5120];
-                        int length = inputStream.read(buffer);
-                        while (length > 0) {
-                            outputStream.write(buffer, 0, length);
-                            length = inputStream.read(buffer);
-                        }
-                    }
-                } catch (Exception e) {
-                    Log.e("FontHandler", "There is no fonts.zip found within the assets " +
-                            "of this theme!");
-                }
-
-                // Unzip the fonts to get it prepared for the preview
-                String source = context.getCacheDir().getAbsolutePath() + "/FontCache/" +
-                        sourceFile;
-                String destination = context.getCacheDir().getAbsolutePath() +
-                        "/FontCache/FontCreator/";
-
-                try (ZipInputStream inputStream = new ZipInputStream(
-                        new BufferedInputStream(new FileInputStream(source)))) {
-                    ZipEntry zipEntry;
-                    int count;
-                    byte[] buffer = new byte[8192];
-                    while ((zipEntry = inputStream.getNextEntry()) != null) {
-                        File file = new File(destination, zipEntry.getName());
-                        File dir = zipEntry.isDirectory() ? file : file.getParentFile();
-                        if (!dir.isDirectory() && !dir.mkdirs())
-                            throw new FileNotFoundException("Failed to ensure directory: " +
-                                    dir.getAbsolutePath());
-                        if (zipEntry.isDirectory())
-                            continue;
-                        try (FileOutputStream outputStream = new FileOutputStream(file)) {
-                            while ((count = inputStream.read(buffer)) != -1)
-                                outputStream.write(buffer, 0, count);
-                        }
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Log.e("FontHandler",
-                            "An issue has occurred while attempting to decompress this archive.");
-                }
-
-                // Copy all the system fonts to /data/system/theme/fonts
-                File dataSystemThemeDir = new File("/data/system/theme");
-                if (!dataSystemThemeDir.exists()) {
-                    References.mountRWData();
-                    References.createNewFolder("/data/system/theme/");
-                }
-                File dataSystemThemeFontsDir = new File("/data/system/theme/fonts");
-                if (!dataSystemThemeFontsDir.exists()) {
-                    References.mountRWData();
-                    References.createNewFolder("/data/system/theme/fonts");
-                } else {
-                    References.delete(context, "/data/system/theme/fonts/");
-                    References.mountRWData();
-                    References.createNewFolder("/data/system/theme/fonts");
-                }
-
-                // Copy font configuration file (fonts.xml) to the working directory
-                File fontsConfig = new File(context.getCacheDir().getAbsolutePath() +
-                        "/FontCache/FontCreator/fonts.xml");
-                if (!fontsConfig.exists()) {
-                    AssetManager assetManager = context.getAssets();
-                    final String filename = "fonts.xml";
-                    try (InputStream in = assetManager.open(filename);
-                         OutputStream out = new FileOutputStream(context.getCacheDir()
-                                 .getAbsolutePath() + "/FontCache/FontCreator/" + filename)) {
-                        byte[] buffer = new byte[1024];
-                        int read;
-                        while ((read = in.read(buffer)) != -1) {
-                            out.write(buffer, 0, read);
-                        }
-                    } catch (IOException e) {
-                        Log.e("FontHandler", "Failed to move font configuration file to working " +
-                                "directory!");
-                    }
-                }
-
-                References.copy(context, "/system/fonts/*", "/data/system/theme/fonts/");
-
-                // Copy all the files from work directory to /data/system/theme/fonts
-                References.copy(context, context.getCacheDir().getAbsolutePath() +
-                        "/FontCache/FontCreator/*", "/data/system/theme/fonts/");
-
-                // Check for correct permissions and system file context integrity.
-                References.mountRWData();
-                References.setPermissions(755, "/data/system/theme/");
-                References.setPermissionsRecursively(747, "/data/system/theme/fonts/");
-                References.setPermissions(775, "/data/system/theme/fonts/");
-                References.mountROData();
-                References.setContext("/data/system/theme");
-                References.setProp("sys.refresh_theme", "1");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public static void clearFonts(Context context) {
-        if (checkOMS(context) && checkMasqueradeJobService(context)) {
-            MasqueradeService.clearFonts(context);
-        } else {
-            // oms with pre rootless masq and legacy
-            References.delete(context, "/data/system/theme/fonts/");
-            if (!checkOMS(context)) References.restartSystemUI(context);
-        }
-    }
-
-    public static boolean[] setSounds(Context context, String theme_pid, String name) {
-        boolean has_failed = false;
-        boolean ringtone = false;
-
-        if (checkOMS(context) && checkMasqueradeJobService(context)) {
-            MasqueradeService.setThemedSounds(context, theme_pid, name);
-            ringtone = true; // Always assume that the process is succeeded;
-        } else {
-            // Move the file from assets folder to a new working area
-            Log.d("SoundsHandler", "Copying over the selected sounds to working directory...");
-
-            File cacheDirectory = new File(context.getCacheDir(), "/SoundsCache/");
-            if (!cacheDirectory.exists()) {
-                boolean created = cacheDirectory.mkdirs();
-                if (created) Log.d("SoundsHandler", "Sounds folder created");
-            }
-            File cacheDirectory2 = new File(context.getCacheDir(), "/SoundsCache/" +
-                    "SoundsInjector/");
-            if (!cacheDirectory2.exists()) {
-                boolean created = cacheDirectory2.mkdirs();
-                if (created) Log.d("SoundsHandler", "Sounds work folder created");
-            } else {
-                References.delete(context, context.getCacheDir().getAbsolutePath() +
-                        "/SoundsCache/SoundsInjector/");
-                boolean created = cacheDirectory2.mkdirs();
-                if (created) Log.d("SoundsHandler", "Sounds work folder recreated");
-            }
-
-            String sounds = name;
-
-            if (!has_failed) {
-                Log.d("SoundsHandler", "Analyzing integrity of sounds archive file...");
-                try {
-                    Context otherContext = context.createPackageContext(theme_pid, 0);
-                    AssetManager am = otherContext.getAssets();
-                    try (InputStream inputStream = am.open("audio/" + sounds + ".zip");
-                         OutputStream outputStream = new FileOutputStream(context.getCacheDir()
-                                 .getAbsolutePath() + "/SoundsCache/SoundsInjector/" +
-                                 sounds + ".zip")) {
-
-                        // was CopyStream
-                        byte[] buffer = new byte[5120];
-                        int length = inputStream.read(buffer);
-                        while (length > 0) {
-                            outputStream.write(buffer, 0, length);
-                            length = inputStream.read(buffer);
-                        }
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Log.e("SoundsHandler", "There is no sounds.zip found within the assets " +
-                            "of this theme!");
-                    has_failed = true;
-                }
-
-                // Rename the file
-                File workingDirectory = new File(context.getCacheDir()
-                        .getAbsolutePath() + "/SoundsCache/SoundsInjector/");
-                File from = new File(workingDirectory, sounds + ".zip");
-                sounds = sounds.replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+",
-                        "");
-                File to = new File(workingDirectory, sounds + ".zip");
-                boolean rename = from.renameTo(to);
-                if (rename)
-                    Log.d("SoundsHandler", "Sounds archive successfully moved to new " +
-                            "directory");
-
-                // Unzip the sounds archive to get it prepared for the preview
-                String source = context.getCacheDir().getAbsolutePath() +
-                        "/SoundsCache/SoundsInjector/" + sounds + ".zip";
-                String destination = context.getCacheDir().getAbsolutePath() +
-                        "/SoundsCache/SoundsInjector/";
-                try (ZipInputStream inputStream = new ZipInputStream(
-                        new BufferedInputStream(new FileInputStream(source)))) {
-                    ZipEntry zipEntry;
-                    int count;
-                    byte[] buffer = new byte[8192];
-                    while ((zipEntry = inputStream.getNextEntry()) != null) {
-                        File file = new File(destination, zipEntry.getName());
-                        File dir = zipEntry.isDirectory() ? file : file.getParentFile();
-                        if (!dir.isDirectory() && !dir.mkdirs())
-                            throw new FileNotFoundException("Failed to ensure directory: " +
-                                    dir.getAbsolutePath());
-                        if (zipEntry.isDirectory())
-                            continue;
-                        try (FileOutputStream outputStream = new FileOutputStream(file)) {
-                            while ((count = inputStream.read(buffer)) != -1) {
-                                outputStream.write(buffer, 0, count);
-                            }
-                        }
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Log.e("SoundsHandler",
-                            "An issue has occurred while attempting to decompress this archive.");
-                }
-            }
-
-            if (!has_failed) {
-                Log.d("SoundsHandler", "Moving sounds to theme directory " +
-                        "and setting correct contextual parameters...");
-
-                File themeDirectory = new File("/data/system/theme/");
-                if (!themeDirectory.exists()) {
-                    References.mountRWData();
-                    References.createNewFolder("/data/system/theme/");
-                    References.setPermissions(755, "/data/system/theme/");
-                    References.mountROData();
-                }
-                File audioDirectory = new File("/data/system/theme/audio/");
-                if (!audioDirectory.exists()) {
-                    References.mountRWData();
-                    References.createNewFolder("/data/system/theme/audio/");
-                    References.setPermissions(755, "/data/system/theme/audio/");
-                    References.mountROData();
-                }
-                ringtone = perform_action(context);
-            }
-        }
-        return new boolean[]{has_failed, ringtone};
-    }
-
-    public static void clearSounds(Context context) {
-
-        // ATTENTION (to developers):
-        //
-        // Sounds that aren't cleared (for testing purposes), but removed from the folder
-        // are cleared on the next reboot. The way the ContentResolver SQL database works is that it
-        // checks the file integrity of _data (file path), and if the file is missing, the database
-        // entry is removed.
-
-        if (checkOMS(context) && checkMasqueradeJobService(context)) {
-            MasqueradeService.clearThemedSounds(context);
-        } else {
-            References.delete(context, "/data/system/theme/audio/");
-            setDefaultAudible(context, RingtoneManager.TYPE_ALARM);
-            setDefaultAudible(context, RingtoneManager.TYPE_NOTIFICATION);
-            setDefaultAudible(context, RingtoneManager.TYPE_RINGTONE);
-            setDefaultUISounds("lock_sound", "Lock.ogg");
-            setDefaultUISounds("unlock_sound", "Unlock.ogg");
-            setDefaultUISounds("low_battery_sound", "LowBattery.ogg");
-            References.restartSystemUI(context);
-        }
-    }
-
-    private static boolean perform_action(Context context) {
-        boolean ringtone = false;
-
-        // Let's start with user interface sounds
-        File ui = new File(context.getCacheDir().getAbsolutePath() +
-                "/SoundsCache/SoundsInjector/ui/");
-        File ui_temp = new File("/data/system/theme/audio/ui/");
-        if (ui_temp.exists()) {
-            References.delete(context, "/data/system/theme/audio/ui/");
-        }
-        if (ui.exists()) {
-            References.createNewFolder("/data/system/theme/audio/ui/");
-
-            File effect_tick_mp3 = new File(context.getCacheDir().getAbsolutePath() +
-                    "/SoundsCache/SoundsInjector/ui/Effect_Tick.mp3");
-            File effect_tick_ogg = new File(context.getCacheDir().getAbsolutePath() +
-                    "/SoundsCache/SoundsInjector/ui/Effect_Tick.ogg");
-            if (effect_tick_mp3.exists() || effect_tick_ogg.exists()) {
-                boolean mp3 = effect_tick_mp3.exists();
-                boolean ogg = effect_tick_ogg.exists();
-                if (mp3) {
-                    References.copyDir(context, context.getCacheDir().getAbsolutePath() +
-                                    "/SoundsCache/SoundsInjector/ui/Effect_Tick.mp3",
-                            "/data/system/theme/audio/ui/Effect_Tick.mp3");
-                    setUIAudible(context, effect_tick_mp3, new File
-                            ("/data/system/theme/audio/ui/Effect_Tick.mp3"), RingtoneManager
-                            .TYPE_RINGTONE, "Effect_Tick");
-                }
-                if (ogg) {
-                    References.copyDir(context, context.getCacheDir().getAbsolutePath() +
-                                    "/SoundsCache/SoundsInjector/ui/Effect_Tick.ogg",
-                            "/data/system/theme/audio/ui/Effect_Tick.ogg");
-                    setUIAudible(context, effect_tick_ogg, new File
-                            ("/data/system/theme/audio/ui/Effect_Tick.ogg"), RingtoneManager
-                            .TYPE_RINGTONE, "Effect_Tick");
-                }
-            } else {
-                setDefaultUISounds("lock_sound", "Lock.ogg");
-            }
-
-            File new_lock_mp3 = new File(context.getCacheDir().getAbsolutePath() +
-                    "/SoundsCache/SoundsInjector/ui/Lock.mp3");
-            File new_lock_ogg = new File(context.getCacheDir().getAbsolutePath() +
-                    "/SoundsCache/SoundsInjector/ui/Lock.ogg");
-            if (new_lock_mp3.exists() || new_lock_ogg.exists()) {
-                boolean mp3 = new_lock_mp3.exists();
-                boolean ogg = new_lock_ogg.exists();
-                if (mp3) {
-                    References.move(context, context.getCacheDir().getAbsolutePath() +
-                                    "/SoundsCache/SoundsInjector/ui/Lock.mp3",
-                            "/data/system/theme/audio/ui/Lock.mp3");
-                    setUISounds("lock_sound", "/data/system/theme/audio/ui/Lock.mp3");
-                }
-                if (ogg) {
-                    References.move(context, context.getCacheDir().getAbsolutePath() +
-                                    "/SoundsCache/SoundsInjector/ui/Lock.ogg",
-                            "/data/system/theme/audio/ui/Lock.ogg");
-                    setUISounds("lock_sound", "/data/system/theme/audio/ui/Lock.ogg");
-                }
-            } else {
-                setDefaultUISounds("lock_sound", "Lock.ogg");
-            }
-
-            File new_unlock_mp3 = new File(context.getCacheDir().getAbsolutePath() +
-                    "/SoundsCache/SoundsInjector/ui/Unlock.mp3");
-            File new_unlock_ogg = new File(context.getCacheDir().getAbsolutePath() +
-                    "/SoundsCache/SoundsInjector/ui/Unlock.ogg");
-            if (new_unlock_mp3.exists() || new_unlock_ogg.exists()) {
-                boolean mp3 = new_unlock_mp3.exists();
-                boolean ogg = new_unlock_ogg.exists();
-                if (mp3) {
-                    References.move(context, context.getCacheDir().getAbsolutePath() +
-                                    "/SoundsCache/SoundsInjector/ui/Unlock.mp3",
-                            "/data/system/theme/audio/ui/Unlock.mp3");
-                    setUISounds("unlock_sound", "/data/system/theme/audio/ui/Unlock.mp3");
-                }
-                if (ogg) {
-                    References.move(context, context.getCacheDir().getAbsolutePath() +
-                                    "/SoundsCache/SoundsInjector/ui/Unlock.ogg",
-                            "/data/system/theme/audio/ui/Unlock.ogg");
-                    setUISounds("unlock_sound", "/data/system/theme/audio/ui/Unlock.ogg");
-                }
-            } else {
-                setDefaultUISounds("unlock_sound", "Unlock.ogg");
-            }
-
-            File new_lowbattery_mp3 = new File(context.getCacheDir().getAbsolutePath() +
-                    "/SoundsCache/SoundsInjector/ui/LowBattery.mp3");
-            File new_lowbattery_ogg = new File(context.getCacheDir().getAbsolutePath() +
-                    "/SoundsCache/SoundsInjector/ui/LowBattery.ogg");
-            if (new_lowbattery_mp3.exists() || new_lowbattery_ogg.exists()) {
-                boolean mp3 = new_lowbattery_mp3.exists();
-                boolean ogg = new_lowbattery_ogg.exists();
-                if (mp3) {
-                    References.move(context, context.getCacheDir().getAbsolutePath() +
-                                    "/SoundsCache/SoundsInjector/ui/LowBattery.mp3",
-                            "/data/system/theme/audio/ui/LowBattery.mp3");
-                    setUISounds("low_battery_sound",
-                            "/data/system/theme/audio/ui/LowBattery.mp3");
-                }
-                if (ogg) {
-                    References.move(context, context.getCacheDir().getAbsolutePath() +
-                                    "/SoundsCache/SoundsInjector/ui/LowBattery.ogg",
-                            "/data/system/theme/audio/ui/LowBattery.ogg");
-                    setUISounds("low_battery_sound",
-                            "/data/system/theme/audio/ui/LowBattery.ogg");
-                }
-            } else {
-                setDefaultUISounds("low_battery_sound", "LowBattery.ogg");
-            }
-            References.setPermissionsRecursively(644, "/data/system/theme/audio/ui/");
-            References.setPermissions(755, "/data/system/theme/audio/ui/");
-            References.setPermissions(755, "/data/system/theme/audio/");
-            References.setPermissions(755, "/data/system/theme/");
-            References.setContext("/data/system/theme");
-        }
-
-        // Now let's set the common user's sound files found in Settings
-        File alarms = new File(context.getCacheDir().getAbsolutePath() +
-                "/SoundsCache/SoundsInjector/alarms/");
-        File alarms_temp = new File("/data/system/theme/audio/alarms/");
-        if (alarms_temp.exists()) References.delete(context, "/data/system/theme/audio/alarms/");
-        if (alarms.exists()) {
-            File new_alarm_mp3 = new File(context.getCacheDir().getAbsolutePath() +
-                    "/SoundsCache/SoundsInjector/alarms/" + "/alarm.mp3");
-            File new_alarm_ogg = new File(context.getCacheDir().getAbsolutePath() +
-                    "/SoundsCache/SoundsInjector/alarms/" + "/alarm.ogg");
-            if (new_alarm_mp3.exists() || new_alarm_ogg.exists()) {
-                boolean mp3 = new_alarm_mp3.exists();
-                boolean ogg = new_alarm_ogg.exists();
-
-                References.copyDir(context, context.getCacheDir().getAbsolutePath() +
-                                "/SoundsCache/SoundsInjector/alarms/",
-                        "/data/system/theme/audio/");
-                References.setPermissionsRecursively(644, "/data/system/theme/audio/alarms/");
-                References.setPermissions(755, "/data/system/theme/audio/alarms/");
-
-                // Prior to setting, we should clear out the current ones
-                clearAudibles(context, "/data/system/theme/audio/alarms/alarm.mp3");
-                clearAudibles(context, "/data/system/theme/audio/alarms/alarm.ogg");
-
-                if (mp3)
-                    setAudible(context, new File("/data/system/theme/audio/alarms/alarm.mp3"),
-                            new File(alarms.getAbsolutePath(), "alarm.mp3"),
-                            RingtoneManager.TYPE_ALARM,
-                            context.getString(R.string.content_resolver_alarm_metadata));
-                if (ogg)
-                    setAudible(context, new File("/data/system/theme/audio/alarms/alarm.ogg"),
-                            new File(alarms.getAbsolutePath(), "alarm.ogg"),
-                            RingtoneManager.TYPE_ALARM,
-                            context.getString(R.string.content_resolver_alarm_metadata));
-            } else {
-                setDefaultAudible(context, RingtoneManager.TYPE_ALARM);
-            }
-        }
-
-
-        File notifications = new File(context.getCacheDir().getAbsolutePath() +
-                "/SoundsCache/SoundsInjector/notifications/");
-        File notifications_temp = new File("/data/system/theme/audio/notifications/");
-        if (notifications_temp.exists())
-            References.delete(context, "/data/system/theme/audio/notifications/");
-        if (notifications.exists()) {
-            ringtone = true;
-            File new_notifications_mp3 = new File(context.getCacheDir()
-                    .getAbsolutePath() +
-                    "/SoundsCache/SoundsInjector/notifications/" + "/notification.mp3");
-            File new_notifications_ogg = new File(context.getCacheDir()
-                    .getAbsolutePath() +
-                    "/SoundsCache/SoundsInjector/notifications/" + "/notification.ogg");
-            if (new_notifications_mp3.exists() || new_notifications_ogg.exists()) {
-                boolean mp3 = new_notifications_mp3.exists();
-                boolean ogg = new_notifications_ogg.exists();
-
-                References.copyDir(context, context.getCacheDir().getAbsolutePath() +
-                                "/SoundsCache/SoundsInjector/notifications/",
-                        "/data/system/theme/audio/");
-                References.setPermissionsRecursively(644,
-                        "/data/system/theme/audio/notifications/");
-                References.setPermissions(755, "/data/system/theme/audio/notifications/");
-
-                // Prior to setting, we should clear out the current ones
-                clearAudibles(context, "/data/system/theme/audio/notifications/notification.mp3");
-                clearAudibles(context, "/data/system/theme/audio/notifications/notification.ogg");
-
-                if (mp3)
-                    setAudible(context, new File
-                                    ("/data/system/theme/audio/notifications/notification.mp3"),
-                            new File(notifications.getAbsolutePath(), "notification.mp3"),
-                            RingtoneManager.TYPE_NOTIFICATION,
-                            context.getString(R.string.content_resolver_notification_metadata));
-                if (ogg)
-                    setAudible(context, new File
-                                    ("/data/system/theme/audio/notifications/notification.ogg"),
-                            new File(notifications.getAbsolutePath(), "notification.ogg"),
-                            RingtoneManager.TYPE_NOTIFICATION,
-                            context.getString(R.string.content_resolver_notification_metadata));
-            } else {
-                setDefaultAudible(context, RingtoneManager.TYPE_NOTIFICATION);
-            }
-        } else {
-            ringtone = false;
-        }
-
-        File ringtones = new File(context.getCacheDir().getAbsolutePath() +
-                "/SoundsCache/SoundsInjector/ringtones/");
-        File ringtones_temp = new File("/data/system/theme/audio/ringtones/");
-        if (ringtones_temp.exists())
-            References.delete(context, "/data/system/theme/audio/ringtones/");
-        if (ringtones.exists()) {
-            ringtone = true;
-            File new_ringtones_mp3 = new File(context.getCacheDir().getAbsolutePath() +
-                    "/SoundsCache/SoundsInjector/ringtones/" + "/ringtone.mp3");
-            File new_ringtones_ogg = new File(context.getCacheDir().getAbsolutePath() +
-                    "/SoundsCache/SoundsInjector/ringtones/" + "/ringtone.ogg");
-            if (new_ringtones_mp3.exists() || new_ringtones_ogg.exists()) {
-                boolean mp3 = new_ringtones_mp3.exists();
-                boolean ogg = new_ringtones_ogg.exists();
-
-                References.copyDir(context, context.getCacheDir().getAbsolutePath() +
-                                "/SoundsCache/SoundsInjector/ringtones/",
-                        "/data/system/theme/audio/");
-                References.setPermissionsRecursively(644, "/data/system/theme/audio/ringtones/");
-                References.setPermissions(755, "/data/system/theme/audio/ringtones/");
-
-                // Prior to setting, we should clear out the current ones
-                clearAudibles(context, "/data/system/theme/audio/ringtones/ringtone.mp3");
-                clearAudibles(context, "/data/system/theme/audio/ringtones/ringtone.ogg");
-
-                if (mp3)
-                    setAudible(context, new File
-                                    ("/data/system/theme/audio/ringtones/ringtone.mp3"),
-                            new File(ringtones.getAbsolutePath(), "ringtone.mp3"),
-                            RingtoneManager.TYPE_RINGTONE,
-                            context.getString(R.string.content_resolver_ringtone_metadata));
-                if (ogg)
-                    setAudible(context, new File
-                                    ("/data/system/theme/audio/ringtones/ringtone.ogg"),
-                            new File(ringtones.getAbsolutePath(), "ringtone.ogg"),
-                            RingtoneManager.TYPE_RINGTONE,
-                            context.getString(R.string.content_resolver_ringtone_metadata));
-            } else {
-                setDefaultAudible(context, RingtoneManager.TYPE_RINGTONE);
-            }
-        } else {
-            ringtone = false;
-        }
-
-        return ringtone;
-    }
-
-    private static String getDefaultAudiblePath(int type) {
-        final String name;
-        final String path;
-        switch (type) {
-            case RingtoneManager.TYPE_ALARM:
-                name = getProp("ro.config.alarm_alert");
-                path = name != null ? SYSTEM_ALARMS_PATH + File.separator + name : null;
-                break;
-            case RingtoneManager.TYPE_NOTIFICATION:
-                name = getProp("ro.config.notification_sound");
-                path = name != null ? SYSTEM_NOTIFICATIONS_PATH + File.separator + name : null;
-                break;
-            case RingtoneManager.TYPE_RINGTONE:
-                name = getProp("ro.config.ringtone");
-                path = name != null ? SYSTEM_RINGTONES_PATH + File.separator + name : null;
-                break;
-            default:
-                path = null;
-                break;
-        }
-        return path;
-    }
-
-    private static boolean setUISounds(String sound_name, String location) {
-        if (References.allowedUISound(sound_name)) {
-            References.adjustContentProvider(SYSTEM_CONTENT_URI, sound_name, location);
-            return true;
-        }
-        return false;
-    }
-
-    private static void setDefaultUISounds(String sound_name, String sound_file) {
-        References.adjustContentProvider(SYSTEM_CONTENT_URI, sound_name,
-                "/system/media/audio/ui/" + sound_file);
-    }
-
-    private static boolean setAudible(Context context, File ringtone, File ringtoneCache, int type,
-                                      String name) {
-        final String path = ringtone.getAbsolutePath();
-        final String mimeType = name.endsWith(".ogg") ? "application/ogg" : "application/mp3";
-        ContentValues values = new ContentValues();
-        values.put(MediaStore.MediaColumns.DATA, path);
-        values.put(MediaStore.MediaColumns.TITLE, name);
-        values.put(MediaStore.MediaColumns.MIME_TYPE, mimeType);
-        values.put(MediaStore.MediaColumns.SIZE, ringtoneCache.length());
-        values.put(MediaStore.Audio.Media.IS_RINGTONE, type == RingtoneManager.TYPE_RINGTONE);
-        values.put(MediaStore.Audio.Media.IS_NOTIFICATION,
-                type == RingtoneManager.TYPE_NOTIFICATION);
-        values.put(MediaStore.Audio.Media.IS_ALARM, type == RingtoneManager.TYPE_ALARM);
-        values.put(MediaStore.Audio.Media.IS_MUSIC, false);
-
-        Uri uri = MediaStore.Audio.Media.getContentUriForPath(path);
-        Uri newUri = null;
-        Cursor c = context.getContentResolver().query(uri,
-                new String[]{MediaStore.MediaColumns._ID},
-                MediaStore.MediaColumns.DATA + "='" + path + "'",
-                null, null);
-        if (c != null && c.getCount() > 0) {
-            c.moveToFirst();
-            long id = c.getLong(0);
-            c.close();
-            newUri = Uri.withAppendedPath(Uri.parse(MEDIA_CONTENT_URI), "" + id);
-            context.getContentResolver().update(uri, values,
-                    MediaStore.MediaColumns._ID + "=" + id, null);
-        }
-        if (newUri == null)
-            newUri = context.getContentResolver().insert(uri, values);
-        try {
-            RingtoneManager.setActualDefaultRingtoneUri(context, type, newUri);
-        } catch (Exception e) {
-            return false;
-        }
-        return true;
-    }
-
-    private static boolean setUIAudible(Context context, File localized_ringtone,
-                                        File ringtone_file, int type, String name) {
-        final String path = ringtone_file.getAbsolutePath();
-
-        final String path_clone = "/system/media/audio/ui/" + name + ".ogg";
-
-        ContentValues values = new ContentValues();
-        values.put(MediaStore.MediaColumns.DATA, path);
-        values.put(MediaStore.MediaColumns.TITLE, name);
-        values.put(MediaStore.MediaColumns.MIME_TYPE, "application/ogg");
-        values.put(MediaStore.MediaColumns.SIZE, localized_ringtone.length());
-        values.put(MediaStore.Audio.Media.IS_RINGTONE, false);
-        values.put(MediaStore.Audio.Media.IS_NOTIFICATION, false);
-        values.put(MediaStore.Audio.Media.IS_ALARM, false);
-        values.put(MediaStore.Audio.Media.IS_MUSIC, true);
-
-        Uri uri = MediaStore.Audio.Media.getContentUriForPath(path);
-        Uri newUri = null;
-        Cursor c = context.getContentResolver().query(uri,
-                new String[]{MediaStore.MediaColumns._ID},
-                MediaStore.MediaColumns.DATA + "='" + path_clone + "'",
-                null, null);
-        if (c != null && c.getCount() > 0) {
-            c.moveToFirst();
-            long id = c.getLong(0);
-            Log.e("ContentResolver", id + "");
-            c.close();
-            newUri = Uri.withAppendedPath(Uri.parse(MEDIA_CONTENT_URI), "" + id);
-            try {
-                context.getContentResolver().update(uri, values,
-                        MediaStore.MediaColumns._ID + "=" + id, null);
-            } catch (Exception e) {
-                Log.d("SoundsHandler", "The content provider does not need to be updated.");
-            }
-        }
-        if (newUri == null)
-            newUri = context.getContentResolver().insert(uri, values);
-        try {
-            RingtoneManager.setActualDefaultRingtoneUri(context, type, newUri);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-        return true;
-    }
-
-    private static boolean setDefaultAudible(Context context, int type) {
-        final String audiblePath = getDefaultAudiblePath(type);
-        if (audiblePath != null) {
-            Uri uri = MediaStore.Audio.Media.getContentUriForPath(audiblePath);
-            Cursor c = context.getContentResolver().query(uri,
-                    new String[]{MediaStore.MediaColumns._ID},
-                    MediaStore.MediaColumns.DATA + "='" + audiblePath + "'",
-                    null, null);
-            if (c != null && c.getCount() > 0) {
-                c.moveToFirst();
-                long id = c.getLong(0);
-                c.close();
-                uri = Uri.withAppendedPath(
-                        Uri.parse(MEDIA_CONTENT_URI), "" + id);
-            }
-            if (uri != null)
-                RingtoneManager.setActualDefaultRingtoneUri(context, type, uri);
-        } else {
-            return false;
-        }
-        return true;
-    }
-
-    private static void clearAudibles(Context context, String audiblePath) {
-        final File audibleDir = new File(audiblePath);
-        if (audibleDir.exists() && audibleDir.isDirectory()) {
-            String[] files = audibleDir.list();
-            final ContentResolver resolver = context.getContentResolver();
-            for (String s : files) {
-                final String filePath = audiblePath + File.separator + s;
-                Uri uri = MediaStore.Audio.Media.getContentUriForPath(filePath);
-                resolver.delete(uri, MediaStore.MediaColumns.DATA + "=\""
-                        + filePath + "\"", null);
-                boolean deleted = (new File(filePath)).delete();
-                if (deleted) Log.e("SoundsHandler", "Database cleared");
-            }
-        }
-    }
-    // End of sounds processing methods
-
-    public static int getDeviceEncryptionStatus(Context context) {
-        // 0: ENCRYPTION_STATUS_UNSUPPORTED
-        // 1: ENCRYPTION_STATUS_INACTIVE
-        // 2: ENCRYPTION_STATUS_ACTIVATING
-        // 3: ENCRYPTION_STATUS_ACTIVE_DEFAULT_KEY
-        // 4: ENCRYPTION_STATUS_ACTIVE
-        // 5: ENCRYPTION_STATUS_ACTIVE_PER_USER
-        int status = DevicePolicyManager.ENCRYPTION_STATUS_UNSUPPORTED;
-        final DevicePolicyManager dpm = (DevicePolicyManager)
-                context.getSystemService(Context.DEVICE_POLICY_SERVICE);
-        if (dpm != null) {
-            status = dpm.getStorageEncryptionStatus();
-        }
-        return status;
-    }
-
     public static boolean isIncompatibleFirmware() {
-
         String currentPatch = References.getProp("ro.build.version.security_patch");
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
         try {
@@ -2396,8 +998,8 @@ public class References {
                                                                   Boolean old_algorithm,
                                                                   String search_filter) {
         // This algorithm was used during 490 and below and runs at a speed where the number of
-// overlay packages installed would affect the theme reload time. We are keeping this to
-// retain the old filter to show pre-6.0.0 themes.
+        // overlay packages installed would affect the theme reload time. We are keeping this to
+        // retain the old filter to show pre-6.0.0 themes.
         if (old_algorithm) try {
             ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
                     package_name, PackageManager.GET_META_DATA);
@@ -2543,43 +1145,6 @@ public class References {
             parse = String.format(locale, "%d:%02d " + AM_PM, hour, minute);
         }
         return parse;
-    }
-
-    @IgnoreExtraProperties
-    @SuppressWarnings("WeakerAccess")
-    /*
-      Firebase statistics report
-     */
-    private static class DeviceCollection {
-
-        public String CurrentTime;
-        public String FireBaseID;
-        public String ID;
-        public String Reason;
-        public int VersionCode;
-        public String VersionName;
-
-        public DeviceCollection(String CurrentTime, String FireBaseID, String ID, String Reason,
-                                int VersionCode, String VersionName) {
-            this.CurrentTime = CurrentTime;
-            this.FireBaseID = FireBaseID;
-            this.ID = ID;
-            this.Reason = Reason;
-            this.VersionCode = VersionCode;
-            this.VersionName = VersionName;
-        }
-    }
-
-    public static class ThreadRunner extends AsyncTask<String, Integer, String> {
-        @Override
-        protected String doInBackground(String... sUrl) {
-            try {
-                Root.runCommand(sUrl[0]);
-            } catch (Exception e) {
-                // Consume window refresh
-            }
-            return null;
-        }
     }
 
     // This class serves to update the theme's cache on demand

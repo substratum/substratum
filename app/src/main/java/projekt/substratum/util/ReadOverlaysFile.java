@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import projekt.substratum.config.References;
+import projekt.substratum.config.FileOperations;
 
 public class ReadOverlaysFile {
 
@@ -20,9 +20,9 @@ public class ReadOverlaysFile {
                 .getExternalStorageDirectory().getAbsolutePath() +
                 "/.substratum/current_overlays.xml");
         if (current_overlays.exists()) {
-            References.delete(context, current_overlays.getAbsolutePath());
+            FileOperations.delete(context, current_overlays.getAbsolutePath());
         }
-        References.copy(context, argv[0], current_overlays.getAbsolutePath());
+        FileOperations.copy(context, argv[0], current_overlays.getAbsolutePath());
 
         // Parse provided state count
         int state_count = Integer.parseInt(argv[1]);
@@ -47,9 +47,9 @@ public class ReadOverlaysFile {
                 .getExternalStorageDirectory().getAbsolutePath() +
                 "/.substratum/current_overlays.xml");
         if (current_overlays.exists()) {
-            References.delete(context, current_overlays.getAbsolutePath());
+            FileOperations.delete(context, current_overlays.getAbsolutePath());
         }
-        References.copy(context, argv[0], current_overlays.getAbsolutePath());
+        FileOperations.copy(context, argv[0], current_overlays.getAbsolutePath());
 
         // Parse provided state count
         int state_count = Integer.parseInt(argv[1]);

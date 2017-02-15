@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:fitsSystemWindows="true"
+              android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -13,7 +13,7 @@
         android:background="?attr/colorPrimary"
         android:elevation="@dimen/action_bar_elevation"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tabs"
@@ -27,7 +27,7 @@
         app:tabGravity="fill"
         app:tabMode="scrollable"
         app:tabSelectedTextColor="@android:color/white"
-        app:tabTextColor="@android:color/white" />
+        app:tabTextColor="@android:color/white"/>
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
@@ -49,7 +49,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_marginTop="20dp"
-                    android:src="@drawable/no_network_showcase" />
+                    android:src="@drawable/no_network_showcase"/>
 
                 <TextView
                     android:id="@+id/placeholder_text2"
@@ -61,7 +61,7 @@
                     android:text="@string/showcase_no_connection"
                     android:textColor="@color/main_screen_card_theme_title"
                     android:textSize="20sp"
-                    android:textStyle="italic" />
+                    android:textStyle="italic"/>
 
             </RelativeLayout>
 
@@ -69,7 +69,7 @@
                 android:id="@+id/viewpager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
         </RelativeLayout>
 

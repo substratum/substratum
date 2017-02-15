@@ -1,4 +1,4 @@
-package projekt.substratum.util;
+package projekt.substratum.config;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -6,19 +6,17 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-import projekt.substratum.config.References;
-
 import static projekt.substratum.config.References.SUBSTRATUM_BUILDER;
 import static projekt.substratum.config.References.getDeviceID;
 
-class CommandCompiler {
+public class CompilerCommands {
 
-    static String createOverlayManifest(Context context, String overlay_package,
-                                        String parse2_themeName, String parse2_variantName,
-                                        String parse2_baseName, String versionName,
-                                        String targetPackage, String theme_parent,
-                                        String varianter, Boolean theme_oms,
-                                        int legacy_priority, boolean base_variant_null) {
+    public static String createOverlayManifest(Context context, String overlay_package,
+                                               String parse2_themeName, String parse2_variantName,
+                                               String parse2_baseName, String versionName,
+                                               String targetPackage, String theme_parent,
+                                               String varianter, Boolean theme_oms,
+                                               int legacy_priority, boolean base_variant_null) {
         String package_name;
         if (base_variant_null) {
             package_name = overlay_package + "." + parse2_themeName;
@@ -63,10 +61,10 @@ class CommandCompiler {
                 "</manifest>\n";
     }
 
-    static String createIconOverlayManifest(Context context, String overlay_package,
-                                            String theme_pack, String versionName,
-                                            String parsedIconName, Boolean theme_oms,
-                                            int legacy_priority) {
+    public static String createIconOverlayManifest(Context context, String overlay_package,
+                                                   String theme_pack, String versionName,
+                                                   String parsedIconName, Boolean theme_oms,
+                                                   int legacy_priority) {
         return "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?>\n" +
 
                 "<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\" " +
@@ -95,10 +93,10 @@ class CommandCompiler {
                 "</manifest>\n";
     }
 
-    static String createAOPTShellCommands(String work_area, String targetPkg,
-                                          String overlay_package, String theme_name,
-                                          boolean legacySwitch, String additional_variant,
-                                          Context context) {
+    public static String createAOPTShellCommands(String work_area, String targetPkg,
+                                                 String overlay_package, String theme_name,
+                                                 boolean legacySwitch, String additional_variant,
+                                                 Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         Boolean aopt_debug = prefs.getBoolean("aopt_debug", false);
         if (aopt_debug) Log.d(SUBSTRATUM_BUILDER,

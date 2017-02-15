@@ -9,7 +9,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import projekt.substratum.config.References;
+import projekt.substratum.config.ThemeManager;
 
 public class ReadOverlays {
 
@@ -32,7 +32,7 @@ public class ReadOverlays {
         }
 
         try {
-            nativeApp = Runtime.getRuntime().exec(References.listAllOverlays());
+            nativeApp = Runtime.getRuntime().exec(ThemeManager.listAllOverlays);
 
             try (OutputStream stdin = nativeApp.getOutputStream();
                  InputStream stdout = nativeApp.getInputStream();
@@ -45,12 +45,7 @@ public class ReadOverlays {
                 while ((line = br.readLine()) != null) {
                     if (line.length() > 0) {
                         if (line.contains(CURRENT_SELECTION)) {
-                            int version = References.checkOMSVersion(context);
-                            if (version == 3) {
-                                list.add(line.substring(8));
-                            } else if (version == 7) {
-                                list.add(line.substring(4));
-                            }
+                            list.add(line.substring(4));
                         }
                     }
                 }

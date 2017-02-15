@@ -9,9 +9,12 @@ import android.support.v7.app.AlertDialog;
 import android.widget.Toast;
 
 import projekt.substratum.R;
+import projekt.substratum.config.ElevatedCommands;
+import projekt.substratum.config.FontManager;
 import projekt.substratum.config.References;
+import projekt.substratum.config.ThemeManager;
 
-public class FontHandler {
+public class FontUtils {
 
     private Context mContext;
     private ProgressDialog progress;
@@ -56,7 +59,7 @@ public class FontHandler {
                 // Finally, refresh the window
                 if (!References.checkMasqueradeJobService(mContext) &&
                         References.checkOMS(mContext)) {
-                    new References.ThreadRunner().execute("pkill -f com.android.systemui");
+                    ThemeManager.restartSystemUI(mContext);
                 } else if (!References.checkOMS(mContext)) {
                     final AlertDialog.Builder alertDialogBuilder =
                             new AlertDialog.Builder(mContext);
@@ -65,7 +68,7 @@ public class FontHandler {
                     alertDialogBuilder.setMessage(mContext.getString(
                             R.string.legacy_dialog_soft_reboot_text));
                     alertDialogBuilder.setPositiveButton(android.R.string.ok,
-                            (dialog, id) -> References.reboot());
+                            (dialog, id) -> ElevatedCommands.reboot());
                     alertDialogBuilder.setNegativeButton(
                             R.string.remove_dialog_later, (dialog, id) -> dialog.dismiss());
                     alertDialogBuilder.setCancelable(false);
@@ -78,7 +81,7 @@ public class FontHandler {
         @Override
         protected String doInBackground(String... sUrl) {
             try {
-                References.setFonts(mContext, theme_pid, sUrl[0]);
+                FontManager.setFonts(mContext, theme_pid, sUrl[0]);
             } catch (Exception e) {
                 e.printStackTrace();
                 return "failed";

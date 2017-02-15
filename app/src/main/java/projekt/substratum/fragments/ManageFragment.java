@@ -25,9 +25,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import projekt.substratum.R;
+import projekt.substratum.config.BootAnimationManager;
+import projekt.substratum.config.ElevatedCommands;
+import projekt.substratum.config.FileOperations;
+import projekt.substratum.config.FontManager;
 import projekt.substratum.config.References;
+import projekt.substratum.config.ThemeManager;
+import projekt.substratum.config.WallpaperManager;
 import projekt.substratum.util.ReadOverlays;
-import projekt.substratum.util.SoundsHandler;
+import projekt.substratum.util.SoundUtils;
 
 public class ManageFragment extends Fragment {
 
@@ -78,22 +84,22 @@ public class ManageFragment extends Fragment {
                                                 Snackbar.LENGTH_LONG)
                                                 .show();
                                     }
-                                    References.disableAll(getContext());
+                                    ThemeManager.disableAll(getContext());
                                 } else {
                                     File vendor_location = new File("/system/vendor/overlay/");
                                     File overlay_location = new File("/system/overlay/");
-                                    References.mountRW();
+                                    FileOperations.mountRW();
                                     if (vendor_location.exists()) {
-                                        References.mountRWVendor();
-                                        References.delete(getContext(), vendor_location
+                                        FileOperations.mountRWVendor();
+                                        FileOperations.delete(getContext(), vendor_location
                                                 .getAbsolutePath());
-                                        References.mountROVendor();
+                                        FileOperations.mountROVendor();
                                     }
                                     if (overlay_location.exists()) {
-                                        References.delete(getContext(), overlay_location
+                                        FileOperations.delete(getContext(), overlay_location
                                                 .getAbsolutePath());
                                     }
-                                    References.mountRO();
+                                    FileOperations.mountRO();
                                     if (getView() != null) {
                                         Snackbar.make(getView(),
                                                 getString(R.string.
@@ -113,7 +119,7 @@ public class ManageFragment extends Fragment {
                                             .setPositiveButton(
                                                     android.R.string.ok,
                                                     (dialog1, id) ->
-                                                            References.softReboot());
+                                                            ElevatedCommands.softReboot());
                                     alertDialogBuilder.setCancelable(false);
                                     AlertDialog alertDialog = alertDialogBuilder.create();
                                     alertDialog.show();
@@ -148,7 +154,7 @@ public class ManageFragment extends Fragment {
                     switch (which) {
                         case 0:
                             try {
-                                References.clearWallpaper(getContext(), "home");
+                                WallpaperManager.clearWallpaper(getContext(), "home");
                                 if (getView() != null) {
                                     Snackbar.make(getView(),
                                             getString(R.string.
@@ -166,7 +172,7 @@ public class ManageFragment extends Fragment {
                             break;
                         case 1:
                             try {
-                                References.clearWallpaper(getContext(), "lock");
+                                WallpaperManager.clearWallpaper(getContext(), "lock");
                                 if (getView() != null) {
                                     Snackbar.make(getView(),
                                             getString(R.string.
@@ -181,7 +187,7 @@ public class ManageFragment extends Fragment {
                             break;
                         case 2:
                             try {
-                                References.clearWallpaper(getContext(), "all");
+                                WallpaperManager.clearWallpaper(getContext(), "all");
                                 if (getView() != null) {
                                     Snackbar.make(getView(),
                                             getString(R.string.
@@ -202,7 +208,7 @@ public class ManageFragment extends Fragment {
                 alertDialogBuilder.setMessage(getString(R.string.manage_dialog_text));
                 alertDialogBuilder.setPositiveButton(android.R.string.ok, (dialog, id) -> {
                     try {
-                        References.clearWallpaper(getContext(), "all");
+                        WallpaperManager.clearWallpaper(getContext(), "all");
                         if (getView() != null) {
                             Snackbar.make(getView(),
                                     getString(R.string.
@@ -332,7 +338,7 @@ public class ManageFragment extends Fragment {
                         "many times, restarting current activity to preserve app " +
                         "integrity.");
             }
-            References.uninstallOverlay(getContext(), final_commands_array);
+            ThemeManager.uninstallOverlay(getContext(), final_commands_array);
         }
 
         @Override
@@ -383,7 +389,7 @@ public class ManageFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            References.clearBootAnimation(getContext());
+            BootAnimationManager.clearBootAnimation(getContext());
             return null;
         }
     }
@@ -429,7 +435,7 @@ public class ManageFragment extends Fragment {
                 alertDialogBuilder.setMessage(getString(R.string
                         .legacy_dialog_soft_reboot_text));
                 alertDialogBuilder.setPositiveButton(android.R.string.ok, (dialog, id) ->
-                        References.reboot());
+                        ElevatedCommands.reboot());
                 alertDialogBuilder.setNegativeButton(R.string.remove_dialog_later,
                         (dialog, id) -> dialog.dismiss());
                 alertDialogBuilder.setCancelable(false);
@@ -440,7 +446,7 @@ public class ManageFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            References.clearFonts(getContext());
+            FontManager.clearFonts(getContext());
             return null;
         }
     }
@@ -474,7 +480,7 @@ public class ManageFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            new SoundsHandler().SoundsClearer(getContext());
+            new SoundUtils().SoundsClearer(getContext());
             return null;
         }
     }

@@ -29,7 +29,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import projekt.substratum.R;
+import projekt.substratum.config.FileOperations;
 import projekt.substratum.config.References;
+import projekt.substratum.config.ThemeManager;
 import projekt.substratum.model.ThemeInfo;
 import projekt.substratum.util.ReadOverlays;
 
@@ -284,7 +286,7 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
         @Override
         protected String doInBackground(String... sUrl) {
             // Uninstall theme
-            References.uninstallOverlay(mContext, currentObject.getThemePackage());
+            ThemeManager.uninstallOverlay(mContext, currentObject.getThemePackage());
 
             // Get all installed overlays for this package
             List<String> stateAll = ReadOverlays.main(4, mContext);
@@ -309,7 +311,7 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
             }
 
             // Uninstall all overlays for this package
-            References.uninstallOverlay(mContext, all_overlays);
+            ThemeManager.uninstallOverlay(mContext, all_overlays);
             return null;
         }
     }
@@ -338,14 +340,14 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
         protected String doInBackground(String... sUrl) {
             // Delete the directory
             try {
-                References.delete(mContext, mContext.getCacheDir().getAbsolutePath() +
+                FileOperations.delete(mContext, mContext.getCacheDir().getAbsolutePath() +
                         "/SubstratumBuilder/");
             } catch (Exception e) {
                 // Suppress warning
             }
             // Reset the flag for is_updating
             SharedPreferences prefsPrivate = mContext.getSharedPreferences("substratum_state",
-                            Context.MODE_PRIVATE);
+                    Context.MODE_PRIVATE);
             prefsPrivate.edit().remove("is_updating").apply();
             return null;
         }

@@ -53,7 +53,11 @@ import java.io.File;
 
 import eightbitlab.com.blurview.BlurView;
 import eightbitlab.com.blurview.RenderScriptBlur;
+import projekt.substratum.config.ElevatedCommands;
+import projekt.substratum.config.FileOperations;
+import projekt.substratum.config.FirebaseAnalytics;
 import projekt.substratum.config.References;
+import projekt.substratum.config.ThemeManager;
 import projekt.substratum.fragments.ThemeFragment;
 import projekt.substratum.services.ThemeService;
 import projekt.substratum.util.Root;
@@ -551,17 +555,17 @@ public class MainActivity extends AppCompatActivity implements
             // Begin OMS based options
             case R.id.restart_systemui:
                 prefs.edit().clear().apply();
-                References.restartSystemUI(getApplicationContext());
+                ThemeManager.restartSystemUI(getApplicationContext());
                 return true;
 
             // Begin RRO based options
             case R.id.reboot_device:
                 prefs.edit().clear().apply();
-                References.reboot();
+                ElevatedCommands.reboot();
                 return true;
             case R.id.soft_reboot:
                 prefs.edit().clear().apply();
-                References.softReboot();
+                ElevatedCommands.softReboot();
                 return true;
 
             default:
@@ -610,7 +614,8 @@ public class MainActivity extends AppCompatActivity implements
                     File[] fileList = new File(getCacheDir().getAbsolutePath() +
                             "/SubstratumBuilder/").listFiles();
                     for (File file : fileList) {
-                        References.delete(getApplicationContext(), getCacheDir().getAbsolutePath() +
+                        FileOperations.delete(getApplicationContext(), getCacheDir()
+                                .getAbsolutePath() +
                                 "/SubstratumBuilder/" + file.getName());
                     }
                     Log.d("SubstratumBuilder", "The cache has been flushed!");

@@ -16,9 +16,12 @@ import android.util.Log;
 import android.view.View;
 
 import projekt.substratum.R;
+import projekt.substratum.config.FileOperations;
 import projekt.substratum.config.References;
+import projekt.substratum.config.SoundManager;
+import projekt.substratum.config.ThemeManager;
 
-public class SoundsHandler {
+public class SoundUtils {
 
     public static FinishReceiver finishReceiver;
 
@@ -39,7 +42,7 @@ public class SoundsHandler {
     }
 
     public void SoundsClearer(Context context) {
-        References.clearSounds(context);
+        SoundManager.clearSounds(context);
     }
 
     private void finishFunction() {
@@ -56,8 +59,8 @@ public class SoundsHandler {
         }
 
         if (!References.checkMasqueradeJobService(mContext)) {
-            References.mountROData();
-            References.mountRO();
+            FileOperations.mountROData();
+            FileOperations.mountRO();
         }
 
         if (ringtone) {
@@ -120,14 +123,14 @@ public class SoundsHandler {
             } else {
                 finishFunction();
                 progress.dismiss();
-                References.restartSystemUI(mContext);
+                ThemeManager.restartSystemUI(mContext);
             }
         }
 
         @Override
         protected String doInBackground(String... sUrl) {
 
-            boolean[] results = References.setSounds(mContext, theme_pid, sUrl[0]);
+            boolean[] results = SoundManager.setSounds(mContext, theme_pid, sUrl[0]);
             has_failed = results[0];
             ringtone = results[1];
 
@@ -135,15 +138,14 @@ public class SoundsHandler {
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.putString("sounds_applied", theme_pid);
                 editor.apply();
-                Log.d("SoundsHandler", "Sound pack installed!");
-                References.delete(mContext, mContext.getCacheDir().getAbsolutePath() +
+                Log.d("SoundUtils", "Sound pack installed!");
+                FileOperations.delete(mContext, mContext.getCacheDir().getAbsolutePath() +
                         "/SoundsCache/SoundsInjector/");
             } else {
-                Log.e("SoundsHandler", "Sound installation aborted!");
-                References.delete(mContext, mContext.getCacheDir().getAbsolutePath() +
+                Log.e("SoundUtils", "Sound installation aborted!");
+                FileOperations.delete(mContext, mContext.getCacheDir().getAbsolutePath() +
                         "/SoundsCache/SoundsInjector/");
             }
-
             return null;
         }
     }

@@ -7,10 +7,10 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import projekt.substratum.tabs.BootAnimation;
-import projekt.substratum.tabs.FontInstaller;
-import projekt.substratum.tabs.OverlaysList;
-import projekt.substratum.tabs.SoundPackager;
+import projekt.substratum.tabs.BootAnimations;
+import projekt.substratum.tabs.Fonts;
+import projekt.substratum.tabs.Overlays;
+import projekt.substratum.tabs.Sounds;
 import projekt.substratum.tabs.Wallpapers;
 
 public class InformationTabsAdapter extends FragmentStatePagerAdapter {
@@ -39,13 +39,13 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
         if (theme_mode != null && theme_mode.length() > 0) {
             switch (theme_mode) {
                 case "overlays":
-                    return new OverlaysList();
+                    return new Overlays();
                 case "bootanimation":
-                    return new BootAnimation();
+                    return new BootAnimations();
                 case "fonts":
-                    return new FontInstaller();
+                    return new Fonts();
                 case "audio":
-                    return new SoundPackager();
+                    return new Sounds();
                 case "wallpapers":
                     return new Wallpapers();
             }
@@ -61,16 +61,16 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
     private Fragment getFragment() {
         if (package_checker.contains("overlays")) {
             package_checker.remove("overlays");
-            return new OverlaysList();
+            return new Overlays();
         } else if (package_checker.contains("bootanimation")) {
             package_checker.remove("bootanimation");
-            return new BootAnimation();
+            return new BootAnimations();
         } else if (package_checker.contains("fonts")) {
             package_checker.remove("fonts");
-            return new FontInstaller();
+            return new Fonts();
         } else if (package_checker.contains("audio")) {
             package_checker.remove("audio");
-            return new SoundPackager();
+            return new Sounds();
         } else if (wallpaperUrl != null) {
             return new Wallpapers();
         }

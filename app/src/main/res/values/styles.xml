@@ -15,11 +15,11 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.DialogAlert" parent="@android:style/Theme.DeviceDefault.Light.Dialog.Alert" />
+    <style name="AppTheme.DialogAlert" parent="@android:style/Theme.DeviceDefault.Light.Dialog.Alert"/>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
     <style name="CustomWelcomeScreenTheme" parent="WelcomeScreenTheme">
         <item name="welcomeIndicatorStyle">@style/WelcomeScreenPageIndicator.Custom</item>
@@ -37,9 +37,9 @@
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 
-    <style name="RestoreActivity.ActivityTheme" parent="@android:style/Theme.NoDisplay" />
+    <style name="RestoreActivity.ActivityTheme" parent="@android:style/Theme.NoDisplay"/>
 
-    <style name="RestoreDialog" parent="@android:style/Theme.DeviceDefault.Light.Dialog.Alert" />
+    <style name="RestoreDialog" parent="@android:style/Theme.DeviceDefault.Light.Dialog.Alert"/>
 
     <style name="TextAppearance.ExpandedTitle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textSize">26sp</item>

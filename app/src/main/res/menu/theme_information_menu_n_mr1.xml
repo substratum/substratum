@@ -2,26 +2,26 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/clean"
-        android:title="@string/menu_clean" />
+        android:title="@string/menu_clean"/>
     <item
         android:id="@+id/clean_cache"
-        android:title="@string/menu_clean_cache" />
+        android:title="@string/menu_clean_cache"/>
     <item
         android:id="@+id/disable"
-        android:title="@string/menu_disable" />
+        android:title="@string/menu_disable"/>
     <item
         android:id="@+id/enable"
-        android:title="@string/menu_enable" />
+        android:title="@string/menu_enable"/>
     <item
         android:id="@+id/favorite"
-        android:title="@string/menu_favorite" />
+        android:title="@string/menu_favorite"/>
     <item
         android:id="@+id/rate"
-        android:title="@string/menu_rate" />
+        android:title="@string/menu_rate"/>
     <item
         android:id="@+id/restart_systemui"
-        android:title="@string/menu_restart_systemui" />
+        android:title="@string/menu_restart_systemui"/>
     <item
         android:id="@+id/uninstall"
-        android:title="@string/menu_uninstall" />
+        android:title="@string/menu_uninstall"/>
 </menu>

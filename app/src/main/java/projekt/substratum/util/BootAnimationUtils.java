@@ -35,9 +35,11 @@ import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 import projekt.substratum.R;
+import projekt.substratum.config.BootAnimationManager;
+import projekt.substratum.config.FileOperations;
 import projekt.substratum.config.References;
 
-public class BootAnimationHandler {
+public class BootAnimationUtils {
 
     private Context mContext;
     private ProgressDialog progress;
@@ -80,8 +82,8 @@ public class BootAnimationHandler {
                         Snackbar.LENGTH_LONG)
                         .show();
             }
-            References.mountROData();
-            References.mountRO();
+            FileOperations.mountROData();
+            FileOperations.mountRO();
         }
 
         @Override
@@ -90,31 +92,31 @@ public class BootAnimationHandler {
             has_failed = false;
 
             // Move the file from assets folder to a new working area
-            Log.d("BootAnimationHandler", "Copying over the selected boot animation to working " +
+            Log.d("BootAnimationUtils", "Copying over the selected boot animation to working " +
                     "directory...");
 
             File cacheDirectory = new File(mContext.getCacheDir(), "/BootAnimationCache/");
             if (!cacheDirectory.exists()) {
                 boolean created = cacheDirectory.mkdirs();
-                if (created) Log.d("BootAnimationHandler", "Bootanimation folder created");
+                if (created) Log.d("BootAnimationUtils", "Bootanimation folder created");
             }
             File cacheDirectory2 = new File(mContext.getCacheDir(), "/BootAnimationCache/" +
                     "AnimationCreator/");
             if (!cacheDirectory2.exists()) {
                 boolean created = cacheDirectory2.mkdirs();
-                if (created) Log.d("BootAnimationHandler", "Bootanimation work folder created");
+                if (created) Log.d("BootAnimationUtils", "Bootanimation work folder created");
             } else {
-                References.delete(mContext, mContext.getCacheDir().getAbsolutePath() +
+                FileOperations.delete(mContext, mContext.getCacheDir().getAbsolutePath() +
                         "/BootAnimationCache/AnimationCreator/");
                 boolean created = cacheDirectory2.mkdirs();
-                if (created) Log.d("BootAnimationHandler", "Bootanimation folder recreated");
+                if (created) Log.d("BootAnimationUtils", "Bootanimation folder recreated");
             }
 
             String bootanimation = sUrl[0];
 
             // Now let's take out desc.txt from the theme's assets (bootanimation.zip) and parse it
             if (!has_failed) {
-                Log.d("BootAnimationHandler", "Analyzing integrity of boot animation descriptor " +
+                Log.d("BootAnimationUtils", "Analyzing integrity of boot animation descriptor " +
                         "file...");
                 try {
                     Context otherContext = mContext.createPackageContext(theme_pid, 0);
@@ -128,7 +130,7 @@ public class BootAnimationHandler {
                         CopyStream(inputStream, outputStream);
                     }
                 } catch (Exception e) {
-                    Log.e("BootAnimationHandler", "There is no bootanimation.zip found within the" +
+                    Log.e("BootAnimationUtils", "There is no bootanimation.zip found within the" +
                             " assets of this theme!");
                     has_failed = true;
                 }
@@ -142,7 +144,7 @@ public class BootAnimationHandler {
                 File to = new File(workingDirectory, bootanimation + ".zip");
                 boolean rename = from.renameTo(to);
                 if (rename)
-                    Log.d("BootAnimationHandler", "Boot Animation successfully moved to new " +
+                    Log.d("BootAnimationUtils", "Boot Animation successfully moved to new " +
                             "directory");
             }
 
@@ -157,7 +159,7 @@ public class BootAnimationHandler {
                             bootanimation + ".zip"), "desc.txt", new File(mContext.getCacheDir()
                             .getAbsolutePath() + "/BootAnimationCache/AnimationCreator/desc.txt"));
                 } else {
-                    Log.e("BootAnimationHandler", "Could not find specified boot animation " +
+                    Log.e("BootAnimationUtils", "Could not find specified boot animation " +
                             "descriptor file (desc.txt)!");
                     has_failed = true;
                 }
@@ -165,7 +167,7 @@ public class BootAnimationHandler {
 
             // Begin parsing of the file (desc.txt) and parse the first line
             if (!has_failed) {
-                Log.d("BootAnimationHandler", "Calculating hardware display density metrics and " +
+                Log.d("BootAnimationUtils", "Calculating hardware display density metrics and " +
                         "resizing the bootanimation...");
                 BufferedReader reader = null;
                 try (final OutputStream os = new FileOutputStream(mContext.getCacheDir()
@@ -255,7 +257,7 @@ public class BootAnimationHandler {
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Log.e("BootAnimationHandler", "The boot animation descriptor file (desc.txt) " +
+                    Log.e("BootAnimationUtils", "The boot animation descriptor file (desc.txt) " +
                             "could not be parsed properly!");
                     has_failed = true;
                 } finally {
@@ -270,7 +272,7 @@ public class BootAnimationHandler {
             }
 
             if (!has_failed) {
-                Log.d("BootAnimationHandler", "Finalizing the boot animation descriptor file and " +
+                Log.d("BootAnimationUtils", "Finalizing the boot animation descriptor file and " +
                         "committing changes to the archive...");
 
                 ZipEntrySource[] addedEntries = new ZipEntrySource[]{
@@ -284,28 +286,28 @@ public class BootAnimationHandler {
             }
 
             if (!has_failed) {
-                Log.d("BootAnimationHandler", "Moving boot animation to theme directory " +
+                Log.d("BootAnimationUtils", "Moving boot animation to theme directory " +
                         "and setting correct contextual parameters...");
                 boolean is_encrypted = false;
                 File themeDirectory;
                 if (References.checkOMS(mContext)) {
                     if (References.getDeviceEncryptionStatus(mContext) <= 1) {
-                        Log.d("BootAnimationHandler", "Data partition on the current device " +
+                        Log.d("BootAnimationUtils", "Data partition on the current device " +
                                 "is decrypted, using dedicated theme bootanimation slot...");
                         themeDirectory = new File("/data/system/theme/");
                         if (!themeDirectory.exists()) {
-                            References.mountRWData();
-                            References.createNewFolder("/data/system/theme/");
+                            FileOperations.mountRWData();
+                            FileOperations.createNewFolder("/data/system/theme/");
                         }
                     } else {
-                        Log.d("BootAnimationHandler", "Data partition on the current device " +
+                        Log.d("BootAnimationUtils", "Data partition on the current device " +
                                 "is encrypted, using dedicated encrypted bootanimation " +
                                 "slot...");
                         is_encrypted = true;
                         themeDirectory = new File("/system/media/");
                     }
                 } else {
-                    Log.d("BootAnimationHandler", "Current device is on substratum legacy, " +
+                    Log.d("BootAnimationUtils", "Current device is on substratum legacy, " +
                             "using system bootanimation slot...");
                     themeDirectory = new File("/system/media/");
                 }
@@ -314,23 +316,23 @@ public class BootAnimationHandler {
                         .getAbsolutePath() + "/BootAnimationCache/AnimationCreator/" + "scaled-"
                         + bootanimation + ".zip");
                 if (scaledBootAnimCheck.exists()) {
-                    Log.d("BootAnimationHandler", "Scaled boot animation created by Substratum " +
+                    Log.d("BootAnimationUtils", "Scaled boot animation created by Substratum " +
                             "verified!");
                 } else {
-                    Log.e("BootAnimationHandler", "Scaled boot animation created by Substratum " +
+                    Log.e("BootAnimationUtils", "Scaled boot animation created by Substratum " +
                             "NOT verified!");
                     has_failed = true;
                 }
 
                 // Move created boot animation to working directory
-                References.move(mContext, mContext.getCacheDir()
+                FileOperations.move(mContext, mContext.getCacheDir()
                         .getAbsolutePath() + "/BootAnimationCache/AnimationCreator/" + "scaled-"
                         + bootanimation + ".zip", Environment.getExternalStorageDirectory()
                         .getAbsolutePath() + "/.substratum/bootanimation.zip");
 
                 // Inject backup script for encrypted legacy and encrypted OMS devices
                 if (!has_failed && (is_encrypted || !References.checkOMS(mContext))) {
-                    References.mountRW();
+                    FileOperations.mountRW();
                     File backupScript = new File("/system/addon.d/81-subsboot.sh");
 
                     if (!backupScript.exists()) {
@@ -365,15 +367,15 @@ public class BootAnimationHandler {
                                 }
                             }
                         }
-                        References.copy(mContext, mContext.getFilesDir().getAbsolutePath() +
+                        FileOperations.copy(mContext, mContext.getFilesDir().getAbsolutePath() +
                                 "/81-subsboot.sh", backupScript.getAbsolutePath());
-                        References.setPermissions(755, backupScript.getAbsolutePath());
+                        FileOperations.setPermissions(755, backupScript.getAbsolutePath());
                     }
 
                     File backupDirectory = new File(themeDirectory.getAbsolutePath() +
                             "/bootanimation-backup.zip");
                     if (!backupDirectory.exists()) {
-                        References.move(mContext, themeDirectory.getAbsolutePath()
+                        FileOperations.move(mContext, themeDirectory.getAbsolutePath()
                                 + "/bootanimation.zip", backupDirectory.getAbsolutePath());
                     }
 
@@ -381,19 +383,20 @@ public class BootAnimationHandler {
                             "/bootanimation.zip");
 
                     if (backupDirectory.exists() && backupScript.exists()) {
-                        Log.d("BootAnimationHandler", "Old bootanimation is backed up, ready to " +
+                        Log.d("BootAnimationUtils", "Old bootanimation is backed up, ready to " +
                                 "go!");
                     } else if (!bootAnimationCheck.exists() && !backupDirectory.exists()) {
-                        Log.d("BootAnimationHandler", "There is no predefined bootanimation on " +
+                        Log.d("BootAnimationUtils", "There is no predefined bootanimation on " +
                                 "this device, injecting a brand new default bootanimation...");
                     } else {
-                        Log.e("BootAnimationHandler", "Failed to backup bootanimation!");
+                        Log.e("BootAnimationUtils", "Failed to backup bootanimation!");
                         has_failed = true;
                     }
                 }
 
                 if (!has_failed) {
-                    References.setBootAnimation(mContext, themeDirectory.getAbsolutePath());
+                    BootAnimationManager.setBootAnimation(mContext, themeDirectory
+                            .getAbsolutePath());
                 }
             }
 
@@ -401,13 +404,13 @@ public class BootAnimationHandler {
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.putString("bootanimation_applied", theme_pid);
                 editor.apply();
-                Log.d("BootAnimationHandler", "Boot animation installed!");
+                Log.d("BootAnimationUtils", "Boot animation installed!");
                 // TODO: Remove rm -rf call to delete our own cache file
-                References.delete(mContext, mContext.getCacheDir().getAbsolutePath() +
+                FileOperations.delete(mContext, mContext.getCacheDir().getAbsolutePath() +
                         "/BootAnimationCache/AnimationCreator/");
             } else {
-                Log.e("BootAnimationHandler", "Boot animation installation aborted!");
-                References.delete(mContext, mContext.getCacheDir().getAbsolutePath() +
+                Log.e("BootAnimationUtils", "Boot animation installation aborted!");
+                FileOperations.delete(mContext, mContext.getCacheDir().getAbsolutePath() +
                         "/BootAnimationCache/AnimationCreator/");
             }
             return null;

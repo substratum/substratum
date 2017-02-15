@@ -1,5 +1,6 @@
 package projekt.substratum;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
@@ -54,7 +55,15 @@ import java.util.Arrays;
 import java.util.List;
 
 import projekt.substratum.adapters.InformationTabsAdapter;
+import projekt.substratum.config.BootAnimationManager;
+import projekt.substratum.config.ElevatedCommands;
+import projekt.substratum.config.FileOperations;
+import projekt.substratum.config.FirebaseAnalytics;
+import projekt.substratum.config.FontManager;
 import projekt.substratum.config.References;
+import projekt.substratum.config.SoundManager;
+import projekt.substratum.config.ThemeManager;
+import projekt.substratum.config.WallpaperManager;
 import projekt.substratum.util.ReadOverlays;
 
 public class InformationActivity extends AppCompatActivity {
@@ -96,7 +105,7 @@ public class InformationActivity extends AppCompatActivity {
     }
 
     private static void setOverflowButtonColor(final Activity activity, final Boolean dark_mode) {
-        final String overflowDescription =
+        @SuppressLint("PrivateResource") final String overflowDescription =
                 activity.getString(R.string.abc_action_menu_overflow_description);
         final ViewGroup decorView = (ViewGroup) activity.getWindow().getDecorView();
         final ViewTreeObserver viewTreeObserver = decorView.getViewTreeObserver();
@@ -158,7 +167,7 @@ public class InformationActivity extends AppCompatActivity {
                 Uri resultUri = result.getUri();
                 if (resultUri.toString().contains("homescreen_wallpaper")) {
                     try {
-                        References.setWallpaper(getApplicationContext(),
+                        WallpaperManager.setWallpaper(getApplicationContext(),
                                 resultUri.toString().substring(7), "home");
                         editor.putString("home_wallpaper_applied", theme_pid);
                         Snackbar.make(findViewById(android.R.id.content),
@@ -174,7 +183,7 @@ public class InformationActivity extends AppCompatActivity {
                     }
                 } else if (resultUri.toString().contains("lockscreen_wallpaper")) {
                     try {
-                        References.setWallpaper(getApplicationContext(),
+                        WallpaperManager.setWallpaper(getApplicationContext(),
                                 resultUri.toString().substring(7), "lock");
                         editor.putString("lock_wallpaper_applied", theme_pid);
                         Snackbar.make(findViewById(android.R.id.content),
@@ -190,7 +199,7 @@ public class InformationActivity extends AppCompatActivity {
                     }
                 } else if (resultUri.toString().contains("all_wallpaper")) {
                     try {
-                        References.setWallpaper(getApplicationContext(),
+                        WallpaperManager.setWallpaper(getApplicationContext(),
                                 resultUri.toString().substring(7), "all");
                         editor.putString("home_wallpaper_applied", theme_pid);
                         editor.putString("lock_wallpaper_applied", theme_pid);
@@ -282,24 +291,22 @@ public class InformationActivity extends AppCompatActivity {
         }
 
         if (dynamicNavBarColors && prefs.getBoolean("dynamic_navbar", true)) {
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                getWindow().setNavigationBarColor(dominantColor);
-                if (checkColorDarkness(dominantColor)) {
-                    getWindow().setNavigationBarColor(
-                            getColor(R.color.theme_information_background));
-                }
+            getWindow().setNavigationBarColor(dominantColor);
+            if (checkColorDarkness(dominantColor)) {
+                getWindow().setNavigationBarColor(
+                        getColor(R.color.theme_information_background));
             }
         }
 
         if (References.isOffensive(theme_name)) {
-            References.backupDebuggableStatistics(
+            FirebaseAnalytics.backupDebuggableStatistics(
                     getApplicationContext(),
                     "bannable-offence",
                     References.getDeviceID(getApplicationContext()),
                     theme_name);
         } else if (
                 References.isOffensive(theme_author)) {
-            References.backupDebuggableStatistics(
+            FirebaseAnalytics.backupDebuggableStatistics(
                     getApplicationContext(),
                     "bannable-offence",
                     References.getDeviceID(getApplicationContext()),
@@ -504,7 +511,7 @@ public class InformationActivity extends AppCompatActivity {
                         toast.show();
 
                         // Begin uninstalling overlays for this package
-                        References.uninstallOverlay(getApplicationContext(), all_overlays);
+                        ThemeManager.uninstallOverlay(getApplicationContext(), all_overlays);
                     })
                     .setNegativeButton(R.string.uninstall_dialog_cancel, (dialog, id19) -> {
                         // User cancelled the dialog
@@ -521,7 +528,8 @@ public class InformationActivity extends AppCompatActivity {
             builder.setIcon(References.grabAppIcon(getApplicationContext(), theme_pid));
             builder.setMessage(R.string.clean_cache_dialog_body)
                     .setPositiveButton(R.string.uninstall_dialog_okay, (dialog, id110) -> {
-                        References.delete(getApplicationContext(), getCacheDir().getAbsolutePath() +
+                        FileOperations.delete(getApplicationContext(), getCacheDir()
+                                .getAbsolutePath() +
                                 "/SubstratumBuilder/" + theme_pid + "/");
                         String format =
                                 String.format(
@@ -574,7 +582,7 @@ public class InformationActivity extends AppCompatActivity {
                         toast.show();
 
                         // Begin disabling overlays
-                        References.disableOverlay(getApplicationContext(), all_overlays);
+                        ThemeManager.disableOverlay(getApplicationContext(), all_overlays);
                     })
                     .setNegativeButton(R.string.uninstall_dialog_cancel, (dialog, id15) -> {
                         // User cancelled the dialog
@@ -619,7 +627,7 @@ public class InformationActivity extends AppCompatActivity {
                         toast.show();
 
                         // Begin enabling overlays
-                        References.enableOverlay(getApplicationContext(), all_overlays);
+                        ThemeManager.enableOverlay(getApplicationContext(), all_overlays);
                     })
                     .setNegativeButton(R.string.uninstall_dialog_cancel, (dialog, id13) -> dialog
                             .cancel());
@@ -660,17 +668,17 @@ public class InformationActivity extends AppCompatActivity {
 
         // Begin OMS based options
         if (id == R.id.restart_systemui) {
-            References.restartSystemUI(getApplicationContext());
+            ThemeManager.restartSystemUI(getApplicationContext());
             return true;
         }
 
         // Begin RRO based options
         if (id == R.id.reboot_device) {
-            References.reboot();
+            ElevatedCommands.reboot();
             return true;
         }
         if (id == R.id.soft_reboot) {
-            References.softReboot();
+            ElevatedCommands.softReboot();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -793,7 +801,7 @@ public class InformationActivity extends AppCompatActivity {
         protected String doInBackground(String... sUrl) {
             final SharedPreferences.Editor editor = prefs.edit();
 
-            References.uninstallOverlay(getApplicationContext(), theme_pid);
+            ThemeManager.uninstallOverlay(getApplicationContext(), theme_pid);
 
             // Get all installed overlays for this package
             List<String> stateAll = ReadOverlays.main(4, getApplicationContext());
@@ -822,35 +830,35 @@ public class InformationActivity extends AppCompatActivity {
             }
 
             // Uninstall all overlays for this package
-            References.uninstallOverlay(getApplicationContext(), all_overlays);
+            ThemeManager.uninstallOverlay(getApplicationContext(), all_overlays);
 
             // Clear SubstratumBuilder cache for this package
-            References.delete(getApplicationContext(), getCacheDir().getAbsolutePath() +
+            FileOperations.delete(getApplicationContext(), getCacheDir().getAbsolutePath() +
                     "/SubstratumBuilder/" + theme_pid);
 
             //Remove applied font, sounds, and bootanimation
             if (prefs.getString("sounds_applied", "").equals(theme_pid)) {
-                References.clearSounds(getApplicationContext());
+                SoundManager.clearSounds(getApplicationContext());
                 editor.remove("sounds_applied");
             }
             if (prefs.getString("fonts_applied", "").equals(theme_pid)) {
-                References.clearFonts(getApplicationContext());
+                FontManager.clearFonts(getApplicationContext());
                 editor.remove("fonts_applied");
             }
             if (prefs.getString("bootanimation_applied", "").equals(theme_pid)) {
-                References.clearBootAnimation(getApplicationContext());
+                BootAnimationManager.clearBootAnimation(getApplicationContext());
                 editor.remove("bootanimation_applied");
             }
             if (prefs.getString("home_wallpaper_applied", "").equals(theme_pid)) {
                 try {
-                    References.clearWallpaper(getApplicationContext(), "home");
+                    WallpaperManager.clearWallpaper(getApplicationContext(), "home");
                 } catch (IOException e) {
                     Log.e("InformationActivity", "Failed to restore home screen wallpaper!");
                 }
             }
             if (prefs.getString("lock_wallpaper_applied", "").equals(theme_pid)) {
                 try {
-                    References.clearWallpaper(getApplicationContext(), "lock");
+                    WallpaperManager.clearWallpaper(getApplicationContext(), "lock");
                 } catch (IOException e) {
                     Log.e("InformationActivity", "Failed to restore lock screen wallpaper!");
                 }

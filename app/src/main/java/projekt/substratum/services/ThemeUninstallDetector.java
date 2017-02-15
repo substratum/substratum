@@ -11,7 +11,12 @@ import android.util.Log;
 import java.io.IOException;
 import java.util.Set;
 
+import projekt.substratum.config.BootAnimationManager;
+import projekt.substratum.config.FileOperations;
+import projekt.substratum.config.FontManager;
 import projekt.substratum.config.References;
+import projekt.substratum.config.SoundManager;
+import projekt.substratum.config.WallpaperManager;
 
 public class ThemeUninstallDetector extends BroadcastReceiver {
 
@@ -28,25 +33,25 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
                 if (installed_themes != null && installed_themes.contains(package_name)) {
                     Log.d(References.SUBSTRATUM_LOG, "Now purging caches for \"" + package_name +
                             "\"...");
-                    References.delete(context, context.getCacheDir().getAbsolutePath() +
+                    FileOperations.delete(context, context.getCacheDir().getAbsolutePath() +
                             "/SubstratumBuilder/" + package_name + "/");
 
                     final SharedPreferences.Editor editor = prefs.edit();
                     if (prefs.getString("sounds_applied", "").equals(package_name)) {
-                        References.clearSounds(context);
+                        SoundManager.clearSounds(context);
                         editor.remove("sounds_applied");
                     }
                     if (prefs.getString("fonts_applied", "").equals(package_name)) {
-                        References.clearFonts(context);
+                        FontManager.clearFonts(context);
                         editor.remove("fonts_applied");
                     }
                     if (prefs.getString("bootanimation_applied", "").equals(package_name)) {
-                        References.clearBootAnimation(context);
+                        BootAnimationManager.clearBootAnimation(context);
                         editor.remove("bootanimation_applied");
                     }
                     if (prefs.getString("home_wallpaper_applied", "").equals(package_name)) {
                         try {
-                            References.clearWallpaper(context, "home");
+                            WallpaperManager.clearWallpaper(context, "home");
                             editor.remove("home_wallpaper_applied");
                         } catch (IOException e) {
                             Log.e("ThemeUninstallDetector", "Failed to restore home screen " +
@@ -55,7 +60,7 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
                     }
                     if (prefs.getString("lock_wallpaper_applied", "").equals(package_name)) {
                         try {
-                            References.clearWallpaper(context, "lock");
+                            WallpaperManager.clearWallpaper(context, "lock");
                         } catch (IOException e) {
                             Log.e("ThemeUninstallDetector", "Failed to restore lock screen " +
                                     "wallpaper!");

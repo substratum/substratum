@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/card_view"
-    android:layout_width="80dp"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="16dp"
-    android:clickable="true"
-    android:foreground="?android:selectableItemBackground"
-    card_view:cardCornerRadius="0dp"
-    card_view:cardUseCompatPadding="true">
+                                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                                    android:id="@+id/card_view"
+                                    android:layout_width="80dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="16dp"
+                                    android:clickable="true"
+                                    android:foreground="?android:selectableItemBackground"
+                                    card_view:cardCornerRadius="0dp"
+                                    card_view:cardUseCompatPadding="true">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -22,7 +22,7 @@
             android:layout_centerHorizontal="true"
             android:layout_margin="10dp"
             android:scaleType="fitCenter"
-            android:src="@android:color/black" />
+            android:src="@android:color/black"/>
 
         <TextView
             android:id="@+id/icon_pack_package"
@@ -34,7 +34,7 @@
             android:gravity="center"
             android:paddingBottom="8dp"
             android:text="NAME"
-            android:textSize="13sp" />
+            android:textSize="13sp"/>
 
     </RelativeLayout>
 

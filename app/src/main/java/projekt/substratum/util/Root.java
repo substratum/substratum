@@ -49,7 +49,7 @@ public class Root {
             }
         }
 
-        public synchronized String runCommand(final String command) {
+        synchronized String runCommand(final String command) {
             try {
                 StringBuilder sb = new StringBuilder();
                 String callback = "/shellCallback/";
@@ -69,12 +69,8 @@ public class Root {
                 return sb.toString().trim();
             } catch (IOException e) {
                 closed = true;
-                e.printStackTrace();
                 if (firstTry) denied = true;
-            } catch (ArrayIndexOutOfBoundsException e) {
-                denied = true;
             } catch (Exception e) {
-                e.printStackTrace();
                 denied = true;
             }
             return null;

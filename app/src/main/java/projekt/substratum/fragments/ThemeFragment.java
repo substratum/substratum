@@ -32,6 +32,7 @@ import projekt.substratum.MainActivity;
 import projekt.substratum.R;
 import projekt.substratum.adapters.ThemeEntryAdapter;
 import projekt.substratum.config.References;
+import projekt.substratum.config.ThemeManager;
 import projekt.substratum.model.ThemeInfo;
 import projekt.substratum.util.ReadOverlays;
 
@@ -345,7 +346,7 @@ public class ThemeFragment extends Fragment {
             for (int i = 0; i < state1.size(); i++) {
                 Log.e("OverlayCleaner", "Target APK not found for \"" + state1.get(i) + "\" and " +
                         "will be removed.");
-                References.uninstallOverlay(mContext, state1.get(i));
+                ThemeManager.uninstallOverlay(mContext, state1.get(i));
             }
             return null;
         }

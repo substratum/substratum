@@ -1345,6 +1345,11 @@ public class Overlays extends Fragment {
             if (!enable_mode && !disable_mode) {
                 TextView textView = (TextView) mProgressDialog.findViewById(R.id.current_object);
                 textView.setText(getContext().getResources().getString(R.string.sb_finishing));
+                mBuilder.setContentTitle(getString(R.string
+                        .notification_compiling_signing_installing))
+                        .setContentText(getContext().getResources()
+                                .getString(R.string.sb_finishing));
+                mNotifyManager.notify(id, mBuilder.build());
                 if (References.checkMasqueradeJobService(getContext())) {
                     if (checkedOverlays.size() != fail_count) {
                         if (finishReceiver == null) finishReceiver = new FinishReceiver();

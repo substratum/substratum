@@ -494,7 +494,7 @@
     <string name="sb_phase_1_loader">extracting theme</string>
     <string name="sb_phase_2_loader">installing overlay</string>
     <string name="sb_phase_3_loader">injecting icon resources</string>
-    <string name="sb_finishing">finishing&#8230;</string>
+    <string name="sb_finishing">Finishing&#8230;</string>
     <string name="root_rejected_title">Superuser permissions denied</string>
     <string name="root_rejected_text_cm_phh">unable to continue without root&#8230;</string>
     <string name="root_rejected_timer_plural">closing in %s seconds&#8230;</string>

@@ -129,19 +129,7 @@ public class AntiPiracyCheck {
                         final_commands_array.add(unauthorized_packages.get(i));
                     }
                     if (References.checkOMS(mContext)) {
-                        if (References.isPackageInstalled(mContext, "masquerade.substratum")) {
-                            Intent runCommand = MasqueradeService.getMasquerade(mContext);
-                            runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                            runCommand.setAction("masquerade.substratum.COMMANDS");
-                            runCommand.putStringArrayListExtra("pm-uninstall-specific",
-                                    final_commands_array);
-                            mContext.sendBroadcast(runCommand);
-                        } else {
-                            for (int i = 0; i < unauthorized_packages.size(); i++) {
-                                ThemeManager.uninstallOverlay(mContext, unauthorized_packages.get
-                                        (i));
-                            }
-                        }
+                        ThemeManager.uninstallOverlay(mContext, final_commands_array);
                     } else {
                         FileOperations.mountRW();
                         for (int i = 0; i < final_commands_array.size(); i++) {

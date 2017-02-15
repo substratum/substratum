@@ -159,20 +159,29 @@ public class ProfileFragment extends Fragment {
                             getString(R.string.profile_wallpaper)};
                 }
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder
+                AlertDialog dialog = new AlertDialog.Builder(getContext())
                         .setTitle(R.string.profile_dialog_title)
                         .setMultiChoiceItems(items, null, (dialog1, which, isChecked) -> {
                             if (isChecked) {
+                                if (items[which].equals(getString(R.string.profile_boot_animation))
+                                        && References.getDeviceEncryptionStatus(getContext()) > 1
+                                        && References.checkMasqueradeJobService(getContext())) {
+                                    AlertDialog dialog2 = new AlertDialog.Builder(getContext())
+                                            .setTitle(R.string.root_required_title)
+                                            .setMessage(R.string.root_required_boot_animation_profile)
+                                            .setPositiveButton(android.R.string.ok, null)
+                                            .create();
+                                    dialog2.show();
+                                }
                                 selectedBackup.add(items[which]);
                             } else if (selectedBackup.contains(items[which])) {
                                 selectedBackup.remove(items[which]);
                             }
                         })
                         .setPositiveButton(R.string.profile_dialog_ok, null)
-                        .setNegativeButton(R.string.profile_dialog_cancel, null);
+                        .setNegativeButton(R.string.profile_dialog_cancel, null)
+                        .create();
 
-                AlertDialog dialog = builder.create();
                 dialog.show();
                 dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v1 -> {
                     if (!selectedBackup.isEmpty()) {

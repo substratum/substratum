@@ -219,6 +219,40 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
                         .getContext())
                         .setMessage(R.string.two_description)
                         .setCancelable(true)
+                        .setPositiveButton(R.string.dynamic_gapps_dialog,
+                                (dialog, which) -> {
+                                    try {
+                                        String playURL =
+                                                information.get(i).getContext()
+                                                        .getString(R.string
+                                                                .dynamic_gapps_link);
+                                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                                        intent.setData(Uri.parse(playURL));
+                                        information.get(i).getContext()
+                                                .startActivity(intent);
+                                    } catch (ActivityNotFoundException
+                                            activityNotFoundException) {
+                                        // Suppress warning
+                                    }
+                                })
+                        .setNegativeButton(R.string.open_gapps_dialog,
+                                (dialog, which) -> {
+                                    try {
+                                        String playURL =
+                                                information.get(i).getContext()
+                                                        .getString(R.string
+                                                                .open_gapps_link);
+                                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                                        intent.setData(Uri.parse(playURL));
+                                        information.get(i).getContext()
+                                                .startActivity(intent);
+                                    } catch (ActivityNotFoundException
+                                            activityNotFoundException) {
+                                        // Suppress warning
+                                    }
+                                })
+                        .setNeutralButton(android.R.string.cancel,
+                                (dialog, which) -> dialog.cancel())
                         .show()
         );
 

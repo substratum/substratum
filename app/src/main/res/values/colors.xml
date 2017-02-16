@@ -3,6 +3,7 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="darkMaterial">#FF212021</color>
     <color name="navigationBarColor">@android:color/black</color>
 
     <color name="priorities_drag_handle">@color/main_screen_card_theme_title</color>

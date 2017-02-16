@@ -1,8 +1,10 @@
 package projekt.substratum.services;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.Service;
+import android.app.usage.UsageEvents;
 import android.app.usage.UsageStats;
 import android.app.usage.UsageStatsManager;
 import android.content.Intent;
@@ -38,6 +40,34 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
     private FloatingViewManager mFloatingViewManager;
 
     @SuppressWarnings("WrongConstant")
+    public String foregroundedApp() {
+        UsageStatsManager mUsageStatsManager = (UsageStatsManager) getSystemService("usagestats");
+        long time = System.currentTimeMillis();
+        List<UsageStats> stats = mUsageStatsManager.queryUsageStats(
+                UsageStatsManager.INTERVAL_DAILY, time - 1000 * 1000, time);
+        String foregroundApp = "";
+        if (stats != null) {
+            SortedMap<Long, UsageStats> mySortedMap = new TreeMap<>();
+            for (UsageStats usageStats : stats) {
+                mySortedMap.put(usageStats.getLastTimeUsed(), usageStats);
+            }
+            if (!mySortedMap.isEmpty()) {
+                foregroundApp = mySortedMap.get(mySortedMap.lastKey()).getPackageName();
+            }
+        }
+        UsageEvents usageEvents = mUsageStatsManager.queryEvents(time - 1000 * 1000, time);
+        UsageEvents.Event event = new UsageEvents.Event();
+        // Get the last event in the doubly linked list
+        while (usageEvents.hasNextEvent()) {
+            usageEvents.getNextEvent(event);
+        }
+        if (foregroundApp.equals(event.getPackageName()) &&
+                event.getEventType() == UsageEvents.Event.MOVE_TO_FOREGROUND) {
+            return foregroundApp;
+        }
+        return null;
+    }
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (mFloatingViewManager != null) {
@@ -47,98 +77,83 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
         final WindowManager windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
         windowManager.getDefaultDisplay().getMetrics(metrics);
         final LayoutInflater inflater = LayoutInflater.from(this);
-        final ImageView iconView = (ImageView)
+        @SuppressLint("InflateParams") final ImageView iconView = (ImageView)
                 inflater.inflate(R.layout.floating_head_layout, null, false);
         iconView.setOnClickListener(v -> {
-            UsageStatsManager usm = (UsageStatsManager) getSystemService("usagestats");
-            long time = System.currentTimeMillis();
-            List<UsageStats> appList = usm.queryUsageStats(UsageStatsManager.INTERVAL_DAILY,
-                    time - 1000 * 1000, time);
-            if (appList != null && appList.size() > 0) {
-                SortedMap<Long, UsageStats> mySortedMap = new TreeMap<>();
-                for (UsageStats usageStats : appList) {
-                    mySortedMap.put(usageStats.getLastTimeUsed(),
-                            usageStats);
+            String packageName =
+                    References.grabPackageName(getApplicationContext(), foregroundedApp());
+            String dialogTitle = String.format(getString(R.string.per_app_dialog_title),
+                    packageName);
+
+            List<String> state4 = ReadOverlays.main(4, getApplicationContext());
+            List<String> state5 = ReadOverlays.main(5, getApplicationContext());
+            ArrayList<String> disabled = new ArrayList<>(state4);
+            ArrayList<String> enabled = new ArrayList<>(state5);
+            ArrayList<String> all_overlays = new ArrayList<>();
+            ArrayList<String> to_be_shown = new ArrayList<>();
+            all_overlays.addAll(state4);
+            all_overlays.addAll(state5);
+            for (int i = 0; i < all_overlays.size(); i++) {
+                if (all_overlays.get(i).startsWith(foregroundedApp())) {
+                    to_be_shown.add(all_overlays.get(i));
                 }
-                if (mySortedMap != null && !mySortedMap.isEmpty()) {
-                    String packageIdentifier = mySortedMap.get(
-                            mySortedMap.lastKey()).getPackageName();
-                    String packageName =
-                            References.grabPackageName(getApplicationContext(), packageIdentifier);
-                    String dialogTitle = String.format(getString(R.string.per_app_dialog_title),
-                            packageName);
+            }
 
-                    List<String> state4 = ReadOverlays.main(4, getApplicationContext());
-                    List<String> state5 = ReadOverlays.main(5, getApplicationContext());
-                    ArrayList<String> disabled = new ArrayList<>(state4);
-                    ArrayList<String> enabled = new ArrayList<>(state5);
-                    ArrayList<String> all_overlays = new ArrayList<>();
-                    ArrayList<String> to_be_shown = new ArrayList<>();
-                    all_overlays.addAll(state4);
-                    all_overlays.addAll(state5);
-                    for (int i = 0; i < all_overlays.size(); i++) {
-                        if (all_overlays.get(i).startsWith(packageIdentifier)) {
-                            to_be_shown.add(all_overlays.get(i));
-                        }
-                    }
-
-                    if (to_be_shown.size() == 0) {
-                        String format = String.format(getString(R.string.per_app_toast_no_overlays),
-                                packageName);
-                        Toast toast = Toast.makeText(getApplicationContext(), format,
-                                Toast.LENGTH_SHORT);
-                        toast.show();
-                    } else {
-                        String[] final_check = new String[to_be_shown.size()];
-                        for (int j = 0; j < to_be_shown.size(); j++) {
-                            final_check[j] = to_be_shown.get(j);
-                        }
-
-                        ListAdapter itemsAdapter =
-                                new ArrayAdapter<>(this, R.layout.multiple_choice_list_entry,
-                                        final_check);
-
-                        TextView title = new TextView(this);
-                        title.setText(dialogTitle);
-                        title.setBackgroundColor(getColor(R.color
-                                .floatui_dialog_header_background));
-                        title.setPadding(20, 40, 20, 40);
-                        title.setGravity(Gravity.CENTER);
-                        title.setTextColor(getColor(R.color.floatui_dialog_title_color));
-                        title.setTextSize(20);
-
-                        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style
-                                .FloatUiDialog);
-                        builder.setCustomTitle(title);
-                        builder.setAdapter(itemsAdapter, (dialog, which) -> {
-                        });
-                        builder.setPositiveButton(R.string.per_app_apply, (dialog, which) -> {
-                            ListView list = ((AlertDialog) dialog).getListView();
-
-                        });
-                        builder.setNegativeButton(android.R.string.cancel, (dialog, which) -> {
-                            dialog.cancel();
-                        });
-
-                        AlertDialog alertDialog = builder.create();
-                        alertDialog.getWindow().setType(WindowManager.LayoutParams
-                                .TYPE_SYSTEM_ALERT);
-                        alertDialog.getListView().setItemsCanFocus(false);
-                        alertDialog.getListView().setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-                        alertDialog.getListView().setOnItemClickListener(
-                                (parent, view, position, id) -> {
-                                    // Manage selected items here
-                                    System.out.println("clicked" + position);
-                                    CheckedTextView textView = (CheckedTextView) view;
-                                    if (textView.isChecked()) {
-
-                                    } else {
-
-                                    }
-                                });
-                        alertDialog.show();
-                    }
+            if (to_be_shown.size() == 0) {
+                String format = String.format(getString(R.string.per_app_toast_no_overlays),
+                        packageName);
+                Toast toast = Toast.makeText(getApplicationContext(), format,
+                        Toast.LENGTH_SHORT);
+                toast.show();
+            } else {
+                String[] final_check = new String[to_be_shown.size()];
+                for (int j = 0; j < to_be_shown.size(); j++) {
+                    final_check[j] = to_be_shown.get(j);
                 }
+
+                ListAdapter itemsAdapter =
+                        new ArrayAdapter<>(this, R.layout.multiple_choice_list_entry,
+                                final_check);
+
+                TextView title = new TextView(this);
+                title.setText(dialogTitle);
+                title.setBackgroundColor(getColor(R.color
+                        .floatui_dialog_header_background));
+                title.setPadding(20, 40, 20, 40);
+                title.setGravity(Gravity.CENTER);
+                title.setTextColor(getColor(R.color.floatui_dialog_title_color));
+                title.setTextSize(20);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style
+                        .FloatUiDialog);
+                builder.setCustomTitle(title);
+                builder.setAdapter(itemsAdapter, (dialog, which) -> {
+                });
+                builder.setPositiveButton(R.string.per_app_apply, (dialog, which) -> {
+                    ListView list = ((AlertDialog) dialog).getListView();
+
+                });
+                builder.setNegativeButton(android.R.string.cancel, (dialog, which) ->
+                        dialog.cancel());
+
+                AlertDialog alertDialog = builder.create();
+                //noinspection ConstantConditions
+                alertDialog.getWindow().setType(WindowManager.LayoutParams
+                        .TYPE_SYSTEM_ALERT);
+                alertDialog.getListView().setItemsCanFocus(false);
+                alertDialog.getListView().setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+                alertDialog.getListView().setOnItemClickListener(
+                        (parent, view, position, id) -> {
+                            // Manage selected items here
+                            System.out.println("clicked" + position);
+                            CheckedTextView textView = (CheckedTextView) view;
+                            if (textView.isChecked()) {
+
+                            } else {
+
+                            }
+                        });
+                alertDialog.show();
             }
         });
 

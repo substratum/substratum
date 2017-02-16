@@ -6,6 +6,10 @@
     <color name="darkMaterial">#FF212021</color>
     <color name="navigationBarColor">@android:color/black</color>
 
+    <color name="floatui_dialog_background">#ca000000</color>
+    <color name="floatui_dialog_header_background">#66777777</color>
+    <color name="floatui_dialog_title_color">@android:color/white</color>
+
     <color name="priorities_drag_handle">@color/main_screen_card_theme_title</color>
     <color name="priorities_switchbar">@color/colorPrimary</color>
 

@@ -1,5 +1,6 @@
 package projekt.substratum.services;
 
+import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.Service;
 import android.app.usage.UsageStats;
@@ -8,11 +9,18 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
+import android.widget.CheckedTextView;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -21,6 +29,7 @@ import jp.co.recruit_lifestyle.android.floatingview.FloatingViewListener;
 import jp.co.recruit_lifestyle.android.floatingview.FloatingViewManager;
 import projekt.substratum.R;
 import projekt.substratum.config.References;
+import projekt.substratum.util.ReadOverlays;
 
 public class SubstratumFloatInterface extends Service implements FloatingViewListener {
 
@@ -52,18 +61,83 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                             usageStats);
                 }
                 if (mySortedMap != null && !mySortedMap.isEmpty()) {
-                    String currentApp = mySortedMap.get(
+                    String packageIdentifier = mySortedMap.get(
                             mySortedMap.lastKey()).getPackageName();
                     String packageName =
-                            References.grabPackageName(getApplicationContext(), currentApp);
-
-                    String format = String.format(getString(R.string.per_app_toast),
+                            References.grabPackageName(getApplicationContext(), packageIdentifier);
+                    String dialogTitle = String.format(getString(R.string.per_app_dialog_title),
                             packageName);
-                    Toast toast = Toast.makeText(
-                            getApplicationContext(),
-                            format,
-                            Toast.LENGTH_LONG);
-                    toast.show();
+
+                    List<String> state4 = ReadOverlays.main(4, getApplicationContext());
+                    List<String> state5 = ReadOverlays.main(5, getApplicationContext());
+                    ArrayList<String> disabled = new ArrayList<>(state4);
+                    ArrayList<String> enabled = new ArrayList<>(state5);
+                    ArrayList<String> all_overlays = new ArrayList<>();
+                    ArrayList<String> to_be_shown = new ArrayList<>();
+                    all_overlays.addAll(state4);
+                    all_overlays.addAll(state5);
+                    for (int i = 0; i < all_overlays.size(); i++) {
+                        if (all_overlays.get(i).startsWith(packageIdentifier)) {
+                            to_be_shown.add(all_overlays.get(i));
+                        }
+                    }
+
+                    if (to_be_shown.size() == 0) {
+                        String format = String.format(getString(R.string.per_app_toast_no_overlays),
+                                packageName);
+                        Toast toast = Toast.makeText(getApplicationContext(), format,
+                                Toast.LENGTH_SHORT);
+                        toast.show();
+                    } else {
+                        String[] final_check = new String[to_be_shown.size()];
+                        for (int j = 0; j < to_be_shown.size(); j++) {
+                            final_check[j] = to_be_shown.get(j);
+                        }
+
+                        ListAdapter itemsAdapter =
+                                new ArrayAdapter<>(this, R.layout.multiple_choice_list_entry,
+                                        final_check);
+
+                        TextView title = new TextView(this);
+                        title.setText(dialogTitle);
+                        title.setBackgroundColor(getColor(R.color
+                                .floatui_dialog_header_background));
+                        title.setPadding(20, 40, 20, 40);
+                        title.setGravity(Gravity.CENTER);
+                        title.setTextColor(getColor(R.color.floatui_dialog_title_color));
+                        title.setTextSize(20);
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style
+                                .FloatUiDialog);
+                        builder.setCustomTitle(title);
+                        builder.setAdapter(itemsAdapter, (dialog, which) -> {
+                        });
+                        builder.setPositiveButton(R.string.per_app_apply, (dialog, which) -> {
+                            ListView list = ((AlertDialog) dialog).getListView();
+
+                        });
+                        builder.setNegativeButton(android.R.string.cancel, (dialog, which) -> {
+                            dialog.cancel();
+                        });
+
+                        AlertDialog alertDialog = builder.create();
+                        alertDialog.getWindow().setType(WindowManager.LayoutParams
+                                .TYPE_SYSTEM_ALERT);
+                        alertDialog.getListView().setItemsCanFocus(false);
+                        alertDialog.getListView().setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+                        alertDialog.getListView().setOnItemClickListener(
+                                (parent, view, position, id) -> {
+                                    // Manage selected items here
+                                    System.out.println("clicked" + position);
+                                    CheckedTextView textView = (CheckedTextView) view;
+                                    if (textView.isChecked()) {
+
+                                    } else {
+
+                                    }
+                                });
+                        alertDialog.show();
+                    }
                 }
             }
         });

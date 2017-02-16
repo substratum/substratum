@@ -84,6 +84,29 @@
         <item name="android:windowAnimationStyle">@android:style/Animation</item>
     </style>
 
+    <style name="FloatUiDialog" parent="@android:style/Theme.Material.Dialog.Alert">
+        <item name="android:windowTitleStyle">@style/FloatUiDialog</item>
+        <item name="android:windowBackground">@color/floatui_dialog_background</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@style/FloatUiAnimation</item>
+    </style>
+
+    <style name="FloatUiAnimation" parent="@android:style/Animation.Activity">
+        <item name="android:windowEnterAnimation">@anim/anim_in</item>
+        <item name="android:windowExitAnimation">@anim/anim_out</item>
+    </style>
+
+    <style name="FloatUiDialogTitle" parent="@android:style/TextAppearance.DialogWindowTitle">
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
+    <style name="DialogWindowTitle">
+        <item name="android:maxLines">1</item>
+        <item name="android:scrollHorizontally">true</item>
+        <item name="android:textAppearance">@android:style/TextAppearance.DialogWindowTitle</item>
+    </style>
+
     <style name="WelcomeScreenPageIndicator.Custom">
         <item name="animated">true</item>
     </style>

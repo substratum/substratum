@@ -823,8 +823,10 @@
     <string name="root_required_boot_animation">Your device is encrypted, so root is necessary to apply boot animations.</string>
     <string name="root_required_boot_animation_profile">Your device is encrypted, so root is necessary to backup and restore boot animations.</string>
 
-    <string name="per_app_toast">Loading per-app theming configuration for %s&#8230;</string>
     <string name="per_app_notification_summary">FloatUI is dynamically filtering your apps!</string>
+    <string name="per_app_toast_no_overlays">There are no overlays configurable for %s!</string>
+    <string name="per_app_dialog_title">%s overlay configurator</string>
+    <string name="per_app_apply">Apply</string>
     <string name="per_app_introduced">FloatUI enabled</string>
     <string name="per_app_removed">FloatUI disabled</string>
     <string name="per_app_draw_over_other_apps_request">Please grant Substratum "draw over other apps" for the floating UI and "Usage stats" permissions to access the foreground app for matching theme targets.</string>

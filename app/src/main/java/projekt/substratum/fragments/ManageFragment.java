@@ -230,7 +230,7 @@ public class ManageFragment extends Fragment {
         // Boot Animation Dialog
         bootAnimCard.setOnClickListener(v -> {
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
-            alertDialogBuilder.setTitle(getString(R.string.manage_bootanimation_text));
+            alertDialogBuilder.setTitle(getString(R.string.manage_bootanimation_title));
             alertDialogBuilder.setMessage(getString(R.string.manage_dialog_text));
             alertDialogBuilder
                     .setPositiveButton(android.R.string.ok,

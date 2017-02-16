@@ -318,6 +318,7 @@
     <string name="menu_refresh_windows">Refresh Windows</string>
     <string name="menu_soft_reboot">Soft Reboot</string>
     <string name="menu_reboot_device">Reboot Device</string>
+    <string name="menu_per_app">Per App Themer</string>
     <string name="menu_restart_systemui">Restart SystemUI</string>
     <string name="menu_search">Play Store Themes</string>
     <string name="menu_search_icon_packs">Play Store Icon Packs</string>
@@ -787,7 +788,7 @@
     <string name="profile_failed_info_notification">Touch for more information</string>
 
     <string name="theme_debug_mode_title">Theme Debugging Mode</string>
-    <string name="theme_debug_mode_summary">Disable the legacy compiler fallback</string>
+    <string name="theme_debug_mode_summary">Disable the legacy compiler fallback.</string>
     <string name="theme_debug_mode_dialog_title">WARNING</string>
     <string name="theme_debug_mode_dialog_content">This may completely break the compilation process. Only enable this option if you know what you are doing!</string>
     <string name="theme_debug_mode_dialog_continue">Continue</string>
@@ -817,4 +818,11 @@
     <string name="root_required_title">Root required</string>
     <string name="root_required_boot_animation">Your device is encrypted, so root is necessary to apply boot animations.</string>
     <string name="root_required_boot_animation_profile">Your device is encrypted, so root is necessary to backup and restore boot animations.</string>
+
+    <string name="per_app_toast">Loading per-app theming configuration for %s&#8230;</string>
+    <string name="per_app_notification_summary">FloatUI is dynamically filtering your apps!</string>
+    <string name="per_app_introduced">FloatUI enabled</string>
+    <string name="per_app_removed">FloatUI disabled</string>
+    <string name="per_app_draw_over_other_apps_request">Please grant Substratum "draw over other apps" for the floating UI and "Usage stats" permissions to access the foreground app for matching theme targets.</string>
+    <string name="per_app_usage_stats_request">Please grant Substratum "usage access" permissions to access the foreground app for matching theme targets.</string>
 </resources>

@@ -3,10 +3,12 @@ package projekt.substratum;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.AppOpsManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -32,6 +34,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -55,10 +58,9 @@ import eightbitlab.com.blurview.BlurView;
 import eightbitlab.com.blurview.RenderScriptBlur;
 import projekt.substratum.config.ElevatedCommands;
 import projekt.substratum.config.FileOperations;
-import projekt.substratum.config.FirebaseAnalytics;
 import projekt.substratum.config.References;
-import projekt.substratum.config.ThemeManager;
 import projekt.substratum.fragments.ThemeFragment;
+import projekt.substratum.services.SubstratumFloatInterface;
 import projekt.substratum.services.ThemeService;
 import projekt.substratum.util.Root;
 
@@ -70,6 +72,8 @@ public class MainActivity extends AppCompatActivity implements
 
     private static final int PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
     private static final int PERMISSIONS_REQUEST_GET_ACCOUNTS = 2;
+    private static final int PERMISSIONS_REQUEST_DRAW_OVER_OTHER_APPS = 3;
+    private static final int PERMISSIONS_REQUEST_USAGE_ACCESS_SETTINGS = 4;
 
     @SuppressLint("StaticFieldLeak")
     public static TextView actionbar_title, actionbar_content;
@@ -553,9 +557,37 @@ public class MainActivity extends AppCompatActivity implements
                 return true;
 
             // Begin OMS based options
-            case R.id.restart_systemui:
-                prefs.edit().clear().apply();
-                ThemeManager.restartSystemUI(getApplicationContext());
+            case R.id.per_app:
+                if (!References.isServiceRunning(SubstratumFloatInterface.class,
+                        getApplicationContext())) {
+                    if (Settings.canDrawOverlays(getApplicationContext()) &&
+                            checkUsagePermissions()) {
+                        showFloatingHead();
+                    } else if (!Settings.canDrawOverlays(getApplicationContext())) {
+                        Intent draw_over_apps = new Intent(
+                                Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                                Uri.parse("package:" + getApplicationContext()
+                                        .getPackageName()));
+                        startActivityForResult(draw_over_apps,
+                                PERMISSIONS_REQUEST_DRAW_OVER_OTHER_APPS);
+                        Toast toast = Toast.makeText(
+                                getApplicationContext(),
+                                getString(R.string.per_app_draw_over_other_apps_request),
+                                Toast.LENGTH_LONG);
+                        toast.show();
+                    } else if (!checkUsagePermissions()) {
+                        Intent usage = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
+                        startActivityForResult(usage,
+                                PERMISSIONS_REQUEST_USAGE_ACCESS_SETTINGS);
+                        Toast toast = Toast.makeText(
+                                getApplicationContext(),
+                                getString(R.string.per_app_usage_stats_request),
+                                Toast.LENGTH_LONG);
+                        toast.show();
+                    }
+                } else {
+                    hideFloatingHead();
+                }
                 return true;
 
             // Begin RRO based options
@@ -585,6 +617,59 @@ public class MainActivity extends AppCompatActivity implements
             } else if (drawer != null && drawer.getCurrentSelectedPosition() == 1) {
                 this.finish();
             }
+        }
+    }
+
+    public void showFloatingHead() {
+        Toast.makeText(
+                getApplicationContext(),
+                getString(R.string.per_app_introduced),
+                Toast.LENGTH_LONG).show();
+        getApplicationContext().startService(new Intent(getApplicationContext(),
+                SubstratumFloatInterface.class));
+    }
+
+    private void hideFloatingHead() {
+        Toast.makeText(
+                getApplicationContext(),
+                getString(R.string.per_app_removed),
+                Toast.LENGTH_LONG).show();
+        stopService(new Intent(getApplicationContext(),
+                SubstratumFloatInterface.class));
+    }
+
+    private boolean checkUsagePermissions() {
+        try {
+            PackageManager packageManager = getApplicationContext().getPackageManager();
+            ApplicationInfo applicationInfo =
+                    packageManager.getApplicationInfo(getApplicationContext().getPackageName(), 0);
+            AppOpsManager appOpsManager = (AppOpsManager)
+                    getApplicationContext().getSystemService(Context.APP_OPS_SERVICE);
+            int mode = appOpsManager.checkOpNoThrow(
+                    AppOpsManager.OPSTR_GET_USAGE_STATS,
+                    applicationInfo.uid,
+                    applicationInfo.packageName);
+            return mode == AppOpsManager.MODE_ALLOWED;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case PERMISSIONS_REQUEST_DRAW_OVER_OTHER_APPS:
+                if (!checkUsagePermissions()) {
+                    Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
+                    startActivityForResult(intent, PERMISSIONS_REQUEST_USAGE_ACCESS_SETTINGS);
+                } else {
+                    showFloatingHead();
+                }
+                break;
+            case PERMISSIONS_REQUEST_USAGE_ACCESS_SETTINGS:
+                showFloatingHead();
+                break;
+            default:
+                break;
         }
     }
 

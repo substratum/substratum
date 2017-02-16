@@ -99,5 +99,7 @@ dependencies {
     compile files('src/main/libs/overlay-manager-service.jar')
     // Expandable Layout
     compile 'net.cachapa.expandablelayout:expandablelayout:2.6'
+    // Floating App Head
+    compile 'com.github.recruit-lifestyle:FloatingView:2.1'
 }
 apply plugin: 'com.google.gms.google-services'

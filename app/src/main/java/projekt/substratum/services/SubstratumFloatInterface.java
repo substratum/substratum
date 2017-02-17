@@ -65,7 +65,7 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                 event.getEventType() == UsageEvents.Event.MOVE_TO_FOREGROUND) {
             return foregroundApp;
         }
-        return null;
+        return foregroundApp;
     }
 
     @Override

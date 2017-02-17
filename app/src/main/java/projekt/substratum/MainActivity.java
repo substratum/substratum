@@ -430,7 +430,6 @@ public class MainActivity extends AppCompatActivity implements
                                 drawer.setSelectionAtPosition(1);
                                 mProgressDialog = new ProgressDialog(this,
                                         R.style.SubstratumBuilder_BlurView);
-                                new RootRequester().execute("");
                             } else {
                                 ActivityCompat.requestPermissions(this,
                                         new String[]{Manifest.permission.GET_ACCOUNTS},
@@ -441,6 +440,7 @@ public class MainActivity extends AppCompatActivity implements
                                     new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                                     PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
                         }
+                        new RootRequester().execute("");
                         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
                         printFCMtoken();
 

@@ -1,5 +1,14 @@
 apply plugin: 'com.android.application'
 
+def gitHash = { ->
+    def stdout = new ByteArrayOutputStream()
+    exec {
+        commandLine 'git', 'rev-parse', '--short', 'HEAD'
+        standardOutput = stdout
+    }
+    return stdout.toString().trim()
+}
+
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
@@ -12,7 +21,7 @@ android {
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
             output.outputFile = new File(
-                    output.outputFile.parent, "substratum_beta_" + versionCode + ".apk")
+                    output.outputFile.parent, "substratum_beta_" + versionCode + "_" + "${gitHash()}" + ".apk")
         }
     }
 
@@ -22,6 +31,7 @@ android {
         targetSdkVersion 25
         versionCode 599
         versionName "five hundred ninety nine"
+        buildConfigField "String", "GIT_HASH", "\"${gitHash()}\""
         renderscriptTargetApi 23
         renderscriptSupportModeEnabled true
     }

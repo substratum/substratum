@@ -123,6 +123,7 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                 title.setGravity(Gravity.CENTER);
                 title.setTextColor(getColor(R.color.floatui_dialog_title_color));
                 title.setTextSize(20);
+                title.setAllCaps(true);
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style
                         .FloatUiDialog);
@@ -138,6 +139,8 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
 
                 AlertDialog alertDialog = builder.create();
                 //noinspection ConstantConditions
+                alertDialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable
+                        .dialog_background));
                 alertDialog.getWindow().setType(WindowManager.LayoutParams
                         .TYPE_SYSTEM_ALERT);
                 alertDialog.getListView().setItemsCanFocus(false);

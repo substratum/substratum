@@ -825,7 +825,7 @@
 
     <string name="per_app_notification_summary">FloatUI is dynamically filtering your apps!</string>
     <string name="per_app_toast_no_overlays">There are no overlays configurable for %s!</string>
-    <string name="per_app_dialog_title">%s overlay configurator</string>
+    <string name="per_app_dialog_title">%s\n overlay configurator</string>
     <string name="per_app_apply">Apply</string>
     <string name="per_app_introduced">FloatUI enabled</string>
     <string name="per_app_removed">FloatUI disabled</string>

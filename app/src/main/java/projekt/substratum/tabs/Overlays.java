@@ -121,6 +121,7 @@ public class Overlays extends Fragment {
     private ProgressBar dialogProgress;
     private FinishReceiver finishReceiver;
     private ArrayList<String> final_command;
+    private boolean isWaiting;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
@@ -1342,27 +1343,9 @@ public class Overlays extends Fragment {
             }
 
             if (!enable_mode && !disable_mode) {
-                TextView textView = (TextView) mProgressDialog.findViewById(R.id.current_object);
-                textView.setText(mContext.getResources().getString(R.string.sb_finishing));
-                mBuilder.setContentTitle(getString(R.string
-                        .notification_compiling_signing_installing))
-                        .setContentText(mContext.getResources()
-                                .getString(R.string.sb_finishing));
-                mNotifyManager.notify(id, mBuilder.build());
-                if (References.checkMasqueradeJobService(mContext)) {
-                    if (checkedOverlays.size() != fail_count) {
-                        if (finishReceiver == null) finishReceiver = new FinishReceiver();
-                        IntentFilter intentFilter = new IntentFilter(
-                                "masquerade.substratum.STATUS_CHANGED");
-                        mContext.registerReceiver(finishReceiver, intentFilter);
-                    } else {
-                        finishFunction(mContext);
-                        failedFunction(mContext);
-                    }
-                } else {
-                    finishFunction(mContext);
-                    if (has_failed) failedFunction(mContext);
-                }
+                finishFunction(mContext);
+                if (has_failed) failedFunction(mContext);
+                mContext.unregisterReceiver(finishReceiver);
             } else if (enable_mode) {
                 if (final_runner.size() > 0) {
                     enable_mode = false;
@@ -1497,6 +1480,12 @@ public class Overlays extends Fragment {
                     FileOperations.delete(mContext, current_directory);
                 }
             }
+
+            // Enable listener
+            if (finishReceiver == null) finishReceiver = new FinishReceiver();
+            IntentFilter intentFilter = new IntentFilter(
+                    "masquerade.substratum.STATUS_CHANGED");
+            mContext.registerReceiver(finishReceiver, intentFilter);
 
             total_amount = checkedOverlays.size();
             for (int i = 0; i < checkedOverlays.size(); i++) {
@@ -1724,6 +1713,18 @@ public class Overlays extends Fragment {
                                     error_logs += "\n" + sb.getErrorLogs();
                                 }
                                 has_failed = true;
+                            } else {
+                                if (References.checkMasqueradeJobService(mContext)) {
+                                    // Thread wait
+                                    isWaiting = true;
+                                    do {
+                                        try {
+                                            Thread.sleep(2000);
+                                        } catch (InterruptedException e) {
+                                            Thread.currentThread().interrupt();
+                                        }
+                                    } while (isWaiting);
+                                }
                             }
                         } else {
 
@@ -1749,6 +1750,18 @@ public class Overlays extends Fragment {
                                     error_logs += "\n" + sb.getErrorLogs();
                                 }
                                 has_failed = true;
+                            } else {
+                                if (References.checkMasqueradeJobService(mContext)) {
+                                    // Thread wait
+                                    isWaiting = true;
+                                    do {
+                                        try {
+                                            Thread.sleep(2000);
+                                        } catch (InterruptedException e) {
+                                            Thread.currentThread().interrupt();
+                                        }
+                                    } while (isWaiting);
+                                }
                             }
                         }
                     } catch (Exception e) {
@@ -1780,9 +1793,8 @@ public class Overlays extends Fragment {
             String command = intent.getStringExtra(PRIMARY_COMMAND_KEY);
 
             if (command.equals(COMMAND_VALUE_JOB_COMPLETE)) {
-                context.unregisterReceiver(finishReceiver);
-                finishFunction(context);
-                if (has_failed) failedFunction(context);
+                Log.d(References.SUBSTRATUM_LOG, "Don't you wait no more!");
+                isWaiting = false;
             }
         }
     }

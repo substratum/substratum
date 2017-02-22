@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.design.widget.Snackbar;
@@ -34,6 +35,8 @@ import projekt.substratum.config.ThemeManager;
 import projekt.substratum.config.WallpaperManager;
 import projekt.substratum.util.ReadOverlays;
 import projekt.substratum.util.SoundUtils;
+
+import static projekt.substratum.config.References.REFRESH_WINDOW_DELAY;
 
 public class ManageFragment extends Fragment {
 
@@ -85,6 +88,16 @@ public class ManageFragment extends Fragment {
                                                 .show();
                                     }
                                     ThemeManager.disableAll(getContext());
+                                    if (References.checkOMSVersion(getContext()) == 7) {
+                                        Handler handler = new Handler();
+                                        handler.postDelayed(() -> {
+                                            try {
+                                                getActivity().recreate();
+                                            } catch (Exception e) {
+                                                // Consume window refresh
+                                            }
+                                        }, REFRESH_WINDOW_DELAY);
+                                    }
                                 } else {
                                     File vendor_location = new File("/system/vendor/overlay/");
                                     File overlay_location = new File("/system/overlay/");

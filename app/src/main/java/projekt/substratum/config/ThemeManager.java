@@ -5,7 +5,7 @@ import android.content.Context;
 import java.util.ArrayList;
 import java.util.List;
 
-import projekt.substratum.util.ReadOverlaysFile;
+import projekt.substratum.util.ReadOverlays;
 import projekt.substratum.util.Root;
 
 import static projekt.substratum.config.References.checkMasqueradeJobService;
@@ -72,8 +72,7 @@ public class ThemeManager {
 
     public static void disableAll(Context context) {
         if (checkMasqueradeJobService(context)) {
-            String[] command = {"/data/system/overlays.xml", "5"};
-            List<String> list = ReadOverlaysFile.main(context, command);
+            List<String> list = ReadOverlays.main(5, context);
             MasqueradeService.disableOverlays(context, new ArrayList<>(list));
         } else {
             new ElevatedCommands.ThreadRunner().execute(disableAllOverlays);

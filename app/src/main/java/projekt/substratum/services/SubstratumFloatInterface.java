@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.WindowManager;
@@ -38,6 +39,8 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
     private static final String TAG = "SubstratumFloat";
     private static final int NOTIFICATION_ID = 92781162;
     private FloatingViewManager mFloatingViewManager;
+    private ListView alertDialogListView;
+    private String[] final_check;
 
     @SuppressWarnings("WrongConstant")
     public String foregroundedApp() {
@@ -106,7 +109,7 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                         Toast.LENGTH_SHORT);
                 toast.show();
             } else {
-                String[] final_check = new String[to_be_shown.size()];
+                final_check = new String[to_be_shown.size()];
                 for (int j = 0; j < to_be_shown.size(); j++) {
                     final_check[j] = to_be_shown.get(j);
                 }
@@ -131,8 +134,14 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                 builder.setAdapter(itemsAdapter, (dialog, which) -> {
                 });
                 builder.setPositiveButton(R.string.per_app_apply, (dialog, which) -> {
-                    ListView list = ((AlertDialog) dialog).getListView();
-
+                    int locations = alertDialogListView.getCheckedItemCount();
+                    for (int i = 0; i < final_check.length; i++) {
+                        if (alertDialogListView.getCheckedItemPositions().get(i)) {
+                            Log.e("Checked Item", final_check[i]);
+                        } else {
+                            Log.e("Unchecked Item", final_check[i]);
+                        }
+                    }
                 });
                 builder.setNegativeButton(android.R.string.cancel, (dialog, which) ->
                         dialog.cancel());
@@ -143,20 +152,10 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                         .dialog_background));
                 alertDialog.getWindow().setType(WindowManager.LayoutParams
                         .TYPE_SYSTEM_ALERT);
-                ListView alertDialogListView = alertDialog.getListView();
+                alertDialogListView = alertDialog.getListView();
                 alertDialogListView.setItemsCanFocus(false);
                 alertDialogListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-                alertDialogListView.setOnItemClickListener(
-                        (parent, view, position, id) -> {
-                            // Manage selected items here
-                            System.out.println("clicked" + position);
-                            CheckedTextView textView = (CheckedTextView) view;
-                            if (textView.isChecked()) {
-
-                            } else {
-
-                            }
-                        });
+                alertDialogListView.setOnItemClickListener((parent, view, position, id) -> {});
                 alertDialog.show();
 
                 for (int i = 0; i < final_check.length; i++) {

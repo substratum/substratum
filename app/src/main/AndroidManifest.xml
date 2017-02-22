@@ -41,6 +41,7 @@
                 <data android:scheme="package" />
             </intent-filter>
         </receiver>
+        <receiver android:name=".services.FloatUIButtonReceiver" />
         <receiver android:name=".services.NotificationButtonReceiver" />
         <receiver android:name=".services.NotificationUpgradeReceiver" />
         <receiver android:name=".services.ThemeCacher">

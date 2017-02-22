@@ -3,12 +3,17 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="darkMaterial">#FF212021</color>
     <color name="navigationBarColor">@android:color/black</color>
 
+    <!-- Hardcode the colors so it doesn't change every time an Android System overlay changes -->
+    <color name="floatui_handle_color">#494949</color>
+    <color name="floatui_paint_color">#00000000</color>
     <color name="floatui_dialog_background">#ca000000</color>
     <color name="floatui_dialog_header_background">#66777777</color>
     <color name="floatui_dialog_title_color">@android:color/white</color>
+    <color name="floatui_dialog_row_color">@android:color/white</color>
+    <color name="floatui_dialog_checkmark_color">@android:color/white</color>
+    <color name="floatui_dialog_button_color">@android:color/white</color>
 
     <color name="priorities_drag_handle">@color/main_screen_card_theme_title</color>
     <color name="priorities_switchbar">@color/colorPrimary</color>

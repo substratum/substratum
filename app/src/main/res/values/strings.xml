@@ -824,6 +824,8 @@
     <string name="root_required_boot_animation_profile">Your device is encrypted, so root is necessary to backup and restore boot animations.</string>
 
     <string name="per_app_notification_summary">FloatUI is dynamically filtering your apps!</string>
+    <string name="per_app_notification_framework_show">Show Android System overlays</string>
+    <string name="per_app_notification_framework_hide">Hide Android System overlays</string>
     <string name="per_app_toast_no_overlays">There are no overlays configurable for %s!</string>
     <string name="per_app_dialog_title">%s\n overlay configurator</string>
     <string name="per_app_apply">Apply</string>

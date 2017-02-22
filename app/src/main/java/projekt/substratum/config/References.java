@@ -336,6 +336,7 @@ public class References {
         prefs.edit().putBoolean("aopt_debug", false).apply();
         prefs.edit().putBoolean("display_old_themes", true).apply();
         prefs.edit().putBoolean("force_english", false).apply();
+        prefs.edit().putBoolean("floatui_show_android_system_overlays", false).apply();
         prefs = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
         prefs.edit().putBoolean("is_updating", false).apply();
     }

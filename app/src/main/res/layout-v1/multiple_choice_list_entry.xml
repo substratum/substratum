@@ -4,8 +4,10 @@
                  android:layout_width="match_parent"
                  android:layout_height="55dp"
                  android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+                 android:checkMarkTint="@color/floatui_dialog_checkmark_color"
                  android:gravity="center_vertical"
                  android:paddingEnd="30dp"
                  android:paddingStart="30dp"
+                 android:textColor="@color/floatui_dialog_row_color"
                  android:textAppearance="?android:attr/textAppearanceListItemSmall"
                  android:textSize="16dp"/>

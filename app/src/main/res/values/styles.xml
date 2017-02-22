@@ -85,6 +85,7 @@
     </style>
 
     <style name="FloatUiDialog" parent="@android:style/Theme.Material.Dialog.Alert">
+        <item name="android:colorAccent">@color/floatui_dialog_button_color</item>
         <item name="android:windowTitleStyle">@style/FloatUiDialog</item>
         <item name="android:windowBackground">@color/floatui_dialog_background</item>
         <item name="android:colorBackgroundCacheHint">@null</item>

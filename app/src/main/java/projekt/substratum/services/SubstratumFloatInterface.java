@@ -3,13 +3,16 @@ package projekt.substratum.services;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Notification;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.app.usage.UsageEvents;
 import android.app.usage.UsageStats;
 import android.app.usage.UsageStatsManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
@@ -23,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -41,6 +45,7 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
     private FloatingViewManager mFloatingViewManager;
     private ListView alertDialogListView;
     private String[] final_check;
+    private SharedPreferences prefs;
 
     @SuppressWarnings("WrongConstant")
     public String foregroundedApp() {
@@ -96,11 +101,16 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
             ArrayList<String> to_be_shown = new ArrayList<>();
             all_overlays.addAll(state4);
             all_overlays.addAll(state5);
+            boolean show_android_overlays =
+                    prefs.getBoolean("floatui_show_android_system_overlays", true);
             for (int i = 0; i < all_overlays.size(); i++) {
                 if (all_overlays.get(i).startsWith(foregroundedApp() + ".")) {
                     to_be_shown.add(all_overlays.get(i));
+                } else if (show_android_overlays && all_overlays.get(i).startsWith("android.")) {
+                    to_be_shown.add(all_overlays.get(i));
                 }
             }
+            Collections.sort(to_be_shown);
 
             if (to_be_shown.size() == 0) {
                 String format = String.format(getString(R.string.per_app_toast_no_overlays),
@@ -128,8 +138,7 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                 title.setTextSize(20);
                 title.setAllCaps(true);
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style
-                        .FloatUiDialog);
+                AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.FloatUiDialog);
                 builder.setCustomTitle(title);
                 builder.setAdapter(itemsAdapter, (dialog, which) -> {
                 });
@@ -235,13 +244,31 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
     }
 
     private Notification createNotification() {
+        // Create an Intent for the BroadcastReceiver
+        Intent buttonIntent = new Intent(getApplicationContext(), FloatUIButtonReceiver.class);
+
+        // Create the PendingIntent
+        PendingIntent btPendingIntent = PendingIntent.getBroadcast(
+                getApplicationContext(), 0, buttonIntent, 0);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(
+                getApplicationContext(), 0, new Intent(), 0);
+
         final NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
         builder.setWhen(System.currentTimeMillis());
+        prefs = PreferenceManager.getDefaultSharedPreferences(
+                getApplicationContext());
+        if (prefs.getBoolean("floatui_show_android_system_overlays", true)) {
+            builder.addAction(android.R.color.transparent, getString(R.string
+                    .per_app_notification_framework_hide), btPendingIntent);
+        } else {
+            builder.addAction(android.R.color.transparent, getString(R.string
+                    .per_app_notification_framework_show), btPendingIntent);
+        }
         builder.setSmallIcon(R.drawable.notification_floatui);
         builder.setContentTitle(getString(R.string.app_name));
         builder.setContentText(getString(R.string.per_app_notification_summary));
         builder.setOngoing(true);
-        builder.setPriority(NotificationCompat.PRIORITY_MIN);
+        builder.setPriority(NotificationCompat.PRIORITY_MAX);
         builder.setCategory(NotificationCompat.CATEGORY_SERVICE);
 
         return builder.build();

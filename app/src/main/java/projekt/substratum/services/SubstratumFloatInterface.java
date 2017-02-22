@@ -97,7 +97,7 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
             all_overlays.addAll(state4);
             all_overlays.addAll(state5);
             for (int i = 0; i < all_overlays.size(); i++) {
-                if (all_overlays.get(i).startsWith(foregroundedApp())) {
+                if (all_overlays.get(i).startsWith(foregroundedApp() + ".")) {
                     to_be_shown.add(all_overlays.get(i));
                 }
             }

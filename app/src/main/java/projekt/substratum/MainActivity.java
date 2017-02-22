@@ -621,19 +621,11 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     public void showFloatingHead() {
-        Toast.makeText(
-                getApplicationContext(),
-                getString(R.string.per_app_introduced),
-                Toast.LENGTH_LONG).show();
         getApplicationContext().startService(new Intent(getApplicationContext(),
                 SubstratumFloatInterface.class));
     }
 
     private void hideFloatingHead() {
-        Toast.makeText(
-                getApplicationContext(),
-                getString(R.string.per_app_removed),
-                Toast.LENGTH_LONG).show();
         stopService(new Intent(getApplicationContext(),
                 SubstratumFloatInterface.class));
     }

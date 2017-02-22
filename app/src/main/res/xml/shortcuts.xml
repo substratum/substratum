@@ -4,12 +4,24 @@
         android:enabled="true"
         android:icon="@drawable/app_shortcut_store"
         android:shortcutDisabledMessage="@string/shortcut_store_disabled"
-        android:shortcutId="static"
+        android:shortcutId="store"
         android:shortcutLongLabel="@string/shortcut_store"
         android:shortcutShortLabel="@string/shortcut_store">
         <intent
             android:action="android.intent.action.VIEW"
             android:targetClass="projekt.substratum.ShowcaseActivity"
+            android:targetPackage="projekt.substratum"/>
+    </shortcut>
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/app_shortcut_floatui"
+        android:shortcutDisabledMessage="@string/shortcut_floatui_disabled"
+        android:shortcutId="floatui"
+        android:shortcutLongLabel="@string/shortcut_floatui"
+        android:shortcutShortLabel="@string/shortcut_floatui">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="projekt.substratum.FloatUILaunchActivity"
             android:targetPackage="projekt.substratum"/>
     </shortcut>
 </shortcuts>

@@ -255,10 +255,6 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
     @Override
     public void onFinishFloatingView() {
         stopSelf();
-        Toast.makeText(
-                getApplicationContext(),
-                getString(R.string.per_app_removed),
-                Toast.LENGTH_LONG).show();
     }
 
     @Override

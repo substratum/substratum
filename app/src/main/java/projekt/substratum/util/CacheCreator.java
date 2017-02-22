@@ -1,5 +1,6 @@
 package projekt.substratum.util;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -136,7 +137,7 @@ public class CacheCreator {
                     + package_identifier;
 
             // Initialize Notification
-            int notification_priority = 2; // PRIORITY_MAX == 2
+            int notification_priority = Notification.PRIORITY_MAX;
 
             // Create an Intent for the BroadcastReceiver
             Intent buttonIntent = new Intent(mContext, NotificationUpgradeReceiver.class);
@@ -213,7 +214,7 @@ public class CacheCreator {
                         }
                     }
                     file_count += 1;
-                    if (file_count % 50 == 0) {
+                    if (file_count % 200 == 0) {
                         mBuilder.setProgress(files, file_count, false);
                         mNotifyManager.notify(id, mBuilder.build());
                     }

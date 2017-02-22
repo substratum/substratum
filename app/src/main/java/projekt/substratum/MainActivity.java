@@ -662,11 +662,17 @@ public class MainActivity extends AppCompatActivity implements
                     Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
                     startActivityForResult(intent, PERMISSIONS_REQUEST_USAGE_ACCESS_SETTINGS);
                 } else {
-                    showFloatingHead();
+                    if (Settings.canDrawOverlays(getApplicationContext()) &&
+                            checkUsagePermissions()) {
+                        showFloatingHead();
+                    }
                 }
                 break;
             case PERMISSIONS_REQUEST_USAGE_ACCESS_SETTINGS:
-                showFloatingHead();
+                if (Settings.canDrawOverlays(getApplicationContext()) &&
+                        checkUsagePermissions()) {
+                    showFloatingHead();
+                }
                 break;
             default:
                 break;

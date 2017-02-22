@@ -46,7 +46,7 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
     private ListView alertDialogListView;
     private String[] final_check;
     private SharedPreferences prefs;
-    private boolean trigger_service_restart;
+    private boolean trigger_service_restart, trigger_systemui_restart;
 
     @SuppressWarnings("WrongConstant")
     public String foregroundedApp() {
@@ -146,6 +146,7 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                 builder.setPositiveButton(R.string.per_app_apply, (dialog, which) -> {
                     int locations = alertDialogListView.getCheckedItemCount();
                     trigger_service_restart = false;
+                    trigger_systemui_restart = false;
                     ArrayList<String> to_enable = new ArrayList<>();
                     ArrayList<String> to_disable = new ArrayList<>();
 
@@ -158,6 +159,8 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                                 if (final_check[i].startsWith("android.") ||
                                         final_check[i].startsWith(getPackageName() + "."))
                                     trigger_service_restart = true;
+                                if (final_check[i].startsWith("com.android.systemui."))
+                                    trigger_systemui_restart = true;
                             }
                         } else {
                             // Check if disabled
@@ -167,6 +170,8 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                                 if (final_check[i].startsWith("android.") ||
                                         final_check[i].startsWith(getPackageName() + "."))
                                     trigger_service_restart = true;
+                                if (final_check[i].startsWith("com.android.systemui."))
+                                    trigger_systemui_restart = true;
                             }
                         }
                     }
@@ -182,6 +187,9 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                         if (to_disable.size() > 0)
                             ThemeManager.disableOverlay(getApplicationContext(), to_disable);
 
+                        if (trigger_systemui_restart) {
+                            ThemeManager.restartSystemUI(getApplicationContext());
+                        }
                         if (trigger_service_restart) {
                             final Handler handler2 = new Handler();
                             handler2.postDelayed(() -> {
@@ -193,7 +201,7 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                                         new Intent(
                                                 getApplicationContext(),
                                                 SubstratumFloatInterface.class));
-                            }, 500);
+                            }, 300);
                         }
                     }, 100);
                 });

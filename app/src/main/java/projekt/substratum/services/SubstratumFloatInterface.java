@@ -143,9 +143,10 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                         .dialog_background));
                 alertDialog.getWindow().setType(WindowManager.LayoutParams
                         .TYPE_SYSTEM_ALERT);
-                alertDialog.getListView().setItemsCanFocus(false);
-                alertDialog.getListView().setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-                alertDialog.getListView().setOnItemClickListener(
+                ListView alertDialogListView = alertDialog.getListView();
+                alertDialogListView.setItemsCanFocus(false);
+                alertDialogListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+                alertDialogListView.setOnItemClickListener(
                         (parent, view, position, id) -> {
                             // Manage selected items here
                             System.out.println("clicked" + position);
@@ -157,6 +158,12 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                             }
                         });
                 alertDialog.show();
+
+                for (int i = 0; i < final_check.length; i++) {
+                    if (enabled.contains(final_check[i])) {
+                        alertDialogListView.setItemChecked(i, true);
+                    }
+                }
             }
         });
 

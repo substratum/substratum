@@ -8,15 +8,14 @@ import android.app.usage.UsageEvents;
 import android.app.usage.UsageStats;
 import android.app.usage.UsageStatsManager;
 import android.content.Intent;
+import android.os.Handler;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
-import android.widget.CheckedTextView;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -32,6 +31,7 @@ import jp.co.recruit_lifestyle.android.floatingview.FloatingViewListener;
 import jp.co.recruit_lifestyle.android.floatingview.FloatingViewManager;
 import projekt.substratum.R;
 import projekt.substratum.config.References;
+import projekt.substratum.config.ThemeManager;
 import projekt.substratum.util.ReadOverlays;
 
 public class SubstratumFloatInterface extends Service implements FloatingViewListener {
@@ -135,13 +135,37 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                 });
                 builder.setPositiveButton(R.string.per_app_apply, (dialog, which) -> {
                     int locations = alertDialogListView.getCheckedItemCount();
+
+                    ArrayList<String> to_enable = new ArrayList<>();
+                    ArrayList<String> to_disable = new ArrayList<>();
+
                     for (int i = 0; i < final_check.length; i++) {
                         if (alertDialogListView.getCheckedItemPositions().get(i)) {
-                            Log.e("Checked Item", final_check[i]);
+                            // Check if enabled
+                            if (!enabled.contains(final_check[i])) {
+                                // It is not enabled, append it to the list
+                                to_enable.add(final_check[i]);
+                            }
                         } else {
-                            Log.e("Unchecked Item", final_check[i]);
+                            // Check if disabled
+                            if (!disabled.contains(final_check[i])) {
+                                // It is enabled, append it to the list
+                                to_disable.add(final_check[i]);
+                            }
                         }
                     }
+                    // Dismiss the dialog so that we don't have issues with configuration changes
+                    // when a dialog is open.
+                    dialog.dismiss();
+
+                    // Run the overlay management after a 0.1 second delay
+                    final Handler handler = new Handler();
+                    handler.postDelayed(() -> {
+                        if (to_enable.size() > 0)
+                            ThemeManager.enableOverlay(getApplicationContext(), to_enable);
+                        if (to_disable.size() > 0)
+                            ThemeManager.disableOverlay(getApplicationContext(), to_disable);
+                    }, 100);
                 });
                 builder.setNegativeButton(android.R.string.cancel, (dialog, which) ->
                         dialog.cancel());
@@ -155,7 +179,8 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                 alertDialogListView = alertDialog.getListView();
                 alertDialogListView.setItemsCanFocus(false);
                 alertDialogListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-                alertDialogListView.setOnItemClickListener((parent, view, position, id) -> {});
+                alertDialogListView.setOnItemClickListener((parent, view, position, id) -> {
+                });
                 alertDialog.show();
 
                 for (int i = 0; i < final_check.length; i++) {

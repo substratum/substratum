@@ -16,6 +16,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.Arrays;
+import java.util.List;
 
 import kellinwood.security.zipsigner.ZipSigner;
 import projekt.substratum.config.CompilerCommands;
@@ -26,6 +27,8 @@ import projekt.substratum.config.ThemeManager;
 public class SubstratumBuilder {
 
     public Boolean has_errored_out = false;
+    public boolean special_snowflake;
+    public String no_install = "";
     private String error_logs = "";
     private boolean debug;
 
@@ -386,28 +389,49 @@ public class SubstratumBuilder {
 
         if (!has_errored_out) {
             if (theme_oms) {
-                try {
-                    if (variant != null) {
+                special_snowflake = false;
+                if (overlay_package.equals("android") ||
+                        overlay_package.equals("projekt.substratum")) {
+                    String overlayName = variant == null ?
+                            overlay_package + "." + parse2_themeName :
+                            overlay_package + "." + parse2_themeName + "." + parse2_variantName;
+                    List<String> enabledOverlays = ReadOverlays.main(5, context);
+                    for (String o : enabledOverlays) {
+                        if (o.equals(overlayName)) special_snowflake = true;
+                    }
+                }
+
+                if (!special_snowflake) {
+                    try {
                         ThemeManager.installOverlay(context, Environment
                                 .getExternalStorageDirectory()
                                 .getAbsolutePath() + "/.substratum/" +
-                                overlay_package + "." + parse2_themeName +
-                                "-signed.apk");
+                                overlay_package + "." + parse2_themeName + "-signed.apk");
                         Log.d(References.SUBSTRATUM_BUILDER, "Silently installing APK...");
+                    } catch (Exception e) {
+                        dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
+                                "Overlay APK has failed to install! \"(Exception)");
+                        has_errored_out = true;
+                        dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
+                                "Installation of \"" + overlay_package + "\" has failed.");
+                    }
+                } else {
+                    Log.d(References.SUBSTRATUM_BUILDER, "Returning compiled APK path for later " +
+                            "installation...");
+
+                    if (variant != null) {
+                        no_install = Environment
+                                .getExternalStorageDirectory()
+                                .getAbsolutePath() + "/.substratum/" +
+                                overlay_package + "." + parse2_themeName +
+                                "-signed.apk";
                     } else {
-                        ThemeManager.installOverlay(context, Environment
+                        no_install = Environment
                                 .getExternalStorageDirectory()
                                 .getAbsolutePath() +
                                 "/.substratum/" + overlay_package + "." +
-                                parse2_themeName + "-signed.apk");
-                        Log.d(References.SUBSTRATUM_BUILDER, "Silently installing APK...");
+                                parse2_themeName + "-signed.apk";
                     }
-                } catch (Exception e) {
-                    dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
-                            "Overlay APK has failed to install! \"(Exception)");
-                    has_errored_out = true;
-                    dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
-                            "Installation of \"" + overlay_package + "\" has failed.");
                 }
             } else {
                 // At this point, it is detected to be legacy mode and Substratum will push to

@@ -104,6 +104,18 @@ public class ThemeManager {
         }
     }
 
+    public static void installOverlay(Context context, ArrayList<String> overlays) {
+        if (checkMasqueradeJobService(context)) {
+            MasqueradeService.installOverlays(context, overlays);
+        } else {
+            String packages = "";
+            for (String o : overlays) {
+                packages += o + " ";
+            }
+            new ElevatedCommands.ThreadRunner().execute("pm install -r " + packages);
+        }
+    }
+
     public static void uninstallOverlay(Context context, String overlay) {
         if (checkMasqueradeJobService(context)) {
             ArrayList<String> list = new ArrayList<>();

@@ -698,6 +698,11 @@ public class Overlays extends Fragment {
                     }
                 }, REFRESH_WINDOW_DELAY);
             }
+
+            if (!final_runner.isEmpty()) {
+                // Install remaining overlays
+                ThemeManager.installOverlay(context, final_runner);
+            }
         }
     }
 
@@ -1556,18 +1561,6 @@ public class Overlays extends Fragment {
                             mNotifyManager.notify(id, mBuilder.build());
                         }
 
-                        // With OMS3, overlay updating causes a configChange to happen, so we
-                        // check for
-                        // whatever is activated first and delay their installs to a one liner
-                        List<String> state5 = ReadOverlays.main(5, mContext);
-                        ArrayList<String> activated_overlays = new ArrayList<>(state5);
-                        if (activated_overlays.size() > 0) {
-                            Log.d(References.SUBSTRATUM_LOG, "There are activated overlays in " +
-                                    "this " +
-                                    "current device set up, so we will cherry pick whatever is " +
-                                    "enabled from this theme...");
-                        }
-
                         String workingDirectory = mContext.getCacheDir().getAbsolutePath() +
                                 "/SubstratumBuilder/" + theme_pid +
                                 "/assets/overlays/" + current_overlay;
@@ -1714,7 +1707,9 @@ public class Overlays extends Fragment {
                                 }
                                 has_failed = true;
                             } else {
-                                if (References.checkMasqueradeJobService(mContext)) {
+                                if (sb.special_snowflake) {
+                                    final_runner.add(sb.no_install);
+                                } else if (References.checkMasqueradeJobService(mContext)) {
                                     // Thread wait
                                     isWaiting = true;
                                     do {
@@ -1727,7 +1722,6 @@ public class Overlays extends Fragment {
                                 }
                             }
                         } else {
-
                             Log.d("SubstratumBuilder", "Currently processing package" +
                                     " \"" + current_overlay + "." + theme_name_parsed + "\"...");
                             sb = new SubstratumBuilder();
@@ -1751,7 +1745,9 @@ public class Overlays extends Fragment {
                                 }
                                 has_failed = true;
                             } else {
-                                if (References.checkMasqueradeJobService(mContext)) {
+                                if (sb.special_snowflake) {
+                                    final_runner.add(sb.no_install);
+                                } else if (References.checkMasqueradeJobService(mContext)) {
                                     // Thread wait
                                     isWaiting = true;
                                     do {

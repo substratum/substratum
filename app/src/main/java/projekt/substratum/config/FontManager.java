@@ -103,17 +103,23 @@ public class FontManager {
                 // Copy all the system fonts to /data/system/theme/fonts
                 File dataSystemThemeDir = new File("/data/system/theme");
                 if (!dataSystemThemeDir.exists()) {
-                    FileOperations.mountRWData();
-                    FileOperations.createNewFolder("/data/system/theme/");
+                    if (!checkMasqueradeJobService(context)) {
+                        FileOperations.mountRWData();
+                    }
+                    FileOperations.createNewFolder(context, "/data/system/theme/");
                 }
                 File dataSystemThemeFontsDir = new File("/data/system/theme/fonts");
                 if (!dataSystemThemeFontsDir.exists()) {
-                    FileOperations.mountRWData();
-                    FileOperations.createNewFolder("/data/system/theme/fonts");
+                    if (!checkMasqueradeJobService(context)) {
+                        FileOperations.mountRWData();
+                    }
+                    FileOperations.createNewFolder(context, "/data/system/theme/fonts");
                 } else {
                     FileOperations.delete(context, "/data/system/theme/fonts/");
-                    FileOperations.mountRWData();
-                    FileOperations.createNewFolder("/data/system/theme/fonts");
+                    if (!checkMasqueradeJobService(context)) {
+                        FileOperations.mountRWData();
+                    }
+                    FileOperations.createNewFolder(context, "/data/system/theme/fonts");
                 }
 
                 // Copy font configuration file (fonts.xml) to the working directory

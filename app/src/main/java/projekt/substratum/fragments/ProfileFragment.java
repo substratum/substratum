@@ -735,8 +735,8 @@ public class ProfileFragment extends Fragment {
                     FileOperations.mountRW();
                     FileOperations.delete(getContext(), current_directory);
                     FileOperations.delete(getContext(), "/data/system/theme/");
-                    FileOperations.createNewFolder(current_directory);
-                    FileOperations.createNewFolder("/data/system/theme/");
+                    FileOperations.createNewFolder(getContext(), current_directory);
+                    FileOperations.createNewFolder(getContext(), "/data/system/theme/");
                     FileOperations.setPermissions(755, "/data/system/theme/");
 
                     File profile_apk_files = new File(Environment.getExternalStorageDirectory()
@@ -787,7 +787,7 @@ public class ProfileFragment extends Fragment {
                     }
 
                     FileOperations.delete(getContext(), "/data/system/theme/");
-                    FileOperations.createNewFolder("/data/system/theme/");
+                    FileOperations.createNewFolder(getContext(), "/data/system/theme/");
 
                     File profile_apk_files = new File(Environment.getExternalStorageDirectory()
                             .getAbsolutePath() + "/substratum/profiles/" +

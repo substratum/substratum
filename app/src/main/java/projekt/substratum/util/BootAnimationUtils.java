@@ -82,8 +82,10 @@ public class BootAnimationUtils {
                         Snackbar.LENGTH_LONG)
                         .show();
             }
-            FileOperations.mountROData();
-            FileOperations.mountRO();
+            if (!References.checkMasqueradeJobService(mContext)) {
+                FileOperations.mountROData();
+                FileOperations.mountRO();
+            }
         }
 
         @Override
@@ -296,8 +298,10 @@ public class BootAnimationUtils {
                                 "is decrypted, using dedicated theme bootanimation slot...");
                         themeDirectory = new File("/data/system/theme/");
                         if (!themeDirectory.exists()) {
-                            FileOperations.mountRWData();
-                            FileOperations.createNewFolder("/data/system/theme/");
+                            if (!References.checkMasqueradeJobService(mContext)) {
+                                FileOperations.mountRWData();
+                            }
+                            FileOperations.createNewFolder(mContext, "/data/system/theme/");
                         }
                     } else {
                         Log.d("BootAnimationUtils", "Data partition on the current device " +

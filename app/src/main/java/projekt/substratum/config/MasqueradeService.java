@@ -41,6 +41,7 @@ public class MasqueradeService {
     private static final String COMMAND_VALUE_MOVE = "move";
     private static final String COMMAND_VALUE_DELETE = "delete";
     private static final String COMMAND_VALUE_PROFILE = "profile";
+    private static final String COMMAND_VALUE_MKDIR = "mkdir";
 
     private static Intent getMasqueradeRootless(Context context) {
         Intent intent = new Intent();
@@ -184,6 +185,13 @@ public class MasqueradeService {
         masqIntent.putExtra(PROFILE_NAME_KEY, name);
         masqIntent.putExtra(DISABLE_LIST_KEY, toBeDisabled);
         masqIntent.putExtra(ENABLE_LIST_KEY, toBeEnabled);
+        context.startService(masqIntent);
+    }
+
+    public static void createNewFolder(Context context, String destination) {
+        Intent masqIntent = getMasqueradeRootless(context);
+        masqIntent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_MKDIR);
+        masqIntent.putExtra(DESTINATION_FILE_KEY, destination);
         context.startService(masqIntent);
     }
 }

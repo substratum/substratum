@@ -139,6 +139,19 @@ public class FileOperations {
         }
     }
 
+    public static void createNewFolder(Context context, String destination) {
+        String dataDir = context.getDataDir().getAbsolutePath();
+        String externalDir = Environment.getExternalStorageDirectory().getAbsolutePath();
+        boolean needRoot = (!destination.startsWith(dataDir) && !destination.startsWith(externalDir) &&
+                !destination.startsWith("/system")) || (!destination.startsWith(dataDir) &&
+                !destination.startsWith(externalDir) && !destination.startsWith("/system"));
+        if (checkMasqueradeJobService(context) && needRoot) {
+            MasqueradeService.createNewFolder(context, destination);
+        } else {
+            createNewFolder(destination);
+        }
+    }
+
     public static void createNewFolder(String foldername) {
         Log.d(CREATE_LOG, "Using rootless operation to create " + foldername);
         File folder = new File(foldername);

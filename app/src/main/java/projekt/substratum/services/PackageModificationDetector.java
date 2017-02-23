@@ -158,7 +158,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
                                     notificationManager.notify(
                                             References.notification_id, notification);
 
-                                    ThemeManager.uninstallOverlay(context, package_name);
+                                    References.uninstallPackage(context, package_name);
                                 }
                             }
                         }

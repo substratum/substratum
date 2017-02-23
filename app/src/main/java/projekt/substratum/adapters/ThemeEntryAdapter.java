@@ -318,7 +318,7 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
         @Override
         protected String doInBackground(String... sUrl) {
             // Uninstall theme
-            ThemeManager.uninstallOverlay(mContext, currentObject.getThemePackage());
+            References.uninstallPackage(mContext, currentObject.getThemePackage());
 
             // Get all installed overlays for this package
             List<String> stateAll = ThemeManager.listOverlays(4);

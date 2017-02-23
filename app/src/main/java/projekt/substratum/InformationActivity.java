@@ -870,7 +870,7 @@ public class InformationActivity extends AppCompatActivity {
         protected String doInBackground(String... sUrl) {
             final SharedPreferences.Editor editor = prefs.edit();
 
-            ThemeManager.uninstallOverlay(getApplicationContext(), theme_pid);
+            References.uninstallPackage(getApplicationContext(), theme_pid);
 
             // Get all installed overlays for this package
             List<String> stateAll = ThemeManager.listOverlays(4);

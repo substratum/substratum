@@ -139,17 +139,6 @@ public class ThemeManager {
         }
     }
 
-    public static void uninstallOverlay(Context context, String overlay) {
-        if (checkMasqueradeJobService(context)) {
-            ArrayList<String> list = new ArrayList<>();
-            list.add(overlay);
-            MasqueradeService.uninstallOverlays(context, list, shouldRestartUI(context, overlay));
-        } else {
-            new ElevatedCommands.ThreadRunner().execute("pm uninstall " + overlay);
-            if (checkOMS(context) && shouldRestartUI(context, overlay)) restartSystemUI(context);
-        }
-    }
-
     public static void uninstallOverlay(Context context, ArrayList<String> overlays) {
         if (checkMasqueradeJobService(context)) {
             MasqueradeService.uninstallOverlays(context, overlays, shouldRestartUI(context,
@@ -162,13 +151,6 @@ public class ThemeManager {
             new ElevatedCommands.ThreadRunner().execute(command);
             if (checkOMS(context) && shouldRestartUI(context, overlays)) restartSystemUI(context);
         }
-    }
-
-    private static boolean shouldRestartUI(Context context, String overlay) {
-        if (checkOMS(context)) {
-            if (overlay.startsWith("com.android.systemui")) return true;
-        }
-        return false;
     }
 
     public static boolean shouldRestartUI(Context context, ArrayList<String> overlays) {

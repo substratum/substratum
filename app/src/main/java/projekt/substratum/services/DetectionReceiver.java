@@ -23,7 +23,6 @@ import java.util.TreeSet;
 
 import projekt.substratum.R;
 import projekt.substratum.config.References;
-import projekt.substratum.config.ThemeManager;
 import projekt.substratum.util.SubstratumThemeUpdater;
 
 public class DetectionReceiver extends BroadcastReceiver {
@@ -123,8 +122,7 @@ public class DetectionReceiver extends BroadcastReceiver {
                                     notificationManager.notify(
                                             References.notification_id, notification);
 
-                                    ThemeManager.uninstallOverlay(mContext, packageInfo
-                                            .packageName);
+                                    References.uninstallPackage(mContext, packageInfo.packageName);
                                 }
                             }
                         }

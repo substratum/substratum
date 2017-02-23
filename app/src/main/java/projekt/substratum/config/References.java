@@ -1038,6 +1038,16 @@ public class References {
         return false;
     }
 
+    public static void uninstallPackage(Context context, String packageName) {
+        if (checkMasqueradeJobService(context)) {
+            ArrayList<String> list = new ArrayList<>();
+            list.add(packageName);
+            MasqueradeService.uninstallOverlays(context, list, false);
+        } else {
+            new ElevatedCommands.ThreadRunner().execute("pm uninstall " + packageName);
+        }
+    }
+
     // This method checks whether these are legitimate packages for Substratum
     @SuppressWarnings("unchecked")
     public static HashMap<String, String[]> getSubstratumPackages(Context context,

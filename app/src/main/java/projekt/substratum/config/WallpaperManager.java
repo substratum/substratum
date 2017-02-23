@@ -61,7 +61,7 @@ public class WallpaperManager {
                     // Get current lock screen wallpaper to be applied later
                     ParcelFileDescriptor lockFile = wallpaperManager
                             .getWallpaperFile(android.app.WallpaperManager.FLAG_LOCK);
-                    if (lockFile !=  null) {
+                    if (lockFile != null) {
                         InputStream input = new FileInputStream(lockFile.getFileDescriptor());
                         // Clear home wallpaper
                         wallpaperManager.clear(android.app.WallpaperManager.FLAG_SYSTEM);

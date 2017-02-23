@@ -2,9 +2,7 @@ package projekt.substratum.config;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
-import android.app.ActivityManager;
 import android.content.Context;
-import android.util.Log;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -12,11 +10,8 @@ import com.google.firebase.database.IgnoreExtraProperties;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.Calendar;
-import java.util.List;
 
 import projekt.substratum.BuildConfig;
-
-import static android.content.Context.ACTIVITY_SERVICE;
 
 public class FirebaseAnalytics {
 

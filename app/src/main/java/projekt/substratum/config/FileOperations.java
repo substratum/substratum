@@ -142,7 +142,8 @@ public class FileOperations {
     public static void createNewFolder(Context context, String destination) {
         String dataDir = context.getDataDir().getAbsolutePath();
         String externalDir = Environment.getExternalStorageDirectory().getAbsolutePath();
-        boolean needRoot = (!destination.startsWith(dataDir) && !destination.startsWith(externalDir) &&
+        boolean needRoot = (!destination.startsWith(dataDir) && !destination.startsWith
+                (externalDir) &&
                 !destination.startsWith("/system")) || (!destination.startsWith(dataDir) &&
                 !destination.startsWith(externalDir) && !destination.startsWith("/system"));
         if (checkMasqueradeJobService(context) && needRoot) {

@@ -1,7 +1,6 @@
 package projekt.substratum.util;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -15,7 +14,6 @@ import java.util.List;
 import java.util.Set;
 
 import projekt.substratum.config.FileOperations;
-import projekt.substratum.config.MasqueradeService;
 import projekt.substratum.config.References;
 import projekt.substratum.config.ThemeManager;
 

@@ -358,6 +358,24 @@
     <!-- License section -->
     <string name="library_androidimagecropper_licenseId" translatable="false">apache_2_0</string>
 
+    <!-- Floating View -->
+    <string name="define_floatingview"/>
+    <!-- Author section -->
+    <string name="library_floatingview_author">Recruit Lifestyle Co. Ltd.</string>
+    <string name="library_floatingview_authorWebsite">http://engineer.recruit-lifestyle.co.jp/</string>
+    <!-- Library section -->
+    <string name="library_floatingview_libraryName">FloatingView</string>
+    <string name="library_floatingview_libraryDescription">An Android library to bring Floating Views such as Facebook Chat Heads to the open source community.</string>
+    <string name="library_floatingview_libraryWebsite">https://github.com/recruit-lifestyle/FloatingView/</string>
+    <string name="library_floatingview_libraryVersion">2.2</string>
+    <!-- OpenSource section -->
+    <string name="library_floatingview_isOpenSource">true</string>
+    <string name="library_floatingview_repositoryLink">https://github.com/recruit-lifestyle/FloatingView/</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_floatingview_classPath">jp.co.recruit_lifestyle.android.floatingview.FloatingView</string>
+    <!-- License section -->
+    <string name="library_floatingview_licenseId">apache_2_0</string>
+
     <!-- Jike Gallery -->
     <string name="define_jikegallery"/>
     <!-- Author section -->

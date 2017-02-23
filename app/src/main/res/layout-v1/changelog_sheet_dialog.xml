@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/manage_fonts_title"
+            android:text="PLACEHOLDER_TITLE"
             android:textColor="?android:attr/textColorPrimary"
             android:textSize="16sp"/>
     </LinearLayout>
@@ -38,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/manage_fonts_title"
+            android:text="PLACEHOLDER_ARRAY_STRING"
             android:textColor="?android:attr/textColorPrimary"
             android:textSize="15sp"/>
     </LinearLayout>

@@ -65,6 +65,7 @@ import projekt.substratum.fragments.ThemeFragment;
 import projekt.substratum.services.SubstratumFloatInterface;
 import projekt.substratum.services.ThemeService;
 import projekt.substratum.util.Root;
+import projekt.substratum.util.SheetDialog;
 
 import static projekt.substratum.config.References.ENABLE_ROOT_CHECK;
 import static projekt.substratum.config.References.SUBSTRATUM_LOG;
@@ -805,7 +806,7 @@ public class MainActivity extends AppCompatActivity implements
     public void showOutdatedRequestDialog() {
         boolean show_outdated_themes = prefs.contains("display_old_themes");
         if (!show_outdated_themes) {
-            BottomSheetDialog mBottomSheetDialog = new BottomSheetDialog(this);
+            SheetDialog sheetDialog = new SheetDialog(this);
             View sheetView = getLayoutInflater().inflate(R.layout.bottom_sheet_dialog, null);
             LinearLayout hide = (LinearLayout) sheetView.findViewById(R.id.hide_outdated_themes);
             LinearLayout show = (LinearLayout) sheetView.findViewById(R.id.show_outdated_themes);
@@ -817,11 +818,11 @@ public class MainActivity extends AppCompatActivity implements
             });
             show.setOnClickListener(v -> {
                 prefs.edit().putBoolean("display_old_themes", true).apply();
-                mBottomSheetDialog.hide();
+                sheetDialog.hide();
             });
-            mBottomSheetDialog.setCanceledOnTouchOutside(false);
-            mBottomSheetDialog.setContentView(sheetView);
-            mBottomSheetDialog.show();
+            sheetDialog.setCanceledOnTouchOutside(false);
+            sheetDialog.setContentView(sheetView);
+            sheetDialog.show();
         }
     }
 

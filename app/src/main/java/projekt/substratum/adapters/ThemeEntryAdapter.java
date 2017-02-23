@@ -36,6 +36,7 @@ import projekt.substratum.config.References;
 import projekt.substratum.config.ThemeManager;
 import projekt.substratum.model.ThemeInfo;
 import projekt.substratum.util.ReadOverlays;
+import projekt.substratum.util.SheetDialog;
 
 public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.ViewHolder> {
     private ArrayList<ThemeInfo> information;
@@ -171,8 +172,8 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
                     .getSystemService(Context.VIBRATOR_SERVICE);
             v.vibrate(30);
 
-            BottomSheetDialog mBottomSheetDialog =
-                    new BottomSheetDialog(information.get(i).getContext());
+            SheetDialog sheetDialog =
+                    new SheetDialog(information.get(i).getContext());
             View sheetView = View.inflate(information.get(i).getContext(),
                     R.layout.uninstall_sheet_dialog, null);
             LinearLayout uninstall = (LinearLayout) sheetView.findViewById(R.id.uninstall);
@@ -180,10 +181,10 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
                 mContext = information.get(i).getContext();
                 currentObject = information.get(i);
                 new uninstallTheme().execute();
-                mBottomSheetDialog.hide();
+                sheetDialog.hide();
             });
-            mBottomSheetDialog.setContentView(sheetView);
-            mBottomSheetDialog.show();
+            sheetDialog.setContentView(sheetView);
+            sheetDialog.show();
             return false;
         });
 

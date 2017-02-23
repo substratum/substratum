@@ -15,7 +15,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.Snackbar;
 import android.support.v7.preference.CheckBoxPreference;
 import android.support.v7.preference.Preference;
@@ -32,6 +31,7 @@ import projekt.substratum.LauncherActivity;
 import projekt.substratum.R;
 import projekt.substratum.config.References;
 import projekt.substratum.util.AOPTCheck;
+import projekt.substratum.util.SheetDialog;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
 
@@ -162,7 +162,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         }
         aoptSwitcher.setOnPreferenceClickListener(
                 preference -> {
-                    BottomSheetDialog mBottomSheetDialog = new BottomSheetDialog(getActivity());
+                    SheetDialog sheetDialog =
+                            new SheetDialog(getContext());
                     View sheetView = View.inflate(getContext(), R.layout.aopt_sheet_dialog, null);
                     LinearLayout aapt = (LinearLayout) sheetView.findViewById(R.id.aapt);
                     LinearLayout aopt = (LinearLayout) sheetView.findViewById(R.id.aopt);
@@ -172,7 +173,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         prefs.edit().putBoolean("aopt_debug", false).apply();
                         aoptSwitcher.setSummary(R.string.settings_aapt);
                         new AOPTCheck().injectAOPT(getContext(), true);
-                        mBottomSheetDialog.hide();
+                        sheetDialog.hide();
                     });
                     aopt.setOnClickListener(v -> {
                         prefs.edit().remove("compiler").apply();
@@ -180,10 +181,10 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         prefs.edit().putBoolean("aopt_debug", true).apply();
                         aoptSwitcher.setSummary(R.string.settings_aopt);
                         new AOPTCheck().injectAOPT(getContext(), true);
-                        mBottomSheetDialog.hide();
+                        sheetDialog.hide();
                     });
-                    mBottomSheetDialog.setContentView(sheetView);
-                    mBottomSheetDialog.show();
+                    sheetDialog.setContentView(sheetView);
+                    sheetDialog.show();
                     return false;
                 });
 

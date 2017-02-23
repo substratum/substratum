@@ -15,12 +15,14 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.Snackbar;
 import android.support.v7.preference.CheckBoxPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.util.Log;
-import android.widget.ArrayAdapter;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.io.File;
@@ -62,7 +64,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         Preference aboutSubstratum = getPreferenceManager().findPreference
                 ("about_substratum");
-        String aboutSubstratumSummary = BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ")";
+        String aboutSubstratumSummary = BuildConfig.VERSION_NAME + " (" + BuildConfig
+                .VERSION_CODE + ")";
         if (BuildConfig.DEBUG) {
             aboutSubstratumSummary = aboutSubstratumSummary + " - " + BuildConfig.GIT_HASH;
         }
@@ -159,39 +162,30 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         }
         aoptSwitcher.setOnPreferenceClickListener(
                 preference -> {
-                    final AlertDialog.Builder builderSingle = new AlertDialog.Builder
-                            (getContext());
-                    final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getContext(),
-                            R.layout.dialog_listview);
-
-                    arrayAdapter.add(getString(R.string.settings_aapt));
-                    arrayAdapter.add(getString(R.string.settings_aopt));
-
-                    builderSingle.setNegativeButton(
-                            android.R.string.cancel,
-                            (dialog, which) -> dialog.dismiss());
-
-                    builderSingle.setAdapter(arrayAdapter, (dialog, which) -> {
-                        SharedPreferences prefs1 =
-                                PreferenceManager.getDefaultSharedPreferences(getContext());
-                        switch (which) {
-                            case 0:
-                                prefs1.edit().remove("compiler").apply();
-                                prefs1.edit().putString("compiler", "aapt").apply();
-                                prefs1.edit().putBoolean("aopt_debug", false).apply();
-                                aoptSwitcher.setSummary(R.string.settings_aapt);
-                                new AOPTCheck().injectAOPT(getContext(), true);
-                                break;
-                            case 1:
-                                prefs1.edit().remove("compiler").apply();
-                                prefs1.edit().putString("compiler", "aopt").apply();
-                                prefs1.edit().putBoolean("aopt_debug", true).apply();
-                                aoptSwitcher.setSummary(R.string.settings_aopt);
-                                new AOPTCheck().injectAOPT(getContext(), true);
-                                break;
-                        }
+                    BottomSheetDialog mBottomSheetDialog = new BottomSheetDialog(getActivity());
+                    View sheetView = View.inflate(getContext(), R.layout.aopt_sheet_dialog, null);
+                    LinearLayout hide = (LinearLayout) sheetView.findViewById(R.id
+                            .hide_outdated_themes);
+                    LinearLayout show = (LinearLayout) sheetView.findViewById(R.id
+                            .show_outdated_themes);
+                    hide.setOnClickListener(v -> {
+                        prefs.edit().remove("compiler").apply();
+                        prefs.edit().putString("compiler", "aapt").apply();
+                        prefs.edit().putBoolean("aopt_debug", false).apply();
+                        aoptSwitcher.setSummary(R.string.settings_aapt);
+                        new AOPTCheck().injectAOPT(getContext(), true);
+                        mBottomSheetDialog.hide();
                     });
-                    builderSingle.show();
+                    show.setOnClickListener(v -> {
+                        prefs.edit().remove("compiler").apply();
+                        prefs.edit().putString("compiler", "aopt").apply();
+                        prefs.edit().putBoolean("aopt_debug", true).apply();
+                        aoptSwitcher.setSummary(R.string.settings_aopt);
+                        new AOPTCheck().injectAOPT(getContext(), true);
+                        mBottomSheetDialog.hide();
+                    });
+                    mBottomSheetDialog.setContentView(sheetView);
+                    mBottomSheetDialog.show();
                     return false;
                 });
 

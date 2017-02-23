@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import projekt.substratum.R;
-import projekt.substratum.config.ElevatedCommands;
 import projekt.substratum.config.MasqueradeService;
 import projekt.substratum.config.References;
 import projekt.substratum.config.ThemeManager;
@@ -159,8 +158,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
                                     notificationManager.notify(
                                             References.notification_id, notification);
 
-                                    String final_commands = "pm uninstall " + package_name;
-                                    ElevatedCommands.runCommands(final_commands);
+                                    ThemeManager.uninstallOverlay(context, package_name);
                                 }
                             }
                         }

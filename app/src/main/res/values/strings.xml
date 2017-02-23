@@ -809,6 +809,11 @@
     <string name="profile_dialog_ok">OK</string>
     <string name="profile_dialog_cancel">Cancel</string>
 
+    <string name="bottom_sheet_dialog_hide_outdated_themes">Hide outdated themes (6.0.0+) [Recommended!]</string>
+    <string name="bottom_sheet_dialog_show_outdated_themes">Show outdated themes (pre-6.0.0) [Unsupported]</string>
+    <string name="bottom_sheet_dialog_outdated_description">Hiding outdated themes will increase performance on the theme resource lookup algorithm! This is changeable in Settings whenever you decide to install an old theme.</string>
+    <string name="bottom_sheet_dialog_outdated_title">Hold up!</string>
+
     <string name="settings_system_status">system certification</string>
     <string name="settings_system_status_rooted">rooted mode</string>
     <string name="settings_system_status_rootless">rootless mode</string>

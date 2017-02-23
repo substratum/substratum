@@ -20,6 +20,7 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -33,6 +34,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -710,6 +712,7 @@ public class MainActivity extends AppCompatActivity implements
                             prefs.edit().putBoolean("permissions_ungranted", false).apply();
                         }
                         drawer.setSelectionAtPosition(1);
+                        showOutdatedRequestDialog();
                     } else {
                         ActivityCompat.requestPermissions(this,
                                 new String[]{Manifest.permission.GET_ACCOUNTS},
@@ -751,6 +754,7 @@ public class MainActivity extends AppCompatActivity implements
                         prefs.edit().putBoolean("permissions_ungranted", false).apply();
                     }
                     drawer.setSelectionAtPosition(1);
+                    showOutdatedRequestDialog();
                 } else {
                     // permission was not granted, show closing dialog
                     new AlertDialog.Builder(this)
@@ -796,6 +800,28 @@ public class MainActivity extends AppCompatActivity implements
                     .commitAllowingStateLoss();
         }
         return true;
+    }
+
+    public void showOutdatedRequestDialog() {
+        boolean show_outdated_themes = prefs.contains("display_old_themes");
+        if (!show_outdated_themes) {
+            BottomSheetDialog mBottomSheetDialog = new BottomSheetDialog(this);
+            View sheetView = getLayoutInflater().inflate(R.layout.bottom_sheet_dialog, null);
+            LinearLayout hide = (LinearLayout) sheetView.findViewById(R.id.hide_outdated_themes);
+            LinearLayout show = (LinearLayout) sheetView.findViewById(R.id.show_outdated_themes);
+            hide.setOnClickListener(v -> {
+                prefs.edit().putBoolean("display_old_themes", false).apply();
+                Intent intent = getIntent();
+                finish();
+                startActivity(intent);
+            });
+            show.setOnClickListener(v -> {
+                prefs.edit().putBoolean("display_old_themes", true).apply();
+            });
+            mBottomSheetDialog.setCancelable(false);
+            mBottomSheetDialog.setContentView(sheetView);
+            mBottomSheetDialog.show();
+        }
     }
 
     @Override
@@ -849,6 +875,8 @@ public class MainActivity extends AppCompatActivity implements
                 } else {
                     textView.setText(getString(R.string.root_rejected_text_cm_phh));
                 }
+            } else {
+                showOutdatedRequestDialog();
             }
             super.onPostExecute(result);
         }

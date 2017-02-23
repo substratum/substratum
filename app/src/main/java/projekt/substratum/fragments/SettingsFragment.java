@@ -39,7 +39,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
     private boolean checkSettingsPackageSupport() {
         try {
-            Resources res = getContext().getApplicationContext().getPackageManager()
+            Resources res = getContext().getPackageManager()
                     .getResourcesForApplication(References.settingsPackageName);
             int substratum_icon = res.getIdentifier(References.settingsPackageName + ":drawable/" +
                             References.settingsSubstratumDrawableName, "drawable",

@@ -109,6 +109,7 @@ public class References {
     private static String metadataWallpapers = "Substratum_Wallpapers";
     private static String metadataVersion = "Substratum_Plugin";
     private static String metadataThemeReady = "Substratum_ThemeReady";
+    private static String resourceChangelog = "ThemeChangelog";
 
     public static int getDeviceEncryptionStatus(Context context) {
         // 0: ENCRYPTION_STATUS_UNSUPPORTED
@@ -730,6 +731,20 @@ public class References {
             }
         } catch (Exception e) {
             //
+        }
+        return null;
+    }
+
+    // Grab Theme Author
+    public static String[] grabThemeChangelog(Context mContext, String package_name) {
+        try {
+            Resources res = mContext.getPackageManager()
+                    .getResourcesForApplication(package_name);
+            int array_position = res.getIdentifier(package_name + ":array/" +
+                    resourceChangelog, "array", package_name);
+            return res.getStringArray(array_position);
+        } catch (Exception e) {
+            // Suppress warnings
         }
         return null;
     }

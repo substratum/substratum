@@ -41,6 +41,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -65,6 +67,7 @@ import projekt.substratum.config.SoundManager;
 import projekt.substratum.config.ThemeManager;
 import projekt.substratum.config.WallpaperManager;
 import projekt.substratum.util.ReadOverlays;
+import projekt.substratum.util.SheetDialog;
 
 public class InformationActivity extends AppCompatActivity {
 
@@ -83,6 +86,7 @@ public class InformationActivity extends AppCompatActivity {
     private View gradientView;
     private TabLayout tabLayout;
     private ProgressDialog mProgressDialog;
+    private MenuItem favorite;
 
     public static String getThemeName() {
         return theme_name;
@@ -456,6 +460,22 @@ public class InformationActivity extends AppCompatActivity {
         boolean isMR1orHigher = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1;
 
         if (!isMR1orHigher) menu.findItem(R.id.favorite).setVisible(false);
+        if (isMR1orHigher) {
+            favorite = menu.findItem(R.id.favorite);
+            if (prefs.contains("app_shortcut_theme")) {
+                if (prefs.getString("app_shortcut_theme", "").equals(theme_pid)) {
+                    favorite.setIcon(getDrawable(R.drawable.toolbar_favorite));
+                } else {
+                    favorite.setIcon(getDrawable(R.drawable.toolbar_not_favorite));
+                }
+            } else {
+                favorite.setIcon(getDrawable(R.drawable.toolbar_not_favorite));
+            }
+        }
+        Log.e("Checking...", (References.grabThemeChangelog(getApplicationContext(), theme_pid)
+                == null) + "");
+        if (References.grabThemeChangelog(getApplicationContext(), theme_pid) != null)
+            menu.findItem(R.id.changelog).setVisible(true);
         if (!isOMS) menu.findItem(R.id.disable).setVisible(false);
         if (!isOMS) menu.findItem(R.id.enable).setVisible(false);
         if (!isOMS) menu.findItem(R.id.restart_systemui).setVisible(false);
@@ -469,216 +489,240 @@ public class InformationActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.favorite) {
-            new AppShortcutCreator().execute("favorite");
-            return true;
-        }
+        switch (id) {
+            case R.id.favorite:
+                if (prefs.contains("app_shortcut_theme")) {
+                    if (prefs.getString("app_shortcut_theme", "").equals(theme_pid)) {
+                        new AppShortcutClearer().execute("");
+                    } else {
+                        new AppShortcutCreator().execute("favorite");
+                    }
+                } else {
+                    new AppShortcutCreator().execute("favorite");
+                }
+                return true;
+            case R.id.changelog:
+                SheetDialog sheetDialog = new SheetDialog(this);
+                View sheetView = getLayoutInflater().inflate(R.layout.changelog_sheet_dialog, null);
 
-        if (id == R.id.clean) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(InformationActivity.this);
-            builder.setTitle(theme_name);
-            builder.setIcon(References.grabAppIcon(getApplicationContext(), theme_pid));
-            builder.setMessage(R.string.clean_dialog_body)
-                    .setPositiveButton(R.string.uninstall_dialog_okay, (dialog, id18) -> {
-                        // Get all installed overlays
-                        List<String> stateAll = ReadOverlays.main(4, getApplicationContext());
-                        stateAll.addAll(ReadOverlays.main(5, getApplicationContext()));
+                LinearLayout titleBox = (LinearLayout) sheetView.findViewById(R.id.title_box);
+                TextView title = (TextView) titleBox.findViewById(R.id.title);
+                String format_me = String.format(getString(R.string.changelog_title), theme_name);
+                title.setText(format_me);
 
-                        ArrayList<String> all_overlays = new ArrayList<>();
-                        for (int j = 0; j < stateAll.size(); j++) {
-                            try {
-                                String current = stateAll.get(j);
-                                ApplicationInfo appInfo = getApplicationContext()
-                                        .getPackageManager().getApplicationInfo(
-                                                current, PackageManager.GET_META_DATA);
-                                if (appInfo.metaData != null &&
-                                        appInfo.metaData.getString("Substratum_Parent") != null) {
-                                    String parent = appInfo.metaData.getString("Substratum_Parent");
-                                    if (parent != null && parent.equals(theme_pid)) {
-                                        all_overlays.add(current);
+                LinearLayout textBox = (LinearLayout) sheetView.findViewById(R.id.text_box);
+                TextView text = (TextView) textBox.findViewById(R.id.text);
+
+                String[] changelog_parsing =
+                        References.grabThemeChangelog(getApplicationContext(), theme_pid);
+                String to_show = "";
+                for (int i = 0; i < changelog_parsing.length; i++) {
+                    to_show += "\u2022 " + changelog_parsing[i] + "\n";
+                }
+                text.setText(to_show);
+                sheetDialog.setCanceledOnTouchOutside(true);
+                sheetDialog.setContentView(sheetView);
+                sheetDialog.show();
+                return true;
+            case R.id.clean:
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(InformationActivity.this);
+                builder1.setTitle(theme_name);
+                builder1.setIcon(References.grabAppIcon(getApplicationContext(), theme_pid));
+                builder1.setMessage(R.string.clean_dialog_body)
+                        .setPositiveButton(R.string.uninstall_dialog_okay, (dialog, id18) -> {
+                            // Get all installed overlays
+                            List<String> stateAll = ReadOverlays.main(4, getApplicationContext());
+                            stateAll.addAll(ReadOverlays.main(5, getApplicationContext()));
+
+                            ArrayList<String> all_overlays = new ArrayList<>();
+                            for (int j = 0; j < stateAll.size(); j++) {
+                                try {
+                                    String current = stateAll.get(j);
+                                    ApplicationInfo appInfo = getApplicationContext()
+                                            .getPackageManager().getApplicationInfo(
+                                                    current, PackageManager.GET_META_DATA);
+                                    if (appInfo.metaData != null &&
+                                            appInfo.metaData.getString("Substratum_Parent") !=
+                                                    null) {
+                                        String parent = appInfo.metaData.getString
+                                                ("Substratum_Parent");
+                                        if (parent != null && parent.equals(theme_pid)) {
+                                            all_overlays.add(current);
+                                        }
                                     }
+                                } catch (Exception e) {
+                                    // NameNotFound
                                 }
-                            } catch (Exception e) {
-                                // NameNotFound
                             }
-                        }
 
-                        Toast toast = Toast.makeText(getApplicationContext(),
-                                getString(R.string
-                                        .clean_completion),
-                                Toast.LENGTH_LONG);
-                        toast.show();
+                            Toast toast = Toast.makeText(getApplicationContext(),
+                                    getString(R.string
+                                            .clean_completion),
+                                    Toast.LENGTH_LONG);
+                            toast.show();
 
-                        // Begin uninstalling overlays for this package
-                        ThemeManager.uninstallOverlay(getApplicationContext(), all_overlays);
-                    })
-                    .setNegativeButton(R.string.uninstall_dialog_cancel, (dialog, id19) -> {
-                        // User cancelled the dialog
-                    });
-            // Create the AlertDialog object and return it
-            builder.create();
-            builder.show();
-            return true;
-        }
+                            // Begin uninstalling overlays for this package
+                            ThemeManager.uninstallOverlay(getApplicationContext(), all_overlays);
+                        })
+                        .setNegativeButton(R.string.uninstall_dialog_cancel, (dialog, id19) -> {
+                            // User cancelled the dialog
+                        });
+                // Create the AlertDialog object and return it
+                builder1.create();
+                builder1.show();
+                return true;
+            case R.id.clean_cache:
+                AlertDialog.Builder builder2 = new AlertDialog.Builder(InformationActivity.this);
+                builder2.setTitle(theme_name);
+                builder2.setIcon(References.grabAppIcon(getApplicationContext(), theme_pid));
+                builder2.setMessage(R.string.clean_cache_dialog_body)
+                        .setPositiveButton(R.string.uninstall_dialog_okay, (dialog, id110) -> {
+                            FileOperations.delete(getApplicationContext(), getCacheDir()
+                                    .getAbsolutePath() +
+                                    "/SubstratumBuilder/" + theme_pid + "/");
+                            String format =
+                                    String.format(
+                                            getString(R.string.cache_clear_completion), theme_name);
+                            Toast toast = Toast.makeText(getApplicationContext(), format,
+                                    Toast.LENGTH_LONG);
+                            toast.show();
+                            finish();
+                        })
+                        .setNegativeButton(R.string.uninstall_dialog_cancel, (dialog, id17) ->
+                                dialog
+                                        .cancel());
+                // Create the AlertDialog object and return it
+                builder2.create();
+                builder2.show();
+                return true;
+            case R.id.disable:
+                AlertDialog.Builder builder3 = new AlertDialog.Builder(InformationActivity.this);
+                builder3.setTitle(theme_name);
+                builder3.setIcon(References.grabAppIcon(getApplicationContext(), theme_pid));
+                builder3.setMessage(R.string.disable_dialog_body)
+                        .setPositiveButton(R.string.uninstall_dialog_okay, (dialog, id16) -> {
+                            // Get all enabled overlays
+                            List<String> stateAll = ReadOverlays.main(5, getApplicationContext());
 
-        if (id == R.id.clean_cache) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(InformationActivity.this);
-            builder.setTitle(theme_name);
-            builder.setIcon(References.grabAppIcon(getApplicationContext(), theme_pid));
-            builder.setMessage(R.string.clean_cache_dialog_body)
-                    .setPositiveButton(R.string.uninstall_dialog_okay, (dialog, id110) -> {
-                        FileOperations.delete(getApplicationContext(), getCacheDir()
-                                .getAbsolutePath() +
-                                "/SubstratumBuilder/" + theme_pid + "/");
-                        String format =
-                                String.format(
-                                        getString(R.string.cache_clear_completion), theme_name);
-                        Toast toast = Toast.makeText(getApplicationContext(), format,
-                                Toast.LENGTH_LONG);
-                        toast.show();
-                        finish();
-                    })
-                    .setNegativeButton(R.string.uninstall_dialog_cancel, (dialog, id17) -> dialog
-                            .cancel());
-            // Create the AlertDialog object and return it
-            builder.create();
-            builder.show();
-            return true;
-        }
-
-        if (id == R.id.disable) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(InformationActivity.this);
-            builder.setTitle(theme_name);
-            builder.setIcon(References.grabAppIcon(getApplicationContext(), theme_pid));
-            builder.setMessage(R.string.disable_dialog_body)
-                    .setPositiveButton(R.string.uninstall_dialog_okay, (dialog, id16) -> {
-                        // Get all enabled overlays
-                        List<String> stateAll = ReadOverlays.main(5, getApplicationContext());
-
-                        ArrayList<String> all_overlays = new ArrayList<>();
-                        for (int j = 0; j < stateAll.size(); j++) {
-                            try {
-                                String current = stateAll.get(j);
-                                ApplicationInfo appInfo = getApplicationContext()
-                                        .getPackageManager().getApplicationInfo(
-                                                current, PackageManager.GET_META_DATA);
-                                if (appInfo.metaData != null &&
-                                        appInfo.metaData.getString("Substratum_Parent") != null) {
-                                    String parent = appInfo.metaData.getString("Substratum_Parent");
-                                    if (parent != null && parent.equals(theme_pid)) {
-                                        all_overlays.add(current);
+                            ArrayList<String> all_overlays = new ArrayList<>();
+                            for (int j = 0; j < stateAll.size(); j++) {
+                                try {
+                                    String current = stateAll.get(j);
+                                    ApplicationInfo appInfo = getApplicationContext()
+                                            .getPackageManager().getApplicationInfo(
+                                                    current, PackageManager.GET_META_DATA);
+                                    if (appInfo.metaData != null &&
+                                            appInfo.metaData.getString("Substratum_Parent") !=
+                                                    null) {
+                                        String parent = appInfo.metaData.getString
+                                                ("Substratum_Parent");
+                                        if (parent != null && parent.equals(theme_pid)) {
+                                            all_overlays.add(current);
+                                        }
                                     }
+                                } catch (Exception e) {
+                                    // NameNotFound
                                 }
-                            } catch (Exception e) {
-                                // NameNotFound
                             }
-                        }
 
-                        Toast toast = Toast.makeText(getApplicationContext(),
-                                getString(R.string
-                                        .disable_completion),
-                                Toast.LENGTH_LONG);
-                        toast.show();
+                            Toast toast = Toast.makeText(getApplicationContext(),
+                                    getString(R.string
+                                            .disable_completion),
+                                    Toast.LENGTH_LONG);
+                            toast.show();
 
-                        // Begin disabling overlays
-                        ThemeManager.disableOverlay(getApplicationContext(), all_overlays);
-                    })
-                    .setNegativeButton(R.string.uninstall_dialog_cancel, (dialog, id15) -> {
-                        // User cancelled the dialog
-                    });
-            // Create the AlertDialog object and return it
-            builder.create();
-            builder.show();
-            return true;
-        }
-        if (id == R.id.enable) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(InformationActivity.this);
-            builder.setTitle(theme_name);
-            builder.setIcon(References.grabAppIcon(getApplicationContext(), theme_pid));
-            builder.setMessage(R.string.enable_dialog_body)
-                    .setPositiveButton(R.string.uninstall_dialog_okay, (dialog, id14) -> {
-                        // Get all disabled overlays
-                        List<String> stateAll = ReadOverlays.main(4, getApplicationContext());
+                            // Begin disabling overlays
+                            ThemeManager.disableOverlay(getApplicationContext(), all_overlays);
+                        })
+                        .setNegativeButton(R.string.uninstall_dialog_cancel, (dialog, id15) -> {
+                            // User cancelled the dialog
+                        });
+                // Create the AlertDialog object and return it
+                builder3.create();
+                builder3.show();
+                return true;
+            case R.id.enable:
+                AlertDialog.Builder builder4 = new AlertDialog.Builder(InformationActivity.this);
+                builder4.setTitle(theme_name);
+                builder4.setIcon(References.grabAppIcon(getApplicationContext(), theme_pid));
+                builder4.setMessage(R.string.enable_dialog_body)
+                        .setPositiveButton(R.string.uninstall_dialog_okay, (dialog, id14) -> {
+                            // Get all disabled overlays
+                            List<String> stateAll = ReadOverlays.main(4, getApplicationContext());
 
-                        ArrayList<String> all_overlays = new ArrayList<>();
-                        for (int j = 0; j < stateAll.size(); j++) {
-                            try {
-                                String current = stateAll.get(j);
-                                ApplicationInfo appInfo = getApplicationContext()
-                                        .getPackageManager().getApplicationInfo(
-                                                current, PackageManager.GET_META_DATA);
-                                if (appInfo.metaData != null &&
-                                        appInfo.metaData.getString("Substratum_Parent") != null) {
-                                    String parent = appInfo.metaData.getString("Substratum_Parent");
-                                    if (parent != null && parent.equals(theme_pid)) {
-                                        all_overlays.add(current);
+                            ArrayList<String> all_overlays = new ArrayList<>();
+                            for (int j = 0; j < stateAll.size(); j++) {
+                                try {
+                                    String current = stateAll.get(j);
+                                    ApplicationInfo appInfo = getApplicationContext()
+                                            .getPackageManager().getApplicationInfo(
+                                                    current, PackageManager.GET_META_DATA);
+                                    if (appInfo.metaData != null &&
+                                            appInfo.metaData.getString("Substratum_Parent") !=
+                                                    null) {
+                                        String parent = appInfo.metaData.getString
+                                                ("Substratum_Parent");
+                                        if (parent != null && parent.equals(theme_pid)) {
+                                            all_overlays.add(current);
+                                        }
                                     }
+                                } catch (Exception e) {
+                                    // NameNotFound
                                 }
-                            } catch (Exception e) {
-                                // NameNotFound
                             }
-                        }
 
-                        Toast toast = Toast.makeText(getApplicationContext(),
-                                getString(R.string
-                                        .enable_completion),
-                                Toast.LENGTH_LONG);
-                        toast.show();
+                            Toast toast = Toast.makeText(getApplicationContext(),
+                                    getString(R.string
+                                            .enable_completion),
+                                    Toast.LENGTH_LONG);
+                            toast.show();
 
-                        // Begin enabling overlays
-                        ThemeManager.enableOverlay(getApplicationContext(), all_overlays);
-                    })
-                    .setNegativeButton(R.string.uninstall_dialog_cancel, (dialog, id13) -> dialog
-                            .cancel());
-            // Create the AlertDialog object and return it
-            builder.create();
-            builder.show();
-            return true;
-        }
-        if (id == R.id.rate) {
-            try {
-                String playURL = "https://play.google.com/store/apps/details?id=" + theme_pid;
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(playURL));
-                startActivity(i);
-            } catch (ActivityNotFoundException activityNotFoundException) {
-                Snackbar.make(findViewById(android.R.id.content),
-                        getString(R.string.activity_missing_toast),
-                        Snackbar.LENGTH_LONG)
-                        .show();
-            }
-            return true;
-        }
-        if (id == R.id.uninstall) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(InformationActivity.this);
-            builder.setTitle(theme_name);
-            builder.setIcon(References.grabAppIcon(getApplicationContext(), theme_pid));
-            builder.setMessage(R.string.uninstall_dialog_body)
-                    .setPositiveButton(R.string.uninstall_dialog_okay, (dialog, id12) -> new
-                            uninstallTheme().execute(""))
-                    .setNegativeButton(R.string.uninstall_dialog_cancel, (dialog, id1) -> {
-                        // User cancelled the dialog
-                    });
-            // Create the AlertDialog object and return it
-            builder.create();
-            builder.show();
-            return true;
-        }
-
-        // Begin OMS based options
-        if (id == R.id.restart_systemui) {
-            ThemeManager.restartSystemUI(getApplicationContext());
-            return true;
-        }
-
-        // Begin RRO based options
-        if (id == R.id.reboot_device) {
-            ElevatedCommands.reboot();
-            return true;
-        }
-        if (id == R.id.soft_reboot) {
-            ElevatedCommands.softReboot();
-            return true;
+                            // Begin enabling overlays
+                            ThemeManager.enableOverlay(getApplicationContext(), all_overlays);
+                        })
+                        .setNegativeButton(R.string.uninstall_dialog_cancel, (dialog, id13) ->
+                                dialog
+                                        .cancel());
+                // Create the AlertDialog object and return it
+                builder4.create();
+                builder4.show();
+                return true;
+            case R.id.rate:
+                try {
+                    String playURL = "https://play.google.com/store/apps/details?id=" + theme_pid;
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(playURL));
+                    startActivity(i);
+                } catch (ActivityNotFoundException activityNotFoundException) {
+                    Snackbar.make(findViewById(android.R.id.content),
+                            getString(R.string.activity_missing_toast),
+                            Snackbar.LENGTH_LONG)
+                            .show();
+                }
+                return true;
+            case R.id.uninstall:
+                AlertDialog.Builder builder5 = new AlertDialog.Builder(InformationActivity.this);
+                builder5.setTitle(theme_name);
+                builder5.setIcon(References.grabAppIcon(getApplicationContext(), theme_pid));
+                builder5.setMessage(R.string.uninstall_dialog_body)
+                        .setPositiveButton(R.string.uninstall_dialog_okay, (dialog, id12) -> new
+                                uninstallTheme().execute(""))
+                        .setNegativeButton(R.string.uninstall_dialog_cancel, (dialog, id1) -> {
+                            // User cancelled the dialog
+                        });
+                // Create the AlertDialog object and return it
+                builder5.create();
+                builder5.show();
+                return true;
+            case R.id.restart_systemui:
+                ThemeManager.restartSystemUI(getApplicationContext());
+                return true;
+            case R.id.reboot_device:
+                ElevatedCommands.reboot();
+                return true;
+            case R.id.soft_reboot:
+                ElevatedCommands.softReboot();
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -686,8 +730,6 @@ public class InformationActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
-                getApplicationContext());
         if (uninstalled || refresh_mode) {
             prefs.edit().putInt("uninstalled", THEME_INFORMATION_REQUEST_CODE).apply();
         } else {
@@ -728,6 +770,8 @@ public class InformationActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result) {
+            prefs.edit().putString("app_shortcut_theme", theme_pid).apply();
+            favorite.setIcon(getDrawable(R.drawable.toolbar_favorite));
             String format = String.format(getString(R.string.menu_favorite_snackbar), result);
             Snackbar.make(findViewById(android.R.id.content),
                     format,
@@ -764,6 +808,30 @@ public class InformationActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     // Suppress warning
                 }
+            }
+            return theme_name;
+        }
+    }
+
+    private class AppShortcutClearer extends AsyncTask<String, Integer, String> {
+
+        @Override
+        protected void onPostExecute(String result) {
+            prefs.edit().remove("app_shortcut_theme").apply();
+            favorite.setIcon(getDrawable(R.drawable.toolbar_not_favorite));
+            String format = String.format(
+                    getString(R.string.menu_favorite_snackbar_cleared), result);
+            Snackbar.make(findViewById(android.R.id.content),
+                    format,
+                    Snackbar.LENGTH_LONG)
+                    .show();
+        }
+
+        @Override
+        protected String doInBackground(String... sUrl) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+                ShortcutManager shortcutManager = getSystemService(ShortcutManager.class);
+                shortcutManager.removeAllDynamicShortcuts();
             }
             return theme_name;
         }

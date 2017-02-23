@@ -531,6 +531,8 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_menu, menu);
+
         boolean isOMS = References.checkOMS(getApplicationContext());
         if (isOMS) menu.findItem(R.id.reboot_device).setVisible(false);
         if (isOMS) menu.findItem(R.id.soft_reboot).setVisible(false);
@@ -601,7 +603,6 @@ public class MainActivity extends AppCompatActivity implements
                 prefs.edit().clear().apply();
                 ElevatedCommands.softReboot();
                 return true;
-
             default:
                 return super.onOptionsItemSelected(item);
         }

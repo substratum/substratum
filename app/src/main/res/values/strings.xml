@@ -54,6 +54,7 @@
     <string name="actionbar_theme_count_none">no themes found</string>
     <string name="actionbar_theme_count_loading">loading&#8230;</string>
     <string name="actionbar_search">Search</string>
+    <string name="actionbar_changelog">Theme Changelog</string>
 
     <string name="settings_icons">Settings Icons</string>
     <string name="systemui_headers">System UI Headers</string>
@@ -330,6 +331,9 @@
     <string name="menu_uninstall">Uninstall Theme</string>
 
     <string name="menu_favorite_snackbar">Successfully set %s as an app shortcut!</string>
+    <string name="menu_favorite_snackbar_cleared">Removed %s from being an app shortcut.</string>
+
+    <string name="changelog_title">%s theme changelog</string>
 
     <string name="coming_soon">Stolen by Char!</string>
     <string name="legacy_theme_notification_title">Deprecated Theme Warning</string>

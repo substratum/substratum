@@ -45,7 +45,8 @@ public class ThemeManager {
 
     public static void disableOverlay(Context context, ArrayList<String> overlays) {
         if (checkMasqueradeJobService(context)) {
-            MasqueradeService.disableOverlays(context, overlays, shouldRestartUI(context, overlays));
+            MasqueradeService.disableOverlays(context, overlays, shouldRestartUI(context,
+                    overlays));
         } else {
             String commands = disableOverlay;
             for (int i = 0; i < overlays.size(); i++) {

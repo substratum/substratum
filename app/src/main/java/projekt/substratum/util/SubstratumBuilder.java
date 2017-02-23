@@ -16,7 +16,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.Arrays;
-import java.util.List;
 
 import kellinwood.security.zipsigner.ZipSigner;
 import projekt.substratum.config.CompilerCommands;

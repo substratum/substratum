@@ -531,11 +531,11 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (References.checkOMS(getApplicationContext())) {
-            getMenuInflater().inflate(R.menu.activity_menu, menu);
-        } else {
-            getMenuInflater().inflate(R.menu.activity_menu_legacy, menu);
-        }
+        boolean isOMS = References.checkOMS(getApplicationContext());
+        if (isOMS) menu.findItem(R.id.reboot_device).setVisible(false);
+        if (isOMS) menu.findItem(R.id.soft_reboot).setVisible(false);
+        if (!isOMS) menu.findItem(R.id.per_app).setVisible(false);
+
         MenuItem searchItem = menu.findItem(R.id.action_search);
         MenuItem showcase = menu.findItem(R.id.search);
         searchView = (SearchView) MenuItemCompat.getActionView(searchItem);

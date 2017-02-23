@@ -450,19 +450,18 @@ public class InformationActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (References.checkOMS(getApplicationContext())) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
-                getMenuInflater().inflate(R.menu.theme_information_menu_n_mr1, menu);
-            } else {
-                getMenuInflater().inflate(R.menu.theme_information_menu, menu);
-            }
-        } else {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
-                getMenuInflater().inflate(R.menu.theme_information_menu_legacy_n_mr1, menu);
-            } else {
-                getMenuInflater().inflate(R.menu.theme_information_menu_legacy, menu);
-            }
-        }
+        getMenuInflater().inflate(R.menu.theme_information_menu, menu);
+
+        boolean isOMS = References.checkOMS(getApplicationContext());
+        boolean isMR1orHigher = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1;
+
+        if (!isMR1orHigher) menu.findItem(R.id.favorite).setVisible(false);
+        if (!isOMS) menu.findItem(R.id.disable).setVisible(false);
+        if (!isOMS) menu.findItem(R.id.enable).setVisible(false);
+        if (!isOMS) menu.findItem(R.id.restart_systemui).setVisible(false);
+        if (isOMS) menu.findItem(R.id.reboot_device).setVisible(false);
+        if (isOMS) menu.findItem(R.id.soft_reboot).setVisible(false);
+
         return true;
     }
 

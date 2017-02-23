@@ -252,8 +252,9 @@ public class References {
             Process p = Runtime.getRuntime().exec("cmd overlay");
             BufferedReader reader = new BufferedReader(
                     new InputStreamReader(p.getInputStream()));
-            if (reader.readLine().equals(
-                    "The overlay manager has already been initialized.")) {
+            if (checkMasqueradeJobService(context) ||
+                    reader.readLine().equals(
+                            "The overlay manager has already been initialized.")) {
                 prefs.edit().putBoolean("oms_state", true).apply();
                 prefs.edit().putInt("oms_version", 7).apply();
                 Log.d(References.SUBSTRATUM_LOG, "Initializing Substratum with the seventh " +

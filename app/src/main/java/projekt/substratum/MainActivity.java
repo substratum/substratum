@@ -817,8 +817,9 @@ public class MainActivity extends AppCompatActivity implements
             });
             show.setOnClickListener(v -> {
                 prefs.edit().putBoolean("display_old_themes", true).apply();
+                mBottomSheetDialog.hide();
             });
-            mBottomSheetDialog.setCancelable(false);
+            mBottomSheetDialog.setCanceledOnTouchOutside(false);
             mBottomSheetDialog.setContentView(sheetView);
             mBottomSheetDialog.show();
         }

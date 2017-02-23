@@ -164,11 +164,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 preference -> {
                     BottomSheetDialog mBottomSheetDialog = new BottomSheetDialog(getActivity());
                     View sheetView = View.inflate(getContext(), R.layout.aopt_sheet_dialog, null);
-                    LinearLayout hide = (LinearLayout) sheetView.findViewById(R.id
-                            .hide_outdated_themes);
-                    LinearLayout show = (LinearLayout) sheetView.findViewById(R.id
-                            .show_outdated_themes);
-                    hide.setOnClickListener(v -> {
+                    LinearLayout aapt = (LinearLayout) sheetView.findViewById(R.id.aapt);
+                    LinearLayout aopt = (LinearLayout) sheetView.findViewById(R.id.aopt);
+                    aapt.setOnClickListener(v -> {
                         prefs.edit().remove("compiler").apply();
                         prefs.edit().putString("compiler", "aapt").apply();
                         prefs.edit().putBoolean("aopt_debug", false).apply();
@@ -176,7 +174,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         new AOPTCheck().injectAOPT(getContext(), true);
                         mBottomSheetDialog.hide();
                     });
-                    show.setOnClickListener(v -> {
+                    aopt.setOnClickListener(v -> {
                         prefs.edit().remove("compiler").apply();
                         prefs.edit().putString("compiler", "aopt").apply();
                         prefs.edit().putBoolean("aopt_debug", true).apply();

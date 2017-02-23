@@ -14,6 +14,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -21,6 +22,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -169,22 +171,19 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
                     .getSystemService(Context.VIBRATOR_SERVICE);
             v.vibrate(30);
 
-            android.support.v7.app.AlertDialog.Builder builder = new
-                    android.support.v7.app.AlertDialog.Builder(information.get(i).getContext());
-            builder.setTitle(information.get(i).getThemeName());
-            builder.setIcon(References.grabAppIcon(information.get(i).getContext(),
-                    information.get(i).getThemePackage()));
-            builder.setMessage(R.string.uninstall_dialog_body)
-                    .setPositiveButton(R.string.uninstall_dialog_okay, (dialog, id) -> {
-                        mContext = information.get(i).getContext();
-                        currentObject = information.get(i);
-                        new uninstallTheme().execute();
-                    })
-                    .setNegativeButton(R.string.uninstall_dialog_cancel, (dialog, id) -> dialog
-                            .cancel());
-            // Create the AlertDialog object and return it
-            builder.create();
-            builder.show();
+            BottomSheetDialog mBottomSheetDialog =
+                    new BottomSheetDialog(information.get(i).getContext());
+            View sheetView = View.inflate(information.get(i).getContext(),
+                    R.layout.uninstall_sheet_dialog, null);
+            LinearLayout uninstall = (LinearLayout) sheetView.findViewById(R.id.uninstall);
+            uninstall.setOnClickListener(view2 -> {
+                mContext = information.get(i).getContext();
+                currentObject = information.get(i);
+                new uninstallTheme().execute();
+                mBottomSheetDialog.hide();
+            });
+            mBottomSheetDialog.setContentView(sheetView);
+            mBottomSheetDialog.show();
             return false;
         });
 

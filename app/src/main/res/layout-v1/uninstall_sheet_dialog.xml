@@ -9,7 +9,7 @@
               app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
 
     <LinearLayout
-        android:id="@+id/aapt"
+        android:id="@+id/uninstall"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:clickable="true"
@@ -22,39 +22,14 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:tint="@color/main_screen_card_theme_title"
-            app:srcCompat="@drawable/aopt_sheet_stable"/>
+            app:srcCompat="@drawable/uninstall_sheet_icon"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="16dp"
-            android:text="@string/settings_aapt"
-            android:textColor="?android:attr/textColorPrimary"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/aopt"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:orientation="horizontal"
-        android:padding="16dp">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:tint="@color/main_screen_card_theme_title"
-            app:srcCompat="@drawable/aopt_sheet_experimental"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="16dp"
-            android:text="@string/settings_aopt"
+            android:text="@string/uninstall_dialog_body"
             android:textColor="?android:attr/textColorPrimary"/>
     </LinearLayout>
 </LinearLayout>

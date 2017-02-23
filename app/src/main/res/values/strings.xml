@@ -489,7 +489,7 @@
     <string name="disable_dialog_body">Do you want to disable all overlays for this theme?</string>
     <string name="enable_dialog_body">Do you want to enable all installed overlays for this theme?
     </string>
-    <string name="uninstall_dialog_body">Do you want to uninstall this theme?</string>
+    <string name="uninstall_dialog_body">Uninstall Theme</string>
     <string name="uninstall_dialog_cancel">Cancel</string>
     <string name="uninstall_dialog_okay">OK</string>
 

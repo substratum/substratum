@@ -340,13 +340,15 @@ public class ThemeFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... sUrl) {
+            ArrayList<String> removeList = new ArrayList<>();
             List<String> state1 = ThemeManager.listOverlays(1);
             // Overlays with non-existent targets
             for (int i = 0; i < state1.size(); i++) {
                 Log.e("OverlayCleaner", "Target APK not found for \"" + state1.get(i) + "\" and " +
                         "will be removed.");
-                ThemeManager.uninstallOverlay(mContext, state1.get(i));
+                removeList.add(state1.get(i));
             }
+            ThemeManager.uninstallOverlay(mContext, removeList);
             return null;
         }
     }

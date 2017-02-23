@@ -3,12 +3,10 @@ package projekt.substratum;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.app.AppOpsManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -68,6 +66,7 @@ import projekt.substratum.util.SheetDialog;
 
 import static projekt.substratum.config.References.ENABLE_ROOT_CHECK;
 import static projekt.substratum.config.References.SUBSTRATUM_LOG;
+import static projekt.substratum.config.References.checkUsagePermissions;
 
 public class MainActivity extends AppCompatActivity implements
         ActivityCompat.OnRequestPermissionsResultCallback, SearchView.OnQueryTextListener {
@@ -565,7 +564,7 @@ public class MainActivity extends AppCompatActivity implements
                 if (!References.isServiceRunning(SubstratumFloatInterface.class,
                         getApplicationContext())) {
                     if (Settings.canDrawOverlays(getApplicationContext()) &&
-                            checkUsagePermissions()) {
+                            checkUsagePermissions(getApplicationContext())) {
                         showFloatingHead();
                     } else if (!Settings.canDrawOverlays(getApplicationContext())) {
                         Intent draw_over_apps = new Intent(
@@ -579,7 +578,7 @@ public class MainActivity extends AppCompatActivity implements
                                 getString(R.string.per_app_draw_over_other_apps_request),
                                 Toast.LENGTH_LONG);
                         toast.show();
-                    } else if (!checkUsagePermissions()) {
+                    } else if (!checkUsagePermissions(getApplicationContext())) {
                         Intent usage = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
                         startActivityForResult(usage,
                                 PERMISSIONS_REQUEST_USAGE_ACCESS_SETTINGS);
@@ -633,39 +632,22 @@ public class MainActivity extends AppCompatActivity implements
                 SubstratumFloatInterface.class));
     }
 
-    private boolean checkUsagePermissions() {
-        try {
-            PackageManager packageManager = getApplicationContext().getPackageManager();
-            ApplicationInfo applicationInfo =
-                    packageManager.getApplicationInfo(getApplicationContext().getPackageName(), 0);
-            AppOpsManager appOpsManager = (AppOpsManager)
-                    getApplicationContext().getSystemService(Context.APP_OPS_SERVICE);
-            int mode = appOpsManager.checkOpNoThrow(
-                    AppOpsManager.OPSTR_GET_USAGE_STATS,
-                    applicationInfo.uid,
-                    applicationInfo.packageName);
-            return mode == AppOpsManager.MODE_ALLOWED;
-        } catch (PackageManager.NameNotFoundException e) {
-            return false;
-        }
-    }
-
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case PERMISSIONS_REQUEST_DRAW_OVER_OTHER_APPS:
-                if (!checkUsagePermissions()) {
+                if (!checkUsagePermissions(getApplicationContext())) {
                     Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
                     startActivityForResult(intent, PERMISSIONS_REQUEST_USAGE_ACCESS_SETTINGS);
                 } else {
                     if (Settings.canDrawOverlays(getApplicationContext()) &&
-                            checkUsagePermissions()) {
+                            checkUsagePermissions(getApplicationContext())) {
                         showFloatingHead();
                     }
                 }
                 break;
             case PERMISSIONS_REQUEST_USAGE_ACCESS_SETTINGS:
                 if (Settings.canDrawOverlays(getApplicationContext()) &&
-                        checkUsagePermissions()) {
+                        checkUsagePermissions(getApplicationContext())) {
                     showFloatingHead();
                 }
                 break;
@@ -807,6 +789,7 @@ public class MainActivity extends AppCompatActivity implements
         boolean show_outdated_themes = prefs.contains("display_old_themes");
         if (!show_outdated_themes) {
             SheetDialog sheetDialog = new SheetDialog(this);
+            @SuppressLint("InflateParams")
             View sheetView = getLayoutInflater().inflate(R.layout.bottom_sheet_dialog, null);
             LinearLayout hide = (LinearLayout) sheetView.findViewById(R.id.hide_outdated_themes);
             LinearLayout show = (LinearLayout) sheetView.findViewById(R.id.show_outdated_themes);

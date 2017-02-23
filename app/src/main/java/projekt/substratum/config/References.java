@@ -2,6 +2,7 @@ package projekt.substratum.config;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
+import android.app.AppOpsManager;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.app.admin.DevicePolicyManager;
@@ -735,7 +736,7 @@ public class References {
         return null;
     }
 
-    // Grab Theme Author
+    // Grab Theme Changelog
     public static String[] grabThemeChangelog(Context mContext, String package_name) {
         try {
             Resources res = mContext.getPackageManager()
@@ -914,6 +915,24 @@ public class References {
             if (Objects.equals(notification.getPackageName(), mContext.getPackageName())) {
                 mNotificationManager.cancel(notification.getId());
             }
+        }
+    }
+
+    // Check usage permissions
+    public static boolean checkUsagePermissions(Context mContext) {
+        try {
+            PackageManager packageManager = mContext.getPackageManager();
+            ApplicationInfo applicationInfo =
+                    packageManager.getApplicationInfo(mContext.getPackageName(), 0);
+            AppOpsManager appOpsManager = (AppOpsManager)
+                    mContext.getSystemService(Context.APP_OPS_SERVICE);
+            int mode = appOpsManager.checkOpNoThrow(
+                    AppOpsManager.OPSTR_GET_USAGE_STATS,
+                    applicationInfo.uid,
+                    applicationInfo.packageName);
+            return mode == AppOpsManager.MODE_ALLOWED;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
         }
     }
 

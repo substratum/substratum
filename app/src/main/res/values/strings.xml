@@ -841,4 +841,5 @@
     <string name="per_app_apply">Apply</string>
     <string name="per_app_draw_over_other_apps_request">Please grant Substratum "draw over other apps" for the floating UI and "Usage stats" permissions to access the foreground app for matching theme targets.</string>
     <string name="per_app_usage_stats_request">Please grant Substratum "usage access" permissions to access the foreground app for matching theme targets.</string>
+    <string name="per_app_manual_grant">Please manually grant Substratum "usage access" permissions and "draw over other apps" in App Settings to use FloatUI!</string>
 </resources>

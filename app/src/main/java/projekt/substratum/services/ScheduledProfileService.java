@@ -181,8 +181,11 @@ public class ScheduledProfileService extends IntentService {
             }
 
             if (References.checkMasqueradeJobService(mContext)) {
+                ArrayList<String> toBeDisabled = new ArrayList<>(system);
+                boolean shouldRestartUi = ThemeManager.shouldRestartUI(mContext, toBeDisabled)
+                        || ThemeManager.shouldRestartUI(mContext, to_be_run);
                 MasqueradeService.applyProfile(mContext, processed, new ArrayList<>(system),
-                        to_be_run);
+                        to_be_run, shouldRestartUi);
             } else {
                 // Restore the whole backed up profile back to /data/system/theme/
                 if (theme.exists()) {

@@ -928,8 +928,11 @@ public class ProfileFragment extends Fragment {
             }
 
             if (References.checkMasqueradeJobService(getContext())) {
-                MasqueradeService.applyProfile(getContext(), profile_name, new ArrayList<>(system),
-                        to_be_run);
+                ArrayList<String> toBeDisabled = new ArrayList<>(system);
+                boolean shouldRestartUi = ThemeManager.shouldRestartUI(getContext(), toBeDisabled)
+                        || ThemeManager.shouldRestartUI(getContext(), to_be_run);
+                MasqueradeService.applyProfile(getContext(), profile_name, toBeDisabled, to_be_run,
+                        shouldRestartUi);
             } else {
                 // Restore the whole backed up profile back to /data/system/theme/
                 if (theme.exists()) {

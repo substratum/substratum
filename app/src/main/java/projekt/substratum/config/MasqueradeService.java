@@ -80,17 +80,19 @@ public class MasqueradeService {
         context.startService(masqIntent);
     }
 
-    static void enableOverlays(Context context, ArrayList<String> overlays) {
+    static void enableOverlays(Context context, ArrayList<String> overlays, boolean restartUi) {
         Intent masqIntent = getMasqueradeRootless(context);
         masqIntent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_ENABLE);
         masqIntent.putExtra(ENABLE_LIST_KEY, overlays);
+        masqIntent.putExtra(WITH_RESTART_UI_KEY, restartUi);
         context.startService(masqIntent);
     }
 
-    static void disableOverlays(Context context, ArrayList<String> overlays) {
+    static void disableOverlays(Context context, ArrayList<String> overlays, boolean restartUi) {
         Intent masqIntent = getMasqueradeRootless(context);
         masqIntent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_DISABLE);
         masqIntent.putExtra(DISABLE_LIST_KEY, overlays);
+        masqIntent.putExtra(WITH_RESTART_UI_KEY, restartUi);
         context.startService(masqIntent);
     }
 
@@ -179,12 +181,13 @@ public class MasqueradeService {
     }
 
     public static void applyProfile(Context context, String name, ArrayList<String> toBeDisabled,
-                                    ArrayList<String> toBeEnabled) {
+                                    ArrayList<String> toBeEnabled, boolean restartUi) {
         Intent masqIntent = getMasqueradeRootless(context);
         masqIntent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_PROFILE);
         masqIntent.putExtra(PROFILE_NAME_KEY, name);
         masqIntent.putExtra(DISABLE_LIST_KEY, toBeDisabled);
         masqIntent.putExtra(ENABLE_LIST_KEY, toBeEnabled);
+        masqIntent.putExtra(WITH_RESTART_UI_KEY, restartUi);
         context.startService(masqIntent);
     }
 

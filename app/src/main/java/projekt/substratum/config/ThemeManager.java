@@ -30,7 +30,7 @@ public class ThemeManager {
 
     public static void enableOverlay(Context context, ArrayList<String> overlays) {
         if (checkMasqueradeJobService(context)) {
-            MasqueradeService.enableOverlays(context, overlays);
+            MasqueradeService.enableOverlays(context, overlays, shouldRestartUI(context, overlays));
         } else {
             String commands = enableOverlay;
             for (int i = 0; i < overlays.size(); i++) {
@@ -43,7 +43,7 @@ public class ThemeManager {
 
     public static void disableOverlay(Context context, ArrayList<String> overlays) {
         if (checkMasqueradeJobService(context)) {
-            MasqueradeService.disableOverlays(context, overlays);
+            MasqueradeService.disableOverlays(context, overlays, shouldRestartUI(context, overlays));
         } else {
             String commands = disableOverlay;
             for (int i = 0; i < overlays.size(); i++) {
@@ -73,7 +73,8 @@ public class ThemeManager {
     public static void disableAll(Context context) {
         if (checkMasqueradeJobService(context)) {
             List<String> list = ReadOverlays.main(5, context);
-            MasqueradeService.disableOverlays(context, new ArrayList<>(list));
+            MasqueradeService.disableOverlays(context, new ArrayList<>(list),
+                    shouldRestartUI(context, new ArrayList<>(list)));
         } else {
             new ElevatedCommands.ThreadRunner().execute(disableAllOverlays);
         }
@@ -148,7 +149,7 @@ public class ThemeManager {
         return false;
     }
 
-    private static boolean shouldRestartUI(Context context, ArrayList<String> overlays) {
+    public static boolean shouldRestartUI(Context context, ArrayList<String> overlays) {
         if (checkOMS(context)) {
             for (String o : overlays) {
                 if (o.startsWith("com.android.systemui")) return true;

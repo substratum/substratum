@@ -394,7 +394,7 @@ public class SubstratumBuilder {
                         overlay_package.equals("projekt.substratum")) {
                     String overlayName = variant == null ?
                             overlay_package + "." + parse2_themeName :
-                            overlay_package + "." + parse2_themeName + "." + parse2_variantName;
+                            overlay_package + "." + parse2_themeName + "." + varianter;
                     List<String> enabledOverlays = ReadOverlays.main(5, context);
                     for (String o : enabledOverlays) {
                         if (o.equals(overlayName)) special_snowflake = true;

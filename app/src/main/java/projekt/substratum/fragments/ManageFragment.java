@@ -314,19 +314,13 @@ public class ManageFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            List<String> state0 = ThemeManager.listOverlays(0);
-            List<String> state1 = ThemeManager.listOverlays(1);
-            List<String> state2 = ThemeManager.listOverlays(2);
-            List<String> state3 = ThemeManager.listOverlays(3);
-            List<String> state4 = ThemeManager.listOverlays(4);
-            List<String> state5 = ThemeManager.listOverlays(5);
+            List<String> unapproved = ThemeManager.listOverlays(3);
+            List<String> disabled = ThemeManager.listOverlays(4);
+            List<String> enabled = ThemeManager.listOverlays(5);
 
-            final_commands_array = new ArrayList<>(state0);
-            final_commands_array.addAll(state1);
-            final_commands_array.addAll(state2);
-            final_commands_array.addAll(state3);
-            final_commands_array.addAll(state4);
-            final_commands_array.addAll(state5);
+            final_commands_array = new ArrayList<>(unapproved);
+            final_commands_array.addAll(disabled);
+            final_commands_array.addAll(enabled);
             return null;
         }
     }

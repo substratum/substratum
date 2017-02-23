@@ -66,7 +66,6 @@ import projekt.substratum.config.References;
 import projekt.substratum.config.SoundManager;
 import projekt.substratum.config.ThemeManager;
 import projekt.substratum.config.WallpaperManager;
-import projekt.substratum.util.ReadOverlays;
 import projekt.substratum.util.SheetDialog;
 
 public class InformationActivity extends AppCompatActivity {
@@ -503,6 +502,7 @@ public class InformationActivity extends AppCompatActivity {
                 return true;
             case R.id.changelog:
                 SheetDialog sheetDialog = new SheetDialog(this);
+                @SuppressLint("InflateParams")
                 View sheetView = getLayoutInflater().inflate(R.layout.changelog_sheet_dialog, null);
 
                 LinearLayout titleBox = (LinearLayout) sheetView.findViewById(R.id.title_box);
@@ -516,8 +516,10 @@ public class InformationActivity extends AppCompatActivity {
                 String[] changelog_parsing =
                         References.grabThemeChangelog(getApplicationContext(), theme_pid);
                 String to_show = "";
-                for (int i = 0; i < changelog_parsing.length; i++) {
-                    to_show += "\u2022 " + changelog_parsing[i] + "\n";
+                if (changelog_parsing != null) {
+                    for (String aChangelog_parsing : changelog_parsing) {
+                        to_show += "\u2022 " + aChangelog_parsing + "\n";
+                    }
                 }
                 text.setText(to_show);
                 sheetDialog.setCanceledOnTouchOutside(true);
@@ -531,8 +533,8 @@ public class InformationActivity extends AppCompatActivity {
                 builder1.setMessage(R.string.clean_dialog_body)
                         .setPositiveButton(R.string.uninstall_dialog_okay, (dialog, id18) -> {
                             // Get all installed overlays
-                            List<String> stateAll = ReadOverlays.main(4, getApplicationContext());
-                            stateAll.addAll(ReadOverlays.main(5, getApplicationContext()));
+                            List<String> stateAll = ThemeManager.listOverlays(4);
+                            stateAll.addAll(ThemeManager.listOverlays(5));
 
                             ArrayList<String> all_overlays = new ArrayList<>();
                             for (int j = 0; j < stateAll.size(); j++) {
@@ -602,7 +604,7 @@ public class InformationActivity extends AppCompatActivity {
                 builder3.setMessage(R.string.disable_dialog_body)
                         .setPositiveButton(R.string.uninstall_dialog_okay, (dialog, id16) -> {
                             // Get all enabled overlays
-                            List<String> stateAll = ReadOverlays.main(5, getApplicationContext());
+                            List<String> stateAll = ThemeManager.listOverlays(5);
 
                             ArrayList<String> all_overlays = new ArrayList<>();
                             for (int j = 0; j < stateAll.size(); j++) {
@@ -648,7 +650,7 @@ public class InformationActivity extends AppCompatActivity {
                 builder4.setMessage(R.string.enable_dialog_body)
                         .setPositiveButton(R.string.uninstall_dialog_okay, (dialog, id14) -> {
                             // Get all disabled overlays
-                            List<String> stateAll = ReadOverlays.main(4, getApplicationContext());
+                            List<String> stateAll = ThemeManager.listOverlays(4);
 
                             ArrayList<String> all_overlays = new ArrayList<>();
                             for (int j = 0; j < stateAll.size(); j++) {
@@ -871,8 +873,8 @@ public class InformationActivity extends AppCompatActivity {
             ThemeManager.uninstallOverlay(getApplicationContext(), theme_pid);
 
             // Get all installed overlays for this package
-            List<String> stateAll = ReadOverlays.main(4, getApplicationContext());
-            stateAll.addAll(ReadOverlays.main(5, getApplicationContext()));
+            List<String> stateAll = ThemeManager.listOverlays(4);
+            stateAll.addAll(ThemeManager.listOverlays(5));
 
             ArrayList<String> all_overlays = new ArrayList<>();
             for (int j = 0; j < stateAll.size(); j++) {

@@ -75,7 +75,6 @@ import projekt.substratum.model.OverlaysInfo;
 import projekt.substratum.services.NotificationButtonReceiver;
 import projekt.substratum.util.CacheCreator;
 import projekt.substratum.util.FloatingActionMenu;
-import projekt.substratum.util.ReadOverlays;
 import projekt.substratum.util.SubstratumBuilder;
 
 import static android.content.Context.CLIPBOARD_SERVICE;
@@ -865,7 +864,7 @@ public class Overlays extends Fragment {
             } catch (Exception e) {
                 // Exception
             }
-            List<String> state5 = ReadOverlays.main(5, mContext);
+            List<String> state5 = ThemeManager.listOverlays(5);
             ArrayList<String> all = new ArrayList<>(state5);
 
             all_installed_overlays = new ArrayList<>();

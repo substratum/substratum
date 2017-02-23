@@ -34,7 +34,6 @@ import projekt.substratum.config.FileOperations;
 import projekt.substratum.config.References;
 import projekt.substratum.config.ThemeManager;
 import projekt.substratum.model.ThemeInfo;
-import projekt.substratum.util.ReadOverlays;
 import projekt.substratum.util.SheetDialog;
 
 public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.ViewHolder> {
@@ -322,8 +321,8 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
             ThemeManager.uninstallOverlay(mContext, currentObject.getThemePackage());
 
             // Get all installed overlays for this package
-            List<String> stateAll = ReadOverlays.main(4, mContext);
-            stateAll.addAll(ReadOverlays.main(5, mContext));
+            List<String> stateAll = ThemeManager.listOverlays(4);
+            stateAll.addAll(ThemeManager.listOverlays(5));
 
             ArrayList<String> all_overlays = new ArrayList<>();
             for (int j = 0; j < stateAll.size(); j++) {

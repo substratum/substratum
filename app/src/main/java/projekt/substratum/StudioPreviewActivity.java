@@ -57,7 +57,6 @@ import projekt.substratum.config.MasqueradeService;
 import projekt.substratum.config.References;
 import projekt.substratum.config.ThemeManager;
 import projekt.substratum.model.IconInfo;
-import projekt.substratum.util.ReadOverlays;
 import projekt.substratum.util.SubstratumIconBuilder;
 
 import static projekt.substratum.config.References.DEBUG;
@@ -502,7 +501,7 @@ public class StudioPreviewActivity extends AppCompatActivity {
             total_amount = icons.size();
             disable_me = new ArrayList<>();
 
-            List<String> state5 = ReadOverlays.main(5, getApplicationContext());
+            List<String> state5 = ThemeManager.listOverlays(5);
             ArrayList<String> activated_overlays = new ArrayList<>(state5);
             ArrayList<String> icons_list = new ArrayList<>();
             // Buffer the list of icons that are going to be loaded

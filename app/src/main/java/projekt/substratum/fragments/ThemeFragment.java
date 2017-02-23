@@ -34,7 +34,6 @@ import projekt.substratum.adapters.ThemeEntryAdapter;
 import projekt.substratum.config.References;
 import projekt.substratum.config.ThemeManager;
 import projekt.substratum.model.ThemeInfo;
-import projekt.substratum.util.ReadOverlays;
 
 public class ThemeFragment extends Fragment {
 
@@ -341,7 +340,7 @@ public class ThemeFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            List<String> state1 = ReadOverlays.main(1, mContext);
+            List<String> state1 = ThemeManager.listOverlays(1);
             // Overlays with non-existent targets
             for (int i = 0; i < state1.size(); i++) {
                 Log.e("OverlayCleaner", "Target APK not found for \"" + state1.get(i) + "\" and " +

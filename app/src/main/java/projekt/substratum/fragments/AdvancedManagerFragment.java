@@ -41,7 +41,6 @@ import projekt.substratum.config.References;
 import projekt.substratum.config.ThemeManager;
 import projekt.substratum.model.OverlayManager;
 import projekt.substratum.util.FloatingActionMenu;
-import projekt.substratum.util.ReadOverlays;
 
 import static projekt.substratum.config.References.REFRESH_WINDOW_DELAY;
 import static projekt.substratum.util.MapUtils.sortMapByValues;
@@ -385,8 +384,8 @@ public class AdvancedManagerFragment extends Fragment {
             ArrayList<String> all_overlays;
 
             if (References.checkOMS(mContext)) {
-                ArrayList<String> active = new ArrayList<>(ReadOverlays.main(5, mContext));
-                ArrayList<String> disabled = new ArrayList<>(ReadOverlays.main(4, mContext));
+                ArrayList<String> active = new ArrayList<>(ThemeManager.listOverlays(5));
+                ArrayList<String> disabled = new ArrayList<>(ThemeManager.listOverlays(4));
 
                 // Filter out icon pack overlays from the advanced manager
                 activated_overlays = new ArrayList<>();

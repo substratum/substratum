@@ -36,7 +36,6 @@ import jp.co.recruit_lifestyle.android.floatingview.FloatingViewManager;
 import projekt.substratum.R;
 import projekt.substratum.config.References;
 import projekt.substratum.config.ThemeManager;
-import projekt.substratum.util.ReadOverlays;
 
 public class SubstratumFloatInterface extends Service implements FloatingViewListener {
 
@@ -94,8 +93,8 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
             String dialogTitle = String.format(getString(R.string.per_app_dialog_title),
                     packageName);
 
-            List<String> state4 = ReadOverlays.main(4, getApplicationContext());
-            List<String> state5 = ReadOverlays.main(5, getApplicationContext());
+            List<String> state4 = ThemeManager.listOverlays(4);
+            List<String> state5 = ThemeManager.listOverlays(5);
             ArrayList<String> disabled = new ArrayList<>(state4);
             ArrayList<String> enabled = new ArrayList<>(state5);
             ArrayList<String> all_overlays = new ArrayList<>();

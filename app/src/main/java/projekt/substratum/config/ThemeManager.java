@@ -1,11 +1,13 @@
 package projekt.substratum.config;
 
 import android.content.Context;
+import android.content.om.OverlayInfo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-import projekt.substratum.util.ReadOverlays;
 import projekt.substratum.util.Root;
 
 import static projekt.substratum.config.References.checkMasqueradeJobService;
@@ -72,7 +74,7 @@ public class ThemeManager {
 
     public static void disableAll(Context context) {
         if (checkMasqueradeJobService(context)) {
-            List<String> list = ReadOverlays.main(5, context);
+            List<String> list = ThemeManager.listOverlays(5);
             MasqueradeService.disableOverlays(context, new ArrayList<>(list),
                     shouldRestartUI(context, new ArrayList<>(list)));
         } else {
@@ -86,6 +88,26 @@ public class ThemeManager {
         } else {
             Root.runCommand("pkill -f com.android.systemui");
         }
+    }
+
+    public static List<String> listOverlays(int state) {
+        List<String> list = new ArrayList<>();
+        Map<String, List<OverlayInfo>> allOverlays = OverlayManagerService.getAllOverlays();
+        if (allOverlays != null) {
+            Set<String> set = allOverlays.keySet();
+            for (String targetPackageName : set) {
+                for (OverlayInfo oi : allOverlays.get(targetPackageName)) {
+                    if (state == 5 && oi.isEnabled()) {
+                        list.add(oi.packageName);
+                    } else if (state == 4 && !oi.isEnabled()) {
+                        list.add(oi.packageName);
+                    } else if (state <= 3 && !oi.isApproved()) {
+                        list.add(oi.packageName);
+                    }
+                }
+            }
+        }
+        return list;
     }
 
     /*

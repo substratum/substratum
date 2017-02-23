@@ -8,6 +8,6 @@
                  android:gravity="center_vertical"
                  android:paddingEnd="30dp"
                  android:paddingStart="30dp"
-                 android:textColor="@color/floatui_dialog_row_color"
                  android:textAppearance="?android:attr/textAppearanceListItemSmall"
+                 android:textColor="@color/floatui_dialog_row_color"
                  android:textSize="16dp"/>

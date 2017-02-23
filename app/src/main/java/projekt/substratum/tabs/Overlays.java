@@ -1348,7 +1348,21 @@ public class Overlays extends Fragment {
 
             if (!enable_mode && !disable_mode) {
                 finishFunction(mContext);
-                if (has_failed) failedFunction(mContext);
+                if (has_failed) {
+                    failedFunction(mContext);
+                } else {
+                    // Restart SystemUI if an enabled SystemUI overlay is updated
+                    for (int i = 0; i < checkedOverlays.size(); i++) {
+                        String targetOverlay = checkedOverlays.get(i).getPackageName();
+                        if (targetOverlay.equals("com.android.systemui")) {
+                            String packageName = checkedOverlays.get(i).getFullOverlayParameters();
+                            if (ThemeManager.isOverlayEnabled(packageName)) {
+                                ThemeManager.restartSystemUI(mContext);
+                                break;
+                            }
+                        }
+                    }
+                }
                 mContext.unregisterReceiver(finishReceiver);
             } else if (enable_mode) {
                 if (final_runner.size() > 0) {

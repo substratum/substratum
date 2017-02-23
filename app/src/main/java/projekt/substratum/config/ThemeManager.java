@@ -110,6 +110,14 @@ public class ThemeManager {
         return list;
     }
 
+    public static boolean isOverlayEnabled(String overlayName) {
+        List<String> enabledOverlays = ThemeManager.listOverlays(5);
+        for (String o : enabledOverlays) {
+            if (o.equals(overlayName)) return true;
+        }
+        return false;
+    }
+
     /*
         Begin interaction with the MasqueradeService or the PackageManager binaries.
 

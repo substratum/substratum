@@ -54,12 +54,12 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
         List<UsageStats> stats = mUsageStatsManager.queryUsageStats(
                 UsageStatsManager.INTERVAL_DAILY, time - 1000 * 1000, time);
         String foregroundApp = "";
-        if (stats != null) {
+        if (stats != null && stats.size() > 0) {
             SortedMap<Long, UsageStats> mySortedMap = new TreeMap<>();
             for (UsageStats usageStats : stats) {
                 mySortedMap.put(usageStats.getLastTimeUsed(), usageStats);
             }
-            if (!mySortedMap.isEmpty()) {
+            if (mySortedMap != null && !mySortedMap.isEmpty()) {
                 foregroundApp = mySortedMap.get(mySortedMap.lastKey()).getPackageName();
             }
         }

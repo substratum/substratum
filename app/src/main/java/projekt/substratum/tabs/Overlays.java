@@ -929,9 +929,10 @@ public class Overlays extends Fragment {
                 }
 
                 for (String package_name : overlaysFolder) {
-                    if (References.isPackageInstalled(mContext, package_name) ||
+                    if ((References.isPackageInstalled(mContext, package_name) ||
                             References.allowedSystemUIOverlay(package_name) ||
-                            References.allowedSettingsOverlay(package_name)) {
+                            References.allowedSettingsOverlay(package_name)) &&
+                            (!ThemeManager.blacklisted(package_name))) {
                         values.add(package_name);
                     }
                 }

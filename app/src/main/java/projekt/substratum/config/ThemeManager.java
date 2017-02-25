@@ -4,12 +4,14 @@ import android.content.Context;
 import android.content.om.OverlayInfo;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import projekt.substratum.util.Root;
 
+import static projekt.substratum.config.References.MASQUERADE_PACKAGE;
 import static projekt.substratum.config.References.checkMasqueradeJobService;
 import static projekt.substratum.config.References.checkOMS;
 
@@ -29,6 +31,14 @@ public class ThemeManager {
     public static final String enableOverlay = "cmd overlay enable";
     private static final String disableAllOverlays = "cmd overlay disable-all";
     private static final String setPriority = "cmd overlay set-priority";
+    private static final String[] blacklistedPackages = new String[]{
+            MASQUERADE_PACKAGE
+    };
+
+    public static boolean blacklisted(String packageName) {
+        List<String> blacklisted = Arrays.asList(blacklistedPackages);
+        return blacklisted.contains(packageName);
+    }
 
     public static void enableOverlay(Context context, ArrayList<String> overlays) {
         if (checkMasqueradeJobService(context)) {

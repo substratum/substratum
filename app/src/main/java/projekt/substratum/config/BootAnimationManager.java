@@ -12,21 +12,25 @@ public class BootAnimationManager {
     public static void setBootAnimation(Context context, String themeDirectory) {
         String location = Environment.getExternalStorageDirectory().getAbsolutePath() +
                 "/.substratum/bootanimation.zip";
+        // Check to see if device is decrypted with masquerade 22 or higher
         if (getDeviceEncryptionStatus(context) <= 1 && checkMasqueradeJobService(context)) {
             Log.d("BootAnimationUtils",
                     "No-root option has been enabled with the inclusion of " +
                             "masquerade v22+...");
             MasqueradeService.setBootAnimation(context, location);
+        // Otherwise, fall back to rooted operations
         } else {
+            // We will mount system, make our directory, copy the bootanimation
+            // zip into place, set proper permissions, then unmount
             Log.d("BootAnimationUtils", "Root option has been enabled");
             FileOperations.mountRW();
-            FileOperations.setPermissions(755, themeDirectory);
-            FileOperations.mountRW();
-            FileOperations.move(context, location, themeDirectory + "/bootanimation.zip");
-            FileOperations.mountRW();
-            FileOperations.setPermissions(644, themeDirectory + "/bootanimation.zip");
             FileOperations.mountRWData();
+            FileOperations.setPermissions(755, themeDirectory);
+            FileOperations.move(context, location, themeDirectory + "/bootanimation.zip");
+            FileOperations.setPermissions(644, themeDirectory + "/bootanimation.zip");
             FileOperations.setContext(themeDirectory);
+            FileOperations.mountROData();
+            FileOperations.mountRO();
         }
     }
 
@@ -35,7 +39,7 @@ public class BootAnimationManager {
             // OMS with no-root masquerade
             MasqueradeService.clearBootAnimation(context);
         } else if (getDeviceEncryptionStatus(context) <= 1 && !References.checkOMS(context)) {
-            // Legacy unencrypted
+            // Legacy decrypted
             FileOperations.delete(context, "/data/system/theme/bootanimation.zip");
         } else {
             // Encrypted OMS and legacy

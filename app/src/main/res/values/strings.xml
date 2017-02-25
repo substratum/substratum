@@ -671,7 +671,7 @@
     <string name="fab_menu_swap_toggle_legacy">Remove all existing</string>
 
     <string name="team_eye">Eyes of Substratum</string>
-    <string name="team_eye_text">This contributor has helped so much in the project, from backend code reviews; documentation write ups, frequently answered question compilations, immediate ROM commit tests, handling showcase updates, last minute app bug fixes and overall an amazing attitude in aids to help others get started with the system&#8230;our project would be a very different place without all his hard work and dedication!</string>
+    <string name="team_eye_text">This contributor has helped so much in the project, from backend code reviews, documentation write ups, frequently answered question compilations, immediate ROM commit tests, handling showcase updates, last minute app bug fixes, and overall an amazing attitude in aids to help others get started with the system&#8230;our project would be a very different place without all his hard work and dedication!</string>
 
     <string name="team_title_1">Substratum Team Leaders</string>
     <string name="team_text_1">Not only did we create something that works for the users, but we worked in conjunction with themers to make it a wonderful theming engine for the community!</string>

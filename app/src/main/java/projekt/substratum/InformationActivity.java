@@ -86,6 +86,8 @@ public class InformationActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ProgressDialog mProgressDialog;
     private MenuItem favorite;
+    private Menu menu;
+    private boolean shouldDarken;
 
     public static String getThemeName() {
         return theme_name;
@@ -453,8 +455,19 @@ public class InformationActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        this.menu = menu;
         getMenuInflater().inflate(R.menu.theme_information_menu, menu);
 
+        // Start formalizing a check for dark icons
+        Drawable heroImage = grabPackageHeroImage(theme_pid);
+        if (heroImage != null) heroImageBitmap = ((BitmapDrawable) heroImage).getBitmap();
+        int dominantColor = getDominantColor(heroImageBitmap);
+        boolean dynamicActionBarColors = getResources().getBoolean(R.bool.dynamicActionBarColors);
+        shouldDarken = collapsingToolbarLayout != null &&
+                checkColorDarkness(dominantColor) &&
+                dynamicActionBarColors && prefs.getBoolean("dynamic_actionbar", true);
+
+        // Start dynamically showing menu items
         boolean isOMS = References.checkOMS(getApplicationContext());
         boolean isMR1orHigher = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1;
 
@@ -470,11 +483,18 @@ public class InformationActivity extends AppCompatActivity {
             } else {
                 favorite.setIcon(getDrawable(R.drawable.toolbar_not_favorite));
             }
+            if (shouldDarken) favorite.getIcon().setColorFilter(
+                    getColor(R.color.information_activity_dark_icon_mode),
+                    PorterDuff.Mode.SRC_ATOP);
         }
-        Log.e("Checking...", (References.grabThemeChangelog(getApplicationContext(), theme_pid)
-                == null) + "");
-        if (References.grabThemeChangelog(getApplicationContext(), theme_pid) != null)
-            menu.findItem(R.id.changelog).setVisible(true);
+        if (References.grabThemeChangelog(getApplicationContext(), theme_pid) != null) {
+            MenuItem changelog = menu.findItem(R.id.changelog);
+            changelog.setVisible(true);
+            if (shouldDarken) changelog.getIcon().setColorFilter(
+                    getColor(R.color.information_activity_dark_icon_mode),
+                    PorterDuff.Mode.SRC_ATOP);
+        }
+
         if (!isOMS) menu.findItem(R.id.disable).setVisible(false);
         if (!isOMS) menu.findItem(R.id.enable).setVisible(false);
         if (!isOMS) menu.findItem(R.id.restart_systemui).setVisible(false);
@@ -774,6 +794,9 @@ public class InformationActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             prefs.edit().putString("app_shortcut_theme", theme_pid).apply();
             favorite.setIcon(getDrawable(R.drawable.toolbar_favorite));
+            if (shouldDarken) favorite.getIcon().setColorFilter(
+                    getColor(R.color.information_activity_dark_icon_mode),
+                    PorterDuff.Mode.SRC_ATOP);
             String format = String.format(getString(R.string.menu_favorite_snackbar), result);
             Snackbar.make(findViewById(android.R.id.content),
                     format,
@@ -821,6 +844,9 @@ public class InformationActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             prefs.edit().remove("app_shortcut_theme").apply();
             favorite.setIcon(getDrawable(R.drawable.toolbar_not_favorite));
+            if (shouldDarken) favorite.getIcon().setColorFilter(
+                    getColor(R.color.information_activity_dark_icon_mode),
+                    PorterDuff.Mode.SRC_ATOP);
             String format = String.format(
                     getString(R.string.menu_favorite_snackbar_cleared), result);
             Snackbar.make(findViewById(android.R.id.content),

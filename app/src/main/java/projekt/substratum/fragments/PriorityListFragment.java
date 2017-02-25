@@ -192,8 +192,7 @@ public class PriorityListFragment extends Fragment {
             }
             headerProgress.setVisibility(View.VISIBLE);
             ThemeManager.setPriority(getContext(), workable_list);
-            if (References.checkOMSVersion(getContext()) == 7 &&
-                    !workable_list.contains("projekt.substratum")) {
+            if (References.needsRecreate(getContext(), workable_list)) {
                 Handler handler = new Handler();
                 handler.postDelayed(() -> {
                     // OMS may not have written all the changes so

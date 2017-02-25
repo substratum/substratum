@@ -1038,6 +1038,15 @@ public class References {
         return false;
     }
 
+    public static boolean needsRecreate(Context context, ArrayList<String> list) {
+        for (String o : list) {
+            if (o.contains("android") || o.contains("projekt.substratum")) {
+                return false;
+            }
+        }
+        return References.checkOMS(context);
+    }
+
     public static void uninstallPackage(Context context, String packageName) {
         if (checkMasqueradeJobService(context)) {
             ArrayList<String> list = new ArrayList<>();

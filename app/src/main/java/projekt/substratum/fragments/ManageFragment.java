@@ -76,8 +76,9 @@ public class ManageFragment extends Fragment {
                                 Snackbar.LENGTH_LONG)
                                 .show();
                     }
+                    List<String> list = ThemeManager.listOverlays(5);
                     ThemeManager.disableAll(getContext());
-                    if (References.checkOMSVersion(getContext()) == 7) {
+                    if (References.needsRecreate(getContext(), new ArrayList<>(list))) {
                         Handler handler = new Handler();
                         handler.postDelayed(() -> {
                             try {

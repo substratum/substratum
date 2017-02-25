@@ -158,8 +158,7 @@ public class AdvancedManagerFragment extends Fragment {
                     // The magic goes here
                     ThemeManager.disableOverlay(getContext(), data);
 
-                    if (References.checkOMSVersion(getContext()) == 7 &&
-                            !data.contains("projekt.substratum")) {
+                    if (References.needsRecreate(getContext(), data)) {
                         Handler handler = new Handler();
                         handler.postDelayed(() -> {
                             // OMS may not have written all the changes so quickly just yet
@@ -271,8 +270,7 @@ public class AdvancedManagerFragment extends Fragment {
                     // The magic goes here
                     ThemeManager.enableOverlay(getContext(), data);
 
-                    if (References.checkOMSVersion(getContext()) == 7 &&
-                            !data.contains("projekt.substratum")) {
+                    if (References.needsRecreate(getContext(), data)) {
                         Handler handler = new Handler();
                         handler.postDelayed(() -> {
                             // OMS may not have written all the changes so quickly just yet
@@ -315,8 +313,7 @@ public class AdvancedManagerFragment extends Fragment {
                 // The magic goes here
                 ThemeManager.uninstallOverlay(getContext(), data);
 
-                if (References.checkOMSVersion(getContext()) == 7 &&
-                        !data.contains("projekt.substratum")) {
+                if (References.needsRecreate(getContext(), data)) {
                     Handler handler = new Handler();
                     handler.postDelayed(() -> {
                         // OMS may not have written all the changes so quickly just yet

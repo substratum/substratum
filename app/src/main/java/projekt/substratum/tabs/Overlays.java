@@ -685,7 +685,7 @@ public class Overlays extends Fragment {
             }
 
             progressBar.setVisibility(View.GONE);
-            if (References.checkOMSVersion(context) == 7 && !has_failed) {
+            if (needsRecreate()) {
                 Handler handler = new Handler();
                 handler.postDelayed(() -> {
                     // OMS may not have written all the changes so quickly just yet
@@ -827,6 +827,21 @@ public class Overlays extends Fragment {
         } catch (IllegalArgumentException e) {
             // unregistered already
         }
+    }
+
+    private boolean needsRecreate() {
+        for (OverlaysInfo oi : checkedOverlays) {
+            String packageName = oi.getPackageName();
+            if (packageName.equals("android") || packageName.equals("projekt.substratum")) {
+                if (!enable_mode && !disable_mode &&
+                        ThemeManager.isOverlayEnabled(oi.getFullOverlayParameters())) {
+                    return false;
+                } else if (enable_mode || disable_mode || compile_enable_mode) {
+                    return false;
+                }
+            }
+        }
+        return References.checkOMS(mContext) && !has_failed;
     }
 
     private class LoadOverlays extends AsyncTask<String, Integer, String> {
@@ -1390,7 +1405,7 @@ public class Overlays extends Fragment {
                     }
 
                     progressBar.setVisibility(View.GONE);
-                    if (References.checkOMSVersion(mContext) == 7 && !has_failed) {
+                    if (needsRecreate()) {
                         Handler handler = new Handler();
                         handler.postDelayed(() -> {
                             // OMS may not have written all the changes so quickly just yet
@@ -1438,7 +1453,7 @@ public class Overlays extends Fragment {
                     }
 
                     progressBar.setVisibility(View.GONE);
-                    if (References.checkOMSVersion(mContext) == 7 && !has_failed) {
+                    if (needsRecreate()) {
                         Handler handler = new Handler();
                         handler.postDelayed(() -> {
                             // OMS may not have written all the changes so quickly just yet

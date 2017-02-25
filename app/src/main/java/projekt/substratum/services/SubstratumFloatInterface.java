@@ -59,7 +59,7 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
             for (UsageStats usageStats : stats) {
                 mySortedMap.put(usageStats.getLastTimeUsed(), usageStats);
             }
-            if (mySortedMap != null && !mySortedMap.isEmpty()) {
+            if (!mySortedMap.isEmpty()) {
                 foregroundApp = mySortedMap.get(mySortedMap.lastKey()).getPackageName();
             }
         }

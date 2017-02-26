@@ -1040,7 +1040,7 @@ public class References {
 
     public static boolean needsRecreate(Context context, ArrayList<String> list) {
         for (String o : list) {
-            if (o.contains("android") || o.contains("projekt.substratum")) {
+            if (o.equals("android") || o.equals("projekt.substratum")) {
                 return false;
             }
         }

@@ -141,4 +141,7 @@
     <color name="fab_menu_text_color">#de000000</color>
     <color name="fab_menu_divider">#4a000000</color>
     <color name="fab_background_color">@color/colorAccent</color>
+
+    <color name="app_shortcut_icon_color">#ffffffff</color>
+    <color name="app_shortcut_icon_background_color">@color/colorPrimary</color>
 </resources>

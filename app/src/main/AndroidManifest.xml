@@ -96,15 +96,25 @@
                 <action android:name="android.service.quicksettings.action.QS_TILE"/>
             </intent-filter>
         </service>
+        <service
+            android:name=".services.FloatUiTile"
+            android:enabled="true"
+            android:icon="@drawable/floatui_tile"
+            android:label="@string/shortcut_floatui"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.service.quicksettings.ACTIVE_TILE"
+                android:value="true"/>
+        </service>
+
         <service android:name=".services.ScheduledProfileService"/>
 
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version"/>
-
-        <meta-data
-            android:name="android.service.quicksettings.ACTIVE_TILE"
-            android:value="true"/>
 
         <service
             android:name=".services.FirebaseMessagingService"

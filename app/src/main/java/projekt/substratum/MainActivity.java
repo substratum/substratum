@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,6 +18,7 @@ import android.os.CountDownTimer;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
+import android.service.quicksettings.Tile;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -59,6 +61,7 @@ import projekt.substratum.config.ElevatedCommands;
 import projekt.substratum.config.FileOperations;
 import projekt.substratum.config.References;
 import projekt.substratum.fragments.ThemeFragment;
+import projekt.substratum.services.FloatUiTile;
 import projekt.substratum.services.SubstratumFloatInterface;
 import projekt.substratum.services.ThemeService;
 import projekt.substratum.util.Root;
@@ -623,11 +626,21 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     public void showFloatingHead() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
+                getApplicationContext());
+        prefs.edit().putInt("float_tile", Tile.STATE_ACTIVE).apply();
+        FloatUiTile.requestListeningState(getApplicationContext(),
+                new ComponentName(getApplicationContext(), FloatUiTile.class));
         getApplicationContext().startService(new Intent(getApplicationContext(),
                 SubstratumFloatInterface.class));
     }
 
     private void hideFloatingHead() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
+                getApplicationContext());
+        prefs.edit().putInt("float_tile", Tile.STATE_INACTIVE).apply();
+        FloatUiTile.requestListeningState(getApplicationContext(),
+                new ComponentName(getApplicationContext(), FloatUiTile.class));
         stopService(new Intent(getApplicationContext(),
                 SubstratumFloatInterface.class));
     }

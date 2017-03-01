@@ -17,7 +17,7 @@
 
     <string name="question_three">What do I need in order for Substratum to work properly?</string>
     <string name="answer_three">You will need a ROM that has support for the OMS and Masquerade
-        system (ask them, they will know), root access, this app, and a compatible theme (check its
+        system (ask them, they will know), this app, and a compatible theme (check its
         Play Store description or ask the developer)
     </string>
 

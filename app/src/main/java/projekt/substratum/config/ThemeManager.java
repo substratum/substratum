@@ -101,6 +101,12 @@ public class ThemeManager {
         }
     }
 
+    public static void restartService(Context context) {
+        if (checkMasqueradeJobService(context)) {
+            MasqueradeService.restartService(context);
+        }
+    }
+
     public static List<String> listOverlays(int state) {
         List<String> list = new ArrayList<>();
         Map<String, List<OverlayInfo>> allOverlays = OverlayManagerService.getAllOverlays();

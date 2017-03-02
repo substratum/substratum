@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="128dp"
-    android:height="128dp"
-    android:viewportWidth="512.000000"
-    android:viewportHeight="512.000000">
+        android:width="128dp"
+        android:height="128dp"
+        android:viewportHeight="512.000000"
+        android:viewportWidth="512.000000">
 
     <group
-        android:translateY="512.000000"
         android:scaleX="0.100000"
-        android:scaleY="-0.100000">
+        android:scaleY="-0.100000"
+        android:translateY="512.000000">
         <path
             android:fillColor="#fcc21b"
-            android:strokeWidth="1"
             android:pathData="M2355 4429 c-792 -61 -1359 -425 -1723 -1109 -249 -467 -385 -1034 -423 -1755 -13
 -252 -9 -297 36 -393 162 -349 846 -640 1705 -726 415 -42 763 -42 1170 0 762 77
 1415 323 1635 616 100 133 120 208 110 418 -25 564 -96 985 -234 1390 -274 805
--773 1309 -1474 1489 -133 35 -283 57 -467 71 -149 11 -176 11 -335 -1z" />
+-773 1309 -1474 1489 -133 35 -283 57 -467 71 -149 11 -176 11 -335 -1z"
+            android:strokeWidth="1"/>
         <path
             android:fillColor="#2f2f2f"
-            android:strokeWidth="1"
             android:pathData="M3266 3335 c-91 -35 -159 -123 -172 -221 -12 -102 34 -238 107 -314 137 -141 361
 -114 452 55 18 33 22 57 22 135 0 82 -4 103 -26 151 -37 78 -90 133 -164 170 -76
-37 -160 46 -219 24z" />
+37 -160 46 -219 24z"
+            android:strokeWidth="1"/>
         <path
             android:fillColor="#2f2f2f"
-            android:strokeWidth="1"
             android:pathData="M1550 3144 c-285 -77 -356 -483 -105 -600 72 -34 173 -33 242 2 85 42 150 128 179
-239 61 228 -105 417 -316 359z" />
+239 61 228 -105 417 -316 359z"
+            android:strokeWidth="1"/>
         <path
             android:fillColor="#ed6c30"
-            android:strokeWidth="1"
             android:pathData="M2490 1909 c-124 -24 -244 -122 -303 -246 -29 -62 -32 -76 -32 -168 0 -81 4 -109
 21 -146 63 -136 210 -219 389 -219 247 0 415 148 415 365 0 200 -149 377 -350 415
--60 11 -77 11 -140 -1z" />
+-60 11 -77 11 -140 -1z"
+            android:strokeWidth="1"/>
     </group>
 </vector>

@@ -114,7 +114,8 @@ public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapte
         CardView cardView;
         TextView themeName, themeAuthor;
         ImageView themePricing;
-        ImageView imageView, backgroundImageView, wallpaper, sounds, fonts, bootanimations, overlays;
+        ImageView imageView, backgroundImageView, wallpaper, sounds, fonts, bootanimations,
+                overlays;
 
         ViewHolder(View view) {
             super(view);

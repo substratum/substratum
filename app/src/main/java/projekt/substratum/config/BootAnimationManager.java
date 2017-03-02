@@ -18,7 +18,7 @@ public class BootAnimationManager {
                     "No-root option has been enabled with the inclusion of " +
                             "masquerade v22+...");
             MasqueradeService.setBootAnimation(context, location);
-        // Otherwise, fall back to rooted operations
+            // Otherwise, fall back to rooted operations
         } else {
             // We will mount system, make our directory, copy the bootanimation
             // zip into place, set proper permissions, then unmount

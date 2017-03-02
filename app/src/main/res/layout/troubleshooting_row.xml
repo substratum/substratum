@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/theme_card"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    card_view:cardCornerRadius="2dp"
-    card_view:cardElevation="1dp"
-    android:foreground="?android:selectableItemBackground"
-    card_view:cardBackgroundColor="@color/main_screen_card_background"
-    android:layout_marginTop="10dp"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp">
+                                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                                    android:id="@+id/theme_card"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_marginRight="10dp"
+                                    android:layout_marginTop="10dp"
+                                    android:foreground="?android:selectableItemBackground"
+                                    card_view:cardBackgroundColor="@color/main_screen_card_background"
+                                    card_view:cardCornerRadius="2dp"
+                                    card_view:cardElevation="1dp">
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
         >
 
         <TextView
@@ -26,18 +26,18 @@
             android:layout_gravity="center"
             android:layout_marginStart="14dp"
             android:layout_marginTop="7dp"
-            android:textStyle="bold"
-            android:textSize="18sp"/>
+            android:textSize="18sp"
+            android:textStyle="bold"/>
 
         <View
             android:id="@+id/divider"
             android:layout_width="wrap_content"
             android:layout_height="1px"
-            android:layout_marginTop="4dp"
             android:layout_below="@+id/trouble_ques"
-            android:background="@android:color/darker_gray"
             android:layout_marginLeft="6dp"
-            android:layout_marginRight="6dp" />
+            android:layout_marginRight="6dp"
+            android:layout_marginTop="4dp"
+            android:background="@android:color/darker_gray"/>
 
         <TextView
             android:id="@+id/trouble_ans"
@@ -46,10 +46,10 @@
             android:layout_below="@+id/divider"
             android:layout_gravity="center"
             android:layout_marginBottom="7dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginStart="7dp"
             android:layout_marginTop="8dp"
-            android:textSize="12sp"
-            android:layout_marginEnd="16dp" />
+            android:textSize="12sp"/>
 
     </RelativeLayout>
 </android.support.v7.widget.CardView>

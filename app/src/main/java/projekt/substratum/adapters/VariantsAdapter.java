@@ -1,12 +1,12 @@
 package projekt.substratum.adapters;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,14 +19,8 @@ public class VariantsAdapter extends ArrayAdapter<VariantInfo> {
 
     private final ArrayList<VariantInfo> variants;
 
-    public class ViewHolder {
-        TextView variantName;
-        ImageView variantHex;
-    }
-
     public VariantsAdapter(Context context, ArrayList<VariantInfo> variants) {
-        super(context, R.layout.spinner_row, R.id.variant_name, variants);
-
+        super(context, R.layout.preview_spinner, R.id.variant_name, variants);
         this.variants = variants;
     }
 
@@ -40,12 +34,12 @@ public class VariantsAdapter extends ArrayAdapter<VariantInfo> {
         return getCustomView(position, convertView, parent);
     }
 
-    private View getCustomView(int position, View convertView, ViewGroup parent){
-        ViewHolder holder = null;
+    private View getCustomView(int position, View convertView, ViewGroup parent) {
+        ViewHolder holder;
 
-        if(convertView == null) {
+        if (convertView == null) {
             convertView = LayoutInflater.from(this.getContext())
-                    .inflate(R.layout.spinner_row, parent, false);
+                    .inflate(R.layout.preview_spinner, parent, false);
 
             holder = new ViewHolder();
             holder.variantName = (TextView) convertView.findViewById(R.id.variant_name);
@@ -57,11 +51,27 @@ public class VariantsAdapter extends ArrayAdapter<VariantInfo> {
         }
 
         VariantInfo item = getItem(position);
-        if (item!= null) {
+        if (item != null) {
             holder.variantName.setText(item.getVariantName());
-            holder.variantHex.setBackgroundColor(Color.parseColor(item.getVariantHex()));
+            int color = Color.parseColor(item.getVariantHex());
+            ColorStateList csl = new ColorStateList(
+                    new int[][]{
+                            new int[]{android.R.attr.state_checked},
+                            new int[]{}
+                    },
+                    new int[]{
+                            color,
+                            color
+                    }
+            );
+            holder.variantHex.setImageTintList(csl);
         }
 
         return convertView;
+    }
+
+    public class ViewHolder {
+        TextView variantName;
+        ImageView variantHex;
     }
 }

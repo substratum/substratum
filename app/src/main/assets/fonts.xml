@@ -32,14 +32,14 @@
     </family>
 
     <!-- Note that aliases must come after the fonts they reference. -->
-    <alias name="sans-serif-thin" to="sans-serif" weight="100" />
-    <alias name="sans-serif-light" to="sans-serif" weight="300" />
-    <alias name="sans-serif-medium" to="sans-serif" weight="500" />
-    <alias name="sans-serif-black" to="sans-serif" weight="900" />
-    <alias name="arial" to="sans-serif" />
-    <alias name="helvetica" to="sans-serif" />
-    <alias name="tahoma" to="sans-serif" />
-    <alias name="verdana" to="sans-serif" />
+    <alias name="sans-serif-thin" to="sans-serif" weight="100"/>
+    <alias name="sans-serif-light" to="sans-serif" weight="300"/>
+    <alias name="sans-serif-medium" to="sans-serif" weight="500"/>
+    <alias name="sans-serif-black" to="sans-serif" weight="900"/>
+    <alias name="arial" to="sans-serif"/>
+    <alias name="helvetica" to="sans-serif"/>
+    <alias name="tahoma" to="sans-serif"/>
+    <alias name="verdana" to="sans-serif"/>
 
     <family name="sans-serif-condensed">
         <font style="normal" weight="300">RobotoCondensed-Light.ttf</font>
@@ -49,7 +49,7 @@
         <font style="normal" weight="700">RobotoCondensed-Bold.ttf</font>
         <font style="italic" weight="700">RobotoCondensed-BoldItalic.ttf</font>
     </family>
-    <alias name="sans-serif-condensed-light" to="sans-serif-condensed" weight="300" />
+    <alias name="sans-serif-condensed-light" to="sans-serif-condensed" weight="300"/>
 
     <family name="serif">
         <font style="normal" weight="400">NotoSerif-Regular.ttf</font>
@@ -57,26 +57,26 @@
         <font style="italic" weight="400">NotoSerif-Italic.ttf</font>
         <font style="italic" weight="700">NotoSerif-BoldItalic.ttf</font>
     </family>
-    <alias name="times" to="serif" />
-    <alias name="times new roman" to="serif" />
-    <alias name="palatino" to="serif" />
-    <alias name="georgia" to="serif" />
-    <alias name="baskerville" to="serif" />
-    <alias name="goudy" to="serif" />
-    <alias name="fantasy" to="serif" />
-    <alias name="ITC Stone Serif" to="serif" />
+    <alias name="times" to="serif"/>
+    <alias name="times new roman" to="serif"/>
+    <alias name="palatino" to="serif"/>
+    <alias name="georgia" to="serif"/>
+    <alias name="baskerville" to="serif"/>
+    <alias name="goudy" to="serif"/>
+    <alias name="fantasy" to="serif"/>
+    <alias name="ITC Stone Serif" to="serif"/>
 
     <family name="monospace">
         <font style="normal" weight="400">DroidSansMono.ttf</font>
     </family>
-    <alias name="sans-serif-monospace" to="monospace" />
-    <alias name="monaco" to="monospace" />
+    <alias name="sans-serif-monospace" to="monospace"/>
+    <alias name="monaco" to="monospace"/>
 
     <family name="serif-monospace">
         <font style="normal" weight="400">CutiveMono.ttf</font>
     </family>
-    <alias name="courier" to="serif-monospace" />
-    <alias name="courier new" to="serif-monospace" />
+    <alias name="courier" to="serif-monospace"/>
+    <alias name="courier new" to="serif-monospace"/>
 
     <family name="casual">
         <font style="normal" weight="400">ComingSoon.ttf</font>

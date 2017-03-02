@@ -142,6 +142,13 @@ public class ShowcaseActivity extends AppCompatActivity {
         swipeRefresh();
     }
 
+    private void launchShowcaseInfo() {
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.setComponent(new ComponentName("projekt.substratum", "projekt.substratum" +
+                ".ShowcaseInfo"));
+        startActivity(intent);
+    }
+
     private class DownloadTabs extends AsyncTask<String, Integer, String> {
 
         @Override
@@ -298,11 +305,5 @@ public class ShowcaseActivity extends AppCompatActivity {
             }
             return inputFileName;
         }
-    }
-
-    private void launchShowcaseInfo() {
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.setComponent(new ComponentName("projekt.substratum","projekt.substratum.ShowcaseInfo"));
-        startActivity(intent);
     }
 }

@@ -1002,8 +1002,8 @@ public class Overlays extends Fragment {
                 try {
                     try {
                         ArrayList<VariantInfo> type1a = new ArrayList<>();
-                        ArrayList<String> type1b = new ArrayList<>();
-                        ArrayList<String> type1c = new ArrayList<>();
+                        ArrayList<VariantInfo> type1b = new ArrayList<>();
+                        ArrayList<VariantInfo> type1c = new ArrayList<>();
                         ArrayList<String> type2 = new ArrayList<>();
 
                         ArrayList<String> typeArray = new ArrayList<>();
@@ -1057,16 +1057,17 @@ public class Overlays extends Fragment {
                                                     "/type1b"))))) {
                                 String formatter = String.format(getString(R.string
                                         .overlays_variant_substitute), reader.readLine());
-                                type1b.add(formatter);
+                                type1b.add(new VariantInfo(formatter, null));
                             } catch (IOException e) {
                                 Log.e(References.SUBSTRATUM_LOG, "There was an error parsing " +
                                         "asset " +
                                         "file!");
-                                type1b.add(getString(R.string
-                                        .overlays_variant_default_1b));
+                                type1b.add(new VariantInfo(getString(R.string
+                                        .overlays_variant_default_1b), null));
                             }
                         } else {
-                            type1b.add(getString(R.string.overlays_variant_default_1b));
+                            type1b.add(new VariantInfo(getString(R.string
+                                    .overlays_variant_default_1b), null));
                         }
 
                         if (typeArray.contains("type1c")) {
@@ -1076,16 +1077,17 @@ public class Overlays extends Fragment {
                                                     "/type1c"))))) {
                                 String formatter = String.format(getString(R.string
                                         .overlays_variant_substitute), reader.readLine());
-                                type1c.add(formatter);
+                                type1c.add(new VariantInfo(formatter, null));
                             } catch (IOException e) {
                                 Log.e(References.SUBSTRATUM_LOG, "There was an error parsing " +
                                         "asset " +
                                         "file!");
-                                type1c.add(getString(R.string
-                                        .overlays_variant_default_1c));
+                                type1c.add(new VariantInfo(getString(R.string
+                                        .overlays_variant_default_1c), null));
                             }
                         } else {
-                            type1c.add(getString(R.string.overlays_variant_default_1c));
+                            type1c.add(new VariantInfo(getString(R.string
+                                    .overlays_variant_default_1c), null));
                         }
 
                         if (typeArray.contains("type2")) {
@@ -1119,17 +1121,28 @@ public class Overlays extends Fragment {
                                                     + package_identifier + "/" + current);
                                             String hex = References.getOverlayResource(
                                                     current_file);
-                                            if (hex == null) {
-                                                hex = References.getOverlayResource(current_file);
-                                            }
                                             type1a.add(new VariantInfo(current.substring
                                                     (7, current.length() - 4), hex));
                                         }
                                         if (current.substring(0, 7).equals("type1b_")) {
-                                            type1b.add(current.substring(7, current.length() - 4));
+                                            File current_file = new File(mContext.getCacheDir().
+                                                    getAbsoluteFile() + "/SubstratumBuilder/"
+                                                    + theme_pid + "/assets/overlays/"
+                                                    + package_identifier + "/" + current);
+                                            String hex = References.getOverlayResource(
+                                                    current_file);
+                                            type1b.add(new VariantInfo(current.substring
+                                                    (7, current.length() - 4), hex));
                                         }
                                         if (current.substring(0, 7).equals("type1c_")) {
-                                            type1c.add(current.substring(7, current.length() - 4));
+                                            File current_file = new File(mContext.getCacheDir().
+                                                    getAbsoluteFile() + "/SubstratumBuilder/"
+                                                    + theme_pid + "/assets/overlays/"
+                                                    + package_identifier + "/" + current);
+                                            String hex = References.getOverlayResource(
+                                                    current_file);
+                                            type1c.add(new VariantInfo(current.substring
+                                                    (7, current.length() - 4), hex));
                                         }
                                     } else {
                                         if (!current.contains(".")) {
@@ -1144,10 +1157,8 @@ public class Overlays extends Fragment {
                             }
 
                             VariantsAdapter adapter1 = new VariantsAdapter(getActivity(), type1a);
-                            ArrayAdapter<String> adapter2 = new ArrayAdapter<>(getActivity(),
-                                    android.R.layout.simple_spinner_dropdown_item, type1b);
-                            ArrayAdapter<String> adapter3 = new ArrayAdapter<>(getActivity(),
-                                    android.R.layout.simple_spinner_dropdown_item, type1c);
+                            VariantsAdapter adapter2 = new VariantsAdapter(getActivity(), type1b);
+                            VariantsAdapter adapter3 = new VariantsAdapter(getActivity(), type1c);
                             ArrayAdapter<String> adapter4 = new ArrayAdapter<>(getActivity(),
                                     android.R.layout.simple_spinner_dropdown_item, type2);
 

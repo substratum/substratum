@@ -27,8 +27,8 @@ public class OverlaysInfo implements Serializable {
     private String name;
     private String package_name;
     private VariantsAdapter array;
-    private ArrayAdapter<String> array2;
-    private ArrayAdapter<String> array3;
+    private VariantsAdapter array2;
+    private VariantsAdapter array3;
     private ArrayAdapter<String> array4;
     private boolean isSelected;
     private int spinnerSelection = 0;
@@ -46,11 +46,11 @@ public class OverlaysInfo implements Serializable {
     private Boolean theme_oms;
 
     public OverlaysInfo(String theme_name, String name, String packageName, boolean isSelected,
-                        VariantsAdapter
-                                adapter, ArrayAdapter<String>
-                                adapter2, ArrayAdapter<String>
-                                adapter3, ArrayAdapter<String>
-                                adapter4, Context context, String versionName,
+                        VariantsAdapter adapter,
+                        VariantsAdapter adapter2,
+                        VariantsAdapter adapter3,
+                        ArrayAdapter<String> adapter4,
+                        Context context, String versionName,
                         String baseResources, List enabledOverlays, Boolean theme_oms) {
 
         this.theme_name = theme_name;
@@ -117,11 +117,11 @@ public class OverlaysInfo implements Serializable {
         return array;
     }
 
-    public ArrayAdapter<String> getSpinnerArray2() {
+    public VariantsAdapter getSpinnerArray2() {
         return array2;
     }
 
-    public ArrayAdapter<String> getSpinnerArray3() {
+    public VariantsAdapter getSpinnerArray3() {
         return array3;
     }
 

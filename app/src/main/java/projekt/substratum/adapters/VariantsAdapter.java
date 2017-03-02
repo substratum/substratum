@@ -54,17 +54,39 @@ public class VariantsAdapter extends ArrayAdapter<VariantInfo> {
 
         VariantInfo item = getItem(position);
         if (item != null) {
-            // First check if our model contains a saved color value
-            if (item.isDefaultOption()) {
-                if (item.getVariantName() != null) {
-                    holder.variantName.setText(item.getVariantName());
-                    holder.variantHex.setVisibility(View.GONE);
-                }
-            } else if (item.getColor() == 0) {
-                if (item.getVariantName() != null) {
-                    holder.variantName.setText(item.getVariantName());
-                    int color = Color.parseColor(item.getVariantHex());
-                    item.setColor(color);
+            try {
+                // First check if our model contains a saved color value
+                if (item.isDefaultOption()) {
+                    if (item.getVariantName() != null) {
+                        holder.variantName.setText(item.getVariantName());
+                        holder.variantHex.setVisibility(View.GONE);
+                    }
+                } else if (item.getColor() == 0) {
+                    if (item.getVariantName() != null) {
+                        holder.variantName.setText(item.getVariantName());
+                        int color = Color.parseColor(item.getVariantHex());
+                        item.setColor(color);
+                        ColorStateList csl = new ColorStateList(
+                                new int[][]{
+                                        new int[]{android.R.attr.state_checked},
+                                        new int[]{}
+                                },
+                                new int[]{
+                                        color,
+                                        color
+                                }
+                        );
+                        holder.variantHex.setImageTintList(csl);
+                        holder.variantHex.setVisibility(View.VISIBLE);
+                    } else {
+                        holder.variantHex.setVisibility(View.INVISIBLE);
+                    }
+                } else {
+                    if (item.getVariantName() != null) {
+                        holder.variantName.setText(item.getVariantName());
+                    }
+                    // We now know that the color is not 0 which is the hardcoded null set for int
+                    int color = item.getColor();
                     ColorStateList csl = new ColorStateList(
                             new int[][]{
                                     new int[]{android.R.attr.state_checked},
@@ -77,27 +99,9 @@ public class VariantsAdapter extends ArrayAdapter<VariantInfo> {
                     );
                     holder.variantHex.setImageTintList(csl);
                     holder.variantHex.setVisibility(View.VISIBLE);
-                } else {
-                    holder.variantHex.setVisibility(View.INVISIBLE);
                 }
-            } else {
-                if (item.getVariantName() != null) {
-                    holder.variantName.setText(item.getVariantName());
-                }
-                // We now know that the color is not 0 which is the hardcoded null set for int
-                int color = item.getColor();
-                ColorStateList csl = new ColorStateList(
-                        new int[][]{
-                                new int[]{android.R.attr.state_checked},
-                                new int[]{}
-                        },
-                        new int[]{
-                                color,
-                                color
-                        }
-                );
-                holder.variantHex.setImageTintList(csl);
-                holder.variantHex.setVisibility(View.VISIBLE);
+            } catch (IllegalArgumentException iae) {
+                holder.variantHex.setVisibility(View.INVISIBLE);
             }
         } else {
             holder.variantHex.setVisibility(View.INVISIBLE);

@@ -806,34 +806,7 @@ public class InformationActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
-                ShortcutManager shortcutManager = getSystemService(ShortcutManager.class);
-                Bitmap app_icon = ((BitmapDrawable)
-                        References.grabAppIcon(getApplicationContext(), theme_pid)).getBitmap();
-                try {
-                    Intent myIntent = new Intent(Intent.ACTION_MAIN);
-                    myIntent.putExtra("theme_name", theme_name);
-                    myIntent.putExtra("theme_pid", theme_pid);
-                    myIntent.setComponent(
-                            ComponentName.unflattenFromString(
-                                    "projekt.substratum/projekt.substratum.LaunchTheme"));
-                    myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
-                            Intent.FLAG_ACTIVITY_SINGLE_TOP);
-
-                    ShortcutInfo shortcut =
-                            new ShortcutInfo.Builder(getApplicationContext(), sUrl[0])
-                                    .setShortLabel(theme_name)
-                                    .setLongLabel(theme_name)
-                                    .setIcon(Icon.createWithBitmap(app_icon))
-                                    .setIntent(myIntent)
-                                    .build();
-                    List<ShortcutInfo> shortcuts = new ArrayList<>();
-                    shortcuts.add(shortcut);
-                    shortcutManager.addDynamicShortcuts(shortcuts);
-                } catch (Exception e) {
-                    // Suppress warning
-                }
-            }
+            References.createShortcut(getApplicationContext(), theme_pid, theme_name);
             return theme_name;
         }
     }
@@ -857,10 +830,7 @@ public class InformationActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
-                ShortcutManager shortcutManager = getSystemService(ShortcutManager.class);
-                shortcutManager.removeAllDynamicShortcuts();
-            }
+            References.clearShortcut(getApplicationContext());
             return theme_name;
         }
     }

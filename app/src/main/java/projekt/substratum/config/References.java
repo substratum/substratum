@@ -16,9 +16,14 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.pm.ServiceInfo;
+import android.content.pm.ShortcutInfo;
+import android.content.pm.ShortcutManager;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.Icon;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -112,6 +117,44 @@ public class References {
     private static String metadataVersion = "Substratum_Plugin";
     private static String metadataThemeReady = "Substratum_ThemeReady";
     private static String resourceChangelog = "ThemeChangelog";
+
+    public static void createShortcut(Context context, String theme_pid, String theme_name) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+            ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
+            Bitmap app_icon = ((BitmapDrawable)
+                    References.grabAppIcon(context, theme_pid)).getBitmap();
+            try {
+                Intent myIntent = new Intent(Intent.ACTION_MAIN);
+                myIntent.putExtra("theme_name", theme_name);
+                myIntent.putExtra("theme_pid", theme_pid);
+                myIntent.setComponent(
+                        ComponentName.unflattenFromString(
+                                "projekt.substratum/projekt.substratum.LaunchTheme"));
+                myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                        Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
+                ShortcutInfo shortcut =
+                        new ShortcutInfo.Builder(context, "favorite")
+                                .setShortLabel(theme_name)
+                                .setLongLabel(theme_name)
+                                .setIcon(Icon.createWithBitmap(app_icon))
+                                .setIntent(myIntent)
+                                .build();
+                List<ShortcutInfo> shortcuts = new ArrayList<>();
+                shortcuts.add(shortcut);
+                shortcutManager.addDynamicShortcuts(shortcuts);
+            } catch (Exception e) {
+                // Suppress warning
+            }
+        }
+    }
+
+    public static void clearShortcut(Context context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+            ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
+            shortcutManager.removeAllDynamicShortcuts();
+        }
+    }
 
     public static int getDeviceEncryptionStatus(Context context) {
         // 0: ENCRYPTION_STATUS_UNSUPPORTED

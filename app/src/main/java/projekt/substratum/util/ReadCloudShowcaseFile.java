@@ -52,7 +52,7 @@ public class ReadCloudShowcaseFile {
                         // Try to see if the entry has an image override tag <backgroundimage>
                         addon_backgroundimage = eElement.getElementsByTagName("backgroundimage")
                                 .item(0).
-                                getTextContent();
+                                        getTextContent();
                     } catch (Exception e) {
                         // There is no image override tag
                     }

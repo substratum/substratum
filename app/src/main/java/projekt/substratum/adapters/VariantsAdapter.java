@@ -55,9 +55,14 @@ public class VariantsAdapter extends ArrayAdapter<VariantInfo> {
         VariantInfo item = getItem(position);
         if (item != null) {
             // First check if our model contains a saved color value
-            holder.variantName.setText(item.getVariantName());
-            if (item.getColor() == 0) {
+            if (item.isDefaultOption()) {
                 if (item.getVariantName() != null) {
+                    holder.variantName.setText(item.getVariantName());
+                    holder.variantHex.setVisibility(View.GONE);
+                }
+            } else if (item.getColor() == 0) {
+                if (item.getVariantName() != null) {
+                    holder.variantName.setText(item.getVariantName());
                     int color = Color.parseColor(item.getVariantHex());
                     item.setColor(color);
                     ColorStateList csl = new ColorStateList(
@@ -76,6 +81,9 @@ public class VariantsAdapter extends ArrayAdapter<VariantInfo> {
                     holder.variantHex.setVisibility(View.INVISIBLE);
                 }
             } else {
+                if (item.getVariantName() != null) {
+                    holder.variantName.setText(item.getVariantName());
+                }
                 // We now know that the color is not 0 which is the hardcoded null set for int
                 int color = item.getColor();
                 ColorStateList csl = new ColorStateList(

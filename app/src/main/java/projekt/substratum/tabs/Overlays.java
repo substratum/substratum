@@ -1037,20 +1037,17 @@ public class Overlays extends Fragment {
                                                     "/type1a"))))) {
                                 String formatter = String.format(getString(R.string
                                         .overlays_variant_substitute), reader.readLine());
-                                // TODO: remove hardcoded default variant color
-                                type1a.add(new VariantInfo(formatter, "#FF0000"));
+                                type1a.add(new VariantInfo(formatter, null));
                             } catch (IOException e) {
                                 Log.e(References.SUBSTRATUM_LOG, "There was an error parsing " +
                                         "asset " +
                                         "file!");
-                                // TODO: remove hardcoded default variant color
                                 type1a.add(new VariantInfo(getString(R.string
-                                        .overlays_variant_default_1a), "#FF0000"));
+                                        .overlays_variant_default_1a), null));
                             }
                         } else {
-                            // TODO: remove hardcoded default variant color
                             type1a.add(new VariantInfo(getString(R.string
-                                    .overlays_variant_default_1a), "#FF0000"));
+                                    .overlays_variant_default_1a), null));
                         }
 
                         if (typeArray.contains("type1b")) {
@@ -1120,10 +1117,6 @@ public class Overlays extends Fragment {
                                                     getAbsoluteFile() + "/SubstratumBuilder/"
                                                     + theme_pid + "/assets/overlays/"
                                                     + package_identifier + "/" + current);
-                                            // TODO: create new String[] getPossibleResourceNames
-                                            // and
-                                            // pass it to getOverlayResource instead of going one at
-                                            // a time.
                                             String hex = References.getOverlayResource(
                                                     current_file);
                                             if (hex == null) {

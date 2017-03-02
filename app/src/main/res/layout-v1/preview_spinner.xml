@@ -4,8 +4,6 @@
               android:layout_height="wrap_content"
               android:orientation="horizontal"
               android:paddingBottom="5dp"
-              android:paddingEnd="10dp"
-              android:paddingStart="10dp"
               android:paddingTop="5dp">
 
     <ImageView
@@ -13,6 +11,8 @@
         android:layout_width="25dip"
         android:layout_height="25dip"
         android:layout_gravity="center_vertical"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
         android:src="@drawable/preview_spinner_circle"/>
 
     <CheckedTextView
@@ -20,6 +20,6 @@
         style="?android:attr/spinnerDropDownItemStyle"
         android:layout_width="match_parent"
         android:layout_height="?attr/listPreferredItemHeightSmall"
-        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:ellipsize="marquee"/>
 </LinearLayout>

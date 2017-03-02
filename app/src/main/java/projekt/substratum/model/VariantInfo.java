@@ -3,11 +3,17 @@ package projekt.substratum.model;
 public class VariantInfo {
     private String variant_name;
     private String variant_hex;
+    private boolean forceHidden;
     private int color = 0;
 
     public VariantInfo(String variant_name, String variant_hex) {
         this.variant_name = variant_name;
-        this.variant_hex = variant_hex;
+        if (variant_hex == null) {
+            forceHidden = true;
+        } else {
+            forceHidden = false;
+            this.variant_hex = variant_hex;
+        }
     }
 
     public String getVariantName() {
@@ -23,11 +29,15 @@ public class VariantInfo {
         return getVariantName();
     }
 
+    public int getColor() {
+        return this.color;
+    }
+
     public void setColor(int color) {
         this.color = color;
     }
 
-    public int getColor() {
-        return this.color;
+    public boolean isDefaultOption() {
+        return this.forceHidden;
     }
 }

@@ -8,4 +8,9 @@
         android:orderInCategory="1"
         android:title="@string/menu_search"
         app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/info"
+        android:icon="@drawable/showcase_info"
+        android:title="Showcase Info"
+        app:showAsAction="ifRoom" />
 </menu>

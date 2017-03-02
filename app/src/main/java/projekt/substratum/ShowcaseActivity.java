@@ -1,6 +1,7 @@
 package projekt.substratum;
 
 import android.content.ActivityNotFoundException;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -70,6 +71,9 @@ public class ShowcaseActivity extends AppCompatActivity {
                             Snackbar.LENGTH_LONG)
                             .show();
                 }
+                return true;
+            case R.id.info:
+                launchShowcaseInfo();
                 return true;
         }
         return false;
@@ -294,5 +298,11 @@ public class ShowcaseActivity extends AppCompatActivity {
             }
             return inputFileName;
         }
+    }
+
+    private void launchShowcaseInfo() {
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.setComponent(new ComponentName("projekt.substratum","projekt.substratum.ShowcaseInfo"));
+        startActivity(intent);
     }
 }

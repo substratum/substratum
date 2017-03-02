@@ -67,11 +67,13 @@ import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
 import projekt.substratum.adapters.OverlaysAdapter;
+import projekt.substratum.adapters.VariantsAdapter;
 import projekt.substratum.config.ElevatedCommands;
 import projekt.substratum.config.FileOperations;
 import projekt.substratum.config.References;
 import projekt.substratum.config.ThemeManager;
 import projekt.substratum.model.OverlaysInfo;
+import projekt.substratum.model.VariantInfo;
 import projekt.substratum.services.NotificationButtonReceiver;
 import projekt.substratum.util.CacheCreator;
 import projekt.substratum.util.FloatingActionMenu;
@@ -999,7 +1001,7 @@ public class Overlays extends Fragment {
 
                 try {
                     try {
-                        ArrayList<String> type1a = new ArrayList<>();
+                        ArrayList<VariantInfo> type1a = new ArrayList<>();
                         ArrayList<String> type1b = new ArrayList<>();
                         ArrayList<String> type1c = new ArrayList<>();
                         ArrayList<String> type2 = new ArrayList<>();
@@ -1035,16 +1037,19 @@ public class Overlays extends Fragment {
                                                     "/type1a"))))) {
                                 String formatter = String.format(getString(R.string
                                         .overlays_variant_substitute), reader.readLine());
-                                type1a.add(formatter);
+                                // TODO: remove hardcoded default variant color
+                                type1a.add(new VariantInfo(formatter, "#FF0000"));
                             } catch (IOException e) {
                                 Log.e(References.SUBSTRATUM_LOG, "There was an error parsing " +
                                         "asset " +
                                         "file!");
-                                type1a.add(getString(R.string
-                                        .overlays_variant_default_1a));
+                                // TODO: remove hardcoded default variant color
+                                type1a.add(new VariantInfo(getString(R.string
+                                        .overlays_variant_default_1a), "#FF0000"));
                             }
                         } else {
-                            type1a.add(getString(R.string.overlays_variant_default_1a));
+                            // TODO: remove hardcoded default variant color
+                            type1a.add(new VariantInfo(getString(R.string.overlays_variant_default_1a), "#FF0000"));
                         }
 
                         if (typeArray.contains("type1b")) {
@@ -1110,7 +1115,21 @@ public class Overlays extends Fragment {
                                 if (!current.equals("res")) {
                                     if (current.contains(".xml")) {
                                         if (current.substring(0, 7).equals("type1a_")) {
-                                            type1a.add(current.substring(7, current.length() - 4));
+                                            File current_file = new File(mContext.getCacheDir().
+                                                    getAbsoluteFile() + "/SubstratumBuilder/"
+                                                    + theme_pid + "/assets/overlays/"
+                                                    + package_identifier + "/" + current);
+                                            // TODO: create new String[] getPossibleResourceNames and
+                                            // pass it to getOverlayResource instead of going one at
+                                            // a time.
+                                            String hex = References.getOverlayResource(current_file,
+                                                    "accent_device_default_light");
+                                            if (hex == null) {
+                                                hex = References.getOverlayResource(current_file,
+                                                        "material_deep_teal_500");
+                                            }
+                                            type1a.add(new VariantInfo(current.substring
+                                                    (7, current.length() - 4), hex));
                                         }
                                         if (current.substring(0, 7).equals("type1b_")) {
                                             type1b.add(current.substring(7, current.length() - 4));
@@ -1130,8 +1149,7 @@ public class Overlays extends Fragment {
                                 }
                             }
 
-                            ArrayAdapter<String> adapter1 = new ArrayAdapter<>(getActivity(),
-                                    android.R.layout.simple_spinner_dropdown_item, type1a);
+                            VariantsAdapter adapter1 = new VariantsAdapter(getActivity(), type1a);
                             ArrayAdapter<String> adapter2 = new ArrayAdapter<>(getActivity(),
                                     android.R.layout.simple_spinner_dropdown_item, type1b);
                             ArrayAdapter<String> adapter3 = new ArrayAdapter<>(getActivity(),

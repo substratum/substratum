@@ -1124,11 +1124,10 @@ public class Overlays extends Fragment {
                                             // and
                                             // pass it to getOverlayResource instead of going one at
                                             // a time.
-                                            String hex = References.getOverlayResource(current_file,
-                                                    "accent_device_default_light");
+                                            String hex = References.getOverlayResource(
+                                                    current_file);
                                             if (hex == null) {
-                                                hex = References.getOverlayResource(current_file,
-                                                        "material_deep_teal_500");
+                                                hex = References.getOverlayResource(current_file);
                                             }
                                             type1a.add(new VariantInfo(current.substring
                                                     (7, current.length() - 4), hex));

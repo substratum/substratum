@@ -60,6 +60,7 @@ import java.util.Objects;
 import projekt.substratum.R;
 import projekt.substratum.util.AOPTCheck;
 import projekt.substratum.util.CacheCreator;
+import projekt.substratum.util.ReadVariantPrioritizedColor;
 
 public class References {
 
@@ -1260,10 +1261,12 @@ public class References {
     }
 
     // This method parses a specific overlay resource file (.xml) and returns the specified value
-    // TODO: make it work with regex
-    // TODO: make it work with String[]
-    public static String getOverlayResource(File overlay_file, String resource_name) {
+    public static String getOverlayResource(File overlay_file) {
         String hex = null;
+
+        // Find the name of the top most color in the file first.
+        String resource_name = new ReadVariantPrioritizedColor()
+                .main(overlay_file.getAbsolutePath());
 
         try (BufferedReader br = new BufferedReader(new FileReader(overlay_file))) {
             for (String line; (line = br.readLine()) != null; ) {
@@ -1273,10 +1276,9 @@ public class References {
                 }
             }
         } catch (IOException ioe) {
-            Log.e(References.SUBSTRATUM_LOG,
+            Log.e(SUBSTRATUM_LOG,
                     "Unable to find " + resource_name + " in this overlay!");
         }
-
         return hex;
     }
 

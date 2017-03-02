@@ -4,7 +4,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ShortcutManager;
 import android.net.Uri;
+import android.os.Build;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
@@ -64,6 +66,14 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
                         } catch (IOException e) {
                             Log.e("ThemeUninstallDetector", "Failed to restore lock screen " +
                                     "wallpaper!");
+                        }
+                    }
+                    if (prefs.getString("app_shortcut_theme", "").equals(package_name)) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+                            ShortcutManager shortcutManager = context.
+                                    getSystemService(ShortcutManager.class);
+                            shortcutManager.removeAllDynamicShortcuts();
+                            editor.remove("app_shortcut_theme");
                         }
                     }
                     editor.apply();

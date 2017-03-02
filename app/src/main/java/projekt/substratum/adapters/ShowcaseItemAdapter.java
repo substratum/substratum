@@ -45,6 +45,12 @@ public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapte
                 .crossFade()
                 .into(viewHolder.imageView);
 
+        Glide.with(information.get(position).getContext())
+                .load(information.get(position).getThemeBackgroundImage())
+                .centerCrop()
+                .crossFade()
+                .into(viewHolder.backgroundImageView);
+
         viewHolder.themeName.setText(information.get(position).getThemeName());
         viewHolder.themeAuthor.setText(information.get(position).getThemeAuthor());
 
@@ -108,7 +114,7 @@ public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapte
         CardView cardView;
         TextView themeName, themeAuthor;
         ImageView themePricing;
-        ImageView imageView, wallpaper, sounds, fonts, bootanimations, overlays;
+        ImageView imageView, backgroundImageView, wallpaper, sounds, fonts, bootanimations, overlays;
 
         ViewHolder(View view) {
             super(view);
@@ -117,6 +123,7 @@ public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapte
             themeAuthor = (TextView) view.findViewById(R.id.theme_author);
             themePricing = (ImageView) view.findViewById(R.id.theme_pricing);
             imageView = (ImageView) view.findViewById(R.id.theme_icon);
+            backgroundImageView = (ImageView) view.findViewById(R.id.background_image);
             wallpaper = (ImageView) view.findViewById(R.id.theme_wallpapers);
             sounds = (ImageView) view.findViewById(R.id.theme_sounds);
             fonts = (ImageView) view.findViewById(R.id.theme_fonts);

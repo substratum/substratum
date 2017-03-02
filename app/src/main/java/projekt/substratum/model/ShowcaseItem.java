@@ -8,6 +8,7 @@ public class ShowcaseItem {
     private String themeName;
     private String themeLink;
     private String themeIcon;
+    private String themeBackgroundImage;
     private String themeAuthor;
     private String themePricing;
     private String themeSupport;
@@ -58,6 +59,14 @@ public class ShowcaseItem {
 
     public void setThemeIcon(String themeIcon) {
         this.themeIcon = themeIcon;
+    }
+
+    public String getThemeBackgroundImage() {
+        return themeBackgroundImage;
+    }
+
+    public void setThemeBackgroundImage(String themeBackgroundImage) {
+        this.themeBackgroundImage = themeBackgroundImage;
     }
 
     public String getThemeSupport() {

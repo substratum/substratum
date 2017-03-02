@@ -1,126 +1,146 @@
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                                    android:id="@+id/theme_card"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginEnd="10dp"
-                                    android:layout_marginStart="10dp"
-                                    android:layout_marginTop="15dp"
-                                    android:clickable="true"
-                                    android:foreground="?android:selectableItemBackground"
-                                    card_view:cardBackgroundColor="@color/main_screen_card_background"
-                                    card_view:cardCornerRadius="@dimen/main_screen_card_corner_radius"
-                                    card_view:cardElevation="@dimen/main_screen_card_elevation">
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="240dp"
+    android:orientation="vertical"
+    android:paddingTop="4dp"
+    android:paddingBottom="4dp">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <android.support.v7.widget.CardView
+        android:id="@+id/theme_card"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="4dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="4dp"
+        android:layout_weight="1"
+        card_view:cardCornerRadius="2dp"
+        card_view:cardElevation="1dp">
 
-        <ImageView
-            android:id="@+id/theme_icon"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_margin="20dp"
-            android:scaleType="centerCrop"
-            android:src="@android:color/transparent"/>
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/theme_pricing"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="-10dp"
-            android:paddingEnd="20dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/showcase_paid"/>
+            <ImageView
+                android:id="@+id/background_image"
+                android:layout_width="fill_parent"
+                android:layout_height="150dp"
+                android:layout_margin="0dp"
+                android:scaleType="centerCrop" />
 
-        <RelativeLayout
-            android:id="@+id/relativeLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@id/theme_icon">
+            <ImageView
+                android:id="@+id/theme_pricing"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_above="@+id/theme_icon"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="69dp"
+                android:layout_marginStart="6dp"
+                android:paddingEnd="20dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/showcase_paid" />
 
-            <TextView
-                android:id="@+id/theme_name"
+            <ImageView
+                android:id="@+id/theme_icon"
+                android:layout_width="75sp"
+                android:layout_height="75sp"
+                android:layout_alignBottom="@+id/relativeLayout"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="50dp"
+                android:layout_marginEnd="21dp" />
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:gravity="end"
-                android:paddingEnd="20dp"
-                android:text="THEME_NAME"
-                android:textAllCaps="true"
-                android:textColor="@color/main_screen_card_theme_title"
-                android:textSize="20sp"
-                android:textStyle="bold"/>
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/background_image"
+                android:layout_marginTop="20dp">
 
-            <TextView
-                android:id="@+id/theme_author"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/theme_name"
-                android:gravity="end"
-                android:paddingEnd="20dp"
-                android:text="THEME_AUTHOR"
-                android:textAllCaps="true"
-                android:textColor="@color/main_screen_card_theme_title"
-                android:textSize="14sp"/>
+                <TextView
+                    android:id="@+id/theme_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginStart="17dp"
+                    android:layout_marginTop="2dp"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/theme_author"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/theme_name"
+                    android:layout_below="@+id/theme_name"
+                    android:layout_marginEnd="15dp"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textSize="12sp" />
+            </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/theme_author"
-                android:paddingEnd="20dp"
-                android:paddingTop="3dp">
+                android:paddingEnd="10dp"
+                android:paddingBottom="20dp">
 
                 <ImageView
                     android:id="@+id/theme_wallpapers"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
                     android:paddingStart="2.5dp"
-                    android:src="@drawable/nav_wallpapers"/>
+                    android:src="@drawable/nav_wallpapers"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="10dp" />
 
                 <ImageView
                     android:id="@+id/theme_sounds"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toStartOf="@id/theme_wallpapers"
                     android:paddingStart="2.5dp"
-                    android:src="@drawable/nav_sounds"/>
+                    android:src="@drawable/nav_sounds"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toStartOf="@+id/theme_wallpapers" />
 
                 <ImageView
                     android:id="@+id/theme_fonts"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toStartOf="@id/theme_sounds"
                     android:paddingStart="2.5dp"
-                    android:src="@drawable/nav_fonts"/>
+                    android:src="@drawable/nav_fonts"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toStartOf="@+id/theme_sounds" />
 
                 <ImageView
                     android:id="@+id/theme_bootanimations"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toStartOf="@id/theme_fonts"
                     android:paddingStart="2.5dp"
-                    android:src="@drawable/nav_bootanim"/>
+                    android:src="@drawable/nav_bootanim"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toStartOf="@+id/theme_fonts" />
 
                 <ImageView
                     android:id="@+id/theme_overlays"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toStartOf="@id/theme_bootanimations"
                     android:paddingStart="2.5dp"
-                    android:src="@drawable/nav_overlays"/>
+                    android:src="@drawable/nav_overlays"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toStartOf="@+id/theme_bootanimations" />
 
             </RelativeLayout>
 
-
         </RelativeLayout>
 
-    </RelativeLayout>
+    </android.support.v7.widget.CardView>
 
-</android.support.v7.widget.CardView>
+</LinearLayout>

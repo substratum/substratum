@@ -221,6 +221,13 @@
             android:excludeFromRecents="true"
             android:label="@string/restore_dialog_title"
             android:theme="@style/AppTheme.Dialog"/>
+        <activity
+            android:name="projekt.substratum.ShowcaseInfo"
+            android:theme="@style/ShowcaseDialog">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

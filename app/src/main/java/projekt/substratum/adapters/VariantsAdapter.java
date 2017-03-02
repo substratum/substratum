@@ -3,6 +3,7 @@ package projekt.substratum.adapters;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,12 +26,13 @@ public class VariantsAdapter extends ArrayAdapter<VariantInfo> {
     }
 
     @Override
-    public View getDropDownView(int position, View convertView, ViewGroup parent) {
+    public View getDropDownView(int position, View convertView, @NonNull ViewGroup parent) {
         return getCustomView(position, convertView, parent);
     }
 
+    @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         return getCustomView(position, convertView, parent);
     }
 
@@ -52,25 +54,50 @@ public class VariantsAdapter extends ArrayAdapter<VariantInfo> {
 
         VariantInfo item = getItem(position);
         if (item != null) {
-            holder.variantName.setText(item.getVariantName());
-            int color = Color.parseColor(item.getVariantHex());
-            ColorStateList csl = new ColorStateList(
-                    new int[][]{
-                            new int[]{android.R.attr.state_checked},
-                            new int[]{}
-                    },
-                    new int[]{
-                            color,
-                            color
-                    }
-            );
-            holder.variantHex.setImageTintList(csl);
+            // First check if our model contains a saved color value
+            if (item.getColor() == 0) {
+                holder.variantName.setText(item.getVariantName());
+                if (item.getVariantName() != null) {
+                    int color = Color.parseColor(item.getVariantHex());
+                    item.setColor(color);
+                    ColorStateList csl = new ColorStateList(
+                            new int[][]{
+                                    new int[]{android.R.attr.state_checked},
+                                    new int[]{}
+                            },
+                            new int[]{
+                                    color,
+                                    color
+                            }
+                    );
+                    holder.variantHex.setImageTintList(csl);
+                    holder.variantHex.setVisibility(View.VISIBLE);
+                } else {
+                    holder.variantHex.setVisibility(View.INVISIBLE);
+                }
+            } else {
+                // We now know that the color is not 0 which is the hardcoded null set for int
+                int color = item.getColor();
+                ColorStateList csl = new ColorStateList(
+                        new int[][]{
+                                new int[]{android.R.attr.state_checked},
+                                new int[]{}
+                        },
+                        new int[]{
+                                color,
+                                color
+                        }
+                );
+                holder.variantHex.setImageTintList(csl);
+                holder.variantHex.setVisibility(View.VISIBLE);
+            }
+        } else {
+            holder.variantHex.setVisibility(View.INVISIBLE);
         }
-
         return convertView;
     }
 
-    public class ViewHolder {
+    private class ViewHolder {
         TextView variantName;
         ImageView variantHex;
     }

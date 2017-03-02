@@ -14,6 +14,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import projekt.substratum.R;
+import projekt.substratum.config.References;
 import projekt.substratum.model.VariantInfo;
 
 public class VariantsAdapter extends ArrayAdapter<VariantInfo> {
@@ -64,20 +65,54 @@ public class VariantsAdapter extends ArrayAdapter<VariantInfo> {
                 } else if (item.getColor() == 0) {
                     if (item.getVariantName() != null) {
                         holder.variantName.setText(item.getVariantName());
-                        int color = Color.parseColor(item.getVariantHex());
-                        item.setColor(color);
-                        ColorStateList csl = new ColorStateList(
-                                new int[][]{
-                                        new int[]{android.R.attr.state_checked},
-                                        new int[]{}
-                                },
-                                new int[]{
-                                        color,
-                                        color
-                                }
-                        );
-                        holder.variantHex.setImageTintList(csl);
-                        holder.variantHex.setVisibility(View.VISIBLE);
+                        if (item.getVariantHex().contains(":color")) {
+                            // Uh oh, we hit a package dependent resource pointer!
+                            String working_value = item.getVariantHex();
+                            // First, we have to strip out the reference pointers (public/private)
+                            if (working_value.startsWith("@*")) {
+                                working_value = working_value.substring(2);
+                            } else if (working_value.startsWith("@")) {
+                                working_value = working_value.substring(1);
+                            }
+                            // Now check the package name
+                            String working_package = working_value.split(":")[0];
+                            String working_color = working_value.split("/")[1];
+                            int color = References.grabColorResource(
+                                    getContext(), working_package, working_color);
+                            if (color != 0) {
+                                item.setColor(color);
+                                ColorStateList csl = new ColorStateList(
+                                        new int[][]{
+                                                new int[]{android.R.attr.state_checked},
+                                                new int[]{}
+                                        },
+                                        new int[]{
+                                                color,
+                                                color
+                                        }
+                                );
+                                holder.variantHex.setImageTintList(csl);
+                                holder.variantHex.setVisibility(View.VISIBLE);
+                            } else {
+                                holder.variantName.setText(item.getVariantName());
+                                holder.variantHex.setVisibility(View.GONE);
+                            }
+                        } else {
+                            int color = Color.parseColor(item.getVariantHex());
+                            item.setColor(color);
+                            ColorStateList csl = new ColorStateList(
+                                    new int[][]{
+                                            new int[]{android.R.attr.state_checked},
+                                            new int[]{}
+                                    },
+                                    new int[]{
+                                            color,
+                                            color
+                                    }
+                            );
+                            holder.variantHex.setImageTintList(csl);
+                            holder.variantHex.setVisibility(View.VISIBLE);
+                        }
                     } else {
                         holder.variantHex.setVisibility(View.INVISIBLE);
                     }

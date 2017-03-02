@@ -845,6 +845,22 @@ public class References {
         return hero;
     }
 
+    // Grab Color Resource
+    public static int grabColorResource(Context mContext, String package_name, String colorName) {
+        Resources res;
+        int color = 0;
+        try {
+            res = mContext.getPackageManager().getResourcesForApplication(package_name);
+            int resourceId = res.getIdentifier(package_name + ":color/" + colorName, null, null);
+            if (0 != resourceId) {
+                return res.getColor(resourceId);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     // Grab Overlay Target Package Name (Human Readable)
     public static String grabPackageName(Context mContext, String package_name) {
         final PackageManager pm = mContext.getPackageManager();

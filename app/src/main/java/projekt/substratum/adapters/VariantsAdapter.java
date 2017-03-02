@@ -55,8 +55,8 @@ public class VariantsAdapter extends ArrayAdapter<VariantInfo> {
         VariantInfo item = getItem(position);
         if (item != null) {
             // First check if our model contains a saved color value
+            holder.variantName.setText(item.getVariantName());
             if (item.getColor() == 0) {
-                holder.variantName.setText(item.getVariantName());
                 if (item.getVariantName() != null) {
                     int color = Color.parseColor(item.getVariantHex());
                     item.setColor(color);

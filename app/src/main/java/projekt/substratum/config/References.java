@@ -36,6 +36,7 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -1270,5 +1271,26 @@ public class References {
             launch = new CacheCreator().initializeCache(mContext, theme_package);
             return null;
         }
+    }
+
+    // This method parses a specific overlay resource file (.xml) and returns the specified value
+    // TODO: make it work with regex
+    // TODO: make it work with String[]
+    public static String getOverlayResource(File overlay_file, String resource_name) {
+        String hex = null;
+
+        try (BufferedReader br = new BufferedReader(new FileReader(overlay_file))) {
+            for (String line; (line = br.readLine()) != null; ) {
+                if (line.contains(resource_name)) {
+                    String[] split = line.substring(line.lastIndexOf("\">") + 2).split("<");
+                    hex = split[0];
+                }
+            }
+        } catch (IOException ioe) {
+            Log.e(References.SUBSTRATUM_LOG,
+                    "Unable to find " + resource_name + " in this overlay!");
+        }
+
+        return hex;
     }
 }

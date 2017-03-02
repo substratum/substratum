@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import projekt.substratum.adapters.VariantsAdapter;
 import projekt.substratum.config.References;
 
 public class OverlaysInfo implements Serializable {
@@ -25,7 +26,7 @@ public class OverlaysInfo implements Serializable {
     private String theme_name;
     private String name;
     private String package_name;
-    private ArrayAdapter<String> array;
+    private VariantsAdapter array;
     private ArrayAdapter<String> array2;
     private ArrayAdapter<String> array3;
     private ArrayAdapter<String> array4;
@@ -45,7 +46,7 @@ public class OverlaysInfo implements Serializable {
     private Boolean theme_oms;
 
     public OverlaysInfo(String theme_name, String name, String packageName, boolean isSelected,
-                        ArrayAdapter<String>
+                        VariantsAdapter
                                 adapter, ArrayAdapter<String>
                                 adapter2, ArrayAdapter<String>
                                 adapter3, ArrayAdapter<String>
@@ -112,7 +113,7 @@ public class OverlaysInfo implements Serializable {
         this.isSelected = isSelected;
     }
 
-    public ArrayAdapter<String> getSpinnerArray() {
+    public VariantsAdapter getSpinnerArray() {
         return array;
     }
 

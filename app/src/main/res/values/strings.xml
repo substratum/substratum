@@ -15,9 +15,9 @@
     <string name="search_play_store_url_icon_packs" translatable="false">https://play.google.com/store/search?q=Icon%20Pack&amp;c=apps</string>
     <string name="search_play_store_url_legacy" translatable="false">https://play.google.com/store/search?q=Substratum%20Legacy%20Theme&amp;c=apps</string>
     <string name="tbo_theme_ready_url" translatable="false">http://forum.xda-developers.com/android/apps-games/apps-themeable-hangouts-layers-cmte-t3113192</string>
-    <string name="substratum_github" translatable="false">https://github.com/nicholaschum/substratum</string>
-    <string name="masquerade_github" translatable="false">https://github.com/nicholaschum/masquerade</string>
-    <string name="showcase_tabs" translatable="false">https://raw.githubusercontent.com/nicholaschum/substratum/dev/showcase.xml</string>
+    <string name="substratum_github" translatable="false">https://github.com/substratum/substratum</string>
+    <string name="masquerade_github" translatable="false">https://github.com/substratum/masquerade</string>
+    <string name="showcase_tabs" translatable="false">https://raw.githubusercontent.com/substratum/substratum/dev/showcase.xml</string>
     <string name="crowdin_url" translatable="false">"http://translate.projektsubstratum.com/"</string>
 
     <string name="showcase_no_connection">the theme showcase requires an internet connection to

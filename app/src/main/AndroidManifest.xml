@@ -238,6 +238,14 @@
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
         </activity>
+        <activity
+            android:name="projekt.substratum.RestoreInfo"
+            android:label="@string/restore_info_dialog_title"
+            android:theme="@style/RestoreInfo">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

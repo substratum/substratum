@@ -348,7 +348,7 @@ public class MainActivity extends AppCompatActivity implements
                         break;
                     case 8:
                         switchFragment(getString(R.string.nav_manage),
-                                "ManageFragment");
+                                "RecoveryFragment");
                         break;
                     case 9:
                         Intent intent = new Intent(getApplicationContext(),

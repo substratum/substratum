@@ -4,11 +4,15 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import projekt.substratum.config.BootAnimationManager;
@@ -16,6 +20,7 @@ import projekt.substratum.config.FileOperations;
 import projekt.substratum.config.FontManager;
 import projekt.substratum.config.References;
 import projekt.substratum.config.SoundManager;
+import projekt.substratum.config.ThemeManager;
 import projekt.substratum.config.WallpaperManager;
 
 public class ThemeUninstallDetector extends BroadcastReceiver {
@@ -31,12 +36,42 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
             if (prefs.contains("installed_themes")) {
                 Set installed_themes = prefs.getStringSet("installed_themes", null);
                 if (installed_themes != null && installed_themes.contains(package_name)) {
+                    // Get all installed overlays for this package
+                    List<String> stateAll = ThemeManager.listOverlays(4);
+                    stateAll.addAll(ThemeManager.listOverlays(5));
+
+                    ArrayList<String> all_overlays = new ArrayList<>();
+                    for (int j = 0; j < stateAll.size(); j++) {
+                        try {
+                            String current = stateAll.get(j);
+                            ApplicationInfo appInfo = context
+                                    .getPackageManager()
+                                    .getApplicationInfo(
+                                            current, PackageManager.GET_META_DATA);
+                            if (appInfo.metaData != null &&
+                                    appInfo.metaData.getString(
+                                            "Substratum_Parent") != null) {
+                                String parent =
+                                        appInfo.metaData.getString("Substratum_Parent");
+                                if (parent != null && parent.equals(package_name)) {
+                                    all_overlays.add(current);
+                                }
+                            }
+                        } catch (Exception e) {
+                            // NameNotFound
+                        }
+                    }
+
+                    // Uninstall all overlays for this package
+                    ThemeManager.uninstallOverlay(context, all_overlays);
+
+                    // Clear SubstratumBuilder cache for this package
                     Log.d(References.SUBSTRATUM_LOG, "Now purging caches for \"" + package_name +
                             "\"...");
                     FileOperations.delete(context, context.getCacheDir().getAbsolutePath() +
                             "/SubstratumBuilder/" + package_name + "/");
 
-                    final SharedPreferences.Editor editor = prefs.edit();
+                    SharedPreferences.Editor editor = prefs.edit();
                     if (prefs.getString("sounds_applied", "").equals(package_name)) {
                         SoundManager.clearSounds(context);
                         editor.remove("sounds_applied");

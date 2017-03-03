@@ -53,13 +53,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import projekt.substratum.adapters.InformationTabsAdapter;
-import projekt.substratum.config.BootAnimationManager;
 import projekt.substratum.config.ElevatedCommands;
 import projekt.substratum.config.FileOperations;
 import projekt.substratum.config.FirebaseAnalytics;
-import projekt.substratum.config.FontManager;
 import projekt.substratum.config.References;
-import projekt.substratum.config.SoundManager;
 import projekt.substratum.config.ThemeManager;
 import projekt.substratum.config.WallpaperManager;
 import projekt.substratum.util.SheetDialog;
@@ -82,7 +79,6 @@ public class InformationActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ProgressDialog mProgressDialog;
     private MenuItem favorite;
-    private Menu menu;
     private boolean shouldDarken;
 
     public static String getThemeName() {
@@ -451,7 +447,6 @@ public class InformationActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        this.menu = menu;
         getMenuInflater().inflate(R.menu.theme_information_menu, menu);
 
         // Start formalizing a check for dark icons
@@ -860,73 +855,7 @@ public class InformationActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            final SharedPreferences.Editor editor = prefs.edit();
-
             References.uninstallPackage(getApplicationContext(), theme_pid);
-
-            // Get all installed overlays for this package
-            List<String> stateAll = ThemeManager.listOverlays(4);
-            stateAll.addAll(ThemeManager.listOverlays(5));
-
-            ArrayList<String> all_overlays = new ArrayList<>();
-            for (int j = 0; j < stateAll.size(); j++) {
-                try {
-                    String current = stateAll.get(j);
-                    ApplicationInfo appInfo = getApplicationContext()
-                            .getPackageManager()
-                            .getApplicationInfo(
-                                    current, PackageManager.GET_META_DATA);
-                    if (appInfo.metaData != null &&
-                            appInfo.metaData.getString(
-                                    "Substratum_Parent") != null) {
-                        String parent =
-                                appInfo.metaData.getString("Substratum_Parent");
-                        if (parent != null && parent.equals(theme_pid)) {
-                            all_overlays.add(current);
-                        }
-                    }
-                } catch (Exception e) {
-                    // NameNotFound
-                }
-            }
-
-            // Uninstall all overlays for this package
-            ThemeManager.uninstallOverlay(getApplicationContext(), all_overlays);
-
-            // Clear SubstratumBuilder cache for this package
-            FileOperations.delete(getApplicationContext(), getCacheDir().getAbsolutePath() +
-                    "/SubstratumBuilder/" + theme_pid);
-
-            //Remove applied font, sounds, and bootanimation
-            if (prefs.getString("sounds_applied", "").equals(theme_pid)) {
-                SoundManager.clearSounds(getApplicationContext());
-                editor.remove("sounds_applied");
-            }
-            if (prefs.getString("fonts_applied", "").equals(theme_pid)) {
-                FontManager.clearFonts(getApplicationContext());
-                editor.remove("fonts_applied");
-            }
-            if (prefs.getString("bootanimation_applied", "").equals(theme_pid)) {
-                BootAnimationManager.clearBootAnimation(getApplicationContext());
-                editor.remove("bootanimation_applied");
-            }
-            if (prefs.getString("home_wallpaper_applied", "").equals(theme_pid)) {
-                try {
-                    WallpaperManager.clearWallpaper(getApplicationContext(), "home");
-                    editor.remove("home_wallpaper_applied");
-                } catch (IOException e) {
-                    Log.e("InformationActivity", "Failed to restore home screen wallpaper!");
-                }
-            }
-            if (prefs.getString("lock_wallpaper_applied", "").equals(theme_pid)) {
-                try {
-                    WallpaperManager.clearWallpaper(getApplicationContext(), "lock");
-                    editor.remove("lock_wallpaper_applied");
-                } catch (IOException e) {
-                    Log.e("InformationActivity", "Failed to restore lock screen wallpaper!");
-                }
-            }
-            editor.apply();
             return null;
         }
     }

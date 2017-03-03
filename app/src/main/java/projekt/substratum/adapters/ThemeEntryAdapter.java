@@ -8,8 +8,6 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Vibrator;
@@ -27,12 +25,10 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 
 import projekt.substratum.R;
 import projekt.substratum.config.FileOperations;
 import projekt.substratum.config.References;
-import projekt.substratum.config.ThemeManager;
 import projekt.substratum.model.ThemeInfo;
 import projekt.substratum.util.SheetDialog;
 
@@ -319,31 +315,6 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
         protected String doInBackground(String... sUrl) {
             // Uninstall theme
             References.uninstallPackage(mContext, currentObject.getThemePackage());
-
-            // Get all installed overlays for this package
-            List<String> stateAll = ThemeManager.listOverlays(4);
-            stateAll.addAll(ThemeManager.listOverlays(5));
-
-            ArrayList<String> all_overlays = new ArrayList<>();
-            for (int j = 0; j < stateAll.size(); j++) {
-                try {
-                    String current = stateAll.get(j);
-                    ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
-                            current, PackageManager.GET_META_DATA);
-                    if (appInfo.metaData != null && appInfo.metaData.getString(
-                            "Substratum_Parent") != null) {
-                        String parent = appInfo.metaData.getString("Substratum_Parent");
-                        if (parent != null && parent.equals(currentObject.getThemePackage())) {
-                            all_overlays.add(current);
-                        }
-                    }
-                } catch (Exception e) {
-                    // NameNotFound
-                }
-            }
-
-            // Uninstall all overlays for this package
-            ThemeManager.uninstallOverlay(mContext, all_overlays);
             return null;
         }
     }

@@ -30,6 +30,7 @@ public class MasqueradeService {
     private static final String COMMAND_VALUE_INSTALL = "install";
     private static final String COMMAND_VALUE_UNINSTALL = "uninstall";
     private static final String COMMAND_VALUE_RESTART_UI = "restart_ui";
+    private static final String COMMAND_VALUE_RESTART_SERVICE = "restart_service";
     private static final String COMMAND_VALUE_CONFIGURATION_SHIM = "configuration_shim";
     private static final String COMMAND_VALUE_BOOTANIMATION = "bootanimation";
     private static final String COMMAND_VALUE_FONTS = "fonts";
@@ -99,6 +100,12 @@ public class MasqueradeService {
     public static void restartSystemUI(Context context) {
         Intent masqIntent = getMasqueradeRootless(context);
         masqIntent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_RESTART_UI);
+        context.startService(masqIntent);
+    }
+
+    public static void restartService(Context context) {
+        Intent masqIntent = getMasqueradeRootless(context);
+        masqIntent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_RESTART_SERVICE);
         context.startService(masqIntent);
     }
 

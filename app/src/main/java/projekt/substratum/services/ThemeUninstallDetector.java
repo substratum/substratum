@@ -61,6 +61,7 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
                     if (prefs.getString("lock_wallpaper_applied", "").equals(package_name)) {
                         try {
                             WallpaperManager.clearWallpaper(context, "lock");
+                            editor.remove("lock_wallpaper_applied");
                         } catch (IOException e) {
                             Log.e("ThemeUninstallDetector", "Failed to restore lock screen " +
                                     "wallpaper!");

@@ -913,6 +913,7 @@ public class InformationActivity extends AppCompatActivity {
             if (prefs.getString("home_wallpaper_applied", "").equals(theme_pid)) {
                 try {
                     WallpaperManager.clearWallpaper(getApplicationContext(), "home");
+                    editor.remove("home_wallpaper_applied");
                 } catch (IOException e) {
                     Log.e("InformationActivity", "Failed to restore home screen wallpaper!");
                 }
@@ -920,6 +921,7 @@ public class InformationActivity extends AppCompatActivity {
             if (prefs.getString("lock_wallpaper_applied", "").equals(theme_pid)) {
                 try {
                     WallpaperManager.clearWallpaper(getApplicationContext(), "lock");
+                    editor.remove("lock_wallpaper_applied");
                 } catch (IOException e) {
                     Log.e("InformationActivity", "Failed to restore lock screen wallpaper!");
                 }

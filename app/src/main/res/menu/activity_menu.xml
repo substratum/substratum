@@ -22,6 +22,13 @@
         android:title="@string/menu_per_app"
         app:showAsAction="ifRoom"/>
     <item
+        android:id="@+id/restart_systemui"
+        android:icon="@drawable/toolbar_refresh"
+        android:menuCategory="secondary"
+        android:orderInCategory="3"
+        android:title="@string/menu_restart_systemui"
+        app:showAsAction="ifRoom" />
+    <item
         android:id="@+id/reboot_device"
         android:title="@string/menu_reboot_device"/>
     <item

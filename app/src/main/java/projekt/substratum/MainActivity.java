@@ -60,6 +60,7 @@ import eightbitlab.com.blurview.RenderScriptBlur;
 import projekt.substratum.config.ElevatedCommands;
 import projekt.substratum.config.FileOperations;
 import projekt.substratum.config.References;
+import projekt.substratum.config.ThemeManager;
 import projekt.substratum.fragments.ThemeFragment;
 import projekt.substratum.services.FloatUiTile;
 import projekt.substratum.services.SubstratumFloatInterface;
@@ -89,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements
     private int permissionCheck, permissionCheck2;
     private ProgressDialog mProgressDialog;
     private SharedPreferences prefs;
-    private boolean hideBundle;
+    private boolean hideBundle, hideRestartUi;
 
     public static void switchToCustomToolbar(String title, String content) {
         if (supportActionBar != null) supportActionBar.setTitle("");
@@ -118,6 +119,7 @@ public class MainActivity extends AppCompatActivity implements
                 ".fragments." + fragment));
         tx.commit();
         hideBundle = true;
+        hideRestartUi = !title.equals(getString(R.string.nav_overlay_manager));
         supportInvalidateOptionsMenu();
     }
 
@@ -137,6 +139,7 @@ public class MainActivity extends AppCompatActivity implements
         tx.replace(R.id.main, fragment);
         tx.commit();
         hideBundle = false;
+        hideRestartUi = true;
         supportInvalidateOptionsMenu();
     }
 
@@ -150,6 +153,7 @@ public class MainActivity extends AppCompatActivity implements
         tx.replace(R.id.main, fragment);
         tx.commit();
         hideBundle = true;
+        hideRestartUi = true;
         supportInvalidateOptionsMenu();
     }
 
@@ -542,10 +546,12 @@ public class MainActivity extends AppCompatActivity implements
 
         MenuItem searchItem = menu.findItem(R.id.action_search);
         MenuItem showcase = menu.findItem(R.id.search);
+        MenuItem restartUi = menu.findItem(R.id.restart_systemui);
         searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setOnQueryTextListener(this);
         searchItem.setVisible(!hideBundle);
         showcase.setVisible(!hideBundle);
+        restartUi.setVisible(!hideRestartUi && isOMS);
         return true;
     }
 
@@ -594,6 +600,9 @@ public class MainActivity extends AppCompatActivity implements
                 } else {
                     hideFloatingHead();
                 }
+                return true;
+            case R.id.restart_systemui:
+                ThemeManager.restartSystemUI(getApplicationContext());
                 return true;
 
             // Begin RRO based options

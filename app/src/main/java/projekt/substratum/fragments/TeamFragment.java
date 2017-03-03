@@ -91,6 +91,18 @@ public class TeamFragment extends Fragment {
         developers.add((GalleryView) root.findViewById(R.id.developer2));
         developers.add((GalleryView) root.findViewById(R.id.developer3));
 
+        GalleryEntity alex = new GalleryEntity();
+        alex.imgUrl = getString(R.string.contributor_alex_link);
+        alex.title = getString(R.string.contributor_alex);
+        developerEntities.add(alex);
+        developerEntities.add(ivan);
+        GalleryEntity surge = new GalleryEntity();
+        surge.imgUrl = getString(R.string.team_surge_link);
+        surge.title = getString(R.string.team_surge);
+        developerEntities.add(surge);
+        developers.get(0).addGalleryData(developerEntities);
+        developerEntities.clear();
+
         GalleryEntity cory = new GalleryEntity();
         cory.imgUrl = getString(R.string.team_cory_link);
         cory.title = getString(R.string.team_cory);
@@ -99,7 +111,9 @@ public class TeamFragment extends Fragment {
         jacob.imgUrl = getString(R.string.team_jacob_link);
         jacob.title = getString(R.string.team_jacob);
         developerEntities.add(jacob);
-        developers.get(0).addGalleryData(developerEntities);
+        GalleryEntity placeholder = new GalleryEntity();
+        developerEntities.add(placeholder);
+        developers.get(1).addGalleryData(developerEntities);
         developerEntities.clear();
 
         GalleryEntity george = new GalleryEntity();
@@ -110,17 +124,7 @@ public class TeamFragment extends Fragment {
         raja.imgUrl = getString(R.string.team_raja_link);
         raja.title = getString(R.string.team_raja);
         developerEntities.add(raja);
-        developers.get(1).addGalleryData(developerEntities);
-        developerEntities.clear();
-
-        ivan = new GalleryEntity();
-        ivan.imgUrl = getString(R.string.team_ivan_link);
-        ivan.title = getString(R.string.team_ivan);
-        developerEntities.add(ivan);
-        GalleryEntity surge = new GalleryEntity();
-        surge.imgUrl = getString(R.string.team_surge_link);
-        surge.title = getString(R.string.team_surge);
-        developerEntities.add(surge);
+        developerEntities.add(placeholder);
         developers.get(2).addGalleryData(developerEntities);
         developerEntities.clear();
 

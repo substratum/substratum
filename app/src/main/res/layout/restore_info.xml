@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp"
-    android:layout_marginBottom="10dp"
-    android:layout_marginTop="10dp">
+    android:layout_height="wrap_content">
 
     <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -18,19 +14,40 @@
             android:orientation="vertical"
             android:weightSum="1">
 
-            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
+                android:layout_marginBottom="10dp"
                 android:layout_weight="1">
 
                 <TextView
-                    android:id="@+id/restore_info_dialog_text"
+                    android:id="@+id/restore_info_dialog_title"
                     android:layout_width="fill_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="10dp"
-                    android:text="@string/restore_info_dialog_message" />
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="5dp"
+                    android:paddingTop="10dp"
+                    android:text="@string/restore_info_dialog_title"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-            </LinearLayout>
+                <TextView
+                    android:id="@+id/restore_info_dialog_message"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignStart="@+id/restore_info_dialog_title"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="26dp"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="15dp"
+                    android:text="@string/restore_info_dialog_message"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

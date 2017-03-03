@@ -37,6 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/fonts_text"
                 android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
                 android:layout_marginTop="5dp"
                 android:text="@string/restore_fonts_summary"/>
 

@@ -1,0 +1,60 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        card_view:cardBackgroundColor="@color/main_screen_card_background"
+        card_view:cardCornerRadius="@dimen/main_screen_card_corner_radius"
+        card_view:cardElevation="@dimen/main_screen_card_corner_elevation">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/sounds_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/restore_sounds_text"
+                android:textColor="@color/colorAccent"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/sounds_summary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/sounds_text"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="5dp"
+                android:text="@string/restore_sounds_summary"/>
+
+            <Button
+                android:id="@+id/soundsButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/sounds_summary"
+                android:layout_marginTop="5dp"
+                android:background="@color/backup_button"
+                android:clickable="true"
+                android:foreground="?android:selectableItemBackground"
+                android:text="@string/restore_sounds_button"
+                android:textColor="@color/backup_button_text_color" />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>

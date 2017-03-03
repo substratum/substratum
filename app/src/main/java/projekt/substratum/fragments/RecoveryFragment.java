@@ -1,6 +1,7 @@
 package projekt.substratum.fragments;
 
 import android.app.ProgressDialog;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -16,8 +17,12 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import java.io.File;
@@ -38,7 +43,7 @@ import projekt.substratum.util.SoundUtils;
 
 import static projekt.substratum.config.References.REFRESH_WINDOW_DELAY;
 
-public class ManageFragment extends Fragment {
+public class RecoveryFragment extends Fragment {
 
     private ProgressDialog mProgressDialog;
     private ArrayList<String> final_commands_array;
@@ -49,18 +54,20 @@ public class ManageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.manage_fragment, container, false);
+        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.restore_fragment, container, false);
 
         prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 
-        CardView overlaysCard = (CardView) root.findViewById(R.id.overlaysCard);
-        CardView wallpaperCard = (CardView) root.findViewById(R.id.wallpaperCard);
-        CardView bootAnimCard = (CardView) root.findViewById(R.id.bootAnimCard);
-        CardView fontsCard = (CardView) root.findViewById(R.id.fontsCard);
-        CardView soundsCard = (CardView) root.findViewById(R.id.soundsCard);
+        setHasOptionsMenu(true);
+
+        Button overlaysButton = (Button) root.findViewById(R.id.overlaysButton);
+        Button wallpaperButton = (Button) root.findViewById(R.id.wallpaperButton);
+        Button bootanimationButton = (Button) root.findViewById(R.id.bootanimationButton);
+        Button fontsButton = (Button) root.findViewById(R.id.fontsButton);
+        Button soundsButton = (Button) root.findViewById(R.id.soundsButton);
 
         // Overlays Dialog
-        overlaysCard.setOnClickListener(v -> {
+        overlaysButton.setOnClickListener(v -> {
             SheetDialog sheetDialog = new SheetDialog(getContext());
             View sheetView = View.inflate(getContext(), R.layout.manage_overlays_sheet_dialog,
                     null);
@@ -138,7 +145,7 @@ public class ManageFragment extends Fragment {
         });
 
         // Wallpaper Dialog
-        wallpaperCard.setOnClickListener(v -> {
+        wallpaperButton.setOnClickListener(v -> {
             SheetDialog sheetDialog = new SheetDialog(getContext());
             View sheetView = View.inflate(getContext(), R.layout.manage_wallpapers_sheet_dialog,
                     null);
@@ -206,7 +213,7 @@ public class ManageFragment extends Fragment {
         });
 
         // Boot Animation Dialog
-        bootAnimCard.setOnClickListener(v -> {
+        bootanimationButton.setOnClickListener(v -> {
             SheetDialog sheetDialog = new SheetDialog(getContext());
             View sheetView = View.inflate(getContext(),
                     R.layout.manage_bootanimations_sheet_dialog, null);
@@ -220,7 +227,7 @@ public class ManageFragment extends Fragment {
         });
 
         // Font Dialog
-        fontsCard.setOnClickListener(v -> {
+        fontsButton.setOnClickListener(v -> {
             SheetDialog sheetDialog = new SheetDialog(getContext());
             View sheetView = View.inflate(getContext(),
                     R.layout.manage_fonts_sheet_dialog, null);
@@ -249,7 +256,7 @@ public class ManageFragment extends Fragment {
         });
 
         // Sounds Dialog
-        soundsCard.setOnClickListener(v -> {
+        soundsButton.setOnClickListener(v -> {
             SheetDialog sheetDialog = new SheetDialog(getContext());
             View sheetView = View.inflate(getContext(),
                     R.layout.manage_sounds_sheet_dialog, null);
@@ -449,5 +456,25 @@ public class ManageFragment extends Fragment {
             new SoundUtils().SoundsClearer(getContext());
             return null;
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.restore_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.restore_info) {
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.setComponent(new ComponentName("projekt.substratum","projekt.substratum.RestoreInfo"));
+            startActivity(intent);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

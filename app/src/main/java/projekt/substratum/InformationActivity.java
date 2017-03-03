@@ -722,7 +722,7 @@ public class InformationActivity extends AppCompatActivity {
                 AlertDialog.Builder builder5 = new AlertDialog.Builder(InformationActivity.this);
                 builder5.setTitle(theme_name);
                 builder5.setIcon(References.grabAppIcon(getApplicationContext(), theme_pid));
-                builder5.setMessage(R.string.uninstall_dialog_body)
+                builder5.setMessage(R.string.uninstall_dialog_text)
                         .setPositiveButton(R.string.uninstall_dialog_okay, (dialog, id12) -> new
                                 uninstallTheme().execute(""))
                         .setNegativeButton(R.string.uninstall_dialog_cancel, (dialog, id1) -> {

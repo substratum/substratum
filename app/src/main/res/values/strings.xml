@@ -245,6 +245,8 @@
         cards.
     </string>
 
+    <string name="uninstall_dialog_text">Are you sure you want to uninstall this theme?</string>
+
     <string name="manage_dialog_text">Are you sure you want to perform this action?</string>
     <string name="manage_dialog_performing">Restoring to default&#8230;</string>
     <string name="manage_bootanimation_title">Restore Boot Animation</string>

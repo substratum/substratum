@@ -22,11 +22,7 @@ public class ReadVariantPrioritizedColor {
             NodeList nList = doc.getElementsByTagName("color");
             Node nNode = nList.item(0);
             Element eElement = (Element) nNode;
-            String color = "";
-            for (int i = 0; i < eElement.getAttributes().getLength(); i++) {
-                return eElement.getAttributes().item(i).getNodeValue();
-            }
-            return null;
+            return eElement.getAttributes().item(0).getNodeValue();
         } catch (Exception e) {
             e.printStackTrace();
             return null;

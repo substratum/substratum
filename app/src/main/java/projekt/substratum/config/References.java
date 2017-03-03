@@ -1284,16 +1284,17 @@ public class References {
         String resource_name = new ReadVariantPrioritizedColor()
                 .main(overlay_file.getAbsolutePath());
 
-        try (BufferedReader br = new BufferedReader(new FileReader(overlay_file))) {
-            for (String line; (line = br.readLine()) != null; ) {
-                if (line.contains(resource_name)) {
-                    String[] split = line.substring(line.lastIndexOf("\">") + 2).split("<");
-                    hex = split[0];
+        if (resource_name != null) {
+            try (BufferedReader br = new BufferedReader(new FileReader(overlay_file))) {
+                for (String line; (line = br.readLine()) != null; ) {
+                    if (line.contains(resource_name)) {
+                        String[] split = line.substring(line.lastIndexOf("\">") + 2).split("<");
+                        hex = split[0];
+                    }
                 }
+            } catch (IOException ioe) {
+                Log.e(SUBSTRATUM_LOG, "Unable to find " + resource_name + " in this overlay!");
             }
-        } catch (IOException ioe) {
-            Log.e(SUBSTRATUM_LOG,
-                    "Unable to find " + resource_name + " in this overlay!");
         }
         return hex;
     }

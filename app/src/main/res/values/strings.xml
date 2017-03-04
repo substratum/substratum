@@ -876,6 +876,5 @@
     <string name="restore_fonts_summary">This function removes the previously applied fonts set and restores it to the stock fonts set\n</string>
     <string name="restore_fonts_button">Restore fonts</string>
 
-
-
+    <string name="masquerade_not_authorized_toast">You shall not pass&#8230;</string>
 </resources>

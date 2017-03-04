@@ -4,9 +4,11 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
@@ -63,6 +65,7 @@ import projekt.substratum.config.References;
 import projekt.substratum.config.ThemeManager;
 import projekt.substratum.fragments.ThemeFragment;
 import projekt.substratum.services.FloatUiTile;
+import projekt.substratum.services.MasqueradeAuthorizationReceiver;
 import projekt.substratum.services.SubstratumFloatInterface;
 import projekt.substratum.services.ThemeService;
 import projekt.substratum.util.Root;
@@ -91,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements
     private ProgressDialog mProgressDialog;
     private SharedPreferences prefs;
     private boolean hideBundle, hideRestartUi;
+    private BroadcastReceiver authorizationReceiver;
 
     public static void switchToCustomToolbar(String title, String content) {
         if (supportActionBar != null) supportActionBar.setTitle("");
@@ -166,6 +170,10 @@ public class MainActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
+
+        authorizationReceiver = new MasqueradeAuthorizationReceiver();
+        IntentFilter filter = new IntentFilter("masquerade.substratum.CALLER_AUTHORIZED");
+        getApplicationContext().registerReceiver(authorizationReceiver, filter);
 
         prefs = PreferenceManager.getDefaultSharedPreferences(
                 getApplicationContext());
@@ -523,6 +531,16 @@ public class MainActivity extends AppCompatActivity implements
             mProgressDialog = new ProgressDialog(this, R.style.SubstratumBuilder_BlurView);
             new RootRequester().execute("");
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        try {
+            getApplicationContext().unregisterReceiver(authorizationReceiver);
+        } catch (IllegalArgumentException e) {
+            // Already unregistered
+        }
+        super.onDestroy();
     }
 
     @Override

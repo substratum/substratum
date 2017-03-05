@@ -52,18 +52,16 @@ public class ScheduledProfileService extends IntentService {
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
+    public void onHandleIntent(Intent intent) {
         mContext = this;
+        handleCommand(intent);
+    }
+
+    private void handleCommand(Intent intent) {
         prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
         mNotifyManager = (NotificationManager) mContext.getSystemService(
                 Context.NOTIFICATION_SERVICE);
         mBuilder = new NotificationCompat.Builder(mContext);
-
-        return super.onStartCommand(intent, flags, startId);
-    }
-
-    @Override
-    public void onHandleIntent(Intent intent) {
         extra = intent.getStringExtra(SCHEDULED_PROFILE_TYPE_EXTRA);
 
         if (extra != null && !extra.isEmpty()) {

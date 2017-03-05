@@ -137,7 +137,7 @@ public class StudioSelectorActivity extends AppCompatActivity {
         CardView update_configuration = (CardView) findViewById(R.id.studio_update);
         update_configuration.setOnClickListener((view) -> {
             if (References.isPackageInstalled(getApplicationContext(),
-                    "projekt.themeinterface")) {
+                    References.INTERFACER_PACKAGE)) {
                 if (DEBUG)
                     Log.e(References.SUBSTRATUM_ICON_BUILDER,
                             "Initializing the Theme Interface...");
@@ -179,7 +179,7 @@ public class StudioSelectorActivity extends AppCompatActivity {
                         }
                     }
                     if (References.isPackageInstalled(getApplicationContext(),
-                            "projekt.themeinterface")) {
+                            References.INTERFACER_PACKAGE)) {
                         if (DEBUG)
                             Log.e(References.SUBSTRATUM_ICON_BUILDER,
                                     "Initializing the Theme Inteface...");

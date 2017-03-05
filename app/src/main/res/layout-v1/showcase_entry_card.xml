@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:paddingBottom="4dp"
-    android:paddingTop="4dp">
+              xmlns:card_view="http://schemas.android.com/apk/res-auto"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:paddingBottom="4dp"
+              android:paddingTop="4dp">
 
     <android.support.v7.widget.CardView
         android:id="@+id/theme_card"
@@ -21,9 +21,9 @@
         card_view:cardElevation="1dp">
 
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/background_image"
@@ -72,7 +72,7 @@
                     android:layout_marginTop="15dp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/theme_author"
@@ -82,7 +82,7 @@
                     android:layout_below="@+id/theme_name"
                     android:layout_marginEnd="15dp"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"/>
             </RelativeLayout>
 
             <RelativeLayout

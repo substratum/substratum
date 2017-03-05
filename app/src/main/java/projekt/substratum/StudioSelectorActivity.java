@@ -25,8 +25,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import projekt.substratum.adapters.PackAdapter;
-import projekt.substratum.config.ThemeInterfacerService;
 import projekt.substratum.config.References;
+import projekt.substratum.config.ThemeInterfacerService;
 import projekt.substratum.config.ThemeManager;
 import projekt.substratum.model.PackInfo;
 
@@ -184,7 +184,8 @@ public class StudioSelectorActivity extends AppCompatActivity {
                             Log.e(References.SUBSTRATUM_ICON_BUILDER,
                                     "Initializing the Theme Inteface...");
 
-                        Intent runCommand = ThemeInterfacerService.getInterfacer(getApplicationContext
+                        Intent runCommand = ThemeInterfacerService.getInterfacer
+                                (getApplicationContext
                                 ());
                         runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                         runCommand.setAction("projekt.themeinterface.COMMANDS");

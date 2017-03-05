@@ -15,18 +15,17 @@
 -->
 
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="24.000000dp"
-    android:height="24.000000dp"
-    android:viewportWidth="512.000000"
-    android:viewportHeight="512.000000">
+        android:width="24.000000dp"
+        android:height="24.000000dp"
+        android:viewportHeight="512.000000"
+        android:viewportWidth="512.000000">
 
     <group
-        android:translateY="512.000000"
         android:scaleX="0.100000"
-        android:scaleY="-0.100000">
+        android:scaleY="-0.100000"
+        android:translateY="512.000000">
         <path
             android:fillColor="#FFFFFF"
-            android:strokeWidth="1"
             android:pathData="M436 4979 c-62 -15 -153 -68 -197 -116 -22 -24 -55 -74 -72 -111 l-32 -67 0 -2121
 0 -2120 37 -76 c45 -91 103 -147 196 -191 l67 -32 2051 0 2050 0 76 37 c91 45 147
 103 191 196 l32 67 0 2120 0 2120 -32 67 c-44 93 -100 151 -191 196 l-76 37 -2030
@@ -46,18 +45,19 @@ c-100 791 -447 1500 -1005 2058 -562 562 -1285 914 -2070 1005 -69 8 -128 15 -132
 369 5 369 2 0 73 -20 157 -45z m-42 -1001 c211 -66 416 -162 570 -268 135 -94 295
 -247 368 -354 59 -86 182 -299 182 -315 0 -4 -256 -6 -569 -5 -557 3 -570 3 -597
 24 -15 11 -37 33 -48 48 -20 27 -21 41 -24 467 -2 419 -2 440 15 435 10 -3 56 -17
-103 -32z" />
+103 -32z"
+            android:strokeWidth="1"/>
         <path
             android:fillColor="#FFFFFF"
-            android:strokeWidth="1"
             android:pathData="M3720 4115 l-435 -435 128 -127 127 -128 435 435 c404 404 435 438 435 470 0 29
--12 46 -93 127 -81 81 -98 93 -127 93 -32 0 -66 -31 -470 -435z" />
+-12 46 -93 127 -81 81 -98 93 -127 93 -32 0 -66 -31 -470 -435z"
+            android:strokeWidth="1"/>
         <path
             android:fillColor="#FFFFFF"
-            android:strokeWidth="1"
             android:pathData="M3035 3511 c-76 -19 -152 -78 -186 -144 -11 -21 -26 -77 -34 -124 -10 -62 -21 -94
 -41 -120 -27 -35 -91 -72 -129 -73 -40 -2 98 -115 183 -151 68 -29 88 -33 172 -34
 89 0 100 2 163 34 76 38 142 104 176 175 66 142 50 257 -49 356 -76 77 -161 103
--255 81z" />
+-255 81z"
+            android:strokeWidth="1"/>
     </group>
 </vector>

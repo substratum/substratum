@@ -22,8 +22,8 @@ import java.util.zip.ZipInputStream;
 
 import projekt.substratum.R;
 
-import static projekt.substratum.config.References.checkThemeInterfacer;
 import static projekt.substratum.config.References.checkOMS;
+import static projekt.substratum.config.References.checkThemeInterfacer;
 import static projekt.substratum.config.References.getProp;
 
 public class SoundManager {

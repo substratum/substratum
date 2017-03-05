@@ -41,8 +41,8 @@ import java.util.List;
 import projekt.substratum.R;
 import projekt.substratum.config.ElevatedCommands;
 import projekt.substratum.config.FileOperations;
-import projekt.substratum.config.ThemeInterfacerService;
 import projekt.substratum.config.References;
+import projekt.substratum.config.ThemeInterfacerService;
 import projekt.substratum.config.ThemeManager;
 import projekt.substratum.config.WallpaperManager;
 import projekt.substratum.services.ScheduledProfileReceiver;
@@ -931,7 +931,8 @@ public class ProfileFragment extends Fragment {
                 ArrayList<String> toBeDisabled = new ArrayList<>(system);
                 boolean shouldRestartUi = ThemeManager.shouldRestartUI(getContext(), toBeDisabled)
                         || ThemeManager.shouldRestartUI(getContext(), to_be_run);
-                ThemeInterfacerService.applyProfile(getContext(), profile_name, toBeDisabled, to_be_run,
+                ThemeInterfacerService.applyProfile(getContext(), profile_name, toBeDisabled,
+                        to_be_run,
                         shouldRestartUi);
             } else {
                 // Restore the whole backed up profile back to /data/system/theme/

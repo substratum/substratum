@@ -119,7 +119,8 @@ public class SoundUtils {
         protected void onPostExecute(String result) {
             if (References.checkThemeInterfacer(mContext)) {
                 if (finishReceiver == null) finishReceiver = new FinishReceiver();
-                IntentFilter intentFilter = new IntentFilter(INTERFACER_PACKAGE + ".STATUS_CHANGED");
+                IntentFilter intentFilter = new IntentFilter(INTERFACER_PACKAGE + "" +
+                        ".STATUS_CHANGED");
                 mContext.registerReceiver(finishReceiver, intentFilter);
             } else {
                 finishFunction();

@@ -12,8 +12,8 @@ import java.util.Set;
 import projekt.substratum.util.Root;
 
 import static projekt.substratum.config.References.INTERFACER_PACKAGE;
-import static projekt.substratum.config.References.checkThemeInterfacer;
 import static projekt.substratum.config.References.checkOMS;
+import static projekt.substratum.config.References.checkThemeInterfacer;
 
 public class ThemeManager {
 
@@ -42,7 +42,8 @@ public class ThemeManager {
 
     public static void enableOverlay(Context context, ArrayList<String> overlays) {
         if (checkThemeInterfacer(context)) {
-            ThemeInterfacerService.enableOverlays(context, overlays, shouldRestartUI(context, overlays));
+            ThemeInterfacerService.enableOverlays(context, overlays, shouldRestartUI(context,
+                    overlays));
         } else {
             String commands = enableOverlay;
             for (int i = 0; i < overlays.size(); i++) {

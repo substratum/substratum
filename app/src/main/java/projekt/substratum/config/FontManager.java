@@ -15,8 +15,8 @@ import java.io.OutputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import static projekt.substratum.config.References.checkThemeInterfacer;
 import static projekt.substratum.config.References.checkOMS;
+import static projekt.substratum.config.References.checkThemeInterfacer;
 
 public class FontManager {
 

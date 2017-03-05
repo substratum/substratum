@@ -19,8 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import projekt.substratum.R;
-import projekt.substratum.config.ThemeInterfacerService;
 import projekt.substratum.config.References;
+import projekt.substratum.config.ThemeInterfacerService;
 import projekt.substratum.config.ThemeManager;
 
 import static projekt.substratum.config.References.DEBUG;
@@ -62,7 +62,8 @@ public class PackageModificationDetector extends BroadcastReceiver {
                         }
                         if (References.checkThemeInterfacer(context)) {
                             if (DEBUG)
-                                Log.e(References.SUBSTRATUM_LOG, "Initializing the Theme Interface...");
+                                Log.e(References.SUBSTRATUM_LOG, "Initializing the Theme " +
+                                        "Interface...");
                             Intent runCommand = ThemeInterfacerService.getInterfacer(context);
                             runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                             runCommand.setAction(INTERFACER_PACKAGE + ".COMMANDS");

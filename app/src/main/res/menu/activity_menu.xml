@@ -20,7 +20,7 @@
         android:menuCategory="secondary"
         android:orderInCategory="2"
         android:title="@string/menu_restart_systemui"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/per_app"
         android:icon="@drawable/toolbar_per_app"

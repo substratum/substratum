@@ -80,6 +80,7 @@ import projekt.substratum.util.FloatingActionMenu;
 import projekt.substratum.util.SubstratumBuilder;
 
 import static android.content.Context.CLIPBOARD_SERVICE;
+import static projekt.substratum.config.References.INTERFACER_PACKAGE;
 import static projekt.substratum.config.References.REFRESH_WINDOW_DELAY;
 import static projekt.substratum.config.References.SUBSTRATUM_LOG;
 import static projekt.substratum.util.MapUtils.sortMapByValues;
@@ -1592,8 +1593,7 @@ public class Overlays extends Fragment {
 
             // Enable listener
             if (finishReceiver == null) finishReceiver = new FinishReceiver();
-            IntentFilter intentFilter = new IntentFilter(
-                    "masquerade.substratum.STATUS_CHANGED");
+            IntentFilter intentFilter = new IntentFilter(INTERFACER_PACKAGE + ".STATUS_CHANGED");
             mContext.registerReceiver(finishReceiver, intentFilter);
 
             total_amount = checkedOverlays.size();
@@ -1813,7 +1813,7 @@ public class Overlays extends Fragment {
                             } else {
                                 if (sb.special_snowflake) {
                                     final_runner.add(sb.no_install);
-                                } else if (References.checkThemeInterface(mContext)) {
+                                } else if (References.checkThemeInterfacer(mContext)) {
                                     // Thread wait
                                     isWaiting = true;
                                     do {
@@ -1851,7 +1851,7 @@ public class Overlays extends Fragment {
                             } else {
                                 if (sb.special_snowflake) {
                                     final_runner.add(sb.no_install);
-                                } else if (References.checkThemeInterface(mContext)) {
+                                } else if (References.checkThemeInterfacer(mContext)) {
                                     // Thread wait
                                     isWaiting = true;
                                     do {

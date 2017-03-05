@@ -57,7 +57,7 @@ public class FontUtils {
 
             if (result == null) {
                 // Finally, refresh the window
-                if (!References.checkThemeInterface(mContext) &&
+                if (!References.checkThemeInterfacer(mContext) &&
                         References.checkOMS(mContext)) {
                     ThemeManager.restartSystemUI(mContext);
                 } else if (!References.checkOMS(mContext)) {

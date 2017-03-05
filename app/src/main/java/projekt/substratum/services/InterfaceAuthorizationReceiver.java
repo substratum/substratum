@@ -13,7 +13,7 @@ public class InterfaceAuthorizationReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         if (!intent.getBooleanExtra("isCallerAuthorized", false)) {
             Toast toast = Toast.makeText(context,
-                    context.getString(R.string.masquerade_not_authorized_toast), Toast.LENGTH_LONG);
+                    context.getString(R.string.interfacer_not_authorized_toast), Toast.LENGTH_LONG);
             toast.show();
         }
     }

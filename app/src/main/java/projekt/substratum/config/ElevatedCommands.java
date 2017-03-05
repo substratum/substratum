@@ -4,7 +4,7 @@ import android.os.AsyncTask;
 
 import projekt.substratum.util.Root;
 
-import static projekt.substratum.config.References.INTERFACE_PACKAGE;
+import static projekt.substratum.config.References.INTERFACER_PACKAGE;
 
 public class ElevatedCommands {
 
@@ -18,9 +18,9 @@ public class ElevatedCommands {
         Root.runCommand("reboot");
     }
 
-    // Kill the masquerade package to force it to restart
-    public static void restartMasquerade() {
-        Root.runCommand("pkill -f " + INTERFACE_PACKAGE);
+    // Kill the Theme Interface package to force it to restart
+    public static void restartInterfacer() {
+        Root.runCommand("pkill -f " + INTERFACER_PACKAGE);
     }
 
     // Kill zygote to force a soft rboot

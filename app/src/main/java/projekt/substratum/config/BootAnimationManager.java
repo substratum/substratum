@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
 
-import static projekt.substratum.config.References.checkThemeInterface;
+import static projekt.substratum.config.References.checkThemeInterfacer;
 import static projekt.substratum.config.References.getDeviceEncryptionStatus;
 
 public class BootAnimationManager {
@@ -13,11 +13,11 @@ public class BootAnimationManager {
         String location = Environment.getExternalStorageDirectory().getAbsolutePath() +
                 "/.substratum/bootanimation.zip";
         // Check to see if device is decrypted with theme interface
-        if (getDeviceEncryptionStatus(context) <= 1 && checkThemeInterface(context)) {
+        if (getDeviceEncryptionStatus(context) <= 1 && checkThemeInterfacer(context)) {
             Log.d("BootAnimationUtils",
                     "No-root option has been enabled with the inclusion of " +
                             "theme interface...");
-            ThemeInterfaceService.setBootAnimation(context, location);
+            ThemeInterfacerService.setBootAnimation(context, location);
             // Otherwise, fall back to rooted operations
         } else {
             // We will mount system, make our directory, copy the bootanimation
@@ -35,9 +35,9 @@ public class BootAnimationManager {
     }
 
     public static void clearBootAnimation(Context context) {
-        if (getDeviceEncryptionStatus(context) <= 1 && checkThemeInterface(context)) {
+        if (getDeviceEncryptionStatus(context) <= 1 && checkThemeInterfacer(context)) {
             // OMS with theme interface
-            ThemeInterfaceService.clearBootAnimation(context);
+            ThemeInterfacerService.clearBootAnimation(context);
         } else if (getDeviceEncryptionStatus(context) <= 1 && !References.checkOMS(context)) {
             // Legacy decrypted
             FileOperations.delete(context, "/data/system/theme/bootanimation.zip");

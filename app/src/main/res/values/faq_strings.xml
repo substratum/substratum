@@ -8,15 +8,15 @@
         priority switching.
     </string>
 
-    <string name="question_two">What is the Masquerade System?</string>
-    <string name="answer_two">The Masquerade System is the base of what allows Substratum to run
-        like a Theme Engine. The idea of a masquerade is to simulate the “server/client”
-        technicalities and Substratum communicates with the Masquerade handlers to signal commands
+    <string name="question_two">What is the Theme Interfacer?</string>
+    <string name="answer_two">The Theme Interfacer is the base of what allows Substratum to run
+        like a Theme Engine. The idea of an interface is to simulate the “server/client”
+        technicalities and Substratum communicates with the Interface handlers to signal commands
         directly on the system.
     </string>
 
     <string name="question_three">What do I need in order for Substratum to work properly?</string>
-    <string name="answer_three">You will need a ROM that has support for the OMS and Masquerade
+    <string name="answer_three">You will need a ROM that has support for the OMS and Theme Interface
         system (ask them, they will know), this app, and a compatible theme (check its
         Play Store description or ask the developer)
     </string>

@@ -7,11 +7,11 @@ import android.content.Intent;
 
 import java.util.ArrayList;
 
-import static projekt.substratum.config.References.INTERFACE_PACKAGE;
+import static projekt.substratum.config.References.INTERFACER_PACKAGE;
 
-public class ThemeInterfaceService {
+public class ThemeInterfacerService {
 
-    private static final String INTERFACE_TOKEN = "interface_token";
+    private static final String INTERFACER_TOKEN = "interfacer_token";
     private static final String PRIMARY_COMMAND_KEY = "primary_command_key";
     private static final String JOB_TIME_KEY = "job_time_key";
     private static final String INSTALL_LIST_KEY = "install_list";
@@ -46,36 +46,36 @@ public class ThemeInterfaceService {
     private static final String COMMAND_VALUE_PROFILE = "profile";
     private static final String COMMAND_VALUE_MKDIR = "mkdir";
 
-    private static Intent getThemeInterface(Context context) {
+    private static Intent getThemeInterfacer(Context context) {
         Intent intent = new Intent();
         intent.setComponent(
                 new ComponentName(
-                        INTERFACE_PACKAGE,
-                        INTERFACE_PACKAGE + ".services.JobService"));
+                        INTERFACER_PACKAGE,
+                        INTERFACER_PACKAGE + ".services.JobService"));
         PendingIntent pending = PendingIntent.getActivity(context, 0, new Intent(), 0);
-        intent.putExtra(INTERFACE_TOKEN, pending);
+        intent.putExtra(INTERFACER_TOKEN, pending);
         intent.putExtra(JOB_TIME_KEY, System.currentTimeMillis());
         return intent;
     }
 
     @Deprecated
-    public static Intent getMasquerade(Context context) {
+    public static Intent getInterfacer(Context context) {
         Intent intent = new Intent();
         PendingIntent pending = PendingIntent.getActivity(context, 0, new Intent(), 0);
-        intent.putExtra(INTERFACE_TOKEN, pending);
+        intent.putExtra(INTERFACER_TOKEN, pending);
         intent.putExtra(JOB_TIME_KEY, System.currentTimeMillis());
         return intent;
     }
 
     static void installOverlays(Context context, ArrayList<String> overlays) {
-        Intent intent = getThemeInterface(context);
+        Intent intent = getThemeInterfacer(context);
         intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_INSTALL);
         intent.putExtra(INSTALL_LIST_KEY, overlays);
         context.startService(intent);
     }
 
     static void uninstallOverlays(Context context, ArrayList<String> overlays, boolean restartUi) {
-        Intent intent = getThemeInterface(context);
+        Intent intent = getThemeInterfacer(context);
         intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_UNINSTALL);
         intent.putExtra(UNINSTALL_LIST_KEY, overlays);
         // only need to set if true, will restart SystemUI when done processing packages
@@ -84,7 +84,7 @@ public class ThemeInterfaceService {
     }
 
     static void enableOverlays(Context context, ArrayList<String> overlays, boolean restartUi) {
-        Intent intent = getThemeInterface(context);
+        Intent intent = getThemeInterfacer(context);
         intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_ENABLE);
         intent.putExtra(ENABLE_LIST_KEY, overlays);
         intent.putExtra(WITH_RESTART_UI_KEY, restartUi);
@@ -92,7 +92,7 @@ public class ThemeInterfaceService {
     }
 
     static void disableOverlays(Context context, ArrayList<String> overlays, boolean restartUi) {
-        Intent intent = getThemeInterface(context);
+        Intent intent = getThemeInterfacer(context);
         intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_DISABLE);
         intent.putExtra(DISABLE_LIST_KEY, overlays);
         intent.putExtra(WITH_RESTART_UI_KEY, restartUi);
@@ -100,38 +100,38 @@ public class ThemeInterfaceService {
     }
 
     public static void restartSystemUI(Context context) {
-        Intent intent = getThemeInterface(context);
+        Intent intent = getThemeInterfacer(context);
         intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_RESTART_UI);
         context.startService(intent);
     }
 
     public static void restartService(Context context) {
-        Intent intent = getThemeInterface(context);
+        Intent intent = getThemeInterfacer(context);
         intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_RESTART_SERVICE);
         context.startService(intent);
     }
 
     public static void configurationChangeShim(Context context) {
-        Intent intent = getThemeInterface(context);
+        Intent intent = getThemeInterfacer(context);
         intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_CONFIGURATION_SHIM);
         context.startService(intent);
     }
 
     static void setBootAnimation(Context context, String bootanimation_location) {
-        Intent intent = getThemeInterface(context);
+        Intent intent = getThemeInterfacer(context);
         intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_BOOTANIMATION);
         intent.putExtra(BOOTANIMATION_FILE_NAME, bootanimation_location);
         context.startService(intent);
     }
 
     static void clearBootAnimation(Context context) {
-        Intent intent = getThemeInterface(context);
+        Intent intent = getThemeInterfacer(context);
         intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_BOOTANIMATION);
         context.startService((intent));
     }
 
     static void setFonts(Context context, String pid, String name) {
-        Intent intent = getThemeInterface(context);
+        Intent intent = getThemeInterfacer(context);
         intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_FONTS);
         intent.putExtra(FONTS_FILENAME, name);
         intent.putExtra(FONTS_PID, pid);
@@ -139,13 +139,13 @@ public class ThemeInterfaceService {
     }
 
     static void clearFonts(Context context) {
-        Intent intent = getThemeInterface(context);
+        Intent intent = getThemeInterfacer(context);
         intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_FONTS);
         context.startService(intent);
     }
 
     static void setThemedSounds(Context context, String pid, String name) {
-        Intent intent = getThemeInterface(context);
+        Intent intent = getThemeInterfacer(context);
         intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_AUDIO);
         intent.putExtra(AUDIO_PID, pid);
         intent.putExtra(AUDIO_FILENAME, name);
@@ -153,20 +153,20 @@ public class ThemeInterfaceService {
     }
 
     static void clearThemedSounds(Context context) {
-        Intent intent = getThemeInterface(context);
+        Intent intent = getThemeInterfacer(context);
         intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_AUDIO);
         context.startService(intent);
     }
 
     static void setPriority(Context context, ArrayList<String> overlays) {
-        Intent intent = getThemeInterface(context);
+        Intent intent = getThemeInterfacer(context);
         intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_PRIORITY);
         intent.putExtra(PRIORITY_LIST_KEY, overlays);
         context.startService(intent);
     }
 
     public static void copy(Context context, String source, String destination) {
-        Intent intent = getThemeInterface(context);
+        Intent intent = getThemeInterfacer(context);
         intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_COPY);
         intent.putExtra(SOURCE_FILE_KEY, source);
         intent.putExtra(DESTINATION_FILE_KEY, destination);
@@ -174,7 +174,7 @@ public class ThemeInterfaceService {
     }
 
     public static void move(Context context, String source, String destination) {
-        Intent intent = getThemeInterface(context);
+        Intent intent = getThemeInterfacer(context);
         intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_MOVE);
         intent.putExtra(SOURCE_FILE_KEY, source);
         intent.putExtra(DESTINATION_FILE_KEY, destination);
@@ -182,7 +182,7 @@ public class ThemeInterfaceService {
     }
 
     public static void delete(Context context, String directory, boolean deleteParent) {
-        Intent intent = getThemeInterface(context);
+        Intent intent = getThemeInterfacer(context);
         intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_DELETE);
         intent.putExtra(SOURCE_FILE_KEY, directory);
         intent.putExtra(WITH_DELETE_PARENT_KEY, deleteParent);
@@ -191,7 +191,7 @@ public class ThemeInterfaceService {
 
     public static void applyProfile(Context context, String name, ArrayList<String> toBeDisabled,
                                     ArrayList<String> toBeEnabled, boolean restartUi) {
-        Intent intent = getThemeInterface(context);
+        Intent intent = getThemeInterfacer(context);
         intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_PROFILE);
         intent.putExtra(PROFILE_NAME_KEY, name);
         intent.putExtra(DISABLE_LIST_KEY, toBeDisabled);
@@ -201,7 +201,7 @@ public class ThemeInterfaceService {
     }
 
     public static void createNewFolder(Context context, String destination) {
-        Intent intent = getThemeInterface(context);
+        Intent intent = getThemeInterfacer(context);
         intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_MKDIR);
         intent.putExtra(DESTINATION_FILE_KEY, destination);
         context.startService(intent);

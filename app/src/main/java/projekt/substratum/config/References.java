@@ -70,7 +70,7 @@ public class References {
     public static final String SUBSTRATUM_BUILDER = "SubstratumBuilder";
     public static final String SUBSTRATUM_LOG = "SubstratumLogger";
     public static final String SUBSTRATUM_ICON_BUILDER = "SubstratumIconBuilder";
-    public static final String INTERFACE_PACKAGE = "theme.interfacer";
+    public static final String INTERFACER_PACKAGE = "projekt.interfacer";
     // Delays for Icon Pack Handling
     public static final int MAIN_WINDOW_REFRESH_DELAY = 2000;
     public static final int FIRST_WINDOW_REFRESH_DELAY = 1000;
@@ -286,7 +286,7 @@ public class References {
             Process p = Runtime.getRuntime().exec("cmd overlay");
             BufferedReader reader = new BufferedReader(
                     new InputStreamReader(p.getInputStream()));
-            if (checkThemeInterface(context) ||
+            if (checkThemeInterfacer(context) ||
                     reader.readLine().equals(
                             "The overlay manager has already been initialized.")) {
                 prefs.edit().putBoolean("oms_state", true).apply();
@@ -1054,9 +1054,9 @@ public class References {
     }
 
     // Begin check if device is running on the latest theme interface
-    public static boolean checkThemeInterface(Context context) {
+    public static boolean checkThemeInterfacer(Context context) {
         try {
-            context.getPackageManager().getPackageInfo(INTERFACE_PACKAGE, 0);
+            context.getPackageManager().getPackageInfo(INTERFACER_PACKAGE, 0);
             return true;
         } catch (Exception e) {
             // Suppress warning
@@ -1090,10 +1090,10 @@ public class References {
     }
 
     public static void uninstallPackage(Context context, String packageName) {
-        if (checkThemeInterface(context)) {
+        if (checkThemeInterfacer(context)) {
             ArrayList<String> list = new ArrayList<>();
             list.add(packageName);
-            ThemeInterfaceService.uninstallOverlays(context, list, false);
+            ThemeInterfacerService.uninstallOverlays(context, list, false);
         } else {
             new ElevatedCommands.ThreadRunner().execute("pm uninstall " + packageName);
         }

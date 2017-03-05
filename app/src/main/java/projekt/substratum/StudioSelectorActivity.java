@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import projekt.substratum.adapters.PackAdapter;
-import projekt.substratum.config.ThemeInterfaceService;
+import projekt.substratum.config.ThemeInterfacerService;
 import projekt.substratum.config.References;
 import projekt.substratum.config.ThemeManager;
 import projekt.substratum.model.PackInfo;
@@ -137,13 +137,13 @@ public class StudioSelectorActivity extends AppCompatActivity {
         CardView update_configuration = (CardView) findViewById(R.id.studio_update);
         update_configuration.setOnClickListener((view) -> {
             if (References.isPackageInstalled(getApplicationContext(),
-                    "masquerade.substratum")) {
+                    "projekt.themeinterface")) {
                 if (DEBUG)
                     Log.e(References.SUBSTRATUM_ICON_BUILDER,
-                            "Initializing the Masquerade theme provider...");
-                Intent runCommand = ThemeInterfaceService.getMasquerade(getApplicationContext());
+                            "Initializing the Theme Interface...");
+                Intent runCommand = ThemeInterfacerService.getInterfacer(getApplicationContext());
                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                runCommand.setAction("masquerade.substratum.COMMANDS");
+                runCommand.setAction("projekt.themeinterface.COMMANDS");
                 ArrayList<String> final_array = new ArrayList<>();
                 final_array.add(0, null);
                 final_array.add(1, null);
@@ -179,16 +179,15 @@ public class StudioSelectorActivity extends AppCompatActivity {
                         }
                     }
                     if (References.isPackageInstalled(getApplicationContext(),
-                            "masquerade.substratum")) {
+                            "projekt.themeinterface")) {
                         if (DEBUG)
                             Log.e(References.SUBSTRATUM_ICON_BUILDER,
-                                    "Initializing the Masquerade theme " +
-                                            "provider...");
+                                    "Initializing the Theme Inteface...");
 
-                        Intent runCommand = ThemeInterfaceService.getMasquerade(getApplicationContext
+                        Intent runCommand = ThemeInterfacerService.getInterfacer(getApplicationContext
                                 ());
                         runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                        runCommand.setAction("masquerade.substratum.COMMANDS");
+                        runCommand.setAction("projekt.themeinterface.COMMANDS");
                         ArrayList<String> final_array = new ArrayList<>();
                         final_array.add(0, getString(R.string.studio_system)
                                 .toLowerCase());

@@ -15,16 +15,16 @@ import java.io.OutputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import static projekt.substratum.config.References.checkThemeInterface;
+import static projekt.substratum.config.References.checkThemeInterfacer;
 import static projekt.substratum.config.References.checkOMS;
 
 public class FontManager {
 
     public static void setFonts(Context context, String theme_pid, String name) {
-        if (checkOMS(context) && checkThemeInterface(context)) {
-            ThemeInterfaceService.setFonts(context, theme_pid, name);
+        if (checkOMS(context) && checkThemeInterfacer(context)) {
+            ThemeInterfacerService.setFonts(context, theme_pid, name);
         } else {
-            // oms no theme interface or legacy
+            // oms no theme interfacer or legacy
             try {
                 // Move the file from assets folder to a new working area
                 Log.d("FontUtils", "Copying over the selected fonts to working " +
@@ -103,20 +103,20 @@ public class FontManager {
                 // Copy all the system fonts to /data/system/theme/fonts
                 File dataSystemThemeDir = new File("/data/system/theme");
                 if (!dataSystemThemeDir.exists()) {
-                    if (!checkThemeInterface(context)) {
+                    if (!checkThemeInterfacer(context)) {
                         FileOperations.mountRWData();
                     }
                     FileOperations.createNewFolder(context, "/data/system/theme/");
                 }
                 File dataSystemThemeFontsDir = new File("/data/system/theme/fonts");
                 if (!dataSystemThemeFontsDir.exists()) {
-                    if (!checkThemeInterface(context)) {
+                    if (!checkThemeInterfacer(context)) {
                         FileOperations.mountRWData();
                     }
                     FileOperations.createNewFolder(context, "/data/system/theme/fonts");
                 } else {
                     FileOperations.delete(context, "/data/system/theme/fonts/");
-                    if (!checkThemeInterface(context)) {
+                    if (!checkThemeInterfacer(context)) {
                         FileOperations.mountRWData();
                     }
                     FileOperations.createNewFolder(context, "/data/system/theme/fonts");
@@ -163,10 +163,10 @@ public class FontManager {
     }
 
     public static void clearFonts(Context context) {
-        if (checkOMS(context) && checkThemeInterface(context)) {
-            ThemeInterfaceService.clearFonts(context);
+        if (checkOMS(context) && checkThemeInterfacer(context)) {
+            ThemeInterfacerService.clearFonts(context);
         } else {
-            // oms with no theme interface and legacy
+            // oms with no theme interfacer and legacy
             FileOperations.delete(context, "/data/system/theme/fonts/");
             if (!checkOMS(context)) ThemeManager.restartSystemUI(context);
         }

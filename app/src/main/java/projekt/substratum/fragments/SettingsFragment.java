@@ -33,6 +33,8 @@ import projekt.substratum.config.References;
 import projekt.substratum.util.AOPTCheck;
 import projekt.substratum.util.SheetDialog;
 
+import static projekt.substratum.config.References.INTERFACER_PACKAGE;
+
 public class SettingsFragment extends PreferenceFragmentCompat {
 
     private ProgressDialog mProgressDialog;
@@ -106,7 +108,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         Preference systemStatus = getPreferenceManager().findPreference
                 ("system_status");
         systemStatus.setSummary(
-                (References.checkThemeInterface(getContext()) ?
+                (References.checkThemeInterfacer(getContext()) ?
                         getString(R.string.settings_system_status_rootless) :
                         getString(R.string.settings_system_status_rooted)) + " (" +
                         (References.spreadYourWingsAndFly(
@@ -189,13 +191,13 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 });
 
         if (References.checkOMS(getContext())) {
-            Preference aboutMasquerade = getPreferenceManager().findPreference
-                    ("about_masquerade");
-            aboutMasquerade.setIcon(getContext().getDrawable(R.mipmap.restore_launcher));
-            aboutMasquerade.setOnPreferenceClickListener(
+            Preference aboutInterfacer = getPreferenceManager().findPreference
+                    ("about_interfacer");
+            aboutInterfacer.setIcon(getContext().getDrawable(R.mipmap.restore_launcher));
+            aboutInterfacer.setOnPreferenceClickListener(
                     preference -> {
                         try {
-                            String sourceURL = getString(R.string.masquerade_github);
+                            String sourceURL = getString(R.string.interfacer_github);
                             Intent i = new Intent(Intent.ACTION_VIEW);
                             i.setData(Uri.parse(sourceURL));
                             startActivity(i);
@@ -206,13 +208,13 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     });
             try {
                 PackageInfo pinfo;
-                pinfo = getContext().getPackageManager().getPackageInfo("masquerade.substratum", 0);
+                pinfo = getContext().getPackageManager().getPackageInfo(INTERFACER_PACKAGE, 0);
                 String versionName = pinfo.versionName;
                 int versionCode = pinfo.versionCode;
-                aboutMasquerade.setSummary(
+                aboutInterfacer.setSummary(
                         versionName + " (" + versionCode + ")");
             } catch (Exception e) {
-                // Masquerade was not installed
+                // Theme Interfacer was not installed
             }
 
             final CheckBoxPreference hide_app_checkbox = (CheckBoxPreference)

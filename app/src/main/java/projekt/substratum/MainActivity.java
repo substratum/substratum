@@ -72,7 +72,7 @@ import projekt.substratum.util.Root;
 import projekt.substratum.util.SheetDialog;
 
 import static projekt.substratum.config.References.ENABLE_ROOT_CHECK;
-import static projekt.substratum.config.References.INTERFACE_PACKAGE;
+import static projekt.substratum.config.References.INTERFACER_PACKAGE;
 import static projekt.substratum.config.References.SUBSTRATUM_LOG;
 import static projekt.substratum.config.References.checkUsagePermissions;
 
@@ -179,7 +179,7 @@ public class MainActivity extends AppCompatActivity implements
         }
 
         authorizationReceiver = new InterfaceAuthorizationReceiver();
-        IntentFilter filter = new IntentFilter(INTERFACE_PACKAGE + ".CALLER_AUTHORIZED");
+        IntentFilter filter = new IntentFilter(INTERFACER_PACKAGE + ".CALLER_AUTHORIZED");
         getApplicationContext().registerReceiver(authorizationReceiver, filter);
 
         prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -290,7 +290,7 @@ public class MainActivity extends AppCompatActivity implements
                         .withName(R.string.nav_manage)
                         .withIcon(R.drawable.nav_manage)
                         .withIdentifier(8));
-        if (References.checkThemeInterface(getApplicationContext()) &&
+        if (References.checkThemeInterfacer(getApplicationContext()) &&
                 BuildConfig.VERSION_NAME.contains("-")) drawerBuilder.addDrawerItems(
                 new PrimaryDrawerItem()
                         .withName(R.string.nav_studio)
@@ -864,7 +864,7 @@ public class MainActivity extends AppCompatActivity implements
         @Override
         protected void onPostExecute(Boolean result) {
             if (!result && ENABLE_ROOT_CHECK &&
-                    !References.checkThemeInterface(getApplicationContext())) {
+                    !References.checkThemeInterfacer(getApplicationContext())) {
                 mProgressDialog.setCancelable(false);
                 mProgressDialog.show();
                 mProgressDialog.setContentView(R.layout.root_rejected_loader);
@@ -913,7 +913,7 @@ public class MainActivity extends AppCompatActivity implements
 
         @Override
         protected Boolean doInBackground(String... sUrl) {
-            if (!References.checkThemeInterface(getApplicationContext())) {
+            if (!References.checkThemeInterfacer(getApplicationContext())) {
                 Boolean receivedRoot = Root.requestRootAccess();
                 if (receivedRoot) Log.d(SUBSTRATUM_LOG, "Substratum has loaded in rooted mode.");
                 References.injectRescueArchives(getApplicationContext());

@@ -19,12 +19,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import projekt.substratum.R;
-import projekt.substratum.config.ThemeInterfaceService;
+import projekt.substratum.config.ThemeInterfacerService;
 import projekt.substratum.config.References;
 import projekt.substratum.config.ThemeManager;
 
 import static projekt.substratum.config.References.DEBUG;
 import static projekt.substratum.config.References.FIRST_WINDOW_REFRESH_DELAY;
+import static projekt.substratum.config.References.INTERFACER_PACKAGE;
 import static projekt.substratum.config.References.MAIN_WINDOW_REFRESH_DELAY;
 import static projekt.substratum.config.References.SECOND_WINDOW_REFRESH_DELAY;
 
@@ -59,13 +60,12 @@ public class PackageModificationDetector extends BroadcastReceiver {
                         for (int i = 0; i < to_be_disabled.size(); i++) {
                             final_commands = final_commands + " " + to_be_disabled.get(i);
                         }
-                        if (References.isPackageInstalled(context, "masquerade.substratum")) {
+                        if (References.checkThemeInterfacer(context)) {
                             if (DEBUG)
-                                Log.e(References.SUBSTRATUM_LOG, "Initializing the Masquerade " +
-                                        "theme provider...");
-                            Intent runCommand = ThemeInterfaceService.getMasquerade(context);
+                                Log.e(References.SUBSTRATUM_LOG, "Initializing the Theme Interface...");
+                            Intent runCommand = ThemeInterfacerService.getInterfacer(context);
                             runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                            runCommand.setAction("masquerade.substratum.COMMANDS");
+                            runCommand.setAction(INTERFACER_PACKAGE + ".COMMANDS");
                             ArrayList<String> final_array = new ArrayList<>();
                             final_array.add(0, context.getString(R.string.studio_system)
                                     .toLowerCase());

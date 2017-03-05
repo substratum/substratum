@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name" translatable="false">substratum</string>
-    <string name="masquerade" translatable="false">masquerade</string>
+    <string name="interfacer_name" translatable="false">interfacer</string>
     <string name="legacy_app_name" translatable="false">substratum legacy</string>
     <string name="showcase">community showcase</string>
     <string name="helper_name">substratum overlay helper</string>
@@ -16,7 +16,7 @@
     <string name="search_play_store_url_legacy" translatable="false">https://play.google.com/store/search?q=Substratum%20Legacy%20Theme&amp;c=apps</string>
     <string name="tbo_theme_ready_url" translatable="false">http://forum.xda-developers.com/android/apps-games/apps-themeable-hangouts-layers-cmte-t3113192</string>
     <string name="substratum_github" translatable="false">https://github.com/substratum/substratum</string>
-    <string name="masquerade_github" translatable="false">https://github.com/substratum/masquerade</string>
+    <string name="interfacer_github" translatable="false">https://github.com/substratum/masquerade</string>
     <string name="showcase_tabs" translatable="false">https://raw.githubusercontent.com/substratum/substratum/dev/showcase.xml</string>
     <string name="crowdin_url" translatable="false">"http://translate.projektsubstratum.com/"</string>
 
@@ -216,8 +216,8 @@
     <string name="sounds_unlock_sound">Screen Unlock Sounds</string>
 
     <string name="settings_about_substratum">substratum version</string>
-    <string name="settings_about_masquerade">masquerade version</string>
-    <string name="settings_about_masquerade_not_installed">masquerade not installed</string>
+    <string name="settings_about_interfacer">interfacer version</string>
+    <string name="settings_about_interfacer_not_installed">interfacer not installed</string>
     <string name="settings_about_oms_rro_version">theming platform</string>
     <string name="settings_about_oms_version_3">overlay manager service - iteration 3 (oms3)
     </string>
@@ -876,5 +876,5 @@
     <string name="restore_fonts_summary">This function removes the previously applied fonts set and restores it to the stock fonts set\n</string>
     <string name="restore_fonts_button">Restore fonts</string>
 
-    <string name="masquerade_not_authorized_toast">You shall not pass&#8230;</string>
+    <string name="interfacer_not_authorized_toast">You shall not pass&#8230;</string>
 </resources>

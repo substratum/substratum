@@ -21,6 +21,8 @@ import projekt.substratum.config.References;
 import projekt.substratum.config.SoundManager;
 import projekt.substratum.config.ThemeManager;
 
+import static projekt.substratum.config.References.INTERFACER_PACKAGE;
+
 public class SoundUtils {
 
     public static FinishReceiver finishReceiver;
@@ -58,14 +60,14 @@ public class SoundUtils {
                     .show();
         }
 
-        if (!References.checkThemeInterface(mContext)) {
+        if (!References.checkThemeInterfacer(mContext)) {
             FileOperations.mountROData();
             FileOperations.mountRO();
         }
 
         if (ringtone) {
             ringtone = false;
-            if (!References.checkThemeInterface(mContext) &&
+            if (!References.checkThemeInterfacer(mContext) &&
                     !Settings.System.canWrite(mContext)) {
                 new AlertDialog.Builder(mContext)
                         .setTitle(mContext.getString(R.string.sounds_dialog_permissions_title))
@@ -104,7 +106,7 @@ public class SoundUtils {
         @Override
         protected void onPreExecute() {
             // With masq 22+ dialog is started from receiver
-            if (!References.checkThemeInterface(mContext)) {
+            if (!References.checkThemeInterfacer(mContext)) {
                 progress = new ProgressDialog(mContext, R.style.AppTheme_DialogAlert);
                 progress.setMessage(mContext.getString(R.string.sounds_dialog_apply_text));
                 progress.setIndeterminate(false);
@@ -115,10 +117,9 @@ public class SoundUtils {
 
         @Override
         protected void onPostExecute(String result) {
-            if (References.checkThemeInterface(mContext)) {
+            if (References.checkThemeInterfacer(mContext)) {
                 if (finishReceiver == null) finishReceiver = new FinishReceiver();
-                IntentFilter intentFilter = new IntentFilter("masquerade.substratum" +
-                        ".STATUS_CHANGED");
+                IntentFilter intentFilter = new IntentFilter(INTERFACER_PACKAGE + ".STATUS_CHANGED");
                 mContext.registerReceiver(finishReceiver, intentFilter);
             } else {
                 finishFunction();

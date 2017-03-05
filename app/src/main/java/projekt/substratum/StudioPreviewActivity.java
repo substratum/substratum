@@ -53,7 +53,7 @@ import eightbitlab.com.blurview.RenderScriptBlur;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.adapters.IconPackAdapter;
 import projekt.substratum.config.ElevatedCommands;
-import projekt.substratum.config.ThemeInterfaceService;
+import projekt.substratum.config.ThemeInterfacerService;
 import projekt.substratum.config.References;
 import projekt.substratum.config.ThemeManager;
 import projekt.substratum.model.IconInfo;
@@ -463,15 +463,15 @@ public class StudioPreviewActivity extends AppCompatActivity {
                             prefs.edit().putString("installed_icon_pack", current_pack).apply();
 
                             if (References.isPackageInstalled(getApplicationContext(),
-                                    "masquerade.substratum")) {
-                                ElevatedCommands.restartMasquerade();
+                                    "projekt.themeinterface")) {
+                                ElevatedCommands.restartInterfacer();
                                 if (DEBUG)
                                     Log.e(References.SUBSTRATUM_ICON_BUILDER,
-                                            "Initializing the Masquerade theme provider...");
-                                Intent runCommand = ThemeInterfaceService.getMasquerade
+                                            "Initializing the Theme Interface...");
+                                Intent runCommand = ThemeInterfacerService.getInterfacer
                                         (getApplicationContext());
                                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                                runCommand.setAction("masquerade.substratum.COMMANDS");
+                                runCommand.setAction("projekt.themeinterface.COMMANDS");
                                 ArrayList<String> final_array = new ArrayList<>();
                                 final_array.add(0, References.grabPackageName(
                                         getApplicationContext(), current_pack));

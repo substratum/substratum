@@ -41,7 +41,7 @@ import java.util.List;
 import projekt.substratum.R;
 import projekt.substratum.config.ElevatedCommands;
 import projekt.substratum.config.FileOperations;
-import projekt.substratum.config.ThemeInterfaceService;
+import projekt.substratum.config.ThemeInterfacerService;
 import projekt.substratum.config.References;
 import projekt.substratum.config.ThemeManager;
 import projekt.substratum.config.WallpaperManager;
@@ -169,7 +169,7 @@ public class ProfileFragment extends Fragment {
                             if (isChecked) {
                                 if (items[which].equals(getString(R.string.profile_boot_animation))
                                         && References.getDeviceEncryptionStatus(getContext()) > 1
-                                        && References.checkThemeInterface(getContext())) {
+                                        && References.checkThemeInterfacer(getContext())) {
                                     AlertDialog dialog2 = new AlertDialog.Builder(getContext())
                                             .setTitle(R.string.root_required_title)
                                             .setMessage(R.string
@@ -299,7 +299,7 @@ public class ProfileFragment extends Fragment {
         });
 
         final CardView scheduledProfileCard = (CardView) root.findViewById(R.id.cardListView3);
-        if (References.checkOMS(getContext()) && References.checkThemeInterface(getContext
+        if (References.checkOMS(getContext()) && References.checkThemeInterfacer(getContext
                 ())) {
             final ExpandableLayout scheduledProfileLayout = (ExpandableLayout) root.findViewById(
                     R.id.scheduled_profile_card_content_container);
@@ -927,11 +927,11 @@ public class ProfileFragment extends Fragment {
                 FileOperations.mountRO();
             }
 
-            if (References.checkThemeInterface(getContext())) {
+            if (References.checkThemeInterfacer(getContext())) {
                 ArrayList<String> toBeDisabled = new ArrayList<>(system);
                 boolean shouldRestartUi = ThemeManager.shouldRestartUI(getContext(), toBeDisabled)
                         || ThemeManager.shouldRestartUI(getContext(), to_be_run);
-                ThemeInterfaceService.applyProfile(getContext(), profile_name, toBeDisabled, to_be_run,
+                ThemeInterfacerService.applyProfile(getContext(), profile_name, toBeDisabled, to_be_run,
                         shouldRestartUi);
             } else {
                 // Restore the whole backed up profile back to /data/system/theme/

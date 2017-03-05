@@ -82,7 +82,7 @@ public class BootAnimationUtils {
                         Snackbar.LENGTH_LONG)
                         .show();
             }
-            if (!References.checkThemeInterface(mContext)) {
+            if (!References.checkThemeInterfacer(mContext)) {
                 FileOperations.mountROData();
                 FileOperations.mountRO();
             }
@@ -298,7 +298,7 @@ public class BootAnimationUtils {
                                 "is decrypted, using dedicated theme bootanimation slot...");
                         themeDirectory = new File("/data/system/theme/");
                         if (!themeDirectory.exists()) {
-                            if (!References.checkThemeInterface(mContext)) {
+                            if (!References.checkThemeInterfacer(mContext)) {
                                 FileOperations.mountRWData();
                             }
                             FileOperations.createNewFolder(mContext, "/data/system/theme/");

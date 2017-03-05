@@ -14,9 +14,9 @@
             android:title="@string/settings_about_substratum"/>
 
         <Preference
-            android:key="about_masquerade"
-            android:summary="@string/settings_about_masquerade_not_installed"
-            android:title="@string/settings_about_masquerade"/>
+            android:key="about_interfacer"
+            android:summary="@string/settings_about_interfacer_not_installed"
+            android:title="@string/settings_about_interfacer"/>
 
         <Preference
             android:key="theme_platform"

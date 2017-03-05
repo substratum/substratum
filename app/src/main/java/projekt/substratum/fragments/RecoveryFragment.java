@@ -232,7 +232,7 @@ public class RecoveryFragment extends Fragment {
                     R.layout.manage_fonts_sheet_dialog, null);
             LinearLayout restore = (LinearLayout) sheetView.findViewById(R.id.restore);
             restore.setOnClickListener(view2 -> {
-                if (References.checkThemeInterface(getContext()) ||
+                if (References.checkThemeInterfacer(getContext()) ||
                         Settings.System.canWrite(getContext())) {
                     new FontsClearer().execute("");
                 } else {
@@ -261,7 +261,7 @@ public class RecoveryFragment extends Fragment {
                     R.layout.manage_sounds_sheet_dialog, null);
             LinearLayout restore = (LinearLayout) sheetView.findViewById(R.id.restore);
             restore.setOnClickListener(view2 -> {
-                if (References.checkThemeInterface(getContext()) ||
+                if (References.checkThemeInterfacer(getContext()) ||
                         Settings.System.canWrite(getContext())) {
                     new SoundsClearer().execute("");
                 } else {

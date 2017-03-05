@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements
     private static final int PERMISSIONS_REQUEST_GET_ACCOUNTS = 2;
     private static final int PERMISSIONS_REQUEST_DRAW_OVER_OTHER_APPS = 3;
     private static final int PERMISSIONS_REQUEST_USAGE_ACCESS_SETTINGS = 4;
+    private static final String SELECTED_DRAWER_ITEM = "selected_drawer_item";
 
     @SuppressLint("StaticFieldLeak")
     public static TextView actionbar_title, actionbar_content;
@@ -170,6 +171,11 @@ public class MainActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
+
+        int selectedDrawer = 1;
+        if (savedInstanceState != null) {
+            selectedDrawer = savedInstanceState.getInt(SELECTED_DRAWER_ITEM);
+        }
 
         authorizationReceiver = new MasqueradeAuthorizationReceiver();
         IntentFilter filter = new IntentFilter("masquerade.substratum.CALLER_AUTHORIZED");
@@ -395,9 +401,8 @@ public class MainActivity extends AppCompatActivity implements
             }
             return false;
         });
-        drawerBuilder.withSelectedItem(1);
-        drawerBuilder.withSelectedItemByPosition(1);
         drawer = drawerBuilder.build();
+        drawer.setSelection(selectedDrawer, true);
 
         permissionCheck = ContextCompat.checkSelfPermission(
                 getApplicationContext(),
@@ -493,7 +498,6 @@ public class MainActivity extends AppCompatActivity implements
                             })
                     .show();
         } else {
-            drawer.setSelectionAtPosition(1);
             try {
                 FirebaseDatabase.getInstance().setPersistenceEnabled(true);
             } catch (RuntimeException re1) {
@@ -549,6 +553,7 @@ public class MainActivity extends AppCompatActivity implements
                 permissionCheck2 == PackageManager.PERMISSION_GRANTED) {
             //add the values which need to be saved from the drawer to the bundle
             outState = drawer.saveInstanceState(outState);
+            outState.putInt(SELECTED_DRAWER_ITEM, drawer.getCurrentSelectedPosition() - 1);
             super.onSaveInstanceState(outState);
         }
     }

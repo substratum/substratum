@@ -280,25 +280,12 @@ public class References {
 
     public static void setAndCheckOMS(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        prefs.edit().remove("oms_state").apply();
-
         try {
-            Process p = Runtime.getRuntime().exec("cmd overlay");
-            BufferedReader reader = new BufferedReader(
-                    new InputStreamReader(p.getInputStream()));
-            if (checkThemeInterfacer(context) ||
-                    reader.readLine().equals(
-                            "The overlay manager has already been initialized.")) {
-                prefs.edit().putBoolean("oms_state", true).apply();
-                prefs.edit().putInt("oms_version", 7).apply();
-                Log.d(References.SUBSTRATUM_LOG, "Initializing Substratum with the seventh " +
-                        "iteration of the Overlay Manager Service...");
-            } else {
-                prefs.edit().putBoolean("oms_state", false).apply();
-                prefs.edit().putInt("oms_version", 0).apply();
-                Log.d(References.SUBSTRATUM_LOG, "Initializing Substratum with the second " +
-                        "iteration of the Resource Runtime Overlay system...");
-            }
+            Class.forName("android.content.om.OverlayInfo");
+            prefs.edit().putBoolean("oms_state", true).apply();
+            prefs.edit().putInt("oms_version", 7).apply();
+            Log.d(References.SUBSTRATUM_LOG, "Initializing Substratum with the seventh " +
+                    "iteration of the Overlay Manager Service...");
         } catch (Exception e) {
             e.printStackTrace();
             prefs.edit().putBoolean("oms_state", false).apply();

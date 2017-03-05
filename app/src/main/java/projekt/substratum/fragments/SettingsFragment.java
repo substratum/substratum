@@ -106,7 +106,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         Preference systemStatus = getPreferenceManager().findPreference
                 ("system_status");
         systemStatus.setSummary(
-                (References.checkMasqueradeJobService(getContext()) ?
+                (References.checkThemeInterface(getContext()) ?
                         getString(R.string.settings_system_status_rootless) :
                         getString(R.string.settings_system_status_rooted)) + " (" +
                         (References.spreadYourWingsAndFly(

@@ -22,7 +22,7 @@ import java.util.zip.ZipInputStream;
 
 import projekt.substratum.R;
 
-import static projekt.substratum.config.References.checkMasqueradeJobService;
+import static projekt.substratum.config.References.checkThemeInterface;
 import static projekt.substratum.config.References.checkOMS;
 import static projekt.substratum.config.References.getProp;
 
@@ -43,8 +43,8 @@ public class SoundManager {
         boolean has_failed = false;
         boolean ringtone = false;
 
-        if (checkOMS(context) && checkMasqueradeJobService(context)) {
-            MasqueradeService.setThemedSounds(context, theme_pid, name);
+        if (checkOMS(context) && checkThemeInterface(context)) {
+            ThemeInterfaceService.setThemedSounds(context, theme_pid, name);
             ringtone = true; // Always assume that the process is succeeded;
         } else {
             // Move the file from assets folder to a new working area
@@ -167,8 +167,8 @@ public class SoundManager {
         // checks the file integrity of _data (file path), and if the file is missing, the database
         // entry is removed.
 
-        if (checkOMS(context) && checkMasqueradeJobService(context)) {
-            MasqueradeService.clearThemedSounds(context);
+        if (checkOMS(context) && checkThemeInterface(context)) {
+            ThemeInterfaceService.clearThemedSounds(context);
         } else {
             FileOperations.delete(context, "/data/system/theme/audio/");
             setDefaultAudible(context, RingtoneManager.TYPE_ALARM);

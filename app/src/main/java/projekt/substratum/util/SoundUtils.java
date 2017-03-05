@@ -58,14 +58,14 @@ public class SoundUtils {
                     .show();
         }
 
-        if (!References.checkMasqueradeJobService(mContext)) {
+        if (!References.checkThemeInterface(mContext)) {
             FileOperations.mountROData();
             FileOperations.mountRO();
         }
 
         if (ringtone) {
             ringtone = false;
-            if (!References.checkMasqueradeJobService(mContext) &&
+            if (!References.checkThemeInterface(mContext) &&
                     !Settings.System.canWrite(mContext)) {
                 new AlertDialog.Builder(mContext)
                         .setTitle(mContext.getString(R.string.sounds_dialog_permissions_title))
@@ -104,7 +104,7 @@ public class SoundUtils {
         @Override
         protected void onPreExecute() {
             // With masq 22+ dialog is started from receiver
-            if (!References.checkMasqueradeJobService(mContext)) {
+            if (!References.checkThemeInterface(mContext)) {
                 progress = new ProgressDialog(mContext, R.style.AppTheme_DialogAlert);
                 progress.setMessage(mContext.getString(R.string.sounds_dialog_apply_text));
                 progress.setIndeterminate(false);
@@ -115,7 +115,7 @@ public class SoundUtils {
 
         @Override
         protected void onPostExecute(String result) {
-            if (References.checkMasqueradeJobService(mContext)) {
+            if (References.checkThemeInterface(mContext)) {
                 if (finishReceiver == null) finishReceiver = new FinishReceiver();
                 IntentFilter intentFilter = new IntentFilter("masquerade.substratum" +
                         ".STATUS_CHANGED");

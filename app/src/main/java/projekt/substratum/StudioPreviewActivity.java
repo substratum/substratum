@@ -53,7 +53,7 @@ import eightbitlab.com.blurview.RenderScriptBlur;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.adapters.IconPackAdapter;
 import projekt.substratum.config.ElevatedCommands;
-import projekt.substratum.config.MasqueradeService;
+import projekt.substratum.config.ThemeInterfaceService;
 import projekt.substratum.config.References;
 import projekt.substratum.config.ThemeManager;
 import projekt.substratum.model.IconInfo;
@@ -468,7 +468,7 @@ public class StudioPreviewActivity extends AppCompatActivity {
                                 if (DEBUG)
                                     Log.e(References.SUBSTRATUM_ICON_BUILDER,
                                             "Initializing the Masquerade theme provider...");
-                                Intent runCommand = MasqueradeService.getMasquerade
+                                Intent runCommand = ThemeInterfaceService.getMasquerade
                                         (getApplicationContext());
                                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                                 runCommand.setAction("masquerade.substratum.COMMANDS");

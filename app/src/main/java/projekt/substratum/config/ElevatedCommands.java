@@ -4,7 +4,7 @@ import android.os.AsyncTask;
 
 import projekt.substratum.util.Root;
 
-import static projekt.substratum.config.References.MASQUERADE_PACKAGE;
+import static projekt.substratum.config.References.INTERFACE_PACKAGE;
 
 public class ElevatedCommands {
 
@@ -20,7 +20,7 @@ public class ElevatedCommands {
 
     // Kill the masquerade package to force it to restart
     public static void restartMasquerade() {
-        Root.runCommand("pkill -f " + MASQUERADE_PACKAGE);
+        Root.runCommand("pkill -f " + INTERFACE_PACKAGE);
     }
 
     // Kill zygote to force a soft rboot

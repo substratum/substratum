@@ -14,7 +14,7 @@ import java.io.InputStreamReader;
 
 import projekt.substratum.util.Root;
 
-import static projekt.substratum.config.References.checkMasqueradeJobService;
+import static projekt.substratum.config.References.checkThemeInterface;
 
 public class FileOperations {
 
@@ -146,8 +146,8 @@ public class FileOperations {
                 (externalDir) &&
                 !destination.startsWith("/system")) || (!destination.startsWith(dataDir) &&
                 !destination.startsWith(externalDir) && !destination.startsWith("/system"));
-        if (checkMasqueradeJobService(context) && needRoot) {
-            MasqueradeService.createNewFolder(context, destination);
+        if (checkThemeInterface(context) && needRoot) {
+            ThemeInterfaceService.createNewFolder(context, destination);
         } else {
             createNewFolder(destination);
         }
@@ -173,10 +173,10 @@ public class FileOperations {
         boolean needRoot = (!source.startsWith(dataDir) && !source.startsWith(externalDir) &&
                 !source.startsWith("/system")) || (!destination.startsWith(dataDir) &&
                 !destination.startsWith(externalDir) && !destination.startsWith("/system"));
-        if (checkMasqueradeJobService(context) && needRoot) {
-            Log.d(COPY_LOG, "Using masquerade rootless operation to copy " + source +
+        if (checkThemeInterface(context) && needRoot) {
+            Log.d(COPY_LOG, "Using theme interface operation to copy " + source +
                     " to " + destination);
-            MasqueradeService.copy(context, source, destination);
+            ThemeInterfaceService.copy(context, source, destination);
 
             // Wait until copy succeeds
             File file = new File(destination);
@@ -216,7 +216,7 @@ public class FileOperations {
         boolean needRoot = (!source.startsWith(dataDir) && !source.startsWith(externalDir) &&
                 !source.startsWith("/system")) || (!destination.startsWith(dataDir) &&
                 !destination.startsWith(externalDir) && !destination.startsWith("/system"));
-        if (checkMasqueradeJobService(context) && needRoot) {
+        if (checkThemeInterface(context) && needRoot) {
             copy(context, source, destination);
         } else {
             copyDir(source, destination);
@@ -246,9 +246,9 @@ public class FileOperations {
         String externalDir = Environment.getExternalStorageDirectory().getAbsolutePath();
         boolean needRoot = (!directory.startsWith(dataDir) && !directory.startsWith(externalDir) &&
                 !directory.startsWith("/system"));
-        if (checkMasqueradeJobService(context) && needRoot) {
-            Log.d(DELETE_LOG, "Using masquerade rootless operation to delete " + directory);
-            MasqueradeService.delete(context, directory, deleteParent);
+        if (checkThemeInterface(context) && needRoot) {
+            Log.d(DELETE_LOG, "Using theme interface operation to delete " + directory);
+            ThemeInterfaceService.delete(context, directory, deleteParent);
 
             // Wait until delete success
             File file = new File(directory);
@@ -307,10 +307,10 @@ public class FileOperations {
         boolean needRoot = (!source.startsWith(dataDir) && !source.startsWith(externalDir) &&
                 !source.startsWith("/system")) || (!destination.startsWith(dataDir) &&
                 !destination.startsWith(externalDir) && !destination.startsWith("/system"));
-        if (checkMasqueradeJobService(context) && needRoot) {
-            Log.d(MOVE_LOG, "Using masquerade rootless operation to move " + source +
+        if (checkThemeInterface(context) && needRoot) {
+            Log.d(MOVE_LOG, "Using theme interface operation to move " + source +
                     " to " + destination);
-            MasqueradeService.move(context, source, destination);
+            ThemeInterfaceService.move(context, source, destination);
 
             // Wait until move success
             File file = new File(destination);

@@ -7,7 +7,7 @@ import android.widget.Toast;
 
 import projekt.substratum.R;
 
-public class MasqueradeAuthorizationReceiver extends BroadcastReceiver {
+public class InterfaceAuthorizationReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {

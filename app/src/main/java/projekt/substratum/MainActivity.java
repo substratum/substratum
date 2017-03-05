@@ -65,13 +65,14 @@ import projekt.substratum.config.References;
 import projekt.substratum.config.ThemeManager;
 import projekt.substratum.fragments.ThemeFragment;
 import projekt.substratum.services.FloatUiTile;
-import projekt.substratum.services.MasqueradeAuthorizationReceiver;
+import projekt.substratum.services.InterfaceAuthorizationReceiver;
 import projekt.substratum.services.SubstratumFloatInterface;
 import projekt.substratum.services.ThemeService;
 import projekt.substratum.util.Root;
 import projekt.substratum.util.SheetDialog;
 
 import static projekt.substratum.config.References.ENABLE_ROOT_CHECK;
+import static projekt.substratum.config.References.INTERFACE_PACKAGE;
 import static projekt.substratum.config.References.SUBSTRATUM_LOG;
 import static projekt.substratum.config.References.checkUsagePermissions;
 
@@ -177,12 +178,11 @@ public class MainActivity extends AppCompatActivity implements
             selectedDrawer = savedInstanceState.getInt(SELECTED_DRAWER_ITEM);
         }
 
-        authorizationReceiver = new MasqueradeAuthorizationReceiver();
-        IntentFilter filter = new IntentFilter("masquerade.substratum.CALLER_AUTHORIZED");
+        authorizationReceiver = new InterfaceAuthorizationReceiver();
+        IntentFilter filter = new IntentFilter(INTERFACE_PACKAGE + ".CALLER_AUTHORIZED");
         getApplicationContext().registerReceiver(authorizationReceiver, filter);
 
-        prefs = PreferenceManager.getDefaultSharedPreferences(
-                getApplicationContext());
+        prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         boolean languageCheck = prefs.getBoolean("force_english", false);
         if (languageCheck) {
@@ -290,7 +290,7 @@ public class MainActivity extends AppCompatActivity implements
                         .withName(R.string.nav_manage)
                         .withIcon(R.drawable.nav_manage)
                         .withIdentifier(8));
-        if (References.checkMasquerade(getApplicationContext()) >= 20 &&
+        if (References.checkThemeInterface(getApplicationContext()) &&
                 BuildConfig.VERSION_NAME.contains("-")) drawerBuilder.addDrawerItems(
                 new PrimaryDrawerItem()
                         .withName(R.string.nav_studio)
@@ -864,7 +864,7 @@ public class MainActivity extends AppCompatActivity implements
         @Override
         protected void onPostExecute(Boolean result) {
             if (!result && ENABLE_ROOT_CHECK &&
-                    !References.checkMasqueradeJobService(getApplicationContext())) {
+                    !References.checkThemeInterface(getApplicationContext())) {
                 mProgressDialog.setCancelable(false);
                 mProgressDialog.show();
                 mProgressDialog.setContentView(R.layout.root_rejected_loader);
@@ -913,13 +913,13 @@ public class MainActivity extends AppCompatActivity implements
 
         @Override
         protected Boolean doInBackground(String... sUrl) {
-            if (!References.checkMasqueradeJobService(getApplicationContext())) {
+            if (!References.checkThemeInterface(getApplicationContext())) {
                 Boolean receivedRoot = Root.requestRootAccess();
                 if (receivedRoot) Log.d(SUBSTRATUM_LOG, "Substratum has loaded in rooted mode.");
                 References.injectRescueArchives(getApplicationContext());
                 return receivedRoot;
             } else {
-                Log.d(SUBSTRATUM_LOG, "Substratum has loaded in rootless masquerade mode.");
+                Log.d(SUBSTRATUM_LOG, "Substratum has loaded in rootless mode.");
                 return false;
             }
         }

@@ -1813,7 +1813,7 @@ public class Overlays extends Fragment {
                             } else {
                                 if (sb.special_snowflake) {
                                     final_runner.add(sb.no_install);
-                                } else if (References.checkMasqueradeJobService(mContext)) {
+                                } else if (References.checkThemeInterface(mContext)) {
                                     // Thread wait
                                     isWaiting = true;
                                     do {
@@ -1851,7 +1851,7 @@ public class Overlays extends Fragment {
                             } else {
                                 if (sb.special_snowflake) {
                                     final_runner.add(sb.no_install);
-                                } else if (References.checkMasqueradeJobService(mContext)) {
+                                } else if (References.checkThemeInterface(mContext)) {
                                     // Thread wait
                                     isWaiting = true;
                                     do {

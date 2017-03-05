@@ -80,7 +80,7 @@ public class Fonts extends Fragment {
         imageButton = (ImageButton) root.findViewById(R.id.checkBox);
         imageButton.setClickable(false);
         imageButton.setOnClickListener(v -> {
-            if (References.checkMasqueradeJobService(getContext()) ||
+            if (References.checkThemeInterface(getContext()) ||
                     Settings.System.canWrite(getContext())) {
                 if (fontSelector.getSelectedItemPosition() == 1) {
                     new FontsClearer().execute("");

@@ -22,7 +22,7 @@ import java.util.List;
 import projekt.substratum.ProfileErrorInfoActivity;
 import projekt.substratum.R;
 import projekt.substratum.config.FileOperations;
-import projekt.substratum.config.MasqueradeService;
+import projekt.substratum.config.ThemeInterfaceService;
 import projekt.substratum.config.References;
 import projekt.substratum.config.ThemeManager;
 import projekt.substratum.config.WallpaperManager;
@@ -180,11 +180,11 @@ public class ScheduledProfileService extends IntentService {
                 FileOperations.mountRO();
             }
 
-            if (References.checkMasqueradeJobService(mContext)) {
+            if (References.checkThemeInterface(mContext)) {
                 ArrayList<String> toBeDisabled = new ArrayList<>(system);
                 boolean shouldRestartUi = ThemeManager.shouldRestartUI(mContext, toBeDisabled)
                         || ThemeManager.shouldRestartUI(mContext, to_be_run);
-                MasqueradeService.applyProfile(mContext, processed, new ArrayList<>(system),
+                ThemeInterfaceService.applyProfile(mContext, processed, new ArrayList<>(system),
                         to_be_run, shouldRestartUi);
             } else {
                 // Restore the whole backed up profile back to /data/system/theme/

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
 
-import static projekt.substratum.config.References.checkMasqueradeJobService;
+import static projekt.substratum.config.References.checkThemeInterface;
 import static projekt.substratum.config.References.getDeviceEncryptionStatus;
 
 public class BootAnimationManager {
@@ -12,12 +12,12 @@ public class BootAnimationManager {
     public static void setBootAnimation(Context context, String themeDirectory) {
         String location = Environment.getExternalStorageDirectory().getAbsolutePath() +
                 "/.substratum/bootanimation.zip";
-        // Check to see if device is decrypted with masquerade 22 or higher
-        if (getDeviceEncryptionStatus(context) <= 1 && checkMasqueradeJobService(context)) {
+        // Check to see if device is decrypted with theme interface
+        if (getDeviceEncryptionStatus(context) <= 1 && checkThemeInterface(context)) {
             Log.d("BootAnimationUtils",
                     "No-root option has been enabled with the inclusion of " +
-                            "masquerade v22+...");
-            MasqueradeService.setBootAnimation(context, location);
+                            "theme interface...");
+            ThemeInterfaceService.setBootAnimation(context, location);
             // Otherwise, fall back to rooted operations
         } else {
             // We will mount system, make our directory, copy the bootanimation
@@ -35,9 +35,9 @@ public class BootAnimationManager {
     }
 
     public static void clearBootAnimation(Context context) {
-        if (getDeviceEncryptionStatus(context) <= 1 && checkMasqueradeJobService(context)) {
-            // OMS with no-root masquerade
-            MasqueradeService.clearBootAnimation(context);
+        if (getDeviceEncryptionStatus(context) <= 1 && checkThemeInterface(context)) {
+            // OMS with theme interface
+            ThemeInterfaceService.clearBootAnimation(context);
         } else if (getDeviceEncryptionStatus(context) <= 1 && !References.checkOMS(context)) {
             // Legacy decrypted
             FileOperations.delete(context, "/data/system/theme/bootanimation.zip");

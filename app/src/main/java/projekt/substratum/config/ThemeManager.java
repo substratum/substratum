@@ -11,8 +11,8 @@ import java.util.Set;
 
 import projekt.substratum.util.Root;
 
-import static projekt.substratum.config.References.MASQUERADE_PACKAGE;
-import static projekt.substratum.config.References.checkMasqueradeJobService;
+import static projekt.substratum.config.References.INTERFACE_PACKAGE;
+import static projekt.substratum.config.References.checkThemeInterface;
 import static projekt.substratum.config.References.checkOMS;
 
 public class ThemeManager {
@@ -32,7 +32,7 @@ public class ThemeManager {
     private static final String disableAllOverlays = "cmd overlay disable-all";
     private static final String setPriority = "cmd overlay set-priority";
     private static final String[] blacklistedPackages = new String[]{
-            MASQUERADE_PACKAGE
+            INTERFACE_PACKAGE
     };
 
     public static boolean blacklisted(String packageName) {
@@ -41,8 +41,8 @@ public class ThemeManager {
     }
 
     public static void enableOverlay(Context context, ArrayList<String> overlays) {
-        if (checkMasqueradeJobService(context)) {
-            MasqueradeService.enableOverlays(context, overlays, shouldRestartUI(context, overlays));
+        if (checkThemeInterface(context)) {
+            ThemeInterfaceService.enableOverlays(context, overlays, shouldRestartUI(context, overlays));
         } else {
             String commands = enableOverlay;
             for (int i = 0; i < overlays.size(); i++) {
@@ -54,8 +54,8 @@ public class ThemeManager {
     }
 
     public static void disableOverlay(Context context, ArrayList<String> overlays) {
-        if (checkMasqueradeJobService(context)) {
-            MasqueradeService.disableOverlays(context, overlays, shouldRestartUI(context,
+        if (checkThemeInterface(context)) {
+            ThemeInterfaceService.disableOverlays(context, overlays, shouldRestartUI(context,
                     overlays));
         } else {
             String commands = disableOverlay;
@@ -68,8 +68,8 @@ public class ThemeManager {
     }
 
     public static void setPriority(Context context, ArrayList<String> overlays) {
-        if (checkMasqueradeJobService(context)) {
-            MasqueradeService.setPriority(context, overlays);
+        if (checkThemeInterface(context)) {
+            ThemeInterfaceService.setPriority(context, overlays);
         } else {
             String commands = "";
             for (int i = 0; i < overlays.size() - 1; i++) {
@@ -84,9 +84,9 @@ public class ThemeManager {
     }
 
     public static void disableAll(Context context) {
-        if (checkMasqueradeJobService(context)) {
+        if (checkThemeInterface(context)) {
             List<String> list = ThemeManager.listOverlays(5);
-            MasqueradeService.disableOverlays(context, new ArrayList<>(list),
+            ThemeInterfaceService.disableOverlays(context, new ArrayList<>(list),
                     shouldRestartUI(context, new ArrayList<>(list)));
         } else {
             new ElevatedCommands.ThreadRunner().execute(disableAllOverlays);
@@ -94,16 +94,16 @@ public class ThemeManager {
     }
 
     public static void restartSystemUI(Context context) {
-        if (checkMasqueradeJobService(context)) {
-            MasqueradeService.restartSystemUI(context);
+        if (checkThemeInterface(context)) {
+            ThemeInterfaceService.restartSystemUI(context);
         } else {
             Root.runCommand("pkill -f com.android.systemui");
         }
     }
 
     public static void restartService(Context context) {
-        if (checkMasqueradeJobService(context)) {
-            MasqueradeService.restartService(context);
+        if (checkThemeInterface(context)) {
+            ThemeInterfaceService.restartService(context);
         }
     }
 
@@ -136,25 +136,25 @@ public class ThemeManager {
     }
 
     /*
-        Begin interaction with the MasqueradeService or the PackageManager binaries.
+        Begin interaction with the ThemeInterfaceService or the PackageManager binaries.
 
         These methods will handle all possible commands to be sent to PackageManager when handling
         an overlay, such as installing and uninstalling APKs directly on the device.
      */
 
     public static void installOverlay(Context context, String overlay) {
-        if (checkMasqueradeJobService(context)) {
+        if (checkThemeInterface(context)) {
             ArrayList<String> list = new ArrayList<>();
             list.add(overlay);
-            MasqueradeService.installOverlays(context, list);
+            ThemeInterfaceService.installOverlays(context, list);
         } else {
             new ElevatedCommands.ThreadRunner().execute("pm install -r " + overlay);
         }
     }
 
     public static void installOverlay(Context context, ArrayList<String> overlays) {
-        if (checkMasqueradeJobService(context)) {
-            MasqueradeService.installOverlays(context, overlays);
+        if (checkThemeInterface(context)) {
+            ThemeInterfaceService.installOverlays(context, overlays);
         } else {
             String packages = "";
             for (String o : overlays) {
@@ -165,8 +165,8 @@ public class ThemeManager {
     }
 
     public static void uninstallOverlay(Context context, ArrayList<String> overlays) {
-        if (checkMasqueradeJobService(context)) {
-            MasqueradeService.uninstallOverlays(context, overlays, shouldRestartUI(context,
+        if (checkThemeInterface(context)) {
+            ThemeInterfaceService.uninstallOverlays(context, overlays, shouldRestartUI(context,
                     overlays));
         } else {
             String command = "pm uninstall ";

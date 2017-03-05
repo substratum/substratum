@@ -14,7 +14,6 @@ import android.provider.Settings;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -233,7 +232,7 @@ public class RecoveryFragment extends Fragment {
                     R.layout.manage_fonts_sheet_dialog, null);
             LinearLayout restore = (LinearLayout) sheetView.findViewById(R.id.restore);
             restore.setOnClickListener(view2 -> {
-                if (References.checkMasqueradeJobService(getContext()) ||
+                if (References.checkThemeInterface(getContext()) ||
                         Settings.System.canWrite(getContext())) {
                     new FontsClearer().execute("");
                 } else {
@@ -262,7 +261,7 @@ public class RecoveryFragment extends Fragment {
                     R.layout.manage_sounds_sheet_dialog, null);
             LinearLayout restore = (LinearLayout) sheetView.findViewById(R.id.restore);
             restore.setOnClickListener(view2 -> {
-                if (References.checkMasqueradeJobService(getContext()) ||
+                if (References.checkThemeInterface(getContext()) ||
                         Settings.System.canWrite(getContext())) {
                     new SoundsClearer().execute("");
                 } else {

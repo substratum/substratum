@@ -463,7 +463,7 @@ public class StudioPreviewActivity extends AppCompatActivity {
                             prefs.edit().putString("installed_icon_pack", current_pack).apply();
 
                             if (References.isPackageInstalled(getApplicationContext(),
-                                    "projekt.themeinterface")) {
+                                    References.INTERFACER_PACKAGE)) {
                                 ElevatedCommands.restartInterfacer();
                                 if (DEBUG)
                                     Log.e(References.SUBSTRATUM_ICON_BUILDER,

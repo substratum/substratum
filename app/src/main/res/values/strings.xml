@@ -877,4 +877,5 @@
     <string name="restore_fonts_button">Restore fonts</string>
 
     <string name="interfacer_not_authorized_toast">You shall not pass&#8230;</string>
+    <string name="settings_about_oms_version_incompatible">incompatible with Play Store</string>
 </resources>

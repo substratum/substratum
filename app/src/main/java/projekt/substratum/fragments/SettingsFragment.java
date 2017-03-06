@@ -89,7 +89,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         Preference themePlatform = getPreferenceManager().findPreference
                 ("theme_platform");
         if (References.checkOMS(getContext())) {
-            themePlatform.setSummary(getString(R.string.settings_about_oms_version_7));
+            String aboutThemePlatformSummary = getString(R.string.settings_about_oms_version_7);
+            if (!References.checkSubstratumFeature(getContext())) {
+                aboutThemePlatformSummary = aboutThemePlatformSummary + "\n"
+                        + getString(R.string.settings_about_oms_version_incompatible);
+            }
+            themePlatform.setSummary(aboutThemePlatformSummary);
         }
         themePlatform.setIcon(getContext().getDrawable(R.mipmap.projekt_icon));
 

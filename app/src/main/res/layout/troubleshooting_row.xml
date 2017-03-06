@@ -4,8 +4,8 @@
                                     android:id="@+id/theme_card"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_marginRight="10dp"
+                                    android:layout_marginStart="10dp"
+                                    android:layout_marginEnd="10dp"
                                     android:layout_marginTop="10dp"
                                     android:foreground="?android:selectableItemBackground"
                                     card_view:cardBackgroundColor="@color/main_screen_card_background"
@@ -34,8 +34,8 @@
             android:layout_width="wrap_content"
             android:layout_height="1px"
             android:layout_below="@+id/trouble_ques"
-            android:layout_marginLeft="6dp"
-            android:layout_marginRight="6dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
             android:layout_marginTop="4dp"
             android:background="@android:color/darker_gray"/>
 

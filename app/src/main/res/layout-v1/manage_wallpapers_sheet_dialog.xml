@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
             android:text="@string/manage_wallpaper_home"
             android:textColor="?android:attr/textColorPrimary"/>
     </LinearLayout>
@@ -53,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
             android:text="@string/manage_wallpaper_lock"
             android:textColor="?android:attr/textColorPrimary"/>
     </LinearLayout>
@@ -78,7 +78,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
             android:text="@string/manage_wallpaper_all"
             android:textColor="?android:attr/textColorPrimary"/>
     </LinearLayout>

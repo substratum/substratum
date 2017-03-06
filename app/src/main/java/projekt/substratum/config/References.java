@@ -303,6 +303,11 @@ public class References {
         return prefs.getInt("oms_version", 0);
     }
 
+    public static boolean checkSubstratumFeature(Context context) {
+        // Using lowercase because that's how we defined it in our permissions xml
+        return context.getPackageManager().hasSystemFeature(SUBSTRATUM_THEME.toLowerCase());
+    }
+
     // This method is used to obtain the device ID of the current device (set up)
     @SuppressLint("HardwareIds")
     public static String getDeviceID(Context context) {

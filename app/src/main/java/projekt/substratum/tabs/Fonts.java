@@ -140,7 +140,7 @@ public class Fonts extends Fragment {
                 @Override
                 public void onItemSelected(AdapterView<?> arg0, View arg1,
                                            int pos, long id) {
-                    switch (pos){
+                    switch (pos) {
                         case 0:
                             if (current != null)
                                 current.cancel(true);
@@ -317,7 +317,7 @@ public class Fonts extends Fragment {
                 } else {
                     FileOperations.delete(getContext(),
                             getContext().getCacheDir().getAbsolutePath() +
-                            "/FontCache/font_preview/");
+                                    "/FontCache/font_preview/");
                     if (cacheDirectory2.mkdirs()) Log.d("FontUtils", "FontCache folder recreated");
                 }
 

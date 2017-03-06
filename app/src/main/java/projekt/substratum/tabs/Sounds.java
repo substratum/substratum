@@ -89,13 +89,13 @@ public class Sounds extends Fragment {
             if (soundsSelector.getSelectedItemPosition() == 1) {
                 new SoundsClearer().execute("");
             } else {
-                new SoundUtils().execute(nsv, soundsSelector.getSelectedItem()
-                        .toString(), getContext(), theme_pid);
+                new SoundUtils().execute(nsv,
+                        soundsSelector.getSelectedItem().toString(), getContext(), theme_pid);
             }
         });
 
-        final RelativeLayout sounds_preview = (RelativeLayout) root.findViewById(R.id
-                .sounds_placeholder);
+        final RelativeLayout sounds_preview =
+                (RelativeLayout) root.findViewById(R.id.sounds_placeholder);
         relativeLayout = (RelativeLayout) root.findViewById(R.id.relativeLayout);
         error = (RelativeLayout) root.findViewById(R.id.error_loading_pack);
         error.setVisibility(View.GONE);
@@ -130,8 +130,10 @@ public class Sounds extends Fragment {
         );
 
         try {
-            File f = new File(getContext().getCacheDir().getAbsoluteFile() + "/SubstratumBuilder/" +
-                    theme_pid + "/assets/audio");
+            File f =
+                    new File(
+                            getContext().getCacheDir().getAbsoluteFile() + "/SubstratumBuilder/" +
+                            theme_pid + "/assets/audio");
             File[] fileArray = f.listFiles();
             ArrayList<String> archivedSounds = new ArrayList<>();
             for (File file : fileArray) {
@@ -152,32 +154,39 @@ public class Sounds extends Fragment {
             soundsSelector.setOnItemSelectedListener(new AdapterView
                     .OnItemSelectedListener() {
                 @Override
-                public void onItemSelected(AdapterView<?> arg0, View arg1,
-                                           int pos, long id) {
-                    if (pos == 0) {
-                        if (current != null) current.cancel(true);
-                        defaults.setVisibility(View.GONE);
-                        imageButton.setClickable(false);
-                        imageButton.setImageTintList(unchecked);
-                        error.setVisibility(View.GONE);
-                        relativeLayout.setVisibility(View.GONE);
-                        sounds_preview.setVisibility(View.VISIBLE);
-                    } else if (pos == 1) {
-                        if (current != null) current.cancel(true);
-                        defaults.setVisibility(View.VISIBLE);
-                        imageButton.setImageTintList(checked);
-                        imageButton.setClickable(true);
-                        error.setVisibility(View.GONE);
-                        relativeLayout.setVisibility(View.GONE);
-                        sounds_preview.setVisibility(View.GONE);
-                    } else {
-                        if (current != null) current.cancel(true);
-                        defaults.setVisibility(View.GONE);
-                        error.setVisibility(View.GONE);
-                        sounds_preview.setVisibility(View.GONE);
-                        relativeLayout.setVisibility(View.VISIBLE);
-                        String[] commands = {arg0.getSelectedItem().toString()};
-                        current = new SoundsPreview().execute(commands);
+                public void onItemSelected(AdapterView<?> arg0, View arg1, int pos, long id) {
+                    switch (pos) {
+                        case 0:
+                            if (current != null)
+                                current.cancel(true);
+                            defaults.setVisibility(View.GONE);
+                            imageButton.setClickable(false);
+                            imageButton.setImageTintList(unchecked);
+                            error.setVisibility(View.GONE);
+                            relativeLayout.setVisibility(View.GONE);
+                            sounds_preview.setVisibility(View.VISIBLE);
+                            break;
+
+                        case 1:
+                            if (current != null)
+                                current.cancel(true);
+                            defaults.setVisibility(View.VISIBLE);
+                            imageButton.setImageTintList(checked);
+                            imageButton.setClickable(true);
+                            error.setVisibility(View.GONE);
+                            relativeLayout.setVisibility(View.GONE);
+                            sounds_preview.setVisibility(View.GONE);
+                            break;
+
+                        default:
+                            if (current != null)
+                                current.cancel(true);
+                            defaults.setVisibility(View.GONE);
+                            error.setVisibility(View.GONE);
+                            sounds_preview.setVisibility(View.GONE);
+                            relativeLayout.setVisibility(View.VISIBLE);
+                            String[] commands = {arg0.getSelectedItem().toString()};
+                            current = new SoundsPreview().execute(commands);
                     }
                 }
 
@@ -187,8 +196,8 @@ public class Sounds extends Fragment {
             });
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e("SoundUtils", "There is no sounds.zip found within the assets " +
-                    "of this theme!");
+            Log.e("SoundUtils",
+                    "There is no sounds.zip found within the assets of this theme!");
         }
 
         RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.recycler_view);
@@ -224,7 +233,8 @@ public class Sounds extends Fragment {
 
         // Unregister finish receiver
         try {
-            if (finishReceiver != null) getContext().unregisterReceiver(finishReceiver);
+            if (finishReceiver != null)
+                getContext().unregisterReceiver(finishReceiver);
         } catch (IllegalArgumentException e) {
             // unregistered already
         }
@@ -287,8 +297,8 @@ public class Sounds extends Fragment {
                 if (adapter1.size() > 0) {
                     recyclerView = (RecyclerView) root.findViewById(R.id.recycler_view);
                     SoundsAdapter mAdapter = new SoundsAdapter(adapter1);
-                    RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager
-                            (getContext());
+                    RecyclerView.LayoutManager mLayoutManager =
+                            new LinearLayoutManager(getContext());
 
                     recyclerView.setLayoutManager(mLayoutManager);
                     recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -303,8 +313,8 @@ public class Sounds extends Fragment {
                 }
                 progressBar.setVisibility(View.GONE);
             } catch (Exception e) {
-                Log.e("SoundUtils", "Window was destroyed before AsyncTask could " +
-                        "perform postExecute()");
+                Log.e("SoundUtils",
+                        "Window was destroyed before AsyncTask could perform postExecute()");
             }
         }
 
@@ -314,19 +324,22 @@ public class Sounds extends Fragment {
                 File cacheDirectory = new File(getContext().getCacheDir(), "/SoundsCache/");
                 if (!cacheDirectory.exists()) {
                     boolean created = cacheDirectory.mkdirs();
-                    if (created) Log.d("SoundUtils", "Sounds folder created");
+                    if (created)
+                        Log.d("SoundUtils", "Sounds folder created");
                 }
                 File cacheDirectory2 = new File(getContext().getCacheDir(), "/SoundCache/" +
                         "sounds_preview/");
                 if (!cacheDirectory2.exists()) {
                     boolean created = cacheDirectory2.mkdirs();
-                    if (created) Log.d("SoundUtils", "Sounds work folder created");
+                    if (created)
+                        Log.d("SoundUtils", "Sounds work folder created");
                 } else {
                     FileOperations.delete(getContext(), getContext().getCacheDir()
                             .getAbsolutePath() +
                             "/SoundsCache/sounds_preview/");
                     boolean created = cacheDirectory2.mkdirs();
-                    if (created) Log.d("SoundUtils", "Sounds folder recreated");
+                    if (created)
+                        Log.d("SoundUtils", "Sounds folder recreated");
                 }
 
                 // Copy the sounds.zip from assets/sounds of the theme's assets
@@ -343,19 +356,19 @@ public class Sounds extends Fragment {
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Log.e("SoundUtils", "There is no sounds.zip found within the" +
-                            " assets of this theme!");
+                    Log.e("SoundUtils",
+                            "There is no sounds.zip found within the assets of this theme!");
                 }
 
                 // Unzip the sounds archive to get it prepared for the preview
-                unzip(getContext().getCacheDir().getAbsolutePath() +
-                                "/SoundsCache/" + source,
+                unzip(getContext().getCacheDir().getAbsolutePath() + "/SoundsCache/" + source,
                         getContext().getCacheDir().getAbsolutePath() +
                                 "/SoundsCache/sounds_preview/");
 
                 wordList = new ArrayList<>();
-                File testDirectory = new File(getContext().getCacheDir().getAbsolutePath() +
-                        "/SoundsCache/sounds_preview/");
+                File testDirectory =
+                        new File(getContext().getCacheDir().getAbsolutePath() +
+                                "/SoundsCache/sounds_preview/");
                 listFilesForFolder(testDirectory);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -369,19 +382,18 @@ public class Sounds extends Fragment {
                 if (fileEntry.isDirectory()) {
                     listFilesForFolder(fileEntry);
                 } else {
-                    if (!fileEntry.getName().substring(0, 1).equals(".")) {
-                        if (References.allowedSounds(fileEntry.getName())) {
-                            wordList.add(new SoundsInfo(getContext(), fileEntry.getName(), fileEntry
-                                    .getAbsolutePath()));
-                        }
+                    if (!fileEntry.getName().substring(0, 1).equals(".") &&
+                            References.allowedSounds(fileEntry.getName())) {
+                        wordList.add(new SoundsInfo(getContext(), fileEntry.getName(),
+                                fileEntry.getAbsolutePath()));
                     }
                 }
             }
         }
 
         private void unzip(String source, String destination) {
-            try (ZipInputStream inputStream = new ZipInputStream(
-                    new BufferedInputStream(new FileInputStream(source)))) {
+            try (ZipInputStream inputStream =
+                         new ZipInputStream(new BufferedInputStream(new FileInputStream(source)))) {
                 ZipEntry zipEntry;
                 int count;
                 byte[] buffer = new byte[8192];

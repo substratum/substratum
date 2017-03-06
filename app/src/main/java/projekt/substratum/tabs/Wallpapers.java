@@ -115,7 +115,8 @@ public class Wallpapers extends Fragment {
                 RecyclerView.Adapter mAdapter = new WallpaperAdapter(wallpapers);
                 mRecyclerView.setAdapter(mAdapter);
 
-                if (wallpapers.size() == 0) no_wallpapers.setVisibility(View.VISIBLE);
+                if (wallpapers.size() == 0)
+                    no_wallpapers.setVisibility(View.VISIBLE);
 
                 mRecyclerView.setVisibility(View.VISIBLE);
                 materialProgressBar.setVisibility(View.GONE);
@@ -135,8 +136,8 @@ public class Wallpapers extends Fragment {
                 File current_wallpapers = new File(getContext().getCacheDir() +
                         "/current_wallpapers.xml");
                 if (current_wallpapers.exists()) {
-                    Boolean deleted = current_wallpapers.delete();
-                    if (!deleted) Log.e("Wallpapers", "Unable to delete current wallpaper stash.");
+                    if (!current_wallpapers.delete())
+                        Log.e("Wallpapers", "Unable to delete current wallpaper stash.");
                 }
 
                 URL url = new URL(sUrl[0]);

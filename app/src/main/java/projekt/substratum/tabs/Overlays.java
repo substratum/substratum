@@ -103,7 +103,7 @@ public class Overlays extends Fragment {
     private RecyclerView mRecyclerView;
     private Spinner base_spinner;
     private SharedPreferences prefs;
-    private ArrayList<String> final_runner;
+    private ArrayList<String> final_runner, late_install;
     private boolean mixAndMatchMode, enable_mode, disable_mode, compile_enable_mode;
     private ArrayList<String> all_installed_overlays;
     private Context mContext;
@@ -701,9 +701,9 @@ public class Overlays extends Fragment {
                 }, REFRESH_WINDOW_DELAY);
             }
 
-            if (!final_runner.isEmpty()) {
+            if (!late_install.isEmpty()) {
                 // Install remaining overlays
-                ThemeManager.installOverlay(context, final_runner);
+                ThemeManager.installOverlay(context, late_install);
             }
         }
     }
@@ -1267,6 +1267,7 @@ public class Overlays extends Fragment {
         @Override
         protected void onPreExecute() {
             final_runner = new ArrayList<>();
+            late_install = new ArrayList<>();
 
             if (!enable_mode && !disable_mode) {
                 Log.d("SubstratumBuilder", "Decompiling and initializing work area with the " +
@@ -1812,7 +1813,7 @@ public class Overlays extends Fragment {
                                 has_failed = true;
                             } else {
                                 if (sb.special_snowflake) {
-                                    final_runner.add(sb.no_install);
+                                    late_install.add(sb.no_install);
                                 } else if (References.checkThemeInterfacer(mContext)) {
                                     // Thread wait
                                     isWaiting = true;
@@ -1850,7 +1851,7 @@ public class Overlays extends Fragment {
                                 has_failed = true;
                             } else {
                                 if (sb.special_snowflake) {
-                                    final_runner.add(sb.no_install);
+                                    late_install.add(sb.no_install);
                                 } else if (References.checkThemeInterfacer(mContext)) {
                                     // Thread wait
                                     isWaiting = true;

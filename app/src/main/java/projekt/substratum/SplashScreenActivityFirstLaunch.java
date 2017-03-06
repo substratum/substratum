@@ -41,6 +41,6 @@ public class SplashScreenActivityFirstLaunch extends Activity {
                     .class);
             startActivity(intent);
             finish();
-        }, 3800);
+        }, 2300);
     }
 }

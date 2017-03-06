@@ -26,6 +26,7 @@
         android:icon="@mipmap/main_launcher"
         android:label="@string/app_name"
         android:largeHeap="true"
+        android:roundIcon="@mipmap/round_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="ManifestResource">

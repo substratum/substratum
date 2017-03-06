@@ -24,8 +24,8 @@ public class ReadVariantPrioritizedColor {
             Element eElement = (Element) nNode;
             return eElement.getAttributes().item(0).getNodeValue();
         } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            // At this point, the file does not exist!
         }
+        return null;
     }
 }

@@ -65,16 +65,11 @@ public class Fonts extends Fragment {
             savedInstanceState) {
 
         theme_pid = InformationActivity.getThemePID();
-
         root = (ViewGroup) inflater.inflate(R.layout.tab_fragment_3, container, false);
-
         progressBar = (MaterialProgressBar) root.findViewById(R.id.progress_bar_loader);
-
         defaults = (RelativeLayout) root.findViewById(R.id.restore_to_default);
-
         font_holder = (RelativeLayout) root.findViewById(R.id.font_holder);
         font_placeholder = (RelativeLayout) root.findViewById(R.id.font_placeholder);
-
         prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 
         imageButton = (ImageButton) root.findViewById(R.id.checkBox);
@@ -89,14 +84,12 @@ public class Fonts extends Fragment {
                             getContext(), theme_pid);
                 }
             } else {
-                Intent intent = new Intent(
-                        Settings.ACTION_MANAGE_WRITE_SETTINGS);
-                intent.setData(Uri.parse(
-                        "package:" + getActivity().getPackageName()));
+                Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
+                intent.setData(Uri.parse("package:" + getActivity().getPackageName()));
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
-                Toast toast = Toast.makeText(getContext(), getString(R
-                                .string.fonts_dialog_permissions_grant_toast2),
+                Toast toast = Toast.makeText(getContext(),
+                        getString(R.string.fonts_dialog_permissions_grant_toast2),
                         Toast.LENGTH_LONG);
                 toast.show();
             }
@@ -135,41 +128,48 @@ public class Fonts extends Fragment {
             fonts.add(getString(R.string.font_default_spinner));
             fonts.add(getString(R.string.font_spinner_set_defaults));
             for (int i = 0; i < unparsedFonts.size(); i++) {
-                fonts.add(unparsedFonts.get(i).substring(0,
-                        unparsedFonts.get(i).length() - 4));
+                fonts.add(unparsedFonts.get(i).substring(0, unparsedFonts.get(i).length() - 4));
             }
 
             ArrayAdapter<String> adapter1 = new ArrayAdapter<>(getActivity(),
                     android.R.layout.simple_spinner_dropdown_item, fonts);
             fontSelector = (Spinner) root.findViewById(R.id.fontSelection);
             fontSelector.setAdapter(adapter1);
-            fontSelector.setOnItemSelectedListener(new AdapterView
-                    .OnItemSelectedListener() {
+            fontSelector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
                 @Override
                 public void onItemSelected(AdapterView<?> arg0, View arg1,
                                            int pos, long id) {
-                    if (pos == 0) {
-                        if (current != null) current.cancel(true);
-                        font_placeholder.setVisibility(View.VISIBLE);
-                        defaults.setVisibility(View.GONE);
-                        imageButton.setClickable(false);
-                        imageButton.setImageTintList(unchecked);
-                        font_holder.setVisibility(View.GONE);
-                        progressBar.setVisibility(View.GONE);
-                    } else if (pos == 1) {
-                        if (current != null) current.cancel(true);
-                        defaults.setVisibility(View.VISIBLE);
-                        font_placeholder.setVisibility(View.GONE);
-                        imageButton.setImageTintList(checked);
-                        imageButton.setClickable(true);
-                        font_holder.setVisibility(View.GONE);
-                        progressBar.setVisibility(View.GONE);
-                    } else {
-                        if (current != null) current.cancel(true);
-                        defaults.setVisibility(View.GONE);
-                        font_placeholder.setVisibility(View.GONE);
-                        String[] commands = {arg0.getSelectedItem().toString()};
-                        current = new FontPreview().execute(commands);
+                    switch (pos){
+                        case 0:
+                            if (current != null)
+                                current.cancel(true);
+                            font_placeholder.setVisibility(View.VISIBLE);
+                            defaults.setVisibility(View.GONE);
+                            imageButton.setClickable(false);
+                            imageButton.setImageTintList(unchecked);
+                            font_holder.setVisibility(View.GONE);
+                            progressBar.setVisibility(View.GONE);
+                            break;
+
+                        case 1:
+                            if (current != null)
+                                current.cancel(true);
+                            defaults.setVisibility(View.VISIBLE);
+                            font_placeholder.setVisibility(View.GONE);
+                            imageButton.setImageTintList(checked);
+                            imageButton.setClickable(true);
+                            font_holder.setVisibility(View.GONE);
+                            progressBar.setVisibility(View.GONE);
+                            break;
+
+                        default:
+                            if (current != null)
+                                current.cancel(true);
+                            defaults.setVisibility(View.GONE);
+                            font_placeholder.setVisibility(View.GONE);
+                            String[] commands = {arg0.getSelectedItem().toString()};
+                            current = new FontPreview().execute(commands);
                     }
                 }
 
@@ -179,10 +179,8 @@ public class Fonts extends Fragment {
             });
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e("FontUtils", "There is no font.zip found within the assets " +
-                    "of this theme!");
+            Log.e("FontUtils", "There is no font.zip found within the assets of this theme!");
         }
-
         return root;
     }
 
@@ -200,29 +198,24 @@ public class Fonts extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             mProgressDialog.dismiss();
-
             SharedPreferences.Editor editor = prefs.edit();
             editor.remove("fonts_applied");
             editor.apply();
 
             if (References.checkOMS(getContext())) {
-                Toast toast = Toast.makeText(getContext(), getString(R.string
-                                .manage_fonts_toast),
-                        Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(getContext(),
+                        getString(R.string.manage_fonts_toast), Toast.LENGTH_SHORT);
                 toast.show();
             } else {
-                Toast toast = Toast.makeText(getContext(), getString(R.string
-                                .manage_fonts_toast),
-                        Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(getContext(),
+                        getString(R.string.manage_fonts_toast), Toast.LENGTH_SHORT);
                 toast.show();
                 final AlertDialog.Builder alertDialogBuilder =
                         new AlertDialog.Builder(getContext());
-                alertDialogBuilder.setTitle(getString(R.string
-                        .legacy_dialog_soft_reboot_title));
-                alertDialogBuilder.setMessage(getString(R.string
-                        .legacy_dialog_soft_reboot_text));
-                alertDialogBuilder.setPositiveButton(android.R.string.ok, (dialog, id) ->
-                        ElevatedCommands.reboot());
+                alertDialogBuilder.setTitle(getString(R.string.legacy_dialog_soft_reboot_title));
+                alertDialogBuilder.setMessage(getString(R.string.legacy_dialog_soft_reboot_text));
+                alertDialogBuilder.setPositiveButton(android.R.string.ok,
+                        (dialog, id) -> ElevatedCommands.reboot());
                 alertDialogBuilder.setNegativeButton(R.string.remove_dialog_later,
                         (dialog, id) -> dialog.dismiss());
                 alertDialogBuilder.setCancelable(false);
@@ -257,8 +250,8 @@ public class Fonts extends Fragment {
                         "/FontCache/font_preview/";
 
                 try {
-                    Typeface normal_tf = Typeface.createFromFile(work_directory + "Roboto-Regular" +
-                            ".ttf");
+                    Typeface normal_tf = Typeface.createFromFile(work_directory +
+                            "Roboto-Regular.ttf");
                     TextView normal = (TextView) root.findViewById(R.id.text_normal);
                     normal.setTypeface(normal_tf);
                 } catch (Exception e) {
@@ -303,8 +296,8 @@ public class Fonts extends Fragment {
                 font_holder.setVisibility(View.VISIBLE);
                 progressBar.setVisibility(View.GONE);
             } catch (Exception e) {
-                Log.e("Fonts", "Window was destroyed before AsyncTask could complete " +
-                        "postExecute()");
+                Log.e("Fonts",
+                        "Window was destroyed before AsyncTask could complete postExecute()");
             }
         }
 
@@ -313,43 +306,39 @@ public class Fonts extends Fragment {
             try {
                 File cacheDirectory = new File(getContext().getCacheDir(), "/FontCache/");
                 if (!cacheDirectory.exists()) {
-                    boolean created = cacheDirectory.mkdirs();
-                    if (created) Log.d("FontUtils", "FontCache folder created");
+                    if (cacheDirectory.mkdirs()) Log.d("FontUtils", "FontCache folder created");
                 }
-                File cacheDirectory2 = new File(getContext().getCacheDir(), "/FontCache/" +
-                        "font_preview/");
+                File cacheDirectory2 = new File(getContext().getCacheDir(),
+                        "/FontCache/font_preview/");
+
                 if (!cacheDirectory2.exists()) {
-                    boolean created = cacheDirectory2.mkdirs();
-                    if (created) Log.d("FontUtils", "FontCache work folder created");
+                    if (cacheDirectory2.mkdirs()) Log.d("FontUtils",
+                            "FontCache work folder created");
                 } else {
-                    FileOperations.delete(getContext(), getContext().getCacheDir()
-                            .getAbsolutePath() +
+                    FileOperations.delete(getContext(),
+                            getContext().getCacheDir().getAbsolutePath() +
                             "/FontCache/font_preview/");
-                    boolean created = cacheDirectory2.mkdirs();
-                    if (created) Log.d("FontUtils", "FontCache folder recreated");
+                    if (cacheDirectory2.mkdirs()) Log.d("FontUtils", "FontCache folder recreated");
                 }
 
                 // Copy the font.zip from assets/fonts of the theme's assets
-
                 String source = sUrl[0] + ".zip";
 
                 try {
                     File f = new File(getContext().getCacheDir().getAbsoluteFile() +
                             "/SubstratumBuilder/" + theme_pid + "/assets/fonts/" + source);
                     InputStream inputStream = new FileInputStream(f);
-                    OutputStream outputStream = new FileOutputStream(getContext().getCacheDir()
-                            .getAbsolutePath() + "/FontCache/" + source);
+                    OutputStream outputStream = new FileOutputStream(
+                            getContext().getCacheDir().getAbsolutePath() + "/FontCache/" + source);
                     CopyStream(inputStream, outputStream);
                 } catch (Exception e) {
-                    Log.e("FontUtils", "There is no fonts.zip found within the assets " +
-                            "of this theme!");
+                    Log.e("FontUtils",
+                            "There is no fonts.zip found within the assets of this theme!");
                 }
 
                 // Unzip the fonts to get it prepared for the preview
-                unzip(getContext().getCacheDir().getAbsolutePath() +
-                                "/FontCache/" + source,
-                        getContext().getCacheDir().getAbsolutePath() +
-                                "/FontCache/font_preview/");
+                unzip(getContext().getCacheDir().getAbsolutePath() + "/FontCache/" + source,
+                        getContext().getCacheDir().getAbsolutePath() + "/FontCache/font_preview/");
             } catch (Exception e) {
                 Log.e("FontUtils", "Unexpectedly lost connection to the application host");
             }

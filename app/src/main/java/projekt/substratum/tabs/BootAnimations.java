@@ -50,6 +50,7 @@ import projekt.substratum.util.Root;
 
 public class BootAnimations extends Fragment {
 
+    private static final int ANIMATION_FRAME_DURATION = 40;
     private String theme_pid;
     private AnimationDrawable animation;
     private ViewGroup root;
@@ -68,8 +69,8 @@ public class BootAnimations extends Fragment {
     private NestedScrollView nsv;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
-            savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
         theme_pid = InformationActivity.getThemePID();
 
@@ -84,8 +85,8 @@ public class BootAnimations extends Fragment {
         progressBar = (MaterialProgressBar) root.findViewById(R.id.progress_bar_loader);
 
         vm_blown = (TextView) root.findViewById(R.id.vm_blown);
-        bootanimation_placeholder = (RelativeLayout) root.findViewById(R.id
-                .bootanimation_placeholder);
+        bootanimation_placeholder = (RelativeLayout) root.findViewById(
+                R.id.bootanimation_placeholder);
         defaults = (RelativeLayout) root.findViewById(R.id.restore_to_default);
 
         imageButton = (ImageButton) root.findViewById(R.id.checkBox);
@@ -96,9 +97,9 @@ public class BootAnimations extends Fragment {
                 if (bootAnimationSelector.getSelectedItemPosition() == 1) {
                     new BootAnimationClearer().execute("");
                 } else {
-                    new BootAnimationUtils().execute(nsv, bootAnimationSelector
-                            .getSelectedItem()
-                            .toString(), getContext(), theme_pid);
+                    new BootAnimationUtils().execute(nsv,
+                            bootAnimationSelector.getSelectedItem().toString(),
+                            getContext(), theme_pid);
                 }
             } else {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -106,14 +107,13 @@ public class BootAnimations extends Fragment {
                         .setMessage(R.string.root_required_boot_animation)
                         .setPositiveButton(android.R.string.ok, (dialog, which) -> {
                             dialog.dismiss();
-                            boolean granted = Root.requestRootAccess();
-                            if (granted) {
+                            if (Root.requestRootAccess()) {
                                 if (bootAnimationSelector.getSelectedItemPosition() == 1) {
                                     new BootAnimationClearer().execute("");
                                 } else {
-                                    new BootAnimationUtils().execute(nsv, bootAnimationSelector
-                                            .getSelectedItem()
-                                            .toString(), getContext(), theme_pid);
+                                    new BootAnimationUtils().execute(nsv,
+                                            bootAnimationSelector.getSelectedItem().toString(),
+                                            getContext(), theme_pid);
                                 }
                             }
                         })
@@ -145,6 +145,7 @@ public class BootAnimations extends Fragment {
         );
 
         try {
+            // Parses the list of items in the boot animation folder
             File f = new File(getContext().getCacheDir().getAbsoluteFile() +
                     "/SubstratumBuilder/" + theme_pid + "/assets/bootanimation");
             File[] fileArray = f.listFiles();
@@ -152,6 +153,8 @@ public class BootAnimations extends Fragment {
             for (File file : fileArray) {
                 unparsedBootAnimations.add(file.getName());
             }
+
+            // Creates the list of dropdown items
             ArrayList<String> parsedBootAnimations = new ArrayList<>();
             parsedBootAnimations.add(getString(R.string.bootanimation_default_spinner));
             parsedBootAnimations.add(getString(R.string.bootanimation_spinner_set_defaults));
@@ -164,57 +167,68 @@ public class BootAnimations extends Fragment {
                     android.R.layout.simple_spinner_dropdown_item, parsedBootAnimations);
             bootAnimationSelector = (Spinner) root.findViewById(R.id.bootAnimationSelection);
             bootAnimationSelector.setAdapter(adapter1);
-            bootAnimationSelector.setOnItemSelectedListener(new AdapterView
-                    .OnItemSelectedListener() {
+            bootAnimationSelector.setOnItemSelectedListener(
+                    new AdapterView.OnItemSelectedListener() {
+
                 @Override
                 public void onItemSelected(AdapterView<?> arg0, View arg1,
                                            int pos, long id) {
-                    if (pos == 0) {
-                        if (current != null) current.cancel(true);
-                        bootanimation_placeholder.setVisibility(View.VISIBLE);
-                        defaults.setVisibility(View.GONE);
-                        vm_blown.setVisibility(View.GONE);
-                        imageButton.setClickable(false);
-                        imageButton.setImageTintList(unchecked);
-                        animation = new AnimationDrawable();
-                        animation.setOneShot(false);
-                        bootAnimationPreview = (ImageView) root.findViewById(
-                                R.id.bootAnimationPreview);
-                        bootAnimationPreview.setImageDrawable(null);
-                        images.clear();
-                        progressBar.setVisibility(View.GONE);
-                    } else if (pos == 1) {
-                        if (current != null) current.cancel(true);
-                        defaults.setVisibility(View.VISIBLE);
-                        bootanimation_placeholder.setVisibility(View.GONE);
-                        vm_blown.setVisibility(View.GONE);
-                        imageButton.setImageTintList(checked);
-                        imageButton.setClickable(true);
-                        progressBar.setVisibility(View.GONE);
-                        animation = new AnimationDrawable();
-                        animation.setOneShot(false);
-                        bootAnimationPreview = (ImageView) root.findViewById(
-                                R.id.bootAnimationPreview);
-                        bootAnimationPreview.setImageDrawable(null);
-                        images.clear();
-                        progressBar.setVisibility(View.GONE);
-                    } else {
-                        if (current != null) current.cancel(true);
-                        defaults.setVisibility(View.GONE);
-                        bootanimation_placeholder.setVisibility(View.GONE);
-                        String[] commands = {arg0.getSelectedItem().toString()};
-                        current = new BootAnimationPreview().execute(commands);
+                    switch(pos){
+                        case 0:
+                            if (current != null)
+                                current.cancel(true);
+
+                            bootanimation_placeholder.setVisibility(View.VISIBLE);
+                            defaults.setVisibility(View.GONE);
+                            vm_blown.setVisibility(View.GONE);
+                            imageButton.setClickable(false);
+                            imageButton.setImageTintList(unchecked);
+                            animation = new AnimationDrawable();
+                            animation.setOneShot(false);
+                            bootAnimationPreview =
+                                    (ImageView) root.findViewById(R.id.bootAnimationPreview);
+                            bootAnimationPreview.setImageDrawable(null);
+                            images.clear();
+                            progressBar.setVisibility(View.GONE);
+                            break;
+
+                        case 1:
+                            if (current != null)
+                                current.cancel(true);
+
+                            defaults.setVisibility(View.VISIBLE);
+                            bootanimation_placeholder.setVisibility(View.GONE);
+                            vm_blown.setVisibility(View.GONE);
+                            imageButton.setImageTintList(checked);
+                            imageButton.setClickable(true);
+                            progressBar.setVisibility(View.GONE);
+                            animation = new AnimationDrawable();
+                            animation.setOneShot(false);
+                            bootAnimationPreview =
+                                    (ImageView) root.findViewById(R.id.bootAnimationPreview);
+                            bootAnimationPreview.setImageDrawable(null);
+                            images.clear();
+                            progressBar.setVisibility(View.GONE);
+                            break;
+
+                        default:
+                            if (current != null)
+                                current.cancel(true);
+
+                            defaults.setVisibility(View.GONE);
+                            bootanimation_placeholder.setVisibility(View.GONE);
+                            String[] commands = {arg0.getSelectedItem().toString()};
+                            current = new BootAnimationPreview().execute(commands);
                     }
                 }
-
                 @Override
                 public void onNothingSelected(AdapterView<?> arg0) {
                 }
             });
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e("BootAnimationUtils", "There is no bootanimation.zip found within the assets " +
-                    "of this theme!");
+            Log.e("BootAnimationUtils",
+                    "There is no bootanimation.zip found within the assets of this theme!");
         }
         return root;
     }
@@ -238,8 +252,7 @@ public class BootAnimations extends Fragment {
             editor.apply();
             if (getView() != null) {
                 Snackbar.make(getView(),
-                        getString(R.string.
-                                manage_bootanimation_toast),
+                        getString(R.string.manage_bootanimation_toast),
                         Snackbar.LENGTH_LONG)
                         .show();
             }
@@ -264,18 +277,17 @@ public class BootAnimations extends Fragment {
             bootAnimationPreview.setImageDrawable(null);
             images.clear();
             progressBar.setVisibility(View.VISIBLE);
-            if (vm_blown.getVisibility() == View.VISIBLE) vm_blown.setVisibility(View.GONE);
+            if (vm_blown.getVisibility() == View.VISIBLE)
+                vm_blown.setVisibility(View.GONE);
         }
 
         @Override
         protected void onPostExecute(String result) {
-            if ("true".equals(result)) {
+            if ("true".equals(result))
                 vm_blown.setVisibility(View.VISIBLE);
-            }
             try {
                 Log.d("BootAnimationUtils", "Loaded boot animation contains " + images.size() +
-                        " " +
-                        "frames.");
+                        " frames.");
                 if (bootAnimationSelector.getSelectedItemPosition() > 1) {
                     bootAnimationPreview.setImageDrawable(animation);
                     animation.start();
@@ -286,9 +298,8 @@ public class BootAnimations extends Fragment {
                 imageButton.setClickable(true);
                 progressBar.setVisibility(View.GONE);
             } catch (Exception e) {
-                Log.e("BootAnimationUtils", "Window was destroyed before AsyncTask could " +
-                        "perform " +
-                        "postExecute()");
+                Log.e("BootAnimationUtils",
+                        "Window was destroyed before AsyncTask could perform postExecute()");
             }
         }
 
@@ -298,19 +309,22 @@ public class BootAnimations extends Fragment {
                 File cacheDirectory = new File(getContext().getCacheDir(), "/BootAnimationCache/");
                 if (!cacheDirectory.exists()) {
                     boolean created = cacheDirectory.mkdirs();
-                    if (created) Log.d("BootAnimationUtils", "Bootanimation folder created");
+                    if (created)
+                        Log.d("BootAnimationUtils", "Bootanimation folder created");
                 }
-                File cacheDirectory2 = new File(getContext().getCacheDir(), "/BootAnimationCache/" +
-                        "animation_preview/");
+                File cacheDirectory2 = new File(getContext().getCacheDir(),
+                        "/BootAnimationCache/animation_preview/");
                 if (!cacheDirectory2.exists()) {
                     boolean created = cacheDirectory2.mkdirs();
-                    if (created) Log.d("BootAnimationUtils", "Bootanimation work folder created");
+                    if (created)
+                        Log.d("BootAnimationUtils", "Bootanimation work folder created");
                 } else {
-                    FileOperations.delete(getContext(), getContext().getCacheDir()
-                            .getAbsolutePath() +
+                    FileOperations.delete(getContext(),
+                            getContext().getCacheDir().getAbsolutePath() +
                             "/BootAnimationCache/animation_preview/");
                     boolean created = cacheDirectory2.mkdirs();
-                    if (created) Log.d("BootAnimationUtils", "Bootanimation folder recreated");
+                    if (created)
+                        Log.d("BootAnimationUtils", "Bootanimation folder recreated");
                 }
 
                 // Copy the bootanimation.zip from assets/bootanimation of the theme's assets
@@ -320,13 +334,14 @@ public class BootAnimations extends Fragment {
                     File f = new File(getContext().getCacheDir().getAbsoluteFile() +
                             "/SubstratumBuilder/" + theme_pid + "/assets/bootanimation/" + source);
                     try (InputStream inputStream = new FileInputStream(f);
-                         OutputStream outputStream = new FileOutputStream(getContext().getCacheDir()
-                                 .getAbsolutePath() + "/BootAnimationCache/" + source)) {
+                         OutputStream outputStream =
+                                 new FileOutputStream(getContext().getCacheDir().getAbsolutePath() +
+                                         "/BootAnimationCache/" + source)) {
                         CopyStream(inputStream, outputStream);
                     }
                 } catch (Exception e) {
-                    Log.e("BootAnimationUtils", "There is no bootanimation.zip found within the" +
-                            " assets of this theme!");
+                    Log.e("BootAnimationUtils",
+                            "There is no bootanimation.zip found within the assets of this theme!");
                 }
 
                 // Unzip the boot animation to get it prepared for the preview
@@ -337,14 +352,12 @@ public class BootAnimations extends Fragment {
 
                 // Begin creating the animated drawable
                 try {
-                    int inSampleSize = previewDeterminator(getContext().getCacheDir()
-                            .getAbsolutePath() +
+                    int inSampleSize =
+                            previewDeterminator(getContext().getCacheDir().getAbsolutePath() +
                             "/BootAnimationCache/" + source);
-                    Log.d("BootAnimationUtils", "Resampling bootanimation for preview at scale " +
-                            "" + inSampleSize);
-                    int counter = 0;
-                    boolean has_stopped = false;
-                    while (!has_stopped) {
+                    Log.d("BootAnimationUtils",
+                            "Resampling bootanimation for preview at scale " + inSampleSize);
+                    for (int counter = 0; true; counter++){
                         File current_directory = new File(getContext().getCacheDir(),
                                 "/BootAnimationCache/" +
                                         "animation_preview/part" + counter);
@@ -356,21 +369,18 @@ public class BootAnimations extends Fragment {
                             for (String string : dirObjects) {
                                 BitmapFactory.Options options = new BitmapFactory.Options();
                                 options.inSampleSize = inSampleSize;
-                                Bitmap bitmap = BitmapFactory.decodeFile(directory +
-                                        string, options);
+                                Bitmap bitmap =
+                                        BitmapFactory.decodeFile(directory + string, options);
                                 images.add(bitmap);
                             }
                         } else {
-                            has_stopped = true;
+                            break;
                         }
-                        counter += 1;
                     }
-
-                    int duration = 40;
 
                     for (Bitmap image : images) {
                         BitmapDrawable frame = new BitmapDrawable(getResources(), image);
-                        animation.addFrame(frame, duration);
+                        animation.addFrame(frame, ANIMATION_FRAME_DURATION);
                     }
                 } catch (OutOfMemoryError oome) {
                     Log.e("BootAnimationUtils", "The VM has been blown up and the rendering of " +
@@ -381,8 +391,8 @@ public class BootAnimations extends Fragment {
                     return "true";
                 }
             } catch (Exception e) {
-                Log.e("BootAnimationUtils", "Unexpectedly lost connection to the application " +
-                        "host");
+                Log.e("BootAnimationUtils",
+                        "Unexpectedly lost connection to the application host");
             }
             return null;
         }
@@ -416,8 +426,8 @@ public class BootAnimations extends Fragment {
                     File file = new File(destination, zipEntry.getName());
                     File dir = zipEntry.isDirectory() ? file : file.getParentFile();
                     if (!dir.isDirectory() && !dir.mkdirs())
-                        throw new FileNotFoundException("Failed to ensure directory: " +
-                                dir.getAbsolutePath());
+                        throw new FileNotFoundException(
+                                "Failed to ensure directory: " + dir.getAbsolutePath());
                     if (zipEntry.isDirectory())
                         continue;
                     try (FileOutputStream outputStream = new FileOutputStream(file)) {

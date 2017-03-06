@@ -368,7 +368,7 @@
         will be changed when you apply this icon pack.
     </string>
 
-    <string name="nav_overlay_manager">Advanced Manager</string>
+    <string name="nav_overlay_manager">Overlay List</string>
     <string name="nav_home">Theme Packs</string>
     <string name="nav_overlays">Overlays</string>
     <string name="nav_bootanim">Boot Animations</string>

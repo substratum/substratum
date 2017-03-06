@@ -10,13 +10,13 @@
 
         <include layout="@layout/restore_overlay"/>
 
-        <include layout="@layout/restore_wallpaper"/>
-
         <include layout="@layout/restore_bootanimation"/>
 
         <include layout="@layout/restore_fonts"/>
 
         <include layout="@layout/restore_sounds"/>
+
+        <include layout="@layout/restore_wallpaper"/>
 
     </LinearLayout>
 </ScrollView>

@@ -285,27 +285,27 @@ public class MainActivity extends AppCompatActivity implements
                         .withName(R.string.nav_overlay_manager)
                         .withIcon(R.drawable.nav_overlay_manager)
                         .withIdentifier(7));
-        drawerBuilder.addDrawerItems(
-                new PrimaryDrawerItem()
-                        .withName(R.string.nav_manage)
-                        .withIcon(R.drawable.nav_manage)
-                        .withIdentifier(8));
         if (References.checkThemeInterfacer(getApplicationContext()) &&
                 BuildConfig.VERSION_NAME.contains("-")) drawerBuilder.addDrawerItems(
                 new PrimaryDrawerItem()
                         .withName(R.string.nav_studio)
                         .withIcon(R.drawable.nav_drawer_studio)
                         .withSelectable(false)
-                        .withIdentifier(9));
+                        .withIdentifier(8));
         if (References.checkOMS(getApplicationContext())) drawerBuilder.addDrawerItems(
                 new PrimaryDrawerItem()
                         .withName(R.string.nav_priorities)
                         .withIcon(R.drawable.nav_drawer_priorities)
-                        .withIdentifier(10));
+                        .withIdentifier(9));
         drawerBuilder.addDrawerItems(
                 new PrimaryDrawerItem()
                         .withName(R.string.nav_backup_restore)
                         .withIcon(R.drawable.nav_drawer_profiles)
+                        .withIdentifier(10));
+        drawerBuilder.addDrawerItems(
+                new PrimaryDrawerItem()
+                        .withName(R.string.nav_manage)
+                        .withIcon(R.drawable.nav_manage)
                         .withIdentifier(11));
         drawerBuilder.addDrawerItems(
                 new SectionDrawerItem()
@@ -365,21 +365,21 @@ public class MainActivity extends AppCompatActivity implements
                                 "AdvancedManagerFragment");
                         break;
                     case 8:
-                        switchFragment(getString(R.string.nav_manage),
-                                "RecoveryFragment");
-                        break;
-                    case 9:
                         Intent intent = new Intent(getApplicationContext(),
                                 StudioSelectorActivity.class);
                         startActivity(intent);
                         break;
-                    case 10:
+                    case 9:
                         switchFragment(getString(R.string.nav_priorities),
                                 "PriorityLoaderFragment");
                         break;
-                    case 11:
+                    case 10:
                         switchFragment(getString(R.string.nav_backup_restore),
                                 "ProfileFragment");
+                        break;
+                    case 11:
+                        switchFragment(getString(R.string.nav_manage),
+                                "RecoveryFragment");
                         break;
                     case 12:
                         switchFragment(getString(R.string.nav_troubleshooting),

@@ -86,18 +86,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     return false;
                 });
 
-        Preference themePlatform = getPreferenceManager().findPreference
-                ("theme_platform");
-        if (References.checkOMS(getContext())) {
-            String aboutThemePlatformSummary = getString(R.string.settings_about_oms_version_7);
-            if (!References.checkSubstratumFeature(getContext())) {
-                aboutThemePlatformSummary = aboutThemePlatformSummary + "\n"
-                        + getString(R.string.settings_about_oms_version_incompatible);
-            }
-            themePlatform.setSummary(aboutThemePlatformSummary);
-        }
-        themePlatform.setIcon(getContext().getDrawable(R.mipmap.projekt_icon));
-
         Preference systemPlatform = getPreferenceManager().findPreference
                 ("system_platform");
         systemPlatform.setSummary(
@@ -105,15 +93,20 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         " (" + Build.ID + ")\n" +
                         getString(R.string.device) + " " + Build.MODEL + " (" + Build.DEVICE + ")" +
                         "\n" +
-                        getString(R.string.vendor) + " " +
-                        References.getProp("ro.build.version.security_patch") + ""
+                        getString(R.string.settings_about_oms_rro_version) + ": " +
+                        ((References.checkOMS(getContext())) ?
+                                getString(R.string.settings_about_oms_version_7) :
+                                getString(R.string.settings_about_rro_version_2))
         );
         systemPlatform.setIcon(References.grabAppIcon(getContext(), "com.android.systemui"));
 
         Preference systemStatus = getPreferenceManager().findPreference
                 ("system_status");
+        boolean oms = References.checkSubstratumFeature(getContext());
+        boolean steps = References.spreadYourWingsAndFly(getContext()) &&
+                (References.checkOMS(getContext()) ? oms : true);
         systemStatus.setSummary(
-                (References.checkThemeInterfacer(getContext()) ?
+                (steps ?
                         getString(R.string.settings_system_status_rootless) :
                         getString(R.string.settings_system_status_rooted)) + " (" +
                         (References.spreadYourWingsAndFly(

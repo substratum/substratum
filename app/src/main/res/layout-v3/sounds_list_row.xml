@@ -7,8 +7,8 @@
                 android:focusable="true"
                 android:orientation="vertical"
                 android:paddingBottom="10dp"
-                android:paddingStart="16dp"
                 android:paddingEnd="16dp"
+                android:paddingStart="16dp"
                 android:paddingTop="10dp">
 
     <TextView

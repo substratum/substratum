@@ -74,16 +74,6 @@
         <receiver android:name=".services.ScheduledProfileReceiver"/>
 
         <service
-            android:name=".services.CookieTile"
-            android:enabled="true"
-            android:icon="@drawable/ic_cookie_non_bitten"
-            android:label="@string/cookie_non_bitten"
-            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
-            <intent-filter>
-                <action android:name="android.service.quicksettings.action.QS_TILE"/>
-            </intent-filter>
-        </service>
-        <service
             android:name=".services.SubstratumFloatInterface"
             android:exported="false"/>
         <service

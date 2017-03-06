@@ -186,7 +186,7 @@ public class StudioSelectorActivity extends AppCompatActivity {
 
                         Intent runCommand = ThemeInterfacerService.getInterfacer
                                 (getApplicationContext
-                                ());
+                                        ());
                         runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                         runCommand.setAction("projekt.themeinterface.COMMANDS");
                         ArrayList<String> final_array = new ArrayList<>();

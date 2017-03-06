@@ -49,17 +49,13 @@ public class LLandActivity extends Activity {
     private ImageView titleThree;
     private ImageView splashBubbaSmall;
     private ImageView splashBubbaBig;
-    private ImageView wink;
     private View dismissDialogView;
     private boolean splashAnimating = false;
     private boolean bubbleVisible = false;
     private boolean touchBubbleVisible = false;
-    private boolean winkVisible = false;
     private boolean rainbowVisible = false;
     private Handler mHandler;
-    private Handler wHandler;
     private Runnable updateBubble;
-    private Runnable updateWink;
     private TextView bestScore;
     private TextView newHigh1;
     private TextView newHigh2;
@@ -131,7 +127,6 @@ public class LLandActivity extends Activity {
         splashBox = (ImageView) splashDialog.findViewById(R.id.splashbox);
         speechBubble = (ImageView) splashDialog
                 .findViewById(R.id.speech_bubble);
-        wink = (ImageView) splashDialog.findViewById(R.id.wink);
         dismissDialogView = splashDialog.findViewById(R.id.full_dialog_view);
         SharedPreferences pref = PreferenceManager
                 .getDefaultSharedPreferences(this);
@@ -202,24 +197,6 @@ public class LLandActivity extends Activity {
                                     .getBackground();
                             splashBG.setVisibility(View.VISIBLE);
                             rainbowAnim.start();
-
-                            wHandler = new Handler();
-                            updateWink = new Runnable() {
-                                @Override
-                                public void run() {
-                                    if (!winkVisible) {
-                                        wink.setVisibility(View.VISIBLE);
-                                        winkVisible = true;
-                                        Handler handler = new Handler();
-                                        handler.postDelayed(() -> {
-                                            wink.setVisibility(View.GONE);
-                                            winkVisible = false;
-                                        }, 300);
-                                    }
-                                    wHandler.postDelayed(this, 5000);
-                                }
-                            };
-                            wHandler.postDelayed(updateWink, 5000);
                         }
                     }
                 }

@@ -54,15 +54,6 @@
         android:visibility="gone"/>
 
     <ImageView
-        android:id="@+id/wink"
-        android:layout_width="24dp"
-        android:layout_height="18dp"
-        android:layout_marginStart="156dp"
-        android:layout_marginTop="310dp"
-        android:src="@drawable/wink"
-        android:visibility="gone"/>
-
-    <ImageView
         android:id="@+id/speech_bubble"
         android:layout_width="126dp"
         android:layout_height="111dp"

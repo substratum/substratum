@@ -23,8 +23,8 @@
             android:layout_height="wrap_content"
             android:background="@color/logcat_dialog_background"
             android:paddingBottom="20dp"
-            android:paddingStart="20dp"
             android:paddingEnd="20dp"
+            android:paddingStart="20dp"
             android:paddingTop="20dp"
             android:textColor="@color/logcat_dialog_text"
             android:textSize="12sp"/>

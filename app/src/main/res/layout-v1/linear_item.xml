@@ -42,8 +42,8 @@
             android:ellipsize="none"
             android:gravity="center_vertical"
             android:maxLines="1"
-            android:paddingStart="@dimen/linear_text_padding"
             android:paddingEnd="@dimen/linear_text_padding"
+            android:paddingStart="@dimen/linear_text_padding"
             android:textColor="@color/main_screen_card_theme_title"/>
 
         <ImageView

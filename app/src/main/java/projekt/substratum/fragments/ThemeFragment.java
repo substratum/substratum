@@ -344,9 +344,10 @@ public class ThemeFragment extends Fragment {
             List<String> state1 = ThemeManager.listOverlays(1);
             // Overlays with non-existent targets
             // We need the null check because listOverlays never returns null, but empty
-            if (state1.size() > 0 && state1.get(0)!= null ) {
+            if (state1.size() > 0 && state1.get(0) != null) {
                 for (int i = 0; i < state1.size(); i++) {
-                    Log.e("OverlayCleaner", "Target APK not found for \"" + state1.get(i) + "\" and " +
+                    Log.e("OverlayCleaner", "Target APK not found for \"" + state1.get(i) + "\" " +
+                            "and " +
                             "will be removed.");
                     removeList.add(state1.get(i));
                 }

@@ -218,14 +218,10 @@
     <string name="settings_about_substratum">substratum version</string>
     <string name="settings_about_interfacer">interfacer version</string>
     <string name="settings_about_interfacer_not_installed">interfacer not installed</string>
-    <string name="settings_about_oms_rro_version">theming platform</string>
-    <string name="settings_about_oms_version_3">overlay manager service - iteration 3 (oms3)
-    </string>
-    <string name="settings_about_oms_version_7">overlay manager service - iteration 7 (oms7)
-    </string>
-    <string name="settings_about_rro_version_2">resource runtime overlay - iteration 2
-        (rro2/legacy)
-    </string>
+    <string name="settings_about_oms_rro_version">Theme platform</string>
+    <string name="settings_about_oms_version_3">OMS3</string>
+    <string name="settings_about_oms_version_7">OMS7</string>
+    <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
 
     <string name="settings_about_system_version">system platform</string>
     <string name="settings_about_system_content" translatable="false">%NULL$</string>
@@ -337,7 +333,6 @@
 
     <string name="changelog_title">%s theme changelog</string>
 
-    <string name="coming_soon">Stolen by Char!</string>
     <string name="legacy_theme_notification_title">Deprecated Theme Warning</string>
     <string name="legacy_theme_notification_text">To use outdated themes,
         please enable it in Settings.</string>
@@ -568,15 +563,6 @@
         Recovery and click on Restore System Theme (Uninstall all installed overlays) to
         resolve this issue.
     </string>
-
-    <string name="one_bread">One slice of bread</string>
-    <string name="two_bread">Two slices of bread</string>
-    <string name="three_bread">Bread Sandwich!</string>
-    <string name="cookie_non_bitten">Cookie?</string>
-    <string name="cookie_bitten">Char\'s Cookie!</string>
-    <string name="a_wild_char_has_appeared">It\'s Char! Run!</string>
-    <string name="char_success">Char stole all your cookies!</string>
-    <string name="char_error">Char couldn\'t steal your cookies!</string>
 
     <string name="shortcut_floatui">FloatUI</string>
     <string name="shortcut_floatui_disabled">FloatUI</string>
@@ -876,6 +862,5 @@
     <string name="restore_fonts_summary">This function removes the previously applied fonts set and restores it to the stock fonts set\n</string>
     <string name="restore_fonts_button">Restore fonts</string>
 
-    <string name="interfacer_not_authorized_toast">You shall not pass&#8230;</string>
-    <string name="settings_about_oms_version_incompatible">incompatible with Play Store</string>
+    <string name="interfacer_not_authorized_toast">Substratum is not able to communicate with the Theme Interfacer&#8230;</string>
 </resources>

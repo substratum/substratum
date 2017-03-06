@@ -182,11 +182,10 @@ public class StudioSelectorActivity extends AppCompatActivity {
                             References.INTERFACER_PACKAGE)) {
                         if (DEBUG)
                             Log.e(References.SUBSTRATUM_ICON_BUILDER,
-                                    "Initializing the Theme Inteface...");
+                                    "Initializing the Theme Interface...");
 
                         Intent runCommand = ThemeInterfacerService.getInterfacer
-                                (getApplicationContext
-                                        ());
+                                (getApplicationContext());
                         runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                         runCommand.setAction("projekt.themeinterface.COMMANDS");
                         ArrayList<String> final_array = new ArrayList<>();

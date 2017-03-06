@@ -194,11 +194,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     sheetDialog.show();
                     return false;
                 });
-        if (BuildConfig.DEBUG) {
-            aoptSwitcher.setVisible(true);
-        } else {
-            aoptSwitcher.setVisible(false);
-        }
+        aoptSwitcher.setVisible(BuildConfig.DEBUG);
 
         if (References.checkOMS(getContext())) {
             Preference aboutInterfacer = getPreferenceManager().findPreference

@@ -447,10 +447,10 @@
     <string name="profile_failed_info_notification">点击查看更多</string>
     <string name="theme_debug_mode_title">主题调试模式</string>
     <string name="theme_debug_mode_summary">禁用旧版编译器</string>
-    <string name="theme_debug_mode_dialog_title">警告</string>
-    <string name="theme_debug_mode_dialog_content">这可能会打乱编译过程，只有当您知道自己在做什么的时候，才能启用此选项！</string>
-    <string name="theme_debug_mode_dialog_continue">继续</string>
-    <string name="theme_debug_mode_dialog_cancel">取消</string>
+    <string name="break_compilation_dialog_title">警告</string>
+    <string name="break_compilation_dialog_content">这可能会打乱编译过程，只有当您知道自己在做什么的时候，才能启用此选项！</string>
+    <string name="break_compilation_dialog_continue">继续</string>
+    <string name="break_compilation_dialog_cancel">取消</string>
     <string name="profile_dialog_title">请选择您想要备份的项目</string>
     <string name="profile_no_selection_warning">请选择至少一个选项</string>
     <string name="profile_boot_animation">开机动画</string>

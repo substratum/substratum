@@ -452,10 +452,10 @@ Czy chcesz przywrócić bieżące ikony do systemowych?    </string>
     <string name="profile_failed_info_notification">Dotknij, aby uzyskać więcej informacji</string>
     <string name="theme_debug_mode_title">Tryb debugowania tematu</string>
     <string name="theme_debug_mode_summary">Wyłącz wsparcie dla starego kompilatora.</string>
-    <string name="theme_debug_mode_dialog_title">OSTRZEŻENIE</string>
-    <string name="theme_debug_mode_dialog_content">To może całkowicie przerwać proces kompilacji. Włącz tę opcję, Jeśli wiesz co robisz!</string>
-    <string name="theme_debug_mode_dialog_continue">Kontynuuj</string>
-    <string name="theme_debug_mode_dialog_cancel">Anuluj</string>
+    <string name="break_compilation_dialog_title">OSTRZEŻENIE</string>
+    <string name="break_compilation_dialog_content">To może całkowicie przerwać proces kompilacji. Włącz tę opcję, Jeśli wiesz co robisz!</string>
+    <string name="break_compilation_dialog_continue">Kontynuuj</string>
+    <string name="break_compilation_dialog_cancel">Anuluj</string>
     <string name="profile_dialog_title">wybierz elementy, które chcesz zapisać do kopii zapasowej</string>
     <string name="profile_no_selection_warning">Proszę wybrać przynajmniej jedną opcję!</string>
     <string name="profile_boot_animation">Animacja rozruchu</string>

@@ -471,10 +471,10 @@ ateities atnaujinimams.
     <string name="profile_failed_info_notification">Palieskite norėdami gauti daugiau informacijos</string>
     <string name="theme_debug_mode_title">Temos derinimo režimas</string>
     <string name="theme_debug_mode_summary">Išjungti \"legacy\" kompiliatoriaus atsarginę priemonę.</string>
-    <string name="theme_debug_mode_dialog_title">ĮSPĖJIMAS</string>
-    <string name="theme_debug_mode_dialog_content">Tai gali visiškai nutraukti kompiliavimo procesą. Įjungite šią parinktį, jei žinote, ką darote!</string>
-    <string name="theme_debug_mode_dialog_continue">Tęsti</string>
-    <string name="theme_debug_mode_dialog_cancel">Atšaukti</string>
+    <string name="break_compilation_dialog_title">ĮSPĖJIMAS</string>
+    <string name="break_compilation_dialog_content">Tai gali visiškai nutraukti kompiliavimo procesą. Įjungite šią parinktį, jei žinote, ką darote!</string>
+    <string name="break_compilation_dialog_continue">Tęsti</string>
+    <string name="break_compilation_dialog_cancel">Atšaukti</string>
     <string name="profile_dialog_title">pasirinkite elementus, kuriems norite padaryti atsarginę kopiją</string>
     <string name="profile_no_selection_warning">Prašome pasirinkti bent vieną parinktį!</string>
     <string name="profile_boot_animation">Paleidimo Animacija</string>

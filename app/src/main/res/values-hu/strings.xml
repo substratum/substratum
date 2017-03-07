@@ -620,10 +620,10 @@
     <string name="profile_failed_info_notification">További információkért érintse meg</string>
     <string name="theme_debug_mode_title">Téma hibakereső üzemmód</string>
     <string name="theme_debug_mode_summary">Régebbi biztonsági-összeállító letiltása.</string>
-    <string name="theme_debug_mode_dialog_title">FIGYELMEZTETÉS</string>
-    <string name="theme_debug_mode_dialog_content">Ez teljesen megszakíthatja az összeállítási folyamatot. Csak akkor engedélyezze ezt a beállítást, ha tudja mit csinál!</string>
-    <string name="theme_debug_mode_dialog_continue">Folytatás</string>
-    <string name="theme_debug_mode_dialog_cancel">Mégse</string>
+    <string name="break_compilation_dialog_title">FIGYELMEZTETÉS</string>
+    <string name="break_compilation_dialog_content">Ez teljesen megszakíthatja az összeállítási folyamatot. Csak akkor engedélyezze ezt a beállítást, ha tudja mit csinál!</string>
+    <string name="break_compilation_dialog_continue">Folytatás</string>
+    <string name="break_compilation_dialog_cancel">Mégse</string>
     <string name="profile_dialog_title">válassza ki a menteni kívánt elemeket</string>
     <string name="profile_no_selection_warning">Kérjük, válasszon legalább egy lehetőséget!</string>
     <string name="profile_boot_animation">Rendszerindítási animáció</string>

@@ -56,6 +56,13 @@
             android:summary="@string/theme_debug_mode_summary"
             android:title="@string/theme_debug_mode_title"/>
 
+        <CheckBoxPreference
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:key="force_independence"
+            android:summary="@string/force_independence_summary"
+            android:title="@string/force_independence_title"/>
+
     </PreferenceCategory>
 
     <PreferenceCategory

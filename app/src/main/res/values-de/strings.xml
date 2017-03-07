@@ -443,10 +443,10 @@ alle Flags bezüglich Theme-Rebuilding zurücksetzen.</string>
     <string name="profile_failed_info_notification">Tippe für weitere Informationen</string>
     <string name="theme_debug_mode_title">Design Debugging-Modus</string>
     <string name="theme_debug_mode_summary">Deaktiviert den älteren Notfall-Compiler.</string>
-    <string name="theme_debug_mode_dialog_title">WARNUNG</string>
-    <string name="theme_debug_mode_dialog_content">Dies kann die Kompilierung zum Abstürzen bringen. Aktivieren Sie diese Option nur, wenn Sie wissen, was Sie tun!</string>
-    <string name="theme_debug_mode_dialog_continue">Fortsetzen</string>
-    <string name="theme_debug_mode_dialog_cancel">Abbrechen</string>
+    <string name="break_compilation_dialog_title">WARNUNG</string>
+    <string name="break_compilation_dialog_content">Dies kann die Kompilierung zum Abstürzen bringen. Aktivieren Sie diese Option nur, wenn Sie wissen, was Sie tun!</string>
+    <string name="break_compilation_dialog_continue">Fortsetzen</string>
+    <string name="break_compilation_dialog_cancel">Abbrechen</string>
     <string name="profile_dialog_title">Wähle die Elemente aus, die du sichern möchtest</string>
     <string name="profile_no_selection_warning">Bitte wähle mindestens eine Option aus!</string>
     <string name="profile_boot_animation">Boot-Animation</string>

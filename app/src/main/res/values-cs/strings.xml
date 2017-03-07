@@ -579,10 +579,10 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="profile_failed_info_notification">Klikněte pro více informací</string>
     <string name="theme_debug_mode_title">Režim ladění témat</string>
     <string name="theme_debug_mode_summary">Vypnout záložní kompilátor.</string>
-    <string name="theme_debug_mode_dialog_title">VAROVÁNÍ</string>
-    <string name="theme_debug_mode_dialog_content">Toto může kompletně rozbít kompilační proces. Povolte pouze tuto možnost, pokud víte co děláte!</string>
-    <string name="theme_debug_mode_dialog_continue">Pokračovat</string>
-    <string name="theme_debug_mode_dialog_cancel">Zrušit</string>
+    <string name="break_compilation_dialog_title">VAROVÁNÍ</string>
+    <string name="break_compilation_dialog_content">Toto může kompletně rozbít kompilační proces. Povolte pouze tuto možnost, pokud víte co děláte!</string>
+    <string name="break_compilation_dialog_continue">Pokračovat</string>
+    <string name="break_compilation_dialog_cancel">Zrušit</string>
     <string name="profile_dialog_title">vyberte položky, které chcete zálohovat</string>
     <string name="profile_no_selection_warning">Prosím vyberte alespoň jednu možnost!</string>
     <string name="profile_boot_animation">Spuštěcí animace</string>

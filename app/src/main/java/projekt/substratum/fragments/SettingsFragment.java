@@ -33,8 +33,6 @@ import projekt.substratum.config.References;
 import projekt.substratum.util.AOPTCheck;
 import projekt.substratum.util.SheetDialog;
 
-import static projekt.substratum.config.References.INTERFACER_PACKAGE;
-
 public class SettingsFragment extends PreferenceFragmentCompat {
 
     private ProgressDialog mProgressDialog;
@@ -205,12 +203,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         return false;
                     });
             try {
-                PackageInfo pinfo;
-                pinfo = getContext().getPackageManager().getPackageInfo(INTERFACER_PACKAGE, 0);
-                String versionName = pinfo.versionName;
-                int versionCode = pinfo.versionCode;
-                aboutInterfacer.setSummary(
-                        versionName + " (" + versionCode + ")");
+                PackageInfo pInfo = References.getThemeInterfacerPackage(getContext());
+                String versionName = pInfo.versionName;
+                int versionCode = pInfo.versionCode;
+                aboutInterfacer.setSummary(prefs.getBoolean("force_independence", false) ?
+                        getString(R.string.settings_about_interfacer_disconnected) :
+                            versionName + " (" + versionCode + ")");
             } catch (Exception e) {
                 // Theme Interfacer was not installed
             }
@@ -329,11 +327,11 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         if (isChecked) {
                             final AlertDialog.Builder builder = new AlertDialog.Builder
                                     (getContext());
-                            builder.setTitle(R.string.theme_debug_mode_dialog_title);
-                            builder.setMessage(R.string.theme_debug_mode_dialog_content);
-                            builder.setNegativeButton(R.string.theme_debug_mode_dialog_cancel,
+                            builder.setTitle(R.string.break_compilation_dialog_title);
+                            builder.setMessage(R.string.break_compilation_dialog_content);
+                            builder.setNegativeButton(R.string.break_compilation_dialog_cancel,
                                     (dialog, id) -> dialog.dismiss());
-                            builder.setPositiveButton(R.string.theme_debug_mode_dialog_continue,
+                            builder.setPositiveButton(R.string.break_compilation_dialog_continue,
                                     (dialog, id) -> {
                                         prefs.edit()
                                                 .putBoolean("theme_debug", true).apply();
@@ -346,6 +344,43 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         }
                         return false;
                     });
+
+            final CheckBoxPreference forceIndependence = (CheckBoxPreference)
+                    getPreferenceManager().findPreference("force_independence");
+            if (References.checkThemeInterfacer(getContext())) {
+                forceIndependence.setChecked(prefs.getBoolean("force_independence", false));
+                forceIndependence.setOnPreferenceChangeListener(
+                        (preference, newValue) -> {
+                            boolean isChecked = (Boolean) newValue;
+                            if (isChecked) {
+                                final AlertDialog.Builder builder = new AlertDialog.Builder
+                                        (getContext());
+                                builder.setTitle(R.string.break_compilation_dialog_title);
+                                builder.setMessage(R.string.break_compilation_dialog_content);
+                                builder.setNegativeButton(R.string.break_compilation_dialog_cancel,
+                                        (dialog, id) -> dialog.dismiss());
+                                builder.setPositiveButton(R.string.break_compilation_dialog_continue,
+                                        (dialog, id) -> {
+                                            prefs.edit()
+                                                    .putBoolean("force_independence", true).apply();
+                                            forceIndependence.setChecked(true);
+                                            Intent i = getContext().getPackageManager()
+                                                    .getLaunchIntentForPackage(getContext().getPackageName());
+                                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                            startActivity(i);
+                                        });
+                                builder.show();
+                            } else {
+                                prefs.edit().putBoolean("force_independence", false).apply();
+                                forceIndependence.setChecked(false);
+                            }
+                            return false;
+                        });
+            } else {
+                forceIndependence.setChecked(!References.checkThemeInterfacer(getContext()));
+                forceIndependence.setEnabled(References.checkThemeInterfacer(getContext()));
+            }
+            forceIndependence.setVisible(BuildConfig.DEBUG);
         }
 
         final Preference purgeCache = getPreferenceManager().findPreference("purge_cache");

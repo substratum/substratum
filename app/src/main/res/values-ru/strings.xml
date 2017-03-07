@@ -445,10 +445,10 @@
     <string name="profile_failed_info_notification">Нажмите, чтобы узнать больше</string>
     <string name="theme_debug_mode_title">Режим отладки тем</string>
     <string name="theme_debug_mode_summary">Отключить устаревший компилятор как резервный.</string>
-    <string name="theme_debug_mode_dialog_title">ВНИМАНИЕ</string>
-    <string name="theme_debug_mode_dialog_content">Может сделать процесс сборки полностью неисправным. Активируйте настройку только со знанием дела!</string>
-    <string name="theme_debug_mode_dialog_continue">Продолжить</string>
-    <string name="theme_debug_mode_dialog_cancel">Отмена</string>
+    <string name="break_compilation_dialog_title">ВНИМАНИЕ</string>
+    <string name="break_compilation_dialog_content">Может сделать процесс сборки полностью неисправным. Активируйте настройку только со знанием дела!</string>
+    <string name="break_compilation_dialog_continue">Продолжить</string>
+    <string name="break_compilation_dialog_cancel">Отмена</string>
     <string name="profile_dialog_title">выберите элементы для резервирования</string>
     <string name="profile_no_selection_warning">Выберите хотя бы один из вариантов!</string>
     <string name="profile_boot_animation">Анимация загрузки</string>

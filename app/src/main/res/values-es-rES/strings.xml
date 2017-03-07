@@ -452,10 +452,10 @@ o la aplicación no compilará capas dependientes del dispositivo correctamente!
     <string name="profile_failed_info_notification">Toque para más información</string>
     <string name="theme_debug_mode_title">Modo de depuración del tema</string>
     <string name="theme_debug_mode_summary">Desactivar el compilador legado de seguridad.</string>
-    <string name="theme_debug_mode_dialog_title">ADVERTENCIA</string>
-    <string name="theme_debug_mode_dialog_content">Esto puede romper por completo el proceso de compilación. ¡Sólo active esta opción si sabe lo que está haciendo!</string>
-    <string name="theme_debug_mode_dialog_continue">Continuar</string>
-    <string name="theme_debug_mode_dialog_cancel">Cancelar</string>
+    <string name="break_compilation_dialog_title">ADVERTENCIA</string>
+    <string name="break_compilation_dialog_content">Esto puede romper por completo el proceso de compilación. ¡Sólo active esta opción si sabe lo que está haciendo!</string>
+    <string name="break_compilation_dialog_continue">Continuar</string>
+    <string name="break_compilation_dialog_cancel">Cancelar</string>
     <string name="profile_dialog_title">Seleccione los elementos que desea respaldar</string>
     <string name="profile_no_selection_warning">Por favor seleccione por lo menos una opción!</string>
     <string name="profile_boot_animation">Animación de Inicio</string>

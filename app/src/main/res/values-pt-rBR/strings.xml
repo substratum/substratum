@@ -460,10 +460,10 @@ resolver este problema.    </string>
     <string name="profile_failed_info_notification">Toque para obter mais informações</string>
     <string name="theme_debug_mode_title">Modo de depuração do tema</string>
     <string name="theme_debug_mode_summary">Desativar o compilador legado herdado.</string>
-    <string name="theme_debug_mode_dialog_title">AVISO</string>
-    <string name="theme_debug_mode_dialog_content">Isto pode falhar o processo de compilação. Só habilite esta opção se você sabe o que está fazendo!</string>
-    <string name="theme_debug_mode_dialog_continue">Continuar</string>
-    <string name="theme_debug_mode_dialog_cancel">Cancelar</string>
+    <string name="break_compilation_dialog_title">AVISO</string>
+    <string name="break_compilation_dialog_content">Isto pode falhar o processo de compilação. Só habilite esta opção se você sabe o que está fazendo!</string>
+    <string name="break_compilation_dialog_continue">Continuar</string>
+    <string name="break_compilation_dialog_cancel">Cancelar</string>
     <string name="profile_dialog_title">selecione os itens que você deseja fazer backup</string>
     <string name="profile_no_selection_warning">Por favor, selecione pelo menos uma opção!</string>
     <string name="profile_boot_animation">Animação de Boot</string>

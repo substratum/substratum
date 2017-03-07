@@ -1067,13 +1067,22 @@ public class References {
 
     // Begin check if device is running on the latest theme interface
     public static boolean checkThemeInterfacer(Context context) {
-        try {
-            context.getPackageManager().getPackageInfo(INTERFACER_PACKAGE, 0);
-            return true;
-        } catch (Exception e) {
-            // Suppress warning
+        boolean forceIndependence = PreferenceManager.getDefaultSharedPreferences(context)
+                .getBoolean("force_independence", false);
+        if (!forceIndependence) {
+            return getThemeInterfacerPackage(context) != null;
         }
         return false;
+    }
+
+    public static PackageInfo getThemeInterfacerPackage(Context context) {
+        try {
+            return context.getPackageManager()
+                    .getPackageInfo(INTERFACER_PACKAGE, 0);
+        } catch (Exception e) {
+            // Theme Interfacer was not installed
+        }
+        return null;
     }
 
     public static boolean isIncompatibleFirmware() {

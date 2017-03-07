@@ -433,10 +433,10 @@ Vuoi ripristinare le icone predefinite di sistema?    </string>
     <string name="profile_failed_info_notification">Tocco per ulteriori informazioni</string>
     <string name="theme_debug_mode_title">Modalità debug temi</string>
     <string name="theme_debug_mode_summary">Disattiva il compilatore legacy fallback.</string>
-    <string name="theme_debug_mode_dialog_title">ATTENZIONE</string>
-    <string name="theme_debug_mode_dialog_content">Ciò può distruggere completamente il processo di compilazione. Abilita questa opzione solo se si sa cosa si sta facendo!</string>
-    <string name="theme_debug_mode_dialog_continue">Continua</string>
-    <string name="theme_debug_mode_dialog_cancel">Cancella</string>
+    <string name="break_compilation_dialog_title">ATTENZIONE</string>
+    <string name="break_compilation_dialog_content">Ciò può distruggere completamente il processo di compilazione. Abilita questa opzione solo se si sa cosa si sta facendo!</string>
+    <string name="break_compilation_dialog_continue">Continua</string>
+    <string name="break_compilation_dialog_cancel">Cancella</string>
     <string name="profile_dialog_title">seleziona gli oggetti dei quali vuoi il backup</string>
     <string name="profile_no_selection_warning">Per favore seleziona almeno un\'opzione!</string>
     <string name="profile_boot_animation">Animazione d\'avvio</string>

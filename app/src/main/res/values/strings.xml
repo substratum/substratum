@@ -210,7 +210,7 @@
 
     <string name="settings_about_substratum">substratum version</string>
     <string name="settings_about_interfacer">interfacer version</string>
-    <string name="settings_about_interfacer_not_installed">interfacer not installed</string>
+    <string name="settings_about_interfacer_not_installed">not installed</string>
     <string name="settings_about_oms_rro_version">theme platform</string>
     <string name="settings_about_oms_version_3">OMS3</string>
     <string name="settings_about_oms_version_7">OMS7</string>
@@ -792,10 +792,10 @@
 
     <string name="theme_debug_mode_title">Theme Debugging Mode</string>
     <string name="theme_debug_mode_summary">Disable the legacy compiler fallback.</string>
-    <string name="theme_debug_mode_dialog_title">WARNING</string>
-    <string name="theme_debug_mode_dialog_content">This may completely break the compilation process. Only enable this option if you know what you are doing!</string>
-    <string name="theme_debug_mode_dialog_continue">Continue</string>
-    <string name="theme_debug_mode_dialog_cancel">Cancel</string>
+    <string name="break_compilation_dialog_title">WARNING</string>
+    <string name="break_compilation_dialog_content">This may completely break the compilation process. Only enable this option if you know what you are doing!</string>
+    <string name="break_compilation_dialog_continue">Continue</string>
+    <string name="break_compilation_dialog_cancel">Cancel</string>
 
     <string name="profile_dialog_title">select the items you want to backup</string>
     <string name="profile_no_selection_warning">Please select at least one option!</string>
@@ -887,4 +887,7 @@
     <string name="tcf_link" translatable="false">http://thecyberfibre.com/</string>
     <string name="nav_drawer_xda_portal">XDA Portal</string>
     <string name="xda_portal_link" translatable="false">https://xda-developers.com/author/punya-vashist</string>
+    <string name="force_independence_title">Force app independence</string>
+    <string name="force_independence_summary">This will force substratum to work on its own, disregarding interfacer.</string>
+    <string name="settings_about_interfacer_disconnected">disconnected</string>
 </resources>

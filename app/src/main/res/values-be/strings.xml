@@ -446,10 +446,10 @@
     <string name="profile_failed_info_notification">Націсніце, каб даведацца больш</string>
     <string name="theme_debug_mode_title">Рэжым адладкі тэм</string>
     <string name="theme_debug_mode_summary">Зняць абмежаванні сумяшчальнага зборшчыка.</string>
-    <string name="theme_debug_mode_dialog_title">УВАГА</string>
-    <string name="theme_debug_mode_dialog_content">Можа зрабіць працэс зборкі цалкам няспраўным. Актывуйце наладу толькі з веданнем справы!</string>
-    <string name="theme_debug_mode_dialog_continue">Працягнуць</string>
-    <string name="theme_debug_mode_dialog_cancel">Скасаваць</string>
+    <string name="break_compilation_dialog_title">УВАГА</string>
+    <string name="break_compilation_dialog_content">Можа зрабіць працэс зборкі цалкам няспраўным. Актывуйце наладу толькі з веданнем справы!</string>
+    <string name="break_compilation_dialog_continue">Працягнуць</string>
+    <string name="break_compilation_dialog_cancel">Скасаваць</string>
     <string name="profile_dialog_title">выберыце элементы для рэзервавання</string>
     <string name="profile_no_selection_warning">Выберыце хаця б адзін з варыянтаў!</string>
     <string name="profile_boot_animation">Анімацыя загрузкі</string>

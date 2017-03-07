@@ -616,10 +616,10 @@ Tüm özel simgeler zaten devre dışı!
     <string name="profile_failed_info_notification">Daha fazla bilgi için dokunun</string>
     <string name="theme_debug_mode_title">Tema Hata Ayıklama Modu</string>
     <string name="theme_debug_mode_summary">Eski derleyici geri dönüşünü devre dışı bırakın.</string>
-    <string name="theme_debug_mode_dialog_title">UYARI</string>
-    <string name="theme_debug_mode_dialog_content">Bu, derleme sürecini tamamen bozar. Ne yaptığınızı biliyorsanız bu seçeneği etkinleştirin!</string>
-    <string name="theme_debug_mode_dialog_continue">Devam</string>
-    <string name="theme_debug_mode_dialog_cancel">İptal</string>
+    <string name="break_compilation_dialog_title">UYARI</string>
+    <string name="break_compilation_dialog_content">Bu, derleme sürecini tamamen bozar. Ne yaptığınızı biliyorsanız bu seçeneği etkinleştirin!</string>
+    <string name="break_compilation_dialog_continue">Devam</string>
+    <string name="break_compilation_dialog_cancel">İptal</string>
     <string name="profile_dialog_title">yedeklemek istediğiniz öğeleri seçin</string>
     <string name="profile_no_selection_warning">Lütfen en az bir seçenek seçin!</string>
     <string name="profile_boot_animation">Açılış Animasyonları</string>

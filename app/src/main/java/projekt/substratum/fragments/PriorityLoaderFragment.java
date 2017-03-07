@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,11 +17,6 @@ import com.thesurix.gesturerecycler.DefaultItemClickListener;
 import com.thesurix.gesturerecycler.GestureManager;
 import com.thesurix.gesturerecycler.RecyclerItemTouchListener;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -120,64 +114,10 @@ public class PriorityLoaderFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            Process nativeApp = null;
-            try {
-                nativeApp = Runtime.getRuntime().exec(ThemeManager.listAllOverlays);
-                try (OutputStream stdin = nativeApp.getOutputStream();
-                     InputStream stderr = nativeApp.getErrorStream();
-                     InputStream stdout = nativeApp.getInputStream();
-                     BufferedReader br = new BufferedReader(new InputStreamReader(stdout))) {
-                    String line;
-                    stdin.write(("ls\n").getBytes());
-                    stdin.write("exit\n".getBytes());
-
-                    int checked_count = 0;
-
-                    String current_header = "";
-                    while ((line = br.readLine()) != null) {
-                        if (line.length() > 0) {
-                            if (!line.contains("[")) {
-                                if (checked_count > 1) {
-                                    prioritiesList.add(new Priorities(current_header,
-                                            References.grabAppIcon(getContext(), current_header)));
-                                    app_list.add(current_header);
-                                    current_header = line;
-                                    checked_count = 0;
-                                } else {
-                                    current_header = line;
-                                    checked_count = 0;
-                                }
-                            } else if (line.contains("[x]")) {
-                                checked_count += 1;
-                            }
-                        } else {
-                            if (checked_count > 1) {
-                                prioritiesList.add(new Priorities(current_header,
-                                        References.grabAppIcon(getContext(), current_header)));
-                                app_list.add(current_header);
-                                current_header = line;
-                                checked_count = 0;
-                            } else {
-                                current_header = line;
-                                checked_count = 0;
-                            }
-                        }
-                    }
-
-                    try (BufferedReader br1 = new BufferedReader(new InputStreamReader(stderr))) {
-                        while ((line = br1.readLine()) != null) {
-                            Log.e("PriorityLoaderFragment", line);
-                        }
-                    }
-                }
-            } catch (IOException ioe) {
-                Log.e("PriorityLoaderFragment", "There was an issue regarding loading the " +
-                        "priorities of" +
-                        " each overlay.");
-            } finally {
-                if (nativeApp != null) {
-                    nativeApp.destroy();
-                }
+            List<String> targets = ThemeManager.listTargetWithMultipleOverlaysEnabled();
+            for (String t : targets) {
+                prioritiesList.add(new Priorities(t, References.grabAppIcon(getContext(), t)));
+                app_list.add(t);
             }
             return null;
         }

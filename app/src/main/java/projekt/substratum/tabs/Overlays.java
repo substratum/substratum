@@ -882,12 +882,7 @@ public class Overlays extends Fragment {
             } catch (Exception e) {
                 // Exception
             }
-            List<String> state5;
-            if (References.checkOMS(getContext())) {
-                state5 = ThemeManager.listOverlays(5);
-            } else {
-                state5 = new ArrayList<>();
-            }
+            List<String> state5 = ThemeManager.listOverlays(5);
             ArrayList<String> all = new ArrayList<>(state5);
 
             all_installed_overlays = new ArrayList<>();

@@ -27,8 +27,7 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if ("android.intent.action.PACKAGE_REMOVED".equals(intent.getAction())) {
-
+        if ("android.intent.action.PACKAGE_FULLY_REMOVED".equals(intent.getAction())) {
             Uri packageName = intent.getData();
             String package_name = packageName.toString().substring(8);
 

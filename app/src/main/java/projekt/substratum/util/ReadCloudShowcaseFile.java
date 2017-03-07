@@ -56,8 +56,16 @@ public class ReadCloudShowcaseFile {
                     } catch (Exception e) {
                         // There is no image override tag
                     }
-                    String addon_package_name = eElement.getElementsByTagName("package").item(0).
-                            getTextContent();
+
+                    String addon_package_name = "";
+                    try {
+                        // Try to see if the entry has an image override tag <backgroundimage>
+                        addon_package_name = eElement.getElementsByTagName("package").item(0).
+                                getTextContent();
+                    } catch (Exception e) {
+                        // There is no image override tag
+                    }
+
                     String addon_pricing = eElement.getElementsByTagName("pricing").item(0).
                             getTextContent();
                     String addon_support = eElement.getElementsByTagName("support").item(0).

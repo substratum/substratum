@@ -102,23 +102,19 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         Preference systemStatus = getPreferenceManager().findPreference
                 ("system_status");
-        boolean oms = References.checkSubstratumFeature(getContext());
-        boolean steps = References.spreadYourWingsAndFly(getContext()) &&
-                (References.checkOMS(getContext()) ? oms : true);
-        systemStatus.setSummary(
-                (steps ?
-                        getString(R.string.settings_system_status_rootless) :
-                        getString(R.string.settings_system_status_rooted)) + " (" +
-                        (References.spreadYourWingsAndFly(
-                                getContext()) ? getString(R.string
-                                .settings_system_status_uncertified) :
-                                getString(R.string.settings_system_status_certified)) + ")"
+        boolean certified = References.checkSubstratumFeature(getContext()) ||
+                        !References.spreadYourWingsAndFly(getContext());
+
+        systemStatus.setSummary((References.checkOMS(getContext())
+                ? getString(R.string.settings_system_status_rootless)
+                : getString(R.string.settings_system_status_rooted))
+                + " (" + (certified ? getString(R.string
+                        .settings_system_status_certified) :
+                        getString(R.string.settings_system_status_uncertified)) + ")"
         );
-        if (!References.spreadYourWingsAndFly(getContext())) {
-            systemStatus.setIcon(getContext().getDrawable(R.drawable.system_status_certified));
-        } else {
-            systemStatus.setIcon(getContext().getDrawable(R.drawable.system_status_uncertified));
-        }
+        systemStatus.setIcon(certified ?
+                getContext().getDrawable(R.drawable.system_status_certified)
+                : getContext().getDrawable(R.drawable.system_status_uncertified));
 
         final CheckBoxPreference forceEnglish = (CheckBoxPreference)
                 getPreferenceManager().findPreference("force_english_locale");

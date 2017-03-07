@@ -170,9 +170,9 @@ public class ThemeManager {
             ThemeInterfacerService.uninstallOverlays(context, overlays, shouldRestartUI(context,
                     overlays));
         } else {
-            String command = "pm uninstall ";
+            String command = "";
             for (String packageName : overlays) {
-                command += packageName + " ";
+                command += (command.isEmpty() ? "" : " && ") + "pm uninstall " + packageName;
             }
             new ElevatedCommands.ThreadRunner().execute(command);
             if (checkOMS(context) && shouldRestartUI(context, overlays)) restartSystemUI(context);

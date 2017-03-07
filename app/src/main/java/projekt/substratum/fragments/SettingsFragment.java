@@ -102,10 +102,13 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         Preference systemStatus = getPreferenceManager().findPreference
                 ("system_status");
-        boolean certified = References.checkSubstratumFeature(getContext()) ||
+        boolean full_oms = References.checkOMS(getContext()) &&
+                References.checkSubstratumFeature(getContext());
+        boolean interfacer = References.checkThemeInterfacer(getContext());
+        boolean certified = full_oms ||
                 !References.spreadYourWingsAndFly(getContext());
 
-        systemStatus.setSummary((References.checkOMS(getContext())
+        systemStatus.setSummary((interfacer
                 ? getString(R.string.settings_system_status_rootless)
                 : getString(R.string.settings_system_status_rooted))
                 + " (" + (certified ? getString(R.string

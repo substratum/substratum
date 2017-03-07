@@ -377,6 +377,7 @@
     <string name="nav_wallpapers">Wallpapers</string>
 
     <string name="nav_section_header_utilities">Utilities</string>
+    <string name="nav_section_header_get_involved">Tips &amp; Tricks</string>
     <string name="nav_section_header_more">More</string>
 
     <string name="nav_manage">Recovery</string>
@@ -863,4 +864,12 @@
     <string name="restore_fonts_button">Restore fonts</string>
 
     <string name="interfacer_not_authorized_toast">Substratum was not able to communicate with the Theme Interfacer&#8230;</string>
+
+    <string name="nav_drawer_community">Communities</string>
+    <string name="nav_drawer_googleplus">Google+ Community</string>
+    <string name="googleplus_link" translatable="false">https://plus.google.com/communities/102261717366580091389</string>
+    <string name="nav_drawer_telegram">Telegram Group Chat</string>
+    <string name="telegram_link" translatable="false">https://t.me/substratum</string>
+    <string name="nav_drawer_xda">XDA Support Thread</string>
+    <string name="xda_link" translatable="false">https://forum.xda-developers.com/android/themes/projekt-substratum-t3423623</string>
 </resources>

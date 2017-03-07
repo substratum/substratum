@@ -22,6 +22,7 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.service.quicksettings.Tile;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -50,6 +51,7 @@ import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.holder.DimenHolder;
+import com.mikepenz.materialdrawer.model.ExpandableDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
@@ -246,6 +248,24 @@ public class MainActivity extends AppCompatActivity implements
             // Suppress Fonts
         }
 
+        // Split the community chats out for future projects
+        ExpandableDrawerItem social = new ExpandableDrawerItem()
+                .withName(R.string.nav_drawer_community)
+                .withIcon(R.drawable.nav_drawer_community)
+                .withSelectable(false).withSubItems(
+                        new SecondaryDrawerItem().withName(R.string.nav_drawer_googleplus)
+                                .withLevel(2).withIcon(R.drawable.nav_drawer_googleplus)
+                                .withSelectable(false)
+                                .withIdentifier(100),
+                        new SecondaryDrawerItem().withName(R.string.nav_drawer_telegram)
+                                .withLevel(2).withIcon(R.drawable.nav_drawer_telegram)
+                                .withSelectable(false)
+                                .withIdentifier(101),
+                        new SecondaryDrawerItem().withName(R.string.nav_drawer_xda)
+                                .withLevel(2).withIcon(R.drawable.nav_drawer_xda)
+                                .withSelectable(false)
+                                .withIdentifier(102));
+
         // Begin initializing the navigation drawer
         drawerBuilder.addDrawerItems(
                 new PrimaryDrawerItem()
@@ -309,12 +329,16 @@ public class MainActivity extends AppCompatActivity implements
                         .withIdentifier(11));
         drawerBuilder.addDrawerItems(
                 new SectionDrawerItem()
-                        .withName(R.string.nav_section_header_more));
+                        .withName(R.string.nav_section_header_get_involved));
+        drawerBuilder.addDrawerItems(social);
         drawerBuilder.addDrawerItems(
-                new SecondaryDrawerItem()
+                new PrimaryDrawerItem()
                         .withName(R.string.nav_troubleshooting)
                         .withIcon(R.drawable.nav_troubleshooting)
                         .withIdentifier(12));
+        drawerBuilder.addDrawerItems(
+                new SectionDrawerItem()
+                        .withName(R.string.nav_section_header_more));
         drawerBuilder.addDrawerItems(
                 new SecondaryDrawerItem()
                         .withName(R.string.nav_team)
@@ -396,6 +420,45 @@ public class MainActivity extends AppCompatActivity implements
                     case 15:
                         switchFragment(getString(R.string.nav_settings),
                                 "SettingsFragment");
+                        break;
+                    case 100:
+                        try {
+                            String sourceURL = getString(R.string.googleplus_link);
+                            Intent i = new Intent(Intent.ACTION_VIEW);
+                            i.setData(Uri.parse(sourceURL));
+                            startActivity(i);
+                        } catch (Exception e) {
+                            Snackbar.make(findViewById(android.R.id.content),
+                                    getString(R.string.activity_missing_toast),
+                                    Snackbar.LENGTH_LONG)
+                                    .show();
+                        }
+                        break;
+                    case 101:
+                        try {
+                            String sourceURL = getString(R.string.telegram_link);
+                            Intent i = new Intent(Intent.ACTION_VIEW);
+                            i.setData(Uri.parse(sourceURL));
+                            startActivity(i);
+                        } catch (Exception e) {
+                            Snackbar.make(findViewById(android.R.id.content),
+                                    getString(R.string.activity_missing_toast),
+                                    Snackbar.LENGTH_LONG)
+                                    .show();
+                        }
+                        break;
+                    case 102:
+                        try {
+                            String sourceURL = getString(R.string.xda_link);
+                            Intent i = new Intent(Intent.ACTION_VIEW);
+                            i.setData(Uri.parse(sourceURL));
+                            startActivity(i);
+                        } catch (Exception e) {
+                            Snackbar.make(findViewById(android.R.id.content),
+                                    getString(R.string.activity_missing_toast),
+                                    Snackbar.LENGTH_LONG)
+                                    .show();
+                        }
                         break;
                 }
             }

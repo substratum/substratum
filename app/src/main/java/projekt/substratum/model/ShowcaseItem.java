@@ -6,6 +6,7 @@ public class ShowcaseItem {
 
     private Context mContext;
     private String themeName;
+    private String themePackage;
     private String themeLink;
     private String themeIcon;
     private String themeBackgroundImage;
@@ -43,6 +44,14 @@ public class ShowcaseItem {
 
     public void setThemeName(String themeName) {
         this.themeName = themeName;
+    }
+
+    public String getThemePackage() {
+        return themePackage;
+    }
+
+    public void setThemePackage(String themePackage) {
+        this.themePackage = themePackage;
     }
 
     public String getThemeLink() {

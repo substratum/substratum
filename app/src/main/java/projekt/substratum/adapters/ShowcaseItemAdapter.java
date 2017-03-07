@@ -61,6 +61,13 @@ public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapte
             viewHolder.themePricing.setVisibility(View.GONE);
         }
 
+        // TODO: Add a way to detect whether a theme is installed
+        /*
+        References.isPackageInstalled(
+                information.get(position).getContext(),
+                information.get(position).getThemePackage());
+        */
+
         String[] supported = information.get(position).getThemeSupport().split("\\|");
         List supported_array = Arrays.asList(supported);
         if (supported_array.contains(References.showcaseWallpapers)) {

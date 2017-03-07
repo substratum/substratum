@@ -231,6 +231,10 @@ public class ShowcaseTab extends Fragment {
                             newEntry.setThemePricing(newArray.get(key));
                         } else if (key.toLowerCase().contains("-image-override")) {
                             newEntry.setThemeIcon(newArray.get(key));
+                        } else if (key.toLowerCase().contains("-feature-image")) {
+                            newEntry.setThemeBackgroundImage(newArray.get(key));
+                        } else if (key.toLowerCase().contains("-package-name")) {
+                            newEntry.setThemePackage(newArray.get(key));
                         } else if (key.toLowerCase().contains("-support".toLowerCase())) {
                             newEntry.setThemeSupport(newArray.get(key));
                             wallpapers.add(newEntry);

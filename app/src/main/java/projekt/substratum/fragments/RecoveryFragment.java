@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -48,6 +47,13 @@ public class RecoveryFragment extends Fragment {
     private ArrayList<String> final_commands_array;
     private Boolean DEBUG = References.DEBUG;
     private SharedPreferences prefs;
+    private SheetDialog sheetDialog;
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        sheetDialog.dismiss();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
@@ -67,7 +73,7 @@ public class RecoveryFragment extends Fragment {
 
         // Overlays Dialog
         overlaysButton.setOnClickListener(v -> {
-            SheetDialog sheetDialog = new SheetDialog(getContext());
+            sheetDialog = new SheetDialog(getContext());
             View sheetView = View.inflate(getContext(), R.layout.manage_overlays_sheet_dialog,
                     null);
             LinearLayout disable_all = (LinearLayout) sheetView.findViewById(R.id.disable_all);
@@ -145,7 +151,7 @@ public class RecoveryFragment extends Fragment {
 
         // Wallpaper Dialog
         wallpaperButton.setOnClickListener(v -> {
-            SheetDialog sheetDialog = new SheetDialog(getContext());
+            sheetDialog = new SheetDialog(getContext());
             View sheetView = View.inflate(getContext(), R.layout.manage_wallpapers_sheet_dialog,
                     null);
             LinearLayout home = (LinearLayout) sheetView.findViewById(R.id.home);
@@ -200,20 +206,15 @@ public class RecoveryFragment extends Fragment {
                 sheetDialog.hide();
             });
 
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-                home.setVisibility(View.GONE);
-                lock.setVisibility(View.GONE);
-            } else {
-                home.setVisibility(View.VISIBLE);
-                lock.setVisibility(View.VISIBLE);
-            }
+            home.setVisibility(View.VISIBLE);
+            lock.setVisibility(View.VISIBLE);
             sheetDialog.setContentView(sheetView);
             sheetDialog.show();
         });
 
         // Boot Animation Dialog
         bootanimationButton.setOnClickListener(v -> {
-            SheetDialog sheetDialog = new SheetDialog(getContext());
+            sheetDialog = new SheetDialog(getContext());
             View sheetView = View.inflate(getContext(),
                     R.layout.manage_bootanimations_sheet_dialog, null);
             LinearLayout restore = (LinearLayout) sheetView.findViewById(R.id.restore);
@@ -227,7 +228,7 @@ public class RecoveryFragment extends Fragment {
 
         // Font Dialog
         fontsButton.setOnClickListener(v -> {
-            SheetDialog sheetDialog = new SheetDialog(getContext());
+            sheetDialog = new SheetDialog(getContext());
             View sheetView = View.inflate(getContext(),
                     R.layout.manage_fonts_sheet_dialog, null);
             LinearLayout restore = (LinearLayout) sheetView.findViewById(R.id.restore);
@@ -256,7 +257,7 @@ public class RecoveryFragment extends Fragment {
 
         // Sounds Dialog
         soundsButton.setOnClickListener(v -> {
-            SheetDialog sheetDialog = new SheetDialog(getContext());
+            sheetDialog = new SheetDialog(getContext());
             View sheetView = View.inflate(getContext(),
                     R.layout.manage_sounds_sheet_dialog, null);
             LinearLayout restore = (LinearLayout) sheetView.findViewById(R.id.restore);

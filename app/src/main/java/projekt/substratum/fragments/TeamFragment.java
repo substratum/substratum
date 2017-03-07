@@ -163,10 +163,14 @@ public class TeamFragment extends Fragment {
         ben.imgUrl = getString(R.string.contributor_ben_link);
         ben.title = getString(R.string.contributor_ben);
         contributorEntities.add(ben);
-        GalleryEntity idan = new GalleryEntity();
-        idan.imgUrl = getString(R.string.contributor_idan_link);
-        idan.title = getString(R.string.contributor_idan);
-        contributorEntities.add(idan);
+        GalleryEntity anthony = new GalleryEntity();
+        anthony.imgUrl = getString(R.string.contributor_anthony_link);
+        anthony.title = getString(R.string.contributor_anthony);
+        contributorEntities.add(anthony);
+        GalleryEntity sajid = new GalleryEntity();
+        sajid.imgUrl = getString(R.string.contributor_sajid_link);
+        sajid.title = getString(R.string.contributor_sajid);
+        contributorEntities.add(sajid);
         contributors.get(0).addGalleryData(contributorEntities);
         contributorEntities.clear();
 
@@ -174,10 +178,14 @@ public class TeamFragment extends Fragment {
         char_g.imgUrl = getString(R.string.contributor_char_link);
         char_g.title = getString(R.string.contributor_char);
         contributorEntities.add(char_g);
-        GalleryEntity sajid = new GalleryEntity();
-        sajid.imgUrl = getString(R.string.contributor_sajid_link);
-        sajid.title = getString(R.string.contributor_sajid);
-        contributorEntities.add(sajid);
+        GalleryEntity idan = new GalleryEntity();
+        idan.imgUrl = getString(R.string.contributor_idan_link);
+        idan.title = getString(R.string.contributor_idan);
+        contributorEntities.add(idan);
+        GalleryEntity travis = new GalleryEntity();
+        travis.imgUrl = getString(R.string.contributor_travis_link);
+        travis.title = getString(R.string.contributor_travis);
+        contributorEntities.add(travis);
         contributors.get(1).addGalleryData(contributorEntities);
         contributorEntities.clear();
 
@@ -185,10 +193,11 @@ public class TeamFragment extends Fragment {
         nathan.imgUrl = getString(R.string.contributor_nathan_link);
         nathan.title = getString(R.string.contributor_nathan);
         contributorEntities.add(nathan);
-        GalleryEntity travis = new GalleryEntity();
-        travis.imgUrl = getString(R.string.contributor_travis_link);
-        travis.title = getString(R.string.contributor_travis);
-        contributorEntities.add(travis);
+        GalleryEntity kevin = new GalleryEntity();
+        kevin.imgUrl = getString(R.string.contributor_kevin_link);
+        kevin.title = getString(R.string.contributor_kevin);
+        contributorEntities.add(kevin);
+        contributorEntities.add(placeholder);
         contributors.get(2).addGalleryData(contributorEntities);
         contributorEntities.clear();
 

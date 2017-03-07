@@ -5,8 +5,8 @@
     <!-- commons-io -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_commons_io_libraryDescription">Commons IO это набор вспомогательных
-        утилит для разработки IO функционала.
+    <string name="library_commons_io_libraryDescription">Commons IO, işlevsellik geliştirmeye yardımcı
+        olacak yardımcı programların bir kütüphanesidir.
     </string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
@@ -14,8 +14,8 @@
     <!-- FAB Speed Dial -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_fab_speed_dial_libraryDescription">Простая библиотека, объединяющая FAB
-        + ресурсы меню + быстрый доступ из Material Design.
+    <string name="library_fab_speed_dial_libraryDescription">FAB + menü kaynaklarını + Malzeme Tasarımı\'ndan
+        hızlı arama metaforuyla birleştiren basit bir kütüphane.
     </string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
@@ -23,8 +23,8 @@
     <!-- Gesture RecyclerView -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_gesturerecycler_libraryDescription">Библиотека, обеспечивающая поддержку drag
-        and drop для RecyclerView.
+    <string name="library_gesturerecycler_libraryDescription">Bu kütüphane, Silme Görünümü için hızlıca kaydırma ve sürükleyip
+        bırakma desteği sağlar.
     </string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
@@ -36,10 +36,9 @@
         https://plus.google.com/+Fl%C3%A1vioFaria1/posts
     </string>
     <!-- Library section -->
-    <string name="library_kenburnsview_libraryDescription">Android библиотека, является
-        дополнением к ImageView, создающая полноту картинки за счет применения эффекта
-        Кена Бернса к изображению.
-    
+    <string name="library_kenburnsview_libraryDescription">Ken Burns Efektini kullanarak çizilebilirliğini
+        canlandırarak etkileyici bir deneyim yaratan ImageView için bir uzantı
+        sağlayan Android kitaplığı.
     </string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
@@ -47,10 +46,8 @@
     <!-- libsuperuser -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_libsuperuser_libraryDescription">Суть этой библиотеки
-        в применении различных методов, позволяющих обойти распространенные проблемы
-        с получением прав Суперпользователя при минимальном количестве кода.
-    
+    <string name="library_libsuperuser_libraryDescription">Bu kütüphanenin amacı,
+        ortak uygulamalarla mümkün olan en az kodda çalışan, kök uygulamalarınızda yeniden         kullanmak isteyebileceğiniz teknikleri göstermektir.
     </string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
@@ -58,8 +55,8 @@
     <!-- Material Progress Bar -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_materialprogressbar_libraryDescription">ProgressBar в стиле Material Design,
-        совместимый с Android 4.0+.
+    <string name="library_materialprogressbar_libraryDescription">Android 4.0+ üzerinde tutarlı görünüme
+        sahip Material Tasarım İlerleme Çubuğu.
     </string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
@@ -67,9 +64,11 @@
     <!-- Material Sheet Fab -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_materialsheetfab_libraryDescription">Библиотека, внедряющая анимацию
-        всплывающей кнопки по руководству Material Design от Google.
-        Применима к любой библиотеке FAB на Android 4.0+ (Уровни API &gt;= 14).
+    <string name="library_materialsheetfab_libraryDescription">Google\'ın Malzeme Tasarımı dokümanından
+        sayfaya geçiş işlemi gerçekleştiren kayan aksiyon düğmesini uygulayan kütüphane.
+Android 4.0+
+        sürümlerinde (API düzeyleri &gt;= 14) herhangi bir  FAB kitaplığıyla kullanılabilir.
+    
     </string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
@@ -77,8 +76,8 @@
     <!-- Welcome -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_welcome_android_libraryDescription">Простой в использовании и настраиваемый
-        экран приветствия для Android приложений.
+    <string name="library_welcome_android_libraryDescription">Android uygulamaları için kullanımı kolay
+        ve özelleştirilebilir hoş geldiniz ekranı.
     </string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
@@ -86,8 +85,8 @@
     <!-- ZipSigner -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_zipsigner_libraryDescription">ZipSigner - Android библиотека для подписи
-        Zip, Apk, и Jar файлов прямо на Android устройствах.
+    <string name="library_zipsigner_libraryDescription">ZipSigner, Android cihazlarda Zip, Apk ve/veya Jar dosyalarını
+        imzalamak için bir Android kütüphanesi.
     </string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
@@ -95,10 +94,9 @@
     <!-- ZT-Zip -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_zt_zip_libraryDescription">Проект собран с помощью пакетов java.util.zip.*
-        для потокового доступа. Поддерживаются самые оптимальные методы работы с
-        файловой системой.
-    
+    <string name="library_zt_zip_libraryDescription">Proje, akış tabanlı erişim için java.util.zip.*
+        Paketleri kullanılarak oluşturulmuştur. Dosya sistemi kullanımı için çoğu kolaylık yöntemi de
+        desteklenmektedir.
     </string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
@@ -109,8 +107,8 @@
     <string name="library_avloadingindicatorview_authorWebsite">http://hlong.xyz/</string>
     <!-- Library section -->
     <string name="library_avloadingindicatorview_libraryName">AVLoadingIndicatorView</string>
-    <string name="library_avloadingindicatorview_libraryDescription">AVLoadingIndicatorView это
-        набор красивых загрузочных анимаций для Android.
+    <string name="library_avloadingindicatorview_libraryDescription">AVLoadingIndicatorView, Android için
+        güzel yükleme animasyonları koleksiyonu.
     </string>
     <string name="library_avloadingindicatorview_libraryWebsite">
         https://github.com/81813780/AVLoadingIndicatorView
@@ -126,9 +124,8 @@
     <!-- BlurView -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_blurview_libraryDescription">Динамическое размытие поверх экранов
-        как в iOS для Android.
-    
+    <string name="library_blurview_libraryDescription">Android için temel Gösterimlerin dinamik iOS benzeri
+        bulanıklığı.
     </string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
@@ -136,10 +133,9 @@
     <!-- Android Image Cropper -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_androidimagecropper_libraryDescription">Мощная (Приближение, Поворот,
-        Множ.-источник), настраиваемая (Форма, границы, стиль), оптимизированная (Асинхр,
-        сэмплинг, матрица) и простая библиотека для обрезки изображений на Android.
-
+    <string name="library_androidimagecropper_libraryDescription">Android için güçlü (Yakınlaştırma,
+        Döndürme, Çoklu Kaynak), özelleştirilebilir (Şekil, Sınırlar, Stil), optimize (Async, Örnekleme, Matrix)
+        ve basit resim kırpma kütüphanesi.
     </string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
@@ -149,8 +145,8 @@
     <string name="library_floatingview_author">Recruit Lifestyle Co. Ltd.</string>
     <string name="library_floatingview_authorWebsite">http://engineer.recruit-lifestyle.co.jp/</string>
     <!-- Library section -->
-    <string name="library_floatingview_libraryName">FloatingView</string>
-    <string name="library_floatingview_libraryDescription">Android библиотека для показа плавающих окон на подобии Facebook Chat Heads для разработчиков открытого исходного кода.</string>
+    <string name="library_floatingview_libraryName">Yüzen Görünüm</string>
+    <string name="library_floatingview_libraryDescription">Facebook Sohbet Başları gibi Yüzen Görünümleri açık kaynak topluluğuna getiren bir Android kitaplığı.</string>
     <string name="library_floatingview_libraryWebsite">https://github.com/recruit-lifestyle/FloatingView/</string>
     <string name="library_floatingview_libraryVersion">2.2</string>
     <!-- OpenSource section -->
@@ -164,7 +160,7 @@
     <string name="library_jikegallery_authorWebsite">http://wangyuwei.me/</string>
     <!-- Library section -->
     <string name="library_jikegallery_libraryName">JikeGallery</string>
-    <string name="library_jikegallery_libraryDescription">Крутой галерейный просмотр с плавной вертикальной анимацией, отображающий содержимое привлекательнее.</string>
+    <string name="library_jikegallery_libraryDescription">İçeriği daha çekici gösteren, dikey pürüzsüz animasyon içeren güzel bir galeri görünümü.</string>
     <string name="library_jikegallery_libraryWebsite">https://github.com/JeasonWong/JikeGallery</string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
@@ -173,7 +169,7 @@
     <!-- ExpandableLayout -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_expandablelayout_libraryDescription">Класс для Android макета с поддержкой анимированного расширения и уменьшения дочерних отображений.</string>
+    <string name="library_expandablelayout_libraryDescription">Çocuk görünümlerinin genişlemesi ve daraltılması animasyonunu destekleyen bir Android düzen sınıfı.</string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->

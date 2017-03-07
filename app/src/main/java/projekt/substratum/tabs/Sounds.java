@@ -133,7 +133,7 @@ public class Sounds extends Fragment {
             File f =
                     new File(
                             getContext().getCacheDir().getAbsoluteFile() + "/SubstratumBuilder/" +
-                            theme_pid + "/assets/audio");
+                                    theme_pid + "/assets/audio");
             File[] fileArray = f.listFiles();
             ArrayList<String> archivedSounds = new ArrayList<>();
             for (File file : fileArray) {

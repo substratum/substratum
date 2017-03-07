@@ -11,16 +11,29 @@
     </string-array>
 
     <string-array name="translations">
+        <item>беларускія пераклады</item>
+        <item>Překlady do češtiny</item>
         <item>中文翻译（简体）</item>
         <item>Traductions en français</item>
         <item>Deutsche Übersetzungen</item>
         <item>Magyar Fordítás</item>
         <item>Traduzioni Italiane</item>
         <item>Lietuvos Vertimai</item>
+        <item>Polskie tłumaczenia</item>
         <item>Tradução Português (Brasileiro)</item>
         <item>Tradução Português</item>
         <item>Русский перевод</item>
         <item>Traducciones españolas</item>
+    </string-array>
+
+    <string-array name="belarusian_translators">
+        <item>Alex (alexnov2849)</item>
+    </string-array>
+
+    <string-array name="czech_translators">
+        <item>Kuba Schenk (abukcz)</item>
+        <item>Michal Václav Císařovský (mikicis)</item>
+        <item>Ondřej Holan (blackegi1)</item>
     </string-array>
 
     <string-array name="french_translators">
@@ -45,6 +58,8 @@
         <item>Márk Kaszás (kaszasm)</item>
         <item>Gábor Vecsera (Wechy77)</item>
         <item>László Szécsényi (szecslasz)</item>
+        <item>Tomi_Ohl</item>
+        <item>Gábor Vecsera (Wechy77)</item>
     </string-array>
 
     <string-array name="lithuanian_translators">
@@ -61,6 +76,16 @@
         <item>Iskan Ivanov (iskan998979145561)</item>
         <item>Lore Concas (lore96jr)</item>
         <item>matoxxi</item>
+    </string-array>
+
+    <string-array name="polish_translators">
+        <item>Adam Kwiatkowski (dahakepl)</item>
+        <item>dadi11</item>
+        <item>Kamil (kojak1989)</item>
+        <item>Kuciak (damiankorczak38)</item>
+        <item>MaRekRM</item>
+        <item>Mateusz “Matieusz” Sołtys (thetorchx)</item>
+        <item>Piotrek Paszek (pitusek513)</item>
     </string-array>
 
     <string-array name="russian_translators">

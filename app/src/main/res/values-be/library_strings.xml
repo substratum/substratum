@@ -5,8 +5,8 @@
     <!-- commons-io -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_commons_io_libraryDescription">Commons IO это набор вспомогательных
-        утилит для разработки IO функционала.
+    <string name="library_commons_io_libraryDescription">Commons IO гэта набор дапаможных
+        утыліт для распрацоўкі IO функцыяналу.
     </string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
@@ -14,8 +14,8 @@
     <!-- FAB Speed Dial -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_fab_speed_dial_libraryDescription">Простая библиотека, объединяющая FAB
-        + ресурсы меню + быстрый доступ из Material Design.
+    <string name="library_fab_speed_dial_libraryDescription">Простая бібліятэка, якая аб\'ядноўвае FAB
+        + рэсурсы меню + хуткі доступ з Material Design.
     </string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
@@ -23,7 +23,7 @@
     <!-- Gesture RecyclerView -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_gesturerecycler_libraryDescription">Библиотека, обеспечивающая поддержку drag
+    <string name="library_gesturerecycler_libraryDescription">Бібліятэка, якая забяспечвае падтрымку &amp; drag
         and drop для RecyclerView.
     </string>
     <!-- OpenSource section -->
@@ -36,9 +36,9 @@
         https://plus.google.com/+Fl%C3%A1vioFaria1/posts
     </string>
     <!-- Library section -->
-    <string name="library_kenburnsview_libraryDescription">Android библиотека, является
-        дополнением к ImageView, создающая полноту картинки за счет применения эффекта
-        Кена Бернса к изображению.
+    <string name="library_kenburnsview_libraryDescription">Android бібліятэка, з\'яўляецца
+        дадаткам да ImageView, якая стварае паўнату карцінкі за кошт прымянення эфекту
+        Кена Бернса з выявай.
     
     </string>
     <!-- OpenSource section -->
@@ -47,9 +47,9 @@
     <!-- libsuperuser -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_libsuperuser_libraryDescription">Суть этой библиотеки
-        в применении различных методов, позволяющих обойти распространенные проблемы
-        с получением прав Суперпользователя при минимальном количестве кода.
+    <string name="library_libsuperuser_libraryDescription">Сутнасць гэтай бібліятэкі
+        ва ўжыванні розных метадаў, якія дазваляюць абысці распаўсюджаныя праблемы
+        з атрыманнем правоў суперкарыстальніка пры мінімальнай колькасці кода.
     
     </string>
     <!-- OpenSource section -->
@@ -58,8 +58,8 @@
     <!-- Material Progress Bar -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_materialprogressbar_libraryDescription">ProgressBar в стиле Material Design,
-        совместимый с Android 4.0+.
+    <string name="library_materialprogressbar_libraryDescription">ProgressBar у стылі Material Design,
+        сумяшчальны з Android 4.0+.
     </string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
@@ -67,9 +67,9 @@
     <!-- Material Sheet Fab -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_materialsheetfab_libraryDescription">Библиотека, внедряющая анимацию
-        всплывающей кнопки по руководству Material Design от Google.
-        Применима к любой библиотеке FAB на Android 4.0+ (Уровни API &gt;= 14).
+    <string name="library_materialsheetfab_libraryDescription">Бібліятэка, ўкараняючая анімацыю
+        ўсплывальнай кнопкі пад кіраўніцтве Material Design от Google.
+        Дастасавальна да любой бібліятэцы FAB на Android 4.0+ (Узроўні API &gt;= 14).
     </string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
@@ -77,8 +77,8 @@
     <!-- Welcome -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_welcome_android_libraryDescription">Простой в использовании и настраиваемый
-        экран приветствия для Android приложений.
+    <string name="library_welcome_android_libraryDescription">Просты ў выкарыстанні і наладжвальны
+        экран прывітання для Android праграм.
     </string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
@@ -86,8 +86,8 @@
     <!-- ZipSigner -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_zipsigner_libraryDescription">ZipSigner - Android библиотека для подписи
-        Zip, Apk, и Jar файлов прямо на Android устройствах.
+    <string name="library_zipsigner_libraryDescription">ZipSigner - Android бібліятэка для подпісу
+        Zip, Apk, и Jar файлаў непасрэдна на Android прыладах.
     </string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
@@ -95,9 +95,9 @@
     <!-- ZT-Zip -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_zt_zip_libraryDescription">Проект собран с помощью пакетов java.util.zip.*
-        для потокового доступа. Поддерживаются самые оптимальные методы работы с
-        файловой системой.
+    <string name="library_zt_zip_libraryDescription">Праект сабраны з дапамогай пакетаў java.util.zip.*
+        для патокагава доступу. Падтрымліваюцца самыя аптымальныя метады працы з
+        файлавай сістэмай.
     
     </string>
     <!-- OpenSource section -->
@@ -109,8 +109,8 @@
     <string name="library_avloadingindicatorview_authorWebsite">http://hlong.xyz/</string>
     <!-- Library section -->
     <string name="library_avloadingindicatorview_libraryName">AVLoadingIndicatorView</string>
-    <string name="library_avloadingindicatorview_libraryDescription">AVLoadingIndicatorView это
-        набор красивых загрузочных анимаций для Android.
+    <string name="library_avloadingindicatorview_libraryDescription">AVLoadingIndicatorView гэта
+        набор прыгожых загрузных анімацый для Android.
     </string>
     <string name="library_avloadingindicatorview_libraryWebsite">
         https://github.com/81813780/AVLoadingIndicatorView
@@ -126,8 +126,8 @@
     <!-- BlurView -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_blurview_libraryDescription">Динамическое размытие поверх экранов
-        как в iOS для Android.
+    <string name="library_blurview_libraryDescription">Дынамічнае размыццё па-над экранам
+        як у iOS для Android.
     
     </string>
     <!-- OpenSource section -->
@@ -136,9 +136,9 @@
     <!-- Android Image Cropper -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_androidimagecropper_libraryDescription">Мощная (Приближение, Поворот,
-        Множ.-источник), настраиваемая (Форма, границы, стиль), оптимизированная (Асинхр,
-        сэмплинг, матрица) и простая библиотека для обрезки изображений на Android.
+    <string name="library_androidimagecropper_libraryDescription">Магутная (Набліжэнне, Паварот,
+        Мнос.-крыніца), наладжвальная (Форма, межы, стыль), аптымізаваная (Асінхр,
+        сэмплінг, матрыца) і простая бібліятэка для абразання выяў на Android.
 
     </string>
     <!-- OpenSource section -->
@@ -150,7 +150,7 @@
     <string name="library_floatingview_authorWebsite">http://engineer.recruit-lifestyle.co.jp/</string>
     <!-- Library section -->
     <string name="library_floatingview_libraryName">FloatingView</string>
-    <string name="library_floatingview_libraryDescription">Android библиотека для показа плавающих окон на подобии Facebook Chat Heads для разработчиков открытого исходного кода.</string>
+    <string name="library_floatingview_libraryDescription">Android бібліятэка для паказу ўсплывальных вокнаў на падабенстве Facebook Chat Heads для распрацоўшчыкаў адкрытага зыходнага кода.</string>
     <string name="library_floatingview_libraryWebsite">https://github.com/recruit-lifestyle/FloatingView/</string>
     <string name="library_floatingview_libraryVersion">2.2</string>
     <!-- OpenSource section -->
@@ -164,7 +164,7 @@
     <string name="library_jikegallery_authorWebsite">http://wangyuwei.me/</string>
     <!-- Library section -->
     <string name="library_jikegallery_libraryName">JikeGallery</string>
-    <string name="library_jikegallery_libraryDescription">Крутой галерейный просмотр с плавной вертикальной анимацией, отображающий содержимое привлекательнее.</string>
+    <string name="library_jikegallery_libraryDescription">Файны галерэйны прагляд з плыўнай вертыкальнай анімацыяй, які адлюстроўвае змесціва прывабней.</string>
     <string name="library_jikegallery_libraryWebsite">https://github.com/JeasonWong/JikeGallery</string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
@@ -173,7 +173,7 @@
     <!-- ExpandableLayout -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_expandablelayout_libraryDescription">Класс для Android макета с поддержкой анимированного расширения и уменьшения дочерних отображений.</string>
+    <string name="library_expandablelayout_libraryDescription">Клас для Android макета з падтрымкай анімаванага пашырэння і памяншэння даччыных адлюстраванняў.</string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->

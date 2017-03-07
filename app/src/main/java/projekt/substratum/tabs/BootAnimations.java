@@ -170,61 +170,64 @@ public class BootAnimations extends Fragment {
             bootAnimationSelector.setOnItemSelectedListener(
                     new AdapterView.OnItemSelectedListener() {
 
-                @Override
-                public void onItemSelected(AdapterView<?> arg0, View arg1,
-                                           int pos, long id) {
-                    switch(pos){
-                        case 0:
-                            if (current != null)
-                                current.cancel(true);
+                        @Override
+                        public void onItemSelected(AdapterView<?> arg0, View arg1,
+                                                   int pos, long id) {
+                            switch (pos) {
+                                case 0:
+                                    if (current != null)
+                                        current.cancel(true);
 
-                            bootanimation_placeholder.setVisibility(View.VISIBLE);
-                            defaults.setVisibility(View.GONE);
-                            vm_blown.setVisibility(View.GONE);
-                            imageButton.setClickable(false);
-                            imageButton.setImageTintList(unchecked);
-                            animation = new AnimationDrawable();
-                            animation.setOneShot(false);
-                            bootAnimationPreview =
-                                    (ImageView) root.findViewById(R.id.bootAnimationPreview);
-                            bootAnimationPreview.setImageDrawable(null);
-                            images.clear();
-                            progressBar.setVisibility(View.GONE);
-                            break;
+                                    bootanimation_placeholder.setVisibility(View.VISIBLE);
+                                    defaults.setVisibility(View.GONE);
+                                    vm_blown.setVisibility(View.GONE);
+                                    imageButton.setClickable(false);
+                                    imageButton.setImageTintList(unchecked);
+                                    animation = new AnimationDrawable();
+                                    animation.setOneShot(false);
+                                    bootAnimationPreview =
+                                            (ImageView) root.findViewById(R.id
+                                                    .bootAnimationPreview);
+                                    bootAnimationPreview.setImageDrawable(null);
+                                    images.clear();
+                                    progressBar.setVisibility(View.GONE);
+                                    break;
 
-                        case 1:
-                            if (current != null)
-                                current.cancel(true);
+                                case 1:
+                                    if (current != null)
+                                        current.cancel(true);
 
-                            defaults.setVisibility(View.VISIBLE);
-                            bootanimation_placeholder.setVisibility(View.GONE);
-                            vm_blown.setVisibility(View.GONE);
-                            imageButton.setImageTintList(checked);
-                            imageButton.setClickable(true);
-                            progressBar.setVisibility(View.GONE);
-                            animation = new AnimationDrawable();
-                            animation.setOneShot(false);
-                            bootAnimationPreview =
-                                    (ImageView) root.findViewById(R.id.bootAnimationPreview);
-                            bootAnimationPreview.setImageDrawable(null);
-                            images.clear();
-                            progressBar.setVisibility(View.GONE);
-                            break;
+                                    defaults.setVisibility(View.VISIBLE);
+                                    bootanimation_placeholder.setVisibility(View.GONE);
+                                    vm_blown.setVisibility(View.GONE);
+                                    imageButton.setImageTintList(checked);
+                                    imageButton.setClickable(true);
+                                    progressBar.setVisibility(View.GONE);
+                                    animation = new AnimationDrawable();
+                                    animation.setOneShot(false);
+                                    bootAnimationPreview =
+                                            (ImageView) root.findViewById(R.id
+                                                    .bootAnimationPreview);
+                                    bootAnimationPreview.setImageDrawable(null);
+                                    images.clear();
+                                    progressBar.setVisibility(View.GONE);
+                                    break;
 
-                        default:
-                            if (current != null)
-                                current.cancel(true);
+                                default:
+                                    if (current != null)
+                                        current.cancel(true);
 
-                            defaults.setVisibility(View.GONE);
-                            bootanimation_placeholder.setVisibility(View.GONE);
-                            String[] commands = {arg0.getSelectedItem().toString()};
-                            current = new BootAnimationPreview().execute(commands);
-                    }
-                }
-                @Override
-                public void onNothingSelected(AdapterView<?> arg0) {
-                }
-            });
+                                    defaults.setVisibility(View.GONE);
+                                    bootanimation_placeholder.setVisibility(View.GONE);
+                                    String[] commands = {arg0.getSelectedItem().toString()};
+                                    current = new BootAnimationPreview().execute(commands);
+                            }
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> arg0) {
+                        }
+                    });
         } catch (Exception e) {
             e.printStackTrace();
             Log.e("BootAnimationUtils",
@@ -321,7 +324,7 @@ public class BootAnimations extends Fragment {
                 } else {
                     FileOperations.delete(getContext(),
                             getContext().getCacheDir().getAbsolutePath() +
-                            "/BootAnimationCache/animation_preview/");
+                                    "/BootAnimationCache/animation_preview/");
                     boolean created = cacheDirectory2.mkdirs();
                     if (created)
                         Log.d("BootAnimationUtils", "Bootanimation folder recreated");
@@ -354,10 +357,10 @@ public class BootAnimations extends Fragment {
                 try {
                     int inSampleSize =
                             previewDeterminator(getContext().getCacheDir().getAbsolutePath() +
-                            "/BootAnimationCache/" + source);
+                                    "/BootAnimationCache/" + source);
                     Log.d("BootAnimationUtils",
                             "Resampling bootanimation for preview at scale " + inSampleSize);
-                    for (int counter = 0; true; counter++){
+                    for (int counter = 0; true; counter++) {
                         File current_directory = new File(getContext().getCacheDir(),
                                 "/BootAnimationCache/" +
                                         "animation_preview/part" + counter);

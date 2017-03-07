@@ -334,16 +334,6 @@ public class References {
         return result;
     }
 
-    // This method clears the app's cache
-    public static void clearAppCache(Context mContext) {
-        FileOperations.delete(mContext, mContext.getCacheDir()
-                .getAbsolutePath() + "/SubstratumBuilder/");
-        Toast toast = Toast.makeText(mContext, mContext.getString(R.string
-                        .char_success),
-                Toast.LENGTH_SHORT);
-        toast.show();
-    }
-
     // Load SharedPreference defaults
     public static void loadDefaultConfig(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);

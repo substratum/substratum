@@ -2,7 +2,7 @@
     <string name="app_name" translatable="false">substratum</string>
     <string name="interfacer_name" translatable="false">interfacer</string>
     <string name="legacy_app_name" translatable="false">substratum legacy</string>
-    <string name="showcase">community showcase</string>
+    <string name="showcase">showcase</string>
     <string name="helper_name">substratum overlay helper</string>
     <string name="drawer_name" translatable="false">projekt substratum</string>
     <string name="restore_app_name">restore theme</string>

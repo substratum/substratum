@@ -83,8 +83,7 @@ public class ShowcaseActivity extends AppCompatActivity {
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id
                 .swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(() -> {
-            finish();
-            startActivity(getIntent());
+            this.recreate();
         });
     }
 

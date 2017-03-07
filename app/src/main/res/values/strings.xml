@@ -7,9 +7,8 @@
     <string name="drawer_name" translatable="false">projekt substratum</string>
     <string name="restore_app_name">restore theme</string>
 
-    <string name="android">Android version:</string>
-    <string name="device">Device model:</string>
-    <string name="vendor">Security patch level:</string>
+    <string name="android">android version:</string>
+    <string name="device">device model:</string>
 
     <string name="search_play_store_url" translatable="false">https://play.google.com/store/search?q=Substratum%20Theme&amp;c=apps</string>
     <string name="search_play_store_url_icon_packs" translatable="false">https://play.google.com/store/search?q=Icon%20Pack&amp;c=apps</string>

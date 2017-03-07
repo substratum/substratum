@@ -16,14 +16,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        >
+        android:layout_marginTop="10dp">
 
         <TextView
             android:id="@+id/trouble_ques"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginEnd="14dp"
             android:layout_marginStart="14dp"
             android:layout_marginTop="7dp"
             android:textSize="18sp"
@@ -34,10 +34,10 @@
             android:layout_width="wrap_content"
             android:layout_height="1px"
             android:layout_below="@+id/trouble_ques"
-            android:layout_marginEnd="6dp"
-            android:layout_marginStart="6dp"
+            android:layout_marginEnd="14dp"
+            android:layout_marginStart="14dp"
             android:layout_marginTop="4dp"
-            android:background="@android:color/darker_gray"/>
+            android:background="@color/troubleshooting_card_line_color"/>
 
         <TextView
             android:id="@+id/trouble_ans"
@@ -46,8 +46,8 @@
             android:layout_below="@+id/divider"
             android:layout_gravity="center"
             android:layout_marginBottom="7dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="7dp"
+            android:layout_marginEnd="14dp"
+            android:layout_marginStart="14dp"
             android:layout_marginTop="8dp"
             android:textSize="12sp"/>
 

@@ -18,6 +18,8 @@
     <color name="bottom_sheet_dialog_icon_tint">@color/main_screen_card_theme_title</color>
     <color name="bottom_sheet_dialog_background">@color/main_screen_card_background</color>
 
+    <color name="troubleshooting_card_line_color">@android:color/darker_gray</color>
+
     <color name="priorities_drag_handle">@color/main_screen_card_theme_title</color>
     <color name="priorities_switchbar">@color/colorPrimary</color>
 

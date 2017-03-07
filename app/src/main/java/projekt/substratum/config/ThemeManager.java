@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import projekt.substratum.util.Root;
 
@@ -152,6 +153,15 @@ public class ThemeManager {
                 }
             }
         }
+        return list;
+    }
+
+    public static List<String> listEnabledOverlaysForTarget(String target) {
+        List<String> list = new ArrayList<>();
+        List<String> overlays = listOverlays(5);
+        list.addAll(overlays.stream().filter(o -> o.startsWith(target))
+                .collect(Collectors.toList()));
+
         return list;
     }
 

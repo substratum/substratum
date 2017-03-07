@@ -541,6 +541,21 @@ public class References {
         return context.getDrawable(R.drawable.default_overlay_icon);
     }
 
+    public static Drawable grabThemeIcon(Context context, String package_name) {
+        try {
+            ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
+                    package_name, PackageManager.GET_META_DATA);
+            if (appInfo.metaData != null) {
+                if (appInfo.metaData.getString("Substratum_Parent") != null) {
+                    return grabAppIcon(context, appInfo.metaData.getString("Substratum_Parent"));
+                }
+            }
+        } catch (Exception e) {
+            //
+        }
+        return grabAppIcon(context, package_name);
+    }
+
     public static List<ResolveInfo> getIconPacks(Context context) {
         // Scavenge through the packages on the device with specific launcher metadata in
         // their manifest

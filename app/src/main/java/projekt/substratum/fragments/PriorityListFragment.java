@@ -11,7 +11,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,11 +19,6 @@ import android.widget.ProgressBar;
 import com.thesurix.gesturerecycler.GestureAdapter;
 import com.thesurix.gesturerecycler.GestureManager;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,54 +74,10 @@ public class PriorityListFragment extends Fragment {
 
         final List<PrioritiesItem> prioritiesList = new ArrayList<>();
         final ArrayList<String> workable_list = new ArrayList<>();
-        Process nativeApp = null;
-        try {
-            nativeApp = Runtime.getRuntime().exec(ThemeManager.listAllOverlays);
-
-            try (OutputStream stdin = nativeApp.getOutputStream();
-                 InputStream stderr = nativeApp.getErrorStream();
-                 InputStream stdout = nativeApp.getInputStream();
-                 BufferedReader br = new BufferedReader(new InputStreamReader(stdout))) {
-                String line;
-
-                stdin.write(("ls\n").getBytes());
-                stdin.write("exit\n".getBytes());
-
-                String current_header = "";
-                while ((line = br.readLine()) != null) {
-                    if (line.length() > 0) {
-                        if (line.equals(obtained_key)) {
-                            current_header = line;
-                        } else {
-                            if (current_header.equals(obtained_key)) {
-                                if (line.contains("[x]")) {
-                                    prioritiesList.add(new Priorities(line.substring(4),
-                                            References.grabAppIcon(getContext(),
-                                                    current_header)));
-                                    workable_list.add(line.substring(4));
-                                } else if (!line.contains("[ ]")) {
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                try (BufferedReader br1 = new BufferedReader(new InputStreamReader(stderr))) {
-                    while ((line = br1.readLine()) != null) {
-                        Log.e("PriorityListFragment", line);
-                    }
-                }
-            }
-        } catch (IOException ioe) {
-            Log.e("PriorityListFragment", "There was an issue regarding loading the priorities of" +
-                    " " +
-                    "each overlay.");
-        } finally {
-            if (nativeApp != null) {
-                // destroy the process explicitly
-                nativeApp.destroy();
-            }
+        List<String> overlays = ThemeManager.listEnabledOverlaysForTarget(obtained_key);
+        for (String o : overlays) {
+            prioritiesList.add(new Priorities(o, References.grabThemeIcon(getContext(), o)));
+            workable_list.add(o);
         }
 
         final PrioritiesAdapter adapter = new PrioritiesAdapter(getContext(), R.layout.linear_item);

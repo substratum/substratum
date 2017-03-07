@@ -201,8 +201,10 @@ public class ThemeFragment extends Fragment {
                     "theme database filter");
         }
 
-        doCleanUp cleanUp = new doCleanUp();
-        cleanUp.execute("");
+        if (References.checkOMS(mContext)) {
+            doCleanUp cleanUp = new doCleanUp();
+            cleanUp.execute("");
+        }
 
         if (substratum_packages.size() == 0) {
             if (MainActivity.searchView != null && !MainActivity.searchView.isIconified()) {

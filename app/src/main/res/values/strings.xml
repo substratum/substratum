@@ -873,6 +873,8 @@
     <string name="xda_link" translatable="false">https://forum.xda-developers.com/android/themes/projekt-substratum-t3423623</string>
 
     <string name="nav_drawer_resources">Resources</string>
+    <string name="nav_drawer_homepage">Official Homepage</string>
+    <string name="homepage_link" translatable="false">https://substratum.github.io/home/</string>
     <string name="nav_drawer_template">Theme Template (Themers)</string>
     <string name="template_link" translatable="false">https://github.com/substratum/template</string>
     <string name="nav_drawer_gerrit">Platform &amp; Exposures Gerrit</string>

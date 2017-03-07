@@ -285,18 +285,22 @@ public class MainActivity extends AppCompatActivity implements
                 .withName(R.string.nav_drawer_resources)
                 .withIcon(R.drawable.nav_drawer_resources)
                 .withSelectable(false).withSubItems(
+                        new SecondaryDrawerItem().withName(R.string.nav_drawer_homepage)
+                                .withLevel(2).withIcon(R.drawable.nav_drawer_homepage)
+                                .withSelectable(false)
+                                .withIdentifier(105),
                         new SecondaryDrawerItem().withName(R.string.nav_drawer_template)
                                 .withLevel(2).withIcon(R.drawable.nav_drawer_template)
                                 .withSelectable(false)
-                                .withIdentifier(105),
+                                .withIdentifier(106),
                         new SecondaryDrawerItem().withName(R.string.nav_drawer_gerrit)
                                 .withLevel(2).withIcon(R.drawable.nav_drawer_gerrit)
                                 .withSelectable(false)
-                                .withIdentifier(106),
+                                .withIdentifier(107),
                         new SecondaryDrawerItem().withName(R.string.nav_drawer_github)
                                 .withLevel(2).withIcon(R.drawable.nav_drawer_github)
                                 .withSelectable(false)
-                                .withIdentifier(107));
+                                .withIdentifier(108));
 
         // Begin initializing the navigation drawer
         drawerBuilder.addDrawerItems(
@@ -522,7 +526,7 @@ public class MainActivity extends AppCompatActivity implements
                         break;
                     case 105:
                         try {
-                            String sourceURL = getString(R.string.template_link);
+                            String sourceURL = getString(R.string.homepage_link);
                             Intent i = new Intent(Intent.ACTION_VIEW);
                             i.setData(Uri.parse(sourceURL));
                             startActivity(i);
@@ -535,7 +539,7 @@ public class MainActivity extends AppCompatActivity implements
                         break;
                     case 106:
                         try {
-                            String sourceURL = getString(R.string.gerrit_link);
+                            String sourceURL = getString(R.string.template_link);
                             Intent i = new Intent(Intent.ACTION_VIEW);
                             i.setData(Uri.parse(sourceURL));
                             startActivity(i);
@@ -547,6 +551,19 @@ public class MainActivity extends AppCompatActivity implements
                         }
                         break;
                     case 107:
+                        try {
+                            String sourceURL = getString(R.string.gerrit_link);
+                            Intent i = new Intent(Intent.ACTION_VIEW);
+                            i.setData(Uri.parse(sourceURL));
+                            startActivity(i);
+                        } catch (Exception e) {
+                            Snackbar.make(findViewById(android.R.id.content),
+                                    getString(R.string.activity_missing_toast),
+                                    Snackbar.LENGTH_LONG)
+                                    .show();
+                        }
+                        break;
+                    case 108:
                         try {
                             String sourceURL = getString(R.string.github_link);
                             Intent i = new Intent(Intent.ACTION_VIEW);

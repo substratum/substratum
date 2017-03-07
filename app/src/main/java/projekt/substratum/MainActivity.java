@@ -248,7 +248,7 @@ public class MainActivity extends AppCompatActivity implements
             // Suppress Fonts
         }
 
-        // Split the community chats out for future projects
+        // Split the community chats out for easy adapting
         ExpandableDrawerItem social = new ExpandableDrawerItem()
                 .withName(R.string.nav_drawer_community)
                 .withIcon(R.drawable.nav_drawer_community)
@@ -265,6 +265,38 @@ public class MainActivity extends AppCompatActivity implements
                                 .withLevel(2).withIcon(R.drawable.nav_drawer_xda)
                                 .withSelectable(false)
                                 .withIdentifier(102));
+
+        // Split the featured content out for easy adapting
+        ExpandableDrawerItem featured = new ExpandableDrawerItem()
+                .withName(R.string.nav_drawer_featured)
+                .withIcon(R.drawable.nav_drawer_featured)
+                .withSelectable(false).withSubItems(
+                        new SecondaryDrawerItem().withName(R.string.nav_drawer_tcf)
+                                .withLevel(2).withIcon(R.drawable.nav_drawer_tcf)
+                                .withSelectable(false)
+                                .withIdentifier(103),
+                        new SecondaryDrawerItem().withName(R.string.nav_drawer_xda_portal)
+                                .withLevel(2).withIcon(R.drawable.nav_drawer_xda_portal)
+                                .withSelectable(false)
+                                .withIdentifier(104));
+
+        // Split the resources out for easy adapting
+        ExpandableDrawerItem resources = new ExpandableDrawerItem()
+                .withName(R.string.nav_drawer_resources)
+                .withIcon(R.drawable.nav_drawer_resources)
+                .withSelectable(false).withSubItems(
+                        new SecondaryDrawerItem().withName(R.string.nav_drawer_template)
+                                .withLevel(2).withIcon(R.drawable.nav_drawer_template)
+                                .withSelectable(false)
+                                .withIdentifier(105),
+                        new SecondaryDrawerItem().withName(R.string.nav_drawer_gerrit)
+                                .withLevel(2).withIcon(R.drawable.nav_drawer_gerrit)
+                                .withSelectable(false)
+                                .withIdentifier(106),
+                        new SecondaryDrawerItem().withName(R.string.nav_drawer_github)
+                                .withLevel(2).withIcon(R.drawable.nav_drawer_github)
+                                .withSelectable(false)
+                                .withIdentifier(107));
 
         // Begin initializing the navigation drawer
         drawerBuilder.addDrawerItems(
@@ -331,6 +363,8 @@ public class MainActivity extends AppCompatActivity implements
                 new SectionDrawerItem()
                         .withName(R.string.nav_section_header_get_involved));
         drawerBuilder.addDrawerItems(social);
+        drawerBuilder.addDrawerItems(featured);
+        drawerBuilder.addDrawerItems(resources);
         drawerBuilder.addDrawerItems(
                 new PrimaryDrawerItem()
                         .withName(R.string.nav_troubleshooting)
@@ -450,6 +484,71 @@ public class MainActivity extends AppCompatActivity implements
                     case 102:
                         try {
                             String sourceURL = getString(R.string.xda_link);
+                            Intent i = new Intent(Intent.ACTION_VIEW);
+                            i.setData(Uri.parse(sourceURL));
+                            startActivity(i);
+                        } catch (Exception e) {
+                            Snackbar.make(findViewById(android.R.id.content),
+                                    getString(R.string.activity_missing_toast),
+                                    Snackbar.LENGTH_LONG)
+                                    .show();
+                        }
+                        break;
+                    case 103:
+                        try {
+                            String sourceURL = getString(R.string.tcf_link);
+                            Intent i = new Intent(Intent.ACTION_VIEW);
+                            i.setData(Uri.parse(sourceURL));
+                            startActivity(i);
+                        } catch (Exception e) {
+                            Snackbar.make(findViewById(android.R.id.content),
+                                    getString(R.string.activity_missing_toast),
+                                    Snackbar.LENGTH_LONG)
+                                    .show();
+                        }
+                        break;
+                    case 104:
+                        try {
+                            String sourceURL = getString(R.string.xda_portal_link);
+                            Intent i = new Intent(Intent.ACTION_VIEW);
+                            i.setData(Uri.parse(sourceURL));
+                            startActivity(i);
+                        } catch (Exception e) {
+                            Snackbar.make(findViewById(android.R.id.content),
+                                    getString(R.string.activity_missing_toast),
+                                    Snackbar.LENGTH_LONG)
+                                    .show();
+                        }
+                        break;
+                    case 105:
+                        try {
+                            String sourceURL = getString(R.string.template_link);
+                            Intent i = new Intent(Intent.ACTION_VIEW);
+                            i.setData(Uri.parse(sourceURL));
+                            startActivity(i);
+                        } catch (Exception e) {
+                            Snackbar.make(findViewById(android.R.id.content),
+                                    getString(R.string.activity_missing_toast),
+                                    Snackbar.LENGTH_LONG)
+                                    .show();
+                        }
+                        break;
+                    case 106:
+                        try {
+                            String sourceURL = getString(R.string.gerrit_link);
+                            Intent i = new Intent(Intent.ACTION_VIEW);
+                            i.setData(Uri.parse(sourceURL));
+                            startActivity(i);
+                        } catch (Exception e) {
+                            Snackbar.make(findViewById(android.R.id.content),
+                                    getString(R.string.activity_missing_toast),
+                                    Snackbar.LENGTH_LONG)
+                                    .show();
+                        }
+                        break;
+                    case 107:
+                        try {
+                            String sourceURL = getString(R.string.github_link);
                             Intent i = new Intent(Intent.ACTION_VIEW);
                             i.setData(Uri.parse(sourceURL));
                             startActivity(i);

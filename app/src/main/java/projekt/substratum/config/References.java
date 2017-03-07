@@ -541,7 +541,9 @@ public class References {
         return context.getDrawable(R.drawable.default_overlay_icon);
     }
 
-    public static Drawable grabThemeIcon(Context context, String package_name) {
+    // This method obtains the overlay parent icon for specified package, returns self package icon
+    // if not found
+    public static Drawable grabOverlayParentIcon(Context context, String package_name) {
         try {
             ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
                     package_name, PackageManager.GET_META_DATA);

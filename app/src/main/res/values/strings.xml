@@ -24,14 +24,8 @@
         function!
     </string>
     <string name="showcase_no_themes">seems like there was an error caching the showcase database
-        for this tab. reload the database with the refresh button above.
+        for this tab&#8230;
     </string>
-    <string name="showcase_dialog_title">Disclaimer!</string>
-    <string name="showcase_dialog_content">Please wait while the database icons are cached in each
-        of the tabs.\n\nSubsequent launches will be much faster after the cache is complete.\n\nTo
-        reload the cache, click the refresh button above.
-    </string>
-    <string name="showcase_dialog_agree">Let\'s go!</string>
 
     <string name="on_demand_updating_title">Resource Cache Initializer</string>
     <string name="on_demand_updating_text">%s\'s cache is now rebuilding&#8230;</string>

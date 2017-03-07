@@ -732,7 +732,7 @@ public class MainActivity extends AppCompatActivity implements
                 permissionCheck2 == PackageManager.PERMISSION_GRANTED) {
             //add the values which need to be saved from the drawer to the bundle
             outState = drawer.saveInstanceState(outState);
-            outState.putInt(SELECTED_DRAWER_ITEM, drawer.getCurrentSelectedPosition() - 1);
+            outState.putInt(SELECTED_DRAWER_ITEM, (int) drawer.getCurrentSelection());
             super.onSaveInstanceState(outState);
         }
     }

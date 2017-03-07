@@ -1250,9 +1250,10 @@ public class References {
         if (resource_name != null) {
             try (BufferedReader br = new BufferedReader(new FileReader(overlay_file))) {
                 for (String line; (line = br.readLine()) != null; ) {
-                    if (line.contains(resource_name)) {
+                    if (line.contains("\"" + resource_name + "\"")) {
                         String[] split = line.substring(line.lastIndexOf("\">") + 2).split("<");
                         hex = split[0];
+                        if (hex.startsWith("?")) hex = "#00000000";
                     }
                 }
             } catch (IOException ioe) {

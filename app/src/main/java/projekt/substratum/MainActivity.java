@@ -25,6 +25,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
@@ -66,6 +67,8 @@ import projekt.substratum.config.ElevatedCommands;
 import projekt.substratum.config.FileOperations;
 import projekt.substratum.config.References;
 import projekt.substratum.config.ThemeManager;
+import projekt.substratum.fragments.PriorityListFragment;
+import projekt.substratum.fragments.PriorityLoaderFragment;
 import projekt.substratum.fragments.ThemeFragment;
 import projekt.substratum.services.FloatUiTile;
 import projekt.substratum.services.InterfaceAuthorizationReceiver;
@@ -846,6 +849,16 @@ public class MainActivity extends AppCompatActivity implements
         } else {
             if (drawer != null && drawer.isDrawerOpen()) {
                 drawer.closeDrawer();
+            }
+            Fragment f = getSupportFragmentManager().findFragmentById(R.id.main);
+            if (f instanceof PriorityListFragment) {
+                Fragment fragment = new PriorityLoaderFragment();
+                FragmentManager fm = getSupportFragmentManager();
+                FragmentTransaction transaction = fm.beginTransaction();
+                transaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim
+                        .slide_out_right);
+                transaction.replace(R.id.main, fragment);
+                transaction.commit();
             } else if (drawer != null && drawer.getCurrentSelectedPosition() > 1) {
                 drawer.setSelectionAtPosition(1);
             } else if (drawer != null && drawer.getCurrentSelectedPosition() == 1) {

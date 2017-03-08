@@ -470,11 +470,20 @@ public class References {
 
     // This method determines whether a specified package is installed
     public static boolean isPackageInstalled(Context context, String package_name) {
+        return isPackageInstalled(context, package_name, true);
+    }
+
+    // This method determines whether a specified package is installed (enabled OR disabled)
+    public static boolean isPackageInstalled(Context context, String package_name, boolean enabled) {
         try {
             ApplicationInfo ai = context.getPackageManager().getApplicationInfo(package_name, 0);
             PackageManager pm = context.getPackageManager();
             pm.getPackageInfo(package_name, PackageManager.GET_ACTIVITIES);
-            return ai.enabled;
+            if (enabled){
+                return ai.enabled;
+            }
+            // if package doesn't exist, an Exception will be thrown, so return true in every case
+            return true;
         } catch (Exception e) {
             return false;
         }
@@ -939,7 +948,8 @@ public class References {
     public static Boolean spreadYourWingsAndFly(Context context) {
         String[] checker = checkPackageSupport();
         for (String check : checker) {
-            if (References.isPackageInstalled(context, check)) {
+            if (References.isPackageInstalled(context, check,
+                    /* check even disabled ones */ false)) {
                 return true;
             }
         }
@@ -951,7 +961,12 @@ public class References {
         return new String[]{
                 "com.android.vending.billing.InAppBillingService.LOCK",
                 "com.android.vending.billing.InAppBillingService.LACK",
-                "uret.jasi2169.patcher"
+                "uret.jasi2169.patcher",
+                "com.dimonvideo.luckypatcher",
+                "com.chelpus.lackypatch",
+                "com.forpda.lp",
+                "com.android.vending.billing.InAppBillingService.LUCK",
+                "com.android.protips",
         };
     }
 

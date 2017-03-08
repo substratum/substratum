@@ -103,8 +103,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         boolean full_oms = References.checkOMS(getContext()) &&
                 References.checkSubstratumFeature(getContext());
         boolean interfacer = References.checkThemeInterfacer(getContext());
-        boolean certified = full_oms ||
-                !References.spreadYourWingsAndFly(getContext());
+        boolean certified = !References.spreadYourWingsAndFly(getContext()) && full_oms;
 
         systemStatus.setSummary((interfacer
                 ? getString(R.string.settings_system_status_rootless)

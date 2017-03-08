@@ -67,6 +67,7 @@ public class BootAnimations extends Fragment {
     private SharedPreferences prefs;
     private AsyncTask current;
     private NestedScrollView nsv;
+    private int frameCount;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -306,6 +307,21 @@ public class BootAnimations extends Fragment {
             }
         }
 
+        private void iterable(String dirPath) {
+            File f = new File(dirPath);
+            File[] files = f.listFiles();
+
+            if (files != null)
+                for (int i = 0; i < files.length; i++) {
+                    frameCount++;
+                    File file = files[i];
+
+                    if (file.isDirectory()) {
+                        iterable(file.getAbsolutePath());
+                    }
+                }
+        }
+
         @Override
         protected String doInBackground(String... sUrl) {
             try {
@@ -355,11 +371,29 @@ public class BootAnimations extends Fragment {
 
                 // Begin creating the animated drawable
                 try {
+                    // Primary check: determine the size of the resample based on file size
                     int inSampleSize =
                             previewDeterminator(getContext().getCacheDir().getAbsolutePath() +
                                     "/BootAnimationCache/" + source);
+
+                    // Then, count all the files in the extraction zone to determine the best size
+                    File countFiles = new File(getContext().getCacheDir().getAbsolutePath() +
+                            "/BootAnimationCache/animation_preview/");
+                    frameCount = 0;
+                    iterable(countFiles.getAbsolutePath());
+                    if (frameCount >= 400) {
+                        inSampleSize += frameCount / 100;
+                    } else if (frameCount < 400 && frameCount >= 300) {
+                        inSampleSize += 2;
+                    } else if (frameCount < 300 && frameCount >= 200) {
+                        inSampleSize++;
+                    }
+                    Log.d("BootAnimationUtils",
+                            "Bootanimation cache contains " + frameCount + " files!");
                     Log.d("BootAnimationUtils",
                             "Resampling bootanimation for preview at scale " + inSampleSize);
+
+                    // Start working on the bootanimation preview
                     for (int counter = 0; true; counter++) {
                         File current_directory = new File(getContext().getCacheDir(),
                                 "/BootAnimationCache/" +
@@ -369,11 +403,20 @@ public class BootAnimations extends Fragment {
                                 "animation_preview/part" + counter + "/";
                         if (current_directory.exists()) {
                             String[] dirObjects = current_directory.list();
+
+                            BitmapFactory.Options opts = new BitmapFactory.Options();
+                            // Disable Dithering mode
+                            opts.inDither = false;
+                            // If need free memory, can be purged
+                            opts.inPurgeable = true;
+                            // Reference to use when trying to recover bitmap data
+                            opts.inInputShareable = true;
+                            // Drop down the resampling size so that all bootanimations work
+                            opts.inSampleSize = inSampleSize;
+                            opts.inTempStorage = new byte[32 * 1024];
+
                             for (String string : dirObjects) {
-                                BitmapFactory.Options options = new BitmapFactory.Options();
-                                options.inSampleSize = inSampleSize;
-                                Bitmap bitmap =
-                                        BitmapFactory.decodeFile(directory + string, options);
+                                Bitmap bitmap = BitmapFactory.decodeFile(directory + string, opts);
                                 images.add(bitmap);
                             }
                         } else {

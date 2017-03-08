@@ -52,7 +52,7 @@ public class RecoveryFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        sheetDialog.dismiss();
+        if (sheetDialog != null) sheetDialog.dismiss();
     }
 
     @Override

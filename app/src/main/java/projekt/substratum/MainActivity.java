@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity implements
     public static String userInput = "";
     @SuppressLint("StaticFieldLeak")
     public static SearchView searchView;
+    public static MenuItem searchItem;
     private static ActionBar supportActionBar;
     private Drawer drawer;
     private int permissionCheck, permissionCheck2;
@@ -726,12 +727,22 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     protected void onDestroy() {
+        super.onDestroy();
         try {
             getApplicationContext().unregisterReceiver(authorizationReceiver);
         } catch (IllegalArgumentException e) {
             // Already unregistered
         }
-        super.onDestroy();
+        // Set every variable assignment to null to get ready for app kill
+        actionbar_title = null;
+        actionbar_content = null;
+        userInput = null;
+        searchView = null;
+        searchItem = null;
+        supportActionBar = null;
+        drawer = null;
+        mProgressDialog = null;
+        prefs = null;
     }
 
     @Override
@@ -754,7 +765,7 @@ public class MainActivity extends AppCompatActivity implements
         if (isOMS) menu.findItem(R.id.soft_reboot).setVisible(false);
         if (!isOMS) menu.findItem(R.id.per_app).setVisible(false);
 
-        MenuItem searchItem = menu.findItem(R.id.action_search);
+        searchItem = menu.findItem(R.id.action_search);
         MenuItem showcase = menu.findItem(R.id.search);
         MenuItem restartUi = menu.findItem(R.id.restart_systemui);
         searchView = (SearchView) MenuItemCompat.getActionView(searchItem);

@@ -114,9 +114,13 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     public static void switchToStockToolbar(String title) {
-        actionbar_content.setVisibility(View.GONE);
-        actionbar_title.setVisibility(View.GONE);
-        if (supportActionBar != null) supportActionBar.setTitle(title);
+        try {
+            actionbar_content.setVisibility(View.GONE);
+            actionbar_title.setVisibility(View.GONE);
+            if (supportActionBar != null) supportActionBar.setTitle(title);
+        } catch (NullPointerException npe) {
+            // At this point, the activity is closing!
+        }
     }
 
     private void switchFragment(String title, String fragment) {

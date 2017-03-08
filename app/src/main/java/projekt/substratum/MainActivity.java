@@ -740,15 +740,14 @@ public class MainActivity extends AppCompatActivity implements
         } catch (IllegalArgumentException e) {
             // Already unregistered
         }
-        // Set every variable assignment to null to get ready for app kill
-        actionbar_title = null;
-        actionbar_content = null;
-        userInput = null;
-        searchView = null;
-        searchItem = null;
-        supportActionBar = null;
-        drawer = null;
-        mProgressDialog = null;
+        // Set every object assignment to null to get ready for app kill
+        if (actionbar_title != null) actionbar_title = null;
+        if (actionbar_content != null) actionbar_content = null;
+        if (searchView != null) searchView = null;
+        if (searchItem != null) searchItem = null;
+        if (supportActionBar != null) supportActionBar = null;
+        if (drawer != null) drawer = null;
+        if (mProgressDialog != null) mProgressDialog = null;
     }
 
     @Override

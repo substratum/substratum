@@ -56,6 +56,7 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SectionDrawerItem;
+import com.squareup.leakcanary.LeakCanary;
 
 import java.io.File;
 
@@ -173,6 +174,13 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (BuildConfig.DEBUG) {
+            Log.d(SUBSTRATUM_LOG, "Substratum launched with debug mode signatures.");
+            if (LeakCanary.isInAnalyzerProcess(this)) return;
+            LeakCanary.install(getApplication());
+            Log.d(SUBSTRATUM_LOG,
+                    "LeakCanary has been initialized to actively monitor memory leaks.");
+        }
         setContentView(R.layout.main_activity);
 
         int selectedDrawer = 1;

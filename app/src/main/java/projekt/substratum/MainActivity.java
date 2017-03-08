@@ -742,7 +742,6 @@ public class MainActivity extends AppCompatActivity implements
         supportActionBar = null;
         drawer = null;
         mProgressDialog = null;
-        prefs = null;
     }
 
     @Override

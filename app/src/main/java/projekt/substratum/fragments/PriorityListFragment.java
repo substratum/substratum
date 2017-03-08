@@ -76,7 +76,8 @@ public class PriorityListFragment extends Fragment {
         final ArrayList<String> workable_list = new ArrayList<>();
         List<String> overlays = ThemeManager.listEnabledOverlaysForTarget(obtained_key);
         for (String o : overlays) {
-            prioritiesList.add(new Priorities(o, References.grabOverlayParentIcon(getContext(), o)));
+            prioritiesList.add(new Priorities(o,
+                    References.grabOverlayParentIcon(getContext(), o)));
             workable_list.add(o);
         }
 

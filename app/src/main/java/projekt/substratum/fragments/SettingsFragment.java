@@ -208,7 +208,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 int versionCode = pInfo.versionCode;
                 aboutInterfacer.setSummary(prefs.getBoolean("force_independence", false) ?
                         getString(R.string.settings_about_interfacer_disconnected) :
-                            versionName + " (" + versionCode + ")");
+                        versionName + " (" + versionCode + ")");
             } catch (Exception e) {
                 // Theme Interfacer was not installed
             }
@@ -359,13 +359,15 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 builder.setMessage(R.string.break_compilation_dialog_content);
                                 builder.setNegativeButton(R.string.break_compilation_dialog_cancel,
                                         (dialog, id) -> dialog.dismiss());
-                                builder.setPositiveButton(R.string.break_compilation_dialog_continue,
+                                builder.setPositiveButton(R.string
+                                                .break_compilation_dialog_continue,
                                         (dialog, id) -> {
                                             prefs.edit()
                                                     .putBoolean("force_independence", true).apply();
                                             forceIndependence.setChecked(true);
                                             Intent i = getContext().getPackageManager()
-                                                    .getLaunchIntentForPackage(getContext().getPackageName());
+                                                    .getLaunchIntentForPackage(getContext()
+                                                            .getPackageName());
                                             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                             startActivity(i);
                                         });

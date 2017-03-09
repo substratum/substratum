@@ -72,6 +72,13 @@
             </intent-filter>
         </receiver>
         <receiver android:name=".services.ScheduledProfileReceiver"/>
+        <receiver
+            android:name=".services.AppCrashReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="projekt.android.APP_CRASH"/>
+            </intent-filter>
+        </receiver>
 
         <service
             android:name=".services.SubstratumFloatInterface"

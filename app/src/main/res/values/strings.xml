@@ -892,4 +892,6 @@
     <string name="force_independence_title">Force app independence</string>
     <string name="force_independence_summary">This will force substratum to work on its own, disregarding interfacer.</string>
     <string name="settings_about_interfacer_disconnected">disconnected</string>
+
+    <string name="app_crash_toast">%1$s keeps stopping, all enabled overlays for this app will be disabled</string>
 </resources>

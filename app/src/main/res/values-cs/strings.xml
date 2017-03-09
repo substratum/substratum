@@ -3,7 +3,10 @@
 <resources>
     <string name="helper_name">substratum overlay helper (pomocník balíčků substratum)</string>
     <string name="restore_app_name">obnovit motiv</string>
+    <string name="android">Verze Androidu:</string>
+    <string name="device">Model zařízení</string>
     <string name="showcase_no_connection">ukázka motivů potřebuje internetové připojení!    </string>
+    <string name="showcase_no_themes">Zdá se, že nastala chyba v mezipaměti databáze pro ukázku        pro tuto záložku&#8230;    </string>
     <string name="on_demand_updating_title">Inicializátor mezipaměti zdrojů</string>
     <string name="on_demand_updating_text">mezipaměť %s se zrovna předělává&#8230;</string>
     <string name="background_updating_toast">Substratum připravuje motiv v pozadí,
@@ -151,6 +154,12 @@ aplikované v zařízení</string>
     <string name="sounds_lock_sound">Zvuk zamknutí obrazovky</string>
     <string name="sounds_unlock_sound">Zvuk odemknutí obrazovky</string>
     <string name="settings_about_substratum">verze Substratum</string>
+    <string name="settings_about_interfacer">Verze interfaceru</string>
+    <string name="settings_about_interfacer_not_installed">Nenainstalovaný</string>
+    <string name="settings_about_oms_rro_version">Motivová platforma</string>
+    <string name="settings_about_oms_version_3">OMS3</string>
+    <string name="settings_about_oms_version_7">OMS7</string>
+    <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
     <string name="settings_about_system_version">systémová platforma</string>
     <string name="settings_aopt_switcher_title">Substratum kompilátor potahů</string>
     <string name="settings_aapt">AAPT (stabilní)</string>
@@ -277,6 +286,7 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="studio_toast_mask">Tato ikona je vybrána z aktuálního balíčku a
         změní se když aplikujete tento balíček.
     </string>
+    <string name="nav_overlay_manager">Seznam motivů</string>
     <string name="nav_home">Sady témat</string>
     <string name="nav_overlays">Potahy</string>
     <string name="nav_bootanim">Spuštěcí animace</string>
@@ -284,7 +294,9 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="nav_sounds">Balíček zvuků</string>
     <string name="nav_wallpapers">Tapety na plochu</string>
     <string name="nav_section_header_utilities">Nástroje</string>
+    <string name="nav_section_header_get_involved">Komunita</string>
     <string name="nav_section_header_more">Více</string>
+    <string name="nav_manage">Obnova</string>
     <string name="nav_studio">Studio balíčků ikon</string>
     <string name="nav_priorities">Priority</string>
     <string name="nav_backup_restore">Profily</string>
@@ -439,6 +451,7 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="notification_processing">Zpracovávání potahu pro</string>
     <string name="notification_processing_n">Připravování témata potahů&#8230;</string>
     <string name="notification_compiling_signing_installing">Vytváření a instalování vašeho potahu&#8230;</string>
+    <string name="advanced_manager_overlay_read_error">Nebylo možno sloućit seznam motivů. Prosím otevřete                 Obnova a klikněte na Obnovit systémový motiv (Odinstallovat všechny nainstalované motivy) k        vyřešení této chyby.    </string>
     <string name="shortcut_floatui">FloatUI</string>
     <string name="shortcut_floatui_disabled">FloatUI</string>
     <string name="shortcut_store">Ukázka témat</string>
@@ -580,7 +593,7 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="theme_debug_mode_title">Režim ladění témat</string>
     <string name="theme_debug_mode_summary">Vypnout záložní kompilátor.</string>
     <string name="break_compilation_dialog_title">VAROVÁNÍ</string>
-    <string name="break_compilation_dialog_content">Toto může kompletně rozbít kompilační proces. Povolte pouze tuto možnost, pokud víte co děláte!</string>
+    <string name="break_compilation_dialog_content">Toto by mohlo kompletně rozbít proces kompilace. Zapněte tuto možnost jen pokud víte co děláte!</string>
     <string name="break_compilation_dialog_continue">Pokračovat</string>
     <string name="break_compilation_dialog_cancel">Zrušit</string>
     <string name="profile_dialog_title">vyberte položky, které chcete zálohovat</string>
@@ -622,6 +635,12 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="community_info_sounds">Zvuky</string>
     <string name="community_info_wallpapers">Tapety na plochu</string>
     <string name="community_info_paid">Zaplaceno</string>
+    <string name="restore_info_dialog_title">Pozor</string>
+    <string name="restore_info_dialog_message">Obnovení motivů, balíčků fontů, zvuků, nebo tapet by mohlo nějakou chvíli trvat.</string>
+    <string name="restore_bootanimation_text">Zapínací animace</string>
+    <string name="restore_bootanimation_summary">Tato funkce vymaže právě nastavenou zapínací animaci a použijte systémovou\n</string>
+    <string name="restore_bootanimation_button">Použít systémovou zapínací animaci</string>
+    <string name="restore_overlay_text">Motiv</string>
     <string name="restore_sounds_text">Zvuky</string>
     <string name="restore_wallpaper_text">Tapety</string>
 </resources>

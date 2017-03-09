@@ -23,7 +23,7 @@ lecz cechuje się takimi możliwościami jak na przykład brakiem potrzeby resta
     <string name="answer_eight">Substartum ma swój własny system recovery o nazwie Substratum Rescue System (SRS), który jest zautomatyzowanym systemem który zrzuca archiwum do /storage/emulated/0/substratum/SubstratumRescue.zip . Zflashuj ten ZIP w recovery i uruchom urządzenie ponownie!</string>
     <string name="question_nine">Niektóre elementy wyglądają na zepsute po zastosowaniu motywu, co się stało?</string>
     <string name="answer_nine">
-1. Uruchom ponownie System UI jeśli nie stało się to automatycznie. \n2. Uruchom ponownie urządzenie.\n3. Cofnij i/lub usuń nakładki, zrekompiluj i ponownie zastosuj.</string>
+1. Uruchom ponownie interfejs użytkownika jeśli nie stało się to automatycznie. \n2. Uruchom ponownie urządzenie.\n3. Cofnij i/lub usuń nakładki, zrekompiluj i ponownie zastosuj.    </string>
     <string name="question_ten">Gdzie nakładki są zainstalowane?</string>
     <string name="answer_ten">Nakładki są zainstalowane w folderze /data/app, co oznacza że każda nakładka otrzymuje swój własny folder.</string>
     <string name="question_eleven">Otrzymuję komunikat o błędzie podczas próby aktualizacji motywu w Sklepie Play.     </string>

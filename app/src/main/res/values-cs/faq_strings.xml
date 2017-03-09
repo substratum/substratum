@@ -4,7 +4,7 @@
     <string name="question_one">Co je to Substratum?</string>
     <string name="answer_one">Substratum je aplikace, která využívá Overlay Manager Service (OMS) vytvořený firmou Sony. Je velice podobná jako Layers v ohledu stability a přizpůsobení (je postavená na RRO), ale má mnoho výhod, jako například žádné restartování pro použití motivu, zapínací animace, písma a nastavení priorit.    </string>
     <string name="question_two">Co je to systém Masquerade?</string>
-    <string name="answer_two">Systém Masquerade je základ všeho, co dovoluje aplikaci Substratum, aby fungovala jako Správce Motivů. Nápad, který stál za masquerade je simulovat \"server/klient\" funkčnost, aby mohlo Substratum komunikovat s příkazy přímo do systému.    </string>
+    <string name="answer_two">Systém Masquerade je základ všeho, co povoluje aplikaci Substratum, aby fungovala jako Správce Motivů. Nápad, který stál za masquerade je simulovat \"server/klient\" funkčnost, aby mohlo Substratum komunikovat s příkazy přímo do systému.    </string>
     <string name="question_three">Co potřebuji, aby Substratum mohlo správně pracovat?</string>
     <string name="answer_three">Budete potřebovat ROM, která podporuje systém OMS a Masquerade,
     přístup root, tuto aplikaci, a kombatibilní motiv (podívejte se do popisku v Play Store nebo se zeptejte vývojáře)

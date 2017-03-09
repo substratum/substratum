@@ -433,8 +433,6 @@
     <string name="profile_failed_info_notification">Afficher les détails</string>
     <string name="theme_debug_mode_title">Mode de débogage de thème</string>
     <string name="theme_debug_mode_summary">Désactive la sauvegarde de secours du compilateur \"Legacy\"</string>
-    <string name="break_compilation_dialog_title">AVERTISSEMENT</string>
-    <string name="break_compilation_dialog_content">Cela peut complètement briser le processus de compilation. Activez cette option uniquement si vous savez ce que vous faites !</string>
     <string name="break_compilation_dialog_continue">Continuer</string>
     <string name="break_compilation_dialog_cancel">Annuler</string>
     <string name="profile_dialog_title">Sélectionnez les éléments à sauvegarder</string>

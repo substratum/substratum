@@ -444,7 +444,6 @@ clique em
     <string name="profile_failed_notification">Falha ao aplicar perfil&#8230;</string>
     <string name="profile_failed_info_notification">Toque para mais informações</string>
     <string name="theme_debug_mode_title">Modo de depuração do tema</string>
-    <string name="break_compilation_dialog_title">AVISO</string>
     <string name="break_compilation_dialog_continue">Continuar</string>
     <string name="break_compilation_dialog_cancel">Cancelar</string>
     <string name="profile_dialog_title">selecione os itens de que deseja fazer backup</string>

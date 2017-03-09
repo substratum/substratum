@@ -21,7 +21,7 @@
     <string name="question_nine">Alcuni elementi sembrano brutti dopo che ho applicato un tema, cosa è successo?</string>
     <string name="answer_nine">
 1. Riavvia SystemUI se non è accaduto automaticamente\n2. Riavvia il telefono\n3. Non applicare ed elimina gli overlays, ricompila e riapplica.    </string>
-    <string name="question_ten">Dove sono gli overlay installati?</string>
+    <string name="question_ten">Dove vengono installati gli overlays?</string>
     <string name="answer_ten">Gli overlay sono installati nella cartella /data/app, ciò significa che ogni overlay ottiene la propria cartella.    </string>
     <string name="question_eleven">Ottengo un errore quando cerco di aggiornare un tema dal Play Store.</string>
     <string name="answer_eleven">Disinstalla il tema ed installalo nuovamente.</string>

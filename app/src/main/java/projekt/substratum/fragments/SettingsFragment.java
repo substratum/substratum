@@ -209,7 +209,10 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         getString(R.string.settings_about_interfacer_disconnected) :
                         versionName + " (" + versionCode + ")");
             } catch (Exception e) {
-                // Theme Interfacer was not installed
+                if (References.isPackageInstalled(getContext(), References.MASQUERADE_PACKAGE)) {
+                    aboutInterfacer.setSummary(
+                            getString(R.string.settings_about_interfacer_masquerade));
+                }
             }
 
             final CheckBoxPreference hide_app_checkbox = (CheckBoxPreference)

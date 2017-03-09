@@ -125,7 +125,8 @@ correctamente&#8230;</string>
     <string name="sounds_unlock_sound">Sonidos de Desbloqueo de pantalla</string>
     <string name="settings_about_substratum">Versión de Substratum</string>
     <string name="settings_about_interfacer">Versión de Interfacer</string>
-    <string name="settings_about_interfacer_not_installed">no instalado</string>
+    <string name="settings_about_interfacer_not_installed">No instalado</string>
+    <string name="settings_about_interfacer_masquerade">Esta ROM requiere una actualización para utilizar la funcionalidad Interfacer</string>
     <string name="settings_about_oms_rro_version">Plataforma de Tematización</string>
     <string name="settings_about_oms_version_3">OMS3</string>
     <string name="settings_about_oms_version_7">OMS7</string>
@@ -537,5 +538,6 @@ o la aplicación no compilará capas dependientes del dispositivo correctamente!
     <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
     <string name="nav_drawer_xda_portal">Portal en XDA</string>
     <string name="force_independence_title">Forzar independencia de la app</string>
-    <string name="settings_about_interfacer_disconnected">desconectado</string>
+    <string name="force_independence_summary">Esto forzará a Substratum a trabajar por su propia cuenta, sin tener en cuenta a Interfaces.</string>
+    <string name="settings_about_interfacer_disconnected">Desconectado</string>
 </resources>

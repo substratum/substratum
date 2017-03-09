@@ -71,6 +71,8 @@ public class References {
     public static final String SUBSTRATUM_LOG = "SubstratumLogger";
     public static final String SUBSTRATUM_ICON_BUILDER = "SubstratumIconBuilder";
     public static final String INTERFACER_PACKAGE = "projekt.interfacer";
+    @Deprecated
+    public static final String MASQUERADE_PACKAGE = "masquerade.substratum";
     // Delays for Icon Pack Handling
     public static final int MAIN_WINDOW_REFRESH_DELAY = 2000;
     public static final int FIRST_WINDOW_REFRESH_DELAY = 1000;

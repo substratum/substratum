@@ -70,6 +70,7 @@ import projekt.substratum.adapters.OverlaysAdapter;
 import projekt.substratum.adapters.VariantsAdapter;
 import projekt.substratum.config.ElevatedCommands;
 import projekt.substratum.config.FileOperations;
+import projekt.substratum.config.MasqueradeService;
 import projekt.substratum.config.References;
 import projekt.substratum.config.ThemeManager;
 import projekt.substratum.model.OverlaysInfo;
@@ -81,8 +82,11 @@ import projekt.substratum.util.SubstratumBuilder;
 
 import static android.content.Context.CLIPBOARD_SERVICE;
 import static projekt.substratum.config.References.INTERFACER_PACKAGE;
+import static projekt.substratum.config.References.MASQUERADE_PACKAGE;
 import static projekt.substratum.config.References.REFRESH_WINDOW_DELAY;
 import static projekt.substratum.config.References.SUBSTRATUM_LOG;
+import static projekt.substratum.config.References.checkThemeInterfacer;
+import static projekt.substratum.config.References.isPackageInstalled;
 import static projekt.substratum.util.MapUtils.sortMapByValues;
 
 public class Overlays extends Fragment {
@@ -659,6 +663,7 @@ public class Overlays extends Fragment {
         }
 
         if (!has_failed || final_runner.size() > fail_count) {
+            String final_commands = "";
             if (compile_enable_mode && mixAndMatchMode) {
                 // Buffer the disableBeforeEnabling String
                 ArrayList<String> disableBeforeEnabling = new ArrayList<>();
@@ -670,10 +675,50 @@ public class Overlays extends Fragment {
                         }
                     }
                 }
-                ThemeManager.disableOverlay(context, disableBeforeEnabling);
+                if (checkThemeInterfacer(context)) {
+                    ThemeManager.disableOverlay(context, disableBeforeEnabling);
+                } else {
+                    final_commands = ThemeManager.disableOverlay;
+                    for (int i = 0; i < disableBeforeEnabling.size(); i++) {
+                        final_commands += " " + disableBeforeEnabling.get(i) + " ";
+                    }
+                    Log.d(SUBSTRATUM_LOG, final_commands);
+                }
             }
 
-            if (compile_enable_mode) ThemeManager.enableOverlay(context, final_command);
+            if (compile_enable_mode) {
+                if (checkThemeInterfacer(context)) {
+                    ThemeManager.enableOverlay(context, final_command);
+                } else {
+                    final_commands += ThemeManager.enableOverlay;
+                    for (int i = 0; i < final_command.size(); i++) {
+                        final_commands += " " + final_command.get(i);
+                        // Wait for the install to be finished on the rooted set up
+                        while (!isPackageInstalled(context, final_command.get(i))) {
+                            try {
+                                Log.d(SUBSTRATUM_LOG,
+                                        "Waiting for \'" + final_command.get(i) +
+                                                "\' to finish installing...");
+                                Thread.sleep(500);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        if (isPackageInstalled(context, final_command.get(i)))
+                            Log.d(SUBSTRATUM_LOG, final_command.get(i) +
+                                    " successfully installed silently.");
+                    }
+                }
+            }
+
+            if (!checkThemeInterfacer(context) && isPackageInstalled(context, MASQUERADE_PACKAGE)) {
+                Log.d(SUBSTRATUM_LOG, "Using Masquerade as the fallback system...");
+                Intent runCommand = MasqueradeService.getMasquerade(getContext());
+                runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                runCommand.setAction("masquerade.substratum.COMMANDS");
+                runCommand.putExtra("om-commands", final_commands);
+                getContext().sendBroadcast(runCommand);
+            }
 
             if (final_runner.size() == 0) {
                 if (base_spinner.getSelectedItemPosition() == 0) {
@@ -1474,12 +1519,54 @@ public class Overlays extends Fragment {
                         }
                         progressBar.setVisibility(View.VISIBLE);
                         if (toggle_all.isChecked()) toggle_all.setChecked(false);
-                        ThemeManager.disableOverlay(mContext, disableBeforeEnabling);
-                        ThemeManager.enableOverlay(mContext, final_command);
+                        if (checkThemeInterfacer(getContext())) {
+                            ThemeManager.disableOverlay(mContext, disableBeforeEnabling);
+                            ThemeManager.enableOverlay(mContext, final_command);
+                        } else {
+                            String final_commands = "";
+                            if (disableBeforeEnabling.size() > 0)
+                                final_commands = ThemeManager.disableOverlay;
+                            for (int i = 0; i < disableBeforeEnabling.size(); i++) {
+                                final_commands += " " + disableBeforeEnabling.get(i);
+                            }
+                            if (final_commands.length() > 0 && final_command.size() > 0) {
+                                final_commands += " " + ThemeManager.enableOverlay;
+                            } else if (final_command.size() > 0) {
+                                final_commands = ThemeManager.enableOverlay;
+                            }
+                            for (int i = 0; i < final_command.size(); i++) {
+                                final_commands += " " + final_command.get(i);
+                            }
+                            if (!checkThemeInterfacer(getContext()) &&
+                                    isPackageInstalled(getContext(), MASQUERADE_PACKAGE)) {
+                                Log.d(SUBSTRATUM_LOG, "Using Masquerade as the fallback system...");
+                                Intent runCommand = MasqueradeService.getMasquerade(getContext());
+                                runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                                runCommand.setAction("masquerade.substratum.COMMANDS");
+                                runCommand.putExtra("om-commands", final_commands);
+                                getContext().sendBroadcast(runCommand);
+                            }
+                        }
                     } else {
                         progressBar.setVisibility(View.VISIBLE);
                         if (toggle_all.isChecked()) toggle_all.setChecked(false);
-                        ThemeManager.enableOverlay(mContext, final_command);
+                        if (checkThemeInterfacer(getContext())) {
+                            ThemeManager.enableOverlay(mContext, final_command);
+                        } else {
+                            String final_commands = ThemeManager.enableOverlay;
+                            for (int i = 0; i < final_command.size(); i++) {
+                                final_commands += " " + final_command.get(i);
+                            }
+                            if (!checkThemeInterfacer(getContext()) &&
+                                    isPackageInstalled(getContext(), MASQUERADE_PACKAGE)) {
+                                Log.d(SUBSTRATUM_LOG, "Using Masquerade as the fallback system...");
+                                Intent runCommand = MasqueradeService.getMasquerade(getContext());
+                                runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                                runCommand.setAction("masquerade.substratum.COMMANDS");
+                                runCommand.putExtra("om-commands", final_commands);
+                                getContext().sendBroadcast(runCommand);
+                            }
+                        }
                     }
 
                     progressBar.setVisibility(View.GONE);
@@ -1522,12 +1609,59 @@ public class Overlays extends Fragment {
                     if (mixAndMatchMode) {
                         progressBar.setVisibility(View.VISIBLE);
                         if (toggle_all.isChecked()) toggle_all.setChecked(false);
-                        ThemeManager.disableOverlay(mContext, disableBeforeEnabling);
-                        ThemeManager.enableOverlay(mContext, final_command);
+                        if (checkThemeInterfacer(getContext())) {
+                            ThemeManager.disableOverlay(mContext, disableBeforeEnabling);
+                            ThemeManager.enableOverlay(mContext, final_command);
+                        } else {
+                            String final_commands = "";
+                            if (disableBeforeEnabling.size() > 0)
+                                final_commands = ThemeManager.disableOverlay;
+                            for (int i = 0; i < disableBeforeEnabling.size(); i++) {
+                                final_commands += " " + disableBeforeEnabling.get(i);
+                            }
+                            if (final_commands.length() > 0 && final_command.size() > 0) {
+                                final_commands += " " + ThemeManager.enableOverlay;
+                            } else if (final_command.size() > 0) {
+                                final_commands = ThemeManager.enableOverlay;
+                            }
+                            for (int i = 0; i < final_command.size(); i++) {
+                                final_commands += " " + final_command.get(i);
+                            }
+                            if (!checkThemeInterfacer(getContext()) &&
+                                    isPackageInstalled(getContext(), MASQUERADE_PACKAGE)) {
+                                Log.d(SUBSTRATUM_LOG, "Using Masquerade as the fallback system...");
+                                Intent runCommand = MasqueradeService.getMasquerade(getContext());
+                                runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                                runCommand.setAction("masquerade.substratum.COMMANDS");
+                                runCommand.putExtra("om-commands", final_commands);
+                                getContext().sendBroadcast(runCommand);
+                            }
+                        }
                     } else {
                         progressBar.setVisibility(View.VISIBLE);
                         if (toggle_all.isChecked()) toggle_all.setChecked(false);
-                        ThemeManager.disableOverlay(mContext, final_command);
+                        if (checkThemeInterfacer(getContext())) {
+                            ThemeManager.disableOverlay(mContext, final_command);
+                        } else {
+                            String final_commands = "";
+                            if (final_commands.length() > 0 && final_command.size() > 0) {
+                                final_commands += " " + ThemeManager.disableOverlay;
+                            } else if (final_command.size() > 0) {
+                                final_commands = ThemeManager.disableOverlay;
+                            }
+                            for (int i = 0; i < final_command.size(); i++) {
+                                final_commands += " " + final_command.get(i);
+                            }
+                            if (!checkThemeInterfacer(getContext()) &&
+                                    isPackageInstalled(getContext(), MASQUERADE_PACKAGE)) {
+                                Log.d(SUBSTRATUM_LOG, "Using Masquerade as the fallback system...");
+                                Intent runCommand = MasqueradeService.getMasquerade(getContext());
+                                runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                                runCommand.setAction("masquerade.substratum.COMMANDS");
+                                runCommand.putExtra("om-commands", final_commands);
+                                getContext().sendBroadcast(runCommand);
+                            }
+                        }
                     }
 
                     progressBar.setVisibility(View.GONE);

@@ -1,6 +1,7 @@
 package projekt.substratum.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.os.AsyncTask;
@@ -37,12 +38,17 @@ import projekt.substratum.R;
 import projekt.substratum.adapters.OverlayManagerAdapter;
 import projekt.substratum.config.ElevatedCommands;
 import projekt.substratum.config.FileOperations;
+import projekt.substratum.config.MasqueradeService;
 import projekt.substratum.config.References;
 import projekt.substratum.config.ThemeManager;
 import projekt.substratum.model.OverlayManager;
 import projekt.substratum.util.FloatingActionMenu;
 
+import static projekt.substratum.config.References.MASQUERADE_PACKAGE;
 import static projekt.substratum.config.References.REFRESH_WINDOW_DELAY;
+import static projekt.substratum.config.References.SUBSTRATUM_LOG;
+import static projekt.substratum.config.References.checkThemeInterfacer;
+import static projekt.substratum.config.References.isPackageInstalled;
 import static projekt.substratum.util.MapUtils.sortMapByValues;
 
 public class AdvancedManagerFragment extends Fragment {
@@ -156,7 +162,23 @@ public class AdvancedManagerFragment extends Fragment {
                     toast.show();
 
                     // The magic goes here
-                    ThemeManager.disableOverlay(getContext(), data);
+                    if (checkThemeInterfacer(getContext())) {
+                        ThemeManager.disableOverlay(getContext(), data);
+                    } else {
+                        String final_commands = ThemeManager.disableOverlay;
+                        for (int i = 0; i < data.size(); i++) {
+                            final_commands += " " + data.get(i);
+                        }
+                        if (!checkThemeInterfacer(getContext()) &&
+                                isPackageInstalled(getContext(), MASQUERADE_PACKAGE)) {
+                            Log.d(SUBSTRATUM_LOG, "Using Masquerade as the fallback system...");
+                            Intent runCommand = MasqueradeService.getMasquerade(getContext());
+                            runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                            runCommand.setAction("masquerade.substratum.COMMANDS");
+                            runCommand.putExtra("om-commands", final_commands);
+                            getContext().sendBroadcast(runCommand);
+                        }
+                    }
 
                     if (References.needsRecreate(getContext(), data)) {
                         Handler handler = new Handler();
@@ -268,7 +290,23 @@ public class AdvancedManagerFragment extends Fragment {
                     }
 
                     // The magic goes here
-                    ThemeManager.enableOverlay(getContext(), data);
+                    if (checkThemeInterfacer(getContext())) {
+                        ThemeManager.enableOverlay(getContext(), data);
+                    } else {
+                        String final_commands = ThemeManager.enableOverlay;
+                        for (int i = 0; i < data.size(); i++) {
+                            final_commands += " " + data.get(i);
+                        }
+                        if (!checkThemeInterfacer(getContext()) &&
+                                isPackageInstalled(getContext(), MASQUERADE_PACKAGE)) {
+                            Log.d(SUBSTRATUM_LOG, "Using Masquerade as the fallback system...");
+                            Intent runCommand = MasqueradeService.getMasquerade(getContext());
+                            runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                            runCommand.setAction("masquerade.substratum.COMMANDS");
+                            runCommand.putExtra("om-commands", final_commands);
+                            getContext().sendBroadcast(runCommand);
+                        }
+                    }
 
                     if (References.needsRecreate(getContext(), data)) {
                         Handler handler = new Handler();
@@ -311,7 +349,23 @@ public class AdvancedManagerFragment extends Fragment {
                 toast.show();
 
                 // The magic goes here
-                ThemeManager.uninstallOverlay(getContext(), data);
+                if (checkThemeInterfacer(getContext())) {
+                    ThemeManager.uninstallOverlay(getContext(), data);
+                } else {
+                    ArrayList<String> final_commands = new ArrayList<>();
+                    for (int i = 0; i < data.size(); i++) {
+                        final_commands.add(data.get(i));
+                    }
+                    if (!checkThemeInterfacer(getContext()) &&
+                            isPackageInstalled(getContext(), MASQUERADE_PACKAGE)) {
+                        Log.d(SUBSTRATUM_LOG, "Using Masquerade as the fallback system...");
+                        Intent runCommand = MasqueradeService.getMasquerade(getContext());
+                        runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                        runCommand.setAction("masquerade.substratum.COMMANDS");
+                        runCommand.putExtra("pm-uninstall", final_commands);
+                        getContext().sendBroadcast(runCommand);
+                    }
+                }
 
                 if (References.needsRecreate(getContext(), data)) {
                     Handler handler = new Handler();

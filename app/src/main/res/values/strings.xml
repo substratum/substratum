@@ -894,4 +894,5 @@
     <string name="settings_about_interfacer_disconnected">disconnected</string>
 
     <string name="app_crash_toast">%1$s keeps stopping, all enabled overlays for this app will be disabled</string>
+    <string name="dirty_flash_detected">Your firmware or ROM was updated without deleting user data (dirty flash). Substratum will reset itself to avoid bugs.</string>
 </resources>

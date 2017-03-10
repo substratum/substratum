@@ -212,6 +212,7 @@ public class MainActivity extends AppCompatActivity implements
         actionbar_title = (TextView) findViewById(R.id.activity_title);
         actionbar_content = (TextView) findViewById(R.id.theme_count);
 
+        References.setROMVersion(getApplicationContext());
         References.setAndCheckOMS(getApplicationContext());
         startService(new Intent(this, ThemeService.class));
 
@@ -660,6 +661,18 @@ public class MainActivity extends AppCompatActivity implements
                         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
                         printFCMtoken();
 
+                        if (!References.checkROMVersion(getApplicationContext())) {
+                            new AlertDialog.Builder(this)
+                                    .setTitle(R.string.warning_title)
+                                    .setMessage(R.string.dirty_flash_detected)
+                                    .setPositiveButton(R.string.dialog_ok, (dialog2, i2) -> {
+                                                dialog2.cancel();
+                                                prefs.edit().clear().apply();
+                                                this.recreate();
+                                            })
+                                    .show();
+                        }
+
                         if (!References.checkOMS(getApplicationContext()) &&
                                 !prefs.contains("legacy_dismissal")) {
                             new AlertDialog.Builder(this)
@@ -703,6 +716,18 @@ public class MainActivity extends AppCompatActivity implements
                 }
             }
             printFCMtoken();
+
+            if (!References.checkROMVersion(getApplicationContext())) {
+                new AlertDialog.Builder(this)
+                        .setTitle(R.string.warning_title)
+                        .setMessage(R.string.dirty_flash_detected)
+                        .setPositiveButton(R.string.dialog_ok, (dialog2, i2) -> {
+                            dialog2.cancel();
+                            prefs.edit().clear().apply();
+                            this.recreate();
+                        })
+                        .show();
+            }
 
             if (!References.checkOMS(getApplicationContext()) &&
                     !prefs.contains("legacy_dismissal")) {

@@ -323,6 +323,25 @@ public class References {
         return context.getPackageManager().hasSystemFeature(SUBSTRATUM_THEME.toLowerCase());
     }
 
+    // This method is used to determine whether there the system was dirty flashed / upgraded
+    public static Boolean checkROMVersion(Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        if (!prefs.contains("build_date")) {
+            setROMVersion(context);
+        }
+        return prefs.getInt("build_date", 0) == Integer.parseInt(References
+                .getProp("ro.build.date.utc"));
+    }
+
+    public static void setROMVersion(Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        if (!prefs.contains("build_date")) {
+            prefs.edit().putInt("build_date",
+                    Integer.parseInt(References.getProp("ro.build.date.utc")))
+                    .apply();
+        }
+    }
+
     // This method is used to obtain the device ID of the current device (set up)
     @SuppressLint("HardwareIds")
     public static String getDeviceID(Context context) {

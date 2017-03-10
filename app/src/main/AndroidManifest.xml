@@ -123,8 +123,8 @@
             android:icon="@drawable/debug_icon"
             android:label="@string/debug_app_name"
             android:taskAffinity="com.squareup.leakcanary.${applicationId}"
-            android:theme="@style/leak_canary_LeakCanary.Base"
-            tools:replace="android:icon,android:label,android:taskAffinity">
+            android:theme="@style/LeakCanaryTheme"
+            tools:replace="android:icon,android:label,android:taskAffinity,android:theme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>

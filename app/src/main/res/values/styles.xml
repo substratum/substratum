@@ -26,6 +26,8 @@
         <item name="welcomeTitleTextStyle">@style/WelcomeScreenText.Title.Centered</item>
     </style>
 
+    <style name="LeakCanaryTheme" parent="android:Theme.Material" />
+
     <style name="PhotoCrop.ActivityTheme" parent="Theme.AppCompat">
         <item name="colorPrimary">@android:color/transparent</item>
         <item name="colorPrimaryDark">@android:color/transparent</item>

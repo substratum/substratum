@@ -76,7 +76,7 @@
             android:name=".services.AppCrashReceiver"
             android:exported="false">
             <intent-filter>
-                <action android:name="projekt.android.APP_CRASH"/>
+                <action android:name="projekt.substratum.APP_CRASHED"/>
             </intent-filter>
         </receiver>
 

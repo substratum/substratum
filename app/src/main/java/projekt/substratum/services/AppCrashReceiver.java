@@ -22,9 +22,12 @@ public class AppCrashReceiver extends BroadcastReceiver {
             return;
         }
 
-        String packageName = intent.getStringExtra("projekt.android.EXTRA_PACKAGE_NAME");
-        String exceptionClass = intent.getStringExtra("projekt.android.EXTRA_EXCEPTION_CLASS_NAME");
-        boolean repeating = intent.getBooleanExtra("projekt.android.EXTRA_CRASH_REPEATING", false);
+        String packageName =
+                intent.getStringExtra("projekt.substratum.EXTRA_PACKAGE_NAME");
+        String exceptionClass =
+                intent.getStringExtra("projekt.substratum.EXTRA_EXCEPTION_CLASS_NAME");
+        boolean repeating =
+                intent.getBooleanExtra("projekt.substratum.EXTRA_CRASH_REPEATING", false);
 
         if ((exceptionClass.contains("NotFoundException") ||
                 exceptionClass.contains("IllegalArgumentException")) && repeating) {

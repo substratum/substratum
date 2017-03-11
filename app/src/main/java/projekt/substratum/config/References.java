@@ -327,15 +327,15 @@ public class References {
     public static Boolean checkROMVersion(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         if (!prefs.contains("build_date")) {
-            setROMVersion(context);
+            setROMVersion(context, false);
         }
         return prefs.getInt("build_date", 0) == Integer.parseInt(References
                 .getProp("ro.build.date.utc"));
     }
 
-    public static void setROMVersion(Context context) {
+    public static void setROMVersion(Context context, boolean force) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        if (!prefs.contains("build_date")) {
+        if (!prefs.contains("build_date") || force) {
             prefs.edit().putInt("build_date",
                     Integer.parseInt(References.getProp("ro.build.date.utc")))
                     .apply();

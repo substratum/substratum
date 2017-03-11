@@ -212,7 +212,7 @@ public class MainActivity extends AppCompatActivity implements
         actionbar_title = (TextView) findViewById(R.id.activity_title);
         actionbar_content = (TextView) findViewById(R.id.theme_count);
 
-        References.setROMVersion(getApplicationContext());
+        References.setROMVersion(getApplicationContext(), false);
         References.setAndCheckOMS(getApplicationContext());
         startService(new Intent(this, ThemeService.class));
 
@@ -667,7 +667,11 @@ public class MainActivity extends AppCompatActivity implements
                                     .setMessage(R.string.dirty_flash_detected)
                                     .setPositiveButton(R.string.dialog_ok, (dialog2, i2) -> {
                                                 dialog2.cancel();
-                                                prefs.edit().clear().apply();
+                                                prefs.edit().remove("oms_state").apply();
+                                                prefs.edit().remove("oms_version").apply();
+                                                References.setROMVersion(getApplicationContext(),
+                                                        true);
+                                                References.setAndCheckOMS(getApplicationContext());
                                                 this.recreate();
                                             })
                                     .show();
@@ -723,7 +727,10 @@ public class MainActivity extends AppCompatActivity implements
                         .setMessage(R.string.dirty_flash_detected)
                         .setPositiveButton(R.string.dialog_ok, (dialog2, i2) -> {
                             dialog2.cancel();
-                            prefs.edit().clear().apply();
+                            References.setROMVersion(getApplicationContext(), true);
+                            prefs.edit().remove("oms_state").apply();
+                            prefs.edit().remove("oms_version").apply();
+                            References.setAndCheckOMS(getApplicationContext());
                             this.recreate();
                         })
                         .show();

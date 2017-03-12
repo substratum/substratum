@@ -213,7 +213,7 @@
     <string name="settings_about_interfacer">interfacer version</string>
     <string name="settings_about_interfacer_not_installed">not installed</string>
     <string name="settings_about_interfacer_masquerade">this rom requires an update to utilize interfacer functionality</string>
-    <string name="settings_about_oms_rro_version">theme platform</string>
+    <string name="settings_about_oms_rro_version">theme platform:</string>
     <string name="settings_about_oms_version_3">OMS3</string>
     <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
@@ -504,35 +504,24 @@
     <string name="toast_unapproved">This overlay has been rejected by the system</string>
     <string name="toast_compiled">Selected overlay(s) compiled!</string>
     <string name="toast_compiled_updated">Selected overlay(s) updated!</string>
-    <string name="toast_compiled_updated_with_errors">Selected overlay(s) updated with some
-        errors!
-    </string>
-    <string name="toast_enabled">Selected overlay(s) enabling&#8230;</string>
-    <string name="toast_disabled">Selected overlay(s) disabling&#8230;</string>
-    <string name="toast_disabled2">Selected overlay(s) disabling&#8230;</string>
+    <string name="toast_compiled_updated_with_errors">Selected overlay(s) updated with some errors!</string>
+    <string name="toast_enabled">Successfully enabled!</string>
+    <string name="toast_disabled">Successfully disabled!</string>
+    <string name="toast_disabled2">@string/toast_disabled</string>
     <string name="toast_disabled3">Please compile this overlay before applying!</string>
     <string name="toast_disabled4">You can\'t disable an overlay you don\'t have compiled!</string>
-    <string name="toast_disabled5">Please select a valid overlay before performing this action.
-    </string>
+    <string name="toast_disabled5">Please select a valid overlay before performing this action.</string>
     <string name="toast_disabled6">Selected overlay(s) removed!</string>
     <string name="toast_installed">Selected overlay(s) applied!</string>
-    <string name="toast_uninstalled">You just uninstalled this theme! I\'ll be gone on your next
-        refresh!
-    </string>
-    <string name="toast_uninstalling">Now uninstalling selected overlays, please
-        wait&#8230;</string>
-    <string name="toast_updating">Substratum is now getting your theme ready in the background!
-    </string>
+    <string name="toast_uninstalled">You just uninstalled this theme! I\'ll be gone on your next refresh!</string>
+    <string name="toast_uninstalling">Now uninstalling overlays&#8230;</string>
+    <string name="toast_updating">Substratum is now getting your theme ready in the background!</string>
     <string name="no_themes_title">no themes found&#8230;</string>
     <string name="no_themes_description">please install a compatible theme!</string>
     <string name="no_themes_description_search">\"%s\" was not found in the list of themes installed&#8230;</string>
 
-    <string name="toast_on_back_press_compiling">You can use other apps during compile by clicking
-        Home/Recents buttons.
-    </string>
-    <string name="toast_needs_caching">Substratum\'s cache was wiped, please rebuild this theme
-        before continuing!
-    </string>
+    <string name="toast_on_back_press_compiling">You can use other apps during compile by clicking Home/Recents buttons.</string>
+    <string name="toast_needs_caching">Substratum\'s cache was wiped, please rebuild this theme before continuing!</string>
 
     <string name="notification_theme_installed">installed</string>
     <string name="notification_theme_updated">updated</string>
@@ -544,13 +533,10 @@
     <string name="notification_initial_title">Substratum is running</string>
     <string name="notification_initial_title_upgrade">%s resources are now upgrading&#8230;</string>
     <string name="notification_done_title">Theme compilation has completed</string>
-    <string name="notification_extracting_assets">Extracting assets from theme
-        package&#8230;</string>
+    <string name="notification_extracting_assets">Extracting assets from theme package&#8230;</string>
     <string name="notification_extracting_assets_text">Processing overlays&#8230;</string>
     <string name="notification_no_errors_found">No errors while installing any overlays</string>
-    <string name="notification_some_errors_found">An error has occurred during overlay
-        installation
-    </string>
+    <string name="notification_some_errors_found">An error has occurred during overlay installation</string>
     <string name="notification_processing">Processing overlay for</string>
     <string name="notification_processing_n">Preparing theme overlay&#8230;</string>
     <string name="notification_compiling_signing_installing">Creating and installing your overlays&#8230;</string>
@@ -572,72 +558,39 @@
     <string name="settings_title_clickable">App Configuration</string>
     <string name="substratum_cache_clear_initial_toast">Substratum\'s cache is now being wiped&#8230;</string>
     <string name="substratum_cache_clear_toast">Substratum\'s cache has been wiped!</string>
-    <string name="substratum_restart_toast">Substratum restarted automatically after a settings
-        change.
-    </string>
+    <string name="substratum_restart_toast">Substratum restarted automatically after a settings change.</string>
     <string name="purge_cache">Reset Theme Cache</string>
-    <string name="purge_cache_subtext">Invalidate Substratum\'s theme and application cache, as well
-        as reset all flags relating to theme rebuilding.
-    </string>
+    <string name="purge_cache_subtext">Invalidate Substratum\'s theme and application cache, as well as reset all flags relating to theme rebuilding.</string>
     <string name="restart_systemui">Post-enable SystemUI recreate</string>
-    <string name="restart_systemui_subtext">Automatically recreate the SystemUI after
-        enabling/disabling a SystemUI overlay
-    </string>
-    <string name="restart_systemui_toast_enabled">SystemUI will recreate dynamically instead of
-        restarting!
-    </string>
-    <string name="restart_systemui_toast_disabled">SystemUI will restart automatically instead of
-        recreating!
-    </string>
+    <string name="restart_systemui_subtext">Automatically recreate the SystemUI after enabling/disabling a SystemUI overlay</string>
+    <string name="restart_systemui_toast_enabled">SystemUI will recreate dynamically instead of restarting!</string>
+    <string name="restart_systemui_toast_disabled">SystemUI will restart automatically instead of recreating!</string>
     <string name="show_theme_template_version">Show advanced theme information</string>
-    <string name="show_theme_template_version_description">Show each theme\'s target SDK levels,
-        theme version and plugin version as a tag on each of the theme cards.
-    </string>
+    <string name="show_theme_template_version_description">Show each theme\'s target SDK levels, theme version and plugin version as a tag on each of the theme cards.</string>
     <string name="vibrate_on_compiled">Notify after theme is compiled</string>
-    <string name="vibrate_on_compiled_description">When the theme has been compiled, vibrate the
-        device to notify the user that the compilation has completed.
-    </string>
+    <string name="vibrate_on_compiled_description">When the theme has been compiled, vibrate the device to notify the user that the compilation has completed.</string>
     <string name="hide_app_icon">Show app icon</string>
-    <string name="hide_app_icon_toast_enabled">The app\'s icon has been removed from your
-        launcher!
-    </string>
-    <string name="hide_app_icon_toast_disabled">The app\'s icon has now been added to your
-        launcher!
-    </string>
+    <string name="hide_app_icon_toast_enabled">The app\'s icon has been removed from your launcher!</string>
+    <string name="hide_app_icon_toast_disabled">The app\'s icon has now been added to your launcher!</string>
     <string name="hide_app_icon_not_supported">Change not supported</string>
-    <string name="hide_app_icon_supported">This will allow you to toggle between having the launcher
-        icon visible or invisible on your home screen.
-    </string>
-    <string name="show_installed_packages_only">Only show installed packages in overlay picker
-    </string>
+    <string name="hide_app_icon_supported">This will allow you to toggle between having the launcher icon visible or invisible on your home screen.</string>
+    <string name="show_installed_packages_only">Only show installed packages in overlay picker</string>
     <string name="purge_completion">Overlays for this theme are being cleaned up in the background&#8230;</string>
     <string name="clean_completion">Overlays for this theme are being cleaned up in the background&#8230;</string>
     <string name="cache_clear_completion">%s theme cache has been cleared!</string>
-    <string name="disable_completion">All overlays for this theme are now
-        deactivating&#8230;</string>
-    <string name="enable_completion">All installed overlays for this theme are now
-        activating&#8230;</string>
-    <string name="purge_information">Removing all overlays at once is a potentially dangerous action
-        causing multiple force closes during the action.
-    </string>
+    <string name="disable_completion">All overlays for this theme are now deactivating&#8230;</string>
+    <string name="enable_completion">All installed overlays for this theme are now activating&#8230;</string>
+    <string name="purge_information">Removing all overlays at once is a potentially dangerous action causing multiple force closes during the action.</string>
     <string name="purge_button_text">UNINSTALL ALL OVERLAYS</string>
     <string name="purge2_button_text">DISABLE ALL ENABLED OVERLAYS</string>
     <string name="dynamic_actionbar_colors">Dynamic Action Bar Colors</string>
-    <string name="dynamic_actionbar_colors_subtext">In the theme information window, Substratum will
-        adapt the collapsible action bar to the hero image\'s dominating color.
-    </string>
+    <string name="dynamic_actionbar_colors_subtext">In the theme information window, Substratum will adapt the collapsible action bar to the hero image\'s dominating color.</string>
     <string name="dynamic_navbar_colors">Dynamic Navigation Bar Colors</string>
-    <string name="dynamic_navbar_colors_subtext">In the theme information window, Substratum will
-        adapt the navigation bar to the hero image\'s dominating color.
-    </string>
+    <string name="dynamic_navbar_colors_subtext">In the theme information window, Substratum will adapt the navigation bar to the hero image\'s dominating color.</string>
     <string name="manager_title">Show disabled overlays in the list</string>
-    <string name="manager_subtext">In the Advanced Manager window, show all disabled overlays with
-        their enabled counterparts.
-    </string>
+    <string name="manager_subtext">In the Advanced Manager window, show all disabled overlays with their enabled counterparts.</string>
     <string name="alternate_drawer_design_title">Secondary Drawer Design</string>
-    <string name="alternate_drawer_design_subtext">Uses an alternate navigation drawer design when
-        navigating through the user interface.
-    </string>
+    <string name="alternate_drawer_design_subtext">Uses an alternate navigation drawer design when navigating through the user interface.</string>
 
     <string name="show_outdated_themes_title">Show all outdated themes</string>
     <string name="show_outdated_themes_content">Disabling this would allow Substratum to utilize

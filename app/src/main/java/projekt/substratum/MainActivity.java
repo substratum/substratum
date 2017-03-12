@@ -107,10 +107,10 @@ public class MainActivity extends AppCompatActivity implements
 
     public static void switchToCustomToolbar(String title, String content) {
         if (supportActionBar != null) supportActionBar.setTitle("");
-        actionbar_content.setVisibility(View.VISIBLE);
-        actionbar_title.setVisibility(View.VISIBLE);
-        actionbar_title.setText(title);
-        actionbar_content.setText(content);
+        if (actionbar_content != null) actionbar_content.setVisibility(View.VISIBLE);
+        if (actionbar_title != null) actionbar_title.setVisibility(View.VISIBLE);
+        if (actionbar_title != null) actionbar_title.setText(title);
+        if (actionbar_content != null) actionbar_content.setText(content);
     }
 
     public static void switchToStockToolbar(String title) {

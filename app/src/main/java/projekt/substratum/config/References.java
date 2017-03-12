@@ -142,11 +142,10 @@ public class References {
                                 .setIcon(Icon.createWithBitmap(app_icon))
                                 .setIntent(myIntent)
                                 .build();
-                List<ShortcutInfo> shortcuts = new ArrayList<>();
-                shortcuts.add(shortcut);
-                shortcutManager.addDynamicShortcuts(shortcuts);
+                shortcutManager.setDynamicShortcuts(Arrays.asList(shortcut));
+                Log.d(SUBSTRATUM_LOG, "Successfully added dynamic app shortcut!");
             } catch (Exception e) {
-                // Suppress warning
+                e.printStackTrace();
             }
         }
     }
@@ -155,6 +154,7 @@ public class References {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
             ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
             shortcutManager.removeAllDynamicShortcuts();
+            Log.d(SUBSTRATUM_LOG, "Successfully removed all dynamic app shortcuts!");
         }
     }
 

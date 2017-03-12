@@ -57,7 +57,7 @@ public class AppCrashReceiver extends BroadcastReceiver {
                 builder.setSmallIcon(R.drawable.notification_overlay_corruption);
                 builder.setContentTitle(app_crash_title);
                 builder.setContentText(context.getString(R.string.app_crash_content));
-                builder.setOngoing(true);
+                builder.setOngoing(false);
                 builder.setPriority(NotificationCompat.PRIORITY_MAX);
                 builder.setCategory(NotificationCompat.CATEGORY_SERVICE);
                 NotificationManager mNotifyMgr =

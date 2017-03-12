@@ -893,7 +893,7 @@
     <string name="force_independence_summary">This will force substratum to work on its own, disregarding interfacer.</string>
     <string name="settings_about_interfacer_disconnected">disconnected</string>
 
-    <string name="app_crash_title">%s keeps force closing&#8230;</string>
+    <string name="app_crash_title">%s keeps stopping&#8230;</string>
     <string name="app_crash_content">All enabled overlays for this app have been disabled.</string>
     <string name="dirty_flash_detected">Your firmware or ROM was updated without deleting user data (dirty flash). Substratum will reset itself to avoid bugs.</string>
 </resources>

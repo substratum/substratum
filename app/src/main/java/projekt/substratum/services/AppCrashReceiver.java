@@ -49,7 +49,7 @@ public class AppCrashReceiver extends BroadcastReceiver {
                     packageName = context.getPackageManager()
                             .getApplicationLabel(applicationInfo).toString();
                 } catch (PackageManager.NameNotFoundException e) {
-                    e.printStackTrace();
+                    // Suppress warning
                 }
                 String app_crash_title =
                         String.format(context.getString(R.string.app_crash_title), packageName);

@@ -1,7 +1,9 @@
 package projekt.substratum.fragments;
 
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,7 +20,9 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Map;
+import java.util.Random;
 
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.R;
@@ -30,6 +34,8 @@ import projekt.substratum.model.WallpaperEntries;
 import projekt.substratum.util.MD5;
 import projekt.substratum.util.ReadCloudShowcaseFile;
 
+import static projekt.substratum.config.References.SHOWCASE_SHUFFLE_COUNT;
+
 public class ShowcaseTab extends Fragment {
 
     private ViewGroup root;
@@ -39,10 +45,14 @@ public class ShowcaseTab extends Fragment {
     private View no_network, no_wallpapers;
     private int current_tab_position;
     private String current_tab_address;
+    private SharedPreferences prefs;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
+
+        prefs = PreferenceManager.getDefaultSharedPreferences(
+                getContext());
 
         Bundle bundle = this.getArguments();
         if (bundle != null) {
@@ -245,6 +255,13 @@ public class ShowcaseTab extends Fragment {
                 }
             } catch (Exception e) {
                 //
+            }
+            // Shuffle the deck - every time it will change the order of themes!
+            long seed = System.nanoTime();
+            boolean alphabetize = prefs.getBoolean("alphabetize_showcase", false);
+            if (!alphabetize) {
+                for (int i = 0; i <= SHOWCASE_SHUFFLE_COUNT; i++)
+                    Collections.shuffle(wallpapers, new Random(seed));
             }
             return wallpapers;
         }

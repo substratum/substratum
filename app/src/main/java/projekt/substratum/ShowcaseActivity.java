@@ -41,10 +41,20 @@ public class ShowcaseActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private RelativeLayout no_network;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private SharedPreferences prefs;
+    private MenuItem alphabetizeMenu;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.showcase_menu, menu);
+
+        alphabetizeMenu = menu.findItem(R.id.alphabetize);
+        boolean alphabetize = prefs.getBoolean("alphabetize_showcase", false);
+        if (alphabetize) {
+            alphabetizeMenu.setIcon(R.drawable.actionbar_alphabetize);
+        } else {
+            alphabetizeMenu.setIcon(R.drawable.actionbar_randomize);
+        }
         return true;
     }
 
@@ -75,6 +85,15 @@ public class ShowcaseActivity extends AppCompatActivity {
             case R.id.info:
                 launchShowcaseInfo();
                 return true;
+            case R.id.alphabetize:
+                boolean alphabetize = prefs.getBoolean("alphabetize_showcase", false);
+                if (!alphabetize) {
+                    prefs.edit().putBoolean("alphabetize_showcase", true).apply();
+                } else {
+                    prefs.edit().putBoolean("alphabetize_showcase", false).apply();
+                }
+                this.recreate();
+                return true;
         }
         return false;
     }
@@ -102,7 +121,7 @@ public class ShowcaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.showcase_activity);
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
+        prefs = PreferenceManager.getDefaultSharedPreferences(
                 getApplicationContext());
 
         boolean languageCheck = prefs.getBoolean("force_english", false);

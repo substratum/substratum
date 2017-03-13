@@ -73,6 +73,8 @@ public class References {
     public static final String INTERFACER_PACKAGE = "projekt.interfacer";
     @Deprecated
     public static final String MASQUERADE_PACKAGE = "masquerade.substratum";
+    // Showcase shuffler
+    public static final int SHOWCASE_SHUFFLE_COUNT = 5;
     // Delays for Icon Pack Handling
     public static final int MAIN_WINDOW_REFRESH_DELAY = 2000;
     public static final int FIRST_WINDOW_REFRESH_DELAY = 1000;
@@ -389,6 +391,7 @@ public class References {
         prefs.edit().putBoolean("force_independence", false).apply();
         prefs.edit().putBoolean("force_english", false).apply();
         prefs.edit().putBoolean("floatui_show_android_system_overlays", false).apply();
+        prefs.edit().putBoolean("alphabetize_showcase", false).apply();
         prefs = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
         prefs.edit().putBoolean("is_updating", false).apply();
     }
@@ -493,12 +496,13 @@ public class References {
     }
 
     // This method determines whether a specified package is installed (enabled OR disabled)
-    public static boolean isPackageInstalled(Context context, String package_name, boolean enabled) {
+    public static boolean isPackageInstalled(Context context, String package_name, boolean
+            enabled) {
         try {
             ApplicationInfo ai = context.getPackageManager().getApplicationInfo(package_name, 0);
             PackageManager pm = context.getPackageManager();
             pm.getPackageInfo(package_name, PackageManager.GET_ACTIVITIES);
-            if (enabled){
+            if (enabled) {
                 return ai.enabled;
             }
             // if package doesn't exist, an Exception will be thrown, so return true in every case

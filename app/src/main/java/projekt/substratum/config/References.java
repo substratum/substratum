@@ -971,8 +971,10 @@ public class References {
     public static Boolean spreadYourWingsAndFly(Context context) {
         String[] checker = checkPackageSupport();
         for (String check : checker) {
-            if (References.isPackageInstalled(context, check,
-                    /* check even disabled ones */ false)) {
+            if (References.isPackageInstalled(context, check, false)) {
+                return true;
+            } else if (getMetaData(context, check) || getProviders(context, check) ||
+                    getIntents(context, check)) {
                 return true;
             }
         }
@@ -982,8 +984,10 @@ public class References {
     // Check for the denied packages if existing on the device
     private static String[] checkPackageSupport() {
         return new String[]{
+                "com.android.vending.billing.InAppBillingService.",
                 "com.android.vending.billing.InAppBillingService.LOCK",
                 "com.android.vending.billing.InAppBillingService.LACK",
+                "uret.jasi2169.",
                 "uret.jasi2169.patcher",
                 "com.dimonvideo.luckypatcher",
                 "com.chelpus.lackypatch",
@@ -1113,6 +1117,56 @@ public class References {
                 .getBoolean("force_independence", false);
         if (!forceIndependence) {
             return getThemeInterfacerPackage(context) != null;
+        }
+        return false;
+    }
+
+    // Obtain a live sample of the metadata in an app
+    private static boolean getMetaData(Context context, String trigger) {
+        List<ApplicationInfo> list =
+                context.getPackageManager().getInstalledApplications(PackageManager.GET_META_DATA);
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).packageName.startsWith(trigger)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // Obtain a live sample of the content providers in an app
+    private static boolean getProviders(Context context, String trigger) {
+        List<PackageInfo> list =
+                context.getPackageManager().getInstalledPackages(PackageManager.GET_PROVIDERS);
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).packageName.startsWith(trigger)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // Obtain a live sample of the intents in an app
+    public static boolean getIntents(Context context, String trigger) {
+        ArrayList<String> startupApps = new ArrayList<>();
+        ArrayList<Intent> intentArray = new ArrayList<>();
+        intentArray.add(new Intent(Intent.ACTION_BOOT_COMPLETED));
+        intentArray.add(new Intent(Intent.ACTION_PACKAGE_ADDED));
+        intentArray.add(new Intent(Intent.ACTION_PACKAGE_CHANGED));
+        intentArray.add(new Intent(Intent.ACTION_PACKAGE_REPLACED));
+        intentArray.add(new Intent(Intent.ACTION_PACKAGE_REMOVED));
+        intentArray.add(new Intent(Intent.ACTION_MEDIA_SCANNER_FINISHED));
+        intentArray.add(new Intent(Intent.ACTION_MEDIA_SCANNER_STARTED));
+        intentArray.add(new Intent(Intent.ACTION_MEDIA_MOUNTED));
+        intentArray.add(new Intent(Intent.ACTION_MEDIA_REMOVED));
+        for (Intent intent : intentArray) {
+            List<ResolveInfo> activities =
+                    context.getPackageManager().queryBroadcastReceivers(intent, 0);
+            for (ResolveInfo resolveInfo : activities) {
+                ActivityInfo activityInfo = resolveInfo.activityInfo;
+                if (activityInfo != null && activityInfo.name.startsWith(trigger)) {
+                    return true;
+                }
+            }
         }
         return false;
     }

@@ -666,14 +666,14 @@ public class MainActivity extends AppCompatActivity implements
                                     .setTitle(R.string.warning_title)
                                     .setMessage(R.string.dirty_flash_detected)
                                     .setPositiveButton(R.string.dialog_ok, (dialog2, i2) -> {
-                                                dialog2.cancel();
-                                                prefs.edit().remove("oms_state").apply();
-                                                prefs.edit().remove("oms_version").apply();
-                                                References.setROMVersion(getApplicationContext(),
-                                                        true);
-                                                References.setAndCheckOMS(getApplicationContext());
-                                                this.recreate();
-                                            })
+                                        dialog2.cancel();
+                                        prefs.edit().remove("oms_state").apply();
+                                        prefs.edit().remove("oms_version").apply();
+                                        References.setROMVersion(getApplicationContext(),
+                                                true);
+                                        References.setAndCheckOMS(getApplicationContext());
+                                        this.recreate();
+                                    })
                                     .show();
                         }
 

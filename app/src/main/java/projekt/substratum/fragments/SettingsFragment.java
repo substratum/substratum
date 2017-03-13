@@ -91,7 +91,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         " (" + Build.ID + ")\n" +
                         getString(R.string.device) + " " + Build.MODEL + " (" + Build.DEVICE + ")" +
                         "\n" +
-                        getString(R.string.settings_about_oms_rro_version) +
+                        getString(R.string.settings_about_oms_rro_version) + " " +
                         ((References.checkOMS(getContext())) ?
                                 getString(R.string.settings_about_oms_version_7) :
                                 getString(R.string.settings_about_rro_version_2))

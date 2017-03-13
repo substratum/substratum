@@ -96,6 +96,7 @@
     </string>
     <string name="abort_overlay_toast">Now uninstalling all overlays&#8230;</string>
     <string name="abort_overlay_toast_success">All overlays uninstalled!</string>
+    <string name="rescue_toast">Rescuing your system&#8230;</string>
     <string name="disable_overlay_toast">Now disabling all enabled overlays&#8230;</string>
     <string name="disable_overlay_toast_success">All overlays disabled!</string>
     <string name="disable_overlay_toast_not_found">Unable to disable all overlays!</string>
@@ -549,6 +550,8 @@
 
     <string name="shortcut_floatui">FloatUI</string>
     <string name="shortcut_floatui_disabled">FloatUI</string>
+    <string name="shortcut_rescue">Rescue Me!</string>
+    <string name="shortcut_rescue_disabled">Rescue Me!</string>
     <string name="shortcut_store">Theme Showcase</string>
     <string name="shortcut_store_disabled">Theme Showcase</string>
 

@@ -14,6 +14,18 @@
     </shortcut>
     <shortcut
         android:enabled="true"
+        android:icon="@drawable/app_shortcut_rescue"
+        android:shortcutDisabledMessage="@string/shortcut_rescue_disabled"
+        android:shortcutId="rescue"
+        android:shortcutLongLabel="@string/shortcut_rescue"
+        android:shortcutShortLabel="@string/shortcut_rescue">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="projekt.substratum.RescueActivity"
+            android:targetPackage="projekt.substratum"/>
+    </shortcut>
+    <shortcut
+        android:enabled="true"
         android:icon="@drawable/app_shortcut_floatui"
         android:shortcutDisabledMessage="@string/shortcut_floatui_disabled"
         android:shortcutId="floatui"

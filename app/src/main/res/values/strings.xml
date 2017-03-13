@@ -318,7 +318,7 @@
     <string name="menu_reboot_device">Reboot Device</string>
     <string name="menu_per_app">FloatUI</string>
     <string name="menu_restart_systemui">Restart SystemUI</string>
-    <string name="menu_alphabetize">Alphabetize</string>
+    <string name="menu_alphabetize">Change Sorting Mode</string>
     <string name="menu_search">Play Store Themes</string>
     <string name="menu_search_icon_packs">Play Store Icon Packs</string>
     <string name="menu_showcase">Showcase</string>

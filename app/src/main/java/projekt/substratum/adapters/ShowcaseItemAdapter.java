@@ -61,12 +61,13 @@ public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapte
             viewHolder.themePricing.setVisibility(View.GONE);
         }
 
-        // TODO: Add a way to detect whether a theme is installed
-        /*
-        References.isPackageInstalled(
+        if (References.isPackageInstalled(
                 information.get(position).getContext(),
-                information.get(position).getThemePackage());
-        */
+                information.get(position).getThemePackage())) {
+            viewHolder.installedOrNot.setVisibility(View.VISIBLE);
+        } else {
+            viewHolder.installedOrNot.setVisibility(View.GONE);
+        }
 
         String[] supported = information.get(position).getThemeSupport().split("\\|");
         List supported_array = Arrays.asList(supported);
@@ -119,7 +120,9 @@ public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapte
 
     class ViewHolder extends RecyclerView.ViewHolder {
         CardView cardView;
-        TextView themeName, themeAuthor;
+        TextView themeName;
+        TextView themeAuthor;
+        TextView installedOrNot;
         ImageView themePricing;
         ImageView imageView, backgroundImageView, wallpaper, sounds, fonts, bootanimations,
                 overlays;
@@ -137,6 +140,7 @@ public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapte
             fonts = (ImageView) view.findViewById(R.id.theme_fonts);
             bootanimations = (ImageView) view.findViewById(R.id.theme_bootanimations);
             overlays = (ImageView) view.findViewById(R.id.theme_overlays);
+            installedOrNot = (TextView) view.findViewById(R.id.themeinstalled);
         }
     }
 }

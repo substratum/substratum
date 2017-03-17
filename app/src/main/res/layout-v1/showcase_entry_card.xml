@@ -75,7 +75,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
-                    android:layout_marginBottom="5dp"
                     android:layout_marginEnd="17dp"
                     android:layout_marginStart="17dp"
                     android:layout_marginTop="15dp"
@@ -89,10 +88,24 @@
                     android:layout_height="wrap_content"
                     android:layout_alignStart="@+id/theme_name"
                     android:layout_below="@+id/theme_name"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="5dp"
                     android:layout_marginEnd="20dp"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textSize="12sp"/>
+
+                <TextView
+                    android:id="@+id/themeinstalled"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/theme_author"
+                    android:layout_below="@+id/theme_author"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:text="@string/notification_theme_installed"
+                    android:textAllCaps="true"
+                    android:textStyle="bold"
+                    android:textSize="12sp"
+                    android:textColor="@color/accent"/>
             </RelativeLayout>
 
             <RelativeLayout

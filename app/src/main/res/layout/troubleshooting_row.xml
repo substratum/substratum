@@ -20,6 +20,7 @@
 
         <TextView
             android:id="@+id/trouble_ques"
+            android:textColor="@color/main_screen_card_theme_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -41,6 +42,7 @@
 
         <TextView
             android:id="@+id/trouble_ans"
+            android:textColor="@color/main_screen_card_theme_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/divider"

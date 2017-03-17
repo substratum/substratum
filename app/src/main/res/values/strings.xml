@@ -365,26 +365,7 @@
         will be changed when you apply this icon pack.
     </string>
 
-    <string name="nav_overlay_manager">Overlay List</string>
-    <string name="nav_home">Theme Packs</string>
-    <string name="nav_overlays">Overlays</string>
-    <string name="nav_bootanim">Boot Animations</string>
-    <string name="nav_fonts">Font Packs</string>
-    <string name="nav_sounds">Sound Packs</string>
-    <string name="nav_wallpapers">Wallpapers</string>
-
-    <string name="nav_section_header_utilities">Utilities</string>
-    <string name="nav_section_header_get_involved">Community</string>
-    <string name="nav_section_header_more">More</string>
-
-    <string name="nav_manage">Recovery</string>
     <string name="nav_studio">Icon Pack Studio</string>
-    <string name="nav_priorities">Priorities</string>
-    <string name="nav_backup_restore">Profiles</string>
-    <string name="nav_settings">Settings</string>
-    <string name="nav_opensource">Licenses</string>
-    <string name="nav_team">Contributors</string>
-    <string name="nav_troubleshooting">Troubleshooting</string>
 
     <string name="logcat_dialog_title">\"LogChar\" Debug Report</string>
     <string name="logcat_dialog_copy_success">Successfully copied error log to clipboard!</string>
@@ -823,25 +804,34 @@
 
     <string name="interfacer_not_authorized_toast">Substratum was not able to communicate with the Theme Interfacer&#8230;</string>
 
-    <string name="nav_drawer_community">Groups &amp; Communities</string>
-    <string name="nav_drawer_googleplus">Google+ Community</string>
+    <string name="app_crash_title">%s keeps stopping&#8230;</string>
+    <string name="app_crash_content">All enabled overlays for this app have been disabled.</string>
+    <string name="dirty_flash_detected">Your firmware or ROM was updated without deleting user data (dirty flash). Substratum will reset itself to avoid bugs.</string>
+    
+    <!-- Nav drawer -->
+    <string name="nav_home">Theme packs</string>
+    <string name="nav_overlays">Overlays</string>
+    <string name="nav_bootanim">Boot animations</string>
+    <string name="nav_fonts">Font packs</string>
+    <string name="nav_sounds">Sound packs</string>
+    <string name="nav_wallpapers">Wallpapers</string>
+    <!-- Utilities -->
+    <string name="nav_section_header_utilities">Utilities</string>
+    <string name="nav_overlay_manager">Overlay list</string>
+    <string name="nav_priorities">Priorities</string>
+    <string name="nav_backup_restore">Profiles</string>
+    <string name="nav_manage">Recovery</string>
+    <!-- Community -->
+    <string name="nav_section_header_get_involved">Community</string>
+    <string name="nav_drawer_community">Groups &amp; communities</string>
+    <string name="nav_drawer_googleplus">Google+ community</string>
     <string name="googleplus_link" translatable="false">https://plus.google.com/communities/102261717366580091389</string>
-    <string name="nav_drawer_telegram">Telegram Group Chat</string>
+    <string name="nav_drawer_telegram">Telegram Group chat</string>
     <string name="telegram_link" translatable="false">https://t.me/substratum</string>
     <string name="nav_drawer_xda">XDA Subforum</string>
     <string name="xda_link" translatable="false">https://forum.xda-developers.com/apps/substratum/</string>
-
-    <string name="nav_drawer_resources">Resources</string>
-    <string name="nav_drawer_homepage">Official Homepage</string>
-    <string name="homepage_link" translatable="false">https://substratum.github.io/home/</string>
-    <string name="nav_drawer_template">Theme Template (Themers)</string>
-    <string name="template_link" translatable="false">https://github.com/substratum/template</string>
-    <string name="nav_drawer_gerrit">Platform &amp; Exposures Gerrit</string>
-    <string name="gerrit_link" translatable="false">https://substratum.review</string>
-    <string name="nav_drawer_github">Platform GitHub Repository</string>
-    <string name="github_link" translatable="false">https://www.github.com/SubstratumResources</string>
-
-    <string name="nav_drawer_featured">Featured Content</string>
+    <!-- Featured content -->
+    <string name="nav_drawer_featured">Featured content</string>
     <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
     <string name="tcf_link" translatable="false">http://thecyberfibre.com/</string>
     <string name="nav_drawer_xda_portal">XDA Portal</string>
@@ -849,8 +839,20 @@
     <string name="force_independence_title">Force app independence</string>
     <string name="force_independence_summary">This will force substratum to work on its own, disregarding interfacer.</string>
     <string name="settings_about_interfacer_disconnected">disconnected</string>
-
-    <string name="app_crash_title">%s keeps stopping&#8230;</string>
-    <string name="app_crash_content">All enabled overlays for this app have been disabled.</string>
-    <string name="dirty_flash_detected">Your firmware or ROM was updated without deleting user data (dirty flash). Substratum will reset itself to avoid bugs.</string>
+    <!-- Resources -->
+    <string name="nav_drawer_resources">Resources</string>
+    <string name="nav_drawer_homepage">Official homepage</string>
+    <string name="homepage_link" translatable="false">https://substratum.github.io/home/</string>
+    <string name="nav_drawer_template">Theme Template (Themers)</string>
+    <string name="template_link" translatable="false">https://github.com/substratum/template</string>
+    <string name="nav_drawer_gerrit">Platform &amp; exposures Gerrit</string>
+    <string name="gerrit_link" translatable="false">https://substratum.review</string>
+    <string name="nav_drawer_github">Platform GitHub repository</string>
+    <string name="github_link" translatable="false">https://www.github.com/SubstratumResources</string>
+    <string name="nav_troubleshooting">Troubleshooting</string>
+    <!-- More -->
+    <string name="nav_section_header_more">More</string>
+    <string name="nav_team">Contributors</string>
+    <string name="nav_opensource">Licenses</string>
+    <string name="nav_settings">Settings</string>
 </resources>

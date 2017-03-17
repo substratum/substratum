@@ -1,90 +1,90 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                                    android:id="@+id/theme_card"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginEnd="4dp"
-                                    android:layout_marginStart="4dp"
-                                    android:layout_marginTop="15dp"
-                                    android:clickable="true"
-                                    android:foreground="?android:selectableItemBackground"
-                                    card_view:cardBackgroundColor="@color/main_screen_card_background"
-                                    card_view:cardCornerRadius="@dimen/main_screen_card_corner_radius"
-                                    card_view:cardElevation="@dimen/main_screen_card_elevation">
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/theme_card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="4dp"
+    android:layout_marginStart="4dp"
+    android:layout_marginTop="15dp"
+    android:clickable="true"
+    android:foreground="?android:selectableItemBackground"
+    card_view:cardBackgroundColor="@color/main_screen_card_background"
+    card_view:cardCornerRadius="@dimen/main_screen_card_corner_radius"
+    card_view:cardElevation="@dimen/main_screen_card_elevation">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true">
 
         <TextView
             android:id="@+id/api_levels"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/theme_version"
-            android:layout_alignParentEnd="true"
-            android:layout_gravity="center"
             android:layout_marginEnd="15dp"
-            android:layout_marginTop="2dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="1dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignEnd="@+id/theme_version"
+            android:layout_alignTop="@+id/theme_name"
             android:text="API_LEVELS"
             android:textColor="@color/main_screen_card_theme_author"
-            android:textSize="12sp"/>
+            android:textSize="10sp" />
 
         <TextView
             android:id="@+id/theme_version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/plugin_version"
-            android:layout_alignParentEnd="true"
-            android:layout_gravity="center"
-            android:layout_marginEnd="15dp"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="1dp"
             android:text="THEME_VERSION"
             android:textColor="@color/main_screen_card_theme_author"
-            android:textSize="12sp"/>
+            android:textSize="10sp"
+            android:layout_below="@+id/api_levels"
+            android:layout_alignEnd="@+id/plugin_version" />
 
         <TextView
             android:id="@+id/plugin_version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_below="@+id/theme_name"
-            android:layout_gravity="center"
-            android:layout_marginEnd="15dp"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="1dp"
+            android:layout_marginEnd="14dp"
             android:text="PLUGIN_VERSION"
             android:textColor="@color/main_screen_card_theme_author"
-            android:textSize="12sp"/>
+            android:textSize="10sp"
+            android:layout_below="@+id/theme_version"
+            android:layout_alignParentEnd="true" />
 
-        <projekt.substratum.util.AutoTextResizer
+        <TextView
             android:id="@+id/theme_name"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
             android:layout_below="@+id/theme_preview_image"
             android:layout_gravity="center"
             android:layout_marginEnd="15dp"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="10dp"
-            android:layout_toStartOf="@id/api_levels"
+            android:layout_marginTop="2dp"
             android:ellipsize="none"
-            android:gravity="start|center"
             android:text="THEME_NAME"
             android:textColor="@color/main_screen_card_theme_title"
-            android:textSize="40sp"/>
+            android:textSize="23sp" />
 
         <TextView
             android:id="@+id/theme_author"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
             android:layout_below="@+id/theme_name"
             android:layout_gravity="center"
             android:layout_marginBottom="10dp"
             android:layout_marginEnd="15dp"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="2dp"
-            android:layout_toStartOf="@id/plugin_version"
             android:text="THEME_AUTHOR"
             android:textColor="@color/main_screen_card_theme_author"
-            android:textSize="12sp"/>
+            android:textSize="12sp" />
 
         <ImageView
             android:id="@+id/theme_preview_image"
@@ -93,7 +93,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:scaleType="centerCrop"
-            android:src="@android:color/transparent"/>
+            android:src="@android:color/transparent" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -105,7 +105,7 @@
                 android:id="@+id/theme_ready_divider"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/theme_information_card_divider"/>
+                android:background="@color/theme_information_card_divider" />
 
             <ImageView
                 android:id="@+id/theme_ready_indicator"
@@ -117,7 +117,7 @@
                 android:layout_toEndOf="@+id/theme_unready_indicator"
                 android:clickable="true"
                 android:foreground="?android:selectableItemBackground"
-                android:src="@drawable/tbo_icon"/>
+                android:src="@drawable/tbo_icon" />
 
             <ImageView
                 android:id="@+id/theme_unready_indicator"
@@ -128,7 +128,7 @@
                 android:layout_marginTop="10dp"
                 android:clickable="true"
                 android:foreground="?android:selectableItemBackground"
-                android:src="@drawable/two_icon"/>
+                android:src="@drawable/two_icon" />
 
         </RelativeLayout>
 

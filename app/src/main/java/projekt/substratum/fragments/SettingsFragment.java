@@ -89,12 +89,15 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         systemPlatform.setSummary(
                 getString(R.string.android) + " " + References.getProp("ro.build.version.release") +
                         " (" + Build.ID + ")\n" +
-                        getString(R.string.device) + " " + Build.MODEL + " (" + Build.DEVICE + ")" +
-                        "\n" +
+                        getString(R.string.device) + " " + Build.MODEL + " (" + Build.DEVICE + ")" + "\n" +
                         getString(R.string.settings_about_oms_rro_version) + " " +
                         ((References.checkOMS(getContext())) ?
                                 getString(R.string.settings_about_oms_version_7) :
-                                getString(R.string.settings_about_rro_version_2))
+                                getString(R.string.settings_about_rro_version_2)) + "\n" +
+                        getString(R.string.rom_status) + " " +
+                        ((References.checkROMsupport()) ?
+                                getString(R.string.rom_status_supported) :
+                                getString(R.string.rom_status_unsupported))
         );
         systemPlatform.setIcon(References.grabAppIcon(getContext(), "com.android.systemui"));
 

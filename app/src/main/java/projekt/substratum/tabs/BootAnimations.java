@@ -20,7 +20,9 @@ package projekt.substratum.tabs;
 
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
+import android.content.res.AssetManager;
 import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.AnimationDrawable;
@@ -86,6 +88,7 @@ public class BootAnimations extends Fragment {
     private AsyncTask current;
     private NestedScrollView nsv;
     private int frameCount;
+    private AssetManager themeAssetManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -165,12 +168,13 @@ public class BootAnimations extends Fragment {
 
         try {
             // Parses the list of items in the boot animation folder
-            File f = new File(getContext().getCacheDir().getAbsoluteFile() +
-                    "/SubstratumBuilder/" + theme_pid + "/assets/bootanimation");
-            File[] fileArray = f.listFiles();
+            Resources themeResources = getContext().getPackageManager().getResourcesForApplication
+                    (theme_pid);
+            themeAssetManager = themeResources.getAssets();
+            String[] fileArray = themeAssetManager.list("bootanimation");
             ArrayList<String> unparsedBootAnimations = new ArrayList<>();
-            for (File file : fileArray) {
-                unparsedBootAnimations.add(file.getName());
+            for (String file : fileArray) {
+                unparsedBootAnimations.add(file);
             }
 
             // Creates the list of dropdown items
@@ -368,9 +372,8 @@ public class BootAnimations extends Fragment {
                 String source = sUrl[0] + ".zip";
 
                 try {
-                    File f = new File(getContext().getCacheDir().getAbsoluteFile() +
-                            "/SubstratumBuilder/" + theme_pid + "/assets/bootanimation/" + source);
-                    try (InputStream inputStream = new FileInputStream(f);
+                    try (InputStream inputStream = themeAssetManager.open(
+                            "bootanimation/" + source);
                          OutputStream outputStream =
                                  new FileOutputStream(getContext().getCacheDir().getAbsolutePath() +
                                          "/BootAnimationCache/" + source)) {

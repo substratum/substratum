@@ -54,11 +54,13 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.Toast;
 
+import org.apache.commons.io.IOUtils;
+
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -1397,12 +1399,24 @@ public class References {
     public static String getOverlayResource(InputStream overlay) {
         String hex = null;
 
+        // Try to clone the InputStream (WARNING: Might be an ugly hek)
+        InputStream clone1, clone2;
+        try {
+            byte[] byteArray = IOUtils.toByteArray(overlay);
+            clone1 = new ByteArrayInputStream(byteArray);
+            clone2 = new ByteArrayInputStream(byteArray);
+        } catch (IOException e) {
+            Log.e(SUBSTRATUM_LOG, "Unable to clone InputStream");
+            return null;
+        }
+
         // Find the name of the top most color in the file first.
-        String resource_name = new ReadVariantPrioritizedColor().main(overlay);
+        String resource_name = new ReadVariantPrioritizedColor().main(clone1);
 
         if (resource_name != null) {
-            try (BufferedReader br = new BufferedReader(new InputStreamReader(overlay))) {
-                for (String line; (line = br.readLine()) != null; ) {
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(clone2))) {
+                String line;
+                while ((line = br.readLine()) != null) {
                     if (line.contains("\"" + resource_name + "\"")) {
                         String[] split = line.substring(line.lastIndexOf("\">") + 2).split("<");
                         hex = split[0];
@@ -1412,6 +1426,13 @@ public class References {
             } catch (IOException ioe) {
                 Log.e(SUBSTRATUM_LOG, "Unable to find " + resource_name + " in this overlay!");
             }
+        }
+
+        try {
+            clone1.close();
+            clone2.close();
+        } catch (IOException e) {
+            Log.e(SUBSTRATUM_LOG, "Failed to close InputStream");
         }
         return hex;
     }

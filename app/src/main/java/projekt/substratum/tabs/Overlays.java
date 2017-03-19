@@ -1284,7 +1284,7 @@ public class Overlays extends Fragment {
                                     String formatter = String.format(getString(R.string
                                             .overlays_variant_substitute), reader.readLine());
                                     try (InputStream input = themeAssetManager.open("overlays/"
-                                            + package_identifier + "/res/values/type1a")) {
+                                            + package_identifier + "/res/values/type1a.xml")) {
                                         String hex = References.getOverlayResource(input);
                                         type1a.add(new VariantInfo(formatter, hex));
                                     } catch (FileNotFoundException e) {
@@ -1305,7 +1305,7 @@ public class Overlays extends Fragment {
                                     String formatter = String.format(getString(R.string
                                             .overlays_variant_substitute), reader.readLine());
                                     try (InputStream input = themeAssetManager.open(overlaysDir +
-                                            "/" + package_identifier + "/res/values/type1b")) {
+                                            "/" + package_identifier + "/res/values/type1b.xml")) {
                                         String hex = References.getOverlayResource(input);
                                         type1b.add(new VariantInfo(formatter, hex));
                                     } catch (FileNotFoundException e) {
@@ -1326,7 +1326,7 @@ public class Overlays extends Fragment {
                                     String formatter = String.format(getString(R.string
                                             .overlays_variant_substitute), reader.readLine());
                                     try (InputStream input = themeAssetManager.open(overlaysDir +
-                                            "/" + package_identifier + "/res/values/type1c")) {
+                                            "/" + package_identifier + "/res/values/type1c.xml")) {
                                         String hex = References.getOverlayResource(input);
                                         type1c.add(new VariantInfo(formatter, hex));
                                     } catch (FileNotFoundException e) {
@@ -1356,40 +1356,39 @@ public class Overlays extends Fragment {
                             }
                         }
                         if (typeArray.size() > 1) {
-                            /*
                             for (int i = 0; i < typeArray.size(); i++) {
                                 String current = typeArray.get(i);
                                 if (!current.equals("res")) {
                                     if (current.contains(".xml")) {
                                         if (current.substring(0, 7).equals("type1a_")) {
-                                            File current_file = new File(mContext.getCacheDir().
-                                                    getAbsoluteFile() + "/SubstratumBuilder/"
-                                                    + theme_pid + "/assets/overlays/"
-                                                    + package_identifier + "/" + current);
-                                            String hex = References.getOverlayResource(
-                                                    current_file);
-                                            type1a.add(new VariantInfo(current.substring
-                                                    (7, current.length() - 4), hex));
+                                            try (InputStream inputStream = themeAssetManager.open(
+                                                    "overlays/" + package_identifier + "/" +
+                                                            current)) {
+                                                String hex = References.getOverlayResource(
+                                                        inputStream);
+                                                type1a.add(new VariantInfo(current.substring
+                                                        (7, current.length() - 4), hex));
+                                            }
                                         }
                                         if (current.substring(0, 7).equals("type1b_")) {
-                                            File current_file = new File(mContext.getCacheDir().
-                                                    getAbsoluteFile() + "/SubstratumBuilder/"
-                                                    + theme_pid + "/assets/overlays/"
-                                                    + package_identifier + "/" + current);
-                                            String hex = References.getOverlayResource(
-                                                    current_file);
-                                            type1b.add(new VariantInfo(current.substring
-                                                    (7, current.length() - 4), hex));
+                                            try (InputStream inputStream = themeAssetManager.open(
+                                                    "overlays/" + package_identifier + "/" +
+                                                            current)) {
+                                                String hex = References.getOverlayResource(
+                                                        inputStream);
+                                                type1b.add(new VariantInfo(current.substring
+                                                        (7, current.length() - 4), hex));
+                                            }
                                         }
                                         if (current.substring(0, 7).equals("type1c_")) {
-                                            File current_file = new File(mContext.getCacheDir().
-                                                    getAbsoluteFile() + "/SubstratumBuilder/"
-                                                    + theme_pid + "/assets/overlays/"
-                                                    + package_identifier + "/" + current);
-                                            String hex = References.getOverlayResource(
-                                                    current_file);
-                                            type1c.add(new VariantInfo(current.substring
-                                                    (7, current.length() - 4), hex));
+                                            try (InputStream inputStream = themeAssetManager.open(
+                                                    "overlays/" + package_identifier + "/" +
+                                                            current)) {
+                                                String hex = References.getOverlayResource(
+                                                        inputStream);
+                                                type1c.add(new VariantInfo(current.substring
+                                                        (7, current.length() - 4), hex));
+                                            }
                                         }
                                     } else {
                                         if (!current.contains(".")) {
@@ -1402,7 +1401,7 @@ public class Overlays extends Fragment {
                                     }
                                 }
                             }
-                            */
+
                             VariantsAdapter adapter1 = new VariantsAdapter(getActivity(), type1a);
                             VariantsAdapter adapter2 = new VariantsAdapter(getActivity(), type1b);
                             VariantsAdapter adapter3 = new VariantsAdapter(getActivity(), type1c);

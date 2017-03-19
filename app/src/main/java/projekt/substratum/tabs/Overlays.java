@@ -32,7 +32,9 @@ import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.AssetManager;
 import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -74,6 +76,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -148,6 +151,8 @@ public class Overlays extends Fragment {
     private ArrayList<String> final_command;
     private boolean isWaiting;
     private RelativeLayout toggleZone;
+    private boolean noCaching = true;
+    private AssetManager themeAssetManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
@@ -538,10 +543,17 @@ public class Overlays extends Fragment {
         base_spinner.setEnabled(false);
 
         try {
+            Resources themeResources = mContext.getPackageManager().getResourcesForApplication(theme_pid);
+            themeAssetManager = themeResources.getAssets();
+            String[] overlayList = themeAssetManager.list("overlays");
+
+            for (String o : overlayList) Log.d("lolol", o);
+
             ArrayList<String> type3 = new ArrayList<>();
+            ArrayList<String> stringArray = new ArrayList<>();
+
             File f = new File(mContext.getCacheDir().getAbsoluteFile() + "/SubstratumBuilder/" +
                     theme_pid + "/assets/overlays/android/");
-
             if (!References.checkOMS(mContext)) {
                 File check_file = new File(mContext.getCacheDir().getAbsoluteFile() +
                         "/SubstratumBuilder/" + theme_pid + "/assets/overlays_legacy/android/");
@@ -549,18 +561,29 @@ public class Overlays extends Fragment {
                     f = new File(check_file.getAbsolutePath());
                 }
             }
-            File[] fileArray = f.listFiles();
-            ArrayList<String> stringArray = new ArrayList<>();
-            if (fileArray != null && fileArray.length > 0) {
-                for (File file : fileArray) {
-                    stringArray.add(file.getName());
+
+            if (noCaching) {
+                String[] listArray = themeAssetManager.list("assets/overlays/android");
+                Collections.addAll(stringArray, listArray);
+            } else {
+                File[] fileArray = f.listFiles();
+                if (fileArray != null && fileArray.length > 0) {
+                    for (File file : fileArray) {
+                        stringArray.add(file.getName());
+                    }
                 }
             }
 
             if (stringArray.contains("type3")) {
+                InputStream inputStream;
+                if (noCaching) {
+                    inputStream = themeAssetManager.open("assets/overlays/android/type3");
+                } else {
+                    inputStream = new FileInputStream(new File(f.getAbsolutePath() + "/type3"));
+                }
+
                 try (BufferedReader reader = new BufferedReader(
-                        new InputStreamReader(new FileInputStream(
-                                new File(f.getAbsolutePath() + "/type3"))))) {
+                        new InputStreamReader(inputStream))) {
                     String formatter = String.format(getString(R.string
                             .overlays_variant_substitute), reader.readLine());
                     type3.add(formatter);
@@ -570,6 +593,7 @@ public class Overlays extends Fragment {
                     type3.add(getString(R.string
                             .overlays_variant_default_3));
                 }
+                inputStream.close();
             } else {
                 type3.add(getString(R.string.overlays_variant_default_3));
             }
@@ -979,21 +1003,26 @@ public class Overlays extends Fragment {
             try {
                 values = new ArrayList<>();
                 ArrayList<String> overlaysFolder = new ArrayList<>();
-                File overlaysDirectory = new File(mContext.getCacheDir().getAbsoluteFile() +
-                        "/SubstratumBuilder/" + theme_pid + "/assets/overlays/");
+                if (noCaching) {
+                    String[] overlayList = themeAssetManager.list("overlays");
+                    Collections.addAll(overlaysFolder, overlayList);
+                } else {
+                    File overlaysDirectory = new File(mContext.getCacheDir().getAbsoluteFile() +
+                            "/SubstratumBuilder/" + theme_pid + "/assets/overlays/");
 
-                if (!References.checkOMS(mContext)) {
-                    File check_file = new File(mContext.getCacheDir().getAbsoluteFile() +
-                            "/SubstratumBuilder/" + theme_pid + "/assets/overlays_legacy/");
-                    if (check_file.exists() && check_file.isDirectory()) {
-                        overlaysDirectory = new File(check_file.getAbsolutePath());
+                    if (!References.checkOMS(mContext)) {
+                        File check_file = new File(mContext.getCacheDir().getAbsoluteFile() +
+                                "/SubstratumBuilder/" + theme_pid + "/assets/overlays_legacy/");
+                        if (check_file.exists() && check_file.isDirectory()) {
+                            overlaysDirectory = new File(check_file.getAbsolutePath());
+                        }
                     }
-                }
 
-                File[] fileArray = overlaysDirectory.listFiles();
-                if (fileArray != null && fileArray.length > 0) {
-                    for (File file : fileArray) {
-                        overlaysFolder.add(file.getName());
+                    File[] fileArray = overlaysDirectory.listFiles();
+                    if (fileArray != null && fileArray.length > 0) {
+                        for (File file : fileArray) {
+                            overlaysFolder.add(file.getName());
+                        }
                     }
                 }
 
@@ -1060,6 +1089,7 @@ public class Overlays extends Fragment {
             // Sort the values list
             List<Pair<String, String>> sortedMap = sortMapByValues(unsortedMap);
 
+            Log.d("lolol-sorted", String.valueOf(sortedMap.size()));
             // Now let's add the new information so that the adapter can recognize custom method
             // calls
             for (Pair<String, String> entry : sortedMap) {
@@ -1072,163 +1102,270 @@ public class Overlays extends Fragment {
                         ArrayList<VariantInfo> type1b = new ArrayList<>();
                         ArrayList<VariantInfo> type1c = new ArrayList<>();
                         ArrayList<String> type2 = new ArrayList<>();
-
                         ArrayList<String> typeArray = new ArrayList<>();
-                        File typeArrayRaw = new File(mContext.getCacheDir().getAbsoluteFile() +
-                                "/SubstratumBuilder/" + theme_pid
-                                + "/assets/overlays/" + package_identifier);
 
-                        if (!References.checkOMS(mContext)) {
-                            File check_file = new File(mContext.getCacheDir().getAbsoluteFile() +
+                        if (!noCaching) {
+                            File typeArrayRaw = null;
+                            typeArrayRaw = new File(mContext.getCacheDir().getAbsoluteFile() +
                                     "/SubstratumBuilder/" + theme_pid
-                                    + "/assets/overlays_legacy/" + package_identifier + "/");
-                            if (check_file.exists() && check_file.isDirectory()) {
-                                typeArrayRaw = new File(check_file.getAbsolutePath());
+                                    + "/assets/overlays/" + package_identifier);
+
+                            if (!References.checkOMS(mContext)) {
+                                File check_file = new File(mContext.getCacheDir().getAbsoluteFile() +
+                                        "/SubstratumBuilder/" + theme_pid
+                                        + "/assets/overlays_legacy/" + package_identifier + "/");
+                                if (check_file.exists() && check_file.isDirectory()) {
+                                    typeArrayRaw = new File(check_file.getAbsolutePath());
+                                }
                             }
-                        }
 
-                        File[] fileArray = typeArrayRaw.listFiles();
-                        if (fileArray != null && fileArray.length > 0) {
-                            for (File file : fileArray) {
-                                typeArray.add(file.getName());
+                            File[] fileArray = typeArrayRaw.listFiles();
+                            if (fileArray != null && fileArray.length > 0) {
+                                for (File file : fileArray) {
+                                    typeArray.add(file.getName());
+                                }
                             }
-                        }
 
-                        // Sort the typeArray so that the types are asciibetical
-                        Collections.sort(typeArray);
+                            // Sort the typeArray so that the types are asciibetical
+                            Collections.sort(typeArray);
 
-                        if (typeArray.contains("type1a")) {
-                            try (BufferedReader reader = new BufferedReader(
-                                    new InputStreamReader(new FileInputStream(
+                            if (typeArray.contains("type1a")) {
+                                InputStream inputStream;
+                                if (noCaching) {
+                                    inputStream = themeAssetManager.open("assets/overlays/" +
+                                            package_identifier + "type.1a.xml");
+                                } else {
+                                    inputStream = new FileInputStream(
                                             new File(typeArrayRaw.getAbsolutePath() +
-                                                    "/type1a"))))) {
-                                String formatter = String.format(getString(R.string
-                                        .overlays_variant_substitute), reader.readLine());
-                                File current_file = new File(mContext.getCacheDir().
-                                        getAbsoluteFile() + "/SubstratumBuilder/"
-                                        + theme_pid + "/assets/overlays/"
-                                        + package_identifier + "/res/values/type1a.xml");
-                                String hex = References.getOverlayResource(
-                                        current_file);
-                                type1a.add(new VariantInfo(formatter, hex));
-                            } catch (IOException e) {
-                                Log.e(References.SUBSTRATUM_LOG, "There was an error parsing " +
-                                        "asset file!");
-                                File current_file = new File(mContext.getCacheDir().
-                                        getAbsoluteFile() + "/SubstratumBuilder/"
-                                        + theme_pid + "/assets/overlays/"
-                                        + package_identifier + "/res/values/type1a.xml");
-                                String hex = References.getOverlayResource(
-                                        current_file);
+                                                    "/type1a"));
+                                }
+                                try (BufferedReader reader = new BufferedReader(
+                                        new InputStreamReader(inputStream))) {
+                                    String formatter = String.format(getString(R.string
+                                            .overlays_variant_substitute), reader.readLine());
+                                    try (InputStream input = themeAssetManager.open("overlays/"
+                                            + package_identifier + "/res/values/type1a.xml")) {
+                                        String hex = References.getOverlayResource(input);
+                                        type1a.add(new VariantInfo(formatter, hex));
+                                    }
+                                    inputStream.close();
+                                } catch (IOException e) {
+                                    Log.e(References.SUBSTRATUM_LOG, "There was an error parsing " +
+                                            "asset file!");
+                                    try (InputStream input = themeAssetManager.open("overlays/"
+                                            + package_identifier + "/res/values/type1a.xml")) {
+                                        String hex = References.getOverlayResource(input);
+                                        type1a.add(new VariantInfo(getString(R.string
+                                                .overlays_variant_default_1a), hex));
+                                    }
+                                }
+                            } else {
+                                try (InputStream input = themeAssetManager.open("overlays/"
+                                        + package_identifier + "/res/values/type1a.xml")) {
+                                    String hex = References.getOverlayResource(input);
+                                    type1a.add(new VariantInfo(getString(R.string
+                                            .overlays_variant_default_1a), hex));
+                                }
+                            }
+
+                            if (typeArray.contains("type1b")) {
+                                InputStream inputStream;
+                                if (noCaching) {
+                                    inputStream = themeAssetManager.open("assets/overlays/" +
+                                            package_identifier + "type.1b.xml");
+                                } else {
+                                    inputStream = new FileInputStream(
+                                            new File(typeArrayRaw.getAbsolutePath() +
+                                                    "/type1b"));
+                                }
+                                try (BufferedReader reader = new BufferedReader(
+                                        new InputStreamReader(inputStream))) {
+                                    String formatter = String.format(getString(R.string
+                                            .overlays_variant_substitute), reader.readLine());
+                                    try (InputStream input = themeAssetManager.open("overlays/"
+                                            + package_identifier + "/res/values/type1b.xml")) {
+                                        String hex = References.getOverlayResource(input);
+                                        type1b.add(new VariantInfo(formatter, hex));
+                                    }
+                                    inputStream.close();
+                                } catch (IOException e) {
+                                    Log.e(References.SUBSTRATUM_LOG, "There was an error parsing " +
+                                            "asset " +
+                                            "file!");
+                                    try (InputStream input = themeAssetManager.open("overlays/"
+                                            + package_identifier + "/res/values/type1b.xml")) {
+                                        String hex = References.getOverlayResource(input);
+                                        type1b.add(new VariantInfo(getString(R.string
+                                                .overlays_variant_default_1b), hex));
+                                    }
+                                }
+                            } else {
+                                try (InputStream input = themeAssetManager.open("overlays/"
+                                        + package_identifier + "/res/values/type1b.xml")) {
+                                    String hex = References.getOverlayResource(input);
+                                    type1b.add(new VariantInfo(getString(R.string
+                                            .overlays_variant_default_1b), hex));
+                                }
+                            }
+
+                            if (typeArray.contains("type1c")) {
+                                InputStream inputStream;
+                                if (noCaching) {
+                                    inputStream = themeAssetManager.open("assets/overlays/" +
+                                            package_identifier + "type.1a.xml");
+                                } else {
+                                    inputStream = new FileInputStream(
+                                            new File(typeArrayRaw.getAbsolutePath() +
+                                                    "/type1a"));
+                                }
+                                try (BufferedReader reader = new BufferedReader(
+                                        new InputStreamReader(inputStream))) {
+                                    String formatter = String.format(getString(R.string
+                                            .overlays_variant_substitute), reader.readLine());
+                                    try (InputStream input = themeAssetManager.open("overlays/"
+                                            + package_identifier + "/res/values/type1c.xml")) {
+                                        String hex = References.getOverlayResource(input);
+                                        type1c.add(new VariantInfo(formatter, hex));
+                                    }
+                                    inputStream.close();
+                                } catch (IOException e) {
+                                    Log.e(References.SUBSTRATUM_LOG, "There was an error parsing " +
+                                            "asset file!");
+                                    try (InputStream input = themeAssetManager.open("overlays/"
+                                            + package_identifier + "/res/values/type1c.xml")) {
+                                        String hex = References.getOverlayResource(input);
+                                        type1c.add(new VariantInfo(getString(R.string
+                                                .overlays_variant_default_1c), hex));
+                                    }
+                                }
+                            } else {
+                                try (InputStream input = themeAssetManager.open("overlays/"
+                                        + package_identifier + "/res/values/type1c.xml")) {
+                                    String hex = References.getOverlayResource(input);
+                                    type1c.add(new VariantInfo(getString(R.string
+                                            .overlays_variant_default_1c), hex));
+                                }
+                            }
+
+                            if (typeArray.contains("type2")) {
+                                try (BufferedReader reader = new BufferedReader(
+                                        new InputStreamReader(new FileInputStream(
+                                                new File(typeArrayRaw.getAbsolutePath() +
+                                                        "/type2"))))) {
+                                    String formatter = String.format(getString(R.string
+                                            .overlays_variant_substitute), reader.readLine());
+                                    type2.add(formatter);
+                                } catch (IOException e) {
+                                    Log.e(References.SUBSTRATUM_LOG, "There was an error parsing " +
+                                            "asset " +
+                                            "file!");
+                                    type2.add(getString(R.string
+                                            .overlays_variant_default_2));
+                                }
+                            } else {
+                                type2.add(getString(R.string.overlays_variant_default_2));
+                            }
+                        } else { // WOI WOI
+                            String[] typeArrayRaw = themeAssetManager.list(
+                                    "overlays/" + package_identifier);
+                            Collections.addAll(typeArray, typeArrayRaw);
+
+                            // Sort the typeArray so that the types are asciibetical
+                            Collections.sort(typeArray);
+
+                            if (typeArray.contains("type1a")) {
+                                try (BufferedReader reader = new BufferedReader(
+                                        new InputStreamReader(themeAssetManager.open("overlays/" +
+                                                package_identifier + "/type1a")))) {
+                                    String formatter = String.format(getString(R.string
+                                            .overlays_variant_substitute), reader.readLine());
+                                    try (InputStream input = themeAssetManager.open("overlays/"
+                                            + package_identifier + "/res/values/type1a")) {
+                                        String hex = References.getOverlayResource(input);
+                                        type1a.add(new VariantInfo(formatter, hex));
+                                    } catch (FileNotFoundException e) {
+                                        //
+                                    }
+                                } catch (IOException e) {
+                                    Log.e(References.SUBSTRATUM_LOG, "There was an error parsing " +
+                                            "asset file!");
+                                    type1a.add(new VariantInfo(getString(R.string
+                                            .overlays_variant_default_1a), "#00000000"));
+                                }
+                            } else {
                                 type1a.add(new VariantInfo(getString(R.string
-                                        .overlays_variant_default_1a), hex));
+                                        .overlays_variant_default_1a), "#00000000"));
                             }
-                        } else {
-                            File current_file = new File(mContext.getCacheDir().
-                                    getAbsoluteFile() + "/SubstratumBuilder/"
-                                    + theme_pid + "/assets/overlays/"
-                                    + package_identifier + "/res/values/type1a.xml");
-                            String hex = References.getOverlayResource(
-                                    current_file);
-                            type1a.add(new VariantInfo(getString(R.string
-                                    .overlays_variant_default_1a), hex));
-                        }
 
-                        if (typeArray.contains("type1b")) {
-                            try (BufferedReader reader = new BufferedReader(
-                                    new InputStreamReader(new FileInputStream(
-                                            new File(typeArrayRaw.getAbsolutePath() +
-                                                    "/type1b"))))) {
-                                String formatter = String.format(getString(R.string
-                                        .overlays_variant_substitute), reader.readLine());
-                                File current_file = new File(mContext.getCacheDir().
-                                        getAbsoluteFile() + "/SubstratumBuilder/"
-                                        + theme_pid + "/assets/overlays/"
-                                        + package_identifier + "/res/values/type1b.xml");
-                                String hex = References.getOverlayResource(
-                                        current_file);
-                                type1b.add(new VariantInfo(formatter, hex));
-                            } catch (IOException e) {
-                                Log.e(References.SUBSTRATUM_LOG, "There was an error parsing " +
-                                        "asset " +
-                                        "file!");
-                                File current_file = new File(mContext.getCacheDir().
-                                        getAbsoluteFile() + "/SubstratumBuilder/"
-                                        + theme_pid + "/assets/overlays/"
-                                        + package_identifier + "/res/values/type1b.xml");
-                                String hex = References.getOverlayResource(
-                                        current_file);
+                            if (typeArray.contains("type1b")) {
+                                try (BufferedReader reader = new BufferedReader(
+                                        new InputStreamReader(themeAssetManager.open("overlays/" +
+                                                package_identifier + "/type1b")))) {
+                                    String formatter = String.format(getString(R.string
+                                            .overlays_variant_substitute), reader.readLine());
+                                    try (InputStream input = themeAssetManager.open("overlays/"
+                                            + package_identifier + "/res/values/type1b")) {
+                                        String hex = References.getOverlayResource(input);
+                                        type1b.add(new VariantInfo(formatter, hex));
+                                    } catch (FileNotFoundException e) {
+                                        //
+                                    }
+                                } catch (IOException e) {
+                                    Log.e(References.SUBSTRATUM_LOG, "There was an error parsing " +
+                                            "asset " +
+                                            "file!");
+                                    type1b.add(new VariantInfo(getString(R.string
+                                            .overlays_variant_default_1b), "#00000000"));
+                                }
+                            } else {
                                 type1b.add(new VariantInfo(getString(R.string
-                                        .overlays_variant_default_1b), hex));
+                                        .overlays_variant_default_1b), "#00000000"));
                             }
-                        } else {
-                            File current_file = new File(mContext.getCacheDir().
-                                    getAbsoluteFile() + "/SubstratumBuilder/"
-                                    + theme_pid + "/assets/overlays/"
-                                    + package_identifier + "/res/values/type1b.xml");
-                            String hex = References.getOverlayResource(
-                                    current_file);
-                            type1b.add(new VariantInfo(getString(R.string
-                                    .overlays_variant_default_1b), hex));
-                        }
 
-                        if (typeArray.contains("type1c")) {
-                            try (BufferedReader reader = new BufferedReader(
-                                    new InputStreamReader(new FileInputStream(
-                                            new File(typeArrayRaw.getAbsolutePath() +
-                                                    "/type1c"))))) {
-                                String formatter = String.format(getString(R.string
-                                        .overlays_variant_substitute), reader.readLine());
-                                File current_file = new File(mContext.getCacheDir().
-                                        getAbsoluteFile() + "/SubstratumBuilder/"
-                                        + theme_pid + "/assets/overlays/"
-                                        + package_identifier + "/res/values/type1c.xml");
-                                String hex = References.getOverlayResource(
-                                        current_file);
-                                type1c.add(new VariantInfo(formatter, hex));
-                            } catch (IOException e) {
-                                Log.e(References.SUBSTRATUM_LOG, "There was an error parsing " +
-                                        "asset file!");
-                                File current_file = new File(mContext.getCacheDir().
-                                        getAbsoluteFile() + "/SubstratumBuilder/"
-                                        + theme_pid + "/assets/overlays/"
-                                        + package_identifier + "/res/values/type1c.xml");
-                                String hex = References.getOverlayResource(
-                                        current_file);
+                            if (typeArray.contains("type1c")) {
+                                try (BufferedReader reader = new BufferedReader(
+                                        new InputStreamReader(themeAssetManager.open("assets/overlays/" +
+                                                package_identifier + "/type1c")))) {
+                                    String formatter = String.format(getString(R.string
+                                            .overlays_variant_substitute), reader.readLine());
+                                    try (InputStream input = themeAssetManager.open("overlays/"
+                                            + package_identifier + "/res/values/type1c")) {
+                                        String hex = References.getOverlayResource(input);
+                                        type1c.add(new VariantInfo(formatter, hex));
+                                    } catch (FileNotFoundException e) {
+                                        //
+                                    }
+                                } catch (IOException e) {
+                                    Log.e(References.SUBSTRATUM_LOG, "There was an error parsing " +
+                                            "asset file!");
+                                    type1c.add(new VariantInfo(getString(R.string
+                                            .overlays_variant_default_1c), "#00000000"));
+                                }
+                            } else {
                                 type1c.add(new VariantInfo(getString(R.string
-                                        .overlays_variant_default_1c), hex));
+                                        .overlays_variant_default_1c), "#00000000"));
                             }
-                        } else {
-                            File current_file = new File(mContext.getCacheDir().
-                                    getAbsoluteFile() + "/SubstratumBuilder/"
-                                    + theme_pid + "/assets/overlays/"
-                                    + package_identifier + "/res/values/type1c.xml");
-                            String hex = References.getOverlayResource(
-                                    current_file);
-                            type1c.add(new VariantInfo(getString(R.string
-                                    .overlays_variant_default_1c), hex));
-                        }
 
-                        if (typeArray.contains("type2")) {
-                            try (BufferedReader reader = new BufferedReader(
-                                    new InputStreamReader(new FileInputStream(
-                                            new File(typeArrayRaw.getAbsolutePath() +
-                                                    "/type2"))))) {
-                                String formatter = String.format(getString(R.string
-                                        .overlays_variant_substitute), reader.readLine());
-                                type2.add(formatter);
-                            } catch (IOException e) {
-                                Log.e(References.SUBSTRATUM_LOG, "There was an error parsing " +
-                                        "asset " +
-                                        "file!");
-                                type2.add(getString(R.string
-                                        .overlays_variant_default_2));
+                            if (typeArray.contains("type2")) {
+                                try (BufferedReader reader = new BufferedReader(
+                                        new InputStreamReader(themeAssetManager.open("overlays/"
+                                                + package_identifier + "/type2")))) {
+                                    String formatter = String.format(getString(R.string
+                                            .overlays_variant_substitute), reader.readLine());
+                                    type2.add(formatter);
+                                } catch (IOException e) {
+                                    Log.e(References.SUBSTRATUM_LOG, "There was an error parsing " +
+                                            "asset " +
+                                            "file!");
+                                    type2.add(getString(R.string
+                                            .overlays_variant_default_2));
+                                }
+                            } else {
+                                type2.add(getString(R.string.overlays_variant_default_2));
                             }
-                        } else {
-                            type2.add(getString(R.string.overlays_variant_default_2));
                         }
-
                         if (typeArray.size() > 1) {
+                            /*
                             for (int i = 0; i < typeArray.size(); i++) {
                                 String current = typeArray.get(i);
                                 if (!current.equals("res")) {
@@ -1274,7 +1411,7 @@ public class Overlays extends Fragment {
                                     }
                                 }
                             }
-
+                            */
                             VariantsAdapter adapter1 = new VariantsAdapter(getActivity(), type1a);
                             VariantsAdapter adapter2 = new VariantsAdapter(getActivity(), type1b);
                             VariantsAdapter adapter3 = new VariantsAdapter(getActivity(), type1c);
@@ -1319,11 +1456,14 @@ public class Overlays extends Fragment {
                         }
                     } catch (Exception e) {
                         // Exception
+                        e.printStackTrace();
                     }
                 } catch (Exception e) {
                     // Exception
+                    e.printStackTrace();
                 }
             }
+            Log.d("lolol-values", String.valueOf(values2.size()));
             return null;
         }
     }

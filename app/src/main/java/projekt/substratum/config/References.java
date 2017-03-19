@@ -1394,15 +1394,14 @@ public class References {
     }
 
     // This method parses a specific overlay resource file (.xml) and returns the specified value
-    public static String getOverlayResource(File overlay_file) {
+    public static String getOverlayResource(InputStream overlay) {
         String hex = null;
 
         // Find the name of the top most color in the file first.
-        String resource_name = new ReadVariantPrioritizedColor()
-                .main(overlay_file.getAbsolutePath());
+        String resource_name = new ReadVariantPrioritizedColor().main(overlay);
 
         if (resource_name != null) {
-            try (BufferedReader br = new BufferedReader(new FileReader(overlay_file))) {
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(overlay))) {
                 for (String line; (line = br.readLine()) != null; ) {
                     if (line.contains("\"" + resource_name + "\"")) {
                         String[] split = line.substring(line.lastIndexOf("\">") + 2).split("<");

@@ -61,8 +61,8 @@
         if you already have them!
     </string>
     <string name="two_description">This theme supports Google\'s stock apps, the way they were made!
-        If you have Team Black Out\'s Google Apps installed, but would like to use this theme,
-        please remove them to regain support from the themer!
+        If you have Team Black Out\'s Google Apps installed then you do not need to remove them,
+        but they are not required for this theme!
     </string>
     <string name="tbo_dialog_proceed">Download</string>
     <string name="dynamic_gapps_dialog" translatable="false">Dynamic Gapps</string>

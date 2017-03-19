@@ -12,11 +12,12 @@
         android:clipToPadding="false"
         android:divider="@drawable/divider"
         android:dividerHeight="15dp"
-        android:fitsSystemWindows="true"
-        android:paddingBottom="0dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:paddingTop="10dp"
+        android:paddingBottom="0dp"
+        android:clipToPadding="false"
+        android:fitsSystemWindows="true"
         android:scrollbars="none" />
 
 </LinearLayout>

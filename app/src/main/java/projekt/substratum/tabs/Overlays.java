@@ -153,6 +153,7 @@ public class Overlays extends Fragment {
     private RelativeLayout toggleZone;
     private boolean noCaching = true;
     private AssetManager themeAssetManager;
+    private final static String overlaysDir = "overlays";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
@@ -1265,18 +1266,21 @@ public class Overlays extends Fragment {
                             } else {
                                 type2.add(getString(R.string.overlays_variant_default_2));
                             }
-                        } else { // WOI WOI
+                        } else {
+                            // Begin the no caching algorithm
                             String[] typeArrayRaw = themeAssetManager.list(
                                     "overlays/" + package_identifier);
-                            Collections.addAll(typeArray, typeArrayRaw);
 
                             // Sort the typeArray so that the types are asciibetical
+                            Collections.addAll(typeArray, typeArrayRaw);
                             Collections.sort(typeArray);
 
+                            // Now let's check if the types are included to be parsed
+                            // First start with type1a files
                             if (typeArray.contains("type1a")) {
                                 try (BufferedReader reader = new BufferedReader(
-                                        new InputStreamReader(themeAssetManager.open("overlays/" +
-                                                package_identifier + "/type1a")))) {
+                                        new InputStreamReader(themeAssetManager.open(overlaysDir +
+                                                "/" + package_identifier + "/type1a")))) {
                                     String formatter = String.format(getString(R.string
                                             .overlays_variant_substitute), reader.readLine());
                                     try (InputStream input = themeAssetManager.open("overlays/"
@@ -1284,84 +1288,71 @@ public class Overlays extends Fragment {
                                         String hex = References.getOverlayResource(input);
                                         type1a.add(new VariantInfo(formatter, hex));
                                     } catch (FileNotFoundException e) {
-                                        //
+                                        // Suppress warning
                                     }
                                 } catch (IOException e) {
-                                    Log.e(References.SUBSTRATUM_LOG, "There was an error parsing " +
-                                            "asset file!");
+                                    Log.e(References.SUBSTRATUM_LOG,
+                                            "There was an error parsing asset file!");
                                     type1a.add(new VariantInfo(getString(R.string
                                             .overlays_variant_default_1a), "#00000000"));
                                 }
-                            } else {
-                                type1a.add(new VariantInfo(getString(R.string
-                                        .overlays_variant_default_1a), "#00000000"));
                             }
-
+                            // Next check for type1b files
                             if (typeArray.contains("type1b")) {
                                 try (BufferedReader reader = new BufferedReader(
-                                        new InputStreamReader(themeAssetManager.open("overlays/" +
-                                                package_identifier + "/type1b")))) {
+                                        new InputStreamReader(themeAssetManager.open(overlaysDir +
+                                                "/" + package_identifier + "/type1b")))) {
                                     String formatter = String.format(getString(R.string
                                             .overlays_variant_substitute), reader.readLine());
-                                    try (InputStream input = themeAssetManager.open("overlays/"
-                                            + package_identifier + "/res/values/type1b")) {
+                                    try (InputStream input = themeAssetManager.open(overlaysDir +
+                                            "/" + package_identifier + "/res/values/type1b")) {
                                         String hex = References.getOverlayResource(input);
                                         type1b.add(new VariantInfo(formatter, hex));
                                     } catch (FileNotFoundException e) {
-                                        //
+                                        // Suppress warning
                                     }
                                 } catch (IOException e) {
-                                    Log.e(References.SUBSTRATUM_LOG, "There was an error parsing " +
-                                            "asset " +
-                                            "file!");
+                                    Log.e(References.SUBSTRATUM_LOG,
+                                            "There was an error parsing asset file!");
                                     type1b.add(new VariantInfo(getString(R.string
                                             .overlays_variant_default_1b), "#00000000"));
                                 }
-                            } else {
-                                type1b.add(new VariantInfo(getString(R.string
-                                        .overlays_variant_default_1b), "#00000000"));
                             }
-
+                            // Next check for type1c files
                             if (typeArray.contains("type1c")) {
                                 try (BufferedReader reader = new BufferedReader(
-                                        new InputStreamReader(themeAssetManager.open("assets/overlays/" +
-                                                package_identifier + "/type1c")))) {
+                                        new InputStreamReader(themeAssetManager.open(overlaysDir +
+                                                "/" + package_identifier + "/type1c")))) {
                                     String formatter = String.format(getString(R.string
                                             .overlays_variant_substitute), reader.readLine());
-                                    try (InputStream input = themeAssetManager.open("overlays/"
-                                            + package_identifier + "/res/values/type1c")) {
+                                    try (InputStream input = themeAssetManager.open(overlaysDir +
+                                            "/" + package_identifier + "/res/values/type1c")) {
                                         String hex = References.getOverlayResource(input);
                                         type1c.add(new VariantInfo(formatter, hex));
                                     } catch (FileNotFoundException e) {
-                                        //
+                                        // Suppress warning
                                     }
                                 } catch (IOException e) {
-                                    Log.e(References.SUBSTRATUM_LOG, "There was an error parsing " +
-                                            "asset file!");
+                                    Log.e(References.SUBSTRATUM_LOG,
+                                            "There was an error parsing asset file!");
                                     type1c.add(new VariantInfo(getString(R.string
                                             .overlays_variant_default_1c), "#00000000"));
                                 }
-                            } else {
-                                type1c.add(new VariantInfo(getString(R.string
-                                        .overlays_variant_default_1c), "#00000000"));
                             }
 
                             if (typeArray.contains("type2")) {
                                 try (BufferedReader reader = new BufferedReader(
-                                        new InputStreamReader(themeAssetManager.open("overlays/"
-                                                + package_identifier + "/type2")))) {
+                                        new InputStreamReader(themeAssetManager.open(overlaysDir +
+                                                "/" + package_identifier + "/type2")))) {
                                     String formatter = String.format(getString(R.string
                                             .overlays_variant_substitute), reader.readLine());
                                     type2.add(formatter);
                                 } catch (IOException e) {
                                     Log.e(References.SUBSTRATUM_LOG, "There was an error parsing " +
-                                            "asset " +
-                                            "file!");
+                                            "asset file!");
                                     type2.add(getString(R.string
                                             .overlays_variant_default_2));
                                 }
-                            } else {
-                                type2.add(getString(R.string.overlays_variant_default_2));
                             }
                         }
                         if (typeArray.size() > 1) {
@@ -1418,10 +1409,10 @@ public class Overlays extends Fragment {
                             ArrayAdapter<String> adapter4 = new ArrayAdapter<>(getActivity(),
                                     android.R.layout.simple_spinner_dropdown_item, type2);
 
-                            boolean adapterOneChecker = type1a.size() == 1;
-                            boolean adapterTwoChecker = type1b.size() == 1;
-                            boolean adapterThreeChecker = type1c.size() == 1;
-                            boolean adapterFourChecker = type2.size() == 1;
+                            boolean adapterOneChecker = type1a.size() == 0;
+                            boolean adapterTwoChecker = type1b.size() == 0;
+                            boolean adapterThreeChecker = type1c.size() == 0;
+                            boolean adapterFourChecker = type2.size() == 0;
 
                             OverlaysInfo overlaysInfo = new OverlaysInfo(parse2_themeName,
                                     package_name,

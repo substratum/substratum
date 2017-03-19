@@ -103,6 +103,7 @@ import projekt.substratum.util.FloatingActionMenu;
 import projekt.substratum.util.SubstratumBuilder;
 
 import static android.content.Context.CLIPBOARD_SERVICE;
+import static projekt.substratum.config.References.ENABLE_CACHING;
 import static projekt.substratum.config.References.INTERFACER_PACKAGE;
 import static projekt.substratum.config.References.MASQUERADE_PACKAGE;
 import static projekt.substratum.config.References.REFRESH_WINDOW_DELAY;
@@ -151,7 +152,6 @@ public class Overlays extends Fragment {
     private ArrayList<String> final_command;
     private boolean isWaiting;
     private RelativeLayout toggleZone;
-    private boolean noCaching = true;
     private AssetManager themeAssetManager;
     private final static String overlaysDir = "overlays";
 
@@ -563,7 +563,7 @@ public class Overlays extends Fragment {
                 }
             }
 
-            if (noCaching) {
+            if (!ENABLE_CACHING) {
                 String[] listArray = themeAssetManager.list("assets/overlays/android");
                 Collections.addAll(stringArray, listArray);
             } else {
@@ -577,7 +577,7 @@ public class Overlays extends Fragment {
 
             if (stringArray.contains("type3")) {
                 InputStream inputStream;
-                if (noCaching) {
+                if (!ENABLE_CACHING) {
                     inputStream = themeAssetManager.open("assets/overlays/android/type3");
                 } else {
                     inputStream = new FileInputStream(new File(f.getAbsolutePath() + "/type3"));
@@ -1004,7 +1004,7 @@ public class Overlays extends Fragment {
             try {
                 values = new ArrayList<>();
                 ArrayList<String> overlaysFolder = new ArrayList<>();
-                if (noCaching) {
+                if (!ENABLE_CACHING) {
                     String[] overlayList = themeAssetManager.list("overlays");
                     Collections.addAll(overlaysFolder, overlayList);
                 } else {
@@ -1105,8 +1105,8 @@ public class Overlays extends Fragment {
                         ArrayList<String> type2 = new ArrayList<>();
                         ArrayList<String> typeArray = new ArrayList<>();
 
-                        if (!noCaching) {
-                            File typeArrayRaw = null;
+                        if (ENABLE_CACHING) {
+                            File typeArrayRaw;
                             typeArrayRaw = new File(mContext.getCacheDir().getAbsoluteFile() +
                                     "/SubstratumBuilder/" + theme_pid
                                     + "/assets/overlays/" + package_identifier);
@@ -1132,7 +1132,7 @@ public class Overlays extends Fragment {
 
                             if (typeArray.contains("type1a")) {
                                 InputStream inputStream;
-                                if (noCaching) {
+                                if (!ENABLE_CACHING) {
                                     inputStream = themeAssetManager.open("assets/overlays/" +
                                             package_identifier + "type.1a.xml");
                                 } else {
@@ -1171,7 +1171,7 @@ public class Overlays extends Fragment {
 
                             if (typeArray.contains("type1b")) {
                                 InputStream inputStream;
-                                if (noCaching) {
+                                if (!ENABLE_CACHING) {
                                     inputStream = themeAssetManager.open("assets/overlays/" +
                                             package_identifier + "type.1b.xml");
                                 } else {
@@ -1211,7 +1211,7 @@ public class Overlays extends Fragment {
 
                             if (typeArray.contains("type1c")) {
                                 InputStream inputStream;
-                                if (noCaching) {
+                                if (!ENABLE_CACHING) {
                                     inputStream = themeAssetManager.open("assets/overlays/" +
                                             package_identifier + "type.1a.xml");
                                 } else {

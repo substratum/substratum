@@ -1176,6 +1176,8 @@ public class MainActivity extends AppCompatActivity implements
 
         @Override
         protected Boolean doInBackground(String... sUrl) {
+            prefs.edit().putBoolean("complexion",
+                    !References.spreadYourWingsAndFly(getApplicationContext())).apply();
             if (!References.checkThemeInterfacer(getApplicationContext())) {
                 Boolean receivedRoot = Root.requestRootAccess();
                 if (receivedRoot) Log.d(SUBSTRATUM_LOG, "Substratum has loaded in rooted mode.");

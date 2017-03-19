@@ -121,7 +121,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         boolean full_oms = References.checkOMS(getContext()) &&
                 References.checkSubstratumFeature(getContext());
         boolean interfacer = References.checkThemeInterfacer(getContext());
-        boolean certified = !References.spreadYourWingsAndFly(getContext()) && full_oms;
+        boolean verified = prefs.getBoolean("complexion", true);
+        boolean certified = verified && full_oms;
 
         systemStatus.setSummary((interfacer
                 ? getString(R.string.settings_system_status_rootless)
@@ -166,244 +167,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     }
                     return false;
                 });
-
-        final Preference aoptSwitcher = getPreferenceManager().findPreference
-                ("aopt_switcher");
-        if (prefs.getString("compiler", "aapt").equals("aapt")) {
-            aoptSwitcher.setSummary(R.string.settings_aapt);
-        } else {
-            aoptSwitcher.setSummary(R.string.settings_aopt);
-        }
-        aoptSwitcher.setOnPreferenceClickListener(
-                preference -> {
-                    SheetDialog sheetDialog =
-                            new SheetDialog(getContext());
-                    View sheetView = View.inflate(getContext(), R.layout.aopt_sheet_dialog, null);
-                    LinearLayout aapt = (LinearLayout) sheetView.findViewById(R.id.aapt);
-                    LinearLayout aopt = (LinearLayout) sheetView.findViewById(R.id.aopt);
-                    aapt.setOnClickListener(v -> {
-                        prefs.edit().remove("compiler").apply();
-                        prefs.edit().putString("compiler", "aapt").apply();
-                        prefs.edit().putBoolean("aopt_debug", false).apply();
-                        aoptSwitcher.setSummary(R.string.settings_aapt);
-                        new AOPTCheck().injectAOPT(getContext(), true);
-                        sheetDialog.hide();
-                    });
-                    aopt.setOnClickListener(v -> {
-                        prefs.edit().remove("compiler").apply();
-                        prefs.edit().putString("compiler", "aopt").apply();
-                        prefs.edit().putBoolean("aopt_debug", true).apply();
-                        aoptSwitcher.setSummary(R.string.settings_aopt);
-                        new AOPTCheck().injectAOPT(getContext(), true);
-                        sheetDialog.hide();
-                    });
-                    sheetDialog.setContentView(sheetView);
-                    sheetDialog.show();
-                    return false;
-                });
-        aoptSwitcher.setVisible(BuildConfig.DEBUG);
-
-        if (References.checkOMS(getContext())) {
-            Preference aboutInterfacer = getPreferenceManager().findPreference
-                    ("about_interfacer");
-            aboutInterfacer.setIcon(getContext().getDrawable(R.mipmap.restore_launcher));
-            aboutInterfacer.setOnPreferenceClickListener(
-                    preference -> {
-                        try {
-                            String sourceURL = getString(R.string.interfacer_github);
-                            Intent i = new Intent(Intent.ACTION_VIEW);
-                            i.setData(Uri.parse(sourceURL));
-                            startActivity(i);
-                        } catch (ActivityNotFoundException activityNotFoundException) {
-                            //
-                        }
-                        return false;
-                    });
-            try {
-                PackageInfo pInfo = References.getThemeInterfacerPackage(getContext());
-                String versionName = pInfo.versionName;
-                int versionCode = pInfo.versionCode;
-                aboutInterfacer.setSummary(prefs.getBoolean("force_independence", false) ?
-                        getString(R.string.settings_about_interfacer_disconnected) :
-                        versionName + " (" + versionCode + ")");
-            } catch (Exception e) {
-                if (References.isPackageInstalled(getContext(), References.MASQUERADE_PACKAGE)) {
-                    aboutInterfacer.setSummary(
-                            getString(R.string.settings_about_interfacer_masquerade));
-                }
-            }
-
-            final CheckBoxPreference hide_app_checkbox = (CheckBoxPreference)
-                    getPreferenceManager().findPreference("hide_app_checkbox");
-            hide_app_checkbox.setEnabled(false);
-            if (prefs.getBoolean("show_app_icon", true)) {
-                hide_app_checkbox.setChecked(true);
-            } else {
-                hide_app_checkbox.setChecked(false);
-            }
-            if (checkSettingsPackageSupport()) {
-                hide_app_checkbox.setSummary(getString(R.string.hide_app_icon_supported));
-                hide_app_checkbox.setEnabled(true);
-            }
-            hide_app_checkbox.setOnPreferenceChangeListener(
-                    (preference, newValue) -> {
-                        boolean isChecked = (Boolean) newValue;
-                        if (isChecked) {
-                            prefs.edit().putBoolean("show_app_icon", true).apply();
-                            PackageManager p = getContext().getPackageManager();
-                            ComponentName componentName = new ComponentName(getContext(),
-                                    LauncherActivity
-                                            .class);
-                            p.setComponentEnabledSetting(componentName, PackageManager
-                                    .COMPONENT_ENABLED_STATE_ENABLED, PackageManager
-                                    .DONT_KILL_APP);
-                            if (getView() != null) {
-                                Snackbar.make(getView(),
-                                        getString(R.string.hide_app_icon_toast_disabled),
-                                        Snackbar.LENGTH_LONG)
-                                        .show();
-                            }
-                            hide_app_checkbox.setChecked(true);
-                        } else {
-                            prefs.edit().putBoolean("show_app_icon", false).apply();
-                            PackageManager p = getContext().getPackageManager();
-                            ComponentName componentName = new ComponentName(getContext(),
-                                    LauncherActivity.class);
-                            p.setComponentEnabledSetting(componentName, PackageManager
-                                    .COMPONENT_ENABLED_STATE_DISABLED, PackageManager
-                                    .DONT_KILL_APP);
-                            if (getView() != null) {
-                                Snackbar.make(getView(),
-                                        getString(R.string.hide_app_icon_toast_enabled),
-                                        Snackbar.LENGTH_LONG)
-                                        .show();
-                            }
-                            hide_app_checkbox.setChecked(false);
-                        }
-                        return false;
-                    });
-
-            final CheckBoxPreference systemUIRestart = (CheckBoxPreference)
-                    getPreferenceManager().findPreference("restart_systemui");
-            if (prefs.getBoolean("systemui_recreate", true)) {
-                systemUIRestart.setChecked(true);
-            } else {
-                systemUIRestart.setChecked(false);
-            }
-            systemUIRestart.setOnPreferenceChangeListener(
-                    (preference, newValue) -> {
-                        boolean isChecked = (Boolean) newValue;
-                        if (isChecked) {
-                            prefs.edit().putBoolean("systemui_recreate", true).apply();
-                            if (getView() != null) {
-                                Snackbar.make(getView(),
-                                        getString(R.string.restart_systemui_toast_enabled),
-                                        Snackbar.LENGTH_LONG)
-                                        .show();
-                            }
-                            systemUIRestart.setChecked(true);
-                        } else {
-                            prefs.edit().putBoolean("systemui_recreate", false).apply();
-                            if (getView() != null) {
-                                Snackbar.make(getView(),
-                                        getString(R.string.restart_systemui_toast_disabled),
-                                        Snackbar.LENGTH_LONG)
-                                        .show();
-                            }
-                            systemUIRestart.setChecked(false);
-                        }
-                        return false;
-                    });
-            if (!References.getProp("ro.substratum.recreate").equals("true"))
-                systemUIRestart.setVisible(false);
-
-            final CheckBoxPreference manager_disabled_overlays = (CheckBoxPreference)
-                    getPreferenceManager().findPreference("manager_disabled_overlays");
-            if (prefs.getBoolean("manager_disabled_overlays", true)) {
-                manager_disabled_overlays.setChecked(true);
-            } else {
-                manager_disabled_overlays.setChecked(false);
-            }
-            manager_disabled_overlays.setOnPreferenceChangeListener(
-                    (preference, newValue) -> {
-                        boolean isChecked = (Boolean) newValue;
-                        if (isChecked) {
-                            prefs.edit().putBoolean("manager_disabled_overlays", true).apply();
-                            manager_disabled_overlays.setChecked(true);
-                            return true;
-                        } else {
-                            prefs.edit().putBoolean("manager_disabled_overlays", false).apply();
-                            manager_disabled_overlays.setChecked(false);
-                            return false;
-                        }
-                    });
-
-            final CheckBoxPreference debugTheme = (CheckBoxPreference)
-                    getPreferenceManager().findPreference("theme_debug");
-            debugTheme.setChecked(prefs.getBoolean("theme_debug", false));
-            debugTheme.setOnPreferenceChangeListener(
-                    (preference, newValue) -> {
-                        boolean isChecked = (Boolean) newValue;
-                        if (isChecked) {
-                            final AlertDialog.Builder builder = new AlertDialog.Builder
-                                    (getContext());
-                            builder.setTitle(R.string.break_compilation_dialog_title);
-                            builder.setMessage(R.string.break_compilation_dialog_content);
-                            builder.setNegativeButton(R.string.break_compilation_dialog_cancel,
-                                    (dialog, id) -> dialog.dismiss());
-                            builder.setPositiveButton(R.string.break_compilation_dialog_continue,
-                                    (dialog, id) -> {
-                                        prefs.edit()
-                                                .putBoolean("theme_debug", true).apply();
-                                        debugTheme.setChecked(true);
-                                    });
-                            builder.show();
-                        } else {
-                            prefs.edit().putBoolean("theme_debug", false).apply();
-                            debugTheme.setChecked(false);
-                        }
-                        return false;
-                    });
-
-            final CheckBoxPreference forceIndependence = (CheckBoxPreference)
-                    getPreferenceManager().findPreference("force_independence");
-            if (References.checkThemeInterfacer(getContext())) {
-                forceIndependence.setChecked(prefs.getBoolean("force_independence", false));
-                forceIndependence.setOnPreferenceChangeListener(
-                        (preference, newValue) -> {
-                            boolean isChecked = (Boolean) newValue;
-                            if (isChecked) {
-                                final AlertDialog.Builder builder = new AlertDialog.Builder
-                                        (getContext());
-                                builder.setTitle(R.string.break_compilation_dialog_title);
-                                builder.setMessage(R.string.break_compilation_dialog_content);
-                                builder.setNegativeButton(R.string.break_compilation_dialog_cancel,
-                                        (dialog, id) -> dialog.dismiss());
-                                builder.setPositiveButton(R.string
-                                                .break_compilation_dialog_continue,
-                                        (dialog, id) -> {
-                                            prefs.edit()
-                                                    .putBoolean("force_independence", true).apply();
-                                            forceIndependence.setChecked(true);
-                                            Intent i = getContext().getPackageManager()
-                                                    .getLaunchIntentForPackage(getContext()
-                                                            .getPackageName());
-                                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                            startActivity(i);
-                                        });
-                                builder.show();
-                            } else {
-                                prefs.edit().putBoolean("force_independence", false).apply();
-                                forceIndependence.setChecked(false);
-                            }
-                            return false;
-                        });
-            } else {
-                forceIndependence.setChecked(!References.checkThemeInterfacer(getContext()));
-                forceIndependence.setEnabled(References.checkThemeInterfacer(getContext()));
-            }
-            forceIndependence.setVisible(BuildConfig.DEBUG);
-        }
 
         final Preference purgeCache = getPreferenceManager().findPreference("purge_cache");
         purgeCache.setOnPreferenceClickListener(
@@ -562,6 +325,249 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     }
                     return false;
                 });
+
+        // These should run if the app is running in debug mode
+        if (BuildConfig.DEBUG) {
+            final Preference aoptSwitcher = getPreferenceManager().findPreference
+                    ("aopt_switcher");
+            if (prefs.getString("compiler", "aapt").equals("aapt")) {
+                aoptSwitcher.setSummary(R.string.settings_aapt);
+            } else {
+                aoptSwitcher.setSummary(R.string.settings_aopt);
+            }
+            aoptSwitcher.setOnPreferenceClickListener(
+                    preference -> {
+                        SheetDialog sheetDialog =
+                                new SheetDialog(getContext());
+                        View sheetView = View.inflate(getContext(),
+                                R.layout.aopt_sheet_dialog, null);
+
+                        LinearLayout aapt = (LinearLayout) sheetView.findViewById(R.id.aapt);
+                        LinearLayout aopt = (LinearLayout) sheetView.findViewById(R.id.aopt);
+                        aapt.setOnClickListener(v -> {
+                            prefs.edit().remove("compiler").apply();
+                            prefs.edit().putString("compiler", "aapt").apply();
+                            prefs.edit().putBoolean("aopt_debug", false).apply();
+                            aoptSwitcher.setSummary(R.string.settings_aapt);
+                            new AOPTCheck().injectAOPT(getContext(), true);
+                            sheetDialog.hide();
+                        });
+                        aopt.setOnClickListener(v -> {
+                            prefs.edit().remove("compiler").apply();
+                            prefs.edit().putString("compiler", "aopt").apply();
+                            prefs.edit().putBoolean("aopt_debug", true).apply();
+                            aoptSwitcher.setSummary(R.string.settings_aopt);
+                            new AOPTCheck().injectAOPT(getContext(), true);
+                            sheetDialog.hide();
+                        });
+                        sheetDialog.setContentView(sheetView);
+                        sheetDialog.show();
+                        return false;
+                    });
+            aoptSwitcher.setVisible(true);
+
+            final CheckBoxPreference forceIndependence = (CheckBoxPreference)
+                    getPreferenceManager().findPreference("force_independence");
+            if (References.checkThemeInterfacer(getContext())) {
+                forceIndependence.setChecked(prefs.getBoolean("force_independence", false));
+                forceIndependence.setOnPreferenceChangeListener(
+                        (preference, newValue) -> {
+                            boolean isChecked = (Boolean) newValue;
+                            if (isChecked) {
+                                final AlertDialog.Builder builder = new AlertDialog.Builder
+                                        (getContext());
+                                builder.setTitle(R.string.break_compilation_dialog_title);
+                                builder.setMessage(R.string.break_compilation_dialog_content);
+                                builder.setNegativeButton(R.string.break_compilation_dialog_cancel,
+                                        (dialog, id) -> dialog.dismiss());
+                                builder.setPositiveButton(R.string
+                                                .break_compilation_dialog_continue,
+                                        (dialog, id) -> {
+                                            prefs.edit()
+                                                    .putBoolean("force_independence", true).apply();
+                                            forceIndependence.setChecked(true);
+                                            Intent i = getContext().getPackageManager()
+                                                    .getLaunchIntentForPackage(getContext()
+                                                            .getPackageName());
+                                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                            startActivity(i);
+                                        });
+                                builder.show();
+                            } else {
+                                prefs.edit().putBoolean("force_independence", false).apply();
+                                forceIndependence.setChecked(false);
+                            }
+                            return false;
+                        });
+            } else {
+                forceIndependence.setChecked(!References.checkThemeInterfacer(getContext()));
+                forceIndependence.setEnabled(References.checkThemeInterfacer(getContext()));
+            }
+            forceIndependence.setVisible(true);
+        }
+
+        // Finally, these functions will only work on OMS ROMs
+        if (References.checkOMS(getContext())) {
+            Preference aboutInterfacer = getPreferenceManager().findPreference
+                    ("about_interfacer");
+            aboutInterfacer.setIcon(getContext().getDrawable(R.mipmap.restore_launcher));
+            aboutInterfacer.setOnPreferenceClickListener(
+                    preference -> {
+                        try {
+                            String sourceURL = getString(R.string.interfacer_github);
+                            Intent i = new Intent(Intent.ACTION_VIEW);
+                            i.setData(Uri.parse(sourceURL));
+                            startActivity(i);
+                        } catch (ActivityNotFoundException activityNotFoundException) {
+                            //
+                        }
+                        return false;
+                    });
+            try {
+                PackageInfo pInfo = References.getThemeInterfacerPackage(getContext());
+                assert pInfo != null;
+                String versionName = pInfo.versionName;
+                int versionCode = pInfo.versionCode;
+                aboutInterfacer.setSummary(prefs.getBoolean("force_independence", false) ?
+                        getString(R.string.settings_about_interfacer_disconnected) :
+                        versionName + " (" + versionCode + ")");
+            } catch (Exception e) {
+                if (References.isPackageInstalled(getContext(), References.MASQUERADE_PACKAGE)) {
+                    aboutInterfacer.setSummary(
+                            getString(R.string.settings_about_interfacer_masquerade));
+                }
+            }
+
+            final CheckBoxPreference hide_app_checkbox = (CheckBoxPreference)
+                    getPreferenceManager().findPreference("hide_app_checkbox");
+            hide_app_checkbox.setEnabled(false);
+            if (prefs.getBoolean("show_app_icon", true)) {
+                hide_app_checkbox.setChecked(true);
+            } else {
+                hide_app_checkbox.setChecked(false);
+            }
+            if (checkSettingsPackageSupport()) {
+                hide_app_checkbox.setSummary(getString(R.string.hide_app_icon_supported));
+                hide_app_checkbox.setEnabled(true);
+            }
+            hide_app_checkbox.setOnPreferenceChangeListener(
+                    (preference, newValue) -> {
+                        boolean isChecked = (Boolean) newValue;
+                        if (isChecked) {
+                            prefs.edit().putBoolean("show_app_icon", true).apply();
+                            PackageManager p = getContext().getPackageManager();
+                            ComponentName componentName = new ComponentName(getContext(),
+                                    LauncherActivity
+                                            .class);
+                            p.setComponentEnabledSetting(componentName, PackageManager
+                                    .COMPONENT_ENABLED_STATE_ENABLED, PackageManager
+                                    .DONT_KILL_APP);
+                            if (getView() != null) {
+                                Snackbar.make(getView(),
+                                        getString(R.string.hide_app_icon_toast_disabled),
+                                        Snackbar.LENGTH_LONG)
+                                        .show();
+                            }
+                            hide_app_checkbox.setChecked(true);
+                        } else {
+                            prefs.edit().putBoolean("show_app_icon", false).apply();
+                            PackageManager p = getContext().getPackageManager();
+                            ComponentName componentName = new ComponentName(getContext(),
+                                    LauncherActivity.class);
+                            p.setComponentEnabledSetting(componentName, PackageManager
+                                    .COMPONENT_ENABLED_STATE_DISABLED, PackageManager
+                                    .DONT_KILL_APP);
+                            if (getView() != null) {
+                                Snackbar.make(getView(),
+                                        getString(R.string.hide_app_icon_toast_enabled),
+                                        Snackbar.LENGTH_LONG)
+                                        .show();
+                            }
+                            hide_app_checkbox.setChecked(false);
+                        }
+                        return false;
+                    });
+            final CheckBoxPreference systemUIRestart = (CheckBoxPreference)
+                    getPreferenceManager().findPreference("restart_systemui");
+            if (prefs.getBoolean("systemui_recreate", true)) {
+                systemUIRestart.setChecked(true);
+            } else {
+                systemUIRestart.setChecked(false);
+            }
+            systemUIRestart.setOnPreferenceChangeListener(
+                    (preference, newValue) -> {
+                        boolean isChecked = (Boolean) newValue;
+                        if (isChecked) {
+                            prefs.edit().putBoolean("systemui_recreate", true).apply();
+                            if (getView() != null) {
+                                Snackbar.make(getView(),
+                                        getString(R.string.restart_systemui_toast_enabled),
+                                        Snackbar.LENGTH_LONG)
+                                        .show();
+                            }
+                            systemUIRestart.setChecked(true);
+                        } else {
+                            prefs.edit().putBoolean("systemui_recreate", false).apply();
+                            if (getView() != null) {
+                                Snackbar.make(getView(),
+                                        getString(R.string.restart_systemui_toast_disabled),
+                                        Snackbar.LENGTH_LONG)
+                                        .show();
+                            }
+                            systemUIRestart.setChecked(false);
+                        }
+                        return false;
+                    });
+            if (!References.getProp("ro.substratum.recreate").equals("true"))
+                systemUIRestart.setVisible(false);
+
+            final CheckBoxPreference manager_disabled_overlays = (CheckBoxPreference)
+                    getPreferenceManager().findPreference("manager_disabled_overlays");
+            if (prefs.getBoolean("manager_disabled_overlays", true)) {
+                manager_disabled_overlays.setChecked(true);
+            } else {
+                manager_disabled_overlays.setChecked(false);
+            }
+            manager_disabled_overlays.setOnPreferenceChangeListener(
+                    (preference, newValue) -> {
+                        boolean isChecked = (Boolean) newValue;
+                        if (isChecked) {
+                            prefs.edit().putBoolean("manager_disabled_overlays", true).apply();
+                            manager_disabled_overlays.setChecked(true);
+                            return true;
+                        } else {
+                            prefs.edit().putBoolean("manager_disabled_overlays", false).apply();
+                            manager_disabled_overlays.setChecked(false);
+                            return false;
+                        }
+                    });
+            final CheckBoxPreference debugTheme = (CheckBoxPreference)
+                    getPreferenceManager().findPreference("theme_debug");
+            debugTheme.setChecked(prefs.getBoolean("theme_debug", false));
+            debugTheme.setOnPreferenceChangeListener(
+                    (preference, newValue) -> {
+                        boolean isChecked = (Boolean) newValue;
+                        if (isChecked) {
+                            final AlertDialog.Builder builder = new AlertDialog.Builder
+                                    (getContext());
+                            builder.setTitle(R.string.break_compilation_dialog_title);
+                            builder.setMessage(R.string.break_compilation_dialog_content);
+                            builder.setNegativeButton(R.string.break_compilation_dialog_cancel,
+                                    (dialog, id) -> dialog.dismiss());
+                            builder.setPositiveButton(R.string.break_compilation_dialog_continue,
+                                    (dialog, id) -> {
+                                        prefs.edit()
+                                                .putBoolean("theme_debug", true).apply();
+                                        debugTheme.setChecked(true);
+                                    });
+                            builder.show();
+                        } else {
+                            prefs.edit().putBoolean("theme_debug", false).apply();
+                            debugTheme.setChecked(false);
+                        }
+                        return false;
+                    });
+        }
     }
 
     private class deleteCache extends AsyncTask<String, Integer, String> {

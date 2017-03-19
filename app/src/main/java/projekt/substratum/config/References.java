@@ -410,6 +410,7 @@ public class References {
         prefs.edit().putBoolean("force_english", false).apply();
         prefs.edit().putBoolean("floatui_show_android_system_overlays", false).apply();
         prefs.edit().putBoolean("alphabetize_showcase", false).apply();
+        prefs.edit().putBoolean("complexion", true).apply();
         prefs = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
         prefs.edit().putBoolean("is_updating", false).apply();
     }

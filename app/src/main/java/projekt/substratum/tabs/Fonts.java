@@ -53,6 +53,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -144,9 +145,7 @@ public class Fonts extends Fragment {
             themeAssetManager = themeResources.getAssets();
             String[] fileArray = themeAssetManager.list("fonts");
             ArrayList<String> unparsedFonts = new ArrayList<>();
-            for (String file : fileArray) {
-                unparsedFonts.add(file);
-            }
+            Collections.addAll(unparsedFonts, fileArray);
 
             // Creates the list of dropdown items
             ArrayList<String> fonts = new ArrayList<>();
@@ -349,8 +348,7 @@ public class Fonts extends Fragment {
                 // Copy the font.zip from assets/fonts of the theme's assets
                 String source = sUrl[0] + ".zip";
 
-                try (InputStream inputStream = themeAssetManager.open(
-                        "fonts/" + source);
+                try (InputStream inputStream = themeAssetManager.open("fonts/" + source);
                      OutputStream outputStream =
                              new FileOutputStream(getContext().getCacheDir().getAbsolutePath() +
                                      "/FontCache/" + source)) {

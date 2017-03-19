@@ -55,6 +55,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -173,9 +174,7 @@ public class BootAnimations extends Fragment {
             themeAssetManager = themeResources.getAssets();
             String[] fileArray = themeAssetManager.list("bootanimation");
             ArrayList<String> unparsedBootAnimations = new ArrayList<>();
-            for (String file : fileArray) {
-                unparsedBootAnimations.add(file);
-            }
+            Collections.addAll(unparsedBootAnimations, fileArray);
 
             // Creates the list of dropdown items
             ArrayList<String> parsedBootAnimations = new ArrayList<>();
@@ -334,9 +333,9 @@ public class BootAnimations extends Fragment {
             File[] files = f.listFiles();
 
             if (files != null)
-                for (int i = 0; i < files.length; i++) {
+                for (File file1 : files) {
                     frameCount++;
-                    File file = files[i];
+                    File file = file1;
 
                     if (file.isDirectory()) {
                         iterable(file.getAbsolutePath());
@@ -371,8 +370,7 @@ public class BootAnimations extends Fragment {
                 // Copy the bootanimation.zip from assets/bootanimation of the theme's assets
                 String source = sUrl[0] + ".zip";
 
-                try (InputStream inputStream = themeAssetManager.open(
-                        "bootanimation/" + source);
+                try (InputStream inputStream = themeAssetManager.open("bootanimation/" + source);
                      OutputStream outputStream =
                              new FileOutputStream(getContext().getCacheDir().getAbsolutePath() +
                                      "/BootAnimationCache/" + source)) {

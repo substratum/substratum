@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -104,6 +105,8 @@ public class MainActivity extends AppCompatActivity implements
     private SharedPreferences prefs;
     private boolean hideBundle, hideRestartUi;
     private BroadcastReceiver authorizationReceiver;
+    private DialogInterface.OnClickListener dialogClickListener;
+    private AlertDialog.Builder builder;
 
     public static void switchToCustomToolbar(String title, String content) {
         if (supportActionBar != null) supportActionBar.setTitle("");
@@ -859,19 +862,61 @@ public class MainActivity extends AppCompatActivity implements
                     hideFloatingHead();
                 }
                 return true;
+
             case R.id.restart_systemui:
-                ThemeManager.restartSystemUI(getApplicationContext());
+                dialogClickListener = (dialog, which) -> {
+                    switch (which) {
+                        case DialogInterface.BUTTON_POSITIVE:
+                            ThemeManager.restartSystemUI(getApplicationContext());
+                            break;
+                        case DialogInterface.BUTTON_NEGATIVE:
+                            break;
+                    }
+                };
+
+                builder = new AlertDialog.Builder(this);
+                builder.setMessage(getString(R.string.menu_restart_systemui) + "?")
+                        .setPositiveButton(getString(R.string.restore_dialog_okay), dialogClickListener)
+                        .setNegativeButton(getString(R.string.restore_dialog_cancel), dialogClickListener).show();
                 return true;
 
             // Begin RRO based options
             case R.id.reboot_device:
-                prefs.edit().clear().apply();
-                ElevatedCommands.reboot();
+                dialogClickListener = (dialog, which) -> {
+                    switch (which) {
+                        case DialogInterface.BUTTON_POSITIVE:
+                            prefs.edit().clear().apply();
+                            ElevatedCommands.reboot();
+                            break;
+                        case DialogInterface.BUTTON_NEGATIVE:
+                            break;
+                    }
+                };
+
+                builder = new AlertDialog.Builder(this);
+                builder.setMessage(getString(R.string.menu_reboot_device) + "?")
+                        .setPositiveButton(getString(R.string.restore_dialog_okay), dialogClickListener)
+                        .setNegativeButton(getString(R.string.restore_dialog_cancel), dialogClickListener).show();
                 return true;
+
             case R.id.soft_reboot:
-                prefs.edit().clear().apply();
-                ElevatedCommands.softReboot();
+                dialogClickListener = (dialog, which) -> {
+                    switch (which) {
+                        case DialogInterface.BUTTON_POSITIVE:
+                            prefs.edit().clear().apply();
+                            ElevatedCommands.softReboot();
+                            break;
+                        case DialogInterface.BUTTON_NEGATIVE:
+                            break;
+                    }
+                };
+
+                builder = new AlertDialog.Builder(this);
+                builder.setMessage(getString(R.string.menu_soft_reboot) + "?")
+                        .setPositiveButton(getString(R.string.restore_dialog_okay), dialogClickListener)
+                        .setNegativeButton(getString(R.string.restore_dialog_cancel), dialogClickListener).show();
                 return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }

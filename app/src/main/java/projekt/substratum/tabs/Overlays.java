@@ -58,6 +58,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -146,6 +147,7 @@ public class Overlays extends Fragment {
     private FinishReceiver finishReceiver;
     private ArrayList<String> final_command;
     private boolean isWaiting;
+    private RelativeLayout toggleZone;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
@@ -187,28 +189,29 @@ public class Overlays extends Fragment {
                 (buttonView, isChecked) -> {
                     try {
                         overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
-                        if (isChecked) {
-                            for (int i = 0; i < overlaysLists.size(); i++) {
-                                OverlaysInfo currentOverlay = overlaysLists.get(i);
-                                if (!currentOverlay.isSelected()) {
-                                    currentOverlay.setSelected(true);
-                                }
-                                mAdapter.notifyDataSetChanged();
-                            }
-                        } else {
-                            for (int i = 0; i < overlaysLists.size(); i++) {
-                                OverlaysInfo currentOverlay = overlaysLists.get(i);
-                                if (currentOverlay.isSelected()) {
-                                    currentOverlay.setSelected(false);
-                                }
-                            }
+                        for (int i = 0; i < overlaysLists.size(); i++) {
+                            OverlaysInfo currentOverlay = overlaysLists.get(i);
+                            currentOverlay.setSelected(isChecked);
                             mAdapter.notifyDataSetChanged();
                         }
                     } catch (Exception e) {
                         Log.e("Overlays", "Window has lost connection with the host.");
                     }
                 });
-
+        toggleZone = (RelativeLayout) root.findViewById(R.id.toggle_zone);
+        toggleZone.setOnClickListener(v -> {
+            try {
+                toggle_all.setChecked(!toggle_all.isChecked());
+                overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
+                for (int i = 0; i < overlaysLists.size(); i++) {
+                    OverlaysInfo currentOverlay = overlaysLists.get(i);
+                    currentOverlay.setSelected(toggle_all.isChecked());
+                    mAdapter.notifyDataSetChanged();
+                }
+            } catch (Exception e) {
+                Log.e("Overlays", "Window has lost connection with the host.");
+            }
+        });
         swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(() -> {
             swipeRefreshLayout.setRefreshing(false);

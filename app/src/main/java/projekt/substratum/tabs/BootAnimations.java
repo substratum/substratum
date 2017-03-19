@@ -371,14 +371,12 @@ public class BootAnimations extends Fragment {
                 // Copy the bootanimation.zip from assets/bootanimation of the theme's assets
                 String source = sUrl[0] + ".zip";
 
-                try {
-                    try (InputStream inputStream = themeAssetManager.open(
-                            "bootanimation/" + source);
-                         OutputStream outputStream =
-                                 new FileOutputStream(getContext().getCacheDir().getAbsolutePath() +
-                                         "/BootAnimationCache/" + source)) {
-                        CopyStream(inputStream, outputStream);
-                    }
+                try (InputStream inputStream = themeAssetManager.open(
+                        "bootanimation/" + source);
+                     OutputStream outputStream =
+                             new FileOutputStream(getContext().getCacheDir().getAbsolutePath() +
+                                     "/BootAnimationCache/" + source)) {
+                    CopyStream(inputStream, outputStream);
                 } catch (Exception e) {
                     Log.e("BootAnimationUtils",
                             "There is no bootanimation.zip found within the assets of this theme!");

@@ -21,7 +21,9 @@ package projekt.substratum.tabs;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.AssetManager;
 import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -77,6 +79,7 @@ public class Fonts extends Fragment {
     private ProgressDialog mProgressDialog;
     private SharedPreferences prefs;
     private AsyncTask current;
+    private AssetManager themeAssetManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
@@ -135,13 +138,17 @@ public class Fonts extends Fragment {
         );
 
         try {
-            File f = new File(getContext().getCacheDir().getAbsoluteFile() + "/SubstratumBuilder/" +
-                    theme_pid + "/assets/fonts");
-            File[] fileArray = f.listFiles();
+            // Parses the list of items in the fonts folder
+            Resources themeResources = getContext().getPackageManager().getResourcesForApplication
+                    (theme_pid);
+            themeAssetManager = themeResources.getAssets();
+            String[] fileArray = themeAssetManager.list("fonts");
             ArrayList<String> unparsedFonts = new ArrayList<>();
-            for (File file : fileArray) {
-                unparsedFonts.add(file.getName());
+            for (String file : fileArray) {
+                unparsedFonts.add(file);
             }
+
+            // Creates the list of dropdown items
             ArrayList<String> fonts = new ArrayList<>();
             fonts.add(getString(R.string.font_default_spinner));
             fonts.add(getString(R.string.font_spinner_set_defaults));
@@ -342,12 +349,11 @@ public class Fonts extends Fragment {
                 // Copy the font.zip from assets/fonts of the theme's assets
                 String source = sUrl[0] + ".zip";
 
-                try {
-                    File f = new File(getContext().getCacheDir().getAbsoluteFile() +
-                            "/SubstratumBuilder/" + theme_pid + "/assets/fonts/" + source);
-                    InputStream inputStream = new FileInputStream(f);
-                    OutputStream outputStream = new FileOutputStream(
-                            getContext().getCacheDir().getAbsolutePath() + "/FontCache/" + source);
+                try (InputStream inputStream = themeAssetManager.open(
+                        "fonts/" + source);
+                     OutputStream outputStream =
+                             new FileOutputStream(getContext().getCacheDir().getAbsolutePath() +
+                                     "/FontCache/" + source)) {
                     CopyStream(inputStream, outputStream);
                 } catch (Exception e) {
                     Log.e("FontUtils",

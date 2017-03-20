@@ -88,7 +88,6 @@ public class BootAnimations extends Fragment {
     private SharedPreferences prefs;
     private AsyncTask current;
     private NestedScrollView nsv;
-    private int frameCount;
     private AssetManager themeAssetManager;
 
     @Override
@@ -330,20 +329,6 @@ public class BootAnimations extends Fragment {
             }
         }
 
-        private void iterable(String dirPath) {
-            File f = new File(dirPath);
-            File[] files = f.listFiles();
-
-            if (files != null)
-                for (File file1 : files) {
-                    frameCount++;
-
-                    if (file1.isDirectory()) {
-                        iterable(file1.getAbsolutePath());
-                    }
-                }
-        }
-
         @Override
         protected String doInBackground(String... sUrl) {
             try {
@@ -397,17 +382,7 @@ public class BootAnimations extends Fragment {
                     // Then, count all the files in the extraction zone to determine the best size
                     File countFiles = new File(getContext().getCacheDir().getAbsolutePath() +
                             "/BootAnimationCache/animation_preview/");
-                    frameCount = 0;
-                    iterable(countFiles.getAbsolutePath());
-                    if (frameCount >= 400) {
-                        inSampleSize += frameCount / 100;
-                    } else if (frameCount < 400 && frameCount >= 300) {
-                        inSampleSize += 2;
-                    } else if (frameCount < 300 && frameCount >= 200) {
-                        inSampleSize++;
-                    }
-                    Log.d("BootAnimationUtils",
-                            "Bootanimation cache contains " + frameCount + " files!");
+
                     Log.d("BootAnimationUtils",
                             "Resampling bootanimation for preview at scale " + inSampleSize);
 
@@ -477,9 +452,9 @@ public class BootAnimations extends Fragment {
             } else {
                 if (file_size > 5) {
                     if (file_size >= 10) {
-                        return 5;
-                    } else {
                         return 4;
+                    } else {
+                        return 3;
                     }
                 }
             }

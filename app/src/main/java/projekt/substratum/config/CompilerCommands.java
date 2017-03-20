@@ -24,6 +24,8 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import static projekt.substratum.config.References.ENABLE_AOPT_OUTPUT;
+import static projekt.substratum.config.References.ENABLE_CACHING;
 import static projekt.substratum.config.References.SUBSTRATUM_BUILDER;
 import static projekt.substratum.config.References.getDeviceID;
 
@@ -111,6 +113,7 @@ public class CompilerCommands {
                 "</manifest>\n";
     }
 
+    @SuppressWarnings("StringConcatenationInsideStringBufferAppend")
     public static String createAOPTShellCommands(String work_area, String targetPkg,
                                                  String overlay_package, String theme_name,
                                                  boolean legacySwitch, String additional_variant,
@@ -120,37 +123,37 @@ public class CompilerCommands {
         if (aopt_debug) Log.d(SUBSTRATUM_BUILDER,
                 "The AOPT debug flag has been enabled for this session");
 
-        return context.getFilesDir().getAbsolutePath() + "/aopt p " +
+        StringBuilder sb = new StringBuilder();
+        // Initialize the AOPT command
+        sb.append(context.getFilesDir().getAbsolutePath() + "/aopt p ");
+        // Compile with specified manifest
+        sb.append("-M " + work_area + "/AndroidManifest.xml ");
+        // If the user picked a variant (type2), compile multiple directories
+        sb.append(((additional_variant != null) ?
+                "-S " + work_area + "/" + "type2_" + additional_variant + "/ " : ""));
+        // We will compile a volatile directory where we make temporary changes to
+        sb.append("-S " + work_area + ((ENABLE_CACHING) ? "/workdir/ " : noCacheDir + "/ "));
+        // Build upon the system's Android framework
+        sb.append("-I " + "/system/framework/framework-res.apk ");
+        // If running on the AppCompat commits (first run), it will build upon the app too
+        sb.append((legacySwitch) ? "" : "-I " + targetPkg + " ");
+        // Specify the file output directory
+        sb.append("-F " + work_area + "/" + overlay_package + "." + theme_name + "-unsigned.apk ");
+        // Final arguments to conclude the AOPT build
+        if (aopt_debug) {
+            sb.append("-P " + Environment.getExternalStorageDirectory().getAbsolutePath() +
+                    "/.substratum/debug.xml ");
+            sb.append("--app-as-shared-lib ");
+            sb.append("--include-meta-data ");
+            sb.append("--auto-add-overlay ");
+        }
+        if (ENABLE_AOPT_OUTPUT) {
+            sb.append("-v ");
+        }
+        // Overwrite all the files in the internal storage
+        sb.append("-f ");
+        sb.append("\n");
 
-                // Compile with manifest
-                "-M " + work_area + "/AndroidManifest.xml " +
-
-                // If the user picked a variant (type2), compile multiple directories
-                ((additional_variant != null) ?
-                        "-S " + work_area + "/" + "type2_" + additional_variant + "/ " : "") +
-
-                // We will compile a volatile directory where we make temporary changes to
-                "-S " + work_area + ((References.ENABLE_CACHING) ?
-                "/workdir/ " : noCacheDir + "/ ") +
-
-                // Build upon the Android framework
-                "-I " + "/system/framework/framework-res.apk " +
-
-                // If running on the AppCompat commits (first run), it will build upon the app too
-                ((legacySwitch) ? "" : "-I " + targetPkg + " ") +
-
-                // Specify the file output directory
-                "-F " + work_area + "/" + overlay_package + "." + theme_name + "-unsigned.apk " +
-
-                // Final arguments to conclude the AOPT build
-                ((aopt_debug) ?
-                        "--app-as-shared-lib -P " +
-                                Environment.getExternalStorageDirectory().getAbsolutePath() +
-                                "/.substratum/debug.xml " : "") +
-                "-f --include-meta-data --auto-add-overlay " +
-
-                ((References.ENABLE_AOPT_OUTPUT) ? " -v" : "") +
-
-                "\n";
+        return sb.toString();
     }
 }

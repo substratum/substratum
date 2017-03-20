@@ -19,6 +19,7 @@
 package projekt.substratum.tabs;
 
 import android.app.Dialog;
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
@@ -547,8 +548,6 @@ public class Overlays extends Fragment {
                     (theme_pid);
             themeAssetManager = themeResources.getAssets();
             String[] overlayList = themeAssetManager.list("overlays");
-
-            for (String o : overlayList) Log.d("lolol", o);
 
             ArrayList<String> type3 = new ArrayList<>();
             ArrayList<String> stringArray = new ArrayList<>();
@@ -1090,7 +1089,6 @@ public class Overlays extends Fragment {
             // Sort the values list
             List<Pair<String, String>> sortedMap = sortMapByValues(unsortedMap);
 
-            Log.d("lolol-sorted", String.valueOf(sortedMap.size()));
             // Now let's add the new information so that the adapter can recognize custom method
             // calls
             for (Pair<String, String> entry : sortedMap) {
@@ -1455,7 +1453,6 @@ public class Overlays extends Fragment {
                     e.printStackTrace();
                 }
             }
-            Log.d("lolol-values", String.valueOf(values2.size()));
             return null;
         }
     }
@@ -1470,7 +1467,7 @@ public class Overlays extends Fragment {
             if (!enable_mode && !disable_mode) {
                 Log.d("SubstratumBuilder", "Decompiling and initializing work area with the " +
                         "selected theme's assets...");
-                int notification_priority = 2; // PRIORITY_MAX == 2
+                int notification_priority = Notification.PRIORITY_MAX;
 
                 // Create an Intent for the BroadcastReceiver
                 Intent buttonIntent = new Intent(mContext, NotificationButtonReceiver.class);
@@ -1547,7 +1544,7 @@ public class Overlays extends Fragment {
         @Override
         protected String doInBackground(String... sUrl) {
             if (!enable_mode && !disable_mode) {
-                // Initialize Substratum cache with theme
+                // Initialize Substratum cache with theme only if permitted
                 if (!has_initialized_cache && ENABLE_CACHING) {
                     sb = new SubstratumBuilder();
 
@@ -1992,17 +1989,30 @@ public class Overlays extends Fragment {
                         if (checkedOverlays.get(i).is_variant_chosen || sUrl[0].length() != 0) {
                             // Type 1a
                             if (checkedOverlays.get(i).is_variant_chosen1) {
-                                String sourceLocation = workingDirectory + "/type1a_" +
-                                        checkedOverlays.get(i).getSelectedVariantName() + ".xml";
+                                if (References.ENABLE_CACHING) {
+                                    String sourceLocation = workingDirectory + "/type1a_" +
+                                            checkedOverlays.get(i).getSelectedVariantName() +
+                                            ".xml";
 
-                                String targetLocation = workingDirectory +
-                                        "/workdir/values/type1a.xml";
+                                    String targetLocation = workingDirectory +
+                                            "/workdir/values/type1a.xml";
 
-                                Log.d("SubstratumBuilder", "You have selected variant file \"" +
-                                        checkedOverlays.get(i).getSelectedVariantName() + "\"");
-                                Log.d("SubstratumBuilder", "Moving variant file to: " +
-                                        targetLocation);
-                                FileOperations.copy(mContext, sourceLocation, targetLocation);
+                                    Log.d("SubstratumBuilder", "You have selected variant file \"" +
+                                            checkedOverlays.get(i).getSelectedVariantName() + "\"");
+                                    Log.d("SubstratumBuilder", "Moving variant file to: " +
+                                            targetLocation);
+                                    FileOperations.copy(mContext, sourceLocation, targetLocation);
+                                } else {
+                                    Log.d("SubstratumBuilder", "You have selected variant file \"" +
+                                            checkedOverlays.get(i).getSelectedVariantName() + "\"");
+                                    Log.d("SubstratumBuilder", "Moving variant file to: " +
+                                            workingDirectory);
+
+                                    References.copyAsset(themeAssetManager, overlaysDir + "/" +
+                                            current_overlay + "/type1a_" +
+                                            checkedOverlays.get(i).getSelectedVariantName() +
+                                            ".xml", workingDirectory);
+                                }
                             }
 
                             // Type 1b

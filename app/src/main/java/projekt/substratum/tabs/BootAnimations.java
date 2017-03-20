@@ -314,6 +314,8 @@ public class BootAnimations extends Fragment {
                 Log.d("BootAnimationUtils", "Loaded boot animation contains " + images.size() +
                         " frames.");
                 if (bootAnimationSelector.getSelectedItemPosition() > 1) {
+                    Log.d("BootAnimationUtils",
+                            "Displaying bootanimation after render task complete!");
                     bootAnimationPreview.setImageDrawable(animation);
                     animation.start();
                 }
@@ -335,10 +337,9 @@ public class BootAnimations extends Fragment {
             if (files != null)
                 for (File file1 : files) {
                     frameCount++;
-                    File file = file1;
 
-                    if (file.isDirectory()) {
-                        iterable(file.getAbsolutePath());
+                    if (file1.isDirectory()) {
+                        iterable(file1.getAbsolutePath());
                     }
                 }
         }
@@ -411,33 +412,38 @@ public class BootAnimations extends Fragment {
                             "Resampling bootanimation for preview at scale " + inSampleSize);
 
                     // Start working on the bootanimation preview
-                    for (int counter = 0; true; counter++) {
-                        File current_directory = new File(getContext().getCacheDir(),
-                                "/BootAnimationCache/" +
-                                        "animation_preview/part" + counter);
-                        String directory = getContext().getCacheDir().getAbsolutePath() +
-                                "/BootAnimationCache/" +
-                                "animation_preview/part" + counter + "/";
-                        if (current_directory.exists()) {
-                            String[] dirObjects = current_directory.list();
+                    File encompassing_directory = new File(getContext().getCacheDir(),
+                            "/BootAnimationCache/animation_preview/");
+                    String[] folders = encompassing_directory.list();
+                    for (String folder : folders) {
+                        try {
+                            String directory = getContext().getCacheDir().getAbsolutePath() +
+                                    "/BootAnimationCache/" +
+                                    "animation_preview/" + folder + "/";
+                            File current_directory = new File(directory);
+                            if (current_directory.exists()) {
+                                String[] dirObjects = current_directory.list();
 
-                            BitmapFactory.Options opts = new BitmapFactory.Options();
-                            // Disable Dithering mode
-                            opts.inDither = false;
-                            // If need free memory, can be purged
-                            opts.inPurgeable = true;
-                            // Reference to use when trying to recover bitmap data
-                            opts.inInputShareable = true;
-                            // Drop down the resampling size so that all bootanimations work
-                            opts.inSampleSize = inSampleSize;
-                            opts.inTempStorage = new byte[32 * 1024];
+                                BitmapFactory.Options opts = new BitmapFactory.Options();
+                                // Disable Dithering mode
+                                opts.inDither = false;
+                                // If need free memory, can be purged
+                                opts.inPurgeable = true;
+                                // Reference to use when trying to recover bitmap data
+                                opts.inInputShareable = true;
+                                // Drop down the resampling size so that all bootanimations work
+                                opts.inSampleSize = inSampleSize;
+                                opts.inTempStorage = new byte[32 * 1024];
 
-                            for (String string : dirObjects) {
-                                Bitmap bitmap = BitmapFactory.decodeFile(directory + string, opts);
-                                images.add(bitmap);
+                                for (String string : dirObjects) {
+                                    Bitmap bitmap = BitmapFactory.decodeFile(directory +
+                                            string, opts);
+
+                                    images.add(bitmap);
+                                }
                             }
-                        } else {
-                            break;
+                        } catch (Exception e) {
+                            // Suppress warning
                         }
                     }
 
@@ -454,6 +460,7 @@ public class BootAnimations extends Fragment {
                     return "true";
                 }
             } catch (Exception e) {
+                e.printStackTrace();
                 Log.e("BootAnimationUtils",
                         "Unexpectedly lost connection to the application host");
             }

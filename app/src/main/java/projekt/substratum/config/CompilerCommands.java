@@ -114,7 +114,7 @@ public class CompilerCommands {
     public static String createAOPTShellCommands(String work_area, String targetPkg,
                                                  String overlay_package, String theme_name,
                                                  boolean legacySwitch, String additional_variant,
-                                                 Context context) {
+                                                 Context context, String noCacheDir) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         Boolean aopt_debug = prefs.getBoolean("aopt_debug", false);
         if (aopt_debug) Log.d(SUBSTRATUM_BUILDER,
@@ -130,7 +130,8 @@ public class CompilerCommands {
                         "-S " + work_area + "/" + "type2_" + additional_variant + "/ " : "") +
 
                 // We will compile a volatile directory where we make temporary changes to
-                "-S " + work_area + "/workdir/ " +
+                "-S " + work_area + ((References.ENABLE_CACHING) ?
+                "/workdir/ " : noCacheDir + "/ ") +
 
                 // Build upon the Android framework
                 "-I " + "/system/framework/framework-res.apk " +

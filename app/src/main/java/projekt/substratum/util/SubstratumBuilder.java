@@ -67,7 +67,8 @@ public class SubstratumBuilder {
     private String processAOPTCommands(String work_area, String targetPkg,
                                        String theme_name, String overlay_package,
                                        String variant, String additional_variant,
-                                       int typeMode, boolean legacySwitch, Context context) {
+                                       int typeMode, boolean legacySwitch,
+                                       Context context, String no_cache_dir) {
         String commands;
         if (typeMode == 1) {
             commands = CompilerCommands.createAOPTShellCommands(
@@ -77,7 +78,8 @@ public class SubstratumBuilder {
                     theme_name,
                     legacySwitch,
                     null,
-                    context);
+                    context,
+                    no_cache_dir);
         } else {
             if (variant != null) {
                 commands = CompilerCommands.createAOPTShellCommands(
@@ -87,7 +89,8 @@ public class SubstratumBuilder {
                         theme_name,
                         legacySwitch,
                         additional_variant,
-                        context);
+                        context,
+                        no_cache_dir);
             } else {
                 commands = CompilerCommands.createAOPTShellCommands(
                         work_area,
@@ -96,9 +99,11 @@ public class SubstratumBuilder {
                         theme_name,
                         legacySwitch,
                         null,
-                        context);
+                        context,
+                        no_cache_dir);
             }
         }
+        Log.e("Commands", commands);
         return commands;
     }
 
@@ -106,7 +111,8 @@ public class SubstratumBuilder {
                                      String targetPkg, String theme_name,
                                      String overlay_package, String variant,
                                      String additional_variant, int typeMode,
-                                     boolean legacySwitch, Context context) {
+                                     boolean legacySwitch, Context context,
+                                     String no_cache_dir) {
         Process nativeApp = null;
         try {
             String line;
@@ -126,14 +132,13 @@ public class SubstratumBuilder {
                                             "style, now falling back to legacy compiler...");
                             String new_commands = processAOPTCommands(work_area, targetPkg,
                                     theme_name, overlay_package, variant, additional_variant,
-                                    typeMode, true, context);
+                                    typeMode, true, context, no_cache_dir);
                             return runShellCommands(
                                     new_commands, work_area, targetPkg, theme_name,
                                     overlay_package, variant, additional_variant, typeMode,
-                                    true, context);
+                                    true, context, no_cache_dir);
                         } else {
-                            dumpErrorLogs(
-                                    References.SUBSTRATUM_BUILDER, overlay_package, line);
+                            dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package, line);
                             errored = true;
                         }
                     }
@@ -177,7 +182,7 @@ public class SubstratumBuilder {
     public void beginAction(Context context, String theme_pid, String overlay_package, String
             theme_name, String variant, String additional_variant,
                             String base_variant, String versionName, Boolean theme_oms, String
-                                    theme_parent) {
+                                    theme_parent, String no_cache_dir) {
         has_errored_out = false;
 
         debug = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("theme_debug",
@@ -190,9 +195,13 @@ public class SubstratumBuilder {
         }
 
         // 2. Set work area to asset chosen based on the parameter passed into this class
-
-        String work_area = context.getCacheDir().getAbsolutePath() + "/SubstratumBuilder/" +
-                theme_pid + "/assets/overlays/" + overlay_package;
+        String work_area;
+        if (References.ENABLE_CACHING) {
+            work_area = context.getCacheDir().getAbsolutePath() + "/SubstratumBuilder/" +
+                    theme_pid + "/assets/overlays/" + overlay_package;
+        } else {
+            work_area = context.getCacheDir().getAbsolutePath() + "/SubstratumBuilder";
+        }
 
         if (!theme_oms) {
             File check_legacy = new File(context.getCacheDir().getAbsolutePath() +
@@ -360,11 +369,12 @@ public class SubstratumBuilder {
                     additional_variant,
                     typeMode,
                     false,
-                    context);
+                    context,
+                    no_cache_dir);
 
             has_errored_out = !runShellCommands(
                     commands, work_area, targetPkg, parse2_themeName, overlay_package,
-                    variant, additional_variant, typeMode, false, context);
+                    variant, additional_variant, typeMode, false, context, no_cache_dir);
         }
 
         // 7. Sign the apk

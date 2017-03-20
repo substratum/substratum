@@ -152,7 +152,6 @@ public class Overlays extends Fragment {
     private FinishReceiver finishReceiver;
     private ArrayList<String> final_command;
     private boolean isWaiting;
-    private RelativeLayout toggleZone;
     private AssetManager themeAssetManager;
 
     @Override
@@ -204,7 +203,7 @@ public class Overlays extends Fragment {
                         Log.e("Overlays", "Window has lost connection with the host.");
                     }
                 });
-        toggleZone = (RelativeLayout) root.findViewById(R.id.toggle_zone);
+        RelativeLayout toggleZone = (RelativeLayout) root.findViewById(R.id.toggle_zone);
         toggleZone.setOnClickListener(v -> {
             try {
                 toggle_all.setChecked(!toggle_all.isChecked());
@@ -1549,7 +1548,7 @@ public class Overlays extends Fragment {
         protected String doInBackground(String... sUrl) {
             if (!enable_mode && !disable_mode) {
                 // Initialize Substratum cache with theme
-                if (!has_initialized_cache) {
+                if (!has_initialized_cache && ENABLE_CACHING) {
                     sb = new SubstratumBuilder();
 
                     File versioning = new File(mContext.getCacheDir().getAbsoluteFile() +
@@ -1967,14 +1966,28 @@ public class Overlays extends Fragment {
                                 workingDirectory = check_legacy.getAbsolutePath();
                             }
                         }
-
                         File srcDir = new File(workingDirectory +
                                 ((sUrl[0].length() != 0) ? "/type3_" + sUrl[0] : "/res"));
                         File destDir = new File(workingDirectory + "/workdir");
                         if (destDir.exists()) {
                             FileOperations.delete(mContext, destDir.getAbsolutePath());
                         }
-                        FileUtils.copyDirectory(srcDir, destDir);
+                        String suffix = ((sUrl[0].length() != 0) ? "/type3_" + sUrl[0] : "/res");
+                        if (References.ENABLE_CACHING) {
+                            FileUtils.copyDirectory(srcDir, destDir);
+                        } else {
+                            workingDirectory = mContext.getCacheDir().getAbsolutePath() +
+                                    "/SubstratumBuilder" + suffix;
+                            File created = new File(workingDirectory);
+                            if (created.exists()) {
+                                FileOperations.delete(mContext, created.getAbsolutePath());
+                                FileOperations.createNewFolder(mContext, created.getAbsolutePath());
+                            } else {
+                                FileOperations.createNewFolder(mContext, created.getAbsolutePath());
+                            }
+                            References.copyAssetFolder(themeAssetManager, overlaysDir + "/" +
+                                    current_overlay + suffix, workingDirectory);
+                        }
 
                         if (checkedOverlays.get(i).is_variant_chosen || sUrl[0].length() != 0) {
                             // Type 1a
@@ -2052,7 +2065,8 @@ public class Overlays extends Fragment {
                                             sUrl[0],
                                             versionName,
                                             References.checkOMS(mContext),
-                                            theme_pid);
+                                            theme_pid,
+                                            suffix);
                                 } else {
                                     sb = new SubstratumBuilder();
                                     sb.beginAction(mContext, theme_pid, current_overlay,
@@ -2062,7 +2076,8 @@ public class Overlays extends Fragment {
                                             null,
                                             versionName,
                                             References.checkOMS(mContext),
-                                            theme_pid);
+                                            theme_pid,
+                                            suffix);
                                 }
                             } else {
                                 Log.d("PackageProcessor", "Currently processing package" +
@@ -2078,7 +2093,8 @@ public class Overlays extends Fragment {
                                             sUrl[0],
                                             versionName,
                                             References.checkOMS(mContext),
-                                            theme_pid);
+                                            theme_pid,
+                                            suffix);
                                 } else {
                                     sb = new SubstratumBuilder();
                                     sb.beginAction(mContext, theme_pid, current_overlay,
@@ -2088,7 +2104,8 @@ public class Overlays extends Fragment {
                                             null,
                                             versionName,
                                             References.checkOMS(mContext),
-                                            theme_pid);
+                                            theme_pid,
+                                            suffix);
                                 }
                             }
                             if (sb.has_errored_out) {
@@ -2127,7 +2144,8 @@ public class Overlays extends Fragment {
                                     null,
                                     versionName,
                                     References.checkOMS(mContext),
-                                    theme_pid);
+                                    theme_pid,
+                                    suffix);
 
                             if (sb.has_errored_out) {
                                 fail_count += 1;

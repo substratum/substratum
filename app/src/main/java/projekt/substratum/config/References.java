@@ -70,6 +70,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -143,50 +144,6 @@ public class References {
     private static String metadataThemeReady = "Substratum_ThemeReady";
     private static String resourceChangelog = "ThemeChangelog";
 
-    public static boolean copyAssetFolder(AssetManager assetManager, String source,
-                                          String destination) {
-        try {
-            String[] list = assetManager.list(source);
-            boolean result = true;
-            for (String file : list)
-                if (new File(file).isFile()) {
-                    result &= copyAsset(assetManager,
-                            source + "/" + file,
-                            destination + "/" + file);
-                } else {
-                    result &= copyAssetFolder(assetManager,
-                            source + "/" + file,
-                            destination + "/" + file);
-                }
-            return result;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    public static boolean copyAsset(AssetManager assetManager, String source, String destination) {
-        try {
-            InputStream in = assetManager.open(source);
-            OutputStream out = new FileOutputStream(destination);
-
-            // copy file
-            byte[] buffer = new byte[8192];
-            int read;
-            while((read = in.read(buffer)) != -1){
-                out.write(buffer, 0, read);
-            }
-
-            in.close();
-            out.flush();
-            out.close();
-            return true;
-        } catch(Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
     public static void createShortcut(Context context, String theme_pid, String theme_name) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
             ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
@@ -209,7 +166,7 @@ public class References {
                                 .setIcon(Icon.createWithBitmap(app_icon))
                                 .setIntent(myIntent)
                                 .build();
-                shortcutManager.setDynamicShortcuts(Arrays.asList(shortcut));
+                shortcutManager.setDynamicShortcuts(Collections.singletonList(shortcut));
                 Log.d(SUBSTRATUM_LOG, "Successfully added dynamic app shortcut!");
             } catch (Exception e) {
                 e.printStackTrace();

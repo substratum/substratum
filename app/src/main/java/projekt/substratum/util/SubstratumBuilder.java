@@ -103,7 +103,6 @@ public class SubstratumBuilder {
                         no_cache_dir);
             }
         }
-        Log.e("Commands", commands);
         return commands;
     }
 
@@ -179,10 +178,10 @@ public class SubstratumBuilder {
     }
 
     @SuppressWarnings("ConstantConditions")
-    public void beginAction(Context context, String theme_pid, String overlay_package, String
+    public boolean beginAction(Context context, String theme_pid, String overlay_package, String
             theme_name, String variant, String additional_variant,
-                            String base_variant, String versionName, Boolean theme_oms, String
-                                    theme_parent, String no_cache_dir) {
+                               String base_variant, String versionName, Boolean theme_oms, String
+                                       theme_parent, String no_cache_dir) {
         has_errored_out = false;
 
         debug = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("theme_debug",
@@ -516,5 +515,13 @@ public class SubstratumBuilder {
                 FileOperations.mountRO();
             }
         }
+        // Finally, clean this compilation code's cache
+        String workingDirectory = context.getCacheDir().getAbsolutePath() + "/SubstratumBuilder/";
+        File deleted = new File(workingDirectory);
+        FileOperations.delete(context, deleted.getAbsolutePath());
+        if (!deleted.exists()) Log.d(References.SUBSTRATUM_BUILDER,
+                "Successfully cleared compilation cache!");
+
+        return !has_errored_out;
     }
 }

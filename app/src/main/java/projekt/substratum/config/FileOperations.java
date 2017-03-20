@@ -19,6 +19,7 @@
 package projekt.substratum.config;
 
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.os.Environment;
 import android.util.Log;
 
@@ -27,8 +28,11 @@ import org.apache.commons.io.FileUtils;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 
 import projekt.substratum.util.Root;
 
@@ -41,6 +45,7 @@ public class FileOperations {
     private static final String CREATE_LOG = "SubstratumCreate";
     private static final String DELETE_LOG = "SubstratumDelete";
     private static final String MOVE_LOG = "SubstratumMove";
+    private static final String DA_LOG = "DirectAssets";
 
     static void adjustContentProvider(final String uri,
                                       final String topic, final String fileName) {
@@ -364,5 +369,71 @@ public class FileOperations {
             Root.runCommand("mv -f " + source + " " + destination);
         }
         Log.d(MOVE_LOG, "Operation " + (!in.exists() && out.exists() ? "succeeded" : "failed"));
+    }
+
+    /**
+     * DirectAssets Mode Functions
+     *
+     * @param assetManager take the asset manager context from the theme package
+     * @param listDir      the expected list directory inside the assets folder
+     * @param destination  output directory on where we should be caching
+     * @param remember     should be the same as listDir, so we strip out the unnecessary prefix
+     *                     so it
+     *                     only extracts to a specified folder without the asset manager's list
+     *                     structure.
+     */
+    public static boolean copyFileOrDir(AssetManager assetManager, String listDir,
+                                        String destination, String remember) {
+        String assets[];
+        try {
+            assets = assetManager.list(listDir);
+            if (assets.length == 0) {
+                // When asset[] is empty, it is not iterable, hence it is a file
+                Log.d(DA_LOG, "This is a file object, directly copying...");
+                boolean copied = copyFile(assetManager, listDir, destination, remember);
+                Log.d(DA_LOG, "File operation status: " +
+                        ((copied) ? "Success!" : "Failed"));
+            } else {
+                // This will be a folder if the size is greater than 0
+                String fullPath = destination + "/" + listDir.substring(remember.length());
+                File dir = new File(fullPath);
+                if (!dir.exists()) {
+                    Log.d(DA_LOG, "Attempting to copy: " + dir.getAbsolutePath() + "/");
+                    Log.d(DA_LOG, "File operation status: " +
+                            ((dir.mkdir()) ? "Success!" : "Failed"));
+                }
+                for (String asset : assets) {
+                    copyFileOrDir(assetManager, listDir + "/" + asset, destination, remember);
+                }
+            }
+            return true;
+        } catch (IOException ex) {
+            Log.e(DA_LOG, "An IOException has been reached..." + ex.getMessage());
+        }
+        return false;
+    }
+
+    private static boolean copyFile(AssetManager assetManager, String filename,
+                                    String destination, String remember) {
+        InputStream inputStream;
+        OutputStream outputStream;
+        try {
+            inputStream = assetManager.open(filename);
+            String destinationFile = destination + "/" + filename.substring(remember.length());
+            outputStream = new FileOutputStream(destinationFile);
+
+            byte[] buffer = new byte[1024];
+            int read;
+            while ((read = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, read);
+            }
+            inputStream.close();
+            outputStream.flush();
+            outputStream.close();
+            return true;
+        } catch (Exception e) {
+            Log.e(DA_LOG, "An Exception has been reached..." + e.getMessage());
+        }
+        return false;
     }
 }

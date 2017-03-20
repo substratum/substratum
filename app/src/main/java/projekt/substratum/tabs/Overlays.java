@@ -1974,7 +1974,7 @@ public class Overlays extends Fragment {
                             FileUtils.copyDirectory(srcDir, destDir);
                         } else {
                             workingDirectory = mContext.getCacheDir().getAbsolutePath() +
-                                    "/SubstratumBuilder" + suffix;
+                                    "/SubstratumBuilder";
                             File created = new File(workingDirectory);
                             if (created.exists()) {
                                 FileOperations.delete(mContext, created.getAbsolutePath());
@@ -1982,8 +1982,9 @@ public class Overlays extends Fragment {
                             } else {
                                 FileOperations.createNewFolder(mContext, created.getAbsolutePath());
                             }
-                            References.copyAssetFolder(themeAssetManager, overlaysDir + "/" +
-                                    current_overlay + suffix, workingDirectory);
+                            String listDir = overlaysDir + "/" + current_overlay;
+                            FileOperations.copyFileOrDir(themeAssetManager,
+                                    listDir, workingDirectory, listDir);
                         }
 
                         if (checkedOverlays.get(i).is_variant_chosen || sUrl[0].length() != 0) {
@@ -2006,43 +2007,85 @@ public class Overlays extends Fragment {
                                     Log.d("SubstratumBuilder", "You have selected variant file \"" +
                                             checkedOverlays.get(i).getSelectedVariantName() + "\"");
                                     Log.d("SubstratumBuilder", "Moving variant file to: " +
-                                            workingDirectory);
+                                            workingDirectory + "/res/values/type1a.xml");
 
-                                    References.copyAsset(themeAssetManager, overlaysDir + "/" +
-                                            current_overlay + "/type1a_" +
+                                    String to_copy = overlaysDir +
+                                            "/" +
+                                            current_overlay +
+                                            "/type1a_" +
                                             checkedOverlays.get(i).getSelectedVariantName() +
-                                            ".xml", workingDirectory);
+                                            ".xml";
+                                    FileOperations.copyFileOrDir(themeAssetManager, to_copy,
+                                            workingDirectory + "/res/values/type1a.xml", to_copy);
                                 }
                             }
 
                             // Type 1b
                             if (checkedOverlays.get(i).is_variant_chosen2) {
-                                String sourceLocation2 = workingDirectory + "/type1b_" +
-                                        checkedOverlays.get(i).getSelectedVariantName2() + ".xml";
+                                if (ENABLE_CACHING) {
+                                    String sourceLocation2 = workingDirectory + "/type1b_" +
+                                            checkedOverlays.get(i).getSelectedVariantName2() +
+                                            ".xml";
 
-                                String targetLocation2 = workingDirectory +
-                                        "/workdir/values/type1b.xml";
+                                    String targetLocation2 = workingDirectory +
+                                            "/workdir/values/type1b.xml";
 
-                                Log.d("SubstratumBuilder", "You have selected variant file \"" +
-                                        checkedOverlays.get(i).getSelectedVariantName2() + "\"");
-                                Log.d("SubstratumBuilder", "Moving variant file to: " +
-                                        targetLocation2);
-                                FileOperations.copy(mContext, sourceLocation2, targetLocation2);
+                                    Log.d("SubstratumBuilder", "You have selected variant file \"" +
+                                            checkedOverlays.get(i).getSelectedVariantName2() +
+                                            "\"");
+                                    Log.d("SubstratumBuilder", "Moving variant file to: " +
+                                            targetLocation2);
+                                    FileOperations.copy(mContext, sourceLocation2, targetLocation2);
+                                } else {
+                                    Log.d("SubstratumBuilder", "You have selected variant file \"" +
+                                            checkedOverlays.get(i)
+                                                    .getSelectedVariantName2() + "\"");
+                                    Log.d("SubstratumBuilder", "Moving variant file to: " +
+                                            workingDirectory + "/res/values/type1b.xml");
+
+                                    String to_copy = overlaysDir +
+                                            "/" +
+                                            current_overlay +
+                                            "/type1b_" +
+                                            checkedOverlays.get(i).getSelectedVariantName2() +
+                                            ".xml";
+                                    FileOperations.copyFileOrDir(themeAssetManager, to_copy,
+                                            workingDirectory + "/res/values/type1b.xml", to_copy);
+                                }
                             }
                             // Type 1c
                             if (checkedOverlays.get(i).is_variant_chosen3) {
-                                String sourceLocation3 = workingDirectory + "/type1c_" +
-                                        checkedOverlays.get(i).getSelectedVariantName3() + ".xml";
+                                if (ENABLE_CACHING) {
+                                    String sourceLocation3 = workingDirectory + "/type1c_" +
+                                            checkedOverlays.get(i).getSelectedVariantName3() +
+                                            ".xml";
 
-                                String targetLocation3 = workingDirectory +
-                                        "/workdir/values/type1c.xml";
+                                    String targetLocation3 = workingDirectory +
+                                            "/workdir/values/type1c.xml";
 
-                                Log.d("SubstratumBuilder", "You have selected variant file \"" +
-                                        checkedOverlays.get(i).getSelectedVariantName3() + "\"");
-                                Log.d("SubstratumBuilder", "Moving variant file to: " +
-                                        targetLocation3);
+                                    Log.d("SubstratumBuilder", "You have selected variant file \"" +
+                                            checkedOverlays.get(i).getSelectedVariantName3() +
+                                            "\"");
+                                    Log.d("SubstratumBuilder", "Moving variant file to: " +
+                                            targetLocation3);
 
-                                FileOperations.copy(mContext, sourceLocation3, targetLocation3);
+                                    FileOperations.copy(mContext, sourceLocation3, targetLocation3);
+                                } else {
+                                    Log.d("SubstratumBuilder", "You have selected variant file \"" +
+                                            checkedOverlays.get(i)
+                                                    .getSelectedVariantName3() + "\"");
+                                    Log.d("SubstratumBuilder", "Moving variant file to: " +
+                                            workingDirectory + "/res/values/type1c.xml");
+
+                                    String to_copy = overlaysDir +
+                                            "/" +
+                                            current_overlay +
+                                            "/type1c_" +
+                                            checkedOverlays.get(i).getSelectedVariantName3() +
+                                            ".xml";
+                                    FileOperations.copyFileOrDir(themeAssetManager, to_copy,
+                                            workingDirectory + "/res/values/type1c.xml", to_copy);
+                                }
                             }
 
                             String packageName =

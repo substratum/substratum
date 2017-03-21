@@ -118,9 +118,11 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         systemPlatform = getPreferenceManager().findPreference
                 ("system_platform");
 
-        new checkROMSupportList().execute(
-                getString(R.string.supported_roms_url),
-                "supported_roms.xml");
+        if (References.checkOMS(getContext())) {
+            new checkROMSupportList().execute(
+                    getString(R.string.supported_roms_url),
+                    "supported_roms.xml");
+        }
 
         platformSummary = new StringBuilder();
         platformSummary.append(getString(R.string.android) + " " + References.getProp("ro.build" +
@@ -141,7 +143,10 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 References.checkSubstratumFeature(getContext());
         boolean interfacer = References.checkThemeInterfacer(getContext());
         boolean verified = prefs.getBoolean("complexion", true);
-        boolean certified = verified && full_oms;
+        boolean certified = verified;
+        if (References.checkOMS(getContext())) {
+            certified = verified && full_oms;
+        }
 
         systemStatus.setSummary((interfacer
                 ? getString(R.string.settings_system_status_rootless)
@@ -418,11 +423,11 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                             }
                             return false;
                         });
-            } else {
+            } else if (References.checkOMS(getContext())) {
                 forceIndependence.setChecked(!References.checkThemeInterfacer(getContext()));
                 forceIndependence.setEnabled(References.checkThemeInterfacer(getContext()));
+                forceIndependence.setVisible(true);
             }
-            forceIndependence.setVisible(true);
         }
 
         // Finally, these functions will only work on OMS ROMs

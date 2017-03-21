@@ -89,6 +89,7 @@ public class References {
     public static final Boolean ENABLE_ROOT_CHECK = true;
     public static final Boolean ENABLE_AOPT_OUTPUT = false; // WARNING, DEVELOPERS - BREAKS COMPILE
     public static final Boolean ENABLE_CACHING = false;
+    public static final Boolean BYPASS_ALL_VERSION_CHECKS = false; // For developer previews only!
     public static final String SUBSTRATUM_BUILDER = "SubstratumBuilder";
     public static final String SUBSTRATUM_LOG = "SubstratumLogger";
     public static final String SUBSTRATUM_ICON_BUILDER = "SubstratumIconBuilder";
@@ -299,11 +300,15 @@ public class References {
 
     // This method is used to determine whether there the system is initiated with OMS
     public static Boolean checkOMS(Context context) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        if (!prefs.contains("oms_state")) {
-            setAndCheckOMS(context);
+        if (!BYPASS_ALL_VERSION_CHECKS) {
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            if (!prefs.contains("oms_state")) {
+                setAndCheckOMS(context);
+            }
+            return prefs.getBoolean("oms_state", false);
+        } else {
+            return false;
         }
-        return prefs.getBoolean("oms_state", false);
     }
 
     public static void setAndCheckOMS(Context context) {

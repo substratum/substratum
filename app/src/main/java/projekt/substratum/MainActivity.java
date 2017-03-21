@@ -98,6 +98,7 @@ import projekt.substratum.services.SubstratumFloatInterface;
 import projekt.substratum.util.Root;
 import projekt.substratum.util.SheetDialog;
 
+import static projekt.substratum.config.References.BYPASS_ALL_VERSION_CHECKS;
 import static projekt.substratum.config.References.ENABLE_ROOT_CHECK;
 import static projekt.substratum.config.References.INTERFACER_PACKAGE;
 import static projekt.substratum.config.References.SUBSTRATUM_LOG;
@@ -1217,7 +1218,7 @@ public class MainActivity extends AppCompatActivity implements
 
         @Override
         protected void onPostExecute(Boolean result) {
-            if (!result && ENABLE_ROOT_CHECK &&
+            if (!result && ENABLE_ROOT_CHECK && !BYPASS_ALL_VERSION_CHECKS &&
                     !References.checkThemeInterfacer(getApplicationContext())) {
                 mProgressDialog.setCancelable(false);
                 mProgressDialog.show();

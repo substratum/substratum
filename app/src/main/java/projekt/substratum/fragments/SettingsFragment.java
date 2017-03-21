@@ -778,6 +778,45 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         }
                     }
                 }
+
+                // If it's still not showing up in ro.ROM.name, check ro.ROM.device
+                if (!supported) {
+                    for (int i = 0; i < listOfRoms.size(); i++) {
+                        Process process3 = Runtime.getRuntime().exec(
+                                "getprop ro." + listOfRoms.get(i) + ".device");
+                        BufferedReader reader3 = new BufferedReader(
+                                new InputStreamReader(process3.getInputStream()));
+                        String line3;
+                        while ((line3 = reader3.readLine()) != null) {
+                            if (line3.length() > 0) {
+                                Log.d(References.SUBSTRATUM_LOG, "Supported ROM (3): " +
+                                        listOfRoms.get(i));
+                                supported_rom = listOfRoms.get(i);
+                                supported = true;
+                            }
+                            if (supported) break;
+                        }
+                    }
+                }
+
+                // Last case scenario, check the whole build prop
+                if (!supported) {
+                    for (int i = 0; i < listOfRoms.size(); i++) {
+                        Process process4 = Runtime.getRuntime().exec("getprop");
+                        BufferedReader reader4 = new BufferedReader(
+                                new InputStreamReader(process4.getInputStream()));
+                        String line4;
+                        while ((line4 = reader4.readLine()) != null) {
+                            if (line4.length() > 0) {
+                                Log.d(References.SUBSTRATUM_LOG, "Supported ROM (4): " +
+                                        listOfRoms.get(i));
+                                supported_rom = listOfRoms.get(i);
+                                supported = true;
+                            }
+                            if (supported) break;
+                        }
+                    }
+                }
                 reader.close();
                 return supported_rom;
             } catch (Exception e) {

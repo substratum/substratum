@@ -444,6 +444,11 @@ public class AdvancedManagerFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             progressBar.setVisibility(View.VISIBLE);
+            mRecyclerView.setHasFixedSize(true);
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+            ArrayList<OverlayManager> empty_array = new ArrayList<>();
+            RecyclerView.Adapter empty_adapter = new OverlayManagerAdapter(empty_array);
+            mRecyclerView.setAdapter(empty_adapter);
         }
 
         @Override

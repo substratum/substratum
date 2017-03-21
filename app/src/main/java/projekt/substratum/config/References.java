@@ -144,6 +144,8 @@ public class References {
     private static String metadataThemeReady = "Substratum_ThemeReady";
     private static String resourceChangelog = "ThemeChangelog";
 
+    private Context mContext; // Used for support checker
+
     public static void createShortcut(Context context, String theme_pid, String theme_name) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
             ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
@@ -1494,21 +1496,5 @@ public class References {
             launch = new CacheCreator().initializeCache(mContext, theme_package);
             return null;
         }
-    }
-
-    // This method is used to determine whether a ROM is supported or not
-    public static Boolean checkROMsupport() {
-        return Build.PRODUCT.contains("abc") || Build.PRODUCT.contains("aicp") || Build.PRODUCT.contains("aex") || Build.PRODUCT.contains("aosip") ||
-                Build.PRODUCT.contains("beltz") || Build.PRODUCT.contains("benzo") || Build.PRODUCT.contains("broken") || Build.PRODUCT.contains("bliss") ||
-                Build.PRODUCT.contains("carbon") || Build.PRODUCT.contains("crdroid") || Build.PRODUCT.contains("citrus") || Build.PRODUCT.contains("cosmic") ||
-                Build.PRODUCT.contains("darkness") || Build.PRODUCT.contains("desolation") || Build.PRODUCT.contains("du") || Build.PRODUCT.contains("hazy") ||
-                Build.PRODUCT.contains("exodus") || Build.PRODUCT.contains("firehound") || Build.PRODUCT.contains("flash") || Build.PRODUCT.contains("xos") ||
-                Build.PRODUCT.contains("krexus") || Build.PRODUCT.contains("legend") || Build.PRODUCT.contains("liquid") || Build.PRODUCT.contains("maple") ||
-                Build.PRODUCT.contains("nitrogen") || Build.PRODUCT.contains("noob") || Build.PRODUCT.contains("nuclear") || Build.PRODUCT.contains("omni") ||
-                Build.PRODUCT.contains("pa") || Build.PRODUCT.contains("pn") || Build.PRODUCT.contains("rr") || Build.PRODUCT.contains("saosp") ||
-                Build.PRODUCT.contains("screw") || Build.PRODUCT.contains("tesla") || Build.PRODUCT.contains("tipsy") || Build.PRODUCT.contains("tuga") ||
-                Build.PRODUCT.contains("twisted") || Build.PRODUCT.contains("uberroms") || Build.PRODUCT.contains("validus") || Build.PRODUCT.contains("vanilla") ||
-                Build.PRODUCT.contains("vanir") || Build.PRODUCT.contains("velvet") || Build.PRODUCT.contains("vertex") || Build.PRODUCT.contains("xperience") ||
-                Build.PRODUCT.contains("yaosp") || Build.PRODUCT.contains("zephyr");
     }
 }

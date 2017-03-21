@@ -42,18 +42,30 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
 
 import projekt.substratum.BuildConfig;
 import projekt.substratum.LauncherActivity;
 import projekt.substratum.R;
 import projekt.substratum.config.References;
 import projekt.substratum.util.AOPTCheck;
+import projekt.substratum.util.ReadSupportedROMsFile;
 import projekt.substratum.util.SheetDialog;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
 
     private ProgressDialog mProgressDialog;
+    private StringBuilder platformSummary;
+    private Preference systemPlatform;
 
     private boolean checkSettingsPackageSupport() {
         try {
@@ -69,6 +81,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         return false;
     }
 
+    @SuppressWarnings("StringConcatenationInsideStringBufferAppend")
     @Override
     public void onCreatePreferences(Bundle bundle, String s) {
         if (References.checkOMS(getContext())) {
@@ -102,21 +115,24 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     return false;
                 });
 
-        Preference systemPlatform = getPreferenceManager().findPreference
+        systemPlatform = getPreferenceManager().findPreference
                 ("system_platform");
-        systemPlatform.setSummary(
-                getString(R.string.android) + " " + References.getProp("ro.build.version.release") +
-                        " (" + Build.ID + ")\n" +
-                        getString(R.string.device) + " " + Build.MODEL + " (" + Build.DEVICE + ")" + "\n" +
-                        getString(R.string.settings_about_oms_rro_version) + " " +
-                        ((References.checkOMS(getContext())) ?
-                                getString(R.string.settings_about_oms_version_7) :
-                                getString(R.string.settings_about_rro_version_2)) + "\n" +
-                        getString(R.string.rom_status) + " " +
-                        ((References.checkROMsupport()) ?
-                                getString(R.string.rom_status_supported) :
-                                getString(R.string.rom_status_unsupported))
-        );
+
+        new checkROMSupportList().execute(
+                "https://raw.githubusercontent.com/substratum/database/master/supported_roms.xml",
+                "supported_roms.xml");
+
+        platformSummary = new StringBuilder();
+        platformSummary.append(getString(R.string.android) + " " + References.getProp("ro.build" +
+                ".version.release"));
+        platformSummary.append(" (" + Build.ID + ")\n");
+        platformSummary.append(getString(R.string.device) + " " + Build.MODEL + " (" + Build
+                .DEVICE + ")" + "\n");
+        platformSummary.append(getString(R.string.settings_about_oms_rro_version) + " ");
+        platformSummary.append(((References.checkOMS(getContext())) ?
+                getString(R.string.settings_about_oms_version_7) :
+                getString(R.string.settings_about_rro_version_2)) + "\n");
+        systemPlatform.setSummary(platformSummary);
         systemPlatform.setIcon(References.grabAppIcon(getContext(), "com.android.systemui"));
 
         Preference systemStatus = getPreferenceManager().findPreference
@@ -622,6 +638,157 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 return dir.delete();
             } else
                 return dir != null && dir.isFile() && dir.delete();
+        }
+    }
+
+    private class checkROMSupportList extends AsyncTask<String, Integer, String> {
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            if (result != null) {
+                String romName = String.format(getString(R.string.rom_status_supported),
+                        result.replaceAll("[^a-zA-Z0-9]", ""));
+                if (romName.length() == 2) {
+                    romName = romName.toUpperCase();
+                }
+                String supportedRom = romName.substring(0, 1).toUpperCase() + romName.substring(1);
+                platformSummary.append(getString(R.string.rom_status)).append(" ").append
+                        (supportedRom);
+                systemPlatform.setSummary(platformSummary.toString());
+            } else {
+                if (!References.isNetworkAvailable(getContext())) {
+                    platformSummary.append(getString(R.string.rom_status)).append(" ").append
+                            (getString(R.string.rom_status_network));
+                    systemPlatform.setSummary(platformSummary.toString());
+                } else {
+                    platformSummary.append(getString(R.string.rom_status)).append(" ").append
+                            (getString(R.string.rom_status_unsupported));
+                    systemPlatform.setSummary(platformSummary.toString());
+                }
+            }
+        }
+
+        @Override
+        protected String doInBackground(String... sUrl) {
+            String inputFileName = sUrl[1];
+
+            InputStream input = null;
+            OutputStream output = null;
+            HttpURLConnection connection = null;
+
+            if (References.isNetworkAvailable(getContext())) {
+                try {
+                    URL url = new URL(sUrl[0]);
+                    connection = (HttpURLConnection) url.openConnection();
+                    connection.connect();
+
+                    // expect HTTP 200 OK, so we don't mistakenly save error report
+                    // instead of the file
+                    if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
+                        return "Server returned HTTP " + connection.getResponseCode()
+                                + " " + connection.getResponseMessage();
+                    }
+
+                    // this will be useful to display download percentage
+                    // might be -1: server did not report the length
+                    int fileLength = connection.getContentLength();
+
+                    // download the file
+                    input = connection.getInputStream();
+
+                    output = new FileOutputStream(getContext().getCacheDir().getAbsolutePath() +
+                            "/" + inputFileName);
+
+                    byte data[] = new byte[4096];
+                    long total = 0;
+                    int count;
+                    while ((count = input.read(data)) != -1) {
+                        // allow canceling with back button
+                        if (isCancelled()) {
+                            input.close();
+                            return null;
+                        }
+                        total += count;
+                        // publishing the progress....
+                        if (fileLength > 0) // only if total length is known
+                            publishProgress((int) (total * 100 / fileLength));
+                        output.write(data, 0, count);
+                    }
+                } catch (Exception e) {
+                    return e.toString();
+                } finally {
+                    try {
+                        if (output != null)
+                            output.close();
+                        if (input != null)
+                            input.close();
+                    } catch (IOException ignored) {
+                    }
+
+                    if (connection != null)
+                        connection.disconnect();
+                }
+            } else {
+                File check = new File(getContext().getCacheDir().getAbsolutePath() +
+                        "/" + inputFileName);
+                if (!check.exists()) {
+                    return null;
+                }
+            }
+
+            ArrayList<String> listOfRoms =
+                    ReadSupportedROMsFile.main(getContext().getCacheDir() + "/" + inputFileName);
+
+            try {
+                Boolean supported = false;
+                String supported_rom = "";
+
+                // First check ro.product.flavor
+                Process process = Runtime.getRuntime().exec("getprop ro.build.flavor");
+                BufferedReader reader = new BufferedReader(
+                        new InputStreamReader(process.getInputStream()));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    for (int i = 0; i < listOfRoms.size(); i++) {
+                        if (line.contains(listOfRoms.get(i))) {
+                            Log.d(References.SUBSTRATUM_LOG, "Supported ROM (1): " +
+                                    listOfRoms.get(i));
+                            supported_rom = listOfRoms.get(i);
+                            supported = true;
+                            break;
+                        }
+                    }
+                    if (supported) break;
+                }
+
+                // If it's still not showing up in ro.product.flavor, check ro.ROM.name
+                if (!supported) {
+                    for (int i = 0; i < listOfRoms.size(); i++) {
+                        Process process2 = Runtime.getRuntime().exec(
+                                "getprop ro." + listOfRoms.get(i) + ".name");
+                        BufferedReader reader2 = new BufferedReader(
+                                new InputStreamReader(process2.getInputStream()));
+                        String line2;
+                        while ((line2 = reader2.readLine()) != null) {
+                            if (line2.length() > 0) {
+                                Log.d(References.SUBSTRATUM_LOG, "Supported ROM (2): " +
+                                        listOfRoms.get(i));
+                                supported_rom = listOfRoms.get(i);
+                                supported = true;
+                            }
+                            if (supported) break;
+                        }
+                    }
+                }
+                reader.close();
+                return supported_rom;
+            } catch (Exception e) {
+                // Suppress warning
+            }
+
+            return null;
         }
     }
 }

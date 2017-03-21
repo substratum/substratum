@@ -174,10 +174,6 @@ public class AdvancedManagerFragment extends Fragment {
                         OverlayManager overlay13 = overlayList.get(i);
                         if (overlay13.isSelected()) data.add(overlay13.getName());
                     }
-                    Toast toast = Toast.makeText(getContext(), getString(R
-                                    .string.toast_disabled),
-                            Toast.LENGTH_SHORT);
-                    toast.show();
 
                     // The magic goes here
                     if (checkThemeInterfacer(getContext())) {
@@ -304,10 +300,6 @@ public class AdvancedManagerFragment extends Fragment {
                     }
                 }
                 if (!data.isEmpty()) {
-                    Toast toast = Toast.makeText(getContext(), getString(R
-                                    .string.toast_enabled),
-                            Toast.LENGTH_SHORT);
-                    toast.show();
                     if (has_failed) {
                         Toast toast2 = Toast.makeText(getContext(), getString(R
                                         .string.manage_system_not_permitted),

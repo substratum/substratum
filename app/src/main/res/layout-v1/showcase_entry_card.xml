@@ -58,8 +58,8 @@
                 android:layout_alignParentStart="true"
                 android:layout_marginBottom="69dp"
                 android:layout_marginStart="6dp"
-                android:paddingStart="20dp"
                 android:paddingEnd="20dp"
+                android:paddingStart="20dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/showcase_paid"/>
 
@@ -122,17 +122,17 @@
                     android:layout_marginEnd="20dp"
                     android:text="@string/notification_theme_installed"
                     android:textAllCaps="true"
-                    android:textStyle="bold"
+                    android:textColor="@color/accent"
                     android:textSize="12sp"
-                    android:textColor="@color/accent"/>
+                    android:textStyle="bold"/>
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="20dp"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp">
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp">
 
                 <ImageView
                     android:id="@+id/theme_wallpapers"
@@ -140,8 +140,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentEnd="true"
-                    android:paddingStart="2.5dp"
                     android:paddingEnd="2.5dp"
+                    android:paddingStart="2.5dp"
                     android:src="@drawable/nav_wallpapers"/>
 
                 <ImageView
@@ -150,8 +150,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_toStartOf="@+id/theme_wallpapers"
-                    android:paddingStart="2.5dp"
                     android:paddingEnd="2.5dp"
+                    android:paddingStart="2.5dp"
                     android:src="@drawable/nav_sounds"/>
 
                 <ImageView
@@ -160,8 +160,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_toStartOf="@+id/theme_sounds"
-                    android:paddingStart="2.5dp"
                     android:paddingEnd="2.5dp"
+                    android:paddingStart="2.5dp"
                     android:src="@drawable/nav_fonts"/>
 
                 <ImageView
@@ -170,8 +170,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_toStartOf="@+id/theme_fonts"
-                    android:paddingStart="2.5dp"
                     android:paddingEnd="2.5dp"
+                    android:paddingStart="2.5dp"
                     android:src="@drawable/nav_bootanim"/>
 
                 <ImageView
@@ -180,8 +180,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_toStartOf="@+id/theme_bootanimations"
-                    android:paddingStart="2.5dp"
                     android:paddingEnd="2.5dp"
+                    android:paddingStart="2.5dp"
                     android:src="@drawable/nav_overlays"/>
 
             </RelativeLayout>

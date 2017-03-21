@@ -807,7 +807,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 new InputStreamReader(process4.getInputStream()));
                         String line4;
                         while ((line4 = reader4.readLine()) != null) {
-                            if (line4.length() > 0) {
+                            if (line4.toLowerCase().contains(listOfRoms.get(i))) {
                                 Log.d(References.SUBSTRATUM_LOG, "Supported ROM (4): " +
                                         listOfRoms.get(i) + " (" + line4 + ")");
                                 supported_rom = listOfRoms.get(i);

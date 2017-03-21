@@ -204,7 +204,15 @@ public class AdvancedManagerFragment extends Fragment {
                             // OMS may not have written all the changes so quickly just yet
                             // so we may need to have a small delay
                             try {
-                                getActivity().recreate();
+                                List<String> updated = updateEnabledOverlays();
+                                for (int i = 0; i < overlayList.size(); i++) {
+                                    OverlayManager currentOverlay = overlayList.get(i);
+                                    currentOverlay.setSelected(false);
+                                    currentOverlay.updateEnabledOverlays(updated.contains(
+                                            currentOverlay.getName()));
+                                    loadingBar.setVisibility(View.GONE);
+                                    mAdapter.notifyDataSetChanged();
+                                }
                             } catch (Exception e) {
                                 // Consume window refresh
                             }
@@ -332,7 +340,15 @@ public class AdvancedManagerFragment extends Fragment {
                             // OMS may not have written all the changes so quickly just yet
                             // so we may need to have a small delay
                             try {
-                                getActivity().recreate();
+                                List<String> updated = updateEnabledOverlays();
+                                for (int i = 0; i < overlayList.size(); i++) {
+                                    OverlayManager currentOverlay = overlayList.get(i);
+                                    currentOverlay.setSelected(false);
+                                    currentOverlay.updateEnabledOverlays(updated.contains(
+                                            currentOverlay.getName()));
+                                    loadingBar.setVisibility(View.GONE);
+                                    mAdapter.notifyDataSetChanged();
+                                }
                             } catch (Exception e) {
                                 // Consume window refresh
                             }
@@ -391,7 +407,15 @@ public class AdvancedManagerFragment extends Fragment {
                         // OMS may not have written all the changes so quickly just yet
                         // so we may need to have a small delay
                         try {
-                            getActivity().recreate();
+                            List<String> updated = updateEnabledOverlays();
+                            for (int i = 0; i < overlayList.size(); i++) {
+                                OverlayManager currentOverlay = overlayList.get(i);
+                                currentOverlay.setSelected(false);
+                                currentOverlay.updateEnabledOverlays(updated.contains(
+                                        currentOverlay.getName()));
+                                loadingBar.setVisibility(View.GONE);
+                                mAdapter.notifyDataSetChanged();
+                            }
                         } catch (Exception e) {
                             // Consume window refresh
                         }
@@ -400,6 +424,21 @@ public class AdvancedManagerFragment extends Fragment {
             });
 
         return root;
+    }
+
+    private List<String> updateEnabledOverlays() {
+        List<String> state5 = ThemeManager.listOverlays(5);
+        ArrayList<String> all = new ArrayList<>(state5);
+
+        ArrayList<String> all_installed_overlays = new ArrayList<>();
+
+        // Filter out icon pack overlays from all overlays
+        for (int i = 0; i < all.size(); i++) {
+            if (!all.get(i).endsWith(".icon")) {
+                all_installed_overlays.add(all.get(i));
+            }
+        }
+        return new ArrayList<>(all_installed_overlays);
     }
 
     private class LayoutReloader extends AsyncTask<String, Integer, String> {

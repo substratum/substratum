@@ -70,4 +70,10 @@ public class OverlayManager implements Serializable {
     public Context getContext() {
         return mContext;
     }
+
+    public void updateEnabledOverlays(boolean isActivated) {
+        this.activationValue =
+                ((isActivated) ? mContext.getColor(R.color.overlay_installed_list_entry) :
+                        mContext.getColor(R.color.overlay_not_enabled_list_entry));
+    }
 }

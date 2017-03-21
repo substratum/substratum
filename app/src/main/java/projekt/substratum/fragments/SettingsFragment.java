@@ -810,8 +810,13 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                             if (line4.toLowerCase().contains(listOfRoms.get(i))) {
                                 Log.d(References.SUBSTRATUM_LOG, "Supported ROM (4): " +
                                         listOfRoms.get(i) + " (" + line4 + ")");
-                                supported_rom = listOfRoms.get(i);
-                                supported = true;
+                                if (listOfRoms.get(i).contains(".")) {
+                                    supported_rom = listOfRoms.get(i).split("\\.")[1];
+                                    supported = true;
+                                } else {
+                                    supported_rom = listOfRoms.get(i);
+                                    supported = true;
+                                }
                             }
                             if (supported) break;
                         }

@@ -125,8 +125,6 @@ public class MainActivity extends AppCompatActivity implements
     private SharedPreferences prefs;
     private boolean hideBundle, hideRestartUi;
     private BroadcastReceiver authorizationReceiver;
-    private DialogInterface.OnClickListener dialogClickListener;
-    private AlertDialog.Builder builder;
 
     public static void switchToCustomToolbar(String title, String content) {
         if (supportActionBar != null) supportActionBar.setTitle("");
@@ -918,7 +916,7 @@ public class MainActivity extends AppCompatActivity implements
                 return true;
 
             case R.id.restart_systemui:
-                dialogClickListener = (dialog, which) -> {
+                DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
                     switch (which) {
                         case DialogInterface.BUTTON_POSITIVE:
                             ThemeManager.restartSystemUI(getApplicationContext());
@@ -928,10 +926,14 @@ public class MainActivity extends AppCompatActivity implements
                     }
                 };
 
-                builder = new AlertDialog.Builder(this);
-                builder.setMessage(getString(R.string.menu_restart_systemui) + "?")
-                        .setPositiveButton(getString(R.string.restore_dialog_okay), dialogClickListener)
-                        .setNegativeButton(getString(R.string.restore_dialog_cancel), dialogClickListener).show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(getString(R.string.dialog_restart_systemui_title));
+                builder.setMessage(getString(R.string.dialog_restart_systemui_content));
+                builder.setPositiveButton(
+                        getString(R.string.restore_dialog_okay), dialogClickListener);
+                builder.setNegativeButton(
+                        getString(R.string.restore_dialog_cancel), dialogClickListener);
+                builder.show();
                 return true;
 
             // Begin RRO based options
@@ -948,9 +950,13 @@ public class MainActivity extends AppCompatActivity implements
                 };
 
                 builder = new AlertDialog.Builder(this);
-                builder.setMessage(getString(R.string.menu_reboot_device) + "?")
-                        .setPositiveButton(getString(R.string.restore_dialog_okay), dialogClickListener)
-                        .setNegativeButton(getString(R.string.restore_dialog_cancel), dialogClickListener).show();
+                builder.setTitle(getString(R.string.dialog_restart_reboot_title));
+                builder.setMessage(getString(R.string.dialog_restart_reboot_content));
+                builder.setPositiveButton(
+                        getString(R.string.restore_dialog_okay), dialogClickListener);
+                builder.setNegativeButton(
+                        getString(R.string.restore_dialog_cancel), dialogClickListener);
+                builder.show();
                 return true;
 
             case R.id.soft_reboot:
@@ -966,9 +972,13 @@ public class MainActivity extends AppCompatActivity implements
                 };
 
                 builder = new AlertDialog.Builder(this);
-                builder.setMessage(getString(R.string.menu_soft_reboot) + "?")
-                        .setPositiveButton(getString(R.string.restore_dialog_okay), dialogClickListener)
-                        .setNegativeButton(getString(R.string.restore_dialog_cancel), dialogClickListener).show();
+                builder.setTitle(getString(R.string.dialog_restart_soft_reboot_title));
+                builder.setMessage(getString(R.string.dialog_restart_soft_reboot_content));
+                builder.setPositiveButton(
+                        getString(R.string.restore_dialog_okay), dialogClickListener);
+                builder.setNegativeButton(
+                        getString(R.string.restore_dialog_cancel), dialogClickListener);
+                builder.show();
                 return true;
 
             default:

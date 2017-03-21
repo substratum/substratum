@@ -348,6 +348,15 @@
 
     <string name="changelog_title">%s theme changelog</string>
 
+    <string name="dialog_restart_systemui_title">Restart SystemUI</string>
+    <string name="dialog_restart_systemui_content">This will perform a SystemUI restart on your device.</string>
+
+    <string name="dialog_restart_reboot_title">Reboot</string>
+    <string name="dialog_restart_reboot_content">This will perform a full reboot on your device.</string>
+
+    <string name="dialog_restart_soft_reboot_title">Soft Reboot</string>
+    <string name="dialog_restart_soft_reboot_content">This will perform a soft reboot on your device.</string>
+
     <string name="legacy_theme_notification_title">Deprecated Theme Warning</string>
     <string name="legacy_theme_notification_text">To use outdated themes,
         please enable it in Settings.</string>

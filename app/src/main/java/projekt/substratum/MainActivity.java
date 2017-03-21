@@ -20,7 +20,9 @@ package projekt.substratum;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Application;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -76,6 +78,7 @@ import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
 
 import java.io.File;
 
@@ -196,13 +199,56 @@ public class MainActivity extends AppCompatActivity implements
         Log.d(References.SUBSTRATUM_LOG, "FCM Registration Token: " + token);
     }
 
+    protected RefWatcher installLeakCanary() {
+        LeakCanary.enableDisplayLeakActivity(this);
+        RefWatcher refWatcher = LeakCanary.refWatcher(this).build();
+        getApplication().registerActivityLifecycleCallbacks(
+                new Application.ActivityLifecycleCallbacks() {
+
+                    @Override
+                    public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+                    }
+
+                    @Override
+                    public void onActivityStarted(Activity activity) {
+                    }
+
+                    @Override
+                    public void onActivityResumed(Activity activity) {
+                    }
+
+                    @Override
+                    public void onActivityPaused(Activity activity) {
+                    }
+
+                    @Override
+                    public void onActivityStopped(Activity activity) {
+                    }
+
+                    @Override
+                    public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+                    }
+
+                    @Override
+                    public void onActivityDestroyed(Activity activity) {
+                        if (activity instanceof MainActivity) {
+                            return;
+                        } else if (activity instanceof InformationActivity) {
+                            return;
+                        }
+                        refWatcher.watch(activity);
+                    }
+                });
+        return refWatcher;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (BuildConfig.DEBUG) {
             Log.d(SUBSTRATUM_LOG, "Substratum launched with debug mode signatures.");
             if (LeakCanary.isInAnalyzerProcess(this)) return;
-            LeakCanary.install(getApplication());
+            installLeakCanary();
             Log.d(SUBSTRATUM_LOG,
                     "LeakCanary has been initialized to actively monitor memory leaks.");
         }

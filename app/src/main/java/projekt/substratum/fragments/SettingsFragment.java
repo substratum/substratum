@@ -790,7 +790,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         while ((line3 = reader3.readLine()) != null) {
                             if (line3.length() > 0) {
                                 Log.d(References.SUBSTRATUM_LOG, "Supported ROM (3): " +
-                                        listOfRoms.get(i));
+                                        listOfRoms.get(i) + " (" + line3 + ")");
                                 supported_rom = listOfRoms.get(i);
                                 supported = true;
                             }
@@ -809,7 +809,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         while ((line4 = reader4.readLine()) != null) {
                             if (line4.length() > 0) {
                                 Log.d(References.SUBSTRATUM_LOG, "Supported ROM (4): " +
-                                        listOfRoms.get(i));
+                                        listOfRoms.get(i) + " (" + line4 + ")");
                                 supported_rom = listOfRoms.get(i);
                                 supported = true;
                             }

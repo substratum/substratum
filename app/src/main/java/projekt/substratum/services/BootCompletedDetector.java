@@ -44,9 +44,6 @@ public class BootCompletedDetector extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if ("android.intent.action.BOOT_COMPLETED".equals(intent.getAction())) {
-            Intent pushIntent = new Intent(context, ThemeService.class);
-            context.startService(pushIntent);
-
             prefs = PreferenceManager.getDefaultSharedPreferences(context);
             if (prefs.getBoolean(SCHEDULED_PROFILE_ENABLED, false))
                 setupScheduledProfile(context);

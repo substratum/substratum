@@ -138,9 +138,6 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
-        <service
-            android:name=".services.ThemeService"
-            android:enabled="true"/>
 
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"

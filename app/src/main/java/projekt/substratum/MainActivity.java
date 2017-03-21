@@ -91,7 +91,6 @@ import projekt.substratum.fragments.ThemeFragment;
 import projekt.substratum.services.FloatUiTile;
 import projekt.substratum.services.InterfaceAuthorizationReceiver;
 import projekt.substratum.services.SubstratumFloatInterface;
-import projekt.substratum.services.ThemeService;
 import projekt.substratum.util.Root;
 import projekt.substratum.util.SheetDialog;
 
@@ -232,7 +231,6 @@ public class MainActivity extends AppCompatActivity implements
 
         References.setROMVersion(getApplicationContext(), false);
         References.setAndCheckOMS(getApplicationContext());
-        startService(new Intent(this, ThemeService.class));
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {

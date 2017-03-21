@@ -48,7 +48,7 @@ android {
         minSdkVersion 24
         targetSdkVersion 25
         versionCode 604
-        versionName "six hundred four"
+        versionName "six hundred five"
         buildConfigField "String", "GIT_HASH", "\"${gitHash()}\""
         renderscriptTargetApi 23
         renderscriptSupportModeEnabled true

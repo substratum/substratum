@@ -422,7 +422,7 @@ public class FileOperations {
             String destinationFile = destination + "/" + filename.substring(remember.length());
             outputStream = new FileOutputStream(destinationFile);
 
-            byte[] buffer = new byte[1024];
+            byte[] buffer = new byte[8192];
             int read;
             while ((read = inputStream.read(buffer)) != -1) {
                 outputStream.write(buffer, 0, read);

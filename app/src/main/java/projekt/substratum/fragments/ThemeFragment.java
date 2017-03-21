@@ -190,10 +190,8 @@ public class ThemeFragment extends Fragment {
         materialProgressBar.setVisibility(View.VISIBLE);
         PackageManager packageManager = mContext.getPackageManager();
         list.clear();
-        recyclerView.setAdapter(null);
         substratum_packages = new HashMap<>();
-        list = packageManager.getInstalledApplications(PackageManager
-                .GET_META_DATA);
+        list = packageManager.getInstalledApplications(PackageManager.GET_META_DATA);
 
         if (prefs.getBoolean("display_old_themes", true)) {
             list.stream().filter(packageInfo ->
@@ -264,10 +262,15 @@ public class ThemeFragment extends Fragment {
             MainActivity.switchToCustomToolbar(title, parse);
         }
 
-        // Now we need to sort the buffered installed Layers themes
+        // Now we need to sort the buffered installed themes
         map = new TreeMap<>(substratum_packages);
-        adapter = new ThemeEntryAdapter(prepareData());
-        recyclerView.setAdapter(adapter);
+        if (adapter == null) {
+            adapter = new ThemeEntryAdapter(prepareData());
+            recyclerView.setAdapter(adapter);
+        } else {
+            adapter.updateInformation(prepareData());
+            adapter.notifyDataSetChanged();
+        }
         swipeRefreshLayout.setRefreshing(false);
         materialProgressBar.setVisibility(View.GONE);
     }
@@ -366,9 +369,9 @@ public class ThemeFragment extends Fragment {
             // We need the null check because listOverlays never returns null, but empty
             if (state1.size() > 0 && state1.get(0) != null) {
                 for (int i = 0; i < state1.size(); i++) {
-                    Log.e("OverlayCleaner", "Target APK not found for \"" + state1.get(i) + "\" " +
-                            "and " +
-                            "will be removed.");
+                    Log.e("OverlayCleaner",
+                            "Target APK not found for \"" + state1.get(i) +
+                                    "\"and will be removed.");
                     removeList.add(state1.get(i));
                 }
                 ThemeManager.uninstallOverlay(mContext, removeList);

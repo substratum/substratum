@@ -63,6 +63,10 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
         this.information = information;
     }
 
+    public void updateInformation(ArrayList<ThemeInfo> information) {
+        this.information = information;
+    }
+
     @Override
     public ThemeEntryAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(viewGroup
@@ -158,6 +162,7 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
                                                 .getString(R.string.toast_uninstalled),
                                         Snackbar.LENGTH_LONG)
                                         .show();
+
                                 information.get(i).getActivity().recreate();
                             }
                         } else {

@@ -648,12 +648,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             super.onPostExecute(result);
 
             if (result != null) {
-                String romName = String.format(getString(R.string.rom_status_supported),
+                String supportedRom = String.format(getString(R.string.rom_status_supported),
                         result.replaceAll("[^a-zA-Z0-9]", ""));
-                if (romName.length() == 2) {
-                    romName = romName.toUpperCase();
-                }
-                String supportedRom = romName.substring(0, 1).toUpperCase() + romName.substring(1);
                 platformSummary.append(getString(R.string.rom_status)).append(" ").append
                         (supportedRom);
                 systemPlatform.setSummary(platformSummary.toString());
@@ -752,7 +748,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 String line;
                 while ((line = reader.readLine()) != null) {
                     for (int i = 0; i < listOfRoms.size(); i++) {
-                        if (line.contains(listOfRoms.get(i))) {
+                        if (line.toLowerCase().contains(listOfRoms.get(i))) {
                             Log.d(References.SUBSTRATUM_LOG, "Supported ROM (1): " +
                                     listOfRoms.get(i));
                             supported_rom = listOfRoms.get(i);

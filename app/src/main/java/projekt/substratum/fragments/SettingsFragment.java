@@ -119,7 +119,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 ("system_platform");
 
         new checkROMSupportList().execute(
-                "https://raw.githubusercontent.com/substratum/database/master/supported_roms.xml",
+                getString(R.string.supported_roms_url),
                 "supported_roms.xml");
 
         platformSummary = new StringBuilder();

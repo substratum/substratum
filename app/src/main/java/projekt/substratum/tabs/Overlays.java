@@ -221,7 +221,7 @@ public class Overlays extends Fragment {
         swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(() -> {
             swipeRefreshLayout.setRefreshing(false);
-            getActivity().recreate();
+            mAdapter.notifyDataSetChanged();
         });
         swipeRefreshLayout.setVisibility(View.GONE);
 
@@ -784,7 +784,7 @@ public class Overlays extends Fragment {
                     // OMS may not have written all the changes so quickly just yet
                     // so we may need to have a small delay
                     try {
-                        getActivity().recreate();
+                        mAdapter.notifyDataSetChanged();
                     } catch (Exception e) {
                         // Consume window refresh
                     }
@@ -1726,7 +1726,7 @@ public class Overlays extends Fragment {
                             // OMS may not have written all the changes so quickly just yet
                             // so we may need to have a small delay
                             try {
-                                getActivity().recreate();
+                                mAdapter.notifyDataSetChanged();
                             } catch (Exception e) {
                                 // Consume window refresh
                             }
@@ -1821,7 +1821,7 @@ public class Overlays extends Fragment {
                             // OMS may not have written all the changes so quickly just yet
                             // so we may need to have a small delay
                             try {
-                                getActivity().recreate();
+                                mAdapter.notifyDataSetChanged();
                             } catch (Exception e) {
                                 // Consume window refresh
                             }

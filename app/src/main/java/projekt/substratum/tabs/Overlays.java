@@ -220,8 +220,14 @@ public class Overlays extends Fragment {
         });
         swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(() -> {
+            overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
+            for (int i = 0; i < overlaysLists.size(); i++) {
+                OverlaysInfo currentOverlay = overlaysLists.get(i);
+                currentOverlay.setSelected(false);
+                currentOverlay.updateEnabledOverlays(updateEnabledOverlays());
+                mAdapter.notifyDataSetChanged();
+            }
             swipeRefreshLayout.setRefreshing(false);
-            mAdapter.notifyDataSetChanged();
         });
         swipeRefreshLayout.setVisibility(View.GONE);
 
@@ -639,6 +645,21 @@ public class Overlays extends Fragment {
         return root;
     }
 
+    private List<String> updateEnabledOverlays() {
+        List<String> state5 = ThemeManager.listOverlays(5);
+        ArrayList<String> all = new ArrayList<>(state5);
+
+        all_installed_overlays = new ArrayList<>();
+
+        // Filter out icon pack overlays from all overlays
+        for (int i = 0; i < all.size(); i++) {
+            if (!all.get(i).endsWith(".icon")) {
+                all_installed_overlays.add(all.get(i));
+            }
+        }
+        return new ArrayList<>(all_installed_overlays);
+    }
+
     private String checkXposedVersion() {
         String xposed_version = "";
 
@@ -784,7 +805,13 @@ public class Overlays extends Fragment {
                     // OMS may not have written all the changes so quickly just yet
                     // so we may need to have a small delay
                     try {
-                        mAdapter.notifyDataSetChanged();
+                        overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
+                        for (int i = 0; i < overlaysLists.size(); i++) {
+                            OverlaysInfo currentOverlay = overlaysLists.get(i);
+                            currentOverlay.setSelected(false);
+                            currentOverlay.updateEnabledOverlays(updateEnabledOverlays());
+                            mAdapter.notifyDataSetChanged();
+                        }
                     } catch (Exception e) {
                         // Consume window refresh
                     }
@@ -972,19 +999,8 @@ public class Overlays extends Fragment {
             } catch (Exception e) {
                 // Exception
             }
-            List<String> state5 = ThemeManager.listOverlays(5);
-            ArrayList<String> all = new ArrayList<>(state5);
 
-            all_installed_overlays = new ArrayList<>();
-
-            // Filter out icon pack overlays from all overlays
-            for (int i = 0; i < all.size(); i++) {
-                if (!all.get(i).endsWith(".icon")) {
-                    all_installed_overlays.add(all.get(i));
-                }
-            }
-
-            List<String> state5overlays = new ArrayList<>(all_installed_overlays);
+            List<String> state5overlays = updateEnabledOverlays();
 
             String parse1_themeName = theme_name.replaceAll("\\s+", "");
             String parse2_themeName = parse1_themeName.replaceAll("[^a-zA-Z0-9]+", "");
@@ -1726,7 +1742,13 @@ public class Overlays extends Fragment {
                             // OMS may not have written all the changes so quickly just yet
                             // so we may need to have a small delay
                             try {
-                                mAdapter.notifyDataSetChanged();
+                                overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
+                                for (int i = 0; i < overlaysLists.size(); i++) {
+                                    OverlaysInfo currentOverlay = overlaysLists.get(i);
+                                    currentOverlay.setSelected(false);
+                                    currentOverlay.updateEnabledOverlays(updateEnabledOverlays());
+                                    mAdapter.notifyDataSetChanged();
+                                }
                             } catch (Exception e) {
                                 // Consume window refresh
                             }
@@ -1821,7 +1843,13 @@ public class Overlays extends Fragment {
                             // OMS may not have written all the changes so quickly just yet
                             // so we may need to have a small delay
                             try {
-                                mAdapter.notifyDataSetChanged();
+                                overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
+                                for (int i = 0; i < overlaysLists.size(); i++) {
+                                    OverlaysInfo currentOverlay = overlaysLists.get(i);
+                                    currentOverlay.setSelected(false);
+                                    currentOverlay.updateEnabledOverlays(updateEnabledOverlays());
+                                    mAdapter.notifyDataSetChanged();
+                                }
                             } catch (Exception e) {
                                 // Consume window refresh
                             }

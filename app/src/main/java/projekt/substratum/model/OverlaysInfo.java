@@ -162,6 +162,13 @@ public class OverlaysInfo implements Serializable {
         spinnerSelection = position;
     }
 
+    public void updateEnabledOverlays(List<String> enabledOverlays) {
+        this.enabledOverlays = new ArrayList<>();
+        for (int i = 0; i < enabledOverlays.size(); i++) {
+            this.enabledOverlays.add(enabledOverlays.get(i));
+        }
+    }
+
     public int getSelectedVariant2() {
         return spinnerSelection2;
     }

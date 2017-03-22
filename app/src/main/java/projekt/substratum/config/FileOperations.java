@@ -395,7 +395,8 @@ public class FileOperations {
                         ((copied) ? "Success!" : "Failed"));
             } else {
                 // This will be a folder if the size is greater than 0
-                String fullPath = destination + "/" + listDir.substring(remember.length());
+                String fullPath = (destination + "/" + listDir.substring(remember.length()))
+                        .replaceAll("\\s+", "");
                 File dir = new File(fullPath);
                 if (!dir.exists()) {
                     Log.d(DA_LOG, "Attempting to copy: " + dir.getAbsolutePath() + "/");
@@ -419,7 +420,8 @@ public class FileOperations {
         OutputStream outputStream;
         try {
             inputStream = assetManager.open(filename);
-            String destinationFile = destination + "/" + filename.substring(remember.length());
+            String destinationFile = destination + "/" + filename.replaceAll("\\s+", "")
+                    .substring(remember.replaceAll("\\s+", "").length());
             outputStream = new FileOutputStream(destinationFile);
 
             byte[] buffer = new byte[8192];

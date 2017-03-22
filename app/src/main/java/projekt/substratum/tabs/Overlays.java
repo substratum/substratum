@@ -1889,6 +1889,7 @@ public class Overlays extends Fragment {
 
         @Override
         protected String doInBackground(String... sUrl) {
+            String parsedVariant = sUrl[0].replaceAll("\\s+", "");
 
             if (mixAndMatchMode && !References.checkOMS(mContext)) {
                 String current_directory;
@@ -1991,14 +1992,14 @@ public class Overlays extends Fragment {
                                 workingDirectory = check_legacy.getAbsolutePath();
                             }
                         }
-                        File srcDir = new File(workingDirectory +
-                                ((sUrl[0].length() != 0) ? "/type3_" + sUrl[0] : "/res"));
-                        File destDir = new File(workingDirectory + "/workdir");
-                        if (destDir.exists()) {
-                            FileOperations.delete(mContext, destDir.getAbsolutePath());
-                        }
-                        String suffix = ((sUrl[0].length() != 0) ? "/type3_" + sUrl[0] : "/res");
+                        String suffix = ((sUrl[0].length() != 0) ? "/type3_" + parsedVariant : "/res");
                         if (References.ENABLE_CACHING) {
+                            File srcDir = new File(workingDirectory +
+                                    ((sUrl[0].length() != 0) ? "/type3_" + sUrl[0] : "/res"));
+                            File destDir = new File(workingDirectory + "/workdir");
+                            if (destDir.exists()) {
+                                FileOperations.delete(mContext, destDir.getAbsolutePath());
+                            }
                             FileUtils.copyDirectory(srcDir, destDir);
                         } else {
                             workingDirectory = mContext.getCacheDir().getAbsolutePath() +

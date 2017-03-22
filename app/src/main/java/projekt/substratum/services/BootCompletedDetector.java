@@ -24,9 +24,15 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Environment;
 import android.support.v7.preference.PreferenceManager;
+import android.util.Log;
 
+import java.io.File;
 import java.util.Calendar;
+
+import projekt.substratum.config.FileOperations;
+import projekt.substratum.config.References;
 
 import static projekt.substratum.fragments.ProfileFragment.DAY;
 import static projekt.substratum.fragments.ProfileFragment.DAY_PROFILE_HOUR;
@@ -44,10 +50,22 @@ public class BootCompletedDetector extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if ("android.intent.action.BOOT_COMPLETED".equals(intent.getAction())) {
+            clearSubstratumCompileFolder(context);
             prefs = PreferenceManager.getDefaultSharedPreferences(context);
             if (prefs.getBoolean(SCHEDULED_PROFILE_ENABLED, false))
                 setupScheduledProfile(context);
         }
+    }
+
+    private boolean clearSubstratumCompileFolder(Context context) {
+        File deleted = new File(
+                Environment.getExternalStorageDirectory().getAbsolutePath() + "/.substratum");
+        FileOperations.delete(context, deleted.getAbsolutePath());
+        if (!deleted.exists())
+            Log.d(References.SUBSTRATUM_LOG,
+                    "Successfully cleared the temporary compilation folder on " +
+                            "the external storage.");
+        return !deleted.exists();
     }
 
     private void setupScheduledProfile(Context context) {

@@ -1992,7 +1992,8 @@ public class Overlays extends Fragment {
                                 workingDirectory = check_legacy.getAbsolutePath();
                             }
                         }
-                        String suffix = ((sUrl[0].length() != 0) ? "/type3_" + parsedVariant : "/res");
+                        String suffix = ((sUrl[0].length() != 0) ? "/type3_" + parsedVariant :
+                                "/res");
                         if (References.ENABLE_CACHING) {
                             File srcDir = new File(workingDirectory +
                                     ((sUrl[0].length() != 0) ? "/type3_" + sUrl[0] : "/res"));

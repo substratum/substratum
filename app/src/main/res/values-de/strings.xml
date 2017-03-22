@@ -318,7 +318,7 @@ eingerichtet&#8230;</string>
     <string name="toast_compiled_updated_with_errors">Ausgewählte(s) Overlay(s) mit einigen Fehlern aktualisiert!</string>
     <string name="toast_enabled">Erfolgreich aktiviert!</string>
     <string name="toast_disabled">Erfolgreich deaktiviert!</string>
-    <string name="toast_disabled2">@string/toast_deaktiviert</string>
+    <string name="toast_disabled2">@string/toast_disabled</string>
     <string name="toast_disabled3">Bitte Overlay vor dem Anwenden erst kompilieren!</string>
     <string name="toast_disabled4">Du kannst keinen Overlay deaktivieren, der nicht kompiliert wurde!</string>
     <string name="toast_disabled5">Bitte wähle ein gültiges Overlay aus, bevor du mit dieser Aktion fortfährst.</string>

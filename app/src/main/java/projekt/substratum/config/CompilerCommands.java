@@ -144,12 +144,13 @@ public class CompilerCommands {
             sb.append("-P " + Environment.getExternalStorageDirectory().getAbsolutePath() +
                     "/.substratum/debug.xml ");
             sb.append("--app-as-shared-lib ");
-            sb.append("--include-meta-data ");
-            sb.append("--auto-add-overlay ");
         }
         if (ENABLE_AOPT_OUTPUT) {
             sb.append("-v ");
         }
+        // Allow themers to append new resources
+        sb.append("--include-meta-data ");
+        sb.append("--auto-add-overlay ");
         // Overwrite all the files in the internal storage
         sb.append("-f ");
         sb.append("\n");

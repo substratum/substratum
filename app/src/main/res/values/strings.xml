@@ -515,6 +515,7 @@
     <string name="toast_unapproved">This overlay has been rejected by the system</string>
     <string name="toast_compiled">Selected overlay(s) compiled!</string>
     <string name="toast_compiled_updated">Selected overlay(s) updated!</string>
+    <string name="toast_compiled_missing">One or more overlays cannot compile due to missing configurations under this set up&#8230;</string>
     <string name="toast_compiled_updated_with_errors">Selected overlay(s) updated with some errors!</string>
     <string name="toast_enabled">Successfully enabled!</string>
     <string name="toast_disabled">Successfully disabled!</string>

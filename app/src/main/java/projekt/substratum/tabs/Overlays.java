@@ -154,6 +154,7 @@ public class Overlays extends Fragment {
     private ArrayList<String> final_command;
     private boolean isWaiting;
     private AssetManager themeAssetManager;
+    private Boolean missingType3 = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
@@ -722,10 +723,17 @@ public class Overlays extends Fragment {
                 mNotifyManager.notify(id, mBuilder.build());
             }
 
-            Toast toast = Toast.makeText(context, context.getString(R
-                            .string.toast_compiled_updated),
-                    Toast.LENGTH_LONG);
-            toast.show();
+            if (missingType3) {
+                Toast toast = Toast.makeText(context, context.getString(R
+                                .string.toast_compiled_missing),
+                        Toast.LENGTH_LONG);
+                toast.show();
+            } else {
+                Toast toast = Toast.makeText(context, context.getString(R
+                                .string.toast_compiled_updated),
+                        Toast.LENGTH_LONG);
+                toast.show();
+            }
         }
 
         if (!has_failed || final_runner.size() > fail_count) {
@@ -1450,6 +1458,7 @@ public class Overlays extends Fragment {
         protected void onPreExecute() {
             Log.d("Phase 3", "This phase has started it's asynchronous task.");
 
+            missingType3 = false;
             has_failed = false;
             fail_count = 0;
             error_logs = "";
@@ -1991,7 +2000,6 @@ public class Overlays extends Fragment {
                                                     replaceAll("\\s+", "").replaceAll
                                                     ("[^a-zA-Z0-9]+", "");
 
-
                             if (checkedOverlays.get(i).is_variant_chosen4) {
                                 packageName = (packageName + checkedOverlays.get(i)
                                         .getSelectedVariantName4()).replaceAll("\\s+", "")
@@ -2058,13 +2066,18 @@ public class Overlays extends Fragment {
                                 }
                             }
                             if (sb.has_errored_out) {
-                                fail_count += 1;
-                                if (error_logs.length() == 0) {
-                                    error_logs = sb.getErrorLogs();
+                                if (!sb.getErrorLogs().contains("type3") ||
+                                        !sb.getErrorLogs().contains("does not exist")) {
+                                    fail_count += 1;
+                                    if (error_logs.length() == 0) {
+                                        error_logs = sb.getErrorLogs();
+                                    } else {
+                                        error_logs += "\n" + sb.getErrorLogs();
+                                    }
+                                    has_failed = true;
                                 } else {
-                                    error_logs += "\n" + sb.getErrorLogs();
+                                    missingType3 = true;
                                 }
-                                has_failed = true;
                             } else {
                                 if (sb.special_snowflake) {
                                     late_install.add(sb.no_install);

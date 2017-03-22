@@ -1218,6 +1218,7 @@ public class MainActivity extends AppCompatActivity implements
 
         @Override
         protected void onPostExecute(Boolean result) {
+            super.onPostExecute(result);
             if (!result && ENABLE_ROOT_CHECK && !BYPASS_ALL_VERSION_CHECKS &&
                     !References.checkThemeInterfacer(getApplicationContext())) {
                 mProgressDialog.setCancelable(false);
@@ -1263,7 +1264,7 @@ public class MainActivity extends AppCompatActivity implements
             } else {
                 showOutdatedRequestDialog();
             }
-            super.onPostExecute(result);
+            References.injectRescueArchives(getApplicationContext());
         }
 
         @Override

@@ -47,8 +47,8 @@ android {
         applicationId "projekt.substratum"
         minSdkVersion 24
         targetSdkVersion 25
-        versionCode 610
-        versionName "six hundred ten"
+        versionCode 611
+        versionName "six hundred eleven"
         buildConfigField "String", "GIT_HASH", "\"${gitHash()}\""
         renderscriptTargetApi 23
         renderscriptSupportModeEnabled true

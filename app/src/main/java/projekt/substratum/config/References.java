@@ -738,6 +738,16 @@ public class References {
     }
 
     // PackageName Crawling Methods
+    public static String grabAppVersion(Context mContext, String package_name) {
+        try {
+            PackageInfo pInfo = mContext.getPackageManager().getPackageInfo(package_name, 0);
+            return pInfo.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            //
+        }
+        return null;
+    }
+
     public static String grabThemeVersion(Context mContext, String package_name) {
         try {
             PackageInfo pInfo = mContext.getPackageManager().getPackageInfo(package_name, 0);

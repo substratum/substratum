@@ -36,6 +36,7 @@ import java.io.OutputStream;
 
 import projekt.substratum.util.Root;
 
+import static projekt.substratum.config.References.ENABLE_DIRECT_ASSETS_LOGGING;
 import static projekt.substratum.config.References.checkThemeInterfacer;
 
 public class FileOperations {
@@ -385,13 +386,17 @@ public class FileOperations {
     public static boolean copyFileOrDir(AssetManager assetManager, String listDir,
                                         String destination, String remember) {
         String assets[];
+        if (ENABLE_DIRECT_ASSETS_LOGGING) Log.d(DA_LOG, "Source: " + listDir);
+        if (ENABLE_DIRECT_ASSETS_LOGGING) Log.d(DA_LOG, "Destination: " + destination);
         try {
             assets = assetManager.list(listDir);
             if (assets.length == 0) {
                 // When asset[] is empty, it is not iterable, hence it is a file
-                Log.d(DA_LOG, "This is a file object, directly copying...");
+                if (ENABLE_DIRECT_ASSETS_LOGGING)
+                    Log.d(DA_LOG, "This is a file object, directly copying...");
+                if (ENABLE_DIRECT_ASSETS_LOGGING) Log.d(DA_LOG, listDir);
                 boolean copied = copyFile(assetManager, listDir, destination, remember);
-                Log.d(DA_LOG, "File operation status: " +
+                if (ENABLE_DIRECT_ASSETS_LOGGING) Log.d(DA_LOG, "File operation status: " +
                         ((copied) ? "Success!" : "Failed"));
             } else {
                 // This will be a folder if the size is greater than 0
@@ -409,7 +414,8 @@ public class FileOperations {
             }
             return true;
         } catch (IOException ex) {
-            Log.e(DA_LOG, "An IOException has been reached..." + ex.getMessage());
+            if (ENABLE_DIRECT_ASSETS_LOGGING)
+                Log.e(DA_LOG, "An IOException has been reached: " + ex.getMessage());
         }
         return false;
     }
@@ -434,7 +440,9 @@ public class FileOperations {
             outputStream.close();
             return true;
         } catch (Exception e) {
-            Log.e(DA_LOG, "An Exception has been reached..." + e.getMessage());
+            e.printStackTrace();
+            if (ENABLE_DIRECT_ASSETS_LOGGING)
+                Log.e(DA_LOG, "An Exception has been reached: " + e.getMessage());
         }
         return false;
     }

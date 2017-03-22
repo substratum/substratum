@@ -41,6 +41,8 @@ import projekt.substratum.config.FileOperations;
 import projekt.substratum.config.References;
 import projekt.substratum.config.ThemeManager;
 
+import static projekt.substratum.config.References.BYPASS_SUBSTRATUM_BUILDER_DELETION;
+
 public class SubstratumBuilder {
 
     public Boolean has_errored_out = false;
@@ -516,11 +518,14 @@ public class SubstratumBuilder {
             }
         }
         // Finally, clean this compilation code's cache
-        String workingDirectory = context.getCacheDir().getAbsolutePath() + "/SubstratumBuilder/";
-        File deleted = new File(workingDirectory);
-        FileOperations.delete(context, deleted.getAbsolutePath());
-        if (!deleted.exists()) Log.d(References.SUBSTRATUM_BUILDER,
-                "Successfully cleared compilation cache!");
+        if (!BYPASS_SUBSTRATUM_BUILDER_DELETION) {
+            String workingDirectory =
+                    context.getCacheDir().getAbsolutePath() + "/SubstratumBuilder/";
+            File deleted = new File(workingDirectory);
+            FileOperations.delete(context, deleted.getAbsolutePath());
+            if (!deleted.exists()) Log.d(References.SUBSTRATUM_BUILDER,
+                    "Successfully cleared compilation cache!");
+        }
 
         return !has_errored_out;
     }

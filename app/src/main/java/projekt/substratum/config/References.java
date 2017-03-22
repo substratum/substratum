@@ -89,7 +89,9 @@ public class References {
     public static final Boolean ENABLE_ROOT_CHECK = true;
     public static final Boolean ENABLE_AOPT_OUTPUT = false; // WARNING, DEVELOPERS - BREAKS COMPILE
     public static final Boolean ENABLE_CACHING = false;
+    public static final Boolean ENABLE_DIRECT_ASSETS_LOGGING = false;
     public static final Boolean BYPASS_ALL_VERSION_CHECKS = false; // For developer previews only!
+    public static final Boolean BYPASS_SUBSTRATUM_BUILDER_DELETION = false;
     public static final String SUBSTRATUM_BUILDER = "SubstratumBuilder";
     public static final String SUBSTRATUM_LOG = "SubstratumLogger";
     public static final String SUBSTRATUM_ICON_BUILDER = "SubstratumIconBuilder";

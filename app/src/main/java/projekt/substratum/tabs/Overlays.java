@@ -980,6 +980,7 @@ public class Overlays extends Fragment {
         }
 
         // Type1 Spinner Text Adjustments
+        assert inputStream != null;
         try (BufferedReader reader = new BufferedReader(
                 new InputStreamReader(inputStream))) {
             // This adjusts it so that we have the spinner text set
@@ -1022,9 +1023,8 @@ public class Overlays extends Fragment {
 
     public String setTypeTwoSpinners(Object typeArrayRaw, InputStreamReader inputStreamReader) {
         try (BufferedReader reader = new BufferedReader(inputStreamReader)) {
-            String formatter = String.format(getString(R.string
+            return String.format(getString(R.string
                     .overlays_variant_substitute), reader.readLine());
-            return formatter;
         } catch (IOException e) {
             Log.e(References.SUBSTRATUM_LOG, "There was an error parsing asset file!");
             return getString(R.string.overlays_variant_default_2);
@@ -1272,7 +1272,7 @@ public class Overlays extends Fragment {
                                     }
                                 } else if (!current.contains(".") && current.length() > 5 &&
                                         current.substring(0, 6).equals("type2_")) {
-                                            type2.add(current.substring(6));
+                                    type2.add(current.substring(6));
                                 }
                             }
                         }
@@ -1431,8 +1431,8 @@ public class Overlays extends Fragment {
                         has_initialized_cache = true;
                     }
                 } else {
-                    Log.d("SubstratumBuilder", "Work area is ready with decompiled assets " +
-                            "already!");
+                    Log.d("SubstratumBuilder",
+                            "Work area is ready with decompiled assets already!");
                 }
                 if (sUrl[0].length() != 0) {
                     return sUrl[0];
@@ -1744,6 +1744,7 @@ public class Overlays extends Fragment {
         @Override
         protected String doInBackground(String... sUrl) {
             String parsedVariant = sUrl[0].replaceAll("\\s+", "");
+            String unparsedVariant = sUrl[0];
 
             if (mixAndMatchMode && !References.checkOMS(mContext)) {
                 String current_directory;
@@ -1848,6 +1849,9 @@ public class Overlays extends Fragment {
                         }
                         String suffix = ((sUrl[0].length() != 0) ? "/type3_" + parsedVariant :
                                 "/res");
+                        String unparsedSuffix =
+                                ((sUrl[0].length() != 0) ? "/type3_" + unparsedVariant :
+                                        "/res");
                         if (References.ENABLE_CACHING) {
                             File srcDir = new File(workingDirectory +
                                     ((sUrl[0].length() != 0) ? "/type3_" + sUrl[0] : "/res"));
@@ -1866,9 +1870,9 @@ public class Overlays extends Fragment {
                             } else {
                                 FileOperations.createNewFolder(mContext, created.getAbsolutePath());
                             }
-                            String listDir = overlaysDir + "/" + current_overlay;
+                            String listDir = overlaysDir + "/" + current_overlay + unparsedSuffix;
                             FileOperations.copyFileOrDir(themeAssetManager,
-                                    listDir, workingDirectory, listDir);
+                                    listDir, workingDirectory + suffix, listDir);
                         }
 
                         if (checkedOverlays.get(i).is_variant_chosen || sUrl[0].length() != 0) {

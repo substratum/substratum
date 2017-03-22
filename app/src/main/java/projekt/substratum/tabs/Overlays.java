@@ -1996,6 +1996,11 @@ public class Overlays extends Fragment {
                                 packageName = (packageName + checkedOverlays.get(i)
                                         .getSelectedVariantName4()).replaceAll("\\s+", "")
                                         .replaceAll("[^a-zA-Z0-9]+", "");
+                                String type2folder = "/type2_" +
+                                        checkedOverlays.get(i).getSelectedVariantName4();
+                                String to_copy = overlaysDir + "/" + current_overlay + type2folder;
+                                FileOperations.copyFileOrDir(themeAssetManager, to_copy,
+                                        workingDirectory + type2folder, to_copy);
                                 Log.d("PackageProcessor", "Currently processing package" +
                                         " \"" + checkedOverlays.get(i).getFullOverlayParameters() +
                                         "\"...");

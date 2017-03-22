@@ -835,7 +835,7 @@
 
     <string name="app_crash_title">%s keeps stopping&#8230;</string>
     <string name="app_crash_content">All enabled overlays for this app have been disabled.</string>
-    <string name="dirty_flash_detected">Your firmware or ROM was updated without deleting user data (dirty flash). Substratum will reset itself to avoid bugs.</string>
+    <string name="dirty_flash_detected">Your firmware or ROM was updated without deleting user data (dirty flash). Substratum will reconfigure itself to avoid bugs.</string>
 
     <string name="rom_status">support status:</string>
     <string name="rom_status_supported">%s is community supported!</string>

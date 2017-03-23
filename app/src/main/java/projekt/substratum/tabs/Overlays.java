@@ -996,7 +996,7 @@ public class Overlays extends Fragment {
                     .overlays_variant_substitute), reader.readLine());
             // This is the default type1a xml hex, if present
             try (InputStream input = themeAssetManager.open(overlaysDir +
-                    "/" + package_identifier + "/res/values/type1" + type + ".xml")) {
+                    "/" + package_identifier + "/type1" + type)) {
                 String hex = References.getOverlayResource(input);
                 inputStream.close();
                 return new VariantInfo(formatter, hex);
@@ -1007,7 +1007,7 @@ public class Overlays extends Fragment {
             Log.e(References.SUBSTRATUM_LOG, "There was an error parsing " +
                     "asset file!");
             try (InputStream input = themeAssetManager.open(overlaysDir +
-                    "/" + package_identifier + "/res/values/type1" + type + ".xml")) {
+                    "/" + package_identifier + "/type1" + type)) {
                 String hex = References.getOverlayResource(input);
                 switch (type) {
                     case "a":

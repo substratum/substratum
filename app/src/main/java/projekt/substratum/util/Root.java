@@ -39,8 +39,8 @@ public class Root {
     }
 
     private static SU getSU() {
-        if (su == null) su = new SU();
-        else if (su.closed || su.denied) su = new SU();
+        if (su == null || su.closed || su.denied)
+            su = new SU();
         return su;
     }
 
@@ -96,10 +96,19 @@ public class Root {
 
         public void close() {
             try {
-                bufferedWriter.write("exit\n");
-                bufferedWriter.flush();
+                if (bufferedWriter != null) {
+                    bufferedWriter.write("exit\n");
+                    bufferedWriter.flush();
+
+                    bufferedWriter.close();
+                }
+
+                if (bufferedReader != null)
+                    bufferedReader.close();
 
                 process.waitFor();
+                process.destroy();
+
                 closed = true;
             } catch (Exception e) {
                 e.printStackTrace();

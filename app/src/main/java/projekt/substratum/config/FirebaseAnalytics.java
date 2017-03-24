@@ -21,22 +21,41 @@ package projekt.substratum.config;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import com.firebase.client.Firebase;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 
+@SuppressWarnings("AccessStaticViaInstance")
 public class FirebaseAnalytics {
+
+    private static FirebaseDatabase mDatabase;
+
+    public static FirebaseDatabase getDatabase() {
+        if (mDatabase == null) {
+            mDatabase = FirebaseDatabase.getInstance();
+            mDatabase.setPersistenceEnabled(true);
+            printFCMtoken();
+        }
+        return mDatabase;
+    }
+
+    public static void printFCMtoken() {
+        String token = FirebaseInstanceId.getInstance().getToken();
+        Log.d(References.SUBSTRATUM_LOG, "FCM Registration Token: " + token);
+    }
 
     @SuppressWarnings("unchecked")
     static void withdrawBlacklistedPackages(Context context) {
         Firebase.setAndroidContext(context);
-        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference database = getDatabase().getInstance().getReference();
         database.child("patchers").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(com.google.firebase.database.DataSnapshot dataSnapshot) {
@@ -63,7 +82,7 @@ public class FirebaseAnalytics {
     @SuppressWarnings("unchecked")
     static void withdrawNames(Context context) {
         Firebase.setAndroidContext(context);
-        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference database = getDatabase().getInstance().getReference();
         database.child("blacklisted").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(com.google.firebase.database.DataSnapshot dataSnapshot) {

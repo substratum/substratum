@@ -62,8 +62,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.iid.FirebaseInstanceId;
 import com.mikepenz.aboutlibraries.LibsBuilder;
 import com.mikepenz.aboutlibraries.LibsConfiguration;
 import com.mikepenz.aboutlibraries.ui.LibsSupportFragment;
@@ -87,6 +85,7 @@ import eightbitlab.com.blurview.BlurView;
 import eightbitlab.com.blurview.RenderScriptBlur;
 import projekt.substratum.config.ElevatedCommands;
 import projekt.substratum.config.FileOperations;
+import projekt.substratum.config.FirebaseAnalytics;
 import projekt.substratum.config.References;
 import projekt.substratum.config.ThemeManager;
 import projekt.substratum.fragments.PriorityListFragment;
@@ -193,11 +192,6 @@ public class MainActivity extends AppCompatActivity implements
         hideBundle = true;
         hideRestartUi = true;
         supportInvalidateOptionsMenu();
-    }
-
-    private void printFCMtoken() {
-        String token = FirebaseInstanceId.getInstance().getToken();
-        Log.d(References.SUBSTRATUM_LOG, "FCM Registration Token: " + token);
     }
 
     protected RefWatcher installLeakCanary() {
@@ -668,10 +662,6 @@ public class MainActivity extends AppCompatActivity implements
                 Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
         if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
-            prefs.edit().remove("permissions_ungranted").apply();
-        }
-
-        if (prefs.getBoolean("permissions_ungranted", true)) {
             new AlertDialog.Builder(this)
                     .setCancelable(false)
                     .setTitle(R.string.permission_explanation_title)
@@ -701,8 +691,6 @@ public class MainActivity extends AppCompatActivity implements
                                     new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                                     PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
                         }
-                        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-                        printFCMtoken();
 
                         if (!References.checkROMVersion(getApplicationContext())) {
                             new AlertDialog.Builder(this)
@@ -753,17 +741,6 @@ public class MainActivity extends AppCompatActivity implements
                             })
                     .show();
         } else {
-            try {
-                FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-            } catch (RuntimeException re1) {
-                try {
-                    FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-                } catch (RuntimeException re2) {
-                    // Suppress warning
-                }
-            }
-            printFCMtoken();
-
             if (!References.checkROMVersion(getApplicationContext())) {
                 new AlertDialog.Builder(this)
                         .setTitle(R.string.warning_title)
@@ -1039,8 +1016,8 @@ public class MainActivity extends AppCompatActivity implements
                                            @NonNull int[] grantResults) {
         switch (requestCode) {
             case PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE: {
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (grantResults.length > 0 &&
+                        grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // permission already granted, allow the program to continue running
                     File directory = new File(Environment.getExternalStorageDirectory(),
                             "/.substratum/");

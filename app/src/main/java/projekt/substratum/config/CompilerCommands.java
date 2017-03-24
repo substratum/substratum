@@ -19,13 +19,8 @@
 package projekt.substratum.config;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.os.Environment;
-import android.preference.PreferenceManager;
-import android.util.Log;
 
 import static projekt.substratum.config.References.ENABLE_AOPT_OUTPUT;
-import static projekt.substratum.config.References.SUBSTRATUM_BUILDER;
 import static projekt.substratum.config.References.getDeviceID;
 
 public class CompilerCommands {
@@ -117,11 +112,6 @@ public class CompilerCommands {
                                                  String overlay_package, String theme_name,
                                                  boolean legacySwitch, String additional_variant,
                                                  Context context, String noCacheDir) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        Boolean aopt_debug = prefs.getBoolean("aopt_debug", false);
-        if (aopt_debug) Log.d(SUBSTRATUM_BUILDER,
-                "The AOPT debug flag has been enabled for this session");
-
         StringBuilder sb = new StringBuilder();
         // Initialize the AOPT command
         sb.append(context.getFilesDir().getAbsolutePath() + "/aopt p ");
@@ -140,11 +130,6 @@ public class CompilerCommands {
         // Specify the file output directory
         sb.append("-F " + work_area + "/" + overlay_package + "." + theme_name + "-unsigned.apk ");
         // Final arguments to conclude the AOPT build
-        if (aopt_debug) {
-            sb.append("-P " + Environment.getExternalStorageDirectory().getAbsolutePath() +
-                    "/.substratum/debug.xml ");
-            sb.append("--app-as-shared-lib ");
-        }
         if (ENABLE_AOPT_OUTPUT) {
             sb.append("-v ");
         }

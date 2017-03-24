@@ -430,6 +430,17 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 forceIndependence.setEnabled(References.checkThemeInterfacer(getContext()));
                 forceIndependence.setVisible(true);
             }
+
+            final CheckBoxPreference themeCaching = (CheckBoxPreference)
+                    getPreferenceManager().findPreference("theme_caching");
+            themeCaching.setChecked(prefs.getBoolean("caching_enabled", false));
+            themeCaching.setOnPreferenceChangeListener(((preference, newValue) -> {
+                boolean isChecked = (Boolean) newValue;
+                prefs.edit().putBoolean("caching_enabled", isChecked).apply();
+                purgeCache.setVisible(isChecked);
+                if (!isChecked) new deleteCache().execute("");
+                return true;
+            }));
         }
 
         // Finally, these functions will only work on OMS ROMs

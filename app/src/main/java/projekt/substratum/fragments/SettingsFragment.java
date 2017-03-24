@@ -623,10 +623,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         @Override
         protected void onPostExecute(String result) {
-            // Since the cache is invalidated, better relaunch the app now
             mProgressDialog.cancel();
-            getActivity().finish();
-            startActivity(getActivity().getIntent());
         }
 
         @Override

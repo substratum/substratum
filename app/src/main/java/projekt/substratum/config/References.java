@@ -73,9 +73,11 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.Set;
 
 import projekt.substratum.R;
 import projekt.substratum.util.AOPTCheck;
@@ -443,7 +445,21 @@ public class References {
     }
 
     // This method checks for offensive words
-    public static boolean isOffensive(String toBeProcessed) {
+    public static boolean isOffensive(Context context, String toBeProcessed) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        if (References.isNetworkAvailable(context)) {
+            FirebaseAnalytics.withdrawNames(context);
+        }
+
+        if (prefs.contains("blacklisted_names")) {
+            Set<String> pref = prefs.getStringSet("blacklisted_names", new HashSet<>());
+            for (String check : pref) {
+                if (toBeProcessed.toLowerCase().contains(check.toLowerCase())) {
+                    Log.d("BlacklistedDatabase", "Loaded a theme containing blacklisted words.");
+                    return true;
+                }
+            }
+        }
         String[] offensive = {
                 "shit",
                 "fuck",
@@ -1011,6 +1027,26 @@ public class References {
     }
 
     public static Boolean spreadYourWingsAndFly(Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        if (References.isNetworkAvailable(context)) {
+            FirebaseAnalytics.withdrawBlacklistedPackages(context);
+        }
+
+        if (prefs.contains("blacklisted_packages")) {
+            Set<String> pref = prefs.getStringSet("blacklisted_packages", new HashSet<>());
+            for (String check : pref) {
+                if (References.isPackageInstalled(context, check, false)) {
+                    Log.d("PatcherDatabase",
+                            "The database has triggered a primary level blacklist package.");
+                    return true;
+                } else if (getMetaData(context, check) || getProviders(context, check) ||
+                        getIntents(context, check)) {
+                    Log.d("PatcherDatabase",
+                            "The database has triggered a secondary level blacklist package.");
+                    return true;
+                }
+            }
+        }
         String[] checker = checkPackageSupport();
         for (String check : checker) {
             if (References.isPackageInstalled(context, check, false)) {
@@ -1034,8 +1070,7 @@ public class References {
                 "com.dimonvideo.luckypatcher",
                 "com.chelpus.lackypatch",
                 "com.forpda.lp",
-                "com.android.vending.billing.InAppBillingService.LUCK",
-                "com.android.protips",
+                "com.android.vending.billing.InAppBillingService.LUCK"
         };
     }
 

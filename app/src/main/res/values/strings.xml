@@ -312,14 +312,9 @@
     <string name="permission_explanation_text">Substratum may not function as expected without these
         few crucial permissions granted.\n\n<b>Storage: </b> Substratum needs to utilize your
         internal storage to store your system rescue archives, located in
-        /storage/emulated/0/substratum/.\n\n<b>Get Accounts (Contacts): </b> Substratum
-        utilizes the GET_ACCOUNTS permission to obtain the main device\'s email address when Google
-        Play and Firebase automatically sends bug reports to our database. Unfortunately due to
-        Android 7.0\'s changes in permissions, GET_ACCOUNTS has been merged into the Contacts group
-        permission, ultimately displaying a request to read contacts. <b>Substratum will never read
-            any of your contacts!</b>\n\n<b>Firebase: </b>
-        Substratum utilizes Google\'s Firebase Analytics to gather and analyze user experience data
-        in order to improve core services and security enhancements for future updates.
+        /storage/emulated/0/substratum/.\n\n<b>Firebase: </b>
+        Substratum utilizes Google\'s Firebase to download crucial information from our
+        centralized real-time database to improve core services and security enhancements.
     </string>
 
     <string name="priority_back_title">Back to overlays</string>

@@ -74,7 +74,6 @@ import java.util.List;
 import projekt.substratum.adapters.InformationTabsAdapter;
 import projekt.substratum.config.ElevatedCommands;
 import projekt.substratum.config.FileOperations;
-import projekt.substratum.config.FirebaseAnalytics;
 import projekt.substratum.config.References;
 import projekt.substratum.config.ThemeManager;
 import projekt.substratum.config.WallpaperManager;
@@ -259,7 +258,6 @@ public class InformationActivity extends AppCompatActivity {
         Boolean theme_legacy = currentIntent.getBooleanExtra("theme_legacy", false);
         refresh_mode = currentIntent.getBooleanExtra("refresh_mode", false);
         wallpaperUrl = null;
-        String theme_author = References.grabThemeAuthor(getApplicationContext(), theme_pid);
 
         try {
             ApplicationInfo appInfo = getApplicationContext()
@@ -314,21 +312,6 @@ public class InformationActivity extends AppCompatActivity {
                 getWindow().setNavigationBarColor(
                         getColor(R.color.theme_information_background));
             }
-        }
-
-        if (References.isOffensive(theme_name)) {
-            FirebaseAnalytics.backupDebuggableStatistics(
-                    getApplicationContext(),
-                    "bannable-offence",
-                    References.getDeviceID(getApplicationContext()),
-                    theme_name);
-        } else if (
-                References.isOffensive(theme_author)) {
-            FirebaseAnalytics.backupDebuggableStatistics(
-                    getApplicationContext(),
-                    "bannable-offence",
-                    References.getDeviceID(getApplicationContext()),
-                    theme_author);
         }
 
         new LayoutLoader().execute("");
@@ -790,7 +773,10 @@ public class InformationActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-            if (References.spreadYourWingsAndFly(getApplicationContext())) {
+            if (References.spreadYourWingsAndFly(getApplicationContext()) ||
+                    References.isOffensive(getApplicationContext(), theme_name) ||
+                    References.isOffensive(getApplicationContext(),
+                            References.grabThemeAuthor(getApplicationContext(), theme_pid))) {
                 gradientView.setVisibility(View.GONE);
                 kenBurnsView.setBackgroundColor(Color.parseColor("#ffff00"));
                 collapsingToolbarLayout.setStatusBarScrimColor(Color.parseColor("#ffff00"));

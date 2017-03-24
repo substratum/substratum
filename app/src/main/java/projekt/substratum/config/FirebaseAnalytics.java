@@ -18,70 +18,72 @@
 
 package projekt.substratum.config;
 
-import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
+import com.firebase.client.Firebase;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.IgnoreExtraProperties;
-import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.database.ValueEventListener;
 
-import java.util.Calendar;
-
-import projekt.substratum.BuildConfig;
+import java.util.ArrayList;
+import java.util.HashSet;
 
 public class FirebaseAnalytics {
 
-    // Save data to Firebase
-    public static void backupDebuggableStatistics(Context mContext, String tag, String data,
-                                                  String reason) {
-        try {
-            FirebaseDatabase mDatabaseInstance = FirebaseDatabase.getInstance();
-            DatabaseReference mDatabase = mDatabaseInstance.getReference(tag);
-            String currentTimeAndDate = java.text.DateFormat.getDateTimeInstance().format(
-                    Calendar.getInstance().getTime());
-            Account[] accounts = AccountManager.get(mContext).getAccountsByType("com.google");
-            String main_acc = "null";
-            for (Account account : accounts) {
-                if (account.name != null) {
-                    main_acc = account.name.replace(".", "(dot)");
+    @SuppressWarnings("unchecked")
+    static void withdrawBlacklistedPackages(Context context) {
+        Firebase.setAndroidContext(context);
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+        database.child("patchers").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(com.google.firebase.database.DataSnapshot dataSnapshot) {
+                ArrayList<String> listOfPackages = new ArrayList<>();
+                String data = dataSnapshot.getValue().toString();
+                String[] dataArr = data.substring(1, data.length() - 1).split(",");
+                for (String aDataArr : dataArr) {
+                    String entry = aDataArr.split("=")[1];
+                    listOfPackages.add(entry);
                 }
+
+                HashSet set = new HashSet();
+                set.addAll(listOfPackages);
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+                prefs.edit().putStringSet("blacklisted_packages", set).apply();
             }
-            String entryId = main_acc;
-            String userId = FirebaseInstanceId.getInstance().getToken();
-            DeviceCollection user = new DeviceCollection(
-                    currentTimeAndDate,
-                    userId,
-                    data,
-                    reason,
-                    BuildConfig.VERSION_CODE,
-                    BuildConfig.VERSION_NAME);
-            mDatabase.child(entryId).child(data).setValue(user);
-        } catch (RuntimeException re) {
-            // Suppress Warning
-        }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
     }
 
-    @IgnoreExtraProperties
-    @SuppressWarnings("WeakerAccess")
-    private static class DeviceCollection {
+    @SuppressWarnings("unchecked")
+    static void withdrawNames(Context context) {
+        Firebase.setAndroidContext(context);
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+        database.child("blacklisted").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(com.google.firebase.database.DataSnapshot dataSnapshot) {
+                ArrayList<String> listOfPackages = new ArrayList<>();
+                String data = dataSnapshot.getValue().toString();
+                String[] dataArr = data.substring(1, data.length() - 1).split(",");
+                for (String aDataArr : dataArr) {
+                    String entry = aDataArr.split("=")[1];
+                    listOfPackages.add(entry);
+                }
 
-        public String CurrentTime;
-        public String FireBaseID;
-        public String ID;
-        public String Reason;
-        public int VersionCode;
-        public String VersionName;
+                HashSet set = new HashSet();
+                set.addAll(listOfPackages);
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+                prefs.edit().putStringSet("blacklisted_names", set).apply();
+            }
 
-        public DeviceCollection(String CurrentTime, String FireBaseID, String ID, String Reason,
-                                int VersionCode, String VersionName) {
-            this.CurrentTime = CurrentTime;
-            this.FireBaseID = FireBaseID;
-            this.ID = ID;
-            this.Reason = Reason;
-            this.VersionCode = VersionCode;
-            this.VersionName = VersionName;
-        }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
     }
 }

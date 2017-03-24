@@ -70,6 +70,12 @@ android {
     dexOptions {
         javaMaxHeapSize '2048m'
     }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE-FIREBASE.txt'
+        exclude 'META-INF/NOTICE'
+    }
 }
 
 dependencies {
@@ -87,8 +93,11 @@ dependencies {
     compile 'com.android.support:design:25.3.0'
     compile 'com.android.support:palette-v7:25.3.0'
     compile 'com.android.support:preference-v14:25.3.0'
-    compile 'com.google.firebase:firebase-database:10.2.0'
-    compile 'com.google.firebase:firebase-messaging:10.2.0'
+    // Firebase
+    compile 'com.firebase:firebase-client-android:2.5.2+'
+    compile 'com.google.firebase:firebase-core:10.2.1'
+    compile 'com.google.firebase:firebase-database:10.2.1'
+    compile 'com.google.firebase:firebase-messaging:10.2.1'
     // Image Downloading and Caching
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.squareup.picasso:picasso:2.5.2'

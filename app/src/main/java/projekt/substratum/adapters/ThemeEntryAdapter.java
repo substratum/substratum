@@ -50,7 +50,6 @@ import projekt.substratum.config.References;
 import projekt.substratum.model.ThemeInfo;
 import projekt.substratum.util.SheetDialog;
 
-import static projekt.substratum.config.References.ENABLE_CACHING;
 
 public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.ViewHolder> {
     private ArrayList<ThemeInfo> information;
@@ -131,7 +130,7 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
                     SharedPreferences prefs1 = information.get(i).getContext()
                             .getSharedPreferences(
                                     "substratum_state", Context.MODE_PRIVATE);
-                    if (ENABLE_CACHING) {
+                    if (References.isCachingEnabled(information.get(i).getContext())) {
                         if (!prefs1.contains("is_updating")) prefs1.edit()
                                 .putBoolean("is_updating", false).apply();
                         if (!prefs1.getBoolean("is_updating", true)) {

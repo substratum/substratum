@@ -25,7 +25,6 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 import static projekt.substratum.config.References.ENABLE_AOPT_OUTPUT;
-import static projekt.substratum.config.References.ENABLE_CACHING;
 import static projekt.substratum.config.References.SUBSTRATUM_BUILDER;
 import static projekt.substratum.config.References.getDeviceID;
 
@@ -132,7 +131,8 @@ public class CompilerCommands {
         sb.append(((additional_variant != null) ?
                 "-S " + work_area + "/" + "type2_" + additional_variant + "/ " : ""));
         // We will compile a volatile directory where we make temporary changes to
-        sb.append("-S " + work_area + ((ENABLE_CACHING) ? "/workdir/ " : noCacheDir + "/ "));
+        sb.append("-S " + work_area + (References.isCachingEnabled(context) ?
+                "/workdir/ " : noCacheDir + "/ "));
         // Build upon the system's Android framework
         sb.append("-I " + "/system/framework/framework-res.apk ");
         // If running on the AppCompat commits (first run), it will build upon the app too

@@ -191,11 +191,8 @@ public class SubstratumThemeUpdater {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            if (References.ENABLE_CACHING) {
-                success = new CacheCreator().initializeCache(mContext, packageName);
-            } else {
-                success = true;
-            }
+            success = !References.isCachingEnabled(mContext) ||
+                    new CacheCreator().initializeCache(mContext, packageName);
             return null;
         }
     }

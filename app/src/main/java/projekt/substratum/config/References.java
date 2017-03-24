@@ -90,7 +90,6 @@ public class References {
     public static final Boolean ENABLE_SIGNING = true;
     public static final Boolean ENABLE_ROOT_CHECK = true;
     public static final Boolean ENABLE_AOPT_OUTPUT = false; // WARNING, DEVELOPERS - BREAKS COMPILE
-    public static final Boolean ENABLE_CACHING = false;
     public static final Boolean ENABLE_DIRECT_ASSETS_LOGGING = false;
     public static final Boolean BYPASS_ALL_VERSION_CHECKS = false; // For developer previews only!
     public static final Boolean BYPASS_SUBSTRATUM_BUILDER_DELETION = false;
@@ -150,6 +149,11 @@ public class References {
     private static String resourceChangelog = "ThemeChangelog";
 
     private Context mContext; // Used for support checker
+
+    public static boolean isCachingEnabled(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context)
+                .getBoolean("caching_enabled", false);
+    }
 
     public static void createShortcut(Context context, String theme_pid, String theme_name) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {

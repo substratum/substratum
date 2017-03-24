@@ -199,7 +199,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     new deleteCache().execute("");
                     return false;
                 });
-        if (!References.ENABLE_CACHING) purgeCache.setVisible(false);
+        if (!References.isCachingEnabled(getContext())) purgeCache.setVisible(false);
 
         final CheckBoxPreference show_outdated_themes = (CheckBoxPreference)
                 getPreferenceManager().findPreference("show_outdated_themes");

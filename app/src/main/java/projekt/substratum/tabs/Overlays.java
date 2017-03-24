@@ -104,7 +104,6 @@ import projekt.substratum.util.FloatingActionMenu;
 import projekt.substratum.util.SubstratumBuilder;
 
 import static android.content.Context.CLIPBOARD_SERVICE;
-import static projekt.substratum.config.References.ENABLE_CACHING;
 import static projekt.substratum.config.References.INTERFACER_PACKAGE;
 import static projekt.substratum.config.References.MASQUERADE_PACKAGE;
 import static projekt.substratum.config.References.REFRESH_WINDOW_DELAY;
@@ -569,7 +568,7 @@ public class Overlays extends Fragment {
                 }
             }
 
-            if (!ENABLE_CACHING) {
+            if (!References.isCachingEnabled(mContext)) {
                 String[] listArray = themeAssetManager.list("overlays/android");
                 Collections.addAll(stringArray, listArray);
             } else {
@@ -583,7 +582,7 @@ public class Overlays extends Fragment {
 
             if (stringArray.contains("type3")) {
                 InputStream inputStream;
-                if (!ENABLE_CACHING) {
+                if (!References.isCachingEnabled(mContext)) {
                     inputStream = themeAssetManager.open("overlays/android/type3");
                 } else {
                     inputStream = new FileInputStream(new File(f.getAbsolutePath() + "/type3"));
@@ -976,7 +975,7 @@ public class Overlays extends Fragment {
                                           String type) {
         InputStream inputStream = null;
         try {
-            if (ENABLE_CACHING) {
+            if (References.isCachingEnabled(mContext)) {
                 inputStream = new FileInputStream(
                         new File(((File) typeArrayRaw).getAbsolutePath() + "/type1" + type));
             } else {
@@ -1097,7 +1096,7 @@ public class Overlays extends Fragment {
 
             // Buffer the initial values list so that we get the list of packages inside this theme
             ArrayList<String> overlaysFolder = new ArrayList<>();
-            if (ENABLE_CACHING) {
+            if (References.isCachingEnabled(mContext)) {
                 File overlaysDirectory = new File(mContext.getCacheDir().getAbsoluteFile() +
                         "/SubstratumBuilder/" + theme_pid + "/assets/overlays/");
 
@@ -1194,7 +1193,7 @@ public class Overlays extends Fragment {
                     ArrayList<String> typeArray = new ArrayList<>();
 
                     Object typeArrayRaw;
-                    if (ENABLE_CACHING) {
+                    if (References.isCachingEnabled(mContext)) {
                         typeArrayRaw = new File(mContext.getCacheDir().getAbsoluteFile() +
                                 "/SubstratumBuilder/" + theme_pid
                                 + "/assets/overlays/" + package_identifier);
@@ -1220,7 +1219,7 @@ public class Overlays extends Fragment {
                     }
 
                     File[] fileArray;
-                    if (ENABLE_CACHING) {
+                    if (References.isCachingEnabled(mContext)) {
                         fileArray = ((File) typeArrayRaw).listFiles();
                         if (fileArray != null && fileArray.length > 0) {
                             for (File file : fileArray) {
@@ -1246,7 +1245,7 @@ public class Overlays extends Fragment {
                         type1c.add(setTypeOneSpinners(typeArrayRaw, package_identifier, "c"));
                     }
 
-                    if (ENABLE_CACHING && typeArray.contains("type2")) {
+                    if (References.isCachingEnabled(mContext) && typeArray.contains("type2")) {
                         type2.add(setTypeTwoSpinners(typeArrayRaw,
                                 new InputStreamReader(new FileInputStream(
                                         new File(((File) typeArrayRaw).getAbsolutePath() +
@@ -1427,7 +1426,7 @@ public class Overlays extends Fragment {
         protected String doInBackground(String... sUrl) {
             if (!enable_mode && !disable_mode) {
                 // Initialize Substratum cache with theme only if permitted
-                if (!has_initialized_cache && ENABLE_CACHING) {
+                if (!has_initialized_cache && References.isCachingEnabled(mContext)) {
                     sb = new SubstratumBuilder();
 
                     File versioning = new File(mContext.getCacheDir().getAbsoluteFile() +
@@ -1861,7 +1860,7 @@ public class Overlays extends Fragment {
                         String unparsedSuffix =
                                 ((sUrl[0].length() != 0) ? "/type3_" + unparsedVariant :
                                         "/res");
-                        if (References.ENABLE_CACHING) {
+                        if (References.isCachingEnabled(mContext)) {
                             File srcDir = new File(workingDirectory +
                                     ((sUrl[0].length() != 0) ? "/type3_" + sUrl[0] : "/res"));
                             File destDir = new File(workingDirectory + "/workdir");
@@ -1887,7 +1886,7 @@ public class Overlays extends Fragment {
                         if (checkedOverlays.get(i).is_variant_chosen || sUrl[0].length() != 0) {
                             // Type 1a
                             if (checkedOverlays.get(i).is_variant_chosen1) {
-                                if (References.ENABLE_CACHING) {
+                                if (References.isCachingEnabled(mContext)) {
                                     String sourceLocation = workingDirectory + "/type1a_" +
                                             checkedOverlays.get(i).getSelectedVariantName() +
                                             ".xml";
@@ -1920,7 +1919,7 @@ public class Overlays extends Fragment {
 
                             // Type 1b
                             if (checkedOverlays.get(i).is_variant_chosen2) {
-                                if (ENABLE_CACHING) {
+                                if (References.isCachingEnabled(mContext)) {
                                     String sourceLocation2 = workingDirectory + "/type1b_" +
                                             checkedOverlays.get(i).getSelectedVariantName2() +
                                             ".xml";
@@ -1954,7 +1953,7 @@ public class Overlays extends Fragment {
                             }
                             // Type 1c
                             if (checkedOverlays.get(i).is_variant_chosen3) {
-                                if (ENABLE_CACHING) {
+                                if (References.isCachingEnabled(mContext)) {
                                     String sourceLocation3 = workingDirectory + "/type1c_" +
                                             checkedOverlays.get(i).getSelectedVariantName3() +
                                             ".xml";

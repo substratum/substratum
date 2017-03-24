@@ -197,7 +197,7 @@ public class SubstratumBuilder {
 
         // 2. Set work area to asset chosen based on the parameter passed into this class
         String work_area;
-        if (References.ENABLE_CACHING) {
+        if (References.isCachingEnabled(context)) {
             work_area = context.getCacheDir().getAbsolutePath() + "/SubstratumBuilder/" +
                     theme_pid + "/assets/overlays/" + overlay_package;
         } else {

@@ -757,7 +757,8 @@ public class InformationActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (!BYPASS_SUBSTRATUM_BUILDER_DELETION) {
+        if (!BYPASS_SUBSTRATUM_BUILDER_DELETION &&
+                !References.isCachingEnabled(getApplicationContext())) {
             String workingDirectory =
                     getApplicationContext().getCacheDir().getAbsolutePath();
             File deleted = new File(workingDirectory);

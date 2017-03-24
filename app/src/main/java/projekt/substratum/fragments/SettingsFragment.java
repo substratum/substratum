@@ -437,7 +437,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 boolean isChecked = (Boolean) newValue;
                 prefs.edit().putBoolean("caching_enabled", isChecked).apply();
                 purgeCache.setVisible(isChecked);
-                if (!isChecked) new deleteCache().execute("");
+                new deleteCache().execute();
                 return true;
             }));
         } else {

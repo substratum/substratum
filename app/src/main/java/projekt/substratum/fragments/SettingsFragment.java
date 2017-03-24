@@ -353,9 +353,14 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 });
 
         // These should run if the app is running in debug mode
+        final Preference aoptSwitcher = getPreferenceManager().findPreference
+                ("aopt_switcher");
+        final CheckBoxPreference forceIndependence = (CheckBoxPreference)
+                getPreferenceManager().findPreference("force_independence");
+        final CheckBoxPreference themeCaching = (CheckBoxPreference)
+                getPreferenceManager().findPreference("theme_caching");
+
         if (BuildConfig.DEBUG) {
-            final Preference aoptSwitcher = getPreferenceManager().findPreference
-                    ("aopt_switcher");
             if (prefs.getString("compiler", "aapt").equals("aapt")) {
                 aoptSwitcher.setSummary(R.string.settings_aapt);
             } else {
@@ -390,10 +395,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         sheetDialog.show();
                         return false;
                     });
-            aoptSwitcher.setVisible(true);
 
-            final CheckBoxPreference forceIndependence = (CheckBoxPreference)
-                    getPreferenceManager().findPreference("force_independence");
             if (References.checkThemeInterfacer(getContext())) {
                 forceIndependence.setChecked(prefs.getBoolean("force_independence", false));
                 forceIndependence.setOnPreferenceChangeListener(
@@ -428,11 +430,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             } else if (References.checkOMS(getContext())) {
                 forceIndependence.setChecked(!References.checkThemeInterfacer(getContext()));
                 forceIndependence.setEnabled(References.checkThemeInterfacer(getContext()));
-                forceIndependence.setVisible(true);
             }
 
-            final CheckBoxPreference themeCaching = (CheckBoxPreference)
-                    getPreferenceManager().findPreference("theme_caching");
             themeCaching.setChecked(prefs.getBoolean("caching_enabled", false));
             themeCaching.setOnPreferenceChangeListener(((preference, newValue) -> {
                 boolean isChecked = (Boolean) newValue;
@@ -441,6 +440,10 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 if (!isChecked) new deleteCache().execute("");
                 return true;
             }));
+        } else {
+            aoptSwitcher.setVisible(false);
+            forceIndependence.setVisible(false);
+            themeCaching.setVisible(false);
         }
 
         // Finally, these functions will only work on OMS ROMs

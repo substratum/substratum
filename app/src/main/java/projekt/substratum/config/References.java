@@ -79,6 +79,7 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.Set;
 
+import projekt.substratum.BuildConfig;
 import projekt.substratum.R;
 import projekt.substratum.util.AOPTCheck;
 import projekt.substratum.util.CacheCreator;
@@ -1166,14 +1167,25 @@ public class References {
     // Launch intent for a theme
     public static boolean launchTheme(Context mContext, String package_name, String theme_mode,
                                       Boolean notification) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
         Intent initializer = sendLaunchIntent(mContext, package_name,
                 !References.checkOMS(mContext), theme_mode, notification);
         String integrityCheck = new AOPTCheck().checkAOPTIntegrity(mContext);
         if (integrityCheck != null &&
                 (integrityCheck.equals(mContext.getString(R.string.aapt_version)) ||
                         integrityCheck.equals(mContext.getString(R.string.aopt_version)))) {
-            if (initializer != null) {
-                mContext.startActivity(initializer);
+            // Check if AOPT is used with a release build, if yes then change it to aapt
+            if (integrityCheck.equals(mContext.getString(R.string.aapt_version)) ||
+                    !BuildConfig.DEBUG) {
+                if (initializer != null) {
+                    mContext.startActivity(initializer);
+                }
+            } else {
+                prefs.edit().putString("compiler", "aapt").apply();
+                new AOPTCheck().injectAOPT(mContext, true);
+                if (initializer != null) {
+                    mContext.startActivity(initializer);
+                }
             }
         } else {
             // At this point, AOPT is not found and must be injected in!
@@ -1182,8 +1194,6 @@ public class References {
 
             new AOPTCheck().injectAOPT(mContext, true);
 
-            SharedPreferences prefs =
-                    PreferenceManager.getDefaultSharedPreferences(mContext);
             prefs.edit().putString("compiler", "aapt").apply();
             if (initializer != null) {
                 mContext.startActivity(initializer);

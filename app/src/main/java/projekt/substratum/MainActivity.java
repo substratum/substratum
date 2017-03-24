@@ -1,12 +1,33 @@
+/*
+ * Copyright (c) 2016-2017 Projekt Substratum
+ * This file is part of Substratum.
+ *
+ * Substratum is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Substratum is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package projekt.substratum;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Application;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -58,6 +79,7 @@ import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
 
 import java.io.File;
 
@@ -73,10 +95,10 @@ import projekt.substratum.fragments.ThemeFragment;
 import projekt.substratum.services.FloatUiTile;
 import projekt.substratum.services.InterfaceAuthorizationReceiver;
 import projekt.substratum.services.SubstratumFloatInterface;
-import projekt.substratum.services.ThemeService;
 import projekt.substratum.util.Root;
 import projekt.substratum.util.SheetDialog;
 
+import static projekt.substratum.config.References.BYPASS_ALL_VERSION_CHECKS;
 import static projekt.substratum.config.References.ENABLE_ROOT_CHECK;
 import static projekt.substratum.config.References.INTERFACER_PACKAGE;
 import static projekt.substratum.config.References.SUBSTRATUM_LOG;
@@ -179,13 +201,56 @@ public class MainActivity extends AppCompatActivity implements
         Log.d(References.SUBSTRATUM_LOG, "FCM Registration Token: " + token);
     }
 
+    protected RefWatcher installLeakCanary() {
+        LeakCanary.enableDisplayLeakActivity(this);
+        RefWatcher refWatcher = LeakCanary.refWatcher(this).build();
+        getApplication().registerActivityLifecycleCallbacks(
+                new Application.ActivityLifecycleCallbacks() {
+
+                    @Override
+                    public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+                    }
+
+                    @Override
+                    public void onActivityStarted(Activity activity) {
+                    }
+
+                    @Override
+                    public void onActivityResumed(Activity activity) {
+                    }
+
+                    @Override
+                    public void onActivityPaused(Activity activity) {
+                    }
+
+                    @Override
+                    public void onActivityStopped(Activity activity) {
+                    }
+
+                    @Override
+                    public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+                    }
+
+                    @Override
+                    public void onActivityDestroyed(Activity activity) {
+                        if (activity instanceof MainActivity) {
+                            return;
+                        } else if (activity instanceof InformationActivity) {
+                            return;
+                        }
+                        refWatcher.watch(activity);
+                    }
+                });
+        return refWatcher;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (BuildConfig.DEBUG) {
             Log.d(SUBSTRATUM_LOG, "Substratum launched with debug mode signatures.");
             if (LeakCanary.isInAnalyzerProcess(this)) return;
-            LeakCanary.install(getApplication());
+            installLeakCanary();
             Log.d(SUBSTRATUM_LOG,
                     "LeakCanary has been initialized to actively monitor memory leaks.");
         }
@@ -214,7 +279,6 @@ public class MainActivity extends AppCompatActivity implements
 
         References.setROMVersion(getApplicationContext(), false);
         References.setAndCheckOMS(getApplicationContext());
-        startService(new Intent(this, ThemeService.class));
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
@@ -772,14 +836,6 @@ public class MainActivity extends AppCompatActivity implements
         } catch (IllegalArgumentException e) {
             // Already unregistered
         }
-        // Set every object assignment to null to get ready for app kill
-        if (actionbar_title != null) actionbar_title = null;
-        if (actionbar_content != null) actionbar_content = null;
-        if (searchView != null) searchView = null;
-        if (searchItem != null) searchItem = null;
-        if (supportActionBar != null) supportActionBar = null;
-        if (drawer != null) drawer = null;
-        if (mProgressDialog != null) mProgressDialog = null;
     }
 
     @Override
@@ -859,19 +915,73 @@ public class MainActivity extends AppCompatActivity implements
                     hideFloatingHead();
                 }
                 return true;
+
             case R.id.restart_systemui:
-                ThemeManager.restartSystemUI(getApplicationContext());
+                DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
+                    switch (which) {
+                        case DialogInterface.BUTTON_POSITIVE:
+                            ThemeManager.restartSystemUI(getApplicationContext());
+                            break;
+                        case DialogInterface.BUTTON_NEGATIVE:
+                            break;
+                    }
+                };
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(getString(R.string.dialog_restart_systemui_title));
+                builder.setMessage(getString(R.string.dialog_restart_systemui_content));
+                builder.setPositiveButton(
+                        getString(R.string.restore_dialog_okay), dialogClickListener);
+                builder.setNegativeButton(
+                        getString(R.string.restore_dialog_cancel), dialogClickListener);
+                builder.show();
                 return true;
 
             // Begin RRO based options
             case R.id.reboot_device:
-                prefs.edit().clear().apply();
-                ElevatedCommands.reboot();
+                dialogClickListener = (dialog, which) -> {
+                    switch (which) {
+                        case DialogInterface.BUTTON_POSITIVE:
+                            prefs.edit().clear().apply();
+                            ElevatedCommands.reboot();
+                            break;
+                        case DialogInterface.BUTTON_NEGATIVE:
+                            break;
+                    }
+                };
+
+                builder = new AlertDialog.Builder(this);
+                builder.setTitle(getString(R.string.dialog_restart_reboot_title));
+                builder.setMessage(getString(R.string.dialog_restart_reboot_content));
+                builder.setPositiveButton(
+                        getString(R.string.restore_dialog_okay), dialogClickListener);
+                builder.setNegativeButton(
+                        getString(R.string.restore_dialog_cancel), dialogClickListener);
+                builder.show();
                 return true;
+
             case R.id.soft_reboot:
-                prefs.edit().clear().apply();
-                ElevatedCommands.softReboot();
+                dialogClickListener = (dialog, which) -> {
+                    switch (which) {
+                        case DialogInterface.BUTTON_POSITIVE:
+                            prefs.edit().clear().apply();
+                            ElevatedCommands.softReboot();
+                            break;
+                        case DialogInterface.BUTTON_NEGATIVE:
+                            break;
+                    }
+                };
+
+                builder = new AlertDialog.Builder(this);
+                builder.setTitle(getString(R.string.dialog_restart_soft_reboot_title));
+                builder.setMessage(getString(R.string.dialog_restart_soft_reboot_content));
+                builder.setPositiveButton(
+                        getString(R.string.restore_dialog_okay), dialogClickListener);
+                builder.setNegativeButton(
+                        getString(R.string.restore_dialog_cancel), dialogClickListener);
+                builder.show();
                 return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -1108,7 +1218,8 @@ public class MainActivity extends AppCompatActivity implements
 
         @Override
         protected void onPostExecute(Boolean result) {
-            if (!result && ENABLE_ROOT_CHECK &&
+            super.onPostExecute(result);
+            if (!result && ENABLE_ROOT_CHECK && !BYPASS_ALL_VERSION_CHECKS &&
                     !References.checkThemeInterfacer(getApplicationContext())) {
                 mProgressDialog.setCancelable(false);
                 mProgressDialog.show();
@@ -1153,11 +1264,13 @@ public class MainActivity extends AppCompatActivity implements
             } else {
                 showOutdatedRequestDialog();
             }
-            super.onPostExecute(result);
+            References.injectRescueArchives(getApplicationContext());
         }
 
         @Override
         protected Boolean doInBackground(String... sUrl) {
+            prefs.edit().putBoolean("complexion",
+                    !References.spreadYourWingsAndFly(getApplicationContext())).apply();
             if (!References.checkThemeInterfacer(getApplicationContext())) {
                 Boolean receivedRoot = Root.requestRootAccess();
                 if (receivedRoot) Log.d(SUBSTRATUM_LOG, "Substratum has loaded in rooted mode.");

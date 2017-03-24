@@ -22,18 +22,18 @@
     <string name="question_four">ROM\'umda OMS desteği yoksa Substratum\'u kullanabilir miyim?    </string>
     <string name="answer_four">Evet, eğer ROM\'unuz RRO\'yi destekliyorsa (Marshmallow stokları kategoriye girer).
         Yukarıdaki diğer gereksinimler aynıdır (root, bu uygulama ve uyumlu bir tema). Aynı şekilde
-        uygularsınız, ancak derleme ve uygulama adımları birleştirilir ve temaları uygulamak için
+        uygularsınız, ancak düzenleme ve uygulama adımları birleştirilir ve temaları uygulamak için
         yeniden başlatma gerekir.
     </string>
     <string name="question_five">Bir temayı nasıl uygulayabilirim?</string>
-    <string name="answer_five">Bir temanın uygulanması iki parçalı bir süreçtir: temaların derlenmesi
-        ve temaların uygulanması. Tek seferde derlemek ve uygulamak istiyorsanız Hızlı Uygula
-        sekmesini kullanın ve seçeneklerden birini veya her ikisini seçin. Derlemek istiyorsanız
-        uygulamayı derleyin, temaya gidin, Şablon Yöneticisi sekmesini tıklayın, istediğiniz temaları ve
-        seçenekleri seçin, FAB\'a basın ve Derleme/Güncelleme\'yi seçin, ardından aynı temaları seçin ve
+    <string name="answer_five">Bir temanın uygulanması iki parçalı bir süreçtir: temaların düzenlenmesi
+        ve temaların uygulanması. Tek seferde düzenlemek ve uygulamak istiyorsanız Hızlı Uygula
+        sekmesini kullanın ve seçeneklerden birini veya her ikisini seçin. Düzenlemek istiyorsanız
+        uygulamayı düzenleyin, temaya gidin, Şablon Yöneticisi sekmesini tıklayın, istediğiniz temaları ve
+        seçenekleri seçin, FAB\'a basın ve Düzenle/Güncelle\'yi seçin, ardından aynı temaları seçin ve
         FAB\'a basın ve Seçili Olanları Etkinleştir\'i seçin.
     </string>
-    <string name="question_six">Temalarım derlenmedi, neden?</string>
+    <string name="question_six">Temalarım düzenlenmedi, neden?</string>
     <string name="answer_six">/system/bin/aopt dosyasını silin, uygulamayı yeniden başlatın ve
         yukarıdaki işlemi tekrar deneyin.
     </string>
@@ -52,7 +52,7 @@
     <string name="answer_nine">
 1. Otomatik olarak yapmadıysa, Sistem Arayüzünü yeniden başlatın.\n2. Cihazınızı yeniden
         başlatın.\n3.
-        Temaları kaldırın ve/veya silin, yeniden derleyin ve yeniden uygulayın.
+        Temaları kaldırın ve/veya silin, yeniden düzenleyin ve yeniden uygulayın.
     
     </string>
     <string name="question_ten">Temalar nereye yüklenir?</string>

@@ -1,3 +1,21 @@
+<!--
+  ~ Copyright (c) 2016-2017 Projekt Substratum
+  ~ This file is part of Substratum.
+  ~
+  ~ Substratum is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ Substratum is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
 <resources>
     <string name="app_name" translatable="false">substratum</string>
     <string name="interfacer_name" translatable="false">interfacer</string>
@@ -14,6 +32,7 @@
     <string name="search_play_store_url" translatable="false">https://play.google.com/store/search?q=Substratum%20Theme&amp;c=apps</string>
     <string name="search_play_store_url_icon_packs" translatable="false">https://play.google.com/store/search?q=Icon%20Pack&amp;c=apps</string>
     <string name="search_play_store_url_legacy" translatable="false">https://play.google.com/store/search?q=Substratum%20Legacy%20Theme&amp;c=apps</string>
+    <string name="supported_roms_url" translatable="false">https://raw.githubusercontent.com/substratum/database/master/supported_roms.xml</string>
     <string name="tbo_theme_ready_url" translatable="false">http://forum.xda-developers.com/android/apps-games/apps-themeable-hangouts-layers-cmte-t3113192</string>
     <string name="substratum_github" translatable="false">https://github.com/substratum/substratum</string>
     <string name="interfacer_github" translatable="false">https://github.com/substratum/interfacer</string>
@@ -330,6 +349,15 @@
 
     <string name="changelog_title">%s theme changelog</string>
 
+    <string name="dialog_restart_systemui_title">Restart SystemUI</string>
+    <string name="dialog_restart_systemui_content">This will perform a SystemUI restart on your device.</string>
+
+    <string name="dialog_restart_reboot_title">Reboot</string>
+    <string name="dialog_restart_reboot_content">This will perform a full reboot on your device.</string>
+
+    <string name="dialog_restart_soft_reboot_title">Soft Reboot</string>
+    <string name="dialog_restart_soft_reboot_content">This will perform a soft reboot on your device.</string>
+
     <string name="legacy_theme_notification_title">Deprecated Theme Warning</string>
     <string name="legacy_theme_notification_text">To use outdated themes,
         please enable it in Settings.</string>
@@ -487,6 +515,7 @@
     <string name="toast_unapproved">This overlay has been rejected by the system</string>
     <string name="toast_compiled">Selected overlay(s) compiled!</string>
     <string name="toast_compiled_updated">Selected overlay(s) updated!</string>
+    <string name="toast_compiled_missing">One or more overlays cannot compile due to missing configurations under this set up&#8230;</string>
     <string name="toast_compiled_updated_with_errors">Selected overlay(s) updated with some errors!</string>
     <string name="toast_enabled">Successfully enabled!</string>
     <string name="toast_disabled">Successfully disabled!</string>
@@ -806,8 +835,13 @@
 
     <string name="app_crash_title">%s keeps stopping&#8230;</string>
     <string name="app_crash_content">All enabled overlays for this app have been disabled.</string>
-    <string name="dirty_flash_detected">Your firmware or ROM was updated without deleting user data (dirty flash). Substratum will reset itself to avoid bugs.</string>
-    
+    <string name="dirty_flash_detected">Your firmware or ROM was updated without deleting user data (dirty flash). Substratum will reconfigure itself to avoid bugs.</string>
+
+    <string name="rom_status">support status:</string>
+    <string name="rom_status_supported">%s is community supported!</string>
+    <string name="rom_status_unsupported">this rom is not known by the community yet&#8230;</string>
+    <string name="rom_status_network">internet check required&#8230;</string>
+
     <!-- Nav drawer -->
     <string name="nav_home">Theme packs</string>
     <string name="nav_overlays">Overlays</string>

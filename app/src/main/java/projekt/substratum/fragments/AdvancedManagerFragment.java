@@ -1,3 +1,21 @@
+/*
+ * Copyright (c) 2016-2017 Projekt Substratum
+ * This file is part of Substratum.
+ *
+ * Substratum is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Substratum is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package projekt.substratum.fragments;
 
 import android.content.Context;
@@ -156,10 +174,6 @@ public class AdvancedManagerFragment extends Fragment {
                         OverlayManager overlay13 = overlayList.get(i);
                         if (overlay13.isSelected()) data.add(overlay13.getName());
                     }
-                    Toast toast = Toast.makeText(getContext(), getString(R
-                                    .string.toast_disabled),
-                            Toast.LENGTH_SHORT);
-                    toast.show();
 
                     // The magic goes here
                     if (checkThemeInterfacer(getContext())) {
@@ -186,7 +200,15 @@ public class AdvancedManagerFragment extends Fragment {
                             // OMS may not have written all the changes so quickly just yet
                             // so we may need to have a small delay
                             try {
-                                getActivity().recreate();
+                                List<String> updated = updateEnabledOverlays();
+                                for (int i = 0; i < overlayList.size(); i++) {
+                                    OverlayManager currentOverlay = overlayList.get(i);
+                                    currentOverlay.setSelected(false);
+                                    currentOverlay.updateEnabledOverlays(updated.contains(
+                                            currentOverlay.getName()));
+                                    loadingBar.setVisibility(View.GONE);
+                                    mAdapter.notifyDataSetChanged();
+                                }
                             } catch (Exception e) {
                                 // Consume window refresh
                             }
@@ -278,10 +300,6 @@ public class AdvancedManagerFragment extends Fragment {
                     }
                 }
                 if (!data.isEmpty()) {
-                    Toast toast = Toast.makeText(getContext(), getString(R
-                                    .string.toast_enabled),
-                            Toast.LENGTH_SHORT);
-                    toast.show();
                     if (has_failed) {
                         Toast toast2 = Toast.makeText(getContext(), getString(R
                                         .string.manage_system_not_permitted),
@@ -314,7 +332,15 @@ public class AdvancedManagerFragment extends Fragment {
                             // OMS may not have written all the changes so quickly just yet
                             // so we may need to have a small delay
                             try {
-                                getActivity().recreate();
+                                List<String> updated = updateEnabledOverlays();
+                                for (int i = 0; i < overlayList.size(); i++) {
+                                    OverlayManager currentOverlay = overlayList.get(i);
+                                    currentOverlay.setSelected(false);
+                                    currentOverlay.updateEnabledOverlays(updated.contains(
+                                            currentOverlay.getName()));
+                                    loadingBar.setVisibility(View.GONE);
+                                    mAdapter.notifyDataSetChanged();
+                                }
                             } catch (Exception e) {
                                 // Consume window refresh
                             }
@@ -373,7 +399,15 @@ public class AdvancedManagerFragment extends Fragment {
                         // OMS may not have written all the changes so quickly just yet
                         // so we may need to have a small delay
                         try {
-                            getActivity().recreate();
+                            List<String> updated = updateEnabledOverlays();
+                            for (int i = 0; i < overlayList.size(); i++) {
+                                OverlayManager currentOverlay = overlayList.get(i);
+                                currentOverlay.setSelected(false);
+                                currentOverlay.updateEnabledOverlays(updated.contains(
+                                        currentOverlay.getName()));
+                                loadingBar.setVisibility(View.GONE);
+                                mAdapter.notifyDataSetChanged();
+                            }
                         } catch (Exception e) {
                             // Consume window refresh
                         }
@@ -382,6 +416,21 @@ public class AdvancedManagerFragment extends Fragment {
             });
 
         return root;
+    }
+
+    private List<String> updateEnabledOverlays() {
+        List<String> state5 = ThemeManager.listOverlays(5);
+        ArrayList<String> all = new ArrayList<>(state5);
+
+        ArrayList<String> all_installed_overlays = new ArrayList<>();
+
+        // Filter out icon pack overlays from all overlays
+        for (int i = 0; i < all.size(); i++) {
+            if (!all.get(i).endsWith(".icon")) {
+                all_installed_overlays.add(all.get(i));
+            }
+        }
+        return new ArrayList<>(all_installed_overlays);
     }
 
     private class LayoutReloader extends AsyncTask<String, Integer, String> {
@@ -395,6 +444,11 @@ public class AdvancedManagerFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             progressBar.setVisibility(View.VISIBLE);
+            mRecyclerView.setHasFixedSize(true);
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+            ArrayList<OverlayManager> empty_array = new ArrayList<>();
+            RecyclerView.Adapter empty_adapter = new OverlayManagerAdapter(empty_array);
+            mRecyclerView.setAdapter(empty_adapter);
         }
 
         @Override

@@ -1,8 +1,28 @@
+/*
+ * Copyright (c) 2016-2017 Projekt Substratum
+ * This file is part of Substratum.
+ *
+ * Substratum is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Substratum is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package projekt.substratum.tabs;
 
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
+import android.content.res.AssetManager;
 import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -32,6 +52,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -66,6 +87,7 @@ public class Sounds extends Fragment {
     private SharedPreferences prefs;
     private AsyncTask current;
     private NestedScrollView nsv;
+    private AssetManager themeAssetManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
@@ -130,15 +152,15 @@ public class Sounds extends Fragment {
         );
 
         try {
-            File f =
-                    new File(
-                            getContext().getCacheDir().getAbsoluteFile() + "/SubstratumBuilder/" +
-                                    theme_pid + "/assets/audio");
-            File[] fileArray = f.listFiles();
+            // Parses the list of items in the fonts folder
+            Resources themeResources = getContext().getPackageManager().getResourcesForApplication
+                    (theme_pid);
+            themeAssetManager = themeResources.getAssets();
+            String[] fileArray = themeAssetManager.list("audio");
             ArrayList<String> archivedSounds = new ArrayList<>();
-            for (File file : fileArray) {
-                archivedSounds.add(file.getName());
-            }
+            Collections.addAll(archivedSounds, fileArray);
+
+            // Creates the list of dropdown items
             ArrayList<String> unarchivedSounds = new ArrayList<>();
             unarchivedSounds.add(getString(R.string.sounds_default_spinner));
             unarchivedSounds.add(getString(R.string.sounds_spinner_set_defaults));
@@ -346,14 +368,11 @@ public class Sounds extends Fragment {
 
                 String source = sUrl[0] + ".zip";
 
-                try {
-                    File f = new File(getContext().getCacheDir().getAbsoluteFile() +
-                            "/SubstratumBuilder/" + theme_pid + "/assets/audio/" + source);
-                    try (InputStream inputStream = new FileInputStream(f);
-                         OutputStream outputStream = new FileOutputStream(getContext().getCacheDir()
-                                 .getAbsolutePath() + "/SoundsCache/" + source)) {
-                        CopyStream(inputStream, outputStream);
-                    }
+                try (InputStream inputStream = themeAssetManager.open("audio/" + source);
+                     OutputStream outputStream =
+                             new FileOutputStream(getContext().getCacheDir().getAbsolutePath() +
+                                     "/SoundsCache/" + source)) {
+                    CopyStream(inputStream, outputStream);
                 } catch (Exception e) {
                     e.printStackTrace();
                     Log.e("SoundUtils",

@@ -1,8 +1,28 @@
+/*
+ * Copyright (c) 2016-2017 Projekt Substratum
+ * This file is part of Substratum.
+ *
+ * Substratum is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Substratum is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package projekt.substratum.tabs;
 
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
+import android.content.res.AssetManager;
 import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.AnimationDrawable;
@@ -35,6 +55,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -67,7 +88,7 @@ public class BootAnimations extends Fragment {
     private SharedPreferences prefs;
     private AsyncTask current;
     private NestedScrollView nsv;
-    private int frameCount;
+    private AssetManager themeAssetManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -147,13 +168,12 @@ public class BootAnimations extends Fragment {
 
         try {
             // Parses the list of items in the boot animation folder
-            File f = new File(getContext().getCacheDir().getAbsoluteFile() +
-                    "/SubstratumBuilder/" + theme_pid + "/assets/bootanimation");
-            File[] fileArray = f.listFiles();
+            Resources themeResources = getContext().getPackageManager().getResourcesForApplication
+                    (theme_pid);
+            themeAssetManager = themeResources.getAssets();
+            String[] fileArray = themeAssetManager.list("bootanimation");
             ArrayList<String> unparsedBootAnimations = new ArrayList<>();
-            for (File file : fileArray) {
-                unparsedBootAnimations.add(file.getName());
-            }
+            Collections.addAll(unparsedBootAnimations, fileArray);
 
             // Creates the list of dropdown items
             ArrayList<String> parsedBootAnimations = new ArrayList<>();
@@ -293,6 +313,8 @@ public class BootAnimations extends Fragment {
                 Log.d("BootAnimationUtils", "Loaded boot animation contains " + images.size() +
                         " frames.");
                 if (bootAnimationSelector.getSelectedItemPosition() > 1) {
+                    Log.d("BootAnimationUtils",
+                            "Displaying bootanimation after render task complete!");
                     bootAnimationPreview.setImageDrawable(animation);
                     animation.start();
                 }
@@ -305,21 +327,6 @@ public class BootAnimations extends Fragment {
                 Log.e("BootAnimationUtils",
                         "Window was destroyed before AsyncTask could perform postExecute()");
             }
-        }
-
-        private void iterable(String dirPath) {
-            File f = new File(dirPath);
-            File[] files = f.listFiles();
-
-            if (files != null)
-                for (int i = 0; i < files.length; i++) {
-                    frameCount++;
-                    File file = files[i];
-
-                    if (file.isDirectory()) {
-                        iterable(file.getAbsolutePath());
-                    }
-                }
         }
 
         @Override
@@ -349,15 +356,11 @@ public class BootAnimations extends Fragment {
                 // Copy the bootanimation.zip from assets/bootanimation of the theme's assets
                 String source = sUrl[0] + ".zip";
 
-                try {
-                    File f = new File(getContext().getCacheDir().getAbsoluteFile() +
-                            "/SubstratumBuilder/" + theme_pid + "/assets/bootanimation/" + source);
-                    try (InputStream inputStream = new FileInputStream(f);
-                         OutputStream outputStream =
-                                 new FileOutputStream(getContext().getCacheDir().getAbsolutePath() +
-                                         "/BootAnimationCache/" + source)) {
-                        CopyStream(inputStream, outputStream);
-                    }
+                try (InputStream inputStream = themeAssetManager.open("bootanimation/" + source);
+                     OutputStream outputStream =
+                             new FileOutputStream(getContext().getCacheDir().getAbsolutePath() +
+                                     "/BootAnimationCache/" + source)) {
+                    CopyStream(inputStream, outputStream);
                 } catch (Exception e) {
                     Log.e("BootAnimationUtils",
                             "There is no bootanimation.zip found within the assets of this theme!");
@@ -379,48 +382,43 @@ public class BootAnimations extends Fragment {
                     // Then, count all the files in the extraction zone to determine the best size
                     File countFiles = new File(getContext().getCacheDir().getAbsolutePath() +
                             "/BootAnimationCache/animation_preview/");
-                    frameCount = 0;
-                    iterable(countFiles.getAbsolutePath());
-                    if (frameCount >= 400) {
-                        inSampleSize += frameCount / 100;
-                    } else if (frameCount < 400 && frameCount >= 300) {
-                        inSampleSize += 2;
-                    } else if (frameCount < 300 && frameCount >= 200) {
-                        inSampleSize++;
-                    }
-                    Log.d("BootAnimationUtils",
-                            "Bootanimation cache contains " + frameCount + " files!");
+
                     Log.d("BootAnimationUtils",
                             "Resampling bootanimation for preview at scale " + inSampleSize);
 
                     // Start working on the bootanimation preview
-                    for (int counter = 0; true; counter++) {
-                        File current_directory = new File(getContext().getCacheDir(),
-                                "/BootAnimationCache/" +
-                                        "animation_preview/part" + counter);
-                        String directory = getContext().getCacheDir().getAbsolutePath() +
-                                "/BootAnimationCache/" +
-                                "animation_preview/part" + counter + "/";
-                        if (current_directory.exists()) {
-                            String[] dirObjects = current_directory.list();
+                    File encompassing_directory = new File(getContext().getCacheDir(),
+                            "/BootAnimationCache/animation_preview/");
+                    String[] folders = encompassing_directory.list();
+                    for (String folder : folders) {
+                        try {
+                            String directory = getContext().getCacheDir().getAbsolutePath() +
+                                    "/BootAnimationCache/" +
+                                    "animation_preview/" + folder + "/";
+                            File current_directory = new File(directory);
+                            if (current_directory.exists()) {
+                                String[] dirObjects = current_directory.list();
 
-                            BitmapFactory.Options opts = new BitmapFactory.Options();
-                            // Disable Dithering mode
-                            opts.inDither = false;
-                            // If need free memory, can be purged
-                            opts.inPurgeable = true;
-                            // Reference to use when trying to recover bitmap data
-                            opts.inInputShareable = true;
-                            // Drop down the resampling size so that all bootanimations work
-                            opts.inSampleSize = inSampleSize;
-                            opts.inTempStorage = new byte[32 * 1024];
+                                BitmapFactory.Options opts = new BitmapFactory.Options();
+                                // Disable Dithering mode
+                                opts.inDither = false;
+                                // If need free memory, can be purged
+                                opts.inPurgeable = true;
+                                // Reference to use when trying to recover bitmap data
+                                opts.inInputShareable = true;
+                                // Drop down the resampling size so that all bootanimations work
+                                opts.inSampleSize = inSampleSize;
+                                opts.inTempStorage = new byte[32 * 1024];
 
-                            for (String string : dirObjects) {
-                                Bitmap bitmap = BitmapFactory.decodeFile(directory + string, opts);
-                                images.add(bitmap);
+                                for (String string : dirObjects) {
+                                    Bitmap bitmap = BitmapFactory.decodeFile(directory +
+                                            string, opts);
+
+                                    images.add(bitmap);
+                                }
                             }
-                        } else {
-                            break;
+                        } catch (Exception e) {
+                            // Suppress warning
                         }
                     }
 
@@ -437,6 +435,7 @@ public class BootAnimations extends Fragment {
                     return "true";
                 }
             } catch (Exception e) {
+                e.printStackTrace();
                 Log.e("BootAnimationUtils",
                         "Unexpectedly lost connection to the application host");
             }
@@ -453,9 +452,9 @@ public class BootAnimations extends Fragment {
             } else {
                 if (file_size > 5) {
                     if (file_size >= 10) {
-                        return 5;
-                    } else {
                         return 4;
+                    } else {
+                        return 3;
                     }
                 }
             }

@@ -1,4 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2016-2017 Projekt Substratum
+  ~ This file is part of Substratum.
+  ~
+  ~ Substratum is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ Substratum is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                                  xmlns:app="http://schemas.android.com/apk/res-auto"
                                                  xmlns:tools="http://schemas.android.com/tools"
@@ -24,15 +42,17 @@
             android:id="@+id/toggle_zone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp">
+            android:layout_marginBottom="12dp"
+            android:layout_marginEnd="7dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="12dp"
+            android:clickable="true">
 
             <TextView
                 android:id="@+id/toggle_all_overlays_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="35dp"
-                android:layout_marginTop="12dp"
-                android:paddingTop="5dp"
+                android:paddingTop="3dp"
                 android:text="@string/select_to_toggle_all_overlays"
                 android:textColor="?android:attr/textColorPrimary"
                 android:textSize="15sp"/>
@@ -41,17 +61,16 @@
                 android:id="@+id/type3_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="2dp"
-                android:layout_marginStart="15dp"
+                android:layout_marginBottom="-12dp"
+                android:layout_marginStart="-7dp"
+                android:layout_marginTop="-10dp"
                 android:layout_toStartOf="@+id/toggle_all_overlays"/>
 
             <Switch
                 android:id="@+id/toggle_all_overlays"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="7dp"
-                android:layout_marginTop="12dp"/>
+                android:layout_alignParentEnd="true"/>
 
         </RelativeLayout>
 

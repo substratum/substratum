@@ -23,26 +23,39 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import java.io.InputStream;
+import java.io.File;
+import java.util.ArrayList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-public class ReadVariantPrioritizedColor {
+public class ReadSupportedROMsFile {
 
-    public static String main(InputStream fileName) {
+    public static ArrayList<String> main(String file) {
+
+        ArrayList<String> list = new ArrayList<>();
+        ArrayList<String> emptyList = new ArrayList<>();
+
         try {
+            File fXmlFile = new File(file);
+
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(fileName);
+            Document doc = dBuilder.parse(fXmlFile);
             doc.getDocumentElement().normalize();
-            NodeList nList = doc.getElementsByTagName("color");
-            Node nNode = nList.item(0);
-            Element eElement = (Element) nNode;
-            return eElement.getAttributes().item(0).getNodeValue();
+            NodeList nList = doc.getElementsByTagName("rom");
+
+            for (int temp = 0; temp < nList.getLength(); temp++) {
+                Node nNode = nList.item(temp);
+                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                    Element eElement = (Element) nNode;
+                    list.add(eElement.getAttribute("id"));
+                }
+            }
+            return list;
         } catch (Exception e) {
-            // At this point, the file does not exist!
+            e.printStackTrace();
+            return emptyList;
         }
-        return null;
     }
 }

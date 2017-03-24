@@ -1,9 +1,29 @@
+/*
+ * Copyright (c) 2016-2017 Projekt Substratum
+ * This file is part of Substratum.
+ *
+ * Substratum is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Substratum is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package projekt.substratum.tabs;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.AssetManager;
 import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -33,6 +53,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -59,6 +80,7 @@ public class Fonts extends Fragment {
     private ProgressDialog mProgressDialog;
     private SharedPreferences prefs;
     private AsyncTask current;
+    private AssetManager themeAssetManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
@@ -117,13 +139,15 @@ public class Fonts extends Fragment {
         );
 
         try {
-            File f = new File(getContext().getCacheDir().getAbsoluteFile() + "/SubstratumBuilder/" +
-                    theme_pid + "/assets/fonts");
-            File[] fileArray = f.listFiles();
+            // Parses the list of items in the fonts folder
+            Resources themeResources = getContext().getPackageManager().getResourcesForApplication
+                    (theme_pid);
+            themeAssetManager = themeResources.getAssets();
+            String[] fileArray = themeAssetManager.list("fonts");
             ArrayList<String> unparsedFonts = new ArrayList<>();
-            for (File file : fileArray) {
-                unparsedFonts.add(file.getName());
-            }
+            Collections.addAll(unparsedFonts, fileArray);
+
+            // Creates the list of dropdown items
             ArrayList<String> fonts = new ArrayList<>();
             fonts.add(getString(R.string.font_default_spinner));
             fonts.add(getString(R.string.font_spinner_set_defaults));
@@ -324,12 +348,10 @@ public class Fonts extends Fragment {
                 // Copy the font.zip from assets/fonts of the theme's assets
                 String source = sUrl[0] + ".zip";
 
-                try {
-                    File f = new File(getContext().getCacheDir().getAbsoluteFile() +
-                            "/SubstratumBuilder/" + theme_pid + "/assets/fonts/" + source);
-                    InputStream inputStream = new FileInputStream(f);
-                    OutputStream outputStream = new FileOutputStream(
-                            getContext().getCacheDir().getAbsolutePath() + "/FontCache/" + source);
+                try (InputStream inputStream = themeAssetManager.open("fonts/" + source);
+                     OutputStream outputStream =
+                             new FileOutputStream(getContext().getCacheDir().getAbsolutePath() +
+                                     "/FontCache/" + source)) {
                     CopyStream(inputStream, outputStream);
                 } catch (Exception e) {
                     Log.e("FontUtils",

@@ -109,7 +109,7 @@
     <string name="library_floatingview_authorWebsite">http://engineer.recruit-lifestyle.co.jp/</string>
     <!-- Library section -->
     <string name="library_floatingview_libraryName">浮动视图</string>
-    <string name="library_floatingview_libraryDescription">包含在安卓库中的Floating Views，是 Facebook 对开源社区的贡献。</string>
+    <string name="library_floatingview_libraryDescription">包含在安卓库中的浮动视图，是 Facebook 对开源社区的贡献。</string>
     <string name="library_floatingview_libraryWebsite">https://github.com/recruit-lifestyle/FloatingView/</string>
     <string name="library_floatingview_libraryVersion">2.2</string>
     <!-- OpenSource section -->

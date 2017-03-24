@@ -1,3 +1,21 @@
+/*
+ * Copyright (c) 2016-2017 Projekt Substratum
+ * This file is part of Substratum.
+ *
+ * Substratum is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Substratum is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package projekt.substratum.adapters;
 
 import android.app.Activity;
@@ -32,6 +50,8 @@ import projekt.substratum.config.References;
 import projekt.substratum.model.ThemeInfo;
 import projekt.substratum.util.SheetDialog;
 
+import static projekt.substratum.config.References.ENABLE_CACHING;
+
 public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.ViewHolder> {
     private ArrayList<ThemeInfo> information;
     private Context mContext;
@@ -40,6 +60,10 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
     private Activity mActivity;
 
     public ThemeEntryAdapter(ArrayList<ThemeInfo> information) {
+        this.information = information;
+    }
+
+    public void updateInformation(ArrayList<ThemeInfo> information) {
         this.information = information;
     }
 
@@ -107,56 +131,64 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
                     SharedPreferences prefs1 = information.get(i).getContext()
                             .getSharedPreferences(
                                     "substratum_state", Context.MODE_PRIVATE);
-                    if (!prefs1.contains("is_updating")) prefs1.edit()
-                            .putBoolean("is_updating", false).apply();
-                    if (!prefs1.getBoolean("is_updating", true)) {
-                        // Process fail case if user uninstalls an app and goes back an activity
-                        if (References.isPackageInstalled(information.get(i).getContext(),
-                                information.get(i).getThemePackage())) {
+                    if (ENABLE_CACHING) {
+                        if (!prefs1.contains("is_updating")) prefs1.edit()
+                                .putBoolean("is_updating", false).apply();
+                        if (!prefs1.getBoolean("is_updating", true)) {
+                            // Process fail case if user uninstalls an app and goes back an activity
+                            if (References.isPackageInstalled(information.get(i).getContext(),
+                                    information.get(i).getThemePackage())) {
 
-                            File checkSubstratumVerity = new File(information.get(i)
-                                    .getContext().getCacheDir()
-                                    .getAbsoluteFile() + "/SubstratumBuilder/" +
-                                    information.get(i).getThemePackage() + "/substratum.xml");
-                            if (checkSubstratumVerity.exists()) {
-                                References.launchTheme(information.get(i).getContext(),
-                                        information.get(i)
-                                                .getThemePackage(), information.get(i)
-                                                .getThemeMode(), false);
+                                File checkSubstratumVerity = new File(information.get(i)
+                                        .getContext().getCacheDir()
+                                        .getAbsoluteFile() + "/SubstratumBuilder/" +
+                                        information.get(i).getThemePackage() + "/substratum.xml");
+                                if (checkSubstratumVerity.exists()) {
+                                    References.launchTheme(information.get(i).getContext(),
+                                            information.get(i)
+                                                    .getThemePackage(), information.get(i)
+                                                    .getThemeMode(), false);
+                                } else {
+                                    new References.SubstratumThemeUpdate(
+                                            information.get(i).getContext(),
+                                            information.get(i).getThemePackage(),
+                                            information.get(i).getThemeName(),
+                                            information.get(i).getThemeMode())
+                                            .execute();
+                                }
                             } else {
-                                new References.SubstratumThemeUpdate(
-                                        information.get(i).getContext(),
-                                        information.get(i).getThemePackage(),
-                                        information.get(i).getThemeName(),
-                                        information.get(i).getThemeMode())
-                                        .execute();
+                                Snackbar.make(v,
+                                        information.get(pos).getContext()
+                                                .getString(R.string.toast_uninstalled),
+                                        Snackbar.LENGTH_LONG)
+                                        .show();
+
+                                information.get(i).getActivity().recreate();
                             }
                         } else {
-                            Snackbar.make(v,
-                                    information.get(pos).getContext()
-                                            .getString(R.string.toast_uninstalled),
-                                    Snackbar.LENGTH_LONG)
-                                    .show();
-                            information.get(i).getActivity().recreate();
+                            if (References.isNotificationVisible(
+                                    mContext, References.notification_id_upgrade)) {
+                                Snackbar.make(v,
+                                        information.get(pos).getContext()
+                                                .getString(R.string.background_updating_toast),
+                                        Snackbar.LENGTH_LONG)
+                                        .show();
+                            } else {
+                                Snackbar.make(v,
+                                        information.get(pos).getContext()
+                                                .getString(R.string.background_needs_invalidating),
+                                        Snackbar.LENGTH_INDEFINITE)
+                                        .setAction(mContext.getString(
+                                                R.string.background_needs_invalidating_button),
+                                                view -> new deleteCache().execute(""))
+                                        .show();
+                            }
                         }
                     } else {
-                        if (References.isNotificationVisible(
-                                mContext, References.notification_id_upgrade)) {
-                            Snackbar.make(v,
-                                    information.get(pos).getContext()
-                                            .getString(R.string.background_updating_toast),
-                                    Snackbar.LENGTH_LONG)
-                                    .show();
-                        } else {
-                            Snackbar.make(v,
-                                    information.get(pos).getContext()
-                                            .getString(R.string.background_needs_invalidating),
-                                    Snackbar.LENGTH_INDEFINITE)
-                                    .setAction(mContext.getString(
-                                            R.string.background_needs_invalidating_button),
-                                            view -> new deleteCache().execute(""))
-                                    .show();
-                        }
+                        References.launchTheme(information.get(i).getContext(),
+                                information.get(i)
+                                        .getThemePackage(), information.get(i)
+                                        .getThemeMode(), false);
                     }
                 });
 

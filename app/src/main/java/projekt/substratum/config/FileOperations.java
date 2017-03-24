@@ -1,6 +1,25 @@
+/*
+ * Copyright (c) 2016-2017 Projekt Substratum
+ * This file is part of Substratum.
+ *
+ * Substratum is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Substratum is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package projekt.substratum.config;
 
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.os.Environment;
 import android.util.Log;
 
@@ -9,11 +28,15 @@ import org.apache.commons.io.FileUtils;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 
 import projekt.substratum.util.Root;
 
+import static projekt.substratum.config.References.ENABLE_DIRECT_ASSETS_LOGGING;
 import static projekt.substratum.config.References.checkThemeInterfacer;
 
 public class FileOperations {
@@ -23,6 +46,7 @@ public class FileOperations {
     private static final String CREATE_LOG = "SubstratumCreate";
     private static final String DELETE_LOG = "SubstratumDelete";
     private static final String MOVE_LOG = "SubstratumMove";
+    private static final String DA_LOG = "DirectAssets";
 
     static void adjustContentProvider(final String uri,
                                       final String topic, final String fileName) {
@@ -346,5 +370,80 @@ public class FileOperations {
             Root.runCommand("mv -f " + source + " " + destination);
         }
         Log.d(MOVE_LOG, "Operation " + (!in.exists() && out.exists() ? "succeeded" : "failed"));
+    }
+
+    /**
+     * DirectAssets Mode Functions
+     *
+     * @param assetManager take the asset manager context from the theme package
+     * @param listDir      the expected list directory inside the assets folder
+     * @param destination  output directory on where we should be caching
+     * @param remember     should be the same as listDir, so we strip out the unnecessary prefix
+     *                     so it
+     *                     only extracts to a specified folder without the asset manager's list
+     *                     structure.
+     */
+    public static boolean copyFileOrDir(AssetManager assetManager, String listDir,
+                                        String destination, String remember) {
+        String assets[];
+        if (ENABLE_DIRECT_ASSETS_LOGGING) Log.d(DA_LOG, "Source: " + listDir);
+        if (ENABLE_DIRECT_ASSETS_LOGGING) Log.d(DA_LOG, "Destination: " + destination);
+        try {
+            assets = assetManager.list(listDir);
+            if (assets.length == 0) {
+                // When asset[] is empty, it is not iterable, hence it is a file
+                if (ENABLE_DIRECT_ASSETS_LOGGING)
+                    Log.d(DA_LOG, "This is a file object, directly copying...");
+                if (ENABLE_DIRECT_ASSETS_LOGGING) Log.d(DA_LOG, listDir);
+                boolean copied = copyFile(assetManager, listDir, destination, remember);
+                if (ENABLE_DIRECT_ASSETS_LOGGING) Log.d(DA_LOG, "File operation status: " +
+                        ((copied) ? "Success!" : "Failed"));
+            } else {
+                // This will be a folder if the size is greater than 0
+                String fullPath = (destination + "/" + listDir.substring(remember.length()))
+                        .replaceAll("\\s+", "");
+                File dir = new File(fullPath);
+                if (!dir.exists()) {
+                    Log.d(DA_LOG, "Attempting to copy: " + dir.getAbsolutePath() + "/");
+                    Log.d(DA_LOG, "File operation status: " +
+                            ((dir.mkdir()) ? "Success!" : "Failed"));
+                }
+                for (String asset : assets) {
+                    copyFileOrDir(assetManager, listDir + "/" + asset, destination, remember);
+                }
+            }
+            return true;
+        } catch (IOException ex) {
+            if (ENABLE_DIRECT_ASSETS_LOGGING)
+                Log.e(DA_LOG, "An IOException has been reached: " + ex.getMessage());
+        }
+        return false;
+    }
+
+    private static boolean copyFile(AssetManager assetManager, String filename,
+                                    String destination, String remember) {
+        InputStream inputStream;
+        OutputStream outputStream;
+        try {
+            inputStream = assetManager.open(filename);
+            String destinationFile = destination + "/" + filename.replaceAll("\\s+", "")
+                    .substring(remember.replaceAll("\\s+", "").length());
+            outputStream = new FileOutputStream(destinationFile);
+
+            byte[] buffer = new byte[8192];
+            int read;
+            while ((read = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, read);
+            }
+            inputStream.close();
+            outputStream.flush();
+            outputStream.close();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (ENABLE_DIRECT_ASSETS_LOGGING)
+                Log.e(DA_LOG, "An Exception has been reached: " + e.getMessage());
+        }
+        return false;
     }
 }

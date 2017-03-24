@@ -1,3 +1,21 @@
+/*
+ * Copyright (c) 2016-2017 Projekt Substratum
+ * This file is part of Substratum.
+ *
+ * Substratum is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Substratum is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package projekt.substratum.config;
 
 import android.annotation.SuppressLint;
@@ -36,11 +54,13 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.Toast;
 
+import org.apache.commons.io.IOUtils;
+
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -50,6 +70,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -67,6 +88,10 @@ public class References {
     public static final Boolean ENABLE_SIGNING = true;
     public static final Boolean ENABLE_ROOT_CHECK = true;
     public static final Boolean ENABLE_AOPT_OUTPUT = false; // WARNING, DEVELOPERS - BREAKS COMPILE
+    public static final Boolean ENABLE_CACHING = false;
+    public static final Boolean ENABLE_DIRECT_ASSETS_LOGGING = false;
+    public static final Boolean BYPASS_ALL_VERSION_CHECKS = false; // For developer previews only!
+    public static final Boolean BYPASS_SUBSTRATUM_BUILDER_DELETION = false;
     public static final String SUBSTRATUM_BUILDER = "SubstratumBuilder";
     public static final String SUBSTRATUM_LOG = "SubstratumLogger";
     public static final String SUBSTRATUM_ICON_BUILDER = "SubstratumIconBuilder";
@@ -122,6 +147,8 @@ public class References {
     private static String metadataThemeReady = "Substratum_ThemeReady";
     private static String resourceChangelog = "ThemeChangelog";
 
+    private Context mContext; // Used for support checker
+
     public static void createShortcut(Context context, String theme_pid, String theme_name) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
             ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
@@ -144,7 +171,7 @@ public class References {
                                 .setIcon(Icon.createWithBitmap(app_icon))
                                 .setIntent(myIntent)
                                 .build();
-                shortcutManager.setDynamicShortcuts(Arrays.asList(shortcut));
+                shortcutManager.setDynamicShortcuts(Collections.singletonList(shortcut));
                 Log.d(SUBSTRATUM_LOG, "Successfully added dynamic app shortcut!");
             } catch (Exception e) {
                 e.printStackTrace();
@@ -275,11 +302,15 @@ public class References {
 
     // This method is used to determine whether there the system is initiated with OMS
     public static Boolean checkOMS(Context context) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        if (!prefs.contains("oms_state")) {
-            setAndCheckOMS(context);
+        if (!BYPASS_ALL_VERSION_CHECKS) {
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            if (!prefs.contains("oms_state")) {
+                setAndCheckOMS(context);
+            }
+            return prefs.getBoolean("oms_state", false);
+        } else {
+            return false;
         }
-        return prefs.getBoolean("oms_state", false);
     }
 
     public static void setAndCheckOMS(Context context) {
@@ -392,6 +423,7 @@ public class References {
         prefs.edit().putBoolean("force_english", false).apply();
         prefs.edit().putBoolean("floatui_show_android_system_overlays", false).apply();
         prefs.edit().putBoolean("alphabetize_showcase", false).apply();
+        prefs.edit().putBoolean("complexion", true).apply();
         prefs = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
         prefs.edit().putBoolean("is_updating", false).apply();
     }
@@ -708,6 +740,16 @@ public class References {
     }
 
     // PackageName Crawling Methods
+    public static String grabAppVersion(Context mContext, String package_name) {
+        try {
+            PackageInfo pInfo = mContext.getPackageManager().getPackageInfo(package_name, 0);
+            return pInfo.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            //
+        }
+        return null;
+    }
+
     public static String grabThemeVersion(Context mContext, String package_name) {
         try {
             PackageInfo pInfo = mContext.getPackageManager().getPackageInfo(package_name, 0);
@@ -1375,16 +1417,27 @@ public class References {
     }
 
     // This method parses a specific overlay resource file (.xml) and returns the specified value
-    public static String getOverlayResource(File overlay_file) {
+    public static String getOverlayResource(InputStream overlay) {
         String hex = null;
 
+        // Try to clone the InputStream (WARNING: Might be an ugly hek)
+        InputStream clone1, clone2;
+        try {
+            byte[] byteArray = IOUtils.toByteArray(overlay);
+            clone1 = new ByteArrayInputStream(byteArray);
+            clone2 = new ByteArrayInputStream(byteArray);
+        } catch (IOException e) {
+            Log.e(SUBSTRATUM_LOG, "Unable to clone InputStream");
+            return null;
+        }
+
         // Find the name of the top most color in the file first.
-        String resource_name = new ReadVariantPrioritizedColor()
-                .main(overlay_file.getAbsolutePath());
+        String resource_name = new ReadVariantPrioritizedColor().main(clone1);
 
         if (resource_name != null) {
-            try (BufferedReader br = new BufferedReader(new FileReader(overlay_file))) {
-                for (String line; (line = br.readLine()) != null; ) {
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(clone2))) {
+                String line;
+                while ((line = br.readLine()) != null) {
                     if (line.contains("\"" + resource_name + "\"")) {
                         String[] split = line.substring(line.lastIndexOf("\">") + 2).split("<");
                         hex = split[0];
@@ -1394,6 +1447,13 @@ public class References {
             } catch (IOException ioe) {
                 Log.e(SUBSTRATUM_LOG, "Unable to find " + resource_name + " in this overlay!");
             }
+        }
+
+        try {
+            clone1.close();
+            clone2.close();
+        } catch (IOException e) {
+            Log.e(SUBSTRATUM_LOG, "Failed to close InputStream");
         }
         return hex;
     }

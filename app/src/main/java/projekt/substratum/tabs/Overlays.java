@@ -993,39 +993,41 @@ public class Overlays extends Fragment {
             // This adjusts it so that we have the spinner text set
             String formatter = String.format(getString(R.string
                     .overlays_variant_substitute), reader.readLine());
-            // This is the default type1a xml hex, if present
-            try (InputStream input = themeAssetManager.open(overlaysDir +
-                    "/" + package_identifier + "/type1" + type)) {
-                String hex = References.getOverlayResource(input);
-                inputStream.close();
-                return new VariantInfo(formatter, hex);
+            // This is the default type1 xml hex, if present
+            String hex = null;
+            try (InputStream name = themeAssetManager.open(overlaysDir +
+                    "/" + package_identifier + "/res/values/type1" + type + ".xml")) {
+                hex = References.getOverlayResource(name);
+            } catch (IOException e) {
+                Log.e(References.SUBSTRATUM_LOG, "Type1 default xml is not found!");
             }
+            return new VariantInfo(formatter, hex);
         } catch (IOException e) {
             e.printStackTrace();
             // When erroring out, put the default spinner text
             Log.e(References.SUBSTRATUM_LOG, "There was an error parsing " +
                     "asset file!");
+            String hex = null;
             try (InputStream input = themeAssetManager.open(overlaysDir +
-                    "/" + package_identifier + "/type1" + type)) {
-                String hex = References.getOverlayResource(input);
-                switch (type) {
-                    case "a":
-                        return new VariantInfo(
-                                getString(R.string.overlays_variant_default_1a), hex);
-                    case "b":
-                        return new VariantInfo(
-                                getString(R.string.overlays_variant_default_1b), hex);
-                    case "c":
-                        return new VariantInfo(
-                                getString(R.string.overlays_variant_default_1c), hex);
-                    default:
-                        return null;
-                }
+                    "/" + package_identifier + "/res/values/type1" + type + ".xml")) {
+                hex = References.getOverlayResource(input);
             } catch (IOException ioe) {
-                // Suppress warning
+                Log.e(References.SUBSTRATUM_LOG, "Type1 default xml is not found!");
+            }
+            switch (type) {
+                case "a":
+                    return new VariantInfo(
+                            getString(R.string.overlays_variant_default_1a), hex);
+                case "b":
+                    return new VariantInfo(
+                            getString(R.string.overlays_variant_default_1b), hex);
+                case "c":
+                    return new VariantInfo(
+                            getString(R.string.overlays_variant_default_1c), hex);
+                default:
+                    return null;
             }
         }
-        return null;
     }
 
     public String setTypeTwoSpinners(Object typeArrayRaw, InputStreamReader inputStreamReader) {

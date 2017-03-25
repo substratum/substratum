@@ -32,6 +32,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v7.preference.CheckBoxPreference;
@@ -66,6 +67,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     private ProgressDialog mProgressDialog;
     private StringBuilder platformSummary;
     private Preference systemPlatform;
+    private int tapCount = 0;
 
     private boolean checkSettingsPackageSupport() {
         try {
@@ -352,13 +354,22 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     return false;
                 });
 
+        final CheckBoxPreference themeCaching = (CheckBoxPreference)
+                getPreferenceManager().findPreference("theme_caching");
+        themeCaching.setChecked(prefs.getBoolean("caching_enabled", false));
+        themeCaching.setOnPreferenceChangeListener(((preference, newValue) -> {
+            boolean isChecked = (Boolean) newValue;
+            prefs.edit().putBoolean("caching_enabled", isChecked).apply();
+            purgeCache.setVisible(isChecked);
+            new deleteCache().execute();
+            return true;
+        }));
+
         // These should run if the app is running in debug mode
         final Preference aoptSwitcher = getPreferenceManager().findPreference
                 ("aopt_switcher");
         final CheckBoxPreference forceIndependence = (CheckBoxPreference)
                 getPreferenceManager().findPreference("force_independence");
-        final CheckBoxPreference themeCaching = (CheckBoxPreference)
-                getPreferenceManager().findPreference("theme_caching");
 
         if (BuildConfig.DEBUG) {
             if (prefs.getString("compiler", "aapt").equals("aapt")) {
@@ -431,19 +442,29 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 forceIndependence.setChecked(!References.checkThemeInterfacer(getContext()));
                 forceIndependence.setEnabled(References.checkThemeInterfacer(getContext()));
             }
-
-            themeCaching.setChecked(prefs.getBoolean("caching_enabled", false));
-            themeCaching.setOnPreferenceChangeListener(((preference, newValue) -> {
-                boolean isChecked = (Boolean) newValue;
-                prefs.edit().putBoolean("caching_enabled", isChecked).apply();
-                purgeCache.setVisible(isChecked);
-                new deleteCache().execute();
-                return true;
-            }));
         } else {
             aoptSwitcher.setVisible(false);
             forceIndependence.setVisible(false);
             themeCaching.setVisible(false);
+
+            // Hidden caching mode option
+            systemPlatform.setOnPreferenceClickListener(preference -> {
+                tapCount++;
+                if (tapCount == 1) {
+                    new Handler().postDelayed(() -> tapCount = 0, 2000);
+                } else if (tapCount == 8) {
+                    themeCaching.setVisible(true);
+                    tapCount = 0;
+                    if (getView() != null) {
+                        Snackbar.make(getView(),
+                                R.string.settings_theme_caching_found_snackbar,
+                                Snackbar.LENGTH_LONG)
+                                .show();
+                    }
+                    systemPlatform.setOnPreferenceClickListener(null);
+                }
+                return false;
+            });
         }
 
         // Finally, these functions will only work on OMS ROMs

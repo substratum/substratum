@@ -222,8 +222,16 @@ public class ThemeManager {
 
     public static void uninstallOverlay(Context context, ArrayList<String> overlays) {
         if (checkThemeInterfacer(context)) {
-            ThemeInterfacerService.uninstallOverlays(context, overlays, shouldRestartUI(context,
-                    overlays));
+            boolean shouldRestartUi = false;
+            for (String o : overlays) {
+                if (o.startsWith("com.android.systemui")) {
+                    if (isOverlayEnabled(o)) {
+                        shouldRestartUi = true;
+                        break;
+                    }
+                }
+            }
+            ThemeInterfacerService.uninstallOverlays(context, overlays, shouldRestartUi);
         } else {
             String command = "";
             for (String packageName : overlays) {

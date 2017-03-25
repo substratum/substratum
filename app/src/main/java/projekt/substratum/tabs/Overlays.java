@@ -553,7 +553,6 @@ public class Overlays extends Fragment {
             Resources themeResources = mContext.getPackageManager().getResourcesForApplication
                     (theme_pid);
             themeAssetManager = themeResources.getAssets();
-            String[] overlayList = themeAssetManager.list("overlays");
 
             ArrayList<String> type3 = new ArrayList<>();
             ArrayList<String> stringArray = new ArrayList<>();
@@ -1080,6 +1079,17 @@ public class Overlays extends Fragment {
 
         @Override
         protected String doInBackground(String... sUrl) {
+            // Refresh asset manager
+            if (!References.isCachingEnabled(mContext)) {
+                try {
+                    Resources themeResources = mContext.getPackageManager()
+                            .getResourcesForApplication(theme_pid);
+                    themeAssetManager = themeResources.getAssets();
+                } catch (PackageManager.NameNotFoundException e) {
+                    // Suppress exception
+                }
+            }
+
             // Grab the current theme_pid's versionName so that we can version our overlays
             versionName = References.grabAppVersion(mContext, theme_pid);
             List<String> state5overlays = updateEnabledOverlays();
@@ -1440,6 +1450,13 @@ public class Overlays extends Fragment {
                         has_initialized_cache = true;
                     }
                 } else {
+                    try {
+                        Resources themeResources = mContext.getPackageManager()
+                                .getResourcesForApplication(theme_pid);
+                        themeAssetManager = themeResources.getAssets();
+                    } catch (PackageManager.NameNotFoundException e) {
+                        // Suppress exception
+                    }
                     Log.d("SubstratumBuilder",
                             "Work area is ready with decompiled assets already!");
                 }

@@ -518,7 +518,7 @@ public class SubstratumBuilder {
             }
         }
         // Finally, clean this compilation code's cache
-        if (!BYPASS_SUBSTRATUM_BUILDER_DELETION) {
+        if (!BYPASS_SUBSTRATUM_BUILDER_DELETION && !References.isCachingEnabled(context)) {
             String workingDirectory =
                     context.getCacheDir().getAbsolutePath() + "/SubstratumBuilder/";
             File deleted = new File(workingDirectory);

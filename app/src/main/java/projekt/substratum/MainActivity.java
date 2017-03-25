@@ -85,7 +85,6 @@ import eightbitlab.com.blurview.BlurView;
 import eightbitlab.com.blurview.RenderScriptBlur;
 import projekt.substratum.config.ElevatedCommands;
 import projekt.substratum.config.FileOperations;
-import projekt.substratum.config.FirebaseAnalytics;
 import projekt.substratum.config.References;
 import projekt.substratum.config.ThemeManager;
 import projekt.substratum.fragments.PriorityListFragment;

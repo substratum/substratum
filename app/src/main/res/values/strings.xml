@@ -514,7 +514,7 @@
     <string name="toast_compiled_updated_with_errors">Selected overlay(s) updated with some errors!</string>
     <string name="toast_enabled">Successfully enabled!</string>
     <string name="toast_disabled">Successfully disabled!</string>
-    <string name="toast_disabled2">@string/toast_disabled</string>
+    <string name="toast_disabled2" translatable="false">@string/toast_disabled</string>
     <string name="toast_disabled3">Please compile this overlay before applying!</string>
     <string name="toast_disabled4">You can\'t disable an overlay you don\'t have compiled!</string>
     <string name="toast_disabled5">Please select a valid overlay before performing this action.</string>

@@ -356,8 +356,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         final CheckBoxPreference themeCaching = (CheckBoxPreference)
                 getPreferenceManager().findPreference("theme_caching");
-        themeCaching.setChecked(prefs.getBoolean("caching_enabled", false));
-        themeCaching.setVisible(prefs.getBoolean("caching_enabled", false));
+        boolean to_show = prefs.getBoolean("caching_enabled", false);
+        themeCaching.setChecked(to_show);
+        themeCaching.setVisible(to_show);
         themeCaching.setOnPreferenceChangeListener(((preference, newValue) -> {
             boolean isChecked = (Boolean) newValue;
             prefs.edit().putBoolean("caching_enabled", isChecked).apply();

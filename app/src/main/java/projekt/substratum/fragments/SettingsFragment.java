@@ -443,8 +443,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 forceIndependence.setEnabled(References.checkThemeInterfacer(getContext()));
             }
         } else {
+            if (!References.checkOMS(getContext())) forceIndependence.setVisible(false);
             aoptSwitcher.setVisible(false);
-            forceIndependence.setVisible(false);
             themeCaching.setVisible(false);
 
             // Hidden caching mode option

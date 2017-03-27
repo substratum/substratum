@@ -17,15 +17,15 @@
   -->
 
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/theme_card"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:clickable="true"
-    android:foreground="?android:selectableItemBackground"
-    card_view:cardBackgroundColor="@color/main_screen_card_background"
-    card_view:cardCornerRadius="0dp"
-    card_view:cardElevation="@dimen/main_screen_n_card_elevation">
+                                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                                    android:id="@+id/theme_card"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:clickable="true"
+                                    android:foreground="?android:selectableItemBackground"
+                                    card_view:cardBackgroundColor="@color/main_screen_card_background"
+                                    card_view:cardCornerRadius="0dp"
+                                    card_view:cardElevation="@dimen/main_screen_n_card_elevation">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -45,7 +45,7 @@
             android:layout_marginTop="3dp"
             android:text="API_LEVELS"
             android:textColor="@color/main_screen_card_theme_author"
-            android:textSize="10sp" />
+            android:textSize="10sp"/>
 
         <TextView
             android:id="@+id/theme_version"
@@ -57,7 +57,7 @@
             android:layout_marginTop="1dp"
             android:text="THEME_VERSION"
             android:textColor="@color/main_screen_card_theme_author"
-            android:textSize="10sp" />
+            android:textSize="10sp"/>
 
         <TextView
             android:id="@+id/plugin_version"
@@ -70,7 +70,7 @@
             android:layout_marginTop="1dp"
             android:text="PLUGIN_VERSION"
             android:textColor="@color/main_screen_card_theme_author"
-            android:textSize="10sp" />
+            android:textSize="10sp"/>
 
         <TextView
             android:id="@+id/theme_name"
@@ -86,7 +86,7 @@
             android:text="THEME_NAME"
             android:textColor="@color/main_screen_card_theme_title"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/theme_author"
@@ -100,7 +100,7 @@
             android:layout_marginStart="15dp"
             android:text="THEME_AUTHOR"
             android:textColor="@color/main_screen_card_theme_author"
-            android:textSize="12sp" />
+            android:textSize="12sp"/>
 
         <ImageView
             android:id="@+id/theme_preview_image"
@@ -109,7 +109,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:scaleType="centerCrop"
-            android:src="@android:color/transparent" />
+            android:src="@android:color/transparent"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -122,7 +122,7 @@
                 android:id="@+id/theme_ready_divider"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@android:color/transparent" />
+                android:background="@android:color/transparent"/>
 
             <ImageView
                 android:id="@+id/theme_ready_indicator"
@@ -134,7 +134,7 @@
                 android:layout_toEndOf="@+id/theme_unready_indicator"
                 android:clickable="true"
                 android:foreground="?android:selectableItemBackground"
-                android:src="@drawable/tbo_icon" />
+                android:src="@drawable/tbo_icon"/>
 
             <ImageView
                 android:id="@+id/theme_unready_indicator"
@@ -145,7 +145,7 @@
                 android:layout_marginTop="10dp"
                 android:clickable="true"
                 android:foreground="?android:selectableItemBackground"
-                android:src="@drawable/two_icon" />
+                android:src="@drawable/two_icon"/>
 
         </RelativeLayout>
 
@@ -155,6 +155,6 @@
         android:id="@+id/line"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/theme_information_card_divider" />
+        android:background="@color/theme_information_card_divider"/>
 
 </android.support.v7.widget.CardView>

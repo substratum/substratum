@@ -24,6 +24,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.firebase.client.Firebase;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -34,31 +35,30 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 @SuppressWarnings("AccessStaticViaInstance")
-public class FirebaseAnalytics {
+class FirebaseAnalytics {
 
     private static FirebaseDatabase mDatabase;
+    private static SharedPreferences mPrefs;
 
-    public static FirebaseDatabase getDatabase() {
+    private static DatabaseReference getDatabaseReference(Context context) {
         if (mDatabase == null) {
+            Firebase.setAndroidContext(context);
+            mPrefs = PreferenceManager.getDefaultSharedPreferences(context);
             mDatabase = FirebaseDatabase.getInstance();
             mDatabase.setPersistenceEnabled(true);
-            printFCMtoken();
+            String token = FirebaseInstanceId.getInstance().getToken();
+            Log.d(References.SUBSTRATUM_LOG, "Firebase Registration Token: " + token);
         }
-        return mDatabase;
-    }
-
-    public static void printFCMtoken() {
-        String token = FirebaseInstanceId.getInstance().getToken();
-        Log.d(References.SUBSTRATUM_LOG, "FCM Registration Token: " + token);
+        return mDatabase.getReference();
     }
 
     @SuppressWarnings("unchecked")
     static void withdrawBlacklistedPackages(Context context) {
-        Firebase.setAndroidContext(context);
-        DatabaseReference database = getDatabase().getInstance().getReference();
+        DatabaseReference database = getDatabaseReference(context);
         database.child("patchers").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(com.google.firebase.database.DataSnapshot dataSnapshot) {
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                mPrefs.edit().remove("blacklisted_packages").apply();
                 ArrayList<String> listOfPackages = new ArrayList<>();
                 String data = dataSnapshot.getValue().toString();
                 String[] dataArr = data.substring(1, data.length() - 1).split(",");
@@ -69,8 +69,7 @@ public class FirebaseAnalytics {
 
                 HashSet set = new HashSet();
                 set.addAll(listOfPackages);
-                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-                prefs.edit().putStringSet("blacklisted_packages", set).apply();
+                mPrefs.edit().putStringSet("blacklisted_packages", set).apply();
             }
 
             @Override
@@ -82,10 +81,11 @@ public class FirebaseAnalytics {
     @SuppressWarnings("unchecked")
     static void withdrawNames(Context context) {
         Firebase.setAndroidContext(context);
-        DatabaseReference database = getDatabase().getInstance().getReference();
+        DatabaseReference database = getDatabaseReference(context);
         database.child("blacklisted").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(com.google.firebase.database.DataSnapshot dataSnapshot) {
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                mPrefs.edit().remove("blacklisted_names").apply();
                 ArrayList<String> listOfPackages = new ArrayList<>();
                 String data = dataSnapshot.getValue().toString();
                 String[] dataArr = data.substring(1, data.length() - 1).split(",");
@@ -96,8 +96,7 @@ public class FirebaseAnalytics {
 
                 HashSet set = new HashSet();
                 set.addAll(listOfPackages);
-                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-                prefs.edit().putStringSet("blacklisted_names", set).apply();
+                mPrefs.edit().putStringSet("blacklisted_names", set).apply();
             }
 
             @Override

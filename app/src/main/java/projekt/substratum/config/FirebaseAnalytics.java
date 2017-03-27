@@ -23,7 +23,6 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-import com.firebase.client.Firebase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -42,7 +41,6 @@ class FirebaseAnalytics {
 
     private static DatabaseReference getDatabaseReference(Context context) {
         if (mDatabase == null) {
-            Firebase.setAndroidContext(context);
             mPrefs = PreferenceManager.getDefaultSharedPreferences(context);
             mDatabase = FirebaseDatabase.getInstance();
             mDatabase.setPersistenceEnabled(true);
@@ -80,7 +78,6 @@ class FirebaseAnalytics {
 
     @SuppressWarnings("unchecked")
     static void withdrawNames(Context context) {
-        Firebase.setAndroidContext(context);
         DatabaseReference database = getDatabaseReference(context);
         database.child("blacklisted").addValueEventListener(new ValueEventListener() {
             @Override

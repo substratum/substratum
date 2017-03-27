@@ -242,8 +242,8 @@
     <string name="settings_about_system_content" translatable="false">%NULL$</string>
 
     <string name="settings_aopt_switcher_title">System Overlay Compiler</string>
-    <string name="settings_aapt">AAPT (Stable)</string>
-    <string name="settings_aopt">AOPT (Cutting Edge)</string>
+    <string name="settings_aapt" translatable="false">Android Asset Packaging Tool (Stable)</string>
+    <string name="settings_aopt" translatable="false">Android Overlay Packaging Tool (Cutting Edge)</string>
 
     <string name="theme_information_tab_one">Overlay Manager</string>
     <string name="theme_information_tab_two">Boot animations</string>
@@ -569,7 +569,7 @@
     <string name="substratum_cache_clear_toast">Substratum\'s cache has been wiped!</string>
     <string name="substratum_restart_toast">Substratum restarted automatically after a settings change.</string>
     <string name="purge_cache">Invalidate Theme Cache</string>
-    <string name="purge_cache_subtext">Destroy theme and application cache, as well as reset all flags relating to theme rebuilds.</string>
+    <string name="purge_cache_subtext">This will destroy all stored theme and application cache.</string>
     <string name="restart_systemui">Post-enable SystemUI recreate</string>
     <string name="restart_systemui_subtext">Automatically recreate the SystemUI after enabling/disabling a SystemUI overlay</string>
     <string name="restart_systemui_toast_enabled">SystemUI will recreate dynamically instead of restarting!</string>

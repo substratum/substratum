@@ -48,6 +48,13 @@
         android:layout_height="match_parent"
         android:title="@string/settings_title_clickable">
 
+        <CheckBoxPreference
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:key="theme_caching"
+            android:summary="@string/settings_theme_caching_text"
+            android:title="@string/settings_theme_caching_title"/>
+
         <Preference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -61,13 +68,6 @@
             android:key="aopt_switcher"
             android:summary="@string/settings_aapt"
             android:title="@string/settings_aopt_switcher_title"/>
-
-        <CheckBoxPreference
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:key="theme_caching"
-            android:summary="@string/settings_theme_caching_text"
-            android:title="@string/settings_theme_caching_title"/>
 
     </PreferenceCategory>
 

@@ -445,29 +445,29 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 forceIndependence.setEnabled(References.checkThemeInterfacer(getContext()));
             }
         } else {
-            if (!References.checkOMS(getContext())) forceIndependence.setVisible(false);
+            if (!References.checkOMS(getContext()))
+                forceIndependence.setVisible(false);
             aoptSwitcher.setVisible(false);
-            themeCaching.setVisible(false);
-
-            // Hidden caching mode option
-            systemPlatform.setOnPreferenceClickListener(preference -> {
-                tapCount++;
-                if (tapCount == 1) {
-                    new Handler().postDelayed(() -> tapCount = 0, 2000);
-                } else if (tapCount == 8) {
-                    themeCaching.setVisible(true);
-                    tapCount = 0;
-                    if (getView() != null) {
-                        Snackbar.make(getView(),
-                                R.string.settings_theme_caching_found_snackbar,
-                                Snackbar.LENGTH_LONG)
-                                .show();
-                    }
-                    systemPlatform.setOnPreferenceClickListener(null);
-                }
-                return false;
-            });
         }
+
+        // Hidden caching mode option
+        systemPlatform.setOnPreferenceClickListener(preference -> {
+            tapCount++;
+            if (tapCount == 1) {
+                new Handler().postDelayed(() -> tapCount = 0, 2000);
+            } else if (tapCount == 8) {
+                themeCaching.setVisible(true);
+                tapCount = 0;
+                if (getView() != null) {
+                    Snackbar.make(getView(),
+                            R.string.settings_theme_caching_found_snackbar,
+                            Snackbar.LENGTH_LONG)
+                            .show();
+                }
+                systemPlatform.setOnPreferenceClickListener(null);
+            }
+            return false;
+        });
 
         // Finally, these functions will only work on OMS ROMs
         if (References.checkOMS(getContext())) {
@@ -503,7 +503,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
             final CheckBoxPreference hide_app_checkbox = (CheckBoxPreference)
                     getPreferenceManager().findPreference("hide_app_checkbox");
-            hide_app_checkbox.setEnabled(false);
+            hide_app_checkbox.setVisible(false);
             if (prefs.getBoolean("show_app_icon", true)) {
                 hide_app_checkbox.setChecked(true);
             } else {
@@ -511,7 +511,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
             if (checkSettingsPackageSupport()) {
                 hide_app_checkbox.setSummary(getString(R.string.hide_app_icon_supported));
-                hide_app_checkbox.setEnabled(true);
+                hide_app_checkbox.setVisible(true);
             }
             hide_app_checkbox.setOnPreferenceChangeListener(
                     (preference, newValue) -> {

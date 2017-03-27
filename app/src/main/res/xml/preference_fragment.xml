@@ -53,6 +53,13 @@
         android:layout_height="match_parent"
         android:title="@string/settings_title_clickable">
 
+        <CheckBoxPreference
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:key="theme_caching"
+            android:summary="@string/settings_theme_caching_text"
+            android:title="@string/settings_theme_caching_title"/>
+
         <Preference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -80,13 +87,6 @@
             android:key="force_independence"
             android:summary="@string/force_independence_summary"
             android:title="@string/force_independence_title"/>
-
-        <CheckBoxPreference
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:key="theme_caching"
-            android:summary="@string/settings_theme_caching_text"
-            android:title="@string/settings_theme_caching_title"/>
 
     </PreferenceCategory>
 
@@ -126,16 +126,16 @@
         <CheckBoxPreference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:key="hide_app_checkbox"
-            android:summary="@string/hide_app_icon_not_supported"
-            android:title="@string/hide_app_icon"/>
+            android:key="show_outdated_themes"
+            android:summary="@string/show_outdated_themes_content"
+            android:title="@string/show_outdated_themes_title"/>
 
         <CheckBoxPreference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:key="show_outdated_themes"
-            android:summary="@string/show_outdated_themes_content"
-            android:title="@string/show_outdated_themes_title"/>
+            android:key="hide_app_checkbox"
+            android:summary="@string/hide_app_icon_not_supported"
+            android:title="@string/hide_app_icon"/>
 
     </PreferenceCategory>
 

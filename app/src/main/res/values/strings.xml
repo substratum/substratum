@@ -241,7 +241,7 @@
     <string name="settings_about_system_version">system platform</string>
     <string name="settings_about_system_content" translatable="false">%NULL$</string>
 
-    <string name="settings_aopt_switcher_title">Substratum Overlay Compiler</string>
+    <string name="settings_aopt_switcher_title">System Overlay Compiler</string>
     <string name="settings_aapt">AAPT (Stable)</string>
     <string name="settings_aopt">AOPT (Cutting Edge)</string>
 
@@ -562,14 +562,14 @@
 
     <string name="settings_title">About</string>
     <string name="settings_title_1">App Options</string>
-    <string name="settings_title_2">Manager Options</string>
+    <string name="settings_title_2">Overlay List Options</string>
     <string name="settings_title_3">Theming</string>
-    <string name="settings_title_clickable">App Configuration</string>
+    <string name="settings_title_clickable">System Configuration</string>
     <string name="substratum_cache_clear_initial_toast">Substratum\'s cache is now being wiped&#8230;</string>
     <string name="substratum_cache_clear_toast">Substratum\'s cache has been wiped!</string>
     <string name="substratum_restart_toast">Substratum restarted automatically after a settings change.</string>
-    <string name="purge_cache">Reset Theme Cache</string>
-    <string name="purge_cache_subtext">Invalidate Substratum\'s theme and application cache, as well as reset all flags relating to theme rebuilding.</string>
+    <string name="purge_cache">Invalidate Theme Cache</string>
+    <string name="purge_cache_subtext">Destroy theme and application cache, as well as reset all flags relating to theme rebuilds.</string>
     <string name="restart_systemui">Post-enable SystemUI recreate</string>
     <string name="restart_systemui_subtext">Automatically recreate the SystemUI after enabling/disabling a SystemUI overlay</string>
     <string name="restart_systemui_toast_enabled">SystemUI will recreate dynamically instead of restarting!</string>
@@ -597,7 +597,7 @@
     <string name="dynamic_navbar_colors">Dynamic Navigation Bar Colors</string>
     <string name="dynamic_navbar_colors_subtext">In the theme information window, Substratum will adapt the navigation bar to the hero image\'s dominating color.</string>
     <string name="manager_title">Show disabled overlays in the list</string>
-    <string name="manager_subtext">In the Advanced Manager window, show all disabled overlays with their enabled counterparts.</string>
+    <string name="manager_subtext">In the overlay list window, show all disabled overlays with their enabled counterparts.</string>
     <string name="alternate_drawer_design_title">Secondary Drawer Design</string>
     <string name="alternate_drawer_design_subtext">Uses an alternate navigation drawer design when navigating through the user interface.</string>
 
@@ -754,8 +754,8 @@
     <string name="profile_failed_notification">Profile failed to apply&#8230;</string>
     <string name="profile_failed_info_notification">Touch for more information</string>
 
-    <string name="theme_debug_mode_title">Theme Debugging Mode</string>
-    <string name="theme_debug_mode_summary">Disable the legacy compiler fallback.</string>
+    <string name="theme_debug_mode_title">System Fallback Interjection Bypass</string>
+    <string name="theme_debug_mode_summary">This will stop the app from using the legacy compiler fallback mechanism to help themes when they reach an unrecoverable state.</string>
     <string name="break_compilation_dialog_title">WARNING</string>
     <string name="break_compilation_dialog_content">This may completely break the compilation process. Only enable this option if you know what you are doing!</string>
     <string name="break_compilation_dialog_continue">Continue</string>
@@ -787,8 +787,8 @@
     <string name="settings_force_english_toast_success" translatable="false">Successfully switched to English!</string>
     <string name="settings_force_english_toast_reverted">Successfully disabled force English!</string>
 
-    <string name="settings_theme_caching_title">Enable theme resources caching</string>
-    <string name="settings_theme_caching_text">Cache theme asset resources in cache directory.</string>
+    <string name="settings_theme_caching_title">Cache Theme Resources</string>
+    <string name="settings_theme_caching_text">All theme asset resources will be extracted in the cache directory.</string>
     <string name="settings_theme_caching_found_snackbar">You just discovered theme resource caching mode option!</string>
 
     <string name="root_required_title">Root required</string>
@@ -869,8 +869,8 @@
     <string name="tcf_link" translatable="false">http://thecyberfibre.com/</string>
     <string name="nav_drawer_xda_portal">XDA Portal</string>
     <string name="xda_portal_link" translatable="false">https://xda-developers.com/author/punya-vashist</string>
-    <string name="force_independence_title">Force app independence</string>
-    <string name="force_independence_summary">This will force substratum to work on its own, disregarding interfacer.</string>
+    <string name="force_independence_title">System Independence Mode</string>
+    <string name="force_independence_summary">This will force all reroutes to interfacer to be disabled.</string>
     <string name="settings_about_interfacer_disconnected">disconnected</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">Resources</string>

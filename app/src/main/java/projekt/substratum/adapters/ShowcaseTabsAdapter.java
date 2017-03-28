@@ -21,13 +21,13 @@ package projekt.substratum.adapters;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentPagerAdapter;
 
 import java.util.ArrayList;
 
 import projekt.substratum.fragments.ShowcaseTab;
 
-public class ShowcaseTabsAdapter extends FragmentStatePagerAdapter {
+public class ShowcaseTabsAdapter extends FragmentPagerAdapter {
     private ArrayList fragment_links;
     private Integer mNumOfTabs;
 

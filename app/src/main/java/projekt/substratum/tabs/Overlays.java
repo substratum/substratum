@@ -1087,6 +1087,7 @@ public class Overlays extends Fragment {
             super.onPostExecute(result);
         }
 
+        @SuppressWarnings("ConstantConditions")
         @Override
         protected String doInBackground(String... sUrl) {
             // Refresh asset manager

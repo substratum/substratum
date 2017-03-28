@@ -227,6 +227,7 @@ public class Overlays extends Fragment {
                 currentOverlay.updateEnabledOverlays(updateEnabledOverlays());
                 mAdapter.notifyDataSetChanged();
             }
+            toggle_all.setChecked(false);
             swipeRefreshLayout.setRefreshing(false);
         });
         swipeRefreshLayout.setVisibility(View.GONE);

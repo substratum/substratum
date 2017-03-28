@@ -95,6 +95,7 @@ dependencies {
     compile 'com.android.support:preference-v14:25.3.0'
     // Firebase
     compile 'com.google.firebase:firebase-core:10.2.1'
+    compile 'com.google.firebase:firebase-crash:10.2.1'
     compile 'com.google.firebase:firebase-database:10.2.1'
     compile 'com.google.firebase:firebase-messaging:10.2.1'
     // Image Downloading and Caching

@@ -28,12 +28,12 @@
     <string name="question_two">What is the Theme Interfacer?</string>
     <string name="answer_two">The Theme Interfacer is the base of what allows Substratum to run
         like a Theme Engine. The idea of an interface is to simulate the “server/client”
-        technicalities and Substratum communicates with the Interface handlers to signal commands
+        technicalities and Substratum communicates with the Interfacer handlers to signal commands
         directly on the system.
     </string>
 
     <string name="question_three">What do I need in order for Substratum to work properly?</string>
-    <string name="answer_three">You will need a ROM that has support for the OMS and Theme Interface
+    <string name="answer_three">You will need a ROM that has support for the OMS and Theme Interfacer
         system (ask them, they will know), this app, and a compatible theme (check its
         Play Store description or ask the developer)
     </string>
@@ -48,9 +48,7 @@
 
     <string name="question_five">How do I apply a theme?</string>
     <string name="answer_five">The application of a theme is a two part process: compilation of the
-        overlays and application of the overlays. If you want to compile and apply in one step, use
-        the Quick Apply tab and choose one or both of the options. If you want to compile then
-        apply, go into the theme, click the Overlay Manager tab, select the overlays and options you
+        overlays and application of the overlays. Go into the theme, click the Overlay Manager tab, select the overlays and options you
         want, hit the FAB and choose Compile/Update, then chose those same overlays, and hit the FAB
         and choose Enable Selected.
     </string>

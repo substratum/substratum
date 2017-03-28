@@ -29,15 +29,15 @@
     <string name="android">android version:</string>
     <string name="device">device model:</string>
 
-    <string name="search_play_store_url" translatable="false">https://play.google.com/store/search?q=Substratum%20Theme&amp;c=apps</string>
-    <string name="search_play_store_url_icon_packs" translatable="false">https://play.google.com/store/search?q=Icon%20Pack&amp;c=apps</string>
-    <string name="search_play_store_url_legacy" translatable="false">https://play.google.com/store/search?q=Substratum%20Legacy%20Theme&amp;c=apps</string>
-    <string name="supported_roms_url" translatable="false">https://raw.githubusercontent.com/substratum/database/master/supported_roms.xml</string>
-    <string name="tbo_theme_ready_url" translatable="false">http://forum.xda-developers.com/android/apps-games/apps-themeable-hangouts-layers-cmte-t3113192</string>
-    <string name="substratum_github" translatable="false">https://github.com/substratum/substratum</string>
-    <string name="interfacer_github" translatable="false">https://github.com/substratum/interfacer</string>
-    <string name="showcase_tabs" translatable="false">https://raw.githubusercontent.com/substratum/substratum/dev/showcase.xml</string>
-    <string name="crowdin_url" translatable="false">"http://translate.projektsubstratum.com/"</string>
+    <string name="search_play_store_url" translatable="false">https://cc3v2.app.goo.gl/OvKB</string>
+    <string name="search_play_store_url_icon_packs" translatable="false">https://cc3v2.app.goo.gl/eaFH</string>
+    <string name="search_play_store_url_legacy" translatable="false">https://cc3v2.app.goo.gl/C30T</string>
+    <string name="supported_roms_url" translatable="false">https://cc3v2.app.goo.gl/GZt2</string>
+    <string name="tbo_theme_ready_url" translatable="false">https://cc3v2.app.goo.gl/D3hz</string>
+    <string name="substratum_github" translatable="false">https://cc3v2.app.goo.gl/6Dxi</string>
+    <string name="interfacer_github" translatable="false">https://cc3v2.app.goo.gl/H3Xd</string>
+    <string name="showcase_tabs" translatable="false">https://cc3v2.app.goo.gl/7wkM</string>
+    <string name="crowdin_url" translatable="false">https://cc3v2.app.goo.gl/mE64</string>
 
     <string name="showcase_no_connection">the theme showcase requires an internet connection to
         function!
@@ -85,9 +85,9 @@
     </string>
     <string name="tbo_dialog_proceed">Download</string>
     <string name="dynamic_gapps_dialog" translatable="false">Dynamic Gapps</string>
-    <string name="dynamic_gapps_link" translatable="false">https://www.androidfilehost.com/?w=files&amp;flid=124638&amp;sort_by=date&amp;sort_dir=DESC</string>
+    <string name="dynamic_gapps_link" translatable="false">https://cc3v2.app.goo.gl/FWci</string>
     <string name="open_gapps_dialog" translatable="false">Open Gapps</string>
-    <string name="open_gapps_link" translatable="false">http://opengapps.org/</string>
+    <string name="open_gapps_link" translatable="false">https://cc3v2.app.goo.gl/SVyT</string>
 
     <string name="warning_title">WARNING!</string>
     <string name="dangerous_warning_content">Substratum has detected that it is running on a
@@ -858,30 +858,30 @@
     <string name="nav_section_header_get_involved">Community</string>
     <string name="nav_drawer_community">Groups &amp; communities</string>
     <string name="nav_drawer_googleplus">Google+ community</string>
-    <string name="googleplus_link" translatable="false">https://plus.google.com/communities/102261717366580091389</string>
+    <string name="googleplus_link" translatable="false">https://cc3v2.app.goo.gl/AlIm</string>
     <string name="nav_drawer_telegram">Telegram Group chat</string>
-    <string name="telegram_link" translatable="false">https://t.me/substratum</string>
+    <string name="telegram_link" translatable="false">https://cc3v2.app.goo.gl/dmrm</string>
     <string name="nav_drawer_xda">XDA Subforum</string>
-    <string name="xda_link" translatable="false">https://forum.xda-developers.com/apps/substratum/</string>
+    <string name="xda_link" translatable="false">https://cc3v2.app.goo.gl/hOIZ</string>
     <!-- Featured content -->
     <string name="nav_drawer_featured">Featured content</string>
     <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
-    <string name="tcf_link" translatable="false">http://thecyberfibre.com/</string>
+    <string name="tcf_link" translatable="false">https://cc3v2.app.goo.gl/8JmJ</string>
     <string name="nav_drawer_xda_portal">XDA Portal</string>
-    <string name="xda_portal_link" translatable="false">https://xda-developers.com/author/punya-vashist</string>
+    <string name="xda_portal_link" translatable="false">https://cc3v2.app.goo.gl/0kkW</string>
     <string name="force_independence_title">System Independence Mode</string>
     <string name="force_independence_summary">This will force all reroutes to interfacer to be disabled.</string>
     <string name="settings_about_interfacer_disconnected">disconnected</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">Resources</string>
     <string name="nav_drawer_homepage">Official homepage</string>
-    <string name="homepage_link" translatable="false">https://substratum.github.io/home/</string>
+    <string name="homepage_link" translatable="false">https://cc3v2.app.goo.gl/Wmxh</string>
     <string name="nav_drawer_template">Theme Template (Themers)</string>
-    <string name="template_link" translatable="false">https://github.com/substratum/template</string>
+    <string name="template_link" translatable="false">https://cc3v2.app.goo.gl/s439</string>
     <string name="nav_drawer_gerrit">Platform &amp; exposures Gerrit</string>
-    <string name="gerrit_link" translatable="false">https://substratum.review</string>
+    <string name="gerrit_link" translatable="false">https://cc3v2.app.goo.gl/ok9N</string>
     <string name="nav_drawer_github">Platform GitHub repository</string>
-    <string name="github_link" translatable="false">https://www.github.com/SubstratumResources</string>
+    <string name="github_link" translatable="false">https://cc3v2.app.goo.gl/Iz3T</string>
     <string name="nav_troubleshooting">Troubleshooting</string>
     <!-- More -->
     <string name="nav_section_header_more">More</string>

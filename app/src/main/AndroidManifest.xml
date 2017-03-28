@@ -113,7 +113,7 @@
         <service
             android:name=".services.ShowcaseTile"
             android:enabled="true"
-            android:icon="@drawable/toolbar_showcase"
+            android:icon="@drawable/quicksettings_showcase"
             android:label="@string/showcase"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>

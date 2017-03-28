@@ -986,6 +986,15 @@ public class Overlays extends Fragment {
             ioe.printStackTrace();
         }
 
+        // Parse current default types on type3 base resource folders
+        String parsedVariant = "";
+        try {
+            parsedVariant = base_spinner.getSelectedItem().toString().replaceAll("\\s+", "");
+        } catch (NullPointerException npe) {
+            // Suppress warning
+        }
+        String suffix = ((parsedVariant.length() != 0) ? "/type3_" + parsedVariant : "/res");
+
         // Type1 Spinner Text Adjustments
         assert inputStream != null;
         try (BufferedReader reader = new BufferedReader(
@@ -996,7 +1005,7 @@ public class Overlays extends Fragment {
             // This is the default type1 xml hex, if present
             String hex = null;
             try (InputStream name = themeAssetManager.open(overlaysDir +
-                    "/" + package_identifier + "/res/values/type1" + type + ".xml")) {
+                    "/" + package_identifier + suffix + "/values/type1" + type + ".xml")) {
                 hex = References.getOverlayResource(name);
             } catch (IOException e) {
                 Log.e(References.SUBSTRATUM_LOG, "Type1 default xml is not found!");
@@ -1009,7 +1018,7 @@ public class Overlays extends Fragment {
                     "asset file!");
             String hex = null;
             try (InputStream input = themeAssetManager.open(overlaysDir +
-                    "/" + package_identifier + "/res/values/type1" + type + ".xml")) {
+                    "/" + package_identifier + suffix + "/values/type1" + type + ".xml")) {
                 hex = References.getOverlayResource(input);
             } catch (IOException ioe) {
                 Log.e(References.SUBSTRATUM_LOG, "Type1 default xml is not found!");

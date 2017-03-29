@@ -451,23 +451,25 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         }
 
         // Hidden caching mode option
-        systemPlatform.setOnPreferenceClickListener(preference -> {
-            tapCount++;
-            if (tapCount == 1) {
-                new Handler().postDelayed(() -> tapCount = 0, 2000);
-            } else if (tapCount == 8) {
-                themeCaching.setVisible(true);
-                tapCount = 0;
-                if (getView() != null) {
-                    Snackbar.make(getView(),
-                            R.string.settings_theme_caching_found_snackbar,
-                            Snackbar.LENGTH_LONG)
-                            .show();
+        if (!themeCaching.isVisible()) {
+            systemPlatform.setOnPreferenceClickListener(preference -> {
+                tapCount++;
+                if (tapCount == 1) {
+                    new Handler().postDelayed(() -> tapCount = 0, 2000);
+                } else if (tapCount == 8) {
+                    themeCaching.setVisible(true);
+                    tapCount = 0;
+                    if (getView() != null) {
+                        Snackbar.make(getView(),
+                                R.string.settings_theme_caching_found_snackbar,
+                                Snackbar.LENGTH_LONG)
+                                .show();
+                    }
+                    systemPlatform.setOnPreferenceClickListener(null);
                 }
-                systemPlatform.setOnPreferenceClickListener(null);
-            }
-            return false;
-        });
+                return false;
+            });
+        }
 
         // Finally, these functions will only work on OMS ROMs
         if (References.checkOMS(getContext())) {

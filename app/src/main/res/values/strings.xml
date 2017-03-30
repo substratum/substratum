@@ -38,6 +38,12 @@
     <string name="interfacer_github" translatable="false">https://github.com/substratum/interfacer</string>
     <string name="showcase_tabs" translatable="false">https://raw.githubusercontent.com/substratum/substratum/dev/showcase.xml</string>
     <string name="crowdin_url" translatable="false">"http://translate.projektsubstratum.com/"</string>
+    <string name="validator_url" translatable="false">"https://raw.githubusercontent.com/substratum/database/master/commit_tracker.xml"</string>
+
+    <string name="resource_boolean" translatable="false">bool</string>
+    <string name="resource_color" translatable="false">color</string>
+    <string name="resource_dimension" translatable="false">dimens</string>
+    <string name="resource_style" translatable="false">style</string>
 
     <string name="showcase_no_connection">the theme showcase requires an internet connection to
         function!

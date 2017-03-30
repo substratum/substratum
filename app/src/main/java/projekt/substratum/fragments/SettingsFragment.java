@@ -19,10 +19,12 @@
 package projekt.substratum.fragments;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -40,6 +42,7 @@ import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -58,15 +61,26 @@ import projekt.substratum.BuildConfig;
 import projekt.substratum.LauncherActivity;
 import projekt.substratum.R;
 import projekt.substratum.config.References;
+import projekt.substratum.config.Validator;
+import projekt.substratum.model.PackageError;
+import projekt.substratum.model.Repository;
 import projekt.substratum.util.AOPTCheck;
+import projekt.substratum.util.FileDownloader;
+import projekt.substratum.util.ReadRepositoriesFile;
+import projekt.substratum.util.ReadResourcesFile;
 import projekt.substratum.util.ReadSupportedROMsFile;
 import projekt.substratum.util.SheetDialog;
+
+import static projekt.substratum.config.References.SUBSTRATUM_VALIDATOR;
+import static projekt.substratum.config.Validator.VALIDATE_WITH_LOGS;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
 
     private ProgressDialog mProgressDialog;
     private StringBuilder platformSummary;
     private Preference systemPlatform;
+    private ArrayList<PackageError> errors;
+    private Dialog dialog;
     private int tapCount = 0;
 
     private boolean checkSettingsPackageSupport() {
@@ -161,6 +175,10 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         systemStatus.setIcon(certified ?
                 getContext().getDrawable(R.drawable.system_status_certified)
                 : getContext().getDrawable(R.drawable.system_status_uncertified));
+        systemStatus.setOnPreferenceClickListener(preference -> {
+            new downloadRepositoryList().execute("");
+            return false;
+        });
 
         final CheckBoxPreference forceEnglish = (CheckBoxPreference)
                 getPreferenceManager().findPreference("force_english_locale");
@@ -871,6 +889,196 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 // Suppress warning
             }
 
+            return null;
+        }
+    }
+
+    private class downloadRepositoryList extends AsyncTask<String, Integer, ArrayList> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dialog = new Dialog(getActivity());
+            dialog.setContentView(R.layout.validator_dialog);
+            dialog.show();
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList result) {
+            super.onPostExecute(result);
+            dialog.dismiss();
+        }
+
+        @Override
+        protected ArrayList doInBackground(String... sUrl) {
+            // First, we have to download the repository list into the cache
+            FileDownloader.init(getContext(), getString(R.string.validator_url),
+                    "repository_names.xml", "ValidatorCache");
+
+            ArrayList<Repository> repositories =
+                    ReadRepositoriesFile.main(getContext().getCacheDir().getAbsolutePath() +
+                            "/ValidatorCache/repository_names.xml");
+
+            errors = new ArrayList<>();
+            for (int i = 0; i < repositories.size(); i++) {
+                Repository repository = repositories.get(i);
+                // Now we have to check all the packages
+                String packageName = repository.getPackageName();
+                PackageError packageError = new PackageError(packageName);
+                Boolean has_errored = false;
+
+                if (References.isPackageInstalled(getContext(), packageName)) {
+                    // Check if there's a bools commit check
+                    if (repository.getBools() != null) {
+                        FileDownloader.init(getContext(), repository.getBools(),
+                                packageName + ".bools.xml", "ValidatorCache");
+                        ArrayList<String> bools =
+                                ReadResourcesFile.main(
+                                        getContext().getCacheDir().getAbsolutePath() +
+                                                "/ValidatorCache/" + packageName + ".bools.xml",
+                                        "bool");
+                        for (int j = 0; j < bools.size(); j++) {
+                            boolean validated = Validator.checkResourceObject(
+                                    getContext(),
+                                    packageName,
+                                    "bool",
+                                    bools.get(j));
+                            if (validated) {
+                                if (VALIDATE_WITH_LOGS)
+                                    Log.d("BoolCheck", "Resource exists: " + bools.get(j));
+                            } else {
+                                if (VALIDATE_WITH_LOGS)
+                                    Log.e("BoolCheck", "Resource does not exist: " + bools.get(j));
+                                has_errored = true;
+                                packageError.addBoolError(
+                                        "{" + getString(R.string.resource_boolean) + "} " +
+                                                bools.get(j));
+                            }
+                        }
+                    }
+                    // Then go through the entire list of colors
+                    if (repository.getColors() != null) {
+                        FileDownloader.init(getContext(), repository.getColors(),
+                                packageName + ".colors.xml", "ValidatorCache");
+                        ArrayList<String> colors = ReadResourcesFile.main(getContext()
+                                .getCacheDir().getAbsolutePath() +
+                                "/ValidatorCache/" + packageName + ".colors.xml", "color");
+                        for (int j = 0; j < colors.size(); j++) {
+                            boolean validated = Validator.checkResourceObject(
+                                    getContext(),
+                                    packageName,
+                                    "color",
+                                    colors.get(j));
+                            if (validated) {
+                                if (VALIDATE_WITH_LOGS)
+                                    Log.d("ColorCheck", "Resource exists: " + colors.get(j));
+                            } else {
+                                if (VALIDATE_WITH_LOGS)
+                                    Log.e("ColorCheck",
+                                            "Resource does not exist: " + colors.get(j));
+                                has_errored = true;
+                                packageError.addColorError(
+                                        "{" + getString(R.string.resource_color) + "} " +
+                                                colors.get(j));
+                            }
+                        }
+                    }
+                    // Next, dimensions may need to be exposed
+                    if (repository.getDimens() != null) {
+                        FileDownloader.init(getContext(), repository.getDimens(),
+                                packageName + ".dimens.xml", "ValidatorCache");
+                        ArrayList<String> dimens = ReadResourcesFile.main(
+                                getContext().getCacheDir().getAbsolutePath() +
+                                        "/ValidatorCache/" + packageName + ".dimens.xml", "dimen");
+                        for (int j = 0; j < dimens.size(); j++) {
+                            boolean validated = Validator.checkResourceObject(
+                                    getContext(),
+                                    packageName,
+                                    "dimen",
+                                    dimens.get(j));
+                            if (validated) {
+                                if (VALIDATE_WITH_LOGS)
+                                    Log.d("DimenCheck", "Resource exists: " + dimens.get(j));
+                            } else {
+                                if (VALIDATE_WITH_LOGS)
+                                    Log.e("DimenCheck",
+                                            "Resource does not exist: " + dimens.get(j));
+                                has_errored = true;
+                                packageError.addDimenError(
+                                        "{" + getString(R.string.resource_dimension) + "} " +
+                                                dimens.get(j));
+                            }
+                        }
+                    }
+                    // Finally, check if styles are exposed
+                    if (repository.getStyles() != null) {
+                        FileDownloader.init(getContext(), repository.getStyles(),
+                                packageName + ".styles.xml", "ValidatorCache");
+                        ArrayList<String> styles = ReadResourcesFile.main(getContext()
+                                .getCacheDir().getAbsolutePath() +
+                                "/ValidatorCache/" + packageName + ".styles.xml", "style");
+                        for (int j = 0; j < styles.size(); j++) {
+                            boolean validated = Validator.checkResourceObject(
+                                    getContext(),
+                                    packageName,
+                                    "style",
+                                    styles.get(j));
+                            if (validated) {
+                                if (VALIDATE_WITH_LOGS)
+                                    Log.d("StyleCheck", "Resource exists: " + styles.get(j));
+                            } else {
+                                if (VALIDATE_WITH_LOGS)
+                                    Log.e("StyleCheck",
+                                            "Resource does not exist: " + styles.get(j));
+                                has_errored = true;
+                                packageError.addStyleError(
+                                        "{" + getString(R.string.resource_style) + "} " +
+                                                styles.get(j));
+                            }
+                        }
+                    }
+                } else {
+                    if (VALIDATE_WITH_LOGS)
+                        Log.d(SUBSTRATUM_VALIDATOR,
+                                "This device does not come built-in with '" + packageName + "', " +
+                                        "skipping resource verification...");
+                }
+                if (has_errored) {
+                    errors.add(packageError);
+                }
+            }
+
+            for (int x = 0; x < errors.size(); x++) {
+                PackageError error = errors.get(x);
+                ArrayList<String> boolErrors = error.getBoolErrors();
+                ArrayList<String> colorErrors = error.getColorErrors();
+                ArrayList<String> dimenErrors = error.getDimenErrors();
+                ArrayList<String> styleErrors = error.getStyleErrors();
+
+                Log.e(SUBSTRATUM_VALIDATOR,
+                        "Loading missing resources from '" + error.getPackageName() + "'...");
+
+                if (boolErrors.size() > 0) {
+                    for (int i = 0; i < boolErrors.size(); i++) {
+                        Log.e(SUBSTRATUM_VALIDATOR, boolErrors.get(i));
+                    }
+                }
+                if (colorErrors.size() > 0) {
+                    for (int i = 0; i < colorErrors.size(); i++) {
+                        Log.e(SUBSTRATUM_VALIDATOR, colorErrors.get(i));
+                    }
+                }
+                if (dimenErrors.size() > 0) {
+                    for (int i = 0; i < dimenErrors.size(); i++) {
+                        Log.e(SUBSTRATUM_VALIDATOR, dimenErrors.get(i));
+                    }
+                }
+                if (styleErrors.size() > 0) {
+                    for (int i = 0; i < styleErrors.size(); i++) {
+                        Log.e(SUBSTRATUM_VALIDATOR, styleErrors.get(i));
+                    }
+                }
+            }
             return null;
         }
     }

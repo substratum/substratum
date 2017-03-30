@@ -97,6 +97,7 @@ public class References {
     public static final String SUBSTRATUM_BUILDER = "SubstratumBuilder";
     public static final String SUBSTRATUM_LOG = "SubstratumLogger";
     public static final String SUBSTRATUM_ICON_BUILDER = "SubstratumIconBuilder";
+    public static final String SUBSTRATUM_VALIDATOR = "SubstratumValidator";
     public static final String INTERFACER_PACKAGE = "projekt.interfacer";
     @Deprecated
     public static final String MASQUERADE_PACKAGE = "masquerade.substratum";

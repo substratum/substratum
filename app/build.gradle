@@ -143,5 +143,7 @@ dependencies {
     compile 'net.cachapa.expandablelayout:expandablelayout:2.6'
     // Floating App Head
     compile 'com.github.recruit-lifestyle:FloatingView:2.1'
+    // Animations
+    compile 'com.github.vlad1m1r990:Lemniscate:1.2.0'
 }
 apply plugin: 'com.google.gms.google-services'

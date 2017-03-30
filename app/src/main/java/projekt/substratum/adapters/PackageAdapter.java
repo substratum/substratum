@@ -50,29 +50,27 @@ public class PackageAdapter extends RecyclerView.Adapter<PackageAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, int pos) {
-        final int i = pos;
+        viewHolder.packName.setText(References.grabPackageName(information.get(pos).getContext(),
+                information.get(pos).getPackageName()));
 
-        viewHolder.packName.setText(References.grabPackageName(information.get(i).getContext(),
-                information.get(i).getPackageName()));
+        viewHolder.packIcon.setImageDrawable(References.grabAppIcon(information.get(pos).getContext(),
+                information.get(pos).getPackageName()));
 
-        viewHolder.packIcon.setImageDrawable(References.grabAppIcon(information.get(i).getContext(),
-                information.get(i).getPackageName()));
-
-        if (information.get(i).getVerification()) {
+        if (information.get(pos).getVerification()) {
             viewHolder.verificationIcon.setImageDrawable(
-                    information.get(i).getContext().getDrawable(
+                    information.get(pos).getContext().getDrawable(
                             R.drawable.package_verification_success));
             viewHolder.verificationText.setText(
-                    information.get(i).getContext().getString(R.string.resource_validated));
+                    information.get(pos).getContext().getString(R.string.resource_validated));
             viewHolder.numberProgressBar.setProgress(100);
         } else {
             viewHolder.numberProgressBar.setProgressTextColor(
-                    information.get(i).getContext().getColor(
+                    information.get(pos).getContext().getColor(
                             R.color.number_progress_bar_validation_error));
             viewHolder.numberProgressBar.setReachedBarColor(
-                    information.get(i).getContext().getColor(
+                    information.get(pos).getContext().getColor(
                             R.color.number_progress_bar_validation_error));
-            viewHolder.numberProgressBar.setProgress(information.get(i).getPercentage());
+            viewHolder.numberProgressBar.setProgress(information.get(pos).getPercentage());
         }
     }
 

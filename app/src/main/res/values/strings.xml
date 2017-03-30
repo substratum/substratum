@@ -41,6 +41,7 @@
     <string name="validator_url" translatable="false">"https://raw.githubusercontent.com/substratum/database/master/commit_tracker.xml"</string>
 
     <string name="resource_checker">Commit Validator</string>
+    <string name="resource_checker_commons">Framework</string>
     <string name="resource_not_validated">New commits have been merged!</string>
     <string name="resource_validated">All commits intact!</string>
     <string name="resource_boolean" translatable="false">bool</string>

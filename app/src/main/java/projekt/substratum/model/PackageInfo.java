@@ -26,12 +26,18 @@ public class PackageInfo {
     private Context mContext;
     private Drawable mDrawable;
     private Boolean mVerified;
+    private Boolean mCommons;
     private int mPercentage = 0;
 
-    public PackageInfo(Context mContext, String package_name, Boolean verified) {
+    public PackageInfo(Context mContext, String package_name, Boolean verified, Boolean commons) {
         this.mContext = mContext;
         this.package_name = package_name;
         this.mVerified = verified;
+        this.mCommons = commons;
+    }
+
+    public Boolean getCommons() {
+        return this.mCommons;
     }
 
     public String getPackageName() {

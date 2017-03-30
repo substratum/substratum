@@ -978,7 +978,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             for (int i = 0; i < result.size(); i++) {
                 boolean validated = !erroredPackages.contains(result.get(i));
                 projekt.substratum.model.PackageInfo packageInfo = new projekt.substratum.model
-                        .PackageInfo(getContext(), result.get(i), validated);
+                        .PackageInfo(getContext(), result.get(i), validated,
+                        result.get(i).endsWith(".common"));
                 try {
                     packageInfo.setDrawable(References.grabAppIcon(getContext(), result.get(i)));
                 } catch (Exception e) {
@@ -1014,31 +1015,32 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 Repository repository = repositories.get(i);
                 // Now we have to check all the packages
                 String packageName = repository.getPackageName();
-                if (packageName.endsWith(".common")) {
-                    packageName = packageName.substring(0, packageName.length() - 7);
-                }
                 PackageError packageError = new PackageError(packageName);
                 Boolean has_errored = false;
 
                 int resource_counter = 0;
                 int resource_counter_errored = 0;
 
-                if (References.isPackageInstalled(getContext(), packageName)) {
+                String tempPackageName = (packageName.endsWith(".common") ?
+                        packageName.substring(0, packageName.length() - 7) :
+                        packageName);
+
+                if (References.isPackageInstalled(getContext(), tempPackageName)) {
                     packages.add(packageName);
 
                     // Check if there's a bools commit check
                     if (repository.getBools() != null) {
                         FileDownloader.init(getContext(), repository.getBools(),
-                                packageName + ".bools.xml", "ValidatorCache");
+                                tempPackageName + ".bools.xml", "ValidatorCache");
                         ArrayList<String> bools =
                                 ReadResourcesFile.main(
                                         getContext().getCacheDir().getAbsolutePath() +
-                                                "/ValidatorCache/" + packageName + ".bools.xml",
+                                                "/ValidatorCache/" + tempPackageName + ".bools.xml",
                                         "bool");
                         for (int j = 0; j < bools.size(); j++) {
                             boolean validated = Validator.checkResourceObject(
                                     getContext(),
-                                    packageName,
+                                    tempPackageName,
                                     "bool",
                                     bools.get(j));
                             if (validated) {
@@ -1059,14 +1061,14 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     // Then go through the entire list of colors
                     if (repository.getColors() != null) {
                         FileDownloader.init(getContext(), repository.getColors(),
-                                packageName + ".colors.xml", "ValidatorCache");
+                                tempPackageName + ".colors.xml", "ValidatorCache");
                         ArrayList<String> colors = ReadResourcesFile.main(getContext()
                                 .getCacheDir().getAbsolutePath() +
-                                "/ValidatorCache/" + packageName + ".colors.xml", "color");
+                                "/ValidatorCache/" + tempPackageName + ".colors.xml", "color");
                         for (int j = 0; j < colors.size(); j++) {
                             boolean validated = Validator.checkResourceObject(
                                     getContext(),
-                                    packageName,
+                                    tempPackageName,
                                     "color",
                                     colors.get(j));
                             if (validated) {
@@ -1088,14 +1090,15 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     // Next, dimensions may need to be exposed
                     if (repository.getDimens() != null) {
                         FileDownloader.init(getContext(), repository.getDimens(),
-                                packageName + ".dimens.xml", "ValidatorCache");
+                                tempPackageName + ".dimens.xml", "ValidatorCache");
                         ArrayList<String> dimens = ReadResourcesFile.main(
                                 getContext().getCacheDir().getAbsolutePath() +
-                                        "/ValidatorCache/" + packageName + ".dimens.xml", "dimen");
+                                        "/ValidatorCache/" + tempPackageName + ".dimens.xml",
+                                "dimen");
                         for (int j = 0; j < dimens.size(); j++) {
                             boolean validated = Validator.checkResourceObject(
                                     getContext(),
-                                    packageName,
+                                    tempPackageName,
                                     "dimen",
                                     dimens.get(j));
                             if (validated) {
@@ -1117,14 +1120,14 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     // Finally, check if styles are exposed
                     if (repository.getStyles() != null) {
                         FileDownloader.init(getContext(), repository.getStyles(),
-                                packageName + ".styles.xml", "ValidatorCache");
+                                tempPackageName + ".styles.xml", "ValidatorCache");
                         ArrayList<String> styles = ReadResourcesFile.main(getContext()
                                 .getCacheDir().getAbsolutePath() +
-                                "/ValidatorCache/" + packageName + ".styles.xml", "style");
+                                "/ValidatorCache/" + tempPackageName + ".styles.xml", "style");
                         for (int j = 0; j < styles.size(); j++) {
                             boolean validated = Validator.checkResourceObject(
                                     getContext(),
-                                    packageName,
+                                    tempPackageName,
                                     "style",
                                     styles.get(j));
                             if (validated) {

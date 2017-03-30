@@ -50,11 +50,21 @@ public class PackageAdapter extends RecyclerView.Adapter<PackageAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, int pos) {
-        viewHolder.packName.setText(References.grabPackageName(information.get(pos).getContext(),
-                information.get(pos).getPackageName()));
+        String packageName = information.get(pos).getPackageName();
+        if (packageName.endsWith(".common")) {
+            packageName = packageName.substring(0, packageName.length() - 7);
+        }
 
-        viewHolder.packIcon.setImageDrawable(References.grabAppIcon(information.get(pos).getContext(),
-                information.get(pos).getPackageName()));
+        viewHolder.packName.setText(
+                new StringBuilder().append(
+                        References.grabPackageName(information.get(pos).getContext(), packageName))
+                        .append((information.get(pos).getCommons()) ? " " +
+                                information.get(pos).getContext().getString(
+                                        R.string.resource_checker_commons) : "").toString());
+
+        viewHolder.packIcon.setImageDrawable(References.grabAppIcon(information.get(pos)
+                        .getContext(),
+                packageName));
 
         if (information.get(pos).getVerification()) {
             viewHolder.verificationIcon.setImageDrawable(

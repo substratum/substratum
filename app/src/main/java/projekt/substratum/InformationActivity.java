@@ -496,6 +496,8 @@ public class InformationActivity extends AppCompatActivity {
         if (isOMS) menu.findItem(R.id.reboot_device).setVisible(false);
         if (isOMS) menu.findItem(R.id.soft_reboot).setVisible(false);
 
+        menu.findItem(R.id.clean_cache).setVisible(prefs.getBoolean("caching_enabled", false));
+
         return true;
     }
 

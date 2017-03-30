@@ -40,6 +40,9 @@
     <string name="crowdin_url" translatable="false">"http://translate.projektsubstratum.com/"</string>
     <string name="validator_url" translatable="false">"https://raw.githubusercontent.com/substratum/database/master/commit_tracker.xml"</string>
 
+    <string name="resource_checker">Commit Validator</string>
+    <string name="resource_not_validated">New commits have been merged!</string>
+    <string name="resource_validated">All commits intact!</string>
     <string name="resource_boolean" translatable="false">bool</string>
     <string name="resource_color" translatable="false">color</string>
     <string name="resource_dimension" translatable="false">dimens</string>

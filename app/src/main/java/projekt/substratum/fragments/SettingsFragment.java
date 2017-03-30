@@ -24,7 +24,6 @@ import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -40,9 +39,10 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.preference.CheckBoxPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -60,6 +60,7 @@ import java.util.ArrayList;
 import projekt.substratum.BuildConfig;
 import projekt.substratum.LauncherActivity;
 import projekt.substratum.R;
+import projekt.substratum.adapters.PackageAdapter;
 import projekt.substratum.config.References;
 import projekt.substratum.config.Validator;
 import projekt.substratum.model.PackageError;
@@ -82,6 +83,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     private ArrayList<PackageError> errors;
     private Dialog dialog;
     private int tapCount = 0;
+    private ArrayList<Integer> packageCounters;
+    private ArrayList<Integer> packageCountersErrored;
 
     private boolean checkSettingsPackageSupport() {
         try {
@@ -893,7 +896,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         }
     }
 
-    private class downloadRepositoryList extends AsyncTask<String, Integer, ArrayList> {
+    private class downloadRepositoryList extends AsyncTask<String, Integer, ArrayList<String>> {
 
         @Override
         protected void onPreExecute() {
@@ -904,13 +907,71 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         }
 
         @Override
-        protected void onPostExecute(ArrayList result) {
+        protected void onPostExecute(ArrayList<String> result) {
             super.onPostExecute(result);
+
+            ArrayList<String> erroredPackages = new ArrayList<>();
+            for (int x = 0; x < errors.size(); x++) {
+                PackageError error = errors.get(x);
+                ArrayList<String> boolErrors = error.getBoolErrors();
+                ArrayList<String> colorErrors = error.getColorErrors();
+                ArrayList<String> dimenErrors = error.getDimenErrors();
+                ArrayList<String> styleErrors = error.getStyleErrors();
+
+                Log.e(SUBSTRATUM_VALIDATOR,
+                        "Loading missing resources from '" + error.getPackageName() + "'...");
+                erroredPackages.add(error.getPackageName());
+
+                if (boolErrors.size() > 0) {
+                    for (int i = 0; i < boolErrors.size(); i++) {
+                        Log.e(SUBSTRATUM_VALIDATOR, boolErrors.get(i));
+                    }
+                }
+                if (colorErrors.size() > 0) {
+                    for (int i = 0; i < colorErrors.size(); i++) {
+                        Log.e(SUBSTRATUM_VALIDATOR, colorErrors.get(i));
+                    }
+                }
+                if (dimenErrors.size() > 0) {
+                    for (int i = 0; i < dimenErrors.size(); i++) {
+                        Log.e(SUBSTRATUM_VALIDATOR, dimenErrors.get(i));
+                    }
+                }
+                if (styleErrors.size() > 0) {
+                    for (int i = 0; i < styleErrors.size(); i++) {
+                        Log.e(SUBSTRATUM_VALIDATOR, styleErrors.get(i));
+                    }
+                }
+            }
+
             dialog.dismiss();
+            Dialog dialog2 = new Dialog(getContext());
+            dialog2.setContentView(R.layout.validator_dialog_inner);
+            RecyclerView recyclerView = (RecyclerView) dialog2.findViewById(R.id.recycler_view);
+            ArrayList<projekt.substratum.model.PackageInfo> packageInfos = new ArrayList<>();
+            for (int i = 0; i < result.size(); i++) {
+                boolean validated = !erroredPackages.contains(result.get(i));
+                projekt.substratum.model.PackageInfo packageInfo = new projekt.substratum.model
+                        .PackageInfo(getContext(), result.get(i), validated);
+                try {
+                    packageInfo.setDrawable(References.grabAppIcon(getContext(), result.get(i)));
+                } catch (Exception e) {
+                    // At this point, there's no icon attached to the package
+                }
+                packageInfo.setPercentage(
+                        packageCounters.get(i) - packageCountersErrored.get(i),
+                        packageCounters.get(i));
+                packageInfos.add(packageInfo);
+            }
+            PackageAdapter packageAdapter = new PackageAdapter(packageInfos);
+            recyclerView.setAdapter(packageAdapter);
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+            recyclerView.setLayoutManager(layoutManager);
+            dialog2.show();
         }
 
         @Override
-        protected ArrayList doInBackground(String... sUrl) {
+        protected ArrayList<String> doInBackground(String... sUrl) {
             // First, we have to download the repository list into the cache
             FileDownloader.init(getContext(), getString(R.string.validator_url),
                     "repository_names.xml", "ValidatorCache");
@@ -919,15 +980,26 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     ReadRepositoriesFile.main(getContext().getCacheDir().getAbsolutePath() +
                             "/ValidatorCache/repository_names.xml");
 
+            ArrayList<String> packages = new ArrayList<>();
+            packageCounters = new ArrayList<>();
+            packageCountersErrored = new ArrayList<>();
             errors = new ArrayList<>();
             for (int i = 0; i < repositories.size(); i++) {
                 Repository repository = repositories.get(i);
                 // Now we have to check all the packages
                 String packageName = repository.getPackageName();
+                if (packageName.endsWith(".common")) {
+                    packageName = packageName.substring(0, packageName.length() - 7);
+                }
                 PackageError packageError = new PackageError(packageName);
                 Boolean has_errored = false;
 
+                int resource_counter = 0;
+                int resource_counter_errored = 0;
+
                 if (References.isPackageInstalled(getContext(), packageName)) {
+                    packages.add(packageName);
+
                     // Check if there's a bools commit check
                     if (repository.getBools() != null) {
                         FileDownloader.init(getContext(), repository.getBools(),
@@ -953,7 +1025,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 packageError.addBoolError(
                                         "{" + getString(R.string.resource_boolean) + "} " +
                                                 bools.get(j));
+                                resource_counter_errored++;
                             }
+                            resource_counter++;
                         }
                     }
                     // Then go through the entire list of colors
@@ -980,7 +1054,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 packageError.addColorError(
                                         "{" + getString(R.string.resource_color) + "} " +
                                                 colors.get(j));
+                                resource_counter_errored++;
                             }
+                            resource_counter++;
                         }
                     }
                     // Next, dimensions may need to be exposed
@@ -1007,7 +1083,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 packageError.addDimenError(
                                         "{" + getString(R.string.resource_dimension) + "} " +
                                                 dimens.get(j));
+                                resource_counter_errored++;
                             }
+                            resource_counter++;
                         }
                     }
                     // Finally, check if styles are exposed
@@ -1034,9 +1112,13 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 packageError.addStyleError(
                                         "{" + getString(R.string.resource_style) + "} " +
                                                 styles.get(j));
+                                resource_counter_errored++;
                             }
+                            resource_counter++;
                         }
                     }
+                    packageCounters.add(resource_counter);
+                    packageCountersErrored.add(resource_counter_errored);
                 } else {
                     if (VALIDATE_WITH_LOGS)
                         Log.d(SUBSTRATUM_VALIDATOR,
@@ -1047,39 +1129,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     errors.add(packageError);
                 }
             }
-
-            for (int x = 0; x < errors.size(); x++) {
-                PackageError error = errors.get(x);
-                ArrayList<String> boolErrors = error.getBoolErrors();
-                ArrayList<String> colorErrors = error.getColorErrors();
-                ArrayList<String> dimenErrors = error.getDimenErrors();
-                ArrayList<String> styleErrors = error.getStyleErrors();
-
-                Log.e(SUBSTRATUM_VALIDATOR,
-                        "Loading missing resources from '" + error.getPackageName() + "'...");
-
-                if (boolErrors.size() > 0) {
-                    for (int i = 0; i < boolErrors.size(); i++) {
-                        Log.e(SUBSTRATUM_VALIDATOR, boolErrors.get(i));
-                    }
-                }
-                if (colorErrors.size() > 0) {
-                    for (int i = 0; i < colorErrors.size(); i++) {
-                        Log.e(SUBSTRATUM_VALIDATOR, colorErrors.get(i));
-                    }
-                }
-                if (dimenErrors.size() > 0) {
-                    for (int i = 0; i < dimenErrors.size(); i++) {
-                        Log.e(SUBSTRATUM_VALIDATOR, dimenErrors.get(i));
-                    }
-                }
-                if (styleErrors.size() > 0) {
-                    for (int i = 0; i < styleErrors.size(); i++) {
-                        Log.e(SUBSTRATUM_VALIDATOR, styleErrors.get(i));
-                    }
-                }
-            }
-            return null;
+            return packages;
         }
     }
 }

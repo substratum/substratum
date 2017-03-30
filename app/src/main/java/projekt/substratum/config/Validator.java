@@ -23,7 +23,7 @@ import android.content.res.Resources;
 
 public class Validator {
 
-    public static final Boolean VALIDATE_WITH_LOGS = true;
+    public static final Boolean VALIDATE_WITH_LOGS = false;
 
     public static boolean checkResourceObject(Context context,
                                               String package_name,

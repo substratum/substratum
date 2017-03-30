@@ -393,6 +393,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 ("aopt_switcher");
         final CheckBoxPreference forceIndependence = (CheckBoxPreference)
                 getPreferenceManager().findPreference("force_independence");
+        final CheckBoxPreference crashReceiver = (CheckBoxPreference)
+                getPreferenceManager().findPreference("crash_receiver");
 
         if (BuildConfig.DEBUG) {
             if (prefs.getString("compiler", "aapt").equals("aapt")) {
@@ -465,9 +467,18 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 forceIndependence.setChecked(!References.checkThemeInterfacer(getContext()));
                 forceIndependence.setEnabled(References.checkThemeInterfacer(getContext()));
             }
+
+            crashReceiver.setChecked(prefs.getBoolean("crash_receiver", true));
+            crashReceiver.setOnPreferenceChangeListener((preference, newValue) -> {
+                boolean isChecked = (Boolean) newValue;
+                prefs.edit().putBoolean("crash_receiver", isChecked).apply();
+                return true;
+            });
         } else {
-            if (!References.checkOMS(getContext()))
+            if (References.checkOMS(getContext())) {
                 forceIndependence.setVisible(false);
+                crashReceiver.setVisible(false);
+            }
             aoptSwitcher.setVisible(false);
         }
 

@@ -800,6 +800,9 @@
     <string name="settings_theme_caching_text">All theme asset resources will be extracted in the cache directory.</string>
     <string name="settings_theme_caching_found_snackbar">You just discovered the hidden resource caching mode!</string>
 
+    <string name="settings_crash_receiver_title">App Crash Receiver</string>
+    <string name="settings_crash_receiver_text">Automatically disable an overlay when repeating crash from the target app detected.</string>
+
     <string name="root_required_title">Root required</string>
     <string name="root_required_boot_animation">Your device is encrypted, so root is necessary to apply boot animations.</string>
     <string name="root_required_boot_animation_profile">Your device is encrypted, so root is necessary to backup and restore boot animations.</string>

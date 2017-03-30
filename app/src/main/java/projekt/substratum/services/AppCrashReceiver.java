@@ -25,6 +25,7 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.support.v4.app.NotificationCompat;
+import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -46,6 +47,10 @@ public class AppCrashReceiver extends BroadcastReceiver {
         if (!References.checkOMS(context)) {
             return;
         }
+
+        boolean enabled = PreferenceManager.getDefaultSharedPreferences(context)
+                .getBoolean("crash_receiver", true);
+        if (!enabled) return;
 
         String packageName =
                 intent.getStringExtra("projekt.substratum.EXTRA_PACKAGE_NAME");

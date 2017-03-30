@@ -95,6 +95,12 @@
             android:summary="@string/force_independence_summary"
             android:title="@string/force_independence_title"/>
 
+        <Preference
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:key="restart_interfacer"
+            android:title="@string/settings_restart_interfacer_title"/>
+
     </PreferenceCategory>
 
     <PreferenceCategory

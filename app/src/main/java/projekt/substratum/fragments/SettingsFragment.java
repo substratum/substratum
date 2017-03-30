@@ -62,6 +62,7 @@ import projekt.substratum.LauncherActivity;
 import projekt.substratum.R;
 import projekt.substratum.adapters.PackageAdapter;
 import projekt.substratum.config.References;
+import projekt.substratum.config.ThemeManager;
 import projekt.substratum.config.Validator;
 import projekt.substratum.model.PackageError;
 import projekt.substratum.model.Repository;
@@ -664,6 +665,20 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         }
                         return false;
                     });
+
+            final Preference restartInterfacer = getPreferenceManager()
+                    .findPreference("restart_interfacer");
+            restartInterfacer.setVisible(References.checkThemeInterfacer(getContext()));
+            restartInterfacer.setOnPreferenceClickListener(preference -> {
+                ThemeManager.restartService(getContext());
+                if (getView() != null) {
+                    Snackbar.make(getView(),
+                            R.string.settings_restart_interfacer_snackbar,
+                            Snackbar.LENGTH_LONG)
+                            .show();
+                }
+                return false;
+            });
         }
     }
 

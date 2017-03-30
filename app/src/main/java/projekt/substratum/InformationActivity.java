@@ -47,6 +47,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -114,11 +115,8 @@ public class InformationActivity extends AppCompatActivity {
     }
 
     private static int getDominantColor(Bitmap bitmap) {
-        try {
-            return bitmap.getPixel(0, 0);
-        } catch (IllegalArgumentException iae) {
-            return Color.BLACK;
-        }
+        Palette palette = Palette.from(bitmap).generate();
+        return palette.getDominantColor(Color.BLACK);
     }
 
     private static void setOverflowButtonColor(final Activity activity, final Boolean dark_mode) {

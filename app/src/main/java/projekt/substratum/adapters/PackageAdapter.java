@@ -18,7 +18,6 @@
 
 package projekt.substratum.adapters;
 
-import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -67,8 +66,12 @@ public class PackageAdapter extends RecyclerView.Adapter<PackageAdapter.ViewHold
                     information.get(i).getContext().getString(R.string.resource_validated));
             viewHolder.numberProgressBar.setProgress(100);
         } else {
-            viewHolder.numberProgressBar.setProgressTextColor(Color.RED);
-            viewHolder.numberProgressBar.setReachedBarColor(Color.RED);
+            viewHolder.numberProgressBar.setProgressTextColor(
+                    information.get(i).getContext().getColor(
+                            R.color.number_progress_bar_validation_error));
+            viewHolder.numberProgressBar.setReachedBarColor(
+                    information.get(i).getContext().getColor(
+                            R.color.number_progress_bar_validation_error));
             viewHolder.numberProgressBar.setProgress(information.get(i).getPercentage());
         }
     }

@@ -50,6 +50,8 @@
 
     <color name="tab_defaults_icon_tint">@android:color/white</color>
 
+    <color name="number_progress_bar_validation_error">#ff6600</color>
+
     <color name="bootanimation_placeholder_tint">@android:color/white</color>
     <color name="bootanimation_vm_text">@android:color/white</color>
     <color name="bootanimation_checked">@color/colorAccent</color>

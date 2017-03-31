@@ -66,6 +66,8 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="5dp"
             android:background="@android:color/transparent"
+            android:clickable="true"
+            android:foreground="?android:selectableItemBackground"
             android:text="@string/resource_checker_dialog_quit"
             android:textColor="?colorAccent"/>
 

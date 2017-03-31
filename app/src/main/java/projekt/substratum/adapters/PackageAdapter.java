@@ -53,7 +53,7 @@ public class PackageAdapter extends RecyclerView.Adapter<PackageAdapter.ViewHold
     @Override
     public PackageAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(
-                R.layout.package_entry, viewGroup, false);
+                R.layout.validator_dialog_entry, viewGroup, false);
         return new ViewHolder(view);
     }
 
@@ -123,7 +123,11 @@ public class PackageAdapter extends RecyclerView.Adapter<PackageAdapter.ViewHold
                 final Dialog dialog = new Dialog(information.get(pos).getContext(),
                         android.R.style.Theme_DeviceDefault_Dialog);
                 dialog.setContentView(R.layout.commit_dialog);
-                dialog.setTitle(R.string.resource_commit_dialog_title);
+                String format = String.format(
+                        information.get(pos).getContext().getString(
+                                R.string.resource_commit_dialog_title),
+                        viewHolder.packName.getText());
+                dialog.setTitle(format);
                 if (dialog.getWindow() != null)
                     dialog.getWindow().setLayout(RecyclerView.LayoutParams.MATCH_PARENT,
                             RecyclerView.LayoutParams.WRAP_CONTENT);

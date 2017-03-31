@@ -1002,8 +1002,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             layoutParams.copyFrom(dialog2.getWindow().getAttributes());
             layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
             layoutParams.height = WindowManager.LayoutParams.MATCH_PARENT;
-            dialog2.show();
             dialog2.getWindow().setAttributes(layoutParams);
+            dialog2.show();
         }
 
         @Override

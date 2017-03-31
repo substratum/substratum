@@ -53,7 +53,7 @@
     <string name="resource_dimension" translatable="false">dimens</string>
     <string name="resource_style" translatable="false">style</string>
 
-    <string name="resource_commit_dialog_title">In-depth Resource Analyzer</string>
+    <string name="resource_commit_dialog_title">Missing Resources in %s</string>
     <string name="resource_commit_dialog_subject" translatable="false">Commit Merge Request</string>
     <string name="resource_commit_dialog_body" formatted="false" translatable="false">
         Themers,\n\nI have an unmerged commit on this ROM, and would

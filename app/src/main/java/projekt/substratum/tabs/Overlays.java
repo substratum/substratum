@@ -660,27 +660,6 @@ public class Overlays extends Fragment {
         return new ArrayList<>(all_installed_overlays);
     }
 
-    private String checkXposedVersion() {
-        String xposed_version = "";
-
-        File f = new File("/system/framework/XposedBridge.jar");
-        if (f.exists() && !f.isDirectory()) {
-            File file = new File("/system/", "xposed.prop");
-            try {
-                BufferedReader br = new BufferedReader(new FileReader(file));
-                String unparsed_br = br.readLine();
-                xposed_version = unparsed_br.substring(8, 10);
-            } catch (FileNotFoundException e) {
-                Log.e("XposedChecker", "'xposed.prop' could not be found!");
-            } catch (IOException e) {
-                Log.e("XposedChecker", "Unable to parse BufferedReader from 'xposed.prop'");
-            }
-            xposed_version = ", " + R.string.logcat_email_xposed_check + " (" +
-                    xposed_version + ")";
-        }
-        return xposed_version;
-    }
-
     private boolean checkActiveNotifications() {
         StatusBarNotification[] activeNotifications = mNotifyManager.getActiveNotifications();
         for (StatusBarNotification statusBarNotification : activeNotifications) {
@@ -920,7 +899,7 @@ public class Overlays extends Fragment {
                 String email_subject =
                         String.format(context.getString(R.string.logcat_email_subject),
                                 theme_name);
-                String xposed = checkXposedVersion();
+                String xposed = References.checkXposedVersion();
                 if (xposed.length() > 0) {
                     device += " {" + xposed + "}";
                 }

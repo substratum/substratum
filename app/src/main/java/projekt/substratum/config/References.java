@@ -60,7 +60,9 @@ import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -193,6 +195,27 @@ public class References {
             shortcutManager.removeAllDynamicShortcuts();
             Log.d(SUBSTRATUM_LOG, "Successfully removed all dynamic app shortcuts!");
         }
+    }
+
+    public static String checkXposedVersion() {
+        String xposed_version = "";
+
+        File f = new File("/system/framework/XposedBridge.jar");
+        if (f.exists() && !f.isDirectory()) {
+            File file = new File("/system/", "xposed.prop");
+            try {
+                BufferedReader br = new BufferedReader(new FileReader(file));
+                String unparsed_br = br.readLine();
+                xposed_version = unparsed_br.substring(8, 10);
+            } catch (FileNotFoundException e) {
+                Log.e("XposedChecker", "'xposed.prop' could not be found!");
+            } catch (IOException e) {
+                Log.e("XposedChecker", "Unable to parse BufferedReader from 'xposed.prop'");
+            }
+            xposed_version = ", " + R.string.logcat_email_xposed_check + " (" +
+                    xposed_version + ")";
+        }
+        return xposed_version;
     }
 
     public static int getDeviceEncryptionStatus(Context context) {
@@ -401,6 +424,25 @@ public class References {
             String line;
             while ((line = br.readLine()) != null) {
                 result = line;
+            }
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    // This method is used to check whether a build.prop value is found
+    public static StringBuilder getBuildProp() {
+        Process p;
+        StringBuilder result = new StringBuilder();
+        try {
+            p = new ProcessBuilder("/system/bin/getprop")
+                    .redirectErrorStream(true).start();
+            BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            String line;
+            while ((line = br.readLine()) != null) {
+                result.append(line);
             }
             br.close();
         } catch (IOException e) {

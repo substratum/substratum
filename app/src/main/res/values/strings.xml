@@ -39,7 +39,9 @@
     <string name="showcase_tabs" translatable="false">https://raw.githubusercontent.com/substratum/substratum/dev/showcase.xml</string>
     <string name="crowdin_url" translatable="false">"http://translate.projektsubstratum.com/"</string>
     <string name="validator_url" translatable="false">"https://raw.githubusercontent.com/substratum/database/master/commit_tracker.xml"</string>
+    <string name="themer_email" translatable="false">substratumthemers@gmail.com</string>
 
+    <string name="resource_checker_request">Send commit merge request using&#8230;</string>
     <string name="resource_checker">Commit Validator</string>
     <string name="resource_checker_commons">Framework</string>
     <string name="resource_checker_dialog_quit">Exit</string>
@@ -50,6 +52,14 @@
     <string name="resource_color" translatable="false">color</string>
     <string name="resource_dimension" translatable="false">dimens</string>
     <string name="resource_style" translatable="false">style</string>
+
+    <string name="resource_commit_dialog_title">In-depth Resource Analyzer</string>
+    <string name="resource_commit_dialog_subject" translatable="false">Commit Merge Request</string>
+    <string name="resource_commit_dialog_body" formatted="false" translatable="false">
+        Themers,\n\nI have an unmerged commit on this ROM, and would
+        like to see if you could help the ROM developers resolve this issue, thanks!
+        \n\nDevice:%s\n\nReport:\n\n%s\n\nBuildProp:\n\n%s
+    </string>
 
     <string name="showcase_no_connection">the theme showcase requires an internet connection to
         function!

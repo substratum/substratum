@@ -858,7 +858,7 @@
     <string name="restore_fonts_summary">This function removes the previously applied fonts set and restores it to the stock fonts set\n</string>
     <string name="restore_fonts_button">Restore fonts</string>
 
-    <string name="interfacer_not_authorized_toast">Substratum was not able to communicate with the Theme Interfacer&#8230;</string>
+    <string name="interfacer_not_authorized_toast">This version of Substratum is not authorized and will work with the system Interfacer module.</string>
 
     <string name="app_crash_title">%s keeps stopping&#8230;</string>
     <string name="app_crash_content">All enabled overlays for this app have been disabled.</string>

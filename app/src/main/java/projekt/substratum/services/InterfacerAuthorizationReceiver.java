@@ -25,7 +25,7 @@ import android.widget.Toast;
 
 import projekt.substratum.R;
 
-public class InterfaceAuthorizationReceiver extends BroadcastReceiver {
+public class InterfacerAuthorizationReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -35,5 +35,4 @@ public class InterfaceAuthorizationReceiver extends BroadcastReceiver {
             toast.show();
         }
     }
-
 }

@@ -91,7 +91,7 @@ import projekt.substratum.fragments.PriorityListFragment;
 import projekt.substratum.fragments.PriorityLoaderFragment;
 import projekt.substratum.fragments.ThemeFragment;
 import projekt.substratum.services.FloatUiTile;
-import projekt.substratum.services.InterfaceAuthorizationReceiver;
+import projekt.substratum.services.InterfacerAuthorizationReceiver;
 import projekt.substratum.services.SubstratumFloatInterface;
 import projekt.substratum.util.Root;
 import projekt.substratum.util.SheetDialog;
@@ -253,7 +253,7 @@ public class MainActivity extends AppCompatActivity implements
             selectedDrawer = savedInstanceState.getInt(SELECTED_DRAWER_ITEM);
         }
 
-        authorizationReceiver = new InterfaceAuthorizationReceiver();
+        authorizationReceiver = new InterfacerAuthorizationReceiver();
         IntentFilter filter = new IntentFilter(INTERFACER_PACKAGE + ".CALLER_AUTHORIZED");
         getApplicationContext().registerReceiver(authorizationReceiver, filter);
 

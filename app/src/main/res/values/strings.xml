@@ -44,6 +44,7 @@
     <string name="resource_checker_commons">Framework</string>
     <string name="resource_checker_dialog_quit">Exit</string>
     <string name="resource_not_validated">New commits have been merged!</string>
+    <string name="resource_needs_internet">To validate your ROM\'s commits, please connect to the internet!</string>
     <string name="resource_validated">All commits intact!</string>
     <string name="resource_boolean" translatable="false">bool</string>
     <string name="resource_color" translatable="false">color</string>

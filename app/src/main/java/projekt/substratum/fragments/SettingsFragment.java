@@ -182,7 +182,14 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 getContext().getDrawable(R.drawable.system_status_certified)
                 : getContext().getDrawable(R.drawable.system_status_uncertified));
         systemStatus.setOnPreferenceClickListener(preference -> {
-            new downloadRepositoryList().execute("");
+            if (References.isNetworkAvailable(getContext())) {
+                new downloadRepositoryList().execute("");
+            } else {
+                Snackbar.make(getView(),
+                        R.string.resource_needs_internet,
+                        Snackbar.LENGTH_LONG)
+                        .show();
+            }
             return false;
         });
 

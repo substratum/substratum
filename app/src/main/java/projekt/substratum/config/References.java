@@ -442,7 +442,7 @@ public class References {
             BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
             String line;
             while ((line = br.readLine()) != null) {
-                result.append(line);
+                result.append(line + "\n");
             }
             br.close();
         } catch (IOException e) {

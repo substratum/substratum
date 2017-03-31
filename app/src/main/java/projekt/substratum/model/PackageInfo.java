@@ -27,6 +27,7 @@ public class PackageInfo {
     private Drawable mDrawable;
     private Boolean mVerified;
     private Boolean mCommons;
+    private PackageError mPackageError;
     private int mPercentage = 0;
 
     public PackageInfo(Context mContext, String package_name, Boolean verified, Boolean commons) {
@@ -38,6 +39,14 @@ public class PackageInfo {
 
     public Boolean getCommons() {
         return this.mCommons;
+    }
+
+    public PackageError getPackageError() {
+        return this.mPackageError;
+    }
+
+    public void setPackageError(PackageError packageError) {
+        this.mPackageError = packageError;
     }
 
     public String getPackageName() {

@@ -20,6 +20,7 @@ package projekt.substratum.adapters;
 
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +33,10 @@ import java.util.ArrayList;
 
 import projekt.substratum.R;
 import projekt.substratum.config.References;
+import projekt.substratum.model.PackageError;
 import projekt.substratum.model.PackageInfo;
+
+import static projekt.substratum.config.References.SUBSTRATUM_VALIDATOR;
 
 public class PackageAdapter extends RecyclerView.Adapter<PackageAdapter.ViewHolder> {
     private ArrayList<PackageInfo> information;
@@ -56,11 +60,10 @@ public class PackageAdapter extends RecyclerView.Adapter<PackageAdapter.ViewHold
         }
 
         viewHolder.packName.setText(
-                new StringBuilder().append(
-                        References.grabPackageName(information.get(pos).getContext(), packageName))
-                        .append((information.get(pos).getCommons()) ? " " +
-                                information.get(pos).getContext().getString(
-                                        R.string.resource_checker_commons) : "").toString());
+                String.format("%s%s", References.grabPackageName(information.get(pos).getContext
+                        (), packageName), (information.get(pos).getCommons()) ? " " +
+                        information.get(pos).getContext().getString(
+                                R.string.resource_checker_commons) : ""));
 
         viewHolder.packIcon.setImageDrawable(References.grabAppIcon(information.get(pos)
                         .getContext(),
@@ -80,6 +83,38 @@ public class PackageAdapter extends RecyclerView.Adapter<PackageAdapter.ViewHold
                     information.get(pos).getContext().getString(R.string.resource_validated));
             viewHolder.numberProgressBar.setProgress(100);
         } else {
+            viewHolder.cardView.setOnClickListener(v -> {
+                PackageError error = information.get(pos).getPackageError();
+                ArrayList<String> boolErrors = error.getBoolErrors();
+                ArrayList<String> colorErrors = error.getColorErrors();
+                ArrayList<String> dimenErrors = error.getDimenErrors();
+                ArrayList<String> styleErrors = error.getStyleErrors();
+
+                Log.e(SUBSTRATUM_VALIDATOR,
+                        "Loading missing resources from '" + error.getPackageName() + "'...");
+
+                if (boolErrors.size() > 0) {
+                    for (int i = 0; i < boolErrors.size(); i++) {
+                        Log.e(SUBSTRATUM_VALIDATOR, boolErrors.get(i));
+                    }
+                }
+                if (colorErrors.size() > 0) {
+                    for (int i = 0; i < colorErrors.size(); i++) {
+                        Log.e(SUBSTRATUM_VALIDATOR, colorErrors.get(i));
+                    }
+                }
+                if (dimenErrors.size() > 0) {
+                    for (int i = 0; i < dimenErrors.size(); i++) {
+                        Log.e(SUBSTRATUM_VALIDATOR, dimenErrors.get(i));
+                    }
+                }
+                if (styleErrors.size() > 0) {
+                    for (int i = 0; i < styleErrors.size(); i++) {
+                        Log.e(SUBSTRATUM_VALIDATOR, styleErrors.get(i));
+                    }
+                }
+            });
+
             viewHolder.numberProgressBar.setProgressTextColor(
                     information.get(pos).getContext().getColor(
                             R.color.number_progress_bar_validation_error));

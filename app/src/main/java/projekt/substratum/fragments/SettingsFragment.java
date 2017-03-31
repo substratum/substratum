@@ -185,10 +185,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             if (References.isNetworkAvailable(getContext())) {
                 new downloadRepositoryList().execute("");
             } else {
-                Snackbar.make(getView(),
-                        R.string.resource_needs_internet,
-                        Snackbar.LENGTH_LONG)
-                        .show();
+                if (getView() != null) {
+                    Snackbar.make(getView(),
+                            R.string.resource_needs_internet,
+                            Snackbar.LENGTH_LONG)
+                            .show();
+                }
             }
             return false;
         });
@@ -949,35 +951,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             ArrayList<String> erroredPackages = new ArrayList<>();
             for (int x = 0; x < errors.size(); x++) {
                 PackageError error = errors.get(x);
-                ArrayList<String> boolErrors = error.getBoolErrors();
-                ArrayList<String> colorErrors = error.getColorErrors();
-                ArrayList<String> dimenErrors = error.getDimenErrors();
-                ArrayList<String> styleErrors = error.getStyleErrors();
-
-                Log.e(SUBSTRATUM_VALIDATOR,
-                        "Loading missing resources from '" + error.getPackageName() + "'...");
                 erroredPackages.add(error.getPackageName());
-
-                if (boolErrors.size() > 0) {
-                    for (int i = 0; i < boolErrors.size(); i++) {
-                        Log.e(SUBSTRATUM_VALIDATOR, boolErrors.get(i));
-                    }
-                }
-                if (colorErrors.size() > 0) {
-                    for (int i = 0; i < colorErrors.size(); i++) {
-                        Log.e(SUBSTRATUM_VALIDATOR, colorErrors.get(i));
-                    }
-                }
-                if (dimenErrors.size() > 0) {
-                    for (int i = 0; i < dimenErrors.size(); i++) {
-                        Log.e(SUBSTRATUM_VALIDATOR, dimenErrors.get(i));
-                    }
-                }
-                if (styleErrors.size() > 0) {
-                    for (int i = 0; i < styleErrors.size(); i++) {
-                        Log.e(SUBSTRATUM_VALIDATOR, styleErrors.get(i));
-                    }
-                }
             }
 
             dialog.dismiss();
@@ -990,14 +964,16 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 projekt.substratum.model.PackageInfo packageInfo = new projekt.substratum.model
                         .PackageInfo(getContext(), result.get(i), validated,
                         result.get(i).endsWith(".common"));
-                try {
-                    packageInfo.setDrawable(References.grabAppIcon(getContext(), result.get(i)));
-                } catch (Exception e) {
-                    // At this point, there's no icon attached to the package
-                }
+
                 packageInfo.setPercentage(
                         packageCounters.get(i) - packageCountersErrored.get(i),
                         packageCounters.get(i));
+                for (int x = 0; x < errors.size(); x++) {
+                    if (result.contains(errors.get(x).getPackageName())) {
+                        packageInfo.setPackageError(errors.get(x));
+                        break;
+                    }
+                }
                 packageInfos.add(packageInfo);
             }
             PackageAdapter packageAdapter = new PackageAdapter(packageInfos);
@@ -1009,6 +985,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             button.setOnClickListener(v -> dialog2.dismiss());
 
             WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+            //noinspection ConstantConditions
             layoutParams.copyFrom(dialog2.getWindow().getAttributes());
             layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
             layoutParams.height = WindowManager.LayoutParams.MATCH_PARENT;

@@ -67,6 +67,12 @@ public class PackageAdapter extends RecyclerView.Adapter<PackageAdapter.ViewHold
                 packageName));
 
         if (information.get(pos).getVerification()) {
+            viewHolder.numberProgressBar.setProgressTextColor(
+                    information.get(pos).getContext().getColor(
+                            R.color.number_progress_bar_validation_success));
+            viewHolder.numberProgressBar.setReachedBarColor(
+                    information.get(pos).getContext().getColor(
+                            R.color.number_progress_bar_validation_success));
             viewHolder.verificationIcon.setImageDrawable(
                     information.get(pos).getContext().getDrawable(
                             R.drawable.package_verification_success));

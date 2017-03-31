@@ -47,8 +47,8 @@
         android:layout_above="@+id/button_bar_layout"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/title"
-        android:paddingEnd="15dp"
-        android:paddingStart="15dp"
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp"
         android:paddingTop="15dp"/>
 
     <android.support.v7.widget.ButtonBarLayout
@@ -62,7 +62,9 @@
             android:id="@+id/button_done"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
             android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
             android:background="@android:color/transparent"
             android:text="@string/resource_checker_dialog_quit"
             android:textColor="?colorAccent"/>

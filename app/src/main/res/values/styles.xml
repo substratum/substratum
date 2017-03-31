@@ -113,6 +113,10 @@
         <item name="android:windowAnimationStyle">@style/FloatUiAnimation</item>
     </style>
 
+    <style name="ValidationDialog" parent="@android:style/Theme.DeviceDefault.Light.Dialog">
+        <item name="android:windowAnimationStyle">@style/FloatUiAnimation</item>
+    </style>
+
     <style name="FloatUiAnimation" parent="@android:style/Animation.Activity">
         <item name="android:windowEnterAnimation">@anim/anim_in</item>
         <item name="android:windowExitAnimation">@anim/anim_out</item>

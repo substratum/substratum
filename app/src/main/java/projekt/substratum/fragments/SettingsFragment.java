@@ -75,6 +75,7 @@ import projekt.substratum.util.ReadResourcesFile;
 import projekt.substratum.util.ReadSupportedROMsFile;
 import projekt.substratum.util.SheetDialog;
 
+import static projekt.substratum.config.References.INTERFACER_PACKAGE;
 import static projekt.substratum.config.References.SUBSTRATUM_VALIDATOR;
 import static projekt.substratum.config.Validator.VALIDATE_WITH_LOGS;
 
@@ -679,7 +680,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
             final Preference restartInterfacer = getPreferenceManager()
                     .findPreference("restart_interfacer");
-            restartInterfacer.setVisible(References.checkThemeInterfacer(getContext()));
             restartInterfacer.setOnPreferenceClickListener(preference -> {
                 ThemeManager.restartService(getContext());
                 if (getView() != null) {
@@ -690,6 +690,18 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 }
                 return false;
             });
+            try {
+                Context interfacerContext = getContext().createPackageContext(INTERFACER_PACKAGE,
+                        Context.CONTEXT_IGNORE_SECURITY | Context.CONTEXT_INCLUDE_CODE);
+                ClassLoader interfacerClassLoader = interfacerContext.getClassLoader();
+                Class<?> cls = Class.forName(INTERFACER_PACKAGE + ".services.JobService",
+                        true,
+                        interfacerClassLoader);
+                cls.getDeclaredMethod("restartService");
+                restartInterfacer.setVisible(true);
+            } catch (Exception ex) {
+                restartInterfacer.setVisible(false);
+            }
         }
     }
 

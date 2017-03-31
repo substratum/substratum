@@ -43,6 +43,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -929,6 +931,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             super.onPreExecute();
             dialog = new Dialog(getActivity());
             dialog.setContentView(R.layout.validator_dialog);
+            dialog.setCancelable(false);
             dialog.show();
         }
 
@@ -994,7 +997,16 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             recyclerView.setAdapter(packageAdapter);
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
             recyclerView.setLayoutManager(layoutManager);
+
+            Button button = (Button) dialog2.findViewById(R.id.button_done);
+            button.setOnClickListener(v -> dialog2.dismiss());
+
+            WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+            layoutParams.copyFrom(dialog2.getWindow().getAttributes());
+            layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
+            layoutParams.height = WindowManager.LayoutParams.MATCH_PARENT;
             dialog2.show();
+            dialog2.getWindow().setAttributes(layoutParams);
         }
 
         @Override

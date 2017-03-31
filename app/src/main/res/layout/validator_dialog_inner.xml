@@ -21,13 +21,52 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
+    <android.support.v7.widget.ButtonBarLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/resource_checker"
+            android:textColor="?android:textColorPrimary"
+            android:textSize="18dp"
+            android:textStyle="bold"/>
+
+    </android.support.v7.widget.ButtonBarLayout>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/introduction_card"
+        android:layout_above="@+id/button_bar_layout"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/title"
         android:paddingEnd="15dp"
         android:paddingStart="15dp"
-        android:paddingTop="10dp"/>
+        android:paddingTop="15dp"/>
+
+    <android.support.v7.widget.ButtonBarLayout
+        android:id="@+id/button_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="right">
+
+        <Button
+            android:id="@+id/button_done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:background="@android:color/transparent"
+            android:text="@string/resource_checker_dialog_quit"
+            android:textColor="?colorAccent"/>
+
+    </android.support.v7.widget.ButtonBarLayout>
 
 </RelativeLayout>

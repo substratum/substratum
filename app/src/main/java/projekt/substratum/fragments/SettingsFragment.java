@@ -968,8 +968,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 packageInfo.setPercentage(
                         packageCounters.get(i) - packageCountersErrored.get(i),
                         packageCounters.get(i));
+
                 for (int x = 0; x < errors.size(); x++) {
-                    if (result.contains(errors.get(x).getPackageName())) {
+                    if (result.get(i).contains(errors.get(x).getPackageName())) {
                         packageInfo.setPackageError(errors.get(x));
                         break;
                     }

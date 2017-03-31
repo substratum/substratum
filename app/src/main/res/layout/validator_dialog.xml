@@ -29,7 +29,7 @@
         android:layout_margin="20dp"
         app:duration="1000"
         app:hasHole="false"
-        app:lineColor="@color/colorPrimary"
+        app:lineColor="?colorAccent"
         app:lineLength="0.6"
         app:lineLengthChangeable="true"
         app:maxLineLength="0.8"

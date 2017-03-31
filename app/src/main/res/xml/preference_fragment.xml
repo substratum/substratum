@@ -70,6 +70,12 @@
         <Preference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:key="restart_interfacer"
+            android:title="@string/settings_restart_interfacer_title"/>
+
+        <Preference
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:key="aopt_switcher"
             android:summary="@string/settings_aapt"
             android:title="@string/settings_aopt_switcher_title"/>
@@ -84,22 +90,16 @@
         <CheckBoxPreference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:key="crash_receiver"
-            android:summary="@string/settings_crash_receiver_text"
-            android:title="@string/settings_crash_receiver_title"/>
-
-        <CheckBoxPreference
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:key="force_independence"
             android:summary="@string/force_independence_summary"
             android:title="@string/force_independence_title"/>
 
-        <Preference
+        <CheckBoxPreference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:key="restart_interfacer"
-            android:title="@string/settings_restart_interfacer_title"/>
+            android:key="crash_receiver"
+            android:summary="@string/settings_crash_receiver_text"
+            android:title="@string/settings_crash_receiver_title"/>
 
     </PreferenceCategory>
 

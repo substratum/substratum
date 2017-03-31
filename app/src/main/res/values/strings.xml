@@ -813,8 +813,8 @@
     <string name="settings_theme_caching_text">All theme asset resources will be extracted in the cache directory.</string>
     <string name="settings_theme_caching_found_snackbar">You just discovered the hidden resource caching mode!</string>
 
-    <string name="settings_crash_receiver_title">App Crash Receiver</string>
-    <string name="settings_crash_receiver_text">Automatically disable an overlay when repetitive crashes from the target app were detected.</string>
+    <string name="settings_crash_receiver_title">Theme Safety Crash Receiver</string>
+    <string name="settings_crash_receiver_text">Automatically disable an overlay when detecting repetitive crashes on the overlaid app.</string>
 
     <string name="settings_restart_interfacer_title">Restart Interfacer Service</string>
     <string name="settings_restart_interfacer_snackbar">Now restarting interfacer&#8230;</string>

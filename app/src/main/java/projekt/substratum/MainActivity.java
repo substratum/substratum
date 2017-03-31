@@ -1041,6 +1041,8 @@ public class MainActivity extends AppCompatActivity implements
                                 "/SubstratumBuilder/" + file.getName());
                     }
                     Log.d("SubstratumBuilder", "The cache has been flushed!");
+                    mProgressDialog = new ProgressDialog(this, R.style.SubstratumBuilder_BlurView);
+                    new RootRequester().execute("");
                 } else {
                     // permission was not granted, show closing dialog
                     new AlertDialog.Builder(this)
@@ -1164,9 +1166,8 @@ public class MainActivity extends AppCompatActivity implements
                 } else {
                     textView.setText(getString(R.string.root_rejected_text_cm_phh));
                 }
-            } else {
-                showOutdatedRequestDialog();
             }
+            showOutdatedRequestDialog();
             References.injectRescueArchives(getApplicationContext());
         }
 

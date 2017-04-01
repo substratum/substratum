@@ -25,7 +25,6 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.design.widget.Snackbar;
@@ -57,13 +56,11 @@ import projekt.substratum.config.WallpaperManager;
 import projekt.substratum.util.SheetDialog;
 import projekt.substratum.util.SoundUtils;
 
-import static projekt.substratum.config.References.REFRESH_WINDOW_DELAY;
 
 public class RecoveryFragment extends Fragment {
 
     private ProgressDialog mProgressDialog;
     private ArrayList<String> final_commands_array;
-    private Boolean DEBUG = References.DEBUG;
     private SharedPreferences prefs;
     private SheetDialog sheetDialog;
 
@@ -106,18 +103,7 @@ public class RecoveryFragment extends Fragment {
                                 Snackbar.LENGTH_LONG)
                                 .show();
                     }
-                    List<String> list = ThemeManager.listOverlays(5);
                     ThemeManager.disableAll(getContext());
-                    if (References.needsRecreate(getContext(), new ArrayList<>(list))) {
-                        Handler handler = new Handler();
-                        handler.postDelayed(() -> {
-                            try {
-                                getActivity().recreate();
-                            } catch (Exception e) {
-                                // Consume window refresh
-                            }
-                        }, REFRESH_WINDOW_DELAY);
-                    }
                 } else {
                     File vendor_location = new File("/system/vendor/overlay/");
                     File overlay_location = new File("/system/overlay/");

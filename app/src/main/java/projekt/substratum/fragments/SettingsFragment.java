@@ -66,10 +66,12 @@ import projekt.substratum.adapters.PackageAdapter;
 import projekt.substratum.config.References;
 import projekt.substratum.config.ThemeManager;
 import projekt.substratum.config.Validator;
+import projekt.substratum.model.Filter;
 import projekt.substratum.model.PackageError;
 import projekt.substratum.model.Repository;
 import projekt.substratum.util.AOPTCheck;
 import projekt.substratum.util.FileDownloader;
+import projekt.substratum.util.ReadFilterFile;
 import projekt.substratum.util.ReadRepositoriesFile;
 import projekt.substratum.util.ReadResourcesFile;
 import projekt.substratum.util.ReadSupportedROMsFile;
@@ -1012,9 +1014,16 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             FileDownloader.init(getContext(), getString(R.string.validator_url),
                     "repository_names.xml", "ValidatorCache");
 
+            FileDownloader.init(getContext(), getString(R.string.validator_whitelist_url),
+                    "resource_whitelist.xml", "ValidatorCache");
+
             ArrayList<Repository> repositories =
                     ReadRepositoriesFile.main(getContext().getCacheDir().getAbsolutePath() +
                             "/ValidatorCache/repository_names.xml");
+
+            ArrayList<Filter> whitelist =
+                    ReadFilterFile.main(getContext().getCacheDir().getAbsolutePath() +
+                            "/ValidatorCache/resource_whitelist.xml");
 
             ArrayList<String> packages = new ArrayList<>();
             packageCounters = new ArrayList<>();
@@ -1056,13 +1065,32 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 if (VALIDATE_WITH_LOGS)
                                     Log.d("BoolCheck", "Resource exists: " + bools.get(j));
                             } else {
-                                if (VALIDATE_WITH_LOGS)
-                                    Log.e("BoolCheck", "Resource does not exist: " + bools.get(j));
-                                has_errored = true;
-                                packageError.addBoolError(
-                                        "{" + getString(R.string.resource_boolean) + "} " +
-                                                bools.get(j));
-                                resource_counter_errored++;
+                                boolean bypassed = false;
+                                for (int x = 0; x < whitelist.size(); x++) {
+                                    String currentPackage = whitelist.get(x).getPackageName();
+                                    ArrayList<String> currentWhitelist = whitelist.get(x)
+                                            .getFilter();
+                                    if (currentPackage.equals(packageName)) {
+                                        if (currentWhitelist.contains(bools.get(j))) {
+                                            if (VALIDATE_WITH_LOGS)
+                                                Log.d("BoolCheck",
+                                                        "Resource bypassed using filter: " +
+                                                                bools.get(j));
+                                            bypassed = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (!bypassed) {
+                                    if (VALIDATE_WITH_LOGS)
+                                        Log.e("BoolCheck", "Resource does not exist: " + bools
+                                                .get(j));
+                                    has_errored = true;
+                                    packageError.addBoolError(
+                                            "{" + getString(R.string.resource_boolean) + "} " +
+                                                    bools.get(j));
+                                    resource_counter_errored++;
+                                }
                             }
                             resource_counter++;
                         }
@@ -1084,14 +1112,32 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 if (VALIDATE_WITH_LOGS)
                                     Log.d("ColorCheck", "Resource exists: " + colors.get(j));
                             } else {
-                                if (VALIDATE_WITH_LOGS)
-                                    Log.e("ColorCheck",
-                                            "Resource does not exist: " + colors.get(j));
-                                has_errored = true;
-                                packageError.addColorError(
-                                        "{" + getString(R.string.resource_color) + "} " +
+                                boolean bypassed = false;
+                                for (int x = 0; x < whitelist.size(); x++) {
+                                    String currentPackage = whitelist.get(x).getPackageName();
+                                    ArrayList<String> currentWhitelist = whitelist.get(x)
+                                            .getFilter();
+                                    if (currentPackage.equals(packageName)) {
+                                        if (currentWhitelist.contains(colors.get(j))) {
+                                            if (VALIDATE_WITH_LOGS)
+                                                Log.d("ColorCheck",
+                                                        "Resource bypassed using filter: " +
+                                                                colors.get(j));
+                                            bypassed = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (!bypassed) {
+                                    if (VALIDATE_WITH_LOGS)
+                                        Log.e("ColorCheck", "Resource does not exist: " +
                                                 colors.get(j));
-                                resource_counter_errored++;
+                                    has_errored = true;
+                                    packageError.addBoolError(
+                                            "{" + getString(R.string.resource_color) + "} " +
+                                                    colors.get(j));
+                                    resource_counter_errored++;
+                                }
                             }
                             resource_counter++;
                         }
@@ -1114,14 +1160,32 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 if (VALIDATE_WITH_LOGS)
                                     Log.d("DimenCheck", "Resource exists: " + dimens.get(j));
                             } else {
-                                if (VALIDATE_WITH_LOGS)
-                                    Log.e("DimenCheck",
-                                            "Resource does not exist: " + dimens.get(j));
-                                has_errored = true;
-                                packageError.addDimenError(
-                                        "{" + getString(R.string.resource_dimension) + "} " +
+                                boolean bypassed = false;
+                                for (int x = 0; x < whitelist.size(); x++) {
+                                    String currentPackage = whitelist.get(x).getPackageName();
+                                    ArrayList<String> currentWhitelist = whitelist.get(x)
+                                            .getFilter();
+                                    if (currentPackage.equals(packageName)) {
+                                        if (currentWhitelist.contains(dimens.get(j))) {
+                                            if (VALIDATE_WITH_LOGS)
+                                                Log.d("DimenCheck",
+                                                        "Resource bypassed using filter: " +
+                                                                dimens.get(j));
+                                            bypassed = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (!bypassed) {
+                                    if (VALIDATE_WITH_LOGS)
+                                        Log.e("DimenCheck", "Resource does not exist: " +
                                                 dimens.get(j));
-                                resource_counter_errored++;
+                                    has_errored = true;
+                                    packageError.addBoolError(
+                                            "{" + getString(R.string.resource_dimension) + "} " +
+                                                    dimens.get(j));
+                                    resource_counter_errored++;
+                                }
                             }
                             resource_counter++;
                         }
@@ -1143,14 +1207,32 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 if (VALIDATE_WITH_LOGS)
                                     Log.d("StyleCheck", "Resource exists: " + styles.get(j));
                             } else {
-                                if (VALIDATE_WITH_LOGS)
-                                    Log.e("StyleCheck",
-                                            "Resource does not exist: " + styles.get(j));
-                                has_errored = true;
-                                packageError.addStyleError(
-                                        "{" + getString(R.string.resource_style) + "} " +
+                                boolean bypassed = false;
+                                for (int x = 0; x < whitelist.size(); x++) {
+                                    String currentPackage = whitelist.get(x).getPackageName();
+                                    ArrayList<String> currentWhitelist = whitelist.get(x)
+                                            .getFilter();
+                                    if (currentPackage.equals(packageName)) {
+                                        if (currentWhitelist.contains(styles.get(j))) {
+                                            if (VALIDATE_WITH_LOGS)
+                                                Log.d("StyleCheck",
+                                                        "Resource bypassed using filter: " +
+                                                                styles.get(j));
+                                            bypassed = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (!bypassed) {
+                                    if (VALIDATE_WITH_LOGS)
+                                        Log.e("StyleCheck", "Resource does not exist: " +
                                                 styles.get(j));
-                                resource_counter_errored++;
+                                    has_errored = true;
+                                    packageError.addBoolError(
+                                            "{" + getString(R.string.resource_style) + "} " +
+                                                    styles.get(j));
+                                    resource_counter_errored++;
+                                }
                             }
                             resource_counter++;
                         }

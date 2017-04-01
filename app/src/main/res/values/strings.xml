@@ -39,6 +39,7 @@
     <string name="showcase_tabs" translatable="false">https://raw.githubusercontent.com/substratum/substratum/dev/showcase.xml</string>
     <string name="crowdin_url" translatable="false">"http://translate.projektsubstratum.com/"</string>
     <string name="validator_url" translatable="false">"https://raw.githubusercontent.com/substratum/database/master/commit_tracker.xml"</string>
+    <string name="validator_whitelist_url" translatable="false">"https://raw.githubusercontent.com/substratum/database/master/commit_whitelist.xml"</string>
     <string name="themer_email" translatable="false">substratumthemers@gmail.com</string>
 
     <string name="resource_checker_request">Send commit merge request using&#8230;</string>

@@ -18,8 +18,10 @@
 
 package projekt.substratum.fragments;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.os.AsyncTask;
@@ -85,6 +87,8 @@ public class AdvancedManagerFragment extends Fragment {
     private MaterialProgressBar progressBar;
     private RecyclerView mRecyclerView;
     private ProgressBar loadingBar;
+    private List<OverlayManager> overlayList;
+    private FinishReceiver finishReceiver;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
@@ -118,6 +122,13 @@ public class AdvancedManagerFragment extends Fragment {
         LayoutReloader layoutReloader = new LayoutReloader(getContext());
         layoutReloader.execute("");
 
+        if (References.checkThemeInterfacer(getContext())) {
+            finishReceiver = new FinishReceiver();
+            IntentFilter intentFilter = new IntentFilter(
+                    References.INTERFACER_PACKAGE + ".STATUS_CHANGED");
+            getContext().registerReceiver(finishReceiver, intentFilter);
+        }
+
         swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(() -> {
             if (first_run != null) {
@@ -135,8 +146,7 @@ public class AdvancedManagerFragment extends Fragment {
         toggle_all.setOnCheckedChangeListener(
                 (buttonView, isChecked) -> {
                     try {
-                        List<OverlayManager> overlayList = ((OverlayManagerAdapter) mAdapter)
-                                .getOverlayManagerList();
+                        overlayList = ((OverlayManagerAdapter) mAdapter).getOverlayManagerList();
                         if (isChecked) {
                             for (int i = 0; i < overlayList.size(); i++) {
                                 OverlayManager currentOverlay = overlayList.get(i);
@@ -168,8 +178,7 @@ public class AdvancedManagerFragment extends Fragment {
                 loadingBar.setVisibility(View.VISIBLE);
                 if (References.checkOMS(getContext())) {
                     ArrayList<String> data = new ArrayList<>();
-                    List<OverlayManager> overlayList = ((OverlayManagerAdapter) mAdapter)
-                            .getOverlayManagerList();
+                    overlayList = ((OverlayManagerAdapter) mAdapter).getOverlayManagerList();
                     for (int i = 0; i < overlayList.size(); i++) {
                         OverlayManager overlay13 = overlayList.get(i);
                         if (overlay13.isSelected()) data.add(overlay13.getName());
@@ -194,7 +203,8 @@ public class AdvancedManagerFragment extends Fragment {
                         }
                     }
 
-                    if (References.needsRecreate(getContext(), data)) {
+                    if (!References.checkThemeInterfacer(getContext()) &&
+                            References.needsRecreate(getContext(), data)) {
                         Handler handler = new Handler();
                         handler.postDelayed(() -> {
                             // OMS may not have written all the changes so quickly just yet
@@ -285,8 +295,7 @@ public class AdvancedManagerFragment extends Fragment {
                 materialSheetFab.hideSheet();
                 loadingBar.setVisibility(View.VISIBLE);
                 ArrayList<String> data = new ArrayList<>();
-                List<OverlayManager> overlayList = ((OverlayManagerAdapter) mAdapter)
-                        .getOverlayManagerList();
+                overlayList = ((OverlayManagerAdapter) mAdapter).getOverlayManagerList();
                 Boolean has_failed = false;
                 for (int i = 0; i < overlayList.size(); i++) {
                     OverlayManager overlay12 = overlayList.get(i);
@@ -326,7 +335,8 @@ public class AdvancedManagerFragment extends Fragment {
                         }
                     }
 
-                    if (References.needsRecreate(getContext(), data)) {
+                    if (!References.checkThemeInterfacer(getContext()) &&
+                            References.needsRecreate(getContext(), data)) {
                         Handler handler = new Handler();
                         handler.postDelayed(() -> {
                             // OMS may not have written all the changes so quickly just yet
@@ -363,8 +373,7 @@ public class AdvancedManagerFragment extends Fragment {
                 materialSheetFab.hideSheet();
                 loadingBar.setVisibility(View.VISIBLE);
                 ArrayList<String> data = new ArrayList<>();
-                List<OverlayManager> overlayList = ((OverlayManagerAdapter) mAdapter)
-                        .getOverlayManagerList();
+                overlayList = ((OverlayManagerAdapter) mAdapter).getOverlayManagerList();
                 for (int i = 0; i < overlayList.size(); i++) {
                     OverlayManager overlay1 = overlayList.get(i);
                     if (overlay1.isSelected()) data.add(overlay1.getName());
@@ -393,7 +402,8 @@ public class AdvancedManagerFragment extends Fragment {
                     }
                 }
 
-                if (References.needsRecreate(getContext(), data)) {
+                if (!References.checkThemeInterfacer(getContext()) &&
+                        References.needsRecreate(getContext(), data)) {
                     Handler handler = new Handler();
                     handler.postDelayed(() -> {
                         // OMS may not have written all the changes so quickly just yet
@@ -416,6 +426,18 @@ public class AdvancedManagerFragment extends Fragment {
             });
 
         return root;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (References.checkThemeInterfacer(getContext())) {
+            try {
+                getContext().unregisterReceiver(finishReceiver);
+            } catch (IllegalArgumentException e) {
+                // unregistered already
+            }
+        }
     }
 
     private List<String> updateEnabledOverlays() {
@@ -603,6 +625,28 @@ public class AdvancedManagerFragment extends Fragment {
                 }
             }
             return null;
+        }
+    }
+
+    private class FinishReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Refresh the overlay list, do it twice since in some uninstallation case the overlay
+            // list isn't getting removed because the package is still detected in system.
+            for (int j = 0; j < 2; j++) {
+                List<String> updated = updateEnabledOverlays();
+                for (int i = 0; i < overlayList.size(); i++) {
+                    OverlayManager currentOverlay = overlayList.get(i);
+                    currentOverlay.setSelected(false);
+                    currentOverlay.updateEnabledOverlays(
+                            updated.contains(currentOverlay.getName()));
+                    if (!References.isPackageInstalled(context, currentOverlay.getName())) {
+                        overlayList.remove(i);
+                    }
+                    mAdapter.notifyDataSetChanged();
+                }
+            }
+            loadingBar.setVisibility(View.GONE);
         }
     }
 }

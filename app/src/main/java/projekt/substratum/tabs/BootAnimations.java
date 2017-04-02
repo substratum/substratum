@@ -351,10 +351,6 @@ public class BootAnimations extends Fragment {
                             previewDeterminator(getContext().getCacheDir().getAbsolutePath() +
                                     "/BootAnimationCache/" + source);
 
-                    // Then, count all the files in the extraction zone to determine the best size
-                    File countFiles = new File(getContext().getCacheDir().getAbsolutePath() +
-                            "/BootAnimationCache/animation_preview/");
-
                     Log.d("BootAnimationUtils",
                             "Resampling bootanimation for preview at scale " + inSampleSize);
 
@@ -372,12 +368,6 @@ public class BootAnimations extends Fragment {
                                 String[] dirObjects = current_directory.list();
 
                                 BitmapFactory.Options opts = new BitmapFactory.Options();
-                                // Disable Dithering mode
-                                opts.inDither = false;
-                                // If need free memory, can be purged
-                                opts.inPurgeable = true;
-                                // Reference to use when trying to recover bitmap data
-                                opts.inInputShareable = true;
                                 // Drop down the resampling size so that all bootanimations work
                                 opts.inSampleSize = inSampleSize;
                                 opts.inTempStorage = new byte[32 * 1024];

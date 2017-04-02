@@ -156,7 +156,8 @@
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
         </activity>
-        <activity android:name=".AppIntroActivity">
+        <activity android:name=".AppIntroActivity"
+            android:theme="@style/CustomWelcomeScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
@@ -266,7 +267,7 @@
         </activity>
         <activity
             android:name=".util.AppIntro"
-            android:theme="@style/WelcomeScreenTheme"/>
+            android:theme="@style/CustomWelcomeScreenTheme"/>
         <activity
             android:name=".ProfileErrorInfoActivity"
             android:excludeFromRecents="true"

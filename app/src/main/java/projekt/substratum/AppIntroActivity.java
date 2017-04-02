@@ -24,14 +24,14 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 
-import com.stephentuso.welcome.WelcomeScreenHelper;
+import com.stephentuso.welcome.WelcomeHelper;
 
 import projekt.substratum.util.AppIntro;
 
 public class AppIntroActivity extends AppCompatActivity {
 
     private SharedPreferences prefs;
-    private WelcomeScreenHelper welcomeScreen;
+    private WelcomeHelper welcomeScreen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,14 +50,14 @@ public class AppIntroActivity extends AppCompatActivity {
     }
 
     public void loadAppIntro(Bundle savedInstanceState) {
-        welcomeScreen = new WelcomeScreenHelper(this, AppIntro.class);
+        welcomeScreen = new WelcomeHelper(this, AppIntro.class);
         welcomeScreen.show(savedInstanceState);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == WelcomeScreenHelper.DEFAULT_WELCOME_SCREEN_REQUEST) {
+        if (requestCode == WelcomeHelper.DEFAULT_WELCOME_SCREEN_REQUEST) {
             if (resultCode == RESULT_OK) {
                 prefs.edit().putBoolean("enable_swapping_overlays", false).apply();
                 prefs.edit().putBoolean("first_run", false).apply();

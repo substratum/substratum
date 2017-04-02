@@ -46,7 +46,7 @@
         android:roundIcon="@mipmap/round_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="ManifestResource"
+        tools:ignore="GoogleAppIndexingWarning,ManifestResource"
         tools:replace="android:allowBackup">
         <receiver android:name=".services.BootCompletedDetector">
             <intent-filter>

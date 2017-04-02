@@ -291,7 +291,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         final CheckBoxPreference nougat_style_cards = (CheckBoxPreference)
                 getPreferenceManager().findPreference("nougat_style_cards");
-        if (prefs.getBoolean("nougat_style_cards", false)) {
+        if (prefs.getBoolean("nougat_style_cards", true)) {
             nougat_style_cards.setChecked(true);
         } else {
             nougat_style_cards.setChecked(false);

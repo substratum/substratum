@@ -464,7 +464,7 @@ public class References {
         prefs.edit().putBoolean("substratum_oms", References.checkOMS(context)).apply();
         prefs.edit().putBoolean("show_template_version", false).apply();
         prefs.edit().putBoolean("vibrate_on_compiled", false).apply();
-        prefs.edit().putBoolean("nougat_style_cards", false).apply();
+        prefs.edit().putBoolean("nougat_style_cards", true).apply();
         prefs.edit().putString("compiler", "aapt").apply();
         new AOPTCheck().injectAOPT(context, true);
         prefs.edit().putBoolean("aopt_debug", false).apply();

@@ -71,7 +71,7 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(viewGroup
                 .getContext());
         View view;
-        if (prefs.getBoolean("nougat_style_cards", false)) {
+        if (prefs.getBoolean("nougat_style_cards", true)) {
             view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.theme_entry_card_n,
                     viewGroup, false);
         } else {

@@ -299,38 +299,6 @@ public class References {
         return false;
     }
 
-    // This method is used to force the application to use English
-    public static boolean forceEnglishLocale(Context context) {
-        // Please only use getApplicationContext on context, or else it would not change correctly
-        try {
-            Resources res = context.getResources();
-            DisplayMetrics dm = res.getDisplayMetrics();
-            android.content.res.Configuration conf = res.getConfiguration();
-            conf.locale = new Locale(Locale.ENGLISH.getLanguage());
-            res.updateConfiguration(conf, dm);
-            return true;
-        } catch (Exception e) {
-            // Suppress warning
-        }
-        return false;
-    }
-
-    // This method restores the system language
-    public static boolean forceSystemLocale(Context context) {
-        // Please only use getApplicationContext on context, or else it would not change correctly
-        try {
-            Resources res = context.getResources();
-            DisplayMetrics dm = res.getDisplayMetrics();
-            android.content.res.Configuration conf = res.getConfiguration();
-            conf.locale = new Locale(Locale.getDefault().getLanguage());
-            res.updateConfiguration(conf, dm);
-            return true;
-        } catch (Exception e) {
-            // Suppress warning
-        }
-        return false;
-    }
-
     // This method is used to determine whether there the system is initiated with OMS
     public static Boolean checkOMS(Context context) {
         if (!BYPASS_ALL_VERSION_CHECKS) {

@@ -80,6 +80,7 @@ import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
 import java.io.File;
+import java.util.Locale;
 
 import eightbitlab.com.blurview.BlurView;
 import eightbitlab.com.blurview.RenderScriptBlur;
@@ -93,6 +94,7 @@ import projekt.substratum.fragments.ThemeFragment;
 import projekt.substratum.services.FloatUiTile;
 import projekt.substratum.services.InterfacerAuthorizationReceiver;
 import projekt.substratum.services.SubstratumFloatInterface;
+import projekt.substratum.util.ContextWrapper;
 import projekt.substratum.util.Root;
 import projekt.substratum.util.SheetDialog;
 
@@ -258,13 +260,6 @@ public class MainActivity extends AppCompatActivity implements
         getApplicationContext().registerReceiver(authorizationReceiver, filter);
 
         prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-
-        boolean languageCheck = prefs.getBoolean("force_english", false);
-        if (languageCheck) {
-            References.forceEnglishLocale(getApplicationContext());
-        } else {
-            References.forceSystemLocale(getApplicationContext());
-        }
 
         actionbar_title = (TextView) findViewById(R.id.activity_title);
         actionbar_content = (TextView) findViewById(R.id.theme_count);
@@ -964,6 +959,18 @@ public class MainActivity extends AppCompatActivity implements
                 this.finish();
             }
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        Context newBase = base;
+        prefs = PreferenceManager.getDefaultSharedPreferences(base);
+        boolean languageCheck = prefs.getBoolean("force_english", false);
+        if (languageCheck) {
+            Locale newLocale = new Locale(Locale.ENGLISH.getLanguage());
+            newBase = ContextWrapper.wrapNewLocale(base, newLocale);
+        }
+        super.attachBaseContext(newBase);
     }
 
     public void showFloatingHead() {

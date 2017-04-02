@@ -134,13 +134,6 @@ public class ShowcaseActivity extends AppCompatActivity {
         prefs = PreferenceManager.getDefaultSharedPreferences(
                 getApplicationContext());
 
-        boolean languageCheck = prefs.getBoolean("force_english", false);
-        if (languageCheck) {
-            References.forceEnglishLocale(getApplicationContext());
-        } else {
-            References.forceSystemLocale(getApplicationContext());
-        }
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
             setSupportActionBar(toolbar);

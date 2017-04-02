@@ -216,7 +216,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 Toast.LENGTH_SHORT);
                         toast.show();
                         prefs.edit().putBoolean("force_english", true).apply();
-                        References.forceEnglishLocale(getActivity().getApplicationContext());
                         getActivity().recreate();
                     } else {
                         forceEnglish.setChecked(false);
@@ -225,7 +224,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 Toast.LENGTH_SHORT);
                         toast.show();
                         prefs.edit().putBoolean("force_english", false).apply();
-                        References.forceSystemLocale(getActivity().getApplicationContext());
                         getActivity().recreate();
                     }
                     return false;

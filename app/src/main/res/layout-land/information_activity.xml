@@ -16,14 +16,15 @@
   ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                 xmlns:tools="http://schemas.android.com/tools"
-                                                 android:layout_width="match_parent"
-                                                 android:layout_height="match_parent"
-                                                 android:background="@color/theme_information_background"
-                                                 android:fitsSystemWindows="true"
-                                                 tools:context=".MainActivity">
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/theme_information_background"
+    android:fitsSystemWindows="true"
+    tools:context=".MainActivity">
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tabs"
@@ -97,4 +98,86 @@
         android:layout_marginTop="?actionBarSize"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
+    <projekt.substratum.util.FloatingActionMenu
+        android:id="@+id/apply_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|bottom|end"
+        android:layout_margin="16dp"
+        android:src="@drawable/floating_action_button_icon"
+        android:visibility="visible"
+        app:backgroundTint="@color/fab_background_color"
+        app:layout_anchorGravity="bottom|right|end"/>
+
+    <!-- Overlay that dims the screen -->
+    <com.gordonwong.materialsheetfab.DimOverlayFrameLayout
+        android:id="@+id/overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <io.codetail.widget.RevealLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="end|bottom"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/fab_sheet"
+            style="@style/Widget.MaterialSheetFab.Sheet">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Switch
+                    android:id="@+id/enable_swap"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
+                    android:checked="false"
+                    android:text="@string/fab_menu_swap_toggle"/>
+
+                <View
+                    android:layout_width="@dimen/sheet_width"
+                    android:layout_height="1dp"
+                    android:background="@color/fab_menu_divider"/>
+
+                <TextView
+                    android:id="@+id/compile_enable_selected"
+                    style="@style/TextAppearance.MaterialSheetFab.Sheet.Item"
+                    android:drawableStart="@drawable/fab_menu_compile_enable"
+                    android:text="@string/fab_menu_compile_enable"/>
+
+                <TextView
+                    android:id="@+id/compile_update_selected"
+                    style="@style/TextAppearance.MaterialSheetFab.Sheet.Item"
+                    android:drawableStart="@drawable/fab_menu_compile_update"
+                    android:text="@string/fab_menu_compile_update"/>
+
+                <TextView
+                    android:id="@+id/disable_selected"
+                    style="@style/TextAppearance.MaterialSheetFab.Sheet.Item"
+                    android:drawableStart="@drawable/fab_menu_disable"
+                    android:text="@string/fab_menu_disable"/>
+
+                <LinearLayout
+                    android:id="@+id/enable"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/enable_selected"
+                        style="@style/TextAppearance.MaterialSheetFab.Sheet.Item"
+                        android:drawableStart="@drawable/fab_menu_enable"
+                        android:text="@string/fab_menu_enable"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+    </io.codetail.widget.RevealLinearLayout>
 </android.support.design.widget.CoordinatorLayout>

@@ -57,11 +57,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.flaviofaria.kenburnsview.KenBurnsView;
+import com.gordonwong.materialsheetfab.MaterialSheetFab;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import org.apache.commons.io.output.ByteArrayOutputStream;
@@ -78,6 +80,8 @@ import projekt.substratum.config.FileOperations;
 import projekt.substratum.config.References;
 import projekt.substratum.config.ThemeManager;
 import projekt.substratum.config.WallpaperManager;
+import projekt.substratum.tabs.Overlays;
+import projekt.substratum.util.FloatingActionMenu;
 import projekt.substratum.util.SheetDialog;
 
 import static projekt.substratum.config.References.BYPASS_SUBSTRATUM_BUILDER_DELETION;
@@ -101,6 +105,8 @@ public class InformationActivity extends AppCompatActivity {
     private ProgressDialog mProgressDialog;
     private MenuItem favorite;
     private boolean shouldDarken;
+    private MaterialSheetFab materialSheetFab;
+    private int tabPosition;
 
     public static String getThemeName() {
         return theme_name;
@@ -312,6 +318,21 @@ public class InformationActivity extends AppCompatActivity {
             }
         }
 
+        View sheetView = findViewById(R.id.fab_sheet);
+        View overlay = findViewById(R.id.overlay);
+        int sheetColor = getApplicationContext().getColor(R.color.fab_menu_background_card);
+        int fabColor = getApplicationContext().getColor(R.color.fab_background_color);
+
+        final FloatingActionMenu floatingActionButton = (FloatingActionMenu) findViewById(
+                R.id.apply_fab);
+        floatingActionButton.show();
+
+        // Create material sheet FAB
+        if (sheetView != null && overlay != null) {
+            materialSheetFab = new MaterialSheetFab<>(floatingActionButton, sheetView, overlay,
+                    sheetColor, fabColor);
+        }
+
         new LayoutLoader().execute("");
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
@@ -427,8 +448,18 @@ public class InformationActivity extends AppCompatActivity {
         if (viewPager != null) {
             viewPager.setOffscreenPageLimit((tabLayout != null) ? tabLayout.getTabCount() : 0);
             viewPager.setAdapter(adapter);
-            viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener
-                    (tabLayout));
+            viewPager.addOnPageChangeListener(
+                    new TabLayout.TabLayoutOnPageChangeListener(tabLayout) {
+                @Override
+                public void onPageSelected(int position) {
+                    tabPosition = position;
+                    if (position == 0) {
+                        floatingActionButton.show();
+                    } else {
+                        floatingActionButton.hide();
+                    }
+                }
+            });
             if (tabLayout != null) tabLayout.addOnTabSelectedListener(
                     new TabLayout.OnTabSelectedListener() {
                         @Override
@@ -444,6 +475,72 @@ public class InformationActivity extends AppCompatActivity {
                         public void onTabReselected(TabLayout.Tab tab) {
                         }
                     });
+
+            Overlays overlays = (Overlays) viewPager.getAdapter().instantiateItem(viewPager, 0);
+            Switch enable_swap = (Switch) findViewById(R.id.enable_swap);
+            if (!References.checkOMS(this)) {
+                enable_swap.setText(getString(R.string.fab_menu_swap_toggle_legacy));
+            }
+            if (enable_swap != null) {
+                boolean enabled = prefs.getBoolean("enable_swapping_overlays", true);
+                overlays.setMixAndMatchMode(enabled);
+                enable_swap.setChecked(enabled);
+
+                enable_swap.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                    prefs.edit().putBoolean("enable_swapping_overlays", isChecked).apply();
+                    overlays.setMixAndMatchMode(isChecked);
+                });
+            }
+
+            final TextView compile_enable_selected = (TextView) findViewById(R.id
+                    .compile_enable_selected);
+            if (!References.checkOMS(this)) compile_enable_selected.setVisibility(View.GONE);
+            if (compile_enable_selected != null) {
+                compile_enable_selected.setOnClickListener(v -> {
+                    materialSheetFab.hideSheet();
+                    overlays.startCompileEnableMode();
+                });
+            }
+
+            TextView compile_update_selected = (TextView) findViewById(R.id
+                    .compile_update_selected);
+            if (!References.checkOMS(this)) {
+                compile_update_selected.setText(getString(R.string.fab_menu_compile_install));
+            }
+            if (compile_update_selected != null) {
+                compile_update_selected.setOnClickListener(v -> {
+                    materialSheetFab.hideSheet();
+                    overlays.startCompileUpdateMode();
+                });
+            }
+
+            TextView disable_selected = (TextView) findViewById(R.id.disable_selected);
+            if (!References.checkOMS(this)) {
+                disable_selected.setText(getString(R.string.fab_menu_uninstall));
+            }
+            if (disable_selected != null) {
+                disable_selected.setOnClickListener(v -> {
+                    materialSheetFab.hideSheet();
+                    overlays.startDisable();
+                });
+            }
+
+            LinearLayout enable_zone = (LinearLayout) findViewById(R.id.enable);
+            if (!References.checkOMS(this)) enable_zone.setVisibility(View.GONE);
+            TextView enable_selected = (TextView) findViewById(R.id.enable_selected);
+            if (enable_selected != null) {
+                enable_selected.setOnClickListener(v -> {
+                    materialSheetFab.hideSheet();
+                    overlays.startEnable();
+                });
+            }
+
+            // TODO: Move checklist button in tab num 1-3 action to this FAB
+            floatingActionButton.setOnClickListener(v -> {
+                if (tabPosition == 0) {
+                    materialSheetFab.showSheet();
+                }
+            });
         }
     }
 
@@ -746,11 +843,17 @@ public class InformationActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        if (uninstalled || refresh_mode) {
-            prefs.edit().putInt("uninstalled", THEME_INFORMATION_REQUEST_CODE).apply();
+        if (!uninstalled && !refresh_mode) {
+            if (materialSheetFab.isSheetVisible()) {
+                materialSheetFab.hideSheet();
+            } else {
+                super.onBackPressed();
+                prefs.edit().putInt("uninstalled", 0).apply();
+            }
         } else {
-            prefs.edit().putInt("uninstalled", 0).apply();
+            super.onBackPressed();
+            prefs.edit().putInt("uninstalled", THEME_INFORMATION_REQUEST_CODE).apply();
+
         }
     }
 

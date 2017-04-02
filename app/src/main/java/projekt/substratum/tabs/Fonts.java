@@ -22,7 +22,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
-import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.net.Uri;
@@ -38,7 +37,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -71,9 +69,7 @@ public class Fonts extends Fragment {
     private String theme_pid;
     private ViewGroup root;
     private MaterialProgressBar progressBar;
-    private ImageButton imageButton;
     private Spinner fontSelector;
-    private ColorStateList unchecked, checked;
     private RelativeLayout font_holder;
     private RelativeLayout font_placeholder;
     private RelativeLayout defaults;
@@ -81,6 +77,7 @@ public class Fonts extends Fragment {
     private SharedPreferences prefs;
     private AsyncTask current;
     private AssetManager themeAssetManager;
+    private boolean paused = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
@@ -93,50 +90,6 @@ public class Fonts extends Fragment {
         font_holder = (RelativeLayout) root.findViewById(R.id.font_holder);
         font_placeholder = (RelativeLayout) root.findViewById(R.id.font_placeholder);
         prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-
-        imageButton = (ImageButton) root.findViewById(R.id.checkBox);
-        imageButton.setClickable(false);
-        imageButton.setOnClickListener(v -> {
-            if (References.checkThemeInterfacer(getContext()) ||
-                    Settings.System.canWrite(getContext())) {
-                if (fontSelector.getSelectedItemPosition() == 1) {
-                    new FontsClearer().execute("");
-                } else {
-                    new FontUtils().execute(fontSelector.getSelectedItem().toString(),
-                            getContext(), theme_pid);
-                }
-            } else {
-                Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
-                intent.setData(Uri.parse("package:" + getActivity().getPackageName()));
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-                Toast toast = Toast.makeText(getContext(),
-                        getString(R.string.fonts_dialog_permissions_grant_toast2),
-                        Toast.LENGTH_LONG);
-                toast.show();
-            }
-        });
-
-        unchecked = new ColorStateList(
-                new int[][]{
-                        new int[]{android.R.attr.state_checked},
-                        new int[]{}
-                },
-                new int[]{
-                        getContext().getColor(R.color.font_unchecked),
-                        getContext().getColor(R.color.font_unchecked)
-                }
-        );
-        checked = new ColorStateList(
-                new int[][]{
-                        new int[]{android.R.attr.state_checked},
-                        new int[]{}
-                },
-                new int[]{
-                        getContext().getColor(R.color.font_checked),
-                        getContext().getColor(R.color.font_checked)
-                }
-        );
 
         try {
             // Parses the list of items in the fonts folder
@@ -170,10 +123,9 @@ public class Fonts extends Fragment {
                                 current.cancel(true);
                             font_placeholder.setVisibility(View.VISIBLE);
                             defaults.setVisibility(View.GONE);
-                            imageButton.setClickable(false);
-                            imageButton.setImageTintList(unchecked);
                             font_holder.setVisibility(View.GONE);
                             progressBar.setVisibility(View.GONE);
+                            paused = true;
                             break;
 
                         case 1:
@@ -181,10 +133,9 @@ public class Fonts extends Fragment {
                                 current.cancel(true);
                             defaults.setVisibility(View.VISIBLE);
                             font_placeholder.setVisibility(View.GONE);
-                            imageButton.setImageTintList(checked);
-                            imageButton.setClickable(true);
                             font_holder.setVisibility(View.GONE);
                             progressBar.setVisibility(View.GONE);
+                            paused = false;
                             break;
 
                         default:
@@ -206,6 +157,29 @@ public class Fonts extends Fragment {
             Log.e("FontUtils", "There is no font.zip found within the assets of this theme!");
         }
         return root;
+    }
+
+    public void startApply() {
+        if (!paused) {
+            if (References.checkThemeInterfacer(getContext()) ||
+                    Settings.System.canWrite(getContext())) {
+                if (fontSelector.getSelectedItemPosition() == 1) {
+                    new FontsClearer().execute("");
+                } else {
+                    new FontUtils().execute(fontSelector.getSelectedItem().toString(),
+                            getContext(), theme_pid);
+                }
+            } else {
+                Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
+                intent.setData(Uri.parse("package:" + getActivity().getPackageName()));
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                Toast toast = Toast.makeText(getContext(),
+                        getString(R.string.fonts_dialog_permissions_grant_toast2),
+                        Toast.LENGTH_LONG);
+                toast.show();
+            }
+        }
     }
 
     private class FontsClearer extends AsyncTask<String, Integer, String> {
@@ -259,8 +233,7 @@ public class Fonts extends Fragment {
 
         @Override
         protected void onPreExecute() {
-            imageButton.setClickable(false);
-            imageButton.setImageTintList(unchecked);
+            paused = true;
             font_holder.setVisibility(View.INVISIBLE);
             progressBar.setVisibility(View.VISIBLE);
         }
@@ -315,10 +288,9 @@ public class Fonts extends Fragment {
 
                 FileOperations.delete(getContext(), getContext().getCacheDir().getAbsolutePath() +
                         "/FontCache/font_preview/");
-                imageButton.setImageTintList(checked);
-                imageButton.setClickable(true);
                 font_holder.setVisibility(View.VISIBLE);
                 progressBar.setVisibility(View.GONE);
+                paused = false;
             } catch (Exception e) {
                 Log.e("Fonts",
                         "Window was destroyed before AsyncTask could complete postExecute()");

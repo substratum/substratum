@@ -21,7 +21,6 @@ package projekt.substratum.tabs;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
-import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
@@ -74,9 +73,7 @@ public class Sounds extends Fragment {
     private String theme_pid;
     private ViewGroup root;
     private MaterialProgressBar progressBar;
-    private ImageButton imageButton;
     private Spinner soundsSelector;
-    private ColorStateList unchecked, checked;
     private ArrayList<SoundsInfo> wordList;
     private RecyclerView recyclerView;
     private MediaPlayer mp = new MediaPlayer();
@@ -88,6 +85,7 @@ public class Sounds extends Fragment {
     private AsyncTask current;
     private NestedScrollView nsv;
     private AssetManager themeAssetManager;
+    private boolean paused = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
@@ -105,17 +103,6 @@ public class Sounds extends Fragment {
 
         defaults = (RelativeLayout) root.findViewById(R.id.restore_to_default);
 
-        imageButton = (ImageButton) root.findViewById(R.id.checkBox);
-        imageButton.setClickable(false);
-        imageButton.setOnClickListener(v -> {
-            if (soundsSelector.getSelectedItemPosition() == 1) {
-                new SoundsClearer().execute("");
-            } else {
-                new SoundUtils().execute(nsv,
-                        soundsSelector.getSelectedItem().toString(), getContext(), theme_pid);
-            }
-        });
-
         final RelativeLayout sounds_preview =
                 (RelativeLayout) root.findViewById(R.id.sounds_placeholder);
         relativeLayout = (RelativeLayout) root.findViewById(R.id.relativeLayout);
@@ -129,27 +116,6 @@ public class Sounds extends Fragment {
         ArrayList<SoundsInfo> empty_array = new ArrayList<>();
         RecyclerView.Adapter empty_adapter = new SoundsAdapter(empty_array);
         recyclerView.setAdapter(empty_adapter);
-
-        unchecked = new ColorStateList(
-                new int[][]{
-                        new int[]{android.R.attr.state_checked},
-                        new int[]{}
-                },
-                new int[]{
-                        getContext().getColor(R.color.sounds_unchecked),
-                        getContext().getColor(R.color.sounds_unchecked)
-                }
-        );
-        checked = new ColorStateList(
-                new int[][]{
-                        new int[]{android.R.attr.state_checked},
-                        new int[]{}
-                },
-                new int[]{
-                        getContext().getColor(R.color.sounds_checked),
-                        getContext().getColor(R.color.sounds_checked)
-                }
-        );
 
         try {
             // Parses the list of items in the fonts folder
@@ -182,22 +148,20 @@ public class Sounds extends Fragment {
                             if (current != null)
                                 current.cancel(true);
                             defaults.setVisibility(View.GONE);
-                            imageButton.setClickable(false);
-                            imageButton.setImageTintList(unchecked);
                             error.setVisibility(View.GONE);
                             relativeLayout.setVisibility(View.GONE);
                             sounds_preview.setVisibility(View.VISIBLE);
+                            paused = true;
                             break;
 
                         case 1:
                             if (current != null)
                                 current.cancel(true);
                             defaults.setVisibility(View.VISIBLE);
-                            imageButton.setImageTintList(checked);
-                            imageButton.setClickable(true);
                             error.setVisibility(View.GONE);
                             relativeLayout.setVisibility(View.GONE);
                             sounds_preview.setVisibility(View.GONE);
+                            paused = false;
                             break;
 
                         default:
@@ -246,6 +210,17 @@ public class Sounds extends Fragment {
         );
         mp.setOnCompletionListener(mediaPlayer -> stopPlayer());
         return root;
+    }
+
+    public void startApply() {
+        if (!paused) {
+            if (soundsSelector.getSelectedItemPosition() == 1) {
+                new SoundsClearer().execute("");
+            } else {
+                new SoundUtils().execute(nsv,
+                        soundsSelector.getSelectedItem().toString(), getContext(), theme_pid);
+            }
+        }
     }
 
     @Override
@@ -305,8 +280,7 @@ public class Sounds extends Fragment {
 
         @Override
         protected void onPreExecute() {
-            imageButton.setClickable(false);
-            imageButton.setImageTintList(unchecked);
+            paused = true;
             progressBar.setVisibility(View.VISIBLE);
             recyclerView = (RecyclerView) root.findViewById(R.id.recycler_view);
         }
@@ -325,9 +299,7 @@ public class Sounds extends Fragment {
                     recyclerView.setLayoutManager(mLayoutManager);
                     recyclerView.setItemAnimator(new DefaultItemAnimator());
                     recyclerView.setAdapter(mAdapter);
-
-                    imageButton.setImageTintList(checked);
-                    imageButton.setClickable(true);
+                    paused = false;
                 } else {
                     recyclerView.setVisibility(View.GONE);
                     relativeLayout.setVisibility(View.GONE);

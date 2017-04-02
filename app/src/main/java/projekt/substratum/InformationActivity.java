@@ -80,7 +80,10 @@ import projekt.substratum.config.FileOperations;
 import projekt.substratum.config.References;
 import projekt.substratum.config.ThemeManager;
 import projekt.substratum.config.WallpaperManager;
+import projekt.substratum.tabs.BootAnimations;
+import projekt.substratum.tabs.Fonts;
 import projekt.substratum.tabs.Overlays;
+import projekt.substratum.tabs.Sounds;
 import projekt.substratum.util.FloatingActionMenu;
 import projekt.substratum.util.SheetDialog;
 
@@ -453,10 +456,22 @@ public class InformationActivity extends AppCompatActivity {
                 @Override
                 public void onPageSelected(int position) {
                     tabPosition = position;
-                    if (position == 0) {
-                        floatingActionButton.show();
-                    } else {
-                        floatingActionButton.hide();
+                    switch (position) {
+                        case 0:
+                            floatingActionButton.show();
+                            floatingActionButton.setImageResource(
+                                    R.drawable.floating_action_button_icon);
+                            break;
+                        case 1:
+                        case 2:
+                        case 3:
+                            floatingActionButton.show();
+                            floatingActionButton.setImageResource(
+                                    R.drawable.floating_action_button_icon_check);
+                            break;
+                        case 4:
+                            floatingActionButton.hide();
+                            break;
                     }
                 }
             });
@@ -535,10 +550,24 @@ public class InformationActivity extends AppCompatActivity {
                 });
             }
 
-            // TODO: Move checklist button in tab num 1-3 action to this FAB
+            BootAnimations bootAnimations = (BootAnimations) viewPager.getAdapter()
+                    .instantiateItem(viewPager, 1);
+            Fonts fonts = (Fonts) viewPager.getAdapter().instantiateItem(viewPager, 2);
+            Sounds sounds = (Sounds) viewPager.getAdapter().instantiateItem(viewPager, 3);
             floatingActionButton.setOnClickListener(v -> {
-                if (tabPosition == 0) {
-                    materialSheetFab.showSheet();
+                switch (tabPosition) {
+                    case 0:
+                        materialSheetFab.showSheet();
+                        break;
+                    case 1:
+                        bootAnimations.startApply();
+                        break;
+                    case 2:
+                        fonts.startApply();
+                        break;
+                    case 3:
+                        sounds.startApply();
+                        break;
                 }
             });
         }

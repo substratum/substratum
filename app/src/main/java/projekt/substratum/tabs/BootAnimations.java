@@ -21,7 +21,6 @@ package projekt.substratum.tabs;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
-import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -40,7 +39,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -78,9 +76,7 @@ public class BootAnimations extends Fragment {
     private List<Bitmap> images = new ArrayList<>();
     private ImageView bootAnimationPreview;
     private MaterialProgressBar progressBar;
-    private ImageButton imageButton;
     private Spinner bootAnimationSelector;
-    private ColorStateList unchecked, checked;
     private TextView vm_blown;
     private RelativeLayout bootanimation_placeholder;
     private RelativeLayout defaults;
@@ -89,6 +85,7 @@ public class BootAnimations extends Fragment {
     private AsyncTask current;
     private NestedScrollView nsv;
     private AssetManager themeAssetManager;
+    private boolean paused = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -110,61 +107,6 @@ public class BootAnimations extends Fragment {
         bootanimation_placeholder = (RelativeLayout) root.findViewById(
                 R.id.bootanimation_placeholder);
         defaults = (RelativeLayout) root.findViewById(R.id.restore_to_default);
-
-        imageButton = (ImageButton) root.findViewById(R.id.checkBox);
-        imageButton.setClickable(false);
-        imageButton.setOnClickListener(v -> {
-            if (References.getDeviceEncryptionStatus(getContext()) <= 1 ||
-                    !References.checkOMS(getContext())) {
-                if (bootAnimationSelector.getSelectedItemPosition() == 1) {
-                    new BootAnimationClearer().execute("");
-                } else {
-                    new BootAnimationUtils().execute(nsv,
-                            bootAnimationSelector.getSelectedItem().toString(),
-                            getContext(), theme_pid);
-                }
-            } else {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setTitle(R.string.root_required_title)
-                        .setMessage(R.string.root_required_boot_animation)
-                        .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                            dialog.dismiss();
-                            if (Root.requestRootAccess()) {
-                                if (bootAnimationSelector.getSelectedItemPosition() == 1) {
-                                    new BootAnimationClearer().execute("");
-                                } else {
-                                    new BootAnimationUtils().execute(nsv,
-                                            bootAnimationSelector.getSelectedItem().toString(),
-                                            getContext(), theme_pid);
-                                }
-                            }
-                        })
-                        .setNegativeButton(android.R.string.cancel, (dialog, which) ->
-                                dialog.cancel())
-                        .show();
-            }
-        });
-
-        unchecked = new ColorStateList(
-                new int[][]{
-                        new int[]{android.R.attr.state_checked},
-                        new int[]{}
-                },
-                new int[]{
-                        getContext().getColor(R.color.bootanimation_unchecked),
-                        getContext().getColor(R.color.bootanimation_unchecked)
-                }
-        );
-        checked = new ColorStateList(
-                new int[][]{
-                        new int[]{android.R.attr.state_checked},
-                        new int[]{}
-                },
-                new int[]{
-                        getContext().getColor(R.color.bootanimation_checked),
-                        getContext().getColor(R.color.bootanimation_checked)
-                }
-        );
 
         try {
             // Parses the list of items in the boot animation folder
@@ -202,8 +144,6 @@ public class BootAnimations extends Fragment {
                                     bootanimation_placeholder.setVisibility(View.VISIBLE);
                                     defaults.setVisibility(View.GONE);
                                     vm_blown.setVisibility(View.GONE);
-                                    imageButton.setClickable(false);
-                                    imageButton.setImageTintList(unchecked);
                                     animation = new AnimationDrawable();
                                     animation.setOneShot(false);
                                     bootAnimationPreview =
@@ -212,6 +152,7 @@ public class BootAnimations extends Fragment {
                                     bootAnimationPreview.setImageDrawable(null);
                                     images.clear();
                                     progressBar.setVisibility(View.GONE);
+                                    paused = true;
                                     break;
 
                                 case 1:
@@ -221,8 +162,6 @@ public class BootAnimations extends Fragment {
                                     defaults.setVisibility(View.VISIBLE);
                                     bootanimation_placeholder.setVisibility(View.GONE);
                                     vm_blown.setVisibility(View.GONE);
-                                    imageButton.setImageTintList(checked);
-                                    imageButton.setClickable(true);
                                     progressBar.setVisibility(View.GONE);
                                     animation = new AnimationDrawable();
                                     animation.setOneShot(false);
@@ -232,6 +171,7 @@ public class BootAnimations extends Fragment {
                                     bootAnimationPreview.setImageDrawable(null);
                                     images.clear();
                                     progressBar.setVisibility(View.GONE);
+                                    paused = false;
                                     break;
 
                                 default:
@@ -255,6 +195,40 @@ public class BootAnimations extends Fragment {
                     "There is no bootanimation.zip found within the assets of this theme!");
         }
         return root;
+    }
+
+    public void startApply() {
+        if (!paused) {
+            if (References.getDeviceEncryptionStatus(getContext()) <= 1 ||
+                    !References.checkOMS(getContext())) {
+                if (bootAnimationSelector.getSelectedItemPosition() == 1) {
+                    new BootAnimationClearer().execute("");
+                } else {
+                    new BootAnimationUtils().execute(nsv,
+                            bootAnimationSelector.getSelectedItem().toString(),
+                            getContext(), theme_pid);
+                }
+            } else {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle(R.string.root_required_title)
+                        .setMessage(R.string.root_required_boot_animation)
+                        .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                            dialog.dismiss();
+                            if (Root.requestRootAccess()) {
+                                if (bootAnimationSelector.getSelectedItemPosition() == 1) {
+                                    new BootAnimationClearer().execute("");
+                                } else {
+                                    new BootAnimationUtils().execute(nsv,
+                                            bootAnimationSelector.getSelectedItem().toString(),
+                                            getContext(), theme_pid);
+                                }
+                            }
+                        })
+                        .setNegativeButton(android.R.string.cancel, (dialog, which) ->
+                                dialog.cancel())
+                        .show();
+            }
+        }
     }
 
     private class BootAnimationClearer extends AsyncTask<String, Integer, String> {
@@ -293,8 +267,7 @@ public class BootAnimations extends Fragment {
 
         @Override
         protected void onPreExecute() {
-            imageButton.setClickable(false);
-            imageButton.setImageTintList(unchecked);
+            paused = true;
             animation = new AnimationDrawable();
             animation.setOneShot(false);
             bootAnimationPreview = (ImageView) root.findViewById(R.id.bootAnimationPreview);
@@ -320,9 +293,8 @@ public class BootAnimations extends Fragment {
                 }
                 FileOperations.delete(getContext(), getContext().getCacheDir().getAbsolutePath() +
                         "/BootAnimationCache/animation_preview/");
-                imageButton.setImageTintList(checked);
-                imageButton.setClickable(true);
                 progressBar.setVisibility(View.GONE);
+                paused = false;
             } catch (Exception e) {
                 Log.e("BootAnimationUtils",
                         "Window was destroyed before AsyncTask could perform postExecute()");

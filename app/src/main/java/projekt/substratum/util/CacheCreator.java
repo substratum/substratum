@@ -96,25 +96,6 @@ public class CacheCreator {
         return null;
     }
 
-    private int checkCurrentThemeSelectionLocation(String packageName) {
-        try {
-            mContext.getPackageManager().getApplicationInfo(packageName, 0);
-            File directory1 = new File("/data/app/" + packageName + "-1/base.apk");
-            if (directory1.exists()) {
-                return 1;
-            } else {
-                File directory2 = new File("/data/app/" + packageName + "-2/base.apk");
-                if (directory2.exists()) {
-                    return 2;
-                } else {
-                    return 0;
-                }
-            }
-        } catch (Exception e) {
-            return 0;
-        }
-    }
-
     public boolean wipeCache(Context context, String package_identifier) {
         mContext = context;
         File myDir2 = new File(mContext.getCacheDir().getAbsoluteFile() +
@@ -128,11 +109,9 @@ public class CacheCreator {
 
     private boolean unzip(String package_identifier) throws IOException {
         // First, extract the APK as a zip so we don't have to access the APK multiple times
-
-        int folder_abbreviation = checkCurrentThemeSelectionLocation(package_identifier);
-        if (folder_abbreviation != 0) {
-            String source = "/data/app/" + package_identifier + "-" +
-                    folder_abbreviation + "/base.apk";
+        try {
+            String source = mContext.getPackageManager().getApplicationInfo(package_identifier, 0)
+                    .sourceDir;
             File myDir = new File(mContext.getCacheDir(), References.SUBSTRATUM_BUILDER);
             if (!myDir.exists()) {
                 boolean created = myDir.mkdir();
@@ -246,10 +225,9 @@ public class CacheCreator {
                 }
                 return false;
             }
-        } else {
+        } catch (Exception e) {
             Log.e(References.SUBSTRATUM_LOG,
-                    "There is no valid package name under this abbreviated folder " +
-                            "count.");
+                    "There is no valid package found installed on this device.");
         }
         return false;
     }

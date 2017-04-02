@@ -421,29 +421,27 @@ public class References {
 
     // Load SharedPreference defaults
     public static void loadDefaultConfig(Context context) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        prefs.edit().putBoolean("first_run", true).apply();
-        prefs.edit().putBoolean("show_app_icon", true).apply();
-        if (References.getProp("ro.substratum.recreate").equals("true")) {
-            prefs.edit().putBoolean("systemui_recreate", true).apply();
-        } else {
-            prefs.edit().putBoolean("systemui_recreate", false).apply();
-        }
-        prefs.edit().putBoolean("substratum_oms", References.checkOMS(context)).apply();
-        prefs.edit().putBoolean("show_template_version", false).apply();
-        prefs.edit().putBoolean("vibrate_on_compiled", false).apply();
-        prefs.edit().putBoolean("nougat_style_cards", false).apply();
-        prefs.edit().putString("compiler", "aapt").apply();
+        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context)
+                .edit();
+        editor.putBoolean("first_run", true);
+        editor.putBoolean("show_app_icon", true);
+        editor.putBoolean("substratum_oms", References.checkOMS(context));
+        editor.putBoolean("show_template_version", false);
+        editor.putBoolean("vibrate_on_compiled", false);
+        editor.putBoolean("nougat_style_cards", false);
+        editor.putBoolean("aopt_debug", false);
+        editor.putBoolean("theme_debug", false);
+        editor.putBoolean("force_independence", false);
+        editor.putBoolean("force_english", false);
+        editor.putBoolean("floatui_show_android_system_overlays", false);
+        editor.putBoolean("alphabetize_showcase", false);
+        editor.putBoolean("complexion", true);
+        editor.putString("compiler", "aapt");
+        editor.apply();
+        editor = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE).edit();
+        editor.putBoolean("is_updating", false);
+        editor.apply();
         new AOPTCheck().injectAOPT(context, true);
-        prefs.edit().putBoolean("aopt_debug", false).apply();
-        prefs.edit().putBoolean("theme_debug", false).apply();
-        prefs.edit().putBoolean("force_independence", false).apply();
-        prefs.edit().putBoolean("force_english", false).apply();
-        prefs.edit().putBoolean("floatui_show_android_system_overlays", false).apply();
-        prefs.edit().putBoolean("alphabetize_showcase", false).apply();
-        prefs.edit().putBoolean("complexion", true).apply();
-        prefs = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
-        prefs.edit().putBoolean("is_updating", false).apply();
     }
 
     // This method configures the new devices and their configuration of their vendor folders

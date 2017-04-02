@@ -1489,7 +1489,7 @@ public class References {
         }
 
         // Find the name of the top most color in the file first.
-        String resource_name = new ReadVariantPrioritizedColor().main(clone1);
+        String resource_name = new ReadVariantPrioritizedColor(clone1).run();
 
         if (resource_name != null) {
             try (BufferedReader br = new BufferedReader(new InputStreamReader(clone2))) {

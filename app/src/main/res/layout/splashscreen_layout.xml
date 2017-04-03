@@ -27,8 +27,8 @@
 
     <ImageView
         android:id="@+id/splashscreen_image"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
+        android:layout_width="@dimen/app_splash_icon_width"
+        android:layout_height="@dimen/app_splash_icon_height"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
         android:src="@drawable/substratum_icon"/>

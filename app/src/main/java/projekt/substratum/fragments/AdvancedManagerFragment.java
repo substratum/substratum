@@ -481,6 +481,8 @@ public class AdvancedManagerFragment extends Fragment {
             mAdapter = new OverlayManagerAdapter(overlaysList);
             mRecyclerView.setAdapter(mAdapter);
 
+            overlayList = ((OverlayManagerAdapter) mAdapter).getOverlayManagerList();
+
             if (overlaysList.size() == 0) {
                 floatingActionButton.hide();
                 relativeLayout.setVisibility(View.VISIBLE);

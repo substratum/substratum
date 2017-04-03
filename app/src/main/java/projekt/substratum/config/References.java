@@ -50,7 +50,6 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.service.notification.StatusBarNotification;
 import android.support.annotation.NonNull;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -147,11 +146,11 @@ public class References {
     // These strings control package names for system apps
     public static String settingsPackageName = "com.android.settings";
     public static String settingsSubstratumDrawableName = "ic_settings_substratum";
+    public static Boolean uncertified = null;
     private static String metadataWallpapers = "Substratum_Wallpapers";
     private static String metadataVersion = "Substratum_Plugin";
     private static String metadataThemeReady = "Substratum_ThemeReady";
     private static String resourceChangelog = "ThemeChangelog";
-
     private Context mContext; // Used for support checker
 
     public static boolean isCachingEnabled(Context context) {
@@ -1040,6 +1039,9 @@ public class References {
     }
 
     public static Boolean spreadYourWingsAndFly(Context context) {
+        if (uncertified != null) {
+            return uncertified;
+        }
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         if (References.isNetworkAvailable(context)) {
             FirebaseAnalytics.withdrawBlacklistedPackages(context);
@@ -1051,11 +1053,13 @@ public class References {
                 if (References.isPackageInstalled(context, check, false)) {
                     Log.d("PatcherDatabase",
                             "The database has triggered a primary level blacklist package.");
+                    uncertified = true;
                     return true;
                 } else if (getMetaData(context, check) || getProviders(context, check) ||
                         getIntents(context, check)) {
                     Log.d("PatcherDatabase",
                             "The database has triggered a secondary level blacklist package.");
+                    uncertified = true;
                     return true;
                 }
             }
@@ -1063,12 +1067,15 @@ public class References {
         String[] checker = checkPackageSupport();
         for (String check : checker) {
             if (References.isPackageInstalled(context, check, false)) {
+                uncertified = true;
                 return true;
             } else if (getMetaData(context, check) || getProviders(context, check) ||
                     getIntents(context, check)) {
+                uncertified = true;
                 return true;
             }
         }
+        uncertified = false;
         return false;
     }
 
@@ -1178,7 +1185,9 @@ public class References {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
         Intent initializer = sendLaunchIntent(mContext, package_name,
                 !References.checkOMS(mContext), theme_mode, notification);
+        Log.e("SJKSJKSJKSJKS", "SKJSHJKSJKSJKSJKSJKSJKS");
         initializer.putExtra("certified", !References.spreadYourWingsAndFly(mContext));
+        Log.e("SJKSJKSJKSJKS", "A(S(*()*(@$&*&*(@!&*$($*!()&");
         String integrityCheck = new AOPTCheck().checkAOPTIntegrity(mContext);
         if (integrityCheck != null &&
                 (integrityCheck.equals(mContext.getString(R.string.aapt_version)) ||

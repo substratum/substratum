@@ -481,6 +481,7 @@
         apply a font to install the helper and regain dynamic font swapping!
     </string>
     <string name="profile_edittext_title">New Profile:</string>
+    <string name="profile_edittext_whitespace_warning_toast">Cannot use whitespace inside profile name!</string>
     <string name="toast_backup_success">Current overlay list saved to
         \"/storage/emulated/0/substratum/profiles/%s\"
     </string>

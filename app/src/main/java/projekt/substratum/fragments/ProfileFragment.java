@@ -33,6 +33,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -150,6 +152,21 @@ public class ProfileFragment extends Fragment {
 
         // Handle Backups
         backup_name = (EditText) root.findViewById(R.id.edittext);
+
+        // Restrict whitespace for profile name
+        InputFilter filter = (source, start, end, dest, dstart, dend) -> {
+            for (int i = start; i < end; i++) {
+                if (Character.isWhitespace(source.charAt(i))) {
+                    Toast.makeText(getContext(),
+                            R.string.profile_edittext_whitespace_warning_toast,
+                            Toast.LENGTH_LONG)
+                            .show();
+                    return "";
+                }
+            }
+            return null;
+        };
+        backup_name.setFilters(new InputFilter[] {filter});
 
         final Button backupButton = (Button) root.findViewById(R.id.backupButton);
         backupButton.setOnClickListener(v -> {

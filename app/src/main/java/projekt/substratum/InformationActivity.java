@@ -111,6 +111,7 @@ public class InformationActivity extends AppCompatActivity {
     private boolean shouldDarken;
     private MaterialSheetFab materialSheetFab;
     private int tabPosition;
+    private Overlays overlays;
     private BootAnimations bootAnimations;
     private Fonts fonts;
     private Sounds sounds;
@@ -496,71 +497,16 @@ public class InformationActivity extends AppCompatActivity {
                         }
                     });
 
-            Overlays overlays = (Overlays) viewPager.getAdapter().instantiateItem(viewPager, 0);
-            Switch enable_swap = (Switch) findViewById(R.id.enable_swap);
-            if (!References.checkOMS(this)) {
-                enable_swap.setText(getString(R.string.fab_menu_swap_toggle_legacy));
-            }
-            if (enable_swap != null) {
-                boolean enabled = prefs.getBoolean("enable_swapping_overlays", true);
-                overlays.setMixAndMatchMode(enabled);
-                enable_swap.setChecked(enabled);
-
-                enable_swap.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                    prefs.edit().putBoolean("enable_swapping_overlays", isChecked).apply();
-                    overlays.setMixAndMatchMode(isChecked);
-                });
-            }
-
-            final TextView compile_enable_selected = (TextView) findViewById(R.id
-                    .compile_enable_selected);
-            if (!References.checkOMS(this)) compile_enable_selected.setVisibility(View.GONE);
-            if (compile_enable_selected != null) {
-                compile_enable_selected.setOnClickListener(v -> {
-                    materialSheetFab.hideSheet();
-                    overlays.startCompileEnableMode();
-                });
-            }
-
-            TextView compile_update_selected = (TextView) findViewById(R.id
-                    .compile_update_selected);
-            if (!References.checkOMS(this)) {
-                compile_update_selected.setText(getString(R.string.fab_menu_compile_install));
-            }
-            if (compile_update_selected != null) {
-                compile_update_selected.setOnClickListener(v -> {
-                    materialSheetFab.hideSheet();
-                    overlays.startCompileUpdateMode();
-                });
-            }
-
-            TextView disable_selected = (TextView) findViewById(R.id.disable_selected);
-            if (!References.checkOMS(this)) {
-                disable_selected.setText(getString(R.string.fab_menu_uninstall));
-            }
-            if (disable_selected != null) {
-                disable_selected.setOnClickListener(v -> {
-                    materialSheetFab.hideSheet();
-                    overlays.startDisable();
-                });
-            }
-
-            LinearLayout enable_zone = (LinearLayout) findViewById(R.id.enable);
-            if (!References.checkOMS(this)) enable_zone.setVisibility(View.GONE);
-            TextView enable_selected = (TextView) findViewById(R.id.enable_selected);
-            if (enable_selected != null) {
-                enable_selected.setOnClickListener(v -> {
-                    materialSheetFab.hideSheet();
-                    overlays.startEnable();
-                });
-            }
-
+            overlays = null;
             bootAnimations = null;
             fonts = null;
             sounds = null;
             PagerAdapter adapt = viewPager.getAdapter();
             for (int i = 0; i < adapt.getCount(); i++) {
                 switch (adapt.instantiateItem(viewPager, i).getClass().getSimpleName()) {
+                    case "Overlays":
+                        overlays = (Overlays) viewPager.getAdapter().instantiateItem(viewPager, i);
+                        break;
                     case "BootAnimations":
                         bootAnimations = (BootAnimations) adapt.instantiateItem(viewPager, i);
                         break;
@@ -591,6 +537,65 @@ public class InformationActivity extends AppCompatActivity {
                         break;
                 }
             });
+            if (overlays != null) {
+                Switch enable_swap = (Switch) findViewById(R.id.enable_swap);
+                if (!References.checkOMS(this)) {
+                    enable_swap.setText(getString(R.string.fab_menu_swap_toggle_legacy));
+                }
+                if (enable_swap != null) {
+                    boolean enabled = prefs.getBoolean("enable_swapping_overlays", true);
+                    overlays.setMixAndMatchMode(enabled);
+                    enable_swap.setChecked(enabled);
+
+                    enable_swap.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                        prefs.edit().putBoolean("enable_swapping_overlays", isChecked).apply();
+                        overlays.setMixAndMatchMode(isChecked);
+                    });
+                }
+
+                final TextView compile_enable_selected = (TextView) findViewById(R.id
+                        .compile_enable_selected);
+                if (!References.checkOMS(this)) compile_enable_selected.setVisibility(View.GONE);
+                if (compile_enable_selected != null) {
+                    compile_enable_selected.setOnClickListener(v -> {
+                        materialSheetFab.hideSheet();
+                        overlays.startCompileEnableMode();
+                    });
+                }
+
+                TextView compile_update_selected = (TextView) findViewById(R.id
+                        .compile_update_selected);
+                if (!References.checkOMS(this)) {
+                    compile_update_selected.setText(getString(R.string.fab_menu_compile_install));
+                }
+                if (compile_update_selected != null) {
+                    compile_update_selected.setOnClickListener(v -> {
+                        materialSheetFab.hideSheet();
+                        overlays.startCompileUpdateMode();
+                    });
+                }
+
+                TextView disable_selected = (TextView) findViewById(R.id.disable_selected);
+                if (!References.checkOMS(this)) {
+                    disable_selected.setText(getString(R.string.fab_menu_uninstall));
+                }
+                if (disable_selected != null) {
+                    disable_selected.setOnClickListener(v -> {
+                        materialSheetFab.hideSheet();
+                        overlays.startDisable();
+                    });
+                }
+
+                LinearLayout enable_zone = (LinearLayout) findViewById(R.id.enable);
+                if (!References.checkOMS(this)) enable_zone.setVisibility(View.GONE);
+                TextView enable_selected = (TextView) findViewById(R.id.enable_selected);
+                if (enable_selected != null) {
+                    enable_selected.setOnClickListener(v -> {
+                        materialSheetFab.hideSheet();
+                        overlays.startEnable();
+                    });
+                }
+            }
         }
     }
 

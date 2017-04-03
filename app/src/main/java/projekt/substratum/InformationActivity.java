@@ -44,6 +44,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -110,6 +111,9 @@ public class InformationActivity extends AppCompatActivity {
     private boolean shouldDarken;
     private MaterialSheetFab materialSheetFab;
     private int tabPosition;
+    private BootAnimations bootAnimations;
+    private Fonts fonts;
+    private Sounds sounds;
 
     public static String getThemeName() {
         return theme_name;
@@ -453,28 +457,29 @@ public class InformationActivity extends AppCompatActivity {
             viewPager.setAdapter(adapter);
             viewPager.addOnPageChangeListener(
                     new TabLayout.TabLayoutOnPageChangeListener(tabLayout) {
-                @Override
-                public void onPageSelected(int position) {
-                    tabPosition = position;
-                    switch (position) {
-                        case 0:
-                            floatingActionButton.show();
-                            floatingActionButton.setImageResource(
-                                    R.drawable.floating_action_button_icon);
-                            break;
-                        case 1:
-                        case 2:
-                        case 3:
-                            floatingActionButton.show();
-                            floatingActionButton.setImageResource(
-                                    R.drawable.floating_action_button_icon_check);
-                            break;
-                        case 4:
-                            floatingActionButton.hide();
-                            break;
-                    }
-                }
-            });
+                        @Override
+                        public void onPageSelected(int position) {
+                            tabPosition = position;
+                            switch (viewPager.getAdapter().instantiateItem(viewPager, tabPosition)
+                                    .getClass().getSimpleName()) {
+                                case "Overlays":
+                                    floatingActionButton.show();
+                                    floatingActionButton.setImageResource(
+                                            R.drawable.floating_action_button_icon);
+                                    break;
+                                case "BootAnimations":
+                                case "Fonts":
+                                case "Sounds":
+                                    floatingActionButton.show();
+                                    floatingActionButton.setImageResource(
+                                            R.drawable.floating_action_button_icon_check);
+                                    break;
+                                case "Wallpapers":
+                                    floatingActionButton.hide();
+                                    break;
+                            }
+                        }
+                    });
             if (tabLayout != null) tabLayout.addOnTabSelectedListener(
                     new TabLayout.OnTabSelectedListener() {
                         @Override
@@ -550,22 +555,38 @@ public class InformationActivity extends AppCompatActivity {
                 });
             }
 
-            BootAnimations bootAnimations = (BootAnimations) viewPager.getAdapter()
-                    .instantiateItem(viewPager, 1);
-            Fonts fonts = (Fonts) viewPager.getAdapter().instantiateItem(viewPager, 2);
-            Sounds sounds = (Sounds) viewPager.getAdapter().instantiateItem(viewPager, 3);
+            bootAnimations = null;
+            fonts = null;
+            sounds = null;
+            PagerAdapter adapt = viewPager.getAdapter();
+            for (int i = 0; i < adapt.getCount(); i++) {
+                switch (adapt.instantiateItem(viewPager, i).getClass().getSimpleName()) {
+                    case "BootAnimations":
+                        bootAnimations = (BootAnimations) adapt.instantiateItem(viewPager, i);
+                        break;
+                    case "Fonts":
+                        fonts = (Fonts) adapt.instantiateItem(viewPager, i);
+                        break;
+                    case "Sounds":
+                        sounds = (Sounds) adapt.instantiateItem(viewPager, i);
+                        break;
+                    default:
+                        break;
+                }
+            }
+
             floatingActionButton.setOnClickListener(v -> {
-                switch (tabPosition) {
-                    case 0:
+                switch (adapt.instantiateItem(viewPager, tabPosition).getClass().getSimpleName()) {
+                    case "Overlays":
                         materialSheetFab.showSheet();
                         break;
-                    case 1:
+                    case "BootAnimations":
                         bootAnimations.startApply();
                         break;
-                    case 2:
+                    case "Fonts":
                         fonts.startApply();
                         break;
-                    case 3:
+                    case "Sounds":
                         sounds.startApply();
                         break;
                 }

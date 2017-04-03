@@ -1178,6 +1178,7 @@ public class References {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
         Intent initializer = sendLaunchIntent(mContext, package_name,
                 !References.checkOMS(mContext), theme_mode, notification);
+        initializer.putExtra("certified", !References.spreadYourWingsAndFly(mContext));
         String integrityCheck = new AOPTCheck().checkAOPTIntegrity(mContext);
         if (integrityCheck != null &&
                 (integrityCheck.equals(mContext.getString(R.string.aapt_version)) ||

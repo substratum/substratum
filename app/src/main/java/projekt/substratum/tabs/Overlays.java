@@ -1326,7 +1326,7 @@ public class Overlays extends Fragment {
 
                 final float radius = 5;
                 final View decorView = getActivity().getWindow().getDecorView();
-                final View rootView = decorView.findViewById(android.R.id.content);
+                final ViewGroup rootView = (ViewGroup) decorView.findViewById(android.R.id.content);
                 final Drawable windowBackground = decorView.getBackground();
 
                 BlurView blurView = (BlurView) mProgressDialog.findViewById(R.id.blurView);
@@ -1334,7 +1334,7 @@ public class Overlays extends Fragment {
                 if (rootView != null) {
                     blurView.setupWith(rootView)
                             .windowBackground(windowBackground)
-                            .blurAlgorithm(new RenderScriptBlur(mContext, true))
+                            .blurAlgorithm(new RenderScriptBlur(mContext))
                             .blurRadius(radius);
                 }
 

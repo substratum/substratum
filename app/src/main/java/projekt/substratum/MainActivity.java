@@ -58,6 +58,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -1139,14 +1140,14 @@ public class MainActivity extends AppCompatActivity implements
 
                 final float radius = 5;
                 final View decorView = getWindow().getDecorView();
-                final View rootView = decorView.findViewById(android.R.id.content);
+                final ViewGroup rootView = (ViewGroup) decorView.findViewById(android.R.id.content);
                 final Drawable windowBackground = decorView.getBackground();
 
                 BlurView blurView = (BlurView) mProgressDialog.findViewById(R.id.blurView);
 
                 blurView.setupWith(rootView)
                         .windowBackground(windowBackground)
-                        .blurAlgorithm(new RenderScriptBlur(getApplicationContext(), true))
+                        .blurAlgorithm(new RenderScriptBlur(getApplicationContext()))
                         .blurRadius(radius);
                 final TextView textView = (TextView) mProgressDialog.findViewById(R.id.timer);
                 if (References.isPackageInstalled(

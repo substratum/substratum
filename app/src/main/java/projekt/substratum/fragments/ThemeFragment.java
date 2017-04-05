@@ -290,7 +290,7 @@ public class ThemeFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
-            refreshLayout();
+            if (isAdded()) refreshLayout();
             if (substratum_packages.size() == 0) {
                 if (MainActivity.searchView != null && !MainActivity.searchView.isIconified()) {
                     if (MainActivity.userInput.length() > 0) {

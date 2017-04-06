@@ -344,6 +344,12 @@ public class TeamFragment extends Fragment {
                                 break;
                             case 12:
                                 builder2.setItems(
+                                        getResources().getStringArray(R.array.slovak_translators),
+                                        (dialog2, item2) -> {
+                                        });
+                                break;
+                            case 13:
+                                builder2.setItems(
                                         getResources().getStringArray(R.array.spanish_translators),
                                         (dialog2, item2) -> {
                                         });

@@ -41,6 +41,7 @@
         <item>Tradução Português (Brasileiro)</item>
         <item>Tradução Português</item>
         <item>Русский перевод</item>
+        <item>Slovenským prekladom</item>
         <item>Traducciones españolas</item>
     </string-array>
 
@@ -138,6 +139,11 @@
 
     <string-array name="portuguese_translators">
         <item>Carlos (lloco73)</item>
+    </string-array>
+
+    <string-array name="slovak_translators">
+        <item>Ja_som</item>
+        <item>Slavomír Spyderco Pavúk (trance11)</item>
     </string-array>
 
     <string-array name="chinese_translators">

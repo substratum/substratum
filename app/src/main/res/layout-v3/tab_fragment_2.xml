@@ -37,7 +37,7 @@
                 android:id="@+id/bootAnimationSelection"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp" />
+                android:layout_marginStart="15dp"/>
 
         </RelativeLayout>
 
@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:layout_marginTop="50dp"
-                android:indeterminate="true" />
+                android:indeterminate="true"/>
 
             <RelativeLayout
                 android:id="@+id/restore_to_default"
@@ -68,7 +68,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_marginTop="30dp"
-                    android:src="@drawable/tab_restore_default" />
+                    android:src="@drawable/tab_restore_default"/>
 
                 <TextView
                     android:id="@+id/restore_text"
@@ -80,7 +80,7 @@
                     android:text="@string/bootanimation_defaults_text"
                     android:textColor="@color/font_text"
                     android:textSize="20sp"
-                    android:textStyle="italic" />
+                    android:textStyle="italic"/>
 
             </RelativeLayout>
 
@@ -94,7 +94,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_marginTop="30dp"
-                    android:src="@drawable/bootanimation_placeholder" />
+                    android:src="@drawable/bootanimation_placeholder"/>
 
                 <TextView
                     android:id="@+id/placeholder_text"
@@ -106,7 +106,7 @@
                     android:text="@string/bootanimation_placeholder_text"
                     android:textColor="@color/font_text"
                     android:textSize="20sp"
-                    android:textStyle="italic" />
+                    android:textStyle="italic"/>
 
             </RelativeLayout>
 
@@ -119,13 +119,13 @@
                 android:text="@string/bootanimation_vm_exploded"
                 android:textColor="@color/bootanimation_vm_text"
                 android:textSize="20sp"
-                android:visibility="gone" />
+                android:visibility="gone"/>
 
             <ImageView
                 android:id="@+id/bootAnimationPreview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:adjustViewBounds="true" />
+                android:adjustViewBounds="true"/>
         </RelativeLayout>
 
     </LinearLayout>

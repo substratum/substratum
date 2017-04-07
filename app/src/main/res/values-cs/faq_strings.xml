@@ -18,34 +18,34 @@
   ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
   -->
 <resources>
-  <string name="question_one">Co je to Substratum?</string>
-  <string name="answer_one">Substratum je aplikace, která využívá Overlay Manager Service (OMS) vytvořený firmou Sony. Je velice podobná jako Layers v ohledu stability a přizpůsobení (je postavená na RRO), ale má mnoho výhod, jako například žádné restartování pro použití motivu, zapínací animace, písma a nastavení priorit.    </string>
-  <string name="question_two">Co je Theme Interfacer?</string>
-  <string name="answer_two">Systém Theme Interfacer je základ všeho, co povoluje aplikaci Substratum, aby fungovala jako Správce Motivů. Nápad, který stál za Theme Interfacer je simulovat \"server/klient\" funkčnost, aby mohlo Substratum komunikovat s příkazy přímo do systému.    </string>
-  <string name="question_three">Co potřebuji, aby Substratum mohlo správně pracovat?</string>
-  <string name="answer_three">Budete potřebovat ROM, která podporuje systém OMS a Theme Interfacer,
+    <string name="question_one">Co je to Substratum?</string>
+    <string name="answer_one">Substratum je aplikace, která využívá Overlay Manager Service (OMS) vytvořený firmou Sony. Je velice podobná jako Layers v ohledu stability a přizpůsobení (je postavená na RRO), ale má mnoho výhod, jako například žádné restartování pro použití motivu, zapínací animace, písma a nastavení priorit.    </string>
+    <string name="question_two">Co je Theme Interfacer?</string>
+    <string name="answer_two">Systém Theme Interfacer je základ všeho, co povoluje aplikaci Substratum, aby fungovala jako Správce Motivů. Nápad, který stál za Theme Interfacer je simulovat \"server/klient\" funkčnost, aby mohlo Substratum komunikovat s příkazy přímo do systému.    </string>
+    <string name="question_three">Co potřebuji, aby Substratum mohlo správně pracovat?</string>
+    <string name="answer_three">Budete potřebovat ROM, která podporuje systém OMS a Theme Interfacer,
     přístup root, tuto aplikaci, a kombatibilní motiv (podívejte se do popisku v Play Store nebo se zeptejte vývojáře)
     </string>
-  <string name="question_four">Mohu používat Substratum, když moje ROM nemá podporu OMS?    </string>
-  <string name="answer_four">Ano, pokud vaše ROM má podporu RRO ( základní Marshmallow spadá do této kategorie).
+    <string name="question_four">Mohu používat Substratum, když moje ROM nemá podporu OMS?    </string>
+    <string name="answer_four">Ano, pokud vaše ROM má podporu RRO ( základní Marshmallow spadá do této kategorie).
 Ostatní požadavky jsou stejné jako ty uvedené už dříve (root, tato aplikace, kompatibilní motiv). Použití bude stejné, 
 ale budete muset restartovat.    </string>
-  <string name="question_five">Jak můžu použít motiv?</string>
-  <string name="answer_five">Aplikace motivů se skládá ze dvou kroků: (1) Kompilace překrytí a aplikování překrytí. Přejděte na téma, vyberte kartu Správce překrytí, vyberte překrytí, které chcete použít, klepněte na ikonu FAB (má tvar malířského válečku) a následně v menu zvolte Kompilovat/Aktualizovat. (2) Znovu vyberte kartu Správce překrytí, vyberte překrytí, které chcete použít, klikněte na ikonu FAB a zvolte Povolit vybrané.    </string>
-  <string name="question_six">Moje overlay balíčky se nezkompilovaly, co se stalo?</string>
-  <string name="answer_six">Vymažte soubor /system/bin/aopt a znovu spusťte aplikaci znovu.    </string>
-  <string name="question_seven">Můj motiv se neaktivoval, co se stalo?</string>
-  <string name="answer_seven">Chcete-li použít motiv poprvé, nebo e základního motivu, ujistěte se, že nepoužíváte možnost \"Deaktivovat ostatní motivy\".    </string>
-  <string name="question_eight">Telefon se neustále restartuje! Jak to opravit?</string>
-  <string name="answer_eight">Substratum má vlastní zotavení systému, které se jmenuje Substratum Rescue System (SRS), které automaticky umístí zip soubor do /storage/emulated/0/substratum/SubstratumRescue.zip. Flashněte tento ZIP v recovery a restartujte!    </string>
-  <string name="question_nine">Některé věci mohou vypadata špatně po použití motivu, co mám udělat?    </string>
-  <string name="answer_nine">
+    <string name="question_five">Jak můžu použít motiv?</string>
+    <string name="answer_five">Aplikace motivů se skládá ze dvou kroků: (1) Kompilace překrytí a aplikování překrytí. Přejděte na téma, vyberte kartu Správce překrytí, vyberte překrytí, které chcete použít, klepněte na ikonu FAB (má tvar malířského válečku) a následně v menu zvolte Kompilovat/Aktualizovat. (2) Znovu vyberte kartu Správce překrytí, vyberte překrytí, které chcete použít, klikněte na ikonu FAB a zvolte Povolit vybrané.    </string>
+    <string name="question_six">Moje overlay balíčky se nezkompilovaly, co se stalo?</string>
+    <string name="answer_six">Vymažte soubor /system/bin/aopt a znovu spusťte aplikaci znovu.    </string>
+    <string name="question_seven">Můj motiv se neaktivoval, co se stalo?</string>
+    <string name="answer_seven">Chcete-li použít motiv poprvé, nebo e základního motivu, ujistěte se, že nepoužíváte možnost \"Deaktivovat ostatní motivy\".    </string>
+    <string name="question_eight">Telefon se neustále restartuje! Jak to opravit?</string>
+    <string name="answer_eight">Substratum má vlastní zotavení systému, které se jmenuje Substratum Rescue System (SRS), které automaticky umístí zip soubor do /storage/emulated/0/substratum/SubstratumRescue.zip. Flashněte tento ZIP v recovery a restartujte!    </string>
+    <string name="question_nine">Některé věci mohou vypadata špatně po použití motivu, co mám udělat?    </string>
+    <string name="answer_nine">
 1. Restartovat SystemUI pokud již automaticky neučinilo.\n2. Restartovat telefon.\n3. Vypněte nebo odstraňte overlay balíčky, znovu kompilujte a znovu použijte.    </string>
-  <string name="question_ten">Kde jsou nainstalovány overlay balíčky?</string>
-  <string name="answer_ten">Overlay balíčky jsou nainstalovány ve složce /data/app, to znamená, že každý balíček má vlastní složku.    </string>
-  <string name="question_eleven">Dostávám error při snaze aktualitování motivu z Play Store.    </string>
-  <string name="answer_eleven">Odinstalujte motiv a znovu ho nainstalujte.</string>
-  <string name="question_twelve">Koho mám kontaktovat, když mám vážný problém, který nejde vyřešit těmito kroky?    </string>
-  <string name="answer_twelve">Prosím udělejte příspěvek v komunitě Substratum na Google+.
+    <string name="question_ten">Kde jsou nainstalovány overlay balíčky?</string>
+    <string name="answer_ten">Overlay balíčky jsou nainstalovány ve složce /data/app, to znamená, že každý balíček má vlastní složku.    </string>
+    <string name="question_eleven">Dostávám error při snaze aktualitování motivu z Play Store.    </string>
+    <string name="answer_eleven">Odinstalujte motiv a znovu ho nainstalujte.</string>
+    <string name="question_twelve">Koho mám kontaktovat, když mám vážný problém, který nejde vyřešit těmito kroky?    </string>
+    <string name="answer_twelve">Prosím udělejte příspěvek v komunitě Substratum na Google+.
 Prosím poskytněte tyto informace: verze substratum, ROM, motiv a logcat.    </string>
 </resources>

@@ -22,8 +22,12 @@ import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.os.RemoteException;
 
 import java.util.ArrayList;
+
+
+import projekt.substratum.Substratum;
 
 import static projekt.substratum.config.References.INTERFACER_PACKAGE;
 
@@ -86,41 +90,81 @@ public class ThemeInterfacerService {
     }
 
     static void installOverlays(Context context, ArrayList<String> overlays) {
-        Intent intent = getThemeInterfacer(context);
-        intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_INSTALL);
-        intent.putExtra(INSTALL_LIST_KEY, overlays);
-        context.startService(intent);
+        if (References.isBinderfacer(context)) {
+            try {
+                Substratum.getInstance().getInterfacerInterface().installPackage(overlays);
+            } catch (RemoteException e) {
+                // idk
+            }
+        } else {
+            Intent intent = getThemeInterfacer(context);
+            intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_INSTALL);
+            intent.putExtra(INSTALL_LIST_KEY, overlays);
+            context.startService(intent);
+        }
     }
 
     static void uninstallOverlays(Context context, ArrayList<String> overlays, boolean restartUi) {
-        Intent intent = getThemeInterfacer(context);
-        intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_UNINSTALL);
-        intent.putExtra(UNINSTALL_LIST_KEY, overlays);
-        // only need to set if true, will restart SystemUI when done processing packages
-        intent.putExtra(WITH_RESTART_UI_KEY, restartUi);
-        context.startService(intent);
+        if (References.isBinderfacer(context)) {
+            try {
+                Substratum.getInstance().getInterfacerInterface().uninstallPackage(overlays, restartUi);
+            } catch (RemoteException e) {
+                // idk
+            }
+        } else {
+            Intent intent = getThemeInterfacer(context);
+            intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_UNINSTALL);
+            intent.putExtra(UNINSTALL_LIST_KEY, overlays);
+            // only need to set if true, will restart SystemUI when done processing packages
+            intent.putExtra(WITH_RESTART_UI_KEY, restartUi);
+            context.startService(intent);
+        }
     }
 
     static void enableOverlays(Context context, ArrayList<String> overlays, boolean restartUi) {
-        Intent intent = getThemeInterfacer(context);
-        intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_ENABLE);
-        intent.putExtra(ENABLE_LIST_KEY, overlays);
-        intent.putExtra(WITH_RESTART_UI_KEY, restartUi);
-        context.startService(intent);
+        if (References.isBinderfacer(context)) {
+            try {
+                Substratum.getInstance().getInterfacerInterface().enableOverlay(overlays, restartUi);
+            } catch (RemoteException e) {
+                // idk
+            }
+        } else {
+            Intent intent = getThemeInterfacer(context);
+            intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_ENABLE);
+            intent.putExtra(ENABLE_LIST_KEY, overlays);
+            intent.putExtra(WITH_RESTART_UI_KEY, restartUi);
+            context.startService(intent);
+        }
     }
 
     static void disableOverlays(Context context, ArrayList<String> overlays, boolean restartUi) {
-        Intent intent = getThemeInterfacer(context);
-        intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_DISABLE);
-        intent.putExtra(DISABLE_LIST_KEY, overlays);
-        intent.putExtra(WITH_RESTART_UI_KEY, restartUi);
-        context.startService(intent);
+        if (References.isBinderfacer(context)) {
+            try {
+                Substratum.getInstance().getInterfacerInterface().disableOverlay(overlays, restartUi);
+            } catch (RemoteException e) {
+                // idk
+            }
+        } else {
+            Intent intent = getThemeInterfacer(context);
+            intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_DISABLE);
+            intent.putExtra(DISABLE_LIST_KEY, overlays);
+            intent.putExtra(WITH_RESTART_UI_KEY, restartUi);
+            context.startService(intent);
+        }
     }
 
     public static void restartSystemUI(Context context) {
-        Intent intent = getThemeInterfacer(context);
-        intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_RESTART_UI);
-        context.startService(intent);
+        if (References.isBinderfacer(context)) {
+            try {
+                Substratum.getInstance().getInterfacerInterface().restartSystemUI();
+            } catch (RemoteException e) {
+                // idk
+            }
+        } else {
+            Intent intent = getThemeInterfacer(context);
+            intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_RESTART_UI);
+            context.startService(intent);
+        }
     }
 
     public static void forceStopService(Context context) {
@@ -130,98 +174,203 @@ public class ThemeInterfacerService {
     }
 
     public static void configurationChangeShim(Context context) {
-        Intent intent = getThemeInterfacer(context);
-        intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_CONFIGURATION_SHIM);
-        context.startService(intent);
+        if (References.isBinderfacer(context)) {
+            try {
+                Substratum.getInstance().getInterfacerInterface().configurationShim();
+            } catch (RemoteException e) {
+                // idk
+            }
+        } else {
+            Intent intent = getThemeInterfacer(context);
+            intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_CONFIGURATION_SHIM);
+            context.startService(intent);
+        }
     }
 
     static void setBootAnimation(Context context, String bootanimation_location) {
-        Intent intent = getThemeInterfacer(context);
-        intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_BOOTANIMATION);
-        intent.putExtra(BOOTANIMATION_FILE_NAME, bootanimation_location);
-        context.startService(intent);
+        if (References.isBinderfacer(context)) {
+            try {
+                Substratum.getInstance().getInterfacerInterface().applyBootanimation(bootanimation_location);
+            } catch (RemoteException e) {
+                // idk
+            }
+        } else {
+            Intent intent = getThemeInterfacer(context);
+            intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_BOOTANIMATION);
+            intent.putExtra(BOOTANIMATION_FILE_NAME, bootanimation_location);
+            context.startService(intent);
+        }
     }
 
     static void clearBootAnimation(Context context) {
-        Intent intent = getThemeInterfacer(context);
-        intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_BOOTANIMATION);
-        context.startService((intent));
+        if (References.isBinderfacer(context)) {
+            try {
+                Substratum.getInstance().getInterfacerInterface().applyBootanimation(null);
+            } catch (RemoteException e) {
+                // idk
+            }
+        } else {
+            Intent intent = getThemeInterfacer(context);
+            intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_BOOTANIMATION);
+            context.startService((intent));
+        }
     }
 
     static void setFonts(Context context, String pid, String name) {
-        Intent intent = getThemeInterfacer(context);
-        intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_FONTS);
-        intent.putExtra(FONTS_FILENAME, name);
-        intent.putExtra(FONTS_PID, pid);
-        context.startService(intent);
+        if (References.isBinderfacer(context)) {
+            try {
+                Substratum.getInstance().getInterfacerInterface().applyFonts(pid, name);
+            } catch (RemoteException e) {
+                // idk
+            }
+        } else {
+            Intent intent = getThemeInterfacer(context);
+            intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_FONTS);
+            intent.putExtra(FONTS_FILENAME, name);
+            intent.putExtra(FONTS_PID, pid);
+            context.startService(intent);
+        }
     }
 
     static void clearFonts(Context context) {
-        Intent intent = getThemeInterfacer(context);
-        intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_FONTS);
-        context.startService(intent);
+        if (References.isBinderfacer(context)) {
+            try {
+                Substratum.getInstance().getInterfacerInterface().applyFonts(null, null);
+            } catch (RemoteException e) {
+                // idk
+            }
+        } else {
+            Intent intent = getThemeInterfacer(context);
+            intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_FONTS);
+            context.startService(intent);
+        }
     }
 
     static void setThemedSounds(Context context, String pid, String name) {
-        Intent intent = getThemeInterfacer(context);
-        intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_AUDIO);
-        intent.putExtra(AUDIO_PID, pid);
-        intent.putExtra(AUDIO_FILENAME, name);
-        context.startService(intent);
+        if (References.isBinderfacer(context)) {
+            try {
+                Substratum.getInstance().getInterfacerInterface().applyAudio(pid, name);
+            } catch (RemoteException e) {
+                // idk
+            }
+        } else {
+            Intent intent = getThemeInterfacer(context);
+            intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_AUDIO);
+            intent.putExtra(AUDIO_PID, pid);
+            intent.putExtra(AUDIO_FILENAME, name);
+            context.startService(intent);
+        }
     }
 
     static void clearThemedSounds(Context context) {
-        Intent intent = getThemeInterfacer(context);
-        intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_AUDIO);
-        context.startService(intent);
+        if (References.isBinderfacer(context)) {
+            try {
+                Substratum.getInstance().getInterfacerInterface().applyAudio(null, null);
+            } catch (RemoteException e) {
+                // idk
+            }
+        } else {
+            Intent intent = getThemeInterfacer(context);
+            intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_AUDIO);
+            context.startService(intent);
+        }
     }
 
     static void setPriority(Context context, ArrayList<String> overlays) {
-        Intent intent = getThemeInterfacer(context);
-        intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_PRIORITY);
-        intent.putExtra(PRIORITY_LIST_KEY, overlays);
-        context.startService(intent);
+        if (References.isBinderfacer(context)) {
+            try {
+                Substratum.getInstance().getInterfacerInterface().changePriority(overlays, false);
+            } catch (RemoteException e) {
+                // idk
+            }
+        } else {
+            Intent intent = getThemeInterfacer(context);
+            intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_PRIORITY);
+            intent.putExtra(PRIORITY_LIST_KEY, overlays);
+            context.startService(intent);
+        }
     }
 
     public static void copy(Context context, String source, String destination) {
-        Intent intent = getThemeInterfacer(context);
-        intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_COPY);
-        intent.putExtra(SOURCE_FILE_KEY, source);
-        intent.putExtra(DESTINATION_FILE_KEY, destination);
-        context.startService(intent);
+        if (References.isBinderfacer(context)) {
+            try {
+                Substratum.getInstance().getInterfacerInterface().copy(source, destination);
+            } catch (RemoteException e) {
+                // idk
+            }
+        } else {
+            Intent intent = getThemeInterfacer(context);
+            intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_COPY);
+            intent.putExtra(SOURCE_FILE_KEY, source);
+            intent.putExtra(DESTINATION_FILE_KEY, destination);
+            context.startService(intent);
+        }
     }
 
     public static void move(Context context, String source, String destination) {
-        Intent intent = getThemeInterfacer(context);
-        intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_MOVE);
-        intent.putExtra(SOURCE_FILE_KEY, source);
-        intent.putExtra(DESTINATION_FILE_KEY, destination);
-        context.startService(intent);
+        if (References.isBinderfacer(context)) {
+            try {
+                Substratum.getInstance().getInterfacerInterface().move(source, destination);
+            } catch (RemoteException e) {
+                // idk
+            }
+        } else {
+            Intent intent = getThemeInterfacer(context);
+            intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_MOVE);
+            intent.putExtra(SOURCE_FILE_KEY, source);
+            intent.putExtra(DESTINATION_FILE_KEY, destination);
+            context.startService(intent);
+        }
     }
 
     public static void delete(Context context, String directory, boolean deleteParent) {
-        Intent intent = getThemeInterfacer(context);
-        intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_DELETE);
-        intent.putExtra(SOURCE_FILE_KEY, directory);
-        intent.putExtra(WITH_DELETE_PARENT_KEY, deleteParent);
-        context.startService(intent);
+        if (References.isBinderfacer(context)) {
+            try {
+                Substratum.getInstance().getInterfacerInterface().deleteDirectory(directory, deleteParent);
+            } catch (RemoteException e) {
+                // idk
+            }
+        } else {
+            Intent intent = getThemeInterfacer(context);
+            intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_DELETE);
+            intent.putExtra(SOURCE_FILE_KEY, directory);
+            intent.putExtra(WITH_DELETE_PARENT_KEY, deleteParent);
+            context.startService(intent);
+        }
     }
 
     public static void applyProfile(Context context, String name, ArrayList<String> toBeDisabled,
                                     ArrayList<String> toBeEnabled, boolean restartUi) {
-        Intent intent = getThemeInterfacer(context);
-        intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_PROFILE);
-        intent.putExtra(PROFILE_NAME_KEY, name);
-        intent.putExtra(DISABLE_LIST_KEY, toBeDisabled);
-        intent.putExtra(ENABLE_LIST_KEY, toBeEnabled);
-        intent.putExtra(WITH_RESTART_UI_KEY, restartUi);
-        context.startService(intent);
+        if (References.isBinderfacer(context)) {
+            try {
+                Substratum.getInstance().getInterfacerInterface().applyProfile(toBeEnabled, toBeDisabled, name, restartUi);
+            } catch (RemoteException e) {
+                // idk
+            }
+        } else {
+            Intent intent = getThemeInterfacer(context);
+            intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_PROFILE);
+            intent.putExtra(PROFILE_NAME_KEY, name);
+            intent.putExtra(DISABLE_LIST_KEY, toBeDisabled);
+            intent.putExtra(ENABLE_LIST_KEY, toBeEnabled);
+            intent.putExtra(WITH_RESTART_UI_KEY, restartUi);
+            context.startService(intent);
+        }
     }
 
     public static void createNewFolder(Context context, String destination) {
-        Intent intent = getThemeInterfacer(context);
-        intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_MKDIR);
-        intent.putExtra(DESTINATION_FILE_KEY, destination);
-        context.startService(intent);
+        if (References.isBinderfacer(context)) {
+            try {
+                Substratum.getInstance().getInterfacerInterface().mkdir(destination);
+            } catch (RemoteException e) {
+                // idk
+            }
+        } else {
+            Intent intent = getThemeInterfacer(context);
+            intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_MKDIR);
+            intent.putExtra(DESTINATION_FILE_KEY, destination);
+            context.startService(intent);
+        }
     }
+
 }

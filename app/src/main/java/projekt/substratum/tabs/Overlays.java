@@ -44,6 +44,7 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.service.notification.StatusBarNotification;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.util.Pair;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
@@ -146,6 +147,8 @@ public class Overlays extends Fragment {
     private boolean isWaiting;
     private AssetManager themeAssetManager;
     private Boolean missingType3 = false;
+    private JobReceiver jobReceiver;
+    private LocalBroadcastManager localBroadcastManager;
 
     public void startCompileEnableMode() {
         if (!is_active) {
@@ -580,6 +583,13 @@ public class Overlays extends Fragment {
             Log.e(References.SUBSTRATUM_LOG, "Could not parse list of base options for this " +
                     "theme!");
         }
+
+        // Enable job listener
+        jobReceiver = new JobReceiver();
+        IntentFilter intentFilter = new IntentFilter("Overlays.START_JOB");
+        localBroadcastManager = LocalBroadcastManager.getInstance(mContext);
+        localBroadcastManager.registerReceiver(jobReceiver, intentFilter);
+
         return root;
     }
 
@@ -868,6 +878,7 @@ public class Overlays extends Fragment {
         super.onDestroy();
         try {
             mContext.unregisterReceiver(finishReceiver);
+            localBroadcastManager.unregisterReceiver(jobReceiver);
         } catch (IllegalArgumentException e) {
             // unregistered already
         }
@@ -2110,6 +2121,34 @@ public class Overlays extends Fragment {
             if (command.equals(COMMAND_VALUE_JOB_COMPLETE)) {
                 Log.d(References.SUBSTRATUM_LOG, "Don't you wait no more!");
                 isWaiting = false;
+            }
+        }
+    }
+
+    class JobReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // TODO: should not be like this, find out why there is a detached fragment live
+            if (!isAdded()) return;
+
+            String command = intent.getStringExtra("command");
+            switch (command) {
+                case "CompileEnable":
+                    startCompileEnableMode();
+                    break;
+                case "CompileUpdate":
+                    startCompileUpdateMode();
+                    break;
+                case "Disable":
+                    startDisable();
+                    break;
+                case "Enable":
+                    startEnable();
+                    break;
+                case "MixAndMatchMode":
+                    boolean newValue = intent.getBooleanExtra("newValue", false);
+                    setMixAndMatchMode(newValue);
+                    break;
             }
         }
     }

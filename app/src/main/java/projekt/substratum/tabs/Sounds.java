@@ -19,6 +19,10 @@
 package projekt.substratum.tabs;
 
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
@@ -28,6 +32,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -86,6 +91,8 @@ public class Sounds extends Fragment {
     private NestedScrollView nsv;
     private AssetManager themeAssetManager;
     private boolean paused = false;
+    private JobReceiver jobReceiver;
+    private LocalBroadcastManager localBroadcastManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
@@ -209,6 +216,13 @@ public class Sounds extends Fragment {
                 })
         );
         mp.setOnCompletionListener(mediaPlayer -> stopPlayer());
+
+        // Enable job listener
+        jobReceiver = new JobReceiver();
+        IntentFilter intentFilter = new IntentFilter("Sounds.START_JOB");
+        localBroadcastManager = LocalBroadcastManager.getInstance(getContext());
+        localBroadcastManager.registerReceiver(jobReceiver, intentFilter);
+
         return root;
     }
 
@@ -230,8 +244,10 @@ public class Sounds extends Fragment {
 
         // Unregister finish receiver
         try {
-            if (finishReceiver != null)
+            if (finishReceiver != null) {
                 getContext().unregisterReceiver(finishReceiver);
+            }
+            localBroadcastManager.unregisterReceiver(jobReceiver);
         } catch (IllegalArgumentException e) {
             // unregistered already
         }
@@ -416,6 +432,15 @@ public class Sounds extends Fragment {
                 Output.write(buffer, 0, length);
                 length = Input.read(buffer);
             }
+        }
+    }
+
+    class JobReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // TODO: should not be like this, find out why there is a detached fragment live
+            if (!isAdded()) return;
+            startApply();
         }
     }
 }

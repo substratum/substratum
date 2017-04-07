@@ -44,6 +44,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
@@ -81,10 +82,6 @@ import projekt.substratum.config.FileOperations;
 import projekt.substratum.config.References;
 import projekt.substratum.config.ThemeManager;
 import projekt.substratum.config.WallpaperManager;
-import projekt.substratum.tabs.BootAnimations;
-import projekt.substratum.tabs.Fonts;
-import projekt.substratum.tabs.Overlays;
-import projekt.substratum.tabs.Sounds;
 import projekt.substratum.util.FloatingActionMenu;
 import projekt.substratum.util.SheetDialog;
 
@@ -111,10 +108,6 @@ public class InformationActivity extends AppCompatActivity {
     private boolean shouldDarken;
     private MaterialSheetFab materialSheetFab;
     private int tabPosition;
-    private Overlays overlays;
-    private BootAnimations bootAnimations;
-    private Fonts fonts;
-    private Sounds sounds;
 
     public static String getThemeName() {
         return theme_name;
@@ -497,104 +490,95 @@ public class InformationActivity extends AppCompatActivity {
                         }
                     });
 
-            overlays = null;
-            bootAnimations = null;
-            fonts = null;
-            sounds = null;
             PagerAdapter adapt = viewPager.getAdapter();
-            for (int i = 0; i < adapt.getCount(); i++) {
-                switch (adapt.instantiateItem(viewPager, i).getClass().getSimpleName()) {
-                    case "Overlays":
-                        overlays = (Overlays) viewPager.getAdapter().instantiateItem(viewPager, i);
-                        break;
-                    case "BootAnimations":
-                        bootAnimations = (BootAnimations) adapt.instantiateItem(viewPager, i);
-                        break;
-                    case "Fonts":
-                        fonts = (Fonts) adapt.instantiateItem(viewPager, i);
-                        break;
-                    case "Sounds":
-                        sounds = (Sounds) adapt.instantiateItem(viewPager, i);
-                        break;
-                    default:
-                        break;
-                }
-            }
-
+            LocalBroadcastManager localBroadcastManager = LocalBroadcastManager
+                    .getInstance(getApplicationContext());
             floatingActionButton.setOnClickListener(v -> {
+                Intent intent;
                 switch (adapt.instantiateItem(viewPager, tabPosition).getClass().getSimpleName()) {
                     case "Overlays":
                         materialSheetFab.showSheet();
                         break;
                     case "BootAnimations":
-                        bootAnimations.startApply();
+                        intent = new Intent("BootAnimations.START_JOB");
+                        localBroadcastManager.sendBroadcast(intent);
                         break;
                     case "Fonts":
-                        fonts.startApply();
+                        intent = new Intent("Fonts.START_JOB");
+                        localBroadcastManager.sendBroadcast(intent);
                         break;
                     case "Sounds":
-                        sounds.startApply();
+                        intent = new Intent("Sounds.START_JOB");
+                        localBroadcastManager.sendBroadcast(intent);
                         break;
                 }
             });
-            if (overlays != null) {
-                Switch enable_swap = (Switch) findViewById(R.id.enable_swap);
-                if (!References.checkOMS(this)) {
-                    enable_swap.setText(getString(R.string.fab_menu_swap_toggle_legacy));
-                }
-                if (enable_swap != null) {
-                    boolean enabled = prefs.getBoolean("enable_swapping_overlays", true);
-                    overlays.setMixAndMatchMode(enabled);
-                    enable_swap.setChecked(enabled);
 
-                    enable_swap.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                        prefs.edit().putBoolean("enable_swapping_overlays", isChecked).apply();
-                        overlays.setMixAndMatchMode(isChecked);
-                    });
-                }
+            Intent intent = new Intent("Overlays.START_JOB");
+            Switch enable_swap = (Switch) findViewById(R.id.enable_swap);
+            if (!References.checkOMS(this)) {
+                enable_swap.setText(getString(R.string.fab_menu_swap_toggle_legacy));
+            }
+            if (enable_swap != null) {
+                boolean enabled = prefs.getBoolean("enable_swapping_overlays", true);
+                intent.putExtra("command", "MixAndMatchMode");
+                intent.putExtra("newValue", enabled);
+                localBroadcastManager.sendBroadcast(intent);
+                enable_swap.setChecked(enabled);
 
-                final TextView compile_enable_selected = (TextView) findViewById(R.id
-                        .compile_enable_selected);
-                if (!References.checkOMS(this)) compile_enable_selected.setVisibility(View.GONE);
-                if (compile_enable_selected != null) {
-                    compile_enable_selected.setOnClickListener(v -> {
-                        materialSheetFab.hideSheet();
-                        overlays.startCompileEnableMode();
-                    });
-                }
+                enable_swap.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                    prefs.edit().putBoolean("enable_swapping_overlays", isChecked).apply();
+                    intent.putExtra("command", "MixAndMatchMode");
+                    intent.putExtra("newValue", isChecked);
+                    localBroadcastManager.sendBroadcast(intent);
+                });
+            }
 
-                TextView compile_update_selected = (TextView) findViewById(R.id
-                        .compile_update_selected);
-                if (!References.checkOMS(this)) {
-                    compile_update_selected.setText(getString(R.string.fab_menu_compile_install));
-                }
-                if (compile_update_selected != null) {
-                    compile_update_selected.setOnClickListener(v -> {
-                        materialSheetFab.hideSheet();
-                        overlays.startCompileUpdateMode();
-                    });
-                }
+            final TextView compile_enable_selected = (TextView) findViewById(R.id
+                    .compile_enable_selected);
+            if (!References.checkOMS(this)) compile_enable_selected.setVisibility(View.GONE);
+            if (compile_enable_selected != null) {
+                compile_enable_selected.setOnClickListener(v -> {
+                    materialSheetFab.hideSheet();
+                    intent.putExtra("command", "CompileEnable");
+                    localBroadcastManager.sendBroadcast(intent);
+                });
+            }
 
-                TextView disable_selected = (TextView) findViewById(R.id.disable_selected);
-                if (!References.checkOMS(this)) {
-                    disable_selected.setText(getString(R.string.fab_menu_uninstall));
-                }
-                if (disable_selected != null) {
-                    disable_selected.setOnClickListener(v -> {
-                        materialSheetFab.hideSheet();
-                        overlays.startDisable();
-                    });
-                }
+            TextView compile_update_selected = (TextView) findViewById(R.id
+                    .compile_update_selected);
+            if (!References.checkOMS(this)) {
+                compile_update_selected.setText(getString(R.string.fab_menu_compile_install));
+            }
+            if (compile_update_selected != null) {
+                compile_update_selected.setOnClickListener(v -> {
+                    materialSheetFab.hideSheet();
+                    intent.putExtra("command", "CompileUpdate");
+                    localBroadcastManager.sendBroadcast(intent);
+                });
+            }
 
-                LinearLayout enable_zone = (LinearLayout) findViewById(R.id.enable);
-                if (!References.checkOMS(this)) enable_zone.setVisibility(View.GONE);
-                TextView enable_selected = (TextView) findViewById(R.id.enable_selected);
-                if (enable_selected != null) {
-                    enable_selected.setOnClickListener(v -> {
-                        materialSheetFab.hideSheet();
-                        overlays.startEnable();
-                    });
-                }
+            TextView disable_selected = (TextView) findViewById(R.id.disable_selected);
+            if (!References.checkOMS(this)) {
+                disable_selected.setText(getString(R.string.fab_menu_uninstall));
+            }
+            if (disable_selected != null) {
+                disable_selected.setOnClickListener(v -> {
+                    materialSheetFab.hideSheet();
+                    intent.putExtra("command", "Disable");
+                    localBroadcastManager.sendBroadcast(intent);
+                });
+            }
+
+            LinearLayout enable_zone = (LinearLayout) findViewById(R.id.enable);
+            if (!References.checkOMS(this)) enable_zone.setVisibility(View.GONE);
+            TextView enable_selected = (TextView) findViewById(R.id.enable_selected);
+            if (enable_selected != null) {
+                enable_selected.setOnClickListener(v -> {
+                    materialSheetFab.hideSheet();
+                    intent.putExtra("command", "Enable");
+                    localBroadcastManager.sendBroadcast(intent);
+                });
             }
         }
     }

@@ -19,6 +19,10 @@
 package projekt.substratum.tabs;
 
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
@@ -31,6 +35,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -86,6 +91,8 @@ public class BootAnimations extends Fragment {
     private NestedScrollView nsv;
     private AssetManager themeAssetManager;
     private boolean paused = false;
+    private JobReceiver jobReceiver;
+    private LocalBroadcastManager localBroadcastManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -194,7 +201,24 @@ public class BootAnimations extends Fragment {
             Log.e("BootAnimationUtils",
                     "There is no bootanimation.zip found within the assets of this theme!");
         }
+
+        // Enable job listener
+        jobReceiver = new JobReceiver();
+        IntentFilter intentFilter = new IntentFilter("BootAnimations.START_JOB");
+        localBroadcastManager = LocalBroadcastManager.getInstance(getContext());
+        localBroadcastManager.registerReceiver(jobReceiver, intentFilter);
+
         return root;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        try {
+            localBroadcastManager.unregisterReceiver(jobReceiver);
+        } catch (IllegalArgumentException e) {
+            // unregistered already
+        }
     }
 
     public void startApply() {
@@ -456,6 +480,15 @@ public class BootAnimations extends Fragment {
                 Output.write(buffer, 0, length);
                 length = Input.read(buffer);
             }
+        }
+    }
+
+    class JobReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // TODO: should not be like this, find out why there is a detached fragment live
+            if (!isAdded()) return;
+            startApply();
         }
     }
 }

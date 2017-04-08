@@ -159,4 +159,19 @@ coleção de animações de carregamento legais para Android.</string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
+    <!-- Lemniscate -->
+    <!-- Author section -->
+    <!-- Library section -->
+    <!-- OpenSource section -->
+    <string name="library_lemniscate_isOpenSource">true</string>
+    <!-- ClassPath for autoDetect section -->
+    <!-- License section -->
+    <string name="library_lemniscate_licenseId">apache_2_0</string>
+    <!-- NumberProgressBar -->
+    <!-- Author section -->
+    <!-- Library section -->
+    <!-- OpenSource section -->
+    <string name="library_numberprogressbar_isOpenSource">true</string>
+    <!-- ClassPath for autoDetect section -->
+    <!-- License section -->
 </resources>

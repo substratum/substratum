@@ -19,52 +19,48 @@
   -->
 <resources>
     <string name="showcase">ukázka</string>
-    <string name="helper_name">substratum overlay helper (pomocník balíčků substratum)</string>
+    <string name="helper_name">pomocník překrytí substratum</string>
     <string name="restore_app_name">obnovit motiv</string>
-    <string name="android">Verze Androidu:</string>
-    <string name="device">Model zařízení</string>
+    <string name="android">verze androidu:</string>
+    <string name="device">model zařízení:</string>
     <string name="resource_checker_request">Poslat žádost o sloučení pomocí&#8230;</string>
-    <string name="resource_checker">Validátor zdrojů</string>
+    <string name="resource_checker">Aisistent ověření zdrojů</string>
     <string name="resource_checker_commons">Framework</string>
     <string name="resource_checker_dialog_quit">Ukončit</string>
     <string name="resource_not_validated">Byl přidán nový zdroj!</string>
     <string name="resource_needs_internet">Pro ověření vaší ROM se připojte k internetu!</string>
     <string name="resource_validated">Všechny zdroje jsou v pořádku!</string>
     <string name="resource_commit_dialog_title">Chybějící zdroje v %s</string>
-    <string name="showcase_no_connection">ukázka motivů potřebuje internetové připojení!    </string>
-    <string name="showcase_no_themes">Zdá se, že nastala chyba v mezipaměti databáze pro ukázku        pro tuto záložku&#8230;    </string>
-    <string name="on_demand_updating_title">Inicializátor mezipaměti zdrojů</string>
+    <string name="showcase_no_connection">ukázky motivů potřebují internetové připojení!    </string>
+    <string name="showcase_no_themes">zdá se, že nastala chyba ve vyrovnávací paměti databáze pro ukázku této záložky&#8230;    </string>
+    <string name="on_demand_updating_title">Inicializátor zdrojů mezipaměti</string>
     <string name="on_demand_updating_text">mezipaměť %s se zrovna předělává&#8230;</string>
-    <string name="background_updating_toast">Substratum připravuje motiv v pozadí,
-    prosím počkejte než se to dokončí!    </string>
-    <string name="background_needs_invalidating">Ale ne! Došlo k poškození v mezipaměti.</string>
+    <string name="background_updating_toast">Substratum připravuje motiv na pozadí, prosím počkejte na dokončení!
+    </string>
+    <string name="background_needs_invalidating">Ale ne! Došlo k chybě v mezipaměti.</string>
     <string name="background_needs_invalidating_button">Vyčistit</string>
     <string name="background_updated_toast">Zdrojová mezipamět byla vybudována!</string>
-    <string name="background_updated_toast_cancel">Tento motiv potřebuje aktualizovat svoji mezipaměť zdrojů, aby byl funkční!    </string>
-    <string name="background_updated_toast_cleaning">Substratum teď čistí mezipaměť zdrojů tohoto motivu&#8230;</string>
+    <string name="background_updated_toast_cancel">Tento motiv vyžaduje aktualizaci zdrojů!    </string>
+    <string name="background_updated_toast_cleaning">Substratum čistí zdroje tohoto motivu&#8230;</string>
     <string name="failed_to_install_title_notification">Nepodařilo se instalovat OMS motiv</string>
     <string name="failed_to_install_text_notification">Nepodařilo se nainstalovat %s</string>
-    <string name="actionbar_theme_count_singular">%s téma</string>
-    <string name="actionbar_theme_count_plural">%s témata</string>
-    <string name="actionbar_theme_count_none">nenalezena žádná témata</string>
+    <string name="actionbar_theme_count_singular">%s motiv</string>
+    <string name="actionbar_theme_count_plural">%s motivy</string>
+    <string name="actionbar_theme_count_none">nenalezeny žádné motivy</string>
     <string name="actionbar_theme_count_loading">načítaní&#8230;</string>
     <string name="actionbar_search">Hledat</string>
-    <string name="actionbar_changelog">Seznam změn v tématu</string>
+    <string name="actionbar_changelog">Seznam změn motivu</string>
     <string name="settings_icons">Ikony Nastavení</string>
     <string name="systemui_headers">Záhlaví System UI</string>
     <string name="systemui_navigation">Navigační tlačítka</string>
     <string name="systemui_qs_tiles">Ikony rychlých přepínačů</string>
-    <string name="systemui_statusbar">Ikony na stavovém řádku</string>
+    <string name="systemui_statusbar">Ikony na stavové liště</string>
     <string name="tbo_description">Tento motiv podporuje Theme Ready Google Apps od Team Black Out.
 Pokud je nemáte, můžete kliknout na tlačítko Stáhnout a budete přesunuti na jejich XDA vlákno nebo na Zrušit pokud je již máte.    </string>
     <string name="two_description">Tento motiv podporuje originální Google aplikace, jak byli naprogramované. Jestliže máte nainstalované Google aplikace, které podporují motivy, nemusíte je odinstalovat. Nejsou však potřebné pro použití tohoto motivu!    </string>
     <string name="tbo_dialog_proceed">Stáhnout</string>
     <string name="warning_title">VAROVÁNÍ!</string>
-    <string name="dangerous_warning_content">Substratum zjistil, že běží na
-        ZNÁMÉM FIRMWARU SE ZAPÍNACÍ SMYČKOU (aktualizace mezi 2016 listopadu a ledna 2017, N/N-MR1) a je 
-        důrazně doporučeno neaplikovat žádný framework/Android systémový potah.\n\nPokud se rozhodnete
-        pokračovat a skončit v zapínací smyčce, tak prosím flashněte záchraný archiv, který naleznete v
-        \"/storage/emulated/0/substratum/\".
+    <string name="dangerous_warning_content">Substratum zjistil, že běží na ZNÁMÉM FIRMWARU SE ZAPÍNACÍ SMYČKOU (aktualizace mezi 2016 listopadu a ledna 2017, N/N-MR1) a je důrazně doporučeno neaplikovat žádný framework/Android systémový potah.\n\nPokud se rozhodnete pokračovat a skončit v zapínací smyčce, tak prosím flashněte záchraný archiv, který naleznete v \"/storage/emulated/0/substratum/\".
     </string>
     <string name="legacy_warning_content">Legacy je dáno tak jak je a nemůžeme garantovat plnou podporu barev. Prosím přesvědčte se že máte custom recovery a víte jakpoužít záchranný/obnovovací zip.
 Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systému.    </string>
@@ -74,15 +70,14 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
         dialogem automaticky restartuje vaš zařízení, takže si prosím uložte vaši práci
         před pokračováním.
     </string>
-    <string name="activity_missing_toast">Nebyly nalezeny žádné aplikace, které by mohl zvládnout
-        tuto žádost, Promiň!
+    <string name="activity_missing_toast">Promiňte, ale nebyly nalezeny žádné aplikace, které by mohl zvládnout tuto žádost!
     </string>
-    <string name="abort_overlay_toast">Odinstalovávání všech potahů&#8230;</string>
+    <string name="abort_overlay_toast">Nyní probíhá odinstalování všech potahů&#8230;</string>
     <string name="abort_overlay_toast_success">Všechny potahy odinstalovány!</string>
     <string name="rescue_toast">Záchrana systému&#8230;</string>
     <string name="disable_overlay_toast">Zakazování všech povolených potahů&#8230;</string>
     <string name="disable_overlay_toast_success">Všechny potahy zakázány!</string>
-    <string name="disable_overlay_toast_not_found">Nezdařilo se vypnutí všech potahů!</string>
+    <string name="disable_overlay_toast_not_found">Nezdařilo se vypnout všechny potahy!</string>
     <string name="restore_activity_toast">Záložní soubor nalezen! Nyní probíhá obnova&#8230;</string>
     <string name="restore_activity_toast_not_found">Nebyla nalezena žádná záloha databáze potahů.</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
@@ -93,83 +88,67 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="overlays_variant_default_3">výchozí varianta&#8230;</string>
     <string name="overlays_up_to_date">AKTUÁLNÍ</string>
     <string name="overlays_update_available">Dostupná aktualizace!\n(%s)</string>
-    <string name="overlays_overlay_not_installed">Varianta nenainstalována</string>
-    <string name="overlays_compile_update_button">Kompilace/aktualizace &amp; instalace</string>
-    <string name="information_activity_pirated_toast">Toto binární kód tohoto témata nevyhoví ověření
-        integrity přes Substratum.
+    <string name="overlays_overlay_not_installed">Varianta není nainstalována</string>
+    <string name="overlays_compile_update_button">Kompilovat/aktualizovat &amp; instalovat</string>
+    <string name="information_activity_pirated_toast">Binární kód tohoto motivu neprošel ověřením integrity Substratum.
     </string>
-    <string name="information_activity_upgrade_toast">Toto téma musí být prředěláno na nové
-        šabloně témat aby jste ho mohli používat v Substratum!
+    <string name="information_activity_upgrade_toast">Tento motiv musí být předělán podle nové šablony motivů pro použití v Substratum!
     </string>
-    <string name="information_activity_upgrade_toast_lenient">Plugin tohoto tématu je
-        neaktualizovaný!
+    <string name="information_activity_upgrade_toast_lenient">Plugin tohoto motivu není aktuální!
     </string>
-    <string name="bootanimation_vm_exploded">Vykreslování spouštěcí aplikace bylo ukončeno z důvodu
-        nedostatku paměti.\n\nInstalace spouštěcí aplikace je stále možná,
-        ale bez vykreslené ukázky.
+    <string name="bootanimation_vm_exploded">Vykreslování spouštěcí animace bylo ukončeno z důvodu nedostatku paměti.\n\nInstalace spouštěcí animace je stále možná, ale bez vykreslení ukázky.
     </string>
-    <string name="bootanimation_placeholder_text">prosím vyberte spouštěcí animaci ze seznamu&#8230;</string>
-    <string name="bootanimation_default_spinner">prosím vyberte spouštěcí animaci&#8230;</string>
+    <string name="bootanimation_placeholder_text">prosím, vyberte spouštěcí animaci ze seznamu&#8230;</string>
+    <string name="bootanimation_default_spinner">prosím, vyberte spouštěcí animaci&#8230;</string>
     <string name="bootanimation_spinner_set_defaults">obnovit na výchozí spouštěcí animaci&#8230;    </string>
     <string name="bootanimation_defaults_text">toto vyčistí všechny vlastní spouštěcí animace
         aplikované na tomto zařízení</string>
     <string name="bootanimation_dialog_apply_text">Zpracovávání spouštěcí animace&#8230;</string>
-    <string name="bootanimation_dialog_apply_success">Spuštěcí animace nastavena!</string>
-    <string name="bootanimation_dialog_apply_failed">Spuštěcí animaci se nepodařilo použít&#8230;</string>
-    <string name="wallpaper_dialog_wallpaper">Tapeta na ploše</string>
-    <string name="wallpaper_dialog_lockscreen">Tapeta na zamykací obrazovce</string>
-    <string name="wallpaper_dialog_wallpaper_both">Tapeta na ploše a zamykací obrazovce</string>
+    <string name="bootanimation_dialog_apply_success">Spouštěcí animace nastavena!</string>
+    <string name="bootanimation_dialog_apply_failed">Spouštěcí animaci se nepodařilo použít&#8230;</string>
+    <string name="wallpaper_dialog_wallpaper">Tapeta domácí obrazovky</string>
+    <string name="wallpaper_dialog_lockscreen">Tapeta zamykací obrazovky</string>
+    <string name="wallpaper_dialog_wallpaper_both">Tapeta domácí a zamykací obrazovky</string>
     <string name="wallpaper_dialog_cancel">Zrušit</string>
-    <string name="wallpaper_dialog_message">Na jaké pozadí tento obrázek aplikovat?</string>
+    <string name="wallpaper_dialog_message">Na jaké pozadí použít tento obrázek?</string>
     <string name="wallpaper_downloading">Načítání obrázku do mezipaměti&#8230;</string>
-    <string name="wallpaper_allscreen_success">Tapeta na ploše a zamikací obrazovce nastavena!
+    <string name="wallpaper_allscreen_success">Tapeta na domácí a zamykací obrazovce nastavena!
     </string>
-    <string name="wallpaper_allscreen_error">Nelze nastavit tapetu na ploše a zamikací obrazovce najednou
+    <string name="wallpaper_allscreen_error">Nelze nastavit tapetu domácí a zamykací obrazovky
     </string>
-    <string name="wallpaper_homescreen_success">Tapeta nastavena!</string>
-    <string name="wallpaper_homescreen_error">Nelze nastavit tapetu</string>
-    <string name="wallpaper_lockscreen_success">Tapeta na zamykací obrazovce nastavena!</string>
-    <string name="wallpaper_lockscreen_error">Nelze nastavit tapetu na zamykací obrazovce</string>
-    <string name="wallpaper_no_connection">chcete-li využít tapety tématu, je vyžadováno připojení
-        k Internetu&#8230;</string>
-    <string name="wallpaper_no_wallpapers">vypadá to že načtená databáze tapet je
-        prázdná&#8230;</string>
-    <string name="font_placeholder_text">prosím vyberte balíček písem ze seznamu&#8230;</string>
-    <string name="font_default_spinner">prosím vyberte balíček stylů písmen&#8230;</string>
+    <string name="wallpaper_homescreen_success">Tapeta domácí obrazovky je nastavena!</string>
+    <string name="wallpaper_homescreen_error">Nelze nastavit tapetu domácí obrazovky</string>
+    <string name="wallpaper_lockscreen_success">Tapeta zamykací obrazovky je nastavena!</string>
+    <string name="wallpaper_lockscreen_error">Nelze nastavit tapetu zamykací obrazovky</string>
+    <string name="wallpaper_no_connection">chcete-li využít tapety motivu, je vyžadováno připojení k Internetu&#8230;</string>
+    <string name="wallpaper_no_wallpapers">vypadá to, že načtená databáze tapet je prázdná&#8230;</string>
+    <string name="font_placeholder_text">prosím, vyberte balíček písem ze seznamu&#8230;</string>
+    <string name="font_default_spinner">prosím, vyberte balíček stylů písmen&#8230;</string>
     <string name="font_spinner_set_defaults">obnovit na výchozí písma&#8230;</string>
-    <string name="fonts_defaults_text">toto vyčistí jakákoliv vlastní písma
-        aplikované na tomto zařízení</string>
+    <string name="fonts_defaults_text">toto vyčistí jakákoliv vlastní písma použíté v tomto zařízení</string>
     <string name="font_dialog_apply_text">Balíček písem se zpracovává&#8230;</string>
-    <string name="font_dialog_apply_success">Balíček písem byl aplikovaný!</string>
-    <string name="font_dialog_apply_failed">Balíček písem se nezdařilo aplikovat&#8230;</string>
-    <string name="sounds_placeholder_text">prosím vyberte zvukový balíček ze seznamu&#8230;</string>
+    <string name="font_dialog_apply_success">Balíček písem byl použit!</string>
+    <string name="font_dialog_apply_failed">Balíček písem se nepodařilo použít&#8230;</string>
+    <string name="sounds_placeholder_text">prosím, vyberte balíček zvuků ze seznamu&#8230;</string>
     <string name="sounds_spinner_set_defaults">obnovit výchozí zvuky&#8230;
     </string>
-    <string name="sounds_spinner_defaults_text">toto vyčistí všechny vlastní zvuky
-aplikované v zařízení</string>
+    <string name="sounds_spinner_defaults_text">toto vyčistí všechny vlastní zvuky použité v zařízení</string>
     <string name="sounds_dialog_apply_text">Balíček zvuků se zpracovává&#8230;</string>
-    <string name="sounds_dialog_apply_success">Zvukový balíček aplikován!</string>
-    <string name="sounds_dialog_apply_failed">Zvukový balíček se nezdařilo aplikovat&#8230;</string>
-    <string name="sounds_default_spinner">prosím vyberte balíček zvuků&#8230;</string>
+    <string name="sounds_dialog_apply_success">Zvukový balíček byl použit!</string>
+    <string name="sounds_dialog_apply_failed">Zvukový balíček se nepodařilo použít&#8230;</string>
+    <string name="sounds_default_spinner">prosím, vyberte balíček zvuků&#8230;</string>
     <string name="sounds_dialog_permissions_title">Nastavení vyzvánění budíku</string>
-    <string name="sounds_dialog_permissions_text">Budíky/Oznámení/Vyzvánění jse již volitelná
-        z nastavení manuálně!\n\nNicméně, Substratum si nemůže povolit
-        \"android.permission.WRITE_SETTINGS\", takže nemůže nastavit téma jako aktuální zvuky
-        automaticky\n\nKliknutím povolit, se otevře nové okno s požadavkem \"Povolit modifikovat
-        systémová nastavení\", tak aby jste neměli tento problém v budoucnosti.
+    <string name="sounds_dialog_permissions_text">Budíky/Oznámení/Vyzvánění je teď možné měnit v Nastavení manuálně!\n\nAvšak Substratum nemůže přidělit právo \"android.permission.WRITE_SETTINGS\", takže nemůže automaticky nastavit motiv pro aktuální zvuky \n\nKliknutím na povolit se otevře nové okno s požadavkem \"Povolit změnu systémových nastavení\". V budoucnu by jste neměli mít tento problém.
     </string>
     <string name="sounds_dialog_permissions_deny">Odepřít</string>
     <string name="sounds_dialog_permissions_grant">Povolit</string>
-    <string name="sounds_dialog_permissions_grant_toast">Pro restartování všech zvuků
-        musíte povolit \"Povolit modifikovat systémové nastavení\".
+    <string name="sounds_dialog_permissions_grant_toast">Pro restartování všech zvuků v Substratum musíte zapnout volbu \"Povolit modifikovat systémové nastavení\".
     </string>
-    <string name="fonts_dialog_permissions_grant_toast">Pro restartování všech písem v Substratum,
-        musíte povolit \"Povolit úpravu systémového nastavení\".
+    <string name="fonts_dialog_permissions_grant_toast">Pro restartování všech písem v Substratum musíte zapnout volbu \"Povolit úpravu systémového nastavení\".
     </string>
-    <string name="fonts_dialog_permissions_grant_toast2">Pro povolení Substratum ovládání systémových
-        písem, musíte povolit \"Povolit úpravu systémového nastavení\".
+    <string name="fonts_dialog_permissions_grant_toast2">Pro povolení ovládání systémových písem Substratum musíte zapnout volbu \"Povolit úpravu systémového nastavení\".
     </string>
-    <string name="error_loading_pack">vypadá to že tento bylíček byl špatně nastaven&#8230;</string>
+    <string name="error_loading_pack">vypadá to, že tento balíček nebyl správně nastaven&#8230;</string>
     <string name="content_resolver_alarm_metadata">Substratum budík tématu</string>
     <string name="content_resolver_notification_metadata">Substratum oznámení témat</string>
     <string name="content_resolver_ringtone_metadata">Substratum vyzvánění témat</string>
@@ -223,9 +202,9 @@ aplikované v zařízení</string>
     <string name="manage_system_not_permitted">Nelze povolit pár potahů, protože není nastaveno hlavní téma.</string>
     <string name="manage_wallpaper_title">Obnovit výchozí tapetu</string>
     <string name="manage_wallpaper_text">Obnovit výchozí tapetu v zařízení</string>
-    <string name="manage_wallpaper_home">Tapeta na ploše</string>
-    <string name="manage_wallpaper_lock">Tapeta na zamykací obrazovce</string>
-    <string name="manage_wallpaper_all">Tapeta na ploše a zamykací obrazovce</string>
+    <string name="manage_wallpaper_home">Tapeta domácí obrazovky</string>
+    <string name="manage_wallpaper_lock">Tapeta zamykací obrazovky</string>
+    <string name="manage_wallpaper_all">Tapeta domácí a zamykací obrazovky</string>
     <string name="manage_wallpaper_home_toast">Tapeta plochy úspěšně obnovena!</string>
     <string name="manage_wallpaper_lock_toast">Tapeta zamykací obrazovky úspěšně obnovena!</string>
     <string name="manage_wallpaper_all_toast">Tapeta obnovena úspěšně!</string>

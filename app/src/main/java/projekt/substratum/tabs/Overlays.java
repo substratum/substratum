@@ -57,7 +57,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -496,7 +495,7 @@ public class Overlays extends Fragment {
                     (theme_pid);
             themeAssetManager = themeResources.getAssets();
 
-            ArrayList<String> type3 = new ArrayList<>();
+            ArrayList<VariantInfo> type3 = new ArrayList<>();
             ArrayList<String> stringArray = new ArrayList<>();
 
             File f = new File(mContext.getCacheDir().getAbsoluteFile() + "/SubstratumBuilder/" +
@@ -533,16 +532,17 @@ public class Overlays extends Fragment {
                         new InputStreamReader(inputStream))) {
                     String formatter = String.format(getString(R.string
                             .overlays_variant_substitute), reader.readLine());
-                    type3.add(formatter);
+                    type3.add(new VariantInfo(formatter, null));
                 } catch (IOException e) {
                     Log.e(References.SUBSTRATUM_LOG, "There was an error parsing asset " +
                             "file!");
-                    type3.add(getString(R.string
-                            .overlays_variant_default_3));
+                    type3.add(new VariantInfo(getString(R.string
+                            .overlays_variant_default_3), null));
                 }
                 inputStream.close();
             } else {
-                type3.add(getString(R.string.overlays_variant_default_3));
+                type3.add(new VariantInfo(
+                        getString(R.string.overlays_variant_default_3), null));
             }
 
             if (stringArray.size() > 1) {
@@ -552,14 +552,13 @@ public class Overlays extends Fragment {
                         if (!current.contains(".")) {
                             if (current.length() >= 6) {
                                 if (current.substring(0, 6).equals("type3_")) {
-                                    type3.add(current.substring(6));
+                                    type3.add(new VariantInfo(current.substring(6), null));
                                 }
                             }
                         }
                     }
                 }
-                ArrayAdapter<String> adapter1 = new ArrayAdapter<>(getActivity(),
-                        android.R.layout.simple_spinner_dropdown_item, type3);
+                VariantsAdapter adapter1 = new VariantsAdapter(getActivity(), type3);
                 if (type3.size() > 1) {
                     toggle_all_overlays_text.setVisibility(View.GONE);
                     base_spinner.setVisibility(View.VISIBLE);

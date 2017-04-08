@@ -20,6 +20,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.support.annotation.ColorInt;
+import android.support.annotation.IntDef;
+import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RestrictTo;
@@ -34,6 +36,9 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
@@ -61,24 +66,24 @@ public final class Lunchbar extends TransientBottom<Lunchbar> {
      *
      * @see #setDuration
      */
+    @Duration
     public static final int LENGTH_INDEFINITE = BaseTransientBottomBar.LENGTH_INDEFINITE;
-
     /**
      * Show the Snackbar for a short period of time.
      *
      * @see #setDuration
      */
+    @Duration
     public static final int LENGTH_SHORT = BaseTransientBottomBar.LENGTH_SHORT;
-
     /**
      * Show the Snackbar for a long period of time.
      *
      * @see #setDuration
      */
+    @Duration
     public static final int LENGTH_LONG = BaseTransientBottomBar.LENGTH_LONG;
     @Nullable
     private BaseCallback<Lunchbar> mCallback;
-
     private Lunchbar(ViewGroup parent, View content, ContentViewCallback contentViewCallback) {
         super(parent, content, contentViewCallback);
     }
@@ -281,6 +286,15 @@ public final class Lunchbar extends TransientBottom<Lunchbar> {
         // time we're called
         mCallback = callback;
         return this;
+    }
+
+    /**
+     * @hide
+     */
+    @IntDef({LENGTH_INDEFINITE, LENGTH_SHORT, LENGTH_LONG})
+    @IntRange(from = 1)
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface Duration {
     }
 
     /**

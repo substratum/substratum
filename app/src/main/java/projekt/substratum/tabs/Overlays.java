@@ -82,6 +82,7 @@ import java.util.stream.Collectors;
 import eightbitlab.com.blurview.BlurView;
 import eightbitlab.com.blurview.RenderScriptBlur;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
+import projekt.substratum.BuildConfig;
 import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
 import projekt.substratum.adapters.OverlaysAdapter;
@@ -843,16 +844,17 @@ public class Overlays extends Fragment {
             send.setOnClickListener(v -> {
                 String device = " " + Build.MODEL + " (" + Build.DEVICE + ") " +
                         "[" + Build.FINGERPRINT + "]";
+                String theme_version = References.grabAppVersion(getContext(), theme_pid);
                 String email_subject =
-                        String.format(context.getString(R.string.logcat_email_subject),
-                                theme_name);
+                        String.format(context.getString(R.string.logcat_email_subject), theme_name);
                 String xposed = References.checkXposedVersion();
                 if (xposed.length() > 0) {
                     device += " {" + xposed + "}";
                 }
                 String email_body =
                         String.format(context.getString(R.string.logcat_email_body),
-                                theme_author, theme_name, device, error_logs);
+                                theme_author, theme_name, device, error_logs,
+                                BuildConfig.VERSION_CODE, theme_version);
                 Intent i = new Intent(Intent.ACTION_SEND);
                 i.setType("message/rfc822");
                 i.putExtra(Intent.EXTRA_EMAIL, new String[]{themer_email});

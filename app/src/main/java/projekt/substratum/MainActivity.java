@@ -941,24 +941,22 @@ public class MainActivity extends AppCompatActivity implements
     public void onBackPressed() {
         if (!searchView.isIconified()) {
             searchView.setIconified(true);
+        } else if (drawer != null && drawer.isDrawerOpen()) {
+            drawer.closeDrawer();
         } else {
-            if (drawer != null && drawer.isDrawerOpen()) {
-                drawer.closeDrawer();
-            } else {
-                Fragment f = getSupportFragmentManager().findFragmentById(R.id.main);
-                if (f instanceof PriorityListFragment) {
-                    Fragment fragment = new PriorityLoaderFragment();
-                    FragmentManager fm = getSupportFragmentManager();
-                    FragmentTransaction transaction = fm.beginTransaction();
-                    transaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim
-                            .slide_out_right);
-                    transaction.replace(R.id.main, fragment);
-                    transaction.commit();
-                } else if (drawer != null && drawer.getCurrentSelectedPosition() > 1) {
-                    drawer.setSelectionAtPosition(1);
-                } else if (drawer != null && drawer.getCurrentSelectedPosition() == 1) {
-                    this.finish();
-                }
+            Fragment f = getSupportFragmentManager().findFragmentById(R.id.main);
+            if (f instanceof PriorityListFragment) {
+                Fragment fragment = new PriorityLoaderFragment();
+                FragmentManager fm = getSupportFragmentManager();
+                FragmentTransaction transaction = fm.beginTransaction();
+                transaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim
+                        .slide_out_right);
+                transaction.replace(R.id.main, fragment);
+                transaction.commit();
+            } else if (drawer != null && drawer.getCurrentSelectedPosition() > 1) {
+                drawer.setSelectionAtPosition(1);
+            } else if (drawer != null && drawer.getCurrentSelectedPosition() == 1) {
+                this.finish();
             }
         }
     }

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <!--
   ~ Copyright (c) 2016-2017 Projekt Substratum
   ~ This file is part of Substratum.
@@ -429,4 +428,40 @@
     <string name="library_expandablelayout_classPath" translatable="false">net.cachapa.expandablelayout:expandablelayout</string>
     <!-- License section -->
     <string name="library_expandablelayout_licenseId" translatable="false">apache_2_0</string>
+
+    <!-- Lemniscate -->
+    <string name="define_lemniscate"/>
+    <!-- Author section -->
+    <string name="library_lemniscate_author">Vladimir Jovanović</string>
+    <string name="library_lemniscate_authorWebsite">https://stackoverflow.com/users/5821000/vladimir-jovanovi</string>
+    <!-- Library section -->
+    <string name="library_lemniscate_libraryName">Lemniscate</string>
+    <string name="library_lemniscate_libraryDescription">Lemniscate is a library that will help you to make your progress view nice and sleek.</string>
+    <string name="library_lemniscate_libraryWebsite">https://github.com/vlad1m1r990/Lemniscate</string>
+    <string name="library_lemniscate_libraryVersion">1.2.0</string>
+    <!-- OpenSource section -->
+    <string name="library_lemniscate_isOpenSource">true</string>
+    <string name="library_lemniscate_repositoryLink">https://github.com/vlad1m1r990/Lemniscate</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_lemniscate_classPath">com.github.vlad1m1r990:Lemniscate</string>
+    <!-- License section -->
+    <string name="library_lemniscate_licenseId">apache_2_0</string>
+
+    <!-- NumberProgressBar -->
+    <string name="define_numberprogressbar"/>
+    <!-- Author section -->
+    <string name="library_numberprogressbar_author">代码家</string>
+    <string name="library_numberprogressbar_authorWebsite">https://github.com/daimajia</string>
+    <!-- Library section -->
+    <string name="library_numberprogressbar_libraryName">NumberProgressBar</string>
+    <string name="library_numberprogressbar_libraryDescription">A slim and sexy number-based progress bar.</string>
+    <string name="library_numberprogressbar_libraryWebsite">https://github.com/daimajia/NumberProgressBar</string>
+    <string name="library_numberprogressbar_libraryVersion">1.4</string>
+    <!-- OpenSource section -->
+    <string name="library_numberprogressbar_isOpenSource">true</string>
+    <string name="library_numberprogressbar_repositoryLink">https://github.com/daimajia/NumberProgressBar</string>
+    <!-- ClassPath for autoDetect section -->
+    <string name="library_numberprogressbar_classPath">com.daimajia.numberprogressbar</string>
+    <!-- License section -->
+    <string name="library_numberprogressbar_licenseId">mit</string>
 </resources>

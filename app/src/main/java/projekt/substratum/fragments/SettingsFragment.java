@@ -445,6 +445,15 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         return false;
                     });
 
+            if (References.checkOMS(getContext())) {
+                crashReceiver.setChecked(prefs.getBoolean("crash_receiver", true));
+                crashReceiver.setOnPreferenceChangeListener((preference, newValue) -> {
+                    boolean isChecked = (Boolean) newValue;
+                    prefs.edit().putBoolean("crash_receiver", isChecked).apply();
+                    return true;
+                });
+            }
+
             if (References.checkThemeInterfacer(getContext())) {
                 forceIndependence.setChecked(prefs.getBoolean("force_independence", false));
                 forceIndependence.setOnPreferenceChangeListener(
@@ -479,12 +488,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             } else if (References.checkOMS(getContext())) {
                 forceIndependence.setChecked(!References.checkThemeInterfacer(getContext()));
                 forceIndependence.setEnabled(References.checkThemeInterfacer(getContext()));
-                crashReceiver.setChecked(prefs.getBoolean("crash_receiver", true));
-                crashReceiver.setOnPreferenceChangeListener((preference, newValue) -> {
-                    boolean isChecked = (Boolean) newValue;
-                    prefs.edit().putBoolean("crash_receiver", isChecked).apply();
-                    return true;
-                });
             }
         } else {
             if (References.checkOMS(getContext())) {

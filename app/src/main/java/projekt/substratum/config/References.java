@@ -436,6 +436,7 @@ public class References {
         editor.putBoolean("alphabetize_showcase", false);
         editor.putBoolean("complexion", true);
         editor.putString("compiler", "aapt");
+        editor.putBoolean("crash_receiver", true);
         editor.apply();
         editor = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE).edit();
         editor.putBoolean("is_updating", false);

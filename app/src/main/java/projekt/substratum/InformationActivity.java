@@ -42,7 +42,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.Snackbar;
+import android.support.design.widget.Lunchbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.PagerAdapter;
@@ -192,14 +192,14 @@ public class InformationActivity extends AppCompatActivity {
                         WallpaperManager.setWallpaper(getApplicationContext(),
                                 resultUri.toString().substring(7), "home");
                         editor.putString("home_wallpaper_applied", theme_pid);
-                        Snackbar.make(findViewById(android.R.id.content),
+                        Lunchbar.make(findViewById(android.R.id.content),
                                 getString(R.string.wallpaper_homescreen_success),
-                                Snackbar.LENGTH_LONG)
+                                Lunchbar.LENGTH_LONG)
                                 .show();
                     } catch (IOException e) {
-                        Snackbar.make(findViewById(android.R.id.content),
+                        Lunchbar.make(findViewById(android.R.id.content),
                                 getString(R.string.wallpaper_homescreen_error),
-                                Snackbar.LENGTH_LONG)
+                                Lunchbar.LENGTH_LONG)
                                 .show();
                         e.printStackTrace();
                     }
@@ -208,14 +208,14 @@ public class InformationActivity extends AppCompatActivity {
                         WallpaperManager.setWallpaper(getApplicationContext(),
                                 resultUri.toString().substring(7), "lock");
                         editor.putString("lock_wallpaper_applied", theme_pid);
-                        Snackbar.make(findViewById(android.R.id.content),
+                        Lunchbar.make(findViewById(android.R.id.content),
                                 getString(R.string.wallpaper_lockscreen_success),
-                                Snackbar.LENGTH_LONG)
+                                Lunchbar.LENGTH_LONG)
                                 .show();
                     } catch (IOException e) {
-                        Snackbar.make(findViewById(android.R.id.content),
+                        Lunchbar.make(findViewById(android.R.id.content),
                                 getString(R.string.wallpaper_lockscreen_error),
-                                Snackbar.LENGTH_LONG)
+                                Lunchbar.LENGTH_LONG)
                                 .show();
                         e.printStackTrace();
                     }
@@ -225,14 +225,14 @@ public class InformationActivity extends AppCompatActivity {
                                 resultUri.toString().substring(7), "all");
                         editor.putString("home_wallpaper_applied", theme_pid);
                         editor.putString("lock_wallpaper_applied", theme_pid);
-                        Snackbar.make(findViewById(android.R.id.content),
+                        Lunchbar.make(findViewById(android.R.id.content),
                                 getString(R.string.wallpaper_allscreen_success),
-                                Snackbar.LENGTH_LONG)
+                                Lunchbar.LENGTH_LONG)
                                 .show();
                     } catch (IOException e) {
-                        Snackbar.make(findViewById(android.R.id.content),
+                        Lunchbar.make(findViewById(android.R.id.content),
                                 getString(R.string.wallpaper_allscreen_error),
-                                Snackbar.LENGTH_LONG)
+                                Lunchbar.LENGTH_LONG)
                                 .show();
                         e.printStackTrace();
                     }
@@ -847,9 +847,9 @@ public class InformationActivity extends AppCompatActivity {
                     i.setData(Uri.parse(playURL));
                     startActivity(i);
                 } catch (ActivityNotFoundException activityNotFoundException) {
-                    Snackbar.make(findViewById(android.R.id.content),
+                    Lunchbar.make(findViewById(android.R.id.content),
                             getString(R.string.activity_missing_toast),
-                            Snackbar.LENGTH_LONG)
+                            Lunchbar.LENGTH_LONG)
                             .show();
                 }
                 return true;
@@ -952,9 +952,9 @@ public class InformationActivity extends AppCompatActivity {
                     getColor(R.color.information_activity_dark_icon_mode),
                     PorterDuff.Mode.SRC_ATOP);
             String format = String.format(getString(R.string.menu_favorite_snackbar), result);
-            Snackbar.make(findViewById(android.R.id.content),
+            Lunchbar.make(findViewById(android.R.id.content),
                     format,
-                    Snackbar.LENGTH_LONG)
+                    Lunchbar.LENGTH_LONG)
                     .show();
         }
 
@@ -976,9 +976,9 @@ public class InformationActivity extends AppCompatActivity {
                     PorterDuff.Mode.SRC_ATOP);
             String format = String.format(
                     getString(R.string.menu_favorite_snackbar_cleared), result);
-            Snackbar.make(findViewById(android.R.id.content),
+            Lunchbar.make(findViewById(android.R.id.content),
                     format,
-                    Snackbar.LENGTH_LONG)
+                    Lunchbar.LENGTH_LONG)
                     .show();
         }
 

@@ -22,7 +22,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
+import android.support.design.widget.Lunchbar;
 import android.support.v7.app.AppCompatActivity;
 
 import java.io.File;
@@ -49,23 +49,23 @@ public class LaunchTheme extends AppCompatActivity {
                 if (checkSubstratumVerity.exists()) {
                     References.launchTheme(this, theme_pid, null, false);
                 } else {
-                    Snackbar.make(findViewById(android.R.id.content),
+                    Lunchbar.make(findViewById(android.R.id.content),
                             getString(R.string.toast_needs_caching),
-                            Snackbar.LENGTH_LONG)
+                            Lunchbar.LENGTH_LONG)
                             .show();
                     Intent intent = new Intent(this, MainActivity.class);
                     startActivity(intent);
                 }
             } else {
-                Snackbar.make(findViewById(android.R.id.content),
+                Lunchbar.make(findViewById(android.R.id.content),
                         getString(R.string.toast_uninstalled),
-                        Snackbar.LENGTH_LONG)
+                        Lunchbar.LENGTH_LONG)
                         .show();
             }
         } else {
-            Snackbar.make(findViewById(android.R.id.content),
+            Lunchbar.make(findViewById(android.R.id.content),
                     getString(R.string.background_updating_toast),
-                    Snackbar.LENGTH_LONG)
+                    Lunchbar.LENGTH_LONG)
                     .show();
         }
         finish();

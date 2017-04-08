@@ -25,7 +25,7 @@ import android.content.res.AssetManager;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.preference.PreferenceManager;
-import android.support.design.widget.Snackbar;
+import android.support.design.widget.Lunchbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -90,14 +90,14 @@ public class BootAnimationUtils {
             progress.dismiss();
 
             if (!has_failed) {
-                Snackbar.make(view,
+                Lunchbar.make(view,
                         mContext.getString(R.string.bootanimation_dialog_apply_success),
-                        Snackbar.LENGTH_LONG)
+                        Lunchbar.LENGTH_LONG)
                         .show();
             } else {
-                Snackbar.make(view,
+                Lunchbar.make(view,
                         mContext.getString(R.string.bootanimation_dialog_apply_failed),
-                        Snackbar.LENGTH_LONG)
+                        Lunchbar.LENGTH_LONG)
                         .show();
             }
             if (!References.checkThemeInterfacer(mContext)) {

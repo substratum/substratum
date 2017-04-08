@@ -21,7 +21,7 @@ package projekt.substratum.fragments;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.design.widget.Lunchbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -153,10 +153,10 @@ public class PriorityListFragment extends Fragment {
         applyFab.setOnClickListener(v -> {
             applyFab.hide();
             if (getView() != null) {
-                Snackbar.make(getView(),
+                Lunchbar.make(getView(),
                         getString(R.string.
                                 priority_success_toast),
-                        Snackbar.LENGTH_INDEFINITE)
+                        Lunchbar.LENGTH_INDEFINITE)
                         .show();
             }
             headerProgress.setVisibility(View.VISIBLE);

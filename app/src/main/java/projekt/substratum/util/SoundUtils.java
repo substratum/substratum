@@ -27,7 +27,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.Settings;
-import android.support.design.widget.Snackbar;
+import android.support.design.widget.Lunchbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
@@ -67,14 +67,14 @@ public class SoundUtils {
 
     private void finishFunction() {
         if (!has_failed) {
-            Snackbar.make(view,
+            Lunchbar.make(view,
                     mContext.getString(R.string.sounds_dialog_apply_success),
-                    Snackbar.LENGTH_LONG)
+                    Lunchbar.LENGTH_LONG)
                     .show();
         } else {
-            Snackbar.make(view,
+            Lunchbar.make(view,
                     mContext.getString(R.string.sounds_dialog_apply_failed),
-                    Snackbar.LENGTH_LONG)
+                    Lunchbar.LENGTH_LONG)
                     .show();
         }
 

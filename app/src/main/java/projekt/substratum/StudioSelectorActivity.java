@@ -24,7 +24,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
+import android.support.design.widget.Lunchbar;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -78,9 +78,9 @@ public class StudioSelectorActivity extends AppCompatActivity {
                     i.setData(Uri.parse(playURL));
                     startActivity(i);
                 } catch (ActivityNotFoundException activityNotFoundException) {
-                    Snackbar.make(findViewById(android.R.id.content),
+                    Lunchbar.make(findViewById(android.R.id.content),
                             getString(R.string.activity_missing_toast),
-                            Snackbar.LENGTH_LONG)
+                            Lunchbar.LENGTH_LONG)
                             .show();
                 }
                 return true;
@@ -224,9 +224,9 @@ public class StudioSelectorActivity extends AppCompatActivity {
                                 "Cannot apply icon pack on a non OMS7 ROM");
                     }
                 } else {
-                    Snackbar.make(findViewById(android.R.id.content),
+                    Lunchbar.make(findViewById(android.R.id.content),
                             getString(R.string.studio_system_reset_dialog_toast),
-                            Snackbar.LENGTH_LONG)
+                            Lunchbar.LENGTH_LONG)
                             .show();
                 }
             });

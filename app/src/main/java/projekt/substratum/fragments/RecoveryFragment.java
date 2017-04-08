@@ -27,7 +27,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
-import android.support.design.widget.Snackbar;
+import android.support.design.widget.Lunchbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -97,10 +97,10 @@ public class RecoveryFragment extends Fragment {
             disable_all.setOnClickListener(view -> {
                 if (References.checkOMS(getContext())) {
                     if (getView() != null) {
-                        Snackbar.make(getView(),
+                        Lunchbar.make(getView(),
                                 getString(R.string.
                                         manage_system_overlay_toast),
-                                Snackbar.LENGTH_LONG)
+                                Lunchbar.LENGTH_LONG)
                                 .show();
                     }
                     ThemeManager.disableAll(getContext());
@@ -120,10 +120,10 @@ public class RecoveryFragment extends Fragment {
                     }
                     FileOperations.mountRO();
                     if (getView() != null) {
-                        Snackbar.make(getView(),
+                        Lunchbar.make(getView(),
                                 getString(R.string.
                                         abort_overlay_toast_success),
-                                Snackbar.LENGTH_LONG)
+                                Lunchbar.LENGTH_LONG)
                                 .show();
                     }
                     AlertDialog.Builder alertDialogBuilder =
@@ -165,9 +165,9 @@ public class RecoveryFragment extends Fragment {
                 try {
                     WallpaperManager.clearWallpaper(getContext(), "home");
                     if (getView() != null) {
-                        Snackbar.make(getView(),
+                        Lunchbar.make(getView(),
                                 getString(R.string.manage_wallpaper_home_toast),
-                                Snackbar.LENGTH_LONG)
+                                Lunchbar.LENGTH_LONG)
                                 .show();
                     }
                 } catch (IOException e) {
@@ -183,9 +183,9 @@ public class RecoveryFragment extends Fragment {
                 try {
                     WallpaperManager.clearWallpaper(getContext(), "lock");
                     if (getView() != null) {
-                        Snackbar.make(getView(),
+                        Lunchbar.make(getView(),
                                 getString(R.string.manage_wallpaper_lock_toast),
-                                Snackbar.LENGTH_LONG)
+                                Lunchbar.LENGTH_LONG)
                                 .show();
                     }
                 } catch (IOException e) {
@@ -198,10 +198,10 @@ public class RecoveryFragment extends Fragment {
                 try {
                     WallpaperManager.clearWallpaper(getContext(), "all");
                     if (getView() != null) {
-                        Snackbar.make(getView(),
+                        Lunchbar.make(getView(),
                                 getString(R.string.
                                         manage_wallpaper_all_toast),
-                                Snackbar.LENGTH_LONG)
+                                Lunchbar.LENGTH_LONG)
                                 .show();
                     }
                 } catch (IOException e) {
@@ -248,9 +248,9 @@ public class RecoveryFragment extends Fragment {
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     if (getView() != null) {
-                        Snackbar.make(getView(),
+                        Lunchbar.make(getView(),
                                 getString(R.string.fonts_dialog_permissions_grant_toast),
-                                Snackbar.LENGTH_LONG).show();
+                                Lunchbar.LENGTH_LONG).show();
                     }
                 }
                 sheetDialog.hide();
@@ -277,9 +277,9 @@ public class RecoveryFragment extends Fragment {
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     if (getView() != null) {
-                        Snackbar.make(getView(),
+                        Lunchbar.make(getView(),
                                 getString(R.string.sounds_dialog_permissions_grant_toast),
-                                Snackbar.LENGTH_LONG).show();
+                                Lunchbar.LENGTH_LONG).show();
                     }
                 }
                 sheetDialog.hide();
@@ -329,10 +329,10 @@ public class RecoveryFragment extends Fragment {
             super.onPostExecute(result);
             try {
                 if (getView() != null) {
-                    Snackbar.make(getView(),
+                    Lunchbar.make(getView(),
                             getString(R.string.
                                     manage_system_overlay_uninstall_toast),
-                            Snackbar.LENGTH_LONG)
+                            Lunchbar.LENGTH_LONG)
                             .show();
                 }
             } catch (Exception e) {
@@ -377,10 +377,10 @@ public class RecoveryFragment extends Fragment {
             editor.remove("bootanimation_applied").apply();
 
             if (getView() != null) {
-                Snackbar.make(getView(),
+                Lunchbar.make(getView(),
                         getString(R.string.
                                 manage_bootanimation_toast),
-                        Snackbar.LENGTH_LONG)
+                        Lunchbar.LENGTH_LONG)
                         .show();
             }
         }
@@ -412,18 +412,18 @@ public class RecoveryFragment extends Fragment {
 
             if (References.checkOMS(getContext())) {
                 if (getView() != null) {
-                    Snackbar.make(getView(),
+                    Lunchbar.make(getView(),
                             getString(R.string.
                                     manage_fonts_toast),
-                            Snackbar.LENGTH_LONG)
+                            Lunchbar.LENGTH_LONG)
                             .show();
                 }
             } else {
                 if (getView() != null) {
-                    Snackbar.make(getView(),
+                    Lunchbar.make(getView(),
                             getString(R.string.
                                     manage_fonts_toast),
-                            Snackbar.LENGTH_LONG)
+                            Lunchbar.LENGTH_LONG)
                             .show();
                 }
                 final AlertDialog.Builder alertDialogBuilder =
@@ -468,10 +468,10 @@ public class RecoveryFragment extends Fragment {
             editor.remove("sounds_applied").apply();
 
             if (getView() != null) {
-                Snackbar.make(getView(),
+                Lunchbar.make(getView(),
                         getString(R.string.
                                 manage_sounds_toast),
-                        Snackbar.LENGTH_LONG)
+                        Lunchbar.LENGTH_LONG)
                         .show();
             }
         }

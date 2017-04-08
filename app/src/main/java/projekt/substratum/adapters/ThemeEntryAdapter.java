@@ -30,7 +30,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
-import android.support.design.widget.Snackbar;
+import android.support.design.widget.Lunchbar;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -156,10 +156,10 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
                                             .execute();
                                 }
                             } else {
-                                Snackbar.make(v,
+                                Lunchbar.make(v,
                                         information.get(pos).getContext()
                                                 .getString(R.string.toast_uninstalled),
-                                        Snackbar.LENGTH_LONG)
+                                        Lunchbar.LENGTH_LONG)
                                         .show();
 
                                 information.get(i).getActivity().recreate();
@@ -167,16 +167,16 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
                         } else {
                             if (References.isNotificationVisible(
                                     mContext, References.notification_id_upgrade)) {
-                                Snackbar.make(v,
+                                Lunchbar.make(v,
                                         information.get(pos).getContext()
                                                 .getString(R.string.background_updating_toast),
-                                        Snackbar.LENGTH_LONG)
+                                        Lunchbar.LENGTH_LONG)
                                         .show();
                             } else {
-                                Snackbar.make(v,
+                                Lunchbar.make(v,
                                         information.get(pos).getContext()
                                                 .getString(R.string.background_needs_invalidating),
-                                        Snackbar.LENGTH_INDEFINITE)
+                                        Lunchbar.LENGTH_INDEFINITE)
                                         .setAction(mContext.getString(
                                                 R.string.background_needs_invalidating_button),
                                                 view -> new deleteCache().execute(""))

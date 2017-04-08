@@ -27,7 +27,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
-import android.support.design.widget.Snackbar;
+import android.support.design.widget.Lunchbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -241,9 +241,9 @@ public class ProfileFragment extends Fragment {
                         InputMethodManager.RESULT_UNCHANGED_SHOWN);
             } else {
                 if (getView() != null) {
-                    Snackbar.make(getView(),
+                    Lunchbar.make(getView(),
                             getString(R.string.profile_edittext_empty_toast),
-                            Snackbar.LENGTH_LONG)
+                            Lunchbar.LENGTH_LONG)
                             .show();
                 }
             }
@@ -309,9 +309,9 @@ public class ProfileFragment extends Fragment {
                         .create().show();
             } else {
                 if (getView() != null) {
-                    Snackbar.make(getView(),
+                    Lunchbar.make(getView(),
                             getString(R.string.profile_delete_button_none_selected_toast),
-                            Snackbar.LENGTH_LONG)
+                            Lunchbar.LENGTH_LONG)
                             .show();
                 }
             }
@@ -324,9 +324,9 @@ public class ProfileFragment extends Fragment {
                 restoreFunction.execute(profile_selector.getSelectedItem().toString());
             } else {
                 if (getView() != null) {
-                    Snackbar.make(getView(),
+                    Lunchbar.make(getView(),
                             getString(R.string.restore_button_none_selected_toast),
-                            Snackbar.LENGTH_LONG)
+                            Lunchbar.LENGTH_LONG)
                             .show();
                 }
             }
@@ -411,22 +411,22 @@ public class ProfileFragment extends Fragment {
                                 setupScheduledProfile();
                             } else {
                                 if (getView() != null) {
-                                    Snackbar.make(getView(), R.string.time_equal_warning,
-                                            Snackbar.LENGTH_LONG)
+                                    Lunchbar.make(getView(), R.string.time_equal_warning,
+                                            Lunchbar.LENGTH_LONG)
                                             .show();
                                 }
                             }
                         } else {
                             if (getView() != null) {
-                                Snackbar.make(getView(), R.string.time_empty_warning,
-                                        Snackbar.LENGTH_LONG)
+                                Lunchbar.make(getView(), R.string.time_empty_warning,
+                                        Lunchbar.LENGTH_LONG)
                                         .show();
                             }
                         }
                     } else {
                         if (getView() != null) {
-                            Snackbar.make(getView(), R.string.profile_empty_warning,
-                                    Snackbar.LENGTH_LONG)
+                            Lunchbar.make(getView(), R.string.profile_empty_warning,
+                                    Lunchbar.LENGTH_LONG)
                                     .show();
                         }
                     }
@@ -502,8 +502,8 @@ public class ProfileFragment extends Fragment {
                     .apply();
 
             if (getView() != null) {
-                Snackbar.make(getView(), R.string.scheduled_profile_apply_success,
-                        Snackbar.LENGTH_LONG)
+                Lunchbar.make(getView(), R.string.scheduled_profile_apply_success,
+                        Lunchbar.LENGTH_LONG)
                         .show();
             }
         } else {
@@ -520,8 +520,8 @@ public class ProfileFragment extends Fragment {
                         .remove(NIGHT_PROFILE_MINUTE)
                         .apply();
                 if (getView() != null) {
-                    Snackbar.make(getView(), R.string.scheduled_profile_disable_success,
-                            Snackbar.LENGTH_LONG)
+                    Lunchbar.make(getView(), R.string.scheduled_profile_disable_success,
+                            Lunchbar.LENGTH_LONG)
                             .show();
                 }
             }
@@ -543,18 +543,18 @@ public class ProfileFragment extends Fragment {
                 String directory_parse = String.format(getString(R.string.toast_backup_success),
                         backup_getText + ".substratum");
                 if (getView() != null) {
-                    Snackbar.make(getView(),
+                    Lunchbar.make(getView(),
                             directory_parse,
-                            Snackbar.LENGTH_LONG)
+                            Lunchbar.LENGTH_LONG)
                             .show();
                 }
             } else {
                 String directory_parse = String.format(getString(R.string.toast_backup_success),
                         backup_getText + "/");
                 if (getView() != null) {
-                    Snackbar.make(getView(),
+                    Lunchbar.make(getView(),
                             directory_parse,
-                            Snackbar.LENGTH_LONG)
+                            Lunchbar.LENGTH_LONG)
                             .show();
                 }
             }
@@ -715,9 +715,9 @@ public class ProfileFragment extends Fragment {
                     }
                 } else {
                     if (getView() != null) {
-                        Snackbar.make(getView(),
+                        Lunchbar.make(getView(),
                                 getString(R.string.backup_no_overlays),
-                                Snackbar.LENGTH_LONG)
+                                Lunchbar.LENGTH_LONG)
                                 .show();
                     }
                 }

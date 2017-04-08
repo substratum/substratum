@@ -43,7 +43,7 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.service.quicksettings.Tile;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
+import android.support.design.widget.Lunchbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -535,9 +535,9 @@ public class MainActivity extends AppCompatActivity implements
                             i.setData(Uri.parse(sourceURL));
                             startActivity(i);
                         } catch (Exception e) {
-                            Snackbar.make(findViewById(android.R.id.content),
+                            Lunchbar.make(findViewById(android.R.id.content),
                                     getString(R.string.activity_missing_toast),
-                                    Snackbar.LENGTH_LONG)
+                                    Lunchbar.LENGTH_LONG)
                                     .show();
                         }
                         break;
@@ -548,9 +548,9 @@ public class MainActivity extends AppCompatActivity implements
                             i.setData(Uri.parse(sourceURL));
                             startActivity(i);
                         } catch (Exception e) {
-                            Snackbar.make(findViewById(android.R.id.content),
+                            Lunchbar.make(findViewById(android.R.id.content),
                                     getString(R.string.activity_missing_toast),
-                                    Snackbar.LENGTH_LONG)
+                                    Lunchbar.LENGTH_LONG)
                                     .show();
                         }
                         break;
@@ -561,9 +561,9 @@ public class MainActivity extends AppCompatActivity implements
                             i.setData(Uri.parse(sourceURL));
                             startActivity(i);
                         } catch (Exception e) {
-                            Snackbar.make(findViewById(android.R.id.content),
+                            Lunchbar.make(findViewById(android.R.id.content),
                                     getString(R.string.activity_missing_toast),
-                                    Snackbar.LENGTH_LONG)
+                                    Lunchbar.LENGTH_LONG)
                                     .show();
                         }
                         break;
@@ -574,9 +574,9 @@ public class MainActivity extends AppCompatActivity implements
                             i.setData(Uri.parse(sourceURL));
                             startActivity(i);
                         } catch (Exception e) {
-                            Snackbar.make(findViewById(android.R.id.content),
+                            Lunchbar.make(findViewById(android.R.id.content),
                                     getString(R.string.activity_missing_toast),
-                                    Snackbar.LENGTH_LONG)
+                                    Lunchbar.LENGTH_LONG)
                                     .show();
                         }
                         break;
@@ -587,9 +587,9 @@ public class MainActivity extends AppCompatActivity implements
                             i.setData(Uri.parse(sourceURL));
                             startActivity(i);
                         } catch (Exception e) {
-                            Snackbar.make(findViewById(android.R.id.content),
+                            Lunchbar.make(findViewById(android.R.id.content),
                                     getString(R.string.activity_missing_toast),
-                                    Snackbar.LENGTH_LONG)
+                                    Lunchbar.LENGTH_LONG)
                                     .show();
                         }
                         break;
@@ -600,9 +600,9 @@ public class MainActivity extends AppCompatActivity implements
                             i.setData(Uri.parse(sourceURL));
                             startActivity(i);
                         } catch (Exception e) {
-                            Snackbar.make(findViewById(android.R.id.content),
+                            Lunchbar.make(findViewById(android.R.id.content),
                                     getString(R.string.activity_missing_toast),
-                                    Snackbar.LENGTH_LONG)
+                                    Lunchbar.LENGTH_LONG)
                                     .show();
                         }
                         break;
@@ -613,9 +613,9 @@ public class MainActivity extends AppCompatActivity implements
                             i.setData(Uri.parse(sourceURL));
                             startActivity(i);
                         } catch (Exception e) {
-                            Snackbar.make(findViewById(android.R.id.content),
+                            Lunchbar.make(findViewById(android.R.id.content),
                                     getString(R.string.activity_missing_toast),
-                                    Snackbar.LENGTH_LONG)
+                                    Lunchbar.LENGTH_LONG)
                                     .show();
                         }
                         break;
@@ -626,9 +626,9 @@ public class MainActivity extends AppCompatActivity implements
                             i.setData(Uri.parse(sourceURL));
                             startActivity(i);
                         } catch (Exception e) {
-                            Snackbar.make(findViewById(android.R.id.content),
+                            Lunchbar.make(findViewById(android.R.id.content),
                                     getString(R.string.activity_missing_toast),
-                                    Snackbar.LENGTH_LONG)
+                                    Lunchbar.LENGTH_LONG)
                                     .show();
                         }
                         break;
@@ -639,9 +639,9 @@ public class MainActivity extends AppCompatActivity implements
                             i.setData(Uri.parse(sourceURL));
                             startActivity(i);
                         } catch (Exception e) {
-                            Snackbar.make(findViewById(android.R.id.content),
+                            Lunchbar.make(findViewById(android.R.id.content),
                                     getString(R.string.activity_missing_toast),
-                                    Snackbar.LENGTH_LONG)
+                                    Lunchbar.LENGTH_LONG)
                                     .show();
                         }
                         break;

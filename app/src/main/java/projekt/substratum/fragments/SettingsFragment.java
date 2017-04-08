@@ -35,7 +35,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.support.design.widget.Snackbar;
+import android.support.design.widget.Lunchbar;
 import android.support.v7.preference.CheckBoxPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
@@ -189,9 +189,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 new downloadRepositoryList().execute("");
             } else {
                 if (getView() != null) {
-                    Snackbar.make(getView(),
+                    Lunchbar.make(getView(),
                             R.string.resource_needs_internet,
-                            Snackbar.LENGTH_LONG)
+                            Lunchbar.LENGTH_LONG)
                             .show();
                 }
             }
@@ -507,9 +507,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     themeCaching.setVisible(true);
                     tapCount = 0;
                     if (getView() != null) {
-                        Snackbar.make(getView(),
+                        Lunchbar.make(getView(),
                                 R.string.settings_theme_caching_found_snackbar,
-                                Snackbar.LENGTH_LONG)
+                                Lunchbar.LENGTH_LONG)
                                 .show();
                     }
                     systemPlatform.setOnPreferenceClickListener(null);
@@ -575,9 +575,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                     .COMPONENT_ENABLED_STATE_ENABLED, PackageManager
                                     .DONT_KILL_APP);
                             if (getView() != null) {
-                                Snackbar.make(getView(),
+                                Lunchbar.make(getView(),
                                         getString(R.string.hide_app_icon_toast_disabled),
-                                        Snackbar.LENGTH_LONG)
+                                        Lunchbar.LENGTH_LONG)
                                         .show();
                             }
                             hide_app_checkbox.setChecked(true);
@@ -590,9 +590,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                     .COMPONENT_ENABLED_STATE_DISABLED, PackageManager
                                     .DONT_KILL_APP);
                             if (getView() != null) {
-                                Snackbar.make(getView(),
+                                Lunchbar.make(getView(),
                                         getString(R.string.hide_app_icon_toast_enabled),
-                                        Snackbar.LENGTH_LONG)
+                                        Lunchbar.LENGTH_LONG)
                                         .show();
                             }
                             hide_app_checkbox.setChecked(false);
@@ -612,18 +612,18 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         if (isChecked) {
                             prefs.edit().putBoolean("systemui_recreate", true).apply();
                             if (getView() != null) {
-                                Snackbar.make(getView(),
+                                Lunchbar.make(getView(),
                                         getString(R.string.restart_systemui_toast_enabled),
-                                        Snackbar.LENGTH_LONG)
+                                        Lunchbar.LENGTH_LONG)
                                         .show();
                             }
                             systemUIRestart.setChecked(true);
                         } else {
                             prefs.edit().putBoolean("systemui_recreate", false).apply();
                             if (getView() != null) {
-                                Snackbar.make(getView(),
+                                Lunchbar.make(getView(),
                                         getString(R.string.restart_systemui_toast_disabled),
-                                        Snackbar.LENGTH_LONG)
+                                        Lunchbar.LENGTH_LONG)
                                         .show();
                             }
                             systemUIRestart.setChecked(false);
@@ -685,9 +685,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             restartInterfacer.setOnPreferenceClickListener(preference -> {
                 ThemeManager.restartService(getContext());
                 if (getView() != null) {
-                    Snackbar.make(getView(),
+                    Lunchbar.make(getView(),
                             R.string.settings_restart_interfacer_snackbar,
-                            Snackbar.LENGTH_LONG)
+                            Lunchbar.LENGTH_LONG)
                             .show();
                 }
                 return false;

@@ -22,7 +22,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
+import android.support.design.widget.Lunchbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -230,9 +230,9 @@ public class TeamFragment extends Fragment {
                 i.setData(Uri.parse(playURL));
                 startActivity(i);
             } catch (ActivityNotFoundException activityNotFoundException) {
-                Snackbar.make(root.findViewById(android.R.id.content),
+                Lunchbar.make(root.findViewById(android.R.id.content),
                         getString(R.string.activity_missing_toast),
-                        Snackbar.LENGTH_LONG)
+                        Lunchbar.LENGTH_LONG)
                         .show();
             }
         });

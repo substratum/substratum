@@ -20,7 +20,7 @@ package projekt.substratum.adapters;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.support.design.widget.Snackbar;
+import android.support.design.widget.Lunchbar;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -122,10 +122,10 @@ public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapte
                 information.get(position).getContext().startActivity(intent);
             } catch (Exception e) {
                 e.printStackTrace();
-                Snackbar.make(view,
+                Lunchbar.make(view,
                         information.get(position).getContext()
                                 .getString(R.string.activity_missing_toast),
-                        Snackbar.LENGTH_LONG)
+                        Lunchbar.LENGTH_LONG)
                         .show();
             }
         });

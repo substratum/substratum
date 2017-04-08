@@ -30,7 +30,7 @@ import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.design.widget.Snackbar;
+import android.support.design.widget.Lunchbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.NestedScrollView;
@@ -279,9 +279,9 @@ public class Sounds extends Fragment {
             SharedPreferences.Editor editor = prefs.edit();
             editor.remove("sounds_applied");
             editor.apply();
-            Snackbar.make(nsv,
+            Lunchbar.make(nsv,
                     getString(R.string.manage_sounds_toast),
-                    Snackbar.LENGTH_LONG)
+                    Lunchbar.LENGTH_LONG)
                     .show();
         }
 

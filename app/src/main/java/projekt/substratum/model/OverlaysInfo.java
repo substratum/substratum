@@ -23,7 +23,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
-import android.widget.ArrayAdapter;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -47,7 +46,7 @@ public class OverlaysInfo implements Serializable {
     private VariantsAdapter array;
     private VariantsAdapter array2;
     private VariantsAdapter array3;
-    private ArrayAdapter<String> array4;
+    private VariantsAdapter array4;
     private boolean isSelected;
     private int spinnerSelection = 0;
     private int spinnerSelection2 = 0;
@@ -67,7 +66,7 @@ public class OverlaysInfo implements Serializable {
                         VariantsAdapter adapter,
                         VariantsAdapter adapter2,
                         VariantsAdapter adapter3,
-                        ArrayAdapter<String> adapter4,
+                        VariantsAdapter adapter4,
                         Context context, String versionName,
                         String baseResources, List enabledOverlays, Boolean theme_oms) {
 
@@ -143,7 +142,7 @@ public class OverlaysInfo implements Serializable {
         return array3;
     }
 
-    public ArrayAdapter<String> getSpinnerArray4() {
+    public VariantsAdapter getSpinnerArray4() {
         return array4;
     }
 

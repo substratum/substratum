@@ -967,13 +967,14 @@ public class Overlays extends Fragment {
         }
     }
 
-    public String setTypeTwoSpinners(Object typeArrayRaw, InputStreamReader inputStreamReader) {
+    public VariantInfo setTypeTwoSpinners(Object typeArrayRaw, InputStreamReader
+            inputStreamReader) {
         try (BufferedReader reader = new BufferedReader(inputStreamReader)) {
-            return String.format(getString(R.string
-                    .overlays_variant_substitute), reader.readLine());
+            return new VariantInfo(String.format(getString(R.string
+                    .overlays_variant_substitute), reader.readLine()), null);
         } catch (IOException e) {
             Log.e(References.SUBSTRATUM_LOG, "There was an error parsing asset file!");
-            return getString(R.string.overlays_variant_default_2);
+            return new VariantInfo(getString(R.string.overlays_variant_default_2), null);
         }
     }
 
@@ -1140,7 +1141,7 @@ public class Overlays extends Fragment {
                     ArrayList<VariantInfo> type1a = new ArrayList<>();
                     ArrayList<VariantInfo> type1b = new ArrayList<>();
                     ArrayList<VariantInfo> type1c = new ArrayList<>();
-                    ArrayList<String> type2 = new ArrayList<>();
+                    ArrayList<VariantInfo> type2 = new ArrayList<>();
                     ArrayList<String> typeArray = new ArrayList<>();
 
                     Object typeArrayRaw;
@@ -1230,7 +1231,7 @@ public class Overlays extends Fragment {
                                     }
                                 } else if (!current.contains(".") && current.length() > 5 &&
                                         current.substring(0, 6).equals("type2_")) {
-                                    type2.add(current.substring(6));
+                                    type2.add(new VariantInfo(current.substring(6), null));
                                 }
                             }
                         }
@@ -1238,8 +1239,7 @@ public class Overlays extends Fragment {
                         VariantsAdapter adapter1 = new VariantsAdapter(getActivity(), type1a);
                         VariantsAdapter adapter2 = new VariantsAdapter(getActivity(), type1b);
                         VariantsAdapter adapter3 = new VariantsAdapter(getActivity(), type1c);
-                        ArrayAdapter<String> adapter4 = new ArrayAdapter<>(getActivity(),
-                                android.R.layout.simple_spinner_dropdown_item, type2);
+                        VariantsAdapter adapter4 = new VariantsAdapter(getActivity(), type2);
 
                         boolean adapterOneChecker = type1a.size() == 0;
                         boolean adapterTwoChecker = type1b.size() == 0;

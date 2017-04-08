@@ -77,12 +77,12 @@ public class VariantsAdapter extends ArrayAdapter<VariantInfo> {
                 // First check if our model contains a saved color value
                 if (item.isDefaultOption()) {
                     if (item.getVariantName() != null) {
-                        holder.variantName.setText(item.getVariantName());
+                        holder.variantName.setText(item.getVariantName().replace("_", " "));
                         holder.variantHex.setVisibility(View.GONE);
                     }
                 } else if (item.getColor() == 0) {
                     if (item.getVariantName() != null) {
-                        holder.variantName.setText(item.getVariantName());
+                        holder.variantName.setText(item.getVariantName().replace("_", " "));
                         if (item.getVariantHex().contains(":color")) {
                             // Uh oh, we hit a package dependent resource pointer!
                             String working_value = item.getVariantHex();
@@ -136,7 +136,7 @@ public class VariantsAdapter extends ArrayAdapter<VariantInfo> {
                     }
                 } else {
                     if (item.getVariantName() != null) {
-                        holder.variantName.setText(item.getVariantName());
+                        holder.variantName.setText(item.getVariantName().replace("_", " "));
                     }
                     // We now know that the color is not 0 which is the hardcoded null set for int
                     int color = item.getColor();

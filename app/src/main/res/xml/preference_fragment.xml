@@ -70,8 +70,8 @@
         <Preference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:key="restart_interfacer"
-            android:title="@string/settings_restart_interfacer_title"/>
+            android:key="force_stop_interfacer"
+            android:title="@string/settings_force_stop_interfacer_title"/>
 
         <Preference
             android:layout_width="match_parent"

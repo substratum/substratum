@@ -121,9 +121,9 @@ public class ThemeManager {
         }
     }
 
-    public static void restartService(Context context) {
+    public static void forceStopService(Context context) {
         if (checkThemeInterfacer(context)) {
-            ThemeInterfacerService.restartService(context);
+            ThemeInterfacerService.forceStopService(context);
         }
     }
 

@@ -683,12 +683,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     });
 
             final Preference restartInterfacer = getPreferenceManager()
-                    .findPreference("restart_interfacer");
+                    .findPreference("force_stop_interfacer");
             restartInterfacer.setOnPreferenceClickListener(preference -> {
-                ThemeManager.restartService(getContext());
+                ThemeManager.forceStopService(getContext());
                 if (getView() != null) {
                     Lunchbar.make(getView(),
-                            R.string.settings_restart_interfacer_snackbar,
+                            R.string.settings_force_stop_interfacer_snackbar,
                             Lunchbar.LENGTH_LONG)
                             .show();
                 }
@@ -701,7 +701,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 Class<?> cls = Class.forName(INTERFACER_PACKAGE + ".services.JobService",
                         true,
                         interfacerClassLoader);
-                cls.getDeclaredMethod("restartService");
+                cls.getDeclaredMethod("forceStopService");
                 restartInterfacer.setVisible(true);
             } catch (Exception ex) {
                 restartInterfacer.setVisible(false);

@@ -50,7 +50,7 @@ public class ThemeInterfacerService {
     private static final String COMMAND_VALUE_INSTALL = "install";
     private static final String COMMAND_VALUE_UNINSTALL = "uninstall";
     private static final String COMMAND_VALUE_RESTART_UI = "restart_ui";
-    private static final String COMMAND_VALUE_RESTART_SERVICE = "restart_service";
+    private static final String COMMAND_VALUE_FORCE_STOP_SERVICE = "force_stop_service";
     private static final String COMMAND_VALUE_CONFIGURATION_SHIM = "configuration_shim";
     private static final String COMMAND_VALUE_BOOTANIMATION = "bootanimation";
     private static final String COMMAND_VALUE_FONTS = "fonts";
@@ -123,9 +123,9 @@ public class ThemeInterfacerService {
         context.startService(intent);
     }
 
-    public static void restartService(Context context) {
+    public static void forceStopService(Context context) {
         Intent intent = getThemeInterfacer(context);
-        intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_RESTART_SERVICE);
+        intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_FORCE_STOP_SERVICE);
         context.startService(intent);
     }
 

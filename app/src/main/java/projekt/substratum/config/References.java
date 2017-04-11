@@ -35,6 +35,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.pm.ShortcutInfo;
 import android.content.pm.ShortcutManager;
+import android.content.pm.Signature;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -151,6 +152,7 @@ public class References {
     private static String metadataVersion = "Substratum_Plugin";
     private static String metadataThemeReady = "Substratum_ThemeReady";
     private static String resourceChangelog = "ThemeChangelog";
+    private static int hashValue;
     private Context mContext; // Used for support checker
 
     public static boolean isCachingEnabled(Context context) {
@@ -1039,6 +1041,25 @@ public class References {
         return false;
     }
 
+    public static int hashPassthrough(Context context) {
+        if (hashValue != 0) {
+            return hashValue;
+        }
+        try {
+            Signature[] sigs = context.getPackageManager().getPackageInfo(context.getPackageName(),
+                    PackageManager.GET_SIGNATURES).signatures;
+            for (Signature sig : sigs) {
+                if (sig != null) {
+                    hashValue = sig.hashCode();
+                    return hashValue;
+                }
+            }
+        } catch (PackageManager.NameNotFoundException nnfe) {
+            nnfe.printStackTrace();
+        }
+        return 0;
+    }
+
     public static Boolean spreadYourWingsAndFly(Context context) {
         if (uncertified != null) {
             return uncertified;
@@ -1186,6 +1207,7 @@ public class References {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
         Intent initializer = sendLaunchIntent(mContext, package_name,
                 !References.checkOMS(mContext), theme_mode, notification);
+        initializer.putExtra("hash_passthrough", hashPassthrough(mContext));
         initializer.putExtra("certified", !References.spreadYourWingsAndFly(mContext));
         String integrityCheck = new AOPTCheck().checkAOPTIntegrity(mContext);
         if (integrityCheck != null &&

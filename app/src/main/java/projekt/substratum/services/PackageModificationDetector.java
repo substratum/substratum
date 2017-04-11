@@ -19,7 +19,6 @@
 package projekt.substratum.services;
 
 import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -27,180 +26,249 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.preference.PreferenceManager;
-import android.support.v4.app.NotificationCompat;
+import android.os.AsyncTask;
+import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
+import projekt.substratum.InformationActivity;
+import projekt.substratum.MainActivity;
 import projekt.substratum.R;
 import projekt.substratum.config.References;
-import projekt.substratum.config.ThemeInterfacerService;
-import projekt.substratum.config.ThemeManager;
-
-import static projekt.substratum.config.References.DEBUG;
-import static projekt.substratum.config.References.FIRST_WINDOW_REFRESH_DELAY;
-import static projekt.substratum.config.References.INTERFACER_PACKAGE;
-import static projekt.substratum.config.References.MAIN_WINDOW_REFRESH_DELAY;
-import static projekt.substratum.config.References.SECOND_WINDOW_REFRESH_DELAY;
+import projekt.substratum.util.CacheCreator;
+import projekt.substratum.util.NotificationCreator;
 
 public class PackageModificationDetector extends BroadcastReceiver {
 
-    private ArrayList<String> to_be_disabled;
+    private final static String PACKAGE_ADDED = "android.intent.action.PACKAGE_ADDED";
+    private SharedPreferences prefs;
+    private Context mContext;
+    private String package_name;
+    private Boolean replacing;
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if ("android.intent.action.PACKAGE_ADDED".equals(intent.getAction()) ||
-                "android.intent.action.PACKAGE_REPLACED".equals(intent.getAction()) ||
-                "android.intent.action.MY_PACKAGE_REPLACED".equals(intent.getAction())) {
-
+        if (PACKAGE_ADDED.equals(intent.getAction())) {
+            this.mContext = context;
             Uri packageName = intent.getData();
-            String package_name = packageName.toString().substring(8);
+            package_name = packageName.toString().substring(8);
 
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-            if (prefs.contains("installed_icon_pack")) {
-                to_be_disabled = new ArrayList<>();
-                String current = prefs.getString("installed_icon_pack", null);
-                if (current != null) {
-                    if (current.equals(context.getPackageName())) {
-                        List<ApplicationInfo> list = context.getPackageManager()
-                                .getInstalledApplications(PackageManager.GET_META_DATA);
-                        list.stream().filter(packageInfo ->
-                                (packageInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0).forEach(
-                                packageInfo ->
-                                        getSubstratumPackages(context,
-                                                packageInfo.packageName));
-                        String final_commands = ThemeManager.disableOverlay;
-                        // TODO: do something with this
-                        for (int i = 0; i < to_be_disabled.size(); i++) {
-                            final_commands = final_commands + " " + to_be_disabled.get(i);
-                        }
-                        if (References.checkThemeInterfacer(context)) {
-                            if (DEBUG)
-                                Log.e(References.SUBSTRATUM_LOG, "Initializing the Theme " +
-                                        "Interface...");
-                            Intent runCommand = ThemeInterfacerService.getInterfacer(context);
-                            runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                            runCommand.setAction(INTERFACER_PACKAGE + ".COMMANDS");
-                            ArrayList<String> final_array = new ArrayList<>();
-                            final_array.add(0, context.getString(R.string.studio_system)
-                                    .toLowerCase());
-                            final_array.add(1, final_commands);
-                            final_array.add(2, (final_commands.contains("projekt.substratum") ?
-                                    String.valueOf(MAIN_WINDOW_REFRESH_DELAY) : String.valueOf(0)));
-                            final_array.add(3, String.valueOf(FIRST_WINDOW_REFRESH_DELAY));
-                            final_array.add(4, String.valueOf(SECOND_WINDOW_REFRESH_DELAY));
-                            final_array.add(5, null);
-                            runCommand.putExtra("icon-handler", final_array);
-                            context.sendBroadcast(runCommand);
-                        }
-                        prefs.edit().remove("installed_icon_pack").apply();
-                    }
+            // First, check if the app installed is actually a substratum theme
+            try {
+                ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
+                        package_name, PackageManager.GET_META_DATA);
+                if (appInfo.metaData != null) {
+                    String check_theme_name =
+                            appInfo.metaData.getString(References.metadataName);
+                    String check_theme_author =
+                            appInfo.metaData.getString(References.metadataAuthor);
+                    if (check_theme_name == null && check_theme_author == null) return;
                 }
-            } else if (References.spreadYourWingsAndFly(context)) {
-                SharedPreferences prefsPrivate = context.getSharedPreferences(
-                        "filter_state", Context.MODE_PRIVATE);
-                prefsPrivate.edit().clear().apply();
-                Log.d(References.SUBSTRATUM_LOG,
-                        "The filter cache has been wiped in accordance to intent: " +
-                                package_name + " [" + intent.getAction() + "]");
-            } else {
-                Boolean found_valid_theme = false;
-                if (!prefs.getBoolean("display_old_themes", true)) {
-                    List<ResolveInfo> themes = References.getThemes(context);
-                    for (int i = 0; i < themes.size(); i++) {
-                        if (themes.get(i).activityInfo.packageName.equals(package_name)) {
-                            SharedPreferences prefsPrivate = context.getSharedPreferences(
-                                    "filter_state", Context.MODE_PRIVATE);
-                            prefsPrivate.edit().clear().apply();
-                            Log.d(References.SUBSTRATUM_LOG,
-                                    "The filter cache has been wiped in accordance to intent:" +
-                                            " " + package_name + " [" +
-                                            intent.getAction() + "]");
-                            found_valid_theme = true;
+            } catch (Exception e) {
+                return;
+            }
+
+            // When it is a proper theme, then we can continue
+            replacing = intent.getBooleanExtra(Intent.EXTRA_REPLACING, false);
+            prefs = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
+
+            // Legacy check to see if an OMS theme is guarded from being installed on legacy
+            if (!References.checkOMS(context)) {
+                try {
+                    ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
+                            package_name, PackageManager.GET_META_DATA);
+                    if (appInfo.metaData != null) {
+                        String check_legacy =
+                                appInfo.metaData.getString(References.metadataLegacy);
+                        if (check_legacy == null || check_legacy.equals("false")) {
+                            Log.e("SubstratumCacher", "Device is non-OMS, while an " +
+                                    "OMS theme is installed, aborting operation!");
+
+                            String parse = String.format(mContext.getString(
+                                    R.string.failed_to_install_text_notification),
+                                    appInfo.metaData.getString(
+                                            References.metadataName));
+
+                            Intent showIntent = new Intent();
+                            PendingIntent contentIntent = PendingIntent.getActivity(
+                                    mContext, 0, showIntent, 0);
+
+                            new NotificationCreator(
+                                    context,
+                                    mContext.getString(
+                                            R.string.failed_to_install_title_notification),
+                                    parse,
+                                    true,
+                                    contentIntent,
+                                    R.drawable.notification_warning_icon,
+                                    null,
+                                    Notification.PRIORITY_MAX,
+                                    References.notification_id).createNotification();
+
+                            References.uninstallPackage(mContext, package_name);
+                            return;
                         }
                     }
+                } catch (Exception e) {
+                    // Suppress warning
+                }
+            }
+
+            if (replacing) {
+                // We need to check if this is a new install or not
+                Log.d("SubstratumDetector", "'" + package_name + "' has been updated.");
+                if (!References.isCachingEnabled(context)) {
+                    Log.d("SubstratumDetector",
+                            "'" + package_name + "' has been updated with caching mode disabled.");
+
+                    new NotificationCreator(
+                            context,
+                            getThemeName(package_name) + " " + mContext.getString(
+                                    R.string.notification_theme_updated),
+                            mContext.getString(R.string.notification_theme_updated_content),
+                            true,
+                            grabPendingIntent(package_name),
+                            R.drawable.notification_updated,
+                            BitmapFactory.decodeResource(
+                                    mContext.getResources(), R.mipmap.restore_launcher),
+                            Notification.PRIORITY_MAX,
+                            ThreadLocalRandom.current().nextInt(0, 1000)).createNotification();
                 } else {
-                    try {
-                        ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
-                                package_name, PackageManager.GET_META_DATA);
-                        if (appInfo.metaData != null) {
-                            if (appInfo.metaData.getString(References.metadataName) != null) {
-                                if (appInfo.metaData.getString(References.metadataAuthor) != null) {
-                                    SharedPreferences prefsPrivate = context.getSharedPreferences(
-                                            "filter_state", Context.MODE_PRIVATE);
-                                    prefsPrivate.edit().clear().apply();
-                                    Log.d(References.SUBSTRATUM_LOG,
-                                            "The filter cache has been wiped in accordance to " +
-                                                    "intent: " + package_name + " [" +
-                                                    intent.getAction() + "]");
-                                    found_valid_theme = true;
-                                }
-                            }
-                        }
-                    } catch (Exception e) {
-                        // Exception
-                    }
+                    Log.d("SubstratumDetector",
+                            "'" + package_name + "' has been updated with caching mode enabled.");
+
+                    prefs.edit().putBoolean("is_updating", true).apply();
+
+                    new ThemeCacher().execute("");
                 }
-                if (!found_valid_theme) {
-                    try {
-                        ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
-                                package_name, PackageManager.GET_META_DATA);
-                        if (appInfo.metaData != null) {
-                            if (appInfo.metaData.getString(References.metadataName) != null) {
-                                if (appInfo.metaData.getString(References.metadataAuthor) != null) {
-                                    Log.e(References.SUBSTRATUM_LOG,
-                                            "An outdated theme has been reported from " +
-                                                    ": " + package_name);
+            } else if (!References.isCachingEnabled(context)) {
+                // This is a new install, but caching mode is disabled, so pass right through!
+                Log.d("SubstratumDetector",
+                        "'" + package_name + "' has been installed with caching mode disabled.");
 
-                                    Intent showIntent = new Intent();
-                                    PendingIntent contentIntent = PendingIntent.getActivity(
-                                            context, 0, showIntent, 0);
+                new NotificationCreator(
+                        context,
+                        getThemeName(package_name) + " " + mContext.getString(
+                                R.string.notification_theme_installed),
+                        mContext.getString(R.string.notification_theme_installed_content),
+                        true,
+                        grabPendingIntent(package_name),
+                        R.drawable.notification_icon,
+                        BitmapFactory.decodeResource(
+                                mContext.getResources(), R.mipmap.main_launcher),
+                        Notification.PRIORITY_MAX,
+                        ThreadLocalRandom.current().nextInt(0, 1000)).createNotification();
+            } else {
+                Log.d("SubstratumDetector",
+                        "'" + package_name + "' has been installed with caching mode enabled.");
 
-                                    NotificationManager notificationManager =
-                                            (NotificationManager) context.getSystemService(
-                                                    Context.NOTIFICATION_SERVICE);
-                                    NotificationCompat.Builder mBuilder =
-                                            new NotificationCompat.Builder(context)
-                                                    .setContentIntent(contentIntent)
-                                                    .setAutoCancel(true)
-                                                    .setSmallIcon(
-                                                            R.drawable.notification_warning_icon)
-                                                    .setContentTitle(context.getString(
-                                                            R.string.legacy_theme_notification_title))
-                                                    .setContentText(context.getString(
-                                                            R.string.legacy_theme_notification_text));
-                                    Notification notification = mBuilder.build();
-                                    notificationManager.notify(
-                                            References.notification_id, notification);
-
-                                    References.uninstallPackage(context, package_name);
-                                }
-                            }
-                        }
-                    } catch (Exception e) {
-                        // Suppress warning
-                    }
-                }
+                new ThemeCacher().execute("");
             }
         }
     }
 
-    private void getSubstratumPackages(Context context, String package_name) {
+    private String getThemeName(String package_name) {
         // Simulate the Layers Plugin feature by filtering all installed apps and their metadata
         try {
-            ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
+            ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
                     package_name, PackageManager.GET_META_DATA);
             if (appInfo.metaData != null) {
-                if (appInfo.metaData.getString("Substratum_IconPack") != null) {
-                    to_be_disabled.add(package_name);
+                if (References.checkOMS(mContext)) {
+                    if (appInfo.metaData.getString(References.metadataName) != null) {
+                        if (appInfo.metaData.getString(References.metadataAuthor) != null) {
+                            return appInfo.metaData.getString(References.metadataName);
+                        }
+                    }
+                } else {
+                    if (appInfo.metaData.getBoolean(References.metadataLegacy, false)) {
+                        if (appInfo.metaData.getString(References.metadataName) != null) {
+                            if (appInfo.metaData.getString(References.metadataAuthor) != null) {
+                                return appInfo.metaData.getString(References.metadataName);
+                            }
+                        }
+                    }
                 }
             }
         } catch (Exception e) {
-            // Suppress warnings
+            Log.e(References.SUBSTRATUM_LOG,
+                    "Unable to find package identifier (INDEX OUT OF BOUNDS)");
+        }
+        return null;
+    }
+
+    public PendingIntent grabPendingIntent(String package_name) {
+        Intent notificationIntent;
+        PendingIntent pIntent = null;
+        try {
+            Intent myIntent =
+                    References.sendLaunchIntent(
+                            mContext, package_name, false, null, true);
+            if (myIntent != null) {
+                TaskStackBuilder stackBuilder = TaskStackBuilder.create(mContext)
+                        .addParentStack(InformationActivity.class)
+                        .addNextIntent(myIntent);
+                pIntent = stackBuilder.getPendingIntent(0, PendingIntent
+                        .FLAG_CANCEL_CURRENT);
+            } else {
+                notificationIntent = new Intent(mContext, MainActivity.class);
+                pIntent = PendingIntent.getActivity(mContext, 0, notificationIntent,
+                        PendingIntent.FLAG_CANCEL_CURRENT);
+            }
+        } catch (Exception e) {
+            // Suppress warning
+        }
+        return pIntent;
+    }
+
+    private class ThemeCacher extends AsyncTask<String, Integer, String> {
+
+        Boolean success = false;
+
+        @Override
+        protected void onPostExecute(String result) {
+            if (success) {
+                if (replacing) {
+                    new NotificationCreator(
+                            mContext,
+                            getThemeName(package_name) + " " + mContext.getString(
+                                    R.string.notification_theme_updated),
+                            mContext.getString(R.string.notification_theme_updated_content),
+                            true,
+                            grabPendingIntent(package_name),
+                            R.drawable.notification_updated,
+                            BitmapFactory.decodeResource(
+                                    mContext.getResources(), R.mipmap.restore_launcher),
+                            Notification.PRIORITY_MAX,
+                            ThreadLocalRandom.current().nextInt(0, 1000)).createNotification();
+                } else {
+                    new NotificationCreator(
+                            mContext,
+                            getThemeName(package_name) + " " + mContext.getString(
+                                    R.string.notification_theme_installed),
+                            mContext.getString(R.string.notification_theme_installed_content),
+                            true,
+                            grabPendingIntent(package_name),
+                            R.drawable.notification_icon,
+                            BitmapFactory.decodeResource(
+                                    mContext.getResources(), R.mipmap.main_launcher),
+                            Notification.PRIORITY_MAX,
+                            ThreadLocalRandom.current().nextInt(0, 1000)).createNotification();
+                }
+            } else {
+                Log.d("SubstratumCacher",
+                        "Process was interrupted by the user, rolling back changes...");
+            }
+            prefs.edit().putBoolean("is_updating", false).apply();
+        }
+
+        @Override
+        protected String doInBackground(String... sUrl) {
+            success = !References.isCachingEnabled(mContext) ||
+                    new CacheCreator().initializeCache(mContext, package_name);
+            return null;
         }
     }
 }

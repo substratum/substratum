@@ -4,7 +4,7 @@
 A new theme manager based off Sony's Overlay Manager Service and Resource Runtime Overlay. This is the official repository of the substratum theme engine.
 
 # interfacer
-interfacer is Substratum's background service that runs functions that runs on a system level to trigger direct connections to native Android libraries, including Package Manager, Overlay Manager Service, SystemUI and Activity Manager. This alleviates the stress on the main app and allows for Substratum to run more smoothly.
+interfacer is Substratum's background service that runs functions on a system level to trigger direct connections to native Android libraries, including Package Manager, Overlay Manager Service, SystemUI and Activity Manager. This alleviates the stress on the main app and allows for Substratum to run more smoothly.
 https://github.com/substratum/interfacer
 
 # pull requests

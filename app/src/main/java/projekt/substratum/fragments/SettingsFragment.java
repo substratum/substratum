@@ -504,7 +504,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             systemPlatform.setOnPreferenceClickListener(preference -> {
                 tapCount++;
                 if (tapCount == 1) {
-                    new Handler().postDelayed(() -> tapCount = 0, 1000);
+                    new Handler().postDelayed(() -> tapCount = 0, 2000);
                 } else if (tapCount == 7) {
                     themeCaching.setVisible(true);
                     tapCount = 0;

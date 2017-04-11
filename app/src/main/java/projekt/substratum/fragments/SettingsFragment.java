@@ -184,19 +184,21 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         systemStatus.setIcon(certified ?
                 getContext().getDrawable(R.drawable.system_status_certified)
                 : getContext().getDrawable(R.drawable.system_status_uncertified));
-        systemStatus.setOnPreferenceClickListener(preference -> {
-            if (References.isNetworkAvailable(getContext())) {
-                new downloadRepositoryList().execute("");
-            } else {
-                if (getView() != null) {
-                    Lunchbar.make(getView(),
-                            R.string.resource_needs_internet,
-                            Lunchbar.LENGTH_LONG)
-                            .show();
+        if (BuildConfig.DEBUG) {
+            systemStatus.setOnPreferenceClickListener(preference -> {
+                if (References.isNetworkAvailable(getContext())) {
+                    new downloadRepositoryList().execute("");
+                } else {
+                    if (getView() != null) {
+                        Lunchbar.make(getView(),
+                                R.string.resource_needs_internet,
+                                Lunchbar.LENGTH_LONG)
+                                .show();
+                    }
                 }
-            }
-            return false;
-        });
+                return false;
+            });
+        }
 
         final CheckBoxPreference forceEnglish = (CheckBoxPreference)
                 getPreferenceManager().findPreference("force_english_locale");

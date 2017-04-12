@@ -52,7 +52,7 @@ public class ScheduledProfileReceiver extends BroadcastReceiver {
         if (!powerManager.isInteractive()) {
             Log.d(TAG, extra + " profile will be applied.");
             prefs.edit().remove(SCHEDULED_PROFILE_TYPE_EXTRA).apply();
-            BinderService.unregisterProfileScreenOffReceiver(context);
+            BinderService.getInstance().unregisterProfileScreenOffReceiver(context);
 
             PersistableBundle bundle = new PersistableBundle();
             bundle.putString(SCHEDULED_PROFILE_TYPE_EXTRA, extra);
@@ -81,7 +81,7 @@ public class ScheduledProfileReceiver extends BroadcastReceiver {
             mNotifyManager.notify(1023, mBuilder.build());
 
             prefs.edit().putString(SCHEDULED_PROFILE_TYPE_EXTRA, extra).apply();
-            BinderService.registerProfileScreenOffReceiver(context);
+            BinderService.getInstance().registerProfileScreenOffReceiver(context);
         }
     }
 }

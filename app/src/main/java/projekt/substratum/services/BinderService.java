@@ -33,11 +33,10 @@ import projekt.substratum.config.References;
 
 import static projekt.substratum.config.References.INTERFACER_PACKAGE;
 
-public class BinderService extends Service {
+public class BinderService extends Service implements ServiceConnection {
 
     private static BinderService binderService;
     private IInterfacerInterface interfacerInterface;
-    private ServiceConnection serviceConnection;
     private boolean mBound;
     private ScheduledProfileReceiver scheduledProfileReceiver;
 
@@ -63,48 +62,44 @@ public class BinderService extends Service {
         }
     }
 
+    public void bindInterfacer() {
+        if (References.isBinderInterfacer(this) && !mBound) {
+            Intent intent = new Intent(INTERFACER_PACKAGE + ".INITIALIZE");
+            intent.setPackage(INTERFACER_PACKAGE);
+            bindService(intent, this, Context.BIND_AUTO_CREATE);
+        }
+    }
+
+    public void unbindInterfacer() {
+        if (References.isBinderInterfacer(this) && mBound) {
+            unbindService(this);
+        }
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
         binderService = this;
-        serviceConnection = new ServiceConnection() {
-            @Override
-            public void onServiceConnected(ComponentName name, IBinder service) {
-                interfacerInterface = IInterfacerInterface.Stub.asInterface(service);
-                mBound = true;
-                Log.d("BinderService",
-                        "Substratum has successfully binded with the Interfacer module.");
-            }
-
-            @Override
-            public void onServiceDisconnected(ComponentName name) {
-                interfacerInterface = null;
-                mBound = false;
-                Log.d("BinderService",
-                        "Substratum has successfully unbinded with the Interfacer module.");
-            }
-        };
         bindInterfacer();
     }
 
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        Log.d("BinderService", "The service has successfully binded to the system.");
         return null;
     }
 
-    public void bindInterfacer() {
-        if (References.isBinderInterfacer(this) && !mBound) {
-            Intent intent = new Intent(INTERFACER_PACKAGE + ".INITIALIZE");
-            intent.setPackage(INTERFACER_PACKAGE);
-            bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
-        }
+    @Override
+    public void onServiceConnected(ComponentName name, IBinder service) {
+        interfacerInterface = IInterfacerInterface.Stub.asInterface(service);
+        mBound = true;
+        Log.d("BinderService", "Substratum has successfully binded with the Interfacer module.");
     }
 
-    public void unbindInterfacer() {
-        if (References.isBinderInterfacer(this) && mBound) {
-            unbindService(serviceConnection);
-        }
+    @Override
+    public void onServiceDisconnected(ComponentName name) {
+        interfacerInterface = null;
+        mBound = false;
+        Log.d("BinderService", "Substratum has successfully unbinded with the Interfacer module.");
     }
 }

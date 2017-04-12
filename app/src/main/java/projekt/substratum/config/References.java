@@ -1260,10 +1260,9 @@ public class References {
         return false;
     }
 
-    // TODO: Dummy method should be changed later
-    public static boolean isBinderfacer(Context context) {
+    public static boolean isBinderInterfacer(Context context) {
         PackageInfo packageInfo = getThemeInterfacerPackage(context);
-        return packageInfo != null && packageInfo.versionCode >= 50;
+        return packageInfo != null && packageInfo.versionCode >= 60;
     }
 
     // Obtain a live sample of the metadata in an app

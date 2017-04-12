@@ -95,7 +95,7 @@ public class BinderService extends Service {
     }
 
     public void bindInterfacer() {
-        if (References.isBinderfacer(this) && !mBound) {
+        if (References.isBinderInterfacer(this) && !mBound) {
             Intent intent = new Intent(INTERFACER_PACKAGE + ".INITIALIZE");
             intent.setPackage(INTERFACER_PACKAGE);
             bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
@@ -103,7 +103,7 @@ public class BinderService extends Service {
     }
 
     public void unbindInterfacer() {
-        if (References.isBinderfacer(this) && mBound) {
+        if (References.isBinderInterfacer(this) && mBound) {
             unbindService(serviceConnection);
         }
     }

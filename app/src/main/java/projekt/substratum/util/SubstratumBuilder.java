@@ -42,6 +42,7 @@ import projekt.substratum.config.References;
 import projekt.substratum.config.ThemeManager;
 
 import static projekt.substratum.config.References.BYPASS_SUBSTRATUM_BUILDER_DELETION;
+import static projekt.substratum.config.References.SUBSTRATUM_BUILDER;
 
 public class SubstratumBuilder {
 
@@ -165,7 +166,13 @@ public class SubstratumBuilder {
                     }
                 }
             }
+        } catch (IOException ioe) {
+            Log.d(SUBSTRATUM_BUILDER, "An Android Oreo specific error message has been " +
+                    "detected and has been whitelisted to continue moving forward " +
+                    "with overlay compilation.");
+            return !has_errored_out;
         } catch (Exception e) {
+            e.printStackTrace();
             dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
                     "Unfortunately, there was an exception trying to create a new APK");
             has_errored_out = true;

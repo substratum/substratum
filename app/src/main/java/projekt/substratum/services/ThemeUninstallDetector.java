@@ -24,6 +24,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -32,6 +33,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import projekt.substratum.config.BootAnimationManager;
 import projekt.substratum.config.FileOperations;
@@ -123,6 +125,14 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
                         References.clearShortcut(context);
                         editor.remove("app_shortcut_theme");
                     }
+
+                    // Clear off the old preserved list of themes with the new batch
+                    Set<String> installed = new TreeSet<>();
+                    List<ResolveInfo> all_themes = References.getThemes(context);
+                    for (int i = 0; i < all_themes.size(); i++) {
+                        installed.add(all_themes.get(i).activityInfo.packageName);
+                    }
+                    editor.putStringSet("installed_themes", installed);
                     editor.apply();
                 }
             }

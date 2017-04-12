@@ -81,9 +81,9 @@ public class PackageModificationDetector extends BroadcastReceiver {
                     ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
                             package_name, PackageManager.GET_META_DATA);
                     if (appInfo.metaData != null) {
-                        String check_legacy =
-                                appInfo.metaData.getString(References.metadataLegacy);
-                        if (check_legacy == null || check_legacy.equals("false")) {
+                        Boolean check_legacy =
+                                appInfo.metaData.getBoolean(References.metadataLegacy);
+                        if (check_legacy == null || !check_legacy) {
                             Log.e("SubstratumCacher", "Device is non-OMS, while an " +
                                     "OMS theme is installed, aborting operation!");
 

@@ -29,9 +29,13 @@ import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.concurrent.ThreadLocalRandom;
 
 import projekt.substratum.InformationActivity;
@@ -77,6 +81,21 @@ public class PackageModificationDetector extends BroadcastReceiver {
             replacing = intent.getBooleanExtra(Intent.EXTRA_REPLACING, false);
             prefs = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
 
+            // Let's add it to the list of installed themes on shared prefs
+            SharedPreferences mainPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+            Set<String> installed_themes =
+                    mainPrefs.getStringSet("installed_themes", new HashSet<>());
+            Set<String> installed_sorted = new TreeSet<>();
+
+            int beginning_size = installed_themes.size();
+            if (!installed_themes.contains(package_name)) {
+                installed_themes.add(package_name);
+                installed_sorted.addAll(installed_themes);
+            }
+            if (installed_themes.size() > beginning_size) {
+                mainPrefs.edit().putStringSet("installed_themes", installed_sorted).apply();
+            }
+
             // Legacy check to see if an OMS theme is guarded from being installed on legacy
             if (!References.checkOMS(context)) {
                 try {
@@ -85,7 +104,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
                     if (appInfo.metaData != null) {
                         Boolean check_legacy =
                                 appInfo.metaData.getBoolean(References.metadataLegacy);
-                        if (check_legacy == null || !check_legacy) {
+                        if (!check_legacy) {
                             Log.e("SubstratumCacher", "Device is non-OMS, while an " +
                                     "OMS theme is installed, aborting operation!");
 

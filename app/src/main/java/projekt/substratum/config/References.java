@@ -81,6 +81,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Set;
+import java.util.TreeSet;
 
 import projekt.substratum.BuildConfig;
 import projekt.substratum.R;
@@ -448,8 +449,8 @@ public class References {
 
     // Load SharedPreference defaults
     public static void loadDefaultConfig(Context context) {
-        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context)
-                .edit();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean("first_run", true);
         editor.putBoolean("show_app_icon", true);
         editor.putBoolean("substratum_oms", References.checkOMS(context));
@@ -465,6 +466,15 @@ public class References {
         editor.putBoolean("complexion", true);
         editor.putString("compiler", "aapt");
         editor.putBoolean("crash_receiver", true);
+
+        // Initial parse of what is installed on the device
+        Set<String> installed_themes = new TreeSet<>();
+        List<ResolveInfo> all_themes = References.getThemes(context);
+        for (int i = 0; i < all_themes.size(); i++) {
+            installed_themes.add(all_themes.get(i).activityInfo.packageName);
+        }
+        editor.putStringSet("installed_themes", installed_themes);
+
         editor.apply();
         editor = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE).edit();
         editor.putBoolean("is_updating", false);

@@ -18,21 +18,71 @@
 
 package projekt.substratum.services;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
+import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.content.WakefulBroadcastReceiver;
+import android.content.SharedPreferences;
+import android.os.PersistableBundle;
+import android.os.PowerManager;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+
+import projekt.substratum.R;
+import projekt.substratum.Substratum;
 
 import static projekt.substratum.fragments.ProfileFragment.SCHEDULED_PROFILE_TYPE_EXTRA;
 
-public class ScheduledProfileReceiver extends WakefulBroadcastReceiver {
+public class ScheduledProfileReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        final String extra = intent.getStringExtra(SCHEDULED_PROFILE_TYPE_EXTRA);
-        Log.d("ScheduledProfile", extra + " profile will be applied.");
-        Intent service = new Intent(context, ScheduledProfileService.class);
-        service.putExtra(SCHEDULED_PROFILE_TYPE_EXTRA, extra);
-        startWakefulService(context, service);
+        String TAG = "ScheduledProfile";
+        SharedPreferences prefs = context.getSharedPreferences("substratum_state",
+                Context.MODE_PRIVATE);
+        String extra = intent.getStringExtra(SCHEDULED_PROFILE_TYPE_EXTRA);
+        if (extra == null) {
+            extra = prefs.getString(SCHEDULED_PROFILE_TYPE_EXTRA, null);
+        }
+
+        PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+        if (!powerManager.isInteractive()) {
+            Log.d(TAG, extra + " profile will be applied.");
+            prefs.edit().remove(SCHEDULED_PROFILE_TYPE_EXTRA).apply();
+            Substratum.getInstance().unregisterProfileScreenOffReceiver();
+
+            PersistableBundle bundle = new PersistableBundle();
+            bundle.putString(SCHEDULED_PROFILE_TYPE_EXTRA, extra);
+
+            ComponentName serviceComponent = new ComponentName(context,
+                    ScheduledProfileService.class);
+            JobInfo jobInfo = new JobInfo.Builder(1023, serviceComponent)
+                    .setMinimumLatency(5000)
+                    .setExtras(bundle)
+                    .build();
+
+            JobScheduler jobScheduler = (JobScheduler) context.getSystemService(
+                    Context.JOB_SCHEDULER_SERVICE);
+            jobScheduler.schedule(jobInfo);
+        } else {
+            Log.d(TAG, extra + " profile will be applied after screen off...");
+            NotificationManager mNotifyManager = (NotificationManager) context.getSystemService(
+                    Context.NOTIFICATION_SERVICE);
+            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
+            mBuilder.setContentTitle(
+                    String.format(context.getString(R.string.profile_notification_title), extra))
+                    .setSmallIcon(R.drawable.ic_substratum)
+                    .setPriority(Notification.PRIORITY_DEFAULT)
+                    .setContentText(context.getString(R.string.profile_pending_notification))
+                    .setOngoing(true);
+            mNotifyManager.notify(1023, mBuilder.build());
+
+            prefs.edit().putString(SCHEDULED_PROFILE_TYPE_EXTRA, extra).apply();
+            Substratum.getInstance().registerProfileScreenOffReceiver();
+        }
     }
 }

@@ -22,11 +22,13 @@ import android.app.Application;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.util.Log;
 
 import projekt.substratum.config.References;
+import projekt.substratum.services.ScheduledProfileReceiver;
 
 import static projekt.substratum.config.References.INTERFACER_PACKAGE;
 
@@ -34,6 +36,7 @@ public class Substratum extends Application {
     private static Substratum substratum;
     private IInterfacerInterface interfacerInterface;
     private boolean mBound;
+    private ScheduledProfileReceiver scheduledProfileReceiver;
     private final ServiceConnection serviceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
@@ -76,6 +79,19 @@ public class Substratum extends Application {
     public void unbindInterfacer() {
         if (References.isBinderfacer(this) && mBound) {
             unbindService(serviceConnection);
+        }
+    }
+
+    public void registerProfileScreenOffReceiver() {
+        scheduledProfileReceiver = new ScheduledProfileReceiver();
+        registerReceiver(scheduledProfileReceiver, new IntentFilter(Intent.ACTION_SCREEN_OFF));
+    }
+
+    public void unregisterProfileScreenOffReceiver() {
+        try {
+            unregisterReceiver(scheduledProfileReceiver);
+        } catch (Exception e) {
+            // Don't mind it.
         }
     }
 }

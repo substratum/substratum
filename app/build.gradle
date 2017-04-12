@@ -49,7 +49,7 @@ android {
         minSdkVersion 24
         targetSdkVersion 25
         versionCode 633
-        versionName "six hundred thirty three"
+        versionName "six hundred thirty four"
         buildConfigField "String", "GIT_HASH", "\"${gitHash()}\""
     }
 

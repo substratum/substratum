@@ -66,6 +66,8 @@ public class PackageModificationDetector extends BroadcastReceiver {
                     String check_theme_author =
                             appInfo.metaData.getString(References.metadataAuthor);
                     if (check_theme_name == null && check_theme_author == null) return;
+                } else {
+                    return;
                 }
             } catch (Exception e) {
                 return;

@@ -196,17 +196,20 @@ public class ScheduledProfileService extends JobService {
                     ArrayList<String> toBeDisabled = new ArrayList<>(system);
                     boolean shouldRestartUi = ThemeManager.shouldRestartUI(mContext, toBeDisabled)
                             || ThemeManager.shouldRestartUI(mContext, to_be_run);
-                    ThemeInterfacerService.applyProfile(mContext, processed, new ArrayList<>(system),
+                    ThemeInterfacerService.applyProfile(mContext, processed, new ArrayList<>
+                                    (system),
                             to_be_run, shouldRestartUi);
                 } else {
                     // Restore the whole backed up profile back to /data/system/theme/
                     if (theme.exists()) {
                         FileOperations.delete(mContext, "/data/system/theme", false);
-                        FileOperations.copyDir(mContext, theme.getAbsolutePath(), "/data/system/theme");
+                        FileOperations.copyDir(mContext, theme.getAbsolutePath(),
+                                "/data/system/theme");
                         FileOperations.setPermissionsRecursively(644, "/data/system/theme/audio");
                         FileOperations.setPermissions(755, "/data/system/theme/audio");
                         FileOperations.setPermissions(755, "/data/system/theme/audio/alarms");
-                        FileOperations.setPermissions(755, "/data/system/theme/audio/notifications");
+                        FileOperations.setPermissions(755,
+                                "/data/system/theme/audio/notifications");
                         FileOperations.setPermissions(755, "/data/system/theme/audio/ringtones");
                         FileOperations.setPermissions(755, "/data/system/theme/audio/ringtones");
                         FileOperations.setPermissionsRecursively(644, "/data/system/theme/fonts/");
@@ -238,7 +241,8 @@ public class ScheduledProfileService extends JobService {
                 Intent notifyIntent = new Intent(mContext, ProfileErrorInfoActivity.class);
                 notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 notifyIntent.putExtra("dialog_message", dialog_message);
-                PendingIntent contentIntent = PendingIntent.getActivity(mContext, 0, notifyIntent, 0);
+                PendingIntent contentIntent = PendingIntent.getActivity(mContext, 0,
+                        notifyIntent, 0);
 
                 mBuilder.setContentTitle(getString(R.string.profile_failed_notification))
                         .setContentText(getString(R.string.profile_failed_info_notification))

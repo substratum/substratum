@@ -380,5 +380,4 @@ public class ThemeInterfacerService {
             context.startService(intent);
         }
     }
-
 }

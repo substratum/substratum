@@ -26,11 +26,11 @@ import android.os.RemoteException;
 
 import java.util.ArrayList;
 
-
-import projekt.substratum.Substratum;
+import projekt.substratum.services.BinderService;
 
 import static projekt.substratum.config.References.INTERFACER_PACKAGE;
 
+@SuppressWarnings("AccessStaticViaInstance")
 public class ThemeInterfacerService {
 
     private static final String INTERFACER_TOKEN = "interfacer_token";
@@ -92,9 +92,9 @@ public class ThemeInterfacerService {
     static void installOverlays(Context context, ArrayList<String> overlays) {
         if (References.isBinderfacer(context)) {
             try {
-                Substratum.getInstance().getInterfacerInterface().installPackage(overlays);
+                BinderService.getInstance().getInterfacerInterface().installPackage(overlays);
             } catch (RemoteException e) {
-                // idk
+                // Suppress warning
             }
         } else {
             Intent intent = getThemeInterfacer(context);
@@ -107,15 +107,16 @@ public class ThemeInterfacerService {
     static void uninstallOverlays(Context context, ArrayList<String> overlays, boolean restartUi) {
         if (References.isBinderfacer(context)) {
             try {
-                Substratum.getInstance().getInterfacerInterface().uninstallPackage(overlays, restartUi);
+                BinderService.getInstance().getInterfacerInterface().uninstallPackage(overlays,
+                        restartUi);
             } catch (RemoteException e) {
-                // idk
+                // Suppress warning
             }
         } else {
             Intent intent = getThemeInterfacer(context);
             intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_UNINSTALL);
             intent.putExtra(UNINSTALL_LIST_KEY, overlays);
-            // only need to set if true, will restart SystemUI when done processing packages
+            // Only need to set if true, will restart SystemUI when done processing packages
             intent.putExtra(WITH_RESTART_UI_KEY, restartUi);
             context.startService(intent);
         }
@@ -124,9 +125,10 @@ public class ThemeInterfacerService {
     static void enableOverlays(Context context, ArrayList<String> overlays, boolean restartUi) {
         if (References.isBinderfacer(context)) {
             try {
-                Substratum.getInstance().getInterfacerInterface().enableOverlay(overlays, restartUi);
+                BinderService.getInstance().getInterfacerInterface().enableOverlay(overlays,
+                        restartUi);
             } catch (RemoteException e) {
-                // idk
+                // Suppress warning
             }
         } else {
             Intent intent = getThemeInterfacer(context);
@@ -140,9 +142,10 @@ public class ThemeInterfacerService {
     static void disableOverlays(Context context, ArrayList<String> overlays, boolean restartUi) {
         if (References.isBinderfacer(context)) {
             try {
-                Substratum.getInstance().getInterfacerInterface().disableOverlay(overlays, restartUi);
+                BinderService.getInstance().getInterfacerInterface().disableOverlay(overlays,
+                        restartUi);
             } catch (RemoteException e) {
-                // idk
+                // Suppress warning
             }
         } else {
             Intent intent = getThemeInterfacer(context);
@@ -156,9 +159,9 @@ public class ThemeInterfacerService {
     public static void restartSystemUI(Context context) {
         if (References.isBinderfacer(context)) {
             try {
-                Substratum.getInstance().getInterfacerInterface().restartSystemUI();
+                BinderService.getInstance().getInterfacerInterface().restartSystemUI();
             } catch (RemoteException e) {
-                // idk
+                // Suppress warning
             }
         } else {
             Intent intent = getThemeInterfacer(context);
@@ -167,7 +170,7 @@ public class ThemeInterfacerService {
         }
     }
 
-    public static void forceStopService(Context context) {
+    static void forceStopService(Context context) {
         Intent intent = getThemeInterfacer(context);
         intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_FORCE_STOP_SERVICE);
         context.startService(intent);
@@ -176,9 +179,9 @@ public class ThemeInterfacerService {
     public static void configurationChangeShim(Context context) {
         if (References.isBinderfacer(context)) {
             try {
-                Substratum.getInstance().getInterfacerInterface().configurationShim();
+                BinderService.getInstance().getInterfacerInterface().configurationShim();
             } catch (RemoteException e) {
-                // idk
+                // Suppress warning
             }
         } else {
             Intent intent = getThemeInterfacer(context);
@@ -190,9 +193,10 @@ public class ThemeInterfacerService {
     static void setBootAnimation(Context context, String bootanimation_location) {
         if (References.isBinderfacer(context)) {
             try {
-                Substratum.getInstance().getInterfacerInterface().applyBootanimation(bootanimation_location);
+                BinderService.getInstance().getInterfacerInterface().applyBootanimation
+                        (bootanimation_location);
             } catch (RemoteException e) {
-                // idk
+                // Suppress warning
             }
         } else {
             Intent intent = getThemeInterfacer(context);
@@ -205,9 +209,9 @@ public class ThemeInterfacerService {
     static void clearBootAnimation(Context context) {
         if (References.isBinderfacer(context)) {
             try {
-                Substratum.getInstance().getInterfacerInterface().applyBootanimation(null);
+                BinderService.getInstance().getInterfacerInterface().applyBootanimation(null);
             } catch (RemoteException e) {
-                // idk
+                // Suppress warning
             }
         } else {
             Intent intent = getThemeInterfacer(context);
@@ -219,9 +223,9 @@ public class ThemeInterfacerService {
     static void setFonts(Context context, String pid, String name) {
         if (References.isBinderfacer(context)) {
             try {
-                Substratum.getInstance().getInterfacerInterface().applyFonts(pid, name);
+                BinderService.getInstance().getInterfacerInterface().applyFonts(pid, name);
             } catch (RemoteException e) {
-                // idk
+                // Suppress warning
             }
         } else {
             Intent intent = getThemeInterfacer(context);
@@ -235,9 +239,9 @@ public class ThemeInterfacerService {
     static void clearFonts(Context context) {
         if (References.isBinderfacer(context)) {
             try {
-                Substratum.getInstance().getInterfacerInterface().applyFonts(null, null);
+                BinderService.getInstance().getInterfacerInterface().applyFonts(null, null);
             } catch (RemoteException e) {
-                // idk
+                // Suppress warning
             }
         } else {
             Intent intent = getThemeInterfacer(context);
@@ -249,9 +253,9 @@ public class ThemeInterfacerService {
     static void setThemedSounds(Context context, String pid, String name) {
         if (References.isBinderfacer(context)) {
             try {
-                Substratum.getInstance().getInterfacerInterface().applyAudio(pid, name);
+                BinderService.getInstance().getInterfacerInterface().applyAudio(pid, name);
             } catch (RemoteException e) {
-                // idk
+                // Suppress warning
             }
         } else {
             Intent intent = getThemeInterfacer(context);
@@ -265,9 +269,9 @@ public class ThemeInterfacerService {
     static void clearThemedSounds(Context context) {
         if (References.isBinderfacer(context)) {
             try {
-                Substratum.getInstance().getInterfacerInterface().applyAudio(null, null);
+                BinderService.getInstance().getInterfacerInterface().applyAudio(null, null);
             } catch (RemoteException e) {
-                // idk
+                // Suppress warning
             }
         } else {
             Intent intent = getThemeInterfacer(context);
@@ -279,9 +283,10 @@ public class ThemeInterfacerService {
     static void setPriority(Context context, ArrayList<String> overlays) {
         if (References.isBinderfacer(context)) {
             try {
-                Substratum.getInstance().getInterfacerInterface().changePriority(overlays, false);
+                BinderService.getInstance().getInterfacerInterface().changePriority(overlays,
+                        false);
             } catch (RemoteException e) {
-                // idk
+                // Suppress warning
             }
         } else {
             Intent intent = getThemeInterfacer(context);
@@ -294,9 +299,9 @@ public class ThemeInterfacerService {
     public static void copy(Context context, String source, String destination) {
         if (References.isBinderfacer(context)) {
             try {
-                Substratum.getInstance().getInterfacerInterface().copy(source, destination);
+                BinderService.getInstance().getInterfacerInterface().copy(source, destination);
             } catch (RemoteException e) {
-                // idk
+                // Suppress warning
             }
         } else {
             Intent intent = getThemeInterfacer(context);
@@ -310,9 +315,9 @@ public class ThemeInterfacerService {
     public static void move(Context context, String source, String destination) {
         if (References.isBinderfacer(context)) {
             try {
-                Substratum.getInstance().getInterfacerInterface().move(source, destination);
+                BinderService.getInstance().getInterfacerInterface().move(source, destination);
             } catch (RemoteException e) {
-                // idk
+                // Suppress warning
             }
         } else {
             Intent intent = getThemeInterfacer(context);
@@ -326,9 +331,10 @@ public class ThemeInterfacerService {
     public static void delete(Context context, String directory, boolean deleteParent) {
         if (References.isBinderfacer(context)) {
             try {
-                Substratum.getInstance().getInterfacerInterface().deleteDirectory(directory, deleteParent);
+                BinderService.getInstance().getInterfacerInterface().deleteDirectory(directory,
+                        deleteParent);
             } catch (RemoteException e) {
-                // idk
+                // Suppress warning
             }
         } else {
             Intent intent = getThemeInterfacer(context);
@@ -343,9 +349,11 @@ public class ThemeInterfacerService {
                                     ArrayList<String> toBeEnabled, boolean restartUi) {
         if (References.isBinderfacer(context)) {
             try {
-                Substratum.getInstance().getInterfacerInterface().applyProfile(toBeEnabled, toBeDisabled, name, restartUi);
+                BinderService.getInstance().getInterfacerInterface().applyProfile(toBeEnabled,
+                        toBeDisabled,
+                        name, restartUi);
             } catch (RemoteException e) {
-                // idk
+                // Suppress warning
             }
         } else {
             Intent intent = getThemeInterfacer(context);
@@ -358,12 +366,12 @@ public class ThemeInterfacerService {
         }
     }
 
-    public static void createNewFolder(Context context, String destination) {
+    static void createNewFolder(Context context, String destination) {
         if (References.isBinderfacer(context)) {
             try {
-                Substratum.getInstance().getInterfacerInterface().mkdir(destination);
+                BinderService.getInstance().getInterfacerInterface().mkdir(destination);
             } catch (RemoteException e) {
-                // idk
+                // Suppress warning
             }
         } else {
             Intent intent = getThemeInterfacer(context);

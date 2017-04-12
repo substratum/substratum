@@ -79,6 +79,8 @@
         </receiver>
 
         <service
+            android:name=".services.BinderService"/>
+        <service
             android:name=".services.SubstratumFloatInterface"
             android:exported="false"/>
         <service

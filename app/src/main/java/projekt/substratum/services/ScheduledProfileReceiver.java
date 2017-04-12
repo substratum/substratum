@@ -33,7 +33,6 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import projekt.substratum.R;
-import projekt.substratum.Substratum;
 
 import static projekt.substratum.fragments.ProfileFragment.SCHEDULED_PROFILE_TYPE_EXTRA;
 
@@ -53,7 +52,7 @@ public class ScheduledProfileReceiver extends BroadcastReceiver {
         if (!powerManager.isInteractive()) {
             Log.d(TAG, extra + " profile will be applied.");
             prefs.edit().remove(SCHEDULED_PROFILE_TYPE_EXTRA).apply();
-            Substratum.getInstance().unregisterProfileScreenOffReceiver();
+            BinderService.unregisterProfileScreenOffReceiver(context);
 
             PersistableBundle bundle = new PersistableBundle();
             bundle.putString(SCHEDULED_PROFILE_TYPE_EXTRA, extra);
@@ -82,7 +81,7 @@ public class ScheduledProfileReceiver extends BroadcastReceiver {
             mNotifyManager.notify(1023, mBuilder.build());
 
             prefs.edit().putString(SCHEDULED_PROFILE_TYPE_EXTRA, extra).apply();
-            Substratum.getInstance().registerProfileScreenOffReceiver();
+            BinderService.registerProfileScreenOffReceiver(context);
         }
     }
 }

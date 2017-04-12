@@ -18,80 +18,37 @@
 
 package projekt.substratum;
 
+import android.app.ActivityManager;
 import android.app.Application;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.ServiceConnection;
-import android.os.IBinder;
 import android.util.Log;
 
-import projekt.substratum.config.References;
-import projekt.substratum.services.ScheduledProfileReceiver;
-
-import static projekt.substratum.config.References.INTERFACER_PACKAGE;
+import projekt.substratum.services.BinderService;
 
 public class Substratum extends Application {
-    private static Substratum substratum;
-    private IInterfacerInterface interfacerInterface;
-    private boolean mBound;
-    private ScheduledProfileReceiver scheduledProfileReceiver;
-    private final ServiceConnection serviceConnection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            interfacerInterface = IInterfacerInterface.Stub.asInterface(service);
-            mBound = true;
-            Log.d("JobService", "service binded");
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            interfacerInterface = null;
-            mBound = false;
-            Log.d("JobService", "service unbinded");
-        }
-    };
-
     @Override
     public void onCreate() {
         super.onCreate();
-        substratum = this;
-        bindInterfacer();
-    }
-
-    public static Substratum getInstance() {
-        return substratum;
-    }
-
-    public IInterfacerInterface getInterfacerInterface() {
-        return interfacerInterface;
-    }
-
-    public void bindInterfacer() {
-        if (References.isBinderfacer(this) && !mBound) {
-            Intent intent = new Intent(INTERFACER_PACKAGE + ".INITIALIZE");
-            intent.setPackage(INTERFACER_PACKAGE);
-            bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
+        if (checkServiceActivation(BinderService.class)) {
+            Log.d("BinderService",
+                    "This session will utilize the already connected Binder service.");
+        } else {
+            Log.d("BinderService",
+                    "Substratum is now connecting to the Binder service...");
+            getApplicationContext().startService(new Intent(getApplicationContext(),
+                    BinderService.class));
         }
     }
 
-    public void unbindInterfacer() {
-        if (References.isBinderfacer(this) && mBound) {
-            unbindService(serviceConnection);
+    private boolean checkServiceActivation(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service :
+                manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
         }
-    }
-
-    public void registerProfileScreenOffReceiver() {
-        scheduledProfileReceiver = new ScheduledProfileReceiver();
-        registerReceiver(scheduledProfileReceiver, new IntentFilter(Intent.ACTION_SCREEN_OFF));
-    }
-
-    public void unregisterProfileScreenOffReceiver() {
-        try {
-            unregisterReceiver(scheduledProfileReceiver);
-        } catch (Exception e) {
-            // Don't mind it.
-        }
+        return false;
     }
 }

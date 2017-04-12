@@ -27,16 +27,27 @@ import android.util.Log;
 import projekt.substratum.services.BinderService;
 
 public class Substratum extends Application {
+    private static Substratum substratum;
+
     @Override
     public void onCreate() {
         super.onCreate();
+        substratum = this;
+        startBinderService();
+    }
+
+    public static Substratum getInstance() {
+        return substratum;
+    }
+
+    public void startBinderService() {
         if (checkServiceActivation(BinderService.class)) {
             Log.d("BinderService",
                     "This session will utilize the already connected Binder service.");
         } else {
             Log.d("BinderService",
                     "Substratum is now connecting to the Binder service...");
-            getApplicationContext().startService(new Intent(getApplicationContext(),
+            startService(new Intent(getApplicationContext(),
                     BinderService.class));
         }
     }

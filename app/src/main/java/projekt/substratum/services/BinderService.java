@@ -36,26 +36,26 @@ import static projekt.substratum.config.References.INTERFACER_PACKAGE;
 public class BinderService extends Service {
 
     private static BinderService binderService;
-    private static IInterfacerInterface interfacerInterface;
-    private static ServiceConnection serviceConnection;
-    private static boolean mBound;
-    private static ScheduledProfileReceiver scheduledProfileReceiver;
+    private IInterfacerInterface interfacerInterface;
+    private ServiceConnection serviceConnection;
+    private boolean mBound;
+    private ScheduledProfileReceiver scheduledProfileReceiver;
 
     public static BinderService getInstance() {
         return binderService;
     }
 
-    public static IInterfacerInterface getInterfacerInterface() {
+    public IInterfacerInterface getInterfacerInterface() {
         return interfacerInterface;
     }
 
-    public static void registerProfileScreenOffReceiver(Context context) {
+    public void registerProfileScreenOffReceiver(Context context) {
         scheduledProfileReceiver = new ScheduledProfileReceiver();
         context.registerReceiver(scheduledProfileReceiver,
                 new IntentFilter(Intent.ACTION_SCREEN_OFF));
     }
 
-    public static void unregisterProfileScreenOffReceiver(Context context) {
+    public void unregisterProfileScreenOffReceiver(Context context) {
         try {
             context.unregisterReceiver(scheduledProfileReceiver);
         } catch (Exception e) {

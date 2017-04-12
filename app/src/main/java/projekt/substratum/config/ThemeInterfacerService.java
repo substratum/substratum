@@ -30,7 +30,6 @@ import projekt.substratum.services.BinderService;
 
 import static projekt.substratum.config.References.INTERFACER_PACKAGE;
 
-@SuppressWarnings("AccessStaticViaInstance")
 public class ThemeInterfacerService {
 
     private static final String INTERFACER_TOKEN = "interfacer_token";

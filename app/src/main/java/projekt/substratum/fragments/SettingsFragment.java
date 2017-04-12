@@ -986,7 +986,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         packageCounters.get(i));
 
                 for (int x = 0; x < errors.size(); x++) {
-                    if (result.get(i).contains(errors.get(x).getPackageName())) {
+                    if (result.get(i).equals(errors.get(x).getPackageName())) {
                         packageInfo.setPackageError(errors.get(x));
                         break;
                     }

@@ -27,6 +27,7 @@ import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
@@ -83,6 +84,7 @@ import java.util.Set;
 
 import projekt.substratum.BuildConfig;
 import projekt.substratum.R;
+import projekt.substratum.services.ScheduledProfileReceiver;
 import projekt.substratum.util.AOPTCheck;
 import projekt.substratum.util.CacheCreator;
 import projekt.substratum.util.ReadVariantPrioritizedColor;
@@ -153,7 +155,22 @@ public class References {
     private static String metadataThemeReady = "Substratum_ThemeReady";
     private static String resourceChangelog = "ThemeChangelog";
     private static int hashValue;
+    private static ScheduledProfileReceiver scheduledProfileReceiver;
     private Context mContext; // Used for support checker
+
+    public static void registerProfileScreenOffReceiver(Context context) {
+        scheduledProfileReceiver = new ScheduledProfileReceiver();
+        context.registerReceiver(scheduledProfileReceiver,
+                new IntentFilter(Intent.ACTION_SCREEN_OFF));
+    }
+
+    public static void unregisterProfileScreenOffReceiver(Context context) {
+        try {
+            context.unregisterReceiver(scheduledProfileReceiver);
+        } catch (Exception e) {
+            // Don't mind it.
+        }
+    }
 
     public static boolean isCachingEnabled(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context)

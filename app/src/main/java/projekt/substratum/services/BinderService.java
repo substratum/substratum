@@ -22,7 +22,6 @@ import android.app.Service;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
@@ -38,7 +37,6 @@ public class BinderService extends Service implements ServiceConnection {
     private static BinderService binderService;
     private IInterfacerInterface interfacerInterface;
     private boolean mBound;
-    private ScheduledProfileReceiver scheduledProfileReceiver;
 
     public static BinderService getInstance() {
         return binderService;
@@ -46,20 +44,6 @@ public class BinderService extends Service implements ServiceConnection {
 
     public IInterfacerInterface getInterfacerInterface() {
         return interfacerInterface;
-    }
-
-    public void registerProfileScreenOffReceiver(Context context) {
-        scheduledProfileReceiver = new ScheduledProfileReceiver();
-        context.registerReceiver(scheduledProfileReceiver,
-                new IntentFilter(Intent.ACTION_SCREEN_OFF));
-    }
-
-    public void unregisterProfileScreenOffReceiver(Context context) {
-        try {
-            context.unregisterReceiver(scheduledProfileReceiver);
-        } catch (Exception e) {
-            // Don't mind it.
-        }
     }
 
     public void bindInterfacer() {

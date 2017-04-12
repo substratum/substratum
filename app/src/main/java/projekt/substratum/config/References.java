@@ -160,6 +160,14 @@ public class References {
                 .getBoolean("caching_enabled", false);
     }
 
+    public static boolean checkOreo() {
+        switch (Build.VERSION.RELEASE) {
+            case "O":
+                return true;
+        }
+        return false;
+    }
+
     public static void createShortcut(Context context, String theme_pid, String theme_name) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
             ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);

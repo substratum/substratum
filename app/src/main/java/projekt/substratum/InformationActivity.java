@@ -628,7 +628,7 @@ public class InformationActivity extends AppCompatActivity {
         if (!isOMS) menu.findItem(R.id.enable).setVisible(false);
         if (!isOMS) menu.findItem(R.id.restart_systemui).setVisible(false);
         if (isOMS) menu.findItem(R.id.reboot_device).setVisible(false);
-        if (isOMS) menu.findItem(R.id.soft_reboot).setVisible(false);
+        if (isOMS || References.checkOreo()) menu.findItem(R.id.soft_reboot).setVisible(false);
 
         menu.findItem(R.id.clean_cache).setVisible(prefs.getBoolean("caching_enabled", false));
 

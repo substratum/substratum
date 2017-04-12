@@ -805,7 +805,7 @@ public class MainActivity extends AppCompatActivity implements
 
         boolean isOMS = References.checkOMS(getApplicationContext());
         if (isOMS) menu.findItem(R.id.reboot_device).setVisible(false);
-        if (isOMS) menu.findItem(R.id.soft_reboot).setVisible(false);
+        if (isOMS || References.checkOreo()) menu.findItem(R.id.soft_reboot).setVisible(false);
         if (!isOMS) menu.findItem(R.id.per_app).setVisible(false);
 
         searchItem = menu.findItem(R.id.action_search);

@@ -389,6 +389,7 @@ public class Overlays extends Fragment {
 
     public void setMixAndMatchMode(boolean newValue) {
         mixAndMatchMode = newValue;
+        prefs.edit().putBoolean("enable_swapping_overlays", mixAndMatchMode).apply();
     }
 
     @Override
@@ -400,6 +401,8 @@ public class Overlays extends Fragment {
 
         theme_name = InformationActivity.getThemeName();
         theme_pid = InformationActivity.getThemePID();
+
+        mixAndMatchMode = prefs.getBoolean("enable_swapping_overlays", false);
 
         progressBar = (ProgressBar) root.findViewById(R.id.header_loading_bar);
         progressBar.setVisibility(View.GONE);

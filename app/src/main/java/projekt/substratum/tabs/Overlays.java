@@ -1491,7 +1491,11 @@ public class Overlays extends Fragment {
                         }
                     }
                 }
-                mContext.unregisterReceiver(finishReceiver);
+                try {
+                    mContext.unregisterReceiver(finishReceiver);
+                } catch (IllegalArgumentException e) {
+                    // suppress exceptions
+                }
             } else if (enable_mode) {
                 if (final_runner.size() > 0) {
                     enable_mode = false;
@@ -1731,9 +1735,12 @@ public class Overlays extends Fragment {
             }
 
             // Enable listener
-            if (finishReceiver == null) finishReceiver = new FinishReceiver();
-            IntentFilter intentFilter = new IntentFilter(INTERFACER_PACKAGE + ".STATUS_CHANGED");
-            mContext.registerReceiver(finishReceiver, intentFilter);
+            if (References.checkThemeInterfacer(mContext) &&
+                    !References.isBinderInterfacer(mContext)) {
+                if (finishReceiver == null) finishReceiver = new FinishReceiver();
+                IntentFilter filter = new IntentFilter(INTERFACER_PACKAGE + ".STATUS_CHANGED");
+                mContext.registerReceiver(finishReceiver, filter);
+            }
 
             total_amount = checkedOverlays.size();
             for (int i = 0; i < checkedOverlays.size(); i++) {
@@ -2042,7 +2049,8 @@ public class Overlays extends Fragment {
                             } else {
                                 if (sb.special_snowflake) {
                                     late_install.add(sb.no_install);
-                                } else if (References.checkThemeInterfacer(mContext)) {
+                                } else if (References.checkThemeInterfacer(mContext) &&
+                                        !References.isBinderInterfacer(mContext)) {
                                     // Thread wait
                                     isWaiting = true;
                                     do {
@@ -2081,7 +2089,8 @@ public class Overlays extends Fragment {
                             } else {
                                 if (sb.special_snowflake) {
                                     late_install.add(sb.no_install);
-                                } else if (References.checkThemeInterfacer(mContext)) {
+                                } else if (References.checkThemeInterfacer(mContext) &&
+                                        !References.isBinderInterfacer(mContext)) {
                                     // Thread wait
                                     isWaiting = true;
                                     do {

@@ -22,7 +22,6 @@ interface IInterfacerInterface {
     void installPackage(in List<String> paths);
     void uninstallPackage(in List<String> packages, boolean restartUi);
     void restartSystemUI();
-    void restartService(); // Do we still need this with binder?
     void configurationShim();
     void applyBootanimation(String name);
     void applyFonts(String pid, String fileName);

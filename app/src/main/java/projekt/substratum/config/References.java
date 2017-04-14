@@ -815,8 +815,8 @@ public class References {
         try {
             PackageInfo pInfo = mContext.getPackageManager().getPackageInfo(package_name, 0);
             return pInfo.versionName;
-        } catch (PackageManager.NameNotFoundException e) {
-            //
+        } catch (Exception e) {
+            // Suppress warning
         }
         return null;
     }
@@ -1349,8 +1349,7 @@ public class References {
 
     public static PackageInfo getThemeInterfacerPackage(Context context) {
         try {
-            return context.getPackageManager()
-                    .getPackageInfo(INTERFACER_PACKAGE, 0);
+            return context.getPackageManager().getPackageInfo(INTERFACER_PACKAGE, 0);
         } catch (Exception e) {
             // Theme Interfacer was not installed
         }

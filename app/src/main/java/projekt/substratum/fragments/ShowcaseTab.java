@@ -18,6 +18,7 @@
 
 package projekt.substratum.fragments;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -58,13 +59,14 @@ public class ShowcaseTab extends Fragment {
     private int current_tab_position;
     private String current_tab_address;
     private SharedPreferences prefs;
+    private Context mContext;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
 
-        prefs = PreferenceManager.getDefaultSharedPreferences(
-                getContext());
+        mContext = getContext();
+        prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
 
         Bundle bundle = this.getArguments();
         if (bundle != null) {
@@ -86,14 +88,14 @@ public class ShowcaseTab extends Fragment {
         // Pre-initialize the adapter first so that it won't complain for skipping layout on logs
         mRecyclerView = (RecyclerView) root.findViewById(R.id.wallpaperRecyclerView);
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         ArrayList<WallpaperEntries> empty_array = new ArrayList<>();
         RecyclerView.Adapter empty_adapter = new WallpaperAdapter(empty_array);
         mRecyclerView.setAdapter(empty_adapter);
         no_wallpapers.setVisibility(View.GONE);
         no_network.setVisibility(View.GONE);
 
-        if (References.isNetworkAvailable(getContext())) {
+        if (References.isNetworkAvailable(mContext)) {
             downloadResources downloadTask = new downloadResources();
             downloadTask.execute(current_tab_address, "showcase_tab_" + current_tab_position + "" +
                     ".xml");
@@ -134,7 +136,7 @@ public class ShowcaseTab extends Fragment {
             String inputFileName = sUrl[1];
             ArrayList<ShowcaseItem> wallpapers = new ArrayList<>();
 
-            File showcase_directory = new File(getContext().getCacheDir() +
+            File showcase_directory = new File(mContext.getCacheDir() +
                     "/ShowcaseCache/");
             if (!showcase_directory.exists()) {
                 Boolean made = showcase_directory.mkdir();
@@ -142,7 +144,7 @@ public class ShowcaseTab extends Fragment {
                     Log.e(References.SUBSTRATUM_LOG, "Could not make showcase directory...");
             }
 
-            File current_wallpapers = new File(getContext().getCacheDir() +
+            File current_wallpapers = new File(mContext.getCacheDir() +
                     "/ShowcaseCache/" + inputFileName);
             if (current_wallpapers.exists()) {
                 // We create a temporary file to check whether we should be replacing the
@@ -151,25 +153,25 @@ public class ShowcaseTab extends Fragment {
                         ".xml";
             }
 
-            FileDownloader.init(getContext(), sUrl[0], inputFileName, "ShowcaseCache");
+            FileDownloader.init(mContext, sUrl[0], inputFileName, "ShowcaseCache");
 
             if (inputFileName.endsWith("-temp.xml")) {
-                String existing = MD5.calculateMD5(new File(getContext().getCacheDir() +
+                String existing = MD5.calculateMD5(new File(mContext.getCacheDir() +
                         "/ShowcaseCache/" + sUrl[1]));
-                String new_file = MD5.calculateMD5(new File(getContext().getCacheDir() +
+                String new_file = MD5.calculateMD5(new File(mContext.getCacheDir() +
                         "/ShowcaseCache/" + inputFileName));
                 if (existing != null && !existing.equals(new_file)) {
                     Log.e("ShowcaseActivity", "Tab " + current_tab_position +
                             " has been updated from the cloud!");
-                    File renameMe = new File(getContext().getCacheDir() +
+                    File renameMe = new File(mContext.getCacheDir() +
                             "/ShowcaseCache/" +
                             sUrl[1].substring(0, sUrl[1].length() - 4) + "-temp.xml");
-                    Boolean renamed = renameMe.renameTo(new File(getContext().getCacheDir() +
+                    Boolean renamed = renameMe.renameTo(new File(mContext.getCacheDir() +
                             "/ShowcaseCache/" + sUrl[1]));
                     if (!renamed) Log.e(References.SUBSTRATUM_LOG,
                             "Could not replace the old tab file with the new tab file...");
                 } else {
-                    File deleteMe = new File(getContext().getCacheDir() +
+                    File deleteMe = new File(mContext.getCacheDir() +
                             "/" + inputFileName);
                     Boolean deleted = deleteMe.delete();
                     if (!deleted) Log.e(References.SUBSTRATUM_LOG,
@@ -179,7 +181,7 @@ public class ShowcaseTab extends Fragment {
 
             inputFileName = sUrl[1];
 
-            String[] checkerCommands = {getContext().getCacheDir() +
+            String[] checkerCommands = {mContext.getCacheDir() +
                     "/ShowcaseCache/" + inputFileName};
 
             @SuppressWarnings("unchecked")
@@ -188,7 +190,7 @@ public class ShowcaseTab extends Fragment {
 
             for (String key : newArray.keySet()) {
                 if (!key.toLowerCase().contains("-".toLowerCase())) {
-                    newEntry.setContext(getContext());
+                    newEntry.setContext(mContext);
                     newEntry.setThemeName(key);
                     newEntry.setThemeLink(newArray.get(key));
                 } else {
@@ -206,7 +208,7 @@ public class ShowcaseTab extends Fragment {
                         newEntry.setThemeSupport(newArray.get(key));
                         wallpapers.add(newEntry);
                         newEntry = new ShowcaseItem();
-                        newEntry.setContext(getContext());
+                        newEntry.setContext(mContext);
                     }
                 }
             }

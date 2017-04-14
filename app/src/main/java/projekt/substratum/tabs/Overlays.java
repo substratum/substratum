@@ -1669,6 +1669,7 @@ public class Overlays extends Fragment {
             if (toggle_all.isChecked()) toggle_all.setChecked(false);
         }
 
+        @SuppressWarnings("ConstantConditions")
         @Override
         protected String doInBackground(String... sUrl) {
             String parsedVariant = sUrl[0].replaceAll("\\s+", "");
@@ -2101,20 +2102,22 @@ public class Overlays extends Fragment {
             String command = intent.getStringExtra("command");
             switch (command) {
                 case "CompileEnable":
-                    startCompileEnableMode();
+                    if (mAdapter != null) startCompileEnableMode();
                     break;
                 case "CompileUpdate":
-                    startCompileUpdateMode();
+                    if (mAdapter != null) startCompileUpdateMode();
                     break;
                 case "Disable":
-                    startDisable();
+                    if (mAdapter != null) startDisable();
                     break;
                 case "Enable":
-                    startEnable();
+                    if (mAdapter != null) startEnable();
                     break;
                 case "MixAndMatchMode":
-                    boolean newValue = intent.getBooleanExtra("newValue", false);
-                    setMixAndMatchMode(newValue);
+                    if (mAdapter != null) {
+                        boolean newValue = intent.getBooleanExtra("newValue", false);
+                        setMixAndMatchMode(newValue);
+                    }
                     break;
             }
         }

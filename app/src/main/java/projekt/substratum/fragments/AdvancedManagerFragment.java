@@ -637,6 +637,7 @@ public class AdvancedManagerFragment extends Fragment {
             // list isn't getting removed because the package is still detected in system.
             for (int j = 0; j < 2; j++) {
                 List<String> updated = updateEnabledOverlays();
+                if (overlayList == null) break;
                 for (int i = 0; i < overlayList.size(); i++) {
                     OverlayManager currentOverlay = overlayList.get(i);
                     currentOverlay.setSelected(false);

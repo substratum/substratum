@@ -250,6 +250,7 @@ public class InformationActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -937,15 +938,24 @@ public class InformationActivity extends AppCompatActivity {
                     References.isOffensive(getApplicationContext(), theme_name) ||
                     References.isOffensive(getApplicationContext(),
                             References.grabThemeAuthor(getApplicationContext(), theme_pid))) {
-                gradientView.setVisibility(View.GONE);
-                kenBurnsView.setBackgroundColor(Color.parseColor("#ffff00"));
-                collapsingToolbarLayout.setStatusBarScrimColor(Color.parseColor("#ffff00"));
-                collapsingToolbarLayout.setContentScrimColor(Color.parseColor("#ffff00"));
-                appBarLayout.setBackgroundColor(Color.parseColor("#ffff00"));
-                tabLayout.setBackgroundColor(Color.parseColor("#ffff00"));
+                if (gradientView != null)
+                    gradientView.setVisibility(View.GONE);
+                if (kenBurnsView != null)
+                    kenBurnsView.setBackgroundColor(Color.parseColor("#ffff00"));
+                if (collapsingToolbarLayout != null) {
+                    collapsingToolbarLayout.setStatusBarScrimColor(Color.parseColor("#ffff00"));
+                    collapsingToolbarLayout.setContentScrimColor(Color.parseColor("#ffff00"));
+                }
+                if (appBarLayout != null)
+                    appBarLayout.setBackgroundColor(Color.parseColor("#ffff00"));
+                if (tabLayout != null)
+                    tabLayout.setBackgroundColor(Color.parseColor("#ffff00"));
                 getWindow().setNavigationBarColor(Color.parseColor("#ffff00"));
             } else {
-                Glide.with(getApplicationContext()).load(byteArray).centerCrop().into(kenBurnsView);
+                if (kenBurnsView != null) {
+                    Glide.with(getApplicationContext()).load(byteArray)
+                            .centerCrop().into(kenBurnsView);
+                }
             }
         }
 
@@ -953,9 +963,10 @@ public class InformationActivity extends AppCompatActivity {
         protected String doInBackground(String... sUrl) {
             kenBurnsView = (KenBurnsView) findViewById(R.id.kenburnsView);
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            if (heroImageBitmap != null)
+            if (heroImageBitmap != null) {
                 heroImageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-            byteArray = stream.toByteArray();
+                byteArray = stream.toByteArray();
+            }
             return null;
         }
     }

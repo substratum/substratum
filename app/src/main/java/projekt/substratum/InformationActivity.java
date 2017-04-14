@@ -506,22 +506,27 @@ public class InformationActivity extends AppCompatActivity {
                     .getInstance(getApplicationContext());
             floatingActionButton.setOnClickListener(v -> {
                 Intent intent;
-                switch (adapt.instantiateItem(viewPager, tabPosition).getClass().getSimpleName()) {
-                    case "Overlays":
-                        materialSheetFab.showSheet();
-                        break;
-                    case "BootAnimations":
-                        intent = new Intent("BootAnimations.START_JOB");
-                        localBroadcastManager.sendBroadcast(intent);
-                        break;
-                    case "Fonts":
-                        intent = new Intent("Fonts.START_JOB");
-                        localBroadcastManager.sendBroadcast(intent);
-                        break;
-                    case "Sounds":
-                        intent = new Intent("Sounds.START_JOB");
-                        localBroadcastManager.sendBroadcast(intent);
-                        break;
+                try {
+                    switch (adapt.instantiateItem(viewPager, tabPosition)
+                            .getClass().getSimpleName()) {
+                        case "Overlays":
+                            materialSheetFab.showSheet();
+                            break;
+                        case "BootAnimations":
+                            intent = new Intent("BootAnimations.START_JOB");
+                            localBroadcastManager.sendBroadcast(intent);
+                            break;
+                        case "Fonts":
+                            intent = new Intent("Fonts.START_JOB");
+                            localBroadcastManager.sendBroadcast(intent);
+                            break;
+                        case "Sounds":
+                            intent = new Intent("Sounds.START_JOB");
+                            localBroadcastManager.sendBroadcast(intent);
+                            break;
+                    }
+                } catch (NullPointerException npe) {
+                    // Suppress warning
                 }
             });
 

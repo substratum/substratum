@@ -1592,75 +1592,29 @@ public class Overlays extends Fragment {
                 }
             } else {
                 if (final_runner.size() > 0) {
-                    ArrayList<String> disableBeforeEnabling = new ArrayList<>();
-                    if (mixAndMatchMode) {
-                        if (all_installed_overlays.size() -
-                                current_theme_overlays.size() != 0) {
-                            for (int i = 0; i < all_installed_overlays.size(); i++) {
-                                if (!current_theme_overlays.contains(
-                                        all_installed_overlays.get(i))) {
-                                    disableBeforeEnabling.add(all_installed_overlays.get(i));
-                                }
-                            }
-                        }
-                    }
                     disable_mode = false;
-
-                    if (mixAndMatchMode) {
-                        progressBar.setVisibility(View.VISIBLE);
-                        if (toggle_all.isChecked()) toggle_all.setChecked(false);
-                        if (checkThemeInterfacer(getContext())) {
-                            ThemeManager.disableOverlay(mContext, disableBeforeEnabling);
-                            ThemeManager.enableOverlay(mContext, final_command);
-                        } else {
-                            String final_commands = "";
-                            if (disableBeforeEnabling.size() > 0)
-                                final_commands = ThemeManager.disableOverlay;
-                            for (int i = 0; i < disableBeforeEnabling.size(); i++) {
-                                final_commands += " " + disableBeforeEnabling.get(i);
-                            }
-                            if (final_commands.length() > 0 && final_command.size() > 0) {
-                                final_commands += " " + ThemeManager.enableOverlay;
-                            } else if (final_command.size() > 0) {
-                                final_commands = ThemeManager.enableOverlay;
-                            }
-                            for (int i = 0; i < final_command.size(); i++) {
-                                final_commands += " " + final_command.get(i);
-                            }
-                            if (!checkThemeInterfacer(getContext()) &&
-                                    isPackageInstalled(getContext(), MASQUERADE_PACKAGE)) {
-                                Log.d(SUBSTRATUM_LOG, "Using Masquerade as the fallback system...");
-                                Intent runCommand = MasqueradeService.getMasquerade(getContext());
-                                runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                                runCommand.setAction("masquerade.substratum.COMMANDS");
-                                runCommand.putExtra("om-commands", final_commands);
-                                getContext().sendBroadcast(runCommand);
-                            }
-                        }
+                    progressBar.setVisibility(View.VISIBLE);
+                    if (toggle_all.isChecked()) toggle_all.setChecked(false);
+                    if (checkThemeInterfacer(getContext())) {
+                        ThemeManager.disableOverlay(mContext, final_command);
                     } else {
-                        progressBar.setVisibility(View.VISIBLE);
-                        if (toggle_all.isChecked()) toggle_all.setChecked(false);
-                        if (checkThemeInterfacer(getContext())) {
-                            ThemeManager.disableOverlay(mContext, final_command);
-                        } else {
-                            String final_commands = "";
-                            if (final_commands.length() > 0 && final_command.size() > 0) {
-                                final_commands += " " + ThemeManager.disableOverlay;
-                            } else if (final_command.size() > 0) {
-                                final_commands = ThemeManager.disableOverlay;
-                            }
-                            for (int i = 0; i < final_command.size(); i++) {
-                                final_commands += " " + final_command.get(i);
-                            }
-                            if (!checkThemeInterfacer(getContext()) &&
-                                    isPackageInstalled(getContext(), MASQUERADE_PACKAGE)) {
-                                Log.d(SUBSTRATUM_LOG, "Using Masquerade as the fallback system...");
-                                Intent runCommand = MasqueradeService.getMasquerade(getContext());
-                                runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                                runCommand.setAction("masquerade.substratum.COMMANDS");
-                                runCommand.putExtra("om-commands", final_commands);
-                                getContext().sendBroadcast(runCommand);
-                            }
+                        String final_commands = "";
+                        if (final_commands.length() > 0 && final_command.size() > 0) {
+                            final_commands += " " + ThemeManager.disableOverlay;
+                        } else if (final_command.size() > 0) {
+                            final_commands = ThemeManager.disableOverlay;
+                        }
+                        for (int i = 0; i < final_command.size(); i++) {
+                            final_commands += " " + final_command.get(i);
+                        }
+                        if (!checkThemeInterfacer(getContext()) &&
+                                isPackageInstalled(getContext(), MASQUERADE_PACKAGE)) {
+                            Log.d(SUBSTRATUM_LOG, "Using Masquerade as the fallback system...");
+                            Intent runCommand = MasqueradeService.getMasquerade(getContext());
+                            runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                            runCommand.setAction("masquerade.substratum.COMMANDS");
+                            runCommand.putExtra("om-commands", final_commands);
+                            getContext().sendBroadcast(runCommand);
                         }
                     }
 

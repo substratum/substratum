@@ -774,6 +774,8 @@
     <string name="time_empty_warning">Please configure Start and End times!</string>
     <string name="time_equal_warning">Please choose different activation times!</string>
     <string name="profile_empty_warning">Please select all the profiles you want enabled!</string>
+    <string name="profile_notification_title_day">Day</string>
+    <string name="profile_notification_title_night">Night</string>
     <string name="profile_notification_title">%s profile</string>
     <string name="profile_pending_notification">Profile will be changed after screen is off.</string>
     <string name="profile_success_notification">Profile successfully applied!</string>

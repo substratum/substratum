@@ -107,9 +107,19 @@ public class ScheduledProfileService extends JobService {
             // Make sure binder service is alive
             Substratum.getInstance().startBinderService();
 
-            Log.d("ScheduledProfile", "processing...");
+            String profile_name = "";
+            switch (extra) {
+                case "day":
+                    profile_name = getString(R.string.profile_notification_title_day);
+                    break;
+                case "night":
+                    profile_name = getString(R.string.profile_notification_title_night);
+                    break;
+            }
+
+            Log.d("ScheduledProfile", "Processing...");
             String title_parse = String.format(getString(R.string.profile_notification_title),
-                    extra);
+                    profile_name);
             mNotifyManager.cancel(NOTIFICATION_ID);
             mBuilder.setContentTitle(title_parse)
                     .setOngoing(false)

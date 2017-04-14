@@ -278,6 +278,7 @@ public class ScheduledProfileService extends JobService {
             calendar.setTimeInMillis(System.currentTimeMillis());
             calendar.set(Calendar.HOUR_OF_DAY, hour);
             calendar.set(Calendar.MINUTE, minute);
+            calendar.set(Calendar.SECOND, 0);
             calendar.add(Calendar.DAY_OF_YEAR, 1);
 
             Intent i = new Intent(mContext, ScheduledProfileReceiver.class);

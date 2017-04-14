@@ -462,11 +462,13 @@ public class ProfileFragment extends Fragment {
             calendarNight.setTimeInMillis(System.currentTimeMillis());
             calendarNight.set(Calendar.HOUR_OF_DAY, nightHour);
             calendarNight.set(Calendar.MINUTE, nightMinute);
+            calendarNight.set(Calendar.SECOND, 0);
 
             Calendar calendarDay = Calendar.getInstance();
             calendarDay.setTimeInMillis(System.currentTimeMillis());
             calendarDay.set(Calendar.HOUR_OF_DAY, dayHour);
             calendarDay.set(Calendar.MINUTE, dayMinute);
+            calendarDay.set(Calendar.SECOND, 0);
 
             // Apply night profile
             if (calendarDay.after(current) && calendarNight.after(current)) {

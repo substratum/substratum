@@ -764,7 +764,7 @@ public class Overlays extends Fragment {
 
     private void failedFunction(Context context) {
         // Add dummy intent to be able to close the notification on click
-        Intent notificationIntent = new Intent(context, InformationActivity.class);
+        Intent notificationIntent = new Intent(context, this.getClass());
         notificationIntent.putExtra("theme_name", theme_name);
         notificationIntent.putExtra("theme_pid", theme_pid);
         notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |

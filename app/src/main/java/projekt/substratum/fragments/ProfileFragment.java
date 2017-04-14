@@ -653,9 +653,12 @@ public class ProfileFragment extends Fragment {
 
                 // Clear theme profile folder if empty
                 File profileThemeFolder = new File(profileDir, "theme");
-                if (profileThemeFolder.list().length == 0) {
-                    Log.d(References.SUBSTRATUM_LOG, "Profile theme directory is empty! delete " +
-                            (profileThemeFolder.delete() ? "success" : "failed"));
+                if (profileThemeFolder.list() != null) {
+                    if (profileThemeFolder.list().length == 0) {
+                        Log.d(References.SUBSTRATUM_LOG,
+                                "Profile theme directory is empty! delete " +
+                                        (profileThemeFolder.delete() ? "success" : "failed"));
+                    }
                 }
             } else {
                 String current_directory;

@@ -498,6 +498,9 @@ public class References {
 
     // This method checks for offensive words
     public static boolean isOffensive(Context context, String toBeProcessed) {
+        if (toBeProcessed == null) {
+            return true;
+        }
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         if (References.isNetworkAvailable(context)) {
             FirebaseAnalytics.withdrawNames(context);

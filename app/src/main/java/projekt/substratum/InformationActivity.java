@@ -122,8 +122,13 @@ public class InformationActivity extends AppCompatActivity {
     }
 
     private static int getDominantColor(Bitmap bitmap) {
-        Palette palette = Palette.from(bitmap).generate();
-        return palette.getDominantColor(Color.BLACK);
+        try {
+            Palette palette = Palette.from(bitmap).generate();
+            return palette.getDominantColor(Color.BLACK);
+        } catch (IllegalArgumentException iae) {
+            // Suppress warning
+        }
+        return Color.BLACK;
     }
 
     private static void setOverflowButtonColor(final Activity activity, final Boolean dark_mode) {
@@ -300,7 +305,12 @@ public class InformationActivity extends AppCompatActivity {
 
         Drawable heroImage = grabPackageHeroImage(theme_pid);
         if (heroImage != null) heroImageBitmap = ((BitmapDrawable) heroImage).getBitmap();
-        int dominantColor = getDominantColor(heroImageBitmap);
+        int dominantColor;
+        if (heroImageBitmap == null) {
+            dominantColor = Color.BLACK;
+        } else {
+            dominantColor = getDominantColor(heroImageBitmap);
+        }
 
         appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
         appBarLayout.setBackgroundColor(dominantColor);
@@ -589,8 +599,15 @@ public class InformationActivity extends AppCompatActivity {
 
         // Start formalizing a check for dark icons
         Drawable heroImage = grabPackageHeroImage(theme_pid);
-        if (heroImage != null) heroImageBitmap = ((BitmapDrawable) heroImage).getBitmap();
-        int dominantColor = getDominantColor(heroImageBitmap);
+        if (heroImage != null) {
+            heroImageBitmap = ((BitmapDrawable) heroImage).getBitmap();
+        }
+        int dominantColor;
+        if (heroImageBitmap == null) {
+            dominantColor = Color.BLACK;
+        } else {
+            dominantColor = getDominantColor(heroImageBitmap);
+        }
         boolean dynamicActionBarColors = getResources().getBoolean(R.bool.dynamicActionBarColors);
         shouldDarken = collapsingToolbarLayout != null &&
                 checkColorDarkness(dominantColor) &&
@@ -936,7 +953,8 @@ public class InformationActivity extends AppCompatActivity {
         protected String doInBackground(String... sUrl) {
             kenBurnsView = (KenBurnsView) findViewById(R.id.kenburnsView);
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            heroImageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            if (heroImageBitmap != null)
+                heroImageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
             byteArray = stream.toByteArray();
             return null;
         }

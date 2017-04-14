@@ -940,7 +940,7 @@ public class Overlays extends Fragment {
                     "/" + package_identifier + suffix + "/values/type1" + type + ".xml")) {
                 hex = References.getOverlayResource(name);
             } catch (IOException e) {
-                Log.e(References.SUBSTRATUM_LOG, "Type1 default xml is not found!");
+                // Suppress warning
             }
             return new VariantInfo(formatter, hex);
         } catch (IOException e) {
@@ -953,7 +953,7 @@ public class Overlays extends Fragment {
                     "/" + package_identifier + suffix + "/values/type1" + type + ".xml")) {
                 hex = References.getOverlayResource(input);
             } catch (IOException ioe) {
-                Log.e(References.SUBSTRATUM_LOG, "Type1 default xml is not found!");
+                // Suppress warning
             }
             switch (type) {
                 case "a":

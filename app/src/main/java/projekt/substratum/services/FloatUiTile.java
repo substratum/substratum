@@ -18,17 +18,14 @@
 
 package projekt.substratum.services;
 
-import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.preference.PreferenceManager;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
 
 import projekt.substratum.FloatUILaunchActivity;
 
-@TargetApi(Build.VERSION_CODES.N)
 public class FloatUiTile extends TileService {
 
     @Override
@@ -54,7 +51,9 @@ public class FloatUiTile extends TileService {
                 getApplicationContext());
         int state = prefs.getInt("float_tile", Tile.STATE_INACTIVE);
         Tile tile = getQsTile();
-        tile.setState(state);
-        tile.updateTile();
+        if (tile != null) {
+            tile.setState(state);
+            tile.updateTile();
+        }
     }
 }

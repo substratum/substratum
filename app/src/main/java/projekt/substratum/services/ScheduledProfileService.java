@@ -34,6 +34,7 @@ import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
 
 import java.io.File;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -62,7 +63,7 @@ import static projekt.substratum.fragments.ProfileFragment.SCHEDULED_PROFILE_TYP
 public class ScheduledProfileService extends JobService {
 
     private final int NOTIFICATION_ID = 1023;
-    private Context mContext;
+    private Context context;
     private SharedPreferences prefs;
     private String extra;
     private NotificationManager mNotifyManager;
@@ -71,12 +72,12 @@ public class ScheduledProfileService extends JobService {
 
     @Override
     public boolean onStartJob(JobParameters params) {
-        mContext = this;
+        context = this;
         jobParameters = params;
-        prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
-        mNotifyManager = (NotificationManager) mContext.getSystemService(
+        prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        mNotifyManager = (NotificationManager) context.getSystemService(
                 Context.NOTIFICATION_SERVICE);
-        mBuilder = new NotificationCompat.Builder(mContext);
+        mBuilder = new NotificationCompat.Builder(context);
         extra = params.getExtras().getString(SCHEDULED_PROFILE_TYPE_EXTRA);
 
         if (extra != null && !extra.isEmpty()) {
@@ -97,43 +98,50 @@ public class ScheduledProfileService extends JobService {
         return false;
     }
 
-    private class ApplyProfile extends AsyncTask<Void, Void, Void> {
-        private JobService jobService;
+    private static class ApplyProfile extends AsyncTask<Void, Void, Void> {
+        private WeakReference<ScheduledProfileService> ref;
 
-        ApplyProfile(JobService _jobService) {
-            jobService = _jobService;
+        ApplyProfile(ScheduledProfileService service) {
+            ref = new WeakReference<>(service);
         }
 
         @Override
         protected void onPreExecute() {
+            ScheduledProfileService service = ref.get();
+
             // Make sure binder service is alive
             Substratum.getInstance().startBinderService();
 
             String profile_name = "";
-            switch (extra) {
+            switch (service.extra) {
                 case "day":
-                    profile_name = getString(R.string.profile_notification_title_day);
+                    profile_name = service.getString(R.string.profile_notification_title_day);
                     break;
                 case "night":
-                    profile_name = getString(R.string.profile_notification_title_night);
+                    profile_name = service.getString(R.string.profile_notification_title_night);
                     break;
             }
 
             Log.d("ScheduledProfile", "Processing...");
-            String title_parse = String.format(getString(R.string.profile_notification_title),
+            String title_parse = String.format(
+                    service.getString(R.string.profile_notification_title),
                     profile_name);
-            mNotifyManager.cancel(NOTIFICATION_ID);
-            mBuilder.setContentTitle(title_parse)
+            service.mNotifyManager.cancel(service.NOTIFICATION_ID);
+            service.mBuilder.setContentTitle(title_parse)
                     .setOngoing(false)
                     .setPriority(Notification.PRIORITY_MAX)
                     .setSmallIcon(R.drawable.ic_substratum)
-                    .setContentText(getString(R.string.profile_success_notification));
+                    .setContentText(service.getString(R.string.profile_success_notification));
         }
 
         @Override
         protected Void doInBackground(Void... params) {
+            ScheduledProfileService service = ref.get();
+            Context context = service.context;
+            SharedPreferences prefs = service.prefs;
+
             String type;
-            if (extra.equals(NIGHT)) {
+            if (service.extra.equals(NIGHT)) {
                 type = NIGHT_PROFILE;
             } else {
                 type = DAY_PROFILE;
@@ -152,15 +160,15 @@ public class ScheduledProfileService extends JobService {
                 String[] commands = {overlays.getAbsolutePath(), "5"};
 
                 List<List<String>> profile = ReadOverlaysFile.withTargetPackage(
-                        mContext, commands);
-                system = ReadOverlaysFile.main(mContext, commandsSystem4);
-                system.addAll(ReadOverlaysFile.main(mContext, commandsSystem5));
+                        context, commands);
+                system = ReadOverlaysFile.main(context, commandsSystem4);
+                system.addAll(ReadOverlaysFile.main(context, commandsSystem5));
 
                 // Now process the overlays to be enabled
                 for (int i = 0, size = profile.size(); i < size; i++) {
                     String packageName = profile.get(i).get(0);
                     String targetPackage = profile.get(i).get(1);
-                    if (References.isPackageInstalled(mContext, targetPackage)) {
+                    if (References.isPackageInstalled(context, targetPackage)) {
                         if (!packageName.endsWith(".icon")) {
                             if (system.contains(packageName)) {
                                 to_be_run.add(packageName);
@@ -198,20 +206,20 @@ public class ScheduledProfileService extends JobService {
                 // Encrypted devices boot Animation
                 File bootanimation = new File(theme, "bootanimation.zip");
                 if (bootanimation.exists() &&
-                        References.getDeviceEncryptionStatus(mContext) > 1) {
+                        References.getDeviceEncryptionStatus(context) > 1) {
                     FileOperations.mountRW();
-                    FileOperations.move(mContext, "/system/media/bootanimation.zip",
+                    FileOperations.move(context, "/system/media/bootanimation.zip",
                             "/system/madia/bootanimation-backup.zip");
-                    FileOperations.copy(mContext, bootanimation.getAbsolutePath(),
+                    FileOperations.copy(context, bootanimation.getAbsolutePath(),
                             "/system/media/bootanimation.zip");
                     FileOperations.setPermissions(644, "/system/media/bootanimation.zip");
                     FileOperations.mountRO();
                 }
 
                 ArrayList<String> toBeDisabled = new ArrayList<>(system);
-                boolean shouldRestartUi = ThemeManager.shouldRestartUI(mContext, toBeDisabled)
-                        || ThemeManager.shouldRestartUI(mContext, to_be_run);
-                ThemeInterfacerService.applyProfile(mContext, processed, new ArrayList<>
+                boolean shouldRestartUi = ThemeManager.shouldRestartUI(context, toBeDisabled)
+                        || ThemeManager.shouldRestartUI(context, to_be_run);
+                ThemeInterfacerService.applyProfile(context, processed, new ArrayList<>
                                 (system),
                         to_be_run, shouldRestartUi);
 
@@ -224,21 +232,23 @@ public class ScheduledProfileService extends JobService {
                 File lockWall = new File(lockWallPath);
                 if (homeWall.exists() || lockWall.exists()) {
                     try {
-                        WallpaperManager.setWallpaper(mContext, homeWallPath, "home");
-                        WallpaperManager.setWallpaper(mContext, lockWallPath, "lock");
+                        WallpaperManager.setWallpaper(context, homeWallPath, "home");
+                        WallpaperManager.setWallpaper(context, lockWallPath, "lock");
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
             } else {
-                Intent notifyIntent = new Intent(mContext, ProfileErrorInfoActivity.class);
+                Intent notifyIntent = new Intent(context, ProfileErrorInfoActivity.class);
                 notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 notifyIntent.putExtra("dialog_message", dialog_message);
-                PendingIntent contentIntent = PendingIntent.getActivity(mContext, 0,
+                PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
                         notifyIntent, 0);
 
-                mBuilder.setContentTitle(getString(R.string.profile_failed_notification))
-                        .setContentText(getString(R.string.profile_failed_info_notification))
+                service.mBuilder.setContentTitle(
+                        service.getString(R.string.profile_failed_notification))
+                        .setContentText(service.getString(
+                                R.string.profile_failed_info_notification))
                         .setContentIntent(contentIntent);
             }
             return null;
@@ -246,8 +256,12 @@ public class ScheduledProfileService extends JobService {
 
         @Override
         protected void onPostExecute(Void params) {
+            ScheduledProfileService service = ref.get();
+            Context context = service.context;
+            SharedPreferences prefs = service.prefs;
+
             //create new alarm
-            boolean isNight = extra.equals(NIGHT);
+            boolean isNight = service.extra.equals(NIGHT);
             int hour = isNight ? prefs.getInt(NIGHT_PROFILE_HOUR, 0) :
                     prefs.getInt(DAY_PROFILE_HOUR, 0);
             int minute = isNight ? prefs.getInt(NIGHT_PROFILE_MINUTE, 0) :
@@ -260,21 +274,21 @@ public class ScheduledProfileService extends JobService {
             calendar.set(Calendar.SECOND, 0);
             calendar.add(Calendar.DAY_OF_YEAR, 1);
 
-            Intent i = new Intent(mContext, ScheduledProfileReceiver.class);
-            i.putExtra(SCHEDULED_PROFILE_TYPE_EXTRA, extra);
-            PendingIntent newIntent = PendingIntent.getBroadcast(mContext, isNight ? 0 : 1, i,
+            Intent i = new Intent(context, ScheduledProfileReceiver.class);
+            i.putExtra(SCHEDULED_PROFILE_TYPE_EXTRA, service.extra);
+            PendingIntent newIntent = PendingIntent.getBroadcast(context, isNight ? 0 : 1, i,
                     PendingIntent.FLAG_UPDATE_CURRENT);
 
-            AlarmManager alarmMgr = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
+            AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                     newIntent);
 
             //save current profile
-            prefs.edit().putString(SCHEDULED_PROFILE_CURRENT_PROFILE, extra).apply();
+            prefs.edit().putString(SCHEDULED_PROFILE_CURRENT_PROFILE, service.extra).apply();
 
             //all set, notify user the output
-            mNotifyManager.notify(NOTIFICATION_ID, mBuilder.build());
-            jobService.jobFinished(jobParameters, false);
+            service.mNotifyManager.notify(service.NOTIFICATION_ID, service.mBuilder.build());
+            service.jobFinished(service.jobParameters, false);
         }
     }
 }

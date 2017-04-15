@@ -208,35 +208,12 @@ public class ScheduledProfileService extends JobService {
                     FileOperations.mountRO();
                 }
 
-                if (References.checkThemeInterfacer(mContext)) {
-                    ArrayList<String> toBeDisabled = new ArrayList<>(system);
-                    boolean shouldRestartUi = ThemeManager.shouldRestartUI(mContext, toBeDisabled)
-                            || ThemeManager.shouldRestartUI(mContext, to_be_run);
-                    ThemeInterfacerService.applyProfile(mContext, processed, new ArrayList<>
-                                    (system),
-                            to_be_run, shouldRestartUi);
-                } else {
-                    // Restore the whole backed up profile back to /data/system/theme/
-                    if (theme.exists()) {
-                        FileOperations.delete(mContext, "/data/system/theme", false);
-                        FileOperations.copyDir(mContext, theme.getAbsolutePath(),
-                                "/data/system/theme");
-                        FileOperations.setPermissionsRecursively(644, "/data/system/theme/audio");
-                        FileOperations.setPermissions(755, "/data/system/theme/audio");
-                        FileOperations.setPermissions(755, "/data/system/theme/audio/alarms");
-                        FileOperations.setPermissions(755,
-                                "/data/system/theme/audio/notifications");
-                        FileOperations.setPermissions(755, "/data/system/theme/audio/ringtones");
-                        FileOperations.setPermissions(755, "/data/system/theme/audio/ringtones");
-                        FileOperations.setPermissionsRecursively(644, "/data/system/theme/fonts/");
-                        FileOperations.setPermissions(755, "/data/system/theme/fonts/");
-                        FileOperations.setContext("/data/system/theme");
-
-                        ThemeManager.disableAll(mContext);
-                        ThemeManager.enableOverlay(mContext, to_be_run);
-                        ThemeManager.restartSystemUI(mContext);
-                    }
-                }
+                ArrayList<String> toBeDisabled = new ArrayList<>(system);
+                boolean shouldRestartUi = ThemeManager.shouldRestartUI(mContext, toBeDisabled)
+                        || ThemeManager.shouldRestartUI(mContext, to_be_run);
+                ThemeInterfacerService.applyProfile(mContext, processed, new ArrayList<>
+                                (system),
+                        to_be_run, shouldRestartUi);
 
                 // Restore wallpapers
                 String homeWallPath = Environment.getExternalStorageDirectory().getAbsolutePath() +

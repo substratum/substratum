@@ -67,10 +67,12 @@ public class ScheduledProfileService extends JobService {
     private String extra;
     private NotificationManager mNotifyManager;
     private NotificationCompat.Builder mBuilder;
+    private JobParameters jobParameters;
 
     @Override
     public boolean onStartJob(JobParameters params) {
         mContext = this;
+        jobParameters = params;
         prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
         mNotifyManager = (NotificationManager) mContext.getSystemService(
                 Context.NOTIFICATION_SERVICE);
@@ -78,7 +80,7 @@ public class ScheduledProfileService extends JobService {
         extra = params.getExtras().getString(SCHEDULED_PROFILE_TYPE_EXTRA);
 
         if (extra != null && !extra.isEmpty()) {
-            new ApplyProfile(this).execute(params);
+            new ApplyProfile(this).execute();
             return true;
         } else {
             mBuilder.setContentTitle(getString(R.string.scheduled_night_profile))
@@ -95,7 +97,7 @@ public class ScheduledProfileService extends JobService {
         return false;
     }
 
-    private class ApplyProfile extends AsyncTask<JobParameters, Void, JobParameters> {
+    private class ApplyProfile extends AsyncTask<Void, Void, Void> {
         private JobService jobService;
 
         ApplyProfile(JobService _jobService) {
@@ -129,7 +131,7 @@ public class ScheduledProfileService extends JobService {
         }
 
         @Override
-        protected JobParameters doInBackground(JobParameters... params) {
+        protected Void doInBackground(Void... params) {
             String type;
             if (extra.equals(NIGHT)) {
                 type = NIGHT_PROFILE;
@@ -266,7 +268,7 @@ public class ScheduledProfileService extends JobService {
         }
 
         @Override
-        protected void onPostExecute(JobParameters params) {
+        protected void onPostExecute(Void params) {
             //create new alarm
             boolean isNight = extra.equals(NIGHT);
             int hour = isNight ? prefs.getInt(NIGHT_PROFILE_HOUR, 0) :
@@ -295,9 +297,7 @@ public class ScheduledProfileService extends JobService {
 
             //all set, notify user the output
             mNotifyManager.notify(NOTIFICATION_ID, mBuilder.build());
-
-            //TODO: this thing cause problem(s), is this really needed?
-            //jobService.jobFinished(params, false);
+            jobService.jobFinished(jobParameters, false);
         }
     }
 }

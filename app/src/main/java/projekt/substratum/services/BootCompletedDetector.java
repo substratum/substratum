@@ -55,8 +55,10 @@ public class BootCompletedDetector extends BroadcastReceiver {
         try {
             IntentFilter intentAppCrashed = new IntentFilter(APP_CRASHED);
             IntentFilter intentPackageAdded = new IntentFilter(PACKAGE_ADDED);
-            context.registerReceiver(new AppCrashReceiver(), intentAppCrashed);
-            context.registerReceiver(new PackageModificationDetector(), intentPackageAdded);
+            context.getApplicationContext().registerReceiver(
+                    new AppCrashReceiver(), intentAppCrashed);
+            context.getApplicationContext().registerReceiver(
+                    new PackageModificationDetector(), intentPackageAdded);
             return true;
         } catch (Exception e) {
             // Suppress warning

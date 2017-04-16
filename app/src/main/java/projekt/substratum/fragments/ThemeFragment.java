@@ -18,13 +18,11 @@
 
 package projekt.substratum.fragments;
 
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -48,6 +46,7 @@ import java.util.TreeMap;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.MainActivity;
 import projekt.substratum.R;
+import projekt.substratum.ShowcaseActivity;
 import projekt.substratum.adapters.ThemeEntryAdapter;
 import projekt.substratum.config.References;
 import projekt.substratum.config.ThemeManager;
@@ -96,16 +95,8 @@ public class ThemeFragment extends Fragment {
         recyclerView = (RecyclerView) root.findViewById(R.id.theme_list);
         cardView = root.findViewById(R.id.no_entry_card_view);
         cardView.setOnClickListener(v -> {
-                    try {
-                        String playURL = getString(R.string
-                                .search_play_store_url);
-                        Intent i = new Intent(Intent.ACTION_VIEW);
-                        i.setData(Uri.parse(playURL));
-                        startActivity(i);
-                    } catch (ActivityNotFoundException
-                            activityNotFoundException) {
-                        // Suppress warning
-                    }
+                    Intent intent = new Intent(getActivity(), ShowcaseActivity.class);
+                    startActivity(intent);
                 }
         );
         cardView.setVisibility(View.GONE);

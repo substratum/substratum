@@ -85,6 +85,8 @@ import java.util.TreeSet;
 
 import projekt.substratum.BuildConfig;
 import projekt.substratum.R;
+import projekt.substratum.services.AppCrashReceiver;
+import projekt.substratum.services.PackageModificationDetector;
 import projekt.substratum.services.ScheduledProfileReceiver;
 import projekt.substratum.util.AOPTCheck;
 import projekt.substratum.util.CacheCreator;
@@ -158,7 +160,24 @@ public class References {
     private static int hashValue;
     private static ScheduledProfileReceiver scheduledProfileReceiver;
     private Context mContext; // Used for support checker
+    private static final String APP_CRASHED = "projekt.substratum.APP_CRASHED";
+    private static final String PACKAGE_ADDED = "android.intent.action.PACKAGE_ADDED";
 
+    public static void registerBroadcastReceivers(Context context) {
+        try {
+            IntentFilter intentAppCrashed = new IntentFilter(APP_CRASHED);
+            IntentFilter intentPackageAdded = new IntentFilter(PACKAGE_ADDED);
+            context.getApplicationContext().registerReceiver(
+                    new AppCrashReceiver(), intentAppCrashed);
+            context.getApplicationContext().registerReceiver(
+                    new PackageModificationDetector(), intentPackageAdded);
+            Log.d(SUBSTRATUM_LOG,
+                    "Successfully registered broadcast receivers for Substratum functionality!");
+        } catch (Exception e) {
+            Log.e(SUBSTRATUM_LOG,
+                    "Failed to register broadcast receivers for Substratum functionality...");
+        }
+    }
     public static void registerProfileScreenOffReceiver(Context context) {
         scheduledProfileReceiver = new ScheduledProfileReceiver();
         context.registerReceiver(scheduledProfileReceiver,

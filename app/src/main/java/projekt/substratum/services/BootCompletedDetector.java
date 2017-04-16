@@ -21,7 +21,6 @@ package projekt.substratum.services;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Environment;
 import android.support.v7.preference.PreferenceManager;
@@ -37,24 +36,7 @@ import static projekt.substratum.config.ProfileManager.SCHEDULED_PROFILE_ENABLED
 
 public class BootCompletedDetector extends BroadcastReceiver {
 
-    private static final String APP_CRASHED = "projekt.substratum.APP_CRASHED";
     private static final String BOOT_COMPLETED = "android.intent.action.BOOT_COMPLETED";
-    private static final String PACKAGE_ADDED = "android.intent.action.PACKAGE_ADDED";
-
-    private boolean registerBroadcastReceivers(Context context) {
-        try {
-            IntentFilter intentAppCrashed = new IntentFilter(APP_CRASHED);
-            IntentFilter intentPackageAdded = new IntentFilter(PACKAGE_ADDED);
-            context.getApplicationContext().registerReceiver(
-                    new AppCrashReceiver(), intentAppCrashed);
-            context.getApplicationContext().registerReceiver(
-                    new PackageModificationDetector(), intentPackageAdded);
-            return true;
-        } catch (Exception e) {
-            // Suppress warning
-        }
-        return false;
-    }
 
     private boolean clearSubstratumCompileFolder(Context context) {
         File deleted = new File(
@@ -70,21 +52,13 @@ public class BootCompletedDetector extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if (BOOT_COMPLETED.equals(intent.getAction())) {
-            boolean registered = registerBroadcastReceivers(context);
-            if (registered) {
-                Log.d(this.getClass().getSimpleName(),
-                        "Successfully registered broadcast receivers " +
-                                "for Substratum functionality!");
-            } else {
-                Log.e(this.getClass().getSimpleName(),
-                        "Failed to register broadcast receivers for Substratum functionality...");
-            }
-            clearSubstratumCompileFolder(context);
-
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
             if (prefs.getBoolean(SCHEDULED_PROFILE_ENABLED, false)) {
                 ProfileManager.updateScheduledProfile(context);
             }
+
+            References.registerBroadcastReceivers(context);
+            clearSubstratumCompileFolder(context);
         }
     }
 }

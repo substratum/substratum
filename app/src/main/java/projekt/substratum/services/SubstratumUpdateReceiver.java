@@ -26,6 +26,7 @@ import android.support.v7.preference.PreferenceManager;
 
 import projekt.substratum.Substratum;
 import projekt.substratum.config.ProfileManager;
+import projekt.substratum.config.References;
 
 import static projekt.substratum.config.ProfileManager.SCHEDULED_PROFILE_ENABLED;
 
@@ -37,5 +38,7 @@ public class SubstratumUpdateReceiver extends BroadcastReceiver {
         if (prefs.getBoolean(SCHEDULED_PROFILE_ENABLED, false)) {
             ProfileManager.updateScheduledProfile(context);
         }
+
+        References.registerBroadcastReceivers(context);
     }
 }

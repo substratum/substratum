@@ -658,8 +658,13 @@ public class AdvancedManagerFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             AdvancedManagerFragment fragment = ref.get();
+            Context context = fragment.context;
             fragment.materialSheetFab.hideSheet();
             fragment.loadingBar.setVisibility(View.VISIBLE);
+            Toast toast = Toast.makeText(context, fragment.getString(R
+                            .string.toast_uninstalling),
+                    Toast.LENGTH_LONG);
+            toast.show();
         }
 
         @Override
@@ -675,10 +680,6 @@ public class AdvancedManagerFragment extends Fragment {
                 OverlayManager overlay1 = fragment.overlayList.get(i);
                 if (overlay1.isSelected()) data.add(overlay1.getName());
             }
-            Toast toast = Toast.makeText(context, fragment.getString(R
-                            .string.toast_uninstalling),
-                    Toast.LENGTH_LONG);
-            toast.show();
 
             // The magic goes here
             if (checkThemeInterfacer(context)) {

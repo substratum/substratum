@@ -65,8 +65,6 @@ public class PriorityListFragment extends Fragment {
                 .priority_header_loading_bar);
         headerProgress.setVisibility(View.GONE);
 
-        applyFab.hide();
-
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(manager);
 

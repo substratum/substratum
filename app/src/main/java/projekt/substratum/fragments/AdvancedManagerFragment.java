@@ -125,8 +125,7 @@ public class AdvancedManagerFragment extends Fragment {
 
         new LayoutReloader(AdvancedManagerFragment.this).execute();
 
-        if (References.checkThemeInterfacer(context) &&
-                !References.isBinderInterfacer(context)) {
+        if (References.checkThemeInterfacer(context)) {
             finishReceiver = new FinishReceiver(AdvancedManagerFragment.this);
             IntentFilter intentFilter = new IntentFilter(
                     References.INTERFACER_PACKAGE + ".STATUS_CHANGED");

@@ -61,10 +61,16 @@ public class BinderService extends Service implements ServiceConnection {
     }
 
     @Override
-    public void onCreate() {
-        super.onCreate();
+    public int onStartCommand(Intent intent, int flags, int startId) {
         binderService = this;
         bindInterfacer();
+        return START_STICKY;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unbindInterfacer();
     }
 
     @Nullable

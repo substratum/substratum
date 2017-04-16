@@ -48,6 +48,7 @@ import projekt.substratum.config.ThemeInterfacerService;
 import projekt.substratum.config.ThemeManager;
 import projekt.substratum.model.PackInfo;
 
+import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
 import static projekt.substratum.config.References.DEBUG;
 import static projekt.substratum.config.References.FIRST_WINDOW_REFRESH_DELAY;
 import static projekt.substratum.config.References.MAIN_WINDOW_REFRESH_DELAY;
@@ -185,7 +186,7 @@ public class StudioSelectorActivity extends AppCompatActivity {
             builder.setMessage(R.string.studio_system_reset_dialog);
             builder.setPositiveButton(R.string.uninstall_dialog_okay, (dialog, id) -> {
                 // Begin disabling themes
-                List<String> state5 = ThemeManager.listOverlays(5);
+                List<String> state5 = ThemeManager.listOverlays(STATE_APPROVED_ENABLED);
                 ArrayList<String> all = new ArrayList<>(state5);
 
                 // Filter out icon pack overlays from all overlays

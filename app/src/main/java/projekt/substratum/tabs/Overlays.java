@@ -99,6 +99,7 @@ import projekt.substratum.util.CacheCreator;
 import projekt.substratum.util.SubstratumBuilder;
 
 import static android.content.Context.CLIPBOARD_SERVICE;
+import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
 import static projekt.substratum.config.References.INTERFACER_PACKAGE;
 import static projekt.substratum.config.References.MASQUERADE_PACKAGE;
 import static projekt.substratum.config.References.REFRESH_WINDOW_DELAY;
@@ -597,7 +598,7 @@ public class Overlays extends Fragment {
     }
 
     private List<String> updateEnabledOverlays() {
-        List<String> state5 = ThemeManager.listOverlays(5);
+        List<String> state5 = ThemeManager.listOverlays(STATE_APPROVED_ENABLED);
         ArrayList<String> all = new ArrayList<>(state5);
 
         all_installed_overlays = new ArrayList<>();
@@ -1590,7 +1591,7 @@ public class Overlays extends Fragment {
                             Toast.LENGTH_SHORT);
                     toast.show();
                 }
-            } else {
+            } else if (disable_mode) {
                 if (final_runner.size() > 0) {
                     disable_mode = false;
                     progressBar.setVisibility(View.VISIBLE);

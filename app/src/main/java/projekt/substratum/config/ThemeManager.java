@@ -30,20 +30,23 @@ import java.util.stream.Collectors;
 
 import projekt.substratum.util.Root;
 
+import static android.content.om.OverlayInfo.STATE_APPROVED_DISABLED;
+import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
+import static android.content.om.OverlayInfo.STATE_NOT_APPROVED_DANGEROUS_OVERLAY;
 import static projekt.substratum.config.References.INTERFACER_PACKAGE;
 import static projekt.substratum.config.References.checkOMS;
 import static projekt.substratum.config.References.checkThemeInterfacer;
 
 public class ThemeManager {
 
-    /*
-        Begin interaction with the OverlayManagerService binaries.
-
-        These methods will concurrently list all the possible functions that is open to Substratum
-        for usage with the OMS7 and OMS7-R systems.
-
-        NOTE: Deprecation at the OMS3 level. We no longer support OMS3 commands.
-    */
+    /**
+     * Begin interaction with the OverlayManagerService binaries.
+     * <p>
+     * These methods will concurrently list all the possible functions that is open to Substratum
+     * for usage with the OMS7 and OMS7-R systems.
+     * <p>
+     * NOTE: Deprecation at the OMS3 level. We no longer support OMS3 commands.
+     */
 
     public static final String listAllOverlays = "cmd overlay list";
     public static final String disableOverlay = "cmd overlay disable";
@@ -105,7 +108,7 @@ public class ThemeManager {
 
     public static void disableAll(Context context) {
         if (checkThemeInterfacer(context)) {
-            List<String> list = ThemeManager.listOverlays(5);
+            List<String> list = ThemeManager.listOverlays(STATE_APPROVED_ENABLED);
             ThemeInterfacerService.disableOverlays(context, new ArrayList<>(list),
                     shouldRestartUI(context, new ArrayList<>(list)));
         } else {
@@ -127,6 +130,7 @@ public class ThemeManager {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public static List<String> listOverlays(int state) {
         List<String> list = new ArrayList<>();
         try {
@@ -135,11 +139,12 @@ public class ThemeManager {
                 Set<String> set = allOverlays.keySet();
                 for (String targetPackageName : set) {
                     for (OverlayInfo oi : allOverlays.get(targetPackageName)) {
-                        if (state == 5 && oi.isEnabled()) {
+                        if (state == STATE_APPROVED_ENABLED && oi.isEnabled()) {
                             list.add(oi.packageName);
-                        } else if (state == 4 && !oi.isEnabled()) {
+                        } else if (state == STATE_APPROVED_DISABLED && !oi.isEnabled()) {
                             list.add(oi.packageName);
-                        } else if (state <= 3 && !oi.isApproved()) {
+                        } else if (state <= STATE_NOT_APPROVED_DANGEROUS_OVERLAY &&
+                                !oi.isApproved()) {
                             list.add(oi.packageName);
                         }
                     }
@@ -151,6 +156,7 @@ public class ThemeManager {
         return list;
     }
 
+    @SuppressWarnings("unchecked")
     public static List<String> listTargetWithMultipleOverlaysEnabled() {
         List<String> list = new ArrayList<>();
         Map<String, List<OverlayInfo>> allOverlays = OverlayManagerService.getAllOverlays();
@@ -176,7 +182,7 @@ public class ThemeManager {
 
     public static List<String> listEnabledOverlaysForTarget(String target) {
         List<String> list = new ArrayList<>();
-        List<String> overlays = listOverlays(5);
+        List<String> overlays = listOverlays(STATE_APPROVED_ENABLED);
         list.addAll(overlays.stream().filter(o -> o.startsWith(target))
                 .collect(Collectors.toList()));
 
@@ -184,7 +190,7 @@ public class ThemeManager {
     }
 
     public static boolean isOverlayEnabled(String overlayName) {
-        List<String> enabledOverlays = ThemeManager.listOverlays(5);
+        List<String> enabledOverlays = ThemeManager.listOverlays(STATE_APPROVED_ENABLED);
         for (String o : enabledOverlays) {
             if (o.equals(overlayName)) return true;
         }
@@ -222,16 +228,10 @@ public class ThemeManager {
 
     public static void uninstallOverlay(Context context, ArrayList<String> overlays) {
         if (checkThemeInterfacer(context)) {
-            boolean shouldRestartUi = false;
-            for (String o : overlays) {
-                if (o.startsWith("com.android.systemui")) {
-                    if (isOverlayEnabled(o)) {
-                        shouldRestartUi = true;
-                        break;
-                    }
-                }
-            }
-            ThemeInterfacerService.uninstallOverlays(context, overlays, shouldRestartUi);
+            ThemeInterfacerService.uninstallOverlays(
+                    context,
+                    overlays,
+                    shouldRestartUI(context, overlays));
         } else {
             String command = "";
             for (String packageName : overlays) {

@@ -85,6 +85,8 @@ import projekt.substratum.config.WallpaperManager;
 import projekt.substratum.util.FloatingActionMenu;
 import projekt.substratum.util.SheetDialog;
 
+import static android.content.om.OverlayInfo.STATE_APPROVED_DISABLED;
+import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
 import static projekt.substratum.config.References.BYPASS_SUBSTRATUM_BUILDER_DELETION;
 
 public class InformationActivity extends AppCompatActivity {
@@ -707,8 +709,9 @@ public class InformationActivity extends AppCompatActivity {
                 builder1.setMessage(R.string.clean_dialog_body)
                         .setPositiveButton(R.string.uninstall_dialog_okay, (dialog, id18) -> {
                             // Get all installed overlays
-                            List<String> stateAll = ThemeManager.listOverlays(4);
-                            stateAll.addAll(ThemeManager.listOverlays(5));
+                            List<String> stateAll =
+                                    ThemeManager.listOverlays(STATE_APPROVED_DISABLED);
+                            stateAll.addAll(ThemeManager.listOverlays(STATE_APPROVED_ENABLED));
 
                             ArrayList<String> all_overlays = new ArrayList<>();
                             for (int j = 0; j < stateAll.size(); j++) {
@@ -778,7 +781,8 @@ public class InformationActivity extends AppCompatActivity {
                 builder3.setMessage(R.string.disable_dialog_body)
                         .setPositiveButton(R.string.uninstall_dialog_okay, (dialog, id16) -> {
                             // Get all enabled overlays
-                            List<String> stateAll = ThemeManager.listOverlays(5);
+                            List<String> stateAll =
+                                    ThemeManager.listOverlays(STATE_APPROVED_ENABLED);
 
                             ArrayList<String> all_overlays = new ArrayList<>();
                             for (int j = 0; j < stateAll.size(); j++) {
@@ -824,7 +828,8 @@ public class InformationActivity extends AppCompatActivity {
                 builder4.setMessage(R.string.enable_dialog_body)
                         .setPositiveButton(R.string.uninstall_dialog_okay, (dialog, id14) -> {
                             // Get all disabled overlays
-                            List<String> stateAll = ThemeManager.listOverlays(4);
+                            List<String> stateAll =
+                                    ThemeManager.listOverlays(STATE_APPROVED_DISABLED);
 
                             ArrayList<String> all_overlays = new ArrayList<>();
                             for (int j = 0; j < stateAll.size(); j++) {

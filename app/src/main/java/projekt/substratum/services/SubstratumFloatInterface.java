@@ -55,6 +55,9 @@ import projekt.substratum.R;
 import projekt.substratum.config.References;
 import projekt.substratum.config.ThemeManager;
 
+import static android.content.om.OverlayInfo.STATE_APPROVED_DISABLED;
+import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
+
 public class SubstratumFloatInterface extends Service implements FloatingViewListener {
 
     private static final String TAG = "SubstratumFloat";
@@ -111,8 +114,8 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
             String dialogTitle = String.format(getString(R.string.per_app_dialog_title),
                     packageName);
 
-            List<String> state4 = ThemeManager.listOverlays(4);
-            List<String> state5 = ThemeManager.listOverlays(5);
+            List<String> state4 = ThemeManager.listOverlays(STATE_APPROVED_DISABLED);
+            List<String> state5 = ThemeManager.listOverlays(STATE_APPROVED_ENABLED);
             ArrayList<String> disabled = new ArrayList<>(state4);
             ArrayList<String> enabled = new ArrayList<>(state5);
             ArrayList<String> all_overlays = new ArrayList<>();

@@ -78,6 +78,7 @@ import projekt.substratum.config.ThemeManager;
 import projekt.substratum.model.IconInfo;
 import projekt.substratum.util.SubstratumIconBuilder;
 
+import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
 import static projekt.substratum.config.References.DEBUG;
 import static projekt.substratum.config.References.FIRST_WINDOW_REFRESH_DELAY;
 import static projekt.substratum.config.References.MAIN_WINDOW_REFRESH_DELAY;
@@ -520,7 +521,7 @@ public class StudioPreviewActivity extends AppCompatActivity {
             total_amount = icons.size();
             disable_me = new ArrayList<>();
 
-            List<String> state5 = ThemeManager.listOverlays(5);
+            List<String> state5 = ThemeManager.listOverlays(STATE_APPROVED_ENABLED);
             ArrayList<String> activated_overlays = new ArrayList<>(state5);
             ArrayList<String> icons_list = new ArrayList<>();
             // Buffer the list of icons that are going to be loaded

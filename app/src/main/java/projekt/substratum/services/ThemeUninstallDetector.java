@@ -43,6 +43,9 @@ import projekt.substratum.config.SoundManager;
 import projekt.substratum.config.ThemeManager;
 import projekt.substratum.config.WallpaperManager;
 
+import static android.content.om.OverlayInfo.STATE_APPROVED_DISABLED;
+import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
+
 public class ThemeUninstallDetector extends BroadcastReceiver {
 
     @Override
@@ -56,8 +59,8 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
                 Set installed_themes = prefs.getStringSet("installed_themes", null);
                 if (installed_themes != null && installed_themes.contains(package_name)) {
                     // Get all installed overlays for this package
-                    List<String> stateAll = ThemeManager.listOverlays(4);
-                    stateAll.addAll(ThemeManager.listOverlays(5));
+                    List<String> stateAll = ThemeManager.listOverlays(STATE_APPROVED_DISABLED);
+                    stateAll.addAll(ThemeManager.listOverlays(STATE_APPROVED_ENABLED));
 
                     ArrayList<String> all_overlays = new ArrayList<>();
                     for (int j = 0; j < stateAll.size(); j++) {

@@ -56,6 +56,9 @@ import projekt.substratum.config.WallpaperManager;
 import projekt.substratum.util.SheetDialog;
 import projekt.substratum.util.SoundUtils;
 
+import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
+import static android.content.om.OverlayInfo.STATE_NOT_APPROVED_DANGEROUS_OVERLAY;
+
 
 public class RecoveryFragment extends Fragment {
 
@@ -347,9 +350,12 @@ public class RecoveryFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            List<String> unapproved = ThemeManager.listOverlays(3);
-            List<String> disabled = ThemeManager.listOverlays(4);
-            List<String> enabled = ThemeManager.listOverlays(5);
+            List<String> unapproved =
+                    ThemeManager.listOverlays(STATE_NOT_APPROVED_DANGEROUS_OVERLAY);
+            List<String> disabled =
+                    ThemeManager.listOverlays(STATE_APPROVED_ENABLED);
+            List<String> enabled =
+                    ThemeManager.listOverlays(STATE_APPROVED_ENABLED);
 
             final_commands_array = new ArrayList<>(unapproved);
             final_commands_array.addAll(disabled);

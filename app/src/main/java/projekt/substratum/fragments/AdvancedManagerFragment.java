@@ -65,6 +65,8 @@ import projekt.substratum.config.ThemeManager;
 import projekt.substratum.model.OverlayManager;
 import projekt.substratum.util.FloatingActionMenu;
 
+import static android.content.om.OverlayInfo.STATE_APPROVED_DISABLED;
+import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
 import static projekt.substratum.config.References.MASQUERADE_PACKAGE;
 import static projekt.substratum.config.References.REFRESH_WINDOW_DELAY;
 import static projekt.substratum.config.References.SUBSTRATUM_LOG;
@@ -206,7 +208,7 @@ public class AdvancedManagerFragment extends Fragment {
     }
 
     private List<String> updateEnabledOverlays() {
-        List<String> state5 = ThemeManager.listOverlays(5);
+        List<String> state5 = ThemeManager.listOverlays(STATE_APPROVED_ENABLED);
         ArrayList<String> all = new ArrayList<>(state5);
 
         ArrayList<String> all_installed_overlays = new ArrayList<>();
@@ -249,8 +251,10 @@ public class AdvancedManagerFragment extends Fragment {
             ArrayList<String> all_overlays;
 
             if (References.checkOMS(fragment.context)) {
-                ArrayList<String> active = new ArrayList<>(ThemeManager.listOverlays(5));
-                ArrayList<String> disabled = new ArrayList<>(ThemeManager.listOverlays(4));
+                ArrayList<String> active = new ArrayList<>(
+                        ThemeManager.listOverlays(STATE_APPROVED_ENABLED));
+                ArrayList<String> disabled = new ArrayList<>(
+                        ThemeManager.listOverlays(STATE_APPROVED_DISABLED));
 
                 // Filter out icon pack overlays from the advanced manager
                 fragment.activated_overlays = new ArrayList<>();
@@ -337,7 +341,7 @@ public class AdvancedManagerFragment extends Fragment {
                                     OverlayManager st = new OverlayManager(context,
                                             entry.first, true);
                                     fragment.overlaysList.add(st);
-                        });
+                                });
                     } catch (Exception e) {
                         Toast toast = Toast.makeText(context, fragment.getString(R
                                         .string.advanced_manager_overlay_read_error),

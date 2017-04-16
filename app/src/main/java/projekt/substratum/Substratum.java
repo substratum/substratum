@@ -30,15 +30,15 @@ import projekt.substratum.services.BinderService;
 public class Substratum extends Application {
     private static Substratum substratum;
 
+    public static Substratum getInstance() {
+        return substratum;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
         substratum = this;
         startBinderService();
-    }
-
-    public static Substratum getInstance() {
-        return substratum;
     }
 
     public void startBinderService() {

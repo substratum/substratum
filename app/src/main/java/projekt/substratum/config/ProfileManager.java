@@ -95,8 +95,8 @@ public class ProfileManager {
     }
 
     public static void enableScheduledProfile(Context context, String dayProfile,
-                                       int dayHour, int dayMinute, String nightProfile,
-                                       int nightHour, int nightMinute) {
+                                              int dayHour, int dayMinute, String nightProfile,
+                                              int nightHour, int nightMinute) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
         AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);

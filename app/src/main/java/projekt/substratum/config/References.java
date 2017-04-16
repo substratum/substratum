@@ -120,6 +120,8 @@ public class References {
     // November security update (incompatible firmware) timestamp;
     private static final long NOVEMBER_PATCH_TIMESTAMP = 1478304000000L;
     private static final long JANUARY_PATCH_TIMESTAMP = 1483549200000L;
+    private static final String APP_CRASHED = "projekt.substratum.APP_CRASHED";
+    private static final String PACKAGE_ADDED = "android.intent.action.PACKAGE_ADDED";
     // This int controls the notification identifier
     public static int firebase_notification_id = 24862486;
     public static int notification_id = 2486;
@@ -160,8 +162,6 @@ public class References {
     private static int hashValue;
     private static ScheduledProfileReceiver scheduledProfileReceiver;
     private Context mContext; // Used for support checker
-    private static final String APP_CRASHED = "projekt.substratum.APP_CRASHED";
-    private static final String PACKAGE_ADDED = "android.intent.action.PACKAGE_ADDED";
 
     public static void registerBroadcastReceivers(Context context) {
         try {
@@ -178,6 +178,7 @@ public class References {
                     "Failed to register broadcast receivers for Substratum functionality...");
         }
     }
+
     public static void registerProfileScreenOffReceiver(Context context) {
         scheduledProfileReceiver = new ScheduledProfileReceiver();
         context.registerReceiver(scheduledProfileReceiver,

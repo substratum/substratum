@@ -33,6 +33,8 @@ import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 
+import java.lang.ref.WeakReference;
+
 import projekt.substratum.R;
 import projekt.substratum.config.FileOperations;
 import projekt.substratum.config.References;
@@ -119,12 +121,12 @@ public class SoundUtils {
     }
 
     private class SoundsHandlerAsync extends AsyncTask<String, Integer, String> {
-        ProgressDialog progress;
+        private ProgressDialog progress;
 
         @Override
         protected void onPreExecute() {
             // With masq 22+ dialog is started from receiver
-            if (!References.checkThemeInterfacer(mContext)) {
+            if (References.checkThemeInterfacer(mContext)) {
                 progress = new ProgressDialog(mContext, R.style.AppTheme_DialogAlert);
                 progress.setMessage(mContext.getString(R.string.sounds_dialog_apply_text));
                 progress.setIndeterminate(false);
@@ -135,9 +137,10 @@ public class SoundUtils {
 
         @Override
         protected void onPostExecute(String result) {
-            if (References.checkThemeInterfacer(mContext)) {
-                if (finishReceiver == null) finishReceiver = new FinishReceiver();
-                IntentFilter intentFilter = new IntentFilter(INTERFACER_PACKAGE + "" +
+            if (References.checkThemeInterfacer(mContext) &&
+                    !References.isBinderInterfacer(mContext)) {
+                if (finishReceiver == null) finishReceiver = new FinishReceiver(progress);
+                IntentFilter intentFilter = new IntentFilter(INTERFACER_PACKAGE +
                         ".STATUS_CHANGED");
                 mContext.registerReceiver(finishReceiver, intentFilter);
             } else {
@@ -149,7 +152,6 @@ public class SoundUtils {
 
         @Override
         protected String doInBackground(String... sUrl) {
-
             boolean[] results = SoundManager.setSounds(mContext, theme_pid, sUrl[0]);
             has_failed = results[0];
             ringtone = results[1];
@@ -171,18 +173,15 @@ public class SoundUtils {
     }
 
     class FinishReceiver extends BroadcastReceiver {
-        ProgressDialog progress;
+        private WeakReference<ProgressDialog> ref;
 
-        public FinishReceiver() {
-            progress = new ProgressDialog(mContext, R.style.AppTheme_DialogAlert);
-            progress.setMessage(mContext.getString(R.string.sounds_dialog_apply_text));
-            progress.setIndeterminate(false);
-            progress.setCancelable(false);
-            progress.show();
+        private FinishReceiver(ProgressDialog progress) {
+            ref = new WeakReference<>(progress);
         }
 
         @Override
         public void onReceive(Context context, Intent intent) {
+            ProgressDialog progress = ref.get();
             String PRIMARY_COMMAND_KEY = "primary_command_key";
             String COMMAND_VALUE_JOB_COMPLETE = "job_complete";
             String command = intent.getStringExtra(PRIMARY_COMMAND_KEY);

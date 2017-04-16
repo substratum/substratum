@@ -39,11 +39,11 @@
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
     <application
+        android:name=".Substratum"
         android:allowBackup="false"
         android:icon="@mipmap/main_launcher"
         android:label="@string/app_name"
         android:largeHeap="true"
-        android:name=".Substratum"
         android:roundIcon="@mipmap/round_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
@@ -59,6 +59,7 @@
         <receiver android:name=".services.NotificationUpgradeReceiver"/>
         <receiver android:name=".services.PackageModificationDetector">
             <intent-filter>
+                <!-- Full API deprecation on target SDK level 26 -->
                 <action android:name="android.intent.action.PACKAGE_ADDED"/>
                 <data android:scheme="package"/>
             </intent-filter>
@@ -74,6 +75,7 @@
             android:name=".services.AppCrashReceiver"
             android:exported="false">
             <intent-filter>
+                <!-- Full API deprecation on target SDK level 26 -->
                 <action android:name="projekt.substratum.APP_CRASHED"/>
             </intent-filter>
         </receiver>
@@ -117,7 +119,8 @@
                 android:value="true"/>
         </service>
 
-        <service android:name=".services.ScheduledProfileService"
+        <service
+            android:name=".services.ScheduledProfileService"
             android:permission="android.permission.BIND_JOB_SERVICE"/>
 
         <meta-data

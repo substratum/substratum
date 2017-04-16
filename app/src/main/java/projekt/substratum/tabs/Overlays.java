@@ -391,6 +391,7 @@ public class Overlays extends Fragment {
     public void setMixAndMatchMode(boolean newValue) {
         mixAndMatchMode = newValue;
         prefs.edit().putBoolean("enable_swapping_overlays", mixAndMatchMode).apply();
+        updateEnabledOverlays();
     }
 
     @Override

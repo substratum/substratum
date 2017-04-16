@@ -245,7 +245,7 @@ public class Sounds extends Fragment {
         // Unregister finish receiver
         try {
             if (finishReceiver != null) {
-                getContext().unregisterReceiver(finishReceiver);
+                getContext().getApplicationContext().unregisterReceiver(finishReceiver);
             }
             localBroadcastManager.unregisterReceiver(jobReceiver);
         } catch (IllegalArgumentException e) {

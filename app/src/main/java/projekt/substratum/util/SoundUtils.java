@@ -60,7 +60,7 @@ public class SoundUtils {
         this.view = view;
 
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        new SoundsHandlerAsync().execute(arguments);
+        new SoundsHandlerAsync(this).execute(arguments);
     }
 
     public void SoundsClearer(Context context) {
@@ -120,15 +120,23 @@ public class SoundUtils {
         }
     }
 
-    private class SoundsHandlerAsync extends AsyncTask<String, Integer, String> {
+    private static class SoundsHandlerAsync extends AsyncTask<String, Integer, String> {
         private ProgressDialog progress;
+        private WeakReference<SoundUtils> ref;
+
+        private SoundsHandlerAsync(SoundUtils soundUtils) {
+            ref = new WeakReference<>(soundUtils);
+        }
 
         @Override
         protected void onPreExecute() {
+            SoundUtils soundUtils = ref.get();
+            Context context = soundUtils.mContext;
+
             // With masq 22+ dialog is started from receiver
-            if (References.checkThemeInterfacer(mContext)) {
-                progress = new ProgressDialog(mContext, R.style.AppTheme_DialogAlert);
-                progress.setMessage(mContext.getString(R.string.sounds_dialog_apply_text));
+            if (References.checkThemeInterfacer(context)) {
+                progress = new ProgressDialog(context, R.style.AppTheme_DialogAlert);
+                progress.setMessage(context.getString(R.string.sounds_dialog_apply_text));
                 progress.setIndeterminate(false);
                 progress.setCancelable(false);
                 progress.show();
@@ -137,58 +145,69 @@ public class SoundUtils {
 
         @Override
         protected void onPostExecute(String result) {
-            if (References.checkThemeInterfacer(mContext) &&
-                    !References.isBinderInterfacer(mContext)) {
-                if (finishReceiver == null) finishReceiver = new FinishReceiver(progress);
+            SoundUtils soundUtils = ref.get();
+            Context context = soundUtils.mContext;
+
+            if (References.checkThemeInterfacer(context) &&
+                    !References.isBinderInterfacer(context)) {
+                if (finishReceiver == null) {
+                    finishReceiver = new FinishReceiver(soundUtils, progress);
+                }
                 IntentFilter intentFilter = new IntentFilter(INTERFACER_PACKAGE +
                         ".STATUS_CHANGED");
-                mContext.registerReceiver(finishReceiver, intentFilter);
+                context.getApplicationContext()
+                        .registerReceiver(finishReceiver, intentFilter);
             } else {
-                finishFunction();
+                soundUtils.finishFunction();
                 progress.dismiss();
-                ThemeManager.restartSystemUI(mContext);
+                ThemeManager.restartSystemUI(context);
             }
         }
 
         @Override
         protected String doInBackground(String... sUrl) {
-            boolean[] results = SoundManager.setSounds(mContext, theme_pid, sUrl[0]);
-            has_failed = results[0];
-            ringtone = results[1];
+            SoundUtils soundUtils = ref.get();
+            Context context = soundUtils.mContext;
+            boolean[] results = SoundManager.setSounds(context, soundUtils.theme_pid, sUrl[0]);
+            soundUtils.has_failed = results[0];
+            soundUtils.ringtone = results[1];
 
-            if (!has_failed) {
-                SharedPreferences.Editor editor = prefs.edit();
-                editor.putString("sounds_applied", theme_pid);
+            if (!soundUtils.has_failed) {
+                SharedPreferences.Editor editor = soundUtils.prefs.edit();
+                editor.putString("sounds_applied", soundUtils.theme_pid);
                 editor.apply();
                 Log.d("SoundUtils", "Sound pack installed!");
-                FileOperations.delete(mContext, mContext.getCacheDir().getAbsolutePath() +
+                FileOperations.delete(context, context.getCacheDir().getAbsolutePath() +
                         "/SoundsCache/SoundsInjector/");
             } else {
                 Log.e("SoundUtils", "Sound installation aborted!");
-                FileOperations.delete(mContext, mContext.getCacheDir().getAbsolutePath() +
+                FileOperations.delete(context, context.getCacheDir().getAbsolutePath() +
                         "/SoundsCache/SoundsInjector/");
             }
             return null;
         }
     }
 
-    class FinishReceiver extends BroadcastReceiver {
-        private WeakReference<ProgressDialog> ref;
+    static class FinishReceiver extends BroadcastReceiver {
+        private WeakReference<ProgressDialog> progressRef;
+        private WeakReference<SoundUtils> soundRef;
 
-        private FinishReceiver(ProgressDialog progress) {
-            ref = new WeakReference<>(progress);
+        private FinishReceiver(SoundUtils soundUtils, ProgressDialog progress) {
+            progressRef = new WeakReference<>(progress);
+            soundRef = new WeakReference<>(soundUtils);
         }
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            ProgressDialog progress = ref.get();
+            ProgressDialog progress = progressRef.get();
+            SoundUtils soundUtils = soundRef.get();
             String PRIMARY_COMMAND_KEY = "primary_command_key";
             String COMMAND_VALUE_JOB_COMPLETE = "job_complete";
             String command = intent.getStringExtra(PRIMARY_COMMAND_KEY);
 
             if (command.equals(COMMAND_VALUE_JOB_COMPLETE)) {
-                mContext.unregisterReceiver(finishReceiver);
-                finishFunction();
+                context.getApplicationContext().unregisterReceiver(finishReceiver);
+                soundUtils.finishFunction();
                 progress.dismiss();
             }
         }

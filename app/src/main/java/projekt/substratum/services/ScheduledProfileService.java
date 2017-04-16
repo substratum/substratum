@@ -50,15 +50,15 @@ import projekt.substratum.config.ThemeManager;
 import projekt.substratum.config.WallpaperManager;
 import projekt.substratum.util.ReadOverlaysFile;
 
-import static projekt.substratum.fragments.ProfileFragment.DAY_PROFILE;
-import static projekt.substratum.fragments.ProfileFragment.DAY_PROFILE_HOUR;
-import static projekt.substratum.fragments.ProfileFragment.DAY_PROFILE_MINUTE;
-import static projekt.substratum.fragments.ProfileFragment.NIGHT;
-import static projekt.substratum.fragments.ProfileFragment.NIGHT_PROFILE;
-import static projekt.substratum.fragments.ProfileFragment.NIGHT_PROFILE_HOUR;
-import static projekt.substratum.fragments.ProfileFragment.NIGHT_PROFILE_MINUTE;
-import static projekt.substratum.fragments.ProfileFragment.SCHEDULED_PROFILE_CURRENT_PROFILE;
-import static projekt.substratum.fragments.ProfileFragment.SCHEDULED_PROFILE_TYPE_EXTRA;
+import static projekt.substratum.config.ProfileManager.DAY_PROFILE;
+import static projekt.substratum.config.ProfileManager.DAY_PROFILE_HOUR;
+import static projekt.substratum.config.ProfileManager.DAY_PROFILE_MINUTE;
+import static projekt.substratum.config.ProfileManager.NIGHT;
+import static projekt.substratum.config.ProfileManager.NIGHT_PROFILE;
+import static projekt.substratum.config.ProfileManager.NIGHT_PROFILE_HOUR;
+import static projekt.substratum.config.ProfileManager.NIGHT_PROFILE_MINUTE;
+import static projekt.substratum.config.ProfileManager.SCHEDULED_PROFILE_CURRENT_PROFILE;
+import static projekt.substratum.config.ProfileManager.SCHEDULED_PROFILE_TYPE_EXTRA;
 
 public class ScheduledProfileService extends JobService {
 

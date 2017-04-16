@@ -18,10 +18,7 @@
 
 package projekt.substratum.fragments;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -54,32 +51,28 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.List;
 
 import projekt.substratum.R;
 import projekt.substratum.config.ElevatedCommands;
 import projekt.substratum.config.FileOperations;
+import projekt.substratum.config.ProfileManager;
 import projekt.substratum.config.References;
 import projekt.substratum.config.ThemeInterfacerService;
 import projekt.substratum.config.ThemeManager;
 import projekt.substratum.config.WallpaperManager;
-import projekt.substratum.services.ScheduledProfileReceiver;
 import projekt.substratum.util.ReadOverlaysFile;
+
+import static projekt.substratum.config.ProfileManager.DAY_PROFILE;
+import static projekt.substratum.config.ProfileManager.DAY_PROFILE_HOUR;
+import static projekt.substratum.config.ProfileManager.DAY_PROFILE_MINUTE;
+import static projekt.substratum.config.ProfileManager.NIGHT_PROFILE;
+import static projekt.substratum.config.ProfileManager.NIGHT_PROFILE_HOUR;
+import static projekt.substratum.config.ProfileManager.NIGHT_PROFILE_MINUTE;
+import static projekt.substratum.config.ProfileManager.SCHEDULED_PROFILE_ENABLED;
 
 public class ProfileFragment extends Fragment {
 
-    public static final String SCHEDULED_PROFILE_ENABLED = "scheduled_profile_enabled";
-    public static final String SCHEDULED_PROFILE_TYPE_EXTRA = "type";
-    public static final String SCHEDULED_PROFILE_CURRENT_PROFILE = "current_profile";
-    public static final String NIGHT = "night";
-    public static final String NIGHT_PROFILE = "night_profile";
-    public static final String NIGHT_PROFILE_HOUR = "night_profile_hour";
-    public static final String NIGHT_PROFILE_MINUTE = "night_profile_minute";
-    public static final String DAY = "day";
-    public static final String DAY_PROFILE = "day_profile";
-    public static final String DAY_PROFILE_HOUR = "day_profile_hour";
-    public static final String DAY_PROFILE_MINUTE = "day_profile_minute";
     public static int nightHour, nightMinute, dayHour, dayMinute;
 
     private List<String> list;
@@ -91,7 +84,6 @@ public class ProfileFragment extends Fragment {
     private ArrayAdapter<String> adapter;
     private List<List<String>> cannot_run_overlays;
     private String dialog_message;
-    private SharedPreferences prefs;
     private boolean dayNightEnabled;
     private ArrayList<CharSequence> selectedBackup;
 
@@ -129,7 +121,7 @@ public class ProfileFragment extends Fragment {
         super.onCreate(savedInstanceState);
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.profile_fragment, container, false);
 
-        prefs = PreferenceManager.getDefaultSharedPreferences(
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
                 getContext());
 
         headerProgress = (ProgressBar) root.findViewById(R.id.header_loading_bar);
@@ -405,10 +397,17 @@ public class ProfileFragment extends Fragment {
                         if (!startTime.getText().equals(getResources()
                                 .getString(R.string.start_time)) && !endTime.getText()
                                 .equals(getResources().getString(R.string.end_time))) {
-                            if (dayHour != nightHour) {
-                                setupScheduledProfile();
-                            } else if (dayMinute != nightMinute) {
-                                setupScheduledProfile();
+                            if (dayHour != nightHour || dayMinute != nightMinute) {
+                                ProfileManager.enableScheduledProfile(getActivity(),
+                                        dayProfile.getSelectedItem().toString(), dayHour, dayMinute,
+                                        nightProfile.getSelectedItem().toString(), nightHour,
+                                        nightMinute);
+                                if (getView() != null) {
+                                    Lunchbar.make(getView(),
+                                            R.string.scheduled_profile_apply_success,
+                                            Lunchbar.LENGTH_LONG)
+                                            .show();
+                                }
                             } else {
                                 if (getView() != null) {
                                     Lunchbar.make(getView(), R.string.time_equal_warning,
@@ -431,7 +430,13 @@ public class ProfileFragment extends Fragment {
                         }
                     }
                 } else {
-                    setupScheduledProfile();
+                    ProfileManager.disableScheduledProfile(getActivity());
+                    if (getView() != null) {
+                        Lunchbar.make(getView(),
+                                R.string.scheduled_profile_disable_success,
+                                Lunchbar.LENGTH_LONG)
+                                .show();
+                    }
                 }
             });
         } else {
@@ -440,96 +445,7 @@ public class ProfileFragment extends Fragment {
         return root;
     }
 
-    private void setupScheduledProfile() {
-        SharedPreferences.Editor editor = prefs.edit();
-        AlarmManager alarmMgr = (AlarmManager) getActivity()
-                .getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(getActivity(), ScheduledProfileReceiver.class);
-        intent.putExtra(SCHEDULED_PROFILE_TYPE_EXTRA, NIGHT);
-        PendingIntent nightIntent = PendingIntent.getBroadcast(getActivity(), 0, intent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
-        intent.putExtra(SCHEDULED_PROFILE_TYPE_EXTRA, DAY);
-        PendingIntent dayIntent = PendingIntent.getBroadcast(getActivity(), 1, intent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
-
-        if (dayNightEnabled) {
-            // Set up current calendar instance
-            Calendar current = Calendar.getInstance();
-            current.setTimeInMillis(System.currentTimeMillis());
-
-            // Set up day night calendar instance
-            Calendar calendarNight = Calendar.getInstance();
-            calendarNight.setTimeInMillis(System.currentTimeMillis());
-            calendarNight.set(Calendar.HOUR_OF_DAY, nightHour);
-            calendarNight.set(Calendar.MINUTE, nightMinute);
-            calendarNight.set(Calendar.SECOND, 0);
-
-            Calendar calendarDay = Calendar.getInstance();
-            calendarDay.setTimeInMillis(System.currentTimeMillis());
-            calendarDay.set(Calendar.HOUR_OF_DAY, dayHour);
-            calendarDay.set(Calendar.MINUTE, dayMinute);
-            calendarDay.set(Calendar.SECOND, 0);
-
-            // Apply night profile
-            if (calendarDay.after(current) && calendarNight.after(current)) {
-                // We will go here when we apply in night profile time on different day,
-                // make sure we apply the night profile directly
-                calendarNight.add(Calendar.DAY_OF_YEAR, -1);
-            }
-            alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendarNight
-                            .getTimeInMillis(),
-                    nightIntent);
-
-            // Bring back the day in case we went to the conditional if before
-            calendarNight.set(Calendar.DAY_OF_YEAR, current.get(Calendar.DAY_OF_YEAR));
-
-            // Apply day profile
-            if (calendarNight.before(current)) {
-                // We will go here when we apply inside night profile time, this prevent day profile
-                // to be triggered
-                calendarDay.add(Calendar.DAY_OF_YEAR, 1);
-            }
-            alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendarDay
-                            .getTimeInMillis(),
-                    dayIntent);
-
-            // Apply prefs
-            editor.putBoolean(SCHEDULED_PROFILE_ENABLED, dayNightEnabled)
-                    .putString(NIGHT_PROFILE, nightProfile.getSelectedItem().toString())
-                    .putString(DAY_PROFILE, dayProfile.getSelectedItem().toString())
-                    .putInt(NIGHT_PROFILE_HOUR, nightHour)
-                    .putInt(NIGHT_PROFILE_MINUTE, nightMinute)
-                    .putInt(DAY_PROFILE_HOUR, dayHour)
-                    .putInt(DAY_PROFILE_MINUTE, dayMinute)
-                    .apply();
-
-            if (getView() != null) {
-                Lunchbar.make(getView(), R.string.scheduled_profile_apply_success,
-                        Lunchbar.LENGTH_LONG)
-                        .show();
-            }
-        } else {
-            if (alarmMgr != null) {
-                alarmMgr.cancel(nightIntent);
-                alarmMgr.cancel(dayIntent);
-
-                editor.remove(SCHEDULED_PROFILE_ENABLED)
-                        .remove(DAY_PROFILE)
-                        .remove(DAY_PROFILE_HOUR)
-                        .remove(DAY_PROFILE_MINUTE)
-                        .remove(NIGHT_PROFILE)
-                        .remove(NIGHT_PROFILE_HOUR)
-                        .remove(NIGHT_PROFILE_MINUTE)
-                        .apply();
-                if (getView() != null) {
-                    Lunchbar.make(getView(), R.string.scheduled_profile_disable_success,
-                            Lunchbar.LENGTH_LONG)
-                            .show();
-                }
-            }
-        }
-    }
-
+    // TODO: move this to ProfileManager
     private class BackupFunction extends AsyncTask<String, Integer, String> {
 
         @Override
@@ -731,6 +647,7 @@ public class ProfileFragment extends Fragment {
         }
     }
 
+    // TODO: this one too
     private class RestoreFunction extends AsyncTask<String, Integer, String> {
         List<String> system = new ArrayList<>(); // All installed overlays
         ArrayList<String> to_be_run = new ArrayList<>(); // Overlays going to be enabled

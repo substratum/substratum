@@ -35,7 +35,8 @@ import android.util.Log;
 import projekt.substratum.R;
 import projekt.substratum.config.References;
 
-import static projekt.substratum.fragments.ProfileFragment.SCHEDULED_PROFILE_TYPE_EXTRA;
+import static projekt.substratum.config.ProfileManager.SCHEDULED_PROFILE_TYPE_EXTRA;
+
 
 public class ScheduledProfileReceiver extends BroadcastReceiver {
 

@@ -134,7 +134,6 @@ public class Overlays extends Fragment {
     private Switch toggle_all;
     private SwipeRefreshLayout swipeRefreshLayout;
     private ProgressBar progressBar;
-    private ArrayList<String> current_theme_overlays;
     private Boolean is_active = false;
     private String error_logs = "";
     private String themer_email, theme_author;
@@ -672,12 +671,10 @@ public class Overlays extends Fragment {
             if (compile_enable_mode && mixAndMatchMode) {
                 // Buffer the disableBeforeEnabling String
                 ArrayList<String> disableBeforeEnabling = new ArrayList<>();
-                if (all_installed_overlays.size() - current_theme_overlays.size() != 0) {
-                    for (int i = 0; i < all_installed_overlays.size(); i++) {
-                        if (!current_theme_overlays.contains(
-                                all_installed_overlays.get(i))) {
-                            disableBeforeEnabling.add(all_installed_overlays.get(i));
-                        }
+                for (int i = 0; i < all_installed_overlays.size(); i++) {
+                    if (!References.grabOverlayParent(getContext(),
+                            all_installed_overlays.get(i)).equals(theme_pid)) {
+                        disableBeforeEnabling.add(all_installed_overlays.get(i));
                     }
                 }
                 if (checkThemeInterfacer(context)) {
@@ -1041,13 +1038,6 @@ public class Overlays extends Fragment {
             List<String> state5overlays = updateEnabledOverlays();
             String parse1_themeName = theme_name.replaceAll("\\s+", "");
             String parse2_themeName = parse1_themeName.replaceAll("[^a-zA-Z0-9]+", "");
-
-            current_theme_overlays = new ArrayList<>();
-            for (int i = 0; i < all_installed_overlays.size(); i++) {
-                if (all_installed_overlays.get(i).contains(parse2_themeName)) {
-                    current_theme_overlays.add(all_installed_overlays.get(i));
-                }
-            }
 
             ArrayList<String> values = new ArrayList<>();
             values2 = new ArrayList<>();
@@ -1507,12 +1497,10 @@ public class Overlays extends Fragment {
                     if (mixAndMatchMode) {
                         // Buffer the disableBeforeEnabling String
                         ArrayList<String> disableBeforeEnabling = new ArrayList<>();
-                        if (all_installed_overlays.size() - current_theme_overlays.size() != 0) {
-                            for (int i = 0; i < all_installed_overlays.size(); i++) {
-                                if (!current_theme_overlays.contains(
-                                        all_installed_overlays.get(i))) {
-                                    disableBeforeEnabling.add(all_installed_overlays.get(i));
-                                }
+                        for (int i = 0; i < all_installed_overlays.size(); i++) {
+                            if (!References.grabOverlayParent(getContext(),
+                                    all_installed_overlays.get(i)).equals(theme_pid)) {
+                                disableBeforeEnabling.add(all_installed_overlays.get(i));
                             }
                         }
                         progressBar.setVisibility(View.VISIBLE);

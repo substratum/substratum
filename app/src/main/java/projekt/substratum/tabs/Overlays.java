@@ -1456,6 +1456,7 @@ public class Overlays extends Fragment {
             dialogProgress.setProgress((int) progress, true);
         }
 
+        @SuppressWarnings("ConstantConditions")
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
@@ -1483,7 +1484,8 @@ public class Overlays extends Fragment {
                     // Restart SystemUI if an enabled SystemUI overlay is updated
                     for (int i = 0; i < checkedOverlays.size(); i++) {
                         String targetOverlay = checkedOverlays.get(i).getPackageName();
-                        if (targetOverlay.equals("com.android.systemui")) {
+                        if (targetOverlay.equals("android") ||
+                                targetOverlay.equals("com.android.systemui")) {
                             String packageName = checkedOverlays.get(i).getFullOverlayParameters();
                             if (ThemeManager.isOverlayEnabled(packageName)) {
                                 ThemeManager.restartSystemUI(mContext);

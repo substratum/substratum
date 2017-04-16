@@ -79,6 +79,11 @@
                 <action android:name="projekt.substratum.APP_CRASHED"/>
             </intent-filter>
         </receiver>
+        <receiver android:name=".services.SubstratumUpdateReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+            </intent-filter>
+        </receiver>
 
         <service
             android:name=".services.BinderService"/>

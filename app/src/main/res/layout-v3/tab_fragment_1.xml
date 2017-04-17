@@ -50,7 +50,7 @@
                 android:id="@+id/toggle_all_overlays_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="3dp"
+                android:paddingTop="8dp"
                 android:text="@string/select_to_toggle_all_overlays"
                 android:textColor="?android:attr/textColorPrimary"
                 android:textSize="15sp"/>
@@ -68,8 +68,8 @@
                 android:id="@+id/toggle_all_overlays"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:layout_alignParentEnd="true"/>
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="6dp"/>
 
         </RelativeLayout>
 

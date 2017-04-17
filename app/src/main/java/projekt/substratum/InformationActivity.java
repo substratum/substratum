@@ -162,6 +162,10 @@ public class InformationActivity extends AppCompatActivity {
         });
     }
 
+    private View getView() {
+        return ((ViewGroup) this.findViewById(android.R.id.content)).getChildAt(0);
+    }
+
     private boolean checkColorDarkness(int color) {
         double darkness =
                 1 - (0.299 * Color.red(color) +
@@ -199,12 +203,12 @@ public class InformationActivity extends AppCompatActivity {
                         WallpaperManager.setWallpaper(getApplicationContext(),
                                 resultUri.toString().substring(7), "home");
                         editor.putString("home_wallpaper_applied", theme_pid);
-                        Lunchbar.make(findViewById(android.R.id.content),
+                        Lunchbar.make(getView(),
                                 getString(R.string.wallpaper_homescreen_success),
                                 Lunchbar.LENGTH_LONG)
                                 .show();
                     } catch (IOException e) {
-                        Lunchbar.make(findViewById(android.R.id.content),
+                        Lunchbar.make(getView(),
                                 getString(R.string.wallpaper_homescreen_error),
                                 Lunchbar.LENGTH_LONG)
                                 .show();
@@ -215,12 +219,12 @@ public class InformationActivity extends AppCompatActivity {
                         WallpaperManager.setWallpaper(getApplicationContext(),
                                 resultUri.toString().substring(7), "lock");
                         editor.putString("lock_wallpaper_applied", theme_pid);
-                        Lunchbar.make(findViewById(android.R.id.content),
+                        Lunchbar.make(getView(),
                                 getString(R.string.wallpaper_lockscreen_success),
                                 Lunchbar.LENGTH_LONG)
                                 .show();
                     } catch (IOException e) {
-                        Lunchbar.make(findViewById(android.R.id.content),
+                        Lunchbar.make(getView(),
                                 getString(R.string.wallpaper_lockscreen_error),
                                 Lunchbar.LENGTH_LONG)
                                 .show();
@@ -232,12 +236,12 @@ public class InformationActivity extends AppCompatActivity {
                                 resultUri.toString().substring(7), "all");
                         editor.putString("home_wallpaper_applied", theme_pid);
                         editor.putString("lock_wallpaper_applied", theme_pid);
-                        Lunchbar.make(findViewById(android.R.id.content),
+                        Lunchbar.make(getView(),
                                 getString(R.string.wallpaper_allscreen_success),
                                 Lunchbar.LENGTH_LONG)
                                 .show();
                     } catch (IOException e) {
-                        Lunchbar.make(findViewById(android.R.id.content),
+                        Lunchbar.make(getView(),
                                 getString(R.string.wallpaper_allscreen_error),
                                 Lunchbar.LENGTH_LONG)
                                 .show();
@@ -875,7 +879,7 @@ public class InformationActivity extends AppCompatActivity {
                     i.setData(Uri.parse(playURL));
                     startActivity(i);
                 } catch (ActivityNotFoundException activityNotFoundException) {
-                    Lunchbar.make(findViewById(android.R.id.content),
+                    Lunchbar.make(getView(),
                             getString(R.string.activity_missing_toast),
                             Lunchbar.LENGTH_LONG)
                             .show();
@@ -991,7 +995,7 @@ public class InformationActivity extends AppCompatActivity {
                     getColor(R.color.information_activity_dark_icon_mode),
                     PorterDuff.Mode.SRC_ATOP);
             String format = String.format(getString(R.string.menu_favorite_snackbar), result);
-            Lunchbar.make(findViewById(android.R.id.content),
+            Lunchbar.make(getView(),
                     format,
                     Lunchbar.LENGTH_LONG)
                     .show();
@@ -1015,7 +1019,7 @@ public class InformationActivity extends AppCompatActivity {
                     PorterDuff.Mode.SRC_ATOP);
             String format = String.format(
                     getString(R.string.menu_favorite_snackbar_cleared), result);
-            Lunchbar.make(findViewById(android.R.id.content),
+            Lunchbar.make(getView(),
                     format,
                     Lunchbar.LENGTH_LONG)
                     .show();

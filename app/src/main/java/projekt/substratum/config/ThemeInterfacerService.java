@@ -279,11 +279,11 @@ public class ThemeInterfacerService {
         }
     }
 
-    static void setPriority(Context context, ArrayList<String> overlays, Boolean shouldRestartUi) {
+    static void setPriority(Context context, ArrayList<String> overlays, boolean restartUi) {
         if (References.isBinderInterfacer(context)) {
             try {
                 BinderService.getInstance().getInterfacerInterface()
-                        .changePriority(overlays, shouldRestartUi);
+                        .changePriority(overlays, restartUi);
             } catch (RemoteException e) {
                 // Suppress warning
             }
@@ -291,6 +291,7 @@ public class ThemeInterfacerService {
             Intent intent = getThemeInterfacer(context);
             intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_PRIORITY);
             intent.putExtra(PRIORITY_LIST_KEY, overlays);
+            intent.putExtra(WITH_RESTART_UI_KEY, restartUi);
             context.startService(intent);
         }
     }

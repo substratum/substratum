@@ -84,6 +84,7 @@ public final class Lunchbar extends TransientBottom<Lunchbar> {
     public static final int LENGTH_LONG = BaseTransientBottomBar.LENGTH_LONG;
     @Nullable
     private BaseCallback<Lunchbar> mCallback;
+
     private Lunchbar(ViewGroup parent, View content, ContentViewCallback contentViewCallback) {
         super(parent, content, contentViewCallback);
     }

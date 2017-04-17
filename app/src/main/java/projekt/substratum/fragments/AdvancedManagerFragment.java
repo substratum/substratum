@@ -754,6 +754,7 @@ public class AdvancedManagerFragment extends Fragment {
                             updated.contains(currentOverlay.getName()));
                     if (!References.isPackageInstalled(context, currentOverlay.getName())) {
                         fragment.overlayList.remove(i);
+                        len--;
                     }
                     fragment.mAdapter.notifyDataSetChanged();
                 }

@@ -1235,6 +1235,8 @@ public class References {
                     Intent.FLAG_ACTIVITY_SINGLE_TOP);
             originalIntent.putExtra("refresh_mode", true);
         }
+        originalIntent.putExtra("hash_passthrough", hashPassthrough(mContext));
+        originalIntent.putExtra("certified", !References.spreadYourWingsAndFly(mContext));
         try {
             PackageManager pm = mContext.getPackageManager();
             PackageInfo info = pm.getPackageInfo(currentTheme, PackageManager.GET_ACTIVITIES);

@@ -25,14 +25,14 @@
 öncelik değiştirmeyi
         uyguladıktan sonra yeniden başlatmayı gerektirmez.
     </string>
-    <string name="question_two">Tema Arabirimi nedir?</string>
-    <string name="answer_two">Tema Arabirimi, Substratum\'un bir Tema Motoru gibi çalışmasına izin
-        veren şeyin temelidir. Arabirim fikri, \"sunucu/istemci\" teknik özelliklerini simüle
-        etmek ve Substratum, arabirim işleyicileri ile komutları doğrudan sistem üzerinde bildirmek
+    <string name="question_two">Tema Arayüzü nedir?</string>
+    <string name="answer_two">Tema Arayüzü, Substratum\'un bir Tema Motoru gibi çalışmasına izin
+        veren şeyin temelidir. Arayüz fikri, \"sunucu/istemci\" teknik özelliklerini simüle
+        etmek ve Substratum, arayüz işleyicileri ile komutları doğrudan sistem üzerinde bildirmek
         için iletişim kurar.
     </string>
     <string name="question_three">Substratum\'un düzgün çalışabilmesi için neye ihtiyacım var?</string>
-    <string name="answer_three">OMS ve Tema Arabirimi sistemini destekleyen bir ROM\'a (bunları öğrenmelerini isteyin),
+    <string name="answer_three">OMS ve Tema Arayüzü sistemini destekleyen bir ROM\'a (bunları öğrenmelerini isteyin),
         bu uygulamaya ve uyumlu bir temaya (Play Store açıklamasını kontrol edin veya
         geliştiriciye sorun) ihtiyacınız var
     </string>

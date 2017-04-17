@@ -161,7 +161,7 @@ olduğundan ve
         seçin&#8230;</string>
     <string name="font_default_spinner">lütfen bir yazı tipi paketi seçin&#8230;</string>
     <string name="font_spinner_set_defaults">varsayılan yazı tiplerini geri yükle&#8230;</string>
-    <string name="fonts_defaults_text">bu cihazınızda uygulanan özel yazı
+    <string name="fonts_defaults_text">cihazınızda uygulanan özel yazı
         tiplerini temizler</string>
     <string name="font_dialog_apply_text">Yazı tipi paketi işleniyor&#8230;</string>
     <string name="font_dialog_apply_success">Yazı tipi paketi uygulandı!</string>
@@ -170,7 +170,7 @@ olduğundan ve
         seçin&#8230;</string>
     <string name="sounds_spinner_set_defaults">varsayılan sesleri geri yükle&#8230;
     </string>
-    <string name="sounds_spinner_defaults_text">bu cihazınızda uygulanan özel seslerin
+    <string name="sounds_spinner_defaults_text">cihazınızda uygulanan özel seslerin
         tümünü silecek</string>
     <string name="sounds_dialog_apply_text">Ses paketi işleniyor&#8230;</string>
     <string name="sounds_dialog_apply_success">Ses paketi uygulandı!</string>
@@ -206,9 +206,9 @@ bu sorunu
     <string name="sounds_lock_sound">Ekran Kilitleme Sesleri</string>
     <string name="sounds_unlock_sound">Ekran Kilidi Açma Sesleri</string>
     <string name="settings_about_substratum">substratum sürümü</string>
-    <string name="settings_about_interfacer">arabirim sürümü</string>
+    <string name="settings_about_interfacer">arayüz sürümü</string>
     <string name="settings_about_interfacer_not_installed">yüklü değil</string>
-    <string name="settings_about_interfacer_masquerade">bu romarabirim işlevselliğini kullanmak için bir güncelleştirme gerektiriyor</string>
+    <string name="settings_about_interfacer_masquerade">bu rom, arayüz işlevselliğini kullanmak için bir güncelleştirme gerektiriyor</string>
     <string name="settings_about_oms_rro_version">tema platformu:</string>
     <string name="settings_about_oms_version_3">OMS3</string>
     <string name="settings_about_oms_version_7">OMS7</string>
@@ -304,11 +304,11 @@ bu sorunu
     <string name="menu_favorite_snackbar_cleared">%s uygulama kısayolu kaldırıldı.</string>
     <string name="changelog_title">%s tema değişiklikleri</string>
     <string name="dialog_restart_systemui_title">Sistem Arayüzünü Yeniden Başlat</string>
-    <string name="dialog_restart_systemui_content">Bu cihazınızda bir Sistem Arayüzü yeniden başlatması gerçekleştirecektir.</string>
+    <string name="dialog_restart_systemui_content">Cihazınızda bir Sistem Arayüzü yeniden başlatması gerçekleştirecektir.</string>
     <string name="dialog_restart_reboot_title">Yeniden başlat</string>
-    <string name="dialog_restart_reboot_content">Bu, cihazınızda tam bir yeniden başlatma gerçekleştirir.</string>
+    <string name="dialog_restart_reboot_content">Cihazınızda tam bir yeniden başlatma gerçekleştirir.</string>
     <string name="dialog_restart_soft_reboot_title">Yazılımsal Yeniden Başlat</string>
-    <string name="dialog_restart_soft_reboot_content">Bu, cihazınızda yazılımsal bir yeniden başlatma gerçekleştirecektir.</string>
+    <string name="dialog_restart_soft_reboot_content">Cihazınızda yazılımsal bir yeniden başlatma gerçekleştirecektir.</string>
     <string name="legacy_theme_notification_title">Kullanımdan Kaldırılan Tema Uyarısı</string>
     <string name="legacy_theme_notification_text">Eski temaları kullanmak için
         lütfen Ayarlar\'dan etkinleştirin.</string>
@@ -338,13 +338,12 @@ Tüm özel simgeler zaten devre dışı!
     <string name="icon_pack_entry">Tema Simgesi</string>
     <string name="studio_update_configuration">Simge Yapılandırmasını Yenile</string>
     <string name="studio_placeholder_text">substratum destekli simge paketleri bulunamadı</string>
-    <string name="studio_toast_mask">Bu simge, geçerli gösteriliyor ve bu simge paketini
-        uyguladığınızda değiştirilecektir.
+    <string name="studio_toast_mask">Bu simge mevcut pakette görünüyor ve bu simge
+        paketini uyguladığınızda değiştirilecektir.
     </string>
     <string name="nav_studio">Simge Paketi Stüdyosu</string>
     <string name="logcat_dialog_title">\"LogChar\" Hata Raporu</string>
     <string name="logcat_dialog_copy_success">Hata raporu başarıyla panoya kopyalandı!</string>
-    <string name="logcat_email_subject">%s: Tema Hata Raporu</string>
     <string name="logcat_email_activity">Kullanarak hata raporu gönder&#8230;</string>
     <string name="logcat_email_activity_error">Yüklü herhangi bir e-posta istemcisi yok.</string>
     <string name="logcat_email_xposed_check">Xposed Framework</string>
@@ -369,19 +368,17 @@ sağlayan
     </string>
     <string name="manager_no_overlays_title">yüklü tema yok&#8230;</string>
     <string name="manager_no_overlays_text">substratum\'u kullanabilmek için tema yükleyin!</string>
-    <string name="backup">Kartı Yedekle</string>
-    <string name="backup_card_content">Şu anda etkinleştirilmiş temalar listenizin bir kopyasını yapar ve burada
-        saklamak için onu \"/storage/emulated/0/substratum/profiles/\" içine yerleştirir.
-    
+    <string name="backup">Yedekleme Kartı</string>
+    <string name="backup_card_content">Geçerli olarak etkinleştirilen temalar listenizin bir kopyasını yapar ve onu saklamak
+        için \"/storage/emulated/0/substratum/profiles/\" klasörü içine yerleştirir.
     </string>
     <string name="delete_dialog_cancel">İptal</string>
     <string name="delete_dialog_okay">Sil</string>
     <string name="delete_dialog_title">Profili sil</string>
     <string name="delete_dialog_text">\"%s\" silmek istediğinizden emin misiniz?</string>
     <string name="restore">Kartı Geri Yükle</string>
-    <string name="restore_card_content">Bir profil yüklendiğinde, mevcut kurulum tamamen silinir ve
+    <string name="restore_card_content">Bir profil yüklendiğinde, mevcut kurulumunuz tamamen silinir ve
         \"temayı geri yüklemek\" güncellenmiş değişiklikleri alacaktır.
-    
     </string>
     <string name="remove_dialog_later">Sonra</string>
     <string name="restore_dialog_cancel">İptal</string>
@@ -409,11 +406,12 @@ sağlayan
         kurmak ve dinamik font takasını tekrar kazanmak için bir yazı tipi uygulayın!
     </string>
     <string name="profile_edittext_title">Yeni Profil:</string>
+    <string name="profile_edittext_whitespace_warning_toast">Profil adı içinde boşluk kullanamazsınız!</string>
     <string name="toast_backup_success">Şuan ki tema listesi
         \"/storage/emulated/0/substratum/profiles/%s\" kaydedildi\"
     </string>
     <string name="spinner_default_item">bir profil seçin&#8230;</string>
-    <string name="select_to_toggle_all_overlays">Tüm temalar arasında geçiş yapmak için seçin</string>
+    <string name="select_to_toggle_all_overlays">Seçilen tüm temalara geçiş yap</string>
     <string name="fab_menu_select_to_toggle_all_overlays">Tüm temaları seç</string>
     <string name="overflow_description">Ekstra Seçenekler</string>
     <string name="overlay_dialog_default_res">Varsayılan</string>
@@ -506,7 +504,7 @@ raporlanır!
     <string name="substratum_cache_clear_toast">Substratum önbelleği temizlendi!</string>
     <string name="substratum_restart_toast">Substratum ayarlar değiştirildikten sonra yeniden başlatılacak.</string>
     <string name="purge_cache">Tema Önbelleğini Geçersiz Kıl</string>
-    <string name="purge_cache_subtext">Bu, saklanan tüm tema ve uygulama önbelleklerini yok edecektir.</string>
+    <string name="purge_cache_subtext">Saklanan tüm tema ve uygulama ön belleklerini yok edecektir.</string>
     <string name="restart_systemui">Etkinleştirildikten sonra Sistem Kullanıcı Arayüzünü yeniden oluştur</string>
     <string name="restart_systemui_subtext">Sistem temasını etkinleştirdikten/devre dışı bıraktıktan sonra Sistem Arayüzünü otomatik olarak yeniden oluştur</string>
     <string name="restart_systemui_toast_enabled">Sistem Arayüzünü, yeniden başlatma yerine dinamik olarak yeniden oluşturulacak!</string>
@@ -536,7 +534,7 @@ raporlanır!
     <string name="manager_title">Devre dışı bırakılmış temaları listede göster</string>
     <string name="manager_subtext">Tema listesi penceresinde, devre dışı bırakılmış tüm temaları etkin karşılıklarıyla birlikte gösterin.</string>
     <string name="alternate_drawer_design_title">İkincil Çekmece Tasarımı</string>
-    <string name="alternate_drawer_design_subtext">Kullanıcı arabirimi boyunca gezinirken alternatif bir gezinme çekmecesi tasarımını kullanır.</string>
+    <string name="alternate_drawer_design_subtext">Kullanıcı arayüzü üzerinde gezinirken alternatif bir gezinme çekmecesi tasarımını kullanır.</string>
     <string name="show_outdated_themes_title">Geçmişe ait tüm temaları göster</string>
     <string name="show_outdated_themes_content">Bunu devre dışı bırakmak Substratum\'un temaların
         her zamankinden daha hızlı yüklendiği yeni algoritmayı kullanmasına izin verecektir. Bu,
@@ -581,11 +579,11 @@ raporlanır!
     <string name="slide_5_text">telefonunuzu kullanmaya devam edebilirsiniz ve bu işlemin biraz zaman alabileceği için temaların arka planda düzenlenmesine izin verebilirsiniz. ilerleme için bildirim panelinizi kontrol edin!</string>
     <string name="slide_6_title">umarız yaratıcılığınızın tadını çıkarırsınız!</string>
     <string name="slide_6_text">giriş bölümünü okuduğunuz için teşekkür ederiz ve bunun için geliştirirken yaptığımız kadar substratum\'u kullanmanın tadını çıkardığınızı umarız!</string>
-    <string name="scheduled_night_profile">Zamanlanmış Bağlamsal Profiller</string>
-    <string name="scheduled_profile_card_content">Günün saatine dayalı profiller arasında otomatik geçiş imkanı sunar.</string>
+    <string name="scheduled_night_profile">Zamana Dayalı Profiller</string>
+    <string name="scheduled_profile_card_content">Günün saatine göre profiller arasında otomatik geçiş imkanı sunar.</string>
     <string name="scheduled_profile_apply_success">Zamanlanmış profil başarıyla uygulandı!</string>
     <string name="scheduled_profile_disable_success">Zamanlanmış profil başarıyla devre dışı bırakıldı!</string>
-    <string name="active_time">Gece zamanlaması</string>
+    <string name="active_time">Gece süresi</string>
     <string name="start_time">Başlat</string>
     <string name="end_time">Bitir</string>
     <string name="day_profile">Gündüz profili</string>
@@ -596,15 +594,17 @@ raporlanır!
     <string name="time_empty_warning">Lütfen Başlangıç ve Bitiş saatlerini yapılandırın!</string>
     <string name="time_equal_warning">Lütfen farklı etkinleştirme süreleri seçin!</string>
     <string name="profile_empty_warning">Lütfen etkinleştirilmesini istediğiniz tüm profilleri seçin!</string>
+    <string name="profile_notification_title_day">Gündüz</string>
+    <string name="profile_notification_title_night">Gece</string>
     <string name="profile_notification_title">%s profil</string>
     <string name="profile_pending_notification">Ekran kapandıktan sonra profil değiştirilecektir.</string>
     <string name="profile_success_notification">Profil başarıyla uygulandı!</string>
     <string name="profile_failed_notification">Profil uygulaması başarısız oldu&#8230;</string>
     <string name="profile_failed_info_notification">Daha fazla bilgi için dokunun</string>
     <string name="theme_debug_mode_title">Sistem Geri Bildirim Müdahalesini Yoksay</string>
-    <string name="theme_debug_mode_summary">Bu, uygulamanın kurtarılamayan bir duruma geldiğinde temalara yardımcı olmak için eski derleyicinin geri dönüş mekanizmasını kullanmasını durduracaktır.</string>
+    <string name="theme_debug_mode_summary">Uygulamanın kurtarılamayan bir duruma geldiğinde temalara yardımcı olmak için eski derleyicinin geri dönüş mekanizmasını kullanmasını durduracaktır.</string>
     <string name="break_compilation_dialog_title">UYARI</string>
-    <string name="break_compilation_dialog_content">Bu, düzenleme sürecini tamamen bozar. Ne yaptığınızı biliyorsanız bu seçeneği etkinleştirin!</string>
+    <string name="break_compilation_dialog_content">Düzenleme sürecini tamamen bozar. Ne yaptığınızı biliyorsanız bu seçeneği etkinleştirin!</string>
     <string name="break_compilation_dialog_continue">Devam</string>
     <string name="break_compilation_dialog_cancel">İptal</string>
     <string name="profile_dialog_title">yedeklemek istediğiniz öğeleri seçin</string>
@@ -626,15 +626,15 @@ raporlanır!
     <string name="settings_system_status_certified">sertifikalı</string>
     <string name="settings_system_status_uncertified">sertifikasız</string>
     <string name="settings_force_english_title">İngilizceye Zorla</string>
-    <string name="settings_force_english_text">Bu, uygulamayı İngilizce kullanmaya zorlar.</string>
+    <string name="settings_force_english_text">Uygulamayı İngilizce kullanmaya zorlar.</string>
     <string name="settings_force_english_toast_reverted">İngilizceye zorlama başarıyla devre dışı bırakıldı!</string>
     <string name="settings_theme_caching_title">Tema Kaynakları Önbelleği</string>
     <string name="settings_theme_caching_text">Tema varlığı kaynaklarının tümü önbellek dizininde ayıklanır.</string>
     <string name="settings_theme_caching_found_snackbar">Gizli kaynak önbellekleme modunu keşfedin!</string>
     <string name="settings_crash_receiver_title">Tema Güvenliği Çökme Algılayıcı</string>
     <string name="settings_crash_receiver_text">Tema uygulanan bir uygulamada tekrar eden çökmeler tespit edildiğinde temayı otomatik olarak devre dışı bırak.</string>
-    <string name="settings_restart_interfacer_title">Arabirim Hizmetini Yeniden Başlat</string>
-    <string name="settings_restart_interfacer_snackbar">Arabirim yeniden başlatılıyor&#8230;</string>
+    <string name="settings_force_stop_interfacer_title">Arayüz Hizmetini durmaya zorla</string>
+    <string name="settings_force_stop_interfacer_snackbar">Arayüz hizmeti durmaya zorlanıyor&#8230;</string>
     <string name="root_required_title">Kök erişimi gereklidir</string>
     <string name="root_required_boot_animation">Cihazınız şifrelidir, bu nedenle önyükleme animasyonlarını uygulamak için kök erişimi gereklidir.</string>
     <string name="root_required_boot_animation_profile">Cihazınız şifrelidir, bu nedenle önyükleme animasyonlarını yedeklemek ve geri yüklemek için kök erişimi gereklidir.</string>
@@ -702,7 +702,7 @@ raporlanır!
     <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
     <string name="nav_drawer_xda_portal">XDA Portal</string>
     <string name="force_independence_title">Sistem Bağımsızlığı Modu</string>
-    <string name="force_independence_summary">Bu, tüm yönlendirmeleri devre dışı bırakmak için arabirime zorlar.</string>
+    <string name="force_independence_summary">Tüm yönlendirmeleri devre dışı bırakmak için arayüze zorlar.</string>
     <string name="settings_about_interfacer_disconnected">bağlantı kesildi</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">Kaynaklar</string>

@@ -36,7 +36,7 @@
     <!-- Gesture RecyclerView -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_gesturerecycler_libraryDescription">Táto knižnica poskytuje podporu pre potiahnutie prstom a metódu grag &amp; drop pre RecyclerView.    </string>
+    <string name="library_gesturerecycler_libraryDescription">Táto knižnica poskytuje podporu pre potiahnutie prstom a metódu drag &amp; drop pre RecyclerView.    </string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
@@ -45,7 +45,7 @@
     <string name="library_kenburnsview_author" formatted="false">Flávio Faria</string>
     <string name="library_kenburnsview_authorWebsite" formatted="false">https://plus.google.com/+Fl%C3%A1vioFaria1/posts</string>
     <!-- Library section -->
-    <string name="library_kenburnsview_libraryDescription">Android knižnica, ktorá poskytuje rozšírenie pre ImageView a vytvára lepší zážitok animovaním s pomocou efektu Ken Burns.    </string>
+    <string name="library_kenburnsview_libraryDescription">Android knižnica, ktorá poskytuje rozšírenia pre ImageView a vytvára lepší zážitok z animácií s pomocou efektu Ken Burns.    </string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
@@ -59,21 +59,22 @@
     <!-- Material Progress Bar -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_materialprogressbar_libraryDescription">Material Design ProgressBar s konzistentným vzhľadom na Androide 4.0+.</string>
+    <string name="library_materialprogressbar_libraryDescription">ProgressBar v štýle Material Design, kompatibilný s Androidom 4.0+.</string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- Material Sheet Fab -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_materialsheetfab_libraryDescription">Knižnica, ktorá implementuje plávajúce akčné tlačidlo (FAB) so správnou animáciou podľa Google dokumentácie pre Material Design. Môže byť použitá s akoukoľvek FAB knižnicou na Androide 4.0+ (API levels &gt;= 14).</string>
+    <string name="library_materialsheetfab_libraryDescription">Knižnica, ktorá implementuje animované plávajúce akčné tlačidlo (FAB) v štýle Material Design od Google. Môže byť použitá s akoukoľvek FAB knižnicou na Androide 4.0+ (API levels &gt;= 14).</string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- Welcome -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_welcome_android_libraryDescription">Jednoduchá a prispôsobiteľná uvítacia obrazovka pre Android aplikácie.</string>
+    <string name="library_welcome_android_libraryDescription">Ľahko použiteľná a vysoko prispôsobiteľná úvodná obrazovka pre Android aplikácie.
+    </string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
@@ -110,7 +111,7 @@ https://github.com/81813780/AVLoadingIndicatorView</string>
     <!-- BlurView -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_blurview_libraryDescription">Dynamické podkladové rozmazanie ako v iOS pre Android.</string>
+    <string name="library_blurview_libraryDescription">Dynamické rozmazanie pozadia pre Android ako v iOS.    </string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
@@ -141,7 +142,7 @@ https://github.com/81813780/AVLoadingIndicatorView</string>
     <string name="library_jikegallery_authorWebsite">http://wangyuwei.me/</string>
     <!-- Library section -->
     <string name="library_jikegallery_libraryName">JikeGallery</string>
-    <string name="library_jikegallery_libraryDescription">Skvelé vertikálne zobrazenie galérie s plynulou animáciou, ktoré zobrazuje obsah atraktívnejšie.</string>
+    <string name="library_jikegallery_libraryDescription">Výborná galéria s plynulou vertikálnou animáciou, ktorá zobrazuje obsah atraktívnejšie.</string>
     <string name="library_jikegallery_libraryWebsite">https://github.com/JeasonWong/JikeGallery</string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
@@ -160,6 +161,7 @@ https://github.com/81813780/AVLoadingIndicatorView</string>
     <string name="library_lemniscate_authorWebsite">https://stackoverflow.com/users/5821000/vladimir-jovanovi</string>
     <!-- Library section -->
     <string name="library_lemniscate_libraryName">Lemniscate</string>
+    <string name="library_lemniscate_libraryDescription">Lemniscate je knižnica, ktorá umožňuje zobraziť priebeh krásne a atraktívne.</string>
     <string name="library_lemniscate_libraryWebsite">https://github.com/vlad1m1r990/Lemniscate</string>
     <!-- OpenSource section -->
     <string name="library_lemniscate_repositoryLink">https://github.com/vlad1m1r990/Lemniscate</string>
@@ -171,7 +173,8 @@ https://github.com/81813780/AVLoadingIndicatorView</string>
     <string name="library_numberprogressbar_author">代码家</string>
     <string name="library_numberprogressbar_authorWebsite">https://github.com/daimajia</string>
     <!-- Library section -->
-    <string name="library_numberprogressbar_libraryName">NumberProgressBar</string>
+    <string name="library_numberprogressbar_libraryName">Číselný ukazovateľ postupu</string>
+    <string name="library_numberprogressbar_libraryDescription">Kompaktný a krásny číselne založený ukazovateľ postupu.</string>
     <string name="library_numberprogressbar_libraryWebsite">https://github.com/daimajia/NumberProgressBar</string>
     <string name="library_numberprogressbar_libraryVersion">1.4</string>
     <!-- OpenSource section -->

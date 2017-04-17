@@ -141,6 +141,8 @@
     <string name="fonts_dialog_permissions_grant_toast">Kad leisti \"Substratum\" atstatyti šriftų rinkinį, jūs turite įjungti \'Leisti keisti sistemos nustatymus\'.</string>
     <string name="fonts_dialog_permissions_grant_toast2">Kad leisti \"Substratum\" valdyti sistemos šriftus, jūs turite įjungti \'Leisti keisti sistemos nustatymus\'.</string>
     <string name="error_loading_pack">Atrodo, kad šis paketas nebuvo sudarytas teisingai&#8230;</string>
+    <string name="no_themes_installed">nėra jokių perdangų, kurias galėtumėte įdiegti iš šios temos&#8230;
+    </string>
     <string name="content_resolver_alarm_metadata">\"Substratum\" Temos Aliarmas</string>
     <string name="content_resolver_notification_metadata">\"Substratum\" Temos Pranešimai</string>
     <string name="content_resolver_ringtone_metadata">\"Substratum\" Temos Melodija</string>
@@ -278,7 +280,6 @@
     <string name="nav_studio">Piktogramų Paketo Studija</string>
     <string name="logcat_dialog_title">\"LogChar\'o\" Derinimo Ataskaita</string>
     <string name="logcat_dialog_copy_success">Klaidos registras sėkmingai nukopijuotas į iškarpinę!</string>
-    <string name="logcat_email_subject">%s: Temos Defekto Ataskaita</string>
     <string name="logcat_email_activity">Siųsti defekto ataskaitą naudojant&#8230;</string>
     <string name="logcat_email_activity_error">Nėra įdiegtų jokių el.pašto programėlių.</string>
     <string name="logcat_email_xposed_check">\"Xposed\" Struktūra</string>
@@ -311,6 +312,7 @@
     <string name="profile_edittext_empty_toast">Prašome įvesti vardą jūsų profiliui prieš sukuriant atsarginę kopiją!</string>
     <string name="profile_edittext_empty_toast_sysui">Substratum Šriftų Pagalbininkas nebuvo rastas. Prašome pritaikyti šriftą, kad įdiegti pagalbininką ir atgaukite dinamišką šrifto mainymą.</string>
     <string name="profile_edittext_title">Naujas Profilis:</string>
+    <string name="profile_edittext_whitespace_warning_toast">Negalima naudoti tarpų profilio pavadinime!</string>
     <string name="toast_backup_success">Dabartinis perdangų sąrašas išsaugotas \"/storage/emulated/0/substratum/profiles/%s\"</string>
     <string name="spinner_default_item">pasirinkite profilį&#8230;</string>
     <string name="select_to_toggle_all_overlays">Pasirinkite, kad įjungti visas perdangas</string>
@@ -486,6 +488,8 @@
     <string name="time_empty_warning">Prašome sukonfigūruokite Pradžios ir Pabaigos laiką!</string>
     <string name="time_equal_warning">Prašome pasirinkti skirtingus aktyvinimo laikus!</string>
     <string name="profile_empty_warning">Prašome pasirinkti visus profilius, kuriuos norite įjungti!</string>
+    <string name="profile_notification_title_day">Diena</string>
+    <string name="profile_notification_title_night">Naktis</string>
     <string name="profile_notification_title">%s profilis</string>
     <string name="profile_pending_notification">Profilis bus pakeistas po ekrano išjungimo.</string>
     <string name="profile_success_notification">Profilis sėkmingai pritaikytas!</string>
@@ -523,8 +527,8 @@
     <string name="settings_theme_caching_found_snackbar">Jūs ką tik radote paslėptų resursų saugojimo režimą!</string>
     <string name="settings_crash_receiver_title">Temos Saugumo Klaidos Gavėjas</string>
     <string name="settings_crash_receiver_text">Automatiškai išjungti perdangą, kai aptinkamas pasikartojantis gedimas programos perdangai.</string>
-    <string name="settings_restart_interfacer_title">Paleisti iš naujo sąsajos tarnybą</string>
-    <string name="settings_restart_interfacer_snackbar">Sąsaja paleidžiama iš naujo&#8230;</string>
+    <string name="settings_force_stop_interfacer_title">Priverstinai sustabdyti Sąsajos Tarnybą</string>
+    <string name="settings_force_stop_interfacer_snackbar">Dabar sąsaja priverstinai sustabdoma&#8230;</string>
     <string name="root_required_title">Reikalingas \"root\"</string>
     <string name="root_required_boot_animation">Jūsų įrenginys šifruotas, todėl \"root\" yra būtinas, norėdami pritaikyti paleidimo animacijas.</string>
     <string name="root_required_boot_animation_profile">Jūsų įrenginys šifruotas, todėl \"root\" yra būtinas, norėdami sukurti atsarginę kopiją ar atkurti paleidimo animacijas.</string>

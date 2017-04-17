@@ -251,7 +251,6 @@
     <string name="nav_studio">Studio des paquets d\'icônes</string>
     <string name="logcat_dialog_title">Rapport de débogage \"JournauxDeChar\"</string>
     <string name="logcat_dialog_copy_success">Journal d\'erreur copié dans le presse-papiers !</string>
-    <string name="logcat_email_subject">%s : Rapport de bogue de thème</string>
     <string name="logcat_email_activity">Envoyer le rapport de bogue via&#8230;</string>
     <string name="logcat_email_activity_error">Aucun client de courriel installé.</string>
     <string name="logcat_email_xposed_check">\"Xposed Framework\"</string>
@@ -457,6 +456,8 @@
     <string name="time_empty_warning">Veuillez définir les horaires de début et de fin !</string>
     <string name="time_equal_warning">Veuillez modifier les heures d\'activation !</string>
     <string name="profile_empty_warning">Veuillez sélectionner tous les profils à activer !</string>
+    <string name="profile_notification_title_day">Jour</string>
+    <string name="profile_notification_title_night">Nuit</string>
     <string name="profile_notification_title">Profil %s</string>
     <string name="profile_pending_notification">Le profil sera modifié après l’extinction de l\'écran.</string>
     <string name="profile_success_notification">Profil appliqué !</string>
@@ -494,8 +495,6 @@
     <string name="settings_theme_caching_found_snackbar">Vous venez de découvrir l\'option de mise en cache des ressources de thème !</string>
     <string name="settings_crash_receiver_title">Collecteur d\'erreur de thème</string>
     <string name="settings_crash_receiver_text">Désactiver automatiquement une surcouche lors de la détection d\'erreurs répétitives de l\'application</string>
-    <string name="settings_restart_interfacer_title">Redémarrer l\'Interface de thème</string>
-    <string name="settings_restart_interfacer_snackbar">Redémarrage de l\'Interface de thème en cours&#8230;</string>
     <string name="root_required_title">Droits Root</string>
     <string name="root_required_boot_animation">Votre appareil est chiffré. Les droits \"Root\" sont nécessaires pour modifier l\'animation de démarrage.</string>
     <string name="root_required_boot_animation_profile">Votre appareil est chiffré. Les droits \"Root\" sont nécessaires pour pour sauvegarder et restaurer l\'animation de démarrage.</string>

@@ -18,7 +18,7 @@
   ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
   -->
 <resources>
-    <string name="showcase">ukážka</string>
+    <string name="showcase">Ukážky</string>
     <string name="helper_name">pomocník Substratum prekrytí</string>
     <string name="restore_app_name">obnoviť tému</string>
     <string name="android">Verzia Androidu:</string>
@@ -42,7 +42,7 @@
     <string name="background_updated_toast_cancel">Táto téma vyžaduje aktualizáciu zdrojov!</string>
     <string name="background_updated_toast_cleaning">Substratum čistí zdroje témy&#8230;</string>
     <string name="failed_to_install_title_notification">Nepodarilo sa nainštalovať OMS tému</string>
-    <string name="failed_to_install_text_notification">Nepodarilo nainštalovať %s</string>
+    <string name="failed_to_install_text_notification">Nepodarilo sa nainštalovať %s</string>
     <string name="actionbar_theme_count_singular">%s téma</string>
     <string name="actionbar_theme_count_plural">%s témy</string>
     <string name="actionbar_theme_count_none">nenašli sa žiadne témy</string>
@@ -51,7 +51,7 @@
     <string name="actionbar_changelog">Zoznam zmien v téme</string>
     <string name="settings_icons">Nastavenia ikon</string>
     <string name="systemui_headers">Záhlavie System UI</string>
-    <string name="systemui_navigation">Navigačné tlačítka</string>
+    <string name="systemui_navigation">Navigačné tlačidlá</string>
     <string name="systemui_qs_tiles">Ikony rychlých prepínačov</string>
     <string name="systemui_statusbar">Ikony na stavovom riadku</string>
     <string name="tbo_description">Táto téma podporuje Theme Ready Google Apps od Team Black Out.
@@ -59,7 +59,7 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="two_description">Táto téma podporuje originálne Google aplikácie, tak ako boli naprogramované! Ak máte nainštalované Google aplikácie, ktoré podporujú témy,  nemusíte ich odinštalovať, nie sú ale podmienkou pre použitie tejto témy!    </string>
     <string name="tbo_dialog_proceed">Stiahnuť</string>
     <string name="warning_title">UPOZORNENIE!</string>
-    <string name="dangerous_warning_content">Substratum zistil, že beží na firmvéri, o ktorom je je známe, že často pri reštarte skončí v  Boot slučke (aktualizácia medzi novembrom 2016 a januárom 2017, N/N-MR1) a dôrazne doporuča neaplikovať žiadne framework/Android systémové prekrytia.\n\nPokiaľ sa rozhodnete pokračovať a nakoniec skončíte v Boot slučke, prosím napáľte záchranný archív, ktorý nájdete v ceste \"/storage/emulated/0/substratum/\".
+    <string name="dangerous_warning_content">Substratum zistil, že beží na firmvéri, o ktorom je je známe, že často pri reštarte skončí v spúšťacej (Boot) slučke (aktualizácia medzi novembrom 2016 a januárom 2017, N/N-MR1) a dôrazne sa doporučuje neaplikovať žiadne framework/Android systémové prekrytia.\n\nPokiaľ sa rozhodnete pokračovať a nakoniec skončíte v spúšťacej (Boot) slučke, prosím napáľte záchranný archív, ktorý nájdete v ceste \"/storage/emulated/0/substratum/\".
     </string>
     <string name="legacy_warning_content">Staré systémy sú podporované tak ako-sú, nemôžeme zaručiť plnú kompatibilitu s farbami. Pred pokračovaním si skontrolujte, či máte vo vašom zariadení TWRP recovery a rozumiete ako obnoviť systém, ak náhodou skončíte v bootloope.\n\nNa starých systémoch, ktoré nepodporujú zmenu tém, nemôžeme garantovať funkčnosť. Tieto systémy vyžadujú zmeny na strane ich systému.     </string>
     <string name="legacy_dialog_soft_reboot_title">Vyžaduje sa reštart!</string>
@@ -84,7 +84,7 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="overlays_up_to_date">AKTUÁLNE</string>
     <string name="overlays_update_available">Je dostupná aktualizácia!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Variant nie je nainštalovaný</string>
-    <string name="overlays_compile_update_button">Kompilovať/aktualizovať a inštalovať</string>
+    <string name="overlays_compile_update_button">Vytvoriť/aktualizovať a inštalovať</string>
     <string name="information_activity_pirated_toast">Binárny kód tejto témy neprešiel overovaním
         Substratum integrity.
     </string>
@@ -146,6 +146,7 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="fonts_dialog_permissions_grant_toast2">Pre povolenie ovládania systémových písiem pomocou Substratum, musíte udeliť oprávnenie  \"Povoliť úpravu systémových nastavení\".
     </string>
     <string name="error_loading_pack">zdá sa, že tento balíček nie je nastavený správne&#8230;</string>
+    <string name="no_themes_installed">neexistujú žiadne prekrytia, ktoré by sa dali nainštalovať z tejto témy...     </string>
     <string name="content_resolver_alarm_metadata">Substratum téma pre Budík</string>
     <string name="content_resolver_notification_metadata">Substratum téma pre Upozornenie</string>
     <string name="content_resolver_ringtone_metadata">Substratum téma pre Tón zvonenia</string>
@@ -155,23 +156,23 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="sounds_effect_tick">Systémové zvuky pri dotyku</string>
     <string name="sounds_lock_sound">Zvuk uzamknutia obrazovky</string>
     <string name="sounds_unlock_sound">Zvuk odomknutia obrazovky</string>
-    <string name="settings_about_substratum">verzia Substratum</string>
-    <string name="settings_about_interfacer">verzia interfejsu</string>
-    <string name="settings_about_interfacer_not_installed">nenainštalovaný</string>
-    <string name="settings_about_interfacer_masquerade">táto rom vyžaduje aktualizáciu aby mohla využívať funkcie interfejsu</string>
+    <string name="settings_about_substratum">Verzia Substratum</string>
+    <string name="settings_about_interfacer">Interfacer verzia</string>
+    <string name="settings_about_interfacer_not_installed">nenainštalované</string>
+    <string name="settings_about_interfacer_masquerade">Táto ROM vyžaduje aktualizáciu aby mohla využívať funkcie Interfacer</string>
     <string name="settings_about_oms_rro_version">platforma pre témy:</string>
     <string name="settings_about_oms_version_3">OMS3</string>
     <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
-    <string name="settings_about_system_version">systémová platforma</string>
+    <string name="settings_about_system_version">Systémová platforma</string>
     <string name="settings_aopt_switcher_title">Kompilátor systémových prekrytí</string>
-    <string name="theme_information_tab_one">Manažér prekrytí</string>
+    <string name="theme_information_tab_one">Správca prekrytí</string>
     <string name="theme_information_tab_two">Spúšťacie animácie</string>
     <string name="theme_information_tab_three">Balíčky písiem</string>
     <string name="theme_information_tab_four">Balíčky zvukov</string>
     <string name="theme_information_tab_five">Tapety na plochu</string>
     <string name="nougat_style_cards_title">Rozloženie kariet podľa Android Nougat</string>
-    <string name="nougat_style_cards_subtext">Povoliť štýl kariet upozornenia podľa Android Nougat.</string>
+    <string name="nougat_style_cards_subtext">Zapnúť štýl kariet upozornení v štýle Android Nougat.    </string>
     <string name="uninstall_dialog_text">Naozaj chcete odinštalovať túto tému?</string>
     <string name="manage_dialog_text">Ste si istý, že chcete vykonať túto akciu?</string>
     <string name="manage_dialog_performing">Obnovenie do predvoleného stavu...</string>
@@ -183,7 +184,7 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="manage_fonts_text">Obnovuje predvolené systémové písma na vašom zariadení</string>
     <string name="manage_sounds_title">Obnoviť systémové zvuky</string>
     <string name="manage_sounds_toast">Predvolené zvuky boli úspešne obnovené!</string>
-    <string name="manage_sounds_text">Obnovuje predvolené systémové zvuky na vašom zariadení</string>
+    <string name="manage_sounds_text">Obnoviť predvolené systémové zvuky na vašom zariadení</string>
     <string name="manage_system_overlay_dialog_title">Správca čištenia prekrytí</string>
     <string name="manage_system_overlay_disable">Vypnúť všetky povolené prekrytia</string>
     <string name="manage_system_overlay_uninstall">Odinštalovať všetky nainštalované prekrytia</string>
@@ -216,7 +217,7 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="accept">Prijať</string>
     <string name="deny">Odoprieť</string>
     <string name="permission_explanation_title">Prehľad oprávnení</string>
-    <string name="permission_explanation_text">Substrátum môže fungovať neočakávaným spôsobom, ak nemá udelené tieto kľúčové  oprávnenia.\n\n <b>Úložisko:</b> Subtratum potrebuje používať interné úložisko na uloženie záložnej kópie vášho systému, nachádza sa v /storage/emulated/0/substratum/.\n\n <b>Firebase:</b> Subtratum využíva Google Firebase na stiahnutie dôležitých informácií z našej centrálnej real-time databázy pre zlepšenie základných služieb a bezpečnostné vylepšenia.     </string>
+    <string name="permission_explanation_text">Substratum môže fungovať neočakávaným spôsobom, ak nemá udelené tieto kľúčové  oprávnenia.\n\n <b>Úložisko:</b> Subtratum potrebuje používať interné úložisko na uloženie záložnej kópie vášho systému, nachádza sa v /storage/emulated/0/substratum/.\n\n <b>Firebase:</b> Subtratum využíva Google Firebase na stiahnutie dôležitých informácií z našej centrálnej real-time databázy pre zlepšenie základných služieb a bezpečnostné vylepšenia.     </string>
     <string name="priority_back_title">Späť na prekrytia</string>
     <string name="priority_success_toast">Priority boli zmenené a okná sa obnovujú&#8230;</string>
     <string name="menu_clean">Vyčistiť nainštalované prekrytia</string>
@@ -237,18 +238,18 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="menu_search_icon_packs">Balíčky ikon v Obchode Play</string>
     <string name="menu_showcase">Ukážky</string>
     <string name="menu_uninstall">Odinštalovať tému</string>
-    <string name="menu_favorite_snackbar">Úspešne nastavené %s ako odkaz na aplikáciu!</string>
+    <string name="menu_favorite_snackbar">Úspešne nastavené %s ako zástupca aplikácie!</string>
     <string name="menu_favorite_snackbar_cleared">Odstránený zástupca aplikácie %s.</string>
     <string name="changelog_title">%s zoznam zmien v téme</string>
     <string name="dialog_restart_systemui_title">Reštartovať SystemUI</string>
     <string name="dialog_restart_systemui_content">Takto urobíte reštart SystemUI na vašom zariadení.</string>
-    <string name="dialog_restart_reboot_title">Reboot</string>
+    <string name="dialog_restart_reboot_title">Reštartovať</string>
     <string name="dialog_restart_reboot_content">Toto vykoná kompletný reštart vášho zariadenia.</string>
     <string name="dialog_restart_soft_reboot_title">Softvérový reštart</string>
     <string name="dialog_restart_soft_reboot_content">Toto vykoná soft reštart vášho zariadenia.</string>
     <string name="legacy_theme_notification_title">Varovanie, zastaraná téma!</string>
     <string name="legacy_theme_notification_text">Ak chcete používať zastarané témy, prosím povoľte ich v Nastaveniach.</string>
-    <string name="studio">balíček ikon studio (gamma)</string>
+    <string name="studio">balíček ikon Studio (gamma)</string>
     <string name="studio_system">Obnoviť systémové ikony</string>
     <string name="studio_system_reset_dialog_toast">
 Všetky upravené ikony sú už vypnuté!
@@ -275,22 +276,22 @@ Chcete obnoviť aktuálne ikony na predvolené systémové ikony?
     <string name="logcat_dialog_title">Správa ladenia \"LogChar\"</string>
     <string name="logcat_dialog_copy_success">Protokol chýb sa úspešne skopíroval do schránky!</string>
     <string name="logcat_email_activity">Poslať protokol chýb pomocou&#8230;</string>
-    <string name="logcat_email_activity_error">Nie sú nainštalovaní žiadni emailový klienti.</string>
+    <string name="logcat_email_activity_error">Nie sú nainštalovaní žiadni e-mailoví klienti.</string>
     <string name="logcat_email_xposed_check">Xposed Framework</string>
     <string name="priority_card_title">Dynamický Prioritný Systém (DPS)</string>
     <string name="priority_card_content">Dynamický prioritný systém je pokročilá procedúra povoľovania tématických prekrytí tak, aby boli zostavené s rôznymi prioritami a obchádza pôvodný OMS systém.\n\nAko príklad použitia je zobrazenie špecifického prekrytia nad iným prekrytím u tej istej aplikácie.\n\nSo zavedením služby Manažér prekrytí sú priority obrátené a najviac dôležité  prekrytie je umiestnené na konci každého zoznamu.</string>
     <string name="priority_card_title2">Pokyny</string>
     <string name="priority_card_content2">S tým ako Správca služieb prekrytí funguje, všetky priority prekrytí sú napísané v obrátenom poradí, kde spodné je s najvyššou prioritou (pôvodný zdroj vyhľadávania) a vrchné má najnižšiu prioritu (posledný zdroj vyhľadávania).</string>
     <string name="priority_no_multiple_overlays_title">žiadne aplikácie s viacerými prekrytiami&#8230;</string>
-    <string name="priority_no_multiple_overlays_text">aby si ma mohol používať, povoľ dve alebo viac prekrytí na jednu aplikáciu !</string>
+    <string name="priority_no_multiple_overlays_text">aby ste ma mohli používať, povoľte dve alebo viac prekrytí na jednu aplikáciu!</string>
     <string name="manager_no_overlays_title">nie sú nainštalované žiadne prekrytia&#8230;</string>
-    <string name="manager_no_overlays_text">aby si ma mohol používať, skompiluj jedno prekrytie!</string>
+    <string name="manager_no_overlays_text">aby si ma mohol používať, vytvor jedno prekrytie!</string>
     <string name="backup">Záložná karta</string>
     <string name="backup_card_content">Táto funkcia vytvorí kópiu aktuálne povolených prekrytí -> vytvorí zoznam a umiestni ho do cesty \"/storage/emulated/0/substratum/profiles/\" pre účely zálohovania.</string>
     <string name="delete_dialog_cancel">Zrušiť</string>
     <string name="delete_dialog_okay">Vymazať</string>
     <string name="delete_dialog_title">Vymazať profil</string>
-    <string name="delete_dialog_text">Ste si istí, že chcete vymazať \"%s\"?</string>
+    <string name="delete_dialog_text">Ste si istý, že chcete vymazať \"%s\"?</string>
     <string name="restore">Obnoviť kartu</string>
     <string name="restore_card_content">Keď je profil načítaný, je vaše aktuálne nastavenie kompletne vymazané a \"obnovená téma\"  aktualizuje všetky nastavenia.
     </string>
@@ -308,18 +309,19 @@ Chcete obnoviť aktuálne ikony na predvolené systémové ikony?
     <string name="profile_edittext_empty_toast_sysui">Substratum pomocník pre fonty nebol nájdený,  prosím nastavte písmo pre spustenie inštalačného sprievodcu a získajte možnosť dynamicky meniť písma!
     </string>
     <string name="profile_edittext_title">Nový profil:</string>
+    <string name="profile_edittext_whitespace_warning_toast">Nemôžete používať medzery v názove profilu!</string>
     <string name="toast_backup_success">Aktuálny zoznam prekrytí je umiestnený v ceste \"/storage/emulated/0/substratum/profily/%s\"</string>
     <string name="spinner_default_item">vyberte profil&#8230;</string>
     <string name="select_to_toggle_all_overlays">Vyberte pre prepnutie všetkých prekrytí</string>
     <string name="fab_menu_select_to_toggle_all_overlays">Vyberte všetky prekrytia</string>
     <string name="overflow_description">Rozšírené možnosti</string>
-    <string name="overlay_dialog_default_res">Predvolená</string>
+    <string name="overlay_dialog_default_res">Predvolené</string>
     <string name="overlay_dialog_text">zjednodušovanie nastavení tém&#8230;</string>
     <string name="system_overlay_dialog_title">Prosím, vyberte základné systémové prekrytie&#8230;</string>
     <string name="tp_overlay_dialog_title">Prosím, vyberte prekrytie tretích strán&#8230;</string>
     <string name="permission_not_granted_dialog_title">Oprávnenia nie sú udelené</string>
-    <string name="permission_not_granted_dialog_message1">Prosím, povoľte Substratum oprávenenia pre prístup k pamäti inak aplikácia nebude správne fungovať!</string>
-    <string name="permission_not_granted_dialog_message2">Prosím udeľte Substratum oprávnenia pre prístupu k telefónu inak aplikácia správne neskompiluje prekrytia závislé od zariadenia!</string>
+    <string name="permission_not_granted_dialog_message1">Prosím, udeľte Substratum oprávenenia pre prístup k pamäti inak aplikácia nebude správne fungovať!</string>
+    <string name="permission_not_granted_dialog_message2">Prosím udeľte Substratum oprávnenia pre prístupu k telefónu, inak aplikácia správne neskompiluje prekrytia závislé od zariadenia!</string>
     <string name="permission_not_granted_dialog_message3">Prosím povoľte Substratum oprávnenia pre prístupu ku kontaktom, aby mohli byť chyby nahlásené bez problémov!</string>
     <string name="dialog_ok">OK</string>
     <string name="dialog_do_not_show_again">Znovu nezobrazovať</string>
@@ -340,14 +342,14 @@ Chcete obnoviť aktuálne ikony na predvolené systémové ikony?
     <string name="root_rejected_timer_singular">uzatvorenie za %s sekúdu&#8230;</string>
     <string name="list_of_overlays">Zoznam nainštalovaných prekrytí</string>
     <string name="toast_unapproved">Toto prekrytie bolo zamietnuté  systémom</string>
-    <string name="toast_compiled">Vybrané prekrytia sú skompilované!</string>
+    <string name="toast_compiled">Vybrané prekrytia sú vytvorené (skompilované)!</string>
     <string name="toast_compiled_updated">Vybrané prekrytia sú aktualizované!</string>
-    <string name="toast_compiled_missing">Jedno alebo viac prekrytí nie je možné skompilovať kvôli chýbajúcej konfigurácii v rámci tohoto nastavenia&#8230;</string>
+    <string name="toast_compiled_missing">Jedno alebo viac prekrytí nie je možné vytvoriť (skompilovať) kvôli chýbajúcej konfigurácii v rámci tohoto nastavenia&#8230;</string>
     <string name="toast_compiled_updated_with_errors">Vybrané prekrytia sa aktualizovali s nejakými chybami!</string>
     <string name="toast_enabled">Úspešne povolené!</string>
     <string name="toast_disabled">Úspešne zakázané!</string>
     <string name="toast_disabled3">Prosím skompilujte toto prekrytie pred aplikovaním!</string>
-    <string name="toast_disabled4">Nemôžete zakázať prekrytie, ktorý nemáte skompilované!</string>
+    <string name="toast_disabled4">Nemôžete zakázať prekrytie, ktoré nemáte skompilované!</string>
     <string name="toast_disabled5">Prosím, pred vykonaním tejto akcie, vyberte platné prekrytie.</string>
     <string name="toast_disabled6">Vybrané prekrytia boli odstránené!</string>
     <string name="toast_installed">Označené prekrytia sú aplikované!</string>
@@ -357,7 +359,7 @@ Chcete obnoviť aktuálne ikony na predvolené systémové ikony?
     <string name="no_themes_title">nenašli sa žiadne témy&#8230;</string>
     <string name="no_themes_description">prosím, nainštalujte kompatibilnú tému!</string>
     <string name="no_themes_description_search">\"%s\" nebola nájdená v zozname nainštalovaných tém&#8230;</string>
-    <string name="toast_on_back_press_compiling">Počas kompilácie môžete používať ostatné aplikácie, kliknutím na  tlačítka Domov/Nedávne.</string>
+    <string name="toast_on_back_press_compiling">Počas kompilácie môžete používať ostatné aplikácie, kliknutím na tlačidlá Domov/Nedávne.</string>
     <string name="toast_needs_caching">Vyrovnávacia pamäť Substratum bola vyčistená, pred pokračovaním prosím znovu nainštalujte túto tému!</string>
     <string name="notification_theme_installed">nainštalované</string>
     <string name="notification_theme_updated">aktualizované</string>
@@ -383,7 +385,7 @@ Chcete obnoviť aktuálne ikony na predvolené systémové ikony?
     <string name="shortcut_store">Ukážka tém</string>
     <string name="shortcut_store_disabled">Ukážka tém</string>
     <string name="settings_title">O aplikácii</string>
-    <string name="settings_title_1">Možnosti aplikácie</string>
+    <string name="settings_title_1">Nastavenia aplikácie Subtratum</string>
     <string name="settings_title_2">Zoznam možností prekrytí</string>
     <string name="settings_title_3">Úpravy témy</string>
     <string name="settings_title_clickable">Konfigurácia systému</string>
@@ -391,20 +393,20 @@ Chcete obnoviť aktuálne ikony na predvolené systémové ikony?
     <string name="substratum_cache_clear_toast">Vyrovnávacia pamäť Substratum bola vyčistená!</string>
     <string name="substratum_restart_toast">Substratum sa po zmene nastavení automaticky reštartovalo.</string>
     <string name="purge_cache">Neplatná vyrovnávacia pamäť témy</string>
-    <string name="purge_cache_subtext">To vymaže všetky uložené témy a aplikačnú vyrovnávaciu pamäť.</string>
+    <string name="purge_cache_subtext">To vymaže všetky uložené témy a vyrovnávaciu pamäť aplikácie.</string>
     <string name="restart_systemui">Aktualizácia používateľského rozhrania</string>
     <string name="restart_systemui_subtext">Automaticky obnoví používateľské rozhranie po povolení/zakázaní originálneho systémového prekrytia</string>
     <string name="restart_systemui_toast_enabled">SystemUI sa namiesto reštartovania dynamicky obnoví!</string>
-    <string name="restart_systemui_toast_disabled">SystemUI sa dynamického obnovenia reštartuje!</string>
+    <string name="restart_systemui_toast_disabled">SystemUI sa namiesto dynamického obnovenia reštartuje!</string>
     <string name="show_theme_template_version">Zobraziť rozšírené informácie o téme</string>
     <string name="show_theme_template_version_description">Zobraziť cieľovú SDK, verziu témy a verziu zásuvného modulu ako značku na karte každej témy.</string>
-    <string name="vibrate_on_compiled">Upozorniť po dokončení kompilácie témy</string>
-    <string name="vibrate_on_compiled_description">Po dokončení kompilácie témy, zariadenie vibruje pre upozornenie užívateľa.</string>
+    <string name="vibrate_on_compiled">Upozorniť po dokončení vytvárania témy</string>
+    <string name="vibrate_on_compiled_description">Po vytvorení (skompilovaní) témy zariadenie zavibruje aby upozornilo užívateľa.</string>
     <string name="hide_app_icon">Zobraziť ikonu aplikácie</string>
     <string name="hide_app_icon_toast_enabled">Ikona aplikácie bola odstránená!</string>
     <string name="hide_app_icon_toast_disabled">Ikona aplikácie bola pridaná!</string>
     <string name="hide_app_icon_not_supported">Zmena nie je podporovaná</string>
-    <string name="hide_app_icon_supported">Toto umožní prepínať medzi ikonou viditeľnou alebo neviditeľnou na domácej obrazovke.</string>
+    <string name="hide_app_icon_supported">Zobrazenie alebo nezobrazenie ikony aplikácie na domovskej obrazovke.</string>
     <string name="show_installed_packages_only">Vo výbere prekrytí zobrazovať iba nainštalované balíčky</string>
     <string name="purge_completion">Prekrytia pre túto tému sa čistia na pozadí&#8230;</string>
     <string name="clean_completion">Prekrytia pre túto tému sa čistia na pozadí&#8230;</string>
@@ -414,20 +416,20 @@ Chcete obnoviť aktuálne ikony na predvolené systémové ikony?
     <string name="purge_information">Odstraňovanie všetkých prekrytí naraz je potencionálne nebezpečné, spôsobuje veľa vynútených zatvorení pri vykonávaní akcie.</string>
     <string name="purge_button_text">ODINŠTALOVAŤ VŠETKY PREKRYTIA</string>
     <string name="purge2_button_text">ZAKÁZAŤ VŠETKY POVOLENÉ PREKRYTIA</string>
-    <string name="dynamic_actionbar_colors">Dynamické farby navigačnej lišty</string>
-    <string name="dynamic_actionbar_colors_subtext">V informačnom okne témy, Substratum na rozbalovaciu navigačnú  lištu použije dominantnú farbu hrdinského obázku.</string>
+    <string name="dynamic_actionbar_colors">Dynamické farby lišty akcií</string>
+    <string name="dynamic_actionbar_colors_subtext">V informačnom okne témy, Substratum na rozbaľovaciu navigačnú  lištu použije dominantnú farbu hrdinského obrázku.</string>
     <string name="dynamic_navbar_colors">Dynamické farby navigačnej lišty</string>
     <string name="dynamic_navbar_colors_subtext">V informačnom okne témy, Substratum na navigačnú lištu použije dominantnú farbu z témy.</string>
     <string name="manager_title">Zobrazit vypnuté prekrytia v zozname</string>
-    <string name="manager_subtext">Zobrazí všetky zakázané prekrytia s ich zapnutými náprotivkami v zozname.</string>
-    <string name="alternate_drawer_design_title">Sekundárny vzhľad menu</string>
-    <string name="alternate_drawer_design_subtext">Použije alternatívny vzhľad navigačného menu pri prechádzaní používateľským rozhraním.</string>
+    <string name="manager_subtext">V zozname vrstiev zobraziť všetky vypnuté prekrytia s ich aktivovanými náprotivkami.</string>
+    <string name="alternate_drawer_design_title">Alternatívny vzhľad menu</string>
+    <string name="alternate_drawer_design_subtext">Použije alternatívny vzhľad navigačného menu pre používateľské rozhranie.</string>
     <string name="show_outdated_themes_title">Zobraziť všetky neaktuálne témy</string>
-    <string name="show_outdated_themes_content">Zakázanie umožní Substratum použiť úplne nový algoritmus, s ktorým sa témy načítavajú oveľa rýchlejšie ako zvyčajne. Funguje iba na správne nakonfigurovaných témach so zásuvným modulom v6.0.0+.</string>
-    <string name="fab_menu_compile">Skompilovať vybraté</string>
+    <string name="show_outdated_themes_content">Vypnutie tohoto parametru umožní Substratum použiť úplne nový algoritmus s ktorým sa budú témy načítavať oveľa rýchlejšie ako zvyčajne. To však platí iba pre témy založené na module v6.0.0+.</string>
+    <string name="fab_menu_compile">Vytvoriť vybraté (skompilovať)</string>
     <string name="fab_menu_compile_enable">Vytvoriť a povoliť</string>
     <string name="fab_menu_compile_update">Vytvoriť a aktualizovať</string>
-    <string name="fab_menu_compile_install">Inštalovať označené</string>
+    <string name="fab_menu_compile_install">Nainštalovať označené</string>
     <string name="fab_menu_uninstall">Odinštalovať označené</string>
     <string name="fab_menu_disable">Zakázať označené</string>
     <string name="fab_menu_enable">Povoliť označené</string>
@@ -479,13 +481,15 @@ Chcete obnoviť aktuálne ikony na predvolené systémové ikony?
     <string name="time_empty_warning">Prosím nastavte časy začiatku a konca!</string>
     <string name="time_equal_warning">Prosím, vyberte iný čas aktivácie!</string>
     <string name="profile_empty_warning">Prosím, vyberte všetky profily, ktoré chcete povoliť!</string>
+    <string name="profile_notification_title_day">Deň</string>
+    <string name="profile_notification_title_night">Noc</string>
     <string name="profile_notification_title">%s profil</string>
     <string name="profile_pending_notification">Profil sa zmení po vypnutí obrazovky.</string>
     <string name="profile_success_notification">Profil je úspešne aplikovaný!</string>
     <string name="profile_failed_notification">Profil sa nepodarilo aplikovať&#8230;</string>
     <string name="profile_failed_info_notification">Kliknite pre viac informácií</string>
     <string name="theme_debug_mode_title">Obídenie originálneho sytému</string>
-    <string name="theme_debug_mode_summary">Toto umožní, že aplikácie prestanú používať pôvodný mechanizmus kompilátora s cieľom  pomôcť téme, keď sa dostane do neriešiteľnej situácie.</string>
+    <string name="theme_debug_mode_summary">Zapnutie umožní, že aplikácie prestanú používať pôvodný núdzový mechanizmus kompilátora s cieľom pomôcť témam, ktoré sa dostanú do neopraviteľného stavu.</string>
     <string name="break_compilation_dialog_title">UPOZORNENIE</string>
     <string name="break_compilation_dialog_content">Toto by mohlo kompletne rozbiť proces kompilácie. Zapnite túto možnosť len pokiaľ viete čo robíte!</string>
     <string name="break_compilation_dialog_continue">Pokračovať</string>
@@ -503,9 +507,9 @@ Chcete obnoviť aktuálne ikony na predvolené systémové ikony?
     <string name="bottom_sheet_dialog_show_outdated_themes">Zobraziť neaktuálne témy (pred-6.0.0)</string>
     <string name="bottom_sheet_dialog_outdated_description">Skrytie neaktuálnych tém zvýši výkon algoritmu na vyhľadávanie zdrojov! Toto je možné neskôr zmeniť v Nastaveniach, kedykoľvek sa rozhodnete nainštalovať staré témy.</string>
     <string name="bottom_sheet_dialog_outdated_title">Počkajte!</string>
-    <string name="settings_system_status">certifikácia systému</string>
-    <string name="settings_system_status_rooted">mód s rootom</string>
-    <string name="settings_system_status_rootless">mód bez rootu</string>
+    <string name="settings_system_status">Certifikácia systému</string>
+    <string name="settings_system_status_rooted">režim s rootom</string>
+    <string name="settings_system_status_rootless">režim bez rootu</string>
     <string name="settings_system_status_certified">certifikované</string>
     <string name="settings_system_status_uncertified">necertifikované</string>
     <string name="settings_force_english_title">Vynútiť anglický jazyk</string>
@@ -516,8 +520,8 @@ Chcete obnoviť aktuálne ikony na predvolené systémové ikony?
     <string name="settings_theme_caching_found_snackbar">Práve ste objavili skrytý režim vyrovnávacej pamäte!</string>
     <string name="settings_crash_receiver_title">Ošetrenie pádov pri aplikovaní témy</string>
     <string name="settings_crash_receiver_text">Automaticky vypnúť prekrytie pri opakovanom zlyhaní pokusu o prekrytie aplikácie.</string>
-    <string name="settings_restart_interfacer_title">Reštart služby Interfacer</string>
-    <string name="settings_restart_interfacer_snackbar">Interfacer sa reštartuje&#8230;</string>
+    <string name="settings_force_stop_interfacer_title">Vynútené zastavenie služby Interfacer</string>
+    <string name="settings_force_stop_interfacer_snackbar">Interfacer sa vynútene zastavuje&#8230;</string>
     <string name="root_required_title">Vyžaduje sa root</string>
     <string name="root_required_boot_animation">Vaše zariadenie je šifrované, takže je potrebný root pre aplikovanie spúšťacej animácie.</string>
     <string name="root_required_boot_animation_profile">Vaše zariadenie je šifrované, takže je potrebný root pre zálohovanie a obnovenie spúšťacej animácie.</string>
@@ -553,8 +557,8 @@ Chcete obnoviť aktuálne ikony na predvolené systémové ikony?
     <string name="restore_fonts_text">Balíčky písiem</string>
     <string name="restore_fonts_summary">Tato funkcia odstráni predtým aplikované sady písiem a obnoví pôvodnú systémovú sadu písiem\n</string>
     <string name="restore_fonts_button">Obnoviť písma</string>
-    <string name="interfacer_not_authorized_toast">Táto verzia Subtranum nie je pravá a nebude pracovať so systémovým modulom.</string>
-    <string name="app_crash_title">%s neustále ukončuje&#8230;</string>
+    <string name="interfacer_not_authorized_toast">Táto verzia Subtratum nie je pravá a nebude pracovať so systémovým modulom.</string>
+    <string name="app_crash_title">%s sa neustále ukončuje&#8230;</string>
     <string name="app_crash_content">Pre túto aplikáciu boli zakázané všetky povolené prekrytia.</string>
     <string name="dirty_flash_detected">Firmvér nebo ROM boli aktualizované bez odstránenia užívateľských dát (dirty flash). Substratum bude prekonfigurované aby sa zabránilo chybám.</string>
     <string name="rom_status">stav podpory:</string>
@@ -585,7 +589,7 @@ Chcete obnoviť aktuálne ikony na predvolené systémové ikony?
     <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
     <string name="nav_drawer_xda_portal">XDA portál</string>
     <string name="force_independence_title">Systémovo nezávislý režim</string>
-    <string name="force_independence_summary">Toto vypne všetky presmerovania na interface.</string>
+    <string name="force_independence_summary">Toto vypne všetky presmerovania na Interfacer.</string>
     <string name="settings_about_interfacer_disconnected">odpojené</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">Zdroje</string>

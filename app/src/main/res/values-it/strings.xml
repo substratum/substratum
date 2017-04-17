@@ -18,13 +18,18 @@
   ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
   -->
 <resources>
-    <string name="showcase">Vetrina</string>
+    <string name="showcase">vetrina</string>
     <string name="helper_name">substratum overlay helper</string>
     <string name="restore_app_name">ripristina il tema</string>
-    <string name="android">Versione Android:</string>
-    <string name="device">Modello del dispositivo:</string>
+    <string name="android">ersione android:</string>
+    <string name="device">modello del dispositivo:</string>
+    <string name="resource_checker_request">Invia una richiesta di commit merge utilizzando&#8230;</string>
+    <string name="resource_checker">Commit Validator</string>
     <string name="resource_checker_commons">Framework</string>
     <string name="resource_checker_dialog_quit">Esci</string>
+    <string name="resource_not_validated">Sono state unite nuove commit!</string>
+    <string name="resource_needs_internet">Per validare le commit della tua ROM, connettiti ad internet!</string>
+    <string name="resource_validated">Tutte le commit sono intatte!</string>
     <string name="resource_commit_dialog_title">Risorse mancanti in %s</string>
     <string name="showcase_no_connection">La vetrina dei temi richiede una connessione ad internet per funzionare!</string>
     <string name="showcase_no_themes">sembra che ci sia stato un errore nel nascondere il database della vetrina&#8230;    </string>
@@ -86,7 +91,7 @@
     <string name="bootanimation_default_spinner">Perfavore seleziona un\'animazione d\'avvio&#8230;</string>
     <string name="bootanimation_spinner_set_defaults">ripristina l\'animazione d\'avvio predefinita&#8230;    </string>
     <string name="bootanimation_defaults_text">questo cancellerà tutte le animazioni d\'avvio personalizzate applicate sul tuo dispositivo</string>
-    <string name="bootanimation_dialog_apply_text">L\'animazione d\'avvio è in processo&#8230;</string>
+    <string name="bootanimation_dialog_apply_text">L\'animazione d\'avvio è in elaborazione&#8230;</string>
     <string name="bootanimation_dialog_apply_success">Animazione d\'avvio applicata!</string>
     <string name="bootanimation_dialog_apply_failed">L\'animazione d\'avvio non è stata applicata&#8230;</string>
     <string name="wallpaper_dialog_wallpaper">Sfondo della schermata home</string>
@@ -125,6 +130,7 @@
     <string name="fonts_dialog_permissions_grant_toast">Per reimpostare tutti i font impostati da substratum, è necessario attivare \'Consenti modifica impostazioni di sistema\'.    </string>
     <string name="fonts_dialog_permissions_grant_toast2">Per consentire a substratum di controllare i font di sistema, è necessario attivare \'Consenti modifica impostazioni di sistema\'.    </string>
     <string name="error_loading_pack">sembra che questo pacchetto non sia stato impostato correttamente&#8230;</string>
+    <string name="no_themes_installed">non ci sono overlay che puoi installare da questo tema&#8230;    </string>
     <string name="content_resolver_alarm_metadata">Substratum Theme Alarm</string>
     <string name="content_resolver_notification_metadata">Substratum Theme Notification</string>
     <string name="content_resolver_ringtone_metadata">Substratum Theme Ringtone</string>
@@ -143,6 +149,7 @@
     <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
     <string name="settings_about_system_version">piattaforma di sistema</string>
+    <string name="settings_aopt_switcher_title">System Overlay Compiler</string>
     <string name="theme_information_tab_one">Gestore di overlay</string>
     <string name="theme_information_tab_two">Animazioni di avvio</string>
     <string name="theme_information_tab_three">Pacchetti di font</string>
@@ -255,14 +262,13 @@ Vuoi ripristinare le icone predefinite di sistema?    </string>
     <string name="nav_studio">Icon Pack Studio</string>
     <string name="logcat_dialog_title">Report di Debug \"LogChar\"</string>
     <string name="logcat_dialog_copy_success">Il log d\'errore è stato copiato con successo!</string>
-    <string name="logcat_email_subject">%s: Segnalatore del bug del tema</string>
     <string name="logcat_email_activity">Manda la segnalazione di bug usando &amp;#8230</string>
     <string name="logcat_email_activity_error">Non c\'è nessuno client di posta installato.</string>
     <string name="logcat_email_xposed_check">Xposed Framework</string>
     <string name="priority_card_title">Sistema di priorità dinamica (DPS)</string>
     <string name="priority_card_content">Il Dynamic Priority System è una procedura avanzata che permette agli overlays del tema di essere organizzati con differenti priorità, ignorando le priorità OMS applicate di default per il sistema.\n\nUn esempio di questo è il voler posizionare un overlay su un altro overlay per una stessa specifica applicazione.\n\nCon l\'introduzione dell\'Overlay Manager Service, le priorità sono state invertite, e l\'overlay principale si trova nell\'ultima posizione di ogni lista.    </string>
     <string name="priority_card_title2">Istruzioni</string>
-    <string name="priority_card_content2">Con la via overlay manager service funzionante, tutte le pririorità degli overlays sono disposte in un ordine invertito quando la parte inferiore ha la pririorità più alta (ricerca di risorse iniziale) e la parte più alta ha la pririorità più bassa (ricerca di risorse finale).</string>
+    <string name="priority_card_content2">Per come funziona l\'OverlayManagerService, tutte le priorità delle sovrapposizioni sono disposte in un ordine invertito, dove quella più in basso ha la priorità più alta (ricerca di risorse iniziale) e quella più in alto ha la priorità più bassa (ricerca di risorse finale).    </string>
     <string name="priority_no_multiple_overlays_title">No applicazioni con multipli overlays&#8230;</string>
     <string name="priority_no_multiple_overlays_text">abilita due o più overlays su un\'app per usarmi!    </string>
     <string name="manager_no_overlays_title">Non è installata alcuna sovrapposizione&#8230;</string>
@@ -288,6 +294,7 @@ Vuoi ripristinare le icone predefinite di sistema?    </string>
     <string name="profile_edittext_empty_toast">Per favore immetti un nome per il tuo profilo prima di farne il backup!</string>
     <string name="profile_edittext_empty_toast_sysui">L\'aiutante di caratteri substratum non è stato trovato, per favore applica un carattere per installare l\'aiutante e riottenere lo scambio del carattere dinamico!</string>
     <string name="profile_edittext_title">Nuovo profilo:</string>
+    <string name="profile_edittext_whitespace_warning_toast">Non è possibile usare spazi vuoti dentro ai nomi dei profili!</string>
     <string name="toast_backup_success">La lista della sovrapposizione corrente è stata salvata qui \"/storage/emulated/0/substratum/profiles/%s\"</string>
     <string name="spinner_default_item">selezionare un profilo&#8230;</string>
     <string name="select_to_toggle_all_overlays">Seleziona tutti gli overlays</string>
@@ -372,6 +379,7 @@ Vuoi ripristinare le icone predefinite di sistema?    </string>
     <string name="substratum_cache_clear_toast">Le cache di Substratum sono state pulite!</string>
     <string name="substratum_restart_toast">Substrato si è riavviato automaticamente dopo un cambiamento delle impostazioni.</string>
     <string name="purge_cache">Invalida Cache Tema</string>
+    <string name="purge_cache_subtext">Questo distruggerà tutti i temi salvati e la cache dell\'applicazione.</string>
     <string name="restart_systemui">Messaggio di abilitazione della ricreazione SystemUI</string>
     <string name="restart_systemui_subtext">Ricrea automaticamente SystemUI dopo aver abilitato/disabilitato un overlay SystemUI</string>
     <string name="restart_systemui_toast_enabled">SystemUI si ricreerà dinamicamente anziché riavviarsi!</string>
@@ -399,6 +407,7 @@ Vuoi ripristinare le icone predefinite di sistema?    </string>
     <string name="dynamic_navbar_colors">Colori della barra di navigazione dinamici</string>
     <string name="dynamic_navbar_colors_subtext">Nella finestra di informazione del tema, Substratum adatterà la barra d\'azione collassabile al colore dominante dell\'immagine.</string>
     <string name="manager_title">Mostra gli overlays disattivati nella lista</string>
+    <string name="manager_subtext">Nella finestra elenco overlay, mostra tutti gli overlay disattivati con le loro controparti attivate.</string>
     <string name="alternate_drawer_design_title">Secondo design del cassetto</string>
     <string name="alternate_drawer_design_subtext">Usa un alternativo design del drawer di navigazione quando stai navigando attraverso l\'interfaccia utente.</string>
     <string name="show_outdated_themes_title">Mostra tutti i temi obsoleti</string>
@@ -458,11 +467,15 @@ Vuoi ripristinare le icone predefinite di sistema?    </string>
     <string name="time_empty_warning">Si prega di configurare orari di inizio e fine!</string>
     <string name="time_equal_warning">Si prega di scegliere tempi di attivazione diversi!</string>
     <string name="profile_empty_warning">Si prega di selezionare tutti i profili che desideri attivare!</string>
+    <string name="profile_notification_title_day">Giorno</string>
+    <string name="profile_notification_title_night">Notte</string>
     <string name="profile_notification_title">Profilo %s</string>
     <string name="profile_pending_notification">Il profilo verrà modificato dopo che lo schermo è spento.</string>
     <string name="profile_success_notification">Profilo applicato con successo!</string>
     <string name="profile_failed_notification">Applicazione profilo fallita&#8230;</string>
     <string name="profile_failed_info_notification">Tocco per ulteriori informazioni</string>
+    <string name="theme_debug_mode_title">System Fallback Interjection Bypass</string>
+    <string name="theme_debug_mode_summary">Questo fermerà l\'app da utilizzare il meccanismo di fallback del compilatore legacy per aiutare i temi quando raggiungono uno stato irrecuperabile.</string>
     <string name="break_compilation_dialog_title">ATTENZIONE</string>
     <string name="break_compilation_dialog_content">Questo può distruggere completamente il processo di compilazione. Abilitare questa opzione solo se si sa cosa si sta facendo!</string>
     <string name="break_compilation_dialog_continue">Continua</string>
@@ -488,8 +501,13 @@ Vuoi ripristinare le icone predefinite di sistema?    </string>
     <string name="settings_force_english_title">Forza la lingua inglese</string>
     <string name="settings_force_english_text">Questo forzerà l\'applicazione ad usare la lingua inglese.</string>
     <string name="settings_force_english_toast_reverted">Lingua inglese disattivata con successo!</string>
-    <string name="settings_restart_interfacer_title">Riavvia Servizio Interfacer</string>
-    <string name="settings_restart_interfacer_snackbar">Riavvio interfacer in corso&#8230;</string>
+    <string name="settings_theme_caching_title">Cache Theme Resources</string>
+    <string name="settings_theme_caching_text">Tutte le risorse delle attività del tema verrano estratte nella cartella cache.</string>
+    <string name="settings_theme_caching_found_snackbar">Hai appena scoperto la modalità di caching risorse segreta!</string>
+    <string name="settings_crash_receiver_title">Theme Safety Crash Receiver</string>
+    <string name="settings_crash_receiver_text">Disattiva automaticamente un overlay quando vengono rilevati crash ripetuti sull\'app sovrapposta.</string>
+    <string name="settings_force_stop_interfacer_title">Ferma forzatamente il Servizio Interfacer</string>
+    <string name="settings_force_stop_interfacer_snackbar">Forzo l\'arresto del Servizio Interfacer&#8230;</string>
     <string name="root_required_title">Root necessario</string>
     <string name="root_required_boot_animation">Il dispositivo è crittografato, quindi il root è necessario applicare animazioni di avvio.</string>
     <string name="root_required_boot_animation_profile">Il dispositivo è crittografato, quindi il root è necessario eseguire il backup e ripristinare le animazioni di avvio.</string>
@@ -543,7 +561,7 @@ Vuoi ripristinare le icone predefinite di sistema?    </string>
     <!-- Utilities -->
     <string name="nav_section_header_utilities">Utilità </string>
     <string name="nav_overlay_manager">Elenco Overlay</string>
-    <string name="nav_priorities">Pririorità</string>
+    <string name="nav_priorities">Priorità</string>
     <string name="nav_backup_restore">Profili</string>
     <string name="nav_manage">Recupero</string>
     <!-- Community -->
@@ -556,6 +574,8 @@ Vuoi ripristinare le icone predefinite di sistema?    </string>
     <string name="nav_drawer_featured">Contenuti in primo piano</string>
     <string name="nav_drawer_tcf">TheCyberFibre (TFC)</string>
     <string name="nav_drawer_xda_portal">Portale XDA</string>
+    <string name="force_independence_title">System Independence Mode</string>
+    <string name="force_independence_summary">Questo forzerà la disattivazione di tutti i reindirizzamenti all\'Interfacer.</string>
     <string name="settings_about_interfacer_disconnected">disconnesso</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">Risorse</string>

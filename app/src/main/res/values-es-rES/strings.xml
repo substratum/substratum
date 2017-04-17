@@ -272,7 +272,6 @@ correctamente&#8230;</string>
     <string name="nav_studio">Estudio de Packs de Iconos</string>
     <string name="logcat_dialog_title">\"LogChar\" Debug - Informe de depuración</string>
     <string name="logcat_dialog_copy_success">Registro de errores copiado completamente al portapapeles!</string>
-    <string name="logcat_email_subject">%s: Theme Bug Report - Informe de error</string>
     <string name="logcat_email_activity">Enviar informe de error usando&#8230;</string>
     <string name="logcat_email_activity_error">No hay clientes de correo electrónico instalados.</string>
     <string name="logcat_email_xposed_check">Xposed Framework</string>
@@ -305,6 +304,7 @@ correctamente&#8230;</string>
     <string name="profile_edittext_empty_toast">Por favor, introduzca un nombre para el perfil antes de resguardar!    </string>
     <string name="profile_edittext_empty_toast_sysui">Ayudante de Fuentes Substratum no fue encontrado, por favor, aplicar una fuente para instalar el ayudante y retener intercambio dinámica de fuentes!    </string>
     <string name="profile_edittext_title">Nuevo Perfil:</string>
+    <string name="profile_edittext_whitespace_warning_toast">¡No puedes usar espacios dentro del nombre del perfil!</string>
     <string name="toast_backup_success">Lista de capas actual guardado en \"/storage/emulated/0/substratum/profiles/%s\"    </string>
     <string name="spinner_default_item">Seleccione un perfil&#8230;</string>
     <string name="select_to_toggle_all_overlays">Toque para seleccionar todas las capas</string>
@@ -480,6 +480,8 @@ o la aplicación no compilará capas dependientes del dispositivo correctamente!
     <string name="time_empty_warning">¡Por favor configure los tiempos de Inicio y Fin!</string>
     <string name="time_equal_warning">Seleccione tiempos de activación diferentes!</string>
     <string name="profile_empty_warning">¡Seleccione todos los perfiles que desee activar!</string>
+    <string name="profile_notification_title_day">Día</string>
+    <string name="profile_notification_title_night">Noche</string>
     <string name="profile_notification_title">Perfil %s </string>
     <string name="profile_pending_notification">El perfil cambiará después de que la pantalla esté apagada.</string>
     <string name="profile_success_notification">¡Perfil aplicado con éxito!</string>
@@ -517,8 +519,8 @@ o la aplicación no compilará capas dependientes del dispositivo correctamente!
     <string name="settings_theme_caching_found_snackbar">Acabas de descubrir el recurso oculto del modo de caché!</string>
     <string name="settings_crash_receiver_title">Receptor de cierres para seguridad del tema</string>
     <string name="settings_crash_receiver_text">Desactivar automáticamente una capa al detectar cierres repetitivos en la aplicación superpuesta.</string>
-    <string name="settings_restart_interfacer_title">Servicio de Reseteo de Interfacer</string>
-    <string name="settings_restart_interfacer_snackbar">Reiniciando Interfacer ahora&#8230;</string>
+    <string name="settings_force_stop_interfacer_title">Detener a la fuerza servicio de interfaz</string>
+    <string name="settings_force_stop_interfacer_snackbar">Ahora fuerza la detención de la interfaz&#8230;</string>
     <string name="root_required_title">Se requiere root</string>
     <string name="root_required_boot_animation">Su dispositivo está encriptado, por lo cual es necesario root para aplicar las animaciones de inicio.</string>
     <string name="root_required_boot_animation_profile">Su dipositivo está encriptado, por lo cual es necesario root para respaldar y restaurar las animaciones de inicio.</string>

@@ -128,6 +128,7 @@
     <string name="fonts_dialog_permissions_grant_toast">要重置所有 Substratum 设置的字体，您必须启用“允许修改系统设置”。    </string>
     <string name="fonts_dialog_permissions_grant_toast2">要使 Substratum 控制您的系统字体，您必须启用“允许修改系统设置”。    </string>
     <string name="error_loading_pack">看来这个主题包并没有被正确设置</string>
+    <string name="no_themes_installed">这个主题中没有可供安装的叠加层</string>
     <string name="content_resolver_alarm_metadata">Substratum 主题闹钟铃声</string>
     <string name="content_resolver_notification_metadata">Substratum 主题通知</string>
     <string name="content_resolver_ringtone_metadata">Substratum 主题铃声</string>
@@ -252,7 +253,6 @@
     <string name="nav_studio">图标包工作室</string>
     <string name="logcat_dialog_title">\"LogChar\" 调试报告</string>
     <string name="logcat_dialog_copy_success">已将错误日志复制到剪贴板</string>
-    <string name="logcat_email_subject">%s︰ 主题错误报告</string>
     <string name="logcat_email_activity">用于发送错误报告</string>
     <string name="logcat_email_activity_error">没有安装电子邮件客户端。</string>
     <string name="logcat_email_xposed_check">Xposed 框架</string>
@@ -285,6 +285,7 @@
     <string name="profile_edittext_empty_toast">请在备份前为您的配置命名</string>
     <string name="profile_edittext_empty_toast_sysui">未发现 Substratum 字体助手，请通过应用某种字体以便安装字体助手并恢复动态字体切换功能</string>
     <string name="profile_edittext_title">新的配置文件：</string>
+    <string name="profile_edittext_whitespace_warning_toast">文件名称中不能含有空格</string>
     <string name="toast_backup_success">当前叠加层列表已保存到 /storage/emulated/0/substratum/profiles/%s</string>
     <string name="spinner_default_item">选择一个配置&#8230;</string>
     <string name="select_to_toggle_all_overlays">全选</string>
@@ -456,6 +457,8 @@
     <string name="time_empty_warning">请设置开始和结束时间</string>
     <string name="time_equal_warning">请选择不同的激活时间</string>
     <string name="profile_empty_warning">请选择您想要启用的所有配置文件</string>
+    <string name="profile_notification_title_day">日间</string>
+    <string name="profile_notification_title_night">夜间</string>
     <string name="profile_notification_title">%s 配置文件</string>
     <string name="profile_pending_notification">屏幕关闭后配置文件将被更改。</string>
     <string name="profile_success_notification">成功应用配置文件</string>
@@ -493,8 +496,8 @@
     <string name="settings_theme_caching_found_snackbar">您刚刚发现了隐藏的资源缓存模式！</string>
     <string name="settings_crash_receiver_title">主题崩溃检测</string>
     <string name="settings_crash_receiver_text">当检测到应用程序重复崩溃时，自动禁用叠加层</string>
-    <string name="settings_restart_interfacer_title">重新启动主题接口服务</string>
-    <string name="settings_restart_interfacer_snackbar">正在重新启动主题接口</string>
+    <string name="settings_force_stop_interfacer_title">停止主题接口服务</string>
+    <string name="settings_force_stop_interfacer_snackbar">正在停止主题接口服务</string>
     <string name="root_required_title">需要 Root 权限</string>
     <string name="root_required_boot_animation">您的设备是加密的，因此需要 Root 权限以应用开机动画。</string>
     <string name="root_required_boot_animation_profile">您的设备是加密的，因此需要 Root 权限以备份和还原开机动画。</string>

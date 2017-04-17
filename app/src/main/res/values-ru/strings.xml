@@ -293,6 +293,7 @@
     <string name="profile_edittext_empty_toast_sysui">Помощник шрифтов Substratum не найден, примените шрифт для установки помощника и возврата динамической смены шрифтов!
     </string>
     <string name="profile_edittext_title">Новый профиль:</string>
+    <string name="profile_edittext_whitespace_warning_toast">Нельзя использовать пробелы внутри имени профиля!</string>
     <string name="toast_backup_success">Текущий список наслоений сохранен в
         \"/storage/emulated/0/substratum/profiles/%s\"
     </string>
@@ -467,6 +468,8 @@
     <string name="time_empty_warning">Пожалуйста, настройте время начала и окончания!</string>
     <string name="time_equal_warning">Времена начала и окончания не должны совпадать!</string>
     <string name="profile_empty_warning">Пожалуйста, выберите все профили, которые вы хотите включить!</string>
+    <string name="profile_notification_title_day">День</string>
+    <string name="profile_notification_title_night">Ночь</string>
     <string name="profile_notification_title">Профиль %s</string>
     <string name="profile_pending_notification">Профиль будет изменен после выключения экрана.</string>
     <string name="profile_success_notification">Профиль успешно применен!</string>
@@ -504,8 +507,8 @@
     <string name="settings_theme_caching_found_snackbar">Вы обнаружили скрытую возможность кэширования тем!</string>
     <string name="settings_crash_receiver_title">Отслеживание вылетов</string>
     <string name="settings_crash_receiver_text">Автоматически отключать наслоения для приложений с выявленными повторяющимися вылетами.</string>
-    <string name="settings_restart_interfacer_title">Перезапустить службу согласователя</string>
-    <string name="settings_restart_interfacer_snackbar">Согласователь перезапускается&#8230;</string>
+    <string name="settings_force_stop_interfacer_title">Завершить службу согласователя</string>
+    <string name="settings_force_stop_interfacer_snackbar">Согласователь принудительно закрывается&#8230;</string>
     <string name="root_required_title">Требуются Root-права</string>
     <string name="root_required_boot_animation">Устройство зашифровано, для применения анимации загрузок требуются права Суперпользователя.</string>
     <string name="root_required_boot_animation_profile">Устройство зашифровано, для резервирования и восстановления анимации загрузок требуются права Суперпользователя.</string>

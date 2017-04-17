@@ -192,6 +192,8 @@
     </string>
     <string name="error_loading_pack">úgy tűnik, ez a csomag nincs helyesen
         beállítva&#8230;</string>
+    <string name="no_themes_installed">nincs fedvény, amit telepíthetne ebből a témából&#8230;
+    </string>
     <string name="content_resolver_alarm_metadata">Substratum Téma Riasztás</string>
     <string name="content_resolver_notification_metadata">Substratum Téma Értesítés</string>
     <string name="content_resolver_ringtone_metadata">Substratum Téma Csengőhang</string>
@@ -340,7 +342,6 @@
     <string name="nav_studio">Ikoncsomag Stúdió</string>
     <string name="logcat_dialog_title">\"LogChar\" hibakeresési jelentés</string>
     <string name="logcat_dialog_copy_success">Hibanapló sikeresen vágólapra másolva!</string>
-    <string name="logcat_email_subject">%s: Téma hibajelentés</string>
     <string name="logcat_email_activity">Hibajelentés küldése ezzel&#8230;</string>
     <string name="logcat_email_activity_error">Nincs e-mail klines telepítve.</string>
     <string name="logcat_email_xposed_check">Xposed keretrendszer</string>
@@ -399,6 +400,7 @@
         alkalmazzon egy betűtípust a segéd telepítéséhez és a dinamikus betűtípus cseréhez!
     </string>
     <string name="profile_edittext_title">Új profil:</string>
+    <string name="profile_edittext_whitespace_warning_toast">A profil nevében szóköz nem használható!</string>
     <string name="toast_backup_success">Jelenlegi fedvénylista mentése ide:
         \"/storage/emulated/0/substratum/profiles/%s\"
     </string>
@@ -585,6 +587,8 @@
     <string name="time_empty_warning">Kérjük, állítsa be a Kezdési és Befejezési időpontokat!</string>
     <string name="time_equal_warning">Kérjük, válasszon másik aktiválási időket!</string>
     <string name="profile_empty_warning">Kérjük, válassza ki az összes engedélyezni kívánt profilt!</string>
+    <string name="profile_notification_title_day">Nappali</string>
+    <string name="profile_notification_title_night">Éjszakai</string>
     <string name="profile_notification_title">%s profil</string>
     <string name="profile_pending_notification">Profil változtatásra kerül, miután a képernyő kikapcsol.</string>
     <string name="profile_success_notification">Profil sikeresen alkalmazva!</string>
@@ -622,8 +626,8 @@
     <string name="settings_theme_caching_found_snackbar">Megtalálta a rejtett erőforrás-gyorsítótárazó funkciót!</string>
     <string name="settings_crash_receiver_title">Alkalmazás összeomlások biztonságos kezelése</string>
     <string name="settings_crash_receiver_text">Automatikusan letiltja a fedvényt, ha a fedvénnyel rendelkező alkalmazás folyamatosan összeomlik.</string>
-    <string name="settings_restart_interfacer_title">Interfacer szolgáltatás újraindítása</string>
-    <string name="settings_restart_interfacer_snackbar">Interfacer újraindítása&#8230;</string>
+    <string name="settings_force_stop_interfacer_title">Interfacer szolgáltatás kényszerített leállítása</string>
+    <string name="settings_force_stop_interfacer_snackbar">Interfacer kényszerített leállítása&#8230;</string>
     <string name="root_required_title">Root szükséges</string>
     <string name="root_required_boot_animation">A készüléke titkosított, így root szükséges a rendszerindítási animációk alkalmazásához.</string>
     <string name="root_required_boot_animation_profile">A készüléke titkosított, így root szükséges a rendszerindítási animációk mentéséhez és visszaállításához.</string>

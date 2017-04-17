@@ -129,6 +129,7 @@
     <string name="fonts_dialog_permissions_grant_toast">Каб скінуць усе шрыфты, усталяваныя Substratum, дайце \"Дазвол на змену сістэмных налад\".    </string>
     <string name="fonts_dialog_permissions_grant_toast2">Каб дазволіць Substratum кіраванне сістэмнымі шрыфтамі, дайце \"Дазвол на змену сістэмных налад\".    </string>
     <string name="error_loading_pack">падобна, гэты пакет не быў створаны правільна&#8230;</string>
+    <string name="no_themes_installed">няма ніякіх напластаванняў, якія можна ўсталяваць з гэтай тэмы&#8230;    </string>
     <string name="content_resolver_alarm_metadata">Сігнал з тэмы Substratum</string>
     <string name="content_resolver_notification_metadata">Апавяшчэнне з тэмы Substratum</string>
     <string name="content_resolver_ringtone_metadata">Рынгтон з тэмы Substratum</string>
@@ -295,6 +296,7 @@
     <string name="profile_edittext_empty_toast_sysui">Памочнік шрыфтоў Substratum не знойдзены, прымяніце шрыфт для ўсталёўкі памочніка і вяртання дынамічнай змены шрыфтоў!
     </string>
     <string name="profile_edittext_title">Новы профіль:</string>
+    <string name="profile_edittext_whitespace_warning_toast">Нельга выкарыстоўваць прабелы ў назве профілю!</string>
     <string name="toast_backup_success">Бягучы спіс напластаванняў захаваны ў
         \"/storage/emulated/0/substratum/profiles/%s\"
     </string>
@@ -468,6 +470,8 @@
     <string name="time_empty_warning">Калі ласка, наладзьце час пачатку і заканчэння!</string>
     <string name="time_equal_warning">Часы пачатку і заканчэння не павінны супадаць!</string>
     <string name="profile_empty_warning">Калі ласка, выберыце ўсе профілі, якія вы хочаце ўключыць!</string>
+    <string name="profile_notification_title_day">Дзень</string>
+    <string name="profile_notification_title_night">Ноч</string>
     <string name="profile_notification_title">Профіль %s</string>
     <string name="profile_pending_notification">Профіль будзе зменены пасля выключэння экрана.</string>
     <string name="profile_success_notification">Профіль паспяхова ужыты!</string>
@@ -505,8 +509,8 @@
     <string name="settings_theme_caching_found_snackbar">Вы выявілі ўтоеную магчымасць кэшавання тем!</string>
     <string name="settings_crash_receiver_title">Выяўленне аварыі тэмы</string>
     <string name="settings_crash_receiver_text">Аўтаматычна адключаць напластаванні для праграм з выяўленымі паўтаральнымі аварыямі.</string>
-    <string name="settings_restart_interfacer_title">Перазапуск службаў інтэрфесу</string>
-    <string name="settings_restart_interfacer_snackbar">Інтэрфейс перазагрузіцца&#8230;</string>
+    <string name="settings_force_stop_interfacer_title">Прымусовае спыненне службы інтэрфейсу</string>
+    <string name="settings_force_stop_interfacer_snackbar">Інтэрфейс прымусова спыняецца&#8230;</string>
     <string name="root_required_title">Патрабуюцца Root-правы</string>
     <string name="root_required_boot_animation">Прылада зашыфравана, для прымянення анімацыі загрузак патрабуюцца правы Суперкарыстальніка.</string>
     <string name="root_required_boot_animation_profile">Прылада зашыфравана, для рэзервавання і аднаўлення анімацыі загрузак патрабуюцца правы Суперкарыстальніка.</string>

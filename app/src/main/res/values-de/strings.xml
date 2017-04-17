@@ -133,6 +133,7 @@ aktiviere \"Änderung von Systemeinstellungen zulassen\".</string>
 aktiviere \"Änderung von Systemeinstellungen zulassen\".</string>
     <string name="error_loading_pack">Anscheinend wurde dieses Paket nicht richtig
 eingerichtet&#8230;</string>
+    <string name="no_themes_installed">Es gibt keine Überlagerungen, die Sie von diesem Thema installieren können&#8230;    </string>
     <string name="content_resolver_alarm_metadata">Substratum-Theme-Wecker</string>
     <string name="content_resolver_notification_metadata">Substratum-Theme-Benachrichtigung</string>
     <string name="content_resolver_ringtone_metadata">Substratum-Theme-Klingelton</string>
@@ -257,7 +258,6 @@ eingerichtet&#8230;</string>
     <string name="nav_studio">Symbolpaket-Studio</string>
     <string name="logcat_dialog_title">\"LogChar\"-Debug-Report</string>
     <string name="logcat_dialog_copy_success">Fehlermeldung erfolgreich in die Zwischenablage kopiert!</string>
-    <string name="logcat_email_subject">%s: Theme Bug-Report</string>
     <string name="logcat_email_activity">Bug-Report senden via&#8230;</string>
     <string name="logcat_email_activity_error">Es ist keine E-Mail-App installiert.</string>
     <string name="logcat_email_xposed_check">Xposed-Framework</string>
@@ -290,6 +290,7 @@ eingerichtet&#8230;</string>
     <string name="profile_edittext_empty_toast">Bitte gib einen Namen für dein Profil ein, bevor du ein Backup erstellst!    </string>
     <string name="profile_edittext_empty_toast_sysui">Der Substratum-Schriftartenhelfer wurde nicht gefunden. Bitte aktiviere eine Schriftart, um den Helfer zu installieren und den dynamischen Schriftartenwechsel zu aktivieren!    </string>
     <string name="profile_edittext_title">Neues Profil:</string>
+    <string name="profile_edittext_whitespace_warning_toast">Leerzeichen im Profilnamen kann nicht verwendet werden!</string>
     <string name="toast_backup_success">Aktuelle Overlay Liste wurde gespeichert nach \"/storage/emulated/0/substratum/profiles/%s\"</string>
     <string name="spinner_default_item">Wähle ein Profil&#8230;</string>
     <string name="select_to_toggle_all_overlays">Auswählen, um alle Overlays zu aktivieren</string>
@@ -463,6 +464,8 @@ um das Problem zu beheben.    </string>
     <string name="time_empty_warning">Bitte konfiguriere Anfangs- und Endzeiten!</string>
     <string name="time_equal_warning">Bitte wählen Sie unterschiedliche Aktivierungszeiten!</string>
     <string name="profile_empty_warning">Bitte wähle alle Profile die du anschalten willst!</string>
+    <string name="profile_notification_title_day">Tag</string>
+    <string name="profile_notification_title_night">Nacht</string>
     <string name="profile_notification_title">%sProfil</string>
     <string name="profile_pending_notification">Profile werden geändert nachdem der Bildschirm aus ist.</string>
     <string name="profile_success_notification">Profil erfolgreich angewendet!</string>
@@ -498,8 +501,10 @@ um das Problem zu beheben.    </string>
     <string name="settings_theme_caching_title">Theme-Zwischenspeicher-Ressourcen</string>
     <string name="settings_theme_caching_text">Alle Theme-Daten werden in das Zwischenspeicher-Verzeichnis extrahiert.</string>
     <string name="settings_theme_caching_found_snackbar">Du hast gerade den versteckten Zwischenspeicher-Ressourcen-Modus entdeckt!</string>
-    <string name="settings_restart_interfacer_title">Interfacer-Dienst neu starten</string>
-    <string name="settings_restart_interfacer_snackbar">Interfacer wird jetzt neu gestartet&#8230;</string>
+    <string name="settings_crash_receiver_title">Thema-Sicherheit Absturz-Empfänger</string>
+    <string name="settings_crash_receiver_text">Deaktiviert automatisch eine Überlagerung, wenn wiederholt Abstürze von der überlagerten App erkannt werden.</string>
+    <string name="settings_force_stop_interfacer_title">Erzwingt Stop des Interfacer-Dienstes</string>
+    <string name="settings_force_stop_interfacer_snackbar">Interfacer wird jetzt erzwungen gestoppt&#8230;</string>
     <string name="root_required_title">Root-Zugriff erforderlich</string>
     <string name="root_required_boot_animation">Dein Gerät ist verschlüsselst, weshalb Root-Zugriff benötigt wird, um Boot-Animationen anzuwenden.</string>
     <string name="root_required_boot_animation_profile">Dein Gerät ist verschlüsselst, weshalb Root-Zugriff benötigt wird, um Boot-Animationen sichern und wiederherstellen zu können.</string>
@@ -535,6 +540,7 @@ um das Problem zu beheben.    </string>
     <string name="restore_fonts_text">Schriftarten-Pakete</string>
     <string name="restore_fonts_summary">Diese funktion entfernt das zuvor aktivierten Schriftartenset und stellt das Standardschriftartenset wiederher\n</string>
     <string name="restore_fonts_button">Schriftarten wiederherstellen</string>
+    <string name="interfacer_not_authorized_toast">Diese Version von Substrat ist nicht autorisiert und funktioniert nicht mit dem System Interfacer Modul.</string>
     <string name="app_crash_title">%s wird fortlaufend beendet&#8230;</string>
     <string name="app_crash_content">Alle für diese App aktivierten Overlays wurden deaktiviert.</string>
     <string name="dirty_flash_detected">Ihre Firmware oder ROM wurde aktualisiert, ohne Nutzerdaten zu löschen (dirty Flash). Substratum wird zurückgesetzt, um Fehler zu vermeiden.</string>

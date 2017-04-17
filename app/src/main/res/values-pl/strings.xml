@@ -130,6 +130,7 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="fonts_dialog_permissions_grant_toast">Aby zresetować wszystkie ustawione czcionki przez Substratum, należy włączyć \'Zezwalaj na modyfikacje systemowych ustawień\'.    </string>
     <string name="fonts_dialog_permissions_grant_toast2">Aby Substratum miało kontrolę nad twoimi czcionkami systemowymi, należy włączyć \'Zezwalaj na modyfikacje ustawień systemowych\'.    </string>
     <string name="error_loading_pack">wydaje się, że ten pakiet nie został skonfigurowany poprawnie&#8230;</string>
+    <string name="no_themes_installed">nie ma tutaj nakładek, które można zainstalować z tego motywu&#8230;    </string>
     <string name="content_resolver_alarm_metadata">Alarm Motywu Substratum</string>
     <string name="content_resolver_notification_metadata">Powiadomienie Motywu</string>
     <string name="content_resolver_ringtone_metadata">Dzwonek Motywu</string>
@@ -255,7 +256,6 @@ Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
     <string name="nav_studio">Studio Ikon</string>
     <string name="logcat_dialog_title">Raport debugowania \"LogChar\"</string>
     <string name="logcat_dialog_copy_success">Pomyślnie skopiowano dziennik błędów do schowka!</string>
-    <string name="logcat_email_subject">%s: Raport błędu nakładki</string>
     <string name="logcat_email_activity">Wyślij raport błędu za pomocą...</string>
     <string name="logcat_email_activity_error">Brak zainstalowanych klientów poczty elektronicznej.</string>
     <string name="logcat_email_xposed_check">Xposed Framework</string>
@@ -289,6 +289,7 @@ Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
     <string name="profile_edittext_empty_toast">Wprowadź nazwę dla profilu przed utworzeniem kopii zapasowej!    </string>
     <string name="profile_edittext_empty_toast_sysui">Pomocnik czcionek Substratum nie został znaleziony, proszę zastosuj czcionkę aby zainstalować Pomocnika i odzyskać opcję dynamicznej zmiany czcionek!    </string>
     <string name="profile_edittext_title">Nowy profil:</string>
+    <string name="profile_edittext_whitespace_warning_toast">Nie można używać spacji wewnątrz nazwy profilu!</string>
     <string name="toast_backup_success">Zapisano aktualną listę nakładek do
         \"/storage/emulated/0/substratum/profiles/%s\"
     </string>
@@ -463,6 +464,8 @@ Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
     <string name="time_empty_warning">Należy skonfigurować czas rozpoczęcia i zakończenia!</string>
     <string name="time_equal_warning">Proszę wybrać różne czasy aktywacji!</string>
     <string name="profile_empty_warning">Proszę zaznacz wszystkie profile, które chcesz włączyć!</string>
+    <string name="profile_notification_title_day">Dzień</string>
+    <string name="profile_notification_title_night">Noc</string>
     <string name="profile_notification_title">profil %s</string>
     <string name="profile_pending_notification">Profil zostanie zmieniony po wyłączeniu ekranu.</string>
     <string name="profile_success_notification">Profil zastosowany z powodzeniem!</string>
@@ -500,8 +503,8 @@ Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
     <string name="settings_theme_caching_found_snackbar">Właśnie odkryłeś opcję trybu buforowania zasobów!</string>
     <string name="settings_crash_receiver_title">Bezpieczny Odbiornik Awarii Motywu</string>
     <string name="settings_crash_receiver_text">Automatycznie wyłącz nakładkę, gdy będą wykryte powtarzające się awarie aplikacji.</string>
-    <string name="settings_restart_interfacer_title">Ponownie uruchom usługę Interfacer</string>
-    <string name="settings_restart_interfacer_snackbar">Restartowanie Interfacera&#8230;</string>
+    <string name="settings_force_stop_interfacer_title">Wymuś zatrzymanie usługi Interfacer</string>
+    <string name="settings_force_stop_interfacer_snackbar">Zatrzymywanie usługi interfacer&#8230;</string>
     <string name="root_required_title">Wymagany root</string>
     <string name="root_required_boot_animation">Urządzenie jest szyfrowane, więc root jest nie zbędny do zastosowania animacji rozruchowych telefonu.</string>
     <string name="root_required_boot_animation_profile">Urządzenie jest szyfrowane, więc root jest niezbędny do tworzenia kopii zapasowych i przywracania animacji rozruchowych telefonu.</string>

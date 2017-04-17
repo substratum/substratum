@@ -108,8 +108,7 @@
     <!-- BlurView -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_blurview_libraryDescription">类似于iOS动态模糊的底层视图，专为 Android 设计。
-    </string>
+    <string name="library_blurview_libraryDescription">类似于 iOS 动态模糊的底层视图，专为 Android 设计。</string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->

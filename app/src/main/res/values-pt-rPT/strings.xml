@@ -256,7 +256,6 @@ clique em
     <string name="nav_studio">Estúdio de Pacote de Ícones</string>
     <string name="logcat_dialog_title">Reporte Debug \"LogChar\"</string>
     <string name="logcat_dialog_copy_success">Log copiado para a área de transferência com sucesso!</string>
-    <string name="logcat_email_subject">%s: Reportar Bug do Tema</string>
     <string name="logcat_email_activity">Enviar reporte de bug usando&#8230;</string>
     <string name="logcat_email_activity_error">Não há clientes de email instalados.</string>
     <string name="logcat_email_xposed_check">Xposed Framework</string>
@@ -429,6 +428,8 @@ clique em
     <string name="time_empty_warning">Configurar hora de início e fim!</string>
     <string name="time_equal_warning">Por favor, escolha diferentes horas para ativar!</string>
     <string name="profile_empty_warning">Selecione todos os perfis que quer ativados!</string>
+    <string name="profile_notification_title_day">Dia</string>
+    <string name="profile_notification_title_night">Noite</string>
     <string name="profile_notification_title">Perfil de %s</string>
     <string name="profile_pending_notification">O peefil será alterado após o ecrã desligar.</string>
     <string name="profile_success_notification">Perfil aplicado com sucesso!</string>

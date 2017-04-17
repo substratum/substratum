@@ -58,6 +58,7 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
             if (prefs.contains("installed_themes")) {
                 Set installed_themes = prefs.getStringSet("installed_themes", null);
                 if (installed_themes != null && installed_themes.contains(package_name)) {
+                    References.sendRefreshMessage(context);
                     // Get all installed overlays for this package
                     List<String> stateAll = ThemeManager.listOverlays(STATE_APPROVED_DISABLED);
                     stateAll.addAll(ThemeManager.listOverlays(STATE_APPROVED_ENABLED));

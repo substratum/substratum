@@ -48,8 +48,8 @@ android {
         applicationId "projekt.substratum"
         minSdkVersion 24
         targetSdkVersion 25
-        versionCode 666
-        versionName "all hell breaks loose!"
+        versionCode 670
+        versionName "six hundred seventy"
         buildConfigField "String", "GIT_HASH", "\"${gitHash()}\""
     }
 

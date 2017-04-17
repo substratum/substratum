@@ -279,11 +279,11 @@ public class ThemeInterfacerService {
         }
     }
 
-    static void setPriority(Context context, ArrayList<String> overlays) {
+    static void setPriority(Context context, ArrayList<String> overlays, Boolean shouldRestartUi) {
         if (References.isBinderInterfacer(context)) {
             try {
-                BinderService.getInstance().getInterfacerInterface().changePriority(overlays,
-                        false);
+                BinderService.getInstance().getInterfacerInterface()
+                        .changePriority(overlays, shouldRestartUi);
             } catch (RemoteException e) {
                 // Suppress warning
             }

@@ -92,7 +92,8 @@ public class ThemeManager {
 
     public static void setPriority(Context context, ArrayList<String> overlays) {
         if (checkThemeInterfacer(context)) {
-            ThemeInterfacerService.setPriority(context, overlays);
+            ThemeInterfacerService.setPriority(
+                    context, overlays, shouldRestartUI(context, overlays));
         } else {
             String commands = "";
             for (int i = 0; i < overlays.size() - 1; i++) {

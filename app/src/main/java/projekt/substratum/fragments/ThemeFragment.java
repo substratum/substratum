@@ -18,8 +18,10 @@
 
 package projekt.substratum.fragments;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -27,6 +29,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -68,11 +71,29 @@ public class ThemeFragment extends Fragment {
     private SharedPreferences prefs;
     private TextView cardViewText;
     private ImageView cardViewImage;
+    private LocalBroadcastManager localBroadcastManager;
+    private BroadcastReceiver refreshReceiver;
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        try {
+            localBroadcastManager.unregisterReceiver(refreshReceiver);
+        } catch (IllegalArgumentException e) {
+            // unregistered already
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        refreshReceiver = new ThemeInstallReceiver();
+        IntentFilter intentFilter = new IntentFilter("ThemeFragment.REFRESH");
+        localBroadcastManager = LocalBroadcastManager.getInstance(getContext());
+        localBroadcastManager.registerReceiver(refreshReceiver, intentFilter);
+
         prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         if (prefs.getBoolean("nougat_style_cards", false)) {
             root = (ViewGroup) inflater.inflate(R.layout.home_fragment_n, container, false);
@@ -175,7 +196,7 @@ public class ThemeFragment extends Fragment {
         return themes;
     }
 
-    private void refreshLayout() {
+    public void refreshLayout() {
         MaterialProgressBar materialProgressBar = (MaterialProgressBar) root.findViewById(R.id
                 .progress_bar_loader);
         materialProgressBar.setVisibility(View.VISIBLE);
@@ -368,6 +389,14 @@ public class ThemeFragment extends Fragment {
                 ThemeManager.uninstallOverlay(mContext, removeList);
             }
             return null;
+        }
+    }
+
+    class ThemeInstallReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            refreshLayout();
         }
     }
 }

@@ -31,6 +31,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.v4.app.TaskStackBuilder;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import java.util.HashSet;
@@ -188,7 +189,15 @@ public class PackageModificationDetector extends BroadcastReceiver {
 
                 new ThemeCacher().execute("");
             }
+            sendMessage(context);
         }
+    }
+
+    private void sendMessage(Context context) {
+        Log.d(this.getClass().getSimpleName(),
+                "A new theme has been installed! Sending update signal to refresh the list!");
+        Intent intent = new Intent("ThemeFragment.REFRESH");
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
 
     private String getThemeName(String package_name) {

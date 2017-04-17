@@ -335,11 +335,8 @@ public class ThemeEntryAdapter extends RecyclerView.Adapter<ThemeEntryAdapter.Vi
 
         @Override
         protected void onPostExecute(String result) {
+            References.sendRefreshMessage(mContext);
             mProgressDialog.cancel();
-            Toast toast = Toast.makeText(mContext, mContext.getString(R.string.clean_completion),
-                    Toast.LENGTH_LONG);
-            toast.show();
-            currentObject.getActivity().recreate();
         }
 
         @Override

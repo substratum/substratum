@@ -736,12 +736,6 @@ public class InformationActivity extends AppCompatActivity {
                                 }
                             }
 
-                            Toast toast = Toast.makeText(getApplicationContext(),
-                                    getString(R.string
-                                            .clean_completion),
-                                    Toast.LENGTH_LONG);
-                            toast.show();
-
                             // Begin uninstalling overlays for this package
                             ThemeManager.uninstallOverlay(getApplicationContext(), all_overlays);
                         })
@@ -1044,10 +1038,6 @@ public class InformationActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             mProgressDialog.cancel();
-            Toast toast = Toast.makeText(getApplicationContext(),
-                    getString(R.string.clean_completion),
-                    Toast.LENGTH_LONG);
-            toast.show();
             uninstalled = true;
             onBackPressed();
         }

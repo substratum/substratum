@@ -107,8 +107,8 @@
         but they are not required for this theme!
     </string>
     <string name="tbo_dialog_proceed">Download</string>
-    <string name="dynamic_gapps_dialog" translatable="false">Dynamic Gapps</string>
-    <string name="dynamic_gapps_link" translatable="false">https://www.androidfilehost.com/?w=files&amp;flid=124638&amp;sort_by=date&amp;sort_dir=DESC</string>
+    <string name="dynamic_gapps_dialog" translatable="false">Beans Gapps</string>
+    <string name="dynamic_gapps_link" translatable="false">https://www.androidfilehost.com/?w=files&amp;flid=171925</string>
     <string name="open_gapps_dialog" translatable="false">Open Gapps</string>
     <string name="open_gapps_link" translatable="false">http://opengapps.org/</string>
 

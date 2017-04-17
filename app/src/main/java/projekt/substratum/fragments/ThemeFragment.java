@@ -57,7 +57,6 @@ import projekt.substratum.model.ThemeInfo;
 
 public class ThemeFragment extends Fragment {
 
-    private static final int THEME_INFORMATION_REQUEST_CODE = 1;
     private HashMap<String, String[]> substratum_packages;
     private RecyclerView recyclerView;
     private Map<String, String[]> map;
@@ -285,17 +284,6 @@ public class ThemeFragment extends Fragment {
         }
         swipeRefreshLayout.setRefreshing(false);
         materialProgressBar.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void onResume() {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-        if (prefs.getInt(
-                "uninstalled", THEME_INFORMATION_REQUEST_CODE) == THEME_INFORMATION_REQUEST_CODE) {
-            prefs.edit().putInt("uninstalled", 0).apply();
-            refreshLayout();
-        }
-        super.onResume();
     }
 
     private class LayoutLoader extends AsyncTask<String, Integer, String> {

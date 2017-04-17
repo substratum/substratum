@@ -52,6 +52,7 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.service.notification.StatusBarNotification;
 import android.support.annotation.NonNull;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -1218,6 +1219,13 @@ public class References {
         } catch (PackageManager.NameNotFoundException e) {
             return false;
         }
+    }
+
+    public static void sendRefreshMessage(Context context) {
+        Log.d("ThemeFragmentRefresher",
+                "A theme has been modified, sending update signal to refresh the list!");
+        Intent intent = new Intent("ThemeFragment.REFRESH");
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
 
     // Locate the proper launch intent for the themes

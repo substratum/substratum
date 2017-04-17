@@ -95,7 +95,6 @@ public class InformationActivity extends AppCompatActivity {
     public static String theme_name, theme_pid, theme_mode;
     private static List<String> tab_checker;
     private static String wallpaperUrl;
-    private Boolean refresh_mode = false;
     private Boolean uninstalled = false;
     private KenBurnsView kenBurnsView;
     private byte[] byteArray;
@@ -273,7 +272,6 @@ public class InformationActivity extends AppCompatActivity {
         theme_pid = currentIntent.getStringExtra("theme_pid");
         theme_mode = currentIntent.getStringExtra("theme_mode");
         Boolean theme_legacy = currentIntent.getBooleanExtra("theme_legacy", false);
-        refresh_mode = currentIntent.getBooleanExtra("refresh_mode", false);
         wallpaperUrl = null;
 
         try {
@@ -914,17 +912,12 @@ public class InformationActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (!uninstalled && !refresh_mode) {
-            if (materialSheetFab.isSheetVisible()) {
-                materialSheetFab.hideSheet();
-            } else {
-                super.onBackPressed();
-                prefs.edit().putInt("uninstalled", 0).apply();
-            }
+        if (materialSheetFab.isSheetVisible()) {
+            materialSheetFab.hideSheet();
         } else {
+            if (uninstalled)
+                References.sendRefreshMessage(getApplicationContext());
             super.onBackPressed();
-            prefs.edit().putInt("uninstalled", THEME_INFORMATION_REQUEST_CODE).apply();
-
         }
     }
 

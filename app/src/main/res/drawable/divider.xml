@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (c) 2016-2017 Projekt Substratum
   ~ This file is part of Substratum.
   ~
@@ -18,10 +17,10 @@
   -->
 
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
-       android:shape="line">
+    android:shape="line">
 
     <stroke
         android:width="1px"
-        android:color="@android:color/transparent"/>
+        android:color="@android:color/transparent" />
 
 </shape>

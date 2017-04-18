@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (c) 2016-2017 Projekt Substratum
   ~ This file is part of Substratum.
   ~
@@ -18,15 +17,15 @@
   -->
 
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                                    xmlns:app="http://schemas.android.com/apk/res-auto"
-                                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    app:cardPreventCornerOverlap="false"
-                                    app:cardUseCompatPadding="true"
-                                    card_view:cardBackgroundColor="@android:color/white"
-                                    card_view:cardCornerRadius="@dimen/card_corner_radius"
-                                    card_view:cardElevation="@dimen/card_elevation">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardPreventCornerOverlap="false"
+    app:cardUseCompatPadding="true"
+    card_view:cardBackgroundColor="@android:color/white"
+    card_view:cardCornerRadius="@dimen/card_corner_radius"
+    card_view:cardElevation="@dimen/card_elevation">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -35,7 +34,7 @@
         <ImageView
             android:id="@+id/month_image"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/grid_image_height"/>
+            android:layout_height="@dimen/grid_image_height" />
 
         <TextView
             android:id="@+id/month_text"
@@ -44,7 +43,7 @@
             android:layout_alignParentBottom="true"
             android:background="@color/colorPrimary"
             android:padding="@dimen/grid_text_padding"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white" />
 
         <ImageView
             android:id="@+id/priority_drag"
@@ -52,6 +51,6 @@
             android:layout_height="@dimen/drag_view_size"
             android:layout_alignParentEnd="true"
             android:layout_margin="@dimen/drag_view_margin"
-            android:src="@drawable/priorities_card_move_icon"/>
+            android:src="@drawable/priorities_card_move_icon" />
     </RelativeLayout>
 </android.support.v7.widget.CardView>

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (c) 2016-2017 Projekt Substratum
   ~ This file is part of Substratum.
   ~
@@ -18,10 +17,10 @@
   -->
 
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-        android:width="40.0dip"
-        android:height="40.0dip"
-        android:viewportHeight="200.0"
-        android:viewportWidth="200.0">
+    android:width="40.0dip"
+    android:height="40.0dip"
+    android:viewportHeight="200.0"
+    android:viewportWidth="200.0">
     <path
         android:fillColor="#ffffffff"
         android:pathData="M 97.43,20.00
@@ -59,5 +58,5 @@
              173.95,159.08 172.88,150.63 166.90,147.65
              162.79,145.60 160.18,147.09 156.00,144.00
              168.87,143.37 173.88,137.62 174.00,125.00
-             176.43,129.16 175.78,131.31 177.57,135.00 Z"/>
+             176.43,129.16 175.78,131.31 177.57,135.00 Z" />
 </vector>

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (c) 2016-2017 Projekt Substratum
   ~ This file is part of Substratum.
   ~
@@ -18,9 +17,9 @@
   -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
     <com.vlad1m1r.lemniscate.roulette.EpitrochoidProgressView
         android:layout_width="wrap_content"
@@ -35,6 +34,6 @@
         app:maxLineLength="0.8"
         app:minLineLength="0.4"
         app:sizeMultiplier="1"
-        app:strokeWidth="5dp"/>
+        app:strokeWidth="5dp" />
 
 </RelativeLayout>

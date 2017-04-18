@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (c) 2016-2017 Projekt Substratum
   ~ This file is part of Substratum.
   ~
@@ -18,12 +17,12 @@
   -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_gravity="center"
-                android:background="@color/splashscreen_background"
-                android:gravity="center"
-                android:orientation="vertical">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_gravity="center"
+    android:background="@color/splashscreen_background"
+    android:gravity="center"
+    android:orientation="vertical">
 
     <ImageView
         android:id="@+id/splashscreen_image"
@@ -31,6 +30,6 @@
         android:layout_height="@dimen/app_splash_icon_height"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/substratum_icon"/>
+        android:src="@drawable/substratum_icon" />
 
 </RelativeLayout>

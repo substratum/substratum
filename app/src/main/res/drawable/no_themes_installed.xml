@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (c) 2016-2017 Projekt Substratum
   ~ This file is part of Substratum.
   ~
@@ -18,10 +17,10 @@
   -->
 
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-        android:width="128dp"
-        android:height="128dp"
-        android:viewportHeight="512.000000"
-        android:viewportWidth="512.000000">
+    android:width="128dp"
+    android:height="128dp"
+    android:viewportHeight="512.000000"
+    android:viewportWidth="512.000000">
 
     <group
         android:scaleX="0.100000"
@@ -35,21 +34,21 @@
 46 385 -3 200 -62 422 -93 762 -108 444 -18 744 19 1005 124 260 105 433 268 517
 486 78 201 80 452 6 711 -66 232 -153 360 -429 634 -283 280 -332 345 -466 614
 -153 306 -262 465 -444 646 -251 250 -524 386 -884 440 -126 19 -411 18 -535 -1z"
-            android:strokeWidth="1"/>
+            android:strokeWidth="1" />
         <path
             android:fillColor="#3d3d3d"
             android:pathData="M1392 2694 c-22 -10 -44 -64 -37 -94 9 -40 28 -53 140 -98 55 -21 140 -60 190 -84
 l90 -46 -95 -6 c-131 -10 -270 -34 -298 -52 -22 -15 -42 -52 -42 -79 0 -7 12 -28
 27 -45 30 -36 32 -36 213 -10 96 14 373 8 479 -10 100 -17 141 7 141 83 0 29 -8 42
 -47 77 -194 172 -675 402 -761 364z"
-            android:strokeWidth="1"/>
+            android:strokeWidth="1" />
         <path
             android:fillColor="#3d3d3d"
             android:pathData="M3515 2660 c-220 -88 -463 -227 -577 -329 -40 -36 -48 -49 -48 -78 0 -76 41 -100
 141 -83 106 18 383 24 479 10 181 -26 183 -26 213 10 15 17 27 38 27 45 0 27 -20
 64 -42 79 -28 18 -167 42 -298 52 l-95 6 90 46 c50 24 135 63 190 84 55 22 108 47
 117 55 25 23 32 67 14 101 -29 55 -76 56 -211 2z"
-            android:strokeWidth="1"/>
+            android:strokeWidth="1" />
         <path
             android:fillColor="#3d3d3d"
             android:pathData="M2259 2000 c-107 -56 -181 -210 -254 -524 -35 -147 -66 -231 -102 -272 -66 -75
@@ -64,6 +63,6 @@ c96 10 242 43 340 75 139 47 226 46 382 -3 64 -20 173 -46 243 -58 131 -22 176 -22
 -79 -78 -141 -100 -100 -34 -282 -56 -480 -56 -188 -1 -288 17 -371 66 -104 61
 -137 120 -189 340 -95 401 -187 545 -347 545 -66 0 -123 -26 -171 -75 l-37 -38 -38
 38 c-20 21 -55 46 -77 56 -53 24 -139 24 -186 -1z"
-            android:strokeWidth="1"/>
+            android:strokeWidth="1" />
     </group>
 </vector>

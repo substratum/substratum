@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (c) 2016-2017 Projekt Substratum
   ~ This file is part of Substratum.
   ~
@@ -18,32 +17,32 @@
   -->
 
 <animation-list xmlns:android="http://schemas.android.com/apk/res/android"
-                android:oneshot="false">
+    android:oneshot="false">
     <item
         android:drawable="@drawable/rainbow1"
-        android:duration="50"/>
+        android:duration="50" />
     <item
         android:drawable="@drawable/rainbow2"
-        android:duration="50"/>
+        android:duration="50" />
     <item
         android:drawable="@drawable/rainbow3"
-        android:duration="50"/>
+        android:duration="50" />
     <item
         android:drawable="@drawable/rainbow4"
-        android:duration="50"/>
+        android:duration="50" />
     <item
         android:drawable="@drawable/rainbow5"
-        android:duration="50"/>
+        android:duration="50" />
     <item
         android:drawable="@drawable/rainbow6"
-        android:duration="50"/>
+        android:duration="50" />
     <item
         android:drawable="@drawable/rainbow7"
-        android:duration="50"/>
+        android:duration="50" />
     <item
         android:drawable="@drawable/rainbow8"
-        android:duration="50"/>
+        android:duration="50" />
     <item
         android:drawable="@drawable/rainbow9"
-        android:duration="50"/>
+        android:duration="50" />
 </animation-list>

@@ -112,8 +112,7 @@ public class Wallpapers extends Fragment {
             try {
                 String[] checkerCommands = {getContext().getCacheDir() + "/current_wallpapers.xml"};
 
-                @SuppressWarnings("unchecked")
-                final Map<String, String> newArray = ReadCloudWallpaperFile.main(checkerCommands);
+                @SuppressWarnings("unchecked") final Map<String, String> newArray = ReadCloudWallpaperFile.main(checkerCommands);
                 ArrayList<WallpaperEntries> wallpapers = new ArrayList<>();
                 WallpaperEntries newEntry = new WallpaperEntries();
 

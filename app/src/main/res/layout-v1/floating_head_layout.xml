@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (c) 2016-2017 Projekt Substratum
   ~ This file is part of Substratum.
   ~
@@ -17,10 +16,9 @@
   ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<ImageView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/info_text"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:padding="8dp"
-    android:src="@drawable/floating_brush"/>
+    android:src="@drawable/floating_brush" />

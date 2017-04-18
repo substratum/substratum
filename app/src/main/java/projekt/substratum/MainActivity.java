@@ -691,6 +691,7 @@ public class MainActivity extends AppCompatActivity implements
                             new AlertDialog.Builder(this)
                                     .setTitle(R.string.warning_title)
                                     .setMessage(R.string.dirty_flash_detected)
+                                    .setCancelable(false)
                                     .setPositiveButton(R.string.dialog_ok, (dialog2, i2) -> {
                                         dialog2.cancel();
                                         prefs.edit().remove("oms_state").apply();
@@ -740,6 +741,7 @@ public class MainActivity extends AppCompatActivity implements
                 new AlertDialog.Builder(this)
                         .setTitle(R.string.warning_title)
                         .setMessage(R.string.dirty_flash_detected)
+                        .setCancelable(false)
                         .setPositiveButton(R.string.dialog_ok, (dialog2, i2) -> {
                             dialog2.cancel();
                             References.setROMVersion(getApplicationContext(), true);

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (c) 2016-2017 Projekt Substratum
   ~ This file is part of Substratum.
   ~
@@ -18,13 +17,13 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:id="@+id/fragment_history_menu_bottom"
-              android:layout_width="match_parent"
-              android:layout_height="180dp"
-              android:background="@color/bottom_sheet_dialog_background"
-              android:orientation="vertical"
-              app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fragment_history_menu_bottom"
+    android:layout_width="match_parent"
+    android:layout_height="180dp"
+    android:background="@color/bottom_sheet_dialog_background"
+    android:orientation="vertical"
+    app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
 
     <LinearLayout
         android:id="@+id/disable_all"
@@ -40,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:tint="@color/main_screen_card_theme_title"
-            app:srcCompat="@drawable/manage_overlays_disable_all"/>
+            app:srcCompat="@drawable/manage_overlays_disable_all" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -48,7 +47,7 @@
             android:layout_gravity="center"
             android:layout_marginStart="16dp"
             android:text="@string/manage_system_overlay_disable"
-            android:textColor="?android:attr/textColorPrimary"/>
+            android:textColor="?android:attr/textColorPrimary" />
     </LinearLayout>
 
     <LinearLayout
@@ -65,7 +64,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:tint="@color/main_screen_card_theme_title"
-            app:srcCompat="@drawable/manage_overlays_uninstall_all"/>
+            app:srcCompat="@drawable/manage_overlays_uninstall_all" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -73,6 +72,6 @@
             android:layout_gravity="center"
             android:layout_marginStart="16dp"
             android:text="@string/manage_system_overlay_uninstall"
-            android:textColor="?android:attr/textColorPrimary"/>
+            android:textColor="?android:attr/textColorPrimary" />
     </LinearLayout>
 </LinearLayout>

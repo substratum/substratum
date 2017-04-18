@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (c) 2016-2017 Projekt Substratum
   ~ This file is part of Substratum.
   ~
@@ -18,10 +17,10 @@
   -->
 
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-        android:width="48.000000dp"
-        android:height="80.171779102dp"
-        android:viewportHeight="1089.000000"
-        android:viewportWidth="652.000000">
+    android:width="48.000000dp"
+    android:height="80.171779102dp"
+    android:viewportHeight="1089.000000"
+    android:viewportWidth="652.000000">
 
     <group
         android:scaleX="0.100000"
@@ -44,7 +43,7 @@
 -642 387 -855 590 -376 356 -573 745 -597 1177 -17 292 67 611 234 897 280 478 740
 872 1422 1219 131 67 361 168 489 215 l86 32 3 82 c2 45 -1 82 -5 81 -4 0 -82 -29
 -173 -63z"
-            android:strokeWidth="1"/>
+            android:strokeWidth="1" />
         <path
             android:fillColor="@color/theme_accent"
             android:pathData="M4615 4727 c-5 -12 -39 -151 -49 -199 l-6 -28 -563 -1 c-309 -1 -664 -3 -789 -4
@@ -64,7 +63,7 @@ c134 32 259 61 279 65 20 3 62 22 95 42 32 20 80 47 106 60 48 24 343 114 375 114
 245 12 43 34 263 34 345 1 112 -29 343 -54 410 -4 11 -20 61 -35 110 -16 50 -32 97
 -36 105 -85 180 -165 310 -246 400 -17 19 -42 49 -54 65 -34 44 -138 145 -184 180
 -22 16 -44 34 -50 41 -11 12 -91 69 -137 96 -21 14 -30 15 -33 5z"
-            android:strokeWidth="1"/>
+            android:strokeWidth="1" />
         <path
             android:fillColor="@color/theme_accent"
             android:pathData="M3485 4700 c-20 -16 -45 -32 -56 -35 -10 -4 -19 -10 -19 -14 0 -5 -17 -20 -37 -33
@@ -79,7 +78,7 @@ c134 32 259 61 279 65 20 3 62 22 95 42 32 20 80 47 106 60 48 24 343 114 375 114
 0 25 5 72 11 105 21 111 -21 402 -88 604 -68 205 -241 480 -396 629 l-36 34 -660
 -6 -660 -5 -10 27 c-5 14 -20 68 -32 119 -13 50 -26 92 -30 92 -3 0 -23 -13 -44
 -30z"
-            android:strokeWidth="1"/>
+            android:strokeWidth="1" />
         <path
             android:fillColor="@color/floatui_paint_color"
             android:pathData="M2326 1514 c-70 -213 -208 -394 -423 -555 -139 -104 -246 -152 -438 -198 l-80 -19
@@ -87,7 +86,7 @@ c134 32 259 61 279 65 20 3 62 22 95 42 32 20 80 47 106 60 48 24 343 114 375 114
 30 21 52 41 49 43 -2 3 -220 -31 -483 -75 -579 -96 -704 -110 -853 -91 -58 7 -114
 15 -123 19 -14 5 14 57 157 295 135 223 169 287 152 281 -22 -6 -431 -110 -473
 -120 -21 -5 -22 -2 -29 162 -4 91 -10 188 -14 216 l-6 49 -39 -118z"
-            android:strokeWidth="1"/>
+            android:strokeWidth="1" />
         <path
             android:fillColor="@color/floatui_handle_color"
             android:pathData="M2566 10424 c-151 -37 -289 -141 -351 -267 -20 -42 -42 -108 -52 -158 -16 -84 -16
@@ -95,6 +94,6 @@ c134 32 259 61 279 65 20 3 62 22 95 42 32 20 80 47 106 60 48 24 343 114 375 114
 -180 160 -216 69 -50 149 -62 570 -83 180 -10 282 -10 462 0 276 14 429 27 487 43
 120 31 229 179 297 401 28 94 45 199 114 717 202 1507 350 2811 452 3964 42 475 42
 481 26 565 -42 220 -190 374 -408 426 -93 21 -2312 21 -2403 -1z"
-            android:strokeWidth="1"/>
+            android:strokeWidth="1" />
     </group>
 </vector>

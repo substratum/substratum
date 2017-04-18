@@ -16,8 +16,7 @@
   ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -37,7 +36,7 @@
         app:tabGravity="fill"
         app:tabMode="scrollable"
         app:tabSelectedTextColor="@android:color/white"
-        app:tabTextColor="@android:color/white"/>
+        app:tabTextColor="@android:color/white" />
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
@@ -63,13 +62,13 @@
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
                 android:scaleType="centerCrop"
-                app:layout_collapseMode="parallax"/>
+                app:layout_collapseMode="parallax" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/actionbar_gradient"
-                android:fitsSystemWindows="true"/>
+                android:fitsSystemWindows="true" />
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -77,7 +76,7 @@
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
                 app:layout_scrollFlags="scroll|enterAlways"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
             <android.support.design.widget.TabLayout
                 android:id="@+id/detail_tabs"
@@ -85,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:translationY="450dp"
-                app:tabGravity="center"/>
+                app:tabGravity="center" />
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
@@ -96,7 +95,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="?actionBarSize"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <projekt.substratum.util.FloatingActionMenu
         android:id="@+id/apply_fab"
@@ -107,13 +106,13 @@
         android:src="@drawable/floating_action_button_icon"
         android:visibility="visible"
         app:backgroundTint="@color/fab_background_color"
-        app:layout_anchorGravity="bottom|right|end"/>
+        app:layout_anchorGravity="bottom|right|end" />
 
     <!-- Overlay that dims the screen -->
     <com.gordonwong.materialsheetfab.DimOverlayFrameLayout
         android:id="@+id/overlay"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
     <io.codetail.widget.RevealLinearLayout
         android:layout_width="match_parent"
@@ -139,30 +138,30 @@
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="10dp"
                     android:checked="false"
-                    android:text="@string/fab_menu_swap_toggle"/>
+                    android:text="@string/fab_menu_swap_toggle" />
 
                 <View
                     android:layout_width="@dimen/sheet_width"
                     android:layout_height="1dp"
-                    android:background="@color/fab_menu_divider"/>
+                    android:background="@color/fab_menu_divider" />
 
                 <TextView
                     android:id="@+id/compile_enable_selected"
                     style="@style/TextAppearance.MaterialSheetFab.Sheet.Item"
                     android:drawableStart="@drawable/fab_menu_compile_enable"
-                    android:text="@string/fab_menu_compile_enable"/>
+                    android:text="@string/fab_menu_compile_enable" />
 
                 <TextView
                     android:id="@+id/compile_update_selected"
                     style="@style/TextAppearance.MaterialSheetFab.Sheet.Item"
                     android:drawableStart="@drawable/fab_menu_compile_update"
-                    android:text="@string/fab_menu_compile_update"/>
+                    android:text="@string/fab_menu_compile_update" />
 
                 <TextView
                     android:id="@+id/disable_selected"
                     style="@style/TextAppearance.MaterialSheetFab.Sheet.Item"
                     android:drawableStart="@drawable/fab_menu_disable"
-                    android:text="@string/fab_menu_disable"/>
+                    android:text="@string/fab_menu_disable" />
 
                 <LinearLayout
                     android:id="@+id/enable"
@@ -173,7 +172,7 @@
                         android:id="@+id/enable_selected"
                         style="@style/TextAppearance.MaterialSheetFab.Sheet.Item"
                         android:drawableStart="@drawable/fab_menu_enable"
-                        android:text="@string/fab_menu_enable"/>
+                        android:text="@string/fab_menu_enable" />
                 </LinearLayout>
 
             </LinearLayout>

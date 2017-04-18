@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (c) 2016-2017 Projekt Substratum
   ~ This file is part of Substratum.
   ~
@@ -18,9 +17,9 @@
   -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp">
+    android:layout_width="250dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp">
 
     <ScrollView
         android:layout_width="wrap_content"
@@ -31,17 +30,17 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <include layout="@layout/community_showcase_info_overlays"/>
+            <include layout="@layout/community_showcase_info_overlays" />
 
-            <include layout="@layout/community_showcase_info_bootanimations"/>
+            <include layout="@layout/community_showcase_info_bootanimations" />
 
-            <include layout="@layout/community_showcase_info_fonts"/>
+            <include layout="@layout/community_showcase_info_fonts" />
 
-            <include layout="@layout/community_showcase_info_sounds"/>
+            <include layout="@layout/community_showcase_info_sounds" />
 
-            <include layout="@layout/community_showcase_info_wallpapers"/>
+            <include layout="@layout/community_showcase_info_wallpapers" />
 
-            <include layout="@layout/community_showcase_info_paid"/>
+            <include layout="@layout/community_showcase_info_paid" />
 
         </LinearLayout>
     </ScrollView>

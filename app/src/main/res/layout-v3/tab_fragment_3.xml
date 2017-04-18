@@ -16,8 +16,7 @@
   ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<android.support.v4.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/nestedScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -37,7 +36,7 @@
                 android:id="@+id/fontSelection"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"/>
+                android:layout_marginStart="15dp" />
 
         </RelativeLayout>
 
@@ -56,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:layout_marginTop="50dp"
-                android:indeterminate="true"/>
+                android:indeterminate="true" />
 
             <RelativeLayout
                 android:id="@+id/font_placeholder"
@@ -68,7 +67,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_marginTop="20dp"
-                    android:src="@drawable/font_placeholder"/>
+                    android:src="@drawable/font_placeholder" />
 
                 <TextView
                     android:id="@+id/placeholder_text"
@@ -80,7 +79,7 @@
                     android:text="@string/font_placeholder_text"
                     android:textColor="@color/font_text"
                     android:textSize="20sp"
-                    android:textStyle="italic"/>
+                    android:textStyle="italic" />
 
             </RelativeLayout>
 
@@ -95,7 +94,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_marginTop="22dp"
-                    android:src="@drawable/tab_restore_default"/>
+                    android:src="@drawable/tab_restore_default" />
 
                 <TextView
                     android:id="@+id/restore_text"
@@ -107,7 +106,7 @@
                     android:text="@string/fonts_defaults_text"
                     android:textColor="@color/font_text"
                     android:textSize="20sp"
-                    android:textStyle="italic"/>
+                    android:textStyle="italic" />
 
             </RelativeLayout>
 
@@ -123,7 +122,7 @@
                     android:gravity="center"
                     android:text="AaBbCcDd123"
                     android:textColor="@color/font_text"
-                    android:textSize="50sp"/>
+                    android:textSize="50sp" />
 
                 <TextView
                     android:id="@+id/text_bold"
@@ -134,7 +133,7 @@
                     android:text="AaBbCcDd123"
                     android:textColor="@color/font_text"
                     android:textSize="50sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/text_normal_italics"
@@ -145,7 +144,7 @@
                     android:text="AaBbCcDd123"
                     android:textColor="@color/font_text"
                     android:textSize="50sp"
-                    android:textStyle="italic"/>
+                    android:textStyle="italic" />
 
                 <TextView
                     android:id="@+id/text_normal_bold_italics"
@@ -156,7 +155,7 @@
                     android:text="AaBbCcDd123"
                     android:textColor="@color/font_text"
                     android:textSize="50sp"
-                    android:textStyle="italic|bold"/>
+                    android:textStyle="italic|bold" />
             </RelativeLayout>
         </RelativeLayout>
     </LinearLayout>

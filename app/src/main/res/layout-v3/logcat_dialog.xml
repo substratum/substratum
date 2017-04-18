@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (c) 2016-2017 Projekt Substratum
   ~ This file is part of Substratum.
   ~
@@ -18,14 +17,14 @@
   -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:minWidth="1000dp">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:minWidth="1000dp">
 
     <View
         android:id="@+id/empty_view"
         android:layout_width="match_parent"
-        android:layout_height="15dp"/>
+        android:layout_height="15dp" />
 
     <ScrollView
         android:id="@+id/scrollView"
@@ -45,7 +44,7 @@
             android:paddingStart="20dp"
             android:paddingTop="20dp"
             android:textColor="@color/logcat_dialog_text"
-            android:textSize="12sp"/>
+            android:textSize="12sp" />
 
     </ScrollView>
 
@@ -63,7 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:src="@drawable/logcat_dialog_back"
-            android:text="@string/dialog_ok"/>
+            android:text="@string/dialog_ok" />
 
         <ImageButton
             android:id="@+id/copy_clipboard"
@@ -71,7 +70,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:src="@drawable/logcat_dialog_copy"
-            android:text="@string/dialog_ok"/>
+            android:text="@string/dialog_ok" />
 
         <ImageButton
             android:id="@+id/send"
@@ -79,7 +78,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:src="@drawable/logcat_dialog_send"
-            android:text="@string/dialog_ok"/>
+            android:text="@string/dialog_ok" />
     </LinearLayout>
 
 </RelativeLayout>

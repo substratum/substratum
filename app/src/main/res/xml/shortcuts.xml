@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (c) 2016-2017 Projekt Substratum
   ~ This file is part of Substratum.
   ~
@@ -28,7 +27,7 @@
         <intent
             android:action="android.intent.action.VIEW"
             android:targetClass="projekt.substratum.ShowcaseActivity"
-            android:targetPackage="projekt.substratum"/>
+            android:targetPackage="projekt.substratum" />
     </shortcut>
     <shortcut
         android:enabled="true"
@@ -40,7 +39,7 @@
         <intent
             android:action="android.intent.action.VIEW"
             android:targetClass="projekt.substratum.RescueActivity"
-            android:targetPackage="projekt.substratum"/>
+            android:targetPackage="projekt.substratum" />
     </shortcut>
     <shortcut
         android:enabled="true"
@@ -52,6 +51,6 @@
         <intent
             android:action="android.intent.action.VIEW"
             android:targetClass="projekt.substratum.FloatUILaunchActivity"
-            android:targetPackage="projekt.substratum"/>
+            android:targetPackage="projekt.substratum" />
     </shortcut>
 </shortcuts>

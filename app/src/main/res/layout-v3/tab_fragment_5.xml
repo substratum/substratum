@@ -16,8 +16,7 @@
   ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -36,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_marginTop="20dp"
-            android:src="@drawable/no_wallpapers_found"/>
+            android:src="@drawable/no_wallpapers_found" />
 
         <TextView
             android:id="@+id/placeholder_text"
@@ -48,7 +47,7 @@
             android:text="@string/wallpaper_no_wallpapers"
             android:textColor="@color/font_text"
             android:textSize="20sp"
-            android:textStyle="italic"/>
+            android:textStyle="italic" />
 
     </RelativeLayout>
 
@@ -63,7 +62,7 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_marginTop="20dp"
-            android:src="@drawable/no_network"/>
+            android:src="@drawable/no_network" />
 
         <TextView
             android:id="@+id/placeholder_text2"
@@ -75,7 +74,7 @@
             android:text="@string/wallpaper_no_connection"
             android:textColor="@color/font_text"
             android:textSize="20sp"
-            android:textStyle="italic"/>
+            android:textStyle="italic" />
 
     </RelativeLayout>
 
@@ -86,7 +85,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="top|center_horizontal"
         android:indeterminate="true"
-        android:paddingTop="50dp"/>
+        android:paddingTop="50dp" />
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
@@ -100,7 +99,7 @@
             android:layout_alignParentTop="true"
             android:clipToPadding="false"
             android:paddingBottom="90dp"
-            android:scrollbars="vertical"/>
+            android:scrollbars="vertical" />
 
     </android.support.v4.widget.SwipeRefreshLayout>
 

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (c) 2016-2017 Projekt Substratum
   ~ This file is part of Substratum.
   ~
@@ -18,10 +17,10 @@
   -->
 
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                 android:layout_width="match_parent"
-                                                 android:layout_height="match_parent"
-                                                 android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <ProgressBar
         android:id="@+id/header_loading_bar"
@@ -29,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="-7dp"
-        android:indeterminate="true"/>
+        android:indeterminate="true" />
 
     <RelativeLayout
         android:id="@+id/no_overlays_enabled"
@@ -43,7 +42,7 @@
             android:layout_width="130dp"
             android:layout_height="130dp"
             android:layout_centerInParent="true"
-            android:src="@drawable/no_priorities_loaded"/>
+            android:src="@drawable/no_priorities_loaded" />
 
         <TextView
             android:id="@+id/no_themes_title"
@@ -57,7 +56,7 @@
             android:text="@string/manager_no_overlays_title"
             android:textColor="@color/main_screen_card_theme_title"
             android:textSize="20sp"
-            android:textStyle="bold|italic"/>
+            android:textStyle="bold|italic" />
 
         <TextView
             android:id="@+id/no_themes_description"
@@ -69,7 +68,7 @@
             android:gravity="center"
             android:text="@string/manager_no_overlays_text"
             android:textColor="@color/main_screen_card_theme_title"
-            android:textSize="15sp"/>
+            android:textSize="15sp" />
     </RelativeLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout
@@ -89,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:layout_marginTop="20dp"
-                android:indeterminate="true"/>
+                android:indeterminate="true" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/overlays_recycler_view"
@@ -100,7 +99,7 @@
                 android:layout_marginTop="5dp"
                 android:clipToPadding="false"
                 android:paddingBottom="90dp"
-                android:scrollbars="vertical"/>
+                android:scrollbars="vertical" />
 
         </RelativeLayout>
 
@@ -115,13 +114,13 @@
         android:src="@drawable/floating_action_button_icon"
         android:visibility="visible"
         app:backgroundTint="@color/fab_background_color"
-        app:layout_anchorGravity="bottom|right|end"/>
+        app:layout_anchorGravity="bottom|right|end" />
 
     <!-- Overlay that dims the screen -->
     <com.gordonwong.materialsheetfab.DimOverlayFrameLayout
         android:id="@+id/overlay"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
     <io.codetail.widget.RevealLinearLayout
         android:layout_width="match_parent"
@@ -147,18 +146,18 @@
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="10dp"
                     android:checked="false"
-                    android:text="@string/fab_menu_select_to_toggle_all_overlays"/>
+                    android:text="@string/fab_menu_select_to_toggle_all_overlays" />
 
                 <View
                     android:layout_width="@dimen/sheet_width"
                     android:layout_height="1dp"
-                    android:background="@color/fab_menu_divider"/>
+                    android:background="@color/fab_menu_divider" />
 
                 <TextView
                     android:id="@+id/disable_selected"
                     style="@style/TextAppearance.MaterialSheetFab.Sheet.Item"
                     android:drawableStart="@drawable/fab_menu_disable"
-                    android:text="@string/fab_menu_disable"/>
+                    android:text="@string/fab_menu_disable" />
 
                 <LinearLayout
                     android:id="@+id/enable"
@@ -169,14 +168,14 @@
                         android:id="@+id/enable_selected"
                         style="@style/TextAppearance.MaterialSheetFab.Sheet.Item"
                         android:drawableStart="@drawable/fab_menu_enable"
-                        android:text="@string/fab_menu_enable"/>
+                        android:text="@string/fab_menu_enable" />
                 </LinearLayout>
 
                 <TextView
                     android:id="@+id/uninstall"
                     style="@style/TextAppearance.MaterialSheetFab.Sheet.Item"
                     android:drawableStart="@drawable/fab_menu_uninstall"
-                    android:text="@string/fab_menu_uninstall"/>
+                    android:text="@string/fab_menu_uninstall" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
     </io.codetail.widget.RevealLinearLayout>

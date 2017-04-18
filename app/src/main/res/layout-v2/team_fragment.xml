@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (c) 2016-2017 Projekt Substratum
   ~ This file is part of Substratum.
   ~
@@ -18,8 +17,8 @@
   -->
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,7 +35,7 @@
             android:layout_marginTop="10dp"
             android:text="@string/team_title_1"
             android:textColor="@color/settings_title_color"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
@@ -44,7 +43,7 @@
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:text="@string/team_text_1"/>
+            android:text="@string/team_text_1" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -63,7 +62,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/team_nicholas"/>
+                    android:src="@drawable/team_nicholas" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -74,7 +73,7 @@
                     android:gravity="start"
                     android:text="@string/team_nicholas"
                     android:textColor="@color/main_screen_card_theme_title"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp" />
 
             </RelativeLayout>
 
@@ -89,7 +88,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/team_syko"/>
+                    android:src="@drawable/team_syko" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -100,7 +99,7 @@
                     android:gravity="start"
                     android:text="@string/team_syko"
                     android:textColor="@color/main_screen_card_theme_title"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp" />
 
             </RelativeLayout>
 
@@ -114,7 +113,7 @@
             android:layout_marginTop="10dp"
             android:text="@string/team_title_2"
             android:textColor="@color/settings_title_color"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
@@ -122,7 +121,7 @@
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:text="@string/team_text_2"/>
+            android:text="@string/team_text_2" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -134,21 +133,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
             <me.wangyuwei.galleryview.GalleryView
                 android:id="@+id/developer2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
             <me.wangyuwei.galleryview.GalleryView
                 android:id="@+id/developer3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
         </LinearLayout>
 
@@ -160,7 +159,7 @@
             android:layout_marginTop="10dp"
             android:text="@string/team_title_7"
             android:textColor="@color/settings_title_color"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
@@ -168,7 +167,7 @@
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:text="@string/team_text_7"/>
+            android:text="@string/team_text_7" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -180,21 +179,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
             <me.wangyuwei.galleryview.GalleryView
                 android:id="@+id/developerRootless2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
             <me.wangyuwei.galleryview.GalleryView
                 android:id="@+id/developerRootless3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
         </LinearLayout>
 
@@ -206,7 +205,7 @@
             android:layout_marginTop="10dp"
             android:text="@string/team_title_3"
             android:textColor="@color/settings_title_color"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
@@ -214,7 +213,7 @@
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:text="@string/team_text_3"/>
+            android:text="@string/team_text_3" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -226,21 +225,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
             <me.wangyuwei.galleryview.GalleryView
                 android:id="@+id/designer2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
             <me.wangyuwei.galleryview.GalleryView
                 android:id="@+id/designer3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
         </LinearLayout>
 
@@ -252,7 +251,7 @@
             android:layout_marginTop="10dp"
             android:text="@string/team_eye"
             android:textColor="@color/settings_title_color"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
@@ -260,7 +259,7 @@
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:text="@string/team_eye_text"/>
+            android:text="@string/team_eye_text" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -279,7 +278,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/team_nathan"/>
+                    android:src="@drawable/team_nathan" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -290,7 +289,7 @@
                     android:gravity="start"
                     android:text="@string/contributor_nathan"
                     android:textColor="@color/main_screen_card_theme_title"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp" />
 
             </RelativeLayout>
 
@@ -304,7 +303,7 @@
             android:layout_marginTop="10dp"
             android:text="@string/team_title_4"
             android:textColor="@color/settings_title_color"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
@@ -312,7 +311,7 @@
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:text="@string/team_text_4"/>
+            android:text="@string/team_text_4" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -324,21 +323,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
             <me.wangyuwei.galleryview.GalleryView
                 android:id="@+id/contributor2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
             <me.wangyuwei.galleryview.GalleryView
                 android:id="@+id/contributor3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
         </LinearLayout>
 
@@ -350,7 +349,7 @@
             android:layout_marginTop="10dp"
             android:text="@string/team_title_5"
             android:textColor="@color/settings_title_color"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
@@ -358,7 +357,7 @@
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:text="@string/team_text_5"/>
+            android:text="@string/team_text_5" />
 
         <Button
             android:id="@+id/list_button_translators_contribute"
@@ -371,7 +370,7 @@
             android:clickable="true"
             android:foreground="?android:selectableItemBackground"
             android:text="@string/team_button_5_contribute"
-            android:textColor="@color/restore_button_text_color"/>
+            android:textColor="@color/restore_button_text_color" />
 
         <Button
             android:id="@+id/list_button_translators"
@@ -382,7 +381,7 @@
             android:clickable="true"
             android:foreground="?android:selectableItemBackground"
             android:text="@string/team_button_5"
-            android:textColor="@color/restore_button_text_color"/>
+            android:textColor="@color/restore_button_text_color" />
 
         <TextView
             android:layout_width="match_parent"
@@ -392,7 +391,7 @@
             android:layout_marginTop="10dp"
             android:text="@string/team_title_6"
             android:textColor="@color/settings_title_color"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
@@ -400,7 +399,7 @@
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:text="@string/team_text_6"/>
+            android:text="@string/team_text_6" />
 
         <Button
             android:id="@+id/list_button_layers"
@@ -411,7 +410,7 @@
             android:clickable="true"
             android:foreground="?android:selectableItemBackground"
             android:text="@string/team_button_6"
-            android:textColor="@color/restore_button_text_color"/>
+            android:textColor="@color/restore_button_text_color" />
 
     </LinearLayout>
 </ScrollView>

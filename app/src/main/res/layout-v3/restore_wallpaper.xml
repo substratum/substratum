@@ -16,8 +16,7 @@
   ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -48,7 +47,7 @@
                 android:layout_marginTop="10dp"
                 android:text="@string/restore_wallpaper_text"
                 android:textColor="@color/colorAccent"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/wallpaper_summary"
@@ -58,7 +57,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="5dp"
-                android:text="@string/restore_wallpaper_summary"/>
+                android:text="@string/restore_wallpaper_summary" />
 
             <Button
                 android:id="@+id/wallpaperButton"
@@ -70,7 +69,7 @@
                 android:clickable="true"
                 android:foreground="?android:selectableItemBackground"
                 android:text="@string/restore_wallpaper_button"
-                android:textColor="@color/backup_button_text_color"/>
+                android:textColor="@color/backup_button_text_color" />
 
         </RelativeLayout>
 

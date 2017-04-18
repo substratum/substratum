@@ -368,8 +368,9 @@ public class References {
             Process p = Runtime.getRuntime().exec("cmd overlay");
             BufferedReader reader = new BufferedReader(
                     new InputStreamReader(p.getInputStream()));
+            String output = reader.readLine();
             boolean usesInterfacer = checkThemeInterfacer(context);
-            boolean usesOMS7old = reader.readLine() != null && reader.readLine().equals(
+            boolean usesOMS7old = output != null && output.equals(
                     "The overlay manager has already been initialized.");
             if (usesInterfacer || usesOMS7old) {
                 prefs.edit().putBoolean("oms_state", true).apply();

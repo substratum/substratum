@@ -20,7 +20,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools"
           package="projekt.substratum"
-          android:installLocation="internalOnly">
+          android:installLocation="internalOnly"
+            android:versionCode="671"
+            android:versionName="six hundred seventy one">
 
     <uses-permission android:name="android.permission.ACCESS_SUPERUSER"/>
     <uses-permission android:name="android.permission.CHANGE_CONFIGURATION"/>

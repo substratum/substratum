@@ -36,6 +36,7 @@ import android.content.res.AssetManager;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -68,8 +69,10 @@ import android.widget.Toast;
 import org.apache.commons.io.FileUtils;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -853,15 +856,25 @@ public class Overlays extends Fragment {
                 if (xposed.length() > 0) {
                     device += " {" + xposed + "}";
                 }
-                String email_body =
-                        String.format(context.getString(R.string.logcat_email_body),
-                                theme_author, theme_name, device, error_logs,
-                                BuildConfig.VERSION_CODE, theme_version);
+                String email_body = String.format(context.getString(R.string.logcat_email_body),
+                                theme_author, theme_name);
+                File log = new File(Environment.getExternalStorageDirectory().getAbsolutePath() +
+                        "/theme_error.log");
+                try (FileWriter fw = new FileWriter(log, false);
+                     BufferedWriter out = new BufferedWriter(fw)) {
+                    String attachment_body =
+                            String.format(context.getString(R.string.logcat_attachment_body),
+                            device, error_logs, BuildConfig.VERSION_CODE, theme_version);
+                    out.write(attachment_body);
+                } catch (IOException e) {
+                    // Suppress exception
+                }
                 Intent i = new Intent(Intent.ACTION_SEND);
                 i.setType("message/rfc822");
                 i.putExtra(Intent.EXTRA_EMAIL, new String[]{themer_email});
                 i.putExtra(Intent.EXTRA_SUBJECT, email_subject);
                 i.putExtra(Intent.EXTRA_TEXT, email_body);
+                i.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(log));
                 try {
                     startActivity(Intent.createChooser(
                             i, context.getString(R.string.logcat_email_activity)));

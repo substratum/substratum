@@ -419,8 +419,10 @@
         %s: Theme Bug Report</string>
     <string name="logcat_email_body" formatted="false" translatable="false">
         Hey %s,\n\nI have an issue with %s, and would
-        like to see if you could help me resolve this issue.\n\nDevice:%s\n\nReport:\n\n%s\n\n
-        Substratum Version:\n\n%d\n\nTheme Version:\n\n%s
+        like to see if you could help me resolve this issue.
+    </string>
+    <string name="logcat_attachment_body" formatted="false" translatable="false">
+        Device:\n%s\n\nTheme Version:\n%s\n\nSubstratum Version:\n%d\n\nReport:\n%s
     </string>
     <string name="logcat_email_activity">Send bug report using&#8230;</string>
     <string name="logcat_email_activity_error">There are no email clients installed.</string>

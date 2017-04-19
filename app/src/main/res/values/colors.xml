@@ -60,18 +60,6 @@
     <color name="bootanimation_spinner_background">@color/theme_information_background</color>
     <color name="bootanimation_window_background">@android:color/black</color>
 
-    <color name="easteregg_best_score">#fff6e803</color>
-    <color name="easteregg_best_score_shadow">@android:color/black</color>
-    <color name="easteregg_score">#ffaaaaaa</color>
-    <color name="easteregg_score_shadow">#b3000000</color>
-    <color name="easteregg_welcome">#ffaaaaaa</color>
-    <color name="easter_egg_new_highscore_1">#fff6e803</color>
-    <color name="easter_egg_new_highscore_1_shadow">@android:color/black</color>
-    <color name="easter_egg_new_highscore_2">#fff6e803</color>
-    <color name="easter_egg_new_highscore_2_shadow">@android:color/black</color>
-    <color name="easter_egg_new_highscore_3">#fff6e803</color>
-    <color name="easter_egg_new_highscore_3_shadow">@android:color/black</color>
-
     <color name="studio_placeholder_icon">@android:color/black</color>
     <color name="studio_placeholder_title">@android:color/black</color>
 

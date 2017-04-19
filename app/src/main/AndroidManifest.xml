@@ -143,11 +143,6 @@
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/PhotoCrop.ActivityTheme"/>
-        <activity android:name=".easteregg.LLandActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-            </intent-filter>
-        </activity>
         <activity android:name=".AppIntroActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

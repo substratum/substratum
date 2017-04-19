@@ -38,7 +38,6 @@ import java.util.TimerTask;
 import me.wangyuwei.galleryview.GalleryEntity;
 import me.wangyuwei.galleryview.GalleryView;
 import projekt.substratum.R;
-import projekt.substratum.easteregg.LLandActivity;
 
 public class TeamFragment extends Fragment {
 
@@ -245,15 +244,6 @@ public class TeamFragment extends Fragment {
                     });
             AlertDialog alert = builder.create();
             alert.show();
-        });
-        layers.setOnLongClickListener(v -> {
-            try {
-                Intent intent = new Intent(getActivity(), LLandActivity.class);
-                startActivity(intent);
-            } catch (ActivityNotFoundException activityNotFoundException) {
-                // Suppress warning
-            }
-            return true;
         });
 
         Button translators = (Button) root.findViewById(R.id.list_button_translators);

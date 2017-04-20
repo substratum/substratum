@@ -857,14 +857,14 @@ public class Overlays extends Fragment {
                     device += " {" + xposed + "}";
                 }
                 String email_body = String.format(context.getString(R.string.logcat_email_body),
-                                theme_author, theme_name);
+                        theme_author, theme_name);
                 File log = new File(Environment.getExternalStorageDirectory().getAbsolutePath() +
                         "/theme_error.log");
                 try (FileWriter fw = new FileWriter(log, false);
                      BufferedWriter out = new BufferedWriter(fw)) {
                     String attachment_body =
                             String.format(context.getString(R.string.logcat_attachment_body),
-                            device, error_logs, BuildConfig.VERSION_CODE, theme_version);
+                                    device, error_logs, BuildConfig.VERSION_CODE, theme_version);
                     out.write(attachment_body);
                 } catch (IOException e) {
                     // Suppress exception

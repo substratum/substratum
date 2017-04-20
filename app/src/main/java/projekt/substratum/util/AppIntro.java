@@ -29,8 +29,6 @@ public class AppIntro extends WelcomeActivity {
     @Override
     protected WelcomeConfiguration configuration() {
         return new WelcomeConfiguration.Builder(this)
-                .defaultTitleTypefacePath("Montserrat-Bold.ttf")
-                .defaultHeaderTypefacePath("Montserrat-Bold.ttf")
                 .page(new BasicPage(R.drawable.appintro_slide_1, getString(R.string.slide_1_title),
                         getString(R.string.slide_1_text)).background(R.color.slide_1))
                 .page(new BasicPage(R.drawable.appintro_slide_2, getString(R.string.slide_2_title),

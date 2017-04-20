@@ -668,16 +668,14 @@ public class MainActivity extends AppCompatActivity implements
                             // permission already granted, allow the program to continue running
                             File directory = new File(Environment.getExternalStorageDirectory(),
                                     "/.substratum/");
-                            if (!directory.exists()) {
-                                Boolean made = directory.mkdirs();
-                                if (!made) Log.e(References.SUBSTRATUM_LOG,
+                            if (!directory.exists() && !directory.mkdirs()) {
+                                Log.e(References.SUBSTRATUM_LOG,
                                         "Unable to create directory");
                             }
                             File cacheDirectory = new File(getCacheDir(),
                                     "/SubstratumBuilder/");
-                            if (!cacheDirectory.exists()) {
-                                Boolean made = cacheDirectory.mkdirs();
-                                if (!made) Log.e(References.SUBSTRATUM_LOG,
+                            if (!cacheDirectory.exists() && !cacheDirectory.mkdirs()) {
+                                Log.e(References.SUBSTRATUM_LOG,
                                         "Unable to create cache directory");
                             }
                             References.injectRescueArchives(getApplicationContext());
@@ -1029,16 +1027,14 @@ public class MainActivity extends AppCompatActivity implements
                     // permission already granted, allow the program to continue running
                     File directory = new File(Environment.getExternalStorageDirectory(),
                             "/.substratum/");
-                    if (!directory.exists()) {
-                        Boolean made = directory.mkdirs();
-                        if (!made) Log.e(References.SUBSTRATUM_LOG,
+                    if (!directory.exists() && !directory.mkdirs()) {
+                        Log.e(References.SUBSTRATUM_LOG,
                                 "Unable to create directory");
                     }
                     File cacheDirectory = new File(getCacheDir(),
                             "/SubstratumBuilder/");
-                    if (!cacheDirectory.exists()) {
-                        Boolean made = cacheDirectory.mkdirs();
-                        if (!made) Log.e(References.SUBSTRATUM_LOG,
+                    if (!cacheDirectory.exists() && !cacheDirectory.mkdirs()) {
+                        Log.e(References.SUBSTRATUM_LOG,
                                 "Unable to create cache directory");
                     }
                     References.injectRescueArchives(getApplicationContext());

@@ -129,16 +129,9 @@ public class ProfileFragment extends Fragment {
 
         // Create a user viewable directory for profiles
         File directory = new File(Environment.getExternalStorageDirectory(),
-                "/substratum/");
-        if (!directory.exists()) {
-            Boolean made = directory.mkdirs();
-            if (!made) Log.e(References.SUBSTRATUM_LOG, "Could not create Substratum directory...");
-        }
-        File directory2 = new File(Environment.getExternalStorageDirectory(),
                 "/substratum/profiles");
-        if (!directory2.exists()) {
-            Boolean made = directory2.mkdirs();
-            if (!made) Log.e(References.SUBSTRATUM_LOG, "Could not create profile directory...");
+        if (!directory.exists() && !directory.mkdirs()) {
+            Log.e(References.SUBSTRATUM_LOG, "Could not create profile directory...");
         }
 
         // Handle Backups
@@ -492,7 +485,7 @@ public class ProfileFragment extends Fragment {
             String uid = Environment.getExternalStorageDirectory().getAbsolutePath()
                     .split("/")[3];
 
-            File nomediaFile = new File(Environment.getExternalStorageDirectory() +
+            File nomediaFile = new File(Environment.getExternalStorageDirectory(),
                     "/substratum/.nomedia");
             try {
                 if (!nomediaFile.createNewFile()) {

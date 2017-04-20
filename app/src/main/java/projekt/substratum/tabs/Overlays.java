@@ -425,10 +425,10 @@ public class Overlays extends Fragment {
                 root.findViewById(R.id.toggle_all_overlays_text);
         toggle_all_overlays_text.setVisibility(View.VISIBLE);
 
-        File work_area = new File(Environment.getExternalStorageDirectory().getAbsolutePath() +
-                "/.substratum");
+        File work_area = new File(Environment.getExternalStorageDirectory().getAbsolutePath(),
+                ".substratum/");
         if (!work_area.exists()) {
-            boolean created = work_area.mkdir();
+            boolean created = work_area.mkdirs() && work_area.mkdir();
             if (created) Log.d(SUBSTRATUM_LOG,
                     "Updating the internal storage with proper file directories...");
         }

@@ -35,7 +35,7 @@ public class ReadOverlaysFile {
     public static List<String> main(Context context, String argv[]) {
         // Copy provided overlays xml path
         File current_overlays = new File(Environment
-                .getExternalStorageDirectory().getAbsolutePath() +
+                .getExternalStorageDirectory().getAbsolutePath(),
                 "/.substratum/current_overlays.xml");
         if (current_overlays.exists()) {
             FileOperations.delete(context, current_overlays.getAbsolutePath());
@@ -62,7 +62,7 @@ public class ReadOverlaysFile {
     public static List<List<String>> withTargetPackage(Context context, String argv[]) {
         // Copy provided overlays xml path
         File current_overlays = new File(Environment
-                .getExternalStorageDirectory().getAbsolutePath() +
+                .getExternalStorageDirectory().getAbsolutePath(),
                 "/.substratum/current_overlays.xml");
         if (current_overlays.exists()) {
             FileOperations.delete(context, current_overlays.getAbsolutePath());

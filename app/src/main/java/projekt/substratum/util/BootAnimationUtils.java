@@ -348,7 +348,7 @@ public class BootAnimationUtils {
 
                 // Move created boot animation to working directory
                 FileOperations.move(mContext, mContext.getCacheDir()
-                        .getAbsolutePath() + "/BootAnimationCache/AnimationCreator/" + "scaled-"
+                        .getAbsolutePath() + "/BootAnimationCache/AnimationCreator/scaled-"
                         + bootanimation + ".zip", Environment.getExternalStorageDirectory()
                         .getAbsolutePath() + "/.substratum/bootanimation.zip");
 

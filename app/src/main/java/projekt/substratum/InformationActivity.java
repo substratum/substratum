@@ -65,6 +65,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.flaviofaria.kenburnsview.KenBurnsView;
 import com.gordonwong.materialsheetfab.MaterialSheetFab;
+import com.gordonwong.materialsheetfab.MaterialSheetFabEventListener;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import org.apache.commons.io.output.ByteArrayOutputStream;
@@ -576,9 +577,16 @@ public class InformationActivity extends SubstratumActivity {
             if (!References.checkOMS(this)) compile_enable_selected.setVisibility(View.GONE);
             if (compile_enable_selected != null) {
                 compile_enable_selected.setOnClickListener(v -> {
+                    materialSheetFab.setEventListener(new MaterialSheetFabEventListener() {
+                        @Override
+                        public void onSheetHidden() {
+                            super.onSheetHidden();
+                            intent.putExtra("command", "CompileEnable");
+                            localBroadcastManager.sendBroadcast(intent);
+                            materialSheetFab.setEventListener(null);
+                        }
+                    });
                     materialSheetFab.hideSheet();
-                    intent.putExtra("command", "CompileEnable");
-                    localBroadcastManager.sendBroadcast(intent);
                 });
             }
 
@@ -589,9 +597,16 @@ public class InformationActivity extends SubstratumActivity {
             }
             if (compile_update_selected != null) {
                 compile_update_selected.setOnClickListener(v -> {
+                    materialSheetFab.setEventListener(new MaterialSheetFabEventListener() {
+                        @Override
+                        public void onSheetHidden() {
+                            super.onSheetHidden();
+                            intent.putExtra("command", "CompileUpdate");
+                            localBroadcastManager.sendBroadcast(intent);
+                            materialSheetFab.setEventListener(null);
+                        }
+                    });
                     materialSheetFab.hideSheet();
-                    intent.putExtra("command", "CompileUpdate");
-                    localBroadcastManager.sendBroadcast(intent);
                 });
             }
 
@@ -601,9 +616,16 @@ public class InformationActivity extends SubstratumActivity {
             }
             if (disable_selected != null) {
                 disable_selected.setOnClickListener(v -> {
+                    materialSheetFab.setEventListener(new MaterialSheetFabEventListener() {
+                        @Override
+                        public void onSheetHidden() {
+                            super.onSheetHidden();
+                            intent.putExtra("command", "Disable");
+                            localBroadcastManager.sendBroadcast(intent);
+                            materialSheetFab.setEventListener(null);
+                        }
+                    });
                     materialSheetFab.hideSheet();
-                    intent.putExtra("command", "Disable");
-                    localBroadcastManager.sendBroadcast(intent);
                 });
             }
 
@@ -612,9 +634,16 @@ public class InformationActivity extends SubstratumActivity {
             TextView enable_selected = (TextView) findViewById(R.id.enable_selected);
             if (enable_selected != null) {
                 enable_selected.setOnClickListener(v -> {
+                    materialSheetFab.setEventListener(new MaterialSheetFabEventListener() {
+                        @Override
+                        public void onSheetHidden() {
+                            super.onSheetHidden();
+                            intent.putExtra("command", "Enable");
+                            localBroadcastManager.sendBroadcast(intent);
+                            materialSheetFab.setEventListener(null);
+                        }
+                    });
                     materialSheetFab.hideSheet();
-                    intent.putExtra("command", "Enable");
-                    localBroadcastManager.sendBroadcast(intent);
                 });
             }
         }

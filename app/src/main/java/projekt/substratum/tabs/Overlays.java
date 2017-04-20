@@ -44,6 +44,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.service.notification.StatusBarNotification;
+import android.support.design.widget.Lunchbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.util.Pair;
@@ -160,6 +161,10 @@ public class Overlays extends Fragment {
     private JobReceiver jobReceiver;
     private LocalBroadcastManager localBroadcastManager;
 
+    private View getActivityView() {
+        return ((ViewGroup) getActivity().findViewById(android.R.id.content)).getChildAt(0);
+    }
+
     public void startCompileEnableMode() {
         if (!is_active) {
             is_active = true;
@@ -188,10 +193,10 @@ public class Overlays extends Fragment {
             } else {
                 if (toggle_all.isChecked()) toggle_all.setChecked(false);
                 is_active = false;
-                Toast.makeText(
-                        mContext,
-                        getString(R.string.toast_disabled5),
-                        Toast.LENGTH_SHORT).show();
+                Lunchbar.make(getActivityView(),
+                        R.string.toast_disabled5,
+                        Lunchbar.LENGTH_LONG)
+                        .show();
             }
         }
     }
@@ -222,10 +227,10 @@ public class Overlays extends Fragment {
             } else {
                 if (toggle_all.isChecked()) toggle_all.setChecked(false);
                 is_active = false;
-                Toast.makeText(
-                        mContext,
-                        getString(R.string.toast_disabled5),
-                        Toast.LENGTH_SHORT).show();
+                Lunchbar.make(getActivityView(),
+                        R.string.toast_disabled5,
+                        Lunchbar.LENGTH_LONG)
+                        .show();
             }
         }
     }
@@ -265,10 +270,10 @@ public class Overlays extends Fragment {
                 } else {
                     if (toggle_all.isChecked()) toggle_all.setChecked(false);
                     is_active = false;
-                    Toast.makeText(
-                            mContext,
-                            getString(R.string.toast_disabled5),
-                            Toast.LENGTH_SHORT).show();
+                    Lunchbar.make(getActivityView(),
+                            R.string.toast_disabled5,
+                            Lunchbar.LENGTH_LONG)
+                            .show();
                 }
             } else {
                 compile_enable_mode = false;
@@ -331,10 +336,10 @@ public class Overlays extends Fragment {
                 } else {
                     if (toggle_all.isChecked()) toggle_all.setChecked(false);
                     is_active = false;
-                    Toast.makeText(
-                            mContext,
-                            getString(R.string.toast_disabled5),
-                            Toast.LENGTH_SHORT).show();
+                    Lunchbar.make(getActivityView(),
+                            R.string.toast_disabled5,
+                            Lunchbar.LENGTH_LONG)
+                            .show();
                 }
                 is_active = false;
                 disable_mode = false;
@@ -374,9 +379,10 @@ public class Overlays extends Fragment {
             } else {
                 if (toggle_all.isChecked()) toggle_all.setChecked(false);
                 is_active = false;
-                Toast.makeText(mContext,
-                        getString(R.string.toast_disabled5),
-                        Toast.LENGTH_SHORT).show();
+                Lunchbar.make(getActivityView(),
+                        R.string.toast_disabled5,
+                        Lunchbar.LENGTH_LONG)
+                        .show();
             }
         }
     }
@@ -647,15 +653,15 @@ public class Overlays extends Fragment {
             }
 
             if (missingType3) {
-                Toast.makeText(
-                        context,
-                        context.getString(R.string.toast_compiled_missing),
-                        Toast.LENGTH_LONG).show();
+                Lunchbar.make(getActivityView(),
+                        R.string.toast_compiled_missing,
+                        Lunchbar.LENGTH_LONG)
+                        .show();
             } else {
-                Toast.makeText(
-                        context,
-                        context.getString(R.string.toast_compiled_updated),
-                        Toast.LENGTH_LONG).show();
+                Lunchbar.make(getActivityView(),
+                        R.string.toast_compiled_updated,
+                        Lunchbar.LENGTH_LONG)
+                        .show();
             }
         }
 
@@ -809,9 +815,11 @@ public class Overlays extends Fragment {
                     (ClipboardManager) context.getSystemService(CLIPBOARD_SERVICE);
             ClipData clip = ClipData.newPlainText("substratum_log", error_logs);
             clipboard.setPrimaryClip(clip);
-            Toast.makeText(context, context.getString(R
-                            .string.logcat_dialog_copy_success),
-                    Toast.LENGTH_SHORT).show();
+            Lunchbar.make(getActivityView(),
+                    R.string.logcat_dialog_copy_success,
+                    Lunchbar.LENGTH_LONG)
+                    .show();
+            dialog.dismiss();
         });
 
         ImageButton send = (ImageButton) dialog.findViewById(
@@ -872,11 +880,12 @@ public class Overlays extends Fragment {
                     startActivity(Intent.createChooser(
                             i, context.getString(R.string.logcat_email_activity)));
                 } catch (android.content.ActivityNotFoundException ex) {
-                    Toast.makeText(
-                            context,
-                            context.getString(R.string.logcat_email_activity_error),
-                            Toast.LENGTH_SHORT).show();
+                    Lunchbar.make(getActivityView(),
+                            R.string.logcat_email_activity_error,
+                            Lunchbar.LENGTH_LONG)
+                            .show();
                 }
+                dialog.dismiss();
             });
         }
         dialog.show();
@@ -1569,10 +1578,10 @@ public class Overlays extends Fragment {
                 } else {
                     compile_enable_mode = false;
                     enable_mode = false;
-                    Toast.makeText(
-                            mContext,
-                            getString(R.string.toast_disabled3),
-                            Toast.LENGTH_SHORT).show();
+                    Lunchbar.make(getActivityView(),
+                            R.string.toast_disabled3,
+                            Lunchbar.LENGTH_LONG)
+                            .show();
                 }
             } else if (disable_mode) {
                 if (final_runner.size() > 0) {
@@ -1623,10 +1632,10 @@ public class Overlays extends Fragment {
                     }
                 } else {
                     disable_mode = false;
-                    Toast.makeText(
-                            mContext,
-                            getString(R.string.toast_disabled4),
-                            Toast.LENGTH_SHORT).show();
+                    Lunchbar.make(getActivityView(),
+                            R.string.toast_disabled4,
+                            Lunchbar.LENGTH_LONG)
+                            .show();
                 }
             }
             if (!References.checkOMS(mContext) && final_runner.size() == fail_count) {

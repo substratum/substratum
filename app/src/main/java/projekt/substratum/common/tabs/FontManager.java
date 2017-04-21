@@ -16,7 +16,7 @@
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package projekt.substratum.common;
+package projekt.substratum.common.tabs;
 
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -33,6 +33,10 @@ import java.io.OutputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import projekt.substratum.common.commands.FileOperations;
+import projekt.substratum.common.platform.ThemeInterfacerService;
+import projekt.substratum.common.platform.ThemeManager;
+
 import static projekt.substratum.common.References.checkOMS;
 import static projekt.substratum.common.References.checkThemeInterfacer;
 
@@ -45,26 +49,23 @@ public class FontManager {
             // oms no theme interfacer or legacy
             try {
                 // Move the file from assets folder to a new working area
-                Log.d("FontUtils", "Copying over the selected fonts to working " +
-                        "directory...");
+                Log.d("FontUtils",
+                        "Copying over the selected fonts to working directory...");
 
                 File cacheDirectory = new File(context.getCacheDir(), "/FontCache/");
-                if (!cacheDirectory.exists()) {
-                    boolean created = cacheDirectory.mkdirs();
-                    if (created) Log.d("FontUtils", "Successfully created cache folder!");
+                if (!cacheDirectory.exists() && cacheDirectory.mkdirs()) {
+                    Log.d("FontUtils", "Successfully created cache folder!");
                 }
-                File cacheDirectory2 = new File(context.getCacheDir(), "/FontCache/" +
-                        "FontCreator/");
-                if (!cacheDirectory2.exists()) {
-                    boolean created = cacheDirectory2.mkdirs();
-                    if (created) Log.d("FontUtils", "Successfully created cache folder work " +
-                            "directory!");
+                File cacheDirectory2 = new File(
+                        context.getCacheDir(), "/FontCache/FontCreator/");
+                if (!cacheDirectory2.exists() && cacheDirectory2.mkdirs()) {
+                    Log.d("FontUtils", "Successfully created cache folder work directory!");
                 } else {
-                    FileOperations.delete(context, context.getCacheDir().getAbsolutePath() +
-                            "/FontCache/FontCreator/");
+                    FileOperations.delete(context,
+                            context.getCacheDir().getAbsolutePath() + "/FontCache/FontCreator/");
                     boolean created = cacheDirectory2.mkdirs();
-                    if (created) Log.d("FontUtils", "Successfully recreated cache folder work " +
-                            "directory!");
+                    if (created) Log.d("FontUtils",
+                            "Successfully recreated cache folder work directory!");
                 }
 
                 // Copy the font.zip from assets/fonts of the theme's assets
@@ -84,15 +85,16 @@ public class FontManager {
                         }
                     }
                 } catch (Exception e) {
-                    Log.e("FontUtils", "There is no fonts.zip found within the assets " +
-                            "of this theme!");
+                    Log.e("FontUtils",
+                            "There is no fonts.zip found within the assets of this theme! " +
+                                    e.getMessage());
                 }
 
                 // Unzip the fonts to get it prepared for the preview
-                String source = context.getCacheDir().getAbsolutePath() + "/FontCache/" +
-                        sourceFile;
-                String destination = context.getCacheDir().getAbsolutePath() +
-                        "/FontCache/FontCreator/";
+                String source =
+                        context.getCacheDir().getAbsolutePath() + "/FontCache/" + sourceFile;
+                String destination =
+                        context.getCacheDir().getAbsolutePath() + "/FontCache/FontCreator/";
 
                 try (ZipInputStream inputStream = new ZipInputStream(
                         new BufferedInputStream(new FileInputStream(source)))) {
@@ -103,8 +105,8 @@ public class FontManager {
                         File file = new File(destination, zipEntry.getName());
                         File dir = zipEntry.isDirectory() ? file : file.getParentFile();
                         if (!dir.isDirectory() && !dir.mkdirs())
-                            throw new FileNotFoundException("Failed to ensure directory: " +
-                                    dir.getAbsolutePath());
+                            throw new FileNotFoundException(
+                                    "Failed to ensure directory: " + dir.getAbsolutePath());
                         if (zipEntry.isDirectory())
                             continue;
                         try (FileOutputStream outputStream = new FileOutputStream(file)) {
@@ -115,7 +117,8 @@ public class FontManager {
                 } catch (Exception e) {
                     e.printStackTrace();
                     Log.e("FontUtils",
-                            "An issue has occurred while attempting to decompress this archive.");
+                            "An issue has occurred while attempting to decompress this archive. " +
+                                    e.getMessage());
                 }
 
                 // Copy all the system fonts to /data/system/theme/fonts
@@ -155,8 +158,9 @@ public class FontManager {
                             out.write(buffer, 0, read);
                         }
                     } catch (IOException e) {
-                        Log.e("FontUtils", "Failed to move font configuration file to working " +
-                                "directory!");
+                        Log.e("FontUtils",
+                                "Failed to move font configuration file to working directory! " +
+                                        e.getMessage());
                     }
                 }
 

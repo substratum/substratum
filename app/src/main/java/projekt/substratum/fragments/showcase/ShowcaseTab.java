@@ -16,7 +16,7 @@
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package projekt.substratum.fragments;
+package projekt.substratum.fragments.showcase;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -44,9 +44,9 @@ import projekt.substratum.adapters.showcase.ShowcaseItemAdapter;
 import projekt.substratum.adapters.tabs.wallpapers.WallpaperAdapter;
 import projekt.substratum.adapters.tabs.wallpapers.WallpaperEntries;
 import projekt.substratum.common.References;
-import projekt.substratum.util.FileDownloader;
-import projekt.substratum.util.MD5;
-import projekt.substratum.util.ReadCloudShowcaseFile;
+import projekt.substratum.util.files.FileDownloader;
+import projekt.substratum.util.files.MD5;
+import projekt.substratum.util.readers.ReadCloudShowcaseFile;
 
 import static projekt.substratum.common.References.SHOWCASE_SHUFFLE_COUNT;
 

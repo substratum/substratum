@@ -16,7 +16,7 @@
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package projekt.substratum.services;
+package projekt.substratum.services.packages;
 
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -42,8 +42,8 @@ import projekt.substratum.InformationActivity;
 import projekt.substratum.MainActivity;
 import projekt.substratum.R;
 import projekt.substratum.common.References;
-import projekt.substratum.util.CacheCreator;
-import projekt.substratum.util.NotificationCreator;
+import projekt.substratum.util.compilers.CacheCreator;
+import projekt.substratum.util.helpers.NotificationCreator;
 
 public class PackageModificationDetector extends BroadcastReceiver {
 

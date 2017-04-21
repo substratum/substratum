@@ -16,7 +16,7 @@
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package projekt.substratum.services;
+package projekt.substratum.services.tiles;
 
 import android.content.Intent;
 import android.content.SharedPreferences;

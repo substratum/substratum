@@ -16,12 +16,17 @@
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package projekt.substratum.common;
+package projekt.substratum.common.tabs;
 
 import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
 
+import projekt.substratum.common.References;
+import projekt.substratum.common.commands.FileOperations;
+import projekt.substratum.common.platform.ThemeInterfacerService;
+
+import static projekt.substratum.common.References.EXTERNAL_STORAGE_CACHE;
 import static projekt.substratum.common.References.checkThemeInterfacer;
 import static projekt.substratum.common.References.getDeviceEncryptionStatus;
 
@@ -29,12 +34,11 @@ public class BootAnimationManager {
 
     public static void setBootAnimation(Context context, String themeDirectory) {
         String location = Environment.getExternalStorageDirectory().getAbsolutePath() +
-                "/.substratum/bootanimation.zip";
+                EXTERNAL_STORAGE_CACHE + "bootanimation.zip";
         // Check to see if device is decrypted with theme interface
         if (getDeviceEncryptionStatus(context) <= 1 && checkThemeInterfacer(context)) {
             Log.d("BootAnimationUtils",
-                    "No-root option has been enabled with the inclusion of " +
-                            "theme interface...");
+                    "No-root option has been enabled with the inclusion of theme interfacer...");
             ThemeInterfacerService.setBootAnimation(context, location);
             // Otherwise, fall back to rooted operations
         } else {

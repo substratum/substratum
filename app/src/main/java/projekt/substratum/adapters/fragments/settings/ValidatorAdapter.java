@@ -37,7 +37,7 @@ import com.daimajia.numberprogressbar.NumberProgressBar;
 import java.util.ArrayList;
 
 import projekt.substratum.R;
-import projekt.substratum.config.References;
+import projekt.substratum.common.References;
 
 public class ValidatorAdapter extends RecyclerView.Adapter<ValidatorAdapter.ViewHolder> {
     private ArrayList<ValidatorInfo> information;

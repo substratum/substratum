@@ -16,7 +16,7 @@
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package projekt.substratum.config;
+package projekt.substratum.common;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
@@ -38,7 +38,6 @@ import android.content.pm.ShortcutInfo;
 import android.content.pm.ShortcutManager;
 import android.content.pm.Signature;
 import android.content.res.AssetManager;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -86,43 +85,96 @@ import java.util.TreeSet;
 
 import projekt.substratum.BuildConfig;
 import projekt.substratum.R;
-import projekt.substratum.services.AppCrashReceiver;
-import projekt.substratum.services.PackageModificationDetector;
-import projekt.substratum.services.ScheduledProfileReceiver;
-import projekt.substratum.util.AOPTCheck;
-import projekt.substratum.util.CacheCreator;
-import projekt.substratum.util.ReadVariantPrioritizedColor;
+import projekt.substratum.activities.launch.AppShortcutLaunch;
+import projekt.substratum.common.analytics.FirebaseAnalytics;
+import projekt.substratum.common.commands.ElevatedCommands;
+import projekt.substratum.common.platform.ThemeInterfacerService;
+import projekt.substratum.common.tabs.SoundManager;
+import projekt.substratum.services.crash.AppCrashReceiver;
+import projekt.substratum.services.packages.PackageModificationDetector;
+import projekt.substratum.services.profiles.ScheduledProfileReceiver;
+import projekt.substratum.util.compilers.CacheCreator;
+import projekt.substratum.util.injectors.AOPTCheck;
+import projekt.substratum.util.readers.ReadVariantPrioritizedColor;
 
 public class References {
 
-    // These are specific log tags for different classes
-    public static final Boolean ENABLE_SIGNING = true;
-    public static final Boolean ENABLE_ROOT_CHECK = true;
+    // Developer Mode toggles to change the behaviour of the app, CHANGE AT YOUR OWN RISK!
+    public static final Boolean ENABLE_SIGNING = true; // Toggles overlay signing status
+    public static final Boolean ENABLE_ROOT_CHECK = true; // Force the app to run without root
     public static final Boolean ENABLE_AOPT_OUTPUT = false; // WARNING, DEVELOPERS - BREAKS COMPILE
-    public static final Boolean ENABLE_DIRECT_ASSETS_LOGGING = false;
+    public static final Boolean ENABLE_DIRECT_ASSETS_LOGGING = false; // Self explanatory
     public static final Boolean BYPASS_ALL_VERSION_CHECKS = false; // For developer previews only!
-    public static final Boolean BYPASS_SUBSTRATUM_BUILDER_DELETION = false;
+    public static final Boolean BYPASS_SUBSTRATUM_BUILDER_DELETION = false; // Do not delete cache?
+    // These are specific log tags for different classes
     public static final String SUBSTRATUM_BUILDER = "SubstratumBuilder";
     public static final String SUBSTRATUM_LOG = "SubstratumLogger";
     public static final String SUBSTRATUM_ICON_BUILDER = "SubstratumIconBuilder";
     public static final String SUBSTRATUM_VALIDATOR = "SubstratumValidator";
+    // These are package names for our backend systems
     public static final String INTERFACER_PACKAGE = "projekt.interfacer";
+    public static final String INTERFACER_SERVICE = INTERFACER_PACKAGE + ".services.JobService";
     @Deprecated
     public static final String MASQUERADE_PACKAGE = "masquerade.substratum";
-    // Showcase shuffler
+    // Specific intent for receiving completion status on backend
+    public static final String INTERFACER_BINDED = INTERFACER_PACKAGE + ".INITIALIZE";
+    public static final String STATUS_CHANGED = INTERFACER_PACKAGE + ".STATUS_CHANGED";
+    public static final String CRASH_PACKAGE_NAME = "projekt.substratum.EXTRA_PACKAGE_NAME";
+    public static final String CRASH_CLASS_NAME = "projekt.substratum.EXTRA_EXCEPTION_CLASS_NAME";
+    public static final String CRASH_REPEATING = "projekt.substratum.EXTRA_CRASH_REPEATING";
+    // Keep it simple, stupid!
+    public static final int HIDDEN_CACHING_MODE_TAP_COUNT = 7;
     public static final int SHOWCASE_SHUFFLE_COUNT = 5;
     // Delays for Icon Pack Handling
     public static final int MAIN_WINDOW_REFRESH_DELAY = 2000;
     public static final int FIRST_WINDOW_REFRESH_DELAY = 1000;
     public static final int SECOND_WINDOW_REFRESH_DELAY = 3000;
+    // These strings control the current filter for themes
+    public static final String metadataName = "Substratum_Name";
+    public static final String metadataAuthor = "Substratum_Author";
+    public static final String metadataLegacy = "Substratum_Legacy";
+    public static final String metadataWallpapers = "Substratum_Wallpapers";
+    public static final String metadataOverlayParent = "Substratum_Parent";
+    // These strings control the nav drawer filter for ThemeFragment
+    public static final String homeFragment = "";
+    public static final String overlaysFragment = "overlays";
+    public static final String bootAnimationsFragment = "bootanimation";
+    public static final String fontsFragment = "fonts";
+    public static final String soundsFragment = "audio";
+    public static final String wallpaperFragment = "wallpapers";
+    // These strings control the showcase metadata parsing
+    public static final String paidTheme = "paid";
+    public static final String showcaseFonts = "fonts";
+    public static final String showcaseWallpapers = "wallpapers";
+    public static final String showcaseBootanimations = "bootanimations";
+    public static final String showcaseOverlays = "overlays";
+    public static final String showcaseSounds = "sounds";
+    // These strings control the directories that Substratum uses
+    public static final String EXTERNAL_STORAGE_CACHE = "/.substratum/";
+    public static final String SUBSTRATUM_BUILDER_CACHE = "/SubstratumBuilder/";
+    // These strings control the legacy overlay location
+    public static final String PIXEL_NEXUS_DIR = "/system/overlay/";
+    public static final String LEGACY_NEXUS_DIR = "/system/vendor/overlay/";
+    public static final String VENDOR_DIR = "/vendor/overlay/";
+    // This controls the filter used by the post-6.0.0 template checker
     private static final String SUBSTRATUM_THEME = "projekt.substratum.THEME";
+    private static final String SUBSTRATUM_LAUNCHER_CLASS = ".SubstratumLauncher";
+    private static final String SUBSTRATUM_LAUNCHER_CLASS_PATH =
+            "substratum.theme.template.SubstratumLauncher";
     // This controls the package name for the specified launchers allowed for Studio
     private static final String NOVA_LAUNCHER = "com.novalauncher.THEME";
     // November security update (incompatible firmware) timestamp;
     private static final long NOVEMBER_PATCH_TIMESTAMP = 1478304000000L;
     private static final long JANUARY_PATCH_TIMESTAMP = 1483549200000L;
+    // Specific intents Substratum should be listening to
     private static final String APP_CRASHED = "projekt.substratum.APP_CRASHED";
     private static final String PACKAGE_ADDED = "android.intent.action.PACKAGE_ADDED";
+    // Metadata used in theme templates to denote specific parts of a theme
+    private static final String metadataVersion = "Substratum_Plugin";
+    private static final String metadataThemeReady = "Substratum_ThemeReady";
+    private static final String resourceChangelog = "ThemeChangelog";
+    // This string controls the hero image name
+    private static final String heroImageResourceName = "heroimage";
     // This int controls the notification identifier
     public static int firebase_notification_id = 24862486;
     public static int notification_id = 2486;
@@ -132,35 +184,15 @@ public class References {
     // This int controls the delay for window refreshes to occur
     public static int REFRESH_WINDOW_DELAY = 500;
     public static int SYSTEMUI_PAUSE = 2;
-    // These strings control the current filter for themes
-    public static String metadataName = "Substratum_Name";
-    public static String metadataAuthor = "Substratum_Author";
-    public static String metadataLegacy = "Substratum_Legacy";
-    // These strings control the nav drawer filter for ThemeFragment
-    public static String homeFragment = "";
-    public static String overlaysFragment = "overlays";
-    public static String bootAnimationsFragment = "bootanimation";
-    public static String fontsFragment = "fonts";
-    public static String soundsFragment = "audio";
-    public static String wallpaperFragment = "wallpapers";
-    // These strings control the showcase metadata parsing
-    public static String paidTheme = "paid";
-    public static String showcaseFonts = "fonts";
-    public static String showcaseWallpapers = "wallpapers";
-    public static String showcaseBootanimations = "bootanimations";
-    public static String showcaseOverlays = "overlays";
-    public static String showcaseSounds = "sounds";
     // This int controls the default priority level for legacy overlays
     public static int DEFAULT_PRIORITY = 50;
     // These strings control package names for system apps
     public static String settingsPackageName = "com.android.settings";
     public static String settingsSubstratumDrawableName = "ic_settings_substratum";
-    public static Boolean uncertified = null;
-    private static String metadataWallpapers = "Substratum_Wallpapers";
-    private static String metadataVersion = "Substratum_Plugin";
-    private static String metadataThemeReady = "Substratum_ThemeReady";
-    private static String resourceChangelog = "ThemeChangelog";
+    // These values control the dynamic certification of substratum
+    private static Boolean uncertified = null;
     private static int hashValue;
+    // Localized variables shared amongst common resources
     private static ScheduledProfileReceiver scheduledProfileReceiver;
     private Context mContext; // Used for support checker
 
@@ -190,7 +222,7 @@ public class References {
         try {
             context.unregisterReceiver(scheduledProfileReceiver);
         } catch (Exception e) {
-            // Don't mind it.
+            // Suppress warning
         }
     }
 
@@ -203,6 +235,8 @@ public class References {
         switch (Build.VERSION.RELEASE) {
             case "O":
                 return true;
+            default:
+                break;
         }
         return false;
     }
@@ -218,9 +252,9 @@ public class References {
                 myIntent.putExtra("theme_pid", theme_pid);
                 myIntent.setComponent(
                         ComponentName.unflattenFromString(
-                                "projekt.substratum/projekt.substratum.activities.launch.AppShortcutLaunch"));
-                myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
-                        Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                context.getPackageName() +
+                                        "/" + AppShortcutLaunch.class.getName()));
+                myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
                 ShortcutInfo shortcut =
                         new ShortcutInfo.Builder(context, "favorite")
@@ -276,21 +310,15 @@ public class References {
         int status = DevicePolicyManager.ENCRYPTION_STATUS_UNSUPPORTED;
         final DevicePolicyManager dpm = (DevicePolicyManager)
                 context.getSystemService(Context.DEVICE_POLICY_SERVICE);
-        if (dpm != null) {
-            status = dpm.getStorageEncryptionStatus();
-        }
+        if (dpm != null) status = dpm.getStorageEncryptionStatus();
         return status;
     }
 
     // This method is used to place the Substratum Rescue archives if they are not present
     public static void injectRescueArchives(Context context) {
-        File storageDirectory = new File(Environment
-                .getExternalStorageDirectory(),
-                "/substratum/");
-        if (!storageDirectory.exists()) {
-            Boolean made = storageDirectory.mkdirs();
-            if (!made) Log.e(References.SUBSTRATUM_LOG,
-                    "Unable to create storage directory");
+        File storageDirectory = new File(Environment.getExternalStorageDirectory(), "/substratum/");
+        if (!storageDirectory.exists() && !storageDirectory.mkdirs()) {
+            Log.e(References.SUBSTRATUM_LOG, "Unable to create storage directory");
         }
         File rescueFile = new File(
                 Environment.getExternalStorageDirectory().getAbsolutePath() +
@@ -321,9 +349,8 @@ public class References {
 
         File destFile = new File(destFileName);
         File destParentDir = destFile.getParentFile();
-        if (!destParentDir.exists()) {
-            Boolean made = destParentDir.mkdir();
-            if (!made) Log.e(References.SUBSTRATUM_LOG,
+        if (!destParentDir.exists() && !destParentDir.mkdir()) {
+            Log.e(References.SUBSTRATUM_LOG,
                     "Unable to create directories for rescue archive dumps.");
         }
 
@@ -332,7 +359,7 @@ public class References {
         try {
             in = assetManager.open(sourceFileName);
             out = new FileOutputStream(destFile);
-            byte[] buffer = new byte[1024];
+            byte[] buffer = new byte[8192];
             int read;
             while ((read = in.read(buffer)) != -1) {
                 out.write(buffer, 0, read);
@@ -411,8 +438,8 @@ public class References {
         if (!prefs.contains("build_date")) {
             setROMVersion(context, false);
         }
-        return prefs.getInt("build_date", 0) == Integer.parseInt(References
-                .getProp("ro.build.date.utc"));
+        return prefs.getInt("build_date", 0) ==
+                Integer.parseInt(References.getProp("ro.build.date.utc"));
     }
 
     public static void setROMVersion(Context context, boolean force) {
@@ -455,12 +482,11 @@ public class References {
         Process p;
         StringBuilder result = new StringBuilder();
         try {
-            p = new ProcessBuilder("/system/bin/getprop")
-                    .redirectErrorStream(true).start();
+            p = new ProcessBuilder("/system/bin/getprop").redirectErrorStream(true).start();
             BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
             String line;
             while ((line = br.readLine()) != null) {
-                result.append(line + "\n");
+                result.append(line).append("\n");
             }
             br.close();
         } catch (IOException e) {
@@ -506,8 +532,7 @@ public class References {
 
     // This method configures the new devices and their configuration of their vendor folders
     public static Boolean inNexusFilter() {
-        String[] nexus_filter = {"angler", "bullhead", "flounder", "dragon", "marlin", "sailfish"};
-        return Arrays.asList(nexus_filter).contains(Build.DEVICE);
+        return Arrays.asList(Resources.NEXUS_FILTER).contains(Build.DEVICE);
     }
 
     // This method checks whether there is any network available for Wallpapers
@@ -554,65 +579,32 @@ public class References {
 
     // This string array contains all the SystemUI acceptable overlay packs
     public static Boolean allowedSounds(String current) {
-        String[] allowed_sounds = {
-                "alarm.mp3",
-                "alarm.ogg",
-                "notification.mp3",
-                "notification.ogg",
-                "ringtone.mp3",
-                "ringtone.ogg",
-                "Effect_Tick.mp3",
-                "Effect_Tick.ogg",
-                "Lock.mp3",
-                "Lock.ogg",
-                "Unlock.mp3",
-                "Unlock.ogg",
-        };
-        return Arrays.asList(allowed_sounds).contains(current);
+        return Arrays.asList(SoundManager.ALLOWED_SOUNDS).contains(current);
     }
 
     // This string array contains all the SystemUI acceptable overlay packs
     public static Boolean allowedSystemUIOverlay(String current) {
-        String[] allowed_overlays = {
-                "com.android.systemui.headers",
-                "com.android.systemui.navbars",
-                "com.android.systemui.statusbars",
-                "com.android.systemui.tiles"
-        };
-        return Arrays.asList(allowed_overlays).contains(current);
+        return Arrays.asList(Resources.ALLOWED_SYSTEMUI_ELEMENTS).contains(current);
     }
 
     // This string array contains all the Settings acceptable overlay packs
     public static Boolean allowedSettingsOverlay(String current) {
-        String[] allowed_overlays = {
-                "com.android.settings.icons",
-        };
-        return Arrays.asList(allowed_overlays).contains(current);
+        return Arrays.asList(Resources.ALLOWED_SETTINGS_ELEMENTS).contains(current);
     }
 
     // This string array contains all the SystemUI acceptable sound files
-    static Boolean allowedUISound(String targetValue) {
-        String[] allowed_themable = {
-                "lock_sound",
-                "unlock_sound",
-                "low_battery_sound"};
-        return Arrays.asList(allowed_themable).contains(targetValue);
+    public static Boolean allowedUISound(String targetValue) {
+        return Arrays.asList(Resources.ALLOWED_UI_THEMABLE_SOUNDS).contains(targetValue);
     }
 
     // This string array contains all the legacy allowed folders
     public static Boolean allowedForLegacy(String targetValue) {
-        String[] allowed_themable = {
-                "overlays",
-                "overlays_legacy",
-                "sounds"};
-        return Arrays.asList(allowed_themable).contains(targetValue);
+        return Arrays.asList(Resources.ALLOWED_LEGACY_ASSETS).contains(targetValue);
     }
 
     // This string array contains all the legacy allowed folders
     public static Boolean checkIconPackNotAllowed(String targetValue) {
-        String[] not_allowed_themable = {
-                "com.keramidas.TitaniumBackup"};
-        return Arrays.asList(not_allowed_themable).contains(targetValue);
+        return Arrays.asList(Resources.BLACKLIST_STUDIO_TARGET_APPS).contains(targetValue);
     }
 
     // This method determines whether a specified package is installed
@@ -621,15 +613,15 @@ public class References {
     }
 
     // This method determines whether a specified package is installed (enabled OR disabled)
-    public static boolean isPackageInstalled(Context context, String package_name, boolean
-            enabled) {
+    public static boolean isPackageInstalled(
+            Context context,
+            String package_name,
+            boolean enabled) {
         try {
             ApplicationInfo ai = context.getPackageManager().getApplicationInfo(package_name, 0);
             PackageManager pm = context.getPackageManager();
             pm.getPackageInfo(package_name, PackageManager.GET_ACTIVITIES);
-            if (enabled) {
-                return ai.enabled;
-            }
+            if (enabled) return ai.enabled;
             // if package doesn't exist, an Exception will be thrown, so return true in every case
             return true;
         } catch (Exception e) {
@@ -669,7 +661,7 @@ public class References {
                                            String resource_name, String resource_type) {
         try {
             Context context = mContext.createPackageContext(package_Name, 0);
-            Resources resources = context.getResources();
+            android.content.res.Resources resources = context.getResources();
             int drawablePointer = resources.getIdentifier(
                     resource_name, // Drawable name explicitly defined
                     resource_type, // Declared icon is a drawable, indeed.
@@ -686,18 +678,15 @@ public class References {
             Drawable icon;
             if (References.allowedSystemUIOverlay(package_name)) {
                 icon = context.getPackageManager().getApplicationIcon("com.android.systemui");
+            } else if (References.allowedSettingsOverlay(package_name)) {
+                icon = context.getPackageManager().getApplicationIcon("com.android.settings");
             } else {
-                if (References.allowedSettingsOverlay(package_name)) {
-                    icon = context.getPackageManager().getApplicationIcon("com.android.settings");
-                } else {
-                    icon = context.getPackageManager().getApplicationIcon(package_name);
-                }
+                icon = context.getPackageManager().getApplicationIcon(package_name);
             }
             return icon;
         } catch (Exception e) {
-            Log.e(References.SUBSTRATUM_LOG, "Could not grab the application icon for \"" +
-                    package_name
-                    + "\"");
+            Log.e(References.SUBSTRATUM_LOG,
+                    "Could not grab the application icon for \"" + package_name + "\"");
         }
         return context.getDrawable(R.drawable.default_overlay_icon);
     }
@@ -708,13 +697,12 @@ public class References {
         try {
             ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
                     package_name, PackageManager.GET_META_DATA);
-            if (appInfo.metaData != null) {
-                if (appInfo.metaData.getString("Substratum_Parent") != null) {
-                    return grabAppIcon(context, appInfo.metaData.getString("Substratum_Parent"));
-                }
+            if (appInfo.metaData != null &&
+                    appInfo.metaData.getString(metadataOverlayParent) != null) {
+                return grabAppIcon(context, appInfo.metaData.getString(metadataOverlayParent));
             }
         } catch (Exception e) {
-            //
+            // Suppress warning
         }
         return grabAppIcon(context, package_name);
     }
@@ -848,7 +836,7 @@ public class References {
             PackageInfo pInfo = mContext.getPackageManager().getPackageInfo(package_name, 0);
             return pInfo.versionName + " (" + pInfo.versionCode + ")";
         } catch (PackageManager.NameNotFoundException e) {
-            //
+            // Suppress warning
         }
         return null;
     }
@@ -930,7 +918,7 @@ public class References {
                 }
             }
         } catch (Exception e) {
-            //
+            // Suppress warning
         }
         return null;
     }
@@ -940,13 +928,12 @@ public class References {
         try {
             ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
                     package_name, PackageManager.GET_META_DATA);
-            if (appInfo.metaData != null) {
-                if (appInfo.metaData.getString(References.metadataThemeReady) != null) {
-                    return appInfo.metaData.getString(References.metadataThemeReady);
-                }
+            if (appInfo.metaData != null &&
+                    appInfo.metaData.getString(References.metadataThemeReady) != null) {
+                return appInfo.metaData.getString(References.metadataThemeReady);
             }
         } catch (Exception e) {
-            //
+            // Suppress warning
         }
         return null;
     }
@@ -954,13 +941,13 @@ public class References {
     // Grab Theme Changelog
     public static String[] grabThemeChangelog(Context mContext, String package_name) {
         try {
-            Resources res = mContext.getPackageManager()
+            android.content.res.Resources res = mContext.getPackageManager()
                     .getResourcesForApplication(package_name);
             int array_position = res.getIdentifier(package_name + ":array/" +
                     resourceChangelog, "array", package_name);
             return res.getStringArray(array_position);
         } catch (Exception e) {
-            // Suppress warnings
+            // Suppress warning
         }
         return null;
     }
@@ -970,13 +957,12 @@ public class References {
         try {
             ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
                     package_name, PackageManager.GET_META_DATA);
-            if (appInfo.metaData != null) {
-                if (appInfo.metaData.getString(References.metadataAuthor) != null) {
-                    return appInfo.metaData.getString(References.metadataAuthor);
-                }
+            if (appInfo.metaData != null &&
+                    appInfo.metaData.getString(References.metadataAuthor) != null) {
+                return appInfo.metaData.getString(References.metadataAuthor);
             }
         } catch (Exception e) {
-            //
+            // Suppress warning
         }
         return null;
     }
@@ -986,25 +972,25 @@ public class References {
         try {
             ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
                     package_name, PackageManager.GET_META_DATA);
-            if (appInfo.metaData != null) {
-                if (appInfo.metaData.get(References.metadataVersion) != null) {
-                    return mContext.getString(R.string.plugin_template) + ": " + appInfo.metaData
-                            .get(References.metadataVersion);
-                }
+            if (appInfo.metaData != null &&
+                    appInfo.metaData.get(References.metadataVersion) != null) {
+                return mContext.getString(R.string.plugin_template) + ": " + appInfo.metaData
+                        .get(References.metadataVersion);
             }
         } catch (Exception e) {
-            //
+            // Suppress warning
         }
         return null;
     }
 
     // Grab Theme Hero Image
     public static Drawable grabPackageHeroImage(Context mContext, String package_name) {
-        Resources res;
-        Drawable hero = mContext.getDrawable(android.R.color.black); // Initialize to be black
+        android.content.res.Resources res;
+        Drawable hero = mContext.getDrawable(android.R.color.transparent); // Initialize to be clear
         try {
             res = mContext.getPackageManager().getResourcesForApplication(package_name);
-            int resourceId = res.getIdentifier(package_name + ":drawable/heroimage", null, null);
+            int resourceId = res.getIdentifier(
+                    package_name + ":drawable/" + heroImageResourceName, null, null);
             if (0 != resourceId) {
                 hero = mContext.getPackageManager().getDrawable(package_name, resourceId, null);
             }
@@ -1017,7 +1003,7 @@ public class References {
 
     // Grab Color Resource
     public static int grabColorResource(Context mContext, String package_name, String colorName) {
-        Resources res;
+        android.content.res.Resources res;
         try {
             res = mContext.getPackageManager().getResourcesForApplication(package_name);
             int resourceId = res.getIdentifier(package_name + ":color/" + colorName, null, null);
@@ -1032,7 +1018,7 @@ public class References {
 
     // Grab Overlay Target Package Name (Human Readable)
     public static String grabPackageName(Context mContext, String package_name) {
-        final PackageManager pm = mContext.getPackageManager();
+        PackageManager pm = mContext.getPackageManager();
         ApplicationInfo ai;
         try {
             switch (package_name) {
@@ -1059,13 +1045,12 @@ public class References {
         try {
             ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
                     package_name, PackageManager.GET_META_DATA);
-            if (appInfo.metaData != null) {
-                if (appInfo.metaData.getString("Substratum_Parent") != null) {
-                    return appInfo.metaData.getString("Substratum_Parent");
-                }
+            if (appInfo.metaData != null &&
+                    appInfo.metaData.getString(metadataOverlayParent) != null) {
+                return appInfo.metaData.getString(metadataOverlayParent);
             }
         } catch (Exception e) {
-            //
+            // Suppress warning
         }
         return null;
     }
@@ -1075,13 +1060,12 @@ public class References {
         try {
             ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
                     package_name, PackageManager.GET_META_DATA);
-            if (appInfo.metaData != null) {
-                if (appInfo.metaData.getString("Substratum_Target") != null) {
-                    return appInfo.metaData.getString("Substratum_Target");
-                }
+            if (appInfo.metaData != null &&
+                    appInfo.metaData.getString("Substratum_Target") != null) {
+                return appInfo.metaData.getString("Substratum_Target");
             }
         } catch (Exception e) {
-            //
+            // Suppress warning
         }
         return null;
     }
@@ -1097,17 +1081,19 @@ public class References {
                 if (current != null) return current.equals(expectedPackName);
             }
         } catch (Exception e) {
-            //
+            // Suppress warning
         }
         return false;
     }
 
-    public static int hashPassthrough(Context context) {
+    private static int hashPassthrough(Context context) {
         if (hashValue != 0) {
             return hashValue;
         }
         try {
-            Signature[] sigs = context.getPackageManager().getPackageInfo(context.getPackageName(),
+            @SuppressLint("PackageManagerGetSignatures")
+            Signature[] sigs = context.getPackageManager().getPackageInfo(
+                    context.getPackageName(),
                     PackageManager.GET_SIGNATURES).signatures;
             for (Signature sig : sigs) {
                 if (sig != null) {
@@ -1173,7 +1159,9 @@ public class References {
                 "com.dimonvideo.luckypatcher",
                 "com.chelpus.lackypatch",
                 "com.forpda.lp",
-                "com.android.vending.billing.InAppBillingService.LUCK"
+                "com.android.vending.billing.InAppBillingService.LUCK",
+                "zone.jasi2169.uretpatcher",
+                "zone.jasi2169."
         };
     }
 
@@ -1181,12 +1169,9 @@ public class References {
     public static boolean isNotificationVisible(Context mContext, int notification_id) {
         NotificationManager mNotificationManager = (NotificationManager)
                 mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-        StatusBarNotification[] notifications =
-                mNotificationManager.getActiveNotifications();
+        StatusBarNotification[] notifications = mNotificationManager.getActiveNotifications();
         for (StatusBarNotification notification : notifications) {
-            if (notification.getId() == notification_id) {
-                return true;
-            }
+            if (notification.getId() == notification_id) return true;
         }
         return false;
     }
@@ -1195,8 +1180,7 @@ public class References {
     public static void clearAllNotifications(Context mContext) {
         NotificationManager mNotificationManager = (NotificationManager)
                 mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-        StatusBarNotification[] notifications =
-                mNotificationManager.getActiveNotifications();
+        StatusBarNotification[] notifications = mNotificationManager.getActiveNotifications();
         for (StatusBarNotification notification : notifications) {
             if (Objects.equals(notification.getPackageName(), mContext.getPackageName())) {
                 mNotificationManager.cancel(notification.getId());
@@ -1254,14 +1238,15 @@ public class References {
                 // We need to look for what the themer assigned the class to be! This is a dynamic
                 // function that only launches the correct SubstratumLauncher class. Having it
                 // hardcoded is bad.
-                if (aList.name.equals(currentTheme + ".SubstratumLauncher")) {
-                    originalIntent.setComponent(
-                            new ComponentName(currentTheme, currentTheme + ".SubstratumLauncher"));
-                    return originalIntent;
-                } else if (aList.name.equals("substratum.theme.template.SubstratumLauncher")) {
+                if (aList.name.equals(currentTheme + SUBSTRATUM_LAUNCHER_CLASS)) {
                     originalIntent.setComponent(
                             new ComponentName(
-                                    currentTheme, "substratum.theme.template.SubstratumLauncher"));
+                                    currentTheme, currentTheme + SUBSTRATUM_LAUNCHER_CLASS));
+                    return originalIntent;
+                } else if (aList.name.equals(SUBSTRATUM_LAUNCHER_CLASS_PATH)) {
+                    originalIntent.setComponent(
+                            new ComponentName(
+                                    currentTheme, SUBSTRATUM_LAUNCHER_CLASS_PATH));
                     return originalIntent;
                 }
             }
@@ -1300,8 +1285,8 @@ public class References {
             }
         } else {
             // At this point, AOPT is not found and must be injected in!
-            Log.e(SUBSTRATUM_LOG, "Android Assets Packaging Tool was not found, " +
-                    "trying to reinject...");
+            Log.e(SUBSTRATUM_LOG,
+                    "Android Assets Packaging Tool was not found, trying to reinject...");
 
             new AOPTCheck().injectAOPT(mContext, true);
 
@@ -1317,10 +1302,7 @@ public class References {
     public static boolean checkThemeInterfacer(Context context) {
         boolean forceIndependence = PreferenceManager.getDefaultSharedPreferences(context)
                 .getBoolean("force_independence", false);
-        if (!forceIndependence) {
-            return getThemeInterfacerPackage(context) != null;
-        }
-        return false;
+        return !forceIndependence && getThemeInterfacerPackage(context) != null;
     }
 
     public static boolean isBinderInterfacer(Context context) {
@@ -1353,7 +1335,7 @@ public class References {
     }
 
     // Obtain a live sample of the intents in an app
-    public static boolean getIntents(Context context, String trigger) {
+    private static boolean getIntents(Context context, String trigger) {
         ArrayList<String> startupApps = new ArrayList<>();
         ArrayList<Intent> intentArray = new ArrayList<>();
         intentArray.add(new Intent(Intent.ACTION_BOOT_COMPLETED));
@@ -1458,8 +1440,7 @@ public class References {
                     if (appInfo.metaData.getString(References.metadataName) != null) {
                         if (appInfo.metaData.getString(References.metadataAuthor) != null) {
                             if (home_type.equals("wallpapers")) {
-                                if (appInfo.metaData.getString(References.metadataWallpapers)
-                                        != null) {
+                                if (appInfo.metaData.getString(metadataWallpapers) != null) {
                                     String[] data = {appInfo.metaData.getString
                                             (References.metadataAuthor), package_name};
                                     packages.put(appInfo.metaData.getString(
@@ -1519,7 +1500,7 @@ public class References {
                         Context otherContext = context.createPackageContext(packageName, 0);
                         AssetManager am = otherContext.getAssets();
                         if (home_type.equals(References.wallpaperFragment)) {
-                            if (appInfo.metaData.getString(References.metadataWallpapers) != null) {
+                            if (appInfo.metaData.getString(metadataWallpapers) != null) {
                                 String[] data = {appInfo.metaData.getString
                                         (References.metadataAuthor),
                                         packageName};
@@ -1553,7 +1534,7 @@ public class References {
                     }
                 }
             } catch (Exception e) {
-                // Exception
+                // Suppress warning
             }
         }
         return packages;

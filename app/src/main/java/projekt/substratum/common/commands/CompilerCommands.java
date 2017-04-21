@@ -16,12 +16,15 @@
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package projekt.substratum.common;
+package projekt.substratum.common.commands;
 
 import android.content.Context;
 
+import projekt.substratum.common.References;
+
 import static projekt.substratum.common.References.ENABLE_AOPT_OUTPUT;
 import static projekt.substratum.common.References.getDeviceID;
+import static projekt.substratum.common.References.metadataOverlayParent;
 
 public class CompilerCommands {
 
@@ -59,7 +62,7 @@ public class CompilerCommands {
                 "android:value=\"" + getDeviceID(context) + "\"/>\n" +
 
                 // We can easily track what the overlay parents are without any parsing this way
-                "        <meta-data android:name=\"Substratum_Parent\" " +
+                "        <meta-data android:name=\"" + metadataOverlayParent + "\" " +
                 "android:value=\"" + theme_parent + "\"/>\n" +
 
                 // As we cannot read the overlay tag, we must log our target for this overlay

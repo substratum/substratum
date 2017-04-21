@@ -16,7 +16,7 @@
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package projekt.substratum.common;
+package projekt.substratum.common.platform;
 
 import android.app.PendingIntent;
 import android.content.Context;

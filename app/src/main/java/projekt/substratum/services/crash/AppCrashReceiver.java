@@ -16,7 +16,7 @@
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package projekt.substratum.services;
+package projekt.substratum.services.crash;
 
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;

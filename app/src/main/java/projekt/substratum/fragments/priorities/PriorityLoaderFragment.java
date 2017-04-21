@@ -16,7 +16,7 @@
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package projekt.substratum.fragments;
+package projekt.substratum.fragments.priorities;
 
 import android.os.AsyncTask;
 import android.os.Bundle;

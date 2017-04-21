@@ -73,20 +73,20 @@ import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.R;
 import projekt.substratum.adapters.studio.IconInfo;
 import projekt.substratum.adapters.studio.IconPackAdapter;
-import projekt.substratum.config.ElevatedCommands;
-import projekt.substratum.config.References;
-import projekt.substratum.config.ThemeInterfacerService;
-import projekt.substratum.config.ThemeManager;
-import projekt.substratum.util.SubstratumIconBuilder;
+import projekt.substratum.common.References;
+import projekt.substratum.common.commands.ElevatedCommands;
+import projekt.substratum.common.platform.ThemeInterfacerService;
+import projekt.substratum.common.platform.ThemeManager;
+import projekt.substratum.util.compilers.SubstratumIconBuilder;
 
 import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
-import static projekt.substratum.config.References.DEBUG;
-import static projekt.substratum.config.References.FIRST_WINDOW_REFRESH_DELAY;
-import static projekt.substratum.config.References.MAIN_WINDOW_REFRESH_DELAY;
-import static projekt.substratum.config.References.SECOND_WINDOW_REFRESH_DELAY;
-import static projekt.substratum.config.References.SUBSTRATUM_ICON_BUILDER;
-import static projekt.substratum.config.References.grabPackageName;
-import static projekt.substratum.util.MapUtils.sortMapByValues;
+import static projekt.substratum.common.References.DEBUG;
+import static projekt.substratum.common.References.FIRST_WINDOW_REFRESH_DELAY;
+import static projekt.substratum.common.References.MAIN_WINDOW_REFRESH_DELAY;
+import static projekt.substratum.common.References.SECOND_WINDOW_REFRESH_DELAY;
+import static projekt.substratum.common.References.SUBSTRATUM_ICON_BUILDER;
+import static projekt.substratum.common.References.grabPackageName;
+import static projekt.substratum.util.files.MapUtils.sortMapByValues;
 
 public class StudioPreviewActivity extends AppCompatActivity {
 

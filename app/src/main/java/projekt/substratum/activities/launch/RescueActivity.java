@@ -24,7 +24,7 @@ import android.widget.Toast;
 
 import projekt.substratum.R;
 import projekt.substratum.activities.base.SubstratumActivity;
-import projekt.substratum.config.ThemeManager;
+import projekt.substratum.common.platform.ThemeManager;
 
 public class RescueActivity extends SubstratumActivity {
 

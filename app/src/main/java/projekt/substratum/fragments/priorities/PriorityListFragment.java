@@ -16,7 +16,7 @@
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package projekt.substratum.fragments;
+package projekt.substratum.fragments.priorities;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -113,48 +113,49 @@ public class PriorityListFragment extends Fragment {
                                 ItemTouchHelper.DOWN)
                 .build();
 
-        adapter.setDataChangeListener(new GestureAdapter
-                .OnDataChangeListener<PrioritiesInterface>() {
-            @Override
-            public void onItemRemoved(final PrioritiesInterface item, final int position) {
-            }
+        adapter.setDataChangeListener(
+                new GestureAdapter.OnDataChangeListener<PrioritiesInterface>() {
+                    @Override
+                    public void onItemRemoved(final PrioritiesInterface item, final int position) {
+                    }
 
-            @Override
-            public void onItemReorder(
-                    PrioritiesInterface item,
-                    int fromPos,
-                    int toPos) {
-                /*
-                ==========================================================================
-                A detailed explanation of the OMS "om set-priority PACKAGE PARENT" command
-                ==========================================================================
+                    @Override
+                    public void onItemReorder(
+                            PrioritiesInterface item,
+                            int fromPos,
+                            int toPos) {
+                        /*
+                        ==========================================================================
+                        A detailed explanation of the OMS "om set-priority PACKAGE PARENT" command
+                        ==========================================================================
 
-                1. The command accepts two variables, PACKAGE and PARENT.
+                        1. The command accepts two variables, PACKAGE and PARENT.
 
-                2. PARENT can also be "highest" or "lowest" to ensure it is on top of the list
+                        2. PARENT can also be "highest" or "lowest" to ensure it is on top of the
+                        list
 
-                3. When you specify a PACKAGE (e.g. com.android.systemui.Beltz), you want to shift
-                it HIGHER than the parent.
+                        3. When you specify a PACKAGE (e.g. com.android.systemui.Beltz), you want to
+                        shift it HIGHER than the parent.
 
-                4. The PARENT will always be a specified value that will be an index below the final
-                result of PACKAGE, for example (om set-priority com.android.systemui.Beltz
-                com.android.systemui.Domination)
+                        4. The PARENT will always be a specified value that will be an index below
+                        the final result of PACKAGE, for example
+                        (om set-priority com.android.systemui.Beltz com.android.systemui.Domination)
 
-                5. com.android.systemui.Beltz will be a HIGHER priority than
-                com.android.systemui.Domination
+                        5. com.android.systemui.Beltz will be a HIGHER priority than
+                        com.android.systemui.Domination
 
-                */
+                        */
 
-                if (fromPos != toPos) {
-                    String move_package = workable_list.get(fromPos);
-                    // As workable list is a simulation of the priority list without object
-                    // values, we have to simulate the events such as adding above parents
-                    workable_list.remove(fromPos);
-                    workable_list.add(toPos, move_package);
-                    applyFab.show();
-                }
-            }
-        });
+                        if (fromPos != toPos) {
+                            String move_package = workable_list.get(fromPos);
+                            // As workable list is a simulation of the priority list without object
+                            // values, we have to simulate the events such as adding above parents
+                            workable_list.remove(fromPos);
+                            workable_list.add(toPos, move_package);
+                            applyFab.show();
+                        }
+                    }
+                });
 
         applyFab.setOnClickListener(v -> {
             applyFab.hide();

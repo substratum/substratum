@@ -18,7 +18,7 @@
 
 package projekt.substratum.common;
 
-public class Filters {
+public class Resources {
     // Predetermined list of new Nexus/Pixel Devices
     public static final String[] NEXUS_FILTER = new String[]{
             "angler", // Nexus 6P
@@ -43,7 +43,7 @@ public class Filters {
     };
 
     // Filter to adjust UI sounds
-    public static final String[] ALLOWED_UI_THEMABLE_SOUNDS= {
+    public static final String[] ALLOWED_UI_THEMABLE_SOUNDS = {
             "lock_sound",
             "unlock_sound",
             "low_battery_sound"};

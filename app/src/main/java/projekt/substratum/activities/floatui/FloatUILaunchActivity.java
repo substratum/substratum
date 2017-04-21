@@ -29,11 +29,11 @@ import android.widget.Toast;
 
 import projekt.substratum.R;
 import projekt.substratum.activities.base.SubstratumActivity;
-import projekt.substratum.config.References;
-import projekt.substratum.services.FloatUiTile;
-import projekt.substratum.services.SubstratumFloatInterface;
+import projekt.substratum.common.References;
+import projekt.substratum.services.floatui.SubstratumFloatInterface;
+import projekt.substratum.services.tiles.FloatUiTile;
 
-import static projekt.substratum.config.References.checkUsagePermissions;
+import static projekt.substratum.common.References.checkUsagePermissions;
 
 public class FloatUILaunchActivity extends SubstratumActivity {
 

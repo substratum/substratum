@@ -16,11 +16,11 @@
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package projekt.substratum.common;
+package projekt.substratum.common.commands;
 
 import android.os.AsyncTask;
 
-import projekt.substratum.util.Root;
+import projekt.substratum.util.files.Root;
 
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
 
@@ -46,7 +46,7 @@ public class ElevatedCommands {
         Root.runCommand("pkill -f zygote");
     }
 
-    static class ThreadRunner extends AsyncTask<String, Integer, String> {
+    public static class ThreadRunner extends AsyncTask<String, Integer, String> {
         @Override
         protected String doInBackground(String... sUrl) {
             try {

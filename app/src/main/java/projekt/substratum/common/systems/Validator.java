@@ -16,7 +16,7 @@
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package projekt.substratum.common.fragments;
+package projekt.substratum.common.systems;
 
 import android.content.Context;
 import android.content.res.Resources;

@@ -16,7 +16,7 @@
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package projekt.substratum.common;
+package projekt.substratum.common.commands;
 
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -34,7 +34,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 
-import projekt.substratum.util.Root;
+import projekt.substratum.common.platform.ThemeInterfacerService;
+import projekt.substratum.util.files.Root;
 
 import static projekt.substratum.common.References.ENABLE_DIRECT_ASSETS_LOGGING;
 import static projekt.substratum.common.References.checkThemeInterfacer;
@@ -48,8 +49,8 @@ public class FileOperations {
     private static final String MOVE_LOG = "SubstratumMove";
     private static final String DA_LOG = "DirectAssets";
 
-    static void adjustContentProvider(final String uri,
-                                      final String topic, final String fileName) {
+    public static void adjustContentProvider(final String uri,
+                                             final String topic, final String fileName) {
         Root.runCommand("content insert --uri " + uri + " " +
                 "--bind name:s:" + topic + " --bind value:s:" + fileName);
     }
@@ -70,7 +71,7 @@ public class FileOperations {
         Root.runCommand("chmod -R " + permission + " " + foldername);
     }
 
-    static void setProp(final String propName, final String propValue) {
+    public static void setProp(final String propName, final String propValue) {
         Root.runCommand("setprop " + propName + " " + propValue);
     }
 
@@ -198,8 +199,8 @@ public class FileOperations {
                 !source.startsWith("/system")) || (!destination.startsWith(dataDir) &&
                 !destination.startsWith(externalDir) && !destination.startsWith("/system"));
         if (checkThemeInterfacer(context) && needRoot) {
-            Log.d(COPY_LOG, "Using theme interface operation to copy " + source +
-                    " to " + destination);
+            Log.d(COPY_LOG,
+                    "Using theme interface operation to copy " + source + " to " + destination);
             ThemeInterfacerService.copy(context, source, destination);
 
             // Wait until copy succeeds
@@ -210,7 +211,7 @@ public class FileOperations {
                     Thread.sleep(1000);
                     retryCount++;
                 }
-                if (retryCount == 5) Log.d(COPY_LOG, "Operation timeout");
+                if (retryCount == 5) Log.d(COPY_LOG, "Operation timed out!");
                 Log.d(COPY_LOG, "Operation " + (file.exists() ? "succeeded" : "failed"));
             } catch (InterruptedException e) {
                 Thread.interrupted();
@@ -221,14 +222,15 @@ public class FileOperations {
     }
 
     private static void copy(String source, String destination) {
-        Log.d(COPY_LOG, "Using rootless operation to copy " + source + " to " +
-                destination);
+        Log.d(COPY_LOG,
+                "Using rootless operation to copy " + source + " to " + destination);
         File in = new File(source);
         File out = new File(destination);
         try {
             FileUtils.copyFile(in, out);
         } catch (IOException e) {
-            Log.d(COPY_LOG, "Rootless operation failed, falling back to rooted mode...");
+            Log.d(COPY_LOG,
+                    "Rootless operation failed, falling back to rooted mode..." + e.getMessage());
             Root.runCommand("cp -f " + source + " " + destination);
         }
         Log.d(COPY_LOG, "Operation " + (out.exists() ? "succeeded" : "failed"));
@@ -248,14 +250,15 @@ public class FileOperations {
     }
 
     private static void copyDir(String source, String destination) {
-        Log.d(COPYDIR_LOG, "Using rootless operation to copy " + source + " to " +
-                destination);
+        Log.d(COPYDIR_LOG,
+                "Using rootless operation to copy " + source + " to " + destination);
         File in = new File(source);
         File out = new File(destination);
         try {
             FileUtils.copyDirectory(in, out);
         } catch (IOException e) {
-            Log.d(COPYDIR_LOG, "Rootless operation failed, falling back to rooted mode...");
+            Log.d(COPY_LOG,
+                    "Rootless operation failed, falling back to rooted mode..." + e.getMessage());
             Root.runCommand("cp -rf " + source + " " + destination);
         }
         Log.d(COPYDIR_LOG, "Operation " + (out.exists() ? "succeeded" : "failed"));
@@ -284,7 +287,7 @@ public class FileOperations {
                     Thread.sleep(1000);
                     retryCount++;
                 }
-                if (retryCount == 5) Log.d(DELETE_LOG, "Operation timed out");
+                if (retryCount == 5) Log.d(DELETE_LOG, "Operation timed out!");
                 Log.d(DELETE_LOG, "Operation " + (!file.exists() ? "succeeded" : "failed"));
             } catch (InterruptedException e) {
                 Thread.interrupted();
@@ -307,7 +310,8 @@ public class FileOperations {
             Log.d(DELETE_LOG, "File already " + (deleteParent ? "deleted." : "cleaned."));
         } catch (IOException e) {
             e.printStackTrace();
-            Log.d(DELETE_LOG, "Rootless operation failed, falling back to rooted mode...");
+            Log.d(DELETE_LOG,
+                    "Rootless operation failed, falling back to rooted mode..." + e.getMessage());
             if (deleteParent) {
                 Root.runCommand("rm -rf " + directory);
             } else {
@@ -332,8 +336,8 @@ public class FileOperations {
                 !source.startsWith("/system")) || (!destination.startsWith(dataDir) &&
                 !destination.startsWith(externalDir) && !destination.startsWith("/system"));
         if (checkThemeInterfacer(context) && needRoot) {
-            Log.d(MOVE_LOG, "Using theme interfacer operation to move " + source +
-                    " to " + destination);
+            Log.d(MOVE_LOG,
+                    "Using theme interfacer operation to move " + source + " to " + destination);
             ThemeInterfacerService.move(context, source, destination);
 
             // Wait until move success
@@ -366,7 +370,8 @@ public class FileOperations {
                 FileUtils.moveDirectory(in, out);
             }
         } catch (IOException e) {
-            Log.d(MOVE_LOG, "Rootless operation failed, falling back to rooted mode... ");
+            Log.d(MOVE_LOG,
+                    "Rootless operation failed, falling back to rooted mode..." + e.getMessage());
             Root.runCommand("mv -f " + source + " " + destination);
         }
         Log.d(MOVE_LOG, "Operation " + (!in.exists() && out.exists() ? "succeeded" : "failed"));
@@ -442,7 +447,7 @@ public class FileOperations {
         } catch (Exception e) {
             e.printStackTrace();
             if (ENABLE_DIRECT_ASSETS_LOGGING)
-                Log.e(DA_LOG, "An Exception has been reached: " + e.getMessage());
+                Log.e(DA_LOG, "An exception has been reached: " + e.getMessage());
         }
         return false;
     }

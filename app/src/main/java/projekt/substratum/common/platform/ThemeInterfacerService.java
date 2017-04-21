@@ -16,7 +16,7 @@
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package projekt.substratum.common;
+package projekt.substratum.common.platform;
 
 import android.app.PendingIntent;
 import android.content.ComponentName;
@@ -26,9 +26,11 @@ import android.os.RemoteException;
 
 import java.util.ArrayList;
 
-import projekt.substratum.services.BinderService;
+import projekt.substratum.common.References;
+import projekt.substratum.services.binder.BinderService;
 
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
+import static projekt.substratum.common.References.INTERFACER_SERVICE;
 
 public class ThemeInterfacerService {
 
@@ -72,7 +74,7 @@ public class ThemeInterfacerService {
         intent.setComponent(
                 new ComponentName(
                         INTERFACER_PACKAGE,
-                        INTERFACER_PACKAGE + ".services.JobService"));
+                        INTERFACER_SERVICE));
         PendingIntent pending = PendingIntent.getActivity(context, 0, new Intent(), 0);
         intent.putExtra(INTERFACER_TOKEN, pending);
         intent.putExtra(JOB_TIME_KEY, System.currentTimeMillis());
@@ -91,7 +93,8 @@ public class ThemeInterfacerService {
     static void installOverlays(Context context, ArrayList<String> overlays) {
         if (References.isBinderInterfacer(context)) {
             try {
-                BinderService.getInstance().getInterfacerInterface().installPackage(overlays);
+                BinderService.getInstance().getInterfacerInterface()
+                        .installPackage(overlays);
             } catch (RemoteException e) {
                 // Suppress warning
             }
@@ -103,11 +106,12 @@ public class ThemeInterfacerService {
         }
     }
 
-    static void uninstallOverlays(Context context, ArrayList<String> overlays, boolean restartUi) {
+    public static void uninstallOverlays(Context context, ArrayList<String> overlays, boolean
+            restartUi) {
         if (References.isBinderInterfacer(context)) {
             try {
-                BinderService.getInstance().getInterfacerInterface().uninstallPackage(overlays,
-                        restartUi);
+                BinderService.getInstance().getInterfacerInterface()
+                        .uninstallPackage(overlays, restartUi);
             } catch (RemoteException e) {
                 // Suppress warning
             }
@@ -124,8 +128,8 @@ public class ThemeInterfacerService {
     static void enableOverlays(Context context, ArrayList<String> overlays, boolean restartUi) {
         if (References.isBinderInterfacer(context)) {
             try {
-                BinderService.getInstance().getInterfacerInterface().enableOverlay(overlays,
-                        restartUi);
+                BinderService.getInstance().getInterfacerInterface()
+                        .enableOverlay(overlays, restartUi);
             } catch (RemoteException e) {
                 // Suppress warning
             }
@@ -141,8 +145,8 @@ public class ThemeInterfacerService {
     static void disableOverlays(Context context, ArrayList<String> overlays, boolean restartUi) {
         if (References.isBinderInterfacer(context)) {
             try {
-                BinderService.getInstance().getInterfacerInterface().disableOverlay(overlays,
-                        restartUi);
+                BinderService.getInstance().getInterfacerInterface()
+                        .disableOverlay(overlays, restartUi);
             } catch (RemoteException e) {
                 // Suppress warning
             }
@@ -158,7 +162,8 @@ public class ThemeInterfacerService {
     public static void restartSystemUI(Context context) {
         if (References.isBinderInterfacer(context)) {
             try {
-                BinderService.getInstance().getInterfacerInterface().restartSystemUI();
+                BinderService.getInstance().getInterfacerInterface()
+                        .restartSystemUI();
             } catch (RemoteException e) {
                 // Suppress warning
             }
@@ -178,7 +183,8 @@ public class ThemeInterfacerService {
     public static void configurationChangeShim(Context context) {
         if (References.isBinderInterfacer(context)) {
             try {
-                BinderService.getInstance().getInterfacerInterface().configurationShim();
+                BinderService.getInstance().getInterfacerInterface()
+                        .configurationShim();
             } catch (RemoteException e) {
                 // Suppress warning
             }
@@ -192,8 +198,8 @@ public class ThemeInterfacerService {
     public static void setBootAnimation(Context context, String bootanimation_location) {
         if (References.isBinderInterfacer(context)) {
             try {
-                BinderService.getInstance().getInterfacerInterface().applyBootanimation
-                        (bootanimation_location);
+                BinderService.getInstance().getInterfacerInterface()
+                        .applyBootanimation(bootanimation_location);
             } catch (RemoteException e) {
                 // Suppress warning
             }
@@ -208,7 +214,8 @@ public class ThemeInterfacerService {
     public static void clearBootAnimation(Context context) {
         if (References.isBinderInterfacer(context)) {
             try {
-                BinderService.getInstance().getInterfacerInterface().applyBootanimation(null);
+                BinderService.getInstance().getInterfacerInterface()
+                        .applyBootanimation(null);
             } catch (RemoteException e) {
                 // Suppress warning
             }
@@ -222,7 +229,8 @@ public class ThemeInterfacerService {
     public static void setFonts(Context context, String pid, String name) {
         if (References.isBinderInterfacer(context)) {
             try {
-                BinderService.getInstance().getInterfacerInterface().applyFonts(pid, name);
+                BinderService.getInstance().getInterfacerInterface()
+                        .applyFonts(pid, name);
             } catch (RemoteException e) {
                 // Suppress warning
             }
@@ -235,10 +243,11 @@ public class ThemeInterfacerService {
         }
     }
 
-    static void clearFonts(Context context) {
+    public static void clearFonts(Context context) {
         if (References.isBinderInterfacer(context)) {
             try {
-                BinderService.getInstance().getInterfacerInterface().applyFonts(null, null);
+                BinderService.getInstance().getInterfacerInterface()
+                        .applyFonts(null, null);
             } catch (RemoteException e) {
                 // Suppress warning
             }
@@ -249,10 +258,11 @@ public class ThemeInterfacerService {
         }
     }
 
-    static void setThemedSounds(Context context, String pid, String name) {
+    public static void setThemedSounds(Context context, String pid, String name) {
         if (References.isBinderInterfacer(context)) {
             try {
-                BinderService.getInstance().getInterfacerInterface().applyAudio(pid, name);
+                BinderService.getInstance().getInterfacerInterface()
+                        .applyAudio(pid, name);
             } catch (RemoteException e) {
                 // Suppress warning
             }
@@ -265,7 +275,7 @@ public class ThemeInterfacerService {
         }
     }
 
-    static void clearThemedSounds(Context context) {
+    public static void clearThemedSounds(Context context) {
         if (References.isBinderInterfacer(context)) {
             try {
                 BinderService.getInstance().getInterfacerInterface().applyAudio(null, null);
@@ -299,7 +309,8 @@ public class ThemeInterfacerService {
     public static void copy(Context context, String source, String destination) {
         if (References.isBinderInterfacer(context)) {
             try {
-                BinderService.getInstance().getInterfacerInterface().copy(source, destination);
+                BinderService.getInstance().getInterfacerInterface()
+                        .copy(source, destination);
             } catch (RemoteException e) {
                 // Suppress warning
             }
@@ -315,7 +326,8 @@ public class ThemeInterfacerService {
     public static void move(Context context, String source, String destination) {
         if (References.isBinderInterfacer(context)) {
             try {
-                BinderService.getInstance().getInterfacerInterface().move(source, destination);
+                BinderService.getInstance().getInterfacerInterface()
+                        .move(source, destination);
             } catch (RemoteException e) {
                 // Suppress warning
             }
@@ -331,8 +343,8 @@ public class ThemeInterfacerService {
     public static void delete(Context context, String directory, boolean deleteParent) {
         if (References.isBinderInterfacer(context)) {
             try {
-                BinderService.getInstance().getInterfacerInterface().deleteDirectory(directory,
-                        deleteParent);
+                BinderService.getInstance().getInterfacerInterface()
+                        .deleteDirectory(directory, deleteParent);
             } catch (RemoteException e) {
                 // Suppress warning
             }
@@ -349,9 +361,8 @@ public class ThemeInterfacerService {
                                     ArrayList<String> toBeEnabled, boolean restartUi) {
         if (References.isBinderInterfacer(context)) {
             try {
-                BinderService.getInstance().getInterfacerInterface().applyProfile(toBeEnabled,
-                        toBeDisabled,
-                        name, restartUi);
+                BinderService.getInstance().getInterfacerInterface()
+                        .applyProfile(toBeEnabled, toBeDisabled, name, restartUi);
             } catch (RemoteException e) {
                 // Suppress warning
             }
@@ -366,10 +377,11 @@ public class ThemeInterfacerService {
         }
     }
 
-    static void createNewFolder(Context context, String destination) {
+    public static void createNewFolder(Context context, String destination) {
         if (References.isBinderInterfacer(context)) {
             try {
-                BinderService.getInstance().getInterfacerInterface().mkdir(destination);
+                BinderService.getInstance().getInterfacerInterface()
+                        .mkdir(destination);
             } catch (RemoteException e) {
                 // Suppress warning
             }

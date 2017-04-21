@@ -29,7 +29,7 @@ import java.io.File;
 import projekt.substratum.MainActivity;
 import projekt.substratum.R;
 import projekt.substratum.activities.base.SubstratumActivity;
-import projekt.substratum.config.References;
+import projekt.substratum.common.References;
 
 public class AppShortcutLaunch extends SubstratumActivity {
 

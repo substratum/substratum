@@ -16,7 +16,7 @@
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package projekt.substratum.common;
+package projekt.substratum.common.platform;
 
 import android.content.om.OM;
 import android.content.om.OverlayInfo;
@@ -50,7 +50,7 @@ public class OverlayManagerService {
      * mapped to lists of overlays; if no overlays exist for the
      * requested user, an empty map is returned.
      */
-    public static Map getAllOverlays() {
+    static Map getAllOverlays() {
         try {
             return OM.get().getAllOverlays(CURRENT_USER);
         } catch (RemoteException re) {

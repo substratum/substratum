@@ -16,7 +16,7 @@
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package projekt.substratum.fragments;
+package projekt.substratum.fragments.recovery;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -53,8 +53,8 @@ import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.common.tabs.BootAnimationManager;
 import projekt.substratum.common.tabs.FontManager;
 import projekt.substratum.common.tabs.WallpaperManager;
-import projekt.substratum.util.SheetDialog;
-import projekt.substratum.util.SoundUtils;
+import projekt.substratum.util.tabs.SoundUtils;
+import projekt.substratum.util.views.SheetDialog;
 
 import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
 import static android.content.om.OverlayInfo.STATE_NOT_APPROVED_DANGEROUS_OVERLAY;

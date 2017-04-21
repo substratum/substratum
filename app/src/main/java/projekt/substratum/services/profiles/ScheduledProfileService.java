@@ -16,7 +16,7 @@
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package projekt.substratum.services;
+package projekt.substratum.services.profiles;
 
 import android.app.AlarmManager;
 import android.app.Notification;
@@ -48,7 +48,7 @@ import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeInterfacerService;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.common.tabs.WallpaperManager;
-import projekt.substratum.util.ReadOverlaysFile;
+import projekt.substratum.util.readers.ReadOverlaysFile;
 
 import static projekt.substratum.common.systems.ProfileManager.DAY_PROFILE;
 import static projekt.substratum.common.systems.ProfileManager.DAY_PROFILE_HOUR;

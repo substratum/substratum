@@ -37,7 +37,7 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 import projekt.substratum.R;
-import projekt.substratum.config.References;
+import projekt.substratum.common.References;
 
 public class IconPackAdapter extends RecyclerView.Adapter<IconEntry> {
 

@@ -16,7 +16,7 @@
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package projekt.substratum.services;
+package projekt.substratum.services.packages;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -46,6 +46,7 @@ import projekt.substratum.common.tabs.WallpaperManager;
 import static android.content.om.OverlayInfo.STATE_APPROVED_DISABLED;
 import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
 import static projekt.substratum.common.References.SUBSTRATUM_BUILDER_CACHE;
+import static projekt.substratum.common.References.metadataOverlayParent;
 
 public class ThemeUninstallDetector extends BroadcastReceiver {
 
@@ -76,9 +77,9 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
                                     context.getPackageManager().getApplicationInfo(
                                             current, PackageManager.GET_META_DATA);
                             if (appInfo.metaData != null &&
-                                    appInfo.metaData.getString("Substratum_Parent") != null) {
+                                    appInfo.metaData.getString(metadataOverlayParent) != null) {
                                 String parent =
-                                        appInfo.metaData.getString("Substratum_Parent");
+                                        appInfo.metaData.getString(metadataOverlayParent);
                                 if (parent != null && parent.equals(package_name)) {
                                     all_overlays.add(current);
                                 }

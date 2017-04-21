@@ -16,7 +16,7 @@
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package projekt.substratum.fragments;
+package projekt.substratum.fragments.team;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;

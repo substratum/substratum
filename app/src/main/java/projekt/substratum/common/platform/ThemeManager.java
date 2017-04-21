@@ -16,7 +16,7 @@
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package projekt.substratum.common;
+package projekt.substratum.common.platform;
 
 import android.content.Context;
 import android.content.om.OverlayInfo;
@@ -28,7 +28,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import projekt.substratum.util.Root;
+import projekt.substratum.common.commands.ElevatedCommands;
+import projekt.substratum.util.files.Root;
 
 import static android.content.om.OverlayInfo.STATE_APPROVED_DISABLED;
 import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
@@ -186,7 +187,6 @@ public class ThemeManager {
         List<String> overlays = listOverlays(STATE_APPROVED_ENABLED);
         list.addAll(overlays.stream().filter(o -> o.startsWith(target))
                 .collect(Collectors.toList()));
-
         return list;
     }
 
@@ -246,7 +246,8 @@ public class ThemeManager {
     public static boolean shouldRestartUI(Context context, ArrayList<String> overlays) {
         if (checkOMS(context)) {
             for (String o : overlays) {
-                if (o.startsWith("android.") || o.startsWith("com.android.systemui")) return true;
+                if (o.startsWith("android.") || o.startsWith("com.android.systemui"))
+                    return true;
             }
         }
         return false;

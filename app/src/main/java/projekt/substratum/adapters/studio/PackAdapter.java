@@ -31,7 +31,7 @@ import java.util.ArrayList;
 
 import projekt.substratum.R;
 import projekt.substratum.activities.studio.StudioPreviewActivity;
-import projekt.substratum.config.References;
+import projekt.substratum.common.References;
 
 public class PackAdapter extends RecyclerView.Adapter<PackAdapter.ViewHolder> {
     private ArrayList<PackInfo> information;

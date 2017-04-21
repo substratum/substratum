@@ -16,7 +16,7 @@
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package projekt.substratum.common;
+package projekt.substratum.common.analytics;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -33,8 +33,10 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import projekt.substratum.common.References;
+
 @SuppressWarnings("AccessStaticViaInstance")
-class FirebaseAnalytics {
+public class FirebaseAnalytics {
 
     private static FirebaseDatabase mDatabase;
     private static SharedPreferences mPrefs;
@@ -51,7 +53,7 @@ class FirebaseAnalytics {
     }
 
     @SuppressWarnings("unchecked")
-    static void withdrawBlacklistedPackages(Context context) {
+    public static void withdrawBlacklistedPackages(Context context) {
         DatabaseReference database = getDatabaseReference(context);
         database.child("patchers").addValueEventListener(new ValueEventListener() {
             @Override
@@ -77,7 +79,7 @@ class FirebaseAnalytics {
     }
 
     @SuppressWarnings("unchecked")
-    static void withdrawNames(Context context) {
+    public static void withdrawNames(Context context) {
         DatabaseReference database = getDatabaseReference(context);
         database.child("blacklisted").addValueEventListener(new ValueEventListener() {
             @Override

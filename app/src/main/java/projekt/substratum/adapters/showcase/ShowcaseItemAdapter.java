@@ -37,7 +37,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import projekt.substratum.R;
-import projekt.substratum.config.References;
+import projekt.substratum.common.References;
 
 public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapter.ViewHolder> {
     private ArrayList<ShowcaseItem> information;

@@ -30,7 +30,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import projekt.substratum.R;
-import projekt.substratum.config.References;
+import projekt.substratum.common.References;
 
 public class ManagerAdapter extends
         RecyclerView.Adapter<ManagerAdapter.ViewHolder> {

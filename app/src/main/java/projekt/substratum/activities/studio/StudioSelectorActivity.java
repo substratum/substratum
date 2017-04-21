@@ -45,16 +45,16 @@ import java.util.List;
 import projekt.substratum.R;
 import projekt.substratum.adapters.studio.PackAdapter;
 import projekt.substratum.adapters.studio.PackInfo;
-import projekt.substratum.config.References;
-import projekt.substratum.config.ThemeInterfacerService;
-import projekt.substratum.config.ThemeManager;
+import projekt.substratum.common.References;
+import projekt.substratum.common.platform.ThemeInterfacerService;
+import projekt.substratum.common.platform.ThemeManager;
 
 import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
-import static projekt.substratum.config.References.DEBUG;
-import static projekt.substratum.config.References.FIRST_WINDOW_REFRESH_DELAY;
-import static projekt.substratum.config.References.MAIN_WINDOW_REFRESH_DELAY;
-import static projekt.substratum.config.References.SECOND_WINDOW_REFRESH_DELAY;
-import static projekt.substratum.util.MapUtils.sortMapByValues;
+import static projekt.substratum.common.References.DEBUG;
+import static projekt.substratum.common.References.FIRST_WINDOW_REFRESH_DELAY;
+import static projekt.substratum.common.References.MAIN_WINDOW_REFRESH_DELAY;
+import static projekt.substratum.common.References.SECOND_WINDOW_REFRESH_DELAY;
+import static projekt.substratum.util.files.MapUtils.sortMapByValues;
 
 public class StudioSelectorActivity extends AppCompatActivity {
 

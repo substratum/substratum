@@ -16,7 +16,7 @@
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package projekt.substratum.util;
+package projekt.substratum.util.files;
 
 import android.support.v4.util.Pair;
 

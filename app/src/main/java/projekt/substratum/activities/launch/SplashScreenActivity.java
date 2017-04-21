@@ -28,7 +28,7 @@ import android.widget.ImageView;
 
 import projekt.substratum.MainActivity;
 import projekt.substratum.R;
-import projekt.substratum.config.References;
+import projekt.substratum.common.References;
 
 public class SplashScreenActivity extends Activity {
 

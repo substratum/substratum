@@ -16,7 +16,7 @@
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package projekt.substratum.common.fragments;
+package projekt.substratum.common.systems;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -27,7 +27,7 @@ import android.preference.PreferenceManager;
 
 import java.util.Calendar;
 
-import projekt.substratum.services.ScheduledProfileReceiver;
+import projekt.substratum.services.profiles.ScheduledProfileReceiver;
 
 public class ProfileManager {
     public static final String SCHEDULED_PROFILE_ENABLED = "scheduled_profile_enabled";
@@ -37,10 +37,10 @@ public class ProfileManager {
     public static final String NIGHT_PROFILE = "night_profile";
     public static final String NIGHT_PROFILE_HOUR = "night_profile_hour";
     public static final String NIGHT_PROFILE_MINUTE = "night_profile_minute";
-    public static final String DAY = "day";
     public static final String DAY_PROFILE = "day_profile";
     public static final String DAY_PROFILE_HOUR = "day_profile_hour";
     public static final String DAY_PROFILE_MINUTE = "day_profile_minute";
+    private static final String DAY = "day";
 
     public static void updateScheduledProfile(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
@@ -80,8 +80,8 @@ public class ProfileManager {
         if (currentProfile.equals(NIGHT)) {
             calendarNight.add(Calendar.DAY_OF_YEAR, 1);
         }
-        alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendarNight.getTimeInMillis(),
-                nightIntent);
+        alarmMgr.setExactAndAllowWhileIdle(
+                AlarmManager.RTC_WAKEUP, calendarNight.getTimeInMillis(), nightIntent);
 
         // Bring back the day in case we went to the conditional if before
         calendarNight.set(Calendar.DAY_OF_YEAR, current.get(Calendar.DAY_OF_YEAR));
@@ -90,8 +90,8 @@ public class ProfileManager {
         if (currentProfile.equals(DAY) || current.after(calendarNight)) {
             calendarDay.add(Calendar.DAY_OF_YEAR, 1);
         }
-        alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendarDay.getTimeInMillis(),
-                dayIntent);
+        alarmMgr.setExactAndAllowWhileIdle(
+                AlarmManager.RTC_WAKEUP, calendarDay.getTimeInMillis(), dayIntent);
     }
 
     public static void enableScheduledProfile(Context context, String dayProfile,
@@ -131,9 +131,8 @@ public class ProfileManager {
             // make sure we apply the night profile directly
             calendarNight.add(Calendar.DAY_OF_YEAR, -1);
         }
-        alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendarNight
-                        .getTimeInMillis(),
-                nightIntent);
+        alarmMgr.setExactAndAllowWhileIdle(
+                AlarmManager.RTC_WAKEUP, calendarNight.getTimeInMillis(), nightIntent);
 
         // Bring back the day in case we went to the conditional if before
         calendarNight.set(Calendar.DAY_OF_YEAR, current.get(Calendar.DAY_OF_YEAR));
@@ -144,45 +143,44 @@ public class ProfileManager {
             // to be triggered
             calendarDay.add(Calendar.DAY_OF_YEAR, 1);
         }
-        alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendarDay
-                        .getTimeInMillis(),
-                dayIntent);
+        alarmMgr.setExactAndAllowWhileIdle(
+                AlarmManager.RTC_WAKEUP, calendarDay.getTimeInMillis(), dayIntent);
 
         // Apply prefs
-        editor.putBoolean(SCHEDULED_PROFILE_ENABLED, true)
-                .putString(NIGHT_PROFILE, nightProfile)
-                .putString(DAY_PROFILE, dayProfile)
-                .putInt(NIGHT_PROFILE_HOUR, nightHour)
-                .putInt(NIGHT_PROFILE_MINUTE, nightMinute)
-                .putInt(DAY_PROFILE_HOUR, dayHour)
-                .putInt(DAY_PROFILE_MINUTE, dayMinute)
-                .apply();
+        editor.putBoolean(SCHEDULED_PROFILE_ENABLED, true);
+        editor.putString(NIGHT_PROFILE, nightProfile);
+        editor.putString(DAY_PROFILE, dayProfile);
+        editor.putInt(NIGHT_PROFILE_HOUR, nightHour);
+        editor.putInt(NIGHT_PROFILE_MINUTE, nightMinute);
+        editor.putInt(DAY_PROFILE_HOUR, dayHour);
+        editor.putInt(DAY_PROFILE_MINUTE, dayMinute);
+        editor.apply();
     }
 
     public static void disableScheduledProfile(Context context) {
-        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context)
-                .edit();
+        SharedPreferences.Editor editor =
+                PreferenceManager.getDefaultSharedPreferences(context).edit();
         AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, ScheduledProfileReceiver.class);
         intent.putExtra(SCHEDULED_PROFILE_TYPE_EXTRA, NIGHT);
-        PendingIntent nightIntent = PendingIntent.getBroadcast(context, 0, intent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent nightIntent =
+                PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         intent.putExtra(SCHEDULED_PROFILE_TYPE_EXTRA, DAY);
-        PendingIntent dayIntent = PendingIntent.getBroadcast(context, 1, intent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent dayIntent =
+                PendingIntent.getBroadcast(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         if (alarmMgr != null) {
             alarmMgr.cancel(nightIntent);
             alarmMgr.cancel(dayIntent);
 
-            editor.remove(SCHEDULED_PROFILE_ENABLED)
-                    .remove(DAY_PROFILE)
-                    .remove(DAY_PROFILE_HOUR)
-                    .remove(DAY_PROFILE_MINUTE)
-                    .remove(NIGHT_PROFILE)
-                    .remove(NIGHT_PROFILE_HOUR)
-                    .remove(NIGHT_PROFILE_MINUTE)
-                    .apply();
+            editor.remove(SCHEDULED_PROFILE_ENABLED);
+            editor.remove(DAY_PROFILE);
+            editor.remove(DAY_PROFILE_HOUR);
+            editor.remove(DAY_PROFILE_MINUTE);
+            editor.remove(NIGHT_PROFILE);
+            editor.remove(NIGHT_PROFILE_HOUR);
+            editor.remove(NIGHT_PROFILE_MINUTE);
+            editor.apply();
         }
     }
 }

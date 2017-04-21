@@ -34,12 +34,12 @@ import java.io.File;
 import java.util.List;
 
 import projekt.substratum.R;
-import projekt.substratum.config.References;
+import projekt.substratum.common.References;
+
+import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
+import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;
 
 public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHolder> {
-
-    private static final String PIXEL_NEXUS_DIR = "/system/overlay/";
-    private static final String LEGACY_NEXUS_DIR = "/system/vendor/overlay/";
 
     private List<OverlaysItem> overlayList;
 

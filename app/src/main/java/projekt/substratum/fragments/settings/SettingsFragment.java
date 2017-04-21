@@ -16,7 +16,7 @@
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package projekt.substratum.fragments;
+package projekt.substratum.fragments.settings;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -69,13 +69,13 @@ import projekt.substratum.adapters.fragments.settings.ValidatorInfo;
 import projekt.substratum.common.References;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.common.systems.Validator;
-import projekt.substratum.util.AOPTCheck;
-import projekt.substratum.util.FileDownloader;
-import projekt.substratum.util.ReadFilterFile;
-import projekt.substratum.util.ReadRepositoriesFile;
-import projekt.substratum.util.ReadResourcesFile;
-import projekt.substratum.util.ReadSupportedROMsFile;
-import projekt.substratum.util.SheetDialog;
+import projekt.substratum.util.files.FileDownloader;
+import projekt.substratum.util.injectors.AOPTCheck;
+import projekt.substratum.util.readers.ReadFilterFile;
+import projekt.substratum.util.readers.ReadRepositoriesFile;
+import projekt.substratum.util.readers.ReadResourcesFile;
+import projekt.substratum.util.readers.ReadSupportedROMsFile;
+import projekt.substratum.util.views.SheetDialog;
 
 import static projekt.substratum.common.References.HIDDEN_CACHING_MODE_TAP_COUNT;
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;

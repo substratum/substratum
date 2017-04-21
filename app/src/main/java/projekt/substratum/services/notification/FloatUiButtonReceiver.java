@@ -16,13 +16,15 @@
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package projekt.substratum.services;
+package projekt.substratum.services.notification;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+
+import projekt.substratum.services.floatui.SubstratumFloatInterface;
 
 public class FloatUiButtonReceiver extends BroadcastReceiver {
 

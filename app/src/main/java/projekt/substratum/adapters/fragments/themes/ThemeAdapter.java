@@ -44,17 +44,19 @@ import java.io.File;
 import java.util.ArrayList;
 
 import projekt.substratum.R;
-import projekt.substratum.config.FileOperations;
-import projekt.substratum.config.References;
-import projekt.substratum.util.SheetDialog;
+import projekt.substratum.common.References;
+import projekt.substratum.common.commands.FileOperations;
+import projekt.substratum.util.views.SheetDialog;
+
+import static projekt.substratum.common.References.SUBSTRATUM_BUILDER_CACHE;
 
 
 public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> {
     private ArrayList<ThemeItem> information;
     private Context mContext;
     private ProgressDialog mProgressDialog;
-    private ThemeItem themeItem;
     private Activity mActivity;
+    private ThemeItem toBeUninstalled;
 
     public ThemeAdapter(ArrayList<ThemeItem> information) {
         this.information = information;
@@ -81,7 +83,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int pos) {
-        themeItem = information.get(pos);
+        ThemeItem themeItem = information.get(pos);
         mContext = themeItem.getContext();
         mActivity = themeItem.getActivity();
 
@@ -137,7 +139,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                                     mContext, themeItem.getThemePackage())) {
                                 File checkSubstratumVerity = new File(
                                         mContext.getCacheDir().getAbsoluteFile() +
-                                                "/SubstratumBuilder/" +
+                                                SUBSTRATUM_BUILDER_CACHE +
                                                 themeItem.getThemePackage() + "/substratum.xml");
                                 if (checkSubstratumVerity.exists()) {
                                     References.launchTheme(mContext,
@@ -193,6 +195,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
             View sheetView = View.inflate(mContext, R.layout.uninstall_sheet_dialog, null);
             LinearLayout uninstall = (LinearLayout) sheetView.findViewById(R.id.uninstall);
             uninstall.setOnClickListener(view2 -> {
+                toBeUninstalled = themeItem;
                 new uninstallTheme().execute();
                 sheetDialog.hide();
             });
@@ -294,30 +297,37 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
     private class uninstallTheme extends AsyncTask<String, Integer, String> {
         @Override
         protected void onPreExecute() {
-            String parseMe = String.format(
-                    mContext.getString(R.string.adapter_uninstalling),
-                    themeItem.getThemeName());
-            mProgressDialog = new ProgressDialog(mContext);
-            mProgressDialog.setMessage(parseMe);
-            mProgressDialog.setIndeterminate(true);
-            mProgressDialog.setCancelable(false);
-            mProgressDialog.show();
-            // Clear the notification of building theme if shown
-            NotificationManager manager = (NotificationManager)
-                    mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-            manager.cancel(References.notification_id);
+            if (toBeUninstalled != null) {
+                String parseMe = String.format(
+                        mContext.getString(R.string.adapter_uninstalling),
+                        toBeUninstalled.getThemeName());
+                mProgressDialog = new ProgressDialog(mContext);
+                mProgressDialog.setMessage(parseMe);
+                mProgressDialog.setIndeterminate(true);
+                mProgressDialog.setCancelable(false);
+                mProgressDialog.show();
+                // Clear the notification of building theme if shown
+                NotificationManager manager = (NotificationManager)
+                        mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+                manager.cancel(References.notification_id);
+            }
         }
 
         @Override
         protected void onPostExecute(String result) {
-            References.sendRefreshMessage(mContext);
-            mProgressDialog.cancel();
+            if (toBeUninstalled != null) {
+                toBeUninstalled = null;
+                References.sendRefreshMessage(mContext);
+                mProgressDialog.cancel();
+            }
         }
 
         @Override
         protected String doInBackground(String... sUrl) {
-            // Uninstall theme
-            References.uninstallPackage(mContext, themeItem.getThemePackage());
+            if (toBeUninstalled != null) {
+                // Uninstall theme
+                References.uninstallPackage(mContext, toBeUninstalled.getThemePackage());
+            }
             return null;
         }
     }
@@ -347,7 +357,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
             // Delete the directory
             try {
                 FileOperations.delete(mContext, mContext.getCacheDir().getAbsolutePath() +
-                        "/SubstratumBuilder/");
+                        SUBSTRATUM_BUILDER_CACHE);
             } catch (Exception e) {
                 // Suppress warning
             }

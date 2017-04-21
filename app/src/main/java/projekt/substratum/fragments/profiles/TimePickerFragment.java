@@ -16,7 +16,7 @@
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package projekt.substratum.fragments;
+package projekt.substratum.fragments.profiles;
 
 import android.app.Dialog;
 import android.app.TimePickerDialog;
@@ -32,10 +32,10 @@ import java.util.Calendar;
 import projekt.substratum.R;
 import projekt.substratum.common.References;
 
-import static projekt.substratum.fragments.ProfileFragment.dayHour;
-import static projekt.substratum.fragments.ProfileFragment.dayMinute;
-import static projekt.substratum.fragments.ProfileFragment.nightHour;
-import static projekt.substratum.fragments.ProfileFragment.nightMinute;
+import static projekt.substratum.fragments.profiles.ProfileFragment.dayHour;
+import static projekt.substratum.fragments.profiles.ProfileFragment.dayMinute;
+import static projekt.substratum.fragments.profiles.ProfileFragment.nightHour;
+import static projekt.substratum.fragments.profiles.ProfileFragment.nightMinute;
 
 
 public class TimePickerFragment extends DialogFragment implements

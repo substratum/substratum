@@ -27,7 +27,7 @@ import com.stephentuso.welcome.WelcomeHelper;
 
 import projekt.substratum.MainActivity;
 import projekt.substratum.activities.base.SubstratumActivity;
-import projekt.substratum.util.AppIntro;
+import projekt.substratum.util.welcome.AppIntro;
 
 public class AppIntroActivity extends SubstratumActivity {
 

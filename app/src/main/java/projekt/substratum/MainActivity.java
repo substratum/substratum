@@ -693,20 +693,11 @@ public class MainActivity extends SubstratumActivity implements
                         }
 
                         if (!References.checkROMVersion(getApplicationContext())) {
-                            new AlertDialog.Builder(this)
-                                    .setTitle(R.string.warning_title)
-                                    .setMessage(R.string.dirty_flash_detected)
-                                    .setCancelable(false)
-                                    .setPositiveButton(R.string.dialog_ok, (dialog2, i2) -> {
-                                        dialog2.cancel();
-                                        prefs.edit().remove("oms_state").apply();
-                                        prefs.edit().remove("oms_version").apply();
-                                        References.setROMVersion(getApplicationContext(),
-                                                true);
-                                        References.setAndCheckOMS(getApplicationContext());
-                                        this.recreate();
-                                    })
-                                    .show();
+                            prefs.edit().remove("oms_state").apply();
+                            prefs.edit().remove("oms_version").apply();
+                            References.setROMVersion(getApplicationContext(), true);
+                            References.setAndCheckOMS(getApplicationContext());
+                            this.recreate();
                         }
 
                         if (!References.checkOMS(getApplicationContext()) &&

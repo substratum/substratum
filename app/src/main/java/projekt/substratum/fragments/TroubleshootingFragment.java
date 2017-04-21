@@ -16,7 +16,7 @@
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package projekt.substratum.fragments.troubleshooting;
+package projekt.substratum.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

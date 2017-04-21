@@ -16,7 +16,7 @@
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package projekt.substratum.fragments.settings;
+package projekt.substratum.fragments;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

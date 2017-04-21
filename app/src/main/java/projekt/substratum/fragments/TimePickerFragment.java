@@ -16,7 +16,7 @@
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package projekt.substratum.fragments.profiles;
+package projekt.substratum.fragments;
 
 import android.app.Dialog;
 import android.app.TimePickerDialog;
@@ -31,11 +31,6 @@ import java.util.Calendar;
 
 import projekt.substratum.R;
 import projekt.substratum.common.References;
-
-import static projekt.substratum.fragments.profiles.ProfileFragment.dayHour;
-import static projekt.substratum.fragments.profiles.ProfileFragment.dayMinute;
-import static projekt.substratum.fragments.profiles.ProfileFragment.nightHour;
-import static projekt.substratum.fragments.profiles.ProfileFragment.nightMinute;
 
 
 public class TimePickerFragment extends DialogFragment implements
@@ -60,11 +55,11 @@ public class TimePickerFragment extends DialogFragment implements
 
         if ((flag & FLAG_GET_VALUE) != 0) {
             if ((flag & FLAG_START_TIME) != 0) {
-                hour = nightHour;
-                minute = nightMinute;
+                hour = ProfileFragment.nightHour;
+                minute = ProfileFragment.nightMinute;
             } else if ((flag & FLAG_END_TIME) != 0) {
-                hour = dayHour;
-                minute = dayMinute;
+                hour = ProfileFragment.dayHour;
+                minute = ProfileFragment.dayMinute;
             }
         }
 

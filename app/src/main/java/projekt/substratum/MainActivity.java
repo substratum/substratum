@@ -498,7 +498,7 @@ public class MainActivity extends SubstratumActivity implements
                         break;
                     case 7:
                         switchFragment(getString(R.string.nav_overlay_manager),
-                                "manager.ManagerFragment");
+                                "ManagerFragment");
                         break;
                     case 8:
                         Intent intent = new Intent(getApplicationContext(),
@@ -507,23 +507,23 @@ public class MainActivity extends SubstratumActivity implements
                         break;
                     case 9:
                         switchFragment(getString(R.string.nav_priorities),
-                                "priorities.PriorityLoaderFragment");
+                                "PriorityLoaderFragment");
                         break;
                     case 10:
                         switchFragment(getString(R.string.nav_backup_restore),
-                                "profiles.ProfileFragment");
+                                "ProfileFragment");
                         break;
                     case 11:
                         switchFragment(getString(R.string.nav_manage),
-                                "recovery.RecoveryFragment");
+                                "RecoveryFragment");
                         break;
                     case 12:
                         switchFragment(getString(R.string.nav_troubleshooting),
-                                "troubleshooting.TroubleshootingFragment");
+                                "TroubleshootingFragment");
                         break;
                     case 13:
                         switchFragment(getString(R.string.nav_team),
-                                "team.TeamFragment");
+                                "TeamFragment");
                         break;
                     case 14:
                         switchFragmentToLicenses(getString(R.string.nav_opensource),
@@ -531,7 +531,7 @@ public class MainActivity extends SubstratumActivity implements
                         break;
                     case 15:
                         switchFragment(getString(R.string.nav_settings),
-                                "settings.SettingsFragment");
+                                "SettingsFragment");
                         break;
                     case 100:
                         try {

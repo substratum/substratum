@@ -16,7 +16,7 @@
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package projekt.substratum.fragments.profiles;
+package projekt.substratum.fragments;
 
 import android.content.Context;
 import android.content.SharedPreferences;

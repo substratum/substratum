@@ -16,7 +16,7 @@
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package projekt.substratum.fragments.recovery;
+package projekt.substratum.fragments;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;

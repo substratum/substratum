@@ -16,7 +16,7 @@
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package projekt.substratum.fragments.themes;
+package projekt.substratum.fragments;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

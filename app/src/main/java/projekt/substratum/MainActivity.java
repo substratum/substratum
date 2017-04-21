@@ -80,6 +80,8 @@ import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import eightbitlab.com.blurview.BlurView;
@@ -101,6 +103,9 @@ import projekt.substratum.util.files.Root;
 import projekt.substratum.util.helpers.ContextWrapper;
 import projekt.substratum.util.views.SheetDialog;
 
+import static android.content.om.OverlayInfo.STATE_APPROVED_DISABLED;
+import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
+import static android.content.om.OverlayInfo.STATE_NOT_APPROVED_MISSING_TARGET;
 import static projekt.substratum.common.References.BYPASS_ALL_VERSION_CHECKS;
 import static projekt.substratum.common.References.ENABLE_ROOT_CHECK;
 import static projekt.substratum.common.References.EXTERNAL_STORAGE_CACHE;
@@ -1168,6 +1173,9 @@ public class MainActivity extends SubstratumActivity implements
                 } else {
                     textView.setText(getString(R.string.root_rejected_text_cm_phh));
                 }
+            } else if (References.checkOMS(getApplicationContext())) {
+                doCleanUp cleanUp = new doCleanUp();
+                cleanUp.execute("");
             }
         }
 
@@ -1184,6 +1192,50 @@ public class MainActivity extends SubstratumActivity implements
                 Log.d(SUBSTRATUM_LOG, "Substratum has loaded in rootless mode.");
                 return false;
             }
+        }
+    }
+
+    private class doCleanUp extends AsyncTask<String, Integer, String> {
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+        }
+
+        @Override
+        protected String doInBackground(String... sUrl) {
+            ArrayList<String> removeList = new ArrayList<>();
+            // Overlays with non-existent targets
+            List<String> state1 = ThemeManager.listOverlays(STATE_NOT_APPROVED_MISSING_TARGET);
+            // Uninstall overlays when the main theme is not present, regardless if enabled/disabled
+            List<String> state4 = ThemeManager.listOverlays(STATE_APPROVED_DISABLED);
+            List<String> state5 = ThemeManager.listOverlays(STATE_APPROVED_ENABLED);
+            // We need the null check because listOverlays never returns null, but empty
+            if (state1.size() > 0 && state1.get(0) != null) {
+                for (int i = 0; i < state1.size(); i++) {
+                    Log.e("OverlayCleaner",
+                            "Target APK not found for \"" + state1.get(i) +
+                                    "\" and will be removed.");
+                    removeList.add(state1.get(i));
+                }
+            }
+
+            ArrayList<String> installed_overlays = new ArrayList<>(state4);
+            installed_overlays.addAll(state5);
+            for (int i = 0; i < installed_overlays.size(); i++) {
+                String parent = References.grabOverlayParent(
+                        getApplicationContext(), installed_overlays.get(i));
+                if (!References.isPackageInstalled(getApplicationContext(), parent)) {
+                    Log.e("OverlayCleaner",
+                            "Parent APK not found for \"" + installed_overlays.get(i) +
+                                    "\" and will be removed.");
+                    removeList.add(installed_overlays.get(i));
+                }
+            }
+
+            if (removeList.size() > 0)
+                ThemeManager.uninstallOverlay(getApplicationContext(), removeList);
+            return null;
         }
     }
 }

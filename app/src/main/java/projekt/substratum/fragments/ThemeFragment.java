@@ -53,7 +53,6 @@ import projekt.substratum.activities.showcase.ShowcaseActivity;
 import projekt.substratum.adapters.fragments.themes.ThemeAdapter;
 import projekt.substratum.adapters.fragments.themes.ThemeItem;
 import projekt.substratum.common.References;
-import projekt.substratum.common.platform.ThemeManager;
 
 public class ThemeFragment extends Fragment {
 
@@ -230,11 +229,6 @@ public class ThemeFragment extends Fragment {
                     "Substratum has loaded themes using the post-499 theme database filter");
         }
 
-        if (References.checkOMS(mContext)) {
-            doCleanUp cleanUp = new doCleanUp();
-            cleanUp.execute("");
-        }
-
         if (substratum_packages.size() == 0) {
             if (MainActivity.searchView != null && !MainActivity.searchView.isIconified()) {
                 if (MainActivity.userInput.length() > 0) {
@@ -351,32 +345,6 @@ public class ThemeFragment extends Fragment {
                 }
             } catch (Exception e) {
                 // Exception
-            }
-            return null;
-        }
-    }
-
-    private class doCleanUp extends AsyncTask<String, Integer, String> {
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-        }
-
-        @Override
-        protected String doInBackground(String... sUrl) {
-            ArrayList<String> removeList = new ArrayList<>();
-            List<String> state1 = ThemeManager.listOverlays(1);
-            // Overlays with non-existent targets
-            // We need the null check because listOverlays never returns null, but empty
-            if (state1.size() > 0 && state1.get(0) != null) {
-                for (int i = 0; i < state1.size(); i++) {
-                    Log.e("OverlayCleaner",
-                            "Target APK not found for \"" + state1.get(i) +
-                                    "\" and will be removed.");
-                    removeList.add(state1.get(i));
-                }
-                ThemeManager.uninstallOverlay(mContext, removeList);
             }
             return null;
         }

@@ -1675,8 +1675,7 @@ public class Overlays extends Fragment {
             }
 
             // Enable listener
-            if (References.checkThemeInterfacer(mContext) &&
-                    !References.isBinderInterfacer(mContext)) {
+            if (References.checkThemeInterfacer(mContext)) {
                 if (finishReceiver == null) finishReceiver = new FinishReceiver();
                 IntentFilter filter = new IntentFilter(STATUS_CHANGED);
                 mContext.registerReceiver(finishReceiver, filter);
@@ -2016,8 +2015,7 @@ public class Overlays extends Fragment {
                             } else {
                                 if (sb.special_snowflake) {
                                     late_install.add(sb.no_install);
-                                } else if (References.checkThemeInterfacer(mContext) &&
-                                        !References.isBinderInterfacer(mContext)) {
+                                } else if (References.checkThemeInterfacer(mContext)) {
                                     // Thread wait
                                     isWaiting = true;
                                     do {
@@ -2057,8 +2055,7 @@ public class Overlays extends Fragment {
                             } else {
                                 if (sb.special_snowflake) {
                                     late_install.add(sb.no_install);
-                                } else if (References.checkThemeInterfacer(mContext) &&
-                                        !References.isBinderInterfacer(mContext)) {
+                                } else if (References.checkThemeInterfacer(mContext)) {
                                     // Thread wait
                                     isWaiting = true;
                                     do {

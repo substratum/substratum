@@ -98,7 +98,7 @@
         android:layout_marginTop="?actionBarSize"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-    <projekt.substratum.util.FloatingActionMenu
+    <projekt.substratum.util.views.FloatingActionMenu
         android:id="@+id/apply_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -42,13 +42,14 @@ import java.util.Map;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
-import projekt.substratum.adapters.WallpaperAdapter;
-import projekt.substratum.config.References;
-import projekt.substratum.model.WallpaperEntries;
-import projekt.substratum.util.ReadCloudWallpaperFile;
+import projekt.substratum.adapters.tabs.wallpapers.WallpaperAdapter;
+import projekt.substratum.adapters.tabs.wallpapers.WallpaperEntries;
+import projekt.substratum.common.References;
+import projekt.substratum.util.readers.ReadCloudWallpaperFile;
 
 public class Wallpapers extends Fragment {
 
+    private static final String TAG = "WallpaperUtils";
     private ViewGroup root;
     private String wallpaperUrl;
     private RecyclerView mRecyclerView;
@@ -57,8 +58,10 @@ public class Wallpapers extends Fragment {
     private View no_network, no_wallpapers;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
-            savedInstanceState) {
+    public View onCreateView(
+            LayoutInflater inflater,
+            ViewGroup container,
+            Bundle savedInstanceState) {
         wallpaperUrl = InformationActivity.getWallpaperUrl();
         root = (ViewGroup) inflater.inflate(R.layout.tab_fragment_5, container, false);
         materialProgressBar = (MaterialProgressBar) root.findViewById(R.id.progress_bar_loader);
@@ -153,9 +156,8 @@ public class Wallpapers extends Fragment {
             try {
                 File current_wallpapers = new File(getContext().getCacheDir() +
                         "/current_wallpapers.xml");
-                if (current_wallpapers.exists()) {
-                    if (!current_wallpapers.delete())
-                        Log.e("Wallpapers", "Unable to delete current wallpaper stash.");
+                if (current_wallpapers.exists() && !current_wallpapers.delete()) {
+                    Log.e(TAG, "Unable to delete current wallpaper stash.");
                 }
 
                 URL url = new URL(sUrl[0]);
@@ -179,7 +181,7 @@ public class Wallpapers extends Fragment {
                 output = new FileOutputStream(
                         getContext().getCacheDir().getAbsolutePath() + "/" + sUrl[1]);
 
-                byte data[] = new byte[4096];
+                byte data[] = new byte[8192];
                 long total = 0;
                 int count;
                 while ((count = input.read(data)) != -1) {

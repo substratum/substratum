@@ -24,10 +24,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import projekt.substratum.config.References;
-import projekt.substratum.services.BinderService;
+import projekt.substratum.common.References;
+import projekt.substratum.services.binder.BinderService;
 
 public class Substratum extends Application {
+
+    private static final String BINDER_TAG = "BinderService";
     private static Substratum substratum;
 
     public static Substratum getInstance() {
@@ -44,11 +46,9 @@ public class Substratum extends Application {
     public void startBinderService() {
         if (References.isBinderInterfacer(getApplicationContext())) {
             if (checkServiceActivation(BinderService.class)) {
-                Log.d("BinderService",
-                        "This session will utilize the already connected Binder service.");
+                Log.d(BINDER_TAG, "This session will utilize the pre-connected Binder service!");
             } else {
-                Log.d("BinderService",
-                        "Substratum is now connecting to the Binder service...");
+                Log.d(BINDER_TAG, "Substratum is now connecting to the Binder service...");
                 startService(new Intent(getApplicationContext(),
                         BinderService.class));
             }

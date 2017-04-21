@@ -51,7 +51,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -85,27 +84,31 @@ import java.util.Locale;
 
 import eightbitlab.com.blurview.BlurView;
 import eightbitlab.com.blurview.RenderScriptBlur;
-import projekt.substratum.config.ElevatedCommands;
-import projekt.substratum.config.FileOperations;
-import projekt.substratum.config.References;
-import projekt.substratum.config.ThemeManager;
-import projekt.substratum.fragments.PriorityListFragment;
-import projekt.substratum.fragments.PriorityLoaderFragment;
-import projekt.substratum.fragments.ThemeFragment;
-import projekt.substratum.services.FloatUiTile;
-import projekt.substratum.services.InterfacerAuthorizationReceiver;
-import projekt.substratum.services.SubstratumFloatInterface;
-import projekt.substratum.util.ContextWrapper;
-import projekt.substratum.util.Root;
-import projekt.substratum.util.SheetDialog;
+import projekt.substratum.activities.base.SubstratumActivity;
+import projekt.substratum.activities.studio.StudioSelectorActivity;
+import projekt.substratum.common.References;
+import projekt.substratum.common.commands.ElevatedCommands;
+import projekt.substratum.common.commands.FileOperations;
+import projekt.substratum.common.platform.ThemeManager;
+import projekt.substratum.fragments.priorities.PriorityListFragment;
+import projekt.substratum.fragments.priorities.PriorityLoaderFragment;
+import projekt.substratum.fragments.themes.ThemeFragment;
+import projekt.substratum.services.floatui.SubstratumFloatInterface;
+import projekt.substratum.services.system.InterfacerAuthorizationReceiver;
+import projekt.substratum.services.tiles.FloatUiTile;
+import projekt.substratum.util.files.Root;
+import projekt.substratum.util.helpers.ContextWrapper;
+import projekt.substratum.util.views.SheetDialog;
 
-import static projekt.substratum.config.References.BYPASS_ALL_VERSION_CHECKS;
-import static projekt.substratum.config.References.ENABLE_ROOT_CHECK;
-import static projekt.substratum.config.References.INTERFACER_PACKAGE;
-import static projekt.substratum.config.References.SUBSTRATUM_LOG;
-import static projekt.substratum.config.References.checkUsagePermissions;
+import static projekt.substratum.common.References.BYPASS_ALL_VERSION_CHECKS;
+import static projekt.substratum.common.References.ENABLE_ROOT_CHECK;
+import static projekt.substratum.common.References.EXTERNAL_STORAGE_CACHE;
+import static projekt.substratum.common.References.INTERFACER_PACKAGE;
+import static projekt.substratum.common.References.SUBSTRATUM_BUILDER_CACHE;
+import static projekt.substratum.common.References.SUBSTRATUM_LOG;
+import static projekt.substratum.common.References.checkUsagePermissions;
 
-public class MainActivity extends AppCompatActivity implements
+public class MainActivity extends SubstratumActivity implements
         ActivityCompat.OnRequestPermissionsResultCallback, SearchView.OnQueryTextListener {
 
     private static final int PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
@@ -154,8 +157,9 @@ public class MainActivity extends AppCompatActivity implements
         switchToStockToolbar(title);
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
         tx.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
-        tx.replace(R.id.main, Fragment.instantiate(MainActivity.this, "projekt.substratum" +
-                ".fragments." + fragment));
+        tx.replace(R.id.main, Fragment.instantiate(
+                MainActivity.this,
+                "projekt.substratum.fragments." + fragment));
         tx.commit();
         hideBundle = true;
         hideRestartUi = !title.equals(getString(R.string.nav_overlay_manager));
@@ -493,7 +497,7 @@ public class MainActivity extends AppCompatActivity implements
                         break;
                     case 7:
                         switchFragment(getString(R.string.nav_overlay_manager),
-                                "AdvancedManagerFragment");
+                                "manager.ManagerFragment");
                         break;
                     case 8:
                         Intent intent = new Intent(getApplicationContext(),
@@ -502,23 +506,23 @@ public class MainActivity extends AppCompatActivity implements
                         break;
                     case 9:
                         switchFragment(getString(R.string.nav_priorities),
-                                "PriorityLoaderFragment");
+                                "priorities.PriorityLoaderFragment");
                         break;
                     case 10:
                         switchFragment(getString(R.string.nav_backup_restore),
-                                "ProfileFragment");
+                                "profiles.ProfileFragment");
                         break;
                     case 11:
                         switchFragment(getString(R.string.nav_manage),
-                                "RecoveryFragment");
+                                "recovery.RecoveryFragment");
                         break;
                     case 12:
                         switchFragment(getString(R.string.nav_troubleshooting),
-                                "TroubleshootingFragment");
+                                "troubleshooting.TroubleshootingFragment");
                         break;
                     case 13:
                         switchFragment(getString(R.string.nav_team),
-                                "TeamFragment");
+                                "team.TeamFragment");
                         break;
                     case 14:
                         switchFragmentToLicenses(getString(R.string.nav_opensource),
@@ -526,7 +530,7 @@ public class MainActivity extends AppCompatActivity implements
                         break;
                     case 15:
                         switchFragment(getString(R.string.nav_settings),
-                                "SettingsFragment");
+                                "settings.SettingsFragment");
                         break;
                     case 100:
                         try {
@@ -667,14 +671,14 @@ public class MainActivity extends AppCompatActivity implements
                         if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
                             // permission already granted, allow the program to continue running
                             File directory = new File(Environment.getExternalStorageDirectory(),
-                                    "/.substratum/");
+                                    EXTERNAL_STORAGE_CACHE);
                             if (!directory.exists()) {
                                 Boolean made = directory.mkdirs();
                                 if (!made) Log.e(References.SUBSTRATUM_LOG,
                                         "Unable to create directory");
                             }
                             File cacheDirectory = new File(getCacheDir(),
-                                    "/SubstratumBuilder/");
+                                    SUBSTRATUM_BUILDER_CACHE);
                             if (!cacheDirectory.exists()) {
                                 Boolean made = cacheDirectory.mkdirs();
                                 if (!made) Log.e(References.SUBSTRATUM_LOG,
@@ -720,8 +724,8 @@ public class MainActivity extends AppCompatActivity implements
                                     .show();
                         }
 
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && !References.checkOMS(
-                                getApplicationContext()) && References.isIncompatibleFirmware()) {
+                        if (!References.checkOMS(getApplicationContext()) &&
+                                References.isIncompatibleFirmware()) {
                             new AlertDialog.Builder(this)
                                     .setTitle(R.string.warning_title)
                                     .setMessage(R.string.dangerous_warning_content)
@@ -844,8 +848,7 @@ public class MainActivity extends AppCompatActivity implements
                     } else if (!Settings.canDrawOverlays(getApplicationContext())) {
                         Intent draw_over_apps = new Intent(
                                 Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                                Uri.parse("package:" + getApplicationContext()
-                                        .getPackageName()));
+                                Uri.parse("package:" + getApplicationContext().getPackageName()));
                         startActivityForResult(draw_over_apps,
                                 PERMISSIONS_REQUEST_DRAW_OVER_OTHER_APPS);
                         Toast toast = Toast.makeText(
@@ -888,7 +891,6 @@ public class MainActivity extends AppCompatActivity implements
                         getString(R.string.restore_dialog_cancel), dialogClickListener);
                 builder.show();
                 return true;
-
             // Begin RRO based options
             case R.id.reboot_device:
                 dialogClickListener = (dialog, which) -> {
@@ -901,7 +903,6 @@ public class MainActivity extends AppCompatActivity implements
                             break;
                     }
                 };
-
                 builder = new AlertDialog.Builder(this);
                 builder.setTitle(getString(R.string.dialog_restart_reboot_title));
                 builder.setMessage(getString(R.string.dialog_restart_reboot_content));
@@ -923,7 +924,6 @@ public class MainActivity extends AppCompatActivity implements
                             break;
                     }
                 };
-
                 builder = new AlertDialog.Builder(this);
                 builder.setTitle(getString(R.string.dialog_restart_soft_reboot_title));
                 builder.setMessage(getString(R.string.dialog_restart_soft_reboot_content));
@@ -933,7 +933,6 @@ public class MainActivity extends AppCompatActivity implements
                         getString(R.string.restore_dialog_cancel), dialogClickListener);
                 builder.show();
                 return true;
-
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -951,8 +950,8 @@ public class MainActivity extends AppCompatActivity implements
                 Fragment fragment = new PriorityLoaderFragment();
                 FragmentManager fm = getSupportFragmentManager();
                 FragmentTransaction transaction = fm.beginTransaction();
-                transaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim
-                        .slide_out_right);
+                transaction.setCustomAnimations(
+                        android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                 transaction.replace(R.id.main, fragment);
                 transaction.commit();
             } else if (drawer != null && drawer.getCurrentSelectedPosition() > 1) {
@@ -1028,14 +1027,14 @@ public class MainActivity extends AppCompatActivity implements
                         grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // permission already granted, allow the program to continue running
                     File directory = new File(Environment.getExternalStorageDirectory(),
-                            "/.substratum/");
+                            EXTERNAL_STORAGE_CACHE);
                     if (!directory.exists()) {
                         Boolean made = directory.mkdirs();
                         if (!made) Log.e(References.SUBSTRATUM_LOG,
                                 "Unable to create directory");
                     }
                     File cacheDirectory = new File(getCacheDir(),
-                            "/SubstratumBuilder/");
+                            SUBSTRATUM_BUILDER_CACHE);
                     if (!cacheDirectory.exists()) {
                         Boolean made = cacheDirectory.mkdirs();
                         if (!made) Log.e(References.SUBSTRATUM_LOG,
@@ -1043,11 +1042,11 @@ public class MainActivity extends AppCompatActivity implements
                     }
                     References.injectRescueArchives(getApplicationContext());
                     File[] fileList = new File(getCacheDir().getAbsolutePath() +
-                            "/SubstratumBuilder/").listFiles();
+                            SUBSTRATUM_BUILDER_CACHE).listFiles();
                     for (File file : fileList) {
                         FileOperations.delete(getApplicationContext(), getCacheDir()
                                 .getAbsolutePath() +
-                                "/SubstratumBuilder/" + file.getName());
+                                SUBSTRATUM_BUILDER_CACHE + file.getName());
                     }
                     Log.d("SubstratumBuilder", "The cache has been flushed!");
                     mProgressDialog = new ProgressDialog(this, R.style.SubstratumBuilder_BlurView);

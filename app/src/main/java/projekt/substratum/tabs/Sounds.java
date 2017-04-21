@@ -64,17 +64,19 @@ import java.util.zip.ZipInputStream;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
-import projekt.substratum.adapters.SoundsAdapter;
-import projekt.substratum.config.FileOperations;
-import projekt.substratum.config.References;
-import projekt.substratum.model.SoundsInfo;
-import projekt.substratum.util.RecyclerItemClickListener;
-import projekt.substratum.util.SoundUtils;
+import projekt.substratum.adapters.tabs.sounds.SoundsAdapter;
+import projekt.substratum.adapters.tabs.sounds.SoundsInfo;
+import projekt.substratum.common.References;
+import projekt.substratum.common.commands.FileOperations;
+import projekt.substratum.util.tabs.SoundUtils;
+import projekt.substratum.util.views.RecyclerItemClickListener;
 
-import static projekt.substratum.util.SoundUtils.finishReceiver;
+import static projekt.substratum.util.tabs.SoundUtils.finishReceiver;
 
 public class Sounds extends Fragment {
 
+    private static final String soundsDir = "audio";
+    private static final String TAG = "SoundUtils";
     private String theme_pid;
     private ViewGroup root;
     private MaterialProgressBar progressBar;
@@ -95,9 +97,10 @@ public class Sounds extends Fragment {
     private LocalBroadcastManager localBroadcastManager;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
-            savedInstanceState) {
-
+    public View onCreateView(
+            LayoutInflater inflater,
+            ViewGroup container,
+            Bundle savedInstanceState) {
         theme_pid = InformationActivity.getThemePID();
 
         root = (ViewGroup) inflater.inflate(R.layout.tab_fragment_4, container, false);
@@ -126,10 +129,10 @@ public class Sounds extends Fragment {
 
         try {
             // Parses the list of items in the fonts folder
-            Resources themeResources = getContext().getPackageManager().getResourcesForApplication
-                    (theme_pid);
+            Resources themeResources =
+                    getContext().getPackageManager().getResourcesForApplication(theme_pid);
             themeAssetManager = themeResources.getAssets();
-            String[] fileArray = themeAssetManager.list("audio");
+            String[] fileArray = themeAssetManager.list(soundsDir);
             ArrayList<String> archivedSounds = new ArrayList<>();
             Collections.addAll(archivedSounds, fileArray);
 
@@ -146,14 +149,12 @@ public class Sounds extends Fragment {
                     android.R.layout.simple_spinner_dropdown_item, unarchivedSounds);
             soundsSelector = (Spinner) root.findViewById(R.id.soundsSelection);
             soundsSelector.setAdapter(adapter1);
-            soundsSelector.setOnItemSelectedListener(new AdapterView
-                    .OnItemSelectedListener() {
+            soundsSelector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> arg0, View arg1, int pos, long id) {
                     switch (pos) {
                         case 0:
-                            if (current != null)
-                                current.cancel(true);
+                            if (current != null) current.cancel(true);
                             defaults.setVisibility(View.GONE);
                             error.setVisibility(View.GONE);
                             relativeLayout.setVisibility(View.GONE);
@@ -162,8 +163,7 @@ public class Sounds extends Fragment {
                             break;
 
                         case 1:
-                            if (current != null)
-                                current.cancel(true);
+                            if (current != null) current.cancel(true);
                             defaults.setVisibility(View.VISIBLE);
                             error.setVisibility(View.GONE);
                             relativeLayout.setVisibility(View.GONE);
@@ -172,8 +172,7 @@ public class Sounds extends Fragment {
                             break;
 
                         default:
-                            if (current != null)
-                                current.cancel(true);
+                            if (current != null) current.cancel(true);
                             defaults.setVisibility(View.GONE);
                             error.setVisibility(View.GONE);
                             sounds_preview.setVisibility(View.GONE);
@@ -189,8 +188,7 @@ public class Sounds extends Fragment {
             });
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e("SoundUtils",
-                    "There is no sounds.zip found within the assets of this theme!");
+            Log.e(TAG, "There is no sounds.zip found within the assets of this theme!");
         }
 
         RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.recycler_view);
@@ -200,8 +198,9 @@ public class Sounds extends Fragment {
                     try {
                         if (!mp.isPlaying() || position != previous_position) {
                             stopPlayer();
-                            ((ImageButton) view.findViewById(R.id.play))
-                                    .setImageResource(R.drawable.sounds_preview_stop);
+                            ((ImageButton)
+                                    view.findViewById(R.id.play)).setImageResource(
+                                    R.drawable.sounds_preview_stop);
                             mp.setDataSource(wordList.get(position).getAbsolutePath());
                             mp.prepare();
                             mp.start();
@@ -210,8 +209,7 @@ public class Sounds extends Fragment {
                         }
                         previous_position = position;
                     } catch (IOException ioe) {
-                        Log.e("SoundUtils", "Playback has failed for " + wordList.get
-                                (position).getTitle());
+                        Log.e(TAG, "Playback has failed for " + wordList.get(position).getTitle());
                     }
                 })
         );
@@ -249,7 +247,7 @@ public class Sounds extends Fragment {
             }
             localBroadcastManager.unregisterReceiver(jobReceiver);
         } catch (IllegalArgumentException e) {
-            // unregistered already
+            // Unregistered already
         }
     }
 
@@ -323,8 +321,7 @@ public class Sounds extends Fragment {
                 }
                 progressBar.setVisibility(View.GONE);
             } catch (Exception e) {
-                Log.e("SoundUtils",
-                        "Window was destroyed before AsyncTask could perform postExecute()");
+                Log.e(TAG, "Window was destroyed before AsyncTask could perform postExecute()");
             }
         }
 
@@ -332,39 +329,34 @@ public class Sounds extends Fragment {
         protected String doInBackground(String... sUrl) {
             try {
                 File cacheDirectory = new File(getContext().getCacheDir(), "/SoundsCache/");
-                if (!cacheDirectory.exists()) {
-                    boolean created = cacheDirectory.mkdirs();
-                    if (created)
-                        Log.d("SoundUtils", "Sounds folder created");
+                if (!cacheDirectory.exists() && cacheDirectory.mkdirs()) {
+                    Log.d(TAG, "Sounds folder created");
                 }
                 File cacheDirectory2 = new File(getContext().getCacheDir(), "/SoundCache/" +
                         "sounds_preview/");
-                if (!cacheDirectory2.exists()) {
-                    boolean created = cacheDirectory2.mkdirs();
-                    if (created)
-                        Log.d("SoundUtils", "Sounds work folder created");
+                if (!cacheDirectory2.exists() && cacheDirectory2.mkdirs()) {
+                    Log.d(TAG, "Sounds work folder created");
                 } else {
-                    FileOperations.delete(getContext(), getContext().getCacheDir()
-                            .getAbsolutePath() +
-                            "/SoundsCache/sounds_preview/");
+                    FileOperations.delete(getContext(),
+                            getContext().getCacheDir().getAbsolutePath() +
+                                    "/SoundsCache/sounds_preview/");
                     boolean created = cacheDirectory2.mkdirs();
-                    if (created)
-                        Log.d("SoundUtils", "Sounds folder recreated");
+                    if (created) Log.d(TAG, "Sounds folder recreated");
                 }
 
                 // Copy the sounds.zip from assets/sounds of the theme's assets
 
                 String source = sUrl[0] + ".zip";
 
-                try (InputStream inputStream = themeAssetManager.open("audio/" + source);
+                try (InputStream inputStream = themeAssetManager.open(
+                        soundsDir + "/" + source);
                      OutputStream outputStream =
                              new FileOutputStream(getContext().getCacheDir().getAbsolutePath() +
                                      "/SoundsCache/" + source)) {
                     CopyStream(inputStream, outputStream);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Log.e("SoundUtils",
-                            "There is no sounds.zip found within the assets of this theme!");
+                    Log.e(TAG, "There is no sounds.zip found within the assets of this theme!");
                 }
 
                 // Unzip the sounds archive to get it prepared for the preview
@@ -379,7 +371,7 @@ public class Sounds extends Fragment {
                 listFilesForFolder(testDirectory);
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.e("SoundUtils", "Unexpectedly lost connection to the application host");
+                Log.e(TAG, "Unexpectedly lost connection to the application host");
             }
             return null;
         }
@@ -420,8 +412,7 @@ public class Sounds extends Fragment {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.e("SoundUtils",
-                        "An issue has occurred while attempting to decompress this archive.");
+                Log.e(TAG, "An issue has occurred while attempting to decompress this archive.");
             }
         }
 
@@ -438,7 +429,6 @@ public class Sounds extends Fragment {
     class JobReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            // TODO: should not be like this, find out why there is a detached fragment live
             if (!isAdded()) return;
             startApply();
         }

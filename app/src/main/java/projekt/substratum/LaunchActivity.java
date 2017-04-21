@@ -18,32 +18,30 @@
 
 package projekt.substratum;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
 
-import projekt.substratum.config.References;
+import projekt.substratum.activities.launch.SplashScreenActivity;
 
-public class LaunchActivity extends AppCompatActivity {
+public class LaunchActivity extends Activity {
+
+    /**
+     * Controlled activity for ROM cherry-picked Settings/QS tile shortcuts
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
-                getApplicationContext());
+        SharedPreferences prefs =
+                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-        if (prefs.getBoolean("first_run", true)) {
-            References.loadDefaultConfig(getApplicationContext());
-            Intent intent = new Intent(this, SplashScreenActivityFirstLaunch.class);
-            startActivity(intent);
-            this.finish();
-        } else {
-            Intent intent = new Intent(this, SplashScreenActivity.class);
-            startActivity(intent);
-            this.finish();
-        }
+        Intent intent = new Intent(this, SplashScreenActivity.class);
+        intent.putExtra("first_run", prefs.getBoolean("first_run", true));
+        startActivity(intent);
+        this.finish();
     }
 }

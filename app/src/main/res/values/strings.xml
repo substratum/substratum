@@ -549,7 +549,7 @@
     <string name="toast_disabled6">Selected overlay(s) removed!</string>
     <string name="toast_installed">Selected overlay(s) applied!</string>
     <string name="toast_uninstalled">You just uninstalled this theme! I\'ll be gone on your next refresh!</string>
-    <string name="toast_uninstalling">Now uninstalling overlays&#8230;</string>
+    <string name="toast_uninstalling">Overlay(s) uninstalled!</string>
     <string name="toast_updating">Substratum is now getting your theme ready in the background!</string>
     <string name="no_themes_title">no themes found&#8230;</string>
     <string name="no_themes_description">please install a compatible theme!</string>

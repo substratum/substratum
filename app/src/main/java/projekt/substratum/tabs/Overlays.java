@@ -88,36 +88,43 @@ import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.BuildConfig;
 import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
-import projekt.substratum.adapters.OverlaysAdapter;
-import projekt.substratum.adapters.VariantsAdapter;
-import projekt.substratum.config.ElevatedCommands;
-import projekt.substratum.config.FileOperations;
-import projekt.substratum.config.MasqueradeService;
-import projekt.substratum.config.References;
-import projekt.substratum.config.ThemeManager;
-import projekt.substratum.model.OverlaysInfo;
-import projekt.substratum.model.VariantInfo;
-import projekt.substratum.services.NotificationButtonReceiver;
-import projekt.substratum.util.CacheCreator;
-import projekt.substratum.util.SubstratumBuilder;
+import projekt.substratum.adapters.tabs.overlays.OverlaysAdapter;
+import projekt.substratum.adapters.tabs.overlays.OverlaysItem;
+import projekt.substratum.adapters.tabs.overlays.VariantAdapter;
+import projekt.substratum.adapters.tabs.overlays.VariantItem;
+import projekt.substratum.common.References;
+import projekt.substratum.common.commands.ElevatedCommands;
+import projekt.substratum.common.commands.FileOperations;
+import projekt.substratum.common.platform.MasqueradeService;
+import projekt.substratum.common.platform.ThemeManager;
+import projekt.substratum.services.notification.NotificationButtonReceiver;
+import projekt.substratum.util.compilers.CacheCreator;
+import projekt.substratum.util.compilers.SubstratumBuilder;
 
 import static android.content.Context.CLIPBOARD_SERVICE;
 import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
-import static projekt.substratum.config.References.INTERFACER_PACKAGE;
-import static projekt.substratum.config.References.MASQUERADE_PACKAGE;
-import static projekt.substratum.config.References.REFRESH_WINDOW_DELAY;
-import static projekt.substratum.config.References.SUBSTRATUM_LOG;
-import static projekt.substratum.config.References.checkThemeInterfacer;
-import static projekt.substratum.config.References.isPackageInstalled;
-import static projekt.substratum.util.MapUtils.sortMapByValues;
+import static projekt.substratum.common.References.EXTERNAL_STORAGE_CACHE;
+import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
+import static projekt.substratum.common.References.MASQUERADE_PACKAGE;
+import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;
+import static projekt.substratum.common.References.REFRESH_WINDOW_DELAY;
+import static projekt.substratum.common.References.STATUS_CHANGED;
+import static projekt.substratum.common.References.SUBSTRATUM_BUILDER;
+import static projekt.substratum.common.References.SUBSTRATUM_BUILDER_CACHE;
+import static projekt.substratum.common.References.SUBSTRATUM_LOG;
+import static projekt.substratum.common.References.checkThemeInterfacer;
+import static projekt.substratum.common.References.isPackageInstalled;
+import static projekt.substratum.util.files.MapUtils.sortMapByValues;
 
 public class Overlays extends Fragment {
 
-    private final static String overlaysDir = "overlays";
+    private static final String overlaysDir = "overlays";
+    private static final String TAG = SUBSTRATUM_BUILDER;
+    private static final int THREAD_WAIT_DURATION = 500;
     private TextView loader_string;
     private ProgressDialog mProgressDialog;
     private SubstratumBuilder sb;
-    private List<OverlaysInfo> overlaysLists, checkedOverlays;
+    private List<OverlaysItem> overlaysLists, checkedOverlays;
     private RecyclerView.Adapter mAdapter;
     private String theme_name, theme_pid, versionName;
     private NotificationManager mNotifyManager;
@@ -126,7 +133,7 @@ public class Overlays extends Fragment {
     private boolean has_failed = false;
     private int fail_count;
     private int id = References.notification_id;
-    private ArrayList<OverlaysInfo> values2;
+    private ArrayList<OverlaysItem> values2;
     private RecyclerView mRecyclerView;
     private Spinner base_spinner;
     private SharedPreferences prefs;
@@ -164,7 +171,7 @@ public class Overlays extends Fragment {
             checkedOverlays = new ArrayList<>();
 
             for (int i = 0; i < overlaysLists.size(); i++) {
-                OverlaysInfo currentOverlay = overlaysLists.get(i);
+                OverlaysItem currentOverlay = overlaysLists.get(i);
                 if (currentOverlay.isSelected()) {
                     checkedOverlays.add(currentOverlay);
                 }
@@ -172,22 +179,19 @@ public class Overlays extends Fragment {
             if (!checkedOverlays.isEmpty()) {
                 if (base_spinner.getSelectedItemPosition() != 0 &&
                         base_spinner.getVisibility() == View.VISIBLE) {
-                    Phase2_InitializeCache phase2_initializeCache = new
-                            Phase2_InitializeCache();
-                    phase2_initializeCache.execute(base_spinner.getSelectedItem()
-                            .toString());
+                    Phase2_InitializeCache phase2_initializeCache = new Phase2_InitializeCache();
+                    phase2_initializeCache.execute(base_spinner.getSelectedItem().toString());
                 } else {
-                    Phase2_InitializeCache phase2_initializeCache = new
-                            Phase2_InitializeCache();
+                    Phase2_InitializeCache phase2_initializeCache = new Phase2_InitializeCache();
                     phase2_initializeCache.execute("");
                 }
             } else {
                 if (toggle_all.isChecked()) toggle_all.setChecked(false);
                 is_active = false;
-                Toast toast2 = Toast.makeText(mContext, getString(R
-                                .string.toast_disabled5),
-                        Toast.LENGTH_SHORT);
-                toast2.show();
+                Toast.makeText(
+                        mContext,
+                        getString(R.string.toast_disabled5),
+                        Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -201,7 +205,7 @@ public class Overlays extends Fragment {
             checkedOverlays = new ArrayList<>();
 
             for (int i = 0; i < overlaysLists.size(); i++) {
-                OverlaysInfo currentOverlay = overlaysLists.get(i);
+                OverlaysItem currentOverlay = overlaysLists.get(i);
                 if (currentOverlay.isSelected()) {
                     checkedOverlays.add(currentOverlay);
                 }
@@ -209,22 +213,19 @@ public class Overlays extends Fragment {
             if (!checkedOverlays.isEmpty()) {
                 if (base_spinner.getSelectedItemPosition() != 0 &&
                         base_spinner.getVisibility() == View.VISIBLE) {
-                    Phase2_InitializeCache phase2_initializeCache = new
-                            Phase2_InitializeCache();
-                    phase2_initializeCache.execute(base_spinner.getSelectedItem()
-                            .toString());
+                    Phase2_InitializeCache phase2_initializeCache = new Phase2_InitializeCache();
+                    phase2_initializeCache.execute(base_spinner.getSelectedItem().toString());
                 } else {
-                    Phase2_InitializeCache phase2_initializeCache = new
-                            Phase2_InitializeCache();
+                    Phase2_InitializeCache phase2_initializeCache = new Phase2_InitializeCache();
                     phase2_initializeCache.execute("");
                 }
             } else {
                 if (toggle_all.isChecked()) toggle_all.setChecked(false);
                 is_active = false;
-                Toast toast2 = Toast.makeText(mContext, getString(R
-                                .string.toast_disabled5),
-                        Toast.LENGTH_SHORT);
-                toast2.show();
+                Toast.makeText(
+                        mContext,
+                        getString(R.string.toast_disabled5),
+                        Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -242,9 +243,8 @@ public class Overlays extends Fragment {
                 disable_mode = true;
 
                 for (int i = 0; i < overlaysLists.size(); i++) {
-                    OverlaysInfo currentOverlay = overlaysLists.get(i);
-                    if (currentOverlay.isSelected() &&
-                            currentOverlay.isOverlayEnabled()) {
+                    OverlaysItem currentOverlay = overlaysLists.get(i);
+                    if (currentOverlay.isSelected() && currentOverlay.isOverlayEnabled()) {
                         checkedOverlays.add(currentOverlay);
                     } else {
                         currentOverlay.setSelected(false);
@@ -254,22 +254,21 @@ public class Overlays extends Fragment {
                 if (!checkedOverlays.isEmpty()) {
                     if (base_spinner.getSelectedItemPosition() != 0 &&
                             base_spinner.getVisibility() == View.VISIBLE) {
-                        Phase2_InitializeCache phase2_initializeCache = new
-                                Phase2_InitializeCache();
-                        phase2_initializeCache.execute(base_spinner.getSelectedItem()
-                                .toString());
+                        Phase2_InitializeCache phase2_initializeCache =
+                                new Phase2_InitializeCache();
+                        phase2_initializeCache.execute(base_spinner.getSelectedItem().toString());
                     } else {
-                        Phase2_InitializeCache phase2_initializeCache = new
-                                Phase2_InitializeCache();
+                        Phase2_InitializeCache phase2_initializeCache =
+                                new Phase2_InitializeCache();
                         phase2_initializeCache.execute("");
                     }
                 } else {
                     if (toggle_all.isChecked()) toggle_all.setChecked(false);
                     is_active = false;
-                    Toast toast2 = Toast.makeText(mContext, getString(R
-                                    .string.toast_disabled5),
-                            Toast.LENGTH_SHORT);
-                    toast2.show();
+                    Toast.makeText(
+                            mContext,
+                            getString(R.string.toast_disabled5),
+                            Toast.LENGTH_SHORT).show();
                 }
             } else {
                 compile_enable_mode = false;
@@ -277,7 +276,7 @@ public class Overlays extends Fragment {
                 disable_mode = true;
 
                 for (int i = 0; i < overlaysLists.size(); i++) {
-                    OverlaysInfo currentOverlay = overlaysLists.get(i);
+                    OverlaysItem currentOverlay = overlaysLists.get(i);
                     if (currentOverlay.isSelected()) {
                         checkedOverlays.add(currentOverlay);
                     } else {
@@ -288,9 +287,9 @@ public class Overlays extends Fragment {
 
                 String current_directory;
                 if (References.inNexusFilter()) {
-                    current_directory = "/system/overlay/";
+                    current_directory = PIXEL_NEXUS_DIR;
                 } else {
-                    current_directory = "/system/vendor/overlay/";
+                    current_directory = LEGACY_NEXUS_DIR;
                 }
 
                 if (!checkedOverlays.isEmpty()) {
@@ -305,29 +304,25 @@ public class Overlays extends Fragment {
                     toggle_all.setChecked(false);
                     overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
                     for (int i = 0; i < overlaysLists.size(); i++) {
-                        OverlaysInfo currentOverlay = overlaysLists.get(i);
+                        OverlaysItem currentOverlay = overlaysLists.get(i);
                         if (currentOverlay.isSelected()) {
                             currentOverlay.setSelected(false);
                         }
                     }
-                    Toast toast2 = Toast.makeText(mContext, getString(R
-                                    .string.toast_disabled6),
-                            Toast.LENGTH_SHORT);
-                    toast2.show();
+                    Toast.makeText(mContext,
+                            getString(R.string.toast_disabled6),
+                            Toast.LENGTH_SHORT).show();
                     AlertDialog.Builder alertDialogBuilder =
                             new AlertDialog.Builder(mContext);
-                    alertDialogBuilder
-                            .setTitle(getString(R.string
-                                    .legacy_dialog_soft_reboot_title));
-                    alertDialogBuilder
-                            .setMessage(getString(
-                                    R.string.legacy_dialog_soft_reboot_text));
-                    alertDialogBuilder
-                            .setPositiveButton(android.R.string.ok,
-                                    (dialog, id12) -> ElevatedCommands.reboot());
-                    alertDialogBuilder
-                            .setNegativeButton(R.string.remove_dialog_later, (dialog,
-                                                                              id1) -> {
+                    alertDialogBuilder.setTitle(
+                            getString(R.string.legacy_dialog_soft_reboot_title));
+                    alertDialogBuilder.setMessage(
+                            getString(R.string.legacy_dialog_soft_reboot_text));
+                    alertDialogBuilder.setPositiveButton(
+                            android.R.string.ok,
+                            (dialog, id12) -> ElevatedCommands.reboot());
+                    alertDialogBuilder.setNegativeButton(
+                            R.string.remove_dialog_later, (dialog, id1) -> {
                                 progressBar.setVisibility(View.GONE);
                                 dialog.dismiss();
                             });
@@ -336,10 +331,10 @@ public class Overlays extends Fragment {
                 } else {
                     if (toggle_all.isChecked()) toggle_all.setChecked(false);
                     is_active = false;
-                    Toast toast2 = Toast.makeText(mContext, getString(R
-                                    .string.toast_disabled5),
-                            Toast.LENGTH_SHORT);
-                    toast2.show();
+                    Toast.makeText(
+                            mContext,
+                            getString(R.string.toast_disabled5),
+                            Toast.LENGTH_SHORT).show();
                 }
                 is_active = false;
                 disable_mode = false;
@@ -358,7 +353,7 @@ public class Overlays extends Fragment {
             checkedOverlays = new ArrayList<>();
 
             for (int i = 0; i < overlaysLists.size(); i++) {
-                OverlaysInfo currentOverlay = overlaysLists.get(i);
+                OverlaysItem currentOverlay = overlaysLists.get(i);
                 if (currentOverlay.isSelected() && !currentOverlay.isOverlayEnabled()) {
                     checkedOverlays.add(currentOverlay);
                 } else {
@@ -369,23 +364,19 @@ public class Overlays extends Fragment {
             if (!checkedOverlays.isEmpty()) {
                 if (base_spinner.getSelectedItemPosition() != 0 &&
                         base_spinner.getVisibility() == View.VISIBLE) {
-                    Phase2_InitializeCache phase2_initializeCache = new
-                            Phase2_InitializeCache();
-                    phase2_initializeCache.execute(
-                            base_spinner.getSelectedItem().toString());
+                    Phase2_InitializeCache phase2_initializeCache = new Phase2_InitializeCache();
+                    phase2_initializeCache.execute(base_spinner.getSelectedItem().toString());
 
                 } else {
-                    Phase2_InitializeCache phase2_initializeCache = new
-                            Phase2_InitializeCache();
+                    Phase2_InitializeCache phase2_initializeCache = new Phase2_InitializeCache();
                     phase2_initializeCache.execute("");
                 }
             } else {
                 if (toggle_all.isChecked()) toggle_all.setChecked(false);
                 is_active = false;
-                Toast toast2 = Toast.makeText(mContext, getString(R
-                                .string.toast_disabled5),
-                        Toast.LENGTH_SHORT);
-                toast2.show();
+                Toast.makeText(mContext,
+                        getString(R.string.toast_disabled5),
+                        Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -397,8 +388,10 @@ public class Overlays extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
-            savedInstanceState) {
+    public View onCreateView(
+            LayoutInflater inflater,
+            ViewGroup container,
+            Bundle savedInstanceState) {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.tab_fragment_1, container, false);
         mContext = getContext();
         prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
@@ -417,55 +410,58 @@ public class Overlays extends Fragment {
         mRecyclerView = (RecyclerView) root.findViewById(R.id.overlayRecyclerView);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        ArrayList<OverlaysInfo> empty_array = new ArrayList<>();
+        ArrayList<OverlaysItem> empty_array = new ArrayList<>();
         RecyclerView.Adapter empty_adapter = new OverlaysAdapter(empty_array);
         mRecyclerView.setAdapter(empty_adapter);
 
-        TextView toggle_all_overlays_text = (TextView)
-                root.findViewById(R.id.toggle_all_overlays_text);
+        TextView toggle_all_overlays_text =
+                (TextView) root.findViewById(R.id.toggle_all_overlays_text);
         toggle_all_overlays_text.setVisibility(View.VISIBLE);
 
         File work_area = new File(Environment.getExternalStorageDirectory().getAbsolutePath() +
-                "/.substratum");
-        if (!work_area.exists()) {
-            boolean created = work_area.mkdir();
-            if (created) Log.d(SUBSTRATUM_LOG,
-                    "Updating the internal storage with proper file directories...");
+                EXTERNAL_STORAGE_CACHE);
+        if (!work_area.exists() && work_area.mkdir()) {
+            Log.d(TAG, "Updating the internal storage with proper file directories...");
         }
 
+        // Adjust the behaviour of the mix and match toggle in the sheet
         toggle_all = (Switch) root.findViewById(R.id.toggle_all_overlays);
         toggle_all.setOnCheckedChangeListener(
                 (buttonView, isChecked) -> {
                     try {
                         overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
                         for (int i = 0; i < overlaysLists.size(); i++) {
-                            OverlaysInfo currentOverlay = overlaysLists.get(i);
+                            OverlaysItem currentOverlay = overlaysLists.get(i);
                             currentOverlay.setSelected(isChecked);
                             mAdapter.notifyDataSetChanged();
                         }
                     } catch (Exception e) {
-                        Log.e("Overlays", "Window has lost connection with the host.");
+                        Log.e(TAG, "Window has lost connection with the host.");
                     }
                 });
+
+        // Allow the user to toggle the select all switch by clicking on the bar above
         RelativeLayout toggleZone = (RelativeLayout) root.findViewById(R.id.toggle_zone);
         toggleZone.setOnClickListener(v -> {
             try {
                 toggle_all.setChecked(!toggle_all.isChecked());
                 overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
                 for (int i = 0; i < overlaysLists.size(); i++) {
-                    OverlaysInfo currentOverlay = overlaysLists.get(i);
+                    OverlaysItem currentOverlay = overlaysLists.get(i);
                     currentOverlay.setSelected(toggle_all.isChecked());
                     mAdapter.notifyDataSetChanged();
                 }
             } catch (Exception e) {
-                Log.e("Overlays", "Window has lost connection with the host.");
+                Log.e(TAG, "Window has lost connection with the host.");
             }
         });
+
+        // Allow the user to swipe down to refresh the overlay list
         swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(() -> {
             overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
             for (int i = 0; i < overlaysLists.size(); i++) {
-                OverlaysInfo currentOverlay = overlaysLists.get(i);
+                OverlaysItem currentOverlay = overlaysLists.get(i);
                 currentOverlay.setSelected(false);
                 currentOverlay.updateEnabledOverlays(updateEnabledOverlays());
                 mAdapter.notifyDataSetChanged();
@@ -475,8 +471,9 @@ public class Overlays extends Fragment {
         });
         swipeRefreshLayout.setVisibility(View.GONE);
 
-        // PLUGIN TYPE 3: Parse each overlay folder to see if they have folder options
-
+        /*
+          PLUGIN TYPE 3: Parse each overlay folder to see if they have folder options
+         */
         base_spinner = (Spinner) root.findViewById(R.id.type3_spinner);
         base_spinner.setOnItemSelectedListener(new AdapterView
                 .OnItemSelectedListener() {
@@ -503,14 +500,14 @@ public class Overlays extends Fragment {
                     (theme_pid);
             themeAssetManager = themeResources.getAssets();
 
-            ArrayList<VariantInfo> type3 = new ArrayList<>();
+            ArrayList<VariantItem> type3 = new ArrayList<>();
             ArrayList<String> stringArray = new ArrayList<>();
 
-            File f = new File(mContext.getCacheDir().getAbsoluteFile() + "/SubstratumBuilder/" +
+            File f = new File(mContext.getCacheDir().getAbsoluteFile() + SUBSTRATUM_BUILDER_CACHE +
                     theme_pid + "/assets/overlays/android/");
             if (!References.checkOMS(mContext)) {
                 File check_file = new File(mContext.getCacheDir().getAbsoluteFile() +
-                        "/SubstratumBuilder/" + theme_pid + "/assets/overlays_legacy/android/");
+                        SUBSTRATUM_BUILDER_CACHE + theme_pid + "/assets/overlays_legacy/android/");
                 if (check_file.exists() && check_file.isDirectory()) {
                     f = new File(check_file.getAbsolutePath());
                 }
@@ -538,35 +535,30 @@ public class Overlays extends Fragment {
 
                 try (BufferedReader reader = new BufferedReader(
                         new InputStreamReader(inputStream))) {
-                    String formatter = String.format(getString(R.string
-                            .overlays_variant_substitute), reader.readLine());
-                    type3.add(new VariantInfo(formatter, null));
+                    String formatter = String.format(
+                            getString(R.string.overlays_variant_substitute), reader.readLine());
+                    type3.add(new VariantItem(formatter, null));
                 } catch (IOException e) {
-                    Log.e(References.SUBSTRATUM_LOG, "There was an error parsing asset " +
-                            "file!");
-                    type3.add(new VariantInfo(getString(R.string
+                    Log.e(TAG, "There was an error parsing asset file!");
+                    type3.add(new VariantItem(getString(R.string
                             .overlays_variant_default_3), null));
                 }
                 inputStream.close();
             } else {
-                type3.add(new VariantInfo(
-                        getString(R.string.overlays_variant_default_3), null));
+                type3.add(new VariantItem(getString(R.string.overlays_variant_default_3), null));
             }
 
             if (stringArray.size() > 1) {
                 for (int i = 0; i < stringArray.size(); i++) {
                     String current = stringArray.get(i);
-                    if (!current.equals("res")) {
-                        if (!current.contains(".")) {
-                            if (current.length() >= 6) {
-                                if (current.substring(0, 6).equals("type3_")) {
-                                    type3.add(new VariantInfo(current.substring(6), null));
-                                }
-                            }
-                        }
+                    if (!current.equals("res") &&
+                            !current.contains(".") &&
+                            current.length() >= 6 &&
+                            current.substring(0, 6).equals("type3_")) {
+                        type3.add(new VariantItem(current.substring(6), null));
                     }
                 }
-                VariantsAdapter adapter1 = new VariantsAdapter(getActivity(), type3);
+                VariantAdapter adapter1 = new VariantAdapter(getActivity(), type3);
                 if (type3.size() > 1) {
                     toggle_all_overlays_text.setVisibility(View.GONE);
                     base_spinner.setVisibility(View.VISIBLE);
@@ -587,8 +579,7 @@ public class Overlays extends Fragment {
                 base_spinner.setVisibility(View.INVISIBLE);
             }
             e.printStackTrace();
-            Log.e(References.SUBSTRATUM_LOG, "Could not parse list of base options for this " +
-                    "theme!");
+            Log.e(TAG, "Could not parse list of base options for this theme!");
         }
 
         // Enable job listener
@@ -596,7 +587,6 @@ public class Overlays extends Fragment {
         IntentFilter intentFilter = new IntentFilter("Overlays.START_JOB");
         localBroadcastManager = LocalBroadcastManager.getInstance(mContext);
         localBroadcastManager.registerReceiver(jobReceiver, intentFilter);
-
         return root;
     }
 
@@ -606,7 +596,7 @@ public class Overlays extends Fragment {
 
         all_installed_overlays = new ArrayList<>();
 
-        // Filter out icon pack overlays from all overlays
+        // ValidatorFilter out icon pack overlays from all overlays
         for (int i = 0; i < all.size(); i++) {
             if (!all.get(i).endsWith(".icon")) {
                 all_installed_overlays.add(all.get(i));
@@ -618,7 +608,7 @@ public class Overlays extends Fragment {
     private boolean checkActiveNotifications() {
         StatusBarNotification[] activeNotifications = mNotifyManager.getActiveNotifications();
         for (StatusBarNotification statusBarNotification : activeNotifications) {
-            if (statusBarNotification.getPackageName().equals("projekt.substratum")) {
+            if (statusBarNotification.getPackageName().equals(getContext().getPackageName())) {
                 return true;
             }
         }
@@ -632,8 +622,8 @@ public class Overlays extends Fragment {
         Intent notificationIntent = new Intent(context, InformationActivity.class);
         notificationIntent.putExtra("theme_name", theme_name);
         notificationIntent.putExtra("theme_pid", theme_pid);
-        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
-                Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        notificationIntent.setFlags(
+                Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         PendingIntent intent =
                 PendingIntent.getActivity(context, 0, notificationIntent,
                         PendingIntent.FLAG_CANCEL_CURRENT);
@@ -657,15 +647,15 @@ public class Overlays extends Fragment {
             }
 
             if (missingType3) {
-                Toast toast = Toast.makeText(context, context.getString(R
-                                .string.toast_compiled_missing),
-                        Toast.LENGTH_LONG);
-                toast.show();
+                Toast.makeText(
+                        context,
+                        context.getString(R.string.toast_compiled_missing),
+                        Toast.LENGTH_LONG).show();
             } else {
-                Toast toast = Toast.makeText(context, context.getString(R
-                                .string.toast_compiled_updated),
-                        Toast.LENGTH_LONG);
-                toast.show();
+                Toast.makeText(
+                        context,
+                        context.getString(R.string.toast_compiled_updated),
+                        Toast.LENGTH_LONG).show();
             }
         }
 
@@ -675,8 +665,11 @@ public class Overlays extends Fragment {
                 // Buffer the disableBeforeEnabling String
                 ArrayList<String> disableBeforeEnabling = new ArrayList<>();
                 for (int i = 0; i < all_installed_overlays.size(); i++) {
-                    if (!References.grabOverlayParent(getContext(),
-                            all_installed_overlays.get(i)).equals(theme_pid)) {
+                    if (!java.util.Objects.equals(
+                            References.grabOverlayParent(
+                                    getContext(),
+                                    all_installed_overlays.get(i)),
+                            theme_pid)) {
                         disableBeforeEnabling.add(all_installed_overlays.get(i));
                     }
                 }
@@ -687,7 +680,7 @@ public class Overlays extends Fragment {
                     for (int i = 0; i < disableBeforeEnabling.size(); i++) {
                         final_commands += " " + disableBeforeEnabling.get(i) + " ";
                     }
-                    Log.d(SUBSTRATUM_LOG, final_commands);
+                    Log.d(TAG, final_commands);
                 }
             }
 
@@ -701,7 +694,7 @@ public class Overlays extends Fragment {
                         // Wait for the install to be finished on the rooted set up
                         while (!isPackageInstalled(context, final_command.get(i))) {
                             try {
-                                Log.d(SUBSTRATUM_LOG,
+                                Log.d(TAG,
                                         "Waiting for \'" + final_command.get(i) +
                                                 "\' to finish installing...");
                                 Thread.sleep(500);
@@ -710,14 +703,13 @@ public class Overlays extends Fragment {
                             }
                         }
                         if (isPackageInstalled(context, final_command.get(i)))
-                            Log.d(SUBSTRATUM_LOG, final_command.get(i) +
-                                    " successfully installed silently.");
+                            Log.d(TAG, final_command.get(i) + " successfully installed silently.");
                     }
                 }
             }
 
             if (!checkThemeInterfacer(context) && isPackageInstalled(context, MASQUERADE_PACKAGE)) {
-                Log.d(SUBSTRATUM_LOG, "Using Masquerade as the fallback system...");
+                Log.d(TAG, "Using Masquerade as the fallback system...");
                 Intent runCommand = MasqueradeService.getMasquerade(getContext());
                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                 runCommand.setAction("masquerade.substratum.COMMANDS");
@@ -746,7 +738,7 @@ public class Overlays extends Fragment {
                     try {
                         overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
                         for (int i = 0; i < overlaysLists.size(); i++) {
-                            OverlaysInfo currentOverlay = overlaysLists.get(i);
+                            OverlaysItem currentOverlay = overlaysLists.get(i);
                             currentOverlay.setSelected(false);
                             currentOverlay.updateEnabledOverlays(updateEnabledOverlays());
                             mAdapter.notifyDataSetChanged();
@@ -769,8 +761,8 @@ public class Overlays extends Fragment {
         Intent notificationIntent = new Intent(context, this.getClass());
         notificationIntent.putExtra("theme_name", theme_name);
         notificationIntent.putExtra("theme_pid", theme_pid);
-        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
-                Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        notificationIntent.setFlags(
+                Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         PendingIntent intent =
                 PendingIntent.getActivity(context, 0, notificationIntent,
                         PendingIntent.FLAG_CANCEL_CURRENT);
@@ -792,17 +784,18 @@ public class Overlays extends Fragment {
             mNotifyManager.notify(id, mBuilder.build());
         }
 
-        Toast toast = Toast.makeText(context, context.getString(R
-                        .string.toast_compiled_updated_with_errors),
-                Toast.LENGTH_LONG);
-        toast.show();
+        Toast.makeText(
+                context,
+                context.getString(R.string.toast_compiled_updated_with_errors),
+                Toast.LENGTH_LONG).show();
 
         final Dialog dialog = new Dialog(context, android.R.style
                 .Theme_DeviceDefault_Dialog);
         dialog.setContentView(R.layout.logcat_dialog);
         dialog.setTitle(R.string.logcat_dialog_title);
         if (dialog.getWindow() != null)
-            dialog.getWindow().setLayout(RecyclerView.LayoutParams.MATCH_PARENT,
+            dialog.getWindow().setLayout(
+                    RecyclerView.LayoutParams.MATCH_PARENT,
                     RecyclerView.LayoutParams.WRAP_CONTENT);
 
         TextView text = (TextView) dialog.findViewById(R.id.textField);
@@ -810,17 +803,15 @@ public class Overlays extends Fragment {
         ImageButton confirm = (ImageButton) dialog.findViewById(R.id.confirm);
         confirm.setOnClickListener(view -> dialog.dismiss());
 
-        ImageButton copy_clipboard = (ImageButton) dialog.findViewById(
-                R.id.copy_clipboard);
+        ImageButton copy_clipboard = (ImageButton) dialog.findViewById(R.id.copy_clipboard);
         copy_clipboard.setOnClickListener(v -> {
-            ClipboardManager clipboard = (ClipboardManager) context
-                    .getSystemService(CLIPBOARD_SERVICE);
+            ClipboardManager clipboard =
+                    (ClipboardManager) context.getSystemService(CLIPBOARD_SERVICE);
             ClipData clip = ClipData.newPlainText("substratum_log", error_logs);
             clipboard.setPrimaryClip(clip);
-            Toast toast1 = Toast.makeText(context, context.getString(R
+            Toast.makeText(context, context.getString(R
                             .string.logcat_dialog_copy_success),
-                    Toast.LENGTH_SHORT);
-            toast1.show();
+                    Toast.LENGTH_SHORT).show();
         });
 
         ImageButton send = (ImageButton) dialog.findViewById(
@@ -830,8 +821,10 @@ public class Overlays extends Fragment {
         theme_author = "";
         themer_email = "";
         try {
-            ApplicationInfo appInfo = context.getPackageManager()
-                    .getApplicationInfo(theme_pid, PackageManager.GET_META_DATA);
+            ApplicationInfo appInfo =
+                    context.getPackageManager().getApplicationInfo(
+                            theme_pid,
+                            PackageManager.GET_META_DATA);
             if (appInfo.metaData != null) {
                 if (appInfo.metaData.getString("Substratum_Author") != null) {
                     theme_author = appInfo.metaData.getString("Substratum_Author");
@@ -896,12 +889,12 @@ public class Overlays extends Fragment {
             mContext.unregisterReceiver(finishReceiver);
             localBroadcastManager.unregisterReceiver(jobReceiver);
         } catch (IllegalArgumentException e) {
-            // unregistered already
+            // Unregistered already
         }
     }
 
     private boolean needsRecreate() {
-        for (OverlaysInfo oi : checkedOverlays) {
+        for (OverlaysItem oi : checkedOverlays) {
             String packageName = oi.getPackageName();
             if (packageName.equals("android") || packageName.equals("projekt.substratum")) {
                 if (!enable_mode && !disable_mode &&
@@ -915,7 +908,7 @@ public class Overlays extends Fragment {
         return References.checkOMS(mContext) && !has_failed;
     }
 
-    public VariantInfo setTypeOneSpinners(Object typeArrayRaw, String package_identifier,
+    public VariantItem setTypeOneSpinners(Object typeArrayRaw, String package_identifier,
                                           String type) {
         InputStream inputStream = null;
         try {
@@ -948,18 +941,18 @@ public class Overlays extends Fragment {
                     .overlays_variant_substitute), reader.readLine());
             // This is the default type1 xml hex, if present
             String hex = null;
-            try (InputStream name = themeAssetManager.open(overlaysDir +
-                    "/" + package_identifier + suffix + "/values/type1" + type + ".xml")) {
+            try (InputStream name = themeAssetManager.open(
+                    overlaysDir + "/" + package_identifier + suffix +
+                            "/values/type1" + type + ".xml")) {
                 hex = References.getOverlayResource(name);
             } catch (IOException e) {
                 // Suppress warning
             }
-            return new VariantInfo(formatter, hex);
+            return new VariantItem(formatter, hex);
         } catch (IOException e) {
             e.printStackTrace();
             // When erroring out, put the default spinner text
-            Log.e(References.SUBSTRATUM_LOG, "There was an error parsing " +
-                    "asset file!");
+            Log.e(TAG, "There was an error parsing asset file!");
             String hex = null;
             try (InputStream input = themeAssetManager.open(overlaysDir +
                     "/" + package_identifier + suffix + "/values/type1" + type + ".xml")) {
@@ -969,13 +962,13 @@ public class Overlays extends Fragment {
             }
             switch (type) {
                 case "a":
-                    return new VariantInfo(
+                    return new VariantItem(
                             getString(R.string.overlays_variant_default_1a), hex);
                 case "b":
-                    return new VariantInfo(
+                    return new VariantItem(
                             getString(R.string.overlays_variant_default_1b), hex);
                 case "c":
-                    return new VariantInfo(
+                    return new VariantItem(
                             getString(R.string.overlays_variant_default_1c), hex);
                 default:
                     return null;
@@ -983,25 +976,22 @@ public class Overlays extends Fragment {
         }
     }
 
-    public VariantInfo setTypeTwoSpinners(Object typeArrayRaw, InputStreamReader
+    public VariantItem setTypeTwoSpinners(Object typeArrayRaw, InputStreamReader
             inputStreamReader) {
         try (BufferedReader reader = new BufferedReader(inputStreamReader)) {
-            return new VariantInfo(String.format(getString(R.string
+            return new VariantItem(String.format(getString(R.string
                     .overlays_variant_substitute), reader.readLine()), null);
         } catch (IOException e) {
-            Log.e(References.SUBSTRATUM_LOG, "There was an error parsing asset file!");
-            return new VariantInfo(getString(R.string.overlays_variant_default_2), null);
+            Log.e(TAG, "There was an error parsing asset file!");
+            return new VariantItem(getString(R.string.overlays_variant_default_2), null);
         }
     }
 
-    public VariantInfo setTypeOneHexAndSpinner(String current, String package_identifier) {
+    public VariantItem setTypeOneHexAndSpinner(String current, String package_identifier) {
         try (InputStream inputStream = themeAssetManager.open(
-                "overlays/" + package_identifier + "/" +
-                        current)) {
-            String hex = References.getOverlayResource(
-                    inputStream);
-            return new VariantInfo(current.substring
-                    (7, current.length() - 4), hex);
+                "overlays/" + package_identifier + "/" + current)) {
+            String hex = References.getOverlayResource(inputStream);
+            return new VariantItem(current.substring(7, current.length() - 4), hex);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -1059,11 +1049,11 @@ public class Overlays extends Fragment {
             ArrayList<String> overlaysFolder = new ArrayList<>();
             if (References.isCachingEnabled(mContext)) {
                 File overlaysDirectory = new File(mContext.getCacheDir().getAbsoluteFile() +
-                        "/SubstratumBuilder/" + theme_pid + "/assets/overlays/");
+                        SUBSTRATUM_BUILDER_CACHE + theme_pid + "/assets/overlays/");
 
                 if (!References.checkOMS(mContext)) {
                     File check_file = new File(mContext.getCacheDir().getAbsoluteFile() +
-                            "/SubstratumBuilder/" + theme_pid + "/assets/overlays_legacy/");
+                            SUBSTRATUM_BUILDER_CACHE + theme_pid + "/assets/overlays_legacy/");
                     if (check_file.exists() && check_file.isDirectory()) {
                         overlaysDirectory = new File(check_file.getAbsolutePath());
                     }
@@ -1077,7 +1067,7 @@ public class Overlays extends Fragment {
                 }
             } else {
                 try {
-                    String[] overlayList = themeAssetManager.list("overlays");
+                    String[] overlayList = themeAssetManager.list(overlaysDir);
                     Collections.addAll(overlaysFolder, overlayList);
                 } catch (IOException ioe) {
                     ioe.printStackTrace();
@@ -1147,21 +1137,21 @@ public class Overlays extends Fragment {
                 String package_identifier = entry.first;
 
                 try {
-                    ArrayList<VariantInfo> type1a = new ArrayList<>();
-                    ArrayList<VariantInfo> type1b = new ArrayList<>();
-                    ArrayList<VariantInfo> type1c = new ArrayList<>();
-                    ArrayList<VariantInfo> type2 = new ArrayList<>();
+                    ArrayList<VariantItem> type1a = new ArrayList<>();
+                    ArrayList<VariantItem> type1b = new ArrayList<>();
+                    ArrayList<VariantItem> type1c = new ArrayList<>();
+                    ArrayList<VariantItem> type2 = new ArrayList<>();
                     ArrayList<String> typeArray = new ArrayList<>();
 
                     Object typeArrayRaw;
                     if (References.isCachingEnabled(mContext)) {
                         typeArrayRaw = new File(mContext.getCacheDir().getAbsoluteFile() +
-                                "/SubstratumBuilder/" + theme_pid
+                                SUBSTRATUM_BUILDER_CACHE + theme_pid
                                 + "/assets/overlays/" + package_identifier);
                     } else {
                         // Begin the no caching algorithm
                         typeArrayRaw = themeAssetManager.list(
-                                "overlays/" + package_identifier);
+                                overlaysDir + "/" + package_identifier);
 
                         // Sort the typeArray so that the types are asciibetical
                         Collections.addAll(typeArray, (String[]) typeArrayRaw);
@@ -1171,9 +1161,8 @@ public class Overlays extends Fragment {
                     if (!References.checkOMS(mContext)) {
                         File check_file = new File(
                                 mContext.getCacheDir().getAbsoluteFile() +
-                                        "/SubstratumBuilder/" + theme_pid
-                                        + "/assets/overlays_legacy/" + package_identifier
-                                        + "/");
+                                        SUBSTRATUM_BUILDER_CACHE + theme_pid
+                                        + "/assets/overlays_legacy/" + package_identifier + "/");
                         if (check_file.exists() && check_file.isDirectory()) {
                             typeArrayRaw = new File(check_file.getAbsolutePath());
                         }
@@ -1193,7 +1182,6 @@ public class Overlays extends Fragment {
                     Collections.sort(typeArray);
 
                     // Let's start adding the type xmls to be parsed into the spinners
-
                     if (typeArray.contains("type1a")) {
                         type1a.add(setTypeOneSpinners(typeArrayRaw, package_identifier, "a"));
                     }
@@ -1240,23 +1228,23 @@ public class Overlays extends Fragment {
                                     }
                                 } else if (!current.contains(".") && current.length() > 5 &&
                                         current.substring(0, 6).equals("type2_")) {
-                                    type2.add(new VariantInfo(current.substring(6), null));
+                                    type2.add(new VariantItem(current.substring(6), null));
                                 }
                             }
                         }
 
-                        VariantsAdapter adapter1 = new VariantsAdapter(getActivity(), type1a);
-                        VariantsAdapter adapter2 = new VariantsAdapter(getActivity(), type1b);
-                        VariantsAdapter adapter3 = new VariantsAdapter(getActivity(), type1c);
-                        VariantsAdapter adapter4 = new VariantsAdapter(getActivity(), type2);
+                        VariantAdapter adapter1 = new VariantAdapter(getActivity(), type1a);
+                        VariantAdapter adapter2 = new VariantAdapter(getActivity(), type1b);
+                        VariantAdapter adapter3 = new VariantAdapter(getActivity(), type1c);
+                        VariantAdapter adapter4 = new VariantAdapter(getActivity(), type2);
 
                         boolean adapterOneChecker = type1a.size() == 0;
                         boolean adapterTwoChecker = type1b.size() == 0;
                         boolean adapterThreeChecker = type1c.size() == 0;
                         boolean adapterFourChecker = type2.size() == 0;
 
-                        OverlaysInfo overlaysInfo =
-                                new OverlaysInfo(
+                        OverlaysItem overlaysItem =
+                                new OverlaysItem(
                                         parse2_themeName,
                                         package_name,
                                         package_identifier,
@@ -1270,11 +1258,11 @@ public class Overlays extends Fragment {
                                         sUrl[0],
                                         state5overlays,
                                         References.checkOMS(mContext));
-                        values2.add(overlaysInfo);
+                        values2.add(overlaysItem);
                     } else {
                         // At this point, there is no spinner adapter, so it should be null
-                        OverlaysInfo overlaysInfo =
-                                new OverlaysInfo(
+                        OverlaysItem overlaysItem =
+                                new OverlaysItem(
                                         parse2_themeName,
                                         package_name,
                                         package_identifier,
@@ -1288,7 +1276,7 @@ public class Overlays extends Fragment {
                                         sUrl[0],
                                         state5overlays,
                                         References.checkOMS(mContext));
-                        values2.add(overlaysInfo);
+                        values2.add(overlaysItem);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -1306,8 +1294,9 @@ public class Overlays extends Fragment {
             late_install = new ArrayList<>();
 
             if (!enable_mode && !disable_mode) {
-                Log.d("SubstratumBuilder", "Decompiling and initializing work area with the " +
-                        "selected theme's assets...");
+                Log.d(TAG,
+                        "Decompiling and initializing work area with the " +
+                                "selected theme's assets...");
                 int notification_priority = Notification.PRIORITY_MAX;
 
                 // Create an Intent for the BroadcastReceiver
@@ -1335,8 +1324,8 @@ public class Overlays extends Fragment {
                 mNotifyManager.notify(id, mBuilder.build());
 
                 mProgressDialog = null;
-                mProgressDialog = new ProgressDialog(getActivity(), R.style
-                        .SubstratumBuilder_ActivityTheme);
+                mProgressDialog = new ProgressDialog(getActivity(),
+                        R.style.SubstratumBuilder_ActivityTheme);
                 mProgressDialog.setIndeterminate(false);
                 mProgressDialog.setCancelable(false);
                 mProgressDialog.show();
@@ -1390,7 +1379,7 @@ public class Overlays extends Fragment {
                     sb = new SubstratumBuilder();
 
                     File versioning = new File(mContext.getCacheDir().getAbsoluteFile() +
-                            "/SubstratumBuilder/" + theme_pid + "/substratum.xml");
+                            SUBSTRATUM_BUILDER_CACHE + theme_pid + "/substratum.xml");
                     if (versioning.exists()) {
                         has_initialized_cache = true;
                     } else {
@@ -1405,8 +1394,7 @@ public class Overlays extends Fragment {
                     } catch (PackageManager.NameNotFoundException e) {
                         // Suppress exception
                     }
-                    Log.d("SubstratumBuilder",
-                            "Work area is ready with decompiled assets already!");
+                    Log.d(TAG, "Work area is ready with decompiled assets already!");
                 }
                 if (sUrl[0].length() != 0) {
                     return sUrl[0];
@@ -1422,7 +1410,7 @@ public class Overlays extends Fragment {
 
         @Override
         protected void onPreExecute() {
-            Log.d("Phase 3", "This phase has started it's asynchronous task.");
+            Log.d(TAG, "Substratum is proceeding with your actions and is now actively running...");
 
             missingType3 = false;
             has_failed = false;
@@ -1432,17 +1420,8 @@ public class Overlays extends Fragment {
             if (!enable_mode && !disable_mode) {
                 // Change title in preparation for loop to change subtext
                 if (checkActiveNotifications()) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        mBuilder.setContentTitle(getString(R.string
-                                .notification_processing_n))
-                                .setProgress(100, 0, false);
-                    } else {
-                        mBuilder.setContentTitle(getString(R.string
-                                .notification_compiling_signing_installing))
-                                .setContentText(getString(
-                                        R.string.notification_extracting_assets_text))
-                                .setProgress(100, 0, false);
-                    }
+                    mBuilder.setContentTitle(getString(R.string.notification_processing_n))
+                            .setProgress(100, 0, false);
                     mNotifyManager.notify(id, mBuilder.build());
                 }
                 loader_string.setText(mContext.getResources().getString(
@@ -1501,7 +1480,7 @@ public class Overlays extends Fragment {
                 try {
                     mContext.unregisterReceiver(finishReceiver);
                 } catch (IllegalArgumentException e) {
-                    // suppress exceptions
+                    // Suppress warning
                 }
             } else if (enable_mode) {
                 if (final_runner.size() > 0) {
@@ -1538,7 +1517,7 @@ public class Overlays extends Fragment {
                             }
                             if (!checkThemeInterfacer(getContext()) &&
                                     isPackageInstalled(getContext(), MASQUERADE_PACKAGE)) {
-                                Log.d(SUBSTRATUM_LOG, "Using Masquerade as the fallback system...");
+                                Log.d(TAG, "Using Masquerade as the fallback system...");
                                 Intent runCommand = MasqueradeService.getMasquerade(getContext());
                                 runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                                 runCommand.setAction("masquerade.substratum.COMMANDS");
@@ -1577,7 +1556,7 @@ public class Overlays extends Fragment {
                             try {
                                 overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
                                 for (int i = 0; i < overlaysLists.size(); i++) {
-                                    OverlaysInfo currentOverlay = overlaysLists.get(i);
+                                    OverlaysItem currentOverlay = overlaysLists.get(i);
                                     currentOverlay.setSelected(false);
                                     currentOverlay.updateEnabledOverlays(updateEnabledOverlays());
                                     mAdapter.notifyDataSetChanged();
@@ -1590,10 +1569,10 @@ public class Overlays extends Fragment {
                 } else {
                     compile_enable_mode = false;
                     enable_mode = false;
-                    Toast toast = Toast.makeText(mContext, getString(R
-                                    .string.toast_disabled3),
-                            Toast.LENGTH_SHORT);
-                    toast.show();
+                    Toast.makeText(
+                            mContext,
+                            getString(R.string.toast_disabled3),
+                            Toast.LENGTH_SHORT).show();
                 }
             } else if (disable_mode) {
                 if (final_runner.size() > 0) {
@@ -1614,7 +1593,7 @@ public class Overlays extends Fragment {
                         }
                         if (!checkThemeInterfacer(getContext()) &&
                                 isPackageInstalled(getContext(), MASQUERADE_PACKAGE)) {
-                            Log.d(SUBSTRATUM_LOG, "Using Masquerade as the fallback system...");
+                            Log.d(TAG, "Using Masquerade as the fallback system...");
                             Intent runCommand = MasqueradeService.getMasquerade(getContext());
                             runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                             runCommand.setAction("masquerade.substratum.COMMANDS");
@@ -1632,7 +1611,7 @@ public class Overlays extends Fragment {
                             try {
                                 overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
                                 for (int i = 0; i < overlaysLists.size(); i++) {
-                                    OverlaysInfo currentOverlay = overlaysLists.get(i);
+                                    OverlaysItem currentOverlay = overlaysLists.get(i);
                                     currentOverlay.setSelected(false);
                                     currentOverlay.updateEnabledOverlays(updateEnabledOverlays());
                                     mAdapter.notifyDataSetChanged();
@@ -1644,10 +1623,10 @@ public class Overlays extends Fragment {
                     }
                 } else {
                     disable_mode = false;
-                    Toast toast = Toast.makeText(mContext, getString(R
-                                    .string.toast_disabled4),
-                            Toast.LENGTH_SHORT);
-                    toast.show();
+                    Toast.makeText(
+                            mContext,
+                            getString(R.string.toast_disabled4),
+                            Toast.LENGTH_SHORT).show();
                 }
             }
             if (!References.checkOMS(mContext) && final_runner.size() == fail_count) {
@@ -1658,13 +1637,14 @@ public class Overlays extends Fragment {
                 alertDialogBuilder
                         .setMessage(getString(R.string.legacy_dialog_soft_reboot_text));
                 alertDialogBuilder
-                        .setPositiveButton(android.R.string.ok, (dialog, id12) -> ElevatedCommands
-                                .reboot());
+                        .setPositiveButton(android.R.string.ok,
+                                (dialog, id12) -> ElevatedCommands.reboot());
                 alertDialogBuilder
-                        .setNegativeButton(R.string.remove_dialog_later, (dialog, id1) -> {
-                            progressBar.setVisibility(View.GONE);
-                            dialog.dismiss();
-                        });
+                        .setNegativeButton(R.string.remove_dialog_later,
+                                (dialog, id1) -> {
+                                    progressBar.setVisibility(View.GONE);
+                                    dialog.dismiss();
+                                });
                 alertDialogBuilder.setCancelable(false);
                 AlertDialog alertDialog = alertDialogBuilder.create();
                 alertDialog.show();
@@ -1683,9 +1663,9 @@ public class Overlays extends Fragment {
             if (mixAndMatchMode && !References.checkOMS(mContext)) {
                 String current_directory;
                 if (References.inNexusFilter()) {
-                    current_directory = "/system/overlay/";
+                    current_directory = PIXEL_NEXUS_DIR;
                 } else {
-                    current_directory = "/system/vendor/overlay/";
+                    current_directory = LEGACY_NEXUS_DIR;
                 }
                 File file = new File(current_directory);
                 if (file.exists()) {
@@ -1698,18 +1678,18 @@ public class Overlays extends Fragment {
             if (References.checkThemeInterfacer(mContext) &&
                     !References.isBinderInterfacer(mContext)) {
                 if (finishReceiver == null) finishReceiver = new FinishReceiver();
-                IntentFilter filter = new IntentFilter(INTERFACER_PACKAGE + ".STATUS_CHANGED");
+                IntentFilter filter = new IntentFilter(STATUS_CHANGED);
                 mContext.registerReceiver(finishReceiver, filter);
             }
 
             total_amount = checkedOverlays.size();
             for (int i = 0; i < checkedOverlays.size(); i++) {
                 current_amount = i + 1;
-                String theme_name_parsed = theme_name.replaceAll("\\s+", "").replaceAll
-                        ("[^a-zA-Z0-9]+", "");
+                String theme_name_parsed =
+                        theme_name.replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "");
                 String current_overlay = checkedOverlays.get(i).getPackageName();
-                current_dialog_overlay = "'" + References.grabPackageName(
-                        mContext, current_overlay) + "'";
+                current_dialog_overlay =
+                        "'" + References.grabPackageName(mContext, current_overlay) + "'";
 
                 if (!enable_mode && !disable_mode) {
                     publishProgress((int) current_amount);
@@ -1738,57 +1718,51 @@ public class Overlays extends Fragment {
                                     packageTitle = getString(R.string.systemui_qs_tiles);
                                     break;
                             }
-                        } else {
-                            if (References.allowedSettingsOverlay(current_overlay)) {
-                                switch (current_overlay) {
-                                    case "com.android.settings.icons":
-                                        packageTitle = getString(R.string.settings_icons);
-                                        break;
-                                }
-                            } else {
-                                ApplicationInfo applicationInfo = mContext.getPackageManager()
-                                        .getApplicationInfo
-                                                (current_overlay, 0);
-                                packageTitle = mContext.getPackageManager().getApplicationLabel
-                                        (applicationInfo).toString();
+                        } else if (References.allowedSettingsOverlay(current_overlay)) {
+                            switch (current_overlay) {
+                                case "com.android.settings.icons":
+                                    packageTitle = getString(R.string.settings_icons);
+                                    break;
                             }
+                        } else {
+                            ApplicationInfo applicationInfo =
+                                    mContext.getPackageManager()
+                                            .getApplicationInfo(current_overlay, 0);
+                            packageTitle = mContext.getPackageManager()
+                                    .getApplicationLabel(applicationInfo).toString();
                         }
 
                         // Initialize working notification
-
                         if (checkActiveNotifications()) {
                             mBuilder.setProgress(100, (int) (((double) (i + 1) / checkedOverlays
                                     .size()) * 100), false);
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                                 mBuilder.setContentText("\"" + packageTitle + "\"");
                             } else {
-                                mBuilder.setContentText(getString(R.string
-                                        .notification_processing) +
-                                        " " +
-                                        "\"" +
-                                        packageTitle + "\"");
+                                mBuilder.setContentText(
+                                        getString(R.string.notification_processing) +
+                                                "\"" + packageTitle + "\"");
                             }
                             mNotifyManager.notify(id, mBuilder.build());
                         }
 
                         String workingDirectory = mContext.getCacheDir().getAbsolutePath() +
-                                "/SubstratumBuilder/" + theme_pid +
+                                SUBSTRATUM_BUILDER_CACHE + theme_pid +
                                 "/assets/overlays/" + current_overlay;
 
                         if (!References.checkOMS(mContext)) {
                             File check_legacy = new File(mContext.getCacheDir()
-                                    .getAbsolutePath() + "/SubstratumBuilder/" +
+                                    .getAbsolutePath() + SUBSTRATUM_BUILDER_CACHE +
                                     theme_pid + "/assets/overlays_legacy/" +
                                     current_overlay);
                             if (check_legacy.exists()) {
                                 workingDirectory = check_legacy.getAbsolutePath();
                             }
                         }
-                        String suffix = ((sUrl[0].length() != 0) ? "/type3_" + parsedVariant :
-                                "/res");
+                        String suffix = ((sUrl[0].length() != 0) ?
+                                "/type3_" + parsedVariant : "/res");
                         String unparsedSuffix =
-                                ((sUrl[0].length() != 0) ? "/type3_" + unparsedVariant :
-                                        "/res");
+                                ((sUrl[0].length() != 0) ? "/type3_" + unparsedVariant : "/res");
                         if (References.isCachingEnabled(mContext)) {
                             File srcDir = new File(workingDirectory +
                                     ((sUrl[0].length() != 0) ? "/type3_" + sUrl[0] : "/res"));
@@ -1799,7 +1773,8 @@ public class Overlays extends Fragment {
                             FileUtils.copyDirectory(srcDir, destDir);
                         } else {
                             workingDirectory = mContext.getCacheDir().getAbsolutePath() +
-                                    "/SubstratumBuilder";
+                                    SUBSTRATUM_BUILDER_CACHE.substring(0,
+                                            SUBSTRATUM_BUILDER_CACHE.length() - 1);
                             File created = new File(workingDirectory);
                             if (created.exists()) {
                                 FileOperations.delete(mContext, created.getAbsolutePath());
@@ -1808,8 +1783,11 @@ public class Overlays extends Fragment {
                                 FileOperations.createNewFolder(mContext, created.getAbsolutePath());
                             }
                             String listDir = overlaysDir + "/" + current_overlay + unparsedSuffix;
-                            FileOperations.copyFileOrDir(themeAssetManager,
-                                    listDir, workingDirectory + suffix, listDir);
+                            FileOperations.copyFileOrDir(
+                                    themeAssetManager,
+                                    listDir,
+                                    workingDirectory + suffix,
+                                    listDir);
                         }
 
                         if (checkedOverlays.get(i).is_variant_chosen || sUrl[0].length() != 0) {
@@ -1823,24 +1801,32 @@ public class Overlays extends Fragment {
                                     String targetLocation = workingDirectory +
                                             "/workdir/values/type1a.xml";
 
-                                    Log.d("SubstratumBuilder", "You have selected variant file \"" +
-                                            checkedOverlays.get(i).getSelectedVariantName() + "\"");
-                                    Log.d("SubstratumBuilder", "Moving variant file to: " +
+                                    Log.d(TAG,
+                                            "You have selected variant file \"" +
+                                                    checkedOverlays.get(i).getSelectedVariantName
+                                                            () + "\"");
+                                    Log.d(TAG, "Moving variant file to: " + targetLocation);
+                                    FileOperations.copy(
+                                            mContext,
+                                            sourceLocation,
                                             targetLocation);
-                                    FileOperations.copy(mContext, sourceLocation, targetLocation);
                                 } else {
-                                    Log.d("SubstratumBuilder", "You have selected variant file \"" +
+                                    Log.d(TAG, "You have selected variant file \"" +
                                             checkedOverlays.get(i).getSelectedVariantName() + "\"");
-                                    Log.d("SubstratumBuilder", "Moving variant file to: " +
+                                    Log.d(TAG, "Moving variant file to: " +
                                             workingDirectory + suffix + "/values/type1a.xml");
 
-                                    String to_copy = overlaysDir +
-                                            "/" +
-                                            current_overlay +
-                                            "/type1a_" +
-                                            checkedOverlays.get(i).getSelectedVariantName() +
-                                            ".xml";
-                                    FileOperations.copyFileOrDir(themeAssetManager, to_copy,
+                                    String to_copy =
+                                            overlaysDir +
+                                                    "/" +
+                                                    current_overlay +
+                                                    "/type1a_" +
+                                                    checkedOverlays.get(i).getSelectedVariantName
+                                                            () +
+                                                    ".xml";
+                                    FileOperations.copyFileOrDir(
+                                            themeAssetManager,
+                                            to_copy,
                                             workingDirectory + suffix + "/values/type1a.xml",
                                             to_copy);
                                 }
@@ -1856,26 +1842,29 @@ public class Overlays extends Fragment {
                                     String targetLocation2 = workingDirectory +
                                             "/workdir/values/type1b.xml";
 
-                                    Log.d("SubstratumBuilder", "You have selected variant file \"" +
+                                    Log.d(TAG, "You have selected variant file \"" +
                                             checkedOverlays.get(i).getSelectedVariantName2() +
                                             "\"");
-                                    Log.d("SubstratumBuilder", "Moving variant file to: " +
-                                            targetLocation2);
+                                    Log.d(TAG, "Moving variant file to: " + targetLocation2);
                                     FileOperations.copy(mContext, sourceLocation2, targetLocation2);
                                 } else {
-                                    Log.d("SubstratumBuilder", "You have selected variant file \"" +
+                                    Log.d(TAG, "You have selected variant file \"" +
                                             checkedOverlays.get(i)
                                                     .getSelectedVariantName2() + "\"");
-                                    Log.d("SubstratumBuilder", "Moving variant file to: " +
+                                    Log.d(TAG, "Moving variant file to: " +
                                             workingDirectory + suffix + "/values/type1b.xml");
 
-                                    String to_copy = overlaysDir +
-                                            "/" +
-                                            current_overlay +
-                                            "/type1b_" +
-                                            checkedOverlays.get(i).getSelectedVariantName2() +
-                                            ".xml";
-                                    FileOperations.copyFileOrDir(themeAssetManager, to_copy,
+                                    String to_copy =
+                                            overlaysDir +
+                                                    "/" +
+                                                    current_overlay +
+                                                    "/type1b_" +
+                                                    checkedOverlays.get(i)
+                                                            .getSelectedVariantName2() +
+                                                    ".xml";
+                                    FileOperations.copyFileOrDir(
+                                            themeAssetManager,
+                                            to_copy,
                                             workingDirectory + suffix + "/values/type1b.xml",
                                             to_copy);
                                 }
@@ -1890,35 +1879,41 @@ public class Overlays extends Fragment {
                                     String targetLocation3 = workingDirectory +
                                             "/workdir/values/type1c.xml";
 
-                                    Log.d("SubstratumBuilder", "You have selected variant file \"" +
+                                    Log.d(TAG, "You have selected variant file \"" +
                                             checkedOverlays.get(i).getSelectedVariantName3() +
                                             "\"");
-                                    Log.d("SubstratumBuilder", "Moving variant file to: " +
-                                            targetLocation3);
+                                    Log.d(TAG, "Moving variant file to: " + targetLocation3);
 
-                                    FileOperations.copy(mContext, sourceLocation3, targetLocation3);
+                                    FileOperations.copy(
+                                            mContext,
+                                            sourceLocation3,
+                                            targetLocation3);
                                 } else {
-                                    Log.d("SubstratumBuilder", "You have selected variant file \"" +
+                                    Log.d(TAG, "You have selected variant file \"" +
                                             checkedOverlays.get(i)
                                                     .getSelectedVariantName3() + "\"");
-                                    Log.d("SubstratumBuilder", "Moving variant file to: " +
+                                    Log.d(TAG, "Moving variant file to: " +
                                             workingDirectory + suffix + "/values/type1c.xml");
 
-                                    String to_copy = overlaysDir +
-                                            "/" +
-                                            current_overlay +
-                                            "/type1c_" +
-                                            checkedOverlays.get(i).getSelectedVariantName3() +
-                                            ".xml";
-                                    FileOperations.copyFileOrDir(themeAssetManager, to_copy,
+                                    String to_copy =
+                                            overlaysDir +
+                                                    "/" +
+                                                    current_overlay +
+                                                    "/type1c_" +
+                                                    checkedOverlays.get(i)
+                                                            .getSelectedVariantName3() +
+                                                    ".xml";
+                                    FileOperations.copyFileOrDir(
+                                            themeAssetManager,
+                                            to_copy,
                                             workingDirectory + suffix + "/values/type1c.xml",
                                             to_copy);
                                 }
                             }
 
                             String packageName =
-                                    (checkedOverlays.get(i).is_variant_chosen1 ? checkedOverlays
-                                            .get(i).getSelectedVariantName() : "") +
+                                    (checkedOverlays.get(i).is_variant_chosen1 ?
+                                            checkedOverlays.get(i).getSelectedVariantName() : "") +
                                             (checkedOverlays.get(i).is_variant_chosen2 ?
                                                     checkedOverlays.get(i)
                                                             .getSelectedVariantName2() : "") +
@@ -1937,13 +1932,16 @@ public class Overlays extends Fragment {
                                 String to_copy = overlaysDir + "/" + current_overlay + type2folder;
                                 FileOperations.copyFileOrDir(themeAssetManager, to_copy,
                                         workingDirectory + type2folder, to_copy);
-                                Log.d("PackageProcessor", "Currently processing package" +
+                                Log.d(TAG, "Currently processing package" +
                                         " \"" + checkedOverlays.get(i).getFullOverlayParameters() +
                                         "\"...");
 
                                 if (sUrl[0].length() != 0) {
                                     sb = new SubstratumBuilder();
-                                    sb.beginAction(mContext, theme_pid, current_overlay,
+                                    sb.beginAction(
+                                            mContext,
+                                            theme_pid,
+                                            current_overlay,
                                             theme_name,
                                             packageName,
                                             checkedOverlays.get(i).getSelectedVariantName4(),
@@ -1954,7 +1952,10 @@ public class Overlays extends Fragment {
                                             suffix);
                                 } else {
                                     sb = new SubstratumBuilder();
-                                    sb.beginAction(mContext, theme_pid, current_overlay,
+                                    sb.beginAction(
+                                            mContext,
+                                            theme_pid,
+                                            current_overlay,
                                             theme_name,
                                             packageName,
                                             checkedOverlays.get(i).getSelectedVariantName4(),
@@ -1965,13 +1966,16 @@ public class Overlays extends Fragment {
                                             suffix);
                                 }
                             } else {
-                                Log.d("PackageProcessor", "Currently processing package" +
+                                Log.d(TAG, "Currently processing package" +
                                         " \"" + checkedOverlays.get(i).getFullOverlayParameters() +
                                         "\"...");
 
                                 if (sUrl[0].length() != 0) {
                                     sb = new SubstratumBuilder();
-                                    sb.beginAction(mContext, theme_pid, current_overlay,
+                                    sb.beginAction(
+                                            mContext,
+                                            theme_pid,
+                                            current_overlay,
                                             theme_name,
                                             packageName,
                                             null,
@@ -1982,7 +1986,10 @@ public class Overlays extends Fragment {
                                             suffix);
                                 } else {
                                     sb = new SubstratumBuilder();
-                                    sb.beginAction(mContext, theme_pid, current_overlay,
+                                    sb.beginAction(
+                                            mContext,
+                                            theme_pid,
+                                            current_overlay,
                                             theme_name,
                                             packageName,
                                             null,
@@ -2015,7 +2022,7 @@ public class Overlays extends Fragment {
                                     isWaiting = true;
                                     do {
                                         try {
-                                            Thread.sleep(500);
+                                            Thread.sleep(THREAD_WAIT_DURATION);
                                         } catch (InterruptedException e) {
                                             Thread.currentThread().interrupt();
                                         }
@@ -2023,10 +2030,11 @@ public class Overlays extends Fragment {
                                 }
                             }
                         } else {
-                            Log.d("SubstratumBuilder", "Currently processing package" +
+                            Log.d(TAG, "Currently processing package" +
                                     " \"" + current_overlay + "." + theme_name_parsed + "\"...");
                             sb = new SubstratumBuilder();
-                            sb.beginAction(mContext,
+                            sb.beginAction(
+                                    mContext,
                                     theme_pid,
                                     current_overlay,
                                     theme_name,
@@ -2055,7 +2063,7 @@ public class Overlays extends Fragment {
                                     isWaiting = true;
                                     do {
                                         try {
-                                            Thread.sleep(500);
+                                            Thread.sleep(THREAD_WAIT_DURATION);
                                         } catch (InterruptedException e) {
                                             Thread.currentThread().interrupt();
                                         }
@@ -2065,7 +2073,7 @@ public class Overlays extends Fragment {
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
-                        Log.e(References.SUBSTRATUM_LOG, "Main function has unexpectedly stopped!");
+                        Log.e(TAG, "Main function has unexpectedly stopped!");
                     }
                 } else {
                     if (final_runner == null) final_runner = new ArrayList<>();
@@ -2092,7 +2100,9 @@ public class Overlays extends Fragment {
             String command = intent.getStringExtra(PRIMARY_COMMAND_KEY);
 
             if (command.equals(COMMAND_VALUE_JOB_COMPLETE)) {
-                Log.d(References.SUBSTRATUM_LOG, "Don't you wait no more!");
+                Log.d(TAG,
+                        "Substratum is now refreshing its resources after " +
+                                "successful job completion!");
                 isWaiting = false;
             }
         }
@@ -2101,7 +2111,6 @@ public class Overlays extends Fragment {
     class JobReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            // TODO: should not be like this, find out why there is a detached fragment live
             if (!isAdded()) return;
 
             String command = intent.getStringExtra("command");

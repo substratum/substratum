@@ -62,14 +62,16 @@ import java.util.zip.ZipInputStream;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
-import projekt.substratum.config.ElevatedCommands;
-import projekt.substratum.config.FileOperations;
-import projekt.substratum.config.FontManager;
-import projekt.substratum.config.References;
-import projekt.substratum.util.FontUtils;
+import projekt.substratum.common.References;
+import projekt.substratum.common.commands.ElevatedCommands;
+import projekt.substratum.common.commands.FileOperations;
+import projekt.substratum.common.tabs.FontManager;
+import projekt.substratum.util.tabs.FontUtils;
 
 public class Fonts extends Fragment {
 
+    private static final String fontsDir = "fonts";
+    private static final String TAG = "FontUtils";
     private String theme_pid;
     private ViewGroup root;
     private MaterialProgressBar progressBar;
@@ -86,9 +88,10 @@ public class Fonts extends Fragment {
     private LocalBroadcastManager localBroadcastManager;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
-            savedInstanceState) {
-
+    public View onCreateView(
+            LayoutInflater inflater,
+            ViewGroup container,
+            Bundle savedInstanceState) {
         theme_pid = InformationActivity.getThemePID();
         root = (ViewGroup) inflater.inflate(R.layout.tab_fragment_3, container, false);
         progressBar = (MaterialProgressBar) root.findViewById(R.id.progress_bar_loader);
@@ -102,7 +105,7 @@ public class Fonts extends Fragment {
             Resources themeResources = getContext().getPackageManager().getResourcesForApplication
                     (theme_pid);
             themeAssetManager = themeResources.getAssets();
-            String[] fileArray = themeAssetManager.list("fonts");
+            String[] fileArray = themeAssetManager.list(fontsDir);
             ArrayList<String> unparsedFonts = new ArrayList<>();
             Collections.addAll(unparsedFonts, fileArray);
 
@@ -160,7 +163,7 @@ public class Fonts extends Fragment {
             });
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e("FontUtils", "There is no font.zip found within the assets of this theme!");
+            Log.e(TAG, "There is no font.zip found within the assets of this theme!");
         }
 
         // Enable job listener
@@ -265,7 +268,7 @@ public class Fonts extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             try {
-                Log.d("FontUtils", "Fonts have been loaded on the drawing panel.");
+                Log.d(TAG, "Fonts have been loaded on the drawing panel.");
 
                 String work_directory = getContext().getCacheDir().getAbsolutePath() +
                         "/FontCache/font_preview/";
@@ -276,7 +279,7 @@ public class Fonts extends Fragment {
                     TextView normal = (TextView) root.findViewById(R.id.text_normal);
                     normal.setTypeface(normal_tf);
                 } catch (Exception e) {
-                    Log.e("FontUtils", "Could not load font from directory for normal template." +
+                    Log.e(TAG, "Could not load font from directory for normal template." +
                             " Maybe it wasn't themed?");
                 }
 
@@ -285,7 +288,7 @@ public class Fonts extends Fragment {
                     TextView normal_bold = (TextView) root.findViewById(R.id.text_bold);
                     normal_bold.setTypeface(bold_tf);
                 } catch (Exception e) {
-                    Log.e("FontUtils", "Could not load font from directory for normal-bold " +
+                    Log.e(TAG, "Could not load font from directory for normal-bold " +
                             "template. Maybe it wasn't themed?");
                 }
 
@@ -295,7 +298,7 @@ public class Fonts extends Fragment {
                     TextView italics = (TextView) root.findViewById(R.id.text_normal_italics);
                     italics.setTypeface(italics_tf);
                 } catch (Exception e) {
-                    Log.e("FontUtils", "Could not load font from directory for italic template." +
+                    Log.e(TAG, "Could not load font from directory for italic template." +
                             " Maybe it wasn't themed?");
                 }
 
@@ -306,7 +309,7 @@ public class Fonts extends Fragment {
                             .text_normal_bold_italics);
                     italics_bold.setTypeface(italics_bold_tf);
                 } catch (Exception e) {
-                    Log.e("FontUtils", "Could not load font from directory for italic-bold " +
+                    Log.e(TAG, "Could not load font from directory for italic-bold " +
                             "template. Maybe it wasn't themed?");
                 }
 
@@ -326,31 +329,31 @@ public class Fonts extends Fragment {
             try {
                 File cacheDirectory = new File(getContext().getCacheDir(), "/FontCache/");
                 if (!cacheDirectory.exists()) {
-                    if (cacheDirectory.mkdirs()) Log.d("FontUtils", "FontCache folder created");
+                    if (cacheDirectory.mkdirs()) Log.d(TAG, "FontCache folder created");
                 }
                 File cacheDirectory2 = new File(getContext().getCacheDir(),
                         "/FontCache/font_preview/");
 
                 if (!cacheDirectory2.exists()) {
-                    if (cacheDirectory2.mkdirs()) Log.d("FontUtils",
+                    if (cacheDirectory2.mkdirs()) Log.d(TAG,
                             "FontCache work folder created");
                 } else {
                     FileOperations.delete(getContext(),
                             getContext().getCacheDir().getAbsolutePath() +
                                     "/FontCache/font_preview/");
-                    if (cacheDirectory2.mkdirs()) Log.d("FontUtils", "FontCache folder recreated");
+                    if (cacheDirectory2.mkdirs()) Log.d(TAG, "FontCache folder recreated");
                 }
 
                 // Copy the font.zip from assets/fonts of the theme's assets
                 String source = sUrl[0] + ".zip";
 
-                try (InputStream inputStream = themeAssetManager.open("fonts/" + source);
+                try (InputStream inputStream = themeAssetManager.open(fontsDir + "/" + source);
                      OutputStream outputStream =
                              new FileOutputStream(getContext().getCacheDir().getAbsolutePath() +
                                      "/FontCache/" + source)) {
                     CopyStream(inputStream, outputStream);
                 } catch (Exception e) {
-                    Log.e("FontUtils",
+                    Log.e(TAG,
                             "There is no fonts.zip found within the assets of this theme!");
                 }
 
@@ -358,7 +361,7 @@ public class Fonts extends Fragment {
                 unzip(getContext().getCacheDir().getAbsolutePath() + "/FontCache/" + source,
                         getContext().getCacheDir().getAbsolutePath() + "/FontCache/font_preview/");
             } catch (Exception e) {
-                Log.e("FontUtils", "Unexpectedly lost connection to the application host");
+                Log.e(TAG, "Unexpectedly lost connection to the application host");
             }
             return null;
         }
@@ -384,7 +387,7 @@ public class Fonts extends Fragment {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.e("FontUtils",
+                Log.e(TAG,
                         "An issue has occurred while attempting to decompress this archive.");
             }
         }

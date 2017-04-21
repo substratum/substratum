@@ -49,49 +49,49 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning,ManifestResource"
         tools:replace="android:allowBackup">
-        <receiver android:name=".services.BootCompletedDetector">
+        <receiver android:name=".services.system.BootCompletedDetector">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
         </receiver>
-        <receiver android:name=".services.FloatUIButtonReceiver"/>
-        <receiver android:name=".services.NotificationButtonReceiver"/>
-        <receiver android:name=".services.NotificationUpgradeReceiver"/>
-        <receiver android:name=".services.PackageModificationDetector">
+        <receiver android:name=".services.notification.FloatUiButtonReceiver"/>
+        <receiver android:name=".services.notification.NotificationButtonReceiver"/>
+        <receiver android:name=".services.notification.NotificationUpgradeReceiver"/>
+        <receiver android:name=".services.packages.PackageModificationDetector">
             <intent-filter>
                 <!-- Full API deprecation on target SDK level 26 -->
                 <action android:name="android.intent.action.PACKAGE_ADDED"/>
                 <data android:scheme="package"/>
             </intent-filter>
         </receiver>
-        <receiver android:name=".services.ThemeUninstallDetector">
+        <receiver android:name=".services.packages.ThemeUninstallDetector">
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_FULLY_REMOVED"/>
                 <data android:scheme="package"/>
             </intent-filter>
         </receiver>
-        <receiver android:name=".services.ScheduledProfileReceiver"/>
+        <receiver android:name=".services.profiles.ScheduledProfileReceiver"/>
         <receiver
-            android:name=".services.AppCrashReceiver"
+            android:name=".services.crash.AppCrashReceiver"
             android:exported="false">
             <intent-filter>
                 <!-- Full API deprecation on target SDK level 26 -->
                 <action android:name="projekt.substratum.APP_CRASHED"/>
             </intent-filter>
         </receiver>
-        <receiver android:name=".services.SubstratumUpdateReceiver">
+        <receiver android:name=".services.packages.SubstratumUpdateReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
             </intent-filter>
         </receiver>
 
         <service
-            android:name=".services.BinderService"/>
+            android:name=".services.binder.BinderService"/>
         <service
-            android:name=".services.SubstratumFloatInterface"
+            android:name=".services.floatui.SubstratumFloatInterface"
             android:exported="false"/>
         <service
-            android:name=".services.SubstratumTile"
+            android:name=".services.tiles.SubstratumTile"
             android:enabled="true"
             android:icon="@drawable/ic_substratum"
             android:label="@string/app_name"
@@ -101,7 +101,7 @@
             </intent-filter>
         </service>
         <service
-            android:name=".services.ShowcaseTile"
+            android:name=".services.tiles.ShowcaseTile"
             android:enabled="true"
             android:icon="@drawable/quicksettings_showcase"
             android:label="@string/showcase"
@@ -111,7 +111,7 @@
             </intent-filter>
         </service>
         <service
-            android:name=".services.FloatUiTile"
+            android:name=".services.tiles.FloatUiTile"
             android:enabled="true"
             android:icon="@drawable/floatui_tile"
             android:label="@string/shortcut_floatui"
@@ -125,7 +125,7 @@
         </service>
 
         <service
-            android:name=".services.ScheduledProfileService"
+            android:name=".services.profiles.ScheduledProfileService"
             android:permission="android.permission.BIND_JOB_SERVICE"/>
 
         <meta-data
@@ -133,7 +133,7 @@
             android:value="@integer/google_play_services_version"/>
 
         <service
-            android:name=".services.FirebaseMessagingService"
+            android:name=".services.analytics.FirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
@@ -143,20 +143,20 @@
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/PhotoCrop.ActivityTheme"/>
-        <activity android:name=".AppIntroActivity">
+        <activity android:name=".activities.launch.AppIntroActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
         </activity>
         <activity
-            android:name=".FloatUILaunchActivity"
+            android:name=".activities.floatui.FloatUILaunchActivity"
             android:theme="@style/Theme.AppCompat.Translucent">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
         </activity>
         <activity
-            android:name=".RescueActivity"
+            android:name=".activities.launch.RescueActivity"
             android:theme="@style/Theme.AppCompat.Translucent">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -167,7 +167,7 @@
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
         </activity>
-        <activity android:name=".LauncherActivity">
+        <activity android:name=".activities.launch.LauncherActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -190,21 +190,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LaunchTheme"
+            android:name=".activities.launch.AppShortcutLaunch"
             android:theme="@style/Theme.AppCompat.Translucent">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
         </activity>
         <activity
-            android:name=".SplashScreenActivity"
-            android:theme="@style/SplashScreen.ActivityTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".SplashScreenActivityFirstLaunch"
+            android:name=".activities.launch.SplashScreenActivity"
             android:theme="@style/SplashScreen.ActivityTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -236,7 +229,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".StudioPreviewActivity"
+            android:name=".activities.studio.StudioPreviewActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -244,7 +237,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".StudioSelectorActivity"
+            android:name=".activities.studio.StudioSelectorActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -252,26 +245,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".util.AppIntro"
+            android:name=".util.welcome.AppIntro"
             android:theme="@style/CustomWelcomeScreenTheme"/>
         <activity
-            android:name=".ProfileErrorInfoActivity"
+            android:name=".activities.profiles.ProfileErrorInfoActivity"
             android:excludeFromRecents="true"
             android:label="@string/restore_dialog_title"
             android:theme="@style/AppTheme.Dialog"/>
-        <activity
-            android:name="projekt.substratum.ShowcaseInfo"
-            android:theme="@style/ShowcaseDialog">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="projekt.substratum.RestoreInfo"
-            android:theme="@style/RestoreInfo">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-            </intent-filter>
-        </activity>
     </application>
 </manifest>

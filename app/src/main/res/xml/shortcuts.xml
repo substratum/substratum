@@ -39,7 +39,7 @@
         android:shortcutShortLabel="@string/shortcut_rescue">
         <intent
             android:action="android.intent.action.VIEW"
-            android:targetClass="projekt.substratum.RescueActivity"
+            android:targetClass="projekt.substratum.activities.launch.RescueActivity"
             android:targetPackage="projekt.substratum"/>
     </shortcut>
     <shortcut
@@ -51,7 +51,7 @@
         android:shortcutShortLabel="@string/shortcut_floatui">
         <intent
             android:action="android.intent.action.VIEW"
-            android:targetClass="projekt.substratum.FloatUILaunchActivity"
+            android:targetClass="projekt.substratum.activities.floatui.FloatUILaunchActivity"
             android:targetPackage="projekt.substratum"/>
     </shortcut>
 </shortcuts>

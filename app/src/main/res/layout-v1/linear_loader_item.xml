@@ -50,7 +50,7 @@
                 android:src="@drawable/default_overlay_icon"/>
         </LinearLayout>
 
-        <projekt.substratum.util.AutoTextResizer
+        <projekt.substratum.util.views.AutoTextResizer
             android:id="@+id/card_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

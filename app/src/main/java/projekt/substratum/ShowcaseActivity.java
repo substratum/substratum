@@ -18,8 +18,8 @@
 
 package projekt.substratum;
 
+import android.app.Dialog;
 import android.content.ActivityNotFoundException;
-import android.content.ComponentName;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -43,11 +43,11 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Map;
 
-import projekt.substratum.adapters.ShowcaseTabsAdapter;
-import projekt.substratum.config.References;
-import projekt.substratum.util.FileDownloader;
-import projekt.substratum.util.MD5;
-import projekt.substratum.util.ReadShowcaseTabsFile;
+import projekt.substratum.adapters.showcase.ShowcaseTabsAdapter;
+import projekt.substratum.common.References;
+import projekt.substratum.util.files.FileDownloader;
+import projekt.substratum.util.files.MD5;
+import projekt.substratum.util.readers.ReadShowcaseTabsFile;
 
 public class ShowcaseActivity extends AppCompatActivity {
 
@@ -111,8 +111,7 @@ public class ShowcaseActivity extends AppCompatActivity {
     }
 
     private void swipeRefresh() {
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id
-                .swipeRefreshLayout);
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(this::recreate);
     }
 
@@ -145,8 +144,8 @@ public class ShowcaseActivity extends AppCompatActivity {
             toolbar.setNavigationOnClickListener((view) -> onBackPressed());
         }
 
-        File showcase_directory = new File(getApplicationContext().getCacheDir() +
-                "/ShowcaseCache/");
+        File showcase_directory =
+                new File(getApplicationContext().getCacheDir() + "/ShowcaseCache/");
         if (!showcase_directory.exists()) {
             Boolean made = showcase_directory.mkdir();
             if (!made)
@@ -164,10 +163,9 @@ public class ShowcaseActivity extends AppCompatActivity {
     }
 
     private void launchShowcaseInfo() {
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.setComponent(new ComponentName("projekt.substratum", "projekt.substratum" +
-                ".ShowcaseInfo"));
-        startActivity(intent);
+        Dialog dialog = new Dialog(this, R.style.ShowcaseDialog);
+        dialog.setContentView(R.layout.community_showcase_info);
+        dialog.show();
     }
 
     private class DownloadTabs extends AsyncTask<String, Integer, String> {
@@ -223,8 +221,10 @@ public class ShowcaseActivity extends AppCompatActivity {
                 tabLayout.addTab(tabLayout.newTab().setText(key));
             });
             final ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-            final ShowcaseTabsAdapter adapter = new ShowcaseTabsAdapter
-                    (getSupportFragmentManager(), tabLayout.getTabCount(), links);
+            final ShowcaseTabsAdapter adapter = new ShowcaseTabsAdapter(
+                    getSupportFragmentManager(),
+                    tabLayout.getTabCount(),
+                    links);
             if (viewPager != null) {
                 viewPager.setOffscreenPageLimit(tabLayout.getTabCount());
                 viewPager.setAdapter(adapter);
@@ -260,12 +260,12 @@ public class ShowcaseActivity extends AppCompatActivity {
         protected String doInBackground(String... sUrl) {
             String inputFileName = sUrl[1];
 
-            File current_wallpapers = new File(getApplicationContext().getCacheDir() +
-                    "/ShowcaseCache/" + inputFileName);
+            File current_wallpapers = new File(
+                    getApplicationContext().getCacheDir() + "/ShowcaseCache/" + inputFileName);
             if (current_wallpapers.exists()) {
                 // We create a temporary file to check whether we should be replacing the current
-                inputFileName = inputFileName.substring(0, inputFileName.length() - 4) + "-temp" +
-                        ".xml";
+                inputFileName = inputFileName.substring(0, inputFileName.length() - 4) +
+                        "-temp.xml";
             }
 
             FileDownloader.init(getApplicationContext(), sUrl[0], inputFileName, "ShowcaseCache");

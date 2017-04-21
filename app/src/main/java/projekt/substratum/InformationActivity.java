@@ -48,7 +48,6 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.Toolbar;
@@ -76,20 +75,28 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import projekt.substratum.adapters.InformationTabsAdapter;
-import projekt.substratum.config.ElevatedCommands;
-import projekt.substratum.config.FileOperations;
-import projekt.substratum.config.References;
-import projekt.substratum.config.ThemeManager;
-import projekt.substratum.config.WallpaperManager;
-import projekt.substratum.util.FloatingActionMenu;
-import projekt.substratum.util.SheetDialog;
+import projekt.substratum.activities.base.SubstratumActivity;
+import projekt.substratum.adapters.tabs.InformationTabsAdapter;
+import projekt.substratum.common.References;
+import projekt.substratum.common.commands.ElevatedCommands;
+import projekt.substratum.common.commands.FileOperations;
+import projekt.substratum.common.platform.ThemeManager;
+import projekt.substratum.common.tabs.WallpaperManager;
+import projekt.substratum.util.views.FloatingActionMenu;
+import projekt.substratum.util.views.SheetDialog;
 
 import static android.content.om.OverlayInfo.STATE_APPROVED_DISABLED;
 import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
-import static projekt.substratum.config.References.BYPASS_SUBSTRATUM_BUILDER_DELETION;
+import static projekt.substratum.common.References.BYPASS_SUBSTRATUM_BUILDER_DELETION;
+import static projekt.substratum.common.References.bootAnimationsFragment;
+import static projekt.substratum.common.References.fontsFragment;
+import static projekt.substratum.common.References.metadataOverlayParent;
+import static projekt.substratum.common.References.metadataWallpapers;
+import static projekt.substratum.common.References.overlaysFragment;
+import static projekt.substratum.common.References.soundsFragment;
+import static projekt.substratum.common.References.wallpaperFragment;
 
-public class InformationActivity extends AppCompatActivity {
+public class InformationActivity extends SubstratumActivity {
 
     private static final int THEME_INFORMATION_REQUEST_CODE = 1;
     public static String theme_name, theme_pid, theme_mode;
@@ -125,21 +132,24 @@ public class InformationActivity extends AppCompatActivity {
     private static int getDominantColor(Bitmap bitmap) {
         try {
             Palette palette = Palette.from(bitmap).generate();
-            return palette.getDominantColor(Color.BLACK);
+            return palette.getDominantColor(Color.TRANSPARENT);
         } catch (IllegalArgumentException iae) {
             // Suppress warning
         }
-        return Color.BLACK;
+        return Color.TRANSPARENT;
     }
 
     private static void setOverflowButtonColor(final Activity activity, final Boolean dark_mode) {
-        @SuppressLint("PrivateResource") final String overflowDescription =
+        @SuppressLint("PrivateResource")
+        final String overflowDescription =
                 activity.getString(R.string.abc_action_menu_overflow_description);
         final ViewGroup decorView = (ViewGroup) activity.getWindow().getDecorView();
         final ViewTreeObserver viewTreeObserver = decorView.getViewTreeObserver();
         viewTreeObserver.addOnGlobalLayoutListener(() -> {
             final ArrayList<View> outViews = new ArrayList<>();
-            decorView.findViewsWithText(outViews, overflowDescription,
+            decorView.findViewsWithText(
+                    outViews,
+                    overflowDescription,
                     View.FIND_VIEWS_WITH_CONTENT_DESCRIPTION);
             if (outViews.isEmpty()) {
                 return;
@@ -199,8 +209,10 @@ public class InformationActivity extends AppCompatActivity {
                 Uri resultUri = result.getUri();
                 if (resultUri.toString().contains("homescreen_wallpaper")) {
                     try {
-                        WallpaperManager.setWallpaper(getApplicationContext(),
-                                resultUri.toString().substring(7), "home");
+                        WallpaperManager.setWallpaper(
+                                getApplicationContext(),
+                                resultUri.toString().substring(7),
+                                "home");
                         editor.putString("home_wallpaper_applied", theme_pid);
                         Lunchbar.make(getView(),
                                 getString(R.string.wallpaper_homescreen_success),
@@ -215,8 +227,10 @@ public class InformationActivity extends AppCompatActivity {
                     }
                 } else if (resultUri.toString().contains("lockscreen_wallpaper")) {
                     try {
-                        WallpaperManager.setWallpaper(getApplicationContext(),
-                                resultUri.toString().substring(7), "lock");
+                        WallpaperManager.setWallpaper(
+                                getApplicationContext(),
+                                resultUri.toString().substring(7),
+                                "lock");
                         editor.putString("lock_wallpaper_applied", theme_pid);
                         Lunchbar.make(getView(),
                                 getString(R.string.wallpaper_lockscreen_success),
@@ -231,8 +245,10 @@ public class InformationActivity extends AppCompatActivity {
                     }
                 } else if (resultUri.toString().contains("all_wallpaper")) {
                     try {
-                        WallpaperManager.setWallpaper(getApplicationContext(),
-                                resultUri.toString().substring(7), "all");
+                        WallpaperManager.setWallpaper(
+                                getApplicationContext(),
+                                resultUri.toString().substring(7),
+                                "all");
                         editor.putString("home_wallpaper_applied", theme_pid);
                         editor.putString("lock_wallpaper_applied", theme_pid);
                         Lunchbar.make(getView(),
@@ -261,8 +277,7 @@ public class InformationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.information_activity);
 
-        prefs = PreferenceManager.getDefaultSharedPreferences(
-                getApplicationContext());
+        prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         boolean dynamicActionBarColors = getResources().getBoolean(R.bool.dynamicActionBarColors);
         boolean dynamicNavBarColors = getResources().getBoolean(R.bool.dynamicNavigationBarColors);
@@ -275,13 +290,13 @@ public class InformationActivity extends AppCompatActivity {
         wallpaperUrl = null;
 
         try {
-            ApplicationInfo appInfo = getApplicationContext()
-                    .getPackageManager().getApplicationInfo(
-                            theme_pid, PackageManager.GET_META_DATA);
-            if (appInfo.metaData != null) {
-                if (appInfo.metaData.getString("Substratum_Wallpapers") != null) {
-                    wallpaperUrl = appInfo.metaData.getString("Substratum_Wallpapers");
-                }
+            ApplicationInfo appInfo =
+                    getApplicationContext().getPackageManager().getApplicationInfo(
+                            theme_pid,
+                            PackageManager.GET_META_DATA);
+            if (appInfo.metaData != null &&
+                    appInfo.metaData.getString(metadataWallpapers) != null) {
+                wallpaperUrl = appInfo.metaData.getString(metadataWallpapers);
             }
         } catch (Exception e) {
             // NameNotFound
@@ -295,8 +310,8 @@ public class InformationActivity extends AppCompatActivity {
         if (toolbar != null) toolbar.setTitle(theme_name);
 
         gradientView = findViewById(R.id.gradientView);
-        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById
-                (R.id.collapsing_toolbar_tabbed_layout);
+        collapsingToolbarLayout =
+                (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar_tabbed_layout);
         if (collapsingToolbarLayout != null) collapsingToolbarLayout.setTitle(theme_name);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -312,7 +327,7 @@ public class InformationActivity extends AppCompatActivity {
         if (heroImage != null) heroImageBitmap = ((BitmapDrawable) heroImage).getBitmap();
         int dominantColor;
         if (heroImageBitmap == null) {
-            dominantColor = Color.BLACK;
+            dominantColor = Color.TRANSPARENT;
         } else {
             dominantColor = getDominantColor(heroImageBitmap);
         }
@@ -320,7 +335,8 @@ public class InformationActivity extends AppCompatActivity {
         appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
         appBarLayout.setBackgroundColor(dominantColor);
 
-        if (collapsingToolbarLayout != null && dynamicActionBarColors &&
+        if (collapsingToolbarLayout != null &&
+                dynamicActionBarColors &&
                 prefs.getBoolean("dynamic_actionbar", true)) {
             collapsingToolbarLayout.setStatusBarScrimColor(dominantColor);
             collapsingToolbarLayout.setContentScrimColor(dominantColor);
@@ -329,8 +345,7 @@ public class InformationActivity extends AppCompatActivity {
         if (dynamicNavBarColors && prefs.getBoolean("dynamic_navbar", true)) {
             getWindow().setNavigationBarColor(dominantColor);
             if (checkColorDarkness(dominantColor)) {
-                getWindow().setNavigationBarColor(
-                        getColor(R.color.theme_information_background));
+                getWindow().setNavigationBarColor(getColor(R.color.theme_information_background));
             }
         }
 
@@ -339,14 +354,18 @@ public class InformationActivity extends AppCompatActivity {
         int sheetColor = getApplicationContext().getColor(R.color.fab_menu_background_card);
         int fabColor = getApplicationContext().getColor(R.color.fab_background_color);
 
-        final FloatingActionMenu floatingActionButton = (FloatingActionMenu) findViewById(
-                R.id.apply_fab);
+        final FloatingActionMenu floatingActionButton =
+                (FloatingActionMenu) findViewById(R.id.apply_fab);
         floatingActionButton.show();
 
         // Create material sheet FAB
         if (sheetView != null && overlay != null) {
-            materialSheetFab = new MaterialSheetFab<>(floatingActionButton, sheetView, overlay,
-                    sheetColor, fabColor);
+            materialSheetFab = new MaterialSheetFab<>(
+                    floatingActionButton,
+                    sheetView,
+                    overlay,
+                    sheetColor,
+                    fabColor);
         }
 
         new LayoutLoader().execute("");
@@ -369,20 +388,20 @@ public class InformationActivity extends AppCompatActivity {
                     } else {
                         tab_checker = Arrays.asList(am.list(""));
                     }
-                    if (tab_checker.contains("overlays") ||
+                    if (tab_checker.contains(overlaysFragment) ||
                             tab_checker.contains("overlays_legacy")) {
                         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
                                 .theme_information_tab_one)));
                     }
-                    if (tab_checker.contains("bootanimation")) {
+                    if (tab_checker.contains(bootAnimationsFragment)) {
                         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
                                 .theme_information_tab_two)));
                     }
-                    if (tab_checker.contains("fonts")) {
+                    if (tab_checker.contains(fontsFragment)) {
                         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
                                 .theme_information_tab_three)));
                     }
-                    if (tab_checker.contains("audio")) {
+                    if (tab_checker.contains(soundsFragment)) {
                         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
                                 .theme_information_tab_four)));
                     }
@@ -394,29 +413,27 @@ public class InformationActivity extends AppCompatActivity {
                     Log.e(References.SUBSTRATUM_LOG, "Could not refresh list of asset folders.");
                 }
             } else {
-                if (theme_mode.equals("overlays")) {
-                    tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
-                            .theme_information_tab_one)));
-                } else {
-                    if (theme_mode.equals("bootanimation")) {
-                        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
-                                .theme_information_tab_two)));
-                    } else {
-                        if (theme_mode.equals("fonts")) {
-                            tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
-                                    .theme_information_tab_three)));
-                        } else {
-                            if (theme_mode.equals("audio")) {
-                                tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
-                                        .theme_information_tab_four)));
-                            } else {
-                                if (theme_mode.equals("wallpapers")) {
-                                    tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
-                                            .theme_information_tab_five)));
-                                }
-                            }
-                        }
-                    }
+                switch (theme_mode) {
+                    case overlaysFragment:
+                        tabLayout.addTab(tabLayout.newTab().setText(
+                                getString(R.string.theme_information_tab_one)));
+                        break;
+                    case bootAnimationsFragment:
+                        tabLayout.addTab(tabLayout.newTab().setText(
+                                getString(R.string.theme_information_tab_two)));
+                        break;
+                    case fontsFragment:
+                        tabLayout.addTab(tabLayout.newTab().setText(
+                                getString(R.string.theme_information_tab_three)));
+                        break;
+                    case soundsFragment:
+                        tabLayout.addTab(tabLayout.newTab().setText(
+                                getString(R.string.theme_information_tab_four)));
+                        break;
+                    case wallpaperFragment:
+                        tabLayout.addTab(tabLayout.newTab().setText(
+                                getString(R.string.theme_information_tab_five)));
+                        break;
                 }
             }
 
@@ -506,8 +523,8 @@ public class InformationActivity extends AppCompatActivity {
                     });
 
             PagerAdapter adapt = viewPager.getAdapter();
-            LocalBroadcastManager localBroadcastManager = LocalBroadcastManager
-                    .getInstance(getApplicationContext());
+            LocalBroadcastManager localBroadcastManager =
+                    LocalBroadcastManager.getInstance(getApplicationContext());
             floatingActionButton.setOnClickListener(v -> {
                 Intent intent;
                 try {
@@ -554,8 +571,8 @@ public class InformationActivity extends AppCompatActivity {
                 });
             }
 
-            final TextView compile_enable_selected = (TextView) findViewById(R.id
-                    .compile_enable_selected);
+            final TextView compile_enable_selected =
+                    (TextView) findViewById(R.id.compile_enable_selected);
             if (!References.checkOMS(this)) compile_enable_selected.setVisibility(View.GONE);
             if (compile_enable_selected != null) {
                 compile_enable_selected.setOnClickListener(v -> {
@@ -565,8 +582,8 @@ public class InformationActivity extends AppCompatActivity {
                 });
             }
 
-            TextView compile_update_selected = (TextView) findViewById(R.id
-                    .compile_update_selected);
+            TextView compile_update_selected =
+                    (TextView) findViewById(R.id.compile_update_selected);
             if (!References.checkOMS(this)) {
                 compile_update_selected.setText(getString(R.string.fab_menu_compile_install));
             }
@@ -614,7 +631,7 @@ public class InformationActivity extends AppCompatActivity {
         }
         int dominantColor;
         if (heroImageBitmap == null) {
-            dominantColor = Color.BLACK;
+            dominantColor = Color.TRANSPARENT;
         } else {
             dominantColor = getDominantColor(heroImageBitmap);
         }
@@ -723,10 +740,10 @@ public class InformationActivity extends AppCompatActivity {
                                             .getPackageManager().getApplicationInfo(
                                                     current, PackageManager.GET_META_DATA);
                                     if (appInfo.metaData != null &&
-                                            appInfo.metaData.getString("Substratum_Parent") !=
-                                                    null) {
-                                        String parent = appInfo.metaData.getString
-                                                ("Substratum_Parent");
+                                            appInfo.metaData.getString(
+                                                    metadataOverlayParent) != null) {
+                                        String parent =
+                                                appInfo.metaData.getString(metadataOverlayParent);
                                         if (parent != null && parent.equals(theme_pid)) {
                                             all_overlays.add(current);
                                         }
@@ -752,20 +769,17 @@ public class InformationActivity extends AppCompatActivity {
                 builder2.setIcon(References.grabAppIcon(getApplicationContext(), theme_pid));
                 builder2.setMessage(R.string.clean_cache_dialog_body)
                         .setPositiveButton(R.string.uninstall_dialog_okay, (dialog, id110) -> {
-                            FileOperations.delete(getApplicationContext(), getCacheDir()
-                                    .getAbsolutePath() +
-                                    "/SubstratumBuilder/" + theme_pid + "/");
+                            FileOperations.delete(
+                                    getApplicationContext(), getBuildDirPath() + theme_pid + "/");
                             String format =
                                     String.format(
-                                            getString(R.string.cache_clear_completion), theme_name);
-                            Toast toast = Toast.makeText(getApplicationContext(), format,
-                                    Toast.LENGTH_LONG);
-                            toast.show();
+                                            getString(R.string.cache_clear_completion),
+                                            theme_name);
+                            createToast(format, Toast.LENGTH_LONG);
                             finish();
                         })
                         .setNegativeButton(R.string.uninstall_dialog_cancel, (dialog, id17) ->
-                                dialog
-                                        .cancel());
+                                dialog.cancel());
                 // Create the AlertDialog object and return it
                 builder2.create();
                 builder2.show();
@@ -788,10 +802,10 @@ public class InformationActivity extends AppCompatActivity {
                                             .getPackageManager().getApplicationInfo(
                                                     current, PackageManager.GET_META_DATA);
                                     if (appInfo.metaData != null &&
-                                            appInfo.metaData.getString("Substratum_Parent") !=
-                                                    null) {
-                                        String parent = appInfo.metaData.getString
-                                                ("Substratum_Parent");
+                                            appInfo.metaData.getString(
+                                                    metadataOverlayParent) != null) {
+                                        String parent =
+                                                appInfo.metaData.getString(metadataOverlayParent);
                                         if (parent != null && parent.equals(theme_pid)) {
                                             all_overlays.add(current);
                                         }
@@ -800,12 +814,7 @@ public class InformationActivity extends AppCompatActivity {
                                     // NameNotFound
                                 }
                             }
-
-                            Toast toast = Toast.makeText(getApplicationContext(),
-                                    getString(R.string
-                                            .disable_completion),
-                                    Toast.LENGTH_LONG);
-                            toast.show();
+                            createToast(getString(R.string.disable_completion), Toast.LENGTH_LONG);
 
                             // Begin disabling overlays
                             ThemeManager.disableOverlay(getApplicationContext(), all_overlays);
@@ -835,10 +844,10 @@ public class InformationActivity extends AppCompatActivity {
                                             .getPackageManager().getApplicationInfo(
                                                     current, PackageManager.GET_META_DATA);
                                     if (appInfo.metaData != null &&
-                                            appInfo.metaData.getString("Substratum_Parent") !=
-                                                    null) {
-                                        String parent = appInfo.metaData.getString
-                                                ("Substratum_Parent");
+                                            appInfo.metaData.getString(
+                                                    metadataOverlayParent) != null) {
+                                        String parent =
+                                                appInfo.metaData.getString(metadataOverlayParent);
                                         if (parent != null && parent.equals(theme_pid)) {
                                             all_overlays.add(current);
                                         }
@@ -847,12 +856,7 @@ public class InformationActivity extends AppCompatActivity {
                                     // NameNotFound
                                 }
                             }
-
-                            Toast toast = Toast.makeText(getApplicationContext(),
-                                    getString(R.string
-                                            .enable_completion),
-                                    Toast.LENGTH_LONG);
-                            toast.show();
+                            createToast(getString(R.string.enable_completion), Toast.LENGTH_LONG);
 
                             // Begin enabling overlays
                             ThemeManager.enableOverlay(getApplicationContext(), all_overlays);
@@ -952,11 +956,9 @@ public class InformationActivity extends AppCompatActivity {
                 if (tabLayout != null)
                     tabLayout.setBackgroundColor(Color.parseColor("#ffff00"));
                 getWindow().setNavigationBarColor(Color.parseColor("#ffff00"));
-            } else {
-                if (kenBurnsView != null) {
-                    Glide.with(getApplicationContext()).load(byteArray)
-                            .centerCrop().into(kenBurnsView);
-                }
+            } else if (kenBurnsView != null) {
+                Glide.with(getApplicationContext()).load(byteArray)
+                        .centerCrop().into(kenBurnsView);
             }
         }
 
@@ -1005,7 +1007,8 @@ public class InformationActivity extends AppCompatActivity {
                     getColor(R.color.information_activity_dark_icon_mode),
                     PorterDuff.Mode.SRC_ATOP);
             String format = String.format(
-                    getString(R.string.menu_favorite_snackbar_cleared), result);
+                    getString(R.string.menu_favorite_snackbar_cleared),
+                    result);
             Lunchbar.make(getView(),
                     format,
                     Lunchbar.LENGTH_LONG)
@@ -1022,8 +1025,7 @@ public class InformationActivity extends AppCompatActivity {
     private class uninstallTheme extends AsyncTask<String, Integer, String> {
         @Override
         protected void onPreExecute() {
-            String parseMe = String.format(getString(R.string.adapter_uninstalling),
-                    theme_name);
+            String parseMe = String.format(getString(R.string.adapter_uninstalling), theme_name);
             mProgressDialog = new ProgressDialog(InformationActivity.this);
             mProgressDialog.setMessage(parseMe);
             mProgressDialog.setIndeterminate(true);

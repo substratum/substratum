@@ -106,7 +106,7 @@
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
-    <projekt.substratum.util.FloatingActionMenu
+    <projekt.substratum.util.views.FloatingActionMenu
         android:id="@+id/apply_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

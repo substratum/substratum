@@ -432,8 +432,25 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 crashReceiver.setChecked(prefs.getBoolean("crash_receiver", true));
                 crashReceiver.setOnPreferenceChangeListener((preference, newValue) -> {
                     boolean isChecked = (Boolean) newValue;
-                    prefs.edit().putBoolean("crash_receiver", isChecked).apply();
-                    return true;
+                    if (!isChecked) {
+                        final AlertDialog.Builder builder =
+                                new AlertDialog.Builder(getContext());
+                        builder.setTitle(R.string.theme_safety_dialog_title);
+                        builder.setMessage(R.string.theme_safety_dialog_content);
+                        builder.setNegativeButton(R.string.break_compilation_dialog_cancel,
+                                (dialog, id) -> dialog.dismiss());
+                        builder.setPositiveButton(
+                                R.string.break_compilation_dialog_continue,
+                                (dialog, id) -> {
+                                    crashReceiver.setChecked(false);
+                                    prefs.edit().putBoolean("crash_receiver", false).apply();
+                                });
+                        builder.show();
+                    } else {
+                        crashReceiver.setChecked(true);
+                        prefs.edit().putBoolean("crash_receiver", true).apply();
+                    }
+                    return false;
                 });
             }
 
@@ -443,8 +460,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         (preference, newValue) -> {
                             boolean isChecked = (Boolean) newValue;
                             if (isChecked) {
-                                final AlertDialog.Builder builder = new AlertDialog.Builder
-                                        (getContext());
+                                final AlertDialog.Builder builder =
+                                        new AlertDialog.Builder(getContext());
                                 builder.setTitle(R.string.break_compilation_dialog_title);
                                 builder.setMessage(R.string.break_compilation_dialog_content);
                                 builder.setNegativeButton(R.string.break_compilation_dialog_cancel,

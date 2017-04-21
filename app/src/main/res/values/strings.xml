@@ -790,6 +790,9 @@
     <string name="break_compilation_dialog_continue">Continue</string>
     <string name="break_compilation_dialog_cancel">Cancel</string>
 
+    <string name="theme_safety_dialog_title">WARNING</string>
+    <string name="theme_safety_dialog_content">This is a crucial safety feature to recover you from bad overlay force closes! You can use Rescue Me! button on Substratum\'s app shortcut if you find yourself stuff, or your final resort would be to flash the rescue archives found in /storage/emulated/0/substratum/.</string>
+
     <string name="profile_dialog_title">select the items you want to backup</string>
     <string name="profile_no_selection_warning">Please select at least one option!</string>
     <string name="profile_boot_animation">Boot Animation</string>

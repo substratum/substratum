@@ -193,7 +193,8 @@ public class Overlays extends Fragment {
             } else {
                 if (toggle_all.isChecked()) toggle_all.setChecked(false);
                 is_active = false;
-                Lunchbar.make(getActivityView(),
+                Lunchbar.make(
+                        getActivityView(),
                         R.string.toast_disabled5,
                         Lunchbar.LENGTH_LONG)
                         .show();
@@ -227,7 +228,8 @@ public class Overlays extends Fragment {
             } else {
                 if (toggle_all.isChecked()) toggle_all.setChecked(false);
                 is_active = false;
-                Lunchbar.make(getActivityView(),
+                Lunchbar.make(
+                        getActivityView(),
                         R.string.toast_disabled5,
                         Lunchbar.LENGTH_LONG)
                         .show();
@@ -270,7 +272,8 @@ public class Overlays extends Fragment {
                 } else {
                     if (toggle_all.isChecked()) toggle_all.setChecked(false);
                     is_active = false;
-                    Lunchbar.make(getActivityView(),
+                    Lunchbar.make(
+                            getActivityView(),
                             R.string.toast_disabled5,
                             Lunchbar.LENGTH_LONG)
                             .show();
@@ -336,7 +339,8 @@ public class Overlays extends Fragment {
                 } else {
                     if (toggle_all.isChecked()) toggle_all.setChecked(false);
                     is_active = false;
-                    Lunchbar.make(getActivityView(),
+                    Lunchbar.make(
+                            getActivityView(),
                             R.string.toast_disabled5,
                             Lunchbar.LENGTH_LONG)
                             .show();
@@ -379,7 +383,8 @@ public class Overlays extends Fragment {
             } else {
                 if (toggle_all.isChecked()) toggle_all.setChecked(false);
                 is_active = false;
-                Lunchbar.make(getActivityView(),
+                Lunchbar.make(
+                        getActivityView(),
                         R.string.toast_disabled5,
                         Lunchbar.LENGTH_LONG)
                         .show();
@@ -653,12 +658,14 @@ public class Overlays extends Fragment {
             }
 
             if (missingType3) {
-                Lunchbar.make(getActivityView(),
+                Lunchbar.make(
+                        getActivityView(),
                         R.string.toast_compiled_missing,
                         Lunchbar.LENGTH_LONG)
                         .show();
             } else {
-                Lunchbar.make(getActivityView(),
+                Lunchbar.make(
+                        getActivityView(),
                         R.string.toast_compiled_updated,
                         Lunchbar.LENGTH_LONG)
                         .show();
@@ -815,7 +822,8 @@ public class Overlays extends Fragment {
                     (ClipboardManager) context.getSystemService(CLIPBOARD_SERVICE);
             ClipData clip = ClipData.newPlainText("substratum_log", error_logs);
             clipboard.setPrimaryClip(clip);
-            Lunchbar.make(getActivityView(),
+            Lunchbar.make(
+                    getActivityView(),
                     R.string.logcat_dialog_copy_success,
                     Lunchbar.LENGTH_LONG)
                     .show();
@@ -880,7 +888,8 @@ public class Overlays extends Fragment {
                     startActivity(Intent.createChooser(
                             i, context.getString(R.string.logcat_email_activity)));
                 } catch (android.content.ActivityNotFoundException ex) {
-                    Lunchbar.make(getActivityView(),
+                    Lunchbar.make(
+                            getActivityView(),
                             R.string.logcat_email_activity_error,
                             Lunchbar.LENGTH_LONG)
                             .show();
@@ -1578,7 +1587,8 @@ public class Overlays extends Fragment {
                 } else {
                     compile_enable_mode = false;
                     enable_mode = false;
-                    Lunchbar.make(getActivityView(),
+                    Lunchbar.make(
+                            getActivityView(),
                             R.string.toast_disabled3,
                             Lunchbar.LENGTH_LONG)
                             .show();
@@ -1632,7 +1642,8 @@ public class Overlays extends Fragment {
                     }
                 } else {
                     disable_mode = false;
-                    Lunchbar.make(getActivityView(),
+                    Lunchbar.make(
+                            getActivityView(),
                             R.string.toast_disabled4,
                             Lunchbar.LENGTH_LONG)
                             .show();

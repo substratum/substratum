@@ -341,6 +341,12 @@ public class TeamFragment extends Fragment {
                                         (dialog2, item2) -> {
                                         });
                                 break;
+                            case 14:
+                                builder2.setItems(
+                                        getResources().getStringArray(R.array.turkish_translators),
+                                        (dialog2, item2) -> {
+                                        });
+                                break;
                         }
                         AlertDialog alert2 = builder2.create();
                         alert2.show();

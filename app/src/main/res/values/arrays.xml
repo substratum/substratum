@@ -43,6 +43,7 @@
         <item>Русский перевод</item>
         <item>Slovenský preklad</item>
         <item>Traducciones españolas</item>
+        <item>Türkçe çeviriler</item>
     </string-array>
 
     <string-array name="belarusian_translators">
@@ -146,6 +147,17 @@
         <item>Ja_som</item>
         <item>Slavomír Spyderco Pavúk (trance11)</item>
         <item>Róbert Barát (rbarat)</item>
+    </string-array>
+
+    <string-array name="turkish_translators">
+        <item>Mevlüt TOPÇU (xboxhunter84)</item>
+        <item>Aras TOPÇU (arastopcu15)</item>
+        <item>Burak Dede (TheNexus)</item>
+        <item>Emir Bardakçı (pupiolamyn)</item>
+        <item>hassan wafai (hasdroid)</item>
+        <item>İsa Samet Türkmen (isasamet34)</item>
+        <item>Mehmet Çilingir (Mehmetclngr)</item>
+        <item>muhammedb</item>
     </string-array>
 
     <string-array name="chinese_translators">

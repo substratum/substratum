@@ -685,8 +685,7 @@ public class References {
             }
             return icon;
         } catch (Exception e) {
-            Log.e(References.SUBSTRATUM_LOG,
-                    "Could not grab the application icon for \"" + package_name + "\"");
+            // Suppress warning
         }
         return context.getDrawable(R.drawable.default_overlay_icon);
     }

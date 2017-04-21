@@ -49,7 +49,7 @@ import java.util.TreeMap;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.MainActivity;
 import projekt.substratum.R;
-import projekt.substratum.ShowcaseActivity;
+import projekt.substratum.activities.showcase.ShowcaseActivity;
 import projekt.substratum.adapters.fragments.themes.ThemeAdapter;
 import projekt.substratum.adapters.fragments.themes.ThemeItem;
 import projekt.substratum.common.References;

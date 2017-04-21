@@ -41,7 +41,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import projekt.substratum.R;
-import projekt.substratum.Substratum;
+import projekt.substratum.activities.base.Substratum;
 import projekt.substratum.activities.profiles.ProfileErrorInfoActivity;
 import projekt.substratum.common.References;
 import projekt.substratum.common.commands.FileOperations;

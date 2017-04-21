@@ -16,7 +16,7 @@
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package projekt.substratum;
+package projekt.substratum.activities.showcase;
 
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
@@ -43,6 +43,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Map;
 
+import projekt.substratum.R;
 import projekt.substratum.adapters.showcase.ShowcaseTabsAdapter;
 import projekt.substratum.common.References;
 import projekt.substratum.util.files.FileDownloader;

@@ -27,7 +27,7 @@
         android:shortcutShortLabel="@string/shortcut_store">
         <intent
             android:action="android.intent.action.VIEW"
-            android:targetClass="projekt.substratum.ShowcaseActivity"
+            android:targetClass="projekt.substratum.activities.showcase.ShowcaseActivity"
             android:targetPackage="projekt.substratum"/>
     </shortcut>
     <shortcut

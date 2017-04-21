@@ -21,7 +21,7 @@ package projekt.substratum.services.tiles;
 import android.content.Intent;
 import android.service.quicksettings.TileService;
 
-import projekt.substratum.ShowcaseActivity;
+import projekt.substratum.activities.showcase.ShowcaseActivity;
 
 
 public class ShowcaseTile extends TileService {

@@ -85,6 +85,7 @@ import java.util.Locale;
 import eightbitlab.com.blurview.BlurView;
 import eightbitlab.com.blurview.RenderScriptBlur;
 import projekt.substratum.activities.base.SubstratumActivity;
+import projekt.substratum.activities.showcase.ShowcaseActivity;
 import projekt.substratum.activities.studio.StudioSelectorActivity;
 import projekt.substratum.common.References;
 import projekt.substratum.common.commands.ElevatedCommands;

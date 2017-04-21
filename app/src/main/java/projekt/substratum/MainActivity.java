@@ -290,14 +290,20 @@ public class MainActivity extends SubstratumActivity implements
         supportActionBar = getSupportActionBar();
         switchToStockToolbar(getString(R.string.app_name));
 
+        String versionName = BuildConfig.VERSION_NAME;
+        if (BuildConfig.DEBUG) {
+            versionName = versionName + " - " + BuildConfig.GIT_HASH;
+        }
+
         AccountHeader header = new AccountHeaderBuilder()
                 .withActivity(this)
                 .withHeaderBackground(R.drawable.material_drawer_header_background)
                 .withProfileImagesVisible(false)
                 .withSelectionListEnabledForSingleProfile(false)
                 .addProfiles(
-                        new ProfileDrawerItem().withName(getString(R.string.drawer_name)).withEmail
-                                (BuildConfig.VERSION_NAME))
+                        new ProfileDrawerItem()
+                                .withName(getString(R.string.drawer_name))
+                                .withEmail(versionName))
                 .withCurrentProfileHiddenInList(true)
                 .build();
 

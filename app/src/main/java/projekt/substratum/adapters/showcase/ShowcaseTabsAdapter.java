@@ -25,7 +25,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import java.util.ArrayList;
 
-import projekt.substratum.fragments.showcase.ShowcaseTab;
+import projekt.substratum.fragments.ShowcaseTab;
 
 public class ShowcaseTabsAdapter extends FragmentPagerAdapter {
     private ArrayList fragment_links;

@@ -16,7 +16,7 @@
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package projekt.substratum.activities.base;
+package projekt.substratum;
 
 import android.app.ActivityManager;
 import android.app.Application;

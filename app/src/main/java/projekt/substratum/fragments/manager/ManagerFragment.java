@@ -549,7 +549,7 @@ public class ManagerFragment extends Fragment {
         }
     }
 
-    private static class RunEnable extends AsyncTask<Void, Void, Void> {
+    private static class RunEnable extends AsyncTask<String, Integer, String> {
         private WeakReference<ManagerFragment> ref;
 
         private RunEnable(ManagerFragment fragment) {
@@ -564,7 +564,18 @@ public class ManagerFragment extends Fragment {
         }
 
         @Override
-        protected Void doInBackground(Void... params) {
+        protected void onPostExecute(String result) {
+            ManagerFragment fragment = ref.get();
+            Context context = fragment.context;
+            if (result != null && result.equals("unauthorized")) {
+                Toast.makeText(context, fragment.getString(R.string.manage_system_not_permitted),
+                        Toast.LENGTH_LONG).show();
+            }
+            fragment.loadingBar.setVisibility(View.GONE);
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
             ManagerFragment fragment = ref.get();
             Context context = fragment.context;
 
@@ -631,18 +642,10 @@ public class ManagerFragment extends Fragment {
                     }, REFRESH_WINDOW_DELAY);
                 }
             } else {
-                Toast.makeText(context, fragment.getString(R.string.manage_system_not_permitted),
-                        Toast.LENGTH_LONG).show();
+                return "unauthorized";
             }
             return null;
         }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            ManagerFragment fragment = ref.get();
-            fragment.loadingBar.setVisibility(View.GONE);
-        }
-
     }
 
     private static class RunUninstall extends AsyncTask<Void, Void, Void> {

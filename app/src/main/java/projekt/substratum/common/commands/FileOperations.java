@@ -264,6 +264,10 @@ public class FileOperations {
         Log.d(COPYDIR_LOG, "Operation " + (out.exists() ? "succeeded" : "failed"));
     }
 
+    public static void bruteforceDelete(String directory) {
+        Root.runCommand("rm -rf " + directory);
+    }
+
     public static void delete(Context context, String directory) {
         delete(context, directory, true);
     }

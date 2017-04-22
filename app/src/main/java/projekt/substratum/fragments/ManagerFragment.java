@@ -528,17 +528,14 @@ public class ManagerFragment extends Fragment {
                         Log.e(this.getClass().getSimpleName(),
                                 fragment.overlaysList.get(i).getName());
                         FileOperations.mountRW();
-                        if (References.inNexusFilter()) {
-                            FileOperations.mountRWVendor();
-                            FileOperations.delete(context, PIXEL_NEXUS_DIR +
-                                    fragment.overlaysList.get(i).getName() + ".apk");
-                            FileOperations.delete(context, VENDOR_DIR +
-                                    fragment.overlaysList.get(i).getName() + ".apk");
-                            FileOperations.mountROVendor();
-                        } else {
-                            FileOperations.delete(context, LEGACY_NEXUS_DIR +
-                                    fragment.overlaysList.get(i).getName() + ".apk");
-                        }
+                        FileOperations.mountRWVendor();
+                        FileOperations.bruteforceDelete(LEGACY_NEXUS_DIR +
+                                fragment.overlaysList.get(i).getName() + ".apk");
+                        FileOperations.bruteforceDelete(PIXEL_NEXUS_DIR +
+                                fragment.overlaysList.get(i).getName() + ".apk");
+                        FileOperations.bruteforceDelete(VENDOR_DIR +
+                                fragment.overlaysList.get(i).getName() + ".apk");
+                        FileOperations.mountROVendor();
                         FileOperations.mountRO();
                     }
                 }
@@ -715,8 +712,7 @@ public class ManagerFragment extends Fragment {
             Context context = fragment.context;
 
             ArrayList<String> data = new ArrayList<>();
-            fragment.overlayList = ((ManagerAdapter) fragment.mAdapter)
-                    .getOverlayManagerList();
+            fragment.overlayList = ((ManagerAdapter) fragment.mAdapter).getOverlayManagerList();
             int len = fragment.overlayList.size();
             for (int i = 0; i < len; i++) {
                 ManagerItem overlay1 = fragment.overlayList.get(i);

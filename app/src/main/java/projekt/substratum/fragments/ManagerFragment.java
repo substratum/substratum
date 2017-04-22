@@ -694,8 +694,6 @@ public class ManagerFragment extends Fragment {
             Context context = fragment.context;
             fragment.materialSheetFab.hideSheet();
             fragment.loadingBar.setVisibility(View.VISIBLE);
-            Toast.makeText(context, fragment.getString(R
-                    .string.toast_uninstalling), Toast.LENGTH_LONG).show();
         }
 
         @Override
@@ -772,25 +770,7 @@ public class ManagerFragment extends Fragment {
         @Override
         public void onReceive(Context context, Intent intent) {
             ManagerFragment fragment = ref.get();
-
-            // Refresh the overlay list, do it twice since in some uninstallation case the overlay
-            // list isn't getting removed because the package is still detected in system.
-            for (int j = 0; j < 2; j++) {
-                List<String> updated = fragment.updateEnabledOverlays();
-                if (fragment.overlayList == null) break;
-                int len = fragment.overlayList.size();
-                for (int i = 0; i < len; i++) {
-                    ManagerItem currentOverlay = fragment.overlayList.get(i);
-                    currentOverlay.setSelected(false);
-                    currentOverlay.updateEnabledOverlays(
-                            updated.contains(currentOverlay.getName()));
-                    if (!References.isPackageInstalled(context, currentOverlay.getName())) {
-                        fragment.overlayList.remove(i);
-                        len--;
-                    }
-                    fragment.mAdapter.notifyDataSetChanged();
-                }
-            }
+            fragment.refreshList();
             fragment.loadingBar.setVisibility(View.GONE);
         }
     }

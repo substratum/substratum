@@ -29,6 +29,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.util.Pair;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
@@ -68,6 +69,7 @@ import projekt.substratum.util.views.FloatingActionMenu;
 import static android.content.om.OverlayInfo.STATE_APPROVED_DISABLED;
 import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
 import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
+import static projekt.substratum.common.References.MANAGER_REFRESH;
 import static projekt.substratum.common.References.MASQUERADE_PACKAGE;
 import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;
 import static projekt.substratum.common.References.REFRESH_WINDOW_DELAY;
@@ -88,7 +90,6 @@ public class ManagerFragment extends Fragment {
     private List<ManagerItem> overlaysList;
     private FloatingActionMenu floatingActionButton;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private boolean swipeRefreshing;
     private Boolean first_run = null;
     private MaterialProgressBar progressBar;
     private RecyclerView mRecyclerView;
@@ -96,6 +97,27 @@ public class ManagerFragment extends Fragment {
     private List<ManagerItem> overlayList;
     private FinishReceiver finishReceiver;
     private Context context;
+    private LocalBroadcastManager localBroadcastManager;
+    private BroadcastReceiver refreshReceiver;
+
+    private void refreshList() {
+        if (overlayList != null && mAdapter != null) {
+            List<ManagerItem> updated = new ArrayList<>();
+            for (int i = 0; i < overlayList.size(); i++) {
+                if (References.isPackageInstalled(
+                        getContext(),
+                        overlayList.get(i).getName())) {
+                    updated.add(overlayList.get(i));
+                }
+            }
+            ((ManagerAdapter) mAdapter).setOverlayManagerList(updated);
+            overlayList = updated;
+            mAdapter.notifyDataSetChanged();
+            if (swipeRefreshLayout != null && swipeRefreshLayout.isRefreshing()) {
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        }
+    }
 
     @Override
     public View onCreateView(
@@ -103,6 +125,13 @@ public class ManagerFragment extends Fragment {
             ViewGroup container,
             Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Register the theme install receiver to auto refresh the fragment
+        refreshReceiver = new RefreshReceiver();
+        IntentFilter if1 = new IntentFilter(MANAGER_REFRESH);
+        localBroadcastManager = LocalBroadcastManager.getInstance(getContext());
+        localBroadcastManager.registerReceiver(refreshReceiver, if1);
+
         context = getContext();
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
         root = (ViewGroup) inflater.inflate(R.layout.advanced_manager_fragment, container, false);
@@ -120,12 +149,15 @@ public class ManagerFragment extends Fragment {
         progressBar = (MaterialProgressBar) root.findViewById(R.id.progress_bar_loader);
 
         floatingActionButton = (FloatingActionMenu) root.findViewById(R.id.apply_fab);
-        floatingActionButton.hide();
 
         // Create material sheet FAB
         if (sheetView != null && overlay != null) {
-            materialSheetFab = new MaterialSheetFab<>(floatingActionButton, sheetView, overlay,
-                    sheetColor, fabColor);
+            materialSheetFab = new MaterialSheetFab<>(
+                    floatingActionButton,
+                    sheetView,
+                    overlay,
+                    sheetColor,
+                    fabColor);
         }
 
         new LayoutReloader(ManagerFragment.this).execute();
@@ -139,8 +171,7 @@ public class ManagerFragment extends Fragment {
         swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(() -> {
             if (first_run != null && mRecyclerView.isShown() && !first_run) {
-                swipeRefreshing = true;
-                new LayoutReloader(ManagerFragment.this).execute();
+                refreshList();
             } else {
                 swipeRefreshLayout.setRefreshing(false);
             }
@@ -206,6 +237,12 @@ public class ManagerFragment extends Fragment {
             } catch (IllegalArgumentException e) {
                 // Unregistered already
             }
+        }
+
+        try {
+            localBroadcastManager.unregisterReceiver(refreshReceiver);
+        } catch (IllegalArgumentException e) {
+            // Unregistered already
         }
     }
 
@@ -397,10 +434,6 @@ public class ManagerFragment extends Fragment {
                     !References.checkOMS(fragment.context)) {
                 LinearLayout enable_view = (LinearLayout) fragment.root.findViewById(R.id.enable);
                 enable_view.setVisibility(View.GONE);
-            }
-            if (fragment.swipeRefreshing) {
-                fragment.swipeRefreshing = false;
-                fragment.swipeRefreshLayout.setRefreshing(false);
             }
             if (fragment.first_run == null) fragment.first_run = false;
             super.onPostExecute(result);
@@ -759,6 +792,15 @@ public class ManagerFragment extends Fragment {
                 }
             }
             fragment.loadingBar.setVisibility(View.GONE);
+        }
+    }
+
+    class RefreshReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.d("ManagerRefresher", "A package has been modified, now refreshing the list...");
+            refreshList();
         }
     }
 }

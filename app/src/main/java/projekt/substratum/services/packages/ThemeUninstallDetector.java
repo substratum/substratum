@@ -45,20 +45,21 @@ import projekt.substratum.common.tabs.WallpaperManager;
 
 import static android.content.om.OverlayInfo.STATE_APPROVED_DISABLED;
 import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
+import static projekt.substratum.common.References.PACKAGE_FULLY_REMOVED;
 import static projekt.substratum.common.References.SUBSTRATUM_BUILDER_CACHE;
 import static projekt.substratum.common.References.metadataOverlayParent;
 
 public class ThemeUninstallDetector extends BroadcastReceiver {
 
     private static final String TAG = "ThemeUninstallDetector";
-    private static final String PACKAGE_FULLY_REMOVED =
-            "android.intent.action.PACKAGE_FULLY_REMOVED";
 
     @Override
     public void onReceive(Context context, Intent intent) {
         if (PACKAGE_FULLY_REMOVED.equals(intent.getAction())) {
             Uri packageName = intent.getData();
             String package_name = packageName.toString().substring(8);
+
+            References.sendRefreshManagerMessage(context);
 
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
             if (prefs.contains("installed_themes")) {

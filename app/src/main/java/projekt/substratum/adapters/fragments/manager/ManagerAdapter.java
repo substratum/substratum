@@ -98,6 +98,10 @@ public class ManagerAdapter extends
         return overlayList;
     }
 
+    public void setOverlayManagerList(List<ManagerItem> overlayList) {
+        this.overlayList = overlayList;
+    }
+
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvName;
         TextView tvDesc;

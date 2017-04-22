@@ -122,6 +122,13 @@ public class References {
     public static final String CRASH_PACKAGE_NAME = "projekt.substratum.EXTRA_PACKAGE_NAME";
     public static final String CRASH_CLASS_NAME = "projekt.substratum.EXTRA_EXCEPTION_CLASS_NAME";
     public static final String CRASH_REPEATING = "projekt.substratum.EXTRA_CRASH_REPEATING";
+    // System intents to catch
+    public static final String BOOT_COMPLETED = "android.intent.action.BOOT_COMPLETED";
+    public final static String PACKAGE_ADDED = "android.intent.action.PACKAGE_ADDED";
+    public static final String PACKAGE_FULLY_REMOVED =
+            "android.intent.action.PACKAGE_FULLY_REMOVED";
+    // App intents to send
+    public static final String MANAGER_REFRESH = "projekt.substratum.MANAGER_REFRESH";
     // Keep it simple, stupid!
     public static final int HIDDEN_CACHING_MODE_TAP_COUNT = 7;
     public static final int SHOWCASE_SHUFFLE_COUNT = 5;
@@ -168,7 +175,6 @@ public class References {
     private static final long JANUARY_PATCH_TIMESTAMP = 1483549200000L;
     // Specific intents Substratum should be listening to
     private static final String APP_CRASHED = "projekt.substratum.APP_CRASHED";
-    private static final String PACKAGE_ADDED = "android.intent.action.PACKAGE_ADDED";
     // Metadata used in theme templates to denote specific parts of a theme
     private static final String metadataVersion = "Substratum_Plugin";
     private static final String metadataThemeReady = "Substratum_ThemeReady";
@@ -1209,6 +1215,11 @@ public class References {
         Log.d("ThemeFragmentRefresher",
                 "A theme has been modified, sending update signal to refresh the list!");
         Intent intent = new Intent("ThemeFragment.REFRESH");
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+    }
+
+    public static void sendRefreshManagerMessage(Context context) {
+        Intent intent = new Intent(MANAGER_REFRESH);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
 

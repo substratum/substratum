@@ -113,7 +113,7 @@
         android:layout_gravity="center|bottom|end"
         android:layout_margin="16dp"
         android:src="@drawable/floating_action_button_icon"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:backgroundTint="@color/fab_background_color"
         app:layout_anchorGravity="bottom|right|end"/>
 

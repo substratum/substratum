@@ -32,12 +32,12 @@ import projekt.substratum.common.References;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.systems.ProfileManager;
 
+import static projekt.substratum.common.References.BOOT_COMPLETED;
 import static projekt.substratum.common.References.EXTERNAL_STORAGE_CACHE;
 import static projekt.substratum.common.systems.ProfileManager.SCHEDULED_PROFILE_ENABLED;
 
 public class BootCompletedDetector extends BroadcastReceiver {
 
-    private static final String BOOT_COMPLETED = "android.intent.action.BOOT_COMPLETED";
     private static final String TAG = "SubstratumBoot";
 
     private boolean clearSubstratumCompileFolder(Context context) {

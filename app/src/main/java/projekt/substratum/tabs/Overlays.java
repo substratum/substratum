@@ -802,8 +802,7 @@ public class Overlays extends Fragment {
                 context.getString(R.string.toast_compiled_updated_with_errors),
                 Toast.LENGTH_LONG).show();
 
-        final Dialog dialog = new Dialog(context, android.R.style
-                .Theme_DeviceDefault_Dialog);
+        final Dialog dialog = new Dialog(context, android.R.style.Theme_DeviceDefault_Dialog);
         dialog.setContentView(R.layout.logcat_dialog);
         dialog.setTitle(R.string.logcat_dialog_title);
         if (dialog.getWindow() != null)

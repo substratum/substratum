@@ -45,9 +45,10 @@ import projekt.substratum.common.References;
 import projekt.substratum.util.compilers.CacheCreator;
 import projekt.substratum.util.helpers.NotificationCreator;
 
+import static projekt.substratum.common.References.PACKAGE_ADDED;
+
 public class PackageModificationDetector extends BroadcastReceiver {
 
-    private final static String PACKAGE_ADDED = "android.intent.action.PACKAGE_ADDED";
     private final static String TAG = "SubstratumDetector";
     private SharedPreferences prefs;
     private Context mContext;
@@ -60,6 +61,8 @@ public class PackageModificationDetector extends BroadcastReceiver {
             this.mContext = context;
             Uri packageName = intent.getData();
             package_name = packageName.toString().substring(8);
+
+            References.sendRefreshManagerMessage(context);
 
             // First, check if the app installed is actually a substratum theme
             try {

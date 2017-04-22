@@ -51,12 +51,16 @@ public class ManagerAdapter extends
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, int position) {
         final int position_fixed = position;
-        viewHolder.tvName.setText(
-                References.grabPackageName(
+        String title = References.grabPackageName(
+                overlayList.get(position_fixed).getContext(),
+                References.grabOverlayTarget(
                         overlayList.get(position_fixed).getContext(),
-                        References.grabOverlayTarget(
-                                overlayList.get(position_fixed).getContext(),
-                                overlayList.get(position_fixed).getName())));
+                        overlayList.get(position_fixed).getName()));
+        if (title != null && title.length() > 0) {
+            viewHolder.tvName.setText(title);
+        } else {
+            viewHolder.tvName.setText(R.string.reboot_awaiting_manager_title);
+        }
         viewHolder.tvDesc.setText(overlayList.get(position_fixed).getName());
         viewHolder.tvName.setTextColor(overlayList.get(position_fixed).getActivationValue());
         viewHolder.chkSelected.setChecked(overlayList.get(position_fixed).isSelected());

@@ -145,6 +145,8 @@
     <string name="restore_activity_toast">Backup file found! Now restoring&#8230;</string>
     <string name="restore_activity_toast_not_found">No overlay database backup found.</string>
 
+    <string name="reboot_awaiting_manager_title">OVERLAY AWAITING REBOOT</string>
+
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">type1a variant&#8230;</string>
     <string name="overlays_variant_default_1b">type1b variant&#8230;</string>

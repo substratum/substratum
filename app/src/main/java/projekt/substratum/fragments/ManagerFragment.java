@@ -565,25 +565,6 @@ public class ManagerFragment extends Fragment {
                             fragment.activated_overlays.get(i), true);
                     fragment.overlaysList.add(st);
                 }
-
-                fragment.mAdapter.notifyDataSetChanged();
-
-                Toast toast2 = Toast.makeText(context, fragment.getString(R
-                                .string.toast_disabled6),
-                        Toast.LENGTH_SHORT);
-                toast2.show();
-                AlertDialog.Builder alertDialogBuilder =
-                        new AlertDialog.Builder(context);
-                alertDialogBuilder
-                        .setTitle(fragment.getString(R.string.legacy_dialog_soft_reboot_title));
-                alertDialogBuilder
-                        .setMessage(fragment.getString(R.string.legacy_dialog_soft_reboot_text));
-                alertDialogBuilder
-                        .setPositiveButton(android.R.string.ok,
-                                (dialog, id) -> ElevatedCommands.reboot());
-                alertDialogBuilder.setCancelable(false);
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
             }
             return null;
         }
@@ -591,6 +572,25 @@ public class ManagerFragment extends Fragment {
         @Override
         protected void onPostExecute(Void result) {
             ManagerFragment fragment = ref.get();
+            Context context = fragment.context;
+            fragment.mAdapter.notifyDataSetChanged();
+
+            Toast.makeText(
+                    context,
+                    fragment.getString(R.string.toast_disabled6),
+                    Toast.LENGTH_SHORT).show();
+            AlertDialog.Builder alertDialogBuilder =
+                    new AlertDialog.Builder(context);
+            alertDialogBuilder
+                    .setTitle(fragment.getString(R.string.legacy_dialog_soft_reboot_title));
+            alertDialogBuilder
+                    .setMessage(fragment.getString(R.string.legacy_dialog_soft_reboot_text));
+            alertDialogBuilder
+                    .setPositiveButton(android.R.string.ok,
+                            (dialog, id) -> ElevatedCommands.reboot());
+            alertDialogBuilder.setCancelable(false);
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
             fragment.loadingBar.setVisibility(View.GONE);
         }
     }

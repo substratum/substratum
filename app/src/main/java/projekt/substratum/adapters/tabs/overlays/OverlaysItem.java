@@ -27,8 +27,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import projekt.substratum.common.References;
-
 public class OverlaysItem implements Serializable {
 
     public boolean is_variant_chosen = false;
@@ -309,7 +307,7 @@ public class OverlaysItem implements Serializable {
     }
 
     public boolean isOverlayEnabled() {
-        return (!References.checkOMS(context) || (isPackageInstalled(getFullOverlayParameters()) &&
-                enabledOverlays.contains(getFullOverlayParameters())));
+        return (isPackageInstalled(getFullOverlayParameters()) &&
+                enabledOverlays.contains(getFullOverlayParameters()));
     }
 }

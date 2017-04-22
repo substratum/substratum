@@ -264,12 +264,10 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
 
         viewHolder.overlayTargetPackage.setText(current_object.getPackageName());
 
-        if (!current_object.isDeviceOMS()) viewHolder.overlayState.setVisibility(View.GONE);
-
         if (current_object.isPackageInstalled((current_object.getPackageName()) +
                 "." + current_object.getThemeName() + ((current_object
                 .getBaseResources().length() > 0) ? "." + current_object
-                .getBaseResources() : "")) && current_object.isDeviceOMS()) {
+                .getBaseResources() : ""))) {
             viewHolder.overlayState.setVisibility(View.VISIBLE);
             // Check whether currently installed overlay is up to date with theme_pid's versionName
             if (!current_object.compareInstalledOverlay()) {

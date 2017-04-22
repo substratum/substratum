@@ -103,11 +103,25 @@ public class ManagerFragment extends Fragment {
     private void refreshList() {
         if (overlayList != null && mAdapter != null) {
             List<ManagerItem> updated = new ArrayList<>();
-            for (int i = 0; i < overlayList.size(); i++) {
-                if (References.isPackageInstalled(
-                        getContext(),
-                        overlayList.get(i).getName())) {
-                    updated.add(overlayList.get(i));
+            if (References.checkOMS(getContext())) {
+                for (int i = 0; i < overlayList.size(); i++) {
+                    if (References.isPackageInstalled(
+                            getContext(),
+                            overlayList.get(i).getName())) {
+                        updated.add(overlayList.get(i));
+                    }
+                }
+            } else {
+                File currentDir = new File(LEGACY_NEXUS_DIR);
+                String[] listed = currentDir.list();
+                for (String file : listed) {
+                    if (file.substring(file.length() - 4).equals(".apk")) {
+                        updated.add(
+                                new ManagerItem(
+                                        getContext(),
+                                        file.substring(0, file.length() - 4),
+                                        true));
+                    }
                 }
             }
             ((ManagerAdapter) mAdapter).setOverlayManagerList(updated);

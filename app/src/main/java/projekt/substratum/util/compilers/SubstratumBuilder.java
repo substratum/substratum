@@ -500,16 +500,13 @@ public class SubstratumBuilder {
                         ((References.inNexusFilter()) ? vendor_partition : vendor_location);
 
                 FileOperations.mountRW();
-                File vendor = new File(current_vendor);
-                if (!vendor.exists()) {
-                    if (current_vendor.equals(vendor_location)) {
-                        FileOperations.createNewFolder(current_vendor);
-                    } else {
-                        FileOperations.mountRWVendor();
-                        FileOperations.createNewFolder(vendor_symlink);
-                        FileOperations.createNewFolder(vendor_partition);
-                        FileOperations.mountROVendor();
-                    }
+                if (current_vendor.equals(vendor_location)) {
+                    FileOperations.createNewFolder(current_vendor);
+                } else {
+                    FileOperations.mountRWVendor();
+                    FileOperations.createNewFolder(vendor_symlink);
+                    FileOperations.createNewFolder(vendor_partition);
+                    FileOperations.mountROVendor();
                 }
                 if (current_vendor.equals(vendor_location)) {
                     FileOperations.move(context, Environment.getExternalStorageDirectory()

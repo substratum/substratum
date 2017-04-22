@@ -167,9 +167,9 @@ public class FileOperations {
     public static void createNewFolder(Context context, String destination) {
         String dataDir = context.getDataDir().getAbsolutePath();
         String externalDir = Environment.getExternalStorageDirectory().getAbsolutePath();
-        boolean needRoot = (!destination.startsWith(dataDir) && !destination.startsWith
-                (externalDir) &&
-                !destination.startsWith("/system")) || (!destination.startsWith(dataDir) &&
+        boolean needRoot = (
+                !destination.startsWith(dataDir) && !destination.startsWith(externalDir) &&
+                        !destination.startsWith("/system")) || (!destination.startsWith(dataDir) &&
                 !destination.startsWith(externalDir) && !destination.startsWith("/system"));
         if (checkThemeInterfacer(context) && needRoot) {
             ThemeInterfacerService.createNewFolder(context, destination);
@@ -367,6 +367,7 @@ public class FileOperations {
                 destination);
         File in = new File(source);
         File out = new File(destination);
+        boolean using_root = false;
         try {
             if (in.isFile()) {
                 FileUtils.moveFile(in, out);
@@ -377,8 +378,10 @@ public class FileOperations {
             Log.d(MOVE_LOG,
                     "Rootless operation failed, falling back to rooted mode..." + e.getMessage());
             Root.runCommand("mv -f " + source + " " + destination);
+            using_root = true;
         }
-        Log.d(MOVE_LOG, "Operation " + (!in.exists() && out.exists() ? "succeeded" : "failed"));
+        if (!using_root)
+            Log.d(MOVE_LOG, "Operation " + (!in.exists() && out.exists() ? "succeeded" : "failed"));
     }
 
     /**

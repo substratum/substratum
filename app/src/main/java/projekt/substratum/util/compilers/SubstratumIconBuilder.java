@@ -45,6 +45,9 @@ import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
 
 import static projekt.substratum.common.References.EXTERNAL_STORAGE_CACHE;
+import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
+import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;
+import static projekt.substratum.common.References.VENDOR_DIR;
 
 public class SubstratumIconBuilder {
 
@@ -413,25 +416,22 @@ public class SubstratumIconBuilder {
                     // At this point, it is detected to be legacy mode and Substratum will push to
                     // vendor/overlays directly.
 
-                    String vendor_location = "/system/vendor/overlay/";
-                    String vendor_partition = "/vendor/overlay/";
-                    String vendor_symlink = "/system/overlay/";
+                    String vendor_location = LEGACY_NEXUS_DIR;
+                    String vendor_partition = VENDOR_DIR;
+                    String vendor_symlink = PIXEL_NEXUS_DIR;
                     String current_vendor =
                             ((References.inNexusFilter()) ? vendor_partition :
                                     vendor_location);
 
                     FileOperations.mountRW();
-                    File vendor = new File(current_vendor);
-                    if (!vendor.exists()) {
-                        if (current_vendor.equals(vendor_location)) {
-                            FileOperations.createNewFolder(current_vendor);
-                        } else {
-                            FileOperations.mountRWVendor();
-                            FileOperations.createNewFolder(vendor_symlink);
-                            FileOperations.symlink(vendor_symlink, "/vendor");
-                            FileOperations.setPermissions(755, vendor_partition);
-                            FileOperations.mountROVendor();
-                        }
+                    if (current_vendor.equals(vendor_location)) {
+                        FileOperations.createNewFolder(current_vendor);
+                    } else {
+                        FileOperations.mountRWVendor();
+                        FileOperations.createNewFolder(vendor_symlink);
+                        FileOperations.symlink(vendor_symlink, "/vendor");
+                        FileOperations.setPermissions(755, vendor_partition);
+                        FileOperations.mountROVendor();
                     }
                     if (current_vendor.equals(vendor_location)) {
                         FileOperations.move(context, Environment.getExternalStorageDirectory()

@@ -405,7 +405,6 @@ public class Fonts extends Fragment {
     class JobReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            // TODO: should not be like this, find out why there is a detached fragment live
             if (!isAdded()) return;
             startApply();
         }

@@ -194,10 +194,11 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
     // Function that runs when a user picks a spinner dropdown item that is index >= 1
     private void commitChanges(Context context, OverlaysItem current_object,
                                ViewHolder viewHolder, String packageName) {
-        if (current_object.isPackageInstalled(current_object.getPackageName() +
-                "." + current_object.getThemeName() + "." + packageName +
-                ((current_object.getBaseResources().length() > 0) ?
-                        "." + current_object.getBaseResources() : ""))) {
+        if (current_object.isPackageInstalled(
+                current_object.getPackageName() + "." + current_object.getThemeName() +
+                        "." + packageName +
+                        ((current_object.getBaseResources().length() > 0) ?
+                                "." + current_object.getBaseResources() : ""))) {
             viewHolder.overlayState.setVisibility(View.VISIBLE);
             // Check whether currently installed overlay is up to date with
             // theme_pid's versionName
@@ -264,10 +265,10 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
 
         viewHolder.overlayTargetPackage.setText(current_object.getPackageName());
 
-        if (current_object.isPackageInstalled((current_object.getPackageName()) +
-                "." + current_object.getThemeName() + ((current_object
-                .getBaseResources().length() > 0) ? "." + current_object
-                .getBaseResources() : ""))) {
+        if (current_object.isPackageInstalled(
+                current_object.getPackageName() + "." + current_object.getThemeName() +
+                        ((current_object.getBaseResources().length() > 0) ?
+                                "." + current_object.getBaseResources() : ""))) {
             viewHolder.overlayState.setVisibility(View.VISIBLE);
             // Check whether currently installed overlay is up to date with theme_pid's versionName
             if (!current_object.compareInstalledOverlay()) {
@@ -361,18 +362,18 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                 }
             } else {
                 // At this point, the object is an RRO formatted check
-                String current_directory;
-                if (References.inNexusFilter()) {
-                    current_directory = PIXEL_NEXUS_DIR;
-                } else {
-                    current_directory = LEGACY_NEXUS_DIR;
-                }
-                File file = new File(current_directory);
-                if (file.exists()) {
-                    File file2 = new File(current_directory +
-                            current_object.getPackageName() + "." +
-                            current_object.getThemeName() + ".apk");
-                    if (file2.exists()) {
+                File file = new File(PIXEL_NEXUS_DIR);
+                File file2 = new File(LEGACY_NEXUS_DIR);
+                if (file.exists() || file2.exists()) {
+                    File filer1 = new File(
+                            file.getAbsolutePath() + "/" +
+                                    current_object.getPackageName() + "." +
+                                    current_object.getThemeName() + ".apk");
+                    File filer2 = new File(
+                            file2.getAbsolutePath() + "/" +
+                                    current_object.getPackageName() + "." +
+                                    current_object.getThemeName() + ".apk");
+                    if (filer1.exists() || filer2.exists()) {
                         viewHolder.overlayTargetPackageName.setTextColor(
                                 context.getColor(R.color.overlay_installed_list_entry));
                     } else {

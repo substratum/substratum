@@ -854,30 +854,49 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 Boolean supported = false;
                 String supported_rom = "";
 
-                // First check ro.product.flavor
-                Process process = Runtime.getRuntime().exec("getprop ro.build.flavor");
-                BufferedReader reader = new BufferedReader(
-                        new InputStreamReader(process.getInputStream()));
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    for (int i = 0; i < listOfRoms.size(); i++) {
-                        if (line.toLowerCase().contains(listOfRoms.get(i))) {
-                            Log.d(References.SUBSTRATUM_LOG, "Supported ROM (1): " +
-                                    listOfRoms.get(i));
-                            supported_rom = listOfRoms.get(i);
-                            supported = true;
-                            break;
-                        }
+                // First check if it is a valid prop
+                for (int i = 0; i < listOfRoms.size(); i++) {
+                    Process process = Runtime.getRuntime().exec("getprop " + listOfRoms.get(i));
+                    BufferedReader reader = new BufferedReader(
+                            new InputStreamReader(process.getInputStream()));
+                    process.waitFor();
+                    if (reader.readLine() != null) {
+                        Log.d(References.SUBSTRATUM_LOG, "Supported ROM: " +
+                                listOfRoms.get(i));
+                        supported_rom = listOfRoms.get(i);
+                        supported = true;
+                        break;
                     }
-                    if (supported) break;
+                }
+
+                // Then check ro.product.flavor
+                if (!supported) {
+                    Process process = Runtime.getRuntime().exec("getprop ro.build.flavor");
+                    BufferedReader reader = new BufferedReader(
+                            new InputStreamReader(process.getInputStream()));
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        for (int i = 0; i < listOfRoms.size(); i++) {
+                            if (line.toLowerCase().contains(listOfRoms.get(i))) {
+                                Log.d(References.SUBSTRATUM_LOG, "Supported ROM (1): " +
+                                        listOfRoms.get(i));
+                                supported_rom = listOfRoms.get(i);
+                                supported = true;
+                                break;
+                            }
+                        }
+                        if (supported) break;
+                    }
+                    reader.close();
                 }
 
                 // If it's still not showing up in ro.product.flavor, check ro.ROM.name
                 if (!supported) {
+                    BufferedReader reader2 = null;
                     for (int i = 0; i < listOfRoms.size(); i++) {
                         Process process2 = Runtime.getRuntime().exec(
                                 "getprop ro." + listOfRoms.get(i) + ".name");
-                        BufferedReader reader2 = new BufferedReader(
+                        reader2 = new BufferedReader(
                                 new InputStreamReader(process2.getInputStream()));
                         String line2;
                         while ((line2 = reader2.readLine()) != null) {
@@ -890,14 +909,16 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                             if (supported) break;
                         }
                     }
+                    if (reader2 != null) reader2.close();
                 }
 
                 // If it's still not showing up in ro.ROM.name, check ro.ROM.device
                 if (!supported) {
+                    BufferedReader reader3 = null;
                     for (int i = 0; i < listOfRoms.size(); i++) {
                         Process process3 = Runtime.getRuntime().exec(
                                 "getprop ro." + listOfRoms.get(i) + ".device");
-                        BufferedReader reader3 = new BufferedReader(
+                        reader3 = new BufferedReader(
                                 new InputStreamReader(process3.getInputStream()));
                         String line3;
                         while ((line3 = reader3.readLine()) != null) {
@@ -910,8 +931,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                             if (supported) break;
                         }
                     }
+                    if (reader3 != null) reader3.close();
                 }
-                reader.close();
                 return supported_rom;
             } catch (Exception e) {
                 // Suppress warning

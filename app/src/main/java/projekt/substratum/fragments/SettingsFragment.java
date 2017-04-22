@@ -132,12 +132,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         systemPlatform = getPreferenceManager().findPreference
                 ("system_platform");
 
-        /*
+
         if (References.checkOMS(getContext())) {
             new checkROMSupportList().execute(
                     getString(R.string.supported_roms_url),
                     "supported_roms.xml");
-        }*/
+        }
 
         platformSummary = new StringBuilder();
         platformSummary.append(getString(R.string.android) + " " +

@@ -112,16 +112,18 @@ public class ManagerFragment extends Fragment {
             }
             ((ManagerAdapter) mAdapter).setOverlayManagerList(updated);
             overlayList = updated;
-            try {
-                List<String> update = updateEnabledOverlays();
-                for (int i = 0; i < overlayList.size(); i++) {
-                    ManagerItem currentOverlay = overlayList.get(i);
-                    currentOverlay.updateEnabledOverlays(
-                            update.contains(currentOverlay.getName()));
-                    mAdapter.notifyDataSetChanged();
+            if (References.checkOMS(getContext())) {
+                try {
+                    List<String> update = updateEnabledOverlays();
+                    for (int i = 0; i < overlayList.size(); i++) {
+                        ManagerItem currentOverlay = overlayList.get(i);
+                        currentOverlay.updateEnabledOverlays(
+                                update.contains(currentOverlay.getName()));
+                        mAdapter.notifyDataSetChanged();
+                    }
+                } catch (Exception e) {
+                    // Consume window refresh
                 }
-            } catch (Exception e) {
-                // Consume window refresh
             }
             mAdapter.notifyDataSetChanged();
             if (swipeRefreshLayout != null && swipeRefreshLayout.isRefreshing()) {

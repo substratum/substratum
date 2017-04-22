@@ -119,7 +119,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         aboutSubstratum.setOnPreferenceClickListener(
                 preference -> {
                     try {
-                        String sourceURL = getString(R.string.substratum_github);
+                        String sourceURL = "";
+                        if (BuildConfig.DEBUG) {
+                            sourceURL = getString(R.string.substratum_github_commits);
+                        } else {
+                            sourceURL = getString(R.string.substratum_github);
+                        }
                         Intent i = new Intent(Intent.ACTION_VIEW);
                         i.setData(Uri.parse(sourceURL));
                         startActivity(i);
@@ -525,7 +530,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             aboutInterfacer.setOnPreferenceClickListener(
                     preference -> {
                         try {
-                            String sourceURL = getString(R.string.interfacer_github);
+                            String sourceURL = "";
+                            if (BuildConfig.DEBUG) {
+                                sourceURL = getString(R.string.interfacer_github_commits);
+                            } else {
+                                sourceURL = getString(R.string.interfacer_github);
+                            }
                             Intent i = new Intent(Intent.ACTION_VIEW);
                             i.setData(Uri.parse(sourceURL));
                             startActivity(i);

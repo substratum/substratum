@@ -40,7 +40,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +59,7 @@ import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
 import static android.content.om.OverlayInfo.STATE_NOT_APPROVED_DANGEROUS_OVERLAY;
 import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
 import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;
+import static projekt.substratum.common.References.VENDOR_DIR;
 
 
 public class RecoveryFragment extends Fragment {
@@ -96,7 +96,9 @@ public class RecoveryFragment extends Fragment {
         // Overlays Dialog
         overlaysButton.setOnClickListener(v -> {
             sheetDialog = new SheetDialog(getContext());
-            View sheetView = View.inflate(getContext(), R.layout.manage_overlays_sheet_dialog,
+            View sheetView = View.inflate(
+                    getContext(),
+                    R.layout.manage_overlays_sheet_dialog,
                     null);
             LinearLayout disable_all = (LinearLayout) sheetView.findViewById(R.id.disable_all);
             LinearLayout uninstall_all = (LinearLayout) sheetView.findViewById(R.id.uninstall_all);
@@ -111,17 +113,12 @@ public class RecoveryFragment extends Fragment {
                     }
                     ThemeManager.disableAll(getContext());
                 } else {
-                    File vendor_location = new File(LEGACY_NEXUS_DIR);
-                    File overlay_location = new File(PIXEL_NEXUS_DIR);
                     FileOperations.mountRW();
-                    if (vendor_location.exists()) {
-                        FileOperations.mountRWVendor();
-                        FileOperations.delete(getContext(), vendor_location.getAbsolutePath());
-                        FileOperations.mountROVendor();
-                    }
-                    if (overlay_location.exists()) {
-                        FileOperations.delete(getContext(), overlay_location.getAbsolutePath());
-                    }
+                    FileOperations.mountRWVendor();
+                    FileOperations.bruteforceDelete(LEGACY_NEXUS_DIR);
+                    FileOperations.bruteforceDelete(PIXEL_NEXUS_DIR);
+                    FileOperations.bruteforceDelete(VENDOR_DIR);
+                    FileOperations.mountROVendor();
                     FileOperations.mountRO();
                     if (getView() != null) {
                         Lunchbar.make(getView(),
@@ -324,34 +321,59 @@ public class RecoveryFragment extends Fragment {
         protected void onPostExecute(String result) {
             mProgressDialog.dismiss();
             super.onPostExecute(result);
-            try {
-                if (getView() != null) {
-                    Lunchbar.make(getView(),
-                            getString(R.string.manage_system_overlay_uninstall_toast),
-                            Lunchbar.LENGTH_LONG)
-                            .show();
+            if (References.checkOMS(getContext())) {
+                try {
+                    if (getView() != null) {
+                        Lunchbar.make(getView(),
+                                getString(R.string.manage_system_overlay_uninstall_toast),
+                                Lunchbar.LENGTH_LONG)
+                                .show();
+                    }
+                } catch (Exception e) {
+                    // At this point the window is refreshed too many times detaching the activity
+                    Log.e(References.SUBSTRATUM_LOG, "Profile window refreshed too " +
+                            "many times, restarting current activity to preserve app " +
+                            "integrity.");
                 }
-            } catch (Exception e) {
-                // At this point the window is refreshed too many times detaching the activity
-                Log.e(References.SUBSTRATUM_LOG, "Profile window refreshed too " +
-                        "many times, restarting current activity to preserve app " +
-                        "integrity.");
+                ThemeManager.uninstallOverlay(getContext(), final_commands_array);
+            } else {
+                AlertDialog.Builder alertDialogBuilder =
+                        new AlertDialog.Builder(getContext());
+                alertDialogBuilder
+                        .setTitle(getString(R.string.legacy_dialog_soft_reboot_title));
+                alertDialogBuilder
+                        .setMessage(getString(R.string.legacy_dialog_soft_reboot_text));
+                alertDialogBuilder
+                        .setPositiveButton(android.R.string.ok,
+                                (dialog, id) -> ElevatedCommands.reboot());
+                alertDialogBuilder.setCancelable(false);
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
             }
-            ThemeManager.uninstallOverlay(getContext(), final_commands_array);
         }
 
         @Override
         protected String doInBackground(String... sUrl) {
-            List<String> unapproved =
-                    ThemeManager.listOverlays(STATE_NOT_APPROVED_DANGEROUS_OVERLAY);
-            List<String> disabled =
-                    ThemeManager.listOverlays(STATE_APPROVED_ENABLED);
-            List<String> enabled =
-                    ThemeManager.listOverlays(STATE_APPROVED_ENABLED);
+            if (References.checkOMS(getContext())) {
+                List<String> unapproved =
+                        ThemeManager.listOverlays(STATE_NOT_APPROVED_DANGEROUS_OVERLAY);
+                List<String> disabled =
+                        ThemeManager.listOverlays(STATE_APPROVED_ENABLED);
+                List<String> enabled =
+                        ThemeManager.listOverlays(STATE_APPROVED_ENABLED);
 
-            final_commands_array = new ArrayList<>(unapproved);
-            final_commands_array.addAll(disabled);
-            final_commands_array.addAll(enabled);
+                final_commands_array = new ArrayList<>(unapproved);
+                final_commands_array.addAll(disabled);
+                final_commands_array.addAll(enabled);
+            } else {
+                FileOperations.mountRW();
+                FileOperations.mountRWVendor();
+                FileOperations.bruteforceDelete(LEGACY_NEXUS_DIR);
+                FileOperations.bruteforceDelete(PIXEL_NEXUS_DIR);
+                FileOperations.bruteforceDelete(VENDOR_DIR);
+                FileOperations.mountROVendor();
+                FileOperations.mountRO();
+            }
             return null;
         }
     }

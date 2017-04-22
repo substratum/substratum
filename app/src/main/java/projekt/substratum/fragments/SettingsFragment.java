@@ -860,13 +860,18 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     BufferedReader reader = new BufferedReader(
                             new InputStreamReader(process.getInputStream()));
                     process.waitFor();
-                    if (reader.readLine() != null) {
-                        Log.d(References.SUBSTRATUM_LOG, "Supported ROM: " +
-                                listOfRoms.get(i));
-                        supported_rom = listOfRoms.get(i);
+                    String line = reader.readLine();
+                    if (line != null && line.length() > 0) {
+                        String current = listOfRoms.get(i);
+                        if (current.contains(".")) {
+                            current = current.split("\\.")[1];
+                        }
+                        Log.d(References.SUBSTRATUM_LOG, "Supported ROM: " + current);
+                        supported_rom = current;
                         supported = true;
                         break;
                     }
+                    reader.close();
                 }
 
                 // Then check ro.product.flavor
@@ -889,55 +894,10 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     }
                     reader.close();
                 }
-
-                // If it's still not showing up in ro.product.flavor, check ro.ROM.name
-                if (!supported) {
-                    BufferedReader reader2 = null;
-                    for (int i = 0; i < listOfRoms.size(); i++) {
-                        Process process2 = Runtime.getRuntime().exec(
-                                "getprop ro." + listOfRoms.get(i) + ".name");
-                        reader2 = new BufferedReader(
-                                new InputStreamReader(process2.getInputStream()));
-                        String line2;
-                        while ((line2 = reader2.readLine()) != null) {
-                            if (line2.length() > 0) {
-                                Log.d(References.SUBSTRATUM_LOG, "Supported ROM (2): " +
-                                        listOfRoms.get(i));
-                                supported_rom = listOfRoms.get(i);
-                                supported = true;
-                            }
-                            if (supported) break;
-                        }
-                    }
-                    if (reader2 != null) reader2.close();
-                }
-
-                // If it's still not showing up in ro.ROM.name, check ro.ROM.device
-                if (!supported) {
-                    BufferedReader reader3 = null;
-                    for (int i = 0; i < listOfRoms.size(); i++) {
-                        Process process3 = Runtime.getRuntime().exec(
-                                "getprop ro." + listOfRoms.get(i) + ".device");
-                        reader3 = new BufferedReader(
-                                new InputStreamReader(process3.getInputStream()));
-                        String line3;
-                        while ((line3 = reader3.readLine()) != null) {
-                            if (line3.length() > 0) {
-                                Log.d(References.SUBSTRATUM_LOG, "Supported ROM (3): " +
-                                        listOfRoms.get(i) + " (" + line3 + ")");
-                                supported_rom = listOfRoms.get(i);
-                                supported = true;
-                            }
-                            if (supported) break;
-                        }
-                    }
-                    if (reader3 != null) reader3.close();
-                }
                 return supported_rom;
             } catch (Exception e) {
                 // Suppress warning
             }
-
             return null;
         }
     }

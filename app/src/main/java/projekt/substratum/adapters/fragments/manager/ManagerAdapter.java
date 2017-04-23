@@ -19,6 +19,7 @@
 package projekt.substratum.adapters.fragments.manager;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -242,16 +243,29 @@ public class ManagerAdapter extends
             contact.setSelected(cb.isChecked());
             contact.setSelected(cb.isChecked());
         });
-        viewHolder.appIcon.setImageDrawable(References.grabAppIcon(
-                overlayList.get(position_fixed).getContext(),
-                References.grabOverlayParent(
-                        overlayList.get(position_fixed).getContext(),
-                        overlayList.get(position_fixed).getName())));
-        viewHolder.appIconTarget.setImageDrawable(References.grabAppIcon(
-                overlayList.get(position_fixed).getContext(),
-                References.grabOverlayTarget(
-                        overlayList.get(position_fixed).getContext(),
-                        overlayList.get(position_fixed).getName())));
+        if (overlayList.get(position_fixed).getDrawable() == null) {
+            Drawable app_icon = References.grabAppIcon(
+                    overlayList.get(position_fixed).getContext(),
+                    References.grabOverlayParent(
+                            overlayList.get(position_fixed).getContext(),
+                            overlayList.get(position_fixed).getName()));
+            overlayList.get(position_fixed).setDrawable(app_icon);
+            viewHolder.appIcon.setImageDrawable(app_icon);
+        } else {
+            viewHolder.appIcon.setImageDrawable(overlayList.get(position_fixed).getDrawable());
+        }
+        if (overlayList.get(position_fixed).getDrawable() == null) {
+            Drawable app_icon = References.grabAppIcon(
+                    overlayList.get(position_fixed).getContext(),
+                    References.grabOverlayTarget(
+                            overlayList.get(position_fixed).getContext(),
+                            overlayList.get(position_fixed).getName()));
+            overlayList.get(position_fixed).setTargetDrawable(app_icon);
+            viewHolder.appIconTarget.setImageDrawable(app_icon);
+        } else {
+            viewHolder.appIconTarget.setImageDrawable(
+                    overlayList.get(position_fixed).getTargetDrawable());
+        }
     }
 
     @Override

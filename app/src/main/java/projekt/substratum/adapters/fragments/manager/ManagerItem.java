@@ -19,6 +19,7 @@
 package projekt.substratum.adapters.fragments.manager;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 
 import java.io.Serializable;
 
@@ -36,6 +37,8 @@ public class ManagerItem implements Serializable {
     private boolean isSelected;
     private int activationValue;
     private Context mContext;
+    private Drawable mDrawable;
+    private Drawable mTargetDrawable;
 
     public ManagerItem(Context context, String name, boolean isActivated) {
         this.mContext = context;
@@ -120,5 +123,21 @@ public class ManagerItem implements Serializable {
 
     public void setThemeName(String name) {
         this.themeName = name;
+    }
+
+    public Drawable getDrawable() {
+        return mDrawable;
+    }
+
+    public void setDrawable(Drawable drawable) {
+        this.mDrawable = drawable;
+    }
+
+    public Drawable getTargetDrawable() {
+        return mTargetDrawable;
+    }
+
+    public void setTargetDrawable(Drawable drawable) {
+        this.mTargetDrawable = drawable;
     }
 }

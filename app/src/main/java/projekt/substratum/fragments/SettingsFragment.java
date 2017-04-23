@@ -57,6 +57,9 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import projekt.substratum.BuildConfig;
 import projekt.substratum.R;
@@ -771,8 +774,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             super.onPostExecute(result);
 
             if (result != null) {
-                String supportedRom = String.format(getString(R.string.rom_status_supported),
-                        result.replaceAll("[^a-zA-Z0-9]", ""));
+                String supportedRom = String.format(
+                        getString(R.string.rom_status_supported), result);
                 platformSummary.append(getString(R.string.rom_status))
                         .append(" ").append(supportedRom);
                 systemPlatform.setSummary(platformSummary.toString());
@@ -855,31 +858,45 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 }
             }
 
-            ArrayList<String> listOfRoms =
+            HashMap<String, String> listOfRoms =
                     ReadSupportedROMsFile.main(getContext().getCacheDir() + "/" + inputFileName);
 
             try {
                 Boolean supported = false;
                 String supported_rom = null;
 
-                // First check if it is a valid prop
-                for (int i = 0; i < listOfRoms.size(); i++) {
-                    Process process = Runtime.getRuntime().exec("getprop " + listOfRoms.get(i));
+                Iterator it = listOfRoms.entrySet().iterator();
+                Iterator it2 = listOfRoms.entrySet().iterator();
+
+                while (it.hasNext()) {
+                    Map.Entry pair = (Map.Entry) it.next();
+
+                    // First check if it is a valid prop
+                    String key = (String) pair.getKey();
+                    String value = (String) pair.getValue();
+                    Process process = Runtime.getRuntime().exec("getprop " + key);
                     BufferedReader reader = new BufferedReader(
                             new InputStreamReader(process.getInputStream()));
                     process.waitFor();
                     String line = reader.readLine();
                     if (line != null && line.length() > 0) {
-                        String current = listOfRoms.get(i);
-                        if (current.contains(".")) {
-                            current = current.split("\\.")[1];
+                        if (value == null || value.length() == 0) {
+                            String current = key;
+                            if (current.contains(".")) {
+                                current = current.split("\\.")[1];
+                            }
+                            Log.d(References.SUBSTRATUM_LOG, "Supported ROM: " + current);
+                            supported_rom = current;
+                            supported = true;
+                        } else {
+                            Log.d(References.SUBSTRATUM_LOG, "Supported ROM: " + value);
+                            supported_rom = value;
+                            supported = true;
                         }
-                        Log.d(References.SUBSTRATUM_LOG, "Supported ROM: " + current);
-                        supported_rom = current;
-                        supported = true;
                         break;
                     }
                     reader.close();
+                    it.remove();
                 }
 
                 // Then check ro.product.flavor
@@ -889,12 +906,28 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                             new InputStreamReader(process.getInputStream()));
                     String line;
                     while ((line = reader.readLine()) != null) {
-                        for (int i = 0; i < listOfRoms.size(); i++) {
-                            if (line.toLowerCase().contains(listOfRoms.get(i))) {
-                                Log.d(References.SUBSTRATUM_LOG, "Supported ROM (1): " +
-                                        listOfRoms.get(i));
-                                supported_rom = listOfRoms.get(i);
-                                supported = true;
+                        while (it2.hasNext()) {
+                            Map.Entry pair = (Map.Entry) it2.next();
+
+                            String key = (String) pair.getKey();
+                            String value = (String) pair.getValue();
+
+                            if (line.toLowerCase().contains(key.toLowerCase())) {
+                                if (value == null || value.length() == 0) {
+                                    String current = key;
+                                    if (current.contains(".")) {
+                                        current = current.split("\\.")[1];
+                                    }
+                                    Log.d(References.SUBSTRATUM_LOG,
+                                            "Supported ROM (1): " + current);
+                                    supported_rom = current;
+                                    supported = true;
+                                } else {
+                                    Log.d(References.SUBSTRATUM_LOG,
+                                            "Supported ROM (1): " + value);
+                                    supported_rom = value;
+                                    supported = true;
+                                }
                                 break;
                             }
                         }

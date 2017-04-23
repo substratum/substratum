@@ -24,17 +24,17 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 public class ReadSupportedROMsFile {
 
-    public static ArrayList<String> main(String file) {
+    public static HashMap<String, String> main(String file) {
 
-        ArrayList<String> list = new ArrayList<>();
-        ArrayList<String> emptyList = new ArrayList<>();
+        HashMap<String, String> hashMap = new HashMap<>();
+        HashMap<String, String> emptyMap = new HashMap<>();
 
         try {
             File fXmlFile = new File(file);
@@ -49,13 +49,17 @@ public class ReadSupportedROMsFile {
                 Node nNode = nList.item(temp);
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) nNode;
-                    list.add(eElement.getAttribute("id"));
+
+                    String name = eElement.getAttribute("name");
+                    String id = eElement.getAttribute("id");
+
+                    hashMap.put(id, name);
                 }
             }
-            return list;
+            return hashMap;
         } catch (Exception e) {
             e.printStackTrace();
-            return emptyList;
+            return emptyMap;
         }
     }
 }

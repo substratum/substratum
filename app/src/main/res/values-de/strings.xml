@@ -19,8 +19,6 @@
   -->
 <resources>
     <string name="showcase">Showcase</string>
-    <string name="helper_name">Substratum Overlay Helper</string>
-    <string name="restore_app_name">Theme wiederherstellen</string>
     <string name="android">Android-Version:</string>
     <string name="device">Gerätemodell:</string>
     <string name="resource_checker_request">Sende Anfrage für die Commit-Einbindung mit&#8230;</string>
@@ -45,7 +43,6 @@
     <string name="failed_to_install_text_notification">Installation von %s fehlgeschlagen</string>
     <string name="actionbar_theme_count_singular">%s Theme</string>
     <string name="actionbar_theme_count_plural">%s Themes</string>
-    <string name="actionbar_theme_count_none">Keine Themes gefunden</string>
     <string name="actionbar_theme_count_loading">Lädt&#8230;</string>
     <string name="actionbar_search">Suche</string>
     <string name="actionbar_changelog">Theme-Änderungsprotokoll</string>
@@ -64,14 +61,8 @@ bei dir funktioniert. Bitte stelle sicher, dass du eine Custom-Recovery verwende
     <string name="legacy_dialog_soft_reboot_title">Neustart erforderlich!</string>
     <string name="legacy_dialog_soft_reboot_text">Das \"Resource Runtime Overlay\"-System benötigt einen Neustart um Änderungen wie das Hinzufügen oder Ändern von Overlays anwenden zu können.\n\nDas Gerät muss neugestartet werden. Stelle sicher, dass du gerade nicht aktiv an etwas arbeitest, was du noch nicht gespeichert hast bevor du fortfährst.</string>
     <string name="activity_missing_toast">Es wurden keine Anwendungen gefunden, welche diese Anfrage ausführen könnten, sorry!</string>
-    <string name="abort_overlay_toast">Deinstallieren aller Overlays&#8230;</string>
     <string name="abort_overlay_toast_success">Alle Overlays deinstalliert!</string>
     <string name="rescue_toast">Rette dein System&#8230;</string>
-    <string name="disable_overlay_toast">Deaktivieren aller aktiven Overlays&#8230;</string>
-    <string name="disable_overlay_toast_success">Alle Overlays deaktiviert!</string>
-    <string name="disable_overlay_toast_not_found">Deaktivieren aller Overlays nicht möglich!</string>
-    <string name="restore_activity_toast">Backup-Datei gefunden! Wiederherstellen&#8230;</string>
-    <string name="restore_activity_toast_not_found">Kein Backup der Overlay-Datenbank gefunden.</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">typ1a Variante&#8230;</string>
     <string name="overlays_variant_default_1b">typ1b Variante&#8230;</string>
@@ -81,10 +72,6 @@ bei dir funktioniert. Bitte stelle sicher, dass du eine Custom-Recovery verwende
     <string name="overlays_up_to_date">AKTUELL</string>
     <string name="overlays_update_available">Aktualisierung verfügbar!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Variante nicht installiert</string>
-    <string name="overlays_compile_update_button">Kompilieren/Aktualisieren &amp; Installieren</string>
-    <string name="information_activity_pirated_toast">Dieses Theme hat die Integritäts-Verifikation von Substratum nicht bestanden!</string>
-    <string name="information_activity_upgrade_toast">Dieses Theme muss auf das neue Theme-Template aktualisiert werden um es mit Substratum verwenden zu können!</string>
-    <string name="information_activity_upgrade_toast_lenient">Für dieses Theme-Plugin ist eine Aktualisierung verfügbar!</string>
     <string name="bootanimation_vm_exploded">Rendering der Boot-Animation wurde aufgrund ungenügender Speicherplatzzuweisung beendet.\n\nDie Installation dieser Boot-Animation ist ohne gerenderte Vorschau weiterhin möglich.</string>
     <string name="bootanimation_placeholder_text">Bitte wähle eine Boot-Animation aus der Dropdown-Liste&#8230;</string>
     <string name="bootanimation_default_spinner">Boot-Animation wählen&#8230;</string>
@@ -96,8 +83,6 @@ bei dir funktioniert. Bitte stelle sicher, dass du eine Custom-Recovery verwende
     <string name="wallpaper_dialog_wallpaper">Startbildschirm-Hintergrund</string>
     <string name="wallpaper_dialog_lockscreen">Sperrbildschirm-Hintergrund</string>
     <string name="wallpaper_dialog_wallpaper_both">Start- und Sperrbildschirm-Hintergrund</string>
-    <string name="wallpaper_dialog_cancel">Abbrechen</string>
-    <string name="wallpaper_dialog_message">Dieses Bild als welchen Hintergrund anwenden?</string>
     <string name="wallpaper_downloading">Bild wird zwischengespeichert&#8230;</string>
     <string name="wallpaper_allscreen_success">Start- und Sperrbildschirm-Hintergrund angepasst!</string>
     <string name="wallpaper_allscreen_error">Festlegen des Start- sowie Sperrbildschirm-Hintergrundbilds nicht möglich</string>
@@ -133,7 +118,6 @@ aktiviere \"Änderung von Systemeinstellungen zulassen\".</string>
 aktiviere \"Änderung von Systemeinstellungen zulassen\".</string>
     <string name="error_loading_pack">Anscheinend wurde dieses Paket nicht richtig
 eingerichtet&#8230;</string>
-    <string name="no_themes_installed">Es gibt keine Überlagerungen, die Sie von diesem Thema installieren können&#8230;    </string>
     <string name="content_resolver_alarm_metadata">Substratum-Theme-Wecker</string>
     <string name="content_resolver_notification_metadata">Substratum-Theme-Benachrichtigung</string>
     <string name="content_resolver_ringtone_metadata">Substratum-Theme-Klingelton</string>
@@ -148,7 +132,6 @@ eingerichtet&#8230;</string>
     <string name="settings_about_interfacer_not_installed">nicht installiert</string>
     <string name="settings_about_interfacer_masquerade">Diese Rom benötigt ein Update, um die Interfacer-Funktionalität zu nutzen</string>
     <string name="settings_about_oms_rro_version">Theme-Plattform:</string>
-    <string name="settings_about_oms_version_3">OMS3</string>
     <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
     <string name="settings_about_system_version">Systemplattform</string>
@@ -161,38 +144,24 @@ eingerichtet&#8230;</string>
     <string name="nougat_style_cards_title">Karten-Layout im Nougat-Stil</string>
     <string name="nougat_style_cards_subtext">Aktiviere Theme-Karten im Android Nougat Benachrichtigungsstil</string>
     <string name="uninstall_dialog_text">Wollen Sie dieses Theme wirklich deinstallieren?</string>
-    <string name="manage_dialog_text">Soll diese Aktion wirklich ausgeführt werden?</string>
     <string name="manage_dialog_performing">Auf Standard zurücksetzen&#8230;</string>
     <string name="manage_bootanimation_title">Wiederherstellen der Boot-Animation</string>
     <string name="manage_bootanimation_toast">Boot-Animation erfolgreich wiederhergestellt!</string>
-    <string name="manage_bootanimation_text">Stellt die Standard-Bootanimation auf Ihrem Gerät wiederher</string>
     <string name="manage_fonts_title">Systemschriften wiederherstellen</string>
     <string name="manage_fonts_toast">Schriften erfolgreich wiederhergestellt!</string>
-    <string name="manage_fonts_text">Stellt die standardmäßige Systemschriftart des Gerätes wiederher</string>
     <string name="manage_sounds_title">Systemtöne wiederherstellen</string>
     <string name="manage_sounds_toast">Systemtöne auf Standard zurückgesetzt!</string>
-    <string name="manage_sounds_text">Stellt die standardmäßigen Systemtöne des Gerätes wiederher</string>
-    <string name="manage_system_overlay_dialog_title">Overlay-Entfernung</string>
     <string name="manage_system_overlay_disable">Alle aktiven Overlays deaktivieren</string>
     <string name="manage_system_overlay_uninstall">Alle installierten Overlays deinstallieren</string>
-    <string name="manage_system_overlay_title">System-Theme wiederherstellen</string>
     <string name="manage_system_overlay_toast">System-Theme wird wiederhergestellt&#8230;</string>
     <string name="manage_system_overlay_uninstall_toast">Overlays werden im Hintergrund deinstalliert&#8230;</string>
-    <string name="manage_system_overlay_text">Alle aktiven Overlays deaktivieren und das Stock-Theme wiederherstellen</string>
     <string name="manage_system_not_permitted">Manche Overlays konnten nicht aktiviert werden weil das Haupt-Theme nicht vorhanden ist.</string>
-    <string name="manage_wallpaper_title">Standard-Hintergrundbild wiederherstellen</string>
-    <string name="manage_wallpaper_text">Standard-Hintergrund des Geräts wiederherstellen</string>
     <string name="manage_wallpaper_home">Startbildschirm-Hintergrund</string>
     <string name="manage_wallpaper_lock">Sperrbildschirm-Hintergrund</string>
     <string name="manage_wallpaper_all">Start- und Sperrbildschirm-Hintergrund</string>
     <string name="manage_wallpaper_home_toast">Startbildschirm-Hintergrund erfolgreich wiederhergestellt!</string>
     <string name="manage_wallpaper_lock_toast">Sperrbildschirm-Hintergrund erfolgreich wiederhergestellt!</string>
     <string name="manage_wallpaper_all_toast">Hintergrund erfolgreich wiederhergestellt!</string>
-    <string name="manage_style">Stil</string>
-    <string name="manage_fonts">Schriftarten</string>
-    <string name="manage_bootanimation">Boot-Animation</string>
-    <string name="manage_sounds">Töne</string>
-    <string name="manage_wallpaper">Hintergrundbild</string>
     <string name="adapter_uninstalling">Entferne jetzt %s&#8230;</string>
     <string name="plugin_template">Plugin</string>
     <string name="api_21">Lollipop</string>
@@ -216,7 +185,6 @@ eingerichtet&#8230;</string>
     <string name="menu_open">Icon Pack Fenster</string>
     <string name="menu_rate">Theme bewerten</string>
     <string name="menu_refresh">Aktualisieren</string>
-    <string name="menu_refresh_windows">Fenster aktualisieren</string>
     <string name="menu_soft_reboot">Schneller Neustart</string>
     <string name="menu_reboot_device">Gerät neustarten</string>
     <string name="menu_per_app">FloatUI</string>
@@ -235,21 +203,15 @@ eingerichtet&#8230;</string>
     <string name="dialog_restart_reboot_content">Dies wird einen vollständigen Neustart ihres Gerätes durchführen.</string>
     <string name="dialog_restart_soft_reboot_title">Schneller Neustart</string>
     <string name="dialog_restart_soft_reboot_content">Dies wird einen schnellen Neustart ihres Gerätes durchführen.</string>
-    <string name="legacy_theme_notification_title">Warnung über veraltetes Theme</string>
-    <string name="legacy_theme_notification_text">Um veraltete Themes zu verwenden, aktivieren Sie dies bitte in Einstellungen.</string>
     <string name="studio">Icon Pack Studio (Beta)</string>
     <string name="studio_system">System-Icons wiederherstellen</string>
     <string name="studio_system_reset_dialog_toast">Alle selbsterstellten Icons wurden deaktiviert!</string>
     <string name="studio_system_reset_dialog">Möchtest du die aktuellen Icons durch die Standard-Icons des System ersetzen?</string>
     <string name="studio_refresh_dialog_title">Bestätigung der Konfigurationsänderung</string>
     <string name="studio_refresh_dialog_content">Substratum wird jetzt deine Systemkonfiguration ändern, sodass alle Anwendungen die neuen Icons schnell erkennen.\n\nDeine Systemsprache wird für einen Moment Japanisch sein, nachdem die Icons an deinem Launcher angewendet wurden. Danach ändert sie sich wieder in deine Standardsprache. Wenn sich die Icons nicht ändern, klicke auf die \"Aktualisiere Icon Konfiguration\"-Taste auf der Hauptseite des Icon-Studios!\n\nNachdem du Okay gedrückt hast, berühre dein Gerät nicht, bis eine Nachricht angezeigt wird, die dir sagt, dass das Icon-Paket erfolgreich angewendet wurde!</string>
-    <string name="studio_custom">Kreativmodus (kommt bald)</string>
-    <string name="studio_icon_packs">Eigene Icons</string>
     <string name="studio_pack_title">Heruntergeladene Icon-Pakete</string>
     <string name="studio_system_title">Substratum-Framework</string>
-    <string name="studio_applied_toast">%s erfolgreich angewendet!</string>
     <string name="studio_apply_confirmation">Bist du sicher, dass du %s anwenden möchtest?</string>
-    <string name="studio_configuration_changed">Konfiguration wurde aktualisiert!</string>
     <string name="studio_applying">Lädt&#8230;</string>
     <string name="icon_pack_entry">Overlay-Icon</string>
     <string name="studio_update_configuration">Icon-Konfiguration aktualisieren</string>
@@ -288,22 +250,14 @@ eingerichtet&#8230;</string>
     <string name="profile_delete_button_none_selected_toast">Bitte wähle ein Profil aus der Liste aus, bevor du versuchst, es zu löschen!</string>
     <string name="profile_edittext_hint">Bitte gib einen Namen für dein Profil ein&#8230;</string>
     <string name="profile_edittext_empty_toast">Bitte gib einen Namen für dein Profil ein, bevor du ein Backup erstellst!    </string>
-    <string name="profile_edittext_empty_toast_sysui">Der Substratum-Schriftartenhelfer wurde nicht gefunden. Bitte aktiviere eine Schriftart, um den Helfer zu installieren und den dynamischen Schriftartenwechsel zu aktivieren!    </string>
     <string name="profile_edittext_title">Neues Profil:</string>
     <string name="profile_edittext_whitespace_warning_toast">Leerzeichen im Profilnamen kann nicht verwendet werden!</string>
     <string name="toast_backup_success">Aktuelle Overlay Liste wurde gespeichert nach \"/storage/emulated/0/substratum/profiles/%s\"</string>
     <string name="spinner_default_item">Wähle ein Profil&#8230;</string>
     <string name="select_to_toggle_all_overlays">Auswählen, um alle Overlays zu aktivieren</string>
     <string name="fab_menu_select_to_toggle_all_overlays">Alle Overlays auswählen</string>
-    <string name="overflow_description">Weitere Optionen</string>
-    <string name="overlay_dialog_default_res">Standard</string>
-    <string name="overlay_dialog_text">Aktuelle Theme-Optionen werden vereinfacht&#8230;</string>
-    <string name="system_overlay_dialog_title">Overlay-Basis wählen&#8230;</string>
-    <string name="tp_overlay_dialog_title">Basis für Dritthersteller-Overlays wählen&#8230;</string>
     <string name="permission_not_granted_dialog_title">Fehlende Berechtigungen</string>
     <string name="permission_not_granted_dialog_message1">Bitte gewähre Substratum Zugriff auf den Speicher, da die App ansonsten nicht ordnungsgemäß funktioniert!</string>
-    <string name="permission_not_granted_dialog_message2">Bitte gewähre Substratum Zugriff auf das Telefon oder die App kann gerätespezifische Overlays nicht ordnungsgemäß kompilieren!</string>
-    <string name="permission_not_granted_dialog_message3">Bitte gewähre Substratum Zugriff auf die Kontakte, so dass das Support-System, für Theme-Fehlfunktionen, ohne Probleme angemeldet wird!</string>
     <string name="dialog_ok">OK</string>
     <string name="dialog_do_not_show_again">Nicht erneut anzeigen</string>
     <string name="clean_cache_dialog_body">Möchtest du den Zwischenspeicher des Themes leeren?</string>
@@ -313,7 +267,6 @@ eingerichtet&#8230;</string>
     <string name="uninstall_dialog_body">Deinstallieren</string>
     <string name="uninstall_dialog_cancel">Abbrechen</string>
     <string name="uninstall_dialog_okay">OK</string>
-    <string name="failed_to_install_overlay_toast">Kompilieren des Overlays \"%s\" fehlgeschlagen</string>
     <string name="sb_phase_1_loader">Assets des Themes werden extrahiert</string>
     <string name="sb_phase_2_loader">Overlay(s) installieren</string>
     <string name="sb_phase_3_loader">Icon-Ressourcen werden eingefügt</string>
@@ -321,26 +274,17 @@ eingerichtet&#8230;</string>
     <string name="root_rejected_text_cm_phh">Root-Zugriff ist erforderlich&#8230;</string>
     <string name="root_rejected_timer_plural">schließt in %s Sekunden&#8230;</string>
     <string name="root_rejected_timer_singular">schließt in %s Sekunden&#8230;</string>
-    <string name="list_of_overlays">Liste installierbarer Overlays</string>
-    <string name="toast_unapproved">Overlay wurde vom System abgelehnt</string>
-    <string name="toast_compiled">Overlay(s) kompiliert!</string>
     <string name="toast_compiled_updated">Overlay(s) aktualisiert!</string>
     <string name="toast_compiled_missing">Eine oder mehrere Overlays können aufgrund von fehlenden Konfigurationen in dieser Konstellation nicht kompiliert werden&#8230;</string>
     <string name="toast_compiled_updated_with_errors">Ausgewählte(s) Overlay(s) mit einigen Fehlern aktualisiert!</string>
-    <string name="toast_enabled">Erfolgreich aktiviert!</string>
-    <string name="toast_disabled">Erfolgreich deaktiviert!</string>
     <string name="toast_disabled3">Bitte Overlay vor dem Anwenden erst kompilieren!</string>
     <string name="toast_disabled4">Du kannst keinen Overlay deaktivieren, der nicht kompiliert wurde!</string>
     <string name="toast_disabled5">Bitte wähle ein gültiges Overlay aus, bevor du mit dieser Aktion fortfährst.</string>
     <string name="toast_disabled6">Ausgewählte(s) Overlay(s) entfernt!</string>
-    <string name="toast_installed">Ausgewählte(s) Overlay(s) angewendet!</string>
     <string name="toast_uninstalled">Du hast dieses Theme gerade deinstalliert! Es wird bei deiner nächsten Aktualisierung verschwunden sein!</string>
-    <string name="toast_uninstalling">Deinstalliere gerade Overlays&#8230;</string>
-    <string name="toast_updating">Substratum bereitet gerade dein Theme im Hintergrund vor!</string>
     <string name="no_themes_title">Keine Themes gefunden&#8230;</string>
     <string name="no_themes_description">Bitte installiere ein kompatibles Theme!</string>
     <string name="no_themes_description_search">\"%s\" wurde nicht in der Liste von installierten Themes gefunden&#8230;</string>
-    <string name="toast_on_back_press_compiling">Du kannst während der Kompilierung auch andere Apps verwenden, indem du Home oder Recents drückst.</string>
     <string name="toast_needs_caching">Substratums Caches würde geleert. Bitte kompiliere das Theme neu bevor zu fortfährst!</string>
     <string name="notification_theme_installed">installiert</string>
     <string name="notification_theme_updated">aktualisiert</string>
@@ -351,13 +295,10 @@ eingerichtet&#8230;</string>
     <string name="notification_initial_title">Substratum läuft im Hintergrund</string>
     <string name="notification_initial_title_upgrade">%s-Ressourcen werden aktualisiert&#8230;</string>
     <string name="notification_done_title">Theme-Kompilierung abgeschlossen</string>
-    <string name="notification_extracting_assets">Extrahiere Anlagen aus dem Theme-Paket&#8230;</string>
-    <string name="notification_extracting_assets_text">Overlays werden angewendet&#8230;</string>
     <string name="notification_no_errors_found">Keine Fehler während dem installieren der Overlays</string>
     <string name="notification_some_errors_found">Bei der Installation des Overlays ist ein Fehler aufgetreten</string>
     <string name="notification_processing">Overlay verarbeiten von</string>
     <string name="notification_processing_n">Overlays werden vorbereitet&#8230;</string>
-    <string name="notification_compiling_signing_installing">Overlays werden erstellt und installiert&#8230;</string>
     <string name="advanced_manager_overlay_read_error">Parsen der Liste an Overlays nicht möglich. Bitte öffne
 \"Wiederherstellung\" und wähle \"System-Theme wiederherstellen\" (alle installierten Overlays deinstallieren) 
 um das Problem zu beheben.    </string>
@@ -373,7 +314,6 @@ um das Problem zu beheben.    </string>
     <string name="settings_title_3">Theming</string>
     <string name="settings_title_clickable">System-Konfiguration</string>
     <string name="substratum_cache_clear_initial_toast">Substratum-Zwischenspeicher wird geleert&#8230;</string>
-    <string name="substratum_cache_clear_toast">Substratum-Zwischenspeicher wurde geleert!</string>
     <string name="substratum_restart_toast">Substratum wurde nach einer Änderung der Einstellungen automatisch neugestartet.</string>
     <string name="purge_cache">Ungültiger Theme-Zwischenspeicher</string>
     <string name="purge_cache_subtext">Dies wird den Zwischenspeicher aller installierten Themes und Apps zerstören.</string>
@@ -390,15 +330,9 @@ um das Problem zu beheben.    </string>
     <string name="hide_app_icon_toast_disabled">Das Anwendungssymbol wurde deinem Launcher hinzugefügt!</string>
     <string name="hide_app_icon_not_supported">Nicht unterstützt</string>
     <string name="hide_app_icon_supported">Legt fest, ob das Anwendungssymbol im Launcher sichtbar ist oder nicht.</string>
-    <string name="show_installed_packages_only">Nur installierte Pakete in der Overlay-Auswahl anzeigen</string>
-    <string name="purge_completion">Alle Overlays dieses Themes werden deaktiviert und entfernt&#8230;</string>
-    <string name="clean_completion">Alle Overlays dieses Themes werden deaktiviert und entfernt&#8230;</string>
     <string name="cache_clear_completion">Zwischenspeicher von %s wurde geleert!</string>
     <string name="disable_completion">Alle Overlays dieses Themes werden deaktiviert&#8230;</string>
     <string name="enable_completion">Alle installierten Overlays dieses Themes werden aktiviert&#8230;</string>
-    <string name="purge_information">Das gleichzeitige Entfernen aller Overlays ist eine potentiell gefährliche Aktion, die während ihrer Ausführung zu mehrfachen \"App wurde beendet\"-Meldungen führen kann.</string>
-    <string name="purge_button_text">ALLE OVERLAYS DEINSTALLIEREN</string>
-    <string name="purge2_button_text">ALLE AKTIVIERTEN OVERLAYS DEAKTIVIEREN</string>
     <string name="dynamic_actionbar_colors">Dynamische Farbe der App-Leiste</string>
     <string name="dynamic_actionbar_colors_subtext">Substratum wird bei der Übersicht eines Themes die Hauptfarbe des Feature-Bilds auf die App-Leiste anwenden.</string>
     <string name="dynamic_navbar_colors">Dynamische Farbe der Navigationsleiste</string>
@@ -409,7 +343,6 @@ um das Problem zu beheben.    </string>
     <string name="alternate_drawer_design_subtext">Verwendet eine alternative Version des Navigation-Drawers.</string>
     <string name="show_outdated_themes_title">Zeige alle veralteten Themes</string>
     <string name="show_outdated_themes_content">Das Deaktivieren dieser Option erlaubt Substratum den brandneuen Algorithmus zu benutzen der Themes viel schneller als sonst lädt. Das wird nur für konfigurierte 6.0.0+ plugin Themes funktionieren.</string>
-    <string name="fab_menu_compile">Kompilieren</string>
     <string name="fab_menu_compile_enable">Kompilieren &amp; Aktivieren</string>
     <string name="fab_menu_compile_update">Kompilieren &amp; Aktualisieren</string>
     <string name="fab_menu_compile_install">Installieren</string>
@@ -458,8 +391,6 @@ um das Problem zu beheben.    </string>
     <string name="end_time">Ende</string>
     <string name="day_profile">Tagesprofil</string>
     <string name="night_profile">Nachtprofil</string>
-    <string name="day">Tag</string>
-    <string name="night">Nacht</string>
     <string name="apply">Anwenden</string>
     <string name="time_empty_warning">Bitte konfiguriere Anfangs- und Endzeiten!</string>
     <string name="time_equal_warning">Bitte wählen Sie unterschiedliche Aktivierungszeiten!</string>
@@ -488,8 +419,6 @@ um das Problem zu beheben.    </string>
     <string name="profile_dialog_cancel">Abbrechen</string>
     <string name="bottom_sheet_dialog_hide_outdated_themes">Verstecke veraltete Themes (6.0.0+) [Empfohlen]</string>
     <string name="bottom_sheet_dialog_show_outdated_themes">Zeige veraltete Themes (vor-6.0.0)</string>
-    <string name="bottom_sheet_dialog_outdated_description">Das Verstecken von veralteten Themes wird die Leistung des Theme-Ressource-Algorithmus verbessern. Dies kann in den Einstellungen geändert werden, wenn du ein altes Theme installieren möchtest.</string>
-    <string name="bottom_sheet_dialog_outdated_title">Einen Moment!</string>
     <string name="settings_system_status">Systemzertifizierung</string>
     <string name="settings_system_status_rooted">Root-Modus</string>
     <string name="settings_system_status_rootless">Ohne-Root-Modus</string>
@@ -543,7 +472,6 @@ um das Problem zu beheben.    </string>
     <string name="interfacer_not_authorized_toast">Diese Version von Substrat ist nicht autorisiert und funktioniert nicht mit dem System Interfacer Modul.</string>
     <string name="app_crash_title">%s wird fortlaufend beendet&#8230;</string>
     <string name="app_crash_content">Alle für diese App aktivierten Overlays wurden deaktiviert.</string>
-    <string name="dirty_flash_detected">Ihre Firmware oder ROM wurde aktualisiert, ohne Nutzerdaten zu löschen (dirty Flash). Substratum wird zurückgesetzt, um Fehler zu vermeiden.</string>
     <string name="rom_status">Support-Status:</string>
     <string name="rom_status_supported">%s wird von der Community unterstützt!</string>
     <string name="rom_status_unsupported">Diese ROM ist der Community noch nicht bekannt&#8230;</string>

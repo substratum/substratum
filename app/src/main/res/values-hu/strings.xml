@@ -19,8 +19,6 @@
   -->
 <resources>
     <string name="showcase">bemutatóterem</string>
-    <string name="helper_name">substratum fedvény segéd</string>
-    <string name="restore_app_name">téma visszaállítása</string>
     <string name="android">android verzió:</string>
     <string name="device">eszköz modell:</string>
     <string name="resource_checker_request">Változtatás elfogadási kérelem küldése&#8230;</string>
@@ -54,7 +52,6 @@
     <string name="failed_to_install_text_notification">%s telepítése sikertelen</string>
     <string name="actionbar_theme_count_singular">%s téma</string>
     <string name="actionbar_theme_count_plural">%s téma</string>
-    <string name="actionbar_theme_count_none">nincsenek témák</string>
     <string name="actionbar_theme_count_loading">betöltés&#8230;</string>
     <string name="actionbar_search">Keresés</string>
     <string name="actionbar_changelog">Téma változáslista</string>
@@ -94,14 +91,8 @@
     <string name="activity_missing_toast">Nem található olyan alkalmazás, amely ezt a kérést
         kezeli, sajnáljuk!
     </string>
-    <string name="abort_overlay_toast">Összes fedvény eltávolítása folyamatban&#8230;</string>
     <string name="abort_overlay_toast_success">Minden fedvény eltávolítva!</string>
     <string name="rescue_toast">A rendszer megmentése&#8230;</string>
-    <string name="disable_overlay_toast">Minden engedélyezett fedvény kikapcsolása&#8230;</string>
-    <string name="disable_overlay_toast_success">Minden fedvény kikapcsolva!</string>
-    <string name="disable_overlay_toast_not_found">Minden fedvény kikapcsolása sikertelen!</string>
-    <string name="restore_activity_toast">Biztonsági mentés érzékelve! Visszaállítás folyamatban&#8230;</string>
-    <string name="restore_activity_toast_not_found">Fedvény-adatbázis mentés nem található.</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">type1a változat&#8230;</string>
     <string name="overlays_variant_default_1b">type1b változat&#8230;</string>
@@ -111,16 +102,6 @@
     <string name="overlays_up_to_date">NAPRAKÉSZ</string>
     <string name="overlays_update_available">Frissítés érhető el!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Változat nincs telepítve</string>
-    <string name="overlays_compile_update_button">Összeállítás/Frissítés és Telepítés</string>
-    <string name="information_activity_pirated_toast">Ezen téma binárisa nem felelt meg a
-        Substratum integritás ellenőrzésének.
-    </string>
-    <string name="information_activity_upgrade_toast">Ezt a témát újra kell építeni, az új
-        téma sablon alapján, hogy továbbra is használhassa a Substratummal!
-    </string>
-    <string name="information_activity_upgrade_toast_lenient">A téma készítőjének téma beépülője
-        elavult!
-    </string>
     <string name="bootanimation_vm_exploded">A rendszerindítási animáció renderelése megszakítva az
         elégtelen memória miatt.\n\nA rendszerindítási animáció telepítése továbbra is lehetséges
         az előnézet-rendelelrelés nélkül.
@@ -138,8 +119,6 @@
     <string name="wallpaper_dialog_wallpaper">Kezdőképernyő háttérkép</string>
     <string name="wallpaper_dialog_lockscreen">Zárképernyő háttérkép</string>
     <string name="wallpaper_dialog_wallpaper_both">Kezdő- és zárképernyő háttérkép</string>
-    <string name="wallpaper_dialog_cancel">Mégse</string>
-    <string name="wallpaper_dialog_message">Milyen háttérként alkalmazza ezt a képet?</string>
     <string name="wallpaper_downloading">A kép betöltése a gyorsítótárba&#8230;</string>
     <string name="wallpaper_allscreen_success">Kezdő- és zárképernyő háttérkép beállítva!
     </string>
@@ -192,8 +171,6 @@
     </string>
     <string name="error_loading_pack">úgy tűnik, ez a csomag nincs helyesen
         beállítva&#8230;</string>
-    <string name="no_themes_installed">nincs fedvény, amit telepíthetne ebből a témából&#8230;
-    </string>
     <string name="content_resolver_alarm_metadata">Substratum Téma Riasztás</string>
     <string name="content_resolver_notification_metadata">Substratum Téma Értesítés</string>
     <string name="content_resolver_ringtone_metadata">Substratum Téma Csengőhang</string>
@@ -208,7 +185,6 @@
     <string name="settings_about_interfacer_not_installed">nincs telepítve</string>
     <string name="settings_about_interfacer_masquerade">a rom frissítése szükséges, hogy kihasználja az interfacer funkciót</string>
     <string name="settings_about_oms_rro_version">téma platform:</string>
-    <string name="settings_about_oms_version_3">OMS3</string>
     <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
     <string name="settings_about_system_version">rendszer platform</string>
@@ -223,42 +199,25 @@
         engedélyezése.
     </string>
     <string name="uninstall_dialog_text">Biztosan törölni szeretné ezt a témát?</string>
-    <string name="manage_dialog_text">Biztosan végre kívánja hajtani a kiválasztott műveletet?</string>
     <string name="manage_dialog_performing">Alapértelmezett visszaállítása&#8230;</string>
     <string name="manage_bootanimation_title">Rendszerindítási animáció visszaállítása</string>
     <string name="manage_bootanimation_toast">Rendszerindítási animáció sikeresen visszaállítva!</string>
-    <string name="manage_bootanimation_text">Alapértelmezett rendszerindítási animációját állítja vissza az eszközén
-    </string>
     <string name="manage_fonts_title">Rendszer betűtípus visszaállítása</string>
     <string name="manage_fonts_toast">Betűtípusok sikeresen visszaállítva!</string>
-    <string name="manage_fonts_text">Visszaállítja az alapértelmezett rendszer betűtípusokat a készülékén</string>
     <string name="manage_sounds_title">Rendszerhangok visszaállítása</string>
     <string name="manage_sounds_toast">Alapértelmezett hangok visszaállítása sikeres!</string>
-    <string name="manage_sounds_text">Visszaállítja az alapértelmezett rendszerhangokat a készülékén</string>
-    <string name="manage_system_overlay_dialog_title">Fedvény tisztító kezelő</string>
     <string name="manage_system_overlay_disable">Összes engedélyezett fedvény letiltása</string>
     <string name="manage_system_overlay_uninstall">Összes telepített fedvény eltávolítása</string>
-    <string name="manage_system_overlay_title">Rendszertéma visszaállítása</string>
     <string name="manage_system_overlay_toast">Rendszertéma visszaállítása folyamatban&#8230;</string>
     <string name="manage_system_overlay_uninstall_toast">Fedvények eltávolítása folyamatban a
         háttérben&#8230;</string>
-    <string name="manage_system_overlay_text">Letiltja az összes engedélyezett fedvényt és visszaállítja agyári
-        témát
-    </string>
     <string name="manage_system_not_permitted">Néhány fedvény engedélyezése nem sikerült, mert a fő téma nem áll rendelkezése.</string>
-    <string name="manage_wallpaper_title">Gyári háttérkép visszaállítása</string>
-    <string name="manage_wallpaper_text">Visszaállítja az alapértelmezett háttérképet a készülékén</string>
     <string name="manage_wallpaper_home">Kezdőképernyő háttérkép</string>
     <string name="manage_wallpaper_lock">Zárképernyő háttérkép</string>
     <string name="manage_wallpaper_all">Kezdő- és zárképernyő háttérkép</string>
     <string name="manage_wallpaper_home_toast">Kezdőképernyő háttérkép sikeresen visszaállítva!</string>
     <string name="manage_wallpaper_lock_toast">Zárképernyő háttérkép sikeresen visszaállítva!</string>
     <string name="manage_wallpaper_all_toast">Háttérkép sikeresen visszaállítva!</string>
-    <string name="manage_style">Stílus</string>
-    <string name="manage_fonts">Betűtípusok</string>
-    <string name="manage_bootanimation">Rendszerindítási animáció</string>
-    <string name="manage_sounds">Hangok</string>
-    <string name="manage_wallpaper">Háttérkép</string>
     <string name="adapter_uninstalling">%s eltávolítása folyamatban&#8230;</string>
     <string name="plugin_template">Beépülő</string>
     <string name="api_21">Lollipop</string>
@@ -287,7 +246,6 @@
     <string name="menu_open">Ikoncsomag irányítópult</string>
     <string name="menu_rate">Téma értékelése</string>
     <string name="menu_refresh">Frissítés</string>
-    <string name="menu_refresh_windows">Ablakok frissítése</string>
     <string name="menu_soft_reboot">Lágy újraindítás</string>
     <string name="menu_reboot_device">Készülék újraindítása</string>
     <string name="menu_per_app">FloatUI</string>
@@ -306,9 +264,6 @@
     <string name="dialog_restart_reboot_content">Ez egy teljes újraindítást fog végrehajtani az eszközén.</string>
     <string name="dialog_restart_soft_reboot_title">Lágy újraindítás</string>
     <string name="dialog_restart_soft_reboot_content">Ez egy lágy újraindítást fog végrehajtani az eszközén.</string>
-    <string name="legacy_theme_notification_title">Elavult téma figyelmeztetés</string>
-    <string name="legacy_theme_notification_text">Elavult témák használatához
-        kérjük, engedélyezze a Beállításokban.</string>
     <string name="studio">ikoncsomag stúdió (gamma)</string>
     <string name="studio_system">Rendszerikonok visszaállítása</string>
     <string name="studio_system_reset_dialog_toast">
@@ -325,13 +280,9 @@
         az Ikon konfiguráció frissítésére az Ikoncsomag Stúdió főoldalán!\n\nMiután megnyomta az OK
         gombot, ne érintse meg a készüléket mindaddig, amíg egy üzenet fel nem jön, jelezve,
         hogy az ikoncsomag sikeresen alkalmazásra került!</string>
-    <string name="studio_custom">Kreatív mód [hamarosan]</string>
-    <string name="studio_icon_packs">Egyéni ikonok</string>
     <string name="studio_pack_title">Letöltött ikoncsomagok</string>
     <string name="studio_system_title">Substratum keretrendszer</string>
-    <string name="studio_applied_toast">%s sikeresen alkalmazva!</string>
     <string name="studio_apply_confirmation">Biztosan szeretné alkalmazni: %s?</string>
-    <string name="studio_configuration_changed">Konfiguráció sikeresen frissítve!</string>
     <string name="studio_applying">Betöltés&#8230;</string>
     <string name="icon_pack_entry">Fedvény ikon</string>
     <string name="studio_update_configuration">Ikon konfiguráció frissítése</string>
@@ -396,9 +347,6 @@
     <string name="profile_edittext_empty_toast">Kérjük, adjon meg egy nevet a profilhoz mielőtt mentést
         készítene!
     </string>
-    <string name="profile_edittext_empty_toast_sysui">Substratum Betűkészlet Segéd nem található, kérjük
-        alkalmazzon egy betűtípust a segéd telepítéséhez és a dinamikus betűtípus cseréhez!
-    </string>
     <string name="profile_edittext_title">Új profil:</string>
     <string name="profile_edittext_whitespace_warning_toast">A profil nevében szóköz nem használható!</string>
     <string name="toast_backup_success">Jelenlegi fedvénylista mentése ide:
@@ -407,21 +355,10 @@
     <string name="spinner_default_item">válasszon ki egy profilt&#8230;</string>
     <string name="select_to_toggle_all_overlays">Válassza ki az összes fedvény váltásához</string>
     <string name="fab_menu_select_to_toggle_all_overlays">Összes fedvény kijelölése</string>
-    <string name="overflow_description">Extra beállítások</string>
-    <string name="overlay_dialog_default_res">Alapértelmezett</string>
-    <string name="overlay_dialog_text">aktuális témabeállítások egyszerűsítése&#8230;</string>
-    <string name="system_overlay_dialog_title">kérjük, válasszon egy rendszerfedvény alapot&#8230;</string>
-    <string name="tp_overlay_dialog_title">kérjük, válasszon egy harmadik fél fedvény alapot&#8230;</string>
     <string name="permission_not_granted_dialog_title">Endedélyek nincsenek megadva</string>
     <string name="permission_not_granted_dialog_message1">Kérjük adja meg a substratumnak a tárhely
         engedélyt,
         különben az alkalmazás nem fog megfelelően működni!
-    </string>
-    <string name="permission_not_granted_dialog_message2">Kérjük adja meg a substratumnak a telefon engedélyt,
-        vagy az alkalmazás nem fogja tudni összeállítani az eszközfüggő fedvényeket rendesen!
-    </string>
-    <string name="permission_not_granted_dialog_message3">Kérjük adja meg a substratumnak a névjegy
-        engedélyt, hogy a témahibákkal kapcsolatos jelentések ne ütközzenek problémába!
     </string>
     <string name="dialog_ok">OK</string>
     <string name="dialog_do_not_show_again">Ne jelenjen meg többet</string>
@@ -433,7 +370,6 @@
     <string name="uninstall_dialog_body">Téma eltávolítása</string>
     <string name="uninstall_dialog_cancel">Mégse</string>
     <string name="uninstall_dialog_okay">OK</string>
-    <string name="failed_to_install_overlay_toast">\"%s\" fedvény összeállítása sikertelen</string>
     <string name="sb_phase_1_loader">téma kicsomagolása</string>
     <string name="sb_phase_2_loader">fedvény telepítése</string>
     <string name="sb_phase_3_loader">ikon erőforrások injektálása</string>
@@ -441,26 +377,17 @@
     <string name="root_rejected_text_cm_phh">root nélkül nem folytatható&#8230;</string>
     <string name="root_rejected_timer_plural">bezárás %s mp múlva&#8230;</string>
     <string name="root_rejected_timer_singular">bezárás %s mp múlva&#8230;</string>
-    <string name="list_of_overlays">Telepíthető fedvények listája</string>
-    <string name="toast_unapproved">Ezt a fedvényt a rendszer elutasította</string>
-    <string name="toast_compiled">Kijelölt fedvénye(ek) összeállítva!</string>
     <string name="toast_compiled_updated">Kijelölt fedvény(ek) frissítve!</string>
     <string name="toast_compiled_missing">Egy vagy több fedvény nem állítható össze a beállításban hiányzó konfigurációk miatt&#8230;</string>
     <string name="toast_compiled_updated_with_errors">Kiválasztott fedvény(ek) bizonyos hibákkal frissítve!</string>
-    <string name="toast_enabled">Sikeresen engedélyezve!</string>
-    <string name="toast_disabled">Sikeresen letiltva!</string>
     <string name="toast_disabled3">Kérjük az alkalmazás előtt állítsa össze ezt a fedvényt!</string>
     <string name="toast_disabled4">Nem tiltható le az a fedvény, amit nem állított össze!</string>
     <string name="toast_disabled5">Kérjük, válasszon egy érvényes fedvényt, mielőtt ezt a műveletet végrehajtaná.</string>
     <string name="toast_disabled6">Kijelölt fedvény(ek) eltávolítva!</string>
-    <string name="toast_installed">Kijelölt fedvény(ek) alkalmazva!</string>
     <string name="toast_uninstalled">Épp eltávolította ezt a témát! A következő frissítéskor el fog tűnni!</string>
-    <string name="toast_uninstalling">Fedvények eltávolítása folyamatban&#8230;</string>
-    <string name="toast_updating">Substratum a háttérben a témáit készíti elő!</string>
     <string name="no_themes_title">nincsenek témák&#8230;</string>
     <string name="no_themes_description">kérjük telepítsen egy kompatibilis témát!</string>
     <string name="no_themes_description_search">\"%s\" a telepített témák listájában nem található&#8230;</string>
-    <string name="toast_on_back_press_compiling">Az építés során más alkalmazásokat is használhat a Kezdőlap/Előzmények gomb megnyomásával.</string>
     <string name="toast_needs_caching">Substratum gyorsítótára törölve lett, építse újra ezt a témát, mielőtt folytatná!</string>
     <string name="notification_theme_installed">telepítve</string>
     <string name="notification_theme_updated">frissítve</string>
@@ -471,13 +398,10 @@
     <string name="notification_initial_title">Substratum fut</string>
     <string name="notification_initial_title_upgrade">%s erőforrás frissítése folyamatban&#8230;</string>
     <string name="notification_done_title">Téma összeállítása befejezve</string>
-    <string name="notification_extracting_assets">Eszközök kibontása a témacsomagból&#8230;</string>
-    <string name="notification_extracting_assets_text">Fedvények feldolgozása&#8230;</string>
     <string name="notification_no_errors_found">Fedvények telepítése során nem lépett fel hiba</string>
     <string name="notification_some_errors_found">Hiba történt a fedvények telepítése közben</string>
     <string name="notification_processing">Fedvény feldolgozása:</string>
     <string name="notification_processing_n">Téma fedvény előkészítése&#8230;</string>
-    <string name="notification_compiling_signing_installing">Fedvényei létrehozása és telepítése&#8230;</string>
     <string name="advanced_manager_overlay_read_error">Fedvények listájának feldolgozása sikertelen. Kérjük, nyissa meg a
         Recoveryt és érintse meg a Rendszertéma visszaállítása lehetőséget (Ez eltávolít minden
         telepített fedvényt) a probléma megoldásához.
@@ -494,7 +418,6 @@
     <string name="settings_title_3">Témázás</string>
     <string name="settings_title_clickable">Rendszerkonfiguráció</string>
     <string name="substratum_cache_clear_initial_toast">Substratum gyorsítótárának törlése folyamatban&#8230;</string>
-    <string name="substratum_cache_clear_toast">Substratum gyorsítótára törölve!</string>
     <string name="substratum_restart_toast">Substratum automatikusan újraindult a beállítások módosítása után.</string>
     <string name="purge_cache">Téma gyorsítótárának érvénytelenítése</string>
     <string name="purge_cache_subtext">Ez minden tárolt téma és alkalmazás gyorsítótárat elpusztít.</string>
@@ -511,15 +434,9 @@
     <string name="hide_app_icon_toast_disabled">Az alkalmazás ikonja hozzá lett adva az indítójához!</string>
     <string name="hide_app_icon_not_supported">Módosítás nem támogatott</string>
     <string name="hide_app_icon_supported">Ez lehetővé teszi, hogy váltson a látható és láthatatlan indító ikon között a kezdőképernyőjén.</string>
-    <string name="show_installed_packages_only">Csak a telepített csomagok jelenjenek meg a fedvény választóban</string>
-    <string name="purge_completion">A téma fedvényeinek tisztítása a háttérben folyamataban&#8230;</string>
-    <string name="clean_completion">A téma fedvényeinek tisztítása a háttérben folyamataban&#8230;</string>
     <string name="cache_clear_completion">%s téma gyorsítótár törölve!</string>
     <string name="disable_completion">A téma összes fedvényének tiltása folyamatban&#8230;</string>
     <string name="enable_completion">A téma összes telepített fedvényének aktiválása folyamatban&#8230;</string>
-    <string name="purge_information">Az összes fedvény egyszerre történő eltávolítása egy potenciálisan veszélyes művelet, több kényszerített leállást okozhat a művelet során.</string>
-    <string name="purge_button_text">ÖSSZES FEDVÉNY ELTÁVOLÍTÁSA</string>
-    <string name="purge2_button_text">ÖSSZES ENGEDÉLYEZETT FEDVÉNY LETILTÁSA</string>
     <string name="dynamic_actionbar_colors">Dinamikus műveletsáv színek</string>
     <string name="dynamic_actionbar_colors_subtext">A téma információs ablakában a Substratum az összecsukható műveletsávot a borítókép domináns színéhez igazítja.</string>
     <string name="dynamic_navbar_colors">Dinamikus navigációs sáv színek</string>
@@ -532,7 +449,6 @@
     <string name="show_outdated_themes_content">Azt letiltva lehetővé teszi a Substratum számára, hogy
         kihasználja az új algoritmust, mellyel a témák sokkal gyorsabban töltődnek be, mint máskor. Ez csak
         megfelelően konfigurált 6.0.0+ beépülő téma esetén működik.</string>
-    <string name="fab_menu_compile">Összeállítás kiválasztva</string>
     <string name="fab_menu_compile_enable">Építés és Engedélyezés</string>
     <string name="fab_menu_compile_update">Építés és Frissítés</string>
     <string name="fab_menu_compile_install">Kiválasztott telepítése</string>
@@ -581,8 +497,6 @@
     <string name="end_time">Befejezési</string>
     <string name="day_profile">Nappali profil</string>
     <string name="night_profile">Éjszakai profil</string>
-    <string name="day">Nappali</string>
-    <string name="night">Éjszakai</string>
     <string name="apply">Alkalmaz</string>
     <string name="time_empty_warning">Kérjük, állítsa be a Kezdési és Befejezési időpontokat!</string>
     <string name="time_equal_warning">Kérjük, válasszon másik aktiválási időket!</string>
@@ -611,8 +525,6 @@
     <string name="profile_dialog_cancel">Mégse</string>
     <string name="bottom_sheet_dialog_hide_outdated_themes">Elavult témák elrejtése (6.0.0+) [Javasolt!]</string>
     <string name="bottom_sheet_dialog_show_outdated_themes">Elavult témák megjelenítése (6.0.0 előtti)</string>
-    <string name="bottom_sheet_dialog_outdated_description">Elavult témák elrejtése növeli a teljesítményt a téma-erőforrás keresési algoritmuson! Ez a beállításokban változtatható, amikor Ön egy régi téma telepítéséről dönt.</string>
-    <string name="bottom_sheet_dialog_outdated_title">Várj!</string>
     <string name="settings_system_status">rendszer tanúsítvány</string>
     <string name="settings_system_status_rooted">rootolt mód</string>
     <string name="settings_system_status_rootless">root nélküli mód</string>
@@ -666,7 +578,6 @@
     <string name="interfacer_not_authorized_toast">A Substratum ezen verziója nem engedélyezett és nem fog működni a rendszer Interfacer modullal.</string>
     <string name="app_crash_title">%s folyton leáll&#8230;</string>
     <string name="app_crash_content">A program letiltotta ezen alkalmazás összes engedélyezett fedvényét.</string>
-    <string name="dirty_flash_detected">A firmware, vagy a ROM a felhasználói adatok törlése nélkül került frissítésre (dirty flash). A Substratum újrakonfigurálja magát, hogy elkerülje a hibákat.</string>
     <string name="rom_status">támogatás állapota:</string>
     <string name="rom_status_supported">%s a közösség által támogatott!</string>
     <string name="rom_status_unsupported">ez a rom még nem ismert a közösségben&#8230;</string>

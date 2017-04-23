@@ -543,6 +543,7 @@ public class ManagerFragment extends Fragment {
                         FileOperations.mountRW();
                         FileOperations.mountRWData();
                         FileOperations.mountRWVendor();
+                        FileOperations.bruteforceDelete(DATA_RESOURCE_DIR + "overlays.list");
                         FileOperations.bruteforceDelete(LEGACY_NEXUS_DIR +
                                 fragment.overlaysList.get(i).getName() + ".apk");
                         FileOperations.bruteforceDelete(PIXEL_NEXUS_DIR +

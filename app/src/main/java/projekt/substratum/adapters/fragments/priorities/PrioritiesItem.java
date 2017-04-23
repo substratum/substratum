@@ -18,12 +18,20 @@
 
 package projekt.substratum.adapters.fragments.priorities;
 
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 
 public class PrioritiesItem implements PrioritiesInterface {
 
     private String mName;
+    private Bitmap mBitmapId;
     private Drawable mDrawableId;
+    private String type1a;
+    private String type1b;
+    private String type1c;
+    private String type2;
+    private String type3;
+    private String themeName;
 
     public PrioritiesItem(final String name, Drawable drawable) {
         mName = name;
@@ -41,5 +49,61 @@ public class PrioritiesItem implements PrioritiesInterface {
 
     Drawable getDrawableId() {
         return mDrawableId;
+    }
+
+    Bitmap getBitmapId() {
+        return mBitmapId;
+    }
+
+    public void setBitmapId(Bitmap bitmap) {
+        this.mBitmapId = bitmap;
+    }
+
+    public String getType1a() {
+        return type1a;
+    }
+
+    public void setType1a(String name) {
+        this.type1a = name;
+    }
+
+    public String getType1b() {
+        return type1b;
+    }
+
+    public void setType1b(String name) {
+        this.type1b = name;
+    }
+
+    public String getType1c() {
+        return type1c;
+    }
+
+    public void setType1c(String name) {
+        this.type1c = name;
+    }
+
+    public String getType2() {
+        return type2;
+    }
+
+    public void setType2(String name) {
+        this.type2 = name;
+    }
+
+    public String getType3() {
+        return type3;
+    }
+
+    public void setType3(String name) {
+        this.type3 = name;
+    }
+
+    public String getThemeName() {
+        return themeName;
+    }
+
+    public void setThemeName(String name) {
+        this.themeName = name;
     }
 }

@@ -22,7 +22,6 @@ import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,6 +67,8 @@ public class ManagerAdapter extends
             title = context.getString(R.string.systemui_statusbar);
         } else if (packageName.startsWith("com.android.systemui.tiles")) {
             title = context.getString(R.string.systemui_qs_tiles);
+        } else if (packageName.startsWith("com.android.settings.icons")) {
+            title = context.getString(R.string.settings_icons);
         } else {
             title = References.grabPackageName(context, targetPackage);
         }

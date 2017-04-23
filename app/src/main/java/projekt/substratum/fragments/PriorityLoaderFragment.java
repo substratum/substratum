@@ -66,7 +66,7 @@ public class PriorityLoaderFragment extends Fragment {
 
         // Pre-initialize the adapter first so that it won't complain for skipping layout on logs
         PriorityAdapter empty_adapter = new PriorityAdapter(
-                getContext(), R.layout.linear_loader_item);
+                getContext(), R.layout.priority_loader_item);
         recyclerView = (RecyclerView) root.findViewById(R.id.recycler_view);
         recyclerView.setAdapter(empty_adapter);
 
@@ -80,7 +80,7 @@ public class PriorityLoaderFragment extends Fragment {
         // Begin loading up list
         prioritiesList = new ArrayList<>();
         app_list = new ArrayList<>();
-        adapter = new PriorityAdapter(getContext(), R.layout.linear_loader_item);
+        adapter = new PriorityAdapter(getContext(), R.layout.priority_loader_item);
 
         LoadPrioritizedOverlays loadPrioritizedOverlays = new LoadPrioritizedOverlays();
         loadPrioritizedOverlays.execute("");

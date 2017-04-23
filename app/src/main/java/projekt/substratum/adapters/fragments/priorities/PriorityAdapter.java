@@ -24,8 +24,10 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.VectorDrawable;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +40,9 @@ import com.thesurix.gesturerecycler.GestureViewHolder;
 
 import java.io.ByteArrayOutputStream;
 
+import projekt.substratum.BuildConfig;
 import projekt.substratum.R;
+import projekt.substratum.common.References;
 
 public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, GestureViewHolder> {
 
@@ -58,7 +62,7 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
             return new PriorityObjectAdapter(itemView);
         } else {
             View itemView = LayoutInflater.from(
-                    parent.getContext()).inflate(R.layout.header_item, parent, false);
+                    parent.getContext()).inflate(R.layout.priority_item, parent, false);
             return new HeaderViewAdapter(itemView);
         }
     }
@@ -75,13 +79,187 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
             try {
                 // Keep this value but do not display it to the user, instead, parse it
                 ApplicationInfo applicationInfo = mContext.getPackageManager()
-                        .getApplicationInfo
-                                (prioritiesItem.getName(), PackageManager.GET_META_DATA);
-                String packageTitle = mContext.getPackageManager().getApplicationLabel
-                        (applicationInfo).toString();
+                        .getApplicationInfo(prioritiesItem.getName(), PackageManager.GET_META_DATA);
+                String packageTitle = mContext.getPackageManager()
+                        .getApplicationLabel(applicationInfo).toString();
+                String targetPackage = References.grabOverlayTarget(
+                        mContext, prioritiesItem.getName());
+                String title;
+                if (packageTitle.startsWith("com.android.systemui.headers")) {
+                    title = mContext.getString(R.string.systemui_headers);
+                } else if (packageTitle.startsWith("com.android.systemui.navbars")) {
+                    title = mContext.getString(R.string.systemui_navigation);
+                } else if (packageTitle.startsWith("com.android.systemui.statusbars")) {
+                    title = mContext.getString(R.string.systemui_statusbar);
+                } else if (packageTitle.startsWith("com.android.systemui.tiles")) {
+                    title = mContext.getString(R.string.systemui_qs_tiles);
+                } else if (packageTitle.startsWith("com.android.settings.icons")) {
+                    title = mContext.getString(R.string.settings_icons);
+                } else {
+                    title = References.grabPackageName(mContext, targetPackage);
+                }
+
+                if (title != null && title.length() > 0) {
+                    priorityObjectAdapter.mCardText.setText(title);
+                } else {
+                    priorityObjectAdapter.mCardText.setText(R.string.reboot_awaiting_manager_title);
+                }
+
                 if (applicationInfo.metaData != null) {
                     if (applicationInfo.metaData.getString("Substratum_Device") != null) {
-                        priorityObjectAdapter.mCardText.setText(prioritiesItem.getName());
+                        int version = References.getOverlaySubstratumVersion(
+                                mContext,
+                                packageTitle,
+                                References.metadataOverlayVersion);
+                        Boolean newUpdate = (version != 0) && BuildConfig.VERSION_CODE >= version;
+
+                        if (prioritiesItem.getType1a() == null) {
+                            String metadata = References.getOverlayMetadata(
+                                    mContext,
+                                    packageTitle,
+                                    References.metadataOverlayType1a);
+                            if (metadata != null && metadata.length() > 0) {
+                                metadata = metadata.split("/")[2];
+                                metadata = metadata.substring(
+                                        mContext.getString(R.string.manager_type1a).length() - 1,
+                                        metadata.length() - 4).replace("_", " ");
+                                String textView =
+                                        "<b>" + mContext.getString(R.string.manager_type1a) +
+                                                "</b> " + metadata;
+                                priorityObjectAdapter.type1a.setVisibility(View.VISIBLE);
+                                prioritiesItem.setType1a(textView);
+                                priorityObjectAdapter.type1a.setText(Html.fromHtml(textView));
+                            } else {
+                                priorityObjectAdapter.type1a.setVisibility(View.GONE);
+                            }
+                        } else {
+                            priorityObjectAdapter.type1a.setVisibility(View.VISIBLE);
+                            priorityObjectAdapter.type1a.setText(
+                                    Html.fromHtml(prioritiesItem.getType1a()));
+                        }
+
+                        if (prioritiesItem.getType1b() == null) {
+                            String metadata = References.getOverlayMetadata(
+                                    mContext,
+                                    packageTitle,
+                                    References.metadataOverlayType1b);
+                            if (metadata != null && metadata.length() > 0) {
+                                metadata = metadata.split("/")[2];
+                                metadata = metadata.substring(
+                                        mContext.getString(R.string.manager_type1b).length() - 1,
+                                        metadata.length() - 4).replace("_", " ");
+                                String textView =
+                                        "<b>" + mContext.getString(R.string.manager_type1b) +
+                                                "</b> " + metadata;
+                                priorityObjectAdapter.type1b.setVisibility(View.VISIBLE);
+                                prioritiesItem.setType1b(textView);
+                                priorityObjectAdapter.type1b.setText(Html.fromHtml(textView));
+                            } else {
+                                priorityObjectAdapter.type1b.setVisibility(View.GONE);
+                            }
+                        } else {
+                            priorityObjectAdapter.type1b.setVisibility(View.VISIBLE);
+                            priorityObjectAdapter.type1b.setText(
+                                    Html.fromHtml(prioritiesItem.getType1b()));
+                        }
+
+                        if (prioritiesItem.getType1c() == null) {
+                            String metadata = References.getOverlayMetadata(
+                                    mContext,
+                                    packageTitle,
+                                    References.metadataOverlayType1c);
+                            if (metadata != null && metadata.length() > 0) {
+                                metadata = metadata.split("/")[2];
+                                metadata = metadata.substring(
+                                        mContext.getString(R.string.manager_type1c).length() - 1,
+                                        metadata.length() - 4).replace("_", " ");
+                                String textView =
+                                        "<b>" + mContext.getString(R.string.manager_type1c) +
+                                                "</b> " + metadata;
+                                priorityObjectAdapter.type1c.setVisibility(View.VISIBLE);
+                                prioritiesItem.setType1c(textView);
+                                priorityObjectAdapter.type1c.setText(Html.fromHtml(textView));
+                            } else {
+                                priorityObjectAdapter.type1c.setVisibility(View.GONE);
+                            }
+                        } else {
+                            priorityObjectAdapter.type1c.setVisibility(View.VISIBLE);
+                            priorityObjectAdapter.type1c.setText(Html.fromHtml(
+                                    prioritiesItem.getType1c()));
+                        }
+
+                        if (prioritiesItem.getType2() == null) {
+                            String metadata = References.getOverlayMetadata(
+                                    mContext,
+                                    packageTitle,
+                                    References.metadataOverlayType2);
+                            if (metadata != null && metadata.length() > 0) {
+                                metadata = metadata.split("/")[2];
+                                metadata = metadata.substring(
+                                        mContext.getString(R.string.manager_type2).length() - 1,
+                                        metadata.length()).replace("_", " ");
+                                String textView =
+                                        "<b>" + mContext.getString(R.string.manager_type2) +
+                                                "</b> " + metadata;
+                                priorityObjectAdapter.type2.setVisibility(View.VISIBLE);
+                                prioritiesItem.setType2(textView);
+                                priorityObjectAdapter.type2.setText(Html.fromHtml(textView));
+                            } else {
+                                priorityObjectAdapter.type2.setVisibility(View.GONE);
+                            }
+                        } else {
+                            priorityObjectAdapter.type2.setVisibility(View.VISIBLE);
+                            priorityObjectAdapter.type2.setText(Html.fromHtml(
+                                    prioritiesItem.getType2()));
+                        }
+
+                        if (prioritiesItem.getType3() == null) {
+                            String metadata = References.getOverlayMetadata(
+                                    mContext,
+                                    packageTitle,
+                                    References.metadataOverlayType3);
+                            if (metadata != null && metadata.length() > 0) {
+                                metadata = metadata.split("/")[2];
+                                metadata = metadata.substring(
+                                        mContext.getString(R.string.manager_type3).length() - 1,
+                                        metadata.length()).replace("_", " ");
+                                String textView =
+                                        "<b>" + mContext.getString(R.string.manager_type3) +
+                                                "</b> " + metadata;
+                                priorityObjectAdapter.type3.setVisibility(View.VISIBLE);
+                                prioritiesItem.setType3(textView);
+                                priorityObjectAdapter.type3.setText(Html.fromHtml(textView));
+                            } else {
+                                priorityObjectAdapter.type3.setVisibility(View.GONE);
+                            }
+                        } else {
+                            priorityObjectAdapter.type3.setVisibility(View.VISIBLE);
+                            priorityObjectAdapter.type3.setText(
+                                    Html.fromHtml(prioritiesItem.getType3()));
+                        }
+
+                        if (prioritiesItem.getThemeName() == null) {
+                            String metadata = References.getOverlayMetadata(
+                                    mContext,
+                                    packageTitle,
+                                    References.metadataOverlayParent);
+                            if (metadata != null && metadata.length() > 0 && newUpdate) {
+                                String pName = "<b>" +
+                                        mContext.getString(R.string.manager_theme_name) + "</b> " +
+                                        References.grabPackageName(mContext, metadata);
+                                priorityObjectAdapter.tvDesc.setVisibility(View.VISIBLE);
+                                prioritiesItem.setThemeName(pName);
+                                priorityObjectAdapter.tvDesc.setText(Html.fromHtml(pName));
+                            } else {
+                                prioritiesItem.setThemeName("");
+                                priorityObjectAdapter.tvDesc.setText(packageTitle);
+                            }
+                        } else if (prioritiesItem.getThemeName().length() == 0) {
+                            priorityObjectAdapter.tvDesc.setText(packageTitle);
+                        } else {
+                            priorityObjectAdapter.tvDesc.setText(
+                                    Html.fromHtml(prioritiesItem.getThemeName()));
+                        }
                     } else {
                         priorityObjectAdapter.mCardText.setText(
                                 packageTitle + " (" + prioritiesItem.getName() + ")");
@@ -92,8 +270,18 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                 }
 
                 // Grab app icon from PackageInstaller and convert it to a BitmapDrawable in bytes
-                Drawable icon = prioritiesItem.getDrawableId();
-                Bitmap bitmap = ((BitmapDrawable) icon).getBitmap();
+                Bitmap bitmap = null;
+                if (prioritiesItem.getBitmapId() == null) {
+                    Drawable icon = prioritiesItem.getDrawableId();
+                    if (icon instanceof VectorDrawable) {
+                        bitmap = References.getBitmapFromVector(mContext, icon);
+                    } else if (icon instanceof BitmapDrawable) {
+                        bitmap = ((BitmapDrawable) icon).getBitmap();
+                    }
+                } else {
+                    bitmap = prioritiesItem.getBitmapId();
+                }
+
                 try (ByteArrayOutputStream stream = new ByteArrayOutputStream()) {
                     bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
                     byte[] bitmapData = stream.toByteArray();
@@ -104,6 +292,7 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                             .into(priorityObjectAdapter.mAppIcon);
                 }
             } catch (Exception e) {
+                e.printStackTrace();
                 // Suppress warning
             }
         } else {
@@ -140,13 +329,27 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
 
         TextView mCardText;
         ImageView mAppIcon;
+        TextView tvDesc;
+        TextView type1a;
+        TextView type1b;
+        TextView type1c;
+        TextView type2;
+        TextView type3;
+        View view;
         private ImageView mItemDrag;
 
         PriorityObjectAdapter(final View view) {
             super(view);
+            this.view = view;
             mCardText = (TextView) view.findViewById(R.id.card_text);
             mItemDrag = (ImageView) view.findViewById(R.id.card_drag);
             mAppIcon = (ImageView) view.findViewById(R.id.app_icon);
+            tvDesc = (TextView) view.findViewById(R.id.desc);
+            type1a = (TextView) view.findViewById(R.id.type1a);
+            type1b = (TextView) view.findViewById(R.id.type1b);
+            type1c = (TextView) view.findViewById(R.id.type1c);
+            type2 = (TextView) view.findViewById(R.id.type2);
+            type3 = (TextView) view.findViewById(R.id.type3);
         }
 
         @Nullable

@@ -99,7 +99,8 @@ public class PriorityListFragment extends Fragment {
             workable_list.add(o);
         }
 
-        final PriorityAdapter adapter = new PriorityAdapter(getContext(), R.layout.linear_item);
+        final PriorityAdapter adapter = new PriorityAdapter(
+                getContext(), R.layout.priority_overlay_item);
         adapter.setData(prioritiesList);
 
         recyclerView.setAdapter(adapter);

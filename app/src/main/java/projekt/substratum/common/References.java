@@ -39,6 +39,7 @@ import android.content.pm.ShortcutManager;
 import android.content.pm.Signature;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.Icon;
@@ -688,6 +689,18 @@ public class References {
         }
     }
 
+    // This method converts a vector drawable into a bitmap object
+    public static Bitmap getBitmapFromVector(Context context, Drawable drawable) {
+        Bitmap bitmap = Bitmap.createBitmap(
+                drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight(),
+                Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+        return bitmap;
+    }
+
     // This method obtains the application icon for a specified package
     public static Drawable grabAppIcon(Context context, String package_name) {
         try {
@@ -966,6 +979,23 @@ public class References {
             if (appInfo.metaData != null) {
                 return appInfo.metaData.getInt(metadata);
             }
+        } catch (Exception e) {
+            // Suppress warning
+        }
+        return 0;
+    }
+
+    // Grab any resource from any package
+    public static int getResource(Context mContext,
+                                  String package_name,
+                                  String resourceName,
+                                  String type) {
+        try {
+            android.content.res.Resources res =
+                    mContext.getPackageManager().getResourcesForApplication(package_name);
+            int resource = res.getIdentifier(package_name + ":" + type + "/" +
+                    resourceName, type, package_name);
+            return resource;
         } catch (Exception e) {
             // Suppress warning
         }

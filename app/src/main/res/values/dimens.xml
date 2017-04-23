@@ -57,7 +57,7 @@
 
     <!-- Drag view -->
     <dimen name="drag_view_size">30dp</dimen>
-    <dimen name="drag_view_margin">10dp</dimen>
+    <dimen name="drag_view_margin">15dp</dimen>
 
     <!-- Header item -->
     <dimen name="header_item_padding">6dp</dimen>

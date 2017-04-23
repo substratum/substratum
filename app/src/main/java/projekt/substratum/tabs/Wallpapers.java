@@ -121,10 +121,10 @@ public class Wallpapers extends Fragment {
                 WallpaperEntries newEntry = new WallpaperEntries();
 
                 for (String key : newArray.keySet()) {
-                    if (!key.toLowerCase().contains("-preview".toLowerCase())) {
+                    if (!key.toLowerCase().endsWith("-preview".toLowerCase())) {
                         newEntry.setCallingActivity(getActivity());
                         newEntry.setContext(getContext());
-                        newEntry.setWallpaperName(key);
+                        newEntry.setWallpaperName(key.replaceAll("~", " "));
                         newEntry.setWallpaperLink(newArray.get(key));
                     } else {
                         // This is a preview image to be displayed on the card

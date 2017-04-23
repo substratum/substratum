@@ -51,7 +51,10 @@ public class ReadCloudWallpaperFile {
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) nNode;
 
-                    String addon_download_name = eElement.getAttribute("id");
+                    // Replace all spaces with a tilde first, as tilde "~" is lower priority than
+                    // "-", we have to put this first.
+                    String addon_download_name = eElement.getAttribute("id")
+                            .replaceAll("\\s+", "~");
                     String addon_download_link = eElement.getElementsByTagName("link").item(0).
                             getTextContent();
                     String addon_preview_link = eElement.getElementsByTagName("preview").item(0).

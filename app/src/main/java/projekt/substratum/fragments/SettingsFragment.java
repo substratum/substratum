@@ -868,10 +868,10 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 Iterator it = listOfRoms.entrySet().iterator();
                 Iterator it2 = listOfRoms.entrySet().iterator();
 
+                // First check if it is a valid prop
                 while (it.hasNext()) {
                     Map.Entry pair = (Map.Entry) it.next();
 
-                    // First check if it is a valid prop
                     String key = (String) pair.getKey();
                     String value = (String) pair.getValue();
                     Process process = Runtime.getRuntime().exec("getprop " + key);

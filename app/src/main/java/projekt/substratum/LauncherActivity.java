@@ -16,7 +16,7 @@
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package projekt.substratum.activities.launch;
+package projekt.substratum;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -24,6 +24,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 
 import projekt.substratum.activities.base.SubstratumActivity;
+import projekt.substratum.activities.launch.SplashScreenActivity;
 
 public class LauncherActivity extends SubstratumActivity {
 

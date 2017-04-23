@@ -24,7 +24,7 @@ import android.os.Build;
 import android.service.quicksettings.TileService;
 
 import projekt.substratum.LaunchActivity;
-import projekt.substratum.activities.launch.LauncherActivity;
+import projekt.substratum.LauncherActivity;
 
 @TargetApi(Build.VERSION_CODES.N)
 public class SubstratumTile extends TileService {

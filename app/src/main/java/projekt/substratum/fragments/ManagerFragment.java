@@ -585,24 +585,27 @@ public class ManagerFragment extends Fragment {
             ManagerFragment fragment = ref.get();
             Context context = fragment.context;
             fragment.mAdapter.notifyDataSetChanged();
-
-            Toast.makeText(
-                    context,
-                    fragment.getString(R.string.toast_disabled6),
-                    Toast.LENGTH_SHORT).show();
-            AlertDialog.Builder alertDialogBuilder =
-                    new AlertDialog.Builder(context);
-            alertDialogBuilder
-                    .setTitle(fragment.getString(R.string.legacy_dialog_soft_reboot_title));
-            alertDialogBuilder
-                    .setMessage(fragment.getString(R.string.legacy_dialog_soft_reboot_text));
-            alertDialogBuilder
-                    .setPositiveButton(android.R.string.ok,
-                            (dialog, id) -> ElevatedCommands.reboot());
-            alertDialogBuilder.setCancelable(false);
-            AlertDialog alertDialog = alertDialogBuilder.create();
-            alertDialog.show();
             fragment.loadingBar.setVisibility(View.GONE);
+
+            if (!References.checkOMS(context)) {
+                Toast.makeText(
+                        context,
+                        fragment.getString(R.string.toast_disabled6),
+                        Toast.LENGTH_SHORT).show();
+
+                AlertDialog.Builder alertDialogBuilder =
+                        new AlertDialog.Builder(context);
+                alertDialogBuilder
+                        .setTitle(fragment.getString(R.string.legacy_dialog_soft_reboot_title));
+                alertDialogBuilder
+                        .setMessage(fragment.getString(R.string.legacy_dialog_soft_reboot_text));
+                alertDialogBuilder
+                        .setPositiveButton(android.R.string.ok,
+                                (dialog, id) -> ElevatedCommands.reboot());
+                alertDialogBuilder.setCancelable(false);
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+            }
         }
     }
 

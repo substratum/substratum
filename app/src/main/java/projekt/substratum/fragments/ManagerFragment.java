@@ -82,6 +82,7 @@ import static projekt.substratum.util.files.MapUtils.sortMapByValues;
 
 public class ManagerFragment extends Fragment {
 
+    private static final int MANAGER_FRAGMENT_LOAD_DELAY = 500;
     private ArrayList<String> activated_overlays;
     private RecyclerView.Adapter mAdapter;
     private MaterialSheetFab materialSheetFab;
@@ -434,6 +435,11 @@ public class ManagerFragment extends Fragment {
                         fragment.overlaysList.add(st);
                     }
                 }
+            }
+            try {
+                Thread.sleep(MANAGER_FRAGMENT_LOAD_DELAY);
+            } catch (InterruptedException ie) {
+                // Suppress warning
             }
             return null;
         }

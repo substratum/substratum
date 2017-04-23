@@ -33,18 +33,12 @@
     <color name="floatui_dialog_checkmark_color">@android:color/white</color>
     <color name="floatui_dialog_button_color">@android:color/white</color>
 
-    <color name="bottom_sheet_dialog_icon_tint">@color/main_screen_card_theme_title</color>
     <color name="bottom_sheet_dialog_background">@color/main_screen_card_background</color>
 
     <color name="troubleshooting_card_line_color">@android:color/darker_gray</color>
 
     <color name="priorities_drag_handle">@color/main_screen_card_theme_title</color>
-    <color name="priorities_switchbar">@color/colorPrimary</color>
 
-    <color name="quick_apply_icon_tint">@color/main_screen_card_theme_title</color>
-    <color name="notification_dismiss_icon_tint">@color/main_screen_card_theme_title</color>
-
-    <color name="wallpaper_tab_text">@color/main_screen_card_theme_title</color>
     <color name="wallpaper_card_text">@android:color/white</color>
     <color name="wallpaper_card_text_shadow">@android:color/black</color>
 
@@ -55,24 +49,17 @@
 
     <color name="bootanimation_placeholder_tint">@android:color/white</color>
     <color name="bootanimation_vm_text">@android:color/white</color>
-    <color name="bootanimation_checked">@color/colorAccent</color>
-    <color name="bootanimation_unchecked">#ff777777</color>
     <color name="bootanimation_spinner_background">@color/theme_information_background</color>
     <color name="bootanimation_window_background">@android:color/black</color>
 
-    <color name="studio_placeholder_icon">@android:color/black</color>
     <color name="studio_placeholder_title">@android:color/black</color>
 
     <color name="font_text">@android:color/white</color>
-    <color name="font_checked">@color/colorAccent</color>
-    <color name="font_unchecked">#ff777777</color>
     <color name="font_spinner_background">@color/theme_information_background</color>
     <color name="font_window_background">@android:color/black</color>
 
     <color name="sounds_text">@android:color/white</color>
     <color name="sounds_placeholder_tint">@android:color/white</color>
-    <color name="sounds_checked">@color/colorAccent</color>
-    <color name="sounds_unchecked">#ff777777</color>
     <color name="sounds_play_pause_button_tint">@android:color/white</color>
     <color name="sounds_spinner_background">@color/theme_information_background</color>
     <color name="sounds_window_background">@android:color/black</color>
@@ -85,7 +72,6 @@
     <color name="splashscreen_background">#fffafafa</color>
     <color name="dialog_icon_color">#ffffffff</color>
     <color name="dialog_text_color">#ffffffff</color>
-    <color name="fab_speed_dial_icon">#ff000000</color>
 
     <color name="information_activity_dark_icon_mode">@android:color/black</color>
     <color name="information_activity_dark_text_mode">@android:color/black</color>
@@ -99,20 +85,13 @@
     <color name="main_screen_card_theme_author">#d0000000</color>
 
     <color name="logcat_dialog_background">@android:color/black</color>
-    <color name="logcat_dialog_buttons">@android:color/black</color>
     <color name="logcat_dialog_icons">@android:color/white</color>
     <color name="logcat_dialog_text">#ff0000</color>
     <color name="commit_dialog_text">#ffaa00</color>
 
-    <color name="showcase_support_default">@color/main_screen_card_theme_title</color>
-    <color name="showcase_support_disabled">#64777777</color>
-
     <color name="wallpaper_bg_background">@android:color/black</color>
 
     <color name="theme_information_background">#ffeeeeee</color>
-    <color name="theme_information_card_background">#fffafafa</color>
-    <color name="theme_information_card_title">@color/colorAccent</color>
-    <color name="theme_information_card_text">@android:color/black</color>
     <color name="theme_information_card_divider">#33777777</color>
     <color name="theme_information_card_subtext">@android:color/darker_gray</color>
 
@@ -131,9 +110,6 @@
     <color name="overlay_update_available">#d4b400</color>
     <color name="overlay_update_not_needed">#008c3a</color>
 
-    <color name="purge_button">#d50000</color>
-    <color name="purge2_button">#ef6c00</color>
-    <color name="purge_button_text_color">#ffffffff</color>
     <color name="window_bg_glass">#99000000</color>
     <color name="cropper_bg_glass">#c8000000</color>
 
@@ -143,10 +119,6 @@
     <color name="slide_4">#a9d67b</color>
     <color name="slide_5">#c187ff</color>
     <color name="slide_6">#f9da7c</color>
-
-    <color name="tutorial_slide_divider">#00000000</color>
-    <color name="tutorial_page_indicator_fill_color">#70ffffff</color>
-    <color name="tutorial_page_indicator_page_color">#56ffffff</color>
 
     <color name="fab_menu_background_card">#ffffffff</color>
     <color name="fab_menu_icon_color">#ff000000</color>

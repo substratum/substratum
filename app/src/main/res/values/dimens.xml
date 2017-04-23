@@ -29,18 +29,9 @@
     <dimen name="main_screen_card_corner_radius">2dp</dimen>
     <dimen name="main_screen_n_card_elevation">0dp</dimen>
 
-    <dimen name="theme_information_card_corner_elevation">5dp</dimen>
-    <dimen name="theme_information_card_corner_radius">5dp</dimen>
-
-    <dimen name="tutorial_page_indicator">4dp</dimen>
-
-    <dimen name="fab_elevation">4dp</dimen>
     <dimen name="fab_sheet_elevation">0dp</dimen>
-    <dimen name="fab_spacing">0dp</dimen>
 
     <dimen name="keyline_spacing">16dp</dimen>
-
-    <dimen name="toolbar_contentInset">72dp</dimen>
 
     <dimen name="sheet_item_image_spacing">24dp</dimen>
     <dimen name="sheet_item_spacing">@dimen/keyline_spacing</dimen>
@@ -49,9 +40,6 @@
     <dimen name="sheet_width">250dp</dimen>
 
     <!-- Misc -->
-    <dimen name="logo_size">200dp</dimen>
-    <dimen name="main_text_size">36sp</dimen>
-    <dimen name="main_btn_height">80dp</dimen>
     <dimen name="card_corner_radius">4dp</dimen>
     <dimen name="card_elevation">6dp</dimen>
 
@@ -65,11 +53,8 @@
 
     <!-- Linear item -->
     <dimen name="linear_item_height">80dp</dimen>
-    <dimen name="linear_text_width">80dp</dimen>
     <dimen name="linear_text_padding">20dp</dimen>
 
     <!-- Grid item -->
-    <dimen name="grid_image_height">180dp</dimen>
-    <dimen name="grid_text_padding">10dp</dimen>
 
 </resources>

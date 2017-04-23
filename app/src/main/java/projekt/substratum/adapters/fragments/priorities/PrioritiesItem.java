@@ -18,13 +18,12 @@
 
 package projekt.substratum.adapters.fragments.priorities;
 
-import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 
 public class PrioritiesItem implements PrioritiesInterface {
 
     private String mName;
-    private Bitmap mBitmapId;
+    private byte[] mBitmapId;
     private Drawable mDrawableId;
     private String type1a;
     private String type1b;
@@ -51,11 +50,11 @@ public class PrioritiesItem implements PrioritiesInterface {
         return mDrawableId;
     }
 
-    Bitmap getBitmapId() {
+    byte[] getBitmapId() {
         return mBitmapId;
     }
 
-    public void setBitmapId(Bitmap bitmap) {
+    void setBitmapId(byte[] bitmap) {
         this.mBitmapId = bitmap;
     }
 
@@ -103,7 +102,7 @@ public class PrioritiesItem implements PrioritiesInterface {
         return themeName;
     }
 
-    public void setThemeName(String name) {
+    void setThemeName(String name) {
         this.themeName = name;
     }
 }

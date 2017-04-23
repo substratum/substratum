@@ -123,12 +123,6 @@
         <item name="android:gravity">center_horizontal</item>
     </style>
 
-    <style name="DialogWindowTitle">
-        <item name="android:maxLines">1</item>
-        <item name="android:scrollHorizontally">true</item>
-        <item name="android:textAppearance">@android:style/TextAppearance.DialogWindowTitle</item>
-    </style>
-
     <style name="WelcomeScreenPageIndicator.Custom">
         <item name="animation">fade</item>
     </style>

@@ -19,8 +19,6 @@
   -->
 <resources>
     <string name="showcase">ukázka</string>
-    <string name="helper_name">pomocník překrytí substratum</string>
-    <string name="restore_app_name">obnovit motiv</string>
     <string name="android">verze androidu:</string>
     <string name="device">model zařízení:</string>
     <string name="resource_checker_request">Poslat žádost o sloučení pomocí&#8230;</string>
@@ -46,7 +44,6 @@
     <string name="failed_to_install_text_notification">Nepodařilo se nainstalovat %s</string>
     <string name="actionbar_theme_count_singular">%s motiv</string>
     <string name="actionbar_theme_count_plural">%s motivy</string>
-    <string name="actionbar_theme_count_none">nenalezeny žádné motivy</string>
     <string name="actionbar_theme_count_loading">načítaní&#8230;</string>
     <string name="actionbar_search">Hledat</string>
     <string name="actionbar_changelog">Seznam změn motivu</string>
@@ -72,14 +69,8 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     </string>
     <string name="activity_missing_toast">Promiňte, ale nebyly nalezeny žádné aplikace, které by mohl zvládnout tuto žádost!
     </string>
-    <string name="abort_overlay_toast">Nyní probíhá odinstalování všech potahů&#8230;</string>
     <string name="abort_overlay_toast_success">Všechny potahy odinstalovány!</string>
     <string name="rescue_toast">Záchrana systému&#8230;</string>
-    <string name="disable_overlay_toast">Zakazování všech povolených potahů&#8230;</string>
-    <string name="disable_overlay_toast_success">Všechny potahy zakázány!</string>
-    <string name="disable_overlay_toast_not_found">Nezdařilo se vypnout všechny potahy!</string>
-    <string name="restore_activity_toast">Záložní soubor nalezen! Nyní probíhá obnova&#8230;</string>
-    <string name="restore_activity_toast_not_found">Nebyla nalezena žádná záloha databáze potahů.</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">typ1a varianta&#8230;</string>
     <string name="overlays_variant_default_1b">typ1b varianta&#8230;</string>
@@ -89,13 +80,6 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="overlays_up_to_date">AKTUÁLNÍ</string>
     <string name="overlays_update_available">Dostupná aktualizace!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Varianta není nainstalována</string>
-    <string name="overlays_compile_update_button">Kompilovat/aktualizovat &amp; instalovat</string>
-    <string name="information_activity_pirated_toast">Binární kód tohoto motivu neprošel ověřením integrity Substratum.
-    </string>
-    <string name="information_activity_upgrade_toast">Tento motiv musí být předělán podle nové šablony motivů pro použití v Substratum!
-    </string>
-    <string name="information_activity_upgrade_toast_lenient">Plugin tohoto motivu není aktuální!
-    </string>
     <string name="bootanimation_vm_exploded">Vykreslování spouštěcí animace bylo ukončeno z důvodu nedostatku paměti.\n\nInstalace spouštěcí animace je stále možná, ale bez vykreslení ukázky.
     </string>
     <string name="bootanimation_placeholder_text">prosím, vyberte spouštěcí animaci ze seznamu&#8230;</string>
@@ -109,8 +93,6 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="wallpaper_dialog_wallpaper">Tapeta domácí obrazovky</string>
     <string name="wallpaper_dialog_lockscreen">Tapeta zamykací obrazovky</string>
     <string name="wallpaper_dialog_wallpaper_both">Tapeta domácí a zamykací obrazovky</string>
-    <string name="wallpaper_dialog_cancel">Zrušit</string>
-    <string name="wallpaper_dialog_message">Na jaké pozadí použít tento obrázek?</string>
     <string name="wallpaper_downloading">Načítání obrázku do mezipaměti&#8230;</string>
     <string name="wallpaper_allscreen_success">Tapeta na domácí a zamykací obrazovce nastavena!
     </string>
@@ -149,7 +131,6 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="fonts_dialog_permissions_grant_toast2">Pro povolení ovládání systémových písem Substratum musíte zapnout volbu \"Povolit úpravu systémového nastavení\".
     </string>
     <string name="error_loading_pack">vypadá to, že tento balíček nebyl správně nastaven&#8230;</string>
-    <string name="no_themes_installed">neexistují žádné potahy, které můžete instalovat z tohoto motivu&#8230;    </string>
     <string name="content_resolver_alarm_metadata">Substratum motiv pro budíku</string>
     <string name="content_resolver_notification_metadata">Substratum motiv pro upozornění</string>
     <string name="content_resolver_ringtone_metadata">Substratum motiv pro vyzvánění</string>
@@ -164,7 +145,6 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="settings_about_interfacer_not_installed">není nainstalováno</string>
     <string name="settings_about_interfacer_masquerade">tato ROM vyžaduje aktualizaci pro využití funkcí Intarfacer</string>
     <string name="settings_about_oms_rro_version">platforma pro motivy:</string>
-    <string name="settings_about_oms_version_3">OMS3</string>
     <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
     <string name="settings_about_system_version">systémová platforma</string>
@@ -178,40 +158,24 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="nougat_style_cards_subtext">Povolit styl karet oznámení podle Android Nougat.
     </string>
     <string name="uninstall_dialog_text">Opravdu chcete odinstalovat tento motiv?</string>
-    <string name="manage_dialog_text">Opravdu chcete provést tuto akci?</string>
     <string name="manage_dialog_performing">Obnovení na výchozí&#8230;</string>
     <string name="manage_bootanimation_title">Obnovit spouštěcí animaci</string>
     <string name="manage_bootanimation_toast">Spouštěcí animace byla úspěšně obnovena!</string>
-    <string name="manage_bootanimation_text">Obnovuje výchozí spouštěcí animaci na vašem zařízení
-    </string>
     <string name="manage_fonts_title">Obnovit systémové písma</string>
     <string name="manage_fonts_toast">Písma byla úspěšně obnovena!</string>
-    <string name="manage_fonts_text">Obnovuje výchozí systémové písmo v zařízení</string>
     <string name="manage_sounds_title">Obnovit systémové zvuky</string>
     <string name="manage_sounds_toast">Výchozí zvuky úspěšně obnoveny!</string>
-    <string name="manage_sounds_text">Obnovije výchozí systémové zvuky v zařízení</string>
-    <string name="manage_system_overlay_dialog_title">Správce čištění potahů</string>
     <string name="manage_system_overlay_disable">Zakázat všechny povolené potahy</string>
     <string name="manage_system_overlay_uninstall">Odinstalovat všechny nainstalované potahy</string>
-    <string name="manage_system_overlay_title">Obnovit systémový motiv</string>
     <string name="manage_system_overlay_toast">Systémový motiv se nyní obnovuje&#8230;</string>
     <string name="manage_system_overlay_uninstall_toast">Probíhá odinstalování potahů na pozadí&#8230;</string>
-    <string name="manage_system_overlay_text">Zakáže všechny povolené potahy a obnoví výchozí motiv
-    </string>
     <string name="manage_system_not_permitted">Nelze povolit několik potahů, protože není nastaven hlavní motiv.</string>
-    <string name="manage_wallpaper_title">Obnovit výchozí tapetu</string>
-    <string name="manage_wallpaper_text">Obnovit výchozí tapetu v zařízení</string>
     <string name="manage_wallpaper_home">Tapeta domácí obrazovky</string>
     <string name="manage_wallpaper_lock">Tapeta zamykací obrazovky</string>
     <string name="manage_wallpaper_all">Tapeta domácí a zamykací obrazovky</string>
     <string name="manage_wallpaper_home_toast">Tapeta domácí obrazovky úspěšně obnovena!</string>
     <string name="manage_wallpaper_lock_toast">Tapeta zamykací obrazovky úspěšně obnovena!</string>
     <string name="manage_wallpaper_all_toast">Tapeta byla úspěšně obnovena!</string>
-    <string name="manage_style">Styl</string>
-    <string name="manage_fonts">Písma</string>
-    <string name="manage_bootanimation">Spouštěcí animace</string>
-    <string name="manage_sounds">Zvuky</string>
-    <string name="manage_wallpaper">Tapety</string>
     <string name="adapter_uninstalling">Odstraňování %s&#8230;</string>
     <string name="plugin_template">Plugin</string>
     <string name="api_21">Lollipop</string>
@@ -234,7 +198,6 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="menu_open">Balíček ikon hlavního panelu</string>
     <string name="menu_rate">Ohodnotit motiv</string>
     <string name="menu_refresh">Obnovit</string>
-    <string name="menu_refresh_windows">Obnovit okna</string>
     <string name="menu_soft_reboot">Soft restart</string>
     <string name="menu_reboot_device">Restartovat zařízení</string>
     <string name="menu_per_app">FloatUI</string>
@@ -253,8 +216,6 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="dialog_restart_reboot_content">Takto provedete úplný restart vašeho zařízení.</string>
     <string name="dialog_restart_soft_reboot_title">Soft restart</string>
     <string name="dialog_restart_soft_reboot_content">Takto provedete úplný soft restart vašeho zařízení.</string>
-    <string name="legacy_theme_notification_title">Varování, neschválený motiv</string>
-    <string name="legacy_theme_notification_text">Chcete-li používat zastaralé motivy, prosím povolte je v nastavení.</string>
     <string name="studio">studio balíčku ikon (gamma)</string>
     <string name="studio_system">Obnovit systémové ikony</string>
     <string name="studio_system_reset_dialog_toast">
@@ -265,13 +226,9 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     </string>
     <string name="studio_refresh_dialog_title">Potvrzení změny konfigurace</string>
     <string name="studio_refresh_dialog_content">Substratum nyní změní vaše systémová nastavení s cílem zajistit pro všechny aplikace rychlou změnu a rozpoznání nových ikon.\n\nVáš systémový jazyk se na chvíli po najetí vašeho spouštěče přepne do japonštiny, pak se vrátí zpět do originálního jazyka zařízení. Pokud se ikony nezmění, klepněte na obnovení nastavení ikon na hlavní stránce ikonového studia!\n\nPo kliknutí na OK se nedotýkejte zařízení pokud nedostanete zprávu, že se balíček ikon úspěšně aplikoval!</string>
-    <string name="studio_custom">Kreativní mód [již brzy]</string>
-    <string name="studio_icon_packs">Vlastní ikony</string>
     <string name="studio_pack_title">Stažený balíček ikon</string>
     <string name="studio_system_title">Substratum Framework</string>
-    <string name="studio_applied_toast">Úspěšně použito %s!</string>
     <string name="studio_apply_confirmation">Jste si jisti, že chcete použít %s?</string>
-    <string name="studio_configuration_changed">Konfigurace byla úspěšně aktualizována!</string>
     <string name="studio_applying">Načítání&#8230;</string>
     <string name="icon_pack_entry">Ikona potahu</string>
     <string name="studio_update_configuration">Obnovit konfiguraci ikon</string>
@@ -316,8 +273,6 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="profile_edittext_hint">prosím, zadejte název pro tento profil&#8230;</string>
     <string name="profile_edittext_empty_toast">Prosím, zadejte název profilu před zálohováním!
     </string>
-    <string name="profile_edittext_empty_toast_sysui">Substratum pomocník pro písma nebyl nalezen, prosím nastavte písmo pro spuštění instalačního průvodce a získejte možnost dynamicky měnit písma!
-    </string>
     <string name="profile_edittext_title">Nový profil:</string>
     <string name="profile_edittext_whitespace_warning_toast">Nelze použít mezery v názvu profilu!</string>
     <string name="toast_backup_success">Aktuální seznam potahů je umístěn do \"/storage/emulated/0/substratum/profiles/%s\"
@@ -325,15 +280,8 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="spinner_default_item">vyberte profil&#8230;</string>
     <string name="select_to_toggle_all_overlays">Vybete pro přepnutí všech potahů</string>
     <string name="fab_menu_select_to_toggle_all_overlays">Vyberte všechny potahy</string>
-    <string name="overflow_description">Rozšířené možnosti</string>
-    <string name="overlay_dialog_default_res">Výchozí</string>
-    <string name="overlay_dialog_text">zjednodušování nastavení motivů&#8230;</string>
-    <string name="system_overlay_dialog_title">prosím, vyberte základní systémový potah&#8230;</string>
-    <string name="tp_overlay_dialog_title">prosím, vyberte základní potah třetích stran&#8230;</string>
     <string name="permission_not_granted_dialog_title">Oprávnění nejsou udělena</string>
     <string name="permission_not_granted_dialog_message1">Prosím, povolte Substratum oprávnění pro přístup k paměti, jinak nebude aplikace správně fungovat!    </string>
-    <string name="permission_not_granted_dialog_message2">Prosím, udělte Substratum oprávnění pro přístup k telefonu, jinak aplikace správně nezkompiluje překrytí závislé na zařízení!    </string>
-    <string name="permission_not_granted_dialog_message3">Prosím, povolte Substratum oprávnění pro přístup ke kontaktům, aby mohly být chyby nahlášeny bez problémů!    </string>
     <string name="dialog_ok">OK</string>
     <string name="dialog_do_not_show_again">Znovu nezobrazovat</string>
     <string name="clean_cache_dialog_body">Chcete vyčistit mezipaměť tohoto motivu?</string>
@@ -343,7 +291,6 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="uninstall_dialog_body">Odinstalovat motiv</string>
     <string name="uninstall_dialog_cancel">Zrušit</string>
     <string name="uninstall_dialog_okay">OK</string>
-    <string name="failed_to_install_overlay_toast">Nezdařilo se zkompilovat potah \"%s\"</string>
     <string name="sb_phase_1_loader">extrahování motivu</string>
     <string name="sb_phase_2_loader">instalování potahů</string>
     <string name="sb_phase_3_loader">vkládání zdrojů ikon</string>
@@ -351,29 +298,19 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="root_rejected_text_cm_phh">nelze pokračovat bez rootu&#8230;</string>
     <string name="root_rejected_timer_plural">zavírání za %s sekund&#8230;</string>
     <string name="root_rejected_timer_singular">zavírání za %s sekundu&#8230;</string>
-    <string name="list_of_overlays">Seznam instalovatelných potahů</string>
-    <string name="toast_unapproved">Tento potah byl zamítnut systémem</string>
-    <string name="toast_compiled">Vybrané potahy jsou zkompilovány!</string>
     <string name="toast_compiled_updated">Vybrané potahy jsou aktualizovány!</string>
     <string name="toast_compiled_missing">Jeden nebo více potahů nelze zkompilovat kvůli chybějící konfiguraci v rámci tohoto nastavení&#8230;</string>
     <string name="toast_compiled_updated_with_errors">Vybrané potahy jsou aktualizovány s pár
  chybami!</string>
-    <string name="toast_enabled">Úspěšně povoleno!</string>
-    <string name="toast_disabled">Úspěšně zakázáno!</string>
     <string name="toast_disabled3">Prosím, zkompilujte tento potah před použitím!</string>
     <string name="toast_disabled4">Nemůžete zakázat potah, který nemáte zkompilovaný!</string>
     <string name="toast_disabled5">Prosím, vyberte správný potah před provedením této akce.</string>
     <string name="toast_disabled6">Vybrané potahy jsou odstraněny!</string>
-    <string name="toast_installed">Vybrané potahy jsou aplikovány!</string>
     <string name="toast_uninstalled">Právě jste odinstalovali tento motiv! Bude pryč při dalším
  obnovení!</string>
-    <string name="toast_uninstalling">Nyní probíhá odinstalování potahů&#8230;</string>
-    <string name="toast_updating">Substratum připravuje váš motiv v pozadí!</string>
     <string name="no_themes_title">nenalezeny žádné motivy&#8230;</string>
     <string name="no_themes_description">prosím, nainstalujte kompatibilní motiv!</string>
     <string name="no_themes_description_search">\"%s\" nebylo nalezeno v seznamu nainstalovaných motivů&#8230;</string>
-    <string name="toast_on_back_press_compiling">Můžete používat ostatní aplikace kliknutím na
- tlačítko domů.</string>
     <string name="toast_needs_caching">Mezipaměť Substratum byla vyčištěna, prosím znovu
  postavte tento motiv před pokračováním!</string>
     <string name="notification_theme_installed">nainstalováno</string>
@@ -385,13 +322,10 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="notification_initial_title">Substratum je spuštěno</string>
     <string name="notification_initial_title_upgrade">%s zdroje se nyní aktualizují&#8230;</string>
     <string name="notification_done_title">Byla dokončena kompilace motivu</string>
-    <string name="notification_extracting_assets">Extrahování dat z balíčku motivu&#8230;</string>
-    <string name="notification_extracting_assets_text">Zpracování potahů&#8230;</string>
     <string name="notification_no_errors_found">Nenastaly žádné chyby při instalaci potahů</string>
     <string name="notification_some_errors_found">Nastala chyba při instalaci potahu</string>
     <string name="notification_processing">Zpracovávání potahu pro</string>
     <string name="notification_processing_n">Připravování potahů motivu&#8230;</string>
-    <string name="notification_compiling_signing_installing">Vytváření a instalování vašeho potahu&#8230;</string>
     <string name="advanced_manager_overlay_read_error">Nepodařilo se analyzovat seznam potahů. Na opravu otevřete složku Obnovení a klepněte na Obnovit systémový motiv (Odinstaluje všechny nainstalované potahy).    </string>
     <string name="shortcut_floatui">FloatUI</string>
     <string name="shortcut_floatui_disabled">FloatUI</string>
@@ -405,7 +339,6 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="settings_title_3">Úpravy motivů</string>
     <string name="settings_title_clickable">Konfigurace systému</string>
     <string name="substratum_cache_clear_initial_toast">Mezipaměť Substratum se nyní čistí&#8230;</string>
-    <string name="substratum_cache_clear_toast">Mezipaměť Substratum je vyčištěna!</string>
     <string name="substratum_restart_toast">Substratum se automaticky restartovalo po
  změně.</string>
     <string name="purge_cache">Neplatná vyrovnávací paměť motivu</string>
@@ -428,17 +361,11 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="hide_app_icon_not_supported">Změna není podporována</string>
     <string name="hide_app_icon_supported">Toto umožní přepínat mezi ikonou viditelnou nebo neviditelnou ve
  spouštěči aplikací.</string>
-    <string name="show_installed_packages_only">Zobrazit pouze nainstalované balíčky ve výběru potahů</string>
-    <string name="purge_completion">Potahy pro toto téma se čistí na pozadí&#8230;</string>
-    <string name="clean_completion">Potahy pro toto téma se čistí na pozadí&#8230;</string>
     <string name="cache_clear_completion">%s mezipaměť tohoto motivu byla vyčištěna!</string>
     <string name="disable_completion">Všechny potahy pro tento motiv se nyní
  vypínají&#8230;</string>
     <string name="enable_completion">Všechny potahy pro tento motiv se nyní
  zapínají&#8230;</string>
-    <string name="purge_information">Odstraňování všech potahů najednou je potencionálně nebezpečné a způsobuje mnoho vynucených zavření při výkonu akce.</string>
-    <string name="purge_button_text">ODINSTALOVAT VŠECHNY POTAHY</string>
-    <string name="purge2_button_text">ZAKÁZAT VŠECHNY POVOLENÉ POTAHY</string>
     <string name="dynamic_actionbar_colors">Dynamické barvy akčního panelu</string>
     <string name="dynamic_actionbar_colors_subtext">V informačním okýnku motivu, Substratum
  adaptuje sbalitelný akční řádek na dominantní barvu hrdinského obrázku.</string>
@@ -453,7 +380,6 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
  prochází uživatelským prostředím.</string>
     <string name="show_outdated_themes_title">Zobrazit všechny neaktuální motivy</string>
     <string name="show_outdated_themes_content">Zakázání umožní Substratum použít zcela nový algoritmus, se kterým se motivy načítají mnohem rychleji než obvykle. Funguje pouze na správně nakonfigurovaných motivech se zásuvným modulem v6.0.0+.</string>
-    <string name="fab_menu_compile">Zkompilovat vybrané</string>
     <string name="fab_menu_compile_enable">Sestavit &amp; povolit</string>
     <string name="fab_menu_compile_update">Sestavit &amp; aktualizovat</string>
     <string name="fab_menu_compile_install">Instalovat vybrané</string>
@@ -502,8 +428,6 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="end_time">Konec</string>
     <string name="day_profile">Denní profil</string>
     <string name="night_profile">Noční profil</string>
-    <string name="day">Den</string>
-    <string name="night">Noc</string>
     <string name="apply">Použít</string>
     <string name="time_empty_warning">Prosím, nastavte časy začátku a konce!</string>
     <string name="time_equal_warning">Prosím, vyberte jiný čas aktivace!</string>
@@ -532,8 +456,6 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="profile_dialog_cancel">Zrušit</string>
     <string name="bottom_sheet_dialog_hide_outdated_themes">Skrýt neaktuální motivy (6.0.0+) [Doporučeno!]</string>
     <string name="bottom_sheet_dialog_show_outdated_themes">Zobrazit neaktuální motivy (před-6.0.0)</string>
-    <string name="bottom_sheet_dialog_outdated_description">Skrytí neaktuálních motivů zvýší výkon algoritmu na vyhledávání zdrojů! Toto je možné později změnit v Nastaveních, kdykoliv se rozhodnete nainstalovat staré motivy.</string>
-    <string name="bottom_sheet_dialog_outdated_title">Počkat!</string>
     <string name="settings_system_status">certifikace systému</string>
     <string name="settings_system_status_rooted">režim s rootem</string>
     <string name="settings_system_status_rootless">režim bez rootu</string>
@@ -587,7 +509,6 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="interfacer_not_authorized_toast">Tato verze Substratum není autorizovaná a nebude pracovat se systémovým modulem Interfacer.</string>
     <string name="app_crash_title">%s neustále ukončuje&#8230;</string>
     <string name="app_crash_content">Byly zakázány všechny povolené potahy pro tuto aplikaci.</string>
-    <string name="dirty_flash_detected">Firmware nebo ROM byl aktualizován bez odstranění uživatelských dat (dirty flash). Substratum bude překonfigurováno aby se zabránilo chybám.</string>
     <string name="rom_status">stav podpory:</string>
     <string name="rom_status_supported">%s je podporováno komunitou!</string>
     <string name="rom_status_unsupported">tato ROM není dosud známa pro komunitu&#8230;</string>

@@ -19,8 +19,6 @@
   -->
 <resources>
     <string name="showcase">prezentacja</string>
-    <string name="helper_name">Pomocnik nakładek Substratum</string>
-    <string name="restore_app_name">Przywróć motyw</string>
     <string name="android">wersja systemu Android:</string>
     <string name="device">model urządzenia:</string>
     <string name="resource_checker_request">Wyślij prośbę scalenia rewizji przy użyciu&#8230;</string>
@@ -45,7 +43,6 @@
     <string name="failed_to_install_text_notification">%s nie udało się zainstalować</string>
     <string name="actionbar_theme_count_singular">%s motyw</string>
     <string name="actionbar_theme_count_plural">%s motywów</string>
-    <string name="actionbar_theme_count_none">nie znaleziono motywów</string>
     <string name="actionbar_theme_count_loading">ładowanie&#8230;</string>
     <string name="actionbar_search">Szukaj</string>
     <string name="actionbar_changelog">Lista zmian motywu</string>
@@ -65,14 +62,8 @@ Jeśli posiadasz zainstalowane aplikacje Google od zespołu Black Out, nie musis
     <string name="legacy_dialog_soft_reboot_text">Działając na Resource Runtime Overlay system, wymagane jest wykonanie ponownego uruchomienia po dodaniu lub usunięciu nakładek.
 Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane ponowne uruchomienie.    </string>
     <string name="activity_missing_toast">Nie znaleziono żadnych aplikacji które mogłyby to obsłużyć, przepraszamy!    </string>
-    <string name="abort_overlay_toast">Trwa odinstalowywanie wszystkich nakładek&#8230;</string>
     <string name="abort_overlay_toast_success">Wszystkie nakładki odinstalowane!</string>
     <string name="rescue_toast">Ratowanie systemu&#8230;</string>
-    <string name="disable_overlay_toast">Trwa wyłączanie wszystkich włączonych nakładek&#8230;</string>
-    <string name="disable_overlay_toast_success">Wszystkie nakładki wyłączone!</string>
-    <string name="disable_overlay_toast_not_found">Nie można wyłączyć wszystkich nakładek!</string>
-    <string name="restore_activity_toast">Znaleziono kopię zapasową! Trwa przywracanie&#8230;</string>
-    <string name="restore_activity_toast_not_found">Nie znaleziono kopii zapasowej bazy danych nakładek.</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">wariant typ1a&#8230;</string>
     <string name="overlays_variant_default_1b">wariant typ1b&#8230;</string>
@@ -82,10 +73,6 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="overlays_up_to_date">AKTUALNE</string>
     <string name="overlays_update_available">Aktualizacja dostępna!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Wariantu nie zainstalowano</string>
-    <string name="overlays_compile_update_button">Kompiluj/aktualizuj &amp; zainstaluj</string>
-    <string name="information_activity_pirated_toast">Ten motyw nie przeszedł weryfikacji integralności    </string>
-    <string name="information_activity_upgrade_toast">Ten motyw musi być zmieniony na nowy szablon motywów, aby kontynuować używając Substratum!    </string>
-    <string name="information_activity_upgrade_toast_lenient">Ten motyw themera jest nieaktualny!    </string>
     <string name="bootanimation_vm_exploded">Renderowanie animacji rozruchu zostało zakończone z powodu niewystarczającej alokacji ilości pamięci. Instalacja jest nadal możliwa, lecz bez renderowanego podglądu.    </string>
     <string name="bootanimation_placeholder_text">Proszę wybrać z listy animację rozruchu&#8230;</string>
     <string name="bootanimation_default_spinner">Proszę wybrać animację rozruchu&#8230;</string>
@@ -97,8 +84,6 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="wallpaper_dialog_wallpaper">Tapeta ekranu głównego</string>
     <string name="wallpaper_dialog_lockscreen">Tapeta ekranu blokady</string>
     <string name="wallpaper_dialog_wallpaper_both">Tapeta ekranu głównego i ekranu blokady</string>
-    <string name="wallpaper_dialog_cancel">Anuluj</string>
-    <string name="wallpaper_dialog_message">Do którego tła zastosować ten obraz?</string>
     <string name="wallpaper_downloading">Ładowanie obrazu do pamięci podręcznej&#8230;</string>
     <string name="wallpaper_allscreen_success">Obydwie tapety ekranu głównego oraz ekranu blokady zostały skonfigurowane!    </string>
     <string name="wallpaper_allscreen_error">Nie można ustawić tapet ekranu głównego i ekranu blokady    </string>
@@ -130,7 +115,6 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="fonts_dialog_permissions_grant_toast">Aby zresetować wszystkie ustawione czcionki przez Substratum, należy włączyć \'Zezwalaj na modyfikacje systemowych ustawień\'.    </string>
     <string name="fonts_dialog_permissions_grant_toast2">Aby Substratum miało kontrolę nad twoimi czcionkami systemowymi, należy włączyć \'Zezwalaj na modyfikacje ustawień systemowych\'.    </string>
     <string name="error_loading_pack">wydaje się, że ten pakiet nie został skonfigurowany poprawnie&#8230;</string>
-    <string name="no_themes_installed">nie ma tutaj nakładek, które można zainstalować z tego motywu&#8230;    </string>
     <string name="content_resolver_alarm_metadata">Alarm Motywu Substratum</string>
     <string name="content_resolver_notification_metadata">Powiadomienie Motywu</string>
     <string name="content_resolver_ringtone_metadata">Dzwonek Motywu</string>
@@ -145,7 +129,6 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="settings_about_interfacer_not_installed">nie zainstalowany</string>
     <string name="settings_about_interfacer_masquerade">ten rom wymaga aktualizacji, aby korzystać z funkcjonalności interfacera motywu</string>
     <string name="settings_about_oms_rro_version">platforma motywu:</string>
-    <string name="settings_about_oms_version_3">OMS3</string>
     <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2 (starsza wersja)</string>
     <string name="settings_about_system_version">platforma systemowa</string>
@@ -158,38 +141,24 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="nougat_style_cards_title">Układ kart w stylu Nougat</string>
     <string name="nougat_style_cards_subtext">Włącz powiadomienie w stylu kart z Android Nougat.    </string>
     <string name="uninstall_dialog_text">Czy chcesz odinstalować ten motyw?</string>
-    <string name="manage_dialog_text">Czy jesteś pewien, że chcesz wykonać tę akcję?</string>
     <string name="manage_dialog_performing">Przywracanie domyślnych&#8230;</string>
     <string name="manage_bootanimation_title">Przywróć animację rozruchu</string>
     <string name="manage_bootanimation_toast">Animacja rozruchowa pomyślnie przywrócona!</string>
-    <string name="manage_bootanimation_text">Przywracanie domyślnej animacji rozruchowej na twoim urządzeniu    </string>
     <string name="manage_fonts_title">Przywróć domyślną czcionke</string>
     <string name="manage_fonts_toast">Pomyślnie przywrócono czcionki!</string>
-    <string name="manage_fonts_text">Przywracanie systemowych czcionek na twoim urządzeniu</string>
     <string name="manage_sounds_title">Przywróć systemowe dźwięki</string>
     <string name="manage_sounds_toast">Pomyślnie przywrócono domyślne dźwięki!</string>
-    <string name="manage_sounds_text">Przywracanie systemowych dźwięków na twoim urządzeniu</string>
-    <string name="manage_system_overlay_dialog_title">Menedżer czyszczenia nakładek</string>
     <string name="manage_system_overlay_disable">Wyłącz wszystkie włączone nakładki</string>
     <string name="manage_system_overlay_uninstall">Odinstaluj wszystkie zainstalowane nakładki</string>
-    <string name="manage_system_overlay_title">Przywróć domyślny motyw</string>
     <string name="manage_system_overlay_toast">Teraz jest przywracany systemowy motyw&#8230;</string>
     <string name="manage_system_overlay_uninstall_toast">Nakładki są teraz odinstalowywane w tle&#8230;</string>
-    <string name="manage_system_overlay_text">Wyłączenie wszystkich włączonych nakładek i przywrócenie systemowych    </string>
     <string name="manage_system_not_permitted">Nie można aktywować kilku nakładek z powodu iż główny motyw je zawierający nie jest dostępny.</string>
-    <string name="manage_wallpaper_title">Przywróć domyślną tapete</string>
-    <string name="manage_wallpaper_text">Przywracanie podstawowej tapety na twoim urządzeniu</string>
     <string name="manage_wallpaper_home">Tapeta ekranu głównego</string>
     <string name="manage_wallpaper_lock">Tapeta ekranu blokady</string>
     <string name="manage_wallpaper_all">Tapeta ekranu głównego i ekranu blokady</string>
     <string name="manage_wallpaper_home_toast">Tapeta ekranu głównego pomyślnie przywrócona!</string>
     <string name="manage_wallpaper_lock_toast">Tapeta ekranu blokady pomyślnie przywrócona!</string>
     <string name="manage_wallpaper_all_toast">Tapeta pomyślnie przywrócona!</string>
-    <string name="manage_style">Styl</string>
-    <string name="manage_fonts">Czcionki</string>
-    <string name="manage_bootanimation">Animacja rozruchu</string>
-    <string name="manage_sounds">Dźwięki</string>
-    <string name="manage_wallpaper">Tapeta</string>
     <string name="adapter_uninstalling">Usuwanie %s...</string>
     <string name="plugin_template">Wtyczka</string>
     <string name="api_21">Lollipop</string>
@@ -212,7 +181,6 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="menu_open">Pulpit nawigacyjny pakietu ikon</string>
     <string name="menu_rate">Oceń motyw</string>
     <string name="menu_refresh">Odśwież</string>
-    <string name="menu_refresh_windows">Odśwież okna</string>
     <string name="menu_soft_reboot">Szybki restart</string>
     <string name="menu_reboot_device">Uruchom ponownie urządzenie</string>
     <string name="menu_per_app">FloatUI</string>
@@ -231,8 +199,6 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="dialog_restart_reboot_content">To działanie uruchomi ponownie twoje urządzenie.</string>
     <string name="dialog_restart_soft_reboot_title">Szybki restart</string>
     <string name="dialog_restart_soft_reboot_content">To działanie wykona miękki restart twojego urządzenia.</string>
-    <string name="legacy_theme_notification_title">Ostrzeżenie o przestarzałym motywie</string>
-    <string name="legacy_theme_notification_text">Aby użyć nieaktualnych motywów, proszę włącz to w ustawieniach.</string>
     <string name="studio">studio ikon (gamma)</string>
     <string name="studio_system">Przywróć domyślne ikony</string>
     <string name="studio_system_reset_dialog_toast">
@@ -241,13 +207,9 @@ Już zostały wyłączone wszystkie niestandardowe ikony!    </string>
 Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
     <string name="studio_refresh_dialog_title">Potwierdzenie zmian konfiguracyjnych</string>
     <string name="studio_refresh_dialog_content">Substratum teraz zmieni konfigurację twojego systemu tak aby rozpoznawał nowe ikony.\n\nJęzyk systemowy od razu zmieni się na Japoński tuż po tym zostaniesz wyrzucony do swojego programu rozruchowego, następnie wróć do swojego języka macierzystego na twoim urządzeniu. Jeżeli ikony się nie zmienią kliknij na \'Odśwież Konfigurację Ikon\' na głównej stronie Studia Ikon!\n\nPo tym jak naciśniesz OK, nie dotykaj swojego urządzenia póki nie zobaczysz informacji mówiącej o tym że twoja paczka ikon została zastosowana!</string>
-    <string name="studio_custom">Tryb kreatywny [wkrótce]</string>
-    <string name="studio_icon_packs">Ikony niestandardowe</string>
     <string name="studio_pack_title">Pobrane pakiety ikon</string>
     <string name="studio_system_title">Substratum Framework</string>
-    <string name="studio_applied_toast">Pomyślnie zastosowano %s!</string>
     <string name="studio_apply_confirmation">Czy aby na pewno chcesz zastosować %s?</string>
-    <string name="studio_configuration_changed">Pomyślnie zaktualizowano konfigurację!</string>
     <string name="studio_applying">Ładowanie&#8230;</string>
     <string name="icon_pack_entry">Ikony nakładek</string>
     <string name="studio_update_configuration">Odśwież konfigurację ikon</string>
@@ -287,7 +249,6 @@ Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
     <string name="profile_delete_button_none_selected_toast">Wybierz profil z rozwijanej listy przed próbą usunięcia profilu!    </string>
     <string name="profile_edittext_hint">wpisz nazwę dla profilu&#8230;</string>
     <string name="profile_edittext_empty_toast">Wprowadź nazwę dla profilu przed utworzeniem kopii zapasowej!    </string>
-    <string name="profile_edittext_empty_toast_sysui">Pomocnik czcionek Substratum nie został znaleziony, proszę zastosuj czcionkę aby zainstalować Pomocnika i odzyskać opcję dynamicznej zmiany czcionek!    </string>
     <string name="profile_edittext_title">Nowy profil:</string>
     <string name="profile_edittext_whitespace_warning_toast">Nie można używać spacji wewnątrz nazwy profilu!</string>
     <string name="toast_backup_success">Zapisano aktualną listę nakładek do
@@ -296,15 +257,8 @@ Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
     <string name="spinner_default_item">wybierz profil...</string>
     <string name="select_to_toggle_all_overlays">Wybierz, aby wybrać wszystkie nakładki</string>
     <string name="fab_menu_select_to_toggle_all_overlays">Wybierz wszystkie nakładki</string>
-    <string name="overflow_description">Dodatkowe opcje</string>
-    <string name="overlay_dialog_default_res">Domyślne</string>
-    <string name="overlay_dialog_text">upraszczanie opcji bieżącego motywu&#8230;</string>
-    <string name="system_overlay_dialog_title">wybierz bazę systemowych nakładek&#8230;</string>
-    <string name="tp_overlay_dialog_title">proszę wybrać bazę nakładek od osób trzecich&#8230;</string>
     <string name="permission_not_granted_dialog_title">Uprawnienia nie zostały przyznane</string>
     <string name="permission_not_granted_dialog_message1">Proszę udzielić substratum uprawnień do pam. wewnętrznej, bo inaczej aplikacja nie będzie działać poprawnie!    </string>
-    <string name="permission_not_granted_dialog_message2">Proszę udzielić substratum uprawnień do telefonu, bo inaczej aplikacja nie skompiluje zależnych od tego nakładek!    </string>
-    <string name="permission_not_granted_dialog_message3">Proszę przyznaj uprawnienia odczytu kontaktów dla Substratum w celu bezproblemowego zgłaszania błędów systemu przy aktywacji motywów!    </string>
     <string name="dialog_ok">OK</string>
     <string name="dialog_do_not_show_again">Nie pokazuj ponownie</string>
     <string name="clean_cache_dialog_body">Czy chcesz wyczyścić pamięć podręczną tego motywu?</string>
@@ -314,7 +268,6 @@ Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
     <string name="uninstall_dialog_body">Odinstaluj Motyw</string>
     <string name="uninstall_dialog_cancel">Anuluj</string>
     <string name="uninstall_dialog_okay">OK</string>
-    <string name="failed_to_install_overlay_toast">Nie można skompilować nakładki \"%s\"</string>
     <string name="sb_phase_1_loader">wyodrębnianie motywu</string>
     <string name="sb_phase_2_loader">instalowanie nakładki</string>
     <string name="sb_phase_3_loader">iniekcja zasobów ikon</string>
@@ -322,26 +275,17 @@ Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
     <string name="root_rejected_text_cm_phh">nie można kontynuować bez roota&#8230;</string>
     <string name="root_rejected_timer_plural">zamykanie za %s sekund&#8230;</string>
     <string name="root_rejected_timer_singular">zamykanie za %s sekundy&#8230;</string>
-    <string name="list_of_overlays">Lista instalowanych nakładek</string>
-    <string name="toast_unapproved">Ta nakładka została odrzucona przez system</string>
-    <string name="toast_compiled">Wybrane nakładki skompilowane!</string>
     <string name="toast_compiled_updated">Wybrane nakładki zaktualizowane!</string>
     <string name="toast_compiled_missing">Nie można skompilować jednej lub wielu nakładek z powodu braku konfiguracji w tym zestawie&#8230;</string>
     <string name="toast_compiled_updated_with_errors">Wybrane nakładki zaktualizowane z pewnymi błędami!</string>
-    <string name="toast_enabled">Pomyślnie włączono!</string>
-    <string name="toast_disabled">Pomyślnie wyłączono!</string>
     <string name="toast_disabled3">Najpierw skompiluj tę nakładkę przed zastosowaniem!</string>
     <string name="toast_disabled4">Nie można wyłączyć nakładki, której nie skompilowałeś!</string>
     <string name="toast_disabled5">Przed wykonaniem tej akcji zaznacz ważną nakładkę.</string>
     <string name="toast_disabled6">Wybrane nakładki zostały usunięte!</string>
-    <string name="toast_installed">Wybrane nakładki zastosowane!</string>
     <string name="toast_uninstalled">Właśnie odinstalowałeś ten motyw! Zniknę przy następnym odświeżeniu!</string>
-    <string name="toast_uninstalling">Odinstalowywanie nakładek&#8230;</string>
-    <string name="toast_updating">Substratum przygotowuje twój motyw w tle!</string>
     <string name="no_themes_title">nie znaleziono motywów&#8230;</string>
     <string name="no_themes_description">proszę zainstalować zgodny motyw!</string>
     <string name="no_themes_description_search">Nie znaleziono \"%s\" na liście zainstalowanych motywów&#8230;</string>
-    <string name="toast_on_back_press_compiling">Można używać innych aplikacji podczas kompilacji, klikając na przycisk Home/Ostatnio używane.</string>
     <string name="toast_needs_caching">Pamięć podręczna Substratum została wymazana, przed kontynuacją proszę przebudować ten motyw!</string>
     <string name="notification_theme_installed">zainstalowane</string>
     <string name="notification_theme_updated">zaktualizowany</string>
@@ -352,13 +296,10 @@ Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
     <string name="notification_initial_title">Substratum jest uruchomione</string>
     <string name="notification_initial_title_upgrade">Zasoby %s są teraz aktualizowane&#8230;</string>
     <string name="notification_done_title">Kompilacja motywu została zakończona</string>
-    <string name="notification_extracting_assets">Wyodrębnianie aktywów z pakietu motywu&#8230;</string>
-    <string name="notification_extracting_assets_text">Przetwarzanie nakładek&#8230;</string>
     <string name="notification_no_errors_found">Nie wystąpiły żadne błędy podczas instalowania nakładek</string>
     <string name="notification_some_errors_found">Wystąpił błąd podczas instalowania nakładki</string>
     <string name="notification_processing">Nakładki do przetworzenia</string>
     <string name="notification_processing_n">Przygotowywanie nakładki motywu&#8230;</string>
-    <string name="notification_compiling_signing_installing">Tworzenie i Instalowanie twoich nakładek&#8230;</string>
     <string name="advanced_manager_overlay_read_error">Nie można przeanalizować listy nakładek. Proszę otworzyć         zakładkę Odzyskiwania i kliknąć na Przywróć Motyw Systemowy (Odinstaluj wszystkie zainstalowane nakładki) aby         rozwiązać ten problem.
     </string>
     <string name="shortcut_floatui">FloatUI</string>
@@ -373,7 +314,6 @@ Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
     <string name="settings_title_3">Skórki</string>
     <string name="settings_title_clickable">Konfiguracja systemu</string>
     <string name="substratum_cache_clear_initial_toast">Wymazywanie pamięci podręcznej Substratum&#8230;</string>
-    <string name="substratum_cache_clear_toast">Pamięć podręczna Substratum została wyczyszczona!</string>
     <string name="substratum_restart_toast">Substratum zostanie automatycznie uruchomione po zmianie ustawień.</string>
     <string name="purge_cache">Unieważnia pamięć podręczną motywu</string>
     <string name="purge_cache_subtext">Spowoduje to zniszczenie przechowywanej pamięci podręcznej aplikacji i motywu.</string>
@@ -390,15 +330,9 @@ Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
     <string name="hide_app_icon_toast_disabled">Ikona programu została dodana do twojego programu uruchamiającego!</string>
     <string name="hide_app_icon_not_supported">Zmiana nie jest obsługiwana</string>
     <string name="hide_app_icon_supported">To pozwoli wybrać czy ikona programu ma być widoczna lub ukryta na twoim ekranie głównym.</string>
-    <string name="show_installed_packages_only">Pokaż tylko zainstalowane pakiety w zasobniku nakładek</string>
-    <string name="purge_completion">Nakładki dla tego motywu są czyszczone w tle&#8230;</string>
-    <string name="clean_completion">Nakładki dla tego motywu są czyszczone w tle&#8230;</string>
     <string name="cache_clear_completion">wyczyszczono pamięć podręczną dla motywu %s!</string>
     <string name="disable_completion">Wszystkie nakładki dla tego tematu są teraz dezaktywowane&#8230;</string>
     <string name="enable_completion">Wszystkie nakładki zainstalowane dla tego motywu są teraz aktywowane&#8230;</string>
-    <string name="purge_information">Usuwanie wszystkich nakładek na raz jest potencjalnie niebezpiecznym działaniem, powodującym wiele wymuszonych zamknięć podczas tego działania.</string>
-    <string name="purge_button_text">ODINSTALUJ WSZYSTKIE NAKŁADKI</string>
-    <string name="purge2_button_text">WYŁĄCZENIE WSZYSTKICH WŁĄCZONYCH NAKŁADEK</string>
     <string name="dynamic_actionbar_colors">Dynamiczny kolor paska akcji</string>
     <string name="dynamic_actionbar_colors_subtext">W oknie informacji o motywie, Substratum dostosuje pasek akcji tak, aby pasował do dominującego koloru znajdującego się w nim.</string>
     <string name="dynamic_navbar_colors">Dynamiczne kolory paska nawigacji</string>
@@ -409,7 +343,6 @@ Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
     <string name="alternate_drawer_design_subtext">Używaj alternatywnego modelu szuflady nawigacyjnej podczas żeglowania po interfejsie.</string>
     <string name="show_outdated_themes_title">Pokaż wszystkie nieaktualne motywy</string>
     <string name="show_outdated_themes_content">Wyłączenie tego pozwoli Substratum użyć nowego algorytmu dla szybszej aktywacji motywów. Opcja ta zadziała jedynie dla poprawnie skonfigurowanych wtyczek motywów dla 6.0.0+.</string>
-    <string name="fab_menu_compile">Kompiluj zaznaczone</string>
     <string name="fab_menu_compile_enable">Kompiluj i włącz</string>
     <string name="fab_menu_compile_update">Kompiluj i zaktualizuj</string>
     <string name="fab_menu_compile_install">Instaluj zaznaczone</string>
@@ -458,8 +391,6 @@ Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
     <string name="end_time">Koniec</string>
     <string name="day_profile">Profil dzienny</string>
     <string name="night_profile">Profil nocny</string>
-    <string name="day">Dzień</string>
-    <string name="night">Noc</string>
     <string name="apply">Zastosuj</string>
     <string name="time_empty_warning">Należy skonfigurować czas rozpoczęcia i zakończenia!</string>
     <string name="time_equal_warning">Proszę wybrać różne czasy aktywacji!</string>
@@ -488,8 +419,6 @@ Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
     <string name="profile_dialog_cancel">Anuluj</string>
     <string name="bottom_sheet_dialog_hide_outdated_themes">Ukryj nieaktualne motywy (6.0.0+) [Zalecane!]</string>
     <string name="bottom_sheet_dialog_show_outdated_themes">Pokaż nieaktualne motywy (sprzed-6.0.0)</string>
-    <string name="bottom_sheet_dialog_outdated_description">Ukrywanie nieaktualnych motywów pozwoli zwiększyć wydajność algorytmu wyszukiwania zasobów motywu. Jeśli kiedykolwiek zdecydujesz się zainstalować stary motyw możesz zmienić tą opcję w Ustawieniach.</string>
-    <string name="bottom_sheet_dialog_outdated_title">Zaczekaj!</string>
     <string name="settings_system_status">system certyfikacji</string>
     <string name="settings_system_status_rooted">tryb roota</string>
     <string name="settings_system_status_rootless">tryb bez roota</string>
@@ -543,7 +472,6 @@ Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
     <string name="interfacer_not_authorized_toast">Ta wersja Substratum nie jest autoryzowana i nie będzie działać z modułem Interfacera.</string>
     <string name="app_crash_title">%s ciągle się zatrzymuje&#8230;</string>
     <string name="app_crash_content">Wszystkie włączone nakładki dla tej aplikacji zostały wyłączone.</string>
-    <string name="dirty_flash_detected">Twoje oprogramowanie lub ROM zostało zaktualizowane bez wyczyszczenia danych. Substratum przekonfiguruje się samo, aby uniknąć błędów.</string>
     <string name="rom_status">status wsparcia:</string>
     <string name="rom_status_supported">%s jest wspierany przez społeczność!</string>
     <string name="rom_status_unsupported">ten rom nie jest jeszcze znany przez naszą społeczność&#8230;</string>

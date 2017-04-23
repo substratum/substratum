@@ -37,7 +37,6 @@
             android:src="@drawable/no_wallpapers_found_showcase"/>
 
         <TextView
-            android:id="@+id/placeholder_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/image_placeholder"
@@ -64,7 +63,6 @@
             android:src="@drawable/no_network"/>
 
         <TextView
-            android:id="@+id/placeholder_text2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/image_placeholder2"

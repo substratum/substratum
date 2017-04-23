@@ -19,8 +19,6 @@
   -->
 <resources>
     <string name="showcase">vitrina</string>
-    <string name="helper_name">\"substratum\" perdangų pagalbininkas</string>
-    <string name="restore_app_name">atkurti temą</string>
     <string name="android">\"android\" versija:</string>
     <string name="device">įrenginio modelis:</string>
     <string name="resource_checker_request">Siųsti įpareigojimą suliejimo užklausai naudojant&#8230;</string>
@@ -45,7 +43,6 @@
     <string name="failed_to_install_text_notification">%s nepavyko įdiegti</string>
     <string name="actionbar_theme_count_singular">%s tema</string>
     <string name="actionbar_theme_count_plural">%s temos</string>
-    <string name="actionbar_theme_count_none">nerasta jokių temų</string>
     <string name="actionbar_theme_count_loading">kraunama&#8230;</string>
     <string name="actionbar_search">Ieškoti</string>
     <string name="actionbar_changelog">Temos pakeitimų sąrašas</string>
@@ -71,14 +68,8 @@
     <string name="legacy_dialog_soft_reboot_title">Būtina paleisti iš naujo</string>
     <string name="legacy_dialog_soft_reboot_text">Naudojant \"Resource Runtime Overlay (RRO)\" sistemą, būtina paleisti iš naujo po perdangų pridėjimo/pašalinimo.\n\nSekant šį dialogą jums automatiškai paleis įrenginį iš naujo, todėl būkite tikri, kad išsaugojote savo darbą prieš tęsdami.</string>
     <string name="activity_missing_toast">Nebuvo rasta nei viena programėlė, kuri galėtu palaikyti šį prašymą, atsiprašome!</string>
-    <string name="abort_overlay_toast">Pašalinamos visos perdangos&#8230;</string>
     <string name="abort_overlay_toast_success">Visos perdangos pašalintos!</string>
     <string name="rescue_toast">Gelbėjama jūsų sistema&#8230;</string>
-    <string name="disable_overlay_toast">Dabar išjungiamos visos įjungtos perdangos&#8230;</string>
-    <string name="disable_overlay_toast_success">Visos perdangos išjungtos!</string>
-    <string name="disable_overlay_toast_not_found">Nepavyko išjungti visų perdangų!</string>
-    <string name="restore_activity_toast">Rastas atsarginės kopijos failas! Dabar atkuriama&#8230;</string>
-    <string name="restore_activity_toast_not_found">Nėra perdangų atsarginės kopijos.</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">tipo1a variantas&#8230;</string>
     <string name="overlays_variant_default_1b">tipo1b variantas&#8230;</string>
@@ -88,10 +79,6 @@
     <string name="overlays_up_to_date">Šiuometinis</string>
     <string name="overlays_update_available">Galimas atnaujinimas!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Variantas neįdiegtas</string>
-    <string name="overlays_compile_update_button">Kompiliuoti/Atnaujinti ir Įdiegti</string>
-    <string name="information_activity_pirated_toast">Šios temos dvejetainė nepraėjo \"Substratum\" vientisumo tikrinimo.</string>
-    <string name="information_activity_upgrade_toast">Ši tema turi būti perskaičiuota ant naujo temos šablono, kad toliau naudotis su \"Substratum\".</string>
-    <string name="information_activity_upgrade_toast_lenient">Pasiekiamas atnaujinimas šios temos įskiepiui!</string>
     <string name="bootanimation_vm_exploded">Atvaizdavimas paleidimo animacijos buvo nutraukta dėl nepakankamo atminties paskirstymo.\n\nĮdiegimas šios paleidimo animacijos vis dar įmanomas be peržiūros atvaizdavimo.    </string>
     <string name="bootanimation_placeholder_text">prašome pasirinkti paleidimo animaciją išskleidžiamajame sąraše&#8230;</string>
     <string name="bootanimation_default_spinner">prašome pasirinkti paleidimo animaciją&#8230;</string>
@@ -105,8 +92,6 @@
     <string name="wallpaper_dialog_wallpaper">Pagrindinio ekrano fonas</string>
     <string name="wallpaper_dialog_lockscreen">Užrakinimo ekrano fonas</string>
     <string name="wallpaper_dialog_wallpaper_both">Pagrindinio ir užrakinimo ekrano fonas</string>
-    <string name="wallpaper_dialog_cancel">Atšaukti</string>
-    <string name="wallpaper_dialog_message">Kuriame ekrane pritaikyti šį paveikslėlį?</string>
     <string name="wallpaper_downloading">Kraunamas paveikslėlis į talpyklą&#8230;</string>
     <string name="wallpaper_allscreen_success">Abu - pagrindinio ir užrakinimo ekrano fonai sukonfigūruoti!    </string>
     <string name="wallpaper_allscreen_error">Nepavyko nustatyti abiejų - pagrindinio ir užrakinimo ekrano fonų    </string>
@@ -141,8 +126,6 @@
     <string name="fonts_dialog_permissions_grant_toast">Kad leisti \"Substratum\" atstatyti šriftų rinkinį, jūs turite įjungti \'Leisti keisti sistemos nustatymus\'.</string>
     <string name="fonts_dialog_permissions_grant_toast2">Kad leisti \"Substratum\" valdyti sistemos šriftus, jūs turite įjungti \'Leisti keisti sistemos nustatymus\'.</string>
     <string name="error_loading_pack">Atrodo, kad šis paketas nebuvo sudarytas teisingai&#8230;</string>
-    <string name="no_themes_installed">nėra jokių perdangų, kurias galėtumėte įdiegti iš šios temos&#8230;
-    </string>
     <string name="content_resolver_alarm_metadata">\"Substratum\" Temos Aliarmas</string>
     <string name="content_resolver_notification_metadata">\"Substratum\" Temos Pranešimai</string>
     <string name="content_resolver_ringtone_metadata">\"Substratum\" Temos Melodija</string>
@@ -157,7 +140,6 @@
     <string name="settings_about_interfacer_not_installed">neįdiegta</string>
     <string name="settings_about_interfacer_masquerade">šiam \"rom\" reikia atnaujinimo, kad panaudotų sąsajos funkcionalumą</string>
     <string name="settings_about_oms_rro_version">temos platforma:</string>
-    <string name="settings_about_oms_version_3">OMS3</string>
     <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
     <string name="settings_about_system_version">sistemos platforma</string>
@@ -170,38 +152,24 @@
     <string name="nougat_style_cards_title">\"Nougat\" Stiliaus Kortelių Išdėstymas</string>
     <string name="nougat_style_cards_subtext">Įjungti \"Android Nougat\" Pranešimų stiliaus temų korteles.</string>
     <string name="uninstall_dialog_text">Ar jūs tikrai norite išdiegti šią temą?</string>
-    <string name="manage_dialog_text">Ar jūs tikrai norite atlikti šį veiksmą?</string>
     <string name="manage_dialog_performing">Atkuriama į numatytąjį&#8230;</string>
     <string name="manage_bootanimation_title">Atkurti Paleidimo Animaciją</string>
     <string name="manage_bootanimation_toast">Paleidimo animacija atkurta sėkmingai!</string>
-    <string name="manage_bootanimation_text">Atkuria numatytąją paleidimo animaciją jūsų įrenginyje    </string>
     <string name="manage_fonts_title">Atkurti Sistemos Šriftą</string>
     <string name="manage_fonts_toast">Šriftai atkurti sėkmingai!</string>
-    <string name="manage_fonts_text">Atkuria numatytuosius sistemos šriftus jūsų įrenginyje</string>
     <string name="manage_sounds_title">Atkurti Sistemos Garsus</string>
     <string name="manage_sounds_toast">Numatytieji garsai atkurti sėkmingai!</string>
-    <string name="manage_sounds_text">Atkuria numatytuosius sistemos garsus jūsų įrenginyje</string>
-    <string name="manage_system_overlay_dialog_title">Perdangų Valymo Tvarkyklė</string>
     <string name="manage_system_overlay_disable">Išjungti visas įjungtas perdangas</string>
     <string name="manage_system_overlay_uninstall">Išdiegti visas įdiegtas pardangas</string>
-    <string name="manage_system_overlay_title">Atkurti Sistemos Temą</string>
     <string name="manage_system_overlay_toast">Sistemos tema atkuriama&#8230;</string>
     <string name="manage_system_overlay_uninstall_toast">Perdangos išdiegiamos fone&#8230;</string>
-    <string name="manage_system_overlay_text">Išjungia visas įjungtas perdangas ir atkuria numatytają temą</string>
     <string name="manage_system_not_permitted">Nepavyko įjungti keletos perdangų, nes pagrindinė tema nebuvo pateikta.</string>
-    <string name="manage_wallpaper_title">Atkurti Numatytąjį Foną</string>
-    <string name="manage_wallpaper_text">Atkuria numatytąjį foną jūsų įrenginyje</string>
     <string name="manage_wallpaper_home">Pagrindinio ekrano fonas</string>
     <string name="manage_wallpaper_lock">Užrakinimo ekrano fonas</string>
     <string name="manage_wallpaper_all">Pagrindinio ir užrakinimo ekrano fonas</string>
     <string name="manage_wallpaper_home_toast">Pagrindinio ekrano fonas atkurtas sėkmingai!</string>
     <string name="manage_wallpaper_lock_toast">Užrakinimo ekrano fonas atkurtas sėkmingai!</string>
     <string name="manage_wallpaper_all_toast">Fonas atkurtas sėkmingai!</string>
-    <string name="manage_style">Stilius</string>
-    <string name="manage_fonts">Šriftai</string>
-    <string name="manage_bootanimation">Paleidimo Animacija</string>
-    <string name="manage_sounds">Garsai</string>
-    <string name="manage_wallpaper">Ekrano fonas</string>
     <string name="adapter_uninstalling">Dabar pašalinama %s&#8230;</string>
     <string name="plugin_template">Įskiepis</string>
     <string name="api_21">\"Lollipop\"</string>
@@ -230,7 +198,6 @@
     <string name="menu_open">Piktogramų Paketo Skydelis</string>
     <string name="menu_rate">Įvertinti temą</string>
     <string name="menu_refresh">Atnaujinti</string>
-    <string name="menu_refresh_windows">Atnaujinti Langus</string>
     <string name="menu_soft_reboot">Paleisti iš naujo OS</string>
     <string name="menu_reboot_device">Paleisti įrenginį iš naujo</string>
     <string name="menu_per_app">Plaukiojantis UI</string>
@@ -249,9 +216,6 @@
     <string name="dialog_restart_reboot_content">Tai paleis jūsų įrenginį iš naujo.</string>
     <string name="dialog_restart_soft_reboot_title">Paleisti iš naujo OS</string>
     <string name="dialog_restart_soft_reboot_content">Tai paleis jūsų įrenginio OS iš naujo.</string>
-    <string name="legacy_theme_notification_title">Nebenaudojamų Temų Įspėjimas</string>
-    <string name="legacy_theme_notification_text">Norėdami naudoti pasenusias temas,
-        prašome įjungti Nustatymuose.</string>
     <string name="studio">piktogramų paketo studija (beta)</string>
     <string name="studio_system">Atkurti Sistemos Piktogramas</string>
     <string name="studio_system_reset_dialog_toast">Visos pasirinktinės piktogramos jau buvo išjungtos!</string>
@@ -263,13 +227,9 @@
         sugrįž į originalią kalbą, nustatytą jūsų įrengyje. Jei piktogramos nepasikeitė, paspauskite ant
         Atnaujinti Piktogramų Konfigūraciją pagrindiniame Pikrogramų Studijos puslapyje!\n\nPaspaudus Gerai,
         nelieskite savo įrenginio, kol pasirodys žinutė, sakanti, jog jūsų piktogramų paketas buvo sėkmingai pritaikytas!</string>
-    <string name="studio_custom">Kūrybinis Režimas [jau greitai]</string>
-    <string name="studio_icon_packs">Pasirinktinės Piktogramos</string>
     <string name="studio_pack_title">Atsisiųsti Piktogramų Paketus</string>
     <string name="studio_system_title">\"Substratum\" Struktūra</string>
-    <string name="studio_applied_toast">Sėkmingai pritaikyta %s!</string>
     <string name="studio_apply_confirmation">Ar tikrai norite pritaikyti %s?</string>
-    <string name="studio_configuration_changed">Konfigūracija sėkmingai atnaujinta!</string>
     <string name="studio_applying">Kraunama&#8230;</string>
     <string name="icon_pack_entry">Perdangų piktograma</string>
     <string name="studio_update_configuration">Atnajinti Piktogramų Konfigūraciją</string>
@@ -310,24 +270,14 @@
     <string name="profile_delete_button_none_selected_toast">Prašome pasirinkti profilį  išskleidžiamajame sąraše prieš bandant ištrinti profilį!</string>
     <string name="profile_edittext_hint">prašome įvesti profilio vardą&#8230;</string>
     <string name="profile_edittext_empty_toast">Prašome įvesti vardą jūsų profiliui prieš sukuriant atsarginę kopiją!</string>
-    <string name="profile_edittext_empty_toast_sysui">Substratum Šriftų Pagalbininkas nebuvo rastas. Prašome pritaikyti šriftą, kad įdiegti pagalbininką ir atgaukite dinamišką šrifto mainymą.</string>
     <string name="profile_edittext_title">Naujas Profilis:</string>
     <string name="profile_edittext_whitespace_warning_toast">Negalima naudoti tarpų profilio pavadinime!</string>
     <string name="toast_backup_success">Dabartinis perdangų sąrašas išsaugotas \"/storage/emulated/0/substratum/profiles/%s\"</string>
     <string name="spinner_default_item">pasirinkite profilį&#8230;</string>
     <string name="select_to_toggle_all_overlays">Pasirinkite, kad įjungti visas perdangas</string>
     <string name="fab_menu_select_to_toggle_all_overlays">Pasirinkite visas perdangas</string>
-    <string name="overflow_description">Papildomos Parinktys</string>
-    <string name="overlay_dialog_default_res">Numatytasis</string>
-    <string name="overlay_dialog_text">supaprastinami dabartinių temų nustatymai&#8230;</string>
-    <string name="system_overlay_dialog_title">prašome pasirinkti sistemos perdangos pagrindą&#8230;</string>
-    <string name="tp_overlay_dialog_title">prašome pasirinkti trečiųjų šalių perdangos pagrindą&#8230;</string>
     <string name="permission_not_granted_dialog_title">Leidimai nesuteikti</string>
     <string name="permission_not_granted_dialog_message1">Prašome suteikti \"substratum\" saugyklos leidimą arba programėlė neveiks tinkamai!</string>
-    <string name="permission_not_granted_dialog_message2">Prašome suteikti \"substratum\" telefono leidimą arba programėlė nekompiliuos įrenginio tinkamai, priklausomai nuo jūsų perdangų!</string>
-    <string name="permission_not_granted_dialog_message3">Prašome suteikti \"substratum\" kontaktų
-        leidimą, kad palaikymo sistema be problemų praneštų apie temos sutrikimus!
-    </string>
     <string name="dialog_ok">Gerai</string>
     <string name="dialog_do_not_show_again">Daugiau nerodyti</string>
     <string name="clean_cache_dialog_body">Ar norite išvalyti šios temos talpyklą?</string>
@@ -337,7 +287,6 @@
     <string name="uninstall_dialog_body">Išdiegti Temą</string>
     <string name="uninstall_dialog_cancel">Atšaukti</string>
     <string name="uninstall_dialog_okay">Gerai</string>
-    <string name="failed_to_install_overlay_toast">Nepavyko kompiliuoti \"%s\" perdangos</string>
     <string name="sb_phase_1_loader">išpakuojama tema</string>
     <string name="sb_phase_2_loader">įdiegiamos perdangos</string>
     <string name="sb_phase_3_loader">įterpiami piktogramų resursai</string>
@@ -345,26 +294,17 @@
     <string name="root_rejected_text_cm_phh">negalima tęsti be \"root\"&#8230;</string>
     <string name="root_rejected_timer_plural">uždaroma už %s sekundžių&#8230;</string>
     <string name="root_rejected_timer_singular">uždaroma už %s sekundės&#8230;</string>
-    <string name="list_of_overlays">Sąrašas įdiegiamų perdangų</string>
-    <string name="toast_unapproved">Ši perdanga buvo atmesta sistemos</string>
-    <string name="toast_compiled">Pasirinktos perdangos sukompiliuotos!</string>
     <string name="toast_compiled_updated">Pasirinktos perdangos atnaujintos!</string>
     <string name="toast_compiled_missing">Vienos ar daugiau perdangų negalima sukompiliuoti dėl trūkstamų konfigūracijų&#8230;</string>
     <string name="toast_compiled_updated_with_errors">Pasirinktos perdangos atnaujintos su klaidomis!</string>
-    <string name="toast_enabled">Sėkmingai įjungta!</string>
-    <string name="toast_disabled">Sėkmingai išjungta!</string>
     <string name="toast_disabled3">Prašome sukompiliuoti šią perdangą prieš pritaikant!</string>
     <string name="toast_disabled4">Jūs negalite išjungti perdangos, nes nesate sukompiliavę!</string>
     <string name="toast_disabled5">Prašome pasirinkti tinkamą perdangą prieš atliekant šį veiksmą.</string>
     <string name="toast_disabled6">Pasirinktos perdangos pašalintos!</string>
-    <string name="toast_installed">Pasirinktos perdangos pritaikytos!</string>
     <string name="toast_uninstalled">Jūs ką tik išdiegėte šią temą! Aš išnyksiu per kitą atnaujinimą!</string>
-    <string name="toast_uninstalling">Dabar pašalinamos perdangos&#8230;</string>
-    <string name="toast_updating">Dabar \"Substratum\" paruošia jūsų temą fone!</string>
     <string name="no_themes_title">nerasta jokių temų&#8230;</string>
     <string name="no_themes_description">prašome įdiegti suderinamą temą!</string>
     <string name="no_themes_description_search">\"%s\" nepavyko rasti tarp įdiegtų temų&#8230;</string>
-    <string name="toast_on_back_press_compiling">Jūs galite naudoti kitas programėles paspausdami Namų/Paskiausių mygtukus!</string>
     <string name="toast_needs_caching">Substratum talpykla buvo pašalinta, prieš tęsiant prašome atstatyti temą!</string>
     <string name="notification_theme_installed">įdiegta</string>
     <string name="notification_theme_updated">atnaujinta</string>
@@ -375,13 +315,10 @@
     <string name="notification_initial_title">\"Substratum\" veikia</string>
     <string name="notification_initial_title_upgrade">%s resursai atnaujinami&#8230;</string>
     <string name="notification_done_title">Temos kompiliavimas baigtas</string>
-    <string name="notification_extracting_assets">Išpakuojamos ypatybės iš temos paketo&#8230;</string>
-    <string name="notification_extracting_assets_text">Apdorojamos perdangos&#8230;</string>
     <string name="notification_no_errors_found">Diegiant perdangas nebuvo jokių klaidų</string>
     <string name="notification_some_errors_found">Įdiegiant perdangas įvyko klaida</string>
     <string name="notification_processing">Apdorojamos perdangos</string>
     <string name="notification_processing_n">Paruošiamos temos perdangos&#8230;</string>
-    <string name="notification_compiling_signing_installing">Kuriamos ir įdiegiamos perdangos&#8230;</string>
     <string name="advanced_manager_overlay_read_error">Nepavyksta išanalizuoti perdangų sąrašo. Prašome atidaryti Atkūrimą ir paspauskite ant Atkurti Sistemos Temą (Išdiekite visas įdiegtas perdangas) problemos išsprendimui.    </string>
     <string name="shortcut_floatui">Plaukiojantis UI</string>
     <string name="shortcut_floatui_disabled">Plaukiojantis UI</string>
@@ -395,7 +332,6 @@
     <string name="settings_title_3">Apipavidalinimas</string>
     <string name="settings_title_clickable">Sistemos Konfigūracija</string>
     <string name="substratum_cache_clear_initial_toast">\"Substratum\" talpykla dabar išvaloma&#8230;</string>
-    <string name="substratum_cache_clear_toast">\"Substratum\" talpykla buvo išvalyta!</string>
     <string name="substratum_restart_toast">\"Substratum\" persikrovė automatiškai po nustatymų pakeitimo.</string>
     <string name="purge_cache">Anuliuoti Temos Talpyklą</string>
     <string name="purge_cache_subtext">Tai sunaikins visas saugomas temos ir programos talpyklas.</string>
@@ -412,15 +348,9 @@
     <string name="hide_app_icon_toast_disabled">Programėlės piktograma buvo pridėta į jūsų paleidimo priemonę!</string>
     <string name="hide_app_icon_not_supported">Pakeitimas nepalaikomas</string>
     <string name="hide_app_icon_supported">Tai leis jums perjungti tarp matomos ir nematomos paleidimo priemonės piktogramos pradžios ekrane.</string>
-    <string name="show_installed_packages_only">Rodyti tik įdiegtus paketus tarp perdangų parinkiklio</string>
-    <string name="purge_completion">Šios temos perdangos buvo išvalytos fone&#8230;</string>
-    <string name="clean_completion">Šios temos perdangos buvo išvalytos fone&#8230;</string>
     <string name="cache_clear_completion">%s temos talpyklos buvo išvalyta!</string>
     <string name="disable_completion">Visos perdangos šiai temai dabar išjungiamos&#8230;</string>
     <string name="enable_completion">Visos įdiegtos perdangos šiai temai dabar aktyvuojamos&#8230;</string>
-    <string name="purge_information">Panaikinant visas perdangas vienu metu yra potencialiai pavojingas veiksmas, sukeliantis daugkartinį priverstinį užsidarymą.</string>
-    <string name="purge_button_text">IŠDIEGTI VISAS PERDANGAS</string>
-    <string name="purge2_button_text">IŠJUNGTI VISAS ĮJUNGTAS PERDANGAS</string>
     <string name="dynamic_actionbar_colors">Dinaminė Veiksmų Juostos Spalva</string>
     <string name="dynamic_actionbar_colors_subtext">Temos informacijos lange, \"Substratum\" prisitaikys prie veiksmų juostos dominuojančios spalvos.</string>
     <string name="dynamic_navbar_colors">Dinaminė Navigacijos Juostos Spalva</string>
@@ -433,7 +363,6 @@
     <string name="show_outdated_themes_content">Tai išjungus leis \"Substratum\" panaudoti
         visiškai naują algoritmą ir temos bus užkrautos daug greičiau nei įprastai. Tai
         veiks tik su tinkamai sukonfigūruotais 6.0.0+ temų įskiepiais.</string>
-    <string name="fab_menu_compile">Kompiliuoti Pasirinktus</string>
     <string name="fab_menu_compile_enable">Sukurti ir Įjungti</string>
     <string name="fab_menu_compile_update">Sukurti ir Atnaujinti</string>
     <string name="fab_menu_compile_install">Įdiegti Pasirinktus</string>
@@ -482,8 +411,6 @@
     <string name="end_time">Pabaiga</string>
     <string name="day_profile">Dienos profilis</string>
     <string name="night_profile">Nakties profilis</string>
-    <string name="day">Diena</string>
-    <string name="night">Naktis</string>
     <string name="apply">Taikyti</string>
     <string name="time_empty_warning">Prašome sukonfigūruokite Pradžios ir Pabaigos laiką!</string>
     <string name="time_equal_warning">Prašome pasirinkti skirtingus aktyvinimo laikus!</string>
@@ -512,8 +439,6 @@
     <string name="profile_dialog_cancel">Atšaukti</string>
     <string name="bottom_sheet_dialog_hide_outdated_themes">Slėpti pasenusios temas (6.0.0+) [Rekomenduojama!]</string>
     <string name="bottom_sheet_dialog_show_outdated_themes">Rodyti pasenusios temass (prieš-6.0.0)</string>
-    <string name="bottom_sheet_dialog_outdated_description">Paslepiant pasenusias temas padidins išteklių paieškos algoritmo našumą! Tai galima pakeisti Nustatymuose, kai tik nuspręsite įdiegti senas temas.</string>
-    <string name="bottom_sheet_dialog_outdated_title">Palaukite!</string>
     <string name="settings_system_status">sistemos sertifikacija</string>
     <string name="settings_system_status_rooted">\"root\" režimas</string>
     <string name="settings_system_status_rootless">be \"root\" režimas</string>
@@ -567,7 +492,6 @@
     <string name="interfacer_not_authorized_toast">Ši \"Substratum\" versija neleidžiama ir neveiks su sistemos sąsajos moduliu.</string>
     <string name="app_crash_title">%s vis stabdoma&#8230;</string>
     <string name="app_crash_content">Visos įjungtos perdangos šiai programėlei buvo išjungtos.</string>
-    <string name="dirty_flash_detected">Jūsų programinė įranga arba \"ROM\" buvo atnaujintas neištrinant vartotojo duomenų (\"dirty flash\"). \"Substratum\" bus iš naujo sukonfigūruotas, kad išvengti klaidų.</string>
     <string name="rom_status">palaikymo statusas:</string>
     <string name="rom_status_supported">%s bendruomenės palaikomas!</string>
     <string name="rom_status_unsupported">kolkas šis \"rom\" bendruomenei nėra žinomas&#8230;</string>

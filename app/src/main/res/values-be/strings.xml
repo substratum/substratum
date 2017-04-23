@@ -19,8 +19,6 @@
   -->
 <resources>
     <string name="showcase">каталог</string>
-    <string name="helper_name">памочнік па пластах substratum</string>
-    <string name="restore_app_name">аднавіць тэму</string>
     <string name="android">версія Android:</string>
     <string name="device">мадэль прылады:</string>
     <string name="resource_checker_request">Запытаць ўкараненне камітаў праз&#8230;</string>
@@ -45,7 +43,6 @@
     <string name="failed_to_install_text_notification">Усталёўка %s не ўдалася</string>
     <string name="actionbar_theme_count_singular">%s тэма</string>
     <string name="actionbar_theme_count_plural">%s тэм(-ы)</string>
-    <string name="actionbar_theme_count_none">не знойдзена тэм</string>
     <string name="actionbar_theme_count_loading">загрузка&#8230;</string>
     <string name="actionbar_search">Знайсці</string>
     <string name="actionbar_changelog">Гісторыя змяненняў тэмы</string>
@@ -64,14 +61,8 @@
     <string name="legacy_dialog_soft_reboot_text">Выкарыстоўванай сістэме Resource Runtime Overlay system патрабуецца перазагрузка пасля дадання або выдалення пластоў.\n\nЗгода ў гэтым дыялогу прывядзе да аўтаматычнай перазагрузкі прылады, таму пераканайцеся, што важныя дадзеныя захаваны перад тым, як працягнуць.
     </string>
     <string name="activity_missing_toast">Не знойдзена праграмы, здольнай выканаць задачу, прабачце!    </string>
-    <string name="abort_overlay_toast">Выдаляем усе напластаванні&#8230;</string>
     <string name="abort_overlay_toast_success">Усе пласты выдалены!</string>
     <string name="rescue_toast">Сістэма выратавання&#8230;</string>
-    <string name="disable_overlay_toast">Адключаем усе актыўныя напластаванні&#8230;</string>
-    <string name="disable_overlay_toast_success">Усе пласты адключаны!</string>
-    <string name="disable_overlay_toast_not_found">Не атрымалася цалкам адключыць пласты!</string>
-    <string name="restore_activity_toast">Знойдзена рэз. копія! Ідзе аднаўленне&#8230;</string>
-    <string name="restore_activity_toast_not_found">Рэз. копія з базай пластоў не знойдзена.</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">варыянт type1a&#8230;</string>
     <string name="overlays_variant_default_1b">варыянт type1b&#8230;</string>
@@ -81,10 +72,6 @@
     <string name="overlays_up_to_date">АКТУАЛЬНА</string>
     <string name="overlays_update_available">Даступна абнаўленне!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Варыянт не ўсталяваны</string>
-    <string name="overlays_compile_update_button">Сабраць/Абнавіць з усталёўкай</string>
-    <string name="information_activity_pirated_toast">Сабраная тэма не прайшла праверку цэласнасці Substratum.    </string>
-    <string name="information_activity_upgrade_toast">Для выкарыстання з Substratum варта перасабраць гэтую тэму ў новым фармаце!    </string>
-    <string name="information_activity_upgrade_toast_lenient">Плагін тэм які выкарыстоўваецца аўтарам састарэў!    </string>
     <string name="bootanimation_vm_exploded">Візуалізацыя анімацыі загрузкі спыненая з-за недахопу памяці.\n\nДалейшая ўсталёўка магчыма, але без папярэдняга прагляду.    </string>
     <string name="bootanimation_placeholder_text">выберыце анімацыю загрузкі з выпадальнага спісу&#8230;</string>
     <string name="bootanimation_default_spinner">выберыце анімацыю загрузкі&#8230;</string>
@@ -96,8 +83,6 @@
     <string name="wallpaper_dialog_wallpaper">На хатні экран</string>
     <string name="wallpaper_dialog_lockscreen">На экран блакавання</string>
     <string name="wallpaper_dialog_wallpaper_both">На абодва экрана</string>
-    <string name="wallpaper_dialog_cancel">Скасаваць</string>
-    <string name="wallpaper_dialog_message">Куды ўжыць малюнак у якасці фону?</string>
     <string name="wallpaper_downloading">Загрузка выявы ў кэш&#8230;</string>
     <string name="wallpaper_allscreen_success">Шпалеры ужытыя для абодвух экранаў!    </string>
     <string name="wallpaper_allscreen_error">Не атрымалася ўжыць шпалеры для абодвух экранаў    </string>
@@ -129,7 +114,6 @@
     <string name="fonts_dialog_permissions_grant_toast">Каб скінуць усе шрыфты, усталяваныя Substratum, дайце \"Дазвол на змену сістэмных налад\".    </string>
     <string name="fonts_dialog_permissions_grant_toast2">Каб дазволіць Substratum кіраванне сістэмнымі шрыфтамі, дайце \"Дазвол на змену сістэмных налад\".    </string>
     <string name="error_loading_pack">падобна, гэты пакет не быў створаны правільна&#8230;</string>
-    <string name="no_themes_installed">няма ніякіх напластаванняў, якія можна ўсталяваць з гэтай тэмы&#8230;    </string>
     <string name="content_resolver_alarm_metadata">Сігнал з тэмы Substratum</string>
     <string name="content_resolver_notification_metadata">Апавяшчэнне з тэмы Substratum</string>
     <string name="content_resolver_ringtone_metadata">Рынгтон з тэмы Substratum</string>
@@ -144,7 +128,6 @@
     <string name="settings_about_interfacer_not_installed">не ўсталявана</string>
     <string name="settings_about_interfacer_masquerade">гэты ROM патрабуе абнаўлення, каб выкарыстоўваць функцыянальныя магчымасці інтэрфейсу</string>
     <string name="settings_about_oms_rro_version">платформа тэмы:</string>
-    <string name="settings_about_oms_version_3">OMS3</string>
     <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
     <string name="settings_about_system_version">сістэмная платформа</string>
@@ -157,38 +140,24 @@
     <string name="nougat_style_cards_title">Карты напластаванняў ў стылі Nougat</string>
     <string name="nougat_style_cards_subtext">Ужыць стыль карт у выглядзе апавяшчэнняў Android Nougat.    </string>
     <string name="uninstall_dialog_text">Вы ўпэўненыя, што хочаце выдаліць гэтую тэму?</string>
-    <string name="manage_dialog_text">Вы ўпэўненыя, што хочаце выканаць гэтае дзеянне?</string>
     <string name="manage_dialog_performing">Вяртаем стандартнае&#8230;</string>
     <string name="manage_bootanimation_title">Аднавіць анімацыю загрузкі</string>
     <string name="manage_bootanimation_toast">Анімацыя загрузкі адноўлена!</string>
-    <string name="manage_bootanimation_text">Вяртае анімацыю загрузкі па змаўчанні    </string>
     <string name="manage_fonts_title">Аднавіць шрыфт</string>
     <string name="manage_fonts_toast">Шрыфты адноўлены!</string>
-    <string name="manage_fonts_text">Вяртае сістэмныя шрыфты па змаўчанні</string>
     <string name="manage_sounds_title">Аднавіць сістэмныя гукі</string>
     <string name="manage_sounds_toast">Гукі па змаўчанні адноўлены!</string>
-    <string name="manage_sounds_text">Вяртаем сістэмныя гукі па змаўчанні</string>
-    <string name="manage_system_overlay_dialog_title">Ачыстка напластаванняў</string>
     <string name="manage_system_overlay_disable">Адключыць усе актыўныя пласты</string>
     <string name="manage_system_overlay_uninstall">Выдаліць усе усталяваныя пласты</string>
-    <string name="manage_system_overlay_title">Аднавіць афармленне</string>
     <string name="manage_system_overlay_toast">Вяртаем сістэмнае афармленне&#8230;</string>
     <string name="manage_system_overlay_uninstall_toast">Пласты будуць выдаленыя ў фонавым рэжыме&#8230;</string>
-    <string name="manage_system_overlay_text">Адключае ўсе уключаныя напластаванні і вяртае стандартнае афармленне    </string>
     <string name="manage_system_not_permitted">Не атрымалася актываваць некалькі напластаванняў з-за адсутнасці асноўнай тэмы.</string>
-    <string name="manage_wallpaper_title">Аднавіць шпалеры</string>
-    <string name="manage_wallpaper_text">Вяртаем шпалеры па змаўчанні</string>
     <string name="manage_wallpaper_home">На хатні экран</string>
     <string name="manage_wallpaper_lock">На экран блакавання</string>
     <string name="manage_wallpaper_all">На абодва экрана</string>
     <string name="manage_wallpaper_home_toast">Шпалеры хатняга экрана адноўлены!</string>
     <string name="manage_wallpaper_lock_toast">Шпалеры экрана блакавання адноўлены!</string>
     <string name="manage_wallpaper_all_toast">Шпалеры адноўлены!</string>
-    <string name="manage_style">Стыль</string>
-    <string name="manage_fonts">Шрыфты</string>
-    <string name="manage_bootanimation">Анімацыя загрузкі</string>
-    <string name="manage_sounds">Гукі</string>
-    <string name="manage_wallpaper">Шпалеры</string>
     <string name="adapter_uninstalling">Выдаленне %s&#8230;</string>
     <string name="plugin_template">Плагін</string>
     <string name="api_21">Lollipop</string>
@@ -217,7 +186,6 @@
     <string name="menu_open">Кіраванне наборамі цэтлікаў</string>
     <string name="menu_rate">Ацаніць тэму</string>
     <string name="menu_refresh">Абнавіць</string>
-    <string name="menu_refresh_windows">Абнавіць вокны</string>
     <string name="menu_soft_reboot">Хуткая перазагрузка</string>
     <string name="menu_reboot_device">Поўная перазагрузка</string>
     <string name="menu_per_app">Плаваючае акно</string>
@@ -236,8 +204,6 @@
     <string name="dialog_restart_reboot_content">Гэта дзеянне выканае поўны перазапуск прылады.</string>
     <string name="dialog_restart_soft_reboot_title">Хуткая перазагрузка</string>
     <string name="dialog_restart_soft_reboot_content">Гэта дзеянне выканае мяккі перазапуск прылады.</string>
-    <string name="legacy_theme_notification_title">Увага, тэма састарэла</string>
-    <string name="legacy_theme_notification_text">Каб выкарыстоўваць састарэлыя тэмы, актывуйце такую ​​магчымасць у наладах.</string>
     <string name="studio">студыя цэтлікаў (gamma)</string>
     <string name="studio_system">Аднавіць сістэмныя цэтлікі</string>
     <string name="studio_system_reset_dialog_toast">
@@ -246,13 +212,9 @@
 Вы сапраўды жадаеце аднавіць сістэмныя цэтлікі?    </string>
     <string name="studio_refresh_dialog_title">Пацверджанне змены налад</string>
     <string name="studio_refresh_dialog_content">Substratum цяпер зменіць сістэмныя налады для хутчэйшага прысваення цэтлікаў ўсім праграмам.\n\nВы апынецеся ў лончэры, сістэма на імгненне прыменіць Японскую мову, пасля чаго верне першапачаткова абраную. Калі цэтлікі не прымяняецца, націсніце Абнавіць канфігурацыю цэтлікаў на галоўнай старонцы Студыі цэтлікаў!\n\nПасля націску на OK не дакранайцеся да прылады, пакуль не ўбачыце паведамленні аб паспяховым прымяненні набору значкоў!</string>
-    <string name="studio_custom">Творчы рэжым [хутка]</string>
-    <string name="studio_icon_packs">Карыстальніцкія цэтлікі</string>
     <string name="studio_pack_title">Спампаваныя наборы цэтлікаў</string>
     <string name="studio_system_title">Substratum Framework</string>
-    <string name="studio_applied_toast">%s паспяхова ўжыта!</string>
     <string name="studio_apply_confirmation">Вы ўпэўненыя, што хочаце ўжыць %s?</string>
-    <string name="studio_configuration_changed">Канфігурацыя абноўлена!</string>
     <string name="studio_applying">Загрузка&#8230;</string>
     <string name="icon_pack_entry">Цэтлікі напластавання</string>
     <string name="studio_update_configuration">Абнавіць канфігурацыю цэтлікаў</string>
@@ -293,8 +255,6 @@
     <string name="profile_delete_button_none_selected_toast">Перад выдаленнем профілю выберыце яго з выпадальнага спісу!    </string>
     <string name="profile_edittext_hint">увядзіце імя для профілю&#8230;</string>
     <string name="profile_edittext_empty_toast">Назавіце профіль перад рэзэрвацыяй!    </string>
-    <string name="profile_edittext_empty_toast_sysui">Памочнік шрыфтоў Substratum не знойдзены, прымяніце шрыфт для ўсталёўкі памочніка і вяртання дынамічнай змены шрыфтоў!
-    </string>
     <string name="profile_edittext_title">Новы профіль:</string>
     <string name="profile_edittext_whitespace_warning_toast">Нельга выкарыстоўваць прабелы ў назве профілю!</string>
     <string name="toast_backup_success">Бягучы спіс напластаванняў захаваны ў
@@ -303,15 +263,8 @@
     <string name="spinner_default_item">выберыце профіль&#8230;</string>
     <string name="select_to_toggle_all_overlays">Пераключыць усе напластаванні</string>
     <string name="fab_menu_select_to_toggle_all_overlays">Выбраць усе напластаванні</string>
-    <string name="overflow_description">Дадаткова</string>
-    <string name="overlay_dialog_default_res">Па ўзмаўчанні</string>
-    <string name="overlay_dialog_text">спрашчэнне бягучых опцый тэмы&#8230;</string>
-    <string name="system_overlay_dialog_title">выберыце аснову сістэмных напластаванняў&#8230;</string>
-    <string name="tp_overlay_dialog_title">выберыце іншую аснову напластаванняў&#8230;</string>
     <string name="permission_not_granted_dialog_title">Дазволы не прадастаўлены</string>
     <string name="permission_not_granted_dialog_message1">Калі ласка, дазвольце substratum доступ да сховішча альбо праграма не зможа працаваць правільна!    </string>
-    <string name="permission_not_granted_dialog_message2">Калі ласка, дазвольце substratum доступ да тэлефаніі альбо праграма не зможа правільна ўжыць залежныя ад прылады пласты!    </string>
-    <string name="permission_not_granted_dialog_message3">Калі ласка, дазвольце substratum доступ да кантактаў альбо праграма не зможа адпраўляць справаздачы аб памылках прымянення тэм!    </string>
     <string name="dialog_ok">OK</string>
     <string name="dialog_do_not_show_again">Не паказваць зноў</string>
     <string name="clean_cache_dialog_body">Вы сапраўды жадаеце ачысціць кэш гэтай тэмы?</string>
@@ -321,7 +274,6 @@
     <string name="uninstall_dialog_body">Выдаліць тэму</string>
     <string name="uninstall_dialog_cancel">Скасаваць</string>
     <string name="uninstall_dialog_okay">OK</string>
-    <string name="failed_to_install_overlay_toast">Не атрымалася сабраць пласт «%s»</string>
     <string name="sb_phase_1_loader">распакаванне тэмы</string>
     <string name="sb_phase_2_loader">усталёўка напластавання</string>
     <string name="sb_phase_3_loader">укараненне рэсурсаў цэтлікаў</string>
@@ -329,26 +281,17 @@
     <string name="root_rejected_text_cm_phh">без правоў суперкарыстальніка працягнуць не ўдасца&#8230;</string>
     <string name="root_rejected_timer_plural">закрыццё праз %s секунд(-ы)&#8230;</string>
     <string name="root_rejected_timer_singular">закрыццё праз %s секунду&#8230;</string>
-    <string name="list_of_overlays">Спіс усталяваных напластаванняў</string>
-    <string name="toast_unapproved">Напластаванне адхілена сістэмай</string>
-    <string name="toast_compiled">Выбраныя напластаванні сабраны!</string>
     <string name="toast_compiled_updated">Выбраныя пласты абноўлены!</string>
     <string name="toast_compiled_missing">Вы не можаце сабраць адно або некалькі напластаванняў з-за адсутнасць канфігурацыі ў гэтым наборы&#8230;</string>
     <string name="toast_compiled_updated_with_errors">Выбранныя напластаванні абнаўляюцца з некаторымі памылкамі!</string>
-    <string name="toast_enabled">Паспяхова уключана!</string>
-    <string name="toast_disabled">Паспяхова адключана!</string>
     <string name="toast_disabled3">Сабырыце напластаванне перад ужываннем!</string>
     <string name="toast_disabled4">Нельга адключыць несабранае напластаванне!</string>
     <string name="toast_disabled5">Перад выкананнем гэтай аперацыі неабходна выбраць правільнае напластаванне.</string>
     <string name="toast_disabled6">Выбраныя пласты выдалены!</string>
-    <string name="toast_installed">Выбраныя пласты ужытыя!</string>
     <string name="toast_uninstalled">Я выдаліў гэтую тэму! Знікну ў наступным абнаўленні!</string>
-    <string name="toast_uninstalling">Выдаленне напластаванняў&#8230;</string>
-    <string name="toast_updating">Substratum рыхтуе вашу тэму ў фонавым рэжыме!</string>
     <string name="no_themes_title">не знойдзена тэм&#8230;</string>
     <string name="no_themes_description">усталюйце любую сумяшчальную тэму!</string>
     <string name="no_themes_description_search">Сярод усталяваных тэм няма \"%s\"&#8230;</string>
-    <string name="toast_on_back_press_compiling">Вы можаце выкарыстоўваць іншыя праграмы падчас кампіляцыі, націснуўшы Хатоўка/ Апошнія.</string>
     <string name="toast_needs_caching">Кэш Substratum\'s быў выдалены, калі ласка, аднавіць гэтую тэму, перш чым працягнуць!</string>
     <string name="notification_theme_installed">усталявана</string>
     <string name="notification_theme_updated">абноўлена</string>
@@ -359,13 +302,10 @@
     <string name="notification_initial_title">Substratum запушчаны</string>
     <string name="notification_initial_title_upgrade">Рэсурсы %s абнаўляюцца&#8230;</string>
     <string name="notification_done_title">Зборка тэмы завершана</string>
-    <string name="notification_extracting_assets">Выманне рэсурсаў з пакета тэмы&#8230;</string>
-    <string name="notification_extracting_assets_text">Прымяненне напластаванняў&#8230;</string>
     <string name="notification_no_errors_found">Памылак пры ўсталёўцы напластаванняў не ўзнікла</string>
     <string name="notification_some_errors_found">Адбылася памылка падчас усталёўкі напластавання</string>
     <string name="notification_processing">Прымяненне напластаванняў</string>
     <string name="notification_processing_n">Падрыхтоўка напластаванняў тэмы&#8230;</string>
-    <string name="notification_compiling_signing_installing">Стварэнне і ўсталёўка напластаванняў&#8230;</string>
     <string name="advanced_manager_overlay_read_error">Не атрымалася разабраць спіс напластаванняў. Адкрыйце Аднаўленне і абярыце Аднавіць афармленне (выдаленне ўсіх усталяваных напластаванняў) для вырашэння гэтай праблемы.    </string>
     <string name="shortcut_floatui">Плаваючае акно</string>
     <string name="shortcut_floatui_disabled">Плаваючае акно</string>
@@ -379,7 +319,6 @@
     <string name="settings_title_3">Афармленне</string>
     <string name="settings_title_clickable">Канфігурацыя сістэмы</string>
     <string name="substratum_cache_clear_initial_toast">Ачыстка кэша Substratum&#8230;</string>
-    <string name="substratum_cache_clear_toast">Кэш Substratum ачышчаны!</string>
     <string name="substratum_restart_toast">Substratum аўтаматычна перазапусціцца пасля змены налад.</string>
     <string name="purge_cache">Ануляваць кэш тэм</string>
     <string name="purge_cache_subtext">Гэта ачысціць ўсе тэмы і кэш праграмы.</string>
@@ -396,15 +335,9 @@
     <string name="hide_app_icon_toast_disabled">Цэтлік дададзены ў меню праграм!</string>
     <string name="hide_app_icon_not_supported">Магчымасць не прадугледжаная</string>
     <string name="hide_app_icon_supported">Магчымасць прыбраць/вярнуць цэтлік праграмы на хатнім экране.</string>
-    <string name="show_installed_packages_only">Толькі ўсталяваныя пакеты ў спісе напластаванняў</string>
-    <string name="purge_completion">Напластаванні тэмы будуць ачышчаны ў фоне&#8230;</string>
-    <string name="clean_completion">Напластаванні тэмы будуць ачышчаны ў фоне&#8230;</string>
     <string name="cache_clear_completion">Кэш тэмы %s выдалены!</string>
     <string name="disable_completion">Адключэнне ўсіх напластаванняў тэмы&#8230;</string>
     <string name="enable_completion">Актывацыя ўсіх усталяваных напластаванняў тэмы&#8230;</string>
-    <string name="purge_information">Выдаленне ўсіх усталяваных напластаванняў - патэнцыйна рызыкоўнае дзеянне, здольнае прывесці да множных вылетаў праграм падчас працэсу.</string>
-    <string name="purge_button_text">ВЫДАЛІЦЬ УСЕ НАПЛАСТАВАННІ</string>
-    <string name="purge2_button_text">АДКЛЮЧЫЦЬ УСЕ НАПЛАСТАВАННІ</string>
     <string name="dynamic_actionbar_colors">Афарбоўванне экшнбара</string>
     <string name="dynamic_actionbar_colors_subtext">У акне звестак аб тэме, Substratum будзе падладжваць колер які хавае экшнбар пад стаць асноўнаму колеру ілюструючыму выявы.</string>
     <string name="dynamic_navbar_colors">Афарбоўванне панэлі навігацыі</string>
@@ -415,7 +348,6 @@
     <string name="alternate_drawer_design_subtext">Выкарыстоўваць ранейшую навігацыйную панэль.</string>
     <string name="show_outdated_themes_title">Паказваць састарэлыя тэмы</string>
     <string name="show_outdated_themes_content">Адключэнне параметру дазволіць Substratum прымяняць новы алгарытм, з якім тэмы загружаюцца нашмат хутчэй, чым звычайна. Тычыцца толькі тэм, правільна наладжаных для плагіна 6.0.0+.</string>
-    <string name="fab_menu_compile">Сабраць выбраннае</string>
     <string name="fab_menu_compile_enable">Сабраць і актываваць</string>
     <string name="fab_menu_compile_update">Сабраць і абнавіць</string>
     <string name="fab_menu_compile_install">Усталяваць выбраннае</string>
@@ -464,8 +396,6 @@
     <string name="end_time">Канец</string>
     <string name="day_profile">Профіль удзень</string>
     <string name="night_profile">Профіль уначы</string>
-    <string name="day">Дзень</string>
-    <string name="night">Ноч</string>
     <string name="apply">Ужыць</string>
     <string name="time_empty_warning">Калі ласка, наладзьце час пачатку і заканчэння!</string>
     <string name="time_equal_warning">Часы пачатку і заканчэння не павінны супадаць!</string>
@@ -494,8 +424,6 @@
     <string name="profile_dialog_cancel">Скасаваць</string>
     <string name="bottom_sheet_dialog_hide_outdated_themes">Хаваць састарэлыя тэмы (6.0.0+) [Рэкамендуецца!]</string>
     <string name="bottom_sheet_dialog_show_outdated_themes">Паказваць састарэлыя тэмы (папяр-6.0.0)</string>
-    <string name="bottom_sheet_dialog_outdated_description">Утойванне састарэлых тэм паскорыць працу пошукавага алгарытму! Гэты параметр можна змяніць у Наладах кожны раз, калі вы вырашыце ўсталяваць састарэлую тэму.</string>
-    <string name="bottom_sheet_dialog_outdated_title">Пачакайце!</string>
     <string name="settings_system_status">сертыфікацыя сістэмы</string>
     <string name="settings_system_status_rooted">ужываецца root</string>
     <string name="settings_system_status_rootless">рэжым без root</string>
@@ -549,7 +477,6 @@
     <string name="interfacer_not_authorized_toast">Дадзеная версія Substratum не з\'яўляецца сапраўднай і не будзе працаваць з сістэмным інтэрфейсам.</string>
     <string name="app_crash_title">%s працягвае вылятаць&#8230;</string>
     <string name="app_crash_content">Усе ўключаныя напластаванні для гэтай праграмы былі адключаныя.</string>
-    <string name="dirty_flash_detected">Прашыўка была абноўлена без ачысткі дадзеных карыстальніка (па-над папярэдняй). Substratum скіне свае налады, каб пазбегнуць непаладак.</string>
     <string name="rom_status">статус падтрымкі:</string>
     <string name="rom_status_supported">%s падтрымліваецца супольнасцю!</string>
     <string name="rom_status_unsupported">дадзены ром не вядомы супольнасці яшчэ&#8230;</string>

@@ -19,8 +19,6 @@
   -->
 <resources>
     <string name="showcase">vitrin</string>
-    <string name="helper_name">substratum tema yardımcısı</string>
-    <string name="restore_app_name">temayı geri yükle</string>
     <string name="android">android sürümü:</string>
     <string name="device">cihaz modeli:</string>
     <string name="resource_checker_request">Kullanarak hata bildirimi isteği gönder&#8230;</string>
@@ -54,7 +52,6 @@
     <string name="failed_to_install_text_notification">%s yüklemesi başarısız oldu</string>
     <string name="actionbar_theme_count_singular">%s tema</string>
     <string name="actionbar_theme_count_plural">%s temalar</string>
-    <string name="actionbar_theme_count_none">tema bulunamadı</string>
     <string name="actionbar_theme_count_loading">yükleniyor&#8230;</string>
     <string name="actionbar_search">Ara</string>
     <string name="actionbar_changelog">Tema Değişiklikleri</string>
@@ -96,14 +93,8 @@ olduğundan ve
     <string name="activity_missing_toast">Bu isteği yapabilecek herhangi bir uygulama bulunamadı
         üzgünüm!
     </string>
-    <string name="abort_overlay_toast">Şu anda bütün temalar kaldırılıyor&#8230;</string>
     <string name="abort_overlay_toast_success">Tüm temalar kaldırıldı!</string>
     <string name="rescue_toast">Sisteminiz kurtarılıyor&#8230;</string>
-    <string name="disable_overlay_toast">Tüm etkin temalar devre dışı bırakılıyor&#8230;</string>
-    <string name="disable_overlay_toast_success">Tüm temalar devre dışı bırakıldı!</string>
-    <string name="disable_overlay_toast_not_found">Tüm temalar devre dışı bırakılamıyor!</string>
-    <string name="restore_activity_toast">Yedek dosyası bulundu! Şimdi geri yüklüyor&#8230;</string>
-    <string name="restore_activity_toast_not_found">Hiçbir tema veritabanı yedeklemesi bulunamadı.</string>
     <string name="overlays_variant_substitute">%s...</string>
     <string name="overlays_variant_default_1a">type1a varyantı&#8230;</string>
     <string name="overlays_variant_default_1b">type1b varyantı&#8230;</string>
@@ -113,16 +104,6 @@ olduğundan ve
     <string name="overlays_up_to_date">GÜNCEL</string>
     <string name="overlays_update_available">Güncelleme mevcut!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Varyant yüklü değil</string>
-    <string name="overlays_compile_update_button">Düzenle/Güncelle &amp; Yükle</string>
-    <string name="information_activity_pirated_toast">Bu tema Substratum\'un ikili bütünlük
-        doğrulamasını geçirmiyor.
-    </string>
-    <string name="information_activity_upgrade_toast">Substratum ile kullanmaya devam etmek için bu
-        temanın yeni tema şablonunda yeniden oluşturulması gerekiyor!
-    </string>
-    <string name="information_activity_upgrade_toast_lenient">Bu tema paketinin eklentisi
-        güncel değil!
-    </string>
     <string name="bootanimation_vm_exploded">Önyükleme animasyonunun gösterimi, yeterli miktarda
         bellek ayıramama nedeniyle sonlandırıldı.\n\nBu önyükleme animasyonunun
         yüklenmesi, oluşturulmuş bir önizleme olmadan da mümkündür.
@@ -140,8 +121,6 @@ olduğundan ve
     <string name="wallpaper_dialog_wallpaper">Ana ekran duvar kağıdı</string>
     <string name="wallpaper_dialog_lockscreen">Kilit ekranı duvar kağıdı</string>
     <string name="wallpaper_dialog_wallpaper_both">Ana ve kilit ekranı duvar kağıdı</string>
-    <string name="wallpaper_dialog_cancel">İptal</string>
-    <string name="wallpaper_dialog_message">Bu görüntü arka plana uygulansın mı?</string>
     <string name="wallpaper_downloading">Resim önbelleği yükleniyor&#8230;</string>
     <string name="wallpaper_allscreen_success">Ana ekran ve kilit ekranı duvar kağıtları yapılandırıldı!
     
@@ -210,7 +189,6 @@ bu sorunu
     <string name="settings_about_interfacer_not_installed">yüklü değil</string>
     <string name="settings_about_interfacer_masquerade">bu rom, arayüz işlevselliğini kullanmak için bir güncelleştirme gerektiriyor</string>
     <string name="settings_about_oms_rro_version">tema platformu:</string>
-    <string name="settings_about_oms_version_3">OMS3</string>
     <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2 (Eski)</string>
     <string name="settings_about_system_version">sistem platformu</string>
@@ -225,43 +203,25 @@ bu sorunu
         etkinleştirin.
     </string>
     <string name="uninstall_dialog_text">Bu temayı kaldırmak istediğinizden emin misiniz?</string>
-    <string name="manage_dialog_text">Bu işlemi gerçekleştirmek istediğinizden emin misiniz?</string>
     <string name="manage_dialog_performing">Varsayılana geri yükleniyor&#8230;</string>
     <string name="manage_bootanimation_title">Önyükleme Animasyonunu Geri Yükle</string>
     <string name="manage_bootanimation_toast">Önyükleme animasyonu başarıyla geri yüklendi!</string>
-    <string name="manage_bootanimation_text">Cihazınızdaki varsayılan önyükleme animasyonunu geri yükler
-    
-    </string>
     <string name="manage_fonts_title">Sistem Yazı Tiplerini Geri Yükle</string>
     <string name="manage_fonts_toast">Yazı tipleri geri yükleme başarılı!</string>
-    <string name="manage_fonts_text">Cihazınızdaki varsayılan sistem yazı tiplerini geri yükler</string>
     <string name="manage_sounds_title">Sistem Seslerini Geri Yükle</string>
     <string name="manage_sounds_toast">Varsayılan sesleri geri yükleme başarılı!</string>
-    <string name="manage_sounds_text">Cihazınızdaki varsayılan sistem seslerini geri yükler</string>
-    <string name="manage_system_overlay_dialog_title">Tema Temizleme Yöneticisi</string>
     <string name="manage_system_overlay_disable">Etkin tüm temaları devre dışı bırak</string>
     <string name="manage_system_overlay_uninstall">Bütün yüklü temaları kaldır</string>
-    <string name="manage_system_overlay_title">Sistem Temasını Geri Yükle</string>
     <string name="manage_system_overlay_toast">Sistem teması geri yükleniyor&#8230;</string>
     <string name="manage_system_overlay_uninstall_toast">Temalar şu anda arkaplanda
         kaldırılıyor&#8230;</string>
-    <string name="manage_system_overlay_text">Etkin tüm temaları devre dışı bırakır ve varsayılan sistem tamasını
-        geri yükler
-    </string>
     <string name="manage_system_not_permitted">Ana tema bulunmadığından birkaç tema etkinleştirilemedi.</string>
-    <string name="manage_wallpaper_title">Varsayılan Duvar Kağıdını Geri Yükle</string>
-    <string name="manage_wallpaper_text">Cihazınızdaki varsayılan duvar kağıdını geri yükler</string>
     <string name="manage_wallpaper_home">Ana ekran duvar kağıdı</string>
     <string name="manage_wallpaper_lock">Kilit ekranı duvar kağıdı</string>
     <string name="manage_wallpaper_all">Ana ve kilit ekranı duvar kağıdı</string>
     <string name="manage_wallpaper_home_toast">Ana ekran duvar kağıdını geri yükleme başarılı!</string>
     <string name="manage_wallpaper_lock_toast">Kilit ekranı duvar kağıdını geri yükleme başarılı!</string>
     <string name="manage_wallpaper_all_toast">Duvar kağıdı geri yükleme başarılı!</string>
-    <string name="manage_style">Stil</string>
-    <string name="manage_fonts">Yazı Tipleri</string>
-    <string name="manage_bootanimation">Önyükleme Animasyonu</string>
-    <string name="manage_sounds">Sesler</string>
-    <string name="manage_wallpaper">Duvar Kağıtları</string>
     <string name="adapter_uninstalling">%s kaldırılıyor&#8230;</string>
     <string name="plugin_template">Eklenti</string>
     <string name="api_21">Lolipop</string>
@@ -290,7 +250,6 @@ bu sorunu
     <string name="menu_open">Simge Paketi Kontrol Paneli</string>
     <string name="menu_rate">Temaya oy ver</string>
     <string name="menu_refresh">Yenile</string>
-    <string name="menu_refresh_windows">Pencereleri Yenile</string>
     <string name="menu_soft_reboot">Yazılımsal Yeniden Başlat</string>
     <string name="menu_reboot_device">Cihazı Yeniden Başlat</string>
     <string name="menu_per_app">Yüzen Kullanıcı Arayüzü</string>
@@ -309,9 +268,6 @@ bu sorunu
     <string name="dialog_restart_reboot_content">Cihazınızda tam bir yeniden başlatma gerçekleştirir.</string>
     <string name="dialog_restart_soft_reboot_title">Yazılımsal Yeniden Başlat</string>
     <string name="dialog_restart_soft_reboot_content">Cihazınızda yazılımsal bir yeniden başlatma gerçekleştirecektir.</string>
-    <string name="legacy_theme_notification_title">Kullanımdan Kaldırılan Tema Uyarısı</string>
-    <string name="legacy_theme_notification_text">Eski temaları kullanmak için
-        lütfen Ayarlar\'dan etkinleştirin.</string>
     <string name="studio">simge paketi stüdyosu (kontrast)</string>
     <string name="studio_system">Sistem Simgelerini Geri Yükle</string>
     <string name="studio_system_reset_dialog_toast">
@@ -327,13 +283,9 @@ Tüm özel simgeler zaten devre dışı!
         Simgeler değişmezse, Icon Studio\'nun ana sayfasındaki Simge Yapılandırmasını
         Yenile\'yi tıklayın!\n\nTamam düğmesine bastıktan sonra, simge paketinizi başarılı bir şekilde
         uyguladığını söyleyen bir mesaj gelene kadar cihazınıza dokunmayın!</string>
-    <string name="studio_custom">Yaratıcı Mod [çok yakında]</string>
-    <string name="studio_icon_packs">Özel Simgeler</string>
     <string name="studio_pack_title">İndirilen Simge Paketleri</string>
     <string name="studio_system_title">Substratum Framework</string>
-    <string name="studio_applied_toast">%s başarıyla uygulandı!</string>
     <string name="studio_apply_confirmation">%si uygulamak istediğinize emin misiniz?</string>
-    <string name="studio_configuration_changed">Yapılandırma başarıyla güncellendi!</string>
     <string name="studio_applying">Yükleniyor&#8230;</string>
     <string name="icon_pack_entry">Tema Simgesi</string>
     <string name="studio_update_configuration">Simge Yapılandırmasını Yenile</string>
@@ -402,9 +354,6 @@ sağlayan
         girin!
     
     </string>
-    <string name="profile_edittext_empty_toast_sysui">Substratum Yazı Tipi Yardımcısı bulunamadı, lütfen yardımcıyı
-        kurmak ve dinamik font takasını tekrar kazanmak için bir yazı tipi uygulayın!
-    </string>
     <string name="profile_edittext_title">Yeni Profil:</string>
     <string name="profile_edittext_whitespace_warning_toast">Profil adı içinde boşluk kullanamazsınız!</string>
     <string name="toast_backup_success">Şuan ki tema listesi
@@ -413,22 +362,10 @@ sağlayan
     <string name="spinner_default_item">bir profil seçin&#8230;</string>
     <string name="select_to_toggle_all_overlays">Seçilen tüm temalara geçiş yap</string>
     <string name="fab_menu_select_to_toggle_all_overlays">Tüm temaları seç</string>
-    <string name="overflow_description">Ekstra Seçenekler</string>
-    <string name="overlay_dialog_default_res">Varsayılan</string>
-    <string name="overlay_dialog_text">mevcut tema seçeneklerini kolaylaştır&#8230;</string>
-    <string name="system_overlay_dialog_title">lütfen bir sistem tema tabanı seçin&#8230;</string>
-    <string name="tp_overlay_dialog_title">lütfen üçüncü parti tema tabanı seçin&#8230;</string>
     <string name="permission_not_granted_dialog_title">İzin verilmeyen izinler</string>
     <string name="permission_not_granted_dialog_message1">Lütfen substratum\'a depolama izinleri verin
         veya uygulama
         düzgün çalışmaz!
-    </string>
-    <string name="permission_not_granted_dialog_message2">Lütfen substratum\'a telefon izinleri verin çünkü
-        uygulama cihaza bağlı temaları düzgün bir şekilde düzenleyemez!
-    </string>
-    <string name="permission_not_granted_dialog_message3">Lütfen substratum\'a kişilere erişim izni verin
-        böylece tema sorunları için destek sistemi sorunsuz olarak
-raporlanır!
     </string>
     <string name="dialog_ok">TAMAM</string>
     <string name="dialog_do_not_show_again">Bir daha gösterme</string>
@@ -440,7 +377,6 @@ raporlanır!
     <string name="uninstall_dialog_body">Temayı Kaldır</string>
     <string name="uninstall_dialog_cancel">İptal</string>
     <string name="uninstall_dialog_okay">TAMAM</string>
-    <string name="failed_to_install_overlay_toast">\"%s\" düzenleme işleme başarısız oldu</string>
     <string name="sb_phase_1_loader">tema çıkartılıyor</string>
     <string name="sb_phase_2_loader">tema yükleniyor</string>
     <string name="sb_phase_3_loader">simge kaynakları ekleniyor</string>
@@ -448,26 +384,17 @@ raporlanır!
     <string name="root_rejected_text_cm_phh">kök erişimi olmadan devam edemezsiniz&#8230;</string>
     <string name="root_rejected_timer_plural">%s saniye içinde kapanacak&#8230;</string>
     <string name="root_rejected_timer_singular">%s saniye içinde kapanacak&#8230;</string>
-    <string name="list_of_overlays">Yüklenilebilir temaların listesi</string>
-    <string name="toast_unapproved">Bu tema sistem tarafından reddedilmiştir</string>
-    <string name="toast_compiled">Seçili temalar düzenlendi!</string>
     <string name="toast_compiled_updated">Seçili temalar güncellendi!</string>
     <string name="toast_compiled_missing">Bu kurulumda eksik yapılandırmalar nedeniyle bir veya daha fazla tema derleyemez&#8230;</string>
     <string name="toast_compiled_updated_with_errors">Seçili temalar bazı hatalarla güncellendi!</string>
-    <string name="toast_enabled">Başarıyla etkinleştirildi!</string>
-    <string name="toast_disabled">Başarıyla devre dışı bırakıldı!</string>
     <string name="toast_disabled3">Lütfen uygulamadan önce temayı düzenleyin!</string>
     <string name="toast_disabled4">Düzenlenmemiş temaları devre dışı bırakamazsınız!</string>
     <string name="toast_disabled5">Bu işlemi gerçekleştirmeden önce lütfen geçerli bir tema seçin.</string>
     <string name="toast_disabled6">Seçilen temalar kaldırıldı!</string>
-    <string name="toast_installed">Seçilen temalar etkinleştirildi!</string>
     <string name="toast_uninstalled">Bu temayı yeni kaldırdınız! Bir sonraki yenilemede görünmeyecektir!</string>
-    <string name="toast_uninstalling">Temalar kaldırılıyor&#8230;</string>
-    <string name="toast_updating">Substratum şimdi temayı arka planda hazır hale getiriyor!</string>
     <string name="no_themes_title">tema bulunamadı&#8230;</string>
     <string name="no_themes_description">lütfen uyumlu bir tema yükleyin!</string>
     <string name="no_themes_description_search">\'\'%s\'\' yüklü temalar listesinde bulunamadı&#8230;</string>
-    <string name="toast_on_back_press_compiling">Düzenleme sırasında isterseniz Ana Ekran tuşuna basarak telefonunuzu kullanabilirsiniz.</string>
     <string name="toast_needs_caching">Substratum\'un önbelleği silindi, lütfen devam etmeden önce bu temayı yeniden oluşturun!</string>
     <string name="notification_theme_installed">yüklendi</string>
     <string name="notification_theme_updated">güncellendi</string>
@@ -478,13 +405,10 @@ raporlanır!
     <string name="notification_initial_title">Substratum çalışıyor</string>
     <string name="notification_initial_title_upgrade">%s kaynakları şuan güncelleniyor&#8230;</string>
     <string name="notification_done_title">Tema düzenlemesi tamamlandı</string>
-    <string name="notification_extracting_assets">Tema paketinden içerik çıkartılıyor&#8230;</string>
-    <string name="notification_extracting_assets_text">Temalar işleniyor&#8230;</string>
     <string name="notification_no_errors_found">Temalar yüklenirken hata oluşmadı</string>
     <string name="notification_some_errors_found">Tema kurulumu sırasında bir hata oluştu</string>
     <string name="notification_processing">için tema işleniyor</string>
     <string name="notification_processing_n">Tema hazırlanıyor&#8230;</string>
-    <string name="notification_compiling_signing_installing">Temalarınız oluşturuluyor ve yükleniyor&#8230;</string>
     <string name="advanced_manager_overlay_read_error">Temalar listesi ayrıştırılamadı. Lütfen Kurtarma\'yı
         açın ve bu sorunu çözmek için Sistem Temasını Geri Yükle (yüklü tüm temaları kaldırır)
         seçeneğini tıklayın.
@@ -501,7 +425,6 @@ raporlanır!
     <string name="settings_title_3">Temala</string>
     <string name="settings_title_clickable">Sistem Yapılandırması</string>
     <string name="substratum_cache_clear_initial_toast">Substratum önbelleği temizleniyor&#8230;</string>
-    <string name="substratum_cache_clear_toast">Substratum önbelleği temizlendi!</string>
     <string name="substratum_restart_toast">Substratum ayarlar değiştirildikten sonra yeniden başlatılacak.</string>
     <string name="purge_cache">Tema Önbelleğini Geçersiz Kıl</string>
     <string name="purge_cache_subtext">Saklanan tüm tema ve uygulama ön belleklerini yok edecektir.</string>
@@ -518,15 +441,9 @@ raporlanır!
     <string name="hide_app_icon_toast_disabled">Uygulamanın simgesi şimdi başlatıcınıza eklendi!</string>
     <string name="hide_app_icon_not_supported">Değişim desteklenmiyor</string>
     <string name="hide_app_icon_supported">Ana ekranınızda başlatıcı simgesinin görünür veya görünmez olması arasında geçiş yapmanızı sağlar.</string>
-    <string name="show_installed_packages_only">Yalnızca yüklü paketleri tema seçici de göster</string>
-    <string name="purge_completion">Bu tema için temalar arka planda temizleniyor&#8230;</string>
-    <string name="clean_completion">Bu tema için temalar arka planda temizleniyor&#8230;</string>
     <string name="cache_clear_completion">%s temasının önbelleği temizlendi!</string>
     <string name="disable_completion">Bu tema için temaların tamamı artık devre dışı bırakılıyor&#8230;</string>
     <string name="enable_completion">Bu tema için yüklü temaların tamamı şimdi etkinleştiriliyor&#8230;</string>
-    <string name="purge_information">Tüm temaları bir kerede kaldırmak, eylem sırasında birden çok zorla kapatmaya neden olan potansiyel olarak tehlikeli bir eylemdir.</string>
-    <string name="purge_button_text">TÜM TEMALARI KALDIR</string>
-    <string name="purge2_button_text">TÜM TEMALARI DEVRE DIŞI BIRAK</string>
     <string name="dynamic_actionbar_colors">Dinamik Eylem Çubuğu Renkleri</string>
     <string name="dynamic_actionbar_colors_subtext">Tema bilgileri penceresinde, Substratum açılıp kapanabilir eylem çubuğunu uygulamaya hakim görüntü rengine uyarlayacak.</string>
     <string name="dynamic_navbar_colors">Dinamik Gezinti Çubuğu Renkleri</string>
@@ -539,7 +456,6 @@ raporlanır!
     <string name="show_outdated_themes_content">Bunu devre dışı bırakmak Substratum\'un temaların
         her zamankinden daha hızlı yüklendiği yeni algoritmayı kullanmasına izin verecektir. Bu,
         yalnızca düzgün bir şekilde yapılandırılmış 6.0.0+ eklenti temaları için çalışacaktır.</string>
-    <string name="fab_menu_compile">Seçilenleri Düzenle</string>
     <string name="fab_menu_compile_enable">Oluştur &amp; Etkinleştir</string>
     <string name="fab_menu_compile_update">Oluştur &amp; Güncelle</string>
     <string name="fab_menu_compile_install">Seçilenleri Yükle</string>
@@ -588,8 +504,6 @@ raporlanır!
     <string name="end_time">Bitir</string>
     <string name="day_profile">Gündüz profili</string>
     <string name="night_profile">Gece profili</string>
-    <string name="day">Gündüz</string>
-    <string name="night">Gece</string>
     <string name="apply">Uygula</string>
     <string name="time_empty_warning">Lütfen Başlangıç ve Bitiş saatlerini yapılandırın!</string>
     <string name="time_equal_warning">Lütfen farklı etkinleştirme süreleri seçin!</string>
@@ -618,8 +532,6 @@ raporlanır!
     <string name="profile_dialog_cancel">İptal</string>
     <string name="bottom_sheet_dialog_hide_outdated_themes">Eski temaları gizle (6.0.0+) [Önerilen!]</string>
     <string name="bottom_sheet_dialog_show_outdated_themes">Eski temaları göster (6.0.0 öncesi)</string>
-    <string name="bottom_sheet_dialog_outdated_description">Eski temaları gizlemek, tema kaynak arama algoritmasında performansı artıracaktır! Eski bir temayı yüklemeye karar verdiğinizde Ayarlar\'dan değiştirilebilir.</string>
-    <string name="bottom_sheet_dialog_outdated_title">Geciktin!</string>
     <string name="settings_system_status">sistem sertifikası</string>
     <string name="settings_system_status_rooted">kök erişimli mod</string>
     <string name="settings_system_status_rootless">kök erişimsiz mod</string>
@@ -673,7 +585,6 @@ raporlanır!
     <string name="interfacer_not_authorized_toast">Substratum\'un bu sürümü yetkili değildir ve Sistem Arayüz modülü ile çalışmaz.</string>
     <string name="app_crash_title">%s hata vermeye devam ediyor&#8230;</string>
     <string name="app_crash_content">Bu uygulama için etkin olan temalar devre dışı bırakıldı.</string>
-    <string name="dirty_flash_detected">Yazılımınız veya ROM\'unuz, kullanıcı verilerini silmeden güncellendi (kirli flaş). Substratum hataları önlemek için kendini yeniden yapılandırır.</string>
     <string name="rom_status">destek durumu:</string>
     <string name="rom_status_supported">%s topluluğu tarafından desteklenmektedir!</string>
     <string name="rom_status_unsupported">bu rom henüz topluluk tarafından bilinmiyor&#8230;</string>

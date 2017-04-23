@@ -165,7 +165,7 @@ public class ShowcaseActivity extends AppCompatActivity {
 
     private void launchShowcaseInfo() {
         Dialog dialog = new Dialog(this, R.style.ShowcaseDialog);
-        dialog.setContentView(R.layout.community_showcase_info);
+        dialog.setContentView(R.layout.showcase_info);
         dialog.show();
     }
 

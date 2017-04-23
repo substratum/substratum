@@ -418,7 +418,7 @@ public class Overlays extends Fragment {
             LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {
-        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.tab_fragment_1, container, false);
+        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.tab_overlays, container, false);
         prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 
         theme_name = InformationActivity.getThemeName();

@@ -162,7 +162,7 @@ public class ManagerFragment extends Fragment {
 
         context = getContext();
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        root = (ViewGroup) inflater.inflate(R.layout.advanced_manager_fragment, container, false);
+        root = (ViewGroup) inflater.inflate(R.layout.manager_fragment, container, false);
         relativeLayout = (RelativeLayout) root.findViewById(R.id.no_overlays_enabled);
         mRecyclerView = (RecyclerView) root.findViewById(R.id.overlays_recycler_view);
 

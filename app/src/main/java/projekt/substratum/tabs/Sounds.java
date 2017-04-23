@@ -103,7 +103,7 @@ public class Sounds extends Fragment {
             Bundle savedInstanceState) {
         theme_pid = InformationActivity.getThemePID();
 
-        root = (ViewGroup) inflater.inflate(R.layout.tab_fragment_4, container, false);
+        root = (ViewGroup) inflater.inflate(R.layout.tab_sounds, container, false);
         nsv = (NestedScrollView) root.findViewById(R.id.nestedScrollView);
 
         progressBar = (MaterialProgressBar) root.findViewById(R.id.progress_bar_loader);

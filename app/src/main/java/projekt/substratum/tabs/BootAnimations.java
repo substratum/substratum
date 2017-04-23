@@ -103,7 +103,7 @@ public class BootAnimations extends Fragment {
             Bundle savedInstanceState) {
         theme_pid = InformationActivity.getThemePID();
 
-        root = (ViewGroup) inflater.inflate(R.layout.tab_fragment_2, container, false);
+        root = (ViewGroup) inflater.inflate(R.layout.tab_bootanimations, container, false);
         nsv = (NestedScrollView) root.findViewById(R.id.nestedScrollView);
 
         animation = new AnimationDrawable();

@@ -93,7 +93,7 @@ public class Fonts extends Fragment {
             ViewGroup container,
             Bundle savedInstanceState) {
         theme_pid = InformationActivity.getThemePID();
-        root = (ViewGroup) inflater.inflate(R.layout.tab_fragment_3, container, false);
+        root = (ViewGroup) inflater.inflate(R.layout.tab_fonts, container, false);
         progressBar = (MaterialProgressBar) root.findViewById(R.id.progress_bar_loader);
         defaults = (RelativeLayout) root.findViewById(R.id.restore_to_default);
         font_holder = (RelativeLayout) root.findViewById(R.id.font_holder);

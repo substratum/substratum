@@ -63,7 +63,7 @@ public class Wallpapers extends Fragment {
             ViewGroup container,
             Bundle savedInstanceState) {
         wallpaperUrl = InformationActivity.getWallpaperUrl();
-        root = (ViewGroup) inflater.inflate(R.layout.tab_fragment_5, container, false);
+        root = (ViewGroup) inflater.inflate(R.layout.tab_wallpapers, container, false);
         materialProgressBar = (MaterialProgressBar) root.findViewById(R.id.progress_bar_loader);
         no_network = root.findViewById(R.id.no_network);
         no_wallpapers = root.findViewById(R.id.none_found);

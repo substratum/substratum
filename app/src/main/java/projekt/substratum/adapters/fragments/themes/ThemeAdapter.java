@@ -26,6 +26,8 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Vibrator;
@@ -33,6 +35,7 @@ import android.preference.PreferenceManager;
 import android.support.design.widget.Lunchbar;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +44,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 import projekt.substratum.R;
 import projekt.substratum.common.References;
@@ -128,6 +134,37 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
 
         viewHolder.cardView.setOnClickListener(
                 v -> {
+                    if (References.ENABLE_PACKAGE_LOGGING) {
+                        try {
+                            PackageManager pm = mContext.getPackageManager();
+                            ApplicationInfo appInfo;
+
+                            PackageManager packageManager = mContext.getPackageManager();
+                            String installer = packageManager.getInstallerPackageName(
+                                    themeItem.getThemePackage());
+                            appInfo = pm.getApplicationInfo(
+                                    themeItem.getThemePackage(), 0);
+
+                            long installed = new File(appInfo.sourceDir).lastModified();
+                            Date date = new Date(installed);
+                            SimpleDateFormat format =
+                                    new SimpleDateFormat("dd/MM/yyyy", Locale.US);
+                            SimpleDateFormat format2 =
+                                    new SimpleDateFormat("HH:mm:ss.SSS", Locale.US);
+
+                            String text = format.format(date);
+                            String text2 = format2.format(date);
+
+                            Log.d("PackageLogger", "Package Information for: " +
+                                    themeItem.getThemePackage());
+                            Log.d("PackageLogger", "Installation date: " + text);
+                            Log.d("PackageLogger", "Installation time: " + text2);
+                            Log.d("PackageLogger", "Installation location: " + installer + "");
+                        } catch (Exception e) {
+                            // Suppress warning
+                        }
+                    }
+
                     SharedPreferences prefs =
                             mContext.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
                     if (References.isCachingEnabled(mContext)) {

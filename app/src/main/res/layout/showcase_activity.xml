@@ -70,7 +70,6 @@
                     android:src="@drawable/no_network_showcase"/>
 
                 <TextView
-                    android:id="@+id/placeholder_text2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/image_placeholder2"

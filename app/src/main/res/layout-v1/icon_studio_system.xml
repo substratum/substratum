@@ -43,7 +43,6 @@
             android:src="@drawable/phone_heart"/>
 
         <TextView
-            android:id="@+id/mode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"

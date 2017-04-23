@@ -19,8 +19,6 @@
   -->
 <resources>
     <string name="showcase">Mostrador de Temas</string>
-    <string name="helper_name">Asistente de superposición</string>
-    <string name="restore_app_name">Restaurar tema</string>
     <string name="android">Versión de Android:</string>
     <string name="device">Modelo del Dispositivo:</string>
     <string name="resource_checker_request">Enviar una solicitud de fusión de commit con&#8230;</string>
@@ -46,7 +44,6 @@
     <string name="failed_to_install_text_notification">Error al instalar %s</string>
     <string name="actionbar_theme_count_singular">%s tema</string>
     <string name="actionbar_theme_count_plural">%s temas</string>
-    <string name="actionbar_theme_count_none">No se encontraron temas</string>
     <string name="actionbar_theme_count_loading">Cargando&#8230;</string>
     <string name="actionbar_search">Buscar</string>
     <string name="actionbar_changelog">Cambios del tema</string>
@@ -72,14 +69,8 @@ arreglar las cosas que no se están tematizando en legado porque requieren cambi
     <string name="legacy_dialog_soft_reboot_title">¡Se requiere reiniciar!</string>
     <string name="legacy_dialog_soft_reboot_text">Se está ejecutando el sistema de Resource Runtime Overlay (RRO), es necesario realizar un reinicio después de añadir o quitar capas.\n\nDe continuar con este diálogo el dispositivo se reiniciará automáticamente, así que por favor asegúrese de haber guardado su trabajo antes de continuar.    </string>
     <string name="activity_missing_toast">No se encontraron aplicaciones que puedan manejar esta solicitud, lo sentimos!    </string>
-    <string name="abort_overlay_toast">Se están desinstalando todas las capas&#8230;</string>
     <string name="abort_overlay_toast_success">¡Todas las capas desinstaladas!</string>
     <string name="rescue_toast">Recuperando su sistema&#8230;</string>
-    <string name="disable_overlay_toast">Desactivando todas las capas activas&#8230;</string>
-    <string name="disable_overlay_toast_success">Todas las capas han sido desactivadas!</string>
-    <string name="disable_overlay_toast_not_found">No es posible desactivar todas las capas!</string>
-    <string name="restore_activity_toast">Copia de seguridad encontrada! Restaurando&#8230;</string>
-    <string name="restore_activity_toast_not_found">No se encontraron copias de seguridad de capas en la base de datos.</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">type1a variante&#8230;</string>
     <string name="overlays_variant_default_1b">type1b variante&#8230;</string>
@@ -89,10 +80,6 @@ arreglar las cosas que no se están tematizando en legado porque requieren cambi
     <string name="overlays_up_to_date">ACTUALIZADO</string>
     <string name="overlays_update_available">Actualización disponible!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Variante no instalada</string>
-    <string name="overlays_compile_update_button">Compilar/Actualizar &amp; Instalar</string>
-    <string name="information_activity_pirated_toast">El binario de este tema no pasó la verificación de la integridad Substratum.    </string>
-    <string name="information_activity_upgrade_toast">Este tema necesita actualizarse con la nueva plantilla de temas para seguir usándolo con Substratum!    </string>
-    <string name="information_activity_upgrade_toast_lenient">¡Una actualización está disponible para el plugin de este tema!    </string>
     <string name="bootanimation_vm_exploded">La renderización de la animación de inicio se ha terminado debido a la falta de asignación de memoria. \n\nLa instalación de esta animación de inicio sigue siendo posible aún sin la vista previa.    </string>
     <string name="bootanimation_placeholder_text">Seleccione una animación de inicio de la lista desplegable&#8230;</string>
     <string name="bootanimation_default_spinner">Seleccione una animación de inicio&#8230;</string>
@@ -105,8 +92,6 @@ arreglar las cosas que no se están tematizando en legado porque requieren cambi
     <string name="wallpaper_dialog_wallpaper">Fondo de pantalla de inicio</string>
     <string name="wallpaper_dialog_lockscreen">Fondo de pantalla de bloqueo</string>
     <string name="wallpaper_dialog_wallpaper_both">Ambas</string>
-    <string name="wallpaper_dialog_cancel">Cancelar</string>
-    <string name="wallpaper_dialog_message">¿Aplicar esta imagen para el fondo?</string>
     <string name="wallpaper_downloading">Cargando la imagen en la memoria caché&#8230;</string>
     <string name="wallpaper_allscreen_success">Ambos fondos fueron configurados!    </string>
     <string name="wallpaper_allscreen_error">No se pueden configurar los fondos de pantalla de inicio y bloqueo    </string>
@@ -156,7 +141,6 @@ correctamente&#8230;</string>
     <string name="settings_about_interfacer_not_installed">No instalado</string>
     <string name="settings_about_interfacer_masquerade">Esta ROM requiere una actualización para utilizar la funcionalidad Interfacer</string>
     <string name="settings_about_oms_rro_version">Plataforma de Tematización:</string>
-    <string name="settings_about_oms_version_3">OMS3</string>
     <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
     <string name="settings_about_system_version">Plataforma del Sistema</string>
@@ -169,39 +153,24 @@ correctamente&#8230;</string>
     <string name="nougat_style_cards_title">Disposición de tarjetas estilo Nougat</string>
     <string name="nougat_style_cards_subtext">Activar el estilo de notificación Nougat en las tarjetas temáticas.    </string>
     <string name="uninstall_dialog_text">¿Seguro que quieres desinstalar este tema?</string>
-    <string name="manage_dialog_text">¿Está seguro de que desea realizar esta acción?</string>
     <string name="manage_dialog_performing">Restaurando a valores por defecto&#8230;</string>
     <string name="manage_bootanimation_title">Restaurar Animación de Inicio</string>
     <string name="manage_bootanimation_toast">Animación de Inicio restaurado con éxito!</string>
-    <string name="manage_bootanimation_text">Restaura la animación de inicio por defecto del dispositivo
-    </string>
     <string name="manage_fonts_title">Restaurar Fuentes del Sistema</string>
     <string name="manage_fonts_toast">Fuentes restauradas con éxito!</string>
-    <string name="manage_fonts_text">Restaura las fuentes de sistema por defecto del dispositivo</string>
     <string name="manage_sounds_title">Restaurar Sonidos del Sistema</string>
     <string name="manage_sounds_toast">Sonidos por defecto restaurados con éxito!</string>
-    <string name="manage_sounds_text">Restaura los sonidos del sistema por defecto del dispositivo</string>
-    <string name="manage_system_overlay_dialog_title">Gestor de Limpieza de Capas</string>
     <string name="manage_system_overlay_disable">Desactivar todas las capas activas</string>
     <string name="manage_system_overlay_uninstall">Desinstalar todas las capas instaladas</string>
-    <string name="manage_system_overlay_title">Restaurar Tema del Sistema</string>
     <string name="manage_system_overlay_toast">El tema del sistema está restaurándose&#8230;</string>
     <string name="manage_system_overlay_uninstall_toast">Las capas están desinstalándose en segundo plano&#8230;</string>
-    <string name="manage_system_overlay_text">Desactiva todas las capas activadas y restaura el tema por defecto    </string>
     <string name="manage_system_not_permitted">No se pudo activar algunas capas debido a que el tema principal no está presente.</string>
-    <string name="manage_wallpaper_title">Restaurar Fondo de Pantalla</string>
-    <string name="manage_wallpaper_text">Restaura el fondo de pantalla por defecto del dispositivo</string>
     <string name="manage_wallpaper_home">Fondo de pantalla de inicio</string>
     <string name="manage_wallpaper_lock">Fondo de pantalla de bloqueo</string>
     <string name="manage_wallpaper_all">Ambas</string>
     <string name="manage_wallpaper_home_toast">Fondo de pantalla de inicio restaurado completamente!</string>
     <string name="manage_wallpaper_lock_toast">Fondo de pantalla de bloqueo restaurado completamente!</string>
     <string name="manage_wallpaper_all_toast">Fondo de pantalla restaurado completamente!</string>
-    <string name="manage_style">Estilo</string>
-    <string name="manage_fonts">Fuentes</string>
-    <string name="manage_bootanimation">Animación de Inicio</string>
-    <string name="manage_sounds">Sonidos</string>
-    <string name="manage_wallpaper">Fondo de pantalla</string>
     <string name="adapter_uninstalling">Desinstalando %s&#8230;</string>
     <string name="plugin_template">Plugin</string>
     <string name="api_21">Lollipop</string>
@@ -229,7 +198,6 @@ correctamente&#8230;</string>
     <string name="menu_open">Tabla de packs de iconos</string>
     <string name="menu_rate">Calificar tema</string>
     <string name="menu_refresh">Recargar</string>
-    <string name="menu_refresh_windows">Recargar ventanas</string>
     <string name="menu_soft_reboot">Reinicio suave</string>
     <string name="menu_reboot_device">Reiniciar Dispositivo</string>
     <string name="menu_per_app">FloatUI</string>
@@ -248,8 +216,6 @@ correctamente&#8230;</string>
     <string name="dialog_restart_reboot_content">Esto llevará a cabo un reinicio completo del dispositivo.</string>
     <string name="dialog_restart_soft_reboot_title">Reinicio suave</string>
     <string name="dialog_restart_soft_reboot_content">Esto llevará a cabo un reinicio suave de su dispositivo.</string>
-    <string name="legacy_theme_notification_title">Advertencia de Tema Obsoleto</string>
-    <string name="legacy_theme_notification_text">Para utilizar temas obsoletos, por favor actívelo en los ajustes.</string>
     <string name="studio">Estudio de packs de iconos (gamma)</string>
     <string name="studio_system">Restaurar Iconos del Sistema</string>
     <string name="studio_system_reset_dialog_toast">¡Todos los iconos personalizados ya han sido desactivados!</string>
@@ -257,13 +223,9 @@ correctamente&#8230;</string>
 ¿Desea restaurar los iconos actuales a los iconos por defecto del sistema?    </string>
     <string name="studio_refresh_dialog_title">Confirmación de Cambio de Configuración</string>
     <string name="studio_refresh_dialog_content">Substratum ahora cambiará la configuración de sistema para reconocer rápidamente todas las solicitudes de los nuevos iconos.\n\nSu lenjuage de sistema momentáneamente cambiará a Japones después de ser lanzado a su launcher, luego volverá de nuevo a la lengua original en el dispositivo. Si no cambian los iconos, haga clic en Actualizar Configuración de Icono en la Página principal del Estudio de Iconos!\n\nDespués de presionar OK, no toque el dispositivo hasta que salga un mensaje diciendo que se ha aplicado con éxito su pack de iconos!</string>
-    <string name="studio_custom">Modo Creativo [próximamente]</string>
-    <string name="studio_icon_packs">Iconos Personalizados</string>
     <string name="studio_pack_title">Iconos Descargados</string>
     <string name="studio_system_title">Substratum Framework</string>
-    <string name="studio_applied_toast">%s se ha aplicado correctamente!</string>
     <string name="studio_apply_confirmation">¿Estás seguro de que quieres aplicar %s?</string>
-    <string name="studio_configuration_changed">Configuración actualizada con éxito!</string>
     <string name="studio_applying">Cargando&#8230;</string>
     <string name="icon_pack_entry">Icono de superposición</string>
     <string name="studio_update_configuration">Actualizar Configuración del Icono</string>
@@ -302,24 +264,15 @@ correctamente&#8230;</string>
     <string name="profile_delete_button_none_selected_toast">Por favor, seleccione un perfil de la lista desplegable antes de tratar de eliminar un perfil!    </string>
     <string name="profile_edittext_hint">escriba un nombre para su perfil&#8230;</string>
     <string name="profile_edittext_empty_toast">Por favor, introduzca un nombre para el perfil antes de resguardar!    </string>
-    <string name="profile_edittext_empty_toast_sysui">Ayudante de Fuentes Substratum no fue encontrado, por favor, aplicar una fuente para instalar el ayudante y retener intercambio dinámica de fuentes!    </string>
     <string name="profile_edittext_title">Nuevo Perfil:</string>
     <string name="profile_edittext_whitespace_warning_toast">¡No puedes usar espacios dentro del nombre del perfil!</string>
     <string name="toast_backup_success">Lista de capas actual guardado en \"/storage/emulated/0/substratum/profiles/%s\"    </string>
     <string name="spinner_default_item">Seleccione un perfil&#8230;</string>
     <string name="select_to_toggle_all_overlays">Toque para seleccionar todas las capas</string>
     <string name="fab_menu_select_to_toggle_all_overlays">Seleccionar todas las capas</string>
-    <string name="overflow_description">Más opciones</string>
-    <string name="overlay_dialog_default_res">Por Defecto</string>
-    <string name="overlay_dialog_text">Simplificando las opciones del tema actual&#8230;</string>
-    <string name="system_overlay_dialog_title">Seleccione una base de capa del sistema&#8230;</string>
-    <string name="tp_overlay_dialog_title">Seleccione una base de capa de terceros&#8230;</string>
     <string name="permission_not_granted_dialog_title">Permisos no concedidos</string>
     <string name="permission_not_granted_dialog_message1">Por favor, conceder los permisos de almacenamiento a Substratum
 o la aplicación no funcionará correctamente!    </string>
-    <string name="permission_not_granted_dialog_message2">Por favor, conceder los permisos de teléfono a Substratum
-o la aplicación no compilará capas dependientes del dispositivo correctamente!    </string>
-    <string name="permission_not_granted_dialog_message3">Por favor, conceda permisos de contacto a Substratum para que el sistema dé soporte para que los temas obtengan el reporte de fallos sin problemas!    </string>
     <string name="dialog_ok">Ok</string>
     <string name="dialog_do_not_show_again">No volver a mostrar</string>
     <string name="clean_cache_dialog_body">¿Quieres limpiar la caché de este tema?</string>
@@ -329,7 +282,6 @@ o la aplicación no compilará capas dependientes del dispositivo correctamente!
     <string name="uninstall_dialog_body">Desinstalar tema</string>
     <string name="uninstall_dialog_cancel">Cancelar</string>
     <string name="uninstall_dialog_okay">Ok</string>
-    <string name="failed_to_install_overlay_toast">Error al compilar la capa \"%s\"</string>
     <string name="sb_phase_1_loader">Extrayendo el tema</string>
     <string name="sb_phase_2_loader">instalando capa(s)</string>
     <string name="sb_phase_3_loader">Inyectando recursos de iconos</string>
@@ -337,26 +289,17 @@ o la aplicación no compilará capas dependientes del dispositivo correctamente!
     <string name="root_rejected_text_cm_phh">No se puede continuar sin tener root&#8230;</string>
     <string name="root_rejected_timer_plural">Cerrando en %s segundos&#8230;</string>
     <string name="root_rejected_timer_singular">Cerrando en %s segundo&#8230;</string>
-    <string name="list_of_overlays">Lista de capas instalables</string>
-    <string name="toast_unapproved">Esta capa ha sido rechazada por el sistema</string>
-    <string name="toast_compiled">Capas seleccionadas compiladas!</string>
     <string name="toast_compiled_updated">Capas seleccionadas actualizadas!</string>
     <string name="toast_compiled_missing">Una o más capas no se pueden compilar debido a las configuraciones que faltan en esta elección&#8230;</string>
     <string name="toast_compiled_updated_with_errors">¡Las capas seleccionadas se actualizaron con algunos errores!</string>
-    <string name="toast_enabled">¡Activado con éxito!</string>
-    <string name="toast_disabled">¡Desactivado con éxito!</string>
     <string name="toast_disabled3">Compile esta capa antes de aplicar!</string>
     <string name="toast_disabled4">No puede desactivar una capa que no haya compilado!</string>
     <string name="toast_disabled5">Seleccione una capa válida antes de realizar esta acción.</string>
     <string name="toast_disabled6">Capas seleccionadas eliminadas!</string>
-    <string name="toast_installed">Capas seleccionadas aplicadas!</string>
     <string name="toast_uninstalled">¡Usted acaba de desinstalar este tema! ¡Desaparecerá al refrescar!</string>
-    <string name="toast_uninstalling">Se están desinstalando las capas&#8230;</string>
-    <string name="toast_updating">¡Substratum está preparando su tema en segundo plano!</string>
     <string name="no_themes_title">No se encontraron temas&#8230;</string>
     <string name="no_themes_description">Por favor, instala un tema compatible!</string>
     <string name="no_themes_description_search">\"%s\" no se encontró en la lista de temas instalados&#8230;</string>
-    <string name="toast_on_back_press_compiling">Puede usar otras aplicaciones durante la compilación, haciendo clic en los botones Inicio/Recientes.</string>
     <string name="toast_needs_caching">¡Se borró el caché de Substratum, por favor recompile este tema antes de continuar!</string>
     <string name="notification_theme_installed">Instalado</string>
     <string name="notification_theme_updated">Actualizado</string>
@@ -367,13 +310,10 @@ o la aplicación no compilará capas dependientes del dispositivo correctamente!
     <string name="notification_initial_title">Substratum se está ejecutando</string>
     <string name="notification_initial_title_upgrade">Los recursos de %s  se están actualizando&#8230;</string>
     <string name="notification_done_title">Se completó la compilación del tema</string>
-    <string name="notification_extracting_assets">Extrayendo activos del paquete de temas&#8230;</string>
-    <string name="notification_extracting_assets_text">Procesando capas&#8230;</string>
     <string name="notification_no_errors_found">No hubo errores durante la instalación de las capas</string>
     <string name="notification_some_errors_found">Ha ocurrido un error durante la instalación de las capas</string>
     <string name="notification_processing">Procesando capa</string>
     <string name="notification_processing_n">Preparando las capas del tema&#8230;</string>
-    <string name="notification_compiling_signing_installing">Creando e instalando tus capas&#8230;</string>
     <string name="advanced_manager_overlay_read_error">No se puede analizar la lista de capas. Por favor abre Gestor de Restauración
         y haga clic en Restaurar Tema del Sistema (Desinstalar todas las capas instaladas) para
         resolver este problema.    </string>
@@ -389,7 +329,6 @@ o la aplicación no compilará capas dependientes del dispositivo correctamente!
     <string name="settings_title_3">Tematizar</string>
     <string name="settings_title_clickable">Configuración del Sistema</string>
     <string name="substratum_cache_clear_initial_toast">La caché de Substratum se está borrando&#8230;</string>
-    <string name="substratum_cache_clear_toast">La caché de Substratum ha sido borrada!</string>
     <string name="substratum_restart_toast">Substratum se reinició automáticamente después de un cambio de configuración.</string>
     <string name="purge_cache">Invalidar la Caché del Tema</string>
     <string name="purge_cache_subtext">Esto destruirá todos los temas almacenados y el caché de la aplicación.</string>
@@ -406,15 +345,9 @@ o la aplicación no compilará capas dependientes del dispositivo correctamente!
     <string name="hide_app_icon_toast_disabled">¡El icono de la aplicación se ha añadido a su launcher!</string>
     <string name="hide_app_icon_not_supported">Cambio no es compatible</string>
     <string name="hide_app_icon_supported">Esto le permitirá variar entre tener el icono del lanzador visible o invisible en la pantalla principal.</string>
-    <string name="show_installed_packages_only">Mostrar solo los paquetes instalados en el selector de capas</string>
-    <string name="purge_completion">Todas las capas de este tema se están desactivando y eliminando&#8230;</string>
-    <string name="clean_completion">Todas las capas de este tema se están desactivando y eliminando&#8230;</string>
     <string name="cache_clear_completion">¡Se ha borrado la caché del tema %s!</string>
     <string name="disable_completion">Todas las capas de este tema se están desactivando&#8230;</string>
     <string name="enable_completion">Todas las capas instaladas para este tema se están activando&#8230;</string>
-    <string name="purge_information">La eliminación de todas las capas a la vez es una acción potencialmente peligrosa que causa un cierre forzado de aplicaciones.</string>
-    <string name="purge_button_text">DESINSTALAR TODAS LAS CAPAS</string>
-    <string name="purge2_button_text">DESACTIVAR TODAS LAS CAPAS ACTIVADAS</string>
     <string name="dynamic_actionbar_colors">Colores dinámicos en la barra de acción</string>
     <string name="dynamic_actionbar_colors_subtext">En la ventana de información del tema, Substratum adaptará la barra de acción plegable al color que predomine en las imágenes.</string>
     <string name="dynamic_navbar_colors">Colores dinámicos en la barra de navegación</string>
@@ -425,7 +358,6 @@ o la aplicación no compilará capas dependientes del dispositivo correctamente!
     <string name="alternate_drawer_design_subtext">Utiliza un diseño alternativo del cajón de navegación en la interfaz de usuario.</string>
     <string name="show_outdated_themes_title">Mostrar todos los temas obsoletos</string>
     <string name="show_outdated_themes_content">Desactivar esto permitirá a Substratum utilizar el nuevo algoritmo donde se consigue cargar los temas mucho más rápido que de costumbre. Esto sólo funciona para temas con el plugin 6.0.0+ correctamente configurados.</string>
-    <string name="fab_menu_compile">Compilar seleccionados</string>
     <string name="fab_menu_compile_enable">Compilar &amp; Activar</string>
     <string name="fab_menu_compile_update">Compilar &amp; Actualizar</string>
     <string name="fab_menu_compile_install">Instalar Seleccionados</string>
@@ -474,8 +406,6 @@ o la aplicación no compilará capas dependientes del dispositivo correctamente!
     <string name="end_time">Final</string>
     <string name="day_profile">Perfil de Día</string>
     <string name="night_profile">Perfil de Noche</string>
-    <string name="day">Día</string>
-    <string name="night">Noche</string>
     <string name="apply">Aplicar</string>
     <string name="time_empty_warning">¡Por favor configure los tiempos de Inicio y Fin!</string>
     <string name="time_equal_warning">Seleccione tiempos de activación diferentes!</string>
@@ -504,8 +434,6 @@ o la aplicación no compilará capas dependientes del dispositivo correctamente!
     <string name="profile_dialog_cancel">Cancelar</string>
     <string name="bottom_sheet_dialog_hide_outdated_themes">Ocultar temas desactualizados (6.0.0+) [Recomendado]</string>
     <string name="bottom_sheet_dialog_show_outdated_themes">Mostrar temas desactualizados (anterior a 6.0.0)</string>
-    <string name="bottom_sheet_dialog_outdated_description">Ocultar temas desactualizados aumentará el rendimiento en el algoritmo de búsqueda de recursos de temas! Esto es cambiable en los Ajustes cuando decide instalar un tema desactualizado.</string>
-    <string name="bottom_sheet_dialog_outdated_title">¡Espera!</string>
     <string name="settings_system_status">Certificación del Sistema</string>
     <string name="settings_system_status_rooted">Modo Root</string>
     <string name="settings_system_status_rootless">Modo sin root</string>
@@ -559,7 +487,6 @@ o la aplicación no compilará capas dependientes del dispositivo correctamente!
     <string name="interfacer_not_authorized_toast">Esta versión de Substratum no está autorizada y no funcionará con el módulo Interfacer del sistema.</string>
     <string name="app_crash_title">%s se detiene constantemente&#8230;</string>
     <string name="app_crash_content">Se desactivaron las capas habilitadas para esta aplicación.</string>
-    <string name="dirty_flash_detected">Su firmware o ROM se actualizaron sin borrar los datos del usuario (flash sucio). Substratum se reconfigurará para evitar errores.</string>
     <string name="rom_status">Estado del Soporte:</string>
     <string name="rom_status_supported">¡%s es apoyada por la comunidad!</string>
     <string name="rom_status_unsupported">Esta ROM aun no es conocida por la comunidad&#8230;</string>

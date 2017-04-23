@@ -71,7 +71,6 @@
                     android:src="@drawable/tab_restore_default"/>
 
                 <TextView
-                    android:id="@+id/restore_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/restore_image"
@@ -97,7 +96,6 @@
                     android:src="@drawable/bootanimation_placeholder"/>
 
                 <TextView
-                    android:id="@+id/placeholder_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/image_placeholder"

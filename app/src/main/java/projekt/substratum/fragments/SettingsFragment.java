@@ -776,16 +776,14 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 platformSummary.append(getString(R.string.rom_status))
                         .append(" ").append(supportedRom);
                 systemPlatform.setSummary(platformSummary.toString());
+            } else if (!References.isNetworkAvailable(getContext())) {
+                platformSummary.append(getString(R.string.rom_status)).append(" ").append(
+                        getString(R.string.rom_status_network));
+                systemPlatform.setSummary(platformSummary.toString());
             } else {
-                if (!References.isNetworkAvailable(getContext())) {
-                    platformSummary.append(getString(R.string.rom_status)).append(" ").append
-                            (getString(R.string.rom_status_network));
-                    systemPlatform.setSummary(platformSummary.toString());
-                } else {
-                    platformSummary.append(getString(R.string.rom_status)).append(" ").append
-                            (getString(R.string.rom_status_unsupported));
-                    systemPlatform.setSummary(platformSummary.toString());
-                }
+                platformSummary.append(getString(R.string.rom_status)).append(" ").append(
+                        getString(R.string.rom_status_unsupported));
+                systemPlatform.setSummary(platformSummary.toString());
             }
         }
 

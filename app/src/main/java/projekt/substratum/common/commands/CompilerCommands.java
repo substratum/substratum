@@ -33,7 +33,9 @@ public class CompilerCommands {
                                                String parse2_baseName, String versionName,
                                                String targetPackage, String theme_parent,
                                                String varianter, Boolean theme_oms,
-                                               int legacy_priority, boolean base_variant_null) {
+                                               int legacy_priority, boolean base_variant_null,
+                                               String type1a, String type1b, String type1c,
+                                               String type2, String type3) {
         String package_name;
         if (base_variant_null) {
             package_name = overlay_package + "." + parse2_themeName;
@@ -69,10 +71,25 @@ public class CompilerCommands {
                 "        <meta-data android:name=\"Substratum_Target\" " +
                 "android:value=\"" + targetPackage + "\"/>\n" +
 
-                // Check if the overlay is a variant from the theme, if so, log it
-                ((!base_variant_null) ?
-                        "        <meta-data android:name=\"Substratum_Variant\" " +
-                                "android:value=\"" + varianter + "\"/>\n" : "") +
+                // Track the type1a file location
+                "        <meta-data android:name=\"Substratum_Type1a\" " +
+                "android:value=\"" + type1a + "\"/>\n" +
+
+                // Track the type1b file location
+                "        <meta-data android:name=\"Substratum_Type1b\" " +
+                "android:value=\"" + type1b + "\"/>\n" +
+
+                // Track the type1c file location
+                "        <meta-data android:name=\"Substratum_Type1c\" " +
+                "android:value=\"" + type1c + "\"/>\n" +
+
+                // Track the type2 file location
+                "        <meta-data android:name=\"Substratum_Type2\" " +
+                "android:value=\"" + type2 + "\"/>\n" +
+
+                // Track the type3 file location
+                "        <meta-data android:name=\"Substratum_Type3\" " +
+                "android:value=\"" + type3 + "\"/>\n" +
 
                 "    </application>\n" +
                 "</manifest>\n";

@@ -27,11 +27,14 @@ import projekt.substratum.R;
 public class ManagerItem implements Serializable {
 
     private String name;
-
+    private String type1a;
+    private String type1b;
+    private String type1c;
+    private String type2;
+    private String type3;
+    private String themeName;
     private boolean isSelected;
-
     private int activationValue;
-
     private Context mContext;
 
     public ManagerItem(Context context, String name, boolean isActivated) {
@@ -69,5 +72,53 @@ public class ManagerItem implements Serializable {
         this.activationValue =
                 ((isActivated) ? mContext.getColor(R.color.overlay_installed_list_entry) :
                         mContext.getColor(R.color.overlay_not_enabled_list_entry));
+    }
+
+    public String getType1a() {
+        return type1a;
+    }
+
+    public void setType1a(String name) {
+        this.type1a = name;
+    }
+
+    public String getType1b() {
+        return type1b;
+    }
+
+    public void setType1b(String name) {
+        this.type1b = name;
+    }
+
+    public String getType1c() {
+        return type1c;
+    }
+
+    public void setType1c(String name) {
+        this.type1c = name;
+    }
+
+    public String getType2() {
+        return type2;
+    }
+
+    public void setType2(String name) {
+        this.type2 = name;
+    }
+
+    public String getType3() {
+        return type3;
+    }
+
+    public void setType3(String name) {
+        this.type3 = name;
+    }
+
+    public String getThemeName() {
+        return themeName;
+    }
+
+    public void setThemeName(String name) {
+        this.themeName = name;
     }
 }

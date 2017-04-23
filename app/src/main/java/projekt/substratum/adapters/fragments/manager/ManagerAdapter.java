@@ -18,8 +18,10 @@
 
 package projekt.substratum.adapters.fragments.manager;
 
+import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,18 +53,162 @@ public class ManagerAdapter extends
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, int position) {
         final int position_fixed = position;
-        String title = References.grabPackageName(
-                overlayList.get(position_fixed).getContext(),
-                References.grabOverlayTarget(
-                        overlayList.get(position_fixed).getContext(),
-                        overlayList.get(position_fixed).getName()));
+        Context context = overlayList.get(position_fixed).getContext();
+        String packageName = overlayList.get(position_fixed).getName();
+        String title = References.grabPackageName(context,
+                References.grabOverlayTarget(context, packageName));
+
         if (title != null && title.length() > 0) {
             viewHolder.tvName.setText(title);
         } else {
             viewHolder.tvName.setText(R.string.reboot_awaiting_manager_title);
         }
-        viewHolder.tvDesc.setText(overlayList.get(position_fixed).getName());
+
         viewHolder.tvName.setTextColor(overlayList.get(position_fixed).getActivationValue());
+
+        if (overlayList.get(position_fixed).getType1a() == null) {
+            String metadata = References.getOverlayMetadata(
+                    context,
+                    packageName,
+                    References.metadataOverlayType1a);
+            if (metadata != null && metadata.length() > 0) {
+                metadata = metadata.split("/")[2];
+                metadata = metadata.substring(
+                        context.getString(R.string.manager_type1a).length() - 1,
+                        metadata.length() - 4).replace("_", " ");
+                String textView =
+                        "<b>" + context.getString(R.string.manager_type1a) + "</b> " + metadata;
+                viewHolder.type1a.setVisibility(View.VISIBLE);
+                overlayList.get(position_fixed).setType1a(textView);
+                viewHolder.type1a.setText(Html.fromHtml(textView));
+            } else {
+                viewHolder.type1a.setVisibility(View.GONE);
+            }
+        } else {
+            viewHolder.type1a.setVisibility(View.VISIBLE);
+            viewHolder.type1a.setText(Html.fromHtml(overlayList.get(position_fixed).getType1a()));
+        }
+
+        if (overlayList.get(position_fixed).getType1b() == null) {
+            String metadata = References.getOverlayMetadata(
+                    context,
+                    packageName,
+                    References.metadataOverlayType1b);
+            if (metadata != null && metadata.length() > 0) {
+                metadata = metadata.split("/")[2];
+                metadata = metadata.substring(
+                        context.getString(R.string.manager_type1b).length() - 1,
+                        metadata.length() - 4).replace("_", " ");
+                String textView =
+                        "<b>" + context.getString(R.string.manager_type1b) + "</b> " + metadata;
+                viewHolder.type1b.setVisibility(View.VISIBLE);
+                overlayList.get(position_fixed).setType1b(textView);
+                viewHolder.type1b.setText(Html.fromHtml(textView));
+            } else {
+                viewHolder.type1b.setVisibility(View.GONE);
+            }
+        } else {
+            viewHolder.type1b.setVisibility(View.VISIBLE);
+            viewHolder.type1b.setText(Html.fromHtml(overlayList.get(position_fixed).getType1b()));
+        }
+
+        if (overlayList.get(position_fixed).getType1c() == null) {
+            String metadata = References.getOverlayMetadata(
+                    context,
+                    packageName,
+                    References.metadataOverlayType1c);
+            if (metadata != null && metadata.length() > 0) {
+                metadata = metadata.split("/")[2];
+                metadata = metadata.substring(
+                        context.getString(R.string.manager_type1c).length() - 1,
+                        metadata.length() - 4).replace("_", " ");
+                String textView =
+                        "<b>" + context.getString(R.string.manager_type1c) + "</b> " + metadata;
+                viewHolder.type1c.setVisibility(View.VISIBLE);
+                overlayList.get(position_fixed).setType1c(textView);
+                viewHolder.type1c.setText(Html.fromHtml(textView));
+            } else {
+                viewHolder.type1c.setVisibility(View.GONE);
+            }
+        } else {
+            viewHolder.type1c.setVisibility(View.VISIBLE);
+            viewHolder.type1c.setText(Html.fromHtml(overlayList.get(position_fixed).getType1c()));
+        }
+
+        if (overlayList.get(position_fixed).getType2() == null) {
+            String metadata = References.getOverlayMetadata(
+                    context,
+                    packageName,
+                    References.metadataOverlayType2);
+            if (metadata != null && metadata.length() > 0) {
+                metadata = metadata.split("/")[2];
+                metadata = metadata.substring(
+                        context.getString(R.string.manager_type2).length() - 1,
+                        metadata.length()).replace("_", " ");
+                String textView =
+                        "<b>" + context.getString(R.string.manager_type2) + "</b> " + metadata;
+                viewHolder.type2.setVisibility(View.VISIBLE);
+                overlayList.get(position_fixed).setType2(textView);
+                viewHolder.type2.setText(Html.fromHtml(textView));
+            } else {
+                viewHolder.type2.setVisibility(View.GONE);
+            }
+        } else {
+            viewHolder.type2.setVisibility(View.VISIBLE);
+            viewHolder.type2.setText(Html.fromHtml(overlayList.get(position_fixed).getType2()));
+        }
+
+        if (overlayList.get(position_fixed).getType3() == null) {
+            String metadata = References.getOverlayMetadata(
+                    context,
+                    packageName,
+                    References.metadataOverlayType3);
+            if (metadata != null && metadata.length() > 0) {
+                metadata = metadata.split("/")[2];
+                metadata = metadata.substring(
+                        context.getString(R.string.manager_type3).length() - 1,
+                        metadata.length()).replace("_", " ");
+                String textView =
+                        "<b>" + context.getString(R.string.manager_type3) + "</b> " + metadata;
+                viewHolder.type3.setVisibility(View.VISIBLE);
+                overlayList.get(position_fixed).setType3(textView);
+                viewHolder.type3.setText(Html.fromHtml(textView));
+            } else {
+                viewHolder.type3.setVisibility(View.GONE);
+            }
+        } else {
+            viewHolder.type3.setVisibility(View.VISIBLE);
+            viewHolder.type3.setText(Html.fromHtml(overlayList.get(position_fixed).getType3()));
+        }
+
+        Boolean newUpdate =
+                viewHolder.type1a.getVisibility() == View.VISIBLE ||
+                        viewHolder.type1b.getVisibility() == View.VISIBLE ||
+                        viewHolder.type1c.getVisibility() == View.VISIBLE ||
+                        viewHolder.type2.getVisibility() == View.VISIBLE ||
+                        viewHolder.type3.getVisibility() == View.VISIBLE;
+        if (overlayList.get(position_fixed).getThemeName() == null) {
+            String metadata = References.getOverlayMetadata(
+                    context,
+                    packageName,
+                    References.metadataOverlayParent);
+            if (metadata != null && metadata.length() > 0 && newUpdate) {
+                String pName = "<b>" + context.getString(R.string.manager_theme_name) + "</b> " +
+                        References.grabPackageName(context, metadata);
+                viewHolder.tvDesc.setVisibility(View.VISIBLE);
+                overlayList.get(position_fixed).setThemeName(pName);
+                viewHolder.tvDesc.setText(Html.fromHtml(pName));
+            } else {
+                overlayList.get(position_fixed).setThemeName("");
+                viewHolder.tvDesc.setText(packageName);
+            }
+        } else if (overlayList.get(position_fixed).getThemeName().length() == 0) {
+            viewHolder.tvDesc.setText(packageName);
+        } else {
+            viewHolder.tvDesc.setText(
+                    Html.fromHtml(overlayList.get(position_fixed).getThemeName()));
+        }
+
         viewHolder.chkSelected.setChecked(overlayList.get(position_fixed).isSelected());
         viewHolder.chkSelected.setTag(overlayList.get(position_fixed));
         viewHolder.chkSelected.setOnClickListener(view -> {
@@ -113,15 +259,25 @@ public class ManagerAdapter extends
         CardView card;
         ImageView appIcon;
         ImageView appIconTarget;
+        TextView type1a;
+        TextView type1b;
+        TextView type1c;
+        TextView type2;
+        TextView type3;
 
         ViewHolder(View itemLayoutView) {
             super(itemLayoutView);
             tvName = (TextView) itemLayoutView.findViewById(R.id.tvName);
-            tvDesc = (TextView) itemLayoutView.findViewById(R.id.tvDesc);
+            tvDesc = (TextView) itemLayoutView.findViewById(R.id.desc);
             card = (CardView) itemLayoutView.findViewById(R.id.overlayCard);
             chkSelected = (CheckBox) itemLayoutView.findViewById(R.id.chkSelected);
             appIcon = (ImageView) itemLayoutView.findViewById(R.id.app_icon);
             appIconTarget = (ImageView) itemLayoutView.findViewById(R.id.app_icon_sub);
+            type1a = (TextView) itemLayoutView.findViewById(R.id.type1a);
+            type1b = (TextView) itemLayoutView.findViewById(R.id.type1b);
+            type1c = (TextView) itemLayoutView.findViewById(R.id.type1c);
+            type2 = (TextView) itemLayoutView.findViewById(R.id.type2);
+            type3 = (TextView) itemLayoutView.findViewById(R.id.type3);
         }
     }
 }

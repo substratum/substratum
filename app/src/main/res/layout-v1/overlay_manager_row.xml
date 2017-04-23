@@ -79,10 +79,46 @@
                 android:textSize="20sp"/>
 
             <TextView
-                android:id="@+id/tvDesc"
+                android:id="@+id/desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/main_screen_card_theme_title"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/type1a"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/main_screen_card_theme_title"
+                android:text="TYPE1A VARIABLE"
+                android:textSize="14sp"/>
+            <TextView
+                android:id="@+id/type1b"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/main_screen_card_theme_title"
+                android:text="TYPE1B VARIABLE"
+                android:textSize="14sp"/>
+            <TextView
+                android:id="@+id/type1c"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/main_screen_card_theme_title"
+                android:text="TYPE1C VARIABLE"
+                android:textSize="14sp"/>
+            <TextView
+                android:id="@+id/type2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/main_screen_card_theme_title"
+                android:text="TYPE2 VARIABLE"
+                android:textSize="14sp"/>
+            <TextView
+                android:id="@+id/type3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/main_screen_card_theme_title"
+                android:text="TYPE3 VARIABLE"
                 android:textSize="14sp"/>
 
         </LinearLayout>

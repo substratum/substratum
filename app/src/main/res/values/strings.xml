@@ -148,6 +148,12 @@
     <string name="restore_activity_toast_not_found">No overlay database backup found.</string>
 
     <string name="reboot_awaiting_manager_title">OVERLAY AWAITING REBOOT</string>
+    <string name="manager_theme_name">Theme:</string>
+    <string name="manager_type1a">Type1a:</string>
+    <string name="manager_type1b">Type1b:</string>
+    <string name="manager_type1c">Type1c:</string>
+    <string name="manager_type2">Type2 :</string>
+    <string name="manager_type3">Type3 :</string>
 
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">type1a variant&#8230;</string>

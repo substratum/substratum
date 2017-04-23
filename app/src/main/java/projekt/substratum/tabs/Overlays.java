@@ -104,6 +104,7 @@ import projekt.substratum.util.compilers.SubstratumBuilder;
 
 import static android.content.Context.CLIPBOARD_SERVICE;
 import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
+import static projekt.substratum.common.References.ENABLE_PACKAGE_LOGGING;
 import static projekt.substratum.common.References.EXTERNAL_STORAGE_CACHE;
 import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
 import static projekt.substratum.common.References.MASQUERADE_PACKAGE;
@@ -159,6 +160,21 @@ public class Overlays extends Fragment {
     private Boolean missingType3 = false;
     private JobReceiver jobReceiver;
     private LocalBroadcastManager localBroadcastManager;
+    private String type1a = "";
+    private String type1b = "";
+    private String type1c = "";
+    private String type2 = "";
+    private String type3 = "";
+
+    private void logTypes() {
+        if (ENABLE_PACKAGE_LOGGING) {
+            Log.d("Theme Type1a Resource", type1a);
+            Log.d("Theme Type1b Resource", type1b);
+            Log.d("Theme Type1c Resource", type1c);
+            Log.d("Theme Type2  Resource", type2);
+            Log.d("Theme Type3  Resource", type3);
+        }
+    }
 
     private View getActivityView() {
         return ((ViewGroup) getActivity().findViewById(android.R.id.content)).getChildAt(0);
@@ -505,8 +521,8 @@ public class Overlays extends Fragment {
         base_spinner.setEnabled(false);
 
         try {
-            Resources themeResources = getContext().getPackageManager().getResourcesForApplication
-                    (theme_pid);
+            Resources themeResources = getContext().getPackageManager()
+                    .getResourcesForApplication(theme_pid);
             themeAssetManager = themeResources.getAssets();
 
             ArrayList<VariantItem> type3 = new ArrayList<>();
@@ -1702,6 +1718,12 @@ public class Overlays extends Fragment {
 
             total_amount = checkedOverlays.size();
             for (int i = 0; i < checkedOverlays.size(); i++) {
+                type1a = "";
+                type1b = "";
+                type1c = "";
+                type2 = "";
+                type3 = "";
+
                 current_amount = i + 1;
                 String theme_name_parsed =
                         theme_name.replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "");
@@ -1784,6 +1806,8 @@ public class Overlays extends Fragment {
                         if (References.isCachingEnabled(getContext())) {
                             File srcDir = new File(workingDirectory +
                                     ((sUrl[0].length() != 0) ? "/type3_" + sUrl[0] : "/res"));
+                            if (!srcDir.getAbsolutePath().endsWith("/res"))
+                                type3 = srcDir.getAbsolutePath();
                             File destDir = new File(workingDirectory + "/workdir");
                             if (destDir.exists()) {
                                 FileOperations.delete(getContext(), destDir.getAbsolutePath());
@@ -1803,6 +1827,7 @@ public class Overlays extends Fragment {
                                         .getAbsolutePath());
                             }
                             String listDir = overlaysDir + "/" + current_overlay + unparsedSuffix;
+                            if (!listDir.endsWith("/res")) type3 = listDir;
                             FileOperations.copyFileOrDir(
                                     themeAssetManager,
                                     listDir,
@@ -1817,6 +1842,8 @@ public class Overlays extends Fragment {
                                     String sourceLocation = workingDirectory + "/type1a_" +
                                             checkedOverlays.get(i).getSelectedVariantName() +
                                             ".xml";
+
+                                    type1a = sourceLocation;
 
                                     String targetLocation = workingDirectory +
                                             "/workdir/values/type1a.xml";
@@ -1837,13 +1864,10 @@ public class Overlays extends Fragment {
                                             workingDirectory + suffix + "/values/type1a.xml");
 
                                     String to_copy =
-                                            overlaysDir +
-                                                    "/" +
-                                                    current_overlay +
-                                                    "/type1a_" +
-                                                    checkedOverlays.get(i).getSelectedVariantName
-                                                            () +
-                                                    ".xml";
+                                            overlaysDir + "/" + current_overlay + "/type1a_" +
+                                                    checkedOverlays.get(i)
+                                                            .getSelectedVariantName() + ".xml";
+                                    type1a = to_copy;
                                     FileOperations.copyFileOrDir(
                                             themeAssetManager,
                                             to_copy,
@@ -1858,6 +1882,8 @@ public class Overlays extends Fragment {
                                     String sourceLocation2 = workingDirectory + "/type1b_" +
                                             checkedOverlays.get(i).getSelectedVariantName2() +
                                             ".xml";
+
+                                    type1b = sourceLocation2;
 
                                     String targetLocation2 = workingDirectory +
                                             "/workdir/values/type1b.xml";
@@ -1876,13 +1902,10 @@ public class Overlays extends Fragment {
                                             workingDirectory + suffix + "/values/type1b.xml");
 
                                     String to_copy =
-                                            overlaysDir +
-                                                    "/" +
-                                                    current_overlay +
-                                                    "/type1b_" +
+                                            overlaysDir + "/" + current_overlay + "/type1b_" +
                                                     checkedOverlays.get(i)
-                                                            .getSelectedVariantName2() +
-                                                    ".xml";
+                                                            .getSelectedVariantName2() + ".xml";
+                                    type1b = to_copy;
                                     FileOperations.copyFileOrDir(
                                             themeAssetManager,
                                             to_copy,
@@ -1896,6 +1919,8 @@ public class Overlays extends Fragment {
                                     String sourceLocation3 = workingDirectory + "/type1c_" +
                                             checkedOverlays.get(i).getSelectedVariantName3() +
                                             ".xml";
+
+                                    type1c = sourceLocation3;
 
                                     String targetLocation3 = workingDirectory +
                                             "/workdir/values/type1c.xml";
@@ -1917,13 +1942,10 @@ public class Overlays extends Fragment {
                                             workingDirectory + suffix + "/values/type1c.xml");
 
                                     String to_copy =
-                                            overlaysDir +
-                                                    "/" +
-                                                    current_overlay +
-                                                    "/type1c_" +
+                                            overlaysDir + "/" + current_overlay + "/type1c_" +
                                                     checkedOverlays.get(i)
-                                                            .getSelectedVariantName3() +
-                                                    ".xml";
+                                                            .getSelectedVariantName3() + ".xml";
+                                    type1c = to_copy;
                                     FileOperations.copyFileOrDir(
                                             themeAssetManager,
                                             to_copy,
@@ -1951,6 +1973,7 @@ public class Overlays extends Fragment {
                                 String type2folder = "/type2_" +
                                         checkedOverlays.get(i).getSelectedVariantName4();
                                 String to_copy = overlaysDir + "/" + current_overlay + type2folder;
+                                type2 = to_copy;
                                 FileOperations.copyFileOrDir(themeAssetManager, to_copy,
                                         workingDirectory + type2folder, to_copy);
                                 Log.d(TAG, "Currently processing package" +
@@ -1970,7 +1993,13 @@ public class Overlays extends Fragment {
                                             versionName,
                                             References.checkOMS(getContext()),
                                             theme_pid,
-                                            suffix);
+                                            suffix,
+                                            type1a,
+                                            type1b,
+                                            type1c,
+                                            type2,
+                                            type3);
+                                    logTypes();
                                 } else {
                                     sb = new SubstratumBuilder();
                                     sb.beginAction(
@@ -1984,7 +2013,13 @@ public class Overlays extends Fragment {
                                             versionName,
                                             References.checkOMS(getContext()),
                                             theme_pid,
-                                            suffix);
+                                            suffix,
+                                            type1a,
+                                            type1b,
+                                            type1c,
+                                            type2,
+                                            type3);
+                                    logTypes();
                                 }
                             } else {
                                 Log.d(TAG, "Currently processing package" +
@@ -2004,7 +2039,13 @@ public class Overlays extends Fragment {
                                             versionName,
                                             References.checkOMS(getContext()),
                                             theme_pid,
-                                            suffix);
+                                            suffix,
+                                            type1a,
+                                            type1b,
+                                            type1c,
+                                            type2,
+                                            type3);
+                                    logTypes();
                                 } else {
                                     sb = new SubstratumBuilder();
                                     sb.beginAction(
@@ -2018,7 +2059,13 @@ public class Overlays extends Fragment {
                                             versionName,
                                             References.checkOMS(getContext()),
                                             theme_pid,
-                                            suffix);
+                                            suffix,
+                                            type1a,
+                                            type1b,
+                                            type1c,
+                                            type2,
+                                            type3);
+                                    logTypes();
                                 }
                             }
                             if (sb.has_errored_out) {
@@ -2065,7 +2112,13 @@ public class Overlays extends Fragment {
                                     versionName,
                                     References.checkOMS(getContext()),
                                     theme_pid,
-                                    suffix);
+                                    suffix,
+                                    type1a,
+                                    type1b,
+                                    type1c,
+                                    type2,
+                                    type3);
+                            logTypes();
 
                             if (sb.has_errored_out) {
                                 fail_count += 1;

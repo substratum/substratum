@@ -143,6 +143,11 @@ public class References {
     public static final String metadataLegacy = "Substratum_Legacy";
     public static final String metadataWallpapers = "Substratum_Wallpapers";
     public static final String metadataOverlayParent = "Substratum_Parent";
+    public static final String metadataOverlayType1a = "Substratum_Type1a";
+    public static final String metadataOverlayType1b = "Substratum_Type1b";
+    public static final String metadataOverlayType1c = "Substratum_Type1c";
+    public static final String metadataOverlayType2 = "Substratum_Type2";
+    public static final String metadataOverlayType3 = "Substratum_Type3";
     // These strings control the nav drawer filter for ThemeFragment
     public static final String homeFragment = "";
     public static final String overlaysFragment = "overlays";
@@ -923,6 +928,23 @@ public class References {
                         return mContext.getString(R.string.api_23) + " - " + targetAPI;
                     }
                 }
+            }
+        } catch (Exception e) {
+            // Suppress warning
+        }
+        return null;
+    }
+
+    // Grab specified metadats
+    public static String getOverlayMetadata(
+            Context mContext,
+            String package_name,
+            String metadata) {
+        try {
+            ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
+                    package_name, PackageManager.GET_META_DATA);
+            if (appInfo.metaData != null && appInfo.metaData.getString(metadata) != null) {
+                return appInfo.metaData.getString(metadata);
             }
         } catch (Exception e) {
             // Suppress warning

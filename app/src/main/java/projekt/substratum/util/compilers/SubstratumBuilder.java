@@ -212,7 +212,12 @@ public class SubstratumBuilder {
                                String versionName,
                                Boolean theme_oms,
                                String theme_parent,
-                               String no_cache_dir) {
+                               String no_cache_dir,
+                               String type1a,
+                               String type1b,
+                               String type1c,
+                               String type2,
+                               String type3) {
         has_errored_out = false;
 
         debug = PreferenceManager.getDefaultSharedPreferences(context)
@@ -335,7 +340,12 @@ public class SubstratumBuilder {
                                         varianter,
                                         theme_oms,
                                         legacy_priority,
-                                        false);
+                                        false,
+                                        type1a,
+                                        type1b,
+                                        type1c,
+                                        type2,
+                                        type3);
                         pw.write(manifest);
                     } else {
                         if (base_variant != null) {
@@ -352,7 +362,12 @@ public class SubstratumBuilder {
                                             varianter,
                                             theme_oms,
                                             legacy_priority,
-                                            false);
+                                            false,
+                                            type1a,
+                                            type1b,
+                                            type1c,
+                                            type2,
+                                            type3);
                             pw.write(manifest);
                         } else {
                             String manifest =
@@ -368,7 +383,12 @@ public class SubstratumBuilder {
                                             varianter,
                                             theme_oms,
                                             legacy_priority,
-                                            true);
+                                            true,
+                                            type1a,
+                                            type1b,
+                                            type1c,
+                                            type2,
+                                            type3);
                             pw.write(manifest);
                         }
                     }

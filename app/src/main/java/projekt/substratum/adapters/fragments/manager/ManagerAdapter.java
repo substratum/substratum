@@ -47,7 +47,7 @@ public class ManagerAdapter extends
     @Override
     public ManagerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemLayoutView = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.overlay_manager_row, parent, false);
+                R.layout.manager_row, parent, false);
         return new ViewHolder(itemLayoutView);
     }
 

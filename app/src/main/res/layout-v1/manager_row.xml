@@ -76,12 +76,14 @@
                 android:layout_height="wrap_content"
                 android:text="@string/reboot_awaiting_manager_title"
                 android:textColor="@color/main_screen_card_theme_title"
-                android:textSize="20sp"/>
+                android:textStyle="bold"
+                android:textSize="16sp"/>
 
             <TextView
                 android:id="@+id/desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="THEME NAME OR PACKAGE NAME"
                 android:textColor="@color/main_screen_card_theme_title"
                 android:textSize="14sp"/>
 

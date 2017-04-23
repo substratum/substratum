@@ -99,7 +99,7 @@ public class RecoveryFragment extends Fragment {
             sheetDialog = new SheetDialog(getContext());
             View sheetView = View.inflate(
                     getContext(),
-                    R.layout.manage_overlays_sheet_dialog,
+                    R.layout.recovery_overlays_sheet_dialog,
                     null);
             LinearLayout disable_all = (LinearLayout) sheetView.findViewById(R.id.disable_all);
             LinearLayout uninstall_all = (LinearLayout) sheetView.findViewById(R.id.uninstall_all);
@@ -125,7 +125,7 @@ public class RecoveryFragment extends Fragment {
         // Wallpaper Dialog
         wallpaperButton.setOnClickListener(v -> {
             sheetDialog = new SheetDialog(getContext());
-            View sheetView = View.inflate(getContext(), R.layout.manage_wallpapers_sheet_dialog,
+            View sheetView = View.inflate(getContext(), R.layout.recovery_wallpapers_sheet_dialog,
                     null);
             LinearLayout home = (LinearLayout) sheetView.findViewById(R.id.home);
             LinearLayout lock = (LinearLayout) sheetView.findViewById(R.id.lock);
@@ -189,7 +189,7 @@ public class RecoveryFragment extends Fragment {
         bootanimationButton.setOnClickListener(v -> {
             sheetDialog = new SheetDialog(getContext());
             View sheetView = View.inflate(getContext(),
-                    R.layout.manage_bootanimations_sheet_dialog, null);
+                    R.layout.recovery_bootanimations_sheet_dialog, null);
             LinearLayout restore = (LinearLayout) sheetView.findViewById(R.id.restore);
             restore.setOnClickListener(view2 -> {
                 new BootAnimationClearer().execute("");
@@ -203,7 +203,7 @@ public class RecoveryFragment extends Fragment {
         fontsButton.setOnClickListener(v -> {
             sheetDialog = new SheetDialog(getContext());
             View sheetView = View.inflate(getContext(),
-                    R.layout.manage_fonts_sheet_dialog, null);
+                    R.layout.recovery_fonts_sheet_dialog, null);
             LinearLayout restore = (LinearLayout) sheetView.findViewById(R.id.restore);
             restore.setOnClickListener(view2 -> {
                 if (References.checkThemeInterfacer(getContext()) ||
@@ -231,7 +231,7 @@ public class RecoveryFragment extends Fragment {
         soundsButton.setOnClickListener(v -> {
             sheetDialog = new SheetDialog(getContext());
             View sheetView = View.inflate(getContext(),
-                    R.layout.manage_sounds_sheet_dialog, null);
+                    R.layout.recovery_sounds_sheet_dialog, null);
             LinearLayout restore = (LinearLayout) sheetView.findViewById(R.id.restore);
             restore.setOnClickListener(view2 -> {
                 if (References.checkThemeInterfacer(getContext()) ||

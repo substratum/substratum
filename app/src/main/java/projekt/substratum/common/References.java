@@ -142,12 +142,15 @@ public class References {
     public static final String metadataAuthor = "Substratum_Author";
     public static final String metadataLegacy = "Substratum_Legacy";
     public static final String metadataWallpapers = "Substratum_Wallpapers";
+    public static final String metadataOverlayDevice = "Substratum_Device";
     public static final String metadataOverlayParent = "Substratum_Parent";
+    public static final String metadataOverlayTarget = "Substratum_Target";
     public static final String metadataOverlayType1a = "Substratum_Type1a";
     public static final String metadataOverlayType1b = "Substratum_Type1b";
     public static final String metadataOverlayType1c = "Substratum_Type1c";
     public static final String metadataOverlayType2 = "Substratum_Type2";
     public static final String metadataOverlayType3 = "Substratum_Type3";
+    public static final String metadataOverlayVersion = "Substratum_Version";
     // These strings control the nav drawer filter for ThemeFragment
     public static final String homeFragment = "";
     public static final String overlaysFragment = "overlays";
@@ -950,6 +953,23 @@ public class References {
             // Suppress warning
         }
         return null;
+    }
+
+    // Grab specified metadats
+    public static int getOverlaySubstratumVersion(
+            Context mContext,
+            String package_name,
+            String metadata) {
+        try {
+            ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
+                    package_name, PackageManager.GET_META_DATA);
+            if (appInfo.metaData != null) {
+                return appInfo.metaData.getInt(metadata);
+            }
+        } catch (Exception e) {
+            // Suppress warning
+        }
+        return 0;
     }
 
     // Grab Theme Ready Metadata

@@ -22,6 +22,7 @@ import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import projekt.substratum.BuildConfig;
 import projekt.substratum.R;
 import projekt.substratum.common.References;
 
@@ -55,8 +57,20 @@ public class ManagerAdapter extends
         final int position_fixed = position;
         Context context = overlayList.get(position_fixed).getContext();
         String packageName = overlayList.get(position_fixed).getName();
-        String title = References.grabPackageName(context,
-                References.grabOverlayTarget(context, packageName));
+        String targetPackage = References.grabOverlayTarget(context, packageName);
+
+        String title;
+        if (packageName.startsWith("com.android.systemui.headers")) {
+            title = context.getString(R.string.systemui_headers);
+        } else if (packageName.startsWith("com.android.systemui.navbars")) {
+            title = context.getString(R.string.systemui_navigation);
+        } else if (packageName.startsWith("com.android.systemui.statusbars")) {
+            title = context.getString(R.string.systemui_statusbar);
+        } else if (packageName.startsWith("com.android.systemui.tiles")) {
+            title = context.getString(R.string.systemui_qs_tiles);
+        } else {
+            title = References.grabPackageName(context, targetPackage);
+        }
 
         if (title != null && title.length() > 0) {
             viewHolder.tvName.setText(title);
@@ -65,6 +79,12 @@ public class ManagerAdapter extends
         }
 
         viewHolder.tvName.setTextColor(overlayList.get(position_fixed).getActivationValue());
+
+        int version = References.getOverlaySubstratumVersion(
+                context,
+                packageName,
+                References.metadataOverlayVersion);
+        Boolean newUpdate = (version != 0) && BuildConfig.VERSION_CODE >= version;
 
         if (overlayList.get(position_fixed).getType1a() == null) {
             String metadata = References.getOverlayMetadata(
@@ -181,12 +201,6 @@ public class ManagerAdapter extends
             viewHolder.type3.setText(Html.fromHtml(overlayList.get(position_fixed).getType3()));
         }
 
-        Boolean newUpdate =
-                viewHolder.type1a.getVisibility() == View.VISIBLE ||
-                        viewHolder.type1b.getVisibility() == View.VISIBLE ||
-                        viewHolder.type1c.getVisibility() == View.VISIBLE ||
-                        viewHolder.type2.getVisibility() == View.VISIBLE ||
-                        viewHolder.type3.getVisibility() == View.VISIBLE;
         if (overlayList.get(position_fixed).getThemeName() == null) {
             String metadata = References.getOverlayMetadata(
                     context,

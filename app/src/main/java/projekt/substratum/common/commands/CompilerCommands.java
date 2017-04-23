@@ -20,11 +20,20 @@ package projekt.substratum.common.commands;
 
 import android.content.Context;
 
+import projekt.substratum.BuildConfig;
 import projekt.substratum.common.References;
 
 import static projekt.substratum.common.References.ENABLE_AOPT_OUTPUT;
 import static projekt.substratum.common.References.getDeviceID;
+import static projekt.substratum.common.References.metadataOverlayDevice;
 import static projekt.substratum.common.References.metadataOverlayParent;
+import static projekt.substratum.common.References.metadataOverlayTarget;
+import static projekt.substratum.common.References.metadataOverlayType1a;
+import static projekt.substratum.common.References.metadataOverlayType1b;
+import static projekt.substratum.common.References.metadataOverlayType1c;
+import static projekt.substratum.common.References.metadataOverlayType2;
+import static projekt.substratum.common.References.metadataOverlayType3;
+import static projekt.substratum.common.References.metadataOverlayVersion;
 
 public class CompilerCommands {
 
@@ -60,7 +69,7 @@ public class CompilerCommands {
                 "    <application android:label=\"" + package_name + "\">\n" +
 
                 // Ensure that this overlay was specifically made for this device only
-                "        <meta-data android:name=\"Substratum_Device\" " +
+                "        <meta-data android:name=\"" + metadataOverlayDevice + "\" " +
                 "android:value=\"" + getDeviceID(context) + "\"/>\n" +
 
                 // We can easily track what the overlay parents are without any parsing this way
@@ -68,28 +77,32 @@ public class CompilerCommands {
                 "android:value=\"" + theme_parent + "\"/>\n" +
 
                 // As we cannot read the overlay tag, we must log our target for this overlay
-                "        <meta-data android:name=\"Substratum_Target\" " +
+                "        <meta-data android:name=\"" + metadataOverlayTarget + "\" " +
                 "android:value=\"" + targetPackage + "\"/>\n" +
 
                 // Track the type1a file location
-                "        <meta-data android:name=\"Substratum_Type1a\" " +
+                "        <meta-data android:name=\"" + metadataOverlayType1a + "\" " +
                 "android:value=\"" + type1a + "\"/>\n" +
 
                 // Track the type1b file location
-                "        <meta-data android:name=\"Substratum_Type1b\" " +
+                "        <meta-data android:name=\"" + metadataOverlayType1b + "\" " +
                 "android:value=\"" + type1b + "\"/>\n" +
 
                 // Track the type1c file location
-                "        <meta-data android:name=\"Substratum_Type1c\" " +
+                "        <meta-data android:name=\"" + metadataOverlayType1c + "\" " +
                 "android:value=\"" + type1c + "\"/>\n" +
 
                 // Track the type2 file location
-                "        <meta-data android:name=\"Substratum_Type2\" " +
+                "        <meta-data android:name=\"" + metadataOverlayType2 + "\" " +
                 "android:value=\"" + type2 + "\"/>\n" +
 
                 // Track the type3 file location
-                "        <meta-data android:name=\"Substratum_Type3\" " +
+                "        <meta-data android:name=\"" + metadataOverlayType3 + "\" " +
                 "android:value=\"" + type3 + "\"/>\n" +
+
+                // Track the Substratum version number
+                "        <meta-data android:name=\"" + metadataOverlayVersion + "\" " +
+                "android:value=\"" + BuildConfig.VERSION_CODE + "\"/>\n" +
 
                 "    </application>\n" +
                 "</manifest>\n";

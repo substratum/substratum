@@ -57,6 +57,7 @@ import projekt.substratum.util.views.SheetDialog;
 
 import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
 import static android.content.om.OverlayInfo.STATE_NOT_APPROVED_DANGEROUS_OVERLAY;
+import static projekt.substratum.common.References.DATA_RESOURCE_DIR;
 import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
 import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;
 import static projekt.substratum.common.References.VENDOR_DIR;
@@ -104,42 +105,13 @@ public class RecoveryFragment extends Fragment {
             LinearLayout uninstall_all = (LinearLayout) sheetView.findViewById(R.id.uninstall_all);
             if (!References.checkOMS(getContext())) disable_all.setVisibility(View.GONE);
             disable_all.setOnClickListener(view -> {
-                if (References.checkOMS(getContext())) {
-                    if (getView() != null) {
-                        Lunchbar.make(getView(),
-                                getString(R.string.manage_system_overlay_toast),
-                                Lunchbar.LENGTH_LONG)
-                                .show();
-                    }
-                    ThemeManager.disableAll(getContext());
-                } else {
-                    FileOperations.mountRW();
-                    FileOperations.mountRWVendor();
-                    FileOperations.bruteforceDelete(LEGACY_NEXUS_DIR);
-                    FileOperations.bruteforceDelete(PIXEL_NEXUS_DIR);
-                    FileOperations.bruteforceDelete(VENDOR_DIR);
-                    FileOperations.mountROVendor();
-                    FileOperations.mountRO();
-                    if (getView() != null) {
-                        Lunchbar.make(getView(),
-                                getString(R.string.abort_overlay_toast_success),
-                                Lunchbar.LENGTH_LONG)
-                                .show();
-                    }
-                    AlertDialog.Builder alertDialogBuilder =
-                            new AlertDialog.Builder(getContext());
-                    alertDialogBuilder
-                            .setTitle(getString(R.string.legacy_dialog_soft_reboot_title));
-                    alertDialogBuilder
-                            .setMessage(getString(R.string.legacy_dialog_soft_reboot_text));
-                    alertDialogBuilder
-                            .setPositiveButton(
-                                    android.R.string.ok,
-                                    (dialog1, id) -> ElevatedCommands.softReboot());
-                    alertDialogBuilder.setCancelable(false);
-                    AlertDialog alertDialog = alertDialogBuilder.create();
-                    alertDialog.show();
+                if (getView() != null) {
+                    Lunchbar.make(getView(),
+                            getString(R.string.manage_system_overlay_toast),
+                            Lunchbar.LENGTH_LONG)
+                            .show();
                 }
+                ThemeManager.disableAll(getContext());
                 sheetDialog.hide();
             });
             uninstall_all.setOnClickListener(view -> {
@@ -337,6 +309,12 @@ public class RecoveryFragment extends Fragment {
                 }
                 ThemeManager.uninstallOverlay(getContext(), final_commands_array);
             } else {
+                if (getView() != null) {
+                    Lunchbar.make(getView(),
+                            getString(R.string.abort_overlay_toast_success),
+                            Lunchbar.LENGTH_LONG)
+                            .show();
+                }
                 AlertDialog.Builder alertDialogBuilder =
                         new AlertDialog.Builder(getContext());
                 alertDialogBuilder
@@ -367,11 +345,14 @@ public class RecoveryFragment extends Fragment {
                 final_commands_array.addAll(enabled);
             } else {
                 FileOperations.mountRW();
+                FileOperations.mountRWData();
                 FileOperations.mountRWVendor();
+                FileOperations.bruteforceDelete(DATA_RESOURCE_DIR);
                 FileOperations.bruteforceDelete(LEGACY_NEXUS_DIR);
                 FileOperations.bruteforceDelete(PIXEL_NEXUS_DIR);
                 FileOperations.bruteforceDelete(VENDOR_DIR);
                 FileOperations.mountROVendor();
+                FileOperations.mountROData();
                 FileOperations.mountRO();
             }
             return null;

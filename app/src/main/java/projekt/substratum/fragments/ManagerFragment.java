@@ -68,6 +68,7 @@ import projekt.substratum.util.views.FloatingActionMenu;
 
 import static android.content.om.OverlayInfo.STATE_APPROVED_DISABLED;
 import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
+import static projekt.substratum.common.References.DATA_RESOURCE_DIR;
 import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
 import static projekt.substratum.common.References.MANAGER_REFRESH;
 import static projekt.substratum.common.References.MASQUERADE_PACKAGE;
@@ -539,9 +540,8 @@ public class ManagerFragment extends Fragment {
             } else {
                 for (int i = 0; i < fragment.overlaysList.size(); i++) {
                     if (fragment.overlaysList.get(i).isSelected()) {
-                        Log.e(this.getClass().getSimpleName(),
-                                fragment.overlaysList.get(i).getName());
                         FileOperations.mountRW();
+                        FileOperations.mountRWData();
                         FileOperations.mountRWVendor();
                         FileOperations.bruteforceDelete(LEGACY_NEXUS_DIR +
                                 fragment.overlaysList.get(i).getName() + ".apk");
@@ -549,7 +549,29 @@ public class ManagerFragment extends Fragment {
                                 fragment.overlaysList.get(i).getName() + ".apk");
                         FileOperations.bruteforceDelete(VENDOR_DIR +
                                 fragment.overlaysList.get(i).getName() + ".apk");
+                        String legacy_resource_idmap =
+                                (LEGACY_NEXUS_DIR.substring(1, LEGACY_NEXUS_DIR.length()) +
+                                        fragment.overlaysList.get(i).getName())
+                                        .replace("/", "@") + ".apk@idmap";
+                        String pixel_resource_idmap =
+                                (PIXEL_NEXUS_DIR.substring(1, PIXEL_NEXUS_DIR.length()) +
+                                        fragment.overlaysList.get(i).getName())
+                                        .replace("/", "@") + ".apk@idmap";
+                        String vendor_resource_idmap =
+                                (VENDOR_DIR.substring(1, VENDOR_DIR.length()) +
+                                        fragment.overlaysList.get(i).getName())
+                                        .replace("/", "@") + ".apk@idmap";
+                        Log.d(this.getClass().getSimpleName(),
+                                "Removing idmap resource pointer '" + legacy_resource_idmap + "'");
+                        FileOperations.bruteforceDelete(DATA_RESOURCE_DIR + legacy_resource_idmap);
+                        Log.d(this.getClass().getSimpleName(),
+                                "Removing idmap resource pointer '" + pixel_resource_idmap + "'");
+                        FileOperations.bruteforceDelete(DATA_RESOURCE_DIR + pixel_resource_idmap);
+                        Log.d(this.getClass().getSimpleName(),
+                                "Removing idmap resource pointer '" + vendor_resource_idmap + "'");
+                        FileOperations.bruteforceDelete(DATA_RESOURCE_DIR + vendor_resource_idmap);
                         FileOperations.mountROVendor();
+                        FileOperations.mountROData();
                         FileOperations.mountRO();
                     }
                 }

@@ -862,7 +862,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
             try {
                 Boolean supported = false;
-                String supported_rom = "";
+                String supported_rom = null;
 
                 // First check if it is a valid prop
                 for (int i = 0; i < listOfRoms.size(); i++) {

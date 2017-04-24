@@ -20,6 +20,7 @@ package projekt.substratum.fragments;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -39,8 +40,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,6 +72,7 @@ public class RecoveryFragment extends Fragment {
     private ArrayList<String> final_commands_array;
     private SharedPreferences prefs;
     private SheetDialog sheetDialog;
+    private Context mContext;
 
     @Override
     public void onDestroy() {
@@ -82,9 +86,11 @@ public class RecoveryFragment extends Fragment {
             ViewGroup container,
             Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mContext = getContext();
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.restore_fragment, container, false);
 
-        prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
 
         setHasOptionsMenu(true);
 
@@ -96,14 +102,14 @@ public class RecoveryFragment extends Fragment {
 
         // Overlays Dialog
         overlaysButton.setOnClickListener(v -> {
-            sheetDialog = new SheetDialog(getContext());
+            sheetDialog = new SheetDialog(mContext);
             View sheetView = View.inflate(
-                    getContext(),
+                    mContext,
                     R.layout.recovery_overlays_sheet_dialog,
                     null);
             LinearLayout disable_all = (LinearLayout) sheetView.findViewById(R.id.disable_all);
             LinearLayout uninstall_all = (LinearLayout) sheetView.findViewById(R.id.uninstall_all);
-            if (!References.checkOMS(getContext())) disable_all.setVisibility(View.GONE);
+            if (!References.checkOMS(mContext)) disable_all.setVisibility(View.GONE);
             disable_all.setOnClickListener(view -> {
                 if (getView() != null) {
                     Lunchbar.make(getView(),
@@ -111,7 +117,7 @@ public class RecoveryFragment extends Fragment {
                             Lunchbar.LENGTH_LONG)
                             .show();
                 }
-                ThemeManager.disableAll(getContext());
+                ThemeManager.disableAll(mContext);
                 sheetDialog.hide();
             });
             uninstall_all.setOnClickListener(view -> {
@@ -124,15 +130,15 @@ public class RecoveryFragment extends Fragment {
 
         // Wallpaper Dialog
         wallpaperButton.setOnClickListener(v -> {
-            sheetDialog = new SheetDialog(getContext());
-            View sheetView = View.inflate(getContext(), R.layout.recovery_wallpapers_sheet_dialog,
+            sheetDialog = new SheetDialog(mContext);
+            View sheetView = View.inflate(mContext, R.layout.recovery_wallpapers_sheet_dialog,
                     null);
             LinearLayout home = (LinearLayout) sheetView.findViewById(R.id.home);
             LinearLayout lock = (LinearLayout) sheetView.findViewById(R.id.lock);
             LinearLayout both = (LinearLayout) sheetView.findViewById(R.id.both);
             home.setOnClickListener(view2 -> {
                 try {
-                    WallpaperManager.clearWallpaper(getContext(), "home");
+                    WallpaperManager.clearWallpaper(mContext, "home");
                     if (getView() != null) {
                         Lunchbar.make(getView(),
                                 getString(R.string.manage_wallpaper_home_toast),
@@ -150,7 +156,7 @@ public class RecoveryFragment extends Fragment {
             });
             lock.setOnClickListener(view2 -> {
                 try {
-                    WallpaperManager.clearWallpaper(getContext(), "lock");
+                    WallpaperManager.clearWallpaper(mContext, "lock");
                     if (getView() != null) {
                         Lunchbar.make(getView(),
                                 getString(R.string.manage_wallpaper_lock_toast),
@@ -165,7 +171,7 @@ public class RecoveryFragment extends Fragment {
             });
             both.setOnClickListener(view2 -> {
                 try {
-                    WallpaperManager.clearWallpaper(getContext(), "all");
+                    WallpaperManager.clearWallpaper(mContext, "all");
                     if (getView() != null) {
                         Lunchbar.make(getView(),
                                 getString(R.string.manage_wallpaper_all_toast),
@@ -187,8 +193,8 @@ public class RecoveryFragment extends Fragment {
 
         // Boot Animation Dialog
         bootanimationButton.setOnClickListener(v -> {
-            sheetDialog = new SheetDialog(getContext());
-            View sheetView = View.inflate(getContext(),
+            sheetDialog = new SheetDialog(mContext);
+            View sheetView = View.inflate(mContext,
                     R.layout.recovery_bootanimations_sheet_dialog, null);
             LinearLayout restore = (LinearLayout) sheetView.findViewById(R.id.restore);
             restore.setOnClickListener(view2 -> {
@@ -201,14 +207,14 @@ public class RecoveryFragment extends Fragment {
 
         // Font Dialog
         fontsButton.setOnClickListener(v -> {
-            sheetDialog = new SheetDialog(getContext());
-            View sheetView = View.inflate(getContext(),
+            sheetDialog = new SheetDialog(mContext);
+            View sheetView = View.inflate(mContext,
                     R.layout.recovery_fonts_sheet_dialog, null);
             LinearLayout restore = (LinearLayout) sheetView.findViewById(R.id.restore);
             restore.setOnClickListener(view2 -> {
-                if (References.checkThemeInterfacer(getContext()) ||
-                        Settings.System.canWrite(getContext())) {
-                    new FontsClearer().execute("");
+                if (References.checkThemeInterfacer(mContext) ||
+                        Settings.System.canWrite(mContext)) {
+                    new FontsClearer(this).execute("");
                 } else {
                     Intent intent = new Intent(
                             Settings.ACTION_MANAGE_WRITE_SETTINGS);
@@ -229,13 +235,13 @@ public class RecoveryFragment extends Fragment {
 
         // Sounds Dialog
         soundsButton.setOnClickListener(v -> {
-            sheetDialog = new SheetDialog(getContext());
-            View sheetView = View.inflate(getContext(),
+            sheetDialog = new SheetDialog(mContext);
+            View sheetView = View.inflate(mContext,
                     R.layout.recovery_sounds_sheet_dialog, null);
             LinearLayout restore = (LinearLayout) sheetView.findViewById(R.id.restore);
             restore.setOnClickListener(view2 -> {
-                if (References.checkThemeInterfacer(getContext()) ||
-                        Settings.System.canWrite(getContext())) {
+                if (References.checkThemeInterfacer(mContext) ||
+                        Settings.System.canWrite(mContext)) {
                     new SoundsClearer().execute("");
                 } else {
                     Intent intent = new Intent(
@@ -269,13 +275,82 @@ public class RecoveryFragment extends Fragment {
         int id = item.getItemId();
 
         if (id == R.id.restore_info) {
-            Dialog dialog = new Dialog(getContext(), R.style.RestoreInfo);
+            Dialog dialog = new Dialog(mContext, R.style.RestoreInfo);
             dialog.setContentView(R.layout.restore_info);
             dialog.show();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private static class FontsClearer extends AsyncTask<String, Integer, String> {
+
+        private WeakReference<RecoveryFragment> ref;
+
+        private FontsClearer(RecoveryFragment fragment) {
+            ref = new WeakReference<>(fragment);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            RecoveryFragment fragment = ref.get();
+            Context context = fragment.mContext;
+            if (References.ENABLE_EXTRAS_DIALOG) {
+                fragment.mProgressDialog = new ProgressDialog(context, R.style.RestoreDialog);
+                fragment.mProgressDialog.setMessage(
+                        context.getString(R.string.manage_dialog_performing));
+                fragment.mProgressDialog.setIndeterminate(true);
+                fragment.mProgressDialog.setCancelable(false);
+                fragment.mProgressDialog.show();
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            RecoveryFragment fragment = ref.get();
+            Context context = fragment.mContext;
+            if (References.ENABLE_EXTRAS_DIALOG) {
+                fragment.mProgressDialog.dismiss();
+            }
+            SharedPreferences.Editor editor = fragment.prefs.edit();
+            editor.remove("fonts_applied");
+            editor.apply();
+
+
+            if (References.checkOMS(context)) {
+                Toast toast = Toast.makeText(
+                        context,
+                        R.string.manage_fonts_toast,
+                        Toast.LENGTH_SHORT);
+                toast.show();
+            } else {
+                Toast toast = Toast.makeText(
+                        context,
+                        R.string.manage_fonts_toast,
+                        Toast.LENGTH_SHORT);
+                toast.show();
+                final AlertDialog.Builder alertDialogBuilder =
+                        new AlertDialog.Builder(context);
+                alertDialogBuilder.setTitle(R.string.legacy_dialog_soft_reboot_title);
+                alertDialogBuilder.setMessage(R.string.legacy_dialog_soft_reboot_text);
+                alertDialogBuilder.setPositiveButton(android.R.string.ok,
+                        (dialog, id) -> ElevatedCommands.reboot());
+                alertDialogBuilder.setNegativeButton(R.string.remove_dialog_later,
+                        (dialog, id) -> dialog.dismiss());
+                alertDialogBuilder.setCancelable(false);
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+            }
+        }
+
+        @Override
+        protected String doInBackground(String... sUrl) {
+            RecoveryFragment fragment = ref.get();
+            Context context = fragment.mContext;
+            FontManager.clearFonts(context);
+            return null;
+        }
     }
 
     private class AbortFunction extends AsyncTask<String, Integer, String> {
@@ -293,7 +368,7 @@ public class RecoveryFragment extends Fragment {
         protected void onPostExecute(String result) {
             mProgressDialog.dismiss();
             super.onPostExecute(result);
-            if (References.checkOMS(getContext())) {
+            if (References.checkOMS(mContext)) {
                 try {
                     if (getView() != null) {
                         Lunchbar.make(getView(),
@@ -307,7 +382,7 @@ public class RecoveryFragment extends Fragment {
                             "many times, restarting current activity to preserve app " +
                             "integrity.");
                 }
-                ThemeManager.uninstallOverlay(getContext(), final_commands_array);
+                ThemeManager.uninstallOverlay(mContext, final_commands_array);
             } else {
                 if (getView() != null) {
                     Lunchbar.make(getView(),
@@ -316,7 +391,7 @@ public class RecoveryFragment extends Fragment {
                             .show();
                 }
                 AlertDialog.Builder alertDialogBuilder =
-                        new AlertDialog.Builder(getContext());
+                        new AlertDialog.Builder(mContext);
                 alertDialogBuilder
                         .setTitle(getString(R.string.legacy_dialog_soft_reboot_title));
                 alertDialogBuilder
@@ -332,7 +407,7 @@ public class RecoveryFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            if (References.checkOMS(getContext())) {
+            if (References.checkOMS(mContext)) {
                 List<String> unapproved =
                         ThemeManager.listOverlays(STATE_NOT_APPROVED_DANGEROUS_OVERLAY);
                 List<String> disabled =
@@ -387,62 +462,7 @@ public class RecoveryFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            BootAnimationManager.clearBootAnimation(getContext());
-            return null;
-        }
-    }
-
-    private class FontsClearer extends AsyncTask<String, Integer, String> {
-
-        @Override
-        protected void onPreExecute() {
-            mProgressDialog = new ProgressDialog(getActivity(), R.style.RestoreDialog);
-            mProgressDialog.setMessage(getString(R.string.manage_dialog_performing));
-            mProgressDialog.setIndeterminate(true);
-            mProgressDialog.setCancelable(false);
-            mProgressDialog.show();
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            mProgressDialog.dismiss();
-
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.remove("fonts_applied").apply();
-
-            if (References.checkOMS(getContext())) {
-                if (getView() != null) {
-                    Lunchbar.make(getView(),
-                            getString(R.string.manage_fonts_toast),
-                            Lunchbar.LENGTH_LONG)
-                            .show();
-                }
-            } else {
-                if (getView() != null) {
-                    Lunchbar.make(getView(),
-                            getString(R.string.manage_fonts_toast),
-                            Lunchbar.LENGTH_LONG)
-                            .show();
-                }
-                final AlertDialog.Builder alertDialogBuilder =
-                        new AlertDialog.Builder(getContext());
-                alertDialogBuilder.setTitle(getString(R.string
-                        .legacy_dialog_soft_reboot_title));
-                alertDialogBuilder.setMessage(getString(R.string
-                        .legacy_dialog_soft_reboot_text));
-                alertDialogBuilder.setPositiveButton(android.R.string.ok, (dialog, id) ->
-                        ElevatedCommands.reboot());
-                alertDialogBuilder.setNegativeButton(R.string.remove_dialog_later,
-                        (dialog, id) -> dialog.dismiss());
-                alertDialogBuilder.setCancelable(false);
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
-            }
-        }
-
-        @Override
-        protected String doInBackground(String... sUrl) {
-            FontManager.clearFonts(getContext());
+            BootAnimationManager.clearBootAnimation(mContext);
             return null;
         }
     }
@@ -475,7 +495,7 @@ public class RecoveryFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            new SoundUtils().SoundsClearer(getContext());
+            new SoundUtils().SoundsClearer(mContext);
             return null;
         }
     }

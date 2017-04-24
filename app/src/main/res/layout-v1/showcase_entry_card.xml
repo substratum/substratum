@@ -83,19 +83,20 @@
 
             <RelativeLayout
                 android:id="@+id/relativeLayout"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/background_image"
-                android:layout_margin="10dp">
+                android:layout_margin="10dp"
+                android:layout_toLeftOf="@+id/theme_overlays">
 
                 <TextView
                     android:id="@+id/theme_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
-                    android:layout_marginEnd="17dp"
-                    android:layout_marginStart="17dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
                     android:layout_marginTop="15dp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="18sp"
@@ -127,64 +128,60 @@
                     android:textStyle="bold"/>
             </RelativeLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
+            <ImageView
+                android:id="@+id/theme_wallpapers"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
                 android:paddingBottom="20dp"
-                android:paddingEnd="10dp"
-                android:paddingStart="10dp">
+                android:paddingEnd="20dp"
+                android:paddingStart="2.5dp"
+                android:src="@drawable/nav_wallpapers"/>
 
-                <ImageView
-                    android:id="@+id/theme_wallpapers"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentEnd="true"
-                    android:paddingEnd="2.5dp"
-                    android:paddingStart="2.5dp"
-                    android:src="@drawable/nav_wallpapers"/>
+            <ImageView
+                android:id="@+id/theme_sounds"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_toStartOf="@+id/theme_wallpapers"
+                android:paddingBottom="20dp"
+                android:paddingEnd="2.5dp"
+                android:paddingStart="2.5dp"
+                android:src="@drawable/nav_sounds"/>
 
-                <ImageView
-                    android:id="@+id/theme_sounds"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_toStartOf="@+id/theme_wallpapers"
-                    android:paddingEnd="2.5dp"
-                    android:paddingStart="2.5dp"
-                    android:src="@drawable/nav_sounds"/>
+            <ImageView
+                android:id="@+id/theme_fonts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_toStartOf="@+id/theme_sounds"
+                android:paddingBottom="20dp"
+                android:paddingEnd="2.5dp"
+                android:paddingStart="2.5dp"
+                android:src="@drawable/nav_fonts"/>
 
-                <ImageView
-                    android:id="@+id/theme_fonts"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_toStartOf="@+id/theme_sounds"
-                    android:paddingEnd="2.5dp"
-                    android:paddingStart="2.5dp"
-                    android:src="@drawable/nav_fonts"/>
+            <ImageView
+                android:id="@+id/theme_bootanimations"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_toStartOf="@+id/theme_fonts"
+                android:paddingBottom="20dp"
+                android:paddingEnd="2.5dp"
+                android:paddingStart="2.5dp"
+                android:src="@drawable/nav_bootanim"/>
 
-                <ImageView
-                    android:id="@+id/theme_bootanimations"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_toStartOf="@+id/theme_fonts"
-                    android:paddingEnd="2.5dp"
-                    android:paddingStart="2.5dp"
-                    android:src="@drawable/nav_bootanim"/>
-
-                <ImageView
-                    android:id="@+id/theme_overlays"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_toStartOf="@+id/theme_bootanimations"
-                    android:paddingEnd="2.5dp"
-                    android:paddingStart="2.5dp"
-                    android:src="@drawable/nav_overlays"/>
-
-            </RelativeLayout>
+            <ImageView
+                android:id="@+id/theme_overlays"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_toStartOf="@+id/theme_bootanimations"
+                android:paddingBottom="20dp"
+                android:paddingEnd="2.5dp"
+                android:paddingStart="2.5dp"
+                android:src="@drawable/nav_overlays"/>
 
         </RelativeLayout>
 

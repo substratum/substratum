@@ -393,7 +393,8 @@ public class References {
     }
 
     // This method is used to determine whether there the system is initiated with OMS
-    public static Boolean checkOMS(Context context) {
+    public static Boolean checkOMS(@NonNull Context context) {
+        if (context == null) return true; // Safe to assume that window refreshes only on OMS
         if (!BYPASS_ALL_VERSION_CHECKS) {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
             if (!prefs.contains("oms_state")) {

@@ -376,6 +376,7 @@ clique em
     <string name="break_compilation_dialog_content">Isto pode parar completamente o processo de compilação. Ative esta opção apenas se souber o que está a fazer!</string>
     <string name="break_compilation_dialog_continue">Continuar</string>
     <string name="break_compilation_dialog_cancel">Cancelar</string>
+    <string name="theme_safety_dialog_title">AVISO</string>
     <string name="profile_dialog_title">selecione os itens de que deseja fazer backup</string>
     <string name="profile_no_selection_warning">Por favor, selecione pelo menos uma opção!</string>
     <string name="profile_boot_animation">Animação de Boot</string>

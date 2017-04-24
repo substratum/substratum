@@ -71,6 +71,13 @@ arreglar las cosas que no se están tematizando en legado porque requieren cambi
     <string name="activity_missing_toast">No se encontraron aplicaciones que puedan manejar esta solicitud, lo sentimos!    </string>
     <string name="abort_overlay_toast_success">¡Todas las capas desinstaladas!</string>
     <string name="rescue_toast">Recuperando su sistema&#8230;</string>
+    <string name="reboot_awaiting_manager_title">SUPERPOSICIÓN DE REINICIO PENDIENTE</string>
+    <string name="manager_theme_name">Tema:</string>
+    <string name="manager_type1a">Tipo1a:</string>
+    <string name="manager_type1b">Tipo1b:</string>
+    <string name="manager_type1c">Tipo1c:</string>
+    <string name="manager_type2">Tipo2:</string>
+    <string name="manager_type3">Tipo3:</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">type1a variante&#8230;</string>
     <string name="overlays_variant_default_1b">type1b variante&#8230;</string>
@@ -423,6 +430,8 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="break_compilation_dialog_content">Esto puede romper por completo el proceso de compilación. ¡Sólo active esta opción si sabe lo que está haciendo!</string>
     <string name="break_compilation_dialog_continue">Continuar</string>
     <string name="break_compilation_dialog_cancel">Cancelar</string>
+    <string name="theme_safety_dialog_title">ADVERTENCIA</string>
+    <string name="theme_safety_dialog_content">¡Esta es una característica de seguridad fundamental para recuperar el dispositivo por capas problemáticas que se cierran a la fuerza! Usted puede utilizar el botón ¡Rescátame! en el acceso directo a Substratum si encuentra estas situaciones o, como último recurso, puede aplicar flash los archivos de rescate disponibles en /storage/emulated/0/substratum/.</string>
     <string name="profile_dialog_title">Seleccione los elementos que desea respaldar</string>
     <string name="profile_no_selection_warning">Por favor seleccione por lo menos una opción!</string>
     <string name="profile_boot_animation">Animación de Inicio</string>
@@ -489,7 +498,6 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="app_crash_content">Se desactivaron las capas habilitadas para esta aplicación.</string>
     <string name="rom_status">Estado del Soporte:</string>
     <string name="rom_status_supported">¡%s es apoyada por la comunidad!</string>
-    <string name="rom_status_unsupported">Esta ROM aun no es conocida por la comunidad&#8230;</string>
     <string name="rom_status_network">Verificación de Internet requerida&#8230;</string>
     <!-- Nav drawer -->
     <string name="nav_home">Packs de temas</string>

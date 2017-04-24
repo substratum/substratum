@@ -71,6 +71,13 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     </string>
     <string name="abort_overlay_toast_success">Všechny potahy odinstalovány!</string>
     <string name="rescue_toast">Záchrana systému&#8230;</string>
+    <string name="reboot_awaiting_manager_title">POTAH ČEKÁ NA RESTARTOVÁNÍ</string>
+    <string name="manager_theme_name">Motiv:</string>
+    <string name="manager_type1a">Typ1a:</string>
+    <string name="manager_type1b">Typ1b:</string>
+    <string name="manager_type1c">Typ1c:</string>
+    <string name="manager_type2">Typ2 :</string>
+    <string name="manager_type3">Typ3 :</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">typ1a varianta&#8230;</string>
     <string name="overlays_variant_default_1b">typ1b varianta&#8230;</string>
@@ -445,6 +452,8 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="break_compilation_dialog_content">Toto by mohlo kompletně rozbít proces kompilace. Zapněte tuto možnost jen pokud víte co děláte!</string>
     <string name="break_compilation_dialog_continue">Pokračovat</string>
     <string name="break_compilation_dialog_cancel">Zrušit</string>
+    <string name="theme_safety_dialog_title">VAROVÁNÍ</string>
+    <string name="theme_safety_dialog_content">Toto je klíčová bezpečnostní funkce pro obnovení vadných potahů vynuceným uzavřením! Pokud se ocitnete v této situaci, můžete použít tlačítko \"Zachraň mě!\" nacházející se v zástupci aplikace Subtratum nebo v krajním případě můžete na záchranu použít flash archivu, který najdete ve /storage/emulated/0/substratum/.</string>
     <string name="profile_dialog_title">vyberte položky, které chcete zálohovat</string>
     <string name="profile_no_selection_warning">Prosím, vyberte alespoň jednu možnost!</string>
     <string name="profile_boot_animation">Spouštěcí animace</string>
@@ -511,7 +520,7 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="app_crash_content">Byly zakázány všechny povolené potahy pro tuto aplikaci.</string>
     <string name="rom_status">stav podpory:</string>
     <string name="rom_status_supported">%s je podporováno komunitou!</string>
-    <string name="rom_status_unsupported">tato ROM není dosud známa pro komunitu&#8230;</string>
+    <string name="rom_status_unsupported">tato ROM není podporována komunitou!</string>
     <string name="rom_status_network">zkontrolujte připojení k internetu&#8230;</string>
     <!-- Nav drawer -->
     <string name="nav_home">Balíčky motivů</string>

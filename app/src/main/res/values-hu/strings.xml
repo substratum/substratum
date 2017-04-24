@@ -93,6 +93,13 @@
     </string>
     <string name="abort_overlay_toast_success">Minden fedvény eltávolítva!</string>
     <string name="rescue_toast">A rendszer megmentése&#8230;</string>
+    <string name="reboot_awaiting_manager_title">FEDVÉNY ÚJRAINDÍTÁSRA VÁR</string>
+    <string name="manager_theme_name">Téma:</string>
+    <string name="manager_type1a">Típus1a:</string>
+    <string name="manager_type1b">Típus1b:</string>
+    <string name="manager_type1c">Típus1c:</string>
+    <string name="manager_type2">Típus2:</string>
+    <string name="manager_type3">Típus3:</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">type1a változat&#8230;</string>
     <string name="overlays_variant_default_1b">type1b változat&#8230;</string>
@@ -514,6 +521,9 @@
     <string name="break_compilation_dialog_content">Ez teljesen megszakíthatja az összeállítási folyamatot. Csak akkor engedélyezze ezt a beállítást, ha tudja mit csinál!</string>
     <string name="break_compilation_dialog_continue">Folytatás</string>
     <string name="break_compilation_dialog_cancel">Mégse</string>
+    <string name="theme_safety_dialog_title">FIGYELMEZTETÉS</string>
+    <string name="theme_safety_dialog_content">Ez egy kulcsfontosságú biztonsági funkció, hogy megmentse a hibás fedvény miatti kényszerített bezárásoktól. Használhatja a Ments meg! gombot a Substratum alkalmazás parancsikonjában, ha ebbe a helyzetbe került, vagy az utolsó mentsvár a mentési (rescue) archívum flashelése, mely itt található:
+/storage/emulated/0/substratum/.</string>
     <string name="profile_dialog_title">válassza ki a menteni kívánt elemeket</string>
     <string name="profile_no_selection_warning">Kérjük, válasszon legalább egy lehetőséget!</string>
     <string name="profile_boot_animation">Rendszerindítási animáció</string>
@@ -580,7 +590,7 @@
     <string name="app_crash_content">A program letiltotta ezen alkalmazás összes engedélyezett fedvényét.</string>
     <string name="rom_status">támogatás állapota:</string>
     <string name="rom_status_supported">%s a közösség által támogatott!</string>
-    <string name="rom_status_unsupported">ez a rom még nem ismert a közösségben&#8230;</string>
+    <string name="rom_status_unsupported">ez a rom, nem támogatott a közösség által!</string>
     <string name="rom_status_network">internetes ellenőrzés szükséges&#8230;</string>
     <!-- Nav drawer -->
     <string name="nav_home">Témacsomagok</string>

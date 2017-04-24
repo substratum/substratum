@@ -64,6 +64,13 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="activity_missing_toast">Nie znaleziono żadnych aplikacji które mogłyby to obsłużyć, przepraszamy!    </string>
     <string name="abort_overlay_toast_success">Wszystkie nakładki odinstalowane!</string>
     <string name="rescue_toast">Ratowanie systemu&#8230;</string>
+    <string name="reboot_awaiting_manager_title">NAKŁADKA OCZEKUJE NA PONOWNE URUCHOMIENIE</string>
+    <string name="manager_theme_name">Motyw:</string>
+    <string name="manager_type1a">Typ1a:</string>
+    <string name="manager_type1b">Typ1b:</string>
+    <string name="manager_type1c">Typ1c:</string>
+    <string name="manager_type2">Typ2:</string>
+    <string name="manager_type3">Typ3:</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">wariant typ1a&#8230;</string>
     <string name="overlays_variant_default_1b">wariant typ1b&#8230;</string>
@@ -408,6 +415,8 @@ Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
     <string name="break_compilation_dialog_content">To może całkowicie przerwać proces kompilacji. Włącz tę opcję, jeśli wiesz co robisz!</string>
     <string name="break_compilation_dialog_continue">Kontynuuj</string>
     <string name="break_compilation_dialog_cancel">Anuluj</string>
+    <string name="theme_safety_dialog_title">OSTRZEŻENIE</string>
+    <string name="theme_safety_dialog_content">Istotną kwestią zabezpieczeń jest to, aby uwolnić się od zawieszeń spowodowanych złymi nakładkami! Jeśli widzisz, że gdzieś utknąłeś, możesz użyć przycisku Ratuj mnie! znajdującym się na skrócie aplikacji Substratum lub ostatecznie wgrać archiwa ratunkowe znajdujące się w /storage/emulated/0/substratum/.</string>
     <string name="profile_dialog_title">wybierz elementy, którym chcesz wykonać kopię zapasową</string>
     <string name="profile_no_selection_warning">Proszę wybrać przynajmniej jedną opcję!</string>
     <string name="profile_boot_animation">Animacja rozruchu</string>
@@ -474,7 +483,7 @@ Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
     <string name="app_crash_content">Wszystkie włączone nakładki dla tej aplikacji zostały wyłączone.</string>
     <string name="rom_status">status wsparcia:</string>
     <string name="rom_status_supported">%s jest wspierany przez społeczność!</string>
-    <string name="rom_status_unsupported">ten rom nie jest jeszcze znany przez naszą społeczność&#8230;</string>
+    <string name="rom_status_unsupported">ten rom nie jest wspierany przez społeczność!</string>
     <string name="rom_status_network">wymaga sprawdzenia przez internet&#8230;</string>
     <!-- Nav drawer -->
     <string name="nav_home">Pakiety motywów</string>

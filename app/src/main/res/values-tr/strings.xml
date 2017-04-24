@@ -95,6 +95,13 @@ olduğundan ve
     </string>
     <string name="abort_overlay_toast_success">Tüm temalar kaldırıldı!</string>
     <string name="rescue_toast">Sisteminiz kurtarılıyor&#8230;</string>
+    <string name="reboot_awaiting_manager_title">YENİDEN BAŞLATMAYI BEKLEYEN TEMA</string>
+    <string name="manager_theme_name">Tema:</string>
+    <string name="manager_type1a">Tür1a:</string>
+    <string name="manager_type1b">Tür1b:</string>
+    <string name="manager_type1c">Tür1c:</string>
+    <string name="manager_type2">Tür2:</string>
+    <string name="manager_type3">Tür3:</string>
     <string name="overlays_variant_substitute">%s...</string>
     <string name="overlays_variant_default_1a">type1a varyantı&#8230;</string>
     <string name="overlays_variant_default_1b">type1b varyantı&#8230;</string>
@@ -521,6 +528,8 @@ sağlayan
     <string name="break_compilation_dialog_content">Düzenleme sürecini tamamen bozar. Ne yaptığınızı biliyorsanız bu seçeneği etkinleştirin!</string>
     <string name="break_compilation_dialog_continue">Devam</string>
     <string name="break_compilation_dialog_cancel">İptal</string>
+    <string name="theme_safety_dialog_title">UYARI</string>
+    <string name="theme_safety_dialog_content">Bu sizi, hatalı temaların kapatmaya zorlamasından kurtarmak için önemli bir güvenlik özelliği! Kurtarma\'yı kullanabilirsiniz! Zor durumda kaldığınızda Substratum\'un uygulama kısa yolundaki Kurtarma seçeneğini kullanabilirsiniz, yada son çare olarak /storage/emulated/0/substratum/ dizininde bulunan kurtarma arşivlerini flaşlayın.</string>
     <string name="profile_dialog_title">yedeklemek istediğiniz öğeleri seçin</string>
     <string name="profile_no_selection_warning">Lütfen en az bir seçenek seçin!</string>
     <string name="profile_boot_animation">Önyükleme Animasyonu</string>
@@ -545,8 +554,8 @@ sağlayan
     <string name="settings_theme_caching_found_snackbar">Gizli kaynak önbellekleme modunu keşfedin!</string>
     <string name="settings_crash_receiver_title">Tema Güvenliği Çökme Algılayıcı</string>
     <string name="settings_crash_receiver_text">Tema uygulanan bir uygulamada tekrar eden çökmeler tespit edildiğinde temayı otomatik olarak devre dışı bırak.</string>
-    <string name="settings_force_stop_interfacer_title">Arayüz Hizmetini durmaya zorla</string>
-    <string name="settings_force_stop_interfacer_snackbar">Arayüz hizmeti durmaya zorlanıyor&#8230;</string>
+    <string name="settings_force_stop_interfacer_title">Arayüz Hizmetini Durdurmaya Zorla</string>
+    <string name="settings_force_stop_interfacer_snackbar">Arayüz hizmeti durdurmaya zorlanıyor&#8230;</string>
     <string name="root_required_title">Kök erişimi gereklidir</string>
     <string name="root_required_boot_animation">Cihazınız şifrelidir, bu nedenle önyükleme animasyonlarını uygulamak için kök erişimi gereklidir.</string>
     <string name="root_required_boot_animation_profile">Cihazınız şifrelidir, bu nedenle önyükleme animasyonlarını yedeklemek ve geri yüklemek için kök erişimi gereklidir.</string>
@@ -587,7 +596,7 @@ sağlayan
     <string name="app_crash_content">Bu uygulama için etkin olan temalar devre dışı bırakıldı.</string>
     <string name="rom_status">destek durumu:</string>
     <string name="rom_status_supported">%s topluluğu tarafından desteklenmektedir!</string>
-    <string name="rom_status_unsupported">bu rom henüz topluluk tarafından bilinmiyor&#8230;</string>
+    <string name="rom_status_unsupported">bu rom topluluk tarafından desteklenmiyor!</string>
     <string name="rom_status_network">internet kontrolü gerekli&#8230;</string>
     <!-- Nav drawer -->
     <string name="nav_home">Tema paketleri</string>
@@ -606,7 +615,7 @@ sağlayan
     <string name="nav_section_header_get_involved">Topluluk</string>
     <string name="nav_drawer_community">Gruplar &amp; topluluklar</string>
     <string name="nav_drawer_googleplus">Google+ topluluğu</string>
-    <string name="nav_drawer_telegram">Telegram Grup sohbeti</string>
+    <string name="nav_drawer_telegram">Telegram grup sohbeti</string>
     <string name="nav_drawer_xda">XDA Destek Konusu</string>
     <!-- Featured content -->
     <string name="nav_drawer_featured">Öne çıkan içerik</string>

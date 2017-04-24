@@ -400,6 +400,7 @@
     <string name="break_compilation_dialog_content">Cela peut complètement briser le processus de compilation. Activez cette option uniquement si vous savez ce que vous faites !</string>
     <string name="break_compilation_dialog_continue">Continuer</string>
     <string name="break_compilation_dialog_cancel">Annuler</string>
+    <string name="theme_safety_dialog_title">AVERTISSEMENT</string>
     <string name="profile_dialog_title">Sélectionnez les éléments à sauvegarder</string>
     <string name="profile_no_selection_warning">Veuillez sélectionner au moins une option !</string>
     <string name="profile_boot_animation">Animation de démarrage</string>
@@ -464,7 +465,6 @@
     <string name="app_crash_content">Toutes les surcouches activées pour cette application ont été désactivées</string>
     <string name="rom_status">État de prise en charge :</string>
     <string name="rom_status_supported">%s est pris en charge par la communauté !</string>
-    <string name="rom_status_unsupported">Cette ROM n\'est pas encore connue de la communauté&#8230;</string>
     <string name="rom_status_network">Vérification par Internet nécessaire&#8230;</string>
     <!-- Nav drawer -->
     <string name="nav_home">Thèmes</string>
@@ -483,7 +483,6 @@
     <string name="nav_section_header_get_involved">Communauté</string>
     <string name="nav_drawer_community">Groupes et communautés</string>
     <string name="nav_drawer_googleplus">Communauté Google+</string>
-    <string name="nav_drawer_telegram">Groupe Telegram</string>
     <string name="nav_drawer_xda">Sujet d\'aide sur XDA</string>
     <!-- Featured content -->
     <string name="nav_drawer_featured">Contenu en vedette</string>

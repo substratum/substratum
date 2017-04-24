@@ -45,7 +45,7 @@
     <string name="background_updated_toast_cleaning">O Substratum está limpando o cache de recursos
         deste tema&#8230;</string>
     <string name="failed_to_install_title_notification">Falha ao instalar um tema OMS</string>
-    <string name="failed_to_install_text_notification">%s falhou ao instalar</string>
+    <string name="failed_to_install_text_notification">%s falha ao instalar</string>
     <string name="actionbar_theme_count_singular">%s tema</string>
     <string name="actionbar_theme_count_plural">%s temas</string>
     <string name="actionbar_theme_count_loading">carregando&#8230;</string>
@@ -60,8 +60,8 @@
         você não os tem, você pode clicar em Baixar para ser redirecionado para seu tópico de discussão no XDA ou Cancelar
         se você já os tem!
     </string>
-    <string name="two_description">Esse tema tem suporta aos apps padrões Google, do jeito que foram feitos!
-        Se você tem o Theme Ready Google Apps instalado, talvez não precisará removê-los,
+    <string name="two_description">Esse tema tem suporte aos apps padrões Google, do jeito que foram feitos!
+        Se você tem o Theme Ready Google Apps instalado, talvez não precisará removê-lo,
         mas não são requiridos para esse tema!
     </string>
     <string name="tbo_dialog_proceed">Baixar</string>
@@ -427,6 +427,7 @@ resolver este problema.    </string>
     <string name="break_compilation_dialog_content">Isto pode quebrar completamente o processo de compilação. Só habilite esta opção se você sabe o que está fazendo!</string>
     <string name="break_compilation_dialog_continue">Continuar</string>
     <string name="break_compilation_dialog_cancel">Cancelar</string>
+    <string name="theme_safety_dialog_title">AVISO</string>
     <string name="profile_dialog_title">selecione os itens que você deseja fazer backup</string>
     <string name="profile_no_selection_warning">Por favor, selecione pelo menos uma opção!</string>
     <string name="profile_boot_animation">Animação de Boot</string>
@@ -449,6 +450,7 @@ resolver este problema.    </string>
     <string name="settings_theme_caching_title">Armazenar Recursos de Temas</string>
     <string name="settings_theme_caching_text">Todos os recursos de temas ativos serão extraídos para o diretório de cache.</string>
     <string name="settings_theme_caching_found_snackbar">Você descobriu o recurso oculto modo cache de recursos!</string>
+    <string name="settings_force_stop_interfacer_snackbar">Força o Interfacer a parar agora&#8230;</string>
     <string name="root_required_title">Root requerido</string>
     <string name="root_required_boot_animation">Seu dispositivo é criptografado, portanto é necessário ter root para aplicar animações de inicialização.</string>
     <string name="root_required_boot_animation_profile">Seu dispositivo é criptografado, portanto é necessário ter root para fazer backup e restaurar inicialização animações.</string>
@@ -489,7 +491,6 @@ resolver este problema.    </string>
     <string name="app_crash_content">Todas as camadas habilitadas para essa aplicação foram desativados.</string>
     <string name="rom_status">status de suporte:</string>
     <string name="rom_status_supported">%s tem suporte da comunidade!</string>
-    <string name="rom_status_unsupported">esta ROM não tem suporte pela comunidade ainda&#8230;</string>
     <string name="rom_status_network">verificação de internet requerida&#8230;</string>
     <!-- Nav drawer -->
     <string name="nav_home">Pacotes de tema</string>
@@ -508,7 +509,7 @@ resolver este problema.    </string>
     <string name="nav_section_header_get_involved">Comunidade</string>
     <string name="nav_drawer_community">Grupos &amp; comunidades</string>
     <string name="nav_drawer_googleplus">Comunidade Google+</string>
-    <string name="nav_drawer_telegram">Chat do grupo no Telegram</string>
+    <string name="nav_drawer_telegram">Grupo no Telegram</string>
     <string name="nav_drawer_xda">XDA Subforum</string>
     <!-- Featured content -->
     <string name="nav_drawer_featured">Conteúdo em destaque</string>

@@ -63,6 +63,7 @@
     <string name="activity_missing_toast">Не найдено приложения, способного выполнить задачу, извините!</string>
     <string name="abort_overlay_toast_success">Все слои удалены!</string>
     <string name="rescue_toast">Восстановление системы&#8230;</string>
+    <string name="reboot_awaiting_manager_title">НАСЛОЕНИЕ ОЖИДАЕТ ПЕРЕЗАГРУЗКИ</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">Вариант type1a&#8230;</string>
     <string name="overlays_variant_default_1b">Вариант type1b&#8230;</string>
@@ -307,8 +308,8 @@
     <string name="advanced_manager_overlay_read_error">Не удалось разобрать список наслоений. Откройте Восстановление и выберите Восстановить оформление (удаление всех установленных наслоений) для решения этой проблемы.    </string>
     <string name="shortcut_floatui">Плавающее окно</string>
     <string name="shortcut_floatui_disabled">Плавающее окно</string>
-    <string name="shortcut_rescue">Выручайте меня!</string>
-    <string name="shortcut_rescue_disabled">Выручайте меня!</string>
+    <string name="shortcut_rescue">На помощь!</string>
+    <string name="shortcut_rescue_disabled">На помощь!</string>
     <string name="shortcut_store">Каталог тем</string>
     <string name="shortcut_store_disabled">Каталог тем</string>
     <string name="settings_title">О системе</string>
@@ -412,6 +413,8 @@
     <string name="break_compilation_dialog_content">Может сделать процесс сборки полностью неисправным. Активируйте настройку только со знанием дела!</string>
     <string name="break_compilation_dialog_continue">Продолжить</string>
     <string name="break_compilation_dialog_cancel">Отмена</string>
+    <string name="theme_safety_dialog_title">ВНИМАНИЕ</string>
+    <string name="theme_safety_dialog_content">Эта функция важна для возможности отката при вылетах из-за плохих наслоений! Вы сможете воспользоваться кнопкой \"На помощь!\" из ярлыка приложения Substratum, если приложение зависнет, а в крайнем случае прошить архив восстановления из /storage/emulated/0/substratum/.</string>
     <string name="profile_dialog_title">выберите элементы для резервирования</string>
     <string name="profile_no_selection_warning">Выберите хотя бы один из вариантов!</string>
     <string name="profile_boot_animation">Анимация загрузки</string>
@@ -478,7 +481,6 @@
     <string name="app_crash_content">Все наслоения для этого приложения были отключены</string>
     <string name="rom_status">поддержка:</string>
     <string name="rom_status_supported">%s поддерживается сообществом!</string>
-    <string name="rom_status_unsupported">эта прошивка пока неизвестна сообществу&#8230;</string>
     <string name="rom_status_network">проверьте интернет-соединение&#8230;</string>
     <!-- Nav drawer -->
     <string name="nav_home">Наборы тем</string>

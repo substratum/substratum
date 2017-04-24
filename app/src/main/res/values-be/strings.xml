@@ -63,6 +63,13 @@
     <string name="activity_missing_toast">Не знойдзена праграмы, здольнай выканаць задачу, прабачце!    </string>
     <string name="abort_overlay_toast_success">Усе пласты выдалены!</string>
     <string name="rescue_toast">Сістэма выратавання&#8230;</string>
+    <string name="reboot_awaiting_manager_title">НАПЛАСТАВАННЕ ЧАКАЕ ПЕРАЗАГРУЗКА</string>
+    <string name="manager_theme_name">Тэма:</string>
+    <string name="manager_type1a">Тып1a:</string>
+    <string name="manager_type1b">Тып1b:</string>
+    <string name="manager_type1c">Тып1c:</string>
+    <string name="manager_type2">Тып2 :</string>
+    <string name="manager_type3">Тып3 :</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">варыянт type1a&#8230;</string>
     <string name="overlays_variant_default_1b">варыянт type1b&#8230;</string>
@@ -413,6 +420,8 @@
     <string name="break_compilation_dialog_content">Можа зрабіць працэс зборкі цалкам няспраўным. Актывуйце наладу толькі з веданнем справы!</string>
     <string name="break_compilation_dialog_continue">Працягнуць</string>
     <string name="break_compilation_dialog_cancel">Скасаваць</string>
+    <string name="theme_safety_dialog_title">УВАГА</string>
+    <string name="theme_safety_dialog_content">Гэта функцыя важная для магчымасці адкату пры вылетах з-за дрэнных напластаванняў! Вы зможаце скарыстацца кнопкай \"На дапамогу!\" з цэтліка прыкладання Substratum, калі дадатак завісне, а ў крайнім выпадку прашыць архіў аднаўлення з /storage/emulated/0/substratum/.</string>
     <string name="profile_dialog_title">выберыце элементы для рэзервавання</string>
     <string name="profile_no_selection_warning">Выберыце хаця б адзін з варыянтаў!</string>
     <string name="profile_boot_animation">Анімацыя загрузкі</string>
@@ -479,7 +488,6 @@
     <string name="app_crash_content">Усе ўключаныя напластаванні для гэтай праграмы былі адключаныя.</string>
     <string name="rom_status">статус падтрымкі:</string>
     <string name="rom_status_supported">%s падтрымліваецца супольнасцю!</string>
-    <string name="rom_status_unsupported">дадзены ром не вядомы супольнасці яшчэ&#8230;</string>
     <string name="rom_status_network">патрабуецца праверка ў інтэрнэце&#8230;</string>
     <!-- Nav drawer -->
     <string name="nav_home">Наборы тэм</string>
@@ -498,7 +506,7 @@
     <string name="nav_section_header_get_involved">Супольнасць</string>
     <string name="nav_drawer_community">Групы і супольнасці</string>
     <string name="nav_drawer_googleplus">Супольнасці ў Google+</string>
-    <string name="nav_drawer_telegram">Група ў Telegram</string>
+    <string name="nav_drawer_telegram">Чат у Telegram</string>
     <string name="nav_drawer_xda">XDA форум</string>
     <!-- Featured content -->
     <string name="nav_drawer_featured">Рэкамендуемае</string>

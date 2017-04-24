@@ -27,17 +27,17 @@
     <string name="resource_checker_dialog_quit">Esci</string>
     <string name="resource_not_validated">Sono state unite nuove commit!</string>
     <string name="resource_needs_internet">Per validare le commit della tua ROM, connettiti ad internet!</string>
-    <string name="resource_validated">Tutte le commit sono intatte!</string>
+    <string name="resource_validated">Tutte le commit sono integre!</string>
     <string name="resource_commit_dialog_title">Risorse mancanti in %s</string>
     <string name="showcase_no_connection">La vetrina dei temi richiede una connessione ad internet per funzionare!</string>
-    <string name="showcase_no_themes">sembra che ci sia stato un errore nel nascondere il database della vetrina&#8230;    </string>
-    <string name="on_demand_updating_title">Inizializzo cache delle risorse</string>
+    <string name="showcase_no_themes">sembra che ci sia stato un errore nel memorizzare in cache il database della vetrina&#8230;    </string>
+    <string name="on_demand_updating_title">Inizializzo la cache delle risorse</string>
     <string name="on_demand_updating_text">rigenero la cache di %s&#8230;</string>
-    <string name="background_updating_toast">Un tema si sta aggiornando in background, per favore aspetta che finisca l\'operazione!</string>
+    <string name="background_updating_toast">Un tema si sta aggiornando in background, per favore aspetta che finisca l\'operazione!    </string>
     <string name="background_needs_invalidating">Oops! Si è verificato un danneggiamento nella cache.</string>
     <string name="background_needs_invalidating_button">Cancella</string>
     <string name="background_updated_toast">Cache delle risorse generate con successo!</string>
-    <string name="background_updated_toast_cancel">Questo tema necessita di aggiornare le sua risorse della cache prima che sia funzionante!    </string>
+    <string name="background_updated_toast_cancel">Questo tema necessita di aggiornare le sue risorse della cache prima che sia funzionante!    </string>
     <string name="background_updated_toast_cleaning">Substratum sta pulendo la risorse della cache di questo tema&#8230;</string>
     <string name="failed_to_install_title_notification">L\'installazione del tema OMS non è andata a buon fine</string>
     <string name="failed_to_install_text_notification">L\'installazione di %s è fallita</string>
@@ -64,6 +64,13 @@
     <string name="activity_missing_toast">Non sono state trovate applicazioni che possano occuparsi di questa richiesta, scusa!    </string>
     <string name="abort_overlay_toast_success">Tutti gli overlay sono stati disinstallati!</string>
     <string name="rescue_toast">Salvo il tuo sistema&#8230;</string>
+    <string name="reboot_awaiting_manager_title">OVERLAY IN ATESSA DI RIAVVIO</string>
+    <string name="manager_theme_name">Tema:</string>
+    <string name="manager_type1a">Type1a:</string>
+    <string name="manager_type1b">Type1b:</string>
+    <string name="manager_type1c">Type1c:</string>
+    <string name="manager_type2">Type2 :</string>
+    <string name="manager_type3">Type3 :</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">type1a variante&#8230;</string>
     <string name="overlays_variant_default_1b">type1b variante&#8230;</string>
@@ -411,6 +418,8 @@ Vuoi ripristinare le icone predefinite di sistema?    </string>
     <string name="break_compilation_dialog_content">Questo può distruggere completamente il processo di compilazione. Abilitare questa opzione solo se si sa cosa si sta facendo!</string>
     <string name="break_compilation_dialog_continue">Continua</string>
     <string name="break_compilation_dialog_cancel">Cancella</string>
+    <string name="theme_safety_dialog_title">ATTENZIONE</string>
+    <string name="theme_safety_dialog_content">Questa è una funzionalità di sicurezza fondamentale in grado di ripristinare il funzionamento del sistema in caso di arresti forzati causati da overlay incompatibili. Se il dispositivo non riuscisse a ripristinarsi in modo automatico potresti usare il bottone Salvami! presente tra le scorciatoie dell\'applicazione Substratum, oppure, l\'ultima possibilità a tua disposizione, sarebbe quella di flashare uno degli archivi di ripristino presenti all\'interno del percorso /storage/emulated/0/substratum/.</string>
     <string name="profile_dialog_title">seleziona gli oggetti dei quali vuoi il backup</string>
     <string name="profile_no_selection_warning">Per favore seleziona almeno un\'opzione!</string>
     <string name="profile_boot_animation">Animazione d\'avvio</string>
@@ -477,7 +486,7 @@ Vuoi ripristinare le icone predefinite di sistema?    </string>
     <string name="app_crash_content">Tutti gli overlay abilitati per questa applicazione sono stati disabilitati.</string>
     <string name="rom_status">stato supporto:</string>
     <string name="rom_status_supported">%s è supportato dalla community!</string>
-    <string name="rom_status_unsupported">questa rom non è ancora supportata dalla community&#8230;</string>
+    <string name="rom_status_unsupported">questa rom non è supportata dalla community!</string>
     <string name="rom_status_network">richiesta connessione internet&#8230;</string>
     <!-- Nav drawer -->
     <string name="nav_home">Pacchetti Temi</string>
@@ -496,7 +505,7 @@ Vuoi ripristinare le icone predefinite di sistema?    </string>
     <string name="nav_section_header_get_involved">Community</string>
     <string name="nav_drawer_community">Gruppi &amp; community</string>
     <string name="nav_drawer_googleplus">Community Google+</string>
-    <string name="nav_drawer_telegram">Chat di Gruppo su Telegram</string>
+    <string name="nav_drawer_telegram">Chat di gruppo su Telegram</string>
     <string name="nav_drawer_xda">XDA Subforum</string>
     <!-- Featured content -->
     <string name="nav_drawer_featured">Contenuti in primo piano</string>

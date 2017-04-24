@@ -32,7 +32,7 @@
     <string name="answer_six">Vymažte súbor /system/bin/aopt, znovu spustite aplikáciu a skúste celý proces znova.</string>
     <string name="question_seven">Moja téma sa neaplikovala, čo sa stalo?</string>
     <string name="answer_seven">Ak aplikujete tému po prvýkrát na pôvodnú tému, uistite sa, že nemáte zapnutú možnosť \"Zakázať iné témy\".    </string>
-    <string name="question_eight">Zariadenie ostalo visieť na spúšťacej obrazovke (bootloop)! Ako to opraviť?</string>
+    <string name="question_eight">Zariadenie ostalo visieť v spúšťacej slučke (bootloop)! Ako to opraviť?</string>
     <string name="answer_eight">Substratum má svoj vlastný systém obnovy nazývaný Substratum Rescue System (SRS), je to automatizovaný systém, ktorý vytvorí SubstratumRescue.zip archív do /storage/emulated/0/substratum/. Flashnite tento zip pomocou recovery a reštartujte zariadenie!</string>
     <string name="question_nine">Niektoré prvky po aplikovaní témy vyzerajú zvláštne, čo sa stalo?    </string>
     <string name="answer_nine">1. Reštartujte SystemUI, ak sa tak nestalo automaticky.\n2. Reštartujte zariadenie.\n3. Zrušte alebo vymažte prekrytia, skompilujte a aplikujte znovu.</string>

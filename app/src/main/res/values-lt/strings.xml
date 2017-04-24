@@ -70,6 +70,7 @@
     <string name="activity_missing_toast">Nebuvo rasta nei viena programėlė, kuri galėtu palaikyti šį prašymą, atsiprašome!</string>
     <string name="abort_overlay_toast_success">Visos perdangos pašalintos!</string>
     <string name="rescue_toast">Gelbėjama jūsų sistema&#8230;</string>
+    <string name="reboot_awaiting_manager_title">PERDANGOS LAUKIA PERKROVIMO</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">tipo1a variantas&#8230;</string>
     <string name="overlays_variant_default_1b">tipo1b variantas&#8230;</string>
@@ -428,6 +429,8 @@
     <string name="break_compilation_dialog_content">Tai gali visiškai nutraukti kompiliavimo procesą. Įjungite šią parinktį, jei žinote, ką darote!</string>
     <string name="break_compilation_dialog_continue">Tęsti</string>
     <string name="break_compilation_dialog_cancel">Atšaukti</string>
+    <string name="theme_safety_dialog_title">ĮSPĖJIMAS</string>
+    <string name="theme_safety_dialog_content">Tai labai svarbi saugumo funkcija, kuri leidžia atstatyti blogų perdangų priverstinį užsidarinėjimą! Jūs galite naudoti \"Išgelbėkite Mane!\" mygtuką ant \"Substratum\" programėlės nuorodos. Jei jūs matote, jog pastrigote, jūsų galutinis pasirinkimas būtų - įdiegti gelbėjimosi archyvą, kurį rasite /storage/emulated/0/substratum/.</string>
     <string name="profile_dialog_title">pasirinkite elementus, kuriems norite padaryti atsarginę kopiją</string>
     <string name="profile_no_selection_warning">Prašome pasirinkti bent vieną parinktį!</string>
     <string name="profile_boot_animation">Paleidimo Animacija</string>
@@ -494,7 +497,6 @@
     <string name="app_crash_content">Visos įjungtos perdangos šiai programėlei buvo išjungtos.</string>
     <string name="rom_status">palaikymo statusas:</string>
     <string name="rom_status_supported">%s bendruomenės palaikomas!</string>
-    <string name="rom_status_unsupported">kolkas šis \"rom\" bendruomenei nėra žinomas&#8230;</string>
     <string name="rom_status_network">reikalingas interneto patikrinimas&#8230;</string>
     <!-- Nav drawer -->
     <string name="nav_home">Temų paketai</string>
@@ -513,7 +515,6 @@
     <string name="nav_section_header_get_involved">Bendruomenė</string>
     <string name="nav_drawer_community">Grupės ir bendruomenės</string>
     <string name="nav_drawer_googleplus">\"Google +\" bendruomenė</string>
-    <string name="nav_drawer_telegram">\"Telegram\" Grupės pokalbis</string>
     <string name="nav_drawer_xda">XDA Subforumas</string>
     <!-- Featured content -->
     <string name="nav_drawer_featured">Panašus tūrinys</string>

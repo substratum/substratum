@@ -63,6 +63,13 @@ bei dir funktioniert. Bitte stelle sicher, dass du eine Custom-Recovery verwende
     <string name="activity_missing_toast">Es wurden keine Anwendungen gefunden, welche diese Anfrage ausführen könnten, sorry!</string>
     <string name="abort_overlay_toast_success">Alle Overlays deinstalliert!</string>
     <string name="rescue_toast">Rette dein System&#8230;</string>
+    <string name="reboot_awaiting_manager_title">DAS OVERLAY BENÖTIGT EINEN NEUSTART</string>
+    <string name="manager_theme_name">Theme:</string>
+    <string name="manager_type1a">Typ1a:</string>
+    <string name="manager_type1b">Typ1b:</string>
+    <string name="manager_type1c">Typ1c:</string>
+    <string name="manager_type2">Typ2:</string>
+    <string name="manager_type3">Typ3:</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">typ1a Variante&#8230;</string>
     <string name="overlays_variant_default_1b">typ1b Variante&#8230;</string>
@@ -174,7 +181,7 @@ eingerichtet&#8230;</string>
     <string name="deny">Ablehnen</string>
     <string name="permission_explanation_title">Berechtigungsübersicht</string>
     <string name="permission_explanation_text">Substratum könnte nicht ordnungsgemäß funktionieren, wenn diese entscheidenden Berechtigungen nicht genehmigt sind.\n\n<b>Speicher
- </b> Substratum braucht deinen internen Speicher, um die System-Rettungs-Archive dort abzulegen. Diese werden unter /storage/emulated/0/substratum/ gespeichert.\n\n<b>Firebase: </b> Substratum nutzt Google\'s Firebase, um entscheidende Informationen von unserer zentralen Echt-Zeit-Datenbank zu downloaden, welche Kern-Dienste und die Sicherheit verbessern.    </string>
+ </b> Substratum braucht deinen internen Speicher, um die Systemrettungsarchive dort abzulegen. Diese werden unter /storage/emulated/0/substratum/ gespeichert.\n\n<b>Firebase: </b> Substratum nutzt Google\'s Firebase, um entscheidende Informationen von unserer zentralen Echtzeitdatenbank zu downloaden, welche zentrale Dienste und die Sicherheit verbessern.    </string>
     <string name="priority_back_title">Zurück zu Overlays</string>
     <string name="priority_success_toast">Prioritäten wurden geändert und Fenster werden aktualisiert&#8230;</string>
     <string name="menu_clean">Overlays entfernen</string>
@@ -217,7 +224,7 @@ eingerichtet&#8230;</string>
     <string name="studio_update_configuration">Icon-Konfiguration aktualisieren</string>
     <string name="studio_placeholder_text">keine von Substratum unterstützten Icon-Pakete gefunden</string>
     <string name="studio_toast_mask">Dieses Icon wird von deinem momentanen Paket angezeigt und ändert sich, wenn du dieses Icon-Paket anwendest.    </string>
-    <string name="nav_studio">Symbolpaket-Studio</string>
+    <string name="nav_studio">Icon Pack-Studio</string>
     <string name="logcat_dialog_title">\"LogChar\"-Debug-Report</string>
     <string name="logcat_dialog_copy_success">Fehlermeldung erfolgreich in die Zwischenablage kopiert!</string>
     <string name="logcat_email_activity">Bug-Report senden via&#8230;</string>
@@ -312,10 +319,10 @@ um das Problem zu beheben.    </string>
     <string name="settings_title_1">App-Optionen</string>
     <string name="settings_title_2">Optionen der Overlay-Liste</string>
     <string name="settings_title_3">Theming</string>
-    <string name="settings_title_clickable">System-Konfiguration</string>
+    <string name="settings_title_clickable">Systemkonfiguration</string>
     <string name="substratum_cache_clear_initial_toast">Substratum-Zwischenspeicher wird geleert&#8230;</string>
     <string name="substratum_restart_toast">Substratum wurde nach einer Änderung der Einstellungen automatisch neugestartet.</string>
-    <string name="purge_cache">Ungültiger Theme-Zwischenspeicher</string>
+    <string name="purge_cache">Theme-Zwischenspeicher ungültig machen</string>
     <string name="purge_cache_subtext">Dies wird den Zwischenspeicher aller installierten Themes und Apps zerstören.</string>
     <string name="restart_systemui">SystemUI-Neuerstellung aktivieren </string>
     <string name="restart_systemui_subtext">SystemUI automatisch wiederaufbauen, nachdem ein SystemUI-Overlay aktiviert/deaktiviert wurde</string>
@@ -408,6 +415,8 @@ um das Problem zu beheben.    </string>
     <string name="break_compilation_dialog_content">Dies kann die Kompilierung zum Abstürzen bringen. Aktivieren Sie diese Option nur, wenn Sie wissen, was Sie tun!</string>
     <string name="break_compilation_dialog_continue">Fortsetzen</string>
     <string name="break_compilation_dialog_cancel">Abbrechen</string>
+    <string name="theme_safety_dialog_title">WARNUNG</string>
+    <string name="theme_safety_dialog_content">Dies ist eine entscheidende Sicherheitsfunktion, die dich aus \"Erzwungenem Beenden\" durch schlechte Overlays rettet! Du kannst die \"Rette Mich!\" Verknüpfung der Substratum-App benutzen wenn du fest steckst, oder dein letzter Ausweg wären die \"Rettungs Archive\" unter /storage/emulated/0/substratum/, die du dann flashst.</string>
     <string name="profile_dialog_title">Wähle die Elemente aus, die du sichern möchtest</string>
     <string name="profile_no_selection_warning">Bitte wähle mindestens eine Option aus!</string>
     <string name="profile_boot_animation">Boot-Animation</string>
@@ -474,7 +483,7 @@ um das Problem zu beheben.    </string>
     <string name="app_crash_content">Alle für diese App aktivierten Overlays wurden deaktiviert.</string>
     <string name="rom_status">Support-Status:</string>
     <string name="rom_status_supported">%s wird von der Community unterstützt!</string>
-    <string name="rom_status_unsupported">Diese ROM ist der Community noch nicht bekannt&#8230;</string>
+    <string name="rom_status_unsupported">Diese ROM wird nicht von der Community unterstützt!</string>
     <string name="rom_status_network">Internet-Check erforderlich&#8230;</string>
     <!-- Nav drawer -->
     <string name="nav_home">Theme-Pakete</string>

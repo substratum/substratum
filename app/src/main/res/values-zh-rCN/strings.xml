@@ -62,6 +62,13 @@
     <string name="activity_missing_toast">没有发现可以处理此请求的应用</string>
     <string name="abort_overlay_toast_success">已卸载所有叠加层</string>
     <string name="rescue_toast">正在禁用所有叠加层</string>
+    <string name="reboot_awaiting_manager_title">叠加层正在等待重启</string>
+    <string name="manager_theme_name">主题：</string>
+    <string name="manager_type1a">样式1a：</string>
+    <string name="manager_type1b">样式1b：</string>
+    <string name="manager_type1c">样式1c：</string>
+    <string name="manager_type2">样式2：</string>
+    <string name="manager_type3">样式3：</string>
     <string name="overlays_variant_substitute">%s&#8230;&#8230;</string>
     <string name="overlays_variant_default_1a">type1a 变量</string>
     <string name="overlays_variant_default_1b">type1b 变量</string>
@@ -137,7 +144,7 @@
     <string name="theme_information_tab_four">音效包</string>
     <string name="theme_information_tab_five">壁纸</string>
     <string name="nougat_style_cards_title">Nougat 卡片风格布局</string>
-    <string name="nougat_style_cards_subtext">使用安卓 Nougat 通知样式的主题卡片    </string>
+    <string name="nougat_style_cards_subtext">使用安卓 Nougat 通知样式的主题卡片</string>
     <string name="uninstall_dialog_text">您确定想卸载此主题吗？</string>
     <string name="manage_dialog_performing">还原到默认值</string>
     <string name="manage_bootanimation_title">还原开机动画</string>
@@ -401,6 +408,8 @@
     <string name="break_compilation_dialog_content">这可能会打乱编译过程。只有当您知道自己在做什么的时候，才能启用此选项！</string>
     <string name="break_compilation_dialog_continue">继续</string>
     <string name="break_compilation_dialog_cancel">取消</string>
+    <string name="theme_safety_dialog_title">警告</string>
+    <string name="theme_safety_dialog_content">一个关键的安全功能，在叠加层出现错误导致停止运行的时候，进行还原操作。如果您发现自己陷入困境，请尝试长按 Substratum 的应用程序快捷方式，并点击“禁用所有叠加层”按钮。如果依然无法恢复正常，最终救援方案是刷入 /storage/emulated/0/substratum/ 中的救援文件。</string>
     <string name="profile_dialog_title">请选择您想要备份的项目</string>
     <string name="profile_no_selection_warning">请选择至少一个选项</string>
     <string name="profile_boot_animation">开机动画</string>
@@ -467,7 +476,7 @@
     <string name="app_crash_content">已禁用此应用的所有叠加层</string>
     <string name="rom_status">支持状态︰</string>
     <string name="rom_status_supported">%s 已受社区支持</string>
-    <string name="rom_status_unsupported">此 ROM 暂时未受社区支持</string>
+    <string name="rom_status_unsupported">此 ROM 不受社区支持</string>
     <string name="rom_status_network">联网状态检查</string>
     <!-- Nav drawer -->
     <string name="nav_home">主题包</string>

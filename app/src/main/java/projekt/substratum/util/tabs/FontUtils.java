@@ -50,16 +50,20 @@ public class FontUtils {
 
         @Override
         protected void onPreExecute() {
-            progress = new ProgressDialog(mContext, R.style.AppTheme_DialogAlert);
-            progress.setMessage(mContext.getString(R.string.font_dialog_apply_text));
-            progress.setIndeterminate(false);
-            progress.setCancelable(false);
-            progress.show();
+            if (References.ENABLE_EXTRAS_DIALOG) {
+                progress = new ProgressDialog(mContext, R.style.AppTheme_DialogAlert);
+                progress.setMessage(mContext.getString(R.string.font_dialog_apply_text));
+                progress.setIndeterminate(false);
+                progress.setCancelable(false);
+                progress.show();
+            }
         }
 
         @Override
         protected void onPostExecute(String result) {
-            progress.dismiss();
+            if (References.ENABLE_EXTRAS_DIALOG) {
+                progress.dismiss();
+            }
             if (result == null) {
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.putString("fonts_applied", theme_pid);

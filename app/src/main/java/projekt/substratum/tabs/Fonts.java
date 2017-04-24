@@ -213,16 +213,20 @@ public class Fonts extends Fragment {
 
         @Override
         protected void onPreExecute() {
-            mProgressDialog = new ProgressDialog(getActivity(), R.style.RestoreDialog);
-            mProgressDialog.setMessage(getString(R.string.manage_dialog_performing));
-            mProgressDialog.setIndeterminate(true);
-            mProgressDialog.setCancelable(false);
-            mProgressDialog.show();
+            if (References.ENABLE_EXTRAS_DIALOG) {
+                mProgressDialog = new ProgressDialog(getActivity(), R.style.RestoreDialog);
+                mProgressDialog.setMessage(getString(R.string.manage_dialog_performing));
+                mProgressDialog.setIndeterminate(true);
+                mProgressDialog.setCancelable(false);
+                mProgressDialog.show();
+            }
         }
 
         @Override
         protected void onPostExecute(String result) {
-            mProgressDialog.dismiss();
+            if (References.ENABLE_EXTRAS_DIALOG) {
+                mProgressDialog.dismiss();
+            }
             SharedPreferences.Editor editor = prefs.edit();
             editor.remove("fonts_applied");
             editor.apply();

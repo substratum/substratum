@@ -40,15 +40,23 @@ public class ManagerAdapter extends
         RecyclerView.Adapter<ManagerAdapter.ViewHolder> {
 
     private List<ManagerItem> overlayList;
+    private Boolean floatui;
 
-    public ManagerAdapter(List<ManagerItem> overlays) {
+    public ManagerAdapter(List<ManagerItem> overlays, Boolean floatui) {
+        this.floatui = floatui;
         this.overlayList = overlays;
     }
 
     @Override
     public ManagerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemLayoutView = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.manager_row, parent, false);
+        View itemLayoutView;
+        if (floatui) {
+            itemLayoutView = LayoutInflater.from(parent.getContext()).inflate(
+                    R.layout.floatui_row, parent, false);
+        } else {
+            itemLayoutView = LayoutInflater.from(parent.getContext()).inflate(
+                    R.layout.manager_row, parent, false);
+        }
         return new ViewHolder(itemLayoutView);
     }
 
@@ -254,7 +262,7 @@ public class ManagerAdapter extends
         } else {
             viewHolder.appIcon.setImageDrawable(overlayList.get(position_fixed).getDrawable());
         }
-        if (overlayList.get(position_fixed).getDrawable() == null) {
+        if (overlayList.get(position_fixed).getTargetDrawable() == null) {
             Drawable app_icon = References.grabAppIcon(
                     overlayList.get(position_fixed).getContext(),
                     References.grabOverlayTarget(

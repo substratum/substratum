@@ -32,14 +32,14 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,6 +52,8 @@ import java.util.TreeMap;
 import jp.co.recruit_lifestyle.android.floatingview.FloatingViewListener;
 import jp.co.recruit_lifestyle.android.floatingview.FloatingViewManager;
 import projekt.substratum.R;
+import projekt.substratum.adapters.fragments.manager.ManagerAdapter;
+import projekt.substratum.adapters.fragments.manager.ManagerItem;
 import projekt.substratum.common.References;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.services.notification.FloatUiButtonReceiver;
@@ -64,10 +66,10 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
     private static final String TAG = "SubstratumFloat";
     private static final int NOTIFICATION_ID = 92781162;
     private FloatingViewManager mFloatingViewManager;
-    private ListView alertDialogListView;
-    private String[] final_check;
+    private List<ManagerItem> final_check;
     private SharedPreferences prefs;
     private boolean trigger_service_restart, trigger_systemui_restart;
+    private ManagerAdapter mAdapter;
 
     @SuppressWarnings("WrongConstant")
     public String foregroundedApp() {
@@ -108,7 +110,7 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
         windowManager.getDefaultDisplay().getMetrics(metrics);
         final LayoutInflater inflater = LayoutInflater.from(this);
         @SuppressLint("InflateParams") final ImageView iconView = (ImageView)
-                inflater.inflate(R.layout.floating_head_layout, null, false);
+                inflater.inflate(R.layout.floatui_head, null, false);
         iconView.setOnClickListener(v -> {
             String packageName =
                     References.grabPackageName(getApplicationContext(), foregroundedApp());
@@ -139,15 +141,20 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                         getString(R.string.per_app_toast_no_overlays), packageName);
                 Toast.makeText(getApplicationContext(), format, Toast.LENGTH_SHORT).show();
             } else {
-                final_check = new String[to_be_shown.size()];
+                final_check = new ArrayList<>();
                 for (int j = 0; j < to_be_shown.size(); j++) {
-                    final_check[j] = to_be_shown.get(j);
+                    ManagerItem managerItem = new ManagerItem(
+                            getApplicationContext(), to_be_shown.get(j), true);
+                    if (enabled.contains(to_be_shown.get(j))) {
+                        managerItem.setSelected(true);
+                    }
+                    final_check.add(managerItem);
                 }
 
-                ListAdapter itemsAdapter =
-                        new ArrayAdapter<>(this, R.layout.multiple_choice_list_entry,
-                                final_check);
+                RecyclerView mRecyclerView;
+                mAdapter = new ManagerAdapter(final_check, true);
 
+                // Set a custom title
                 TextView title = new TextView(this);
                 title.setText(dialogTitle);
                 title.setBackgroundColor(getColor(R.color.floatui_dialog_header_background));
@@ -157,40 +164,37 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                 title.setTextSize(20);
                 title.setAllCaps(true);
 
+                // Initialize the AlertDialog Builder
                 AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.FloatUiDialog);
                 builder.setCustomTitle(title);
-                builder.setAdapter(itemsAdapter, (dialog, which) -> {
-                });
                 builder.setPositiveButton(R.string.per_app_apply, (dialog, which) -> {
-                    int locations = alertDialogListView.getCheckedItemCount();
                     trigger_service_restart = false;
                     trigger_systemui_restart = false;
                     ArrayList<String> to_enable = new ArrayList<>();
                     ArrayList<String> to_disable = new ArrayList<>();
 
-                    for (int i = 0; i < final_check.length; i++) {
-                        if (alertDialogListView.getCheckedItemPositions().get(i)) {
+                    for (int i = 0; i < final_check.size(); i++) {
+                        if (mAdapter.getOverlayManagerList().get(i).isSelected()) {
                             // Check if enabled
-                            if (!enabled.contains(final_check[i])) {
+                            if (!enabled.contains(final_check.get(i).getName())) {
                                 // It is not enabled, append it to the list
-                                to_enable.add(final_check[i]);
-                                if (final_check[i].startsWith("android.") ||
-                                        final_check[i].startsWith(getPackageName() + "."))
+                                String package_name = final_check.get(i).getName();
+                                to_enable.add(package_name);
+                                if (package_name.startsWith("android.") ||
+                                        package_name.startsWith(getPackageName() + "."))
                                     trigger_service_restart = true;
-                                if (final_check[i].startsWith("com.android.systemui."))
+                                if (package_name.startsWith("com.android.systemui."))
                                     trigger_systemui_restart = true;
                             }
-                        } else {
-                            // Check if disabled
-                            if (!disabled.contains(final_check[i])) {
-                                // It is enabled, append it to the list
-                                to_disable.add(final_check[i]);
-                                if (final_check[i].startsWith("android.") ||
-                                        final_check[i].startsWith(getPackageName() + "."))
-                                    trigger_service_restart = true;
-                                if (final_check[i].startsWith("com.android.systemui."))
-                                    trigger_systemui_restart = true;
-                            }
+                        } else if (!disabled.contains(final_check.get(i).getName())) {
+                            // It is disabled, append it to the list
+                            String package_name = final_check.get(i).getName();
+                            to_disable.add(package_name);
+                            if (package_name.startsWith("android.") ||
+                                    package_name.startsWith(getPackageName() + "."))
+                                trigger_service_restart = true;
+                            if (package_name.startsWith("com.android.systemui."))
+                                trigger_systemui_restart = true;
                         }
                     }
                     // Dismiss the dialog so that we don't have issues with configuration changes
@@ -226,26 +230,25 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                 builder.setNegativeButton(android.R.string.cancel,
                         (dialog, which) -> dialog.cancel());
 
+                LayoutInflater inflate = LayoutInflater.from(getApplicationContext());
+                @SuppressLint("InflateParams")
+                View content = inflate.inflate(R.layout.floatui_dialog, null);
+                builder.setView(content);
+
+                mRecyclerView = (RecyclerView) content.findViewById(R.id.recycler_view);
+                mRecyclerView.setAdapter(mAdapter);
+
+                mRecyclerView.setHasFixedSize(true);
+                mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
                 AlertDialog alertDialog = builder.create();
                 //noinspection ConstantConditions
                 alertDialog.getWindow().setBackgroundDrawable(
                         getDrawable(R.drawable.dialog_background));
                 alertDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
-                alertDialogListView = alertDialog.getListView();
-                alertDialogListView.setItemsCanFocus(false);
-                alertDialogListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-                alertDialogListView.setOnItemClickListener((parent, view, position, id) -> {
-                });
                 alertDialog.show();
-
-                for (int i = 0; i < final_check.length; i++) {
-                    if (enabled.contains(final_check[i])) {
-                        alertDialogListView.setItemChecked(i, true);
-                    }
-                }
             }
         });
-
         mFloatingViewManager = new FloatingViewManager(this, this);
         mFloatingViewManager.setFixedTrashIconImage(R.drawable.floating_trash_cross);
         mFloatingViewManager.setActionTrashIconImage(R.drawable.floating_trash_base);

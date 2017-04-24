@@ -17,15 +17,14 @@
   ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
-                 android:id="@android:id/text1"
-                 android:layout_width="match_parent"
-                 android:layout_height="55dp"
-                 android:checkMark="?android:attr/listChoiceIndicatorMultiple"
-                 android:checkMarkTint="@color/floatui_dialog_checkmark_color"
-                 android:gravity="center_vertical"
-                 android:paddingEnd="30dp"
-                 android:paddingStart="30dp"
-                 android:textAppearance="?android:attr/textAppearanceListItemSmall"
-                 android:textColor="@color/floatui_dialog_row_color"
-                 android:textSize="16dp"/>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"/>
+</LinearLayout>

@@ -81,7 +81,8 @@ public class TroubleshootingFragment extends Fragment {
 
         // This avoids from having a janky look with the last card getting cut off
         View footer = LayoutInflater.from(
-                getActivity()).inflate(R.layout.list_footer, troubleshootListView, false);
+                getActivity()).inflate(
+                R.layout.troubleshooting_list_footer, troubleshootListView, false);
         troubleshootListView.addFooterView(footer);
         troubleshootListView.setFooterDividersEnabled(false);
         footer.setOnClickListener(null);

@@ -90,7 +90,7 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
 
             AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
             final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
-                    mContext, R.layout.dialog_listview);
+                    mContext, R.layout.wallpaper_dialog_listview);
             arrayAdapter.add(mContext.getString(R.string.wallpaper_dialog_wallpaper));
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 arrayAdapter.add(mContext.getString(R.string.wallpaper_dialog_lockscreen));

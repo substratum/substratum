@@ -304,7 +304,7 @@ public class ManagerFragment extends Fragment {
             fragment.mRecyclerView.setHasFixedSize(true);
             fragment.mRecyclerView.setLayoutManager(new LinearLayoutManager(fragment.context));
             ArrayList<ManagerItem> empty_array = new ArrayList<>();
-            RecyclerView.Adapter empty_adapter = new ManagerAdapter(empty_array);
+            RecyclerView.Adapter empty_adapter = new ManagerAdapter(empty_array, false);
             fragment.mRecyclerView.setAdapter(empty_adapter);
         }
 
@@ -450,7 +450,7 @@ public class ManagerFragment extends Fragment {
             fragment.progressBar.setVisibility(View.GONE);
             fragment.mRecyclerView.setHasFixedSize(true);
             fragment.mRecyclerView.setLayoutManager(new LinearLayoutManager(fragment.context));
-            fragment.mAdapter = new ManagerAdapter(fragment.overlaysList);
+            fragment.mAdapter = new ManagerAdapter(fragment.overlaysList, false);
             fragment.mRecyclerView.setAdapter(fragment.mAdapter);
 
             fragment.overlayList = ((ManagerAdapter) fragment.mAdapter).getOverlayManagerList();

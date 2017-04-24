@@ -143,9 +143,10 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
             } else {
                 final_check = new ArrayList<>();
                 for (int j = 0; j < to_be_shown.size(); j++) {
+                    Boolean is_enabled = enabled.contains(to_be_shown.get(j));
                     ManagerItem managerItem = new ManagerItem(
-                            getApplicationContext(), to_be_shown.get(j), true);
-                    if (enabled.contains(to_be_shown.get(j))) {
+                            getApplicationContext(), to_be_shown.get(j), is_enabled);
+                    if (is_enabled) {
                         managerItem.setSelected(true);
                     }
                     final_check.add(managerItem);

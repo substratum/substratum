@@ -103,7 +103,7 @@ public class References {
     // Developer Mode toggles to change the behaviour of the app, CHANGE AT YOUR OWN RISK!
     public static final Boolean ENABLE_SIGNING = true; // Toggles overlay signing status
     public static final Boolean ENABLE_ROOT_CHECK = true; // Force the app to run without root
-    public static final Boolean ENABLE_EXTRAS_DIALOG = true; // Show a dialog when applying extras
+    public static final Boolean ENABLE_EXTRAS_DIALOG = false; // Show a dialog when applying extras
     public static final Boolean ENABLE_AOPT_OUTPUT = false; // WARNING, DEVELOPERS - BREAKS COMPILE
     public static final Boolean ENABLE_PACKAGE_LOGGING = true; // Show time/date/place of install
     public static final Boolean ENABLE_DIRECT_ASSETS_LOGGING = false; // Self explanatory

@@ -30,6 +30,33 @@ import java.util.Locale;
 
 public class PackageAnalytics {
 
+    public static boolean isLowEnd() {
+        Float maximum_memory = PackageAnalytics.logRuntimeMemoryLimits()[0];
+        return maximum_memory <= 130;
+    }
+
+    public static Float[] logRuntimeMemoryLimits() {
+        String max = humanReadableByteCount(Runtime.getRuntime().maxMemory(), false);
+        String total = humanReadableByteCount(Runtime.getRuntime().totalMemory(), false);
+        String free = humanReadableByteCount(Runtime.getRuntime().freeMemory(), false);
+        Log.d("RuntimeMemory", "Max Memory: " + max);
+        Log.d("RuntimeMemory", "Total Memory: " + total);
+        Log.d("RuntimeMemory", "Free Memory: " + free);
+        return new Float[]{
+                Float.valueOf(max.replaceAll("[a-zA-Z]", "")),
+                Float.valueOf(total.replaceAll("[a-zA-Z]", "")),
+                Float.valueOf(free.replaceAll("[a-zA-Z]", ""))
+        };
+    }
+
+    private static String humanReadableByteCount(long bytes, boolean si) {
+        int unit = si ? 1000 : 1024;
+        if (bytes < unit) return bytes + " B";
+        int exp = (int) (Math.log(bytes) / Math.log(unit));
+        String pre = (si ? "kMGTPE" : "KMGTPE").charAt(exp - 1) + (si ? "" : "i");
+        return String.format("%.1f %sB", bytes / Math.pow(unit, exp), pre);
+    }
+
     public static void logPackageInfo(Context context, String packageName) {
         try {
             PackageManager pm = context.getPackageManager();

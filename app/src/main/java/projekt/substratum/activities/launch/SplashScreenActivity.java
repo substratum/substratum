@@ -30,6 +30,8 @@ import projekt.substratum.MainActivity;
 import projekt.substratum.R;
 import projekt.substratum.common.References;
 
+import static projekt.substratum.common.analytics.PackageAnalytics.isLowEnd;
+
 public class SplashScreenActivity extends Activity {
 
     private static final int DELAY_LAUNCH_MAIN_ACTIVITY = 600;
@@ -46,7 +48,7 @@ public class SplashScreenActivity extends Activity {
         intent = new Intent(SplashScreenActivity.this, MainActivity.class);
         int intent_launch_delay = DELAY_LAUNCH_MAIN_ACTIVITY;
 
-        if (first_run) {
+        if (first_run && !isLowEnd()) {
             // Load the ImageView that will host the animation and
             // set its background to our AnimationDrawable XML resource.
 

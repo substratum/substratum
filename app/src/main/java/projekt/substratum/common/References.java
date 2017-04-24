@@ -532,6 +532,7 @@ public class References {
         editor.putBoolean("complexion", true);
         editor.putString("compiler", "aapt");
         editor.putBoolean("crash_receiver", true);
+        editor.putBoolean("enable_swapping_overlays", false);
 
         // Initial parse of what is installed on the device
         Set<String> installed_themes = new TreeSet<>();

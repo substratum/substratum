@@ -29,6 +29,8 @@ import projekt.substratum.MainActivity;
 import projekt.substratum.activities.base.SubstratumActivity;
 import projekt.substratum.util.welcome.AppIntro;
 
+import static projekt.substratum.common.analytics.PackageAnalytics.isLowEnd;
+
 public class AppIntroActivity extends SubstratumActivity {
 
     private SharedPreferences prefs;
@@ -39,9 +41,13 @@ public class AppIntroActivity extends SubstratumActivity {
         super.onCreate(savedInstanceState);
 
         prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        if (prefs.getBoolean("first_run", true)) {
+        if (prefs.getBoolean("first_run", true) && !isLowEnd()) {
             welcomeScreen = new WelcomeHelper(this, AppIntro.class);
             welcomeScreen.show(savedInstanceState);
+        } else if (prefs.getBoolean("first_run", true) && isLowEnd()) {
+            prefs.edit().putBoolean("first_run", false).apply();
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
         } else {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
@@ -54,7 +60,6 @@ public class AppIntroActivity extends SubstratumActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == WelcomeHelper.DEFAULT_WELCOME_SCREEN_REQUEST &&
                 resultCode == RESULT_OK) {
-            prefs.edit().putBoolean("enable_swapping_overlays", false).apply();
             prefs.edit().putBoolean("first_run", false).apply();
             startActivity(new Intent(this, MainActivity.class));
             finish();

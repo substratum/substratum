@@ -156,19 +156,8 @@ public class InformationActivity extends SubstratumActivity {
                 return;
             }
             AppCompatImageView overflow = (AppCompatImageView) outViews.get(0);
-            if (dark_mode) {
-                overflow.setImageResource(
-                        activity.getResources().getIdentifier(
-                                "information_activity_overflow_dark",
-                                "drawable",
-                                activity.getPackageName()));
-            } else {
-                overflow.setImageResource(
-                        activity.getResources().getIdentifier(
-                                "information_activity_overflow_light",
-                                "drawable",
-                                activity.getPackageName()));
-            }
+            overflow.setImageResource(dark_mode ? R.drawable.information_activity_overflow_dark :
+                    R.drawable.information_activity_overflow_light);
         });
     }
 

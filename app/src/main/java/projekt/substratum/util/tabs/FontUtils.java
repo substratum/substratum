@@ -26,6 +26,8 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.widget.Toast;
 
+import java.lang.ref.WeakReference;
+
 import projekt.substratum.R;
 import projekt.substratum.common.References;
 import projekt.substratum.common.commands.ElevatedCommands;
@@ -43,51 +45,61 @@ public class FontUtils {
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
         this.mContext = context;
         this.theme_pid = theme_pid;
-        new FontHandlerAsync().execute(arguments);
+        new FontHandlerAsync(this).execute(arguments);
     }
 
-    private class FontHandlerAsync extends AsyncTask<String, Integer, String> {
+    private static class FontHandlerAsync extends AsyncTask<String, Integer, String> {
+
+        private WeakReference<FontUtils> ref;
+
+        private FontHandlerAsync(FontUtils fragment) {
+            ref = new WeakReference<>(fragment);
+        }
 
         @Override
         protected void onPreExecute() {
+            FontUtils fragment = ref.get();
+            Context context = fragment.mContext;
             if (References.ENABLE_EXTRAS_DIALOG) {
-                progress = new ProgressDialog(mContext, R.style.AppTheme_DialogAlert);
-                progress.setMessage(mContext.getString(R.string.font_dialog_apply_text));
-                progress.setIndeterminate(false);
-                progress.setCancelable(false);
-                progress.show();
+                fragment.progress = new ProgressDialog(context, R.style.AppTheme_DialogAlert);
+                fragment.progress.setMessage(context.getString(R.string.font_dialog_apply_text));
+                fragment.progress.setIndeterminate(false);
+                fragment.progress.setCancelable(false);
+                fragment.progress.show();
             }
         }
 
         @Override
         protected void onPostExecute(String result) {
+            FontUtils fragment = ref.get();
+            Context context = fragment.mContext;
             if (References.ENABLE_EXTRAS_DIALOG) {
-                progress.dismiss();
+                fragment.progress.dismiss();
             }
             if (result == null) {
-                SharedPreferences.Editor editor = prefs.edit();
-                editor.putString("fonts_applied", theme_pid);
+                SharedPreferences.Editor editor = fragment.prefs.edit();
+                editor.putString("fonts_applied", fragment.theme_pid);
                 editor.apply();
-                Toast toast = Toast.makeText(mContext,
-                        mContext.getString(R.string.font_dialog_apply_success), Toast.LENGTH_LONG);
+                Toast toast = Toast.makeText(context,
+                        context.getString(R.string.font_dialog_apply_success), Toast.LENGTH_LONG);
                 toast.show();
             } else {
-                Toast toast = Toast.makeText(mContext,
-                        mContext.getString(R.string.font_dialog_apply_failed), Toast.LENGTH_LONG);
+                Toast toast = Toast.makeText(context,
+                        context.getString(R.string.font_dialog_apply_failed), Toast.LENGTH_LONG);
                 toast.show();
             }
 
             if (result == null) {
                 // Finally, refresh the window
-                if (!References.checkThemeInterfacer(mContext) &&
-                        References.checkOMS(mContext)) {
-                    ThemeManager.restartSystemUI(mContext);
-                } else if (!References.checkOMS(mContext)) {
+                if (!References.checkThemeInterfacer(context) &&
+                        References.checkOMS(context)) {
+                    ThemeManager.restartSystemUI(context);
+                } else if (!References.checkOMS(context)) {
                     final AlertDialog.Builder alertDialogBuilder =
-                            new AlertDialog.Builder(mContext);
-                    alertDialogBuilder.setTitle(mContext.getString(
+                            new AlertDialog.Builder(context);
+                    alertDialogBuilder.setTitle(context.getString(
                             R.string.legacy_dialog_soft_reboot_title));
-                    alertDialogBuilder.setMessage(mContext.getString(
+                    alertDialogBuilder.setMessage(context.getString(
                             R.string.legacy_dialog_soft_reboot_text));
                     alertDialogBuilder.setPositiveButton(android.R.string.ok,
                             (dialog, id) -> ElevatedCommands.reboot());
@@ -102,8 +114,10 @@ public class FontUtils {
 
         @Override
         protected String doInBackground(String... sUrl) {
+            FontUtils fragment = ref.get();
+            Context context = fragment.mContext;
             try {
-                FontManager.setFonts(mContext, theme_pid, sUrl[0]);
+                FontManager.setFonts(context, fragment.theme_pid, sUrl[0]);
             } catch (Exception e) {
                 e.printStackTrace();
                 return "failed";

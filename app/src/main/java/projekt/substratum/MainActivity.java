@@ -80,6 +80,7 @@ import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
 import java.io.File;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -776,7 +777,7 @@ public class MainActivity extends SubstratumActivity implements
             }
 
             mProgressDialog = new ProgressDialog(this, R.style.SubstratumBuilder_BlurView);
-            new RootRequester().execute("");
+            new RootRequester(this).execute();
         }
     }
 
@@ -1047,7 +1048,7 @@ public class MainActivity extends SubstratumActivity implements
                     mProgressDialog = new ProgressDialog(this, R.style.SubstratumBuilder_BlurView);
                     showOutdatedRequestDialog();
                     References.injectRescueArchives(getApplicationContext());
-                    new RootRequester().execute("");
+                    new RootRequester(this).execute();
                 } else {
                     // permission was not granted, show closing dialog
                     new AlertDialog.Builder(this)
@@ -1124,67 +1125,76 @@ public class MainActivity extends SubstratumActivity implements
         return false;
     }
 
-    private class RootRequester extends AsyncTask<String, Integer, Boolean> {
+    private static class RootRequester extends AsyncTask<Void, Void, Boolean> {
+        private WeakReference<MainActivity> ref;
+
+        private RootRequester(MainActivity activity) {
+            ref = new WeakReference<>(activity);
+        }
 
         @Override
         protected void onPostExecute(Boolean result) {
             super.onPostExecute(result);
+            MainActivity activity = ref.get();
+            Context context = activity.getApplicationContext();
+
             if (!result && ENABLE_ROOT_CHECK && !BYPASS_ALL_VERSION_CHECKS &&
-                    !References.checkThemeInterfacer(getApplicationContext())) {
-                mProgressDialog.setCancelable(false);
-                mProgressDialog.show();
-                mProgressDialog.setContentView(R.layout.root_rejected_loader);
+                    !References.checkThemeInterfacer(context)) {
+                activity.mProgressDialog.setCancelable(false);
+                activity.mProgressDialog.show();
+                activity.mProgressDialog.setContentView(R.layout.root_rejected_loader);
 
-                final float radius = 5;
-                final View decorView = getWindow().getDecorView();
-                final ViewGroup rootView = (ViewGroup) decorView.findViewById(android.R.id.content);
-                final Drawable windowBackground = decorView.getBackground();
+                float radius = 5;
+                View decorView = activity.getWindow().getDecorView();
+                ViewGroup rootView = (ViewGroup) decorView.findViewById(android.R.id.content);
+                Drawable windowBackground = decorView.getBackground();
 
-                BlurView blurView = (BlurView) mProgressDialog.findViewById(R.id.blurView);
+                BlurView blurView = (BlurView) activity.mProgressDialog.findViewById(R.id.blurView);
 
                 blurView.setupWith(rootView)
                         .windowBackground(windowBackground)
-                        .blurAlgorithm(new RenderScriptBlur(getApplicationContext()))
+                        .blurAlgorithm(new RenderScriptBlur(context))
                         .blurRadius(radius);
-                final TextView textView = (TextView) mProgressDialog.findViewById(R.id.timer);
+                TextView textView = (TextView) activity.mProgressDialog.findViewById(R.id.timer);
                 if (References.isPackageInstalled(
-                        getApplicationContext(), "eu.chainfire.supersu")) {
+                        context, "eu.chainfire.supersu")) {
                     CountDownTimer Count = new CountDownTimer(5000, 1000) {
                         public void onTick(long millisUntilFinished) {
                             if ((millisUntilFinished / 1000) > 1) {
                                 textView.setText(String.format(
-                                        getString(R.string.root_rejected_timer_plural),
+                                        activity.getString(R.string.root_rejected_timer_plural),
                                         (millisUntilFinished / 1000) + ""));
                             } else {
                                 textView.setText(String.format(
-                                        getString(R.string.root_rejected_timer_singular),
+                                        activity.getString(R.string.root_rejected_timer_singular),
                                         (millisUntilFinished / 1000) + ""));
                             }
                         }
 
                         public void onFinish() {
-                            mProgressDialog.dismiss();
-                            finish();
+                            activity.mProgressDialog.dismiss();
+                            activity.finish();
                         }
                     };
                     Count.start();
                 } else {
-                    textView.setText(getString(R.string.root_rejected_text_cm_phh));
+                    textView.setText(activity.getString(R.string.root_rejected_text_cm_phh));
                 }
-            } else if (References.checkOMS(getApplicationContext())) {
-                doCleanUp cleanUp = new doCleanUp();
-                cleanUp.execute("");
+            } else if (References.checkOMS(context)) {
+                new DoCleanUp(context).execute();
             }
         }
 
         @Override
-        protected Boolean doInBackground(String... sUrl) {
-            prefs.edit().putBoolean("complexion",
-                    !References.spreadYourWingsAndFly(getApplicationContext())).apply();
-            if (!References.checkThemeInterfacer(getApplicationContext())) {
+        protected Boolean doInBackground(Void... sUrl) {
+            MainActivity activity = ref.get();
+            Context context = activity.getApplicationContext();
+            activity.prefs.edit().putBoolean("complexion",
+                    !References.spreadYourWingsAndFly(context)).apply();
+            if (!References.checkThemeInterfacer(context)) {
                 Boolean receivedRoot = Root.requestRootAccess();
                 if (receivedRoot) Log.d(SUBSTRATUM_LOG, "Substratum has loaded in rooted mode.");
-                References.injectRescueArchives(getApplicationContext());
+                References.injectRescueArchives(context);
                 return receivedRoot;
             } else {
                 Log.d(SUBSTRATUM_LOG, "Substratum has loaded in rootless mode.");
@@ -1193,15 +1203,20 @@ public class MainActivity extends SubstratumActivity implements
         }
     }
 
-    private class doCleanUp extends AsyncTask<String, Integer, String> {
+    private static class DoCleanUp extends AsyncTask<Void, Void, Void> {
+        private Context context;
+
+        private DoCleanUp(Context context) {
+            this.context = context;
+        }
 
         @Override
-        protected void onPostExecute(String result) {
+        protected void onPostExecute(Void result) {
             super.onPostExecute(result);
         }
 
         @Override
-        protected String doInBackground(String... sUrl) {
+        protected Void doInBackground(Void... sUrl) {
             ArrayList<String> removeList = new ArrayList<>();
             // Overlays with non-existent targets
             List<String> state1 = ThemeManager.listOverlays(STATE_NOT_APPROVED_MISSING_TARGET);
@@ -1222,8 +1237,8 @@ public class MainActivity extends SubstratumActivity implements
             installed_overlays.addAll(state5);
             for (int i = 0; i < installed_overlays.size(); i++) {
                 String parent = References.grabOverlayParent(
-                        getApplicationContext(), installed_overlays.get(i));
-                if (!References.isPackageInstalled(getApplicationContext(), parent)) {
+                        context, installed_overlays.get(i));
+                if (!References.isPackageInstalled(context, parent)) {
                     Log.e("OverlayCleaner",
                             "Parent APK not found for \"" + installed_overlays.get(i) +
                                     "\" and will be removed.");
@@ -1232,7 +1247,7 @@ public class MainActivity extends SubstratumActivity implements
             }
 
             if (removeList.size() > 0)
-                ThemeManager.uninstallOverlay(getApplicationContext(), removeList);
+                ThemeManager.uninstallOverlay(context, removeList);
             return null;
         }
     }

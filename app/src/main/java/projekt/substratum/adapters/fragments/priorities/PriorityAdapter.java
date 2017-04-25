@@ -44,6 +44,8 @@ import projekt.substratum.BuildConfig;
 import projekt.substratum.R;
 import projekt.substratum.common.References;
 
+import static android.text.Html.FROM_HTML_MODE_LEGACY;
+
 public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, GestureViewHolder> {
 
     private final Context mContext;
@@ -128,14 +130,16 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                                                 "</b> " + metadata;
                                 priorityObjectAdapter.type1a.setVisibility(View.VISIBLE);
                                 prioritiesItem.setType1a(textView);
-                                priorityObjectAdapter.type1a.setText(Html.fromHtml(textView));
+                                priorityObjectAdapter.type1a.setText(Html.fromHtml(textView,
+                                        FROM_HTML_MODE_LEGACY));
                             } else {
                                 priorityObjectAdapter.type1a.setVisibility(View.GONE);
                             }
                         } else {
                             priorityObjectAdapter.type1a.setVisibility(View.VISIBLE);
                             priorityObjectAdapter.type1a.setText(
-                                    Html.fromHtml(prioritiesItem.getType1a()));
+                                    Html.fromHtml(prioritiesItem.getType1a(),
+                                            FROM_HTML_MODE_LEGACY));
                         }
 
                         if (prioritiesItem.getType1b() == null) {
@@ -153,14 +157,16 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                                                 "</b> " + metadata;
                                 priorityObjectAdapter.type1b.setVisibility(View.VISIBLE);
                                 prioritiesItem.setType1b(textView);
-                                priorityObjectAdapter.type1b.setText(Html.fromHtml(textView));
+                                priorityObjectAdapter.type1b.setText(Html.fromHtml(textView,
+                                        FROM_HTML_MODE_LEGACY));
                             } else {
                                 priorityObjectAdapter.type1b.setVisibility(View.GONE);
                             }
                         } else {
                             priorityObjectAdapter.type1b.setVisibility(View.VISIBLE);
                             priorityObjectAdapter.type1b.setText(
-                                    Html.fromHtml(prioritiesItem.getType1b()));
+                                    Html.fromHtml(prioritiesItem.getType1b(),
+                                            FROM_HTML_MODE_LEGACY));
                         }
 
                         if (prioritiesItem.getType1c() == null) {
@@ -178,14 +184,15 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                                                 "</b> " + metadata;
                                 priorityObjectAdapter.type1c.setVisibility(View.VISIBLE);
                                 prioritiesItem.setType1c(textView);
-                                priorityObjectAdapter.type1c.setText(Html.fromHtml(textView));
+                                priorityObjectAdapter.type1c.setText(Html.fromHtml(textView,
+                                        FROM_HTML_MODE_LEGACY));
                             } else {
                                 priorityObjectAdapter.type1c.setVisibility(View.GONE);
                             }
                         } else {
                             priorityObjectAdapter.type1c.setVisibility(View.VISIBLE);
                             priorityObjectAdapter.type1c.setText(Html.fromHtml(
-                                    prioritiesItem.getType1c()));
+                                    prioritiesItem.getType1c(), FROM_HTML_MODE_LEGACY));
                         }
 
                         if (prioritiesItem.getType2() == null) {
@@ -203,14 +210,15 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                                                 "</b> " + metadata;
                                 priorityObjectAdapter.type2.setVisibility(View.VISIBLE);
                                 prioritiesItem.setType2(textView);
-                                priorityObjectAdapter.type2.setText(Html.fromHtml(textView));
+                                priorityObjectAdapter.type2.setText(Html.fromHtml(textView,
+                                        FROM_HTML_MODE_LEGACY));
                             } else {
                                 priorityObjectAdapter.type2.setVisibility(View.GONE);
                             }
                         } else {
                             priorityObjectAdapter.type2.setVisibility(View.VISIBLE);
                             priorityObjectAdapter.type2.setText(Html.fromHtml(
-                                    prioritiesItem.getType2()));
+                                    prioritiesItem.getType2(), FROM_HTML_MODE_LEGACY));
                         }
 
                         if (prioritiesItem.getType3() == null) {
@@ -228,14 +236,16 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                                                 "</b> " + metadata;
                                 priorityObjectAdapter.type3.setVisibility(View.VISIBLE);
                                 prioritiesItem.setType3(textView);
-                                priorityObjectAdapter.type3.setText(Html.fromHtml(textView));
+                                priorityObjectAdapter.type3.setText(Html.fromHtml(textView,
+                                        FROM_HTML_MODE_LEGACY));
                             } else {
                                 priorityObjectAdapter.type3.setVisibility(View.GONE);
                             }
                         } else {
                             priorityObjectAdapter.type3.setVisibility(View.VISIBLE);
                             priorityObjectAdapter.type3.setText(
-                                    Html.fromHtml(prioritiesItem.getType3()));
+                                    Html.fromHtml(prioritiesItem.getType3(),
+                                            FROM_HTML_MODE_LEGACY));
                         }
 
                         if (prioritiesItem.getThemeName() == null) {
@@ -249,7 +259,8 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                                         References.grabPackageName(mContext, metadata);
                                 priorityObjectAdapter.tvDesc.setVisibility(View.VISIBLE);
                                 prioritiesItem.setThemeName(pName);
-                                priorityObjectAdapter.tvDesc.setText(Html.fromHtml(pName));
+                                priorityObjectAdapter.tvDesc.setText(Html.fromHtml(pName,
+                                        FROM_HTML_MODE_LEGACY));
                             } else {
                                 prioritiesItem.setThemeName("");
                                 priorityObjectAdapter.tvDesc.setText(packageTitle);
@@ -258,7 +269,8 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                             priorityObjectAdapter.tvDesc.setText(packageTitle);
                         } else {
                             priorityObjectAdapter.tvDesc.setText(
-                                    Html.fromHtml(prioritiesItem.getThemeName()));
+                                    Html.fromHtml(prioritiesItem.getThemeName(),
+                                            FROM_HTML_MODE_LEGACY));
                         }
                     } else {
                         priorityObjectAdapter.mCardText.setText(

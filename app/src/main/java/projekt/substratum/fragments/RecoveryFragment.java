@@ -111,17 +111,11 @@ public class RecoveryFragment extends Fragment {
             LinearLayout uninstall_all = (LinearLayout) sheetView.findViewById(R.id.uninstall_all);
             if (!References.checkOMS(mContext)) disable_all.setVisibility(View.GONE);
             disable_all.setOnClickListener(view -> {
-                if (getView() != null) {
-                    Lunchbar.make(getView(),
-                            getString(R.string.manage_system_overlay_toast),
-                            Lunchbar.LENGTH_LONG)
-                            .show();
-                }
-                ThemeManager.disableAll(mContext);
+                new RestoreFunction().execute(false);
                 sheetDialog.hide();
             });
             uninstall_all.setOnClickListener(view -> {
-                new AbortFunction().execute("");
+                new RestoreFunction().execute(true);
                 sheetDialog.hide();
             });
             sheetDialog.setContentView(sheetView);
@@ -353,7 +347,8 @@ public class RecoveryFragment extends Fragment {
         }
     }
 
-    private class AbortFunction extends AsyncTask<String, Integer, String> {
+    private class RestoreFunction extends AsyncTask<Boolean, Integer, String> {
+        boolean withUninstall;
 
         @Override
         protected void onPreExecute() {
@@ -366,69 +361,83 @@ public class RecoveryFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
-            mProgressDialog.dismiss();
             super.onPostExecute(result);
-            if (References.checkOMS(mContext)) {
-                try {
+            mProgressDialog.dismiss();
+            if (withUninstall) {
+                if (References.checkOMS(mContext)) {
+                    try {
+                        if (getView() != null) {
+                            Lunchbar.make(getView(),
+                                    getString(R.string.manage_system_overlay_uninstall_toast),
+                                    Lunchbar.LENGTH_LONG)
+                                    .show();
+                        }
+                    } catch (Exception e) {
+                        // At this point the window is refreshed too many times detaching the activity
+                        Log.e(References.SUBSTRATUM_LOG, "Profile window refreshed too " +
+                                "many times, restarting current activity to preserve app " +
+                                "integrity.");
+                    }
+                    ThemeManager.uninstallOverlay(mContext, final_commands_array);
+                } else {
                     if (getView() != null) {
                         Lunchbar.make(getView(),
-                                getString(R.string.manage_system_overlay_uninstall_toast),
+                                getString(R.string.abort_overlay_toast_success),
                                 Lunchbar.LENGTH_LONG)
                                 .show();
                     }
-                } catch (Exception e) {
-                    // At this point the window is refreshed too many times detaching the activity
-                    Log.e(References.SUBSTRATUM_LOG, "Profile window refreshed too " +
-                            "many times, restarting current activity to preserve app " +
-                            "integrity.");
+                    AlertDialog.Builder alertDialogBuilder =
+                            new AlertDialog.Builder(mContext);
+                    alertDialogBuilder
+                            .setTitle(getString(R.string.legacy_dialog_soft_reboot_title));
+                    alertDialogBuilder
+                            .setMessage(getString(R.string.legacy_dialog_soft_reboot_text));
+                    alertDialogBuilder
+                            .setPositiveButton(android.R.string.ok,
+                                    (dialog, id) -> ElevatedCommands.reboot());
+                    alertDialogBuilder.setCancelable(false);
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
                 }
-                ThemeManager.uninstallOverlay(mContext, final_commands_array);
             } else {
                 if (getView() != null) {
                     Lunchbar.make(getView(),
-                            getString(R.string.abort_overlay_toast_success),
+                            getString(R.string.manage_system_overlay_toast),
                             Lunchbar.LENGTH_LONG)
                             .show();
                 }
-                AlertDialog.Builder alertDialogBuilder =
-                        new AlertDialog.Builder(mContext);
-                alertDialogBuilder
-                        .setTitle(getString(R.string.legacy_dialog_soft_reboot_title));
-                alertDialogBuilder
-                        .setMessage(getString(R.string.legacy_dialog_soft_reboot_text));
-                alertDialogBuilder
-                        .setPositiveButton(android.R.string.ok,
-                                (dialog, id) -> ElevatedCommands.reboot());
-                alertDialogBuilder.setCancelable(false);
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
             }
         }
 
         @Override
-        protected String doInBackground(String... sUrl) {
-            if (References.checkOMS(mContext)) {
-                List<String> unapproved =
-                        ThemeManager.listOverlays(STATE_NOT_APPROVED_DANGEROUS_OVERLAY);
-                List<String> disabled =
-                        ThemeManager.listOverlays(STATE_APPROVED_ENABLED);
-                List<String> enabled =
-                        ThemeManager.listOverlays(STATE_APPROVED_ENABLED);
+        protected String doInBackground(Boolean... sUrl) {
+            withUninstall = sUrl[0];
+            if (withUninstall) {
+                if (References.checkOMS(mContext)) {
+                    List<String> unapproved =
+                            ThemeManager.listOverlays(STATE_NOT_APPROVED_DANGEROUS_OVERLAY);
+                    List<String> disabled =
+                            ThemeManager.listOverlays(STATE_APPROVED_ENABLED);
+                    List<String> enabled =
+                            ThemeManager.listOverlays(STATE_APPROVED_ENABLED);
 
-                final_commands_array = new ArrayList<>(unapproved);
-                final_commands_array.addAll(disabled);
-                final_commands_array.addAll(enabled);
+                    final_commands_array = new ArrayList<>(unapproved);
+                    final_commands_array.addAll(disabled);
+                    final_commands_array.addAll(enabled);
+                } else {
+                    FileOperations.mountRW();
+                    FileOperations.mountRWData();
+                    FileOperations.mountRWVendor();
+                    FileOperations.bruteforceDelete(DATA_RESOURCE_DIR);
+                    FileOperations.bruteforceDelete(LEGACY_NEXUS_DIR);
+                    FileOperations.bruteforceDelete(PIXEL_NEXUS_DIR);
+                    FileOperations.bruteforceDelete(VENDOR_DIR);
+                    FileOperations.mountROVendor();
+                    FileOperations.mountROData();
+                    FileOperations.mountRO();
+                }
             } else {
-                FileOperations.mountRW();
-                FileOperations.mountRWData();
-                FileOperations.mountRWVendor();
-                FileOperations.bruteforceDelete(DATA_RESOURCE_DIR);
-                FileOperations.bruteforceDelete(LEGACY_NEXUS_DIR);
-                FileOperations.bruteforceDelete(PIXEL_NEXUS_DIR);
-                FileOperations.bruteforceDelete(VENDOR_DIR);
-                FileOperations.mountROVendor();
-                FileOperations.mountROData();
-                FileOperations.mountRO();
+                ThemeManager.disableAll(mContext);
             }
             return null;
         }

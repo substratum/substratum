@@ -18,6 +18,7 @@
 
 package projekt.substratum.tabs;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -77,8 +78,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -881,8 +884,10 @@ public class Overlays extends Fragment {
                 }
                 String email_body = String.format(context.getString(R.string.logcat_email_body),
                         theme_author, theme_name);
+                @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat =
+                        new SimpleDateFormat("yyyyMMdd-HH:mm");
                 File log = new File(Environment.getExternalStorageDirectory().getAbsolutePath() +
-                        "/theme_error.log");
+                        "/theme_error-" + dateFormat.format(new Date()) + ".txt");
                 try (FileWriter fw = new FileWriter(log, false);
                      BufferedWriter out = new BufferedWriter(fw)) {
                     String attachment_body =

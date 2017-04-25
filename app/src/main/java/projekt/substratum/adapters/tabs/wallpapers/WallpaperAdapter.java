@@ -123,8 +123,7 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
                                 mContext.getCacheDir().getAbsolutePath() +
                                         "/" + "homescreen_wallpaper" + extension)))
                                 .setGuidelines(CropImageView.Guidelines.ON)
-                                .setFixAspectRatio(true)
-                                .setAspectRatio(width, height)
+                                .setFixAspectRatio(false)
                                 .setInitialCropWindowPaddingRatio(0)
                                 .setActivityTitle(wallpaperEntry.getWallpaperName())
                                 .setOutputUri(Uri.fromFile(new File(
@@ -154,8 +153,7 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
                                 mContext.getCacheDir().getAbsolutePath() +
                                         "/" + "lockscreen_wallpaper" + extension2)))
                                 .setGuidelines(CropImageView.Guidelines.ON)
-                                .setFixAspectRatio(true)
-                                .setAspectRatio(width, height)
+                                .setFixAspectRatio(false)
                                 .setInitialCropWindowPaddingRatio(0)
                                 .setActivityTitle(wallpaperEntry.getWallpaperName())
                                 .setOutputUri(Uri.fromFile(new File(
@@ -185,8 +183,7 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
                                 mContext.getCacheDir().getAbsolutePath() +
                                         "/" + "all_wallpaper" + extension3)))
                                 .setGuidelines(CropImageView.Guidelines.ON)
-                                .setFixAspectRatio(true)
-                                .setAspectRatio(width, height)
+                                .setFixAspectRatio(false)
                                 .setInitialCropWindowPaddingRatio(0)
                                 .setActivityTitle(wallpaperEntry.getWallpaperName())
                                 .setOutputUri(Uri.fromFile(new File(

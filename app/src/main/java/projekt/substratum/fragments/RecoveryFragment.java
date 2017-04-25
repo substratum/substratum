@@ -111,11 +111,11 @@ public class RecoveryFragment extends Fragment {
             LinearLayout uninstall_all = (LinearLayout) sheetView.findViewById(R.id.uninstall_all);
             if (!References.checkOMS(mContext)) disable_all.setVisibility(View.GONE);
             disable_all.setOnClickListener(view -> {
-                new RestoreFunction().execute(false);
+                new RestoreFunction(this).execute(false);
                 sheetDialog.hide();
             });
             uninstall_all.setOnClickListener(view -> {
-                new RestoreFunction().execute(true);
+                new RestoreFunction(this).execute(true);
                 sheetDialog.hide();
             });
             sheetDialog.setContentView(sheetView);
@@ -192,7 +192,7 @@ public class RecoveryFragment extends Fragment {
                     R.layout.recovery_bootanimations_sheet_dialog, null);
             LinearLayout restore = (LinearLayout) sheetView.findViewById(R.id.restore);
             restore.setOnClickListener(view2 -> {
-                new BootAnimationClearer().execute("");
+                new BootAnimationClearer(this).execute();
                 sheetDialog.hide();
             });
             sheetDialog.setContentView(sheetView);
@@ -236,7 +236,7 @@ public class RecoveryFragment extends Fragment {
             restore.setOnClickListener(view2 -> {
                 if (References.checkThemeInterfacer(mContext) ||
                         Settings.System.canWrite(mContext)) {
-                    new SoundsClearer().execute("");
+                    new SoundsClearer(this).execute();
                 } else {
                     Intent intent = new Intent(
                             Settings.ACTION_MANAGE_WRITE_SETTINGS);
@@ -347,28 +347,40 @@ public class RecoveryFragment extends Fragment {
         }
     }
 
-    private class RestoreFunction extends AsyncTask<Boolean, Integer, String> {
-        boolean withUninstall;
+    private static class RestoreFunction extends AsyncTask<Boolean, Void, Void> {
+        private boolean withUninstall;
+        private WeakReference<RecoveryFragment> ref;
 
-        @Override
-        protected void onPreExecute() {
-            mProgressDialog = new ProgressDialog(getActivity(), R.style.RestoreDialog);
-            mProgressDialog.setMessage(getString(R.string.manage_dialog_performing));
-            mProgressDialog.setIndeterminate(true);
-            mProgressDialog.setCancelable(false);
-            mProgressDialog.show();
+        private RestoreFunction(RecoveryFragment fragment) {
+            ref = new WeakReference<>(fragment);
         }
 
         @Override
-        protected void onPostExecute(String result) {
+        protected void onPreExecute() {
+            RecoveryFragment fragment = ref.get();
+            fragment.mProgressDialog = new ProgressDialog(
+                    fragment.getActivity(), R.style.RestoreDialog);
+            fragment.mProgressDialog.setMessage(
+                    fragment.getString(R.string.manage_dialog_performing));
+            fragment.mProgressDialog.setIndeterminate(true);
+            fragment.mProgressDialog.setCancelable(false);
+            fragment.mProgressDialog.show();
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-            mProgressDialog.dismiss();
+            RecoveryFragment fragment = ref.get();
+            Context context = fragment.getActivity();
+            View view = fragment.getView();
+
+            fragment.mProgressDialog.dismiss();
             if (withUninstall) {
-                if (References.checkOMS(mContext)) {
+                if (References.checkOMS(context)) {
                     try {
-                        if (getView() != null) {
-                            Lunchbar.make(getView(),
-                                    getString(R.string.manage_system_overlay_uninstall_toast),
+                        if (view != null) {
+                            Lunchbar.make(view,
+                                    context.getString(R.string.manage_system_overlay_uninstall_toast),
                                     Lunchbar.LENGTH_LONG)
                                     .show();
                         }
@@ -378,20 +390,20 @@ public class RecoveryFragment extends Fragment {
                                 "many times, restarting current activity to preserve app " +
                                 "integrity.");
                     }
-                    ThemeManager.uninstallOverlay(mContext, final_commands_array);
+                    ThemeManager.uninstallOverlay(context, fragment.final_commands_array);
                 } else {
-                    if (getView() != null) {
-                        Lunchbar.make(getView(),
-                                getString(R.string.abort_overlay_toast_success),
+                    if (view != null) {
+                        Lunchbar.make(view,
+                                context.getString(R.string.abort_overlay_toast_success),
                                 Lunchbar.LENGTH_LONG)
                                 .show();
                     }
                     AlertDialog.Builder alertDialogBuilder =
-                            new AlertDialog.Builder(mContext);
+                            new AlertDialog.Builder(context);
                     alertDialogBuilder
-                            .setTitle(getString(R.string.legacy_dialog_soft_reboot_title));
+                            .setTitle(context.getString(R.string.legacy_dialog_soft_reboot_title));
                     alertDialogBuilder
-                            .setMessage(getString(R.string.legacy_dialog_soft_reboot_text));
+                            .setMessage(context.getString(R.string.legacy_dialog_soft_reboot_text));
                     alertDialogBuilder
                             .setPositiveButton(android.R.string.ok,
                                     (dialog, id) -> ElevatedCommands.reboot());
@@ -400,9 +412,9 @@ public class RecoveryFragment extends Fragment {
                     alertDialog.show();
                 }
             } else {
-                if (getView() != null) {
-                    Lunchbar.make(getView(),
-                            getString(R.string.manage_system_overlay_toast),
+                if (view != null) {
+                    Lunchbar.make(view,
+                            context.getString(R.string.manage_system_overlay_toast),
                             Lunchbar.LENGTH_LONG)
                             .show();
                 }
@@ -410,10 +422,13 @@ public class RecoveryFragment extends Fragment {
         }
 
         @Override
-        protected String doInBackground(Boolean... sUrl) {
+        protected Void doInBackground(Boolean... sUrl) {
+            RecoveryFragment fragment = ref.get();
+            Context context = fragment.getActivity();
             withUninstall = sUrl[0];
+
             if (withUninstall) {
-                if (References.checkOMS(mContext)) {
+                if (References.checkOMS(context)) {
                     List<String> unapproved =
                             ThemeManager.listOverlays(STATE_NOT_APPROVED_DANGEROUS_OVERLAY);
                     List<String> disabled =
@@ -421,9 +436,9 @@ public class RecoveryFragment extends Fragment {
                     List<String> enabled =
                             ThemeManager.listOverlays(STATE_APPROVED_ENABLED);
 
-                    final_commands_array = new ArrayList<>(unapproved);
-                    final_commands_array.addAll(disabled);
-                    final_commands_array.addAll(enabled);
+                    fragment.final_commands_array = new ArrayList<>(unapproved);
+                    fragment.final_commands_array.addAll(disabled);
+                    fragment.final_commands_array.addAll(enabled);
                 } else {
                     FileOperations.mountRW();
                     FileOperations.mountRWData();
@@ -437,74 +452,92 @@ public class RecoveryFragment extends Fragment {
                     FileOperations.mountRO();
                 }
             } else {
-                ThemeManager.disableAll(mContext);
+                ThemeManager.disableAll(context);
             }
             return null;
         }
     }
 
-    private class BootAnimationClearer extends AsyncTask<String, Integer, String> {
+    private static class BootAnimationClearer extends AsyncTask<Void, Void, Void> {
+        private WeakReference<RecoveryFragment> ref;
 
-        @Override
-        protected void onPreExecute() {
-            mProgressDialog = new ProgressDialog(getActivity(), R.style.RestoreDialog);
-            mProgressDialog.setMessage(getString(R.string.manage_dialog_performing));
-            mProgressDialog.setIndeterminate(true);
-            mProgressDialog.setCancelable(false);
-            mProgressDialog.show();
+        private BootAnimationClearer(RecoveryFragment fragment) {
+            ref = new WeakReference<>(fragment);
         }
 
         @Override
-        protected void onPostExecute(String result) {
-            mProgressDialog.dismiss();
+        protected void onPreExecute() {
+            RecoveryFragment fragment = ref.get();
+            fragment.mProgressDialog = new ProgressDialog(
+                    fragment.getActivity(), R.style.RestoreDialog);
+            fragment.mProgressDialog.setMessage(
+                    fragment.getString(R.string.manage_dialog_performing));
+            fragment.mProgressDialog.setIndeterminate(true);
+            fragment.mProgressDialog.setCancelable(false);
+            fragment.mProgressDialog.show();
+        }
 
-            SharedPreferences.Editor editor = prefs.edit();
+        @Override
+        protected void onPostExecute(Void result) {
+            RecoveryFragment fragment = ref.get();
+            fragment.mProgressDialog.dismiss();
+
+            SharedPreferences.Editor editor = fragment.prefs.edit();
             editor.remove("bootanimation_applied").apply();
 
-            if (getView() != null) {
-                Lunchbar.make(getView(),
-                        getString(R.string.manage_bootanimation_toast),
+            if (fragment.getView() != null) {
+                Lunchbar.make(fragment.getView(),
+                        fragment.getString(R.string.manage_bootanimation_toast),
                         Lunchbar.LENGTH_LONG)
                         .show();
             }
         }
 
         @Override
-        protected String doInBackground(String... sUrl) {
-            BootAnimationManager.clearBootAnimation(mContext);
+        protected Void doInBackground(Void... sUrl) {
+            BootAnimationManager.clearBootAnimation(ref.get().getActivity());
             return null;
         }
     }
 
-    private class SoundsClearer extends AsyncTask<String, Integer, String> {
+    private static class SoundsClearer extends AsyncTask<Void, Void, Void> {
+        private WeakReference<RecoveryFragment> ref;
 
-        @Override
-        protected void onPreExecute() {
-            mProgressDialog = new ProgressDialog(getActivity(), R.style.RestoreDialog);
-            mProgressDialog.setMessage(getString(R.string.manage_dialog_performing));
-            mProgressDialog.setIndeterminate(true);
-            mProgressDialog.setCancelable(false);
-            mProgressDialog.show();
+        private SoundsClearer(RecoveryFragment fragment) {
+            ref = new WeakReference<>(fragment);
         }
 
         @Override
-        protected void onPostExecute(String result) {
-            mProgressDialog.dismiss();
+        protected void onPreExecute() {
+            RecoveryFragment fragment = ref.get();
+            fragment.mProgressDialog = new ProgressDialog(
+                    fragment.getActivity(), R.style.RestoreDialog);
+            fragment.mProgressDialog.setMessage(
+                    fragment.getString(R.string.manage_dialog_performing));
+            fragment.mProgressDialog.setIndeterminate(true);
+            fragment.mProgressDialog.setCancelable(false);
+            fragment.mProgressDialog.show();
+        }
 
-            SharedPreferences.Editor editor = prefs.edit();
+        @Override
+        protected void onPostExecute(Void result) {
+            RecoveryFragment fragment = ref.get();
+            fragment.mProgressDialog.dismiss();
+
+            SharedPreferences.Editor editor = fragment.prefs.edit();
             editor.remove("sounds_applied").apply();
 
-            if (getView() != null) {
-                Lunchbar.make(getView(),
-                        getString(R.string.manage_sounds_toast),
+            if (fragment.getView() != null) {
+                Lunchbar.make(fragment.getView(),
+                        fragment.getString(R.string.manage_sounds_toast),
                         Lunchbar.LENGTH_LONG)
                         .show();
             }
         }
 
         @Override
-        protected String doInBackground(String... sUrl) {
-            new SoundUtils().SoundsClearer(mContext);
+        protected Void doInBackground(Void... sUrl) {
+            new SoundUtils().SoundsClearer(ref.get().getActivity());
             return null;
         }
     }

@@ -18,6 +18,7 @@
 
 package projekt.substratum.common.analytics;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -35,10 +36,13 @@ public class PackageAnalytics {
         return maximum_memory <= 130;
     }
 
-    public static Float[] logRuntimeMemoryLimits() {
-        String max = humanReadableByteCount(Runtime.getRuntime().maxMemory(), false);
-        String total = humanReadableByteCount(Runtime.getRuntime().totalMemory(), false);
-        String free = humanReadableByteCount(Runtime.getRuntime().freeMemory(), false);
+    private static Float[] logRuntimeMemoryLimits() {
+        String max = humanReadableByteCount(Runtime.getRuntime().maxMemory(), false)
+                .replaceAll(",", ".");
+        String total = humanReadableByteCount(Runtime.getRuntime().totalMemory(), false)
+                .replaceAll(",", ".");
+        String free = humanReadableByteCount(Runtime.getRuntime().freeMemory(), false)
+                .replaceAll(",", ".");
         Log.d("RuntimeMemory", "Max Memory: " + max);
         Log.d("RuntimeMemory", "Total Memory: " + total);
         Log.d("RuntimeMemory", "Free Memory: " + free);
@@ -49,6 +53,7 @@ public class PackageAnalytics {
         };
     }
 
+    @SuppressLint("DefaultLocale")
     private static String humanReadableByteCount(long bytes, boolean si) {
         int unit = si ? 1000 : 1024;
         if (bytes < unit) return bytes + " B";

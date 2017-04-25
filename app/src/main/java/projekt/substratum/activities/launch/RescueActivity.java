@@ -22,6 +22,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import projekt.substratum.R;
 import projekt.substratum.activities.base.SubstratumActivity;
 import projekt.substratum.common.platform.ThemeManager;
@@ -34,8 +37,15 @@ public class RescueActivity extends SubstratumActivity {
         createToast(getString(R.string.rescue_toast), Toast.LENGTH_LONG);
         Handler handler = new Handler();
         handler.postDelayed(() ->
-                runOnUiThread(() ->
-                        ThemeManager.disableAll(getApplicationContext())), 1000);
+                runOnUiThread(() -> {
+                    List<String> android =
+                            ThemeManager.listEnabledOverlaysForTarget("android");
+                    List<String> substratum =
+                            ThemeManager.listEnabledOverlaysForTarget("projekt.substratum");
+                    ArrayList<String> to_be_disabled = new ArrayList<>(android);
+                    to_be_disabled.addAll(substratum);
+                    ThemeManager.disableOverlay(getApplicationContext(), to_be_disabled);
+                }), 500);
         finish();
     }
 }

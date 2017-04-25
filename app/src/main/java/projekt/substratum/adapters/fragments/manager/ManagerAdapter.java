@@ -36,6 +36,8 @@ import projekt.substratum.BuildConfig;
 import projekt.substratum.R;
 import projekt.substratum.common.References;
 
+import static android.text.Html.FROM_HTML_MODE_LEGACY;
+
 public class ManagerAdapter extends
         RecyclerView.Adapter<ManagerAdapter.ViewHolder> {
 
@@ -110,13 +112,14 @@ public class ManagerAdapter extends
                         "<b>" + context.getString(R.string.manager_type1a) + "</b> " + metadata;
                 viewHolder.type1a.setVisibility(View.VISIBLE);
                 overlayList.get(position_fixed).setType1a(textView);
-                viewHolder.type1a.setText(Html.fromHtml(textView));
+                viewHolder.type1a.setText(Html.fromHtml(textView, FROM_HTML_MODE_LEGACY));
             } else {
                 viewHolder.type1a.setVisibility(View.GONE);
             }
         } else {
             viewHolder.type1a.setVisibility(View.VISIBLE);
-            viewHolder.type1a.setText(Html.fromHtml(overlayList.get(position_fixed).getType1a()));
+            viewHolder.type1a.setText(Html.fromHtml(overlayList.get(position_fixed).getType1a(),
+                    FROM_HTML_MODE_LEGACY));
         }
 
         if (overlayList.get(position_fixed).getType1b() == null) {
@@ -133,13 +136,14 @@ public class ManagerAdapter extends
                         "<b>" + context.getString(R.string.manager_type1b) + "</b> " + metadata;
                 viewHolder.type1b.setVisibility(View.VISIBLE);
                 overlayList.get(position_fixed).setType1b(textView);
-                viewHolder.type1b.setText(Html.fromHtml(textView));
+                viewHolder.type1b.setText(Html.fromHtml(textView, FROM_HTML_MODE_LEGACY));
             } else {
                 viewHolder.type1b.setVisibility(View.GONE);
             }
         } else {
             viewHolder.type1b.setVisibility(View.VISIBLE);
-            viewHolder.type1b.setText(Html.fromHtml(overlayList.get(position_fixed).getType1b()));
+            viewHolder.type1b.setText(Html.fromHtml(overlayList.get(position_fixed).getType1b(),
+                    FROM_HTML_MODE_LEGACY));
         }
 
         if (overlayList.get(position_fixed).getType1c() == null) {
@@ -156,13 +160,14 @@ public class ManagerAdapter extends
                         "<b>" + context.getString(R.string.manager_type1c) + "</b> " + metadata;
                 viewHolder.type1c.setVisibility(View.VISIBLE);
                 overlayList.get(position_fixed).setType1c(textView);
-                viewHolder.type1c.setText(Html.fromHtml(textView));
+                viewHolder.type1c.setText(Html.fromHtml(textView, FROM_HTML_MODE_LEGACY));
             } else {
                 viewHolder.type1c.setVisibility(View.GONE);
             }
         } else {
             viewHolder.type1c.setVisibility(View.VISIBLE);
-            viewHolder.type1c.setText(Html.fromHtml(overlayList.get(position_fixed).getType1c()));
+            viewHolder.type1c.setText(Html.fromHtml(overlayList.get(position_fixed).getType1c(),
+                    FROM_HTML_MODE_LEGACY));
         }
 
         if (overlayList.get(position_fixed).getType2() == null) {
@@ -179,13 +184,14 @@ public class ManagerAdapter extends
                         "<b>" + context.getString(R.string.manager_type2) + "</b> " + metadata;
                 viewHolder.type2.setVisibility(View.VISIBLE);
                 overlayList.get(position_fixed).setType2(textView);
-                viewHolder.type2.setText(Html.fromHtml(textView));
+                viewHolder.type2.setText(Html.fromHtml(textView, FROM_HTML_MODE_LEGACY));
             } else {
                 viewHolder.type2.setVisibility(View.GONE);
             }
         } else {
             viewHolder.type2.setVisibility(View.VISIBLE);
-            viewHolder.type2.setText(Html.fromHtml(overlayList.get(position_fixed).getType2()));
+            viewHolder.type2.setText(Html.fromHtml(overlayList.get(position_fixed).getType2(),
+                    FROM_HTML_MODE_LEGACY));
         }
 
         if (overlayList.get(position_fixed).getType3() == null) {
@@ -202,13 +208,14 @@ public class ManagerAdapter extends
                         "<b>" + context.getString(R.string.manager_type3) + "</b> " + metadata;
                 viewHolder.type3.setVisibility(View.VISIBLE);
                 overlayList.get(position_fixed).setType3(textView);
-                viewHolder.type3.setText(Html.fromHtml(textView));
+                viewHolder.type3.setText(Html.fromHtml(textView, FROM_HTML_MODE_LEGACY));
             } else {
                 viewHolder.type3.setVisibility(View.GONE);
             }
         } else {
             viewHolder.type3.setVisibility(View.VISIBLE);
-            viewHolder.type3.setText(Html.fromHtml(overlayList.get(position_fixed).getType3()));
+            viewHolder.type3.setText(Html.fromHtml(overlayList.get(position_fixed).getType3(),
+                    FROM_HTML_MODE_LEGACY));
         }
 
         if (overlayList.get(position_fixed).getThemeName() == null) {
@@ -221,7 +228,7 @@ public class ManagerAdapter extends
                         References.grabPackageName(context, metadata);
                 viewHolder.tvDesc.setVisibility(View.VISIBLE);
                 overlayList.get(position_fixed).setThemeName(pName);
-                viewHolder.tvDesc.setText(Html.fromHtml(pName));
+                viewHolder.tvDesc.setText(Html.fromHtml(pName, FROM_HTML_MODE_LEGACY));
             } else {
                 overlayList.get(position_fixed).setThemeName("");
                 viewHolder.tvDesc.setText(packageName);
@@ -230,7 +237,8 @@ public class ManagerAdapter extends
             viewHolder.tvDesc.setText(packageName);
         } else {
             viewHolder.tvDesc.setText(
-                    Html.fromHtml(overlayList.get(position_fixed).getThemeName()));
+                    Html.fromHtml(overlayList.get(position_fixed).getThemeName(),
+                            FROM_HTML_MODE_LEGACY));
         }
 
         viewHolder.chkSelected.setChecked(overlayList.get(position_fixed).isSelected());

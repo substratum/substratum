@@ -380,12 +380,14 @@ public class RecoveryFragment extends Fragment {
                     try {
                         if (view != null) {
                             Lunchbar.make(view,
-                                    context.getString(R.string.manage_system_overlay_uninstall_toast),
+                                    context.getString(R.string
+                                            .manage_system_overlay_uninstall_toast),
                                     Lunchbar.LENGTH_LONG)
                                     .show();
                         }
                     } catch (Exception e) {
-                        // At this point the window is refreshed too many times detaching the activity
+                        // At this point the window is refreshed too many times detaching the
+                        // activity
                         Log.e(References.SUBSTRATUM_LOG, "Profile window refreshed too " +
                                 "many times, restarting current activity to preserve app " +
                                 "integrity.");

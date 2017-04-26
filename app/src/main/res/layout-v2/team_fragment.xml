@@ -18,8 +18,8 @@
   -->
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -266,33 +266,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:baselineAligned="false">
+            android:baselineAligned="false"
+            android:padding="10dp"
+            android:orientation="vertical">
 
-            <RelativeLayout
+            <ImageView
+                android:id="@+id/nathan"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:layout_weight="1">
+                android:layout_height="120dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/team_nathan"/>
 
-                <ImageView
-                    android:id="@+id/nathan"
-                    android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/team_nathan"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/nathan"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:gravity="start"
-                    android:text="@string/contributor_nathan"
-                    android:textColor="@color/main_screen_card_theme_title"
-                    android:textSize="18sp"/>
-
-            </RelativeLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:gravity="start"
+                android:text="@string/contributor_nathan"
+                android:textColor="@color/main_screen_card_theme_title"
+                android:textSize="18sp"/>
 
         </LinearLayout>
 

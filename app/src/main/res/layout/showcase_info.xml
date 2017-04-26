@@ -17,32 +17,27 @@
   ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="250dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+        <include layout="@layout/showcase_info_overlays"/>
 
-            <include layout="@layout/showcase_info_overlays"/>
+        <include layout="@layout/showcase_info_bootanimations"/>
 
-            <include layout="@layout/showcase_info_bootanimations"/>
+        <include layout="@layout/showcase_info_fonts"/>
 
-            <include layout="@layout/showcase_info_fonts"/>
+        <include layout="@layout/showcase_info_sounds"/>
 
-            <include layout="@layout/showcase_info_sounds"/>
+        <include layout="@layout/showcase_info_wallpapers"/>
 
-            <include layout="@layout/showcase_info_wallpapers"/>
+        <include layout="@layout/showcase_info_paid"/>
 
-            <include layout="@layout/showcase_info_paid"/>
-
-        </LinearLayout>
-    </ScrollView>
-</RelativeLayout>
+    </LinearLayout>
+</ScrollView>

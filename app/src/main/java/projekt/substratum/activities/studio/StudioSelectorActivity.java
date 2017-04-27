@@ -50,10 +50,6 @@ import projekt.substratum.common.platform.ThemeInterfacerService;
 import projekt.substratum.common.platform.ThemeManager;
 
 import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
-import static projekt.substratum.common.References.DEBUG;
-import static projekt.substratum.common.References.FIRST_WINDOW_REFRESH_DELAY;
-import static projekt.substratum.common.References.MAIN_WINDOW_REFRESH_DELAY;
-import static projekt.substratum.common.References.SECOND_WINDOW_REFRESH_DELAY;
 import static projekt.substratum.util.files.MapUtils.sortMapByValues;
 
 public class StudioSelectorActivity extends AppCompatActivity {
@@ -156,26 +152,14 @@ public class StudioSelectorActivity extends AppCompatActivity {
 
         CardView update_configuration = (CardView) findViewById(R.id.studio_update);
         update_configuration.setOnClickListener((view) -> {
-            if (References.isPackageInstalled(getApplicationContext(),
-                    References.INTERFACER_PACKAGE)) {
-                if (DEBUG)
-                    Log.e(References.SUBSTRATUM_ICON_BUILDER,
-                            "Initializing the Theme Interface...");
-                Intent runCommand = ThemeInterfacerService.getInterfacer(getApplicationContext());
-                runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                runCommand.setAction("projekt.themeinterface.COMMANDS");
-                ArrayList<String> final_array = new ArrayList<>();
-                final_array.add(0, null);
-                final_array.add(1, null);
-                final_array.add(2, String.valueOf(0));
-                final_array.add(3, String.valueOf(FIRST_WINDOW_REFRESH_DELAY));
-                final_array.add(4, String.valueOf(SECOND_WINDOW_REFRESH_DELAY));
-                final_array.add(5, References.SUBSTRATUM_ICON_BUILDER);
-                runCommand.putExtra("icon-handler", final_array);
-                getApplicationContext().sendBroadcast(runCommand);
+            if (References.isPackageInstalled(
+                    getApplicationContext(),
+                    References.INTERFACER_PACKAGE) &&
+                    References.isBinderInterfacer(getApplicationContext())) {
+                ThemeInterfacerService.configurationChangeShim(getApplicationContext());
             } else {
                 Log.e(References.SUBSTRATUM_ICON_BUILDER,
-                        "Cannot apply icon pack on a non OMS7 ROM");
+                        "Cannot apply icon pack on a non binderfacer ROM...");
             }
         });
 
@@ -187,49 +171,19 @@ public class StudioSelectorActivity extends AppCompatActivity {
             builder.setMessage(R.string.studio_system_reset_dialog);
             builder.setPositiveButton(R.string.uninstall_dialog_okay, (dialog, id) -> {
                 // Begin disabling themes
-                List<String> state5 = ThemeManager.listOverlays(STATE_APPROVED_ENABLED);
-                ArrayList<String> all = new ArrayList<>(state5);
+                List<String> activated_overlays = ThemeManager.listOverlays(STATE_APPROVED_ENABLED);
 
-                // ValidatorFilter out icon pack overlays from all overlays
-                String final_commands = ThemeManager.disableOverlay;
-                if (all.size() > 0) {
-                    for (int i = 0; i < all.size(); i++) {
-                        if (all.get(i).endsWith(".icon")) {
-                            final_commands += " " + all.get(i);
-                        }
-                    }
-                    if (References.isPackageInstalled(getApplicationContext(),
-                            References.INTERFACER_PACKAGE)) {
-                        if (DEBUG)
-                            Log.e(References.SUBSTRATUM_ICON_BUILDER,
-                                    "Initializing the Theme Interface...");
-
-                        Intent runCommand = ThemeInterfacerService.getInterfacer
-                                (getApplicationContext());
-                        runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                        runCommand.setAction("projekt.themeinterface.COMMANDS");
-                        ArrayList<String> final_array = new ArrayList<>();
-                        final_array.add(0, getString(R.string.studio_system)
-                                .toLowerCase());
-                        final_array.add(1, final_commands);
-                        final_array.add(2,
-                                String.valueOf(MAIN_WINDOW_REFRESH_DELAY));
-                        final_array.add(3,
-                                String.valueOf(FIRST_WINDOW_REFRESH_DELAY));
-                        final_array.add(4,
-                                String.valueOf(SECOND_WINDOW_REFRESH_DELAY));
-                        final_array.add(5, null);
-                        runCommand.putExtra("icon-handler", final_array);
-                        getApplicationContext().sendBroadcast(runCommand);
-                    } else {
+                ArrayList<String> immediateDisable = new ArrayList<>();
+                for (int i = 0; i < activated_overlays.size(); i++) {
+                    if (activated_overlays.get(i).endsWith(".icon")) {
                         Log.e(References.SUBSTRATUM_ICON_BUILDER,
-                                "Cannot apply icon pack on a non OMS7 ROM");
+                                "Sent the icon for disabling : " + activated_overlays.get(i));
+                        immediateDisable.add(activated_overlays.get(i));
                     }
-                } else {
-                    Lunchbar.make(findViewById(android.R.id.content),
-                            getString(R.string.studio_system_reset_dialog_toast),
-                            Lunchbar.LENGTH_LONG)
-                            .show();
+                }
+                if (immediateDisable.size() > 0) {
+                    ThemeManager.disableOverlay(getApplicationContext(), immediateDisable);
+                    ThemeInterfacerService.configurationChangeShim(getApplicationContext());
                 }
             });
             builder.setNegativeButton(R.string.restore_dialog_cancel, (dialog, id) -> dialog

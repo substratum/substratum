@@ -344,7 +344,7 @@
     <string name="dialog_restart_soft_reboot_title">Soft Reboot</string>
     <string name="dialog_restart_soft_reboot_content">This will perform a soft reboot on your device.</string>
 
-    <string name="studio">icon pack studio (gamma)</string>
+    <string name="studio">icon studio</string>
     <string name="studio_system">Restore System Icons</string>
     <string name="studio_system_reset_dialog_toast">
         All custom icons have already been disabled!

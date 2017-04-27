@@ -45,14 +45,12 @@ import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
 
 import static projekt.substratum.common.References.EXTERNAL_STORAGE_CACHE;
-import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
-import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;
-import static projekt.substratum.common.References.VENDOR_DIR;
 
 public class SubstratumIconBuilder {
 
     public Boolean has_errored_out = false;
     public String no_install = "";
+    public String to_install = "";
     private String error_logs = "";
 
     private void dumpErrorLogs(String tag, String overlay, String message) {
@@ -66,9 +64,14 @@ public class SubstratumIconBuilder {
         }
     }
 
-    private void createIconParameters(Context context, String theme_pack, int drawable,
-                                      File icon_location, String drawable_name, String size,
-                                      Bitmap icon_override) {
+    private void createIconParameters(
+            Context context,
+            String theme_pack,
+            int drawable,
+            File icon_location,
+            String drawable_name,
+            String size,
+            Bitmap icon_override) {
         int resolution;
         switch (size) {
             // Let's take account of the size of the icon to be created
@@ -102,12 +105,12 @@ public class SubstratumIconBuilder {
                 Resources resources = packContext.getResources();
                 Bitmap b = BitmapFactory.decodeResource(resources, drawable);
                 Bitmap bScaled = Bitmap.createScaledBitmap(b, resolution, resolution, true);
-                out = new FileOutputStream(icon_location.getAbsolutePath() + "/" +
-                        drawableName);
+                out = new FileOutputStream(
+                        icon_location.getAbsolutePath() + "/" + drawableName + ".png");
                 bScaled.compress(Bitmap.CompressFormat.PNG, 100, out);
             } else {
-                out = new FileOutputStream(icon_location.getAbsolutePath() + "/" +
-                        drawableName);
+                out = new FileOutputStream(
+                        icon_location.getAbsolutePath() + "/" + drawableName + ".png");
                 icon_override.compress(Bitmap.CompressFormat.PNG, 100, out);
             }
         } catch (Exception e) {
@@ -124,10 +127,18 @@ public class SubstratumIconBuilder {
     }
 
     @SuppressWarnings("unchecked")
-    public void beginAction(Context context, String theme_pack, String overlay_package,
-                            String versionName, Boolean theme_oms, HashMap iconLocations,
-                            String hashOne, int drawable, String drawable_name,
-                            String parsedIconName, Boolean update_mode, Bitmap iconOverride) {
+    public void beginAction(Context context,
+                            String theme_pack,
+                            String overlay_package,
+                            String versionName,
+                            Boolean theme_oms,
+                            HashMap iconLocations,
+                            String hashOne,
+                            int drawable,
+                            String drawable_name,
+                            String parsedIconName,
+                            Boolean update_mode,
+                            Bitmap iconOverride) {
         Boolean icon_override;
         Bitmap icon_override_value;
         if (iconOverride != null) {
@@ -183,73 +194,121 @@ public class SubstratumIconBuilder {
                 boolean created = icon_location.mkdir();
                 if (created)
                     createIconParameters(
-                            context, theme_pack, drawable, icon_location, drawable_name +
-                                    ".png", "mdpi", (icon_override) ? icon_override_value : null);
+                            context,
+                            theme_pack,
+                            drawable,
+                            icon_location,
+                            drawable_name + ".png",
+                            "mdpi",
+                            (icon_override) ? icon_override_value : null);
             } else if (directories.get(i).contains("drawable-hdpi")) {
                 File icon_location = new File(res.getAbsolutePath() + "/drawable-hdpi");
                 boolean created = icon_location.mkdir();
                 if (created)
                     createIconParameters(
-                            context, theme_pack, drawable, icon_location, drawable_name +
-                                    ".png", "hdpi", (icon_override) ? icon_override_value : null);
+                            context,
+                            theme_pack,
+                            drawable,
+                            icon_location,
+                            drawable_name + ".png",
+                            "hdpi",
+                            (icon_override) ? icon_override_value : null);
             } else if (directories.get(i).contains("drawable-xhdpi")) {
                 File icon_location = new File(res.getAbsolutePath() + "/drawable-xhdpi");
                 boolean created = icon_location.mkdir();
                 if (created)
                     createIconParameters(
-                            context, theme_pack, drawable, icon_location, drawable_name +
-                                    ".png", "xhdpi", (icon_override) ? icon_override_value : null);
+                            context,
+                            theme_pack,
+                            drawable,
+                            icon_location,
+                            drawable_name + ".png",
+                            "xhdpi",
+                            (icon_override) ? icon_override_value : null);
             } else if (directories.get(i).contains("drawable-xxhdpi")) {
                 File icon_location = new File(res.getAbsolutePath() + "/drawable-xxhdpi");
                 boolean created = icon_location.mkdir();
                 if (created)
                     createIconParameters(
-                            context, theme_pack, drawable, icon_location, drawable_name +
-                                    ".png", "xxhdpi", (icon_override) ? icon_override_value : null);
+                            context,
+                            theme_pack,
+                            drawable,
+                            icon_location,
+                            drawable_name + ".png",
+                            "xxhdpi",
+                            (icon_override) ? icon_override_value : null);
             } else if (directories.get(i).contains("drawable-xxxhdpi")) {
                 File icon_location = new File(res.getAbsolutePath() + "/drawable-xxxhdpi");
                 boolean created = icon_location.mkdir();
                 if (created)
                     createIconParameters(
-                            context, theme_pack, drawable, icon_location, drawable_name +
-                                    ".png", "xxxhdpi", (icon_override) ? icon_override_value :
-                                    null);
+                            context,
+                            theme_pack,
+                            drawable,
+                            icon_location,
+                            drawable_name + ".png",
+                            "xxxhdpi",
+                            (icon_override) ? icon_override_value : null);
             } else if (directories.get(i).contains("mipmap-mdpi")) {
                 File icon_location = new File(res.getAbsolutePath() + "/mipmap-mdpi");
                 boolean created = icon_location.mkdir();
                 if (created)
                     createIconParameters(
-                            context, theme_pack, drawable, icon_location, drawable_name +
-                                    ".png", "mdpi", (icon_override) ? icon_override_value : null);
+                            context,
+                            theme_pack,
+                            drawable,
+                            icon_location,
+                            drawable_name + ".png",
+                            "mdpi",
+                            (icon_override) ? icon_override_value : null);
             } else if (directories.get(i).contains("mipmap-hdpi")) {
                 File icon_location = new File(res.getAbsolutePath() + "/mipmap-hdpi");
                 boolean created = icon_location.mkdir();
                 if (created)
                     createIconParameters(
-                            context, theme_pack, drawable, icon_location, drawable_name +
-                                    ".png", "hdpi", (icon_override) ? icon_override_value : null);
+                            context,
+                            theme_pack,
+                            drawable,
+                            icon_location,
+                            drawable_name + ".png",
+                            "hdpi",
+                            (icon_override) ? icon_override_value : null);
             } else if (directories.get(i).contains("mipmap-xhdpi")) {
                 File icon_location = new File(res.getAbsolutePath() + "/mipmap-xhdpi");
                 boolean created = icon_location.mkdir();
                 if (created)
                     createIconParameters(
-                            context, theme_pack, drawable, icon_location, drawable_name +
-                                    ".png", "xhdpi", (icon_override) ? icon_override_value : null);
+                            context,
+                            theme_pack,
+                            drawable,
+                            icon_location,
+                            drawable_name + ".png",
+                            "xhdpi",
+                            (icon_override) ? icon_override_value : null);
             } else if (directories.get(i).contains("mipmap-xxhdpi")) {
                 File icon_location = new File(res.getAbsolutePath() + "/mipmap-xxhdpi");
                 boolean created = icon_location.mkdir();
                 if (created)
                     createIconParameters(
-                            context, theme_pack, drawable, icon_location, drawable_name +
-                                    ".png", "xxhdpi", (icon_override) ? icon_override_value : null);
+                            context,
+                            theme_pack,
+                            drawable,
+                            icon_location,
+                            drawable_name + ".png",
+                            "xxhdpi",
+                            (icon_override) ? icon_override_value : null);
             } else if (directories.get(i).contains("mipmap-xxxhdpi")) {
                 File icon_location = new File(res.getAbsolutePath() + "/mipmap-xxxhdpi");
                 boolean created = icon_location.mkdir();
                 if (created)
                     createIconParameters(
-                            context, theme_pack, drawable, icon_location, drawable_name +
-                                    ".png", "xxxhdpi", (icon_override) ? icon_override_value :
-                                    null);
+                            context,
+                            theme_pack,
+                            drawable,
+                            icon_location,
+                            drawable_name + ".png",
+                            "xxxhdpi",
+                            (icon_override) ? icon_override_value : null);
             }
         }
 
@@ -313,7 +372,9 @@ public class SubstratumIconBuilder {
                     }
                     try (BufferedReader br = new BufferedReader(new InputStreamReader(stderr))) {
                         while ((line = br.readLine()) != null) {
-                            dumpErrorLogs(References.SUBSTRATUM_ICON_BUILDER, overlay_package,
+                            dumpErrorLogs(
+                                    References.SUBSTRATUM_ICON_BUILDER,
+                                    overlay_package,
                                     line);
                             has_errored_out = true;
                         }
@@ -326,14 +387,14 @@ public class SubstratumIconBuilder {
 
                 if (!has_errored_out) {
                     // We need this Process to be waited for before moving on to the next function.
-                    Log.d(References.SUBSTRATUM_ICON_BUILDER, "Overlay APK creation is running " +
-                            "now...");
+                    Log.d(References.SUBSTRATUM_ICON_BUILDER,
+                            "Overlay APK creation is running now...");
                     nativeApp.waitFor();
-                    File unsignedAPK = new File(work_area + "/" + overlay_package +
-                            ".icon-unsigned.apk");
+                    File unsignedAPK = new File(
+                            work_area + "/" + overlay_package + ".icon-unsigned.apk");
                     if (unsignedAPK.exists()) {
-                        Log.d(References.SUBSTRATUM_ICON_BUILDER, "Overlay APK creation has " +
-                                "completed!");
+                        Log.d(References.SUBSTRATUM_ICON_BUILDER,
+                                "Overlay APK creation has completed!");
                     } else {
                         dumpErrorLogs(References.SUBSTRATUM_ICON_BUILDER, overlay_package,
                                 "Overlay APK creation has failed!");
@@ -360,9 +421,9 @@ public class SubstratumIconBuilder {
         if (!has_errored_out) {
             try {
                 // Delete the previous APK if it exists in the dashboard folder
-                FileOperations.delete(context, Environment.getExternalStorageDirectory()
-                        .getAbsolutePath() +
-                        EXTERNAL_STORAGE_CACHE + overlay_package + ".icon-signed.apk");
+                FileOperations.delete(context,
+                        Environment.getExternalStorageDirectory().getAbsolutePath() +
+                                EXTERNAL_STORAGE_CACHE + overlay_package + ".icon-signed.apk");
 
                 // Sign with the built-in test key/certificate.
                 String source = work_area + "/" + overlay_package + ".icon-unsigned.apk";
@@ -400,9 +461,8 @@ public class SubstratumIconBuilder {
                                 overlay_package + ".icon-signed.apk");
                         Log.d(References.SUBSTRATUM_ICON_BUILDER, "Silently installing APK...");
                         if (References.isPackageInstalled(context, overlay_package + ".icon")) {
-                            Log.d(References.SUBSTRATUM_ICON_BUILDER, "Overlay APK has " +
-                                    "successfully been " +
-                                    "installed!");
+                            Log.d(References.SUBSTRATUM_ICON_BUILDER,
+                                    "Overlay APK has successfully been installed!");
                         } else {
                             dumpErrorLogs(References.SUBSTRATUM_ICON_BUILDER, overlay_package,
                                     "Overlay APK has failed to install!");
@@ -414,52 +474,15 @@ public class SubstratumIconBuilder {
                         dumpErrorLogs(References.SUBSTRATUM_ICON_BUILDER, overlay_package,
                                 "Installation of \"" + overlay_package + "\" has failed.");
                     }
-                } else {
-                    // At this point, it is detected to be legacy mode and Substratum will push to
-                    // vendor/overlays directly.
-
-                    String vendor_location = LEGACY_NEXUS_DIR;
-                    String vendor_partition = VENDOR_DIR;
-                    String vendor_symlink = PIXEL_NEXUS_DIR;
-                    String current_vendor =
-                            ((References.inNexusFilter()) ? vendor_partition :
-                                    vendor_location);
-
-                    FileOperations.mountRW();
-                    if (current_vendor.equals(vendor_location)) {
-                        FileOperations.createNewFolder(current_vendor);
-                    } else {
-                        FileOperations.mountRWVendor();
-                        FileOperations.createNewFolder(vendor_symlink);
-                        FileOperations.symlink(vendor_symlink, "/vendor");
-                        FileOperations.setPermissions(755, vendor_partition);
-                        FileOperations.mountROVendor();
-                    }
-                    if (current_vendor.equals(vendor_location)) {
-                        FileOperations.move(context, Environment.getExternalStorageDirectory()
-                                .getAbsolutePath() + EXTERNAL_STORAGE_CACHE + overlay_package +
-                                ".icon-signed.apk", vendor_location +
-                                overlay_package + ".icon.apk");
-                        FileOperations.setPermissionsRecursively(644, vendor_location);
-                        FileOperations.setPermissions(755, vendor_location);
-                        FileOperations.setContext(vendor_location);
-                    } else {
-                        FileOperations.move(context, Environment.getExternalStorageDirectory()
-                                .getAbsolutePath() + EXTERNAL_STORAGE_CACHE + overlay_package +
-                                ".icon-signed.apk", vendor_symlink +
-                                "/" + overlay_package + ".icon.apk");
-                        FileOperations.setPermissionsRecursively(644, vendor_symlink);
-                        FileOperations.setPermissions(755, vendor_symlink);
-                        FileOperations.setContext(vendor_symlink);
-                    }
-                    FileOperations.mountRO();
                 }
             } else {
                 Log.d(References.SUBSTRATUM_ICON_BUILDER,
                         "Update mode flag disabled, returning one-line parsable command");
-                no_install = "pm install -r " + Environment.getExternalStorageDirectory()
-                        .getAbsolutePath() +
-                        EXTERNAL_STORAGE_CACHE + overlay_package + ".icon-signed.apk";
+                no_install = Environment
+                        .getExternalStorageDirectory()
+                        .getAbsolutePath() + EXTERNAL_STORAGE_CACHE +
+                        overlay_package + ".icon-signed.apk";
+                to_install = overlay_package + ".icon";
             }
         }
     }

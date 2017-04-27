@@ -1237,8 +1237,7 @@ public class MainActivity extends SubstratumActivity implements
             ArrayList<String> installed_overlays = new ArrayList<>(state4);
             installed_overlays.addAll(state5);
             for (int i = 0; i < installed_overlays.size(); i++) {
-                String parent = References.grabOverlayParent(
-                        context, installed_overlays.get(i));
+                String parent = References.grabOverlayParent(context, installed_overlays.get(i));
                 if (!References.isPackageInstalled(context, parent)) {
                     Log.e("OverlayCleaner",
                             "Parent APK not found for \"" + installed_overlays.get(i) +

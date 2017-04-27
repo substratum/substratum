@@ -90,6 +90,7 @@ import projekt.substratum.activities.launch.AppShortcutLaunch;
 import projekt.substratum.common.analytics.FirebaseAnalytics;
 import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.platform.ThemeInterfacerService;
+import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.common.tabs.SoundManager;
 import projekt.substratum.services.crash.AppCrashReceiver;
 import projekt.substratum.services.packages.PackageModificationDetector;
@@ -97,6 +98,14 @@ import projekt.substratum.services.profiles.ScheduledProfileReceiver;
 import projekt.substratum.util.compilers.CacheCreator;
 import projekt.substratum.util.injectors.AOPTCheck;
 import projekt.substratum.util.readers.ReadVariantPrioritizedColor;
+
+import static android.content.om.OverlayInfo.STATE_APPROVED_DISABLED;
+import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
+import static android.content.om.OverlayInfo.STATE_NOT_APPROVED_COMPONENT_DISABLED;
+import static android.content.om.OverlayInfo.STATE_NOT_APPROVED_DANGEROUS_OVERLAY;
+import static android.content.om.OverlayInfo.STATE_NOT_APPROVED_MISSING_TARGET;
+import static android.content.om.OverlayInfo.STATE_NOT_APPROVED_NO_IDMAP;
+import static android.content.om.OverlayInfo.STATE_NOT_APPROVED_UNKNOWN;
 
 public class References {
 
@@ -819,6 +828,65 @@ public class References {
         return null;
     }
 
+    public static void logOverlayStates() {
+        /*
+          An internal state used as the initial state of an overlay. OverlayInfo
+          objects exposed outside the {@link
+         * com.android.server.om.OverlayManagerService} should never have this
+          state.
+         */
+        List<String> stateN1 = ThemeManager.listOverlays(STATE_NOT_APPROVED_UNKNOWN);
+        /*
+          The overlay package is disabled by the PackageManager.
+         */
+        List<String> state0 = ThemeManager.listOverlays(STATE_NOT_APPROVED_COMPONENT_DISABLED);
+        /*
+          The target package of the overlay is not installed.
+         */
+        List<String> state1 = ThemeManager.listOverlays(STATE_NOT_APPROVED_MISSING_TARGET);
+        /*
+          Creation of idmap file failed (e.g. no matching resources).
+         */
+        List<String> state2 = ThemeManager.listOverlays(STATE_NOT_APPROVED_NO_IDMAP);
+        /*
+          The overlay package is dangerous, i.e. it touches resources not explicitly
+          OK'd by the target package.
+         */
+        List<String> state3 = ThemeManager.listOverlays(STATE_NOT_APPROVED_DANGEROUS_OVERLAY);
+        /*
+          The OverlayInfo is currently disabled but it is allowed to be enabled
+          ({@link #STATE_APPROVED_ENABLED}) in the future.
+         */
+        List<String> state4 = ThemeManager.listOverlays(STATE_APPROVED_DISABLED);
+        /*
+          The OverlayInfo is enabled but can be disabled
+          ({@link #STATE_APPROVED_DISABLED}) in the future.
+         */
+        List<String> state5 = ThemeManager.listOverlays(STATE_APPROVED_ENABLED);
+
+        for (int i = 0; i < stateN1.size(); i++) {
+            Log.e("OverlayState (-1)", stateN1.get(i));
+        }
+        for (int i = 0; i < state0.size(); i++) {
+            Log.e("OverlayState (0)", state0.get(i));
+        }
+        for (int i = 0; i < state1.size(); i++) {
+            Log.e("OverlayState (1)", state1.get(i));
+        }
+        for (int i = 0; i < state2.size(); i++) {
+            Log.e("OverlayState (2)", state2.get(i));
+        }
+        for (int i = 0; i < state3.size(); i++) {
+            Log.e("OverlayState (3)", state3.get(i));
+        }
+        for (int i = 0; i < state4.size(); i++) {
+            Log.e("OverlayState (4)", state4.get(i));
+        }
+        for (int i = 0; i < state5.size(); i++) {
+            Log.e("OverlayState (5)", state5.get(i));
+        }
+    }
+
     @SuppressWarnings("unchecked")
     public static String getPackageIconName(Context mContext, @NonNull String packageName) {
         /*
@@ -830,7 +898,8 @@ public class References {
         try {
             ApplicationInfo ai =
                     mContext.getPackageManager().getApplicationInfo(packageName, 0);
-            Process process = Runtime.getRuntime().exec("aopt d badging " + ai.sourceDir);
+            Process process = Runtime.getRuntime().exec(
+                    mContext.getFilesDir().getAbsolutePath() + "/aopt d badging " + ai.sourceDir);
 
             DataOutputStream outputStream = new DataOutputStream(process.getOutputStream());
             BufferedReader reader = new BufferedReader(new InputStreamReader(
@@ -1160,7 +1229,7 @@ public class References {
             ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
                     package_name, PackageManager.GET_META_DATA);
             if (appInfo.metaData != null) {
-                String current = appInfo.metaData.getString("Substratum_IconPack");
+                String current = appInfo.metaData.getString(metadataOverlayParent);
                 if (current != null) return current.equals(expectedPackName);
             }
         } catch (Exception e) {

@@ -37,14 +37,23 @@ import static projekt.substratum.common.References.metadataOverlayVersion;
 
 public class CompilerCommands {
 
-    public static String createOverlayManifest(Context context, String overlay_package,
-                                               String parse2_themeName, String parse2_variantName,
-                                               String parse2_baseName, String versionName,
-                                               String targetPackage, String theme_parent,
-                                               String varianter, Boolean theme_oms,
-                                               int legacy_priority, boolean base_variant_null,
-                                               String type1a, String type1b, String type1c,
-                                               String type2, String type3) {
+    public static String createOverlayManifest(Context context,
+                                               String overlay_package,
+                                               String parse2_themeName,
+                                               String parse2_variantName,
+                                               String parse2_baseName,
+                                               String versionName,
+                                               String targetPackage,
+                                               String theme_parent,
+                                               String varianter,
+                                               Boolean theme_oms,
+                                               int legacy_priority,
+                                               boolean base_variant_null,
+                                               String type1a,
+                                               String type1b,
+                                               String type1c,
+                                               String type2,
+                                               String type3) {
         String package_name;
         if (base_variant_null) {
             package_name = overlay_package + "." + parse2_themeName;
@@ -108,9 +117,12 @@ public class CompilerCommands {
                 "</manifest>\n";
     }
 
-    public static String createIconOverlayManifest(Context context, String overlay_package,
-                                                   String theme_pack, String versionName,
-                                                   String parsedIconName, Boolean theme_oms,
+    public static String createIconOverlayManifest(Context context,
+                                                   String overlay_package,
+                                                   String theme_pack,
+                                                   String versionName,
+                                                   String parsedIconName,
+                                                   Boolean theme_oms,
                                                    int legacy_priority) {
         return "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?>\n" +
 
@@ -133,7 +145,7 @@ public class CompilerCommands {
                 "android:value=\"" + getDeviceID(context) + "\"/>\n" +
 
                 // We can easily track what the icon pack parents are without any parsing this way
-                "        <meta-data android:name=\"Substratum_IconPack\" " +
+                "        <meta-data android:name=\"" + metadataOverlayParent + "\" " +
                 "android:value=\"" + theme_pack + "\"/>\n" +
 
                 "    </application>\n" +
@@ -141,10 +153,15 @@ public class CompilerCommands {
     }
 
     @SuppressWarnings("StringConcatenationInsideStringBufferAppend")
-    public static String createAOPTShellCommands(String work_area, String targetPkg,
-                                                 String overlay_package, String theme_name,
-                                                 boolean legacySwitch, String additional_variant,
-                                                 Context context, String noCacheDir, boolean icon) {
+    public static String createAOPTShellCommands(String work_area,
+                                                 String targetPkg,
+                                                 String overlay_package,
+                                                 String theme_name,
+                                                 boolean legacySwitch,
+                                                 String additional_variant,
+                                                 Context context,
+                                                 String noCacheDir,
+                                                 boolean icon) {
         StringBuilder sb = new StringBuilder();
         // Initialize the AOPT command
         sb.append(context.getFilesDir().getAbsolutePath() + "/aopt p ");

@@ -21,7 +21,6 @@ package projekt.substratum.activities.studio;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.ColorStateList;
@@ -39,7 +38,6 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AlertDialog;
@@ -80,10 +78,6 @@ import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.util.compilers.SubstratumIconBuilder;
 
 import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
-import static projekt.substratum.common.References.DEBUG;
-import static projekt.substratum.common.References.FIRST_WINDOW_REFRESH_DELAY;
-import static projekt.substratum.common.References.MAIN_WINDOW_REFRESH_DELAY;
-import static projekt.substratum.common.References.SECOND_WINDOW_REFRESH_DELAY;
 import static projekt.substratum.common.References.SUBSTRATUM_ICON_BUILDER;
 import static projekt.substratum.common.References.grabPackageName;
 import static projekt.substratum.util.files.MapUtils.sortMapByValues;
@@ -99,7 +93,7 @@ public class StudioPreviewActivity extends AppCompatActivity {
     private String current_icon = "";
     private double current_amount = 0;
     private double total_amount = 0;
-    private ArrayList<String> final_runner;
+    private ArrayList<String> final_runner, package_runner;
     private ArrayList<String> disable_me;
     private ArrayList<String> enable_me;
     private Boolean iconBack = false;
@@ -412,6 +406,7 @@ public class StudioPreviewActivity extends AppCompatActivity {
             progressBar.setIndeterminate(false);
 
             final_runner = new ArrayList<>();
+            package_runner = new ArrayList<>();
         }
 
         @Override
@@ -437,84 +432,33 @@ public class StudioPreviewActivity extends AppCompatActivity {
             // same time, to simulate something like a assetSeq on OMS3
 
             // This would cause a window refresh on either Framework or Substratum
-            if (final_runner.size() > 0 || disable_me.size() > 0 || enable_me.size() > 0) {
-                String final_commands = "";
-                if (final_runner.size() > 0) {
-                    for (int i = 0; i < final_runner.size(); i++) {
-                        if (final_commands.length() <= 0) {
-                            final_commands = final_runner.get(i);
-                        } else {
-                            final_commands = final_commands + " && " + final_runner.get(i);
-                        }
-                    }
-                }
-                if (disable_me.size() > 0) {
-                    if (final_commands.length() > 0) final_commands = final_commands + " && " +
-                            ThemeManager.disableOverlay;
-                    for (int j = 0; j < disable_me.size(); j++) {
-                        if (final_commands.length() <= 0) {
-                            final_commands = ThemeManager.disableOverlay + " " +
-                                    disable_me.get(j);
-                        } else {
-                            final_commands = final_commands + " " + disable_me.get(j);
-                        }
-                    }
-                }
-                if (enable_me.size() > 0) {
-                    if (final_commands.length() > 0) final_commands = final_commands + " && " +
-                            ThemeManager.enableOverlay;
-                    for (int h = 0; h < enable_me.size(); h++) {
-                        if (final_commands.length() <= 0) {
-                            final_commands = ThemeManager.enableOverlay + " " +
-                                    enable_me.get(h);
-                        } else {
-                            final_commands = final_commands + " " + enable_me.get(h);
-                        }
-                    }
-                }
-
-                final String final_runner = final_commands;
-                new android.app.AlertDialog.Builder(StudioPreviewActivity.this)
-                        .setTitle(R.string.studio_refresh_dialog_title)
-                        .setMessage(R.string.studio_refresh_dialog_content)
-                        .setCancelable(false)
-                        .setPositiveButton(R.string.dialog_ok, (dialog2, i2) -> {
-                            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
-                                    getApplicationContext());
-                            prefs.edit().putString("installed_icon_pack", current_pack).apply();
-
-                            if (References.isPackageInstalled(getApplicationContext(),
-                                    References.INTERFACER_PACKAGE)) {
-                                ElevatedCommands.restartInterfacer();
-                                if (DEBUG)
-                                    Log.e(References.SUBSTRATUM_ICON_BUILDER,
-                                            "Initializing the Theme Interface...");
-                                Intent runCommand = ThemeInterfacerService.getInterfacer
-                                        (getApplicationContext());
-                                runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                                runCommand.setAction("projekt.themeinterface.COMMANDS");
-                                ArrayList<String> final_array = new ArrayList<>();
-                                final_array.add(0, References.grabPackageName(
-                                        getApplicationContext(), current_pack));
-                                final_array.add(1, final_runner);
-                                final_array.add(2, (final_runner.contains("projekt.substratum") ?
-                                        String.valueOf(MAIN_WINDOW_REFRESH_DELAY) :
-                                        String.valueOf(0)));
-                                final_array.add(3, String.valueOf(FIRST_WINDOW_REFRESH_DELAY));
-                                final_array.add(4, String.valueOf(SECOND_WINDOW_REFRESH_DELAY));
-                                final_array.add(5, null);
-                                runCommand.putExtra("icon-handler", final_array);
-                                getApplicationContext().sendBroadcast(runCommand);
-                            } else {
-                                Log.e(References.SUBSTRATUM_ICON_BUILDER,
-                                        "Cannot apply icon pack on a non OMS7 ROM");
-                            }
-                        })
-                        .show();
-            }
 
             // Disable the window
             mProgressDialog.dismiss();
+
+            if (final_runner.size() > 0 || disable_me.size() > 0 || enable_me.size() > 0) {
+                if (disable_me.size() > 0) {
+                    ThemeManager.disableOverlay(getApplicationContext(), disable_me);
+                }
+                if (enable_me.size() > 0) {
+                    ThemeManager.enableOverlay(getApplicationContext(), enable_me);
+                }
+                if (final_runner.size() > 0) {
+                    ThemeManager.installOverlay(getApplicationContext(), final_runner);
+                    ThemeManager.enableOverlay(getApplicationContext(), package_runner);
+                }
+
+                if (References.isPackageInstalled(
+                        getApplicationContext(),
+                        References.INTERFACER_PACKAGE) &&
+                        References.isBinderInterfacer(getApplicationContext())) {
+                    ThemeInterfacerService.configurationChangeShim(
+                            getApplicationContext());
+                } else {
+                    Log.e(References.SUBSTRATUM_ICON_BUILDER,
+                            "Cannot apply icon pack on a non OMS7 ROM");
+                }
+            }
         }
 
         @Override
@@ -524,24 +468,25 @@ public class StudioPreviewActivity extends AppCompatActivity {
 
             List<String> state5 = ThemeManager.listOverlays(STATE_APPROVED_ENABLED);
             ArrayList<String> activated_overlays = new ArrayList<>(state5);
-            ArrayList<String> icons_list = new ArrayList<>();
-            // Buffer the list of icons that are going to be loaded
-            for (int obj = 0; obj < icons.size(); obj++) {
-                icons_list.add(icons.get(obj).getPackageName() + ".icon");
-            }
 
             enable_me = new ArrayList<>();
-            for (int j = 0; j < activated_overlays.size(); j++) {
-                if (activated_overlays.get(j).contains(".icon")) {
-                    if (!icons_list.contains(activated_overlays.get(j))) {
+
+            ArrayList<String> immediateDisable = new ArrayList<>();
+            for (int i = 0; i < activated_overlays.size(); i++) {
+                if (activated_overlays.get(i).contains(".icon")) {
+                    if (activated_overlays.get(i).startsWith("android.") ||
+                            activated_overlays.get(i).startsWith("projekt.substratum.")) {
+                        disable_me.add(activated_overlays.get(i));
+                    } else {
                         // These guys are from the old icon pack, we'll have to disable them!
                         Log.e(References.SUBSTRATUM_ICON_BUILDER, "Sent the icon for disabling : " +
-                                activated_overlays.get(j));
-                        disable_me.add(
-                                ThemeManager.disableOverlay + " " + activated_overlays.get(j));
+                                activated_overlays.get(i));
+                        immediateDisable.add(activated_overlays.get(i));
                     }
                 }
             }
+            if (immediateDisable.size() > 0)
+                ThemeManager.disableOverlay(getApplicationContext(), immediateDisable);
 
             for (int i = 0; i < icons.size(); i++) {
                 current_amount = i + 1;
@@ -842,9 +787,12 @@ public class StudioPreviewActivity extends AppCompatActivity {
                     // ValidatorFilter out the icons that already have the current applied pack
                     // applied
                     if (References.isPackageInstalled(
-                            getApplicationContext(), iconPackage + ".icon") &&
+                            getApplicationContext(),
+                            iconPackage + ".icon") &&
                             References.grabIconPack(
-                                    getApplicationContext(), iconPackage + ".icon", current_pack)) {
+                                    getApplicationContext(),
+                                    iconPackage + ".icon",
+                                    current_pack)) {
                         Log.d(References.SUBSTRATUM_ICON_BUILDER, "'" + iconPackage +
                                 "' already contains the " +
                                 grabPackageName(getApplicationContext(), current_pack) +
@@ -883,6 +831,9 @@ public class StudioPreviewActivity extends AppCompatActivity {
 
                             if (sib.no_install.length() > 0) {
                                 final_runner.add(sib.no_install);
+                            }
+                            if (sib.to_install.length() > 0) {
+                                package_runner.add(sib.to_install);
                             }
                         } catch (Exception e) {
                             Log.e(References.SUBSTRATUM_ICON_BUILDER,
@@ -990,7 +941,8 @@ public class StudioPreviewActivity extends AppCompatActivity {
                             if (hmap.get(component[0]) != null &&
                                     hmap.get(component[0]).equals(component[1]) &&
                                     !iconPacksExposed.contains(component[0])) {
-                                if (References.isPackageInstalled(getApplicationContext(),
+                                if (References.isPackageInstalled(
+                                        getApplicationContext(),
                                         component[0])) {
                                     if (!References.checkIconPackNotAllowed(component[0])) {
                                         if (drawable != null && !drawable.equals("null"))

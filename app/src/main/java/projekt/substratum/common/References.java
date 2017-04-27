@@ -1168,6 +1168,35 @@ public class References {
         return false;
     }
 
+    public static boolean isAuthorizedDebugger(Context context) {
+        Signature[] self = getSelfSignature(context);
+        int[] authorized = Resources.ANDROID_STUDIO_DEBUG_KEYS;
+        for (int anAuthorized : authorized) {
+            if (anAuthorized == self[0].hashCode()) {
+                Log.d(SUBSTRATUM_LOG,
+                        "Setting up environment for an authorized developer.");
+                return true;
+            } else {
+                Log.d(SUBSTRATUM_LOG,
+                        "Setting up environment for a production build user.");
+            }
+        }
+        return false;
+    }
+
+    @SuppressLint("PackageManagerGetSignatures")
+    private static Signature[] getSelfSignature(Context context) {
+        Signature[] sigs = new Signature[0];
+        try {
+            sigs = context.getPackageManager().getPackageInfo(
+                    context.getPackageName(),
+                    PackageManager.GET_SIGNATURES).signatures;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return sigs;
+    }
+
     private static int hashPassthrough(Context context) {
         if (hashValue != 0) {
             return hashValue;

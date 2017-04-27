@@ -63,4 +63,10 @@ public class Resources {
     public static final String[] BLACKLIST_STUDIO_TARGET_APPS = {
             "com.keramidas.TitaniumBackup"
     };
+
+    // Debug Keys
+    public static final int[] ANDROID_STUDIO_DEBUG_KEYS = {
+            -391541258, // nicholaschum
+    };
+
 }

@@ -428,12 +428,13 @@ public class MainActivity extends SubstratumActivity implements
                         .withIcon(R.drawable.nav_overlay_manager)
                         .withIdentifier(7));
         if (References.checkThemeInterfacer(getApplicationContext()) &&
-                BuildConfig.VERSION_NAME.contains("-")) drawerBuilder.addDrawerItems(
-                new PrimaryDrawerItem()
-                        .withName(R.string.nav_studio)
-                        .withIcon(R.drawable.nav_drawer_studio)
-                        .withSelectable(false)
-                        .withIdentifier(8));
+                References.isAuthorizedDebugger(getApplicationContext()))
+            drawerBuilder.addDrawerItems(
+                    new PrimaryDrawerItem()
+                            .withName(R.string.nav_studio)
+                            .withIcon(R.drawable.nav_drawer_studio)
+                            .withSelectable(false)
+                            .withIdentifier(8));
         if (References.checkOMS(getApplicationContext())) drawerBuilder.addDrawerItems(
                 new PrimaryDrawerItem()
                         .withName(R.string.nav_priorities)

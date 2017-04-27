@@ -26,7 +26,10 @@ public class Resources {
             "flounder", // Nexus 9
             "dragon", // Pixel C
             "marlin", // Pixel
-            "sailfish" // Pixel XL
+            "sailfish", // Pixel XL
+            "walleye", // Pixel 2
+            "muskie", // Pixel XL 2
+            "taimen", // Pixel ?
     };
 
     // Filter to adjust SystemUI elements

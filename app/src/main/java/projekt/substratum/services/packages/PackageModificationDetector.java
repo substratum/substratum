@@ -62,7 +62,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
             Uri packageName = intent.getData();
             package_name = packageName.toString().substring(8);
 
-            References.sendRefreshManagerMessage(context);
+            if (!package_name.endsWith(".icon")) References.sendRefreshManagerMessage(context);
 
             // First, check if the app installed is actually a substratum theme
             try {

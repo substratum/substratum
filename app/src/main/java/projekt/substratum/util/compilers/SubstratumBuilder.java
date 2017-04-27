@@ -92,7 +92,8 @@ public class SubstratumBuilder {
                     legacySwitch,
                     null,
                     context,
-                    no_cache_dir);
+                    no_cache_dir,
+                    false);
         } else {
             if (variant != null) {
                 commands = CompilerCommands.createAOPTShellCommands(
@@ -103,7 +104,8 @@ public class SubstratumBuilder {
                         legacySwitch,
                         additional_variant,
                         context,
-                        no_cache_dir);
+                        no_cache_dir,
+                        false);
             } else {
                 commands = CompilerCommands.createAOPTShellCommands(
                         work_area,
@@ -113,7 +115,8 @@ public class SubstratumBuilder {
                         legacySwitch,
                         null,
                         context,
-                        no_cache_dir);
+                        no_cache_dir,
+                        false);
             }
         }
         return commands;

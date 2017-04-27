@@ -19,8 +19,9 @@
 package projekt.substratum.common;
 
 public class Resources {
+    
     // Predetermined list of new Nexus/Pixel Devices
-    public static final String[] NEXUS_FILTER = new String[]{
+    static final String[] NEXUS_FILTER = new String[]{
             "angler", // Nexus 6P
             "bullhead", // Nexus 5X
             "flounder", // Nexus 9
@@ -33,7 +34,7 @@ public class Resources {
     };
 
     // Filter to adjust SystemUI elements
-    public static final String[] ALLOWED_SYSTEMUI_ELEMENTS = {
+    static final String[] ALLOWED_SYSTEMUI_ELEMENTS = {
             "com.android.systemui.headers",
             "com.android.systemui.navbars",
             "com.android.systemui.statusbars",
@@ -41,31 +42,31 @@ public class Resources {
     };
 
     // Filter to adjust Settings elements
-    public static final String[] ALLOWED_SETTINGS_ELEMENTS = {
+    static final String[] ALLOWED_SETTINGS_ELEMENTS = {
             "com.android.settings.icons",
     };
 
     // Filter to adjust UI sounds
-    public static final String[] ALLOWED_UI_THEMABLE_SOUNDS = {
+    static final String[] ALLOWED_UI_THEMABLE_SOUNDS = {
             "lock_sound",
             "unlock_sound",
             "low_battery_sound"
     };
 
     // Legacy Asset Folder Check
-    public static final String[] ALLOWED_LEGACY_ASSETS = {
+    static final String[] ALLOWED_LEGACY_ASSETS = {
             "overlays",
             "overlays_legacy",
             "sounds"
     };
 
     // Do not theme these packages on icon pack studio
-    public static final String[] BLACKLIST_STUDIO_TARGET_APPS = {
+    static final String[] BLACKLIST_STUDIO_TARGET_APPS = {
             "com.keramidas.TitaniumBackup"
     };
 
     // Debug Keys
-    public static final int[] ANDROID_STUDIO_DEBUG_KEYS = {
+    static final int[] ANDROID_STUDIO_DEBUG_KEYS = {
             -391541258, // nicholaschum
     };
 

@@ -286,14 +286,16 @@ public class SubstratumIconBuilder {
         if (!has_errored_out) {
             Process nativeApp = null;
             try {
-                String commands = "aopt p " +
-                        "-M " + work_area + "/AndroidManifest.xml " +
-                        "-S " + work_area + "/res/ " +
-                        "-I " + "/system/framework/framework-res.apk " +
-                        "-F " + work_area + "/" + overlay_package + ".icon-unsigned.apk " +
-                        "-f --include-meta-data --auto-add-overlay" +
-                        ((References.ENABLE_AOPT_OUTPUT) ? " -v" : "") +
-                        "\n";
+                String commands = CompilerCommands.createAOPTShellCommands(
+                        work_area,
+                        null,
+                        overlay_package,
+                        null,
+                        false,
+                        null,
+                        context,
+                        null,
+                        true);
 
                 String line;
                 nativeApp = Runtime.getRuntime().exec(commands);

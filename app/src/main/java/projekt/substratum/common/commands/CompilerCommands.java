@@ -144,7 +144,7 @@ public class CompilerCommands {
     public static String createAOPTShellCommands(String work_area, String targetPkg,
                                                  String overlay_package, String theme_name,
                                                  boolean legacySwitch, String additional_variant,
-                                                 Context context, String noCacheDir) {
+                                                 Context context, String noCacheDir, boolean icon) {
         StringBuilder sb = new StringBuilder();
         // Initialize the AOPT command
         sb.append(context.getFilesDir().getAbsolutePath() + "/aopt p ");
@@ -154,14 +154,25 @@ public class CompilerCommands {
         sb.append(((additional_variant != null) ?
                 "-S " + work_area + "/" + "type2_" + additional_variant + "/ " : ""));
         // We will compile a volatile directory where we make temporary changes to
-        sb.append("-S " + work_area + (References.isCachingEnabled(context) ?
-                "/workdir/ " : noCacheDir + "/ "));
+        if (icon) {
+            sb.append("-S " + work_area + "/res/ ");
+        } else {
+            sb.append("-S " + work_area + (References.isCachingEnabled(context) ?
+                    "/workdir/ " : noCacheDir + "/ "));
+        }
         // Build upon the system's Android framework
         sb.append("-I " + "/system/framework/framework-res.apk ");
         // If running on the AppCompat commits (first run), it will build upon the app too
-        sb.append((legacySwitch) ? "" : "-I " + targetPkg + " ");
+        if (!icon) {
+            sb.append((legacySwitch) ? "" : "-I " + targetPkg + " ");
+        }
         // Specify the file output directory
-        sb.append("-F " + work_area + "/" + overlay_package + "." + theme_name + "-unsigned.apk ");
+        if (icon) {
+            sb.append("-F " + work_area + "/" + overlay_package + ".icon-unsigned.apk ");
+        } else {
+            sb.append("-F " + work_area + "/" + overlay_package + "." +
+                    theme_name + "-unsigned.apk ");
+        }
         // Final arguments to conclude the AOPT build
         if (ENABLE_AOPT_OUTPUT) {
             sb.append("-v ");

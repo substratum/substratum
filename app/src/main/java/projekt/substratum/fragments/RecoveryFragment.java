@@ -78,6 +78,7 @@ public class RecoveryFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         if (sheetDialog != null) sheetDialog.dismiss();
+        if (mProgressDialog != null) mProgressDialog.dismiss();
     }
 
     @Override

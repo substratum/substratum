@@ -910,11 +910,16 @@ public class StudioPreviewActivity extends AppCompatActivity {
                 iconPacksExposed.add(iconPacks.get(ip).activityInfo.packageName);
             }
 
+            List<String> enabledOverlays = ThemeManager.listOverlays(STATE_APPROVED_ENABLED);
+            List<String> disabledOverlays = ThemeManager.listOverlays(STATE_APPROVED_ENABLED);
+            ArrayList<String> all_overlays = new ArrayList<>(enabledOverlays);
+            all_overlays.addAll(disabledOverlays);
+
             // Quickly buffer all the packages in the key set to know which packages are installed
             if (hashMap != null) {
                 for (Object object : hashMap.keySet()) {
                     String f = (String) object;
-                    if (f.length() > 13) {
+                    if (!all_overlays.contains(f) && f.length() > 13) {
                         // Check if the drawable is valid and themed by the icon pack designer
                         String drawable = hashMap.get(f).toString();
                         Boolean validated = References.validateResource(
@@ -924,6 +929,7 @@ public class StudioPreviewActivity extends AppCompatActivity {
                         }
 
                         String parse = f.substring(13).replaceAll("[{}]", ""); // Remove brackets
+
 
                         String[] component = parse.split("/"); // Remove the dash
                         if (component.length == 2) {
@@ -970,8 +976,7 @@ public class StudioPreviewActivity extends AppCompatActivity {
                                         appList.get(i).activityInfo.packageName)) {
                                     String packageName = appList.get(i).activityInfo.packageName;
                                     Log.d(References.SUBSTRATUM_ICON_BUILDER,
-                                            "Attaching unthemed icon : " +
-                                                    packageName);
+                                            "Attaching unthemed icon : " + packageName);
                                     unsortedMap.put(packageName + "|null",
                                             References.grabPackageName(
                                                     getApplicationContext(), packageName));
@@ -996,7 +1001,9 @@ public class StudioPreviewActivity extends AppCompatActivity {
                             attrs[0],
                             attrs[1],
                             current_pack,
-                            References.grabPackageName(getApplicationContext(), attrs[0]));
+                            References.grabPackageName(
+                                    getApplicationContext(),
+                                    attrs[0]));
                     icons.add(iconInfo);
                     packages.add(attrs[0]);
                 }

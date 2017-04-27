@@ -49,15 +49,18 @@ public class Resources {
     public static final String[] ALLOWED_UI_THEMABLE_SOUNDS = {
             "lock_sound",
             "unlock_sound",
-            "low_battery_sound"};
+            "low_battery_sound"
+    };
 
     // Legacy Asset Folder Check
     public static final String[] ALLOWED_LEGACY_ASSETS = {
             "overlays",
             "overlays_legacy",
-            "sounds"};
+            "sounds"
+    };
 
     // Do not theme these packages on icon pack studio
     public static final String[] BLACKLIST_STUDIO_TARGET_APPS = {
-            "com.keramidas.TitaniumBackup"};
+            "com.keramidas.TitaniumBackup"
+    };
 }

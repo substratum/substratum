@@ -768,7 +768,8 @@ public class References {
         try {
             ApplicationInfo ai =
                     mContext.getPackageManager().getApplicationInfo(packageName, 0);
-            Process process = Runtime.getRuntime().exec("aopt d badging " + ai.sourceDir);
+            Process process = Runtime.getRuntime().exec(mContext.getFilesDir().getAbsolutePath() +
+                    "/aopt d badging " + ai.sourceDir);
 
             DataOutputStream outputStream = new DataOutputStream(process.getOutputStream());
             BufferedReader reader = new BufferedReader(new InputStreamReader(

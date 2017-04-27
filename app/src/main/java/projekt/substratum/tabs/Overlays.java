@@ -695,13 +695,17 @@ public class Overlays extends Fragment {
             if (compile_enable_mode && mixAndMatchMode) {
                 // Buffer the disableBeforeEnabling String
                 ArrayList<String> disableBeforeEnabling = new ArrayList<>();
-                for (int i = 0; i < all_installed_overlays.size(); i++) {
-                    if (!java.util.Objects.equals(
-                            References.grabOverlayParent(
-                                    getContext(),
-                                    all_installed_overlays.get(i)),
-                            theme_pid)) {
-                        disableBeforeEnabling.add(all_installed_overlays.get(i));
+                for (String p : all_installed_overlays) {
+                    if (!theme_pid.equals(References.grabOverlayParent(getContext(), p))) {
+                        disableBeforeEnabling.add(p);
+                    } else {
+                        for (OverlaysItem oi : checkedOverlays) {
+                            String targetOverlay = oi.getPackageName();
+                            if (targetOverlay.equals(
+                                    References.grabOverlayTarget(getContext(), p))) {
+                                disableBeforeEnabling.add(p);
+                            }
+                        }
                     }
                 }
                 if (checkThemeInterfacer(context)) {

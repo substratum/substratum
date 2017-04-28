@@ -62,7 +62,13 @@ public class Resources {
 
     // Do not theme these packages on icon pack studio
     static final String[] BLACKLIST_STUDIO_TARGET_APPS = {
-            "com.keramidas.TitaniumBackup"
+            "com.keramidas.TitaniumBackup",
+            "com.android.cts.verifier"
+    };
+
+    // Do not theme these packages
+    static final String[] BLACKLIST_THEME_TARGET_APPS = {
+            "com.android.cts.verifier"
     };
 
     // Debug Keys

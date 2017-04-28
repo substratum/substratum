@@ -1144,24 +1144,22 @@ public class Overlays extends Fragment {
                                 break;
                         }
                         unsortedMap.put(values.get(i), package_name);
-                    } else {
-                        if (References.allowedSettingsOverlay(values.get(i))) {
-                            String package_name = "";
-                            switch (values.get(i)) {
-                                case "com.android.settings.icons":
-                                    package_name = getString(R.string.settings_icons);
-                                    break;
-                            }
-                            unsortedMap.put(values.get(i), package_name);
-                        } else {
-                            ApplicationInfo applicationInfo = getContext().getPackageManager()
-                                    .getApplicationInfo
-                                            (values.get(i), 0);
-                            String packageTitle = getContext().getPackageManager()
-                                    .getApplicationLabel
-                                            (applicationInfo).toString();
-                            unsortedMap.put(values.get(i), packageTitle);
+                    } else if (References.allowedSettingsOverlay(values.get(i))) {
+                        String package_name = "";
+                        switch (values.get(i)) {
+                            case "com.android.settings.icons":
+                                package_name = getString(R.string.settings_icons);
+                                break;
                         }
+                        unsortedMap.put(values.get(i), package_name);
+                    } else if (References.allowedAppOverlay(values.get(i))) {
+                        ApplicationInfo applicationInfo = getContext().getPackageManager()
+                                .getApplicationInfo
+                                        (values.get(i), 0);
+                        String packageTitle = getContext().getPackageManager()
+                                .getApplicationLabel
+                                        (applicationInfo).toString();
+                        unsortedMap.put(values.get(i), packageTitle);
                     }
                 } catch (Exception e) {
                     // Exception

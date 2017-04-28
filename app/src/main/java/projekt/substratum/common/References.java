@@ -632,6 +632,11 @@ public class References {
         return Arrays.asList(Resources.ALLOWED_LEGACY_ASSETS).contains(targetValue);
     }
 
+    // This string array contains all blacklisted app for theme
+    public static Boolean allowedAppOverlay(String targetValue) {
+        return !Arrays.asList(Resources.BLACKLIST_THEME_TARGET_APPS).contains(targetValue);
+    }
+
     // This string array contains all the legacy allowed folders
     public static Boolean checkIconPackNotAllowed(String targetValue) {
         return Arrays.asList(Resources.BLACKLIST_STUDIO_TARGET_APPS).contains(targetValue);

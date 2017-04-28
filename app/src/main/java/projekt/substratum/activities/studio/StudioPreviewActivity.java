@@ -105,6 +105,7 @@ public class StudioPreviewActivity extends AppCompatActivity {
     private String iconMaskValue = "";
     private Boolean iconScale = false;
     private float iconScaleValue = 1;
+    private AsyncTask loader;
 
     public static Bitmap combineLayers(Bitmap bottom, Bitmap front) {
         Bitmap bmOverlay = Bitmap.createBitmap(
@@ -118,6 +119,12 @@ public class StudioPreviewActivity extends AppCompatActivity {
                 (canvas.getWidth() / 2) - (front.getWidth() / 2),
                 null);
         return bmOverlay;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (loader != null) loader.cancel(true);
     }
 
     private XmlPullParser getAppFilter(String packageName) {
@@ -375,7 +382,7 @@ public class StudioPreviewActivity extends AppCompatActivity {
         References.getIconState(getApplicationContext(), current_pack);
         mProgressDialog = new ProgressDialog(this, R.style.SubstratumBuilder_BlurView);
 
-        new loadIconPack().execute("");
+        loader = new loadIconPack().execute("");
     }
 
     private class IconPackInstaller extends AsyncTask<String, Integer, String> {
@@ -814,7 +821,8 @@ public class StudioPreviewActivity extends AppCompatActivity {
                                     getApplicationContext(),
                                     current_pack,
                                     iconPackage,
-                                    References.grabThemeVersion(getApplicationContext(),
+                                    References.grabThemeVersion(
+                                            getApplicationContext(),
                                             current_pack),
                                     true,
                                     hashMap,
@@ -848,6 +856,7 @@ public class StudioPreviewActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressWarnings("unchecked")
     private class loadIconPack extends AsyncTask<String, Integer, String> {
         @Override
         protected void onPreExecute() {
@@ -857,24 +866,27 @@ public class StudioPreviewActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result) {
-            RecyclerView recyclerView = (RecyclerView) findViewById(R.id.icon_pack_recycler);
-            GridLayoutManager linearLayout = new GridLayoutManager(getApplicationContext(), 4);
+            if (!isCancelled()) {
+                RecyclerView recyclerView = (RecyclerView) findViewById(R.id.icon_pack_recycler);
+                GridLayoutManager linearLayout = new GridLayoutManager(getApplicationContext(), 4);
 
-            recyclerView.setHasFixedSize(true);
-            recyclerView.setLayoutManager(linearLayout);
+                recyclerView.setHasFixedSize(true);
+                recyclerView.setLayoutManager(linearLayout);
 
-            IconPackAdapter iconPackAdapter = new IconPackAdapter(getApplicationContext(), icons);
-            recyclerView.setAdapter(iconPackAdapter);
+                IconPackAdapter iconPackAdapter =
+                        new IconPackAdapter(getApplicationContext(), icons);
 
-            floatingActionButton.show();
-            progressCircle.setVisibility(View.GONE);
+                recyclerView.setAdapter(iconPackAdapter);
+
+                floatingActionButton.show();
+                progressCircle.setVisibility(View.GONE);
+            }
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         protected String doInBackground(String... sUrl) {
             // Buffer the hash map of all the values in the XML
-            HashMap hashMap = null;
+            HashMap<String, String> hashMap = null;
             try {
                 hashMap = parseXML(getAppFilter(current_pack));
             } catch (Exception e) {
@@ -917,10 +929,13 @@ public class StudioPreviewActivity extends AppCompatActivity {
 
             // Quickly buffer all the packages in the key set to know which packages are installed
             if (hashMap != null) {
-                for (Object object : hashMap.keySet()) {
-                    String f = (String) object;
-                    if (!all_overlays.contains(f) && f.length() > 13) {
-                        String parse = f.substring(13).replaceAll("[{}]", ""); // Remove brackets
+                for (String object : hashMap.keySet()) {
+                    if (isCancelled()) {
+                        return null;
+                    }
+                    if (!all_overlays.contains(object) && object.length() > 13) {
+                        String parse = object.substring(13).replaceAll("[{}]", ""); // Remove
+                        // brackets
                         String[] component = parse.split("/"); // Remove the dash
                         if (component.length == 2) {
                             /*
@@ -940,7 +955,7 @@ public class StudioPreviewActivity extends AppCompatActivity {
                             if (References.isIntentValid(getApplicationContext(), intentCheck)) {
                                 // Check if the drawable is valid and themed by the icon pack
                                 // designer
-                                String drawable = hashMap.get(f).toString();
+                                String drawable = hashMap.get(object);
                                 Boolean validated = References.validateResource(
                                         getApplicationContext(),
                                         current_pack,

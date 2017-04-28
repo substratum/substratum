@@ -59,6 +59,7 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -372,7 +373,7 @@ public class StudioPreviewActivity extends AppCompatActivity {
                     References.grabPackageName(getApplicationContext(), current_pack));
             builder.setMessage(formatter);
             builder.setPositiveButton(R.string.dialog_ok,
-                    (dialog, id) -> new IconPackInstaller().execute(""));
+                    (dialog, id) -> new IconPackInstaller(this).execute());
             builder.setNegativeButton(R.string.restore_dialog_cancel, (dialog, id) -> dialog
                     .dismiss());
             builder.create();
@@ -382,56 +383,68 @@ public class StudioPreviewActivity extends AppCompatActivity {
         References.getIconState(getApplicationContext(), current_pack);
         mProgressDialog = new ProgressDialog(this, R.style.SubstratumBuilder_BlurView);
 
-        loader = new loadIconPack().execute("");
+        loader = new LoadIconPack(this).execute();
     }
 
-    private class IconPackInstaller extends AsyncTask<String, Integer, String> {
+    private static class IconPackInstaller extends AsyncTask<Void, Integer, Void> {
+        private WeakReference<StudioPreviewActivity> ref;
+
+        IconPackInstaller (StudioPreviewActivity activity) {
+            ref = new WeakReference<>(activity);
+        }
 
         @Override
         protected void onPreExecute() {
-            mProgressDialog.setCancelable(false);
-            mProgressDialog.show();
-            mProgressDialog.setContentView(R.layout.compile_icon_dialog_loader);
-            if (mProgressDialog.getWindow() != null)
-                mProgressDialog.getWindow().addFlags(
+            StudioPreviewActivity activity = ref.get();
+
+            activity.mProgressDialog.setCancelable(false);
+            activity.mProgressDialog.show();
+            activity.mProgressDialog.setContentView(R.layout.compile_icon_dialog_loader);
+            if (activity.mProgressDialog.getWindow() != null)
+                activity.mProgressDialog.getWindow().addFlags(
                         WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
             final float radius = 5;
-            final View decorView = getWindow().getDecorView();
+            final View decorView = activity.getWindow().getDecorView();
             final ViewGroup rootView = (ViewGroup) decorView.findViewById(android.R.id.content);
             final Drawable windowBackground = decorView.getBackground();
 
-            BlurView blurView = (BlurView) mProgressDialog.findViewById(R.id.blurView);
+            BlurView blurView = (BlurView) activity.mProgressDialog.findViewById(R.id.blurView);
 
             blurView.setupWith(rootView)
                     .windowBackground(windowBackground)
-                    .blurAlgorithm(new RenderScriptBlur(getApplicationContext()))
+                    .blurAlgorithm(new RenderScriptBlur(activity.getApplicationContext()))
                     .blurRadius(radius);
 
-            progressBar = (ProgressBar) mProgressDialog.findViewById(R.id.loading_bar);
-            progressBar.setProgressTintList(ColorStateList.valueOf(getColor(
+            activity.progressBar =
+                    (ProgressBar) activity.mProgressDialog.findViewById(R.id.loading_bar);
+            activity.progressBar.setProgressTintList(ColorStateList.valueOf(activity.getColor(
                     R.color.compile_dialog_wave_color)));
-            progressBar.setIndeterminate(false);
+            activity.progressBar.setIndeterminate(false);
 
-            final_runner = new ArrayList<>();
-            package_runner = new ArrayList<>();
+            activity.final_runner = new ArrayList<>();
+            activity.package_runner = new ArrayList<>();
         }
 
         @Override
         protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
-            TextView textView = (TextView) mProgressDialog.findViewById(R.id.current_object);
-            textView.setText(current_icon);
-            double progress = (current_amount / total_amount) * 100;
+            StudioPreviewActivity activity = ref.get();
+            TextView textView =
+                    (TextView) activity.mProgressDialog.findViewById(R.id.current_object);
+            textView.setText(activity.current_icon);
+            double progress = (activity.current_amount / activity.total_amount) * 100;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                progressBar.setProgress((int) progress, true);
+                activity.progressBar.setProgress((int) progress, true);
             } else {
-                progressBar.setProgress((int) progress);
+                activity.progressBar.setProgress((int) progress);
             }
         }
 
         @Override
-        protected void onPostExecute(String result) {
+        protected void onPostExecute(Void result) {
+            StudioPreviewActivity activity = ref.get();
+            Context context = activity.getApplicationContext();
             // Disable all the icons, then enable all the new icons
 
             // We have to switch Locales by reflecting to the framework methods
@@ -442,26 +455,27 @@ public class StudioPreviewActivity extends AppCompatActivity {
             // This would cause a window refresh on either Framework or Substratum
 
             // Disable the window
-            mProgressDialog.dismiss();
+            activity.mProgressDialog.dismiss();
 
-            if (final_runner.size() > 0 || disable_me.size() > 0 || enable_me.size() > 0) {
-                if (disable_me.size() > 0) {
-                    ThemeManager.disableOverlay(getApplicationContext(), disable_me);
+            if (activity.final_runner.size() > 0 || activity.disable_me.size() > 0 ||
+                    activity.enable_me.size() > 0) {
+                if (activity.disable_me.size() > 0) {
+                    ThemeManager.disableOverlay(context, activity.disable_me);
                 }
-                if (enable_me.size() > 0) {
-                    ThemeManager.enableOverlay(getApplicationContext(), enable_me);
+                if (activity.enable_me.size() > 0) {
+                    ThemeManager.enableOverlay(context, activity.enable_me);
                 }
-                if (final_runner.size() > 0) {
-                    ThemeManager.installOverlay(getApplicationContext(), final_runner);
-                    ThemeManager.enableOverlay(getApplicationContext(), package_runner);
+                if (activity.final_runner.size() > 0) {
+                    ThemeManager.installOverlay(context, activity.final_runner);
+                    ThemeManager.enableOverlay(context, activity.package_runner);
                 }
 
                 if (References.isPackageInstalled(
-                        getApplicationContext(),
+                        context,
                         References.INTERFACER_PACKAGE) &&
-                        References.isBinderInterfacer(getApplicationContext())) {
+                        References.isBinderInterfacer(context)) {
                     ThemeInterfacerService.configurationChangeShim(
-                            getApplicationContext());
+                            context);
                 } else {
                     Log.e(References.SUBSTRATUM_ICON_BUILDER,
                             "Cannot apply icon pack on a non OMS7 ROM");
@@ -470,21 +484,23 @@ public class StudioPreviewActivity extends AppCompatActivity {
         }
 
         @Override
-        protected String doInBackground(String... Params) {
-            total_amount = icons.size();
-            disable_me = new ArrayList<>();
+        protected Void doInBackground(Void... Params) {
+            StudioPreviewActivity activity = ref.get();
+            Context context = activity.getApplicationContext();
+            activity.total_amount = activity.icons.size();
+            activity.disable_me = new ArrayList<>();
 
             List<String> state5 = ThemeManager.listOverlays(STATE_APPROVED_ENABLED);
             ArrayList<String> activated_overlays = new ArrayList<>(state5);
 
-            enable_me = new ArrayList<>();
+            activity.enable_me = new ArrayList<>();
 
             ArrayList<String> immediateDisable = new ArrayList<>();
             for (int i = 0; i < activated_overlays.size(); i++) {
                 if (activated_overlays.get(i).contains(".icon")) {
                     if (activated_overlays.get(i).startsWith("android.") ||
                             activated_overlays.get(i).startsWith("projekt.substratum.")) {
-                        disable_me.add(activated_overlays.get(i));
+                        activity.disable_me.add(activated_overlays.get(i));
                     } else {
                         // These guys are from the old icon pack, we'll have to disable them!
                         Log.e(References.SUBSTRATUM_ICON_BUILDER, "Sent the icon for disabling : " +
@@ -494,45 +510,48 @@ public class StudioPreviewActivity extends AppCompatActivity {
                 }
             }
             if (immediateDisable.size() > 0)
-                ThemeManager.disableOverlay(getApplicationContext(), immediateDisable);
+                ThemeManager.disableOverlay(context, immediateDisable);
 
-            for (int i = 0; i < icons.size(); i++) {
-                current_amount = i + 1;
+            for (int i = 0; i < activity.icons.size(); i++) {
+                activity.current_amount = i + 1;
 
                 Bitmap iconification = null;
 
-                if ((iconBack || iconUpon || iconMask) &&
-                        icons.get(i).getPackageDrawable().equals("null")) {
+                if ((activity.iconBack || activity.iconUpon || activity.iconMask) &&
+                        activity.icons.get(i).getPackageDrawable().equals("null")) {
                     try {
                         // We must disable the icon from any further resource withdrawals
                         ElevatedCommands.runCommands(ThemeManager.disableOverlay + " " +
-                                icons.get(i).getPackageName() + ".icon");
+                                activity.icons.get(i).getPackageName() + ".icon");
                         Thread.sleep(1500);
 
-                        Context context = createPackageContext(current_pack, 0);
-                        Resources resources = context.getResources();
+                        Context packContext =
+                                activity.createPackageContext(activity.current_pack, 0);
+                        Resources resources = packContext.getResources();
 
-                        if (iconBack) {
+                        if (activity.iconBack) {
                             // Validation
                             Boolean validated = References.validateResource(
-                                    getApplicationContext(), current_pack,
-                                    iconBackValue, "drawable");
+                                    context, activity.current_pack,
+                                    activity.iconBackValue, "drawable");
                             if (validated) {
                                 int drawableBack = resources.getIdentifier(
-                                        iconBackValue, // Drawable name explicitly defined
+                                        activity.iconBackValue, // Drawable name explicitly defined
                                         "drawable", // Declared icon is a drawable, indeed.
-                                        current_pack);
+                                        activity.current_pack);
 
                                 Bitmap bBack = BitmapFactory.decodeResource(resources,
                                         drawableBack);
 
-                                Drawable appIcon = References.grabAppIcon(getApplicationContext(),
-                                        icons.get(i).getPackageName());
+                                Drawable appIcon = References.grabAppIcon(context,
+                                        activity.icons.get(i).getPackageName());
                                 Bitmap applicationIcon = ((BitmapDrawable) appIcon).getBitmap();
-                                if (iconScale) {
+                                if (activity.iconScale) {
                                     // Take account for the icon pack designer's scale value
-                                    float height = applicationIcon.getHeight() * iconScaleValue;
-                                    float width = applicationIcon.getWidth() * iconScaleValue;
+                                    float height = applicationIcon.getHeight() *
+                                            activity.iconScaleValue;
+                                    float width = applicationIcon.getWidth() *
+                                            activity.iconScaleValue;
                                     applicationIcon =
                                             Bitmap.createScaledBitmap(
                                                     applicationIcon,
@@ -542,19 +561,19 @@ public class StudioPreviewActivity extends AppCompatActivity {
                                 }
                                 iconification = combineLayers(bBack, applicationIcon);
                             } else {
-                                iconBack = false;
+                                activity.iconBack = false;
                             }
                         }
-                        if (iconMask) {
+                        if (activity.iconMask) {
                             // Validation
                             Boolean validated = References.validateResource(
-                                    getApplicationContext(), current_pack,
-                                    iconMaskValue, "drawable");
+                                    context, activity.current_pack,
+                                    activity.iconMaskValue, "drawable");
                             if (validated) {
                                 int drawableMask = resources.getIdentifier(
-                                        iconMaskValue, // Drawable name explicitly defined
+                                        activity.iconMaskValue, // Drawable name explicitly defined
                                         "drawable", // Declared icon is a drawable, indeed.
-                                        current_pack);
+                                        activity.current_pack);
                                 Bitmap mask = BitmapFactory.decodeResource(
                                         resources,
                                         drawableMask);
@@ -599,13 +618,15 @@ public class StudioPreviewActivity extends AppCompatActivity {
                                         original = iconification;
                                     } else {
                                         Drawable icon = References.grabAppIcon(
-                                                getApplicationContext(),
-                                                icons.get(i).getPackageName());
+                                                context,
+                                                activity.icons.get(i).getPackageName());
                                         original = ((BitmapDrawable) icon).getBitmap();
-                                        if (iconScale) {
+                                        if (activity.iconScale) {
                                             // Take account for the icon pack designer's scale value
-                                            float height = original.getHeight() * iconScaleValue;
-                                            float width = original.getWidth() * iconScaleValue;
+                                            float height = original.getHeight() *
+                                                    activity.iconScaleValue;
+                                            float width = original.getWidth() *
+                                                    activity.iconScaleValue;
                                             original = Bitmap.createScaledBitmap(
                                                     original,
                                                     (int) height,
@@ -675,11 +696,13 @@ public class StudioPreviewActivity extends AppCompatActivity {
                                     iconification = result;
 
                                     // Check if there's an iconBack that needs to be replaced
-                                    if (iconBack) {
+                                    if (activity.iconBack) {
                                         int drawableBack = resources.getIdentifier(
-                                                iconBackValue, // Drawable name explicitly defined
-                                                "drawable", // Declared icon is a drawable, indeed.
-                                                current_pack);
+                                                // Drawable name explicitly defined
+                                                activity.iconBackValue,
+                                                // Declared icon is a drawable, indeed.
+                                                "drawable",
+                                                activity.current_pack);
 
                                         Bitmap bBack = BitmapFactory.decodeResource(resources,
                                                 drawableBack);
@@ -691,13 +714,13 @@ public class StudioPreviewActivity extends AppCompatActivity {
                                     Bitmap bMask = BitmapFactory.decodeResource(resources,
                                             drawableMask);
 
-                                    Drawable icon = References.grabAppIcon(getApplicationContext(),
-                                            icons.get(i).getPackageName());
+                                    Drawable icon = References.grabAppIcon(context,
+                                            activity.icons.get(i).getPackageName());
                                     Bitmap app = ((BitmapDrawable) icon).getBitmap();
-                                    if (iconScale) {
+                                    if (activity.iconScale) {
                                         // Take account for the icon pack designer's scale value
-                                        float height = app.getHeight() * iconScaleValue;
-                                        float width = app.getWidth() * iconScaleValue;
+                                        float height = app.getHeight() * activity.iconScaleValue;
+                                        float width = app.getWidth() * activity.iconScaleValue;
                                         app = Bitmap.createScaledBitmap(
                                                 app,
                                                 (int) height,
@@ -711,30 +734,32 @@ public class StudioPreviewActivity extends AppCompatActivity {
                                     }
                                 }
                             } else {
-                                iconMask = false;
+                                activity.iconMask = false;
                             }
                         }
-                        if (iconUpon) {
+                        if (activity.iconUpon) {
                             // Validation
                             Boolean validated = References.validateResource(
-                                    getApplicationContext(), current_pack,
-                                    iconUponValue, "drawable");
+                                    context, activity.current_pack,
+                                    activity.iconUponValue, "drawable");
                             if (validated) {
                                 int drawableBack = resources.getIdentifier(
-                                        iconUponValue, // Drawable name explicitly defined
+                                        activity.iconUponValue, // Drawable name explicitly defined
                                         "drawable", // Declared icon is a drawable, indeed.
-                                        current_pack);
+                                        activity.current_pack);
 
                                 Bitmap bFront = BitmapFactory.decodeResource(resources,
                                         drawableBack);
 
-                                Drawable appIcon = References.grabAppIcon(getApplicationContext(),
-                                        icons.get(i).getPackageName());
+                                Drawable appIcon = References.grabAppIcon(context,
+                                        activity.icons.get(i).getPackageName());
                                 Bitmap applicationIcon = ((BitmapDrawable) appIcon).getBitmap();
-                                if (iconScale) {
+                                if (activity.iconScale) {
                                     // Take account for the icon pack designer's scale value
-                                    float height = applicationIcon.getHeight() * iconScaleValue;
-                                    float width = applicationIcon.getWidth() * iconScaleValue;
+                                    float height = applicationIcon.getHeight() *
+                                            activity.iconScaleValue;
+                                    float width = applicationIcon.getWidth() *
+                                            activity.iconScaleValue;
                                     applicationIcon =
                                             Bitmap.createScaledBitmap(
                                                     applicationIcon,
@@ -748,7 +773,7 @@ public class StudioPreviewActivity extends AppCompatActivity {
                                     iconification = combineLayers(iconification, bFront);
                                 }
                             } else {
-                                iconUpon = false;
+                                activity.iconUpon = false;
                             }
                         }
                     } catch (Exception e) {
@@ -758,30 +783,30 @@ public class StudioPreviewActivity extends AppCompatActivity {
                 }
 
                 // Dynamically check whether the icon is disabled
-                enable_me.add(icons.get(i).getPackageName() + ".icon");
+                activity.enable_me.add(activity.icons.get(i).getPackageName() + ".icon");
 
-                String iconName = icons.get(i).getParsedName();
+                String iconName = activity.icons.get(i).getParsedName();
                 String iconNameParsed = iconName + " " +
-                        getString(R.string.icon_pack_entry);
-                String iconPackage = icons.get(i).getPackageName();
-                String iconDrawable = icons.get(i).getPackageDrawable();
+                        activity.getString(R.string.icon_pack_entry);
+                String iconPackage = activity.icons.get(i).getPackageName();
+                String iconDrawable = activity.icons.get(i).getPackageDrawable();
                 String iconDrawableName = References.getPackageIconName(
-                        getApplicationContext(), iconPackage);
+                        context, iconPackage);
 
-                current_icon = "\"" + iconName + "\"";
-                publishProgress((int) current_amount);
+                activity.current_icon = "\"" + iconName + "\"";
+                publishProgress((int) activity.current_amount);
 
                 Log.d(References.SUBSTRATUM_ICON_BUILDER, "Currently building : " +
                         iconPackage);
                 HashMap hashMap = References.getIconState(
-                        getApplicationContext(), iconPackage);
+                        context, iconPackage);
 
                 Boolean update_bool = true;
 
                 // The only two window refreshing icons would be Android System and Substratum as
                 // these are the resources currently loaded on top of the current view
-                if (icons.get(i).getPackageName().equals("android") ||
-                        icons.get(i).getPackageName().equals("projekt.substratum")) {
+                if (activity.icons.get(i).getPackageName().equals("android") ||
+                        activity.icons.get(i).getPackageName().equals("projekt.substratum")) {
                     Log.d(References.SUBSTRATUM_LOG, "The flag to update this " +
                             "overlay has been triggered.");
                     update_bool = false;
@@ -795,35 +820,36 @@ public class StudioPreviewActivity extends AppCompatActivity {
                     // ValidatorFilter out the icons that already have the current applied pack
                     // applied
                     if (References.isPackageInstalled(
-                            getApplicationContext(),
+                            context,
                             iconPackage + ".icon") &&
                             References.grabIconPack(
-                                    getApplicationContext(),
+                                    context,
                                     iconPackage + ".icon",
-                                    current_pack)) {
+                                    activity.current_pack)) {
                         Log.d(References.SUBSTRATUM_ICON_BUILDER, "'" + iconPackage +
                                 "' already contains the " +
-                                grabPackageName(getApplicationContext(), current_pack) +
+                                grabPackageName(context, activity.current_pack) +
                                 " attribute, skip recompile...");
                     } else {
                         try {
                             Log.d(References.SUBSTRATUM_ICON_BUILDER,
                                     "Fusing drawable from icon pack to system : " + iconDrawable);
-                            Context context = createPackageContext(current_pack, 0);
-                            Resources resources = context.getResources();
+                            Context packContext =
+                                    activity.createPackageContext(activity.current_pack, 0);
+                            Resources resources = packContext.getResources();
                             int drawable = resources.getIdentifier(
                                     iconDrawable, // Drawable name explicitly defined
                                     "drawable", // Declared icon is a drawable, indeed.
-                                    current_pack); // Icon pack package name
+                                    activity.current_pack); // Icon pack package name
 
                             SubstratumIconBuilder sib = new SubstratumIconBuilder();
                             sib.beginAction(
-                                    getApplicationContext(),
-                                    current_pack,
+                                    context,
+                                    activity.current_pack,
                                     iconPackage,
                                     References.grabThemeVersion(
-                                            getApplicationContext(),
-                                            current_pack),
+                                            context,
+                                            activity.current_pack),
                                     true,
                                     hashMap,
                                     pair.getKey().toString(),
@@ -839,10 +865,10 @@ public class StudioPreviewActivity extends AppCompatActivity {
                             }
 
                             if (sib.no_install.length() > 0) {
-                                final_runner.add(sib.no_install);
+                                activity.final_runner.add(sib.no_install);
                             }
                             if (sib.to_install.length() > 0) {
-                                package_runner.add(sib.to_install);
+                                activity.package_runner.add(sib.to_install);
                             }
                         } catch (Exception e) {
                             Log.e(References.SUBSTRATUM_ICON_BUILDER,
@@ -857,52 +883,65 @@ public class StudioPreviewActivity extends AppCompatActivity {
     }
 
     @SuppressWarnings("unchecked")
-    private class loadIconPack extends AsyncTask<String, Integer, String> {
-        @Override
-        protected void onPreExecute() {
-            progressCircle.setVisibility(View.VISIBLE);
-            floatingActionButton.hide();
+    private static class LoadIconPack extends AsyncTask<Void, Void, Void> {
+        private WeakReference<StudioPreviewActivity> ref;
+
+        LoadIconPack (StudioPreviewActivity activity) {
+            ref = new WeakReference<>(activity);
         }
 
         @Override
-        protected void onPostExecute(String result) {
+        protected void onPreExecute() {
+            StudioPreviewActivity activity = ref.get();
+            activity.progressCircle.setVisibility(View.VISIBLE);
+            activity.floatingActionButton.hide();
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            StudioPreviewActivity activity = ref.get();
+            Context context = activity.getApplicationContext();
+
             if (!isCancelled()) {
-                RecyclerView recyclerView = (RecyclerView) findViewById(R.id.icon_pack_recycler);
-                GridLayoutManager linearLayout = new GridLayoutManager(getApplicationContext(), 4);
+                RecyclerView recyclerView =
+                        (RecyclerView) activity.findViewById(R.id.icon_pack_recycler);
+                GridLayoutManager linearLayout = new GridLayoutManager(context, 4);
 
                 recyclerView.setHasFixedSize(true);
                 recyclerView.setLayoutManager(linearLayout);
 
                 IconPackAdapter iconPackAdapter =
-                        new IconPackAdapter(getApplicationContext(), icons);
+                        new IconPackAdapter(context, activity.icons);
 
                 recyclerView.setAdapter(iconPackAdapter);
 
-                floatingActionButton.show();
-                progressCircle.setVisibility(View.GONE);
+                activity.floatingActionButton.show();
+                activity.progressCircle.setVisibility(View.GONE);
             }
         }
 
         @Override
-        protected String doInBackground(String... sUrl) {
+        protected Void doInBackground(Void... sUrl) {
+            StudioPreviewActivity activity = ref.get();
+            Context context = activity.getApplicationContext();
             // Buffer the hash map of all the values in the XML
             HashMap<String, String> hashMap = null;
             try {
-                hashMap = parseXML(getAppFilter(current_pack));
+                hashMap = activity.parseXML(activity.getAppFilter(activity.current_pack));
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
             // Create a bare list to store each of the values necessary to add into the
             // RecyclerView
-            icons = new ArrayList<>();
+            activity.icons = new ArrayList<>();
             // This list will make sure that the multiple ComponentInfo objects will be filtered
             ArrayList<String> packages = new ArrayList<>();
 
             HashMap unsortedMap = new HashMap();
 
             // Load up all the launcher activities to set proper icons
-            final PackageManager pm = getPackageManager();
+            final PackageManager pm = activity.getPackageManager();
 
             Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
             mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
@@ -916,7 +955,7 @@ public class StudioPreviewActivity extends AppCompatActivity {
             }
 
             // First filter out the icon pack dashboard applications
-            List<ResolveInfo> iconPacks = References.getIconPacks(getApplicationContext());
+            List<ResolveInfo> iconPacks = References.getIconPacks(context);
             ArrayList<String> iconPacksExposed = new ArrayList<>();
             for (int ip = 0; ip < iconPacks.size(); ip++) {
                 iconPacksExposed.add(iconPacks.get(ip).activityInfo.packageName);
@@ -952,13 +991,13 @@ public class StudioPreviewActivity extends AppCompatActivity {
 
                             Intent intentCheck = new Intent();
                             intentCheck.setComponent(new ComponentName(component[0], component[1]));
-                            if (References.isIntentValid(getApplicationContext(), intentCheck)) {
+                            if (References.isIntentValid(context, intentCheck)) {
                                 // Check if the drawable is valid and themed by the icon pack
                                 // designer
                                 String drawable = hashMap.get(object);
                                 Boolean validated = References.validateResource(
-                                        getApplicationContext(),
-                                        current_pack,
+                                        context,
+                                        activity.current_pack,
                                         drawable,
                                         "drawable");
                                 if (!validated) {
@@ -969,7 +1008,7 @@ public class StudioPreviewActivity extends AppCompatActivity {
                                         hmap.get(component[0]).equals(component[1]) &&
                                         !iconPacksExposed.contains(component[0])) {
                                     if (References.isPackageInstalled(
-                                            getApplicationContext(),
+                                            context,
                                             component[0])) {
                                         if (!References.checkIconPackNotAllowed(component[0])) {
                                             if (drawable != null && !drawable.equals("null"))
@@ -979,7 +1018,7 @@ public class StudioPreviewActivity extends AppCompatActivity {
                                             unsortedMap.put(
                                                     component[0] + "|" + drawable,
                                                     References.grabPackageName(
-                                                            getApplicationContext(),
+                                                            context,
                                                             component[0]));
                                         }
                                     }
@@ -990,12 +1029,12 @@ public class StudioPreviewActivity extends AppCompatActivity {
                 }
 
                 // Attach all the unthemed icons to the list as well
-                if (iconBack || iconUpon || iconMask) {
+                if (activity.iconBack || activity.iconUpon || activity.iconMask) {
                     for (int i = 0; i < appList.size(); i++) {
                         if (!iconPacksExposed.contains(appList.get(i).activityInfo.packageName)) {
                             if (!unsortedMap.values().contains(
                                     References.grabPackageName(
-                                            getApplicationContext(),
+                                            context,
                                             appList.get(i).activityInfo.packageName))) {
                                 if (!References.checkIconPackNotAllowed(
                                         appList.get(i).activityInfo.packageName)) {
@@ -1003,8 +1042,7 @@ public class StudioPreviewActivity extends AppCompatActivity {
                                     Log.d(References.SUBSTRATUM_ICON_BUILDER,
                                             "Attaching unthemed icon : " + packageName);
                                     unsortedMap.put(packageName + "|null",
-                                            References.grabPackageName(
-                                                    getApplicationContext(), packageName));
+                                            References.grabPackageName(context, packageName));
                                 }
                             }
                         }
@@ -1022,14 +1060,14 @@ public class StudioPreviewActivity extends AppCompatActivity {
                 String[] attrs = package_attributes.split("\\|");
                 if (!packages.contains(attrs[0])) {
                     IconInfo iconInfo = new IconInfo(
-                            getApplicationContext(),
+                            context,
                             attrs[0],
                             attrs[1],
-                            current_pack,
+                            activity.current_pack,
                             References.grabPackageName(
-                                    getApplicationContext(),
+                                    context,
                                     attrs[0]));
-                    icons.add(iconInfo);
+                    activity.icons.add(iconInfo);
                     packages.add(attrs[0]);
                 }
             }

@@ -919,7 +919,6 @@ public class StudioPreviewActivity extends AppCompatActivity {
             if (hashMap != null) {
                 for (Object object : hashMap.keySet()) {
                     String f = (String) object;
-                    Log.e("SubstratumIconBuilder", f);
                     if (!all_overlays.contains(f) && f.length() > 13) {
                         String parse = f.substring(13).replaceAll("[{}]", ""); // Remove brackets
                         String[] component = parse.split("/"); // Remove the dash

@@ -180,6 +180,7 @@ public class References {
     // These strings control the directories that Substratum uses
     public static final String EXTERNAL_STORAGE_CACHE = "/.substratum/";
     public static final String SUBSTRATUM_BUILDER_CACHE = "/SubstratumBuilder/";
+    public static final String SUBSTRATUM_ICON_STUDIO_CACHE = "/IconStudio/";
     // These strings control the legacy overlay location
     public static final String DATA_RESOURCE_DIR = "/data/resource-cache/";
     public static final String PIXEL_NEXUS_DIR = "/system/overlay/";
@@ -553,6 +554,13 @@ public class References {
             installed_themes.add(all_themes.get(i).activityInfo.packageName);
         }
         editor.putStringSet("installed_themes", installed_themes);
+
+        Set<String> installed_icon_packs = new TreeSet<>();
+        List<ResolveInfo> all_icon_packs = References.getIconPacks(context);
+        for (int i = 0; i < all_icon_packs.size(); i++) {
+            installed_icon_packs.add(all_icon_packs.get(i).activityInfo.packageName);
+        }
+        editor.putStringSet("installed_iconpacks", installed_icon_packs);
 
         editor.apply();
         editor = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE).edit();

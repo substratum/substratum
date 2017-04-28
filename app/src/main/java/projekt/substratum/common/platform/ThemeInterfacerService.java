@@ -23,6 +23,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.RemoteException;
 
 import java.util.ArrayList;
@@ -186,7 +187,7 @@ public class ThemeInterfacerService {
 
     public static void configurationChangeShim(Context context) {
         if (References.isBinderInterfacer(context)) {
-            new Handler().postDelayed(() -> {
+            new Handler(Looper.getMainLooper()).postDelayed(() -> {
                 try {
                     BinderService.getInstance().getInterfacerInterface().configurationShim(
                             FIRST_WINDOW_REFRESH_DELAY, SECOND_WINDOW_REFRESH_DELAY);

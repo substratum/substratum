@@ -25,6 +25,7 @@ import projekt.substratum.common.References;
 
 import static projekt.substratum.common.References.ENABLE_AOPT_OUTPUT;
 import static projekt.substratum.common.References.getDeviceID;
+import static projekt.substratum.common.References.metadataIconPackParent;
 import static projekt.substratum.common.References.metadataOverlayDevice;
 import static projekt.substratum.common.References.metadataOverlayParent;
 import static projekt.substratum.common.References.metadataOverlayTarget;
@@ -141,11 +142,11 @@ public class CompilerCommands {
                 "    <application android:label=\"" + parsedIconName + "\">\n" +
 
                 // Ensure that this overlay was specifically made for this device only
-                "        <meta-data android:name=\"Substratum_Device\" " +
+                "        <meta-data android:name=\"" + metadataOverlayDevice + "\" " +
                 "android:value=\"" + getDeviceID(context) + "\"/>\n" +
 
                 // We can easily track what the icon pack parents are without any parsing this way
-                "        <meta-data android:name=\"" + metadataOverlayParent + "\" " +
+                "        <meta-data android:name=\"" + metadataIconPackParent + "\" " +
                 "android:value=\"" + theme_pack + "\"/>\n" +
 
                 "    </application>\n" +

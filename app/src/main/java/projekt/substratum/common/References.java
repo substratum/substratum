@@ -162,6 +162,7 @@ public class References {
     public static final String metadataOverlayType2 = "Substratum_Type2";
     public static final String metadataOverlayType3 = "Substratum_Type3";
     public static final String metadataOverlayVersion = "Substratum_Version";
+    public static final String metadataIconPackParent = "Substratum_IconPack";
     // These strings control the nav drawer filter for ThemeFragment
     public static final String homeFragment = "";
     public static final String overlaysFragment = "overlays";

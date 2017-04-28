@@ -647,6 +647,15 @@ public class References {
         return isPackageInstalled(context, package_name, true);
     }
 
+    // This method checks if a ComponentInfo is valid
+    public static boolean isIntentValid(Context context, Intent intent) {
+        List<ResolveInfo> list =
+                context.getPackageManager().queryIntentActivities(
+                        intent,
+                        PackageManager.MATCH_DEFAULT_ONLY);
+        return list.size() > 0;
+    }
+
     // This method determines whether a specified package is installed (enabled OR disabled)
     public static boolean isPackageInstalled(
             Context context,

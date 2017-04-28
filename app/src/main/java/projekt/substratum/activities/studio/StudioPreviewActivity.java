@@ -19,6 +19,7 @@
 package projekt.substratum.activities.studio;
 
 import android.app.ProgressDialog;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -903,8 +904,7 @@ public class StudioPreviewActivity extends AppCompatActivity {
             }
 
             // First filter out the icon pack dashboard applications
-            List<ResolveInfo> iconPacks =
-                    References.getIconPacks(getApplicationContext());
+            List<ResolveInfo> iconPacks = References.getIconPacks(getApplicationContext());
             ArrayList<String> iconPacksExposed = new ArrayList<>();
             for (int ip = 0; ip < iconPacks.size(); ip++) {
                 iconPacksExposed.add(iconPacks.get(ip).activityInfo.packageName);
@@ -919,18 +919,9 @@ public class StudioPreviewActivity extends AppCompatActivity {
             if (hashMap != null) {
                 for (Object object : hashMap.keySet()) {
                     String f = (String) object;
+                    Log.e("SubstratumIconBuilder", f);
                     if (!all_overlays.contains(f) && f.length() > 13) {
-                        // Check if the drawable is valid and themed by the icon pack designer
-                        String drawable = hashMap.get(f).toString();
-                        Boolean validated = References.validateResource(
-                                getApplicationContext(), current_pack, drawable, "drawable");
-                        if (!validated) {
-                            drawable = null;
-                        }
-
                         String parse = f.substring(13).replaceAll("[{}]", ""); // Remove brackets
-
-
                         String[] component = parse.split("/"); // Remove the dash
                         if (component.length == 2) {
                             /*
@@ -944,19 +935,39 @@ public class StudioPreviewActivity extends AppCompatActivity {
 
                               This also filters out icon packs from appearing on the list forcibly
                              */
-                            if (hmap.get(component[0]) != null &&
-                                    hmap.get(component[0]).equals(component[1]) &&
-                                    !iconPacksExposed.contains(component[0])) {
-                                if (References.isPackageInstalled(
+
+                            Intent intentCheck = new Intent();
+                            intentCheck.setComponent(new ComponentName(component[0], component[1]));
+                            if (References.isIntentValid(getApplicationContext(), intentCheck)) {
+                                // Check if the drawable is valid and themed by the icon pack
+                                // designer
+                                String drawable = hashMap.get(f).toString();
+                                Boolean validated = References.validateResource(
                                         getApplicationContext(),
-                                        component[0])) {
-                                    if (!References.checkIconPackNotAllowed(component[0])) {
-                                        if (drawable != null && !drawable.equals("null"))
-                                            Log.d(References.SUBSTRATUM_ICON_BUILDER,
-                                                    "Loaded drawable from icon pack : " + drawable);
-                                        unsortedMap.put(component[0] + "|" + drawable,
-                                                References.grabPackageName(getApplicationContext(),
-                                                        component[0]));
+                                        current_pack,
+                                        drawable,
+                                        "drawable");
+                                if (!validated) {
+                                    drawable = null;
+                                }
+
+                                if (hmap.get(component[0]) != null &&
+                                        hmap.get(component[0]).equals(component[1]) &&
+                                        !iconPacksExposed.contains(component[0])) {
+                                    if (References.isPackageInstalled(
+                                            getApplicationContext(),
+                                            component[0])) {
+                                        if (!References.checkIconPackNotAllowed(component[0])) {
+                                            if (drawable != null && !drawable.equals("null"))
+                                                Log.d(References.SUBSTRATUM_ICON_BUILDER,
+                                                        "Loaded drawable from icon pack : " +
+                                                                drawable);
+                                            unsortedMap.put(
+                                                    component[0] + "|" + drawable,
+                                                    References.grabPackageName(
+                                                            getApplicationContext(),
+                                                            component[0]));
+                                        }
                                     }
                                 }
                             }

@@ -59,7 +59,7 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
             Uri packageName = intent.getData();
             String package_name = packageName.toString().substring(8);
 
-            References.sendRefreshManagerMessage(context);
+            if (!package_name.endsWith(".icon")) References.sendRefreshManagerMessage(context);
 
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
             if (prefs.contains("installed_themes")) {

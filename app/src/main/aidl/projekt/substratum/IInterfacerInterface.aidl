@@ -42,8 +42,11 @@ interface IInterfacerInterface {
 
     /**
      * Perform a low-level configuration change
+     *
+     *  @param firstDelay  Wait time for spoofing device locale
+     *  @param secondDelay Wait time for restoring user previous locale
      */
-    void configurationShim();
+    void configurationShim(int firstDelay, int secondDelay);
 
     /**
      * Apply a specified bootanimation

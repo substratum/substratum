@@ -1244,13 +1244,27 @@ public class References {
             ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
                     package_name, PackageManager.GET_META_DATA);
             if (appInfo.metaData != null) {
-                String current = appInfo.metaData.getString(metadataOverlayParent);
+                String current = appInfo.metaData.getString(metadataIconPackParent);
                 if (current != null) return current.equals(expectedPackName);
             }
         } catch (Exception e) {
             // Suppress warning
         }
         return false;
+    }
+
+    // Grab IconPack Parent
+    public static String grabIconPack(Context mContext, String package_name) {
+        try {
+            ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
+                    package_name, PackageManager.GET_META_DATA);
+            if (appInfo.metaData != null) {
+                return appInfo.metaData.getString(metadataIconPackParent);
+            }
+        } catch (Exception e) {
+            // Suppress warning
+        }
+        return null;
     }
 
     public static boolean isAuthorizedDebugger(Context context) {

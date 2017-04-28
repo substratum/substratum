@@ -28,6 +28,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import projekt.substratum.common.References;
 import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.util.files.Root;
 
@@ -108,11 +109,15 @@ public class ThemeManager {
         }
     }
 
-    public static void disableAll(Context context) {
+    public static void disableAllThemeOverlays(Context context) {
         if (checkThemeInterfacer(context)) {
-            List<String> list = ThemeManager.listOverlays(STATE_APPROVED_ENABLED);
-            ThemeInterfacerService.disableOverlays(context, new ArrayList<>(list),
-                    shouldRestartUI(context, new ArrayList<>(list)));
+            List<String> list = ThemeManager.listOverlays(STATE_APPROVED_ENABLED).stream()
+                    .filter(o -> References.grabOverlayParent(context, o) != null)
+                    .collect(Collectors.toList());
+            if (!list.isEmpty()) {
+                ThemeInterfacerService.disableOverlays(context, new ArrayList<>(list),
+                        shouldRestartUI(context, new ArrayList<>(list)));
+            }
         } else {
             new ElevatedCommands.ThreadRunner().execute(disableAllOverlays);
         }

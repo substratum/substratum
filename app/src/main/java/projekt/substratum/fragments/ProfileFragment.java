@@ -912,7 +912,7 @@ public class ProfileFragment extends Fragment {
                     FileOperations.setPermissions(755, "/data/system/theme/fonts/");
                     FileOperations.setContext("/data/system/theme");
 
-                    ThemeManager.disableAll(getContext());
+                    ThemeManager.disableAllThemeOverlays(getContext());
                     ThemeManager.enableOverlay(getContext(), to_be_run);
                     ThemeManager.restartSystemUI(getContext());
                 }

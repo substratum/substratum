@@ -46,6 +46,7 @@ import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import projekt.substratum.R;
 import projekt.substratum.common.References;
@@ -58,6 +59,7 @@ import projekt.substratum.common.tabs.WallpaperManager;
 import projekt.substratum.util.tabs.SoundUtils;
 import projekt.substratum.util.views.SheetDialog;
 
+import static android.content.om.OverlayInfo.STATE_APPROVED_DISABLED;
 import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
 import static android.content.om.OverlayInfo.STATE_NOT_APPROVED_DANGEROUS_OVERLAY;
 import static projekt.substratum.common.References.DATA_RESOURCE_DIR;
@@ -432,16 +434,15 @@ public class RecoveryFragment extends Fragment {
 
             if (withUninstall) {
                 if (References.checkOMS(context)) {
-                    List<String> unapproved =
+                    List<String> overlays =
                             ThemeManager.listOverlays(STATE_NOT_APPROVED_DANGEROUS_OVERLAY);
-                    List<String> disabled =
-                            ThemeManager.listOverlays(STATE_APPROVED_ENABLED);
-                    List<String> enabled =
-                            ThemeManager.listOverlays(STATE_APPROVED_ENABLED);
+                    overlays.addAll(ThemeManager.listOverlays(STATE_APPROVED_DISABLED));
+                    overlays.addAll(ThemeManager.listOverlays(STATE_APPROVED_ENABLED));
 
-                    fragment.final_commands_array = new ArrayList<>(unapproved);
-                    fragment.final_commands_array.addAll(disabled);
-                    fragment.final_commands_array.addAll(enabled);
+                    fragment.final_commands_array = new ArrayList<>();
+                    fragment.final_commands_array.addAll(overlays.stream()
+                            .filter(o -> References.grabOverlayParent(context, o) != null)
+                            .collect(Collectors.toList()));
                 } else {
                     FileOperations.mountRW();
                     FileOperations.mountRWData();
@@ -455,7 +456,7 @@ public class RecoveryFragment extends Fragment {
                     FileOperations.mountRO();
                 }
             } else {
-                ThemeManager.disableAll(context);
+                ThemeManager.disableAllThemeOverlays(context);
             }
             return null;
         }

@@ -26,7 +26,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Lunchbar;
 import android.support.v4.util.Pair;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -47,9 +46,7 @@ import projekt.substratum.adapters.studio.PackAdapter;
 import projekt.substratum.adapters.studio.PackInfo;
 import projekt.substratum.common.References;
 import projekt.substratum.common.platform.ThemeInterfacerService;
-import projekt.substratum.common.platform.ThemeManager;
 
-import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
 import static projekt.substratum.util.files.MapUtils.sortMapByValues;
 
 public class StudioSelectorActivity extends AppCompatActivity {
@@ -161,35 +158,6 @@ public class StudioSelectorActivity extends AppCompatActivity {
                 Log.e(References.SUBSTRATUM_ICON_BUILDER,
                         "Cannot apply icon pack on a non binderfacer ROM...");
             }
-        });
-
-        CardView system_card = (CardView) findViewById(R.id.studio_system);
-        system_card.setOnClickListener((view) -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(StudioSelectorActivity.this);
-            builder.setTitle(getString(R.string.studio_system));
-            builder.setIcon(References.grabAppIcon(getApplicationContext(), "android"));
-            builder.setMessage(R.string.studio_system_reset_dialog);
-            builder.setPositiveButton(R.string.uninstall_dialog_okay, (dialog, id) -> {
-                // Begin disabling themes
-                List<String> activated_overlays = ThemeManager.listOverlays(STATE_APPROVED_ENABLED);
-
-                ArrayList<String> immediateDisable = new ArrayList<>();
-                for (int i = 0; i < activated_overlays.size(); i++) {
-                    if (activated_overlays.get(i).endsWith(".icon")) {
-                        Log.e(References.SUBSTRATUM_ICON_BUILDER,
-                                "Sent the icon for disabling : " + activated_overlays.get(i));
-                        immediateDisable.add(activated_overlays.get(i));
-                    }
-                }
-                if (immediateDisable.size() > 0) {
-                    ThemeManager.disableOverlay(getApplicationContext(), immediateDisable);
-                    ThemeInterfacerService.configurationChangeShim(getApplicationContext());
-                }
-            });
-            builder.setNegativeButton(R.string.restore_dialog_cancel, (dialog, id) -> dialog
-                    .dismiss());
-            builder.create();
-            builder.show();
         });
     }
 }

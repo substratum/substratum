@@ -287,6 +287,8 @@
     <string name="manage_wallpaper_home_toast">Home screen wallpaper restored successfully!</string>
     <string name="manage_wallpaper_lock_toast">Lock screen wallpaper restored successfully!</string>
     <string name="manage_wallpaper_all_toast">Wallpaper restored successfully!</string>
+    <string name="manage_icons_title">Restore System Icons</string>
+    <string name="manage_icons_toast">System icons restored successfully!</string>
 
     <string name="adapter_uninstalling">Now removing %s&#8230;</string>
 
@@ -783,6 +785,9 @@
     <string name="restore_fonts_text">Font packs</string>
     <string name="restore_fonts_summary">This function removes the previously applied fonts set and restores it to the stock fonts set\n</string>
     <string name="restore_fonts_button">Restore fonts</string>
+    <string name="restore_icons_text">Icon packs</string>
+    <string name="restore_icons_summary">This function removed the previously applied icon pack and restores the stock icons.\n</string>
+    <string name="restore_icons_button">Restore icons</string>
 
     <string name="interfacer_not_authorized_toast">This version of Substratum is not authorized and will not work with the system Interfacer module.</string>
 

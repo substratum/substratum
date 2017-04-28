@@ -52,6 +52,7 @@ import projekt.substratum.R;
 import projekt.substratum.common.References;
 import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.FileOperations;
+import projekt.substratum.common.platform.ThemeInterfacerService;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.common.tabs.BootAnimationManager;
 import projekt.substratum.common.tabs.FontManager;
@@ -98,6 +99,7 @@ public class RecoveryFragment extends Fragment {
         setHasOptionsMenu(true);
 
         Button overlaysButton = (Button) root.findViewById(R.id.overlaysButton);
+        Button iconsButton = (Button) root.findViewById(R.id.iconsButton);
         Button wallpaperButton = (Button) root.findViewById(R.id.wallpaperButton);
         Button bootanimationButton = (Button) root.findViewById(R.id.bootanimationButton);
         Button fontsButton = (Button) root.findViewById(R.id.fontsButton);
@@ -119,6 +121,20 @@ public class RecoveryFragment extends Fragment {
             });
             uninstall_all.setOnClickListener(view -> {
                 new RestoreFunction(this).execute(true);
+                sheetDialog.hide();
+            });
+            sheetDialog.setContentView(sheetView);
+            sheetDialog.show();
+        });
+
+        // Icons Dialog
+        iconsButton.setOnClickListener(v -> {
+            sheetDialog = new SheetDialog(mContext);
+            View sheetView = View.inflate(mContext,
+                    R.layout.recovery_icons_sheet_dialog, null);
+            LinearLayout restore = (LinearLayout) sheetView.findViewById(R.id.restore);
+            restore.setOnClickListener(view2 -> {
+                new IconsClearer(this).execute();
                 sheetDialog.hide();
             });
             sheetDialog.setContentView(sheetView);
@@ -542,6 +558,48 @@ public class RecoveryFragment extends Fragment {
         @Override
         protected Void doInBackground(Void... sUrl) {
             new SoundUtils().SoundsClearer(ref.get().getActivity());
+            return null;
+        }
+    }
+
+    private static class IconsClearer extends AsyncTask<Void, Void, Void> {
+        private WeakReference<RecoveryFragment> ref;
+
+        private IconsClearer(RecoveryFragment fragment) {
+            ref = new WeakReference<>(fragment);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            RecoveryFragment fragment = ref.get();
+            fragment.mProgressDialog = new ProgressDialog(
+                    fragment.getActivity(), R.style.RestoreDialog);
+            fragment.mProgressDialog.setMessage(
+                    fragment.getString(R.string.manage_dialog_performing));
+            fragment.mProgressDialog.setIndeterminate(true);
+            fragment.mProgressDialog.setCancelable(false);
+            fragment.mProgressDialog.show();
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            RecoveryFragment fragment = ref.get();
+            fragment.mProgressDialog.dismiss();
+        }
+
+        @Override
+        protected Void doInBackground(Void... sUrl) {
+            Context context = ref.get().getActivity();
+            ArrayList<String> toBeDisabled = new ArrayList<>();
+
+            toBeDisabled.addAll(ThemeManager.listOverlays(STATE_APPROVED_ENABLED).stream()
+                    .filter(o -> References.grabIconPack(context, o) != null)
+                    .collect(Collectors.toList()));
+
+            if (toBeDisabled.size() > 0) {
+                ThemeManager.disableOverlay(context, toBeDisabled);
+                ThemeInterfacerService.configurationChangeShim(context);
+            }
             return null;
         }
     }

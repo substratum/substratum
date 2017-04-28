@@ -28,6 +28,8 @@
 
         <include layout="@layout/restore_overlay"/>
 
+        <include layout="@layout/restore_icons"/>
+
         <include layout="@layout/restore_bootanimation"/>
 
         <include layout="@layout/restore_fonts"/>

@@ -56,6 +56,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -779,7 +780,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 platformSummary.append(getString(R.string.rom_status))
                         .append(" ").append(supportedRom);
                 systemPlatform.setSummary(platformSummary.toString());
-            } else if (!References.isNetworkAvailable(getContext())) {
+            } else if (!References.isNetworkAvailable(getContext()) || result.equals("")) {
                 platformSummary.append(getString(R.string.rom_status)).append(" ").append(
                         getString(R.string.rom_status_network));
                 systemPlatform.setSummary(platformSummary.toString());
@@ -836,7 +837,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                             publishProgress((int) (total * 100 / fileLength));
                         output.write(data, 0, count);
                     }
-                } catch (Exception e) {
+                } catch (UnknownHostException exc) {
+                    return "";
+                } catch (Exception e){
                     return e.toString();
                 } finally {
                     try {

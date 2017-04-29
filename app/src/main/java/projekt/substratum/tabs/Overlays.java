@@ -1465,6 +1465,8 @@ public class Overlays extends Fragment {
                 }
                 loader_string.setText(getContext().getResources().getString(
                         R.string.sb_phase_2_loader));
+            } else {
+                progressBar.setVisibility(View.VISIBLE);
             }
             super.onPreExecute();
         }
@@ -1481,6 +1483,7 @@ public class Overlays extends Fragment {
         @SuppressWarnings("ConstantConditions")
         @Override
         protected void onPostExecute(String result) {
+            // TODO: onPostExecute runs on UI thread, so move the hard job to doInBackground
             super.onPostExecute(result);
 
             final_command = new ArrayList<>();
@@ -2158,14 +2161,11 @@ public class Overlays extends Fragment {
                     }
                 } else {
                     if (final_runner == null) final_runner = new ArrayList<>();
-                    if (enable_mode || compile_enable_mode) {
+                    if (enable_mode || compile_enable_mode || disable_mode) {
                         String package_name = checkedOverlays.get(i).getFullOverlayParameters();
-                        if (References.isPackageInstalled(getContext(), package_name))
+                        if (References.isPackageInstalled(getContext(), package_name)) {
                             final_runner.add(package_name);
-                    } else if (disable_mode) {
-                        String package_name = checkedOverlays.get(i).getFullOverlayParameters();
-                        if (References.isPackageInstalled(getContext(), package_name))
-                            final_runner.add(package_name);
+                        }
                     }
                 }
             }

@@ -389,7 +389,7 @@ public class StudioPreviewActivity extends AppCompatActivity {
     private static class IconPackInstaller extends AsyncTask<Void, Integer, Void> {
         private WeakReference<StudioPreviewActivity> ref;
 
-        IconPackInstaller (StudioPreviewActivity activity) {
+        IconPackInstaller(StudioPreviewActivity activity) {
             ref = new WeakReference<>(activity);
         }
 
@@ -886,7 +886,7 @@ public class StudioPreviewActivity extends AppCompatActivity {
     private static class LoadIconPack extends AsyncTask<Void, Void, Void> {
         private WeakReference<StudioPreviewActivity> ref;
 
-        LoadIconPack (StudioPreviewActivity activity) {
+        LoadIconPack(StudioPreviewActivity activity) {
             ref = new WeakReference<>(activity);
         }
 

@@ -21,7 +21,7 @@ package projekt.substratum.common;
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
 
 public class Resources {
-    
+
     // Predetermined list of new Nexus/Pixel Devices
     static final String[] NEXUS_FILTER = new String[]{
             "angler", // Nexus 6P

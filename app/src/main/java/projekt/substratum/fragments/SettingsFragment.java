@@ -38,7 +38,6 @@ import android.support.design.widget.Lunchbar;
 import android.support.v7.preference.CheckBoxPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
-import android.support.v7.preference.PreferenceGroup;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -382,11 +381,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     return false;
                 });
 
-        final PreferenceGroup preferenceGroup =
-                (PreferenceGroup) findPreference("system_configuration_title");
-        if (!References.checkOMS(getContext()) && !BuildConfig.DEBUG)
-            preferenceGroup.setVisible(false);
-
         final CheckBoxPreference themeCaching = (CheckBoxPreference)
                 getPreferenceManager().findPreference("theme_caching");
         boolean to_show = prefs.getBoolean("caching_enabled", false);
@@ -401,7 +395,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         }));
 
         // These should run if the app is running in debug mode
-        final Preference aoptSwitcher = getPreferenceManager().findPreference("aopt_switcher");
+        final Preference aoptSwitcher = getPreferenceManager().findPreference
+                ("aopt_switcher");
         final CheckBoxPreference forceIndependence = (CheckBoxPreference)
                 getPreferenceManager().findPreference("force_independence");
         final CheckBoxPreference crashReceiver = (CheckBoxPreference)
@@ -519,8 +514,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 if (tapCount == 1) {
                     new Handler().postDelayed(() -> tapCount = 0, 2000);
                 } else if (tapCount == HIDDEN_CACHING_MODE_TAP_COUNT) {
-                    if (!References.checkOMS(getContext()) && !BuildConfig.DEBUG)
-                        preferenceGroup.setVisible(true);
                     themeCaching.setVisible(true);
                     tapCount = 0;
                     if (getView() != null) {
@@ -800,7 +793,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 platformSummary.append(getString(R.string.rom_status))
                         .append(" ").append(supportedRom);
                 systemPlatform.setSummary(platformSummary.toString());
-            } else if (!References.isNetworkAvailable(getContext())) {
+            } else if (!References.isNetworkAvailable(getContext()) || result.equals("")) {
                 platformSummary.append(getString(R.string.rom_status)).append(" ").append(
                         getString(R.string.rom_status_network));
                 systemPlatform.setSummary(platformSummary.toString());
@@ -859,7 +852,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     }
                 } catch (UnknownHostException exc) {
                     return "";
-                } catch (Exception e) {
+                } catch (Exception e){
                     return e.toString();
                 } finally {
                     try {

@@ -587,13 +587,17 @@ public class References {
         if (toBeProcessed == null) {
             return true;
         }
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        if (References.isNetworkAvailable(context)) {
+        // Here
+        SharedPreferences prefs = context
+                .getSharedPreferences(FirebaseAnalytics.NAMES_PREFS, Context.MODE_PRIVATE);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy", Locale.US);
+        String date = dateFormat.format(new Date());
+        if (References.isNetworkAvailable(context) && !prefs.contains(date)) {
             FirebaseAnalytics.withdrawNames(context);
         }
 
-        if (prefs.contains("blacklisted_names")) {
-            Set<String> pref = prefs.getStringSet("blacklisted_names", new HashSet<>());
+        if (prefs.contains(date)) {
+            Set<String> pref = prefs.getStringSet(date, new HashSet<>());
             for (String check : pref) {
                 if (toBeProcessed.toLowerCase().contains(check.toLowerCase())) {
                     Log.d("BlacklistedDatabase", "Loaded a theme containing blacklisted words.");
@@ -1329,13 +1333,16 @@ public class References {
         if (uncertified != null) {
             return uncertified;
         }
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        if (References.isNetworkAvailable(context)) {
+        SharedPreferences prefs = context
+                .getSharedPreferences(FirebaseAnalytics.PACKAGES_PREFS, Context.MODE_PRIVATE);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy", Locale.US);
+        String date = dateFormat.format(new Date());
+        if (References.isNetworkAvailable(context) && !prefs.contains(date)) {
             FirebaseAnalytics.withdrawBlacklistedPackages(context);
         }
 
-        if (prefs.contains("blacklisted_packages")) {
-            Set<String> pref = prefs.getStringSet("blacklisted_packages", new HashSet<>());
+        if (prefs.contains(date)) {
+            Set<String> pref = prefs.getStringSet(date, new HashSet<>());
             for (String check : pref) {
                 if (References.isPackageInstalled(context, check, false)) {
                     Log.d("PatcherDatabase",

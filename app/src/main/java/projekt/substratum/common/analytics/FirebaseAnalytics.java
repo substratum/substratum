@@ -20,7 +20,6 @@ package projekt.substratum.common.analytics;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
@@ -30,20 +29,22 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
+import java.util.Locale;
 
 import projekt.substratum.common.References;
 
 @SuppressWarnings("AccessStaticViaInstance")
 public class FirebaseAnalytics {
 
+    public static final String NAMES_PREFS = "names";
+    public static final String PACKAGES_PREFS = "prefs";
     private static FirebaseDatabase mDatabase;
-    private static SharedPreferences mPrefs;
-
-    private static DatabaseReference getDatabaseReference(Context context) {
+    private static DatabaseReference getDatabaseReference() {
         if (mDatabase == null) {
-            mPrefs = PreferenceManager.getDefaultSharedPreferences(context);
             mDatabase = FirebaseDatabase.getInstance();
             mDatabase.setPersistenceEnabled(true);
             String token = FirebaseInstanceId.getInstance().getToken();
@@ -54,11 +55,13 @@ public class FirebaseAnalytics {
 
     @SuppressWarnings("unchecked")
     public static void withdrawBlacklistedPackages(Context context) {
-        DatabaseReference database = getDatabaseReference(context);
-        database.child("patchers").addValueEventListener(new ValueEventListener() {
+        DatabaseReference database = getDatabaseReference();
+        database.child("patchers").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                mPrefs.edit().remove("blacklisted_packages").apply();
+                SharedPreferences.Editor editor = context
+                        .getSharedPreferences(PACKAGES_PREFS, Context.MODE_PRIVATE).edit();
+                editor.clear();
                 ArrayList<String> listOfPackages = new ArrayList<>();
                 String data = dataSnapshot.getValue().toString();
                 String[] dataArr = data.substring(1, data.length() - 1).split(",");
@@ -69,7 +72,9 @@ public class FirebaseAnalytics {
 
                 HashSet set = new HashSet();
                 set.addAll(listOfPackages);
-                mPrefs.edit().putStringSet("blacklisted_packages", set).apply();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy", Locale.US);
+                editor.putStringSet(dateFormat.format(new Date()), set);
+                editor.apply();
             }
 
             @Override
@@ -80,11 +85,13 @@ public class FirebaseAnalytics {
 
     @SuppressWarnings("unchecked")
     public static void withdrawNames(Context context) {
-        DatabaseReference database = getDatabaseReference(context);
-        database.child("blacklisted").addValueEventListener(new ValueEventListener() {
+        DatabaseReference database = getDatabaseReference();
+        database.child("blacklisted").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                mPrefs.edit().remove("blacklisted_names").apply();
+                SharedPreferences.Editor editor = context
+                        .getSharedPreferences(NAMES_PREFS, Context.MODE_PRIVATE).edit();
+                editor.clear();
                 ArrayList<String> listOfPackages = new ArrayList<>();
                 String data = dataSnapshot.getValue().toString();
                 String[] dataArr = data.substring(1, data.length() - 1).split(",");
@@ -95,7 +102,8 @@ public class FirebaseAnalytics {
 
                 HashSet set = new HashSet();
                 set.addAll(listOfPackages);
-                mPrefs.edit().putStringSet("blacklisted_names", set).apply();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy", Locale.US);
+                editor.putStringSet(dateFormat.format(new Date()), set).apply();
             }
 
             @Override

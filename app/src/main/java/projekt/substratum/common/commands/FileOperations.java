@@ -384,6 +384,18 @@ public class FileOperations {
             Log.d(MOVE_LOG, "Operation " + (!in.exists() && out.exists() ? "succeeded" : "failed"));
     }
 
+    public static long getFileSize(File source) {
+        long size = 0;
+        if (source.isDirectory()) {
+            for (File file : source.listFiles()) {
+                size += getFileSize(file);
+            }
+        } else {
+            size = source.length();
+        }
+        return size;
+    }
+
     /**
      * DirectAssets Mode Functions
      *

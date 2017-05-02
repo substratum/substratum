@@ -273,7 +273,7 @@ public class References {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
             ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
             Bitmap app_icon = ((BitmapDrawable)
-                    References.grabAppIcon(context, theme_pid)).getBitmap();
+                    grabAppIcon(context, theme_pid)).getBitmap();
             try {
                 Intent myIntent = new Intent(Intent.ACTION_MAIN);
                 myIntent.putExtra("theme_name", theme_name);
@@ -346,7 +346,7 @@ public class References {
     public static void injectRescueArchives(Context context) {
         File storageDirectory = new File(Environment.getExternalStorageDirectory(), "/substratum/");
         if (!storageDirectory.exists() && !storageDirectory.mkdirs()) {
-            Log.e(References.SUBSTRATUM_LOG, "Unable to create storage directory");
+            Log.e(SUBSTRATUM_LOG, "Unable to create storage directory");
         }
         File rescueFile = new File(
                 Environment.getExternalStorageDirectory().getAbsolutePath() +
@@ -378,7 +378,7 @@ public class References {
         File destFile = new File(destFileName);
         File destParentDir = destFile.getParentFile();
         if (!destParentDir.exists() && !destParentDir.mkdir()) {
-            Log.e(References.SUBSTRATUM_LOG,
+            Log.e(SUBSTRATUM_LOG,
                     "Unable to create directories for rescue archive dumps.");
         }
 
@@ -432,19 +432,19 @@ public class References {
             if (usesInterfacer || usesOMS7old) {
                 prefs.edit().putBoolean("oms_state", true).apply();
                 prefs.edit().putInt("oms_version", 7).apply();
-                Log.d(References.SUBSTRATUM_LOG, "Initializing Substratum with the seventh " +
+                Log.d(SUBSTRATUM_LOG, "Initializing Substratum with the seventh " +
                         "iteration of the Overlay Manager Service...");
             } else {
                 prefs.edit().putBoolean("oms_state", false).apply();
                 prefs.edit().putInt("oms_version", 0).apply();
-                Log.d(References.SUBSTRATUM_LOG, "Initializing Substratum with the second " +
+                Log.d(SUBSTRATUM_LOG, "Initializing Substratum with the second " +
                         "iteration of the Resource Runtime Overlay system...");
             }
         } catch (Exception e) {
             e.printStackTrace();
             prefs.edit().putBoolean("oms_state", false).apply();
             prefs.edit().putInt("oms_version", 0).apply();
-            Log.d(References.SUBSTRATUM_LOG, "Initializing Substratum with the second " +
+            Log.d(SUBSTRATUM_LOG, "Initializing Substratum with the second " +
                     "iteration of the Resource Runtime Overlay system...");
         }
     }
@@ -469,14 +469,14 @@ public class References {
             setROMVersion(context, false);
         }
         return prefs.getInt("build_date", 0) ==
-                Integer.parseInt(References.getProp("ro.build.date.utc"));
+                Integer.parseInt(getProp("ro.build.date.utc"));
     }
 
     public static void setROMVersion(Context context, boolean force) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         if (!prefs.contains("build_date") || force) {
             prefs.edit().putInt("build_date",
-                    Integer.parseInt(References.getProp("ro.build.date.utc")))
+                    Integer.parseInt(getProp("ro.build.date.utc")))
                     .apply();
         }
     }
@@ -530,7 +530,7 @@ public class References {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean("show_app_icon", true);
-        editor.putBoolean("substratum_oms", References.checkOMS(context));
+        editor.putBoolean("substratum_oms", checkOMS(context));
         editor.putBoolean("show_template_version", false);
         editor.putBoolean("vibrate_on_compiled", false);
         editor.putBoolean("nougat_style_cards", false);
@@ -548,14 +548,14 @@ public class References {
 
         // Initial parse of what is installed on the device
         Set<String> installed_themes = new TreeSet<>();
-        List<ResolveInfo> all_themes = References.getThemes(context);
+        List<ResolveInfo> all_themes = getThemes(context);
         for (int i = 0; i < all_themes.size(); i++) {
             installed_themes.add(all_themes.get(i).activityInfo.packageName);
         }
         editor.putStringSet("installed_themes", installed_themes);
 
         Set<String> installed_icon_packs = new TreeSet<>();
-        List<ResolveInfo> all_icon_packs = References.getIconPacks(context);
+        List<ResolveInfo> all_icon_packs = getIconPacks(context);
         for (int i = 0; i < all_icon_packs.size(); i++) {
             installed_icon_packs.add(all_icon_packs.get(i).activityInfo.packageName);
         }
@@ -591,7 +591,7 @@ public class References {
                 .getSharedPreferences(FirebaseAnalytics.NAMES_PREFS, Context.MODE_PRIVATE);
         SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy", Locale.US);
         String date = dateFormat.format(new Date());
-        if (References.isNetworkAvailable(context) && !prefs.contains(date)) {
+        if (isNetworkAvailable(context) && !prefs.contains(date)) {
             FirebaseAnalytics.withdrawNames(context);
         }
 
@@ -744,9 +744,9 @@ public class References {
     public static Drawable grabAppIcon(Context context, String package_name) {
         try {
             Drawable icon;
-            if (References.allowedSystemUIOverlay(package_name)) {
+            if (allowedSystemUIOverlay(package_name)) {
                 icon = context.getPackageManager().getApplicationIcon("com.android.systemui");
-            } else if (References.allowedSettingsOverlay(package_name)) {
+            } else if (allowedSettingsOverlay(package_name)) {
                 icon = context.getPackageManager().getApplicationIcon("com.android.settings");
             } else {
                 icon = context.getPackageManager().getApplicationIcon(package_name);
@@ -1111,8 +1111,8 @@ public class References {
             ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
                     package_name, PackageManager.GET_META_DATA);
             if (appInfo.metaData != null &&
-                    appInfo.metaData.getString(References.metadataThemeReady) != null) {
-                return appInfo.metaData.getString(References.metadataThemeReady);
+                    appInfo.metaData.getString(metadataThemeReady) != null) {
+                return appInfo.metaData.getString(metadataThemeReady);
             }
         } catch (Exception e) {
             // Suppress warning
@@ -1140,8 +1140,8 @@ public class References {
             ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
                     package_name, PackageManager.GET_META_DATA);
             if (appInfo.metaData != null &&
-                    appInfo.metaData.getString(References.metadataAuthor) != null) {
-                return appInfo.metaData.getString(References.metadataAuthor);
+                    appInfo.metaData.getString(metadataAuthor) != null) {
+                return appInfo.metaData.getString(metadataAuthor);
             }
         } catch (Exception e) {
             // Suppress warning
@@ -1155,9 +1155,9 @@ public class References {
             ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
                     package_name, PackageManager.GET_META_DATA);
             if (appInfo.metaData != null &&
-                    appInfo.metaData.get(References.metadataVersion) != null) {
+                    appInfo.metaData.get(metadataVersion) != null) {
                 return mContext.getString(R.string.plugin_template) + ": " + appInfo.metaData
-                        .get(References.metadataVersion);
+                        .get(metadataVersion);
             }
         } catch (Exception e) {
             // Suppress warning
@@ -1340,14 +1340,14 @@ public class References {
                 .getSharedPreferences(FirebaseAnalytics.PACKAGES_PREFS, Context.MODE_PRIVATE);
         SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy", Locale.US);
         String date = dateFormat.format(new Date());
-        if (References.isNetworkAvailable(context) && !prefs.contains(date)) {
+        if (isNetworkAvailable(context) && !prefs.contains(date)) {
             FirebaseAnalytics.withdrawBlacklistedPackages(context);
         }
 
         if (prefs.contains(date)) {
             Set<String> pref = prefs.getStringSet(date, new HashSet<>());
             for (String check : pref) {
-                if (References.isPackageInstalled(context, check, false)) {
+                if (isPackageInstalled(context, check, false)) {
                     Log.d("PatcherDatabase",
                             "The database has triggered a primary level blacklist package.");
                     uncertified = true;
@@ -1363,7 +1363,7 @@ public class References {
         }
         String[] checker = checkPackageSupport();
         for (String check : checker) {
-            if (References.isPackageInstalled(context, check, false)) {
+            if (isPackageInstalled(context, check, false)) {
                 uncertified = true;
                 return true;
             } else if (getMetaData(context, check) || getProviders(context, check) ||
@@ -1462,7 +1462,7 @@ public class References {
             originalIntent.putExtra("refresh_mode", true);
         }
         originalIntent.putExtra("hash_passthrough", hashPassthrough(mContext));
-        originalIntent.putExtra("certified", !References.spreadYourWingsAndFly(mContext));
+        originalIntent.putExtra("certified", !spreadYourWingsAndFly(mContext));
         try {
             PackageManager pm = mContext.getPackageManager();
             PackageInfo info = pm.getPackageInfo(currentTheme, PackageManager.GET_ACTIVITIES);
@@ -1490,13 +1490,15 @@ public class References {
     }
 
     // Launch intent for a theme
-    public static boolean launchTheme(Context mContext, String package_name, String theme_mode,
+    public static boolean launchTheme(Context mContext,
+                                      String package_name,
+                                      String theme_mode,
                                       Boolean notification) {
         Intent initializer = sendLaunchIntent(mContext, package_name,
-                !References.checkOMS(mContext), theme_mode, notification);
+                !checkOMS(mContext), theme_mode, notification);
         if (initializer != null) {
             initializer.putExtra("hash_passthrough", hashPassthrough(mContext));
-            initializer.putExtra("certified", !References.spreadYourWingsAndFly(mContext));
+            initializer.putExtra("certified", !spreadYourWingsAndFly(mContext));
             new AOPTCheck().injectAOPT(mContext, false);
             mContext.startActivity(initializer);
             return true;
@@ -1576,7 +1578,7 @@ public class References {
     }
 
     public static boolean isIncompatibleFirmware() {
-        String currentPatch = References.getProp("ro.build.version.security_patch");
+        String currentPatch = getProp("ro.build.version.security_patch");
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
         try {
             Date date = format.parse(currentPatch);
@@ -1597,7 +1599,7 @@ public class References {
                 return false;
             }
         }
-        return References.checkOMS(context);
+        return checkOMS(context);
     }
 
     public static void uninstallPackage(Context context, String packageName) {
@@ -1628,47 +1630,47 @@ public class References {
             AssetManager am = otherContext.getAssets();
             if (appInfo.metaData != null) {
                 boolean can_continue = true;
-                if (appInfo.metaData.getString(References.metadataName) != null &&
-                        appInfo.metaData.getString(References.metadataAuthor) != null) {
+                if (appInfo.metaData.getString(metadataName) != null &&
+                        appInfo.metaData.getString(metadataAuthor) != null) {
                     if (search_filter != null && search_filter.length() > 0) {
-                        String name = appInfo.metaData.getString(References.metadataName) + " " +
-                                appInfo.metaData.getString(References.metadataAuthor);
+                        String name = appInfo.metaData.getString(metadataName) + " " +
+                                appInfo.metaData.getString(metadataAuthor);
                         can_continue = name.toLowerCase()
                                 .contains(search_filter.toLowerCase());
                     }
                 }
-                if (!References.checkOMS(context)) {
-                    if (!appInfo.metaData.getBoolean(References.metadataLegacy, true)) {
+                if (!checkOMS(context)) {
+                    if (!appInfo.metaData.getBoolean(metadataLegacy, true)) {
                         can_continue = false;
                     }
                 }
                 if (can_continue) {
-                    if (appInfo.metaData.getString(References.metadataName) != null) {
-                        if (appInfo.metaData.getString(References.metadataAuthor) != null) {
+                    if (appInfo.metaData.getString(metadataName) != null) {
+                        if (appInfo.metaData.getString(metadataAuthor) != null) {
                             if (home_type.equals("wallpapers")) {
                                 if (appInfo.metaData.getString(metadataWallpapers) != null) {
                                     String[] data = {appInfo.metaData.getString
-                                            (References.metadataAuthor), package_name};
+                                            (metadataAuthor), package_name};
                                     packages.put(appInfo.metaData.getString(
-                                            References.metadataName), data);
+                                            metadataName), data);
                                 }
                             } else if (home_type.length() == 0) {
                                 String[] data = {appInfo.metaData.getString
-                                        (References.metadataAuthor), package_name};
+                                        (metadataAuthor), package_name};
                                 packages.put(appInfo.metaData.getString
-                                        (References.metadataName), data);
+                                        (metadataName), data);
                                 Log.d("Substratum Ready Theme", package_name);
                             } else {
                                 try {
                                     String[] stringArray = am.list("");
                                     if (Arrays.asList(stringArray).contains(home_type)) {
                                         String[] data = {appInfo.metaData.getString
-                                                (References.metadataAuthor), package_name};
+                                                (metadataAuthor), package_name};
                                         packages.put(appInfo.metaData.getString
-                                                (References.metadataName), data);
+                                                (metadataName), data);
                                     }
                                 } catch (Exception e) {
-                                    Log.e(References.SUBSTRATUM_LOG,
+                                    Log.e(SUBSTRATUM_LOG,
                                             "Unable to find package identifier");
                                 }
                             }
@@ -1683,18 +1685,18 @@ public class References {
             // This algorithm was used during 499 and above runs at a speed where the number of
             // overlay packages installed DOES NOT affect the theme reload time.
             try {
-                List<ResolveInfo> listOfThemes = References.getThemes(context);
+                List<ResolveInfo> listOfThemes = getThemes(context);
                 for (ResolveInfo ri : listOfThemes) {
                     String packageName = ri.activityInfo.packageName;
                     ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
                             packageName, PackageManager.GET_META_DATA);
 
                     Boolean can_continue = true;
-                    if (appInfo.metaData.getString(References.metadataName) != null &&
-                            appInfo.metaData.getString(References.metadataAuthor) != null) {
+                    if (appInfo.metaData.getString(metadataName) != null &&
+                            appInfo.metaData.getString(metadataAuthor) != null) {
                         if (search_filter != null && search_filter.length() > 0) {
-                            String name = appInfo.metaData.getString(References.metadataName) +
-                                    " " + appInfo.metaData.getString(References.metadataAuthor);
+                            String name = appInfo.metaData.getString(metadataName) +
+                                    " " + appInfo.metaData.getString(metadataAuthor);
                             if (!name.toLowerCase().contains(
                                     search_filter.toLowerCase())) {
                                 can_continue = false;
@@ -1705,34 +1707,34 @@ public class References {
                     if (can_continue) {
                         Context otherContext = context.createPackageContext(packageName, 0);
                         AssetManager am = otherContext.getAssets();
-                        if (home_type.equals(References.wallpaperFragment)) {
+                        if (home_type.equals(wallpaperFragment)) {
                             if (appInfo.metaData.getString(metadataWallpapers) != null) {
                                 String[] data = {appInfo.metaData.getString
-                                        (References.metadataAuthor),
+                                        (metadataAuthor),
                                         packageName};
                                 packages.put(appInfo.metaData.getString(
-                                        References.metadataName), data);
+                                        metadataName), data);
                             }
                         } else {
                             if (home_type.length() == 0) {
                                 String[] data = {appInfo.metaData.getString
-                                        (References.metadataAuthor),
+                                        (metadataAuthor),
                                         packageName};
                                 packages.put(appInfo.metaData.getString
-                                        (References.metadataName), data);
+                                        (metadataName), data);
                                 Log.d("Substratum Ready Theme", packageName);
                             } else {
                                 try {
                                     String[] stringArray = am.list("");
                                     if (Arrays.asList(stringArray).contains(home_type)) {
                                         String[] data = {appInfo.metaData.getString
-                                                (References.metadataAuthor),
+                                                (metadataAuthor),
                                                 packageName};
                                         packages.put(appInfo.metaData.getString
-                                                (References.metadataName), data);
+                                                (metadataName), data);
                                     }
                                 } catch (Exception e) {
-                                    Log.e(References.SUBSTRATUM_LOG,
+                                    Log.e(SUBSTRATUM_LOG,
                                             "Unable to find package identifier");
                                 }
                             }

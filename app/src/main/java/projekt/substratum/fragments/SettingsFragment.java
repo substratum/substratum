@@ -66,6 +66,7 @@ import java.util.Map;
 import projekt.substratum.BuildConfig;
 import projekt.substratum.LauncherActivity;
 import projekt.substratum.R;
+import projekt.substratum.activities.launch.ManageSpaceActivity;
 import projekt.substratum.adapters.fragments.settings.Repository;
 import projekt.substratum.adapters.fragments.settings.ValidatorAdapter;
 import projekt.substratum.adapters.fragments.settings.ValidatorError;
@@ -533,6 +534,18 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 return false;
             });
         }
+
+        // Manage Space Activity
+        Preference manageSpace = getPreferenceManager().findPreference("manage_space");
+        manageSpace.setOnPreferenceClickListener(
+                preference -> {
+                    try {
+                        startActivity(new Intent(getActivity(), ManageSpaceActivity.class));
+                    } catch (ActivityNotFoundException activityNotFoundException) {
+                        // Suppress warning
+                    }
+                    return false;
+                });
 
         // Finally, these functions will only work on OMS ROMs
         if (References.checkOMS(getContext())) {

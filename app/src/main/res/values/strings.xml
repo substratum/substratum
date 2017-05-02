@@ -737,6 +737,8 @@
     <string name="settings_force_english_toast_success" translatable="false">Successfully switched to English!</string>
     <string name="settings_force_english_toast_reverted">Successfully disabled force English!</string>
 
+    <string name="settings_manage_space_title">Manage Storage Usage</string>
+
     <string name="settings_theme_caching_title">Cache Theme Resources</string>
     <string name="settings_theme_caching_text">All theme asset resources will be extracted in the cache directory.</string>
     <string name="settings_theme_caching_found_snackbar">You just discovered the hidden resource caching mode!</string>
@@ -847,7 +849,7 @@
     <string name="nav_opensource">Licenses</string>
     <string name="nav_settings">Settings</string>
 
-    <string name="title_activity_manage_space">Storage Usage</string>
+    <string name="title_activity_manage_space">Manage Storage Usage</string>
     <string name="manage_space_cache_text_title">Clear cache</string>
     <string name="clear_cache_button_loading">Loading&#8230;</string>
     <string name="clear_cache_button_text">Clear substratum cache</string>

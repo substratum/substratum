@@ -54,6 +54,12 @@
         android:key="system_configuration_title"
         android:title="@string/settings_title_clickable">
 
+        <Preference
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:key="manage_space"
+            android:title="@string/settings_manage_space_title"/>
+
         <CheckBoxPreference
             android:layout_width="match_parent"
             android:layout_height="match_parent"

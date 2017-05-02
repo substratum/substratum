@@ -18,6 +18,8 @@
 
 package projekt.substratum.activities.launch;
 
+import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +29,7 @@ import android.text.format.Formatter;
 import android.widget.TextView;
 
 import java.io.File;
+import java.lang.ref.WeakReference;
 
 import projekt.substratum.R;
 import projekt.substratum.common.References;
@@ -59,9 +62,8 @@ public class ManageSpaceActivity extends AppCompatActivity {
         cacheCounter.setText(Formatter.formatFileSize(this, getFileSize(getCacheDir())));
 
         clearCacheButton.setOnClickListener(v -> {
-            delete(this, getCacheDir().getAbsolutePath());
             cacheCounter.setText(getString(R.string.clear_cache_button_loading));
-            cacheCounter.setText(Formatter.formatFileSize(this, getFileSize(getCacheDir())));
+            new ClearCache(this).execute();
         });
 
         resetAppButton.setOnClickListener(v -> {
@@ -71,23 +73,7 @@ public class ManageSpaceActivity extends AppCompatActivity {
                     .setNegativeButton(android.R.string.no, (dialog1, which) -> dialog1.dismiss())
                     .setPositiveButton(android.R.string.yes, (dialog12, which) -> {
                         dialog12.dismiss();
-                        for (File f : getDataDir().listFiles()) {
-                            if (!f.getName().equals("shared_prefs")) {
-                                delete(this, f.getAbsolutePath());
-                            } else {
-                                for (File prefs : f.listFiles()) {
-                                    String fileName = prefs.getName();
-                                    if (!fileName.equals(NAMES_PREFS + ".xml") &&
-                                            !fileName.equals(PACKAGES_PREFS + ".xml")) {
-                                        delete(this, prefs.getAbsolutePath());
-                                    }
-                                }
-                            }
-                        }
-                        References.loadDefaultConfig(this);
-                        cacheCounter.setText(
-                                Formatter.formatFileSize(this, getFileSize(getCacheDir())));
-                        finish();
+                        new ResetApp(this).execute();
                     })
                     .create();
             dialog.show();
@@ -99,5 +85,68 @@ public class ManageSpaceActivity extends AppCompatActivity {
         super.onResume();
         cacheCounter.setText(getString(R.string.clear_cache_button_loading));
         cacheCounter.setText(Formatter.formatFileSize(this, getFileSize(getCacheDir())));
+    }
+
+    private static class ClearCache extends AsyncTask<Void, Void, Void> {
+        private WeakReference<ManageSpaceActivity> ref;
+
+        ClearCache (ManageSpaceActivity activity) {
+            ref = new WeakReference<>(activity);
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            Context context = ref.get().getApplicationContext();
+            delete(context, context.getCacheDir().getAbsolutePath());
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            ManageSpaceActivity activity = ref.get();
+            Context context = activity.getApplicationContext();
+            activity.cacheCounter.setText(
+                    Formatter.formatFileSize(context, getFileSize(context.getCacheDir())));
+        }
+    }
+
+    private static class ResetApp extends AsyncTask<Void, Void, Void> {
+        private WeakReference<ManageSpaceActivity> ref;
+
+        ResetApp (ManageSpaceActivity activity) {
+            ref = new WeakReference<>(activity);
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            ManageSpaceActivity activity = ref.get();
+            Context context = activity.getApplicationContext();
+
+            for (File f : context.getDataDir().listFiles()) {
+                if (!f.getName().equals("shared_prefs")) {
+                    delete(context, f.getAbsolutePath());
+                } else {
+                    for (File prefs : f.listFiles()) {
+                        String fileName = prefs.getName();
+                        if (!fileName.equals(NAMES_PREFS + ".xml") &&
+                                !fileName.equals(PACKAGES_PREFS + ".xml")) {
+                            delete(context, prefs.getAbsolutePath());
+                        }
+                    }
+                }
+            }
+            References.loadDefaultConfig(context);
+            return null;
+        }
+
+
+        @Override
+        protected void onPostExecute(Void result) {
+            ManageSpaceActivity activity = ref.get();
+            Context context = activity.getApplicationContext();
+            activity.cacheCounter.setText(
+                    Formatter.formatFileSize(context, getFileSize(context.getCacheDir())));
+            activity.finish();
+        }
     }
 }

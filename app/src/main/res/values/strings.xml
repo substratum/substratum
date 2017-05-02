@@ -847,13 +847,13 @@
     <string name="nav_opensource">Licenses</string>
     <string name="nav_settings">Settings</string>
 
-    <string name="title_activity_manage_space">Manage Space</string>
+    <string name="title_activity_manage_space">Storage Usage</string>
     <string name="clear_cache_button_text">Clear substratum cache</string>
-    <string name="manage_space_cache_text_title">Erase all substratum cache</string>
-    <string name="manage_space_cache_counter_title">Cache storage</string>
+    <string name="manage_space_cache_text_title">Clear Cache</string>
+    <string name="manage_space_cache_counter_title">Clearing the local cache will remove all the files used by the theme compiler and online downloader. All theme packs and user configurations will remain as-is.\n\nDepending on the size of your cache, this may take a few seconds to complete.</string>
     <string name="reset_app_button_text">Reset app</string>
-    <string name="manage_space_reset_text_title">Reset substratum configuration</string>
-    <string name="manage_space_reset_text_desc">If you running into a problem with the app, resetting it might help.</string>
-    <string name="manage_space_reset_dialog_title">Reset substratum configuration?</string>
+    <string name="manage_space_reset_text_title">Reset configuration</string>
+    <string name="manage_space_reset_text_desc">Are you having trouble with the application? Or did you recently make a big version leap from an old version of substratum? A simple configuration clear would definitely aid troubleshooting the issue!</string>
+    <string name="manage_space_reset_dialog_title">Reset configuration?</string>
     <string name="manage_space_reset_dialog_content">All substratum data will be deleted, including all files and settings.</string>
 </resources>

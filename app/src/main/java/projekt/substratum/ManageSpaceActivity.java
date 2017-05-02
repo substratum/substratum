@@ -21,8 +21,10 @@ package projekt.substratum;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.text.format.Formatter;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -41,9 +43,14 @@ public class ManageSpaceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_manage_space);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+        if (toolbar != null) toolbar.setNavigationOnClickListener(v -> onBackPressed());
 
-        Button clearCacheButton = (Button) findViewById(R.id.clear_cache_button);
-        Button resetAppButton = (Button) findViewById(R.id.reset_app_button);
+        CardView clearCacheButton = (CardView) findViewById(R.id.clear_cache_button);
+        CardView resetAppButton = (CardView) findViewById(R.id.reset_app_button);
         TextView cacheCounter = (TextView) findViewById(R.id.cache_counter);
 
         cacheCounter.setText(Formatter.formatFileSize(this, getFileSize(getCacheDir())));

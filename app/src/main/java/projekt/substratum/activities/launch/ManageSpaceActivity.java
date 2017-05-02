@@ -87,6 +87,7 @@ public class ManageSpaceActivity extends AppCompatActivity {
                         References.loadDefaultConfig(this);
                         cacheCounter.setText(
                                 Formatter.formatFileSize(this, getFileSize(getCacheDir())));
+                        finish();
                     })
                     .create();
             dialog.show();

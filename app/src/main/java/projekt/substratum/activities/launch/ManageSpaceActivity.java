@@ -101,7 +101,7 @@ public class ManageSpaceActivity extends AppCompatActivity {
     private static class ClearCache extends AsyncTask<Void, Void, Void> {
         private WeakReference<ManageSpaceActivity> ref;
 
-        ClearCache (ManageSpaceActivity activity) {
+        ClearCache(ManageSpaceActivity activity) {
             ref = new WeakReference<>(activity);
         }
 
@@ -124,7 +124,7 @@ public class ManageSpaceActivity extends AppCompatActivity {
     private static class ResetApp extends AsyncTask<Void, Void, Void> {
         private WeakReference<ManageSpaceActivity> ref;
 
-        ResetApp (ManageSpaceActivity activity) {
+        ResetApp(ManageSpaceActivity activity) {
             ref = new WeakReference<>(activity);
         }
 

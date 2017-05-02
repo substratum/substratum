@@ -43,6 +43,7 @@ public class FirebaseAnalytics {
     public static final String NAMES_PREFS = "names";
     public static final String PACKAGES_PREFS = "prefs";
     private static FirebaseDatabase mDatabase;
+
     private static DatabaseReference getDatabaseReference() {
         if (mDatabase == null) {
             mDatabase = FirebaseDatabase.getInstance();

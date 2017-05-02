@@ -1047,7 +1047,6 @@ public class MainActivity extends SubstratumActivity implements
                     }
                     Log.d("SubstratumBuilder", "The cache has been flushed!");
                     mProgressDialog = new ProgressDialog(this, R.style.SubstratumBuilder_BlurView);
-                    showOutdatedRequestDialog();
                     References.injectRescueArchives(getApplicationContext());
                     new RootRequester(this).execute();
                 } else {
@@ -1181,8 +1180,9 @@ public class MainActivity extends SubstratumActivity implements
                 } else {
                     textView.setText(activity.getString(R.string.root_rejected_text_cm_phh));
                 }
-            } else if (References.checkOMS(context)) {
-                new DoCleanUp(context).execute();
+            } else {
+                activity.showOutdatedRequestDialog();
+                if (References.checkOMS(context)) new DoCleanUp(context).execute();
             }
         }
 

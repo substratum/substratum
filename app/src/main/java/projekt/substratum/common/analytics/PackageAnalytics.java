@@ -31,6 +31,9 @@ import java.util.Locale;
 
 public class PackageAnalytics {
 
+    public static final String PACKAGE_TAG = "PackageLogger";
+    public static final String RUNTIME_TAG = "RuntimeMemory";
+
     public static boolean isLowEnd() {
         Float maximum_memory = PackageAnalytics.logRuntimeMemoryLimits()[0];
         return maximum_memory <= 130;
@@ -43,9 +46,9 @@ public class PackageAnalytics {
                 .replaceAll(",", ".");
         String free = humanReadableByteCount(Runtime.getRuntime().freeMemory(), false)
                 .replaceAll(",", ".");
-        Log.d("RuntimeMemory", "Max Memory: " + max);
-        Log.d("RuntimeMemory", "Total Memory: " + total);
-        Log.d("RuntimeMemory", "Free Memory: " + free);
+        Log.d(RUNTIME_TAG, "Max Memory: " + max);
+        Log.d(RUNTIME_TAG, "Total Memory: " + total);
+        Log.d(RUNTIME_TAG, "Free Memory: " + free);
         return new Float[]{
                 Float.valueOf(max.replaceAll("[a-zA-Z]", "")),
                 Float.valueOf(total.replaceAll("[a-zA-Z]", "")),
@@ -81,10 +84,10 @@ public class PackageAnalytics {
             String text = format.format(date);
             String text2 = format2.format(date);
 
-            Log.d("PackageLogger", "Package Information for: " + packageName);
-            Log.d("PackageLogger", "Installation date: " + text);
-            Log.d("PackageLogger", "Installation time: " + text2);
-            Log.d("PackageLogger", "Installation location: " + installer + "");
+            Log.d(PACKAGE_TAG, "Package Information for: " + packageName);
+            Log.d(PACKAGE_TAG, "Installation date: " + text);
+            Log.d(PACKAGE_TAG, "Installation time: " + text2);
+            Log.d(PACKAGE_TAG, "Installation location: " + installer + "");
         } catch (Exception e) {
             // Suppress warning
         }

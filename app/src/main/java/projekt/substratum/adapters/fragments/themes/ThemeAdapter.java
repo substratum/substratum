@@ -45,7 +45,6 @@ import java.util.ArrayList;
 
 import projekt.substratum.R;
 import projekt.substratum.common.References;
-import projekt.substratum.common.analytics.PackageAnalytics;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.util.views.SheetDialog;
 
@@ -129,12 +128,12 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
 
         viewHolder.cardView.setOnClickListener(
                 v -> {
-                    if (References.ENABLE_PACKAGE_LOGGING)
-                        PackageAnalytics.logPackageInfo(mContext, themeItem.getThemePackage());
-
-                    SharedPreferences prefs =
-                            mContext.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
                     if (References.isCachingEnabled(mContext)) {
+                        SharedPreferences prefs =
+                                mContext.getSharedPreferences(
+                                        "substratum_state",
+                                        Context.MODE_PRIVATE
+                                );
                         if (!prefs.contains("is_updating")) prefs.edit()
                                 .putBoolean("is_updating", false).apply();
                         if (!prefs.getBoolean("is_updating", true)) {

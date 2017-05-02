@@ -87,6 +87,7 @@ import java.util.TreeSet;
 import projekt.substratum.R;
 import projekt.substratum.activities.launch.AppShortcutLaunch;
 import projekt.substratum.common.analytics.FirebaseAnalytics;
+import projekt.substratum.common.analytics.PackageAnalytics;
 import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.platform.ThemeInterfacerService;
 import projekt.substratum.common.platform.ThemeManager;
@@ -105,6 +106,7 @@ import static android.content.om.OverlayInfo.STATE_NOT_APPROVED_DANGEROUS_OVERLA
 import static android.content.om.OverlayInfo.STATE_NOT_APPROVED_MISSING_TARGET;
 import static android.content.om.OverlayInfo.STATE_NOT_APPROVED_NO_IDMAP;
 import static android.content.om.OverlayInfo.STATE_NOT_APPROVED_UNKNOWN;
+import static projekt.substratum.common.analytics.PackageAnalytics.PACKAGE_TAG;
 
 public class References {
 
@@ -359,15 +361,14 @@ public class References {
         if (!rescueFile.exists()) {
             copyRescueFile(context, "rescue.dat",
                     Environment.getExternalStorageDirectory().getAbsolutePath() +
-                            java.io.File.separator + "substratum" +
-                            java.io.File.separator + "SubstratumRescue.zip");
+                            File.separator + "substratum" +
+                            File.separator + "SubstratumRescue.zip");
         }
         if (!rescueFileLegacy.exists()) {
             copyRescueFile(context, "rescue_legacy.dat",
                     Environment.getExternalStorageDirectory().getAbsolutePath() +
-                            java.io.File.separator + "substratum" +
-                            java.io.File.separator +
-                            "SubstratumRescue_Legacy.zip");
+                            File.separator + "substratum" +
+                            File.separator + "SubstratumRescue_Legacy.zip");
         }
     }
 
@@ -1090,75 +1091,35 @@ public class References {
     }
 
     // Grab any resource from any package
-    public static int getResource(Context mContext,
-                                  String package_name,
-                                  String resourceName,
-                                  String type) {
+    private static int getResource(Context mContext,
+                                   String package_name,
+                                   String resourceName,
+                                   String type) {
         try {
             android.content.res.Resources res =
                     mContext.getPackageManager().getResourcesForApplication(package_name);
-            return res.getIdentifier(package_name + ":" + type + "/" +
-                    resourceName, type, package_name);
+            return res.getIdentifier(
+                    package_name + ":" + type + "/" + resourceName,
+                    type,
+                    package_name);
         } catch (Exception e) {
             // Suppress warning
         }
         return 0;
     }
 
-    // Grab Theme Ready Metadata
-    public static String grabThemeReadyVisibility(Context mContext, String package_name) {
-        try {
-            ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
-                    package_name, PackageManager.GET_META_DATA);
-            if (appInfo.metaData != null &&
-                    appInfo.metaData.getString(metadataThemeReady) != null) {
-                return appInfo.metaData.getString(metadataThemeReady);
-            }
-        } catch (Exception e) {
-            // Suppress warning
-        }
-        return null;
+    // Grab Color Resource
+    public static int grabColorResource(Context mContext, String package_name, String colorName) {
+        return getResource(mContext, package_name, colorName, "color");
     }
 
     // Grab Theme Changelog
     public static String[] grabThemeChangelog(Context mContext, String package_name) {
         try {
-            android.content.res.Resources res = mContext.getPackageManager()
-                    .getResourcesForApplication(package_name);
-            int array_position = res.getIdentifier(package_name + ":array/" +
-                    resourceChangelog, "array", package_name);
+            android.content.res.Resources res =
+                    mContext.getPackageManager().getResourcesForApplication(package_name);
+            int array_position = getResource(mContext, package_name, resourceChangelog, "array");
             return res.getStringArray(array_position);
-        } catch (Exception e) {
-            // Suppress warning
-        }
-        return null;
-    }
-
-    // Grab Theme Author
-    public static String grabThemeAuthor(Context mContext, String package_name) {
-        try {
-            ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
-                    package_name, PackageManager.GET_META_DATA);
-            if (appInfo.metaData != null &&
-                    appInfo.metaData.getString(metadataAuthor) != null) {
-                return appInfo.metaData.getString(metadataAuthor);
-            }
-        } catch (Exception e) {
-            // Suppress warning
-        }
-        return null;
-    }
-
-    // Grab Theme Plugin Metadata
-    public static String grabPackageTemplateVersion(Context mContext, String package_name) {
-        try {
-            ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
-                    package_name, PackageManager.GET_META_DATA);
-            if (appInfo.metaData != null &&
-                    appInfo.metaData.get(metadataVersion) != null) {
-                return mContext.getString(R.string.plugin_template) + ": " +
-                        appInfo.metaData.get(metadataVersion);
-            }
         } catch (Exception e) {
             // Suppress warning
         }
@@ -1181,21 +1142,6 @@ public class References {
             e.printStackTrace();
         }
         return hero;
-    }
-
-    // Grab Color Resource
-    public static int grabColorResource(Context mContext, String package_name, String colorName) {
-        android.content.res.Resources res;
-        try {
-            res = mContext.getPackageManager().getResourcesForApplication(package_name);
-            int resourceId = res.getIdentifier(package_name + ":color/" + colorName, null, null);
-            if (0 != resourceId) {
-                return res.getColor(resourceId, null);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return 0;
     }
 
     // Grab Overlay Target Package Name (Human Readable)
@@ -1222,64 +1168,45 @@ public class References {
         return (String) (ai != null ? pm.getApplicationLabel(ai) : null);
     }
 
-    // Grab Overlay Parent
-    public static String grabOverlayParent(Context mContext, String package_name) {
-        try {
-            ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
-                    package_name, PackageManager.GET_META_DATA);
-            if (appInfo.metaData != null &&
-                    appInfo.metaData.getString(metadataOverlayParent) != null) {
-                return appInfo.metaData.getString(metadataOverlayParent);
-            }
-        } catch (Exception e) {
-            // Suppress warning
+    // Grab Theme Ready Metadata
+    public static String grabThemeReadyVisibility(Context mContext, String package_name) {
+        return getOverlayMetadata(mContext, package_name, metadataThemeReady);
+    }
+
+    // Grab Theme Author
+    public static String grabThemeAuthor(Context mContext, String package_name) {
+        return getOverlayMetadata(mContext, package_name, metadataAuthor);
+    }
+
+    // Grab Theme Plugin Metadata
+    public static String grabPackageTemplateVersion(Context mContext, String package_name) {
+        String template_version = getOverlayMetadata(mContext, package_name, metadataVersion);
+        if (template_version != null) {
+            return mContext.getString(R.string.plugin_template) + ": " + template_version;
         }
         return null;
     }
 
+    // Grab Overlay Parent
+    public static String grabOverlayParent(Context mContext, String package_name) {
+        return getOverlayMetadata(mContext, package_name, metadataOverlayParent);
+    }
+
     // Grab Overlay Target
     public static String grabOverlayTarget(Context mContext, String package_name) {
-        try {
-            ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
-                    package_name, PackageManager.GET_META_DATA);
-            if (appInfo.metaData != null &&
-                    appInfo.metaData.getString("Substratum_Target") != null) {
-                return appInfo.metaData.getString("Substratum_Target");
-            }
-        } catch (Exception e) {
-            // Suppress warning
-        }
-        return null;
+        return getOverlayMetadata(mContext, package_name, metadataOverlayTarget);
     }
 
     // Grab IconPack Parent
     public static Boolean grabIconPack(Context mContext, String package_name,
                                        String expectedPackName) {
-        try {
-            ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
-                    package_name, PackageManager.GET_META_DATA);
-            if (appInfo.metaData != null) {
-                String current = appInfo.metaData.getString(metadataIconPackParent);
-                if (current != null) return current.equals(expectedPackName);
-            }
-        } catch (Exception e) {
-            // Suppress warning
-        }
-        return false;
+        String icon_pack = getOverlayMetadata(mContext, package_name, metadataOverlayTarget);
+        return icon_pack != null && icon_pack.equals(expectedPackName);
     }
 
     // Grab IconPack Parent
     public static String grabIconPack(Context mContext, String package_name) {
-        try {
-            ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
-                    package_name, PackageManager.GET_META_DATA);
-            if (appInfo.metaData != null) {
-                return appInfo.metaData.getString(metadataIconPackParent);
-            }
-        } catch (Exception e) {
-            // Suppress warning
-        }
-        return null;
+        return getOverlayMetadata(mContext, package_name, metadataIconPackParent);
     }
 
     public static boolean isAuthorizedDebugger(Context context) {
@@ -1651,15 +1578,16 @@ public class References {
                                 if (appInfo.metaData.getString(metadataWallpapers) != null) {
                                     String[] data = {appInfo.metaData.getString
                                             (metadataAuthor), package_name};
-                                    packages.put(appInfo.metaData.getString(
-                                            metadataName), data);
+                                    packages.put(appInfo.metaData.getString(metadataName), data);
                                 }
                             } else if (home_type.length() == 0) {
                                 String[] data = {appInfo.metaData.getString
                                         (metadataAuthor), package_name};
-                                packages.put(appInfo.metaData.getString
-                                        (metadataName), data);
-                                Log.d("Substratum Ready Theme", package_name);
+                                packages.put(appInfo.metaData.getString(metadataName), data);
+                                Log.d(PACKAGE_TAG,
+                                        "Loaded Substratum Theme: [" + package_name + "]");
+                                if (References.ENABLE_PACKAGE_LOGGING)
+                                    PackageAnalytics.logPackageInfo(context, package_name);
                             } else {
                                 try {
                                     String[] stringArray = am.list("");
@@ -1718,18 +1646,18 @@ public class References {
                         } else {
                             if (home_type.length() == 0) {
                                 String[] data = {appInfo.metaData.getString
-                                        (metadataAuthor),
-                                        packageName};
-                                packages.put(appInfo.metaData.getString
-                                        (metadataName), data);
-                                Log.d("Substratum Ready Theme", packageName);
+                                        (metadataAuthor), packageName};
+                                packages.put(appInfo.metaData.getString(metadataName), data);
+                                Log.d(PACKAGE_TAG,
+                                        "Loaded Substratum Theme: [" + packageName + "]");
+                                if (References.ENABLE_PACKAGE_LOGGING)
+                                    PackageAnalytics.logPackageInfo(context, packageName);
                             } else {
                                 try {
                                     String[] stringArray = am.list("");
                                     if (Arrays.asList(stringArray).contains(home_type)) {
                                         String[] data = {appInfo.metaData.getString
-                                                (metadataAuthor),
-                                                packageName};
+                                                (metadataAuthor), packageName};
                                         packages.put(appInfo.metaData.getString
                                                 (metadataName), data);
                                     }

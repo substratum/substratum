@@ -857,5 +857,5 @@
     <string name="manage_space_reset_text_title">Reset configuration</string>
     <string name="manage_space_reset_text_desc">Are you having trouble with the application? Or did you recently make a big version leap from an old version of substratum? A simple configuration clear would definitely aid troubleshooting the issue!</string>
     <string name="manage_space_reset_dialog_title">Reset configuration?</string>
-    <string name="manage_space_reset_dialog_content">All substratum data will be deleted, including all files and settings.</string>
+    <string name="manage_space_reset_dialog_content">All substratum data will be deleted, including all files and settings. The app will be closed after reset completed.</string>
 </resources>

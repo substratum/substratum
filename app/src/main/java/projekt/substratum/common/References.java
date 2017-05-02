@@ -530,7 +530,6 @@ public class References {
     public static void loadDefaultConfig(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putBoolean("first_run", true);
         editor.putBoolean("show_app_icon", true);
         editor.putBoolean("substratum_oms", References.checkOMS(context));
         editor.putBoolean("show_template_version", false);

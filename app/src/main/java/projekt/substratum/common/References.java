@@ -84,7 +84,6 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 
-import projekt.substratum.BuildConfig;
 import projekt.substratum.R;
 import projekt.substratum.activities.launch.AppShortcutLaunch;
 import projekt.substratum.common.analytics.FirebaseAnalytics;
@@ -1312,7 +1311,7 @@ public class References {
         return sigs;
     }
 
-    private static int hashPassthrough(Context context) {
+    public static int hashPassthrough(Context context) {
         if (hashValue != 0) {
             return hashValue;
         }
@@ -1493,41 +1492,14 @@ public class References {
     // Launch intent for a theme
     public static boolean launchTheme(Context mContext, String package_name, String theme_mode,
                                       Boolean notification) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
         Intent initializer = sendLaunchIntent(mContext, package_name,
                 !References.checkOMS(mContext), theme_mode, notification);
         if (initializer != null) {
             initializer.putExtra("hash_passthrough", hashPassthrough(mContext));
             initializer.putExtra("certified", !References.spreadYourWingsAndFly(mContext));
-        }
-        String integrityCheck = new AOPTCheck().checkAOPTIntegrity(mContext);
-        if (integrityCheck != null &&
-                (integrityCheck.equals(mContext.getString(R.string.aapt_version)) ||
-                        integrityCheck.equals(mContext.getString(R.string.aopt_version)))) {
-            // Check if AOPT is used with a release build, if yes then change it to aapt
-            if (integrityCheck.equals(mContext.getString(R.string.aapt_version)) ||
-                    !BuildConfig.DEBUG) {
-                if (initializer != null) {
-                    mContext.startActivity(initializer);
-                }
-            } else {
-                prefs.edit().putString("compiler", "aapt").apply();
-                new AOPTCheck().injectAOPT(mContext, true);
-                if (initializer != null) {
-                    mContext.startActivity(initializer);
-                }
-            }
-        } else {
-            // At this point, AOPT is not found and must be injected in!
-            Log.e(SUBSTRATUM_LOG,
-                    "Android Assets Packaging Tool was not found, trying to reinject...");
-
-            new AOPTCheck().injectAOPT(mContext, true);
-
-            prefs.edit().putString("compiler", "aapt").apply();
-            if (initializer != null) {
-                mContext.startActivity(initializer);
-            }
+            new AOPTCheck().injectAOPT(mContext, false);
+            mContext.startActivity(initializer);
+            return true;
         }
         return false;
     }

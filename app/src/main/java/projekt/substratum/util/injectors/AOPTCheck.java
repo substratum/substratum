@@ -58,13 +58,13 @@ public class AOPTCheck {
                     if (prefs.getString("compiler", "aopt").equals("aopt")) {
                         copyAOPT("aopt" + (architecture.equals("ARM64") ? "64" : ""));
                         Log.d(References.SUBSTRATUM_LOG,
-                                "Android Overlay Packaging Tool (" + architecture + ") has been"
-                                        + " added into the system partition.");
+                                "Android Overlay Packaging Tool (" + architecture + ") " +
+                                        "has been added into the compiler directory.");
                     } else {
                         copyAOPT("aapt");
                         Log.d(References.SUBSTRATUM_LOG,
-                                "Android Assets Packaging Tool (" + architecture + ") has been"
-                                        + " added into the system partition.");
+                                "Android Asset Packaging Tool (" + architecture + ") " +
+                                        "has been added into the compiler directory.");
                     }
                 } catch (Exception e) {
                     // Suppress warning
@@ -73,11 +73,11 @@ public class AOPTCheck {
                 // Take account for x86 devices
                 try {
                     copyAOPT("aapt86");
-                    Log.d(References.SUBSTRATUM_LOG, "Android Assets Packaging Tool (x86) has " +
-                            "been" +
-                            " added into the system partition.");
+                    Log.d(References.SUBSTRATUM_LOG,
+                            "Android Asset Packaging Tool (x86) " +
+                                    "has been added into the compiler directory.");
                 } catch (Exception e) {
-                    //
+                    // Suppress warning
                 }
             }
         } else if (aopt.exists()) {
@@ -86,9 +86,9 @@ public class AOPTCheck {
             if (integrityCheck != null &&
                     (integrityCheck.equals(mContext.getString(R.string.aapt_version)) ||
                             integrityCheck.equals(R.string.aopt_version))) {
-                Log.d(References.SUBSTRATUM_LOG, "The system partition already contains an " +
-                        "existing " +
-                        "compiler and Substratum is locked and loaded!");
+                Log.d(References.SUBSTRATUM_LOG,
+                        "The system partition already contains an existing compiler " +
+                                "and Substratum is locked and loaded!");
             } else {
                 Log.e(References.SUBSTRATUM_LOG,
                         "The system partition already contains an existing compiler, " +
@@ -102,13 +102,13 @@ public class AOPTCheck {
                         if (prefs.getString("compiler", "aopt").equals("aopt")) {
                             copyAOPT("aopt" + (architecture.equals("ARM64") ? "64" : ""));
                             Log.d(References.SUBSTRATUM_LOG,
-                                    "Android Overlay Packaging Tool (" + architecture + ") has been"
-                                            + " added into the system partition.");
+                                    "Android Overlay Packaging Tool (" + architecture + ") " +
+                                            "has been added into the compiler directory.");
                         } else {
                             copyAOPT("aapt");
                             Log.d(References.SUBSTRATUM_LOG,
-                                    "Android Assets Packaging Tool (" + architecture + ") has been"
-                                            + " added into the system partition.");
+                                    "Android Asset Packaging Tool (" + architecture + ") " +
+                                            "has been added into the compiler directory.");
                         }
                     } catch (Exception e) {
                         // Suppress warning
@@ -117,11 +117,11 @@ public class AOPTCheck {
                     // Take account for x86 devices
                     try {
                         copyAOPT("aapt86");
-                        Log.d(References.SUBSTRATUM_LOG, "Android Assets Packaging Tool (x86) has" +
-                                " been" +
-                                " added into the system partition.");
+                        Log.d(References.SUBSTRATUM_LOG,
+                                "Android Asset Packaging Tool (x86) " +
+                                        "has been added into the compiler directory.");
                     } catch (Exception e) {
-                        //
+                        // Suppress warning
                     }
                 }
             }
@@ -144,7 +144,7 @@ public class AOPTCheck {
         return new File(newFileName).setExecutable(true, true);
     }
 
-    public String checkAOPTIntegrity(Context context) {
+    private String checkAOPTIntegrity(Context context) {
         Process proc = null;
         try {
             String aopt = context.getFilesDir().getAbsolutePath() + "/aopt";

@@ -1191,7 +1191,8 @@ public class MainActivity extends SubstratumActivity implements
             MainActivity activity = ref.get();
             Context context = activity.getApplicationContext();
             activity.prefs.edit().putBoolean("complexion",
-                    !References.spreadYourWingsAndFly(context)).apply();
+                    !References.spreadYourWingsAndFly(context) &&
+                            References.hashPassthrough(context) != 0).apply();
             if (!References.checkThemeInterfacer(context)) {
                 Boolean receivedRoot = Root.requestRootAccess();
                 if (receivedRoot) Log.d(SUBSTRATUM_LOG, "Substratum has loaded in rooted mode.");

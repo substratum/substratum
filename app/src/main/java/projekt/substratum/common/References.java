@@ -756,7 +756,9 @@ public class References {
         } catch (Exception e) {
             // Suppress warning
         }
-        if (package_name.equals(INTERFACER_PACKAGE) && !checkOMS(context)) {
+        if (package_name != null &&
+                package_name.equals(INTERFACER_PACKAGE) &&
+                !checkOMS(context)) {
             return context.getDrawable(R.mipmap.main_launcher);
         } else {
             return context.getDrawable(R.drawable.default_overlay_icon);

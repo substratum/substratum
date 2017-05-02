@@ -128,9 +128,12 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
             boolean show_android_overlays =
                     prefs.getBoolean("floatui_show_android_system_overlays", true);
             for (int i = 0; i < all_overlays.size(); i++) {
-                if (all_overlays.get(i).startsWith(foregroundedApp() + ".")) {
+                if (all_overlays.get(i).startsWith(foregroundedApp() + ".") &&
+                        !all_overlays.get(i).endsWith(".icon")) {
                     to_be_shown.add(all_overlays.get(i));
-                } else if (show_android_overlays && all_overlays.get(i).startsWith("android.")) {
+                } else if (show_android_overlays &&
+                        all_overlays.get(i).startsWith("android.") &&
+                        !all_overlays.get(i).endsWith(".icon")) {
                     to_be_shown.add(all_overlays.get(i));
                 }
             }

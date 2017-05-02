@@ -27,6 +27,7 @@ import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
@@ -45,6 +46,7 @@ import projekt.substratum.common.References;
 import projekt.substratum.util.compilers.CacheCreator;
 import projekt.substratum.util.helpers.NotificationCreator;
 
+import static projekt.substratum.common.References.INTERFACER_PACKAGE;
 import static projekt.substratum.common.References.PACKAGE_ADDED;
 
 public class PackageModificationDetector extends BroadcastReceiver {
@@ -157,8 +159,11 @@ public class PackageModificationDetector extends BroadcastReceiver {
                             true,
                             grabPendingIntent(package_name),
                             R.drawable.notification_updated,
-                            BitmapFactory.decodeResource(
-                                    mContext.getResources(), R.mipmap.restore_launcher),
+                            ((BitmapDrawable)
+                                    References.grabAppIcon(
+                                            context,
+                                            INTERFACER_PACKAGE
+                                    )).getBitmap(),
                             Notification.PRIORITY_MAX,
                             ThreadLocalRandom.current().nextInt(0, 1000)).createNotification();
                 } else {
@@ -255,8 +260,11 @@ public class PackageModificationDetector extends BroadcastReceiver {
                             true,
                             grabPendingIntent(package_name),
                             R.drawable.notification_updated,
-                            BitmapFactory.decodeResource(
-                                    mContext.getResources(), R.mipmap.restore_launcher),
+                            ((BitmapDrawable)
+                                    References.grabAppIcon(
+                                            mContext,
+                                            INTERFACER_PACKAGE
+                                    )).getBitmap(),
                             Notification.PRIORITY_MAX,
                             ThreadLocalRandom.current().nextInt(0, 1000)).createNotification();
                 } else {

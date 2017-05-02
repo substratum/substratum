@@ -185,7 +185,7 @@
         <activity
             android:name="com.squareup.leakcanary.internal.DisplayLeakActivity"
             android:enabled="false"
-            android:icon="@drawable/debug_icon"
+            android:icon="@mipmap/debug_icon"
             android:label="@string/debug_app_name"
             android:taskAffinity="com.squareup.leakcanary.${applicationId}"
             android:theme="@style/LeakCanaryTheme"

@@ -550,7 +550,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         // Finally, these functions will only work on OMS ROMs
         if (References.checkOMS(getContext())) {
             Preference aboutInterfacer = getPreferenceManager().findPreference("about_interfacer");
-            aboutInterfacer.setIcon(getContext().getDrawable(R.mipmap.restore_launcher));
+            aboutInterfacer.setIcon(References.grabAppIcon(getContext(), INTERFACER_PACKAGE));
             aboutInterfacer.setOnPreferenceClickListener(
                     preference -> {
                         try {

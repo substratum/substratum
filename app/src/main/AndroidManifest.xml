@@ -44,7 +44,7 @@
         android:icon="@mipmap/main_launcher"
         android:label="@string/app_name"
         android:largeHeap="true"
-        android:manageSpaceActivity=".ManageSpaceActivity"
+        android:manageSpaceActivity=".activities.launch.ManageSpaceActivity"
         android:roundIcon="@mipmap/round_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
@@ -260,7 +260,7 @@
             android:label="@string/restore_dialog_title"
             android:theme="@style/AppTheme.Dialog" />
         <activity
-            android:name=".ManageSpaceActivity"
+            android:name=".activities.launch.ManageSpaceActivity"
             android:label="@string/title_activity_manage_space"
             android:theme="@style/AppTheme" />
     </application>

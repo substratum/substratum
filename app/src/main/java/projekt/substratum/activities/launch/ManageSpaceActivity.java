@@ -16,7 +16,7 @@
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package projekt.substratum;
+package projekt.substratum.activities.launch;
 
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -24,12 +24,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.text.format.Formatter;
-import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.TextView;
 
 import java.io.File;
 
+import projekt.substratum.R;
 import projekt.substratum.common.References;
 
 import static projekt.substratum.common.analytics.FirebaseAnalytics.NAMES_PREFS;
@@ -38,6 +37,8 @@ import static projekt.substratum.common.commands.FileOperations.delete;
 import static projekt.substratum.common.commands.FileOperations.getFileSize;
 
 public class ManageSpaceActivity extends AppCompatActivity {
+
+    private TextView cacheCounter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,12 +54,13 @@ public class ManageSpaceActivity extends AppCompatActivity {
 
         CardView clearCacheButton = (CardView) findViewById(R.id.clear_cache_button);
         CardView resetAppButton = (CardView) findViewById(R.id.reset_app_button);
-        TextView cacheCounter = (TextView) findViewById(R.id.cache_counter);
-
+        cacheCounter = (TextView) findViewById(R.id.cache_counter);
+        cacheCounter.setText(getString(R.string.clear_cache_button_loading));
         cacheCounter.setText(Formatter.formatFileSize(this, getFileSize(getCacheDir())));
 
         clearCacheButton.setOnClickListener(v -> {
             delete(this, getCacheDir().getAbsolutePath());
+            cacheCounter.setText(getString(R.string.clear_cache_button_loading));
             cacheCounter.setText(Formatter.formatFileSize(this, getFileSize(getCacheDir())));
         });
 
@@ -89,5 +91,12 @@ public class ManageSpaceActivity extends AppCompatActivity {
                     .create();
             dialog.show();
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        cacheCounter.setText(getString(R.string.clear_cache_button_loading));
+        cacheCounter.setText(Formatter.formatFileSize(this, getFileSize(getCacheDir())));
     }
 }

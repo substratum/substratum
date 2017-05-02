@@ -274,6 +274,12 @@ public class RecoveryFragment extends Fragment {
             sheetDialog.show();
         });
 
+        View iconsCard = root.findViewById(R.id.restore_icons_card);
+        if (!References.checkThemeInterfacer(mContext) ||
+                !References.isAuthorizedDebugger(mContext)) {
+            iconsCard.setVisibility(View.GONE);
+        }
+
         return root;
     }
 

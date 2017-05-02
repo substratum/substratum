@@ -1156,8 +1156,8 @@ public class References {
                     package_name, PackageManager.GET_META_DATA);
             if (appInfo.metaData != null &&
                     appInfo.metaData.get(metadataVersion) != null) {
-                return mContext.getString(R.string.plugin_template) + ": " + appInfo.metaData
-                        .get(metadataVersion);
+                return mContext.getString(R.string.plugin_template) + ": " +
+                        appInfo.metaData.get(metadataVersion);
             }
         } catch (Exception e) {
             // Suppress warning

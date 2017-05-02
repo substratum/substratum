@@ -21,6 +21,7 @@ package projekt.substratum.activities.launch;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Process;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -42,6 +43,7 @@ import static projekt.substratum.common.commands.FileOperations.getFileSize;
 public class ManageSpaceActivity extends AppCompatActivity {
 
     private TextView cacheCounter;
+    private String callingPackage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +80,7 @@ public class ManageSpaceActivity extends AppCompatActivity {
                     .create();
             dialog.show();
         });
+        callingPackage = getCallingPackage();
     }
 
     @Override
@@ -85,6 +88,14 @@ public class ManageSpaceActivity extends AppCompatActivity {
         super.onResume();
         cacheCounter.setText(getString(R.string.clear_cache_button_loading));
         cacheCounter.setText(Formatter.formatFileSize(this, getFileSize(getCacheDir())));
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (callingPackage != null) {
+            Process.killProcess(Process.myPid());
+        }
     }
 
     private static class ClearCache extends AsyncTask<Void, Void, Void> {
@@ -146,7 +157,7 @@ public class ManageSpaceActivity extends AppCompatActivity {
             Context context = activity.getApplicationContext();
             activity.cacheCounter.setText(
                     Formatter.formatFileSize(context, getFileSize(context.getCacheDir())));
-            activity.finish();
+            activity.finishAffinity();
         }
     }
 }

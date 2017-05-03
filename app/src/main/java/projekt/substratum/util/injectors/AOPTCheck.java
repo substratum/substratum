@@ -85,7 +85,7 @@ public class AOPTCheck {
             // AOPT outputs different ui
             if (integrityCheck != null &&
                     (integrityCheck.equals(mContext.getString(R.string.aapt_version)) ||
-                            integrityCheck.equals(R.string.aopt_version))) {
+                            integrityCheck.equals(mContext.getString(R.string.aopt_version)))) {
                 Log.d(References.SUBSTRATUM_LOG,
                         "The system partition already contains an existing compiler " +
                                 "and Substratum is locked and loaded!");

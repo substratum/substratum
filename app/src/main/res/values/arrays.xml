@@ -37,6 +37,7 @@
         <item>Magyar Fordítás</item>
         <item>Traduzioni Italiane</item>
         <item>Lietuvos Vertimai</item>
+        <item>Nederlandse vertalingen</item>
         <item>Polskie tłumaczenia</item>
         <item>Tradução Português (Brasileiro)</item>
         <item>Tradução Português</item>
@@ -55,6 +56,13 @@
         <item>Michal Václav Císařovský (mikicis)</item>
         <item>Ondřej Holan (blackegi1)</item>
         <item>Lukas Novotny (novas78)</item>
+    </string-array>
+
+    <string-array name="dutch_translators">
+        <item>Roy Schutte (Shizzel)</item>
+        <item>Erich Maritz (Tokolozi)</item>
+        <item>Mipirakas</item>
+        <item>PeterPaulBron</item>
     </string-array>
 
     <string-array name="french_translators">

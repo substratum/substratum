@@ -18,168 +18,168 @@
   ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
   -->
 <resources>
-    <!-- http://def-builder.mikepenz.com/ -->
-    <!-- commons-io -->
-    <!-- Author section -->
-    <!-- Library section -->
-    <string name="library_commons_io_libraryDescription">Commons IO je knižnica funkcií, ktoré pomáhajú pri vývoji IO.</string>
-    <!-- OpenSource section -->
-    <!-- ClassPath for autoDetect section -->
-    <!-- License section -->
-    <!-- FAB Speed Dial -->
-    <!-- Author section -->
-    <!-- Library section -->
-    <string name="library_fab_speed_dial_libraryDescription">Jednoduchá knižnica spájajúca plávajúce tlačidlo (FAB) + zdroje menu + Speed dial metaphor z Material Designu.    </string>
-    <!-- OpenSource section -->
-    <!-- ClassPath for autoDetect section -->
-    <!-- License section -->
-    <!-- Gesture RecyclerView -->
-    <!-- Author section -->
-    <!-- Library section -->
-    <string name="library_gesturerecycler_libraryDescription">Táto knižnica poskytuje podporu pre potiahnutie prstom a metódu drag &amp; drop pre RecyclerView.    </string>
-    <!-- OpenSource section -->
-    <!-- ClassPath for autoDetect section -->
-    <!-- License section -->
-    <!-- KenBurnsView -->
-    <!-- Author section -->
-    <string name="library_kenburnsview_author" formatted="false">Flávio Faria</string>
-    <string name="library_kenburnsview_authorWebsite" formatted="false">https://plus.google.com/+Fl%C3%A1vioFaria1/posts</string>
-    <!-- Library section -->
-    <string name="library_kenburnsview_libraryDescription">Android knižnica, ktorá poskytuje rozšírenia pre ImageView a vytvára lepší zážitok z animácií s pomocou efektu Ken Burns.    </string>
-    <!-- OpenSource section -->
-    <!-- ClassPath for autoDetect section -->
-    <!-- License section -->
-    <!-- libsuperuser -->
-    <!-- Author section -->
-    <!-- Library section -->
-    <string name="library_libsuperuser_libraryDescription">Cieľom tejto knižnice je demonštrovať techniky, ktoré by ste chceli použiť vo vašej root aplikácií, ktorá rieši bežné problémy s minimálnym kódom.</string>
-    <!-- OpenSource section -->
-    <!-- ClassPath for autoDetect section -->
-    <!-- License section -->
-    <!-- Material Progress Bar -->
-    <!-- Author section -->
-    <!-- Library section -->
-    <string name="library_materialprogressbar_libraryDescription">ProgressBar v štýle Material Design, kompatibilný s Androidom 4.0+.</string>
-    <!-- OpenSource section -->
-    <!-- ClassPath for autoDetect section -->
-    <!-- License section -->
-    <!-- Material Sheet Fab -->
-    <!-- Author section -->
-    <!-- Library section -->
-    <string name="library_materialsheetfab_libraryDescription">Knižnica, ktorá implementuje animované plávajúce akčné tlačidlo (FAB) v štýle Material Design od Google. Môže byť použitá s akoukoľvek FAB knižnicou na Androide 4.0+ (API levels &gt;= 14).</string>
-    <!-- OpenSource section -->
-    <!-- ClassPath for autoDetect section -->
-    <!-- License section -->
-    <!-- Welcome -->
-    <!-- Author section -->
-    <!-- Library section -->
-    <string name="library_welcome_android_libraryDescription">Ľahko použiteľná a vysoko prispôsobiteľná úvodná obrazovka pre Android aplikácie.
+  <!-- http://def-builder.mikepenz.com/ -->
+  <!-- commons-io -->
+  <!-- Author section -->
+  <!-- Library section -->
+  <string name="library_commons_io_libraryDescription">Commons IO je knižnica funkcií, ktoré pomáhajú pri vývoji IO.</string>
+  <!-- OpenSource section -->
+  <!-- ClassPath for autoDetect section -->
+  <!-- License section -->
+  <!-- FAB Speed Dial -->
+  <!-- Author section -->
+  <!-- Library section -->
+  <string name="library_fab_speed_dial_libraryDescription">Jednoduchá knižnica spájajúca plávajúce tlačidlo (FAB) + zdroje menu + Speed dial metaphor z Material Designu.    </string>
+  <!-- OpenSource section -->
+  <!-- ClassPath for autoDetect section -->
+  <!-- License section -->
+  <!-- Gesture RecyclerView -->
+  <!-- Author section -->
+  <!-- Library section -->
+  <string name="library_gesturerecycler_libraryDescription">Táto knižnica poskytuje podporu pre potiahnutie prstom a metódu drag &amp; drop pre RecyclerView.    </string>
+  <!-- OpenSource section -->
+  <!-- ClassPath for autoDetect section -->
+  <!-- License section -->
+  <!-- KenBurnsView -->
+  <!-- Author section -->
+  <string name="library_kenburnsview_author" formatted="false">Flávio Faria</string>
+  <string name="library_kenburnsview_authorWebsite" formatted="false">https://plus.google.com/+Fl%C3%A1vioFaria1/posts</string>
+  <!-- Library section -->
+  <string name="library_kenburnsview_libraryDescription">Android knižnica, ktorá poskytuje rozšírenia pre ImageView a vytvára lepší zážitok z animácií s pomocou efektu Ken Burns.    </string>
+  <!-- OpenSource section -->
+  <!-- ClassPath for autoDetect section -->
+  <!-- License section -->
+  <!-- libsuperuser -->
+  <!-- Author section -->
+  <!-- Library section -->
+  <string name="library_libsuperuser_libraryDescription">Cieľom tejto knižnice je demonštrovať techniky, ktoré by ste chceli použiť vo vašej root aplikácií, ktorá rieši bežné problémy s minimálnym kódom.</string>
+  <!-- OpenSource section -->
+  <!-- ClassPath for autoDetect section -->
+  <!-- License section -->
+  <!-- Material Progress Bar -->
+  <!-- Author section -->
+  <!-- Library section -->
+  <string name="library_materialprogressbar_libraryDescription">ProgressBar v štýle Material Design, kompatibilný s Androidom 4.0+.</string>
+  <!-- OpenSource section -->
+  <!-- ClassPath for autoDetect section -->
+  <!-- License section -->
+  <!-- Material Sheet Fab -->
+  <!-- Author section -->
+  <!-- Library section -->
+  <string name="library_materialsheetfab_libraryDescription">Knižnica, ktorá implementuje animované plávajúce akčné tlačidlo (FAB) v štýle Material Design od Google. Môže byť použitá s akoukoľvek FAB knižnicou na Androide 4.0+ (API levels &gt;= 14).</string>
+  <!-- OpenSource section -->
+  <!-- ClassPath for autoDetect section -->
+  <!-- License section -->
+  <!-- Welcome -->
+  <!-- Author section -->
+  <!-- Library section -->
+  <string name="library_welcome_android_libraryDescription">Ľahko použiteľná a vysoko prispôsobiteľná úvodná obrazovka pre Android aplikácie.
     </string>
-    <!-- OpenSource section -->
-    <!-- ClassPath for autoDetect section -->
-    <!-- License section -->
-    <!-- ZipSigner -->
-    <!-- Author section -->
-    <!-- Library section -->
-    <string name="library_zipsigner_libraryDescription">ZipSigner je Android knižnica pre podpisovanie zip, apk a/alebo jar súborov priamo na Android zariadení.</string>
-    <!-- OpenSource section -->
-    <!-- ClassPath for autoDetect section -->
-    <!-- License section -->
-    <!-- ZT-Zip -->
-    <!-- Author section -->
-    <!-- Library section -->
-    <string name="library_zt_zip_libraryDescription">Projekt je vytvorený pomocou java.util.zip.* balíčkov pre streamovo založený prístup. Väčšina konvenčných metód pre použitie súborového systému je tiež podporovaná.</string>
-    <!-- OpenSource section -->
-    <!-- ClassPath for autoDetect section -->
-    <!-- License section -->
-    <!-- AV Loading Indicator View -->
-    <!-- Author section -->
-    <string name="library_avloadingindicatorview_author">Jack Wang</string>
-    <string name="library_avloadingindicatorview_authorWebsite">http://hlong.xyz/</string>
-    <!-- Library section -->
-    <string name="library_avloadingindicatorview_libraryName">AVLoadingIndicatorView</string>
-    <string name="library_avloadingindicatorview_libraryDescription">AVLoadingIndicatorView je kolekcia pekných spúšťacích animácií pre Android.    </string>
-    <string name="library_avloadingindicatorview_libraryWebsite">
+  <!-- OpenSource section -->
+  <!-- ClassPath for autoDetect section -->
+  <!-- License section -->
+  <!-- ZipSigner -->
+  <!-- Author section -->
+  <!-- Library section -->
+  <string name="library_zipsigner_libraryDescription">ZipSigner je Android knižnica pre podpisovanie zip, apk a/alebo jar súborov priamo na Android zariadení.</string>
+  <!-- OpenSource section -->
+  <!-- ClassPath for autoDetect section -->
+  <!-- License section -->
+  <!-- ZT-Zip -->
+  <!-- Author section -->
+  <!-- Library section -->
+  <string name="library_zt_zip_libraryDescription">Projekt je vytvorený pomocou java.util.zip.* balíčkov pre streamovo založený prístup. Väčšina konvenčných metód pre použitie súborového systému je tiež podporovaná.</string>
+  <!-- OpenSource section -->
+  <!-- ClassPath for autoDetect section -->
+  <!-- License section -->
+  <!-- AV Loading Indicator View -->
+  <!-- Author section -->
+  <string name="library_avloadingindicatorview_author">Jack Wang</string>
+  <string name="library_avloadingindicatorview_authorWebsite">http://hlong.xyz/</string>
+  <!-- Library section -->
+  <string name="library_avloadingindicatorview_libraryName">AVLoadingIndicatorView</string>
+  <string name="library_avloadingindicatorview_libraryDescription">AVLoadingIndicatorView je kolekcia pekných spúšťacích animácií pre Android.    </string>
+  <string name="library_avloadingindicatorview_libraryWebsite">
 https://github.com/81813780/AVLoadingIndicatorView</string>
-    <string name="library_avloadingindicatorview_libraryVersion">2.1.3</string>
-    <!-- OpenSource section -->
-    <string name="library_avloadingindicatorview_repositoryLink">
+  <string name="library_avloadingindicatorview_libraryVersion">2.1.3</string>
+  <!-- OpenSource section -->
+  <string name="library_avloadingindicatorview_repositoryLink">
 https://github.com/81813780/AVLoadingIndicatorView</string>
-    <!-- ClassPath for autoDetect section -->
-    <string name="library_avloadingindicatorview_classPath">com.wang.avi:library</string>
-    <!-- License section -->
-    <!-- BlurView -->
-    <!-- Author section -->
-    <!-- Library section -->
-    <string name="library_blurview_libraryDescription">Dynamické rozmazanie pozadia pre Android ako v iOS.    </string>
-    <!-- OpenSource section -->
-    <!-- ClassPath for autoDetect section -->
-    <!-- License section -->
-    <!-- Android Image Cropper -->
-    <!-- Author section -->
-    <!-- Library section -->
-    <string name="library_androidimagecropper_libraryDescription">Výkonná (priblíženie, otočenie, viac zdrojov), prispôsobiteľná (tvar, limity, štýl), optimalizovaná (asynchrónne, vzorkovanie, matrica) a jednoduchá knižnica pre orezávanie obrázkov v Androide.</string>
-    <!-- OpenSource section -->
-    <!-- ClassPath for autoDetect section -->
-    <!-- License section -->
-    <!-- Floating View -->
-    <!-- Author section -->
-    <string name="library_floatingview_author">Recruit Lifestyle Co. Ltd.</string>
-    <string name="library_floatingview_authorWebsite">http://engineer.recruit-lifestyle.co.jp/</string>
-    <!-- Library section -->
-    <string name="library_floatingview_libraryName">FloatingView</string>
-    <string name="library_floatingview_libraryDescription">Android knižnica, ktorá prináša plávajúce zobrazenie podobné četovým hlavičkám vo Facebooku do open source komunity.</string>
-    <string name="library_floatingview_libraryWebsite">https://github.com/recruit-lifestyle/FloatingView/</string>
-    <string name="library_floatingview_libraryVersion">2.2</string>
-    <!-- OpenSource section -->
-    <string name="library_floatingview_repositoryLink">https://github.com/recruit-lifestyle/FloatingView/</string>
-    <!-- ClassPath for autoDetect section -->
-    <string name="library_floatingview_classPath">jp.co.recruit_lifestyle.android.floatingview.FloatingView</string>
-    <!-- License section -->
-    <!-- Jike Gallery -->
-    <!-- Author section -->
-    <string name="library_jikegallery_author">Jeason Wong</string>
-    <string name="library_jikegallery_authorWebsite">http://wangyuwei.me/</string>
-    <!-- Library section -->
-    <string name="library_jikegallery_libraryName">JikeGallery</string>
-    <string name="library_jikegallery_libraryDescription">Výborná galéria s plynulou vertikálnou animáciou, ktorá zobrazuje obsah atraktívnejšie.</string>
-    <string name="library_jikegallery_libraryWebsite">https://github.com/JeasonWong/JikeGallery</string>
-    <!-- OpenSource section -->
-    <!-- ClassPath for autoDetect section -->
-    <string name="library_jikegallery_classPath">me.wangyuwei:GalleryView</string>
-    <!-- License section -->
-    <!-- ExpandableLayout -->
-    <!-- Author section -->
-    <!-- Library section -->
-    <string name="library_expandablelayout_libraryDescription">Trieda Android rozloženia, ktorá podporuje animáciu rozbalenia a zbalenia jej podzobrazení.</string>
-    <!-- OpenSource section -->
-    <!-- ClassPath for autoDetect section -->
-    <!-- License section -->
-    <!-- Lemniscate -->
-    <!-- Author section -->
-    <string name="library_lemniscate_author">Vladimir Jovanović</string>
-    <string name="library_lemniscate_authorWebsite">https://stackoverflow.com/users/5821000/vladimir-jovanovi</string>
-    <!-- Library section -->
-    <string name="library_lemniscate_libraryName">Lemniscate</string>
-    <string name="library_lemniscate_libraryDescription">Lemniscate je knižnica, ktorá umožňuje zobraziť priebeh krásne a atraktívne.</string>
-    <string name="library_lemniscate_libraryWebsite">https://github.com/vlad1m1r990/Lemniscate</string>
-    <!-- OpenSource section -->
-    <string name="library_lemniscate_repositoryLink">https://github.com/vlad1m1r990/Lemniscate</string>
-    <!-- ClassPath for autoDetect section -->
-    <string name="library_lemniscate_classPath">com.github.vlad1m1r990:Lemniscate</string>
-    <!-- License section -->
-    <!-- NumberProgressBar -->
-    <!-- Author section -->
-    <string name="library_numberprogressbar_author">代码家</string>
-    <string name="library_numberprogressbar_authorWebsite">https://github.com/daimajia</string>
-    <!-- Library section -->
-    <string name="library_numberprogressbar_libraryName">Číselný ukazovateľ postupu</string>
-    <string name="library_numberprogressbar_libraryDescription">Kompaktný a krásny číselne založený ukazovateľ postupu.</string>
-    <string name="library_numberprogressbar_libraryWebsite">https://github.com/daimajia/NumberProgressBar</string>
-    <string name="library_numberprogressbar_libraryVersion">1.4</string>
-    <!-- OpenSource section -->
-    <string name="library_numberprogressbar_repositoryLink">https://github.com/daimajia/NumberProgressBar</string>
-    <!-- ClassPath for autoDetect section -->
-    <string name="library_numberprogressbar_classPath">com.daimajia.numberprogressbar</string>
-    <!-- License section -->
+  <!-- ClassPath for autoDetect section -->
+  <string name="library_avloadingindicatorview_classPath">com.wang.avi:library</string>
+  <!-- License section -->
+  <!-- BlurView -->
+  <!-- Author section -->
+  <!-- Library section -->
+  <string name="library_blurview_libraryDescription">Dynamické rozmazanie pozadia pre Android ako v iOS.    </string>
+  <!-- OpenSource section -->
+  <!-- ClassPath for autoDetect section -->
+  <!-- License section -->
+  <!-- Android Image Cropper -->
+  <!-- Author section -->
+  <!-- Library section -->
+  <string name="library_androidimagecropper_libraryDescription">Výkonná (priblíženie, otočenie, viac zdrojov), prispôsobiteľná (tvar, limity, štýl), optimalizovaná (asynchrónne, vzorkovanie, matrica) a jednoduchá knižnica pre orezávanie obrázkov v Androide.</string>
+  <!-- OpenSource section -->
+  <!-- ClassPath for autoDetect section -->
+  <!-- License section -->
+  <!-- Floating View -->
+  <!-- Author section -->
+  <string name="library_floatingview_author">Recruit Lifestyle Co. Ltd.</string>
+  <string name="library_floatingview_authorWebsite">http://engineer.recruit-lifestyle.co.jp/</string>
+  <!-- Library section -->
+  <string name="library_floatingview_libraryName">FloatingView</string>
+  <string name="library_floatingview_libraryDescription">Android knižnica, ktorá prináša plávajúce zobrazenie podobné četovým hlavičkám vo Facebooku do open source komunity.</string>
+  <string name="library_floatingview_libraryWebsite">https://github.com/recruit-lifestyle/FloatingView/</string>
+  <string name="library_floatingview_libraryVersion">2.2</string>
+  <!-- OpenSource section -->
+  <string name="library_floatingview_repositoryLink">https://github.com/recruit-lifestyle/FloatingView/</string>
+  <!-- ClassPath for autoDetect section -->
+  <string name="library_floatingview_classPath">jp.co.recruit_lifestyle.android.floatingview.FloatingView</string>
+  <!-- License section -->
+  <!-- Jike Gallery -->
+  <!-- Author section -->
+  <string name="library_jikegallery_author">Jeason Wong</string>
+  <string name="library_jikegallery_authorWebsite">http://wangyuwei.me/</string>
+  <!-- Library section -->
+  <string name="library_jikegallery_libraryName">JikeGallery</string>
+  <string name="library_jikegallery_libraryDescription">Výborná galéria s plynulou vertikálnou animáciou, ktorá zobrazuje obsah atraktívnejšie.</string>
+  <string name="library_jikegallery_libraryWebsite">https://github.com/JeasonWong/JikeGallery</string>
+  <!-- OpenSource section -->
+  <!-- ClassPath for autoDetect section -->
+  <string name="library_jikegallery_classPath">me.wangyuwei:GalleryView</string>
+  <!-- License section -->
+  <!-- ExpandableLayout -->
+  <!-- Author section -->
+  <!-- Library section -->
+  <string name="library_expandablelayout_libraryDescription">Trieda Android rozloženia, ktorá podporuje animáciu rozbalenia a zbalenia jej podzobrazení.</string>
+  <!-- OpenSource section -->
+  <!-- ClassPath for autoDetect section -->
+  <!-- License section -->
+  <!-- Lemniscate -->
+  <!-- Author section -->
+  <string name="library_lemniscate_author">Vladimir Jovanović</string>
+  <string name="library_lemniscate_authorWebsite">https://stackoverflow.com/users/5821000/vladimir-jovanovi</string>
+  <!-- Library section -->
+  <string name="library_lemniscate_libraryName">Lemniscate</string>
+  <string name="library_lemniscate_libraryDescription">Lemniscate je knižnica, ktorá umožňuje zobraziť priebeh krásne a atraktívne.</string>
+  <string name="library_lemniscate_libraryWebsite">https://github.com/vlad1m1r990/Lemniscate</string>
+  <!-- OpenSource section -->
+  <string name="library_lemniscate_repositoryLink">https://github.com/vlad1m1r990/Lemniscate</string>
+  <!-- ClassPath for autoDetect section -->
+  <string name="library_lemniscate_classPath">com.github.vlad1m1r990:Lemniscate</string>
+  <!-- License section -->
+  <!-- NumberProgressBar -->
+  <!-- Author section -->
+  <string name="library_numberprogressbar_author">代码家</string>
+  <string name="library_numberprogressbar_authorWebsite">https://github.com/daimajia</string>
+  <!-- Library section -->
+  <string name="library_numberprogressbar_libraryName">Číselný ukazovateľ postupu</string>
+  <string name="library_numberprogressbar_libraryDescription">Kompaktný a krásny číselne založený ukazovateľ postupu.</string>
+  <string name="library_numberprogressbar_libraryWebsite">https://github.com/daimajia/NumberProgressBar</string>
+  <string name="library_numberprogressbar_libraryVersion">1.4</string>
+  <!-- OpenSource section -->
+  <string name="library_numberprogressbar_repositoryLink">https://github.com/daimajia/NumberProgressBar</string>
+  <!-- ClassPath for autoDetect section -->
+  <string name="library_numberprogressbar_classPath">com.daimajia.numberprogressbar</string>
+  <!-- License section -->
 </resources>

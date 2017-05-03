@@ -304,44 +304,49 @@ public class TeamFragment extends Fragment {
                                 break;
                             case 8:
                                 builder2.setItems(
-                                        getResources().getStringArray(R.array
-                                                .polish_translators),
+                                        getResources().getStringArray(R.array.dutch_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;
                             case 9:
                                 builder2.setItems(
-                                        getResources().getStringArray(R.array
-                                                .portuguese_brazillian_translators),
+                                        getResources().getStringArray(R.array.polish_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;
                             case 10:
                                 builder2.setItems(
                                         getResources().getStringArray(R.array
-                                                .portuguese_translators),
+                                                .portuguese_brazillian_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;
                             case 11:
                                 builder2.setItems(
-                                        getResources().getStringArray(R.array.russian_translators),
+                                        getResources().getStringArray(R.array
+                                                .portuguese_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;
                             case 12:
                                 builder2.setItems(
-                                        getResources().getStringArray(R.array.slovak_translators),
+                                        getResources().getStringArray(R.array.russian_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;
                             case 13:
                                 builder2.setItems(
-                                        getResources().getStringArray(R.array.spanish_translators),
+                                        getResources().getStringArray(R.array.slovak_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;
                             case 14:
+                                builder2.setItems(
+                                        getResources().getStringArray(R.array.spanish_translators),
+                                        (dialog2, item2) -> {
+                                        });
+                                break;
+                            case 15:
                                 builder2.setItems(
                                         getResources().getStringArray(R.array.turkish_translators),
                                         (dialog2, item2) -> {

@@ -783,6 +783,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
     private class checkROMSupportList extends AsyncTask<String, Integer, String> {
 
+        @SuppressWarnings("ConstantConditions")
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
@@ -793,7 +794,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 platformSummary.append(getString(R.string.rom_status))
                         .append(" ").append(supportedRom);
                 systemPlatform.setSummary(platformSummary.toString());
-            } else if (!References.isNetworkAvailable(getContext()) || result.equals("")) {
+            } else if (!References.isNetworkAvailable(
+                    getContext()) ||
+                    (result != null && result.equals(""))) {
                 platformSummary.append(getString(R.string.rom_status)).append(" ").append(
                         getString(R.string.rom_status_network));
                 systemPlatform.setSummary(platformSummary.toString());
@@ -852,7 +855,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     }
                 } catch (UnknownHostException exc) {
                     return "";
-                } catch (Exception e){
+                } catch (Exception e) {
                     return e.toString();
                 } finally {
                     try {

@@ -1399,7 +1399,6 @@ public class References {
         if (theme_legacy)
             originalIntent.putExtra("theme_legacy", true);
         if (theme_mode != null) {
-            Log.e("SJSJKSKJS", theme_mode + "");
             originalIntent.putExtra("theme_mode", theme_mode);
         }
         if (notification) {

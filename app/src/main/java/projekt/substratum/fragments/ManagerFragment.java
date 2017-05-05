@@ -133,6 +133,7 @@ public class ManagerFragment extends Fragment {
                     List<String> update = updateEnabledOverlays();
                     for (int i = 0; i < overlayList.size(); i++) {
                         ManagerItem currentOverlay = overlayList.get(i);
+                        currentOverlay.setSelected(false);
                         currentOverlay.updateEnabledOverlays(
                                 update.contains(currentOverlay.getName()));
                         mAdapter.notifyDataSetChanged();

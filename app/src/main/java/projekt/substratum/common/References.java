@@ -1445,8 +1445,6 @@ public class References {
         intentActivity.putExtra("notification", notification);
         intentActivity.putExtra("hash_passthrough", hashPassthrough(mContext));
         intentActivity.putExtra("certified", !spreadYourWingsAndFly(mContext));
-        new AOPTCheck().injectAOPT(mContext, false);
-
         mContext.startActivity(intentActivity);
         return false;
     }

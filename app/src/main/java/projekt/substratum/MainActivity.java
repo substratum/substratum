@@ -102,6 +102,7 @@ import projekt.substratum.services.system.InterfacerAuthorizationReceiver;
 import projekt.substratum.services.tiles.FloatUiTile;
 import projekt.substratum.util.files.Root;
 import projekt.substratum.util.helpers.ContextWrapper;
+import projekt.substratum.util.injectors.AOPTCheck;
 import projekt.substratum.util.views.SheetDialog;
 
 import static android.content.om.OverlayInfo.STATE_APPROVED_DISABLED;
@@ -1182,6 +1183,7 @@ public class MainActivity extends SubstratumActivity implements
                 }
             } else {
                 activity.showOutdatedRequestDialog();
+                new AOPTCheck().injectAOPT(activity.getApplicationContext(), false);
                 if (References.checkOMS(context)) new DoCleanUp(context).execute();
             }
         }

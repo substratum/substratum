@@ -18,6 +18,7 @@
 
 package projekt.substratum.activities.launch;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -26,14 +27,13 @@ import android.os.Bundle;
 import java.util.concurrent.ThreadLocalRandom;
 
 import projekt.substratum.InformationActivity;
-import projekt.substratum.activities.base.SubstratumActivity;
 import projekt.substratum.common.References;
 
 import static android.content.pm.PackageManager.GET_META_DATA;
 import static projekt.substratum.common.References.sendLaunchIntent;
 
-public class ThemeLaunchActivity extends SubstratumActivity {
-    
+public class ThemeLaunchActivity extends Activity {
+
     private String package_name;
     private String theme_mode;
     private Boolean legacyTheme = false;

@@ -103,8 +103,13 @@ public class ManagerAdapter extends
                     context,
                     packageName,
                     References.metadataOverlayType1a);
+
             if (metadata != null && metadata.length() > 0) {
-                metadata = metadata.split("/")[2];
+                if (metadata.startsWith("/data/user")) {
+                    metadata = metadata.split("/")[11];
+                } else {
+                    metadata = metadata.split("/")[2];
+                }
                 metadata = metadata.substring(
                         context.getString(R.string.manager_type1a).length() - 1,
                         metadata.length() - 4).replace("_", " ");
@@ -128,7 +133,11 @@ public class ManagerAdapter extends
                     packageName,
                     References.metadataOverlayType1b);
             if (metadata != null && metadata.length() > 0) {
-                metadata = metadata.split("/")[2];
+                if (metadata.startsWith("/data/user")) {
+                    metadata = metadata.split("/")[11];
+                } else {
+                    metadata = metadata.split("/")[2];
+                }
                 metadata = metadata.substring(
                         context.getString(R.string.manager_type1b).length() - 1,
                         metadata.length() - 4).replace("_", " ");
@@ -152,7 +161,11 @@ public class ManagerAdapter extends
                     packageName,
                     References.metadataOverlayType1c);
             if (metadata != null && metadata.length() > 0) {
-                metadata = metadata.split("/")[2];
+                if (metadata.startsWith("/data/user")) {
+                    metadata = metadata.split("/")[11];
+                } else {
+                    metadata = metadata.split("/")[2];
+                }
                 metadata = metadata.substring(
                         context.getString(R.string.manager_type1c).length() - 1,
                         metadata.length() - 4).replace("_", " ");
@@ -176,7 +189,11 @@ public class ManagerAdapter extends
                     packageName,
                     References.metadataOverlayType2);
             if (metadata != null && metadata.length() > 0) {
-                metadata = metadata.split("/")[2];
+                if (metadata.startsWith("/data/user")) {
+                    metadata = metadata.split("/")[11];
+                } else {
+                    metadata = metadata.split("/")[2];
+                }
                 metadata = metadata.substring(
                         context.getString(R.string.manager_type2).length() - 1,
                         metadata.length()).replace("_", " ");
@@ -200,7 +217,11 @@ public class ManagerAdapter extends
                     packageName,
                     References.metadataOverlayType3);
             if (metadata != null && metadata.length() > 0) {
-                metadata = metadata.split("/")[2];
+                if (metadata.startsWith("/data/user")) {
+                    metadata = metadata.split("/")[11];
+                } else {
+                    metadata = metadata.split("/")[2];
+                }
                 metadata = metadata.substring(
                         context.getString(R.string.manager_type3).length() - 1,
                         metadata.length()).replace("_", " ");

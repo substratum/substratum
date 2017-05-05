@@ -1438,13 +1438,14 @@ public class References {
                                       String package_name,
                                       String theme_mode,
                                       Boolean notification) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
         Intent intentActivity = new Intent(mContext, ThemeLaunchActivity.class);
         intentActivity.putExtra("package_name", package_name);
         intentActivity.putExtra("oms_check", !checkOMS(mContext));
         intentActivity.putExtra("theme_mode", theme_mode);
         intentActivity.putExtra("notification", notification);
         intentActivity.putExtra("hash_passthrough", hashPassthrough(mContext));
-        intentActivity.putExtra("certified", !spreadYourWingsAndFly(mContext));
+        intentActivity.putExtra("certified", prefs.getBoolean("complexion", true));
         mContext.startActivity(intentActivity);
         return false;
     }

@@ -52,7 +52,6 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.service.notification.StatusBarNotification;
 import android.support.annotation.NonNull;
-import android.support.v4.BuildConfig;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -1439,20 +1438,20 @@ public class References {
                                       String package_name,
                                       String theme_mode,
                                       Boolean notification) {
+        boolean should_debug = projekt.substratum.BuildConfig.DEBUG;
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
-        if (BuildConfig.DEBUG) Log.d("ThemeLauncher", "Creating new intent...");
+        if (should_debug) Log.d("ThemeLauncher", "Creating new intent...");
         Intent intentActivity = new Intent(mContext, ThemeLaunchActivity.class);
         intentActivity.putExtra("package_name", package_name);
-        if (BuildConfig.DEBUG)
-            Log.d("ThemeLauncher", "Checking for theme system type...");
+        if (should_debug) Log.d("ThemeLauncher", "Checking for theme system type...");
         intentActivity.putExtra("oms_check", !checkOMS(mContext));
         intentActivity.putExtra("theme_mode", theme_mode);
         intentActivity.putExtra("notification", notification);
-        if (BuildConfig.DEBUG) Log.d("ThemeLauncher", "Obtaining APK signature hash...");
+        if (should_debug) Log.d("ThemeLauncher", "Obtaining APK signature hash...");
         intentActivity.putExtra("hash_passthrough", hashPassthrough(mContext));
-        if (BuildConfig.DEBUG) Log.d("ThemeLauncher", "Checking for certification...");
+        if (should_debug) Log.d("ThemeLauncher", "Checking for certification...");
         intentActivity.putExtra("certified", prefs.getBoolean("complexion", true));
-        if (BuildConfig.DEBUG) Log.d("ThemeLauncher", "Starting Activity...");
+        if (should_debug) Log.d("ThemeLauncher", "Starting Activity...");
         mContext.startActivity(intentActivity);
         return false;
     }

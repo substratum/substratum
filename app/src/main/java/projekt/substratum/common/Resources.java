@@ -78,6 +78,7 @@ public class Resources {
     // Debug Keys
     static final int[] ANDROID_STUDIO_DEBUG_KEYS = {
             -391541258, // nicholaschum
+            1897721985, // Telegram Build Bot
     };
 
 }

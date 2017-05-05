@@ -535,7 +535,8 @@ public class SubstratumBuilder {
                     FileOperations.move(context, Environment.getExternalStorageDirectory()
                             .getAbsolutePath() + EXTERNAL_STORAGE_CACHE + overlay_package +
                             "." + parse2_themeName + "-signed.apk", vendor_location +
-                            overlay_package + "." + parse2_themeName + ".apk");
+                            overlay_package + "." + parse2_themeName +
+                            (variant == null ? "" : "." + varianter) + ".apk");
                     FileOperations.setPermissionsRecursively(644, vendor_location);
                     FileOperations.setPermissions(755, vendor_location);
                     FileOperations.setContext(vendor_location);
@@ -544,13 +545,15 @@ public class SubstratumBuilder {
                     // On nexus devices, put framework overlay to /vendor/overlay/
                     if (overlay_package.equals("android")) {
                         String android_overlay = vendor_partition + "/" + overlay_package + "."
-                                + parse2_themeName + ".apk";
+                                + parse2_themeName + (variant == null ? "" : "." + varianter) +
+                                ".apk";
                         FileOperations.move(context, Environment.getExternalStorageDirectory()
                                 .getAbsolutePath() + EXTERNAL_STORAGE_CACHE + overlay_package +
                                 "." + parse2_themeName + "-signed.apk", android_overlay);
                     } else {
                         String overlay = vendor_symlink + "/" + overlay_package + "." +
-                                parse2_themeName + ".apk";
+                                parse2_themeName + (variant == null ? "" : "." + varianter) +
+                                ".apk";
                         FileOperations.move(context, Environment.getExternalStorageDirectory()
                                 .getAbsolutePath() + EXTERNAL_STORAGE_CACHE + overlay_package +
                                 "." + parse2_themeName + "-signed.apk", overlay);

@@ -30,7 +30,6 @@ import projekt.substratum.InformationActivity;
 import projekt.substratum.common.References;
 
 import static android.content.pm.PackageManager.GET_META_DATA;
-import static projekt.substratum.common.References.sendLaunchIntent;
 
 public class ThemeLaunchActivity extends Activity {
 
@@ -83,14 +82,19 @@ public class ThemeLaunchActivity extends Activity {
         Boolean omsCheck = activityExtras.getBooleanExtra("oms_check", false);
         theme_mode = activityExtras.getStringExtra("theme_mode");
         Boolean notification = activityExtras.getBooleanExtra("notification", false);
-
-        Intent initializer = sendLaunchIntent(getApplicationContext(), package_name,
-                omsCheck, theme_mode, notification);
+        String hash_passthrough = activityExtras.getStringExtra("hash_passthrough");
+        Boolean certified = activityExtras.getBooleanExtra("certified", true);
 
         Intent myIntent = new Intent();
-        Intent myIntent2 = new Intent();
+        myIntent.putExtra("certified", certified);
+        myIntent.putExtra("hash_passthrough", hash_passthrough);
         myIntent.setClassName(package_name, package_name + ".SubstratumLauncher");
+
+        Intent myIntent2 = new Intent();
+        myIntent2.putExtra("certified", certified);
+        myIntent2.putExtra("hash_passthrough", hash_passthrough);
         myIntent2.setClassName(package_name, package_name + ".SubstratumLauncher");
+
         try {
             startActivityForResult(myIntent, intent_id);
         } catch (Exception e) {

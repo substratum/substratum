@@ -86,6 +86,7 @@ import java.util.TreeSet;
 
 import projekt.substratum.R;
 import projekt.substratum.activities.launch.AppShortcutLaunch;
+import projekt.substratum.activities.launch.ThemeLaunchActivity;
 import projekt.substratum.common.analytics.FirebaseAnalytics;
 import projekt.substratum.common.analytics.PackageAnalytics;
 import projekt.substratum.common.commands.ElevatedCommands;
@@ -1228,7 +1229,22 @@ public class References {
     }
 
     @SuppressLint("PackageManagerGetSignatures")
-    private static Signature[] getSelfSignature(Context context) {
+    public static int getSelfSignatureValue(Context context) {
+        Signature[] sigs;
+        try {
+            sigs = context.getPackageManager().getPackageInfo(
+                    context.getPackageName(),
+                    PackageManager.GET_SIGNATURES
+            ).signatures;
+            return sigs[0].hashCode();
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    @SuppressLint("PackageManagerGetSignatures")
+    public static Signature[] getSelfSignature(Context context) {
         Signature[] sigs = new Signature[0];
         try {
             sigs = context.getPackageManager().getPackageInfo(
@@ -1383,12 +1399,12 @@ public class References {
         if (theme_legacy)
             originalIntent.putExtra("theme_legacy", true);
         if (theme_mode != null) {
+            Log.e("SJSJKSKJS", theme_mode + "");
             originalIntent.putExtra("theme_mode", theme_mode);
         }
         if (notification) {
             originalIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
                     Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            originalIntent.putExtra("refresh_mode", true);
         }
         originalIntent.putExtra("hash_passthrough", hashPassthrough(mContext));
         originalIntent.putExtra("certified", !spreadYourWingsAndFly(mContext));
@@ -1423,15 +1439,16 @@ public class References {
                                       String package_name,
                                       String theme_mode,
                                       Boolean notification) {
-        Intent initializer = sendLaunchIntent(mContext, package_name,
-                !checkOMS(mContext), theme_mode, notification);
-        if (initializer != null) {
-            initializer.putExtra("hash_passthrough", hashPassthrough(mContext));
-            initializer.putExtra("certified", !spreadYourWingsAndFly(mContext));
-            new AOPTCheck().injectAOPT(mContext, false);
-            mContext.startActivity(initializer);
-            return true;
-        }
+        Intent intentActivity = new Intent(mContext, ThemeLaunchActivity.class);
+        intentActivity.putExtra("package_name", package_name);
+        intentActivity.putExtra("oms_check", !checkOMS(mContext));
+        intentActivity.putExtra("theme_mode", theme_mode);
+        intentActivity.putExtra("notification", notification);
+        intentActivity.putExtra("hash_passthrough", hashPassthrough(mContext));
+        intentActivity.putExtra("certified", !spreadYourWingsAndFly(mContext));
+        new AOPTCheck().injectAOPT(mContext, false);
+
+        mContext.startActivity(intentActivity);
         return false;
     }
 

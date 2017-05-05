@@ -18,18 +18,14 @@
 
 package projekt.substratum.activities.launch;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
-import android.os.AsyncTask;
 import android.os.Bundle;
 
-import java.lang.ref.WeakReference;
 import java.util.concurrent.ThreadLocalRandom;
 
 import projekt.substratum.InformationActivity;
-import projekt.substratum.R;
 import projekt.substratum.activities.base.SubstratumActivity;
 import projekt.substratum.common.References;
 
@@ -37,8 +33,7 @@ import static android.content.pm.PackageManager.GET_META_DATA;
 import static projekt.substratum.common.References.sendLaunchIntent;
 
 public class ThemeLaunchActivity extends SubstratumActivity {
-
-    private Dialog progress;
+    
     private String package_name;
     private String theme_mode;
     private Boolean legacyTheme = false;
@@ -81,7 +76,31 @@ public class ThemeLaunchActivity extends SubstratumActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new showDialog(this).execute("");
+        int intent_id = (int) ThreadLocalRandom.current().nextLong(0, 9999);
+
+        Intent activityExtras = getIntent();
+        package_name = activityExtras.getStringExtra("package_name");
+        Boolean omsCheck = activityExtras.getBooleanExtra("oms_check", false);
+        theme_mode = activityExtras.getStringExtra("theme_mode");
+        Boolean notification = activityExtras.getBooleanExtra("notification", false);
+
+        Intent initializer = sendLaunchIntent(getApplicationContext(), package_name,
+                omsCheck, theme_mode, notification);
+
+        Intent myIntent = new Intent();
+        Intent myIntent2 = new Intent();
+        myIntent.setClassName(package_name, package_name + ".SubstratumLauncher");
+        myIntent2.setClassName(package_name, package_name + ".SubstratumLauncher");
+        try {
+            startActivityForResult(myIntent, intent_id);
+        } catch (Exception e) {
+            try {
+                legacyTheme = true;
+                startActivityForResult(myIntent2, intent_id);
+            } catch (Exception e2) {
+                // Suppress warning
+            }
+        }
     }
 
     @Override
@@ -127,54 +146,6 @@ public class ThemeLaunchActivity extends SubstratumActivity {
             ));
         }
         legacyTheme = false;
-        progress.dismiss();
         finish();
-    }
-
-    private class showDialog extends AsyncTask<String, Integer, String> {
-
-        WeakReference<ThemeLaunchActivity> ref;
-
-        showDialog(ThemeLaunchActivity themeLaunchActivity) {
-            ref = new WeakReference<>(themeLaunchActivity);
-        }
-
-        @Override
-        protected String doInBackground(String... params) {
-            int intent_id = (int) ThreadLocalRandom.current().nextLong(0, 9999);
-
-            Intent activityExtras = getIntent();
-            package_name = activityExtras.getStringExtra("package_name");
-            Boolean omsCheck = activityExtras.getBooleanExtra("oms_check", false);
-            theme_mode = activityExtras.getStringExtra("theme_mode");
-            Boolean notification = activityExtras.getBooleanExtra("notification", false);
-
-            Intent initializer = sendLaunchIntent(getApplicationContext(), package_name,
-                    omsCheck, theme_mode, notification);
-
-            Intent myIntent = new Intent();
-            Intent myIntent2 = new Intent();
-            myIntent.setClassName(package_name, package_name + ".SubstratumLauncher");
-            myIntent2.setClassName(package_name, package_name + ".SubstratumLauncher");
-            try {
-                startActivityForResult(myIntent, intent_id);
-            } catch (Exception e) {
-                try {
-                    legacyTheme = true;
-                    startActivityForResult(myIntent2, intent_id);
-                } catch (Exception e2) {
-                    // Suppress warning
-                }
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            progress = new Dialog(ref.get());
-            progress.setContentView(R.layout.validator_dialog);
-            progress.setCancelable(false);
-            progress.show();
-        }
     }
 }

@@ -117,6 +117,7 @@ public class References {
     public static final Boolean ENABLE_EXTRAS_DIALOG = false; // Show a dialog when applying extras
     public static final Boolean ENABLE_AOPT_OUTPUT = false; // WARNING, DEVELOPERS - BREAKS COMPILE
     public static final Boolean ENABLE_PACKAGE_LOGGING = true; // Show time/date/place of install
+    public static final Boolean ENABLE_THEME_LAUNCH_LOGGING = false; // Log the theme launch action
     public static final Boolean ENABLE_DIRECT_ASSETS_LOGGING = false; // Self explanatory
     public static final Boolean BYPASS_ALL_VERSION_CHECKS = false; // For developer previews only!
     public static final Boolean BYPASS_SUBSTRATUM_BUILDER_DELETION = false; // Do not delete cache?
@@ -1439,13 +1440,19 @@ public class References {
                                       String theme_mode,
                                       Boolean notification) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        if (ENABLE_THEME_LAUNCH_LOGGING) Log.d("ThemeLauncher", "Creating new intent...");
         Intent intentActivity = new Intent(mContext, ThemeLaunchActivity.class);
         intentActivity.putExtra("package_name", package_name);
+        if (ENABLE_THEME_LAUNCH_LOGGING)
+            Log.d("ThemeLauncher", "Checking for theme system type...");
         intentActivity.putExtra("oms_check", !checkOMS(mContext));
         intentActivity.putExtra("theme_mode", theme_mode);
         intentActivity.putExtra("notification", notification);
+        if (ENABLE_THEME_LAUNCH_LOGGING) Log.d("ThemeLauncher", "Obtaining APK signature hash...");
         intentActivity.putExtra("hash_passthrough", hashPassthrough(mContext));
+        if (ENABLE_THEME_LAUNCH_LOGGING) Log.d("ThemeLauncher", "Checking for certification...");
         intentActivity.putExtra("certified", prefs.getBoolean("complexion", true));
+        if (ENABLE_THEME_LAUNCH_LOGGING) Log.d("ThemeLauncher", "Starting Activity...");
         mContext.startActivity(intentActivity);
         return false;
     }

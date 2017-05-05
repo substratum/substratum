@@ -88,11 +88,15 @@ public class ThemeLaunchActivity extends Activity {
         Intent myIntent = new Intent();
         myIntent.putExtra("certified", certified);
         myIntent.putExtra("hash_passthrough", hash_passthrough);
+        myIntent.putExtra("theme_legacy", omsCheck);
+        myIntent.putExtra("theme_mode", theme_mode);
         myIntent.setClassName(package_name, package_name + ".SubstratumLauncher");
 
         Intent myIntent2 = new Intent();
         myIntent2.putExtra("certified", certified);
         myIntent2.putExtra("hash_passthrough", hash_passthrough);
+        myIntent2.putExtra("theme_legacy", omsCheck);
+        myIntent2.putExtra("theme_mode", theme_mode);
         myIntent2.setClassName(package_name, package_name + ".SubstratumLauncher");
 
         try {

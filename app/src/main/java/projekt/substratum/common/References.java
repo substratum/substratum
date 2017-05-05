@@ -1244,7 +1244,7 @@ public class References {
     }
 
     @SuppressLint("PackageManagerGetSignatures")
-    public static Signature[] getSelfSignature(Context context) {
+    private static Signature[] getSelfSignature(Context context) {
         Signature[] sigs = new Signature[0];
         try {
             sigs = context.getPackageManager().getPackageInfo(

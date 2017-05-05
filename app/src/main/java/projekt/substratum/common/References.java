@@ -52,6 +52,7 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.service.notification.StatusBarNotification;
 import android.support.annotation.NonNull;
+import android.support.v4.BuildConfig;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -117,7 +118,7 @@ public class References {
     public static final Boolean ENABLE_EXTRAS_DIALOG = false; // Show a dialog when applying extras
     public static final Boolean ENABLE_AOPT_OUTPUT = false; // WARNING, DEVELOPERS - BREAKS COMPILE
     public static final Boolean ENABLE_PACKAGE_LOGGING = true; // Show time/date/place of install
-    public static final Boolean ENABLE_THEME_LAUNCH_LOGGING = false; // Log the theme launch action
+    public static final Boolean ENABLE_THEME_LAUNCH_LOGGING = BuildConfig.DEBUG; // Log theme launch
     public static final Boolean ENABLE_DIRECT_ASSETS_LOGGING = false; // Self explanatory
     public static final Boolean BYPASS_ALL_VERSION_CHECKS = false; // For developer previews only!
     public static final Boolean BYPASS_SUBSTRATUM_BUILDER_DELETION = false; // Do not delete cache?

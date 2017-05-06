@@ -1080,6 +1080,24 @@ public class References {
     }
 
     // Grab specified metadats
+    public static Boolean getOverlayMetadata(
+            Context mContext,
+            String package_name,
+            String metadata,
+            Boolean defaultValue) {
+        try {
+            ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
+                    package_name, PackageManager.GET_META_DATA);
+            if (appInfo.metaData != null) {
+                return appInfo.metaData.getBoolean(metadata);
+            }
+        } catch (Exception e) {
+            // Suppress warning
+        }
+        return defaultValue;
+    }
+
+    // Grab specified metadats
     public static int getOverlaySubstratumVersion(
             Context mContext,
             String package_name,

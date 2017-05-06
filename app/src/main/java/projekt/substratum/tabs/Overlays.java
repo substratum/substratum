@@ -2016,7 +2016,8 @@ public class Overlays extends Fragment {
                                             type1b,
                                             type1c,
                                             type2,
-                                            type3);
+                                            type3,
+                                            null);
                                     logTypes();
                                 } else {
                                     sb = new SubstratumBuilder();
@@ -2036,7 +2037,8 @@ public class Overlays extends Fragment {
                                             type1b,
                                             type1c,
                                             type2,
-                                            type3);
+                                            type3,
+                                            null);
                                     logTypes();
                                 }
                             } else {
@@ -2062,7 +2064,8 @@ public class Overlays extends Fragment {
                                             type1b,
                                             type1c,
                                             type2,
-                                            type3);
+                                            type3,
+                                            null);
                                     logTypes();
                                 } else {
                                     sb = new SubstratumBuilder();
@@ -2082,7 +2085,8 @@ public class Overlays extends Fragment {
                                             type1b,
                                             type1c,
                                             type2,
-                                            type3);
+                                            type3,
+                                            null);
                                     logTypes();
                                 }
                             }
@@ -2135,7 +2139,8 @@ public class Overlays extends Fragment {
                                     type1b,
                                     type1c,
                                     type2,
-                                    type3);
+                                    type3,
+                                    null);
                             logTypes();
 
                             if (sb.has_errored_out) {

@@ -187,6 +187,18 @@ public class ThemeManager {
         return list;
     }
 
+    public static boolean isOverlay(String target) {
+        List<String> list = new ArrayList<>();
+        List<String> overlays = listOverlays(STATE_APPROVED_ENABLED);
+        overlays.addAll(listOverlays(STATE_APPROVED_DISABLED));
+        for (int i = 0; i < overlays.size(); i++) {
+            if (overlays.get(i).equals(target)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static List<String> listOverlaysForTarget(String target) {
         List<String> list = new ArrayList<>();
         List<String> overlays = listOverlays(STATE_APPROVED_ENABLED);

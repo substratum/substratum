@@ -61,149 +61,32 @@ public class SubstratumBuilder {
         return error_logs;
     }
 
-    private void dumpErrorLogs(String tag, String overlay, String message) {
-        if (message.length() > 0) {
-            Log.e(tag, message);
-            if (error_logs.length() == 0) {
-                error_logs = "» [" + overlay + "]: " + message;
-            } else {
-                error_logs += "\n" + "» [" + overlay + "]: " + message;
-            }
-        }
-    }
-
-    private String processAOPTCommands(String work_area,
-                                       String targetPkg,
-                                       String theme_name,
-                                       String overlay_package,
-                                       String variant,
-                                       String additional_variant,
-                                       int typeMode,
-                                       boolean legacySwitch,
-                                       Context context,
-                                       String no_cache_dir) {
-        String commands;
-        if (typeMode == 1) {
-            commands = CompilerCommands.createAOPTShellCommands(
-                    work_area,
-                    targetPkg,
-                    overlay_package,
-                    theme_name,
-                    legacySwitch,
-                    null,
-                    context,
-                    no_cache_dir,
-                    false);
-        } else {
-            if (variant != null) {
-                commands = CompilerCommands.createAOPTShellCommands(
-                        work_area,
-                        targetPkg,
-                        overlay_package,
-                        theme_name,
-                        legacySwitch,
-                        additional_variant,
-                        context,
-                        no_cache_dir,
-                        false);
-            } else {
-                commands = CompilerCommands.createAOPTShellCommands(
-                        work_area,
-                        targetPkg,
-                        overlay_package,
-                        theme_name,
-                        legacySwitch,
-                        null,
-                        context,
-                        no_cache_dir,
-                        false);
-            }
-        }
-        return commands;
-    }
-
-    private boolean runShellCommands(String commands,
-                                     String work_area,
-                                     String targetPkg,
-                                     String theme_name,
-                                     String overlay_package,
-                                     String variant,
-                                     String additional_variant,
-                                     int typeMode,
-                                     boolean legacySwitch,
-                                     Context context,
-                                     String no_cache_dir) {
-        Process nativeApp = null;
-        try {
-            String line;
-            nativeApp = Runtime.getRuntime().exec(commands);
-
-            try (OutputStream stdin = nativeApp.getOutputStream();
-                 InputStream stderr = nativeApp.getErrorStream()) {
-                stdin.write(("ls\n").getBytes());
-                stdin.write("exit\n".getBytes());
-
-                Boolean errored = false;
-                try (BufferedReader br = new BufferedReader(new InputStreamReader(stderr))) {
-                    while ((line = br.readLine()) != null) {
-                        if (line.contains("types not allowed") && !legacySwitch && !debug) {
-                            Log.e(References.SUBSTRATUM_BUILDER,
-                                    "This overlay was designed using a legacy theming " +
-                                            "style, now falling back to legacy compiler...");
-                            String new_commands = processAOPTCommands(work_area, targetPkg,
-                                    theme_name, overlay_package, variant, additional_variant,
-                                    typeMode, true, context, no_cache_dir);
-                            return runShellCommands(
-                                    new_commands, work_area, targetPkg, theme_name,
-                                    overlay_package, variant, additional_variant, typeMode,
-                                    true, context, no_cache_dir);
-                        } else {
-                            dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package, line);
-                            errored = true;
-                        }
-                    }
-                }
-                if (errored) {
-                    dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
-                            "Installation of \"" + overlay_package + "\" has failed.");
-                } else {
-                    // We need this Process to be waited for before moving on to the next function.
-                    Log.d(References.SUBSTRATUM_BUILDER, "Overlay APK creation is running now...");
-                    nativeApp.waitFor();
-                    File unsignedAPK = new File(work_area + "/" + overlay_package + "." +
-                            theme_name + "-unsigned.apk");
-                    if (unsignedAPK.exists()) {
-                        Log.d(References.SUBSTRATUM_BUILDER, "Overlay APK creation has completed!");
-                        return true;
-                    } else {
-                        dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
-                                "Overlay APK creation has failed!");
-                        has_errored_out = true;
-                        dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
-                                "Installation of \"" + overlay_package + "\" has failed.");
-                    }
-                }
-            }
-        } catch (IOException ioe) {
-            Log.d(SUBSTRATUM_BUILDER, "An Android Oreo specific error message has been " +
-                    "detected and has been whitelisted to continue moving forward " +
-                    "with overlay compilation.");
-            return !has_errored_out;
-        } catch (Exception e) {
-            e.printStackTrace();
-            dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
-                    "Unfortunately, there was an exception trying to create a new APK");
-            has_errored_out = true;
-            dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
-                    "Installation of \"" + overlay_package + "\" has failed.");
-        } finally {
-            if (nativeApp != null) {
-                nativeApp.destroy();
-            }
-        }
-        return false;
-    }
-
+    /**
+     * Substratum Builder Build Function
+     *
+     * Prior to running this function, you must have copied all the files to the working directory!
+     *
+     * @param context            self explanatory
+     * @param theme_pid          the package ID used to compile the APK.
+     * @param overlay_package    the target package to be overlaid (e.g. com.android.settings).
+     * @param theme_name         the theme's name to be stripped of symbols for the new package.
+     * @param variant            a String flag to tell the compiler to build variant mode. This
+     *                           could be the name of the variant spinner, or a package name for
+     *                           OverlayUpdater (used in conjunction with override_package).
+     * @param additional_variant the additional variant (type2) that gets appended during aopt
+     *                           compilation phase to the main /res folder.
+     * @param base_variant       this is linked to variable base_spinner in Overlays.java, for
+     *                           type3 base /res replacements.
+     * @param versionName        the version to use for compiling the overlay's version.
+     * @param theme_oms          runs the check if the system is running in RRO or OMS
+     * @param theme_parent       the parent theme of the created overlay.
+     * @param no_cache_dir       where the compilation files will be placed.
+     * @param type1a             String location of the type1a file
+     * @param type1b             String location of the type1b file
+     * @param type1c             String location of the type1c file
+     * @param type2              String location of the type2 file
+     * @param type3              String location of the type3 file
+     */
     @SuppressWarnings("ConstantConditions")
     public boolean beginAction(Context context,
                                String theme_pid,
@@ -220,7 +103,8 @@ public class SubstratumBuilder {
                                String type1b,
                                String type1c,
                                String type2,
-                               String type3) {
+                               String type3,
+                               String override_package) {
         has_errored_out = false;
 
         debug = PreferenceManager.getDefaultSharedPreferences(context)
@@ -348,7 +232,10 @@ public class SubstratumBuilder {
                                         type1b,
                                         type1c,
                                         type2,
-                                        type3);
+                                        type3,
+                                        (override_package != null &&
+                                                override_package.length() > 0) ?
+                                                override_package : "");
                         pw.write(manifest);
                     } else {
                         if (base_variant != null) {
@@ -370,7 +257,10 @@ public class SubstratumBuilder {
                                             type1b,
                                             type1c,
                                             type2,
-                                            type3);
+                                            type3,
+                                            (override_package != null &&
+                                                    override_package.length() > 0) ?
+                                                    override_package : "");
                             pw.write(manifest);
                         } else {
                             String manifest =
@@ -391,7 +281,10 @@ public class SubstratumBuilder {
                                             type1b,
                                             type1c,
                                             type2,
-                                            type3);
+                                            type3,
+                                            (override_package != null &&
+                                                    override_package.length() > 0) ?
+                                                    override_package : "");
                             pw.write(manifest);
                         }
                     }
@@ -581,5 +474,148 @@ public class SubstratumBuilder {
                     "Successfully cleared compilation cache!");
         }
         return !has_errored_out;
+    }
+
+    private String processAOPTCommands(String work_area,
+                                       String targetPkg,
+                                       String theme_name,
+                                       String overlay_package,
+                                       String variant,
+                                       String additional_variant,
+                                       int typeMode,
+                                       boolean legacySwitch,
+                                       Context context,
+                                       String no_cache_dir) {
+        String commands;
+        if (typeMode == 1) {
+            commands = CompilerCommands.createAOPTShellCommands(
+                    work_area,
+                    targetPkg,
+                    overlay_package,
+                    theme_name,
+                    legacySwitch,
+                    null,
+                    context,
+                    no_cache_dir,
+                    false);
+        } else {
+            if (variant != null) {
+                commands = CompilerCommands.createAOPTShellCommands(
+                        work_area,
+                        targetPkg,
+                        overlay_package,
+                        theme_name,
+                        legacySwitch,
+                        additional_variant,
+                        context,
+                        no_cache_dir,
+                        false);
+            } else {
+                commands = CompilerCommands.createAOPTShellCommands(
+                        work_area,
+                        targetPkg,
+                        overlay_package,
+                        theme_name,
+                        legacySwitch,
+                        null,
+                        context,
+                        no_cache_dir,
+                        false);
+            }
+        }
+        return commands;
+    }
+
+    private boolean runShellCommands(String commands,
+                                     String work_area,
+                                     String targetPkg,
+                                     String theme_name,
+                                     String overlay_package,
+                                     String variant,
+                                     String additional_variant,
+                                     int typeMode,
+                                     boolean legacySwitch,
+                                     Context context,
+                                     String no_cache_dir) {
+        Process nativeApp = null;
+        try {
+            String line;
+            nativeApp = Runtime.getRuntime().exec(commands);
+
+            try (OutputStream stdin = nativeApp.getOutputStream();
+                 InputStream stderr = nativeApp.getErrorStream()) {
+                stdin.write(("ls\n").getBytes());
+                stdin.write("exit\n".getBytes());
+
+                Boolean errored = false;
+                try (BufferedReader br = new BufferedReader(new InputStreamReader(stderr))) {
+                    while ((line = br.readLine()) != null) {
+                        if (line.contains("types not allowed") && !legacySwitch && !debug) {
+                            Log.e(References.SUBSTRATUM_BUILDER,
+                                    "This overlay was designed using a legacy theming " +
+                                            "style, now falling back to legacy compiler...");
+                            String new_commands = processAOPTCommands(work_area, targetPkg,
+                                    theme_name, overlay_package, variant, additional_variant,
+                                    typeMode, true, context, no_cache_dir);
+                            return runShellCommands(
+                                    new_commands, work_area, targetPkg, theme_name,
+                                    overlay_package, variant, additional_variant, typeMode,
+                                    true, context, no_cache_dir);
+                        } else {
+                            dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package, line);
+                            errored = true;
+                        }
+                    }
+                }
+                if (errored) {
+                    dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
+                            "Installation of \"" + overlay_package + "\" has failed.");
+                } else {
+                    // We need this Process to be waited for before moving on to the next function.
+                    Log.d(References.SUBSTRATUM_BUILDER, "Overlay APK creation is running now...");
+                    nativeApp.waitFor();
+                    File unsignedAPK = new File(work_area + "/" + overlay_package + "." +
+                            theme_name + "-unsigned.apk");
+                    if (unsignedAPK.exists()) {
+                        Log.d(References.SUBSTRATUM_BUILDER, "Overlay APK creation has completed!");
+                        return true;
+                    } else {
+                        dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
+                                "Overlay APK creation has failed!");
+                        has_errored_out = true;
+                        dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
+                                "Installation of \"" + overlay_package + "\" has failed.");
+                    }
+                }
+            }
+        } catch (IOException ioe) {
+            Log.d(SUBSTRATUM_BUILDER, "An Android Oreo specific error message has been " +
+                    "detected and has been whitelisted to continue moving forward " +
+                    "with overlay compilation.");
+            return !has_errored_out;
+        } catch (Exception e) {
+            e.printStackTrace();
+            dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
+                    "Unfortunately, there was an exception trying to create a new APK");
+            has_errored_out = true;
+            dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
+                    "Installation of \"" + overlay_package + "\" has failed.");
+        } finally {
+            if (nativeApp != null) {
+                nativeApp.destroy();
+            }
+        }
+        return false;
+    }
+
+    private void dumpErrorLogs(String tag, String overlay, String message) {
+        if (message.length() > 0) {
+            Log.e(tag, message);
+            if (error_logs.length() == 0) {
+                error_logs = "» [" + overlay + "]: " + message;
+            } else {
+                error_logs += "\n" + "» [" + overlay + "]: " + message;
+            }
+        }
     }
 }

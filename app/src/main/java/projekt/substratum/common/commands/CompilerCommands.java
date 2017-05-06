@@ -54,13 +54,17 @@ public class CompilerCommands {
                                                String type1b,
                                                String type1c,
                                                String type2,
-                                               String type3) {
+                                               String type3,
+                                               String packageNameOverride) {
         String package_name;
         if (base_variant_null) {
             package_name = overlay_package + "." + parse2_themeName;
         } else {
             package_name = overlay_package + "." + parse2_themeName +
                     parse2_variantName + parse2_baseName;
+        }
+        if (packageNameOverride != null && packageNameOverride.length() > 0) {
+            package_name = packageNameOverride;
         }
         return "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?>\n" +
 

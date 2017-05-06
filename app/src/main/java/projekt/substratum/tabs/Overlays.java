@@ -168,6 +168,7 @@ public class Overlays extends Fragment {
     private String type1c = "";
     private String type2 = "";
     private String type3 = "";
+    private Phase3_mainFunction phase3_mainFunction;
 
     private void logTypes() {
         if (ENABLE_PACKAGE_LOGGING) {
@@ -926,6 +927,11 @@ public class Overlays extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        if (phase3_mainFunction != null && mNotifyManager != null) {
+            if (phase3_mainFunction.getStatus() == AsyncTask.Status.RUNNING) {
+                mNotifyManager.cancel(id);
+            }
+        }
         try {
             getContext().unregisterReceiver(finishReceiver);
             localBroadcastManager.unregisterReceiver(jobReceiver);
@@ -1405,11 +1411,10 @@ public class Overlays extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
+            phase3_mainFunction = new Phase3_mainFunction();
             if (result != null) {
-                Phase3_mainFunction phase3_mainFunction = new Phase3_mainFunction();
                 phase3_mainFunction.execute(result);
             } else {
-                Phase3_mainFunction phase3_mainFunction = new Phase3_mainFunction();
                 phase3_mainFunction.execute("");
             }
             super.onPostExecute(result);

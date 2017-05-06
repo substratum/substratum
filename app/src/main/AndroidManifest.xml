@@ -58,6 +58,15 @@
         <receiver android:name=".services.notification.FloatUiButtonReceiver"/>
         <receiver android:name=".services.notification.NotificationButtonReceiver"/>
         <receiver android:name=".services.notification.NotificationUpgradeReceiver"/>
+        <receiver android:name=".services.packages.OverlayFound">
+            <intent-filter>
+
+                <!-- Full API deprecation on target SDK level 26 -->
+                <action android:name="android.intent.action.PACKAGE_ADDED"/>
+
+                <data android:scheme="package"/>
+            </intent-filter>
+        </receiver>
         <receiver android:name=".services.packages.OverlayUpdater">
             <intent-filter>
 

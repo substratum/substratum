@@ -539,6 +539,28 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     return false;
                 });
 
+        final CheckBoxPreference overlay_alert = (CheckBoxPreference)
+                getPreferenceManager().findPreference("overlay_alert");
+        Boolean alert_show = prefs.getBoolean("overlay_alert", false);
+        if (alert_show) {
+            overlay_alert.setChecked(true);
+        } else {
+            overlay_alert.setChecked(false);
+        }
+        overlay_alert.setOnPreferenceChangeListener(
+                (preference, newValue) -> {
+                    boolean isChecked = (Boolean) newValue;
+                    if (isChecked) {
+                        prefs.edit().putBoolean("overlay_alert", true).apply();
+                        overlay_alert.setChecked(true);
+                        return true;
+                    } else {
+                        prefs.edit().putBoolean("overlay_alert", false).apply();
+                        overlay_alert.setChecked(false);
+                        return false;
+                    }
+                });
+
         // Finally, these functions will only work on OMS ROMs
         if (References.checkOMS(getContext())) {
             Preference aboutInterfacer = getPreferenceManager().findPreference("about_interfacer");

@@ -736,6 +736,9 @@
     <string name="settings_auto_updater_title">Automatically update overlays</string>
     <string name="settings_auto_updater_text">When an application updates, the app will automatically build, compile and install an updated version of all overlays targeting the updated package.</string>
 
+    <string name="settings_auto_alert_title">New installable overlay found alert</string>
+    <string name="settings_auto_alert_text">When installing a new application for the first time, if the application is themed by any of the installed themes, a notification will show up.</string>
+
     <string name="settings_force_english_title">Force English Language</string>
     <string name="settings_force_english_text">This will force the application to use the English language.</string>
     <string name="settings_force_english_toast_success" translatable="false">Successfully switched to English!</string>
@@ -766,6 +769,9 @@
     <string name="per_app_draw_over_other_apps_request">Please grant Substratum "draw over other apps" for the floating UI and "Usage stats" permissions to access the foreground app for matching theme targets.</string>
     <string name="per_app_usage_stats_request">Please grant Substratum "usage access" permissions to access the foreground app for matching theme targets.</string>
     <string name="per_app_manual_grant">Please manually grant Substratum "usage access" permissions and "draw over other apps" in App Settings to use FloatUI!</string>
+
+    <string name="notification_overlay_found_specific" formatted="false">An overlay for %s is in %s!</string>
+    <string name="notification_overlay_found_description">You can open the theme by clicking on this notification!</string>
 
     <string name="community_info_overlays">Overlays</string>
     <string name="community_info_bootanimation">Boot Animations</string>

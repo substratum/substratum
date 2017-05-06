@@ -94,6 +94,7 @@ import projekt.substratum.common.platform.ThemeInterfacerService;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.common.tabs.SoundManager;
 import projekt.substratum.services.crash.AppCrashReceiver;
+import projekt.substratum.services.packages.OverlayFound;
 import projekt.substratum.services.packages.OverlayUpdater;
 import projekt.substratum.services.packages.PackageModificationDetector;
 import projekt.substratum.services.profiles.ScheduledProfileReceiver;
@@ -234,6 +235,8 @@ public class References {
             IntentFilter intentPackageAdded = new IntentFilter(PACKAGE_ADDED);
             context.getApplicationContext().registerReceiver(
                     new AppCrashReceiver(), intentAppCrashed);
+            context.getApplicationContext().registerReceiver(
+                    new OverlayFound(), intentPackageAdded);
             context.getApplicationContext().registerReceiver(
                     new OverlayUpdater(), intentPackageAdded);
             context.getApplicationContext().registerReceiver(
@@ -549,6 +552,7 @@ public class References {
         editor.putString("compiler", "aapt");
         editor.putBoolean("crash_receiver", true);
         editor.putBoolean("enable_swapping_overlays", false);
+        editor.putBoolean("overlay_alert", false);
         editor.putBoolean("overlay_updater", false);
         editor.remove("display_old_themes");
 
@@ -1456,10 +1460,18 @@ public class References {
     }
 
     // Launch intent for a theme
-    public static boolean launchTheme(Context mContext,
-                                      String package_name,
-                                      String theme_mode,
-                                      Boolean notification) {
+    public static void launchTheme(Context mContext,
+                                   String package_name,
+                                   String theme_mode,
+                                   Boolean notification) {
+        Intent theme_intent = themeIntent(mContext, package_name, theme_mode, notification);
+        mContext.startActivity(theme_intent);
+    }
+
+    public static Intent themeIntent(Context mContext,
+                                     String package_name,
+                                     String theme_mode,
+                                     Boolean notification) {
         boolean should_debug = projekt.substratum.BuildConfig.DEBUG;
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
         if (should_debug) Log.d("ThemeLauncher", "Creating new intent...");
@@ -1474,8 +1486,7 @@ public class References {
         if (should_debug) Log.d("ThemeLauncher", "Checking for certification...");
         intentActivity.putExtra("certified", prefs.getBoolean("complexion", true));
         if (should_debug) Log.d("ThemeLauncher", "Starting Activity...");
-        mContext.startActivity(intentActivity);
-        return false;
+        return intentActivity;
     }
 
     // Begin check if device is running on the latest theme interface

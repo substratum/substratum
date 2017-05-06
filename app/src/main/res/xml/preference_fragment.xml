@@ -69,6 +69,13 @@
         <CheckBoxPreference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:key="overlay_alert"
+            android:summary="@string/settings_auto_alert_text"
+            android:title="@string/settings_auto_alert_title"/>
+
+        <CheckBoxPreference
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:key="theme_caching"
             android:summary="@string/settings_theme_caching_text"
             android:title="@string/settings_theme_caching_title"/>

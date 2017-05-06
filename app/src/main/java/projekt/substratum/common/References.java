@@ -94,6 +94,7 @@ import projekt.substratum.common.platform.ThemeInterfacerService;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.common.tabs.SoundManager;
 import projekt.substratum.services.crash.AppCrashReceiver;
+import projekt.substratum.services.packages.OverlayUpdater;
 import projekt.substratum.services.packages.PackageModificationDetector;
 import projekt.substratum.services.profiles.ScheduledProfileReceiver;
 import projekt.substratum.util.compilers.CacheCreator;
@@ -233,6 +234,8 @@ public class References {
             IntentFilter intentPackageAdded = new IntentFilter(PACKAGE_ADDED);
             context.getApplicationContext().registerReceiver(
                     new AppCrashReceiver(), intentAppCrashed);
+            context.getApplicationContext().registerReceiver(
+                    new OverlayUpdater(), intentPackageAdded);
             context.getApplicationContext().registerReceiver(
                     new PackageModificationDetector(), intentPackageAdded);
             Log.d(SUBSTRATUM_LOG,

@@ -28,11 +28,11 @@
         android:id="@+id/app_icon"
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:layout_margin="10dp"
         android:layout_marginRight="2dp"
         android:layout_weight="0"
-        android:layout_alignParentEnd="true"
         android:scaleType="centerCrop"
         android:src="@drawable/default_overlay_icon"/>
 

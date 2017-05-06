@@ -18,70 +18,70 @@
   ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
   -->
 <resources>
-  <string name="question_one">Что такое Substratum?</string>
-  <string name="answer_one">Substratum - приложение, воплощающее ряд достоинств Sony\'s Overlay Manager
+    <string name="question_one">Что такое Substratum?</string>
+    <string name="answer_one">Substratum - приложение, воплощающее ряд достоинств Sony\'s Overlay Manager
         Service (OMS). В плане стабильности и кастомизации оно схоже с Layers (основанном
         на RRO), но включает ряд особенностей: применение наслоений без перезагрузок, смену
         анимации загрузки и шрифтов, приоритетное применение разных тем.
     </string>
-  <string name="question_two">Что такое согласователь оформлений?</string>
-  <string name="answer_two">Согласователь оформлений позволяет Substratum управлять темами.
+    <string name="question_two">Что такое согласователь оформлений?</string>
+    <string name="answer_two">Согласователь оформлений позволяет Substratum управлять темами.
         Он устроен по-принципу “сервер/клиент”, что позволяет Substratum работать
         непосредственно с системой за счет специальных обработчиков.
     </string>
-  <string name="question_three">Что необходимо для правильной работы Substratum?</string>
-  <string name="answer_three">Для этого потребуется прошивка с поддержкой OMS и согласователя оформлений (уточните в теме
+    <string name="question_three">Что необходимо для правильной работы Substratum?</string>
+    <string name="answer_three">Для этого потребуется прошивка с поддержкой OMS и согласователя оформлений (уточните в теме
         прошивки или у разработчика), это приложение и
         совместимые темы (читайте описания в Google Play или спрашивайте разработчиков)
     </string>
-  <string name="question_four">Можно ли пользоваться Substratum на прошивке без поддержки OMS?
+    <string name="question_four">Можно ли пользоваться Substratum на прошивке без поддержки OMS?
     </string>
-  <string name="answer_four">Да, если прошивка поддерживает RRO (стоковый Marshmallow входит в эту
+    <string name="answer_four">Да, если прошивка поддерживает RRO (стоковый Marshmallow входит в эту
         категорию). Прочие требования останутся прежними (права суперпользователя,
         это приложение и совместимые темы). Как и применение тем, только процессы
         сборки и применения пройдут воедино, а для применения наслоений потребуется
         перезагрузка.
     
     </string>
-  <string name="question_five">Как применить тему?</string>
-  <string name="answer_five">Применение темы состоит из двух частей: сборки наслоений и их применения.
+    <string name="question_five">Как применить тему?</string>
+    <string name="answer_five">Применение темы состоит из двух частей: сборки наслоений и их применения.
         Перейдите на вкладку \"Управление слоями\", выберите необходимые наслоения и
         опции, коснитесь всплывающей кнопки и нажмите \"Собрать/Обновить\", затем выберите
         те же наслоения и нажмите \"Применить выбранное\".
     
     
     </string>
-  <string name="question_six">Наслоения не собираются, что случилось?</string>
-  <string name="answer_six">Удалите файл /system/bin/aopt file, перезапустите приложение, 
+    <string name="question_six">Наслоения не собираются, что случилось?</string>
+    <string name="answer_six">Удалите файл /system/bin/aopt file, перезапустите приложение,
         и попробуйте начать процесс заново.
     </string>
-  <string name="question_seven">Тема не применяется, что делать?</string>
-  <string name="answer_seven">Если Вы применяете тему в первый раз или поверх стандартной,
+    <string name="question_seven">Тема не применяется, что делать?</string>
+    <string name="answer_seven">Если Вы применяете тему в первый раз или поверх стандартной,
         убедитесь, что не выбрана галочка \"отключить прочие темы\".
     </string>
-  <string name="question_eight">Поймал(-а) вечную загрузку! Как исправить?</string>
-  <string name="answer_eight">Substratum имеет собственную систему восстановления Substratum Rescue
+    <string name="question_eight">Поймал(-а) вечную загрузку! Как исправить?</string>
+    <string name="answer_eight">Substratum имеет собственную систему восстановления Substratum Rescue
         System (SRS), которая автоматически собирает рез. копию в
         /storage/emulated/0/substratum/SubstratumRescue.zip
         Прошейте этот ZIP через рекавери и перезагрузитесь!
     </string>
-  <string name="question_nine">После применения темы некоторые элементы криво смотрятся, что происходит?
+    <string name="question_nine">После применения темы некоторые элементы криво смотрятся, что происходит?
     </string>
-  <string name="answer_nine">
+    <string name="answer_nine">
         1. Перезапустите SystemUI, если это не произошло автоматически.\n2. Перезагрузите устройство.
         \n3. Отмените применение наслоений и/или удалите их, пересоберите и примените заново. 
     </string>
-  <string name="question_ten">Куда устанавливаются наслоения?</string>
-  <string name="answer_ten">Слои устанавливаются в папку /data/app, значит у каждого наслоения будет своя директория.
+    <string name="question_ten">Куда устанавливаются наслоения?</string>
+    <string name="answer_ten">Слои устанавливаются в папку /data/app, значит у каждого наслоения будет своя директория.
     
     </string>
-  <string name="question_eleven">При обновлении темы из Play Маркет я получаю ошибку. 
+    <string name="question_eleven">При обновлении темы из Play Маркет я получаю ошибку.
     </string>
-  <string name="answer_eleven">Удалите тему с последующей переустановкой.</string>
-  <string name="question_twelve">К кому обратиться, если у меня серьезная неполадка, неразрешимая
+    <string name="answer_eleven">Удалите тему с последующей переустановкой.</string>
+    <string name="question_twelve">К кому обратиться, если у меня серьезная неполадка, неразрешимая
         выполнением предыдущих пунктов?
     </string>
-  <string name="answer_twelve">Пожалуйста, создайте запись в сообществе Substratum на Google+.
+    <string name="answer_twelve">Пожалуйста, создайте запись в сообществе Substratum на Google+.
         Предоставьте следующую информацию: версия Substratum, сведения о прошивке,
         название темы (если проблемы только с ней), и, по возможности, logcat.
     </string>

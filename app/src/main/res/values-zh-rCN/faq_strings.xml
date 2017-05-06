@@ -18,28 +18,28 @@
   ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
   -->
 <resources>
-  <string name="question_one">Substratum 是什么？</string>
-  <string name="answer_one">Substratum 是一个包含索尼 Overlay Manager Service（OMS）的应用程序。它在稳定性和自定义特性上类似于 Layers ，但拥有无需重启，开机动画设置，字体设置和优先级切换等优点。</string>
-  <string name="question_two">主题接口是什么？</string>
-  <string name="answer_two">主题接口是 Substratum 正常运行的基础。它的实现方式是通过模拟“服务器&amp;客户端”技术，从而使 Substratum 与主题接口正常对话并直接向系统发送命令。</string>
-  <string name="question_three">如何使 Substratum 正常工作？</string>
-  <string name="answer_three">您需要一个支持 OMS 功能和主题接口的 ROM（请询问ROM开发者，他们知道您的 ROM 是否支持这些特性），同时应该安装本应用并使用兼容本应用的主题（请阅读该主题在 Google play 上的描述或询问该主题的制作者）。</string>
-  <string name="question_four">我的 ROM 没有 OMS 功能的支持，我还能使用 Substratum 吗？</string>
-  <string name="answer_four">是的，只要您的 ROM 支持 RRO 框架，获得 Root 权限，安装本应用并使用兼容本应用的主题，您就可以按照同样的方式应用主题。但因为编译和应用的两个步骤已经结合在一起，所以您需要重启设备才能使主题生效。</string>
-  <string name="question_five">如何应用一个主题？</string>
-  <string name="answer_five">一个主题的应用过程被分成了两步：叠加层的编译和应用。\n\n请进入主题，点击“叠加层”选项卡，选择您需要的设置与叠加层，然后点击右下角的浮动操作按钮并选择“编译 &amp; 升级”，最后再次点击浮动操作按钮并选择“启用所选项”。</string>
-  <string name="question_six">为什么叠加层不能编译？</string>
-  <string name="answer_six">请删除 /system/bin/aopt 文件，重新启动应用，并再次尝试上述过程。</string>
-  <string name="question_seven">为什么我的主题未被应用？</string>
-  <string name="answer_seven">如果您是第一次应用一个主题，请确保没有选中“禁用其他主题”选项。</string>
-  <string name="question_eight">如何解决设备无限重启的问题？</string>
-  <string name="answer_eight">Substratum 内置了一个恢复系统，它被称为 Substratum 救援系统（SRS）。这是一个自动化的系统，它会将救援文件存储为 /storage/emulated/0/substratum/SubstratumRescue.zip 。请您在恢复模式（Recovery）中刷写此压缩包并重启设备。</string>
-  <string name="question_nine">为什么在我应用完一个主题后，有一些元素看上去非常小？</string>
-  <string name="answer_nine">1. 如果没有自动重启系统界面，请进行手动操作。\n2. 重启手机。\n3. 禁用或删除叠加层，重新编译后再进行应用。</string>
-  <string name="question_ten">叠加层被安装在哪？</string>
-  <string name="answer_ten">叠加层被安装在 /data/app 文件夹中，这意味着每个叠加层都有独立的文件夹。</string>
-  <string name="question_eleven">尝试通过 Play Store 更新主题时出现了一个错误</string>
-  <string name="answer_eleven">请卸载并重新安装主题。</string>
-  <string name="question_twelve">我现在仍有未解决的问题，我可以从哪里获得帮助？</string>
-  <string name="answer_twelve">请在 Substratum Google+ 社区发表帖子，并提供以下信息︰ Substratum 版本，ROM信息，主题（至少提供一个出现问题的）。如果可以的话，请通过 logcat 提供一份运行日志。</string>
+    <string name="question_one">Substratum 是什么？</string>
+    <string name="answer_one">Substratum 是一个包含索尼 Overlay Manager Service（OMS）的应用程序。它在稳定性和自定义特性上类似于 Layers ，但拥有无需重启，开机动画设置，字体设置和优先级切换等优点。</string>
+    <string name="question_two">主题接口是什么？</string>
+    <string name="answer_two">主题接口是 Substratum 正常运行的基础。它的实现方式是通过模拟“服务器&amp;客户端”技术，从而使 Substratum 与主题接口正常对话并直接向系统发送命令。</string>
+    <string name="question_three">如何使 Substratum 正常工作？</string>
+    <string name="answer_three">您需要一个支持 OMS 功能和主题接口的 ROM（请询问ROM开发者，他们知道您的 ROM 是否支持这些特性），同时应该安装本应用并使用兼容本应用的主题（请阅读该主题在 Google play 上的描述或询问该主题的制作者）。</string>
+    <string name="question_four">我的 ROM 没有 OMS 功能的支持，我还能使用 Substratum 吗？</string>
+    <string name="answer_four">是的，只要您的 ROM 支持 RRO 框架，获得 Root 权限，安装本应用并使用兼容本应用的主题，您就可以按照同样的方式应用主题。但因为编译和应用的两个步骤已经结合在一起，所以您需要重启设备才能使主题生效。</string>
+    <string name="question_five">如何应用一个主题？</string>
+    <string name="answer_five">一个主题的应用过程被分成了两步：叠加层的编译和应用。\n\n请进入主题，点击“叠加层”选项卡，选择您需要的设置与叠加层，然后点击右下角的浮动操作按钮并选择“编译 &amp; 升级”，最后再次点击浮动操作按钮并选择“启用所选项”。</string>
+    <string name="question_six">为什么叠加层不能编译？</string>
+    <string name="answer_six">请删除 /system/bin/aopt 文件，重新启动应用，并再次尝试上述过程。</string>
+    <string name="question_seven">为什么我的主题未被应用？</string>
+    <string name="answer_seven">如果您是第一次应用一个主题，请确保没有选中“禁用其他主题”选项。</string>
+    <string name="question_eight">如何解决设备无限重启的问题？</string>
+    <string name="answer_eight">Substratum 内置了一个恢复系统，它被称为 Substratum 救援系统（SRS）。这是一个自动化的系统，它会将救援文件存储为 /storage/emulated/0/substratum/SubstratumRescue.zip 。请您在恢复模式（Recovery）中刷写此压缩包并重启设备。</string>
+    <string name="question_nine">为什么在我应用完一个主题后，有一些元素看上去非常小？</string>
+    <string name="answer_nine">1. 如果没有自动重启系统界面，请进行手动操作。\n2. 重启手机。\n3. 禁用或删除叠加层，重新编译后再进行应用。</string>
+    <string name="question_ten">叠加层被安装在哪？</string>
+    <string name="answer_ten">叠加层被安装在 /data/app 文件夹中，这意味着每个叠加层都有独立的文件夹。</string>
+    <string name="question_eleven">尝试通过 Play Store 更新主题时出现了一个错误</string>
+    <string name="answer_eleven">请卸载并重新安装主题。</string>
+    <string name="question_twelve">我现在仍有未解决的问题，我可以从哪里获得帮助？</string>
+    <string name="answer_twelve">请在 Substratum Google+ 社区发表帖子，并提供以下信息︰ Substratum 版本，ROM信息，主题（至少提供一个出现问题的）。如果可以的话，请通过 logcat 提供一份运行日志。</string>
 </resources>

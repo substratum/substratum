@@ -44,6 +44,7 @@ import projekt.substratum.util.compilers.SubstratumBuilder;
 import static projekt.substratum.common.References.PACKAGE_ADDED;
 import static projekt.substratum.common.References.SUBSTRATUM_BUILDER_CACHE;
 import static projekt.substratum.common.References.metadataOverlayParent;
+import static projekt.substratum.common.References.metadataOverlayTarget;
 import static projekt.substratum.common.References.metadataOverlayType1a;
 import static projekt.substratum.common.References.metadataOverlayType1b;
 import static projekt.substratum.common.References.metadataOverlayType1c;
@@ -154,6 +155,8 @@ public class OverlayUpdater extends BroadcastReceiver {
                     assert themeResources != null;
                     themeAssetManager = themeResources.getAssets();
 
+                    String target = References.getOverlayMetadata(
+                            context, installed_overlays.get(i), metadataOverlayTarget);
                     String type1a = References.getOverlayMetadata(
                             context, installed_overlays.get(i), metadataOverlayType1a);
                     String type1b = References.getOverlayMetadata(
@@ -165,14 +168,20 @@ public class OverlayUpdater extends BroadcastReceiver {
                     String type3 = References.getOverlayMetadata(
                             context, installed_overlays.get(i), metadataOverlayType3);
 
-                    String additional_variant = ((type2 != null && type2.length() > 0) ?
-                            type2.split("/")[2].substring(6) : null);
-                    String base_variant = ((type3 != null && type3.length() > 0) ?
-                            type3.split("/")[2].substring(6) : null);
+                    String type1aDir = "/overlays/" + target + "/" + type1a;
+                    String type1bDir = "/overlays/" + target + "/" + type1b;
+                    String type1cDir = "/overlays/" + target + "/" + type1c;
+                    String type2Dir = "/overlays/" + target + "/" + type2;
+                    String type3Dir = "/overlays/" + target + "/" + type3;
+
+                    String additional_variant = ((type2Dir != null && type2Dir.length() > 0) ?
+                            type2Dir.split("/")[2].substring(6) : null);
+                    String base_variant = ((type3Dir != null && type3Dir.length() > 0) ?
+                            type3Dir.split("/")[2].substring(6) : null);
 
                     // Prenotions
-                    String suffix = ((type3 != null && type3.length() != 0) ?
-                            "/" + type3 : "/res");
+                    String suffix = ((type3Dir != null && type3Dir.length() != 0) ?
+                            "/" + type3Dir : "/res");
                     String workingDirectory = context.getCacheDir().getAbsolutePath() +
                             SUBSTRATUM_BUILDER_CACHE.substring(0,
                                     SUBSTRATUM_BUILDER_CACHE.length() - 1);
@@ -185,32 +194,31 @@ public class OverlayUpdater extends BroadcastReceiver {
                     }
 
                     // Handle the type1s
-                    if (type1a != null && type1a.length() > 0) {
+                    if (type1aDir != null && type1aDir.length() > 0) {
                         FileOperations.copyFileOrDir(
                                 themeAssetManager,
-                                type1a,
+                                type1aDir,
                                 workingDirectory + suffix + "/values/type1a.xml",
-                                type1a);
+                                type1aDir);
                     }
-                    if (type1b != null && type1b.length() > 0) {
+                    if (type1bDir != null && type1bDir.length() > 0) {
                         FileOperations.copyFileOrDir(
                                 themeAssetManager,
-                                type1b,
+                                type1bDir,
                                 workingDirectory + suffix + "/values/type1b.xml",
-                                type1b);
+                                type1bDir);
                     }
-                    if (type1c != null && type1c.length() > 0) {
+                    if (type1cDir != null && type1cDir.length() > 0) {
                         FileOperations.copyFileOrDir(
                                 themeAssetManager,
-                                type1c,
+                                type1cDir,
                                 workingDirectory + suffix + "/values/type1c.xml",
-                                type1c);
+                                type1cDir);
                     }
 
 
                     // Handle the resource folder
                     String listDir = overlaysDir + "/" + package_name + suffix;
-                    if (!listDir.endsWith("/res")) type3 = listDir;
                     FileOperations.copyFileOrDir(
                             themeAssetManager,
                             listDir,

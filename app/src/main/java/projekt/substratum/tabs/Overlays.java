@@ -1826,11 +1826,10 @@ public class Overlays extends Fragment {
                                 "/type3_" + parsedVariant : "/res");
                         String unparsedSuffix =
                                 ((sUrl[0].length() != 0) ? "/type3_" + unparsedVariant : "/res");
+                        type3 = parsedVariant;
                         if (References.isCachingEnabled(getContext())) {
                             File srcDir = new File(workingDirectory +
                                     ((sUrl[0].length() != 0) ? "/type3_" + sUrl[0] : "/res"));
-                            if (!srcDir.getAbsolutePath().endsWith("/res"))
-                                type3 = srcDir.getAbsolutePath();
                             File destDir = new File(workingDirectory + "/workdir");
                             if (destDir.exists()) {
                                 FileOperations.delete(getContext(), destDir.getAbsolutePath());
@@ -1850,7 +1849,6 @@ public class Overlays extends Fragment {
                                         .getAbsolutePath());
                             }
                             String listDir = overlaysDir + "/" + current_overlay + unparsedSuffix;
-                            if (!listDir.endsWith("/res")) type3 = listDir;
                             FileOperations.copyFileOrDir(
                                     themeAssetManager,
                                     listDir,
@@ -1861,12 +1859,11 @@ public class Overlays extends Fragment {
                         if (checkedOverlays.get(i).is_variant_chosen || sUrl[0].length() != 0) {
                             // Type 1a
                             if (checkedOverlays.get(i).is_variant_chosen1) {
+                                type1a = checkedOverlays.get(i).getSelectedVariantName();
                                 if (References.isCachingEnabled(getContext())) {
                                     String sourceLocation = workingDirectory + "/type1a_" +
                                             checkedOverlays.get(i).getSelectedVariantName() +
                                             ".xml";
-
-                                    type1a = sourceLocation;
 
                                     String targetLocation = workingDirectory +
                                             "/workdir/values/type1a.xml";
@@ -1890,7 +1887,6 @@ public class Overlays extends Fragment {
                                             overlaysDir + "/" + current_overlay + "/type1a_" +
                                                     checkedOverlays.get(i)
                                                             .getSelectedVariantName() + ".xml";
-                                    type1a = to_copy;
                                     FileOperations.copyFileOrDir(
                                             themeAssetManager,
                                             to_copy,
@@ -1901,12 +1897,11 @@ public class Overlays extends Fragment {
 
                             // Type 1b
                             if (checkedOverlays.get(i).is_variant_chosen2) {
+                                type1b = checkedOverlays.get(i).getSelectedVariantName2();
                                 if (References.isCachingEnabled(getContext())) {
                                     String sourceLocation2 = workingDirectory + "/type1b_" +
                                             checkedOverlays.get(i).getSelectedVariantName2() +
                                             ".xml";
-
-                                    type1b = sourceLocation2;
 
                                     String targetLocation2 = workingDirectory +
                                             "/workdir/values/type1b.xml";
@@ -1928,7 +1923,6 @@ public class Overlays extends Fragment {
                                             overlaysDir + "/" + current_overlay + "/type1b_" +
                                                     checkedOverlays.get(i)
                                                             .getSelectedVariantName2() + ".xml";
-                                    type1b = to_copy;
                                     FileOperations.copyFileOrDir(
                                             themeAssetManager,
                                             to_copy,
@@ -1938,12 +1932,11 @@ public class Overlays extends Fragment {
                             }
                             // Type 1c
                             if (checkedOverlays.get(i).is_variant_chosen3) {
+                                type1c = checkedOverlays.get(i).getSelectedVariantName3();
                                 if (References.isCachingEnabled(getContext())) {
                                     String sourceLocation3 = workingDirectory + "/type1c_" +
                                             checkedOverlays.get(i).getSelectedVariantName3() +
                                             ".xml";
-
-                                    type1c = sourceLocation3;
 
                                     String targetLocation3 = workingDirectory +
                                             "/workdir/values/type1c.xml";
@@ -1968,7 +1961,6 @@ public class Overlays extends Fragment {
                                             overlaysDir + "/" + current_overlay + "/type1c_" +
                                                     checkedOverlays.get(i)
                                                             .getSelectedVariantName3() + ".xml";
-                                    type1c = to_copy;
                                     FileOperations.copyFileOrDir(
                                             themeAssetManager,
                                             to_copy,
@@ -1993,10 +1985,9 @@ public class Overlays extends Fragment {
                                 packageName = (packageName + checkedOverlays.get(i)
                                         .getSelectedVariantName4()).replaceAll("\\s+", "")
                                         .replaceAll("[^a-zA-Z0-9]+", "");
-                                String type2folder = "/type2_" +
-                                        checkedOverlays.get(i).getSelectedVariantName4();
+                                type2 = checkedOverlays.get(i).getSelectedVariantName4();
+                                String type2folder = "/type2_" + type2;
                                 String to_copy = overlaysDir + "/" + current_overlay + type2folder;
-                                type2 = to_copy;
                                 FileOperations.copyFileOrDir(themeAssetManager, to_copy,
                                         workingDirectory + type2folder, to_copy);
                                 Log.d(TAG, "Currently processing package" +

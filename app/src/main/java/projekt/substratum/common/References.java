@@ -549,6 +549,7 @@ public class References {
         editor.putString("compiler", "aapt");
         editor.putBoolean("crash_receiver", true);
         editor.putBoolean("enable_swapping_overlays", false);
+        editor.putBoolean("overlay_updater", false);
         editor.remove("display_old_themes");
 
         // Initial parse of what is installed on the device

@@ -661,6 +661,28 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             if (!References.getProp("ro.substratum.recreate").equals("true"))
                 systemUIRestart.setVisible(false);
 
+            final CheckBoxPreference overlay_updater = (CheckBoxPreference)
+                    getPreferenceManager().findPreference("overlay_updater");
+            Boolean overlay_show = prefs.getBoolean("overlay_updater", false);
+            if (overlay_show) {
+                overlay_updater.setChecked(true);
+            } else {
+                overlay_updater.setChecked(false);
+            }
+            overlay_updater.setOnPreferenceChangeListener(
+                    (preference, newValue) -> {
+                        boolean isChecked = (Boolean) newValue;
+                        if (isChecked) {
+                            prefs.edit().putBoolean("overlay_updater", true).apply();
+                            overlay_updater.setChecked(true);
+                            return true;
+                        } else {
+                            prefs.edit().putBoolean("overlay_updater", false).apply();
+                            overlay_updater.setChecked(false);
+                            return false;
+                        }
+                    });
+
             final CheckBoxPreference manager_disabled_overlays = (CheckBoxPreference)
                     getPreferenceManager().findPreference("manager_disabled_overlays");
             if (prefs.getBoolean("manager_disabled_overlays", true)) {

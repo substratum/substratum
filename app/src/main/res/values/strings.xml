@@ -733,6 +733,9 @@
     <string name="settings_system_status_certified">certified</string>
     <string name="settings_system_status_uncertified">uncertified</string>
 
+    <string name="settings_auto_updater_title">Automatically update overlays</string>
+    <string name="settings_auto_updater_text">When an application updates, the app will automatically build, compile and install an updated version of all overlays targeting the updated package.</string>
+
     <string name="settings_force_english_title">Force English Language</string>
     <string name="settings_force_english_text">This will force the application to use the English language.</string>
     <string name="settings_force_english_toast_success" translatable="false">Successfully switched to English!</string>

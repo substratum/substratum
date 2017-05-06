@@ -102,7 +102,7 @@ public class OverlayFound extends BroadcastReceiver {
             mBuilder = new NotificationCompat.Builder(context);
             mBuilder.setAutoCancel(true);
             mBuilder.setOngoing(false);
-            mBuilder.setSmallIcon(R.drawable.notification_success_icon);
+            mBuilder.setSmallIcon(R.drawable.notification_overlay_found);
             mBuilder.setLargeIcon(((BitmapDrawable)
                     References.grabAppIcon(context, theme_package)).getBitmap());
 

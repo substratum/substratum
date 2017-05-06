@@ -468,7 +468,7 @@ public class ProfileFragment extends Fragment {
             headerProgress.setVisibility(View.GONE);
             if (References.checkOMS(getContext())) {
                 String directory_parse = String.format(getString(R.string.toast_backup_success),
-                        backup_getText + ".substratum");
+                        backup_getText);
                 if (getView() != null) {
                     Lunchbar.make(getView(),
                             directory_parse,

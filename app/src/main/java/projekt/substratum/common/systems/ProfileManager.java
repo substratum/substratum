@@ -23,13 +23,55 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.om.OverlayInfo;
+import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.util.Xml;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xmlpull.v1.XmlSerializer;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import projekt.substratum.common.References;
+import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.services.profiles.ScheduledProfileReceiver;
 
+import static android.content.om.OverlayInfo.STATE_APPROVED_DISABLED;
+import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
+import static projekt.substratum.common.References.metadataOverlayParent;
+import static projekt.substratum.common.References.metadataOverlayTarget;
+import static projekt.substratum.common.References.metadataOverlayType1a;
+import static projekt.substratum.common.References.metadataOverlayType1b;
+import static projekt.substratum.common.References.metadataOverlayType1c;
+import static projekt.substratum.common.References.metadataOverlayType2;
+import static projekt.substratum.common.References.metadataOverlayType3;
+
 public class ProfileManager {
+    // Profile state list tags
+    private static final String METADATA_PROFILE_ENABLED = "enabled";
+    private static final String METADATA_PROFILE_DISABLED = "disabled";
+    private static final String METADATA_PROFILE_OVERLAYS = "overlays";
+    private static final String METADATA_PROFILE_ITEM = "item";
+    private static final String METADATA_PROFILE_PACKAGE_NAME = "packageName";
+    private static final String METADATA_PROFILE_TARGET = "target";
+    private static final String METADATA_PROFILE_PARENT = "parent";
+    private static final String METADATA_PROFILE_TYPE1A = "type1a";
+    private static final String METADATA_PROFILE_TYPE1B = "type1b";
+    private static final String METADATA_PROFILE_TYPE1C = "type1c";
+    private static final String METADATA_PROFILE_TYPE2 = "type2";
+    private static final String METADATA_PROFILE_TYPE3 = "type3";
+
     public static final String SCHEDULED_PROFILE_ENABLED = "scheduled_profile_enabled";
     public static final String SCHEDULED_PROFILE_TYPE_EXTRA = "type";
     public static final String SCHEDULED_PROFILE_CURRENT_PROFILE = "current_profile";
@@ -182,5 +224,150 @@ public class ProfileManager {
             editor.remove(NIGHT_PROFILE_MINUTE);
             editor.apply();
         }
+    }
+
+    public static void writeProfileState(Context context, String profileName) {
+        try {
+            try (FileOutputStream outputStream = new FileOutputStream(
+                    Environment.getExternalStorageDirectory().getAbsolutePath() +
+                            "/substratum/profiles/" + profileName + "/overlay_state.xml")) {
+                XmlSerializer xmlSerializer = Xml.newSerializer();
+                xmlSerializer.setOutput(outputStream, "UTF-8");
+                xmlSerializer.setFeature(
+                        "http://xmlpull.org/v1/doc/features.html#indent-output", true);
+                xmlSerializer.startDocument(null, true);
+                xmlSerializer.startTag(null, METADATA_PROFILE_OVERLAYS);
+
+                // Write enabled overlays
+                List<String> enabled = ThemeManager.listOverlays(STATE_APPROVED_ENABLED);
+                if (enabled.size() > 0) {
+                    xmlSerializer.startTag(null, METADATA_PROFILE_ENABLED);
+                    for (String packageName : enabled) {
+                        String target = References.getOverlayMetadata(
+                                context, packageName, metadataOverlayTarget);
+                        String parent = References.getOverlayMetadata(
+                                context, packageName, metadataOverlayParent);
+                        String type1a = References.getOverlayMetadata(
+                                context, packageName, metadataOverlayType1a);
+                        String type1b = References.getOverlayMetadata(
+                                context, packageName, metadataOverlayType1b);
+                        String type1c = References.getOverlayMetadata(
+                                context, packageName, metadataOverlayType1c);
+                        String type2 = References.getOverlayMetadata(
+                                context, packageName, metadataOverlayType2);
+                        String type3 = References.getOverlayMetadata(
+                                context, packageName, metadataOverlayType3);
+
+                        xmlSerializer.startTag(null, METADATA_PROFILE_ITEM)
+                                .attribute(null, METADATA_PROFILE_PACKAGE_NAME, packageName)
+                                .attribute(null, METADATA_PROFILE_TARGET, target)
+                                .attribute(null, METADATA_PROFILE_PARENT, parent)
+                                .attribute(null, METADATA_PROFILE_TYPE1A, type1a)
+                                .attribute(null, METADATA_PROFILE_TYPE1B, type1b)
+                                .attribute(null, METADATA_PROFILE_TYPE1C, type1c)
+                                .attribute(null, METADATA_PROFILE_TYPE2, type2)
+                                .attribute(null, METADATA_PROFILE_TYPE3, type3)
+                                .endTag(null, METADATA_PROFILE_ITEM);
+                    }
+                    xmlSerializer.endTag(null, METADATA_PROFILE_ENABLED);
+                }
+
+                // Write disabled overlays
+                List<String> disabled = ThemeManager.listOverlays(STATE_APPROVED_DISABLED);
+                if (disabled.size() > 0) {
+                    xmlSerializer.startTag(null, METADATA_PROFILE_DISABLED);
+                    for (String packageName : disabled) {
+                        String target = References.getOverlayMetadata(
+                                context, packageName, metadataOverlayTarget);
+                        String parent = References.getOverlayMetadata(
+                                context, packageName, metadataOverlayParent);
+                        String type1a = References.getOverlayMetadata(
+                                context, packageName, metadataOverlayType1a);
+                        String type1b = References.getOverlayMetadata(
+                                context, packageName, metadataOverlayType1b);
+                        String type1c = References.getOverlayMetadata(
+                                context, packageName, metadataOverlayType1c);
+                        String type2 = References.getOverlayMetadata(
+                                context, packageName, metadataOverlayType2);
+                        String type3 = References.getOverlayMetadata(
+                                context, packageName, metadataOverlayType3);
+
+                        xmlSerializer.startTag(null, METADATA_PROFILE_ITEM)
+                                .attribute(null, METADATA_PROFILE_PACKAGE_NAME, packageName)
+                                .attribute(null, METADATA_PROFILE_TARGET, target)
+                                .attribute(null, METADATA_PROFILE_PARENT, parent)
+                                .attribute(null, METADATA_PROFILE_TYPE1A, type1a)
+                                .attribute(null, METADATA_PROFILE_TYPE1B, type1b)
+                                .attribute(null, METADATA_PROFILE_TYPE1C, type1c)
+                                .attribute(null, METADATA_PROFILE_TYPE2, type2)
+                                .attribute(null, METADATA_PROFILE_TYPE3, type3)
+                                .endTag(null, METADATA_PROFILE_ITEM);
+                    }
+                    xmlSerializer.endTag(null, METADATA_PROFILE_DISABLED);
+                }
+
+                xmlSerializer.endTag(null, METADATA_PROFILE_OVERLAYS);
+                xmlSerializer.endDocument();
+                xmlSerializer.flush();
+            }
+        } catch (IOException ioe) {
+            // Suppress exception
+        }
+    }
+
+    public static List<String> readProfileState(String profileName, int overlayState) {
+        List<String> list = new ArrayList<>();
+        try {
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(
+                    Environment.getExternalStorageDirectory().getAbsolutePath() +
+                            "/substratum/profiles/" + profileName + "/overlay_state.xml");
+            doc.getDocumentElement().normalize();
+
+            NodeList nList = doc.getElementsByTagName(
+                    overlayState == OverlayInfo.STATE_APPROVED_ENABLED ?
+                            METADATA_PROFILE_ENABLED : METADATA_PROFILE_DISABLED);
+            int listLength = nList.getLength();
+            for (int i = 0; i < listLength; i++) {
+                if (nList.item(i).getNodeType() == Node.ELEMENT_NODE) {
+                    Element element = (Element) nList.item(i);
+                    list.add(element.getAttribute(METADATA_PROFILE_PACKAGE_NAME));
+                }
+            }
+        } catch (Exception e) {
+            // At this point, the file does not exist!
+        }
+        return list;
+    }
+
+    public static List<List<String>> readProfileStateWithTargetPackage(String profileName,
+                                                                       int overlayState) {
+        List<List<String>> list = new ArrayList<>();
+        try {
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(
+                    Environment.getExternalStorageDirectory().getAbsolutePath() +
+                            "/substratum/profiles/" + profileName + "/overlay_state.xml");
+            doc.getDocumentElement().normalize();
+
+            NodeList nList = doc.getElementsByTagName(
+                    overlayState == OverlayInfo.STATE_APPROVED_ENABLED ?
+                            METADATA_PROFILE_ENABLED : METADATA_PROFILE_DISABLED);
+            int listLength = nList.getLength();
+            for (int i = 0; i < listLength; i++) {
+                if (nList.item(i).getNodeType() == Node.ELEMENT_NODE) {
+                    Element element = (Element) nList.item(i);
+                    List<String> overlay = new ArrayList<>();
+                    overlay.add(element.getAttribute(METADATA_PROFILE_PACKAGE_NAME));
+                    overlay.add(element.getAttribute(METADATA_PROFILE_TARGET));
+                    list.add(overlay);
+                }
+            }
+        } catch (Exception e) {
+            // At this point, the file does not exist!
+        }
+        return list;
     }
 }

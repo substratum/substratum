@@ -502,6 +502,7 @@
     <string name="notification_initial_title">Substratum is running</string>
     <string name="notification_initial_title_upgrade">%s resources are now upgrading&#8230;</string>
     <string name="notification_done_title">Theme compilation has completed</string>
+    <string name="notification_done_upgrade_title">Overlay upgrade has completed</string>
     <string name="notification_no_errors_found">No errors while installing any overlays</string>
     <string name="notification_some_errors_found">An error has occurred during overlay installation</string>
     <string name="notification_processing">Processing overlay for</string>

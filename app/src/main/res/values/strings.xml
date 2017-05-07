@@ -23,8 +23,8 @@
     <string name="showcase">showcase</string>
     <string name="drawer_name" translatable="false">projekt substratum</string>
 
-    <string name="android">android version:</string>
-    <string name="device">device model:</string>
+    <string name="android">Android version:</string>
+    <string name="device">Device model:</string>
 
     <string name="search_play_store_url" translatable="false">https://play.google.com/store/search?q=Substratum%20Theme&amp;c=apps</string>
     <string name="search_play_store_url_icon_packs" translatable="false">https://play.google.com/store/search?q=Icon%20Pack&amp;c=apps</string>
@@ -242,13 +242,13 @@
 
     <string name="settings_about_substratum">substratum version</string>
     <string name="settings_about_interfacer">interfacer version</string>
-    <string name="settings_about_interfacer_not_installed">not installed</string>
-    <string name="settings_about_interfacer_masquerade">this rom requires an update to utilize interfacer functionality</string>
-    <string name="settings_about_oms_rro_version">theme platform:</string>
+    <string name="settings_about_interfacer_not_installed">Not installed</string>
+    <string name="settings_about_interfacer_masquerade">This rom requires an update to utilize interfacer functionality</string>
+    <string name="settings_about_oms_rro_version">Theme platform:</string>
     <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
 
-    <string name="settings_about_system_version">system platform</string>
+    <string name="settings_about_system_version">System platform</string>
     <string name="settings_about_system_content" translatable="false">%NULL$</string>
 
     <string name="settings_aopt_switcher_title">System Overlay Compiler</string>
@@ -728,11 +728,11 @@
     <string name="bottom_sheet_dialog_hide_outdated_themes">Hide outdated themes (6.0.0+) [Recommended!]</string>
     <string name="bottom_sheet_dialog_show_outdated_themes">Show outdated themes (pre-6.0.0)</string>
 
-    <string name="settings_system_status">system certification</string>
-    <string name="settings_system_status_rooted">rooted mode</string>
-    <string name="settings_system_status_rootless">rootless mode</string>
-    <string name="settings_system_status_certified">certified</string>
-    <string name="settings_system_status_uncertified">uncertified</string>
+    <string name="settings_system_status">System certification</string>
+    <string name="settings_system_status_rooted">Rooted mode</string>
+    <string name="settings_system_status_rootless">Rootless mode</string>
+    <string name="settings_system_status_certified">Certified</string>
+    <string name="settings_system_status_uncertified">Uncertified</string>
 
     <string name="settings_auto_updater_title">Automatically update overlays</string>
     <string name="settings_auto_updater_text">When an application updates, the app will automatically build, compile and install an updated version of all overlays targeting the updated package.</string>
@@ -807,7 +807,7 @@
     <string name="app_crash_title">%s keeps stopping&#8230;</string>
     <string name="app_crash_content">All enabled overlays for this app have been disabled.</string>
 
-    <string name="rom_status">support status:</string>
+    <string name="rom_status">Support status:</string>
     <string name="rom_status_supported">%s is community supported!</string>
     <string name="rom_status_unsupported">this rom is not community supported!</string>
     <string name="rom_status_network">internet check required&#8230;</string>

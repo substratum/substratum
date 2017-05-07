@@ -240,8 +240,8 @@
     <string name="sounds_lock_sound">Screen Lock Sounds</string>
     <string name="sounds_unlock_sound">Screen Unlock Sounds</string>
 
-    <string name="settings_about_substratum">Substratum version</string>
-    <string name="settings_about_interfacer">Interfacer version</string>
+    <string name="settings_about_substratum">substratum version</string>
+    <string name="settings_about_interfacer">interfacer version</string>
     <string name="settings_about_interfacer_not_installed">Not installed</string>
     <string name="settings_about_interfacer_masquerade">This rom requires an update to utilize interfacer functionality</string>
     <string name="settings_about_oms_rro_version">Theme platform:</string>

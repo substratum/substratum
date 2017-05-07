@@ -105,16 +105,9 @@ public class ManagerAdapter extends
                     References.metadataOverlayType1a);
 
             if (metadata != null && metadata.length() > 0) {
-                if (metadata.startsWith("/data/user")) {
-                    metadata = metadata.split("/")[11];
-                } else {
-                    metadata = metadata.split("/")[2];
-                }
-                metadata = metadata.substring(
-                        context.getString(R.string.manager_type1a).length() - 1,
-                        metadata.length() - 4).replace("_", " ");
-                String textView =
-                        "<b>" + context.getString(R.string.manager_type1a) + "</b> " + metadata;
+                metadata = metadata.replace("_", " ");
+                String textView = "<b>" + context.getString(R.string.manager_type1a) +
+                        "</b> " + metadata;
                 viewHolder.type1a.setVisibility(View.VISIBLE);
                 overlayList.get(position_fixed).setType1a(textView);
                 viewHolder.type1a.setText(Html.fromHtml(textView, FROM_HTML_MODE_LEGACY));
@@ -133,16 +126,9 @@ public class ManagerAdapter extends
                     packageName,
                     References.metadataOverlayType1b);
             if (metadata != null && metadata.length() > 0) {
-                if (metadata.startsWith("/data/user")) {
-                    metadata = metadata.split("/")[11];
-                } else {
-                    metadata = metadata.split("/")[2];
-                }
-                metadata = metadata.substring(
-                        context.getString(R.string.manager_type1b).length() - 1,
-                        metadata.length() - 4).replace("_", " ");
-                String textView =
-                        "<b>" + context.getString(R.string.manager_type1b) + "</b> " + metadata;
+                metadata = metadata.replace("_", " ");
+                String textView = "<b>" + context.getString(R.string.manager_type1b) +
+                        "</b> " + metadata;
                 viewHolder.type1b.setVisibility(View.VISIBLE);
                 overlayList.get(position_fixed).setType1b(textView);
                 viewHolder.type1b.setText(Html.fromHtml(textView, FROM_HTML_MODE_LEGACY));
@@ -161,16 +147,9 @@ public class ManagerAdapter extends
                     packageName,
                     References.metadataOverlayType1c);
             if (metadata != null && metadata.length() > 0) {
-                if (metadata.startsWith("/data/user")) {
-                    metadata = metadata.split("/")[11];
-                } else {
-                    metadata = metadata.split("/")[2];
-                }
-                metadata = metadata.substring(
-                        context.getString(R.string.manager_type1c).length() - 1,
-                        metadata.length() - 4).replace("_", " ");
-                String textView =
-                        "<b>" + context.getString(R.string.manager_type1c) + "</b> " + metadata;
+                metadata = metadata.replace("_", " ");
+                String textView = "<b>" + context.getString(R.string.manager_type1c) +
+                        "</b> " + metadata;
                 viewHolder.type1c.setVisibility(View.VISIBLE);
                 overlayList.get(position_fixed).setType1c(textView);
                 viewHolder.type1c.setText(Html.fromHtml(textView, FROM_HTML_MODE_LEGACY));
@@ -189,16 +168,9 @@ public class ManagerAdapter extends
                     packageName,
                     References.metadataOverlayType2);
             if (metadata != null && metadata.length() > 0) {
-                if (metadata.startsWith("/data/user")) {
-                    metadata = metadata.split("/")[11];
-                } else {
-                    metadata = metadata.split("/")[2];
-                }
-                metadata = metadata.substring(
-                        context.getString(R.string.manager_type2).length() - 1,
-                        metadata.length()).replace("_", " ");
-                String textView =
-                        "<b>" + context.getString(R.string.manager_type2) + "</b> " + metadata;
+                metadata = metadata.replace("_", " ");
+                String textView = "<b>" + context.getString(R.string.manager_type2) +
+                        "</b> " + metadata;
                 viewHolder.type2.setVisibility(View.VISIBLE);
                 overlayList.get(position_fixed).setType2(textView);
                 viewHolder.type2.setText(Html.fromHtml(textView, FROM_HTML_MODE_LEGACY));
@@ -217,16 +189,9 @@ public class ManagerAdapter extends
                     packageName,
                     References.metadataOverlayType3);
             if (metadata != null && metadata.length() > 0) {
-                if (metadata.startsWith("/data/user")) {
-                    metadata = metadata.split("/")[11];
-                } else {
-                    metadata = metadata.split("/")[2];
-                }
-                metadata = metadata.substring(
-                        context.getString(R.string.manager_type3).length() - 1,
-                        metadata.length()).replace("_", " ");
-                String textView =
-                        "<b>" + context.getString(R.string.manager_type3) + "</b> " + metadata;
+                metadata = metadata.replace("_", " ");
+                String textView = "<b>" + context.getString(R.string.manager_type3) +
+                        "</b> " + metadata;
                 viewHolder.type3.setVisibility(View.VISIBLE);
                 overlayList.get(position_fixed).setType3(textView);
                 viewHolder.type3.setText(Html.fromHtml(textView, FROM_HTML_MODE_LEGACY));
@@ -245,7 +210,7 @@ public class ManagerAdapter extends
                     packageName,
                     References.metadataOverlayParent);
             if (metadata != null && metadata.length() > 0 && newUpdate) {
-                String pName = "<b>" + context.getString(R.string.manager_theme_name) + "</b> " +
+                String pName = "<b>" +  context.getString(R.string.manager_theme_name) + "</b> " +
                         References.grabPackageName(context, metadata);
                 viewHolder.tvDesc.setVisibility(View.VISIBLE);
                 overlayList.get(position_fixed).setThemeName(pName);

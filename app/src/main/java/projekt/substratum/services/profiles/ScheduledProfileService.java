@@ -47,8 +47,8 @@ import projekt.substratum.common.References;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeInterfacerService;
 import projekt.substratum.common.platform.ThemeManager;
+import projekt.substratum.common.systems.ProfileManager;
 import projekt.substratum.common.tabs.WallpaperManager;
-import projekt.substratum.util.readers.ReadOverlaysFile;
 
 import static projekt.substratum.common.systems.ProfileManager.DAY_PROFILE;
 import static projekt.substratum.common.systems.ProfileManager.DAY_PROFILE_HOUR;
@@ -150,20 +150,16 @@ public class ScheduledProfileService extends JobService {
 
             String processed = prefs.getString(type, "");
             File overlays = new File(Environment.getExternalStorageDirectory().getAbsolutePath()
-                    + "/substratum/profiles/" + processed + "/overlays.xml");
+                    + "/substratum/profiles/" + processed + "/overlay_state.xml");
             ArrayList<String> to_be_run = new ArrayList<>();
             List<List<String>> cannot_run_overlays = new ArrayList<>();
             List<String> system = new ArrayList<>();
             String dialog_message = "";
             if (overlays.exists()) {
-                String[] commandsSystem4 = {"/data/system/overlays.xml", "4"};
-                String[] commandsSystem5 = {"/data/system/overlays.xml", "5"};
-                String[] commands = {overlays.getAbsolutePath(), "5"};
-
-                List<List<String>> profile = ReadOverlaysFile.withTargetPackage(
-                        context, commands);
-                system = ReadOverlaysFile.main(context, commandsSystem4);
-                system.addAll(ReadOverlaysFile.main(context, commandsSystem5));
+                List<List<String>> profile =
+                        ProfileManager.readProfileStateWithTargetPackage(processed, 5);
+                system = ProfileManager.readProfileState(processed, 4);
+                system.addAll(ProfileManager.readProfileState(processed, 5));
 
                 // Now process the overlays to be enabled
                 for (int i = 0, size = profile.size(); i < size; i++) {

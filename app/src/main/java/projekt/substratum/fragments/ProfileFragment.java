@@ -61,7 +61,6 @@ import projekt.substratum.common.platform.ThemeInterfacerService;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.common.systems.ProfileManager;
 import projekt.substratum.common.tabs.WallpaperManager;
-import projekt.substratum.util.readers.ReadOverlaysFile;
 
 import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
 import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;
@@ -527,8 +526,7 @@ public class ProfileFragment extends Fragment {
                 }
 
                 if (selectedBackup.contains(getString(R.string.profile_overlay))) {
-                    FileOperations.copy(getContext(), "/data/system/overlays.xml",
-                            profileFile.getAbsolutePath());
+                    ProfileManager.writeProfileState(getContext(), backup_getText);
                 }
 
                 // Backup the entire /data/system/theme/ folder
@@ -809,17 +807,13 @@ public class ProfileFragment extends Fragment {
                 to_be_run_commands = "";
 
                 File overlays = new File(Environment.getExternalStorageDirectory().getAbsolutePath()
-                        + "/substratum/profiles/" + profile_name + "/overlays.xml");
+                        + "/substratum/profiles/" + profile_name + "/overlay_state.xml");
 
                 if (overlays.exists()) {
-                    String[] commandsSystem4 = {"/data/system/overlays.xml", "4"};
-                    String[] commandsSystem5 = {"/data/system/overlays.xml", "5"};
-                    String[] commands = {overlays.getAbsolutePath(), "5"};
-
-                    List<List<String>> profile = ReadOverlaysFile.withTargetPackage(
-                            getContext(), commands);
-                    system = ReadOverlaysFile.main(getContext(), commandsSystem4);
-                    system.addAll(ReadOverlaysFile.main(getContext(), commandsSystem5));
+                    List<List<String>> profile =
+                            ProfileManager.readProfileStateWithTargetPackage(profile_name, 5);
+                    system = ProfileManager.readProfileState(profile_name, 4);
+                    system.addAll(ProfileManager.readProfileState(profile_name, 5));
 
                     // Now process the overlays to be enabled
                     for (int i = 0, size = profile.size(); i < size; i++) {

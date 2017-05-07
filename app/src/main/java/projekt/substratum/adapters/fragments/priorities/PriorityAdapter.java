@@ -121,10 +121,7 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                                     packageTitle,
                                     References.metadataOverlayType1a);
                             if (metadata != null && metadata.length() > 0) {
-                                metadata = metadata.split("/")[2];
-                                metadata = metadata.substring(
-                                        mContext.getString(R.string.manager_type1a).length() - 1,
-                                        metadata.length() - 4).replace("_", " ");
+                                metadata = metadata.replace("_", " ");
                                 String textView =
                                         "<b>" + mContext.getString(R.string.manager_type1a) +
                                                 "</b> " + metadata;
@@ -148,10 +145,7 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                                     packageTitle,
                                     References.metadataOverlayType1b);
                             if (metadata != null && metadata.length() > 0) {
-                                metadata = metadata.split("/")[2];
-                                metadata = metadata.substring(
-                                        mContext.getString(R.string.manager_type1b).length() - 1,
-                                        metadata.length() - 4).replace("_", " ");
+                                metadata = metadata.replace("_", " ");
                                 String textView =
                                         "<b>" + mContext.getString(R.string.manager_type1b) +
                                                 "</b> " + metadata;
@@ -175,10 +169,7 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                                     packageTitle,
                                     References.metadataOverlayType1c);
                             if (metadata != null && metadata.length() > 0) {
-                                metadata = metadata.split("/")[2];
-                                metadata = metadata.substring(
-                                        mContext.getString(R.string.manager_type1c).length() - 1,
-                                        metadata.length() - 4).replace("_", " ");
+                                metadata = metadata.replace("_", " ");
                                 String textView =
                                         "<b>" + mContext.getString(R.string.manager_type1c) +
                                                 "</b> " + metadata;
@@ -201,10 +192,7 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                                     packageTitle,
                                     References.metadataOverlayType2);
                             if (metadata != null && metadata.length() > 0) {
-                                metadata = metadata.split("/")[2];
-                                metadata = metadata.substring(
-                                        mContext.getString(R.string.manager_type2).length() - 1,
-                                        metadata.length()).replace("_", " ");
+                                metadata = metadata.replace("_", " ");
                                 String textView =
                                         "<b>" + mContext.getString(R.string.manager_type2) +
                                                 "</b> " + metadata;
@@ -227,10 +215,7 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                                     packageTitle,
                                     References.metadataOverlayType3);
                             if (metadata != null && metadata.length() > 0) {
-                                metadata = metadata.split("/")[2];
-                                metadata = metadata.substring(
-                                        mContext.getString(R.string.manager_type3).length() - 1,
-                                        metadata.length()).replace("_", " ");
+                                metadata = metadata.replace("_", " ");
                                 String textView =
                                         "<b>" + mContext.getString(R.string.manager_type3) +
                                                 "</b> " + metadata;

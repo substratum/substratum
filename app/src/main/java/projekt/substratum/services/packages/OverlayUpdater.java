@@ -96,7 +96,10 @@ public class OverlayUpdater extends BroadcastReceiver {
                 mNotifyManager = (NotificationManager) context.getSystemService(
                         Context.NOTIFICATION_SERVICE);
                 mBuilder = new NotificationCompat.Builder(context);
-                mBuilder.setContentTitle(context.getString(R.string.notification_initial_title))
+                String format = String.format(
+                        context.getString(R.string.notification_initial_title_upgrade_intent),
+                        References.grabPackageName(context, package_name));
+                mBuilder.setContentTitle(format)
                         .setProgress(100, 0, true)
                         .setSmallIcon(android.R.drawable.ic_popup_sync)
                         .setPriority(notification_priority)
@@ -113,8 +116,10 @@ public class OverlayUpdater extends BroadcastReceiver {
                 mBuilder.setProgress(0, 0, false);
                 mBuilder.setOngoing(false);
                 mBuilder.setSmallIcon(R.drawable.notification_success_icon);
-                mBuilder.setContentTitle(
-                        context.getString(R.string.notification_done_upgrade_title));
+                String format = String.format(
+                        context.getString(R.string.notification_done_upgrade_title),
+                        References.grabPackageName(context, package_name));
+                mBuilder.setContentTitle(format);
                 mBuilder.setContentText(null);
                 mNotifyManager.notify(id, mBuilder.build());
             }

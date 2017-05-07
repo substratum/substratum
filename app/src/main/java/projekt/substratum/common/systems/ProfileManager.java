@@ -32,16 +32,21 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 import org.xmlpull.v1.XmlSerializer;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import projekt.substratum.common.References;
 import projekt.substratum.common.platform.ThemeManager;
@@ -315,58 +320,104 @@ public class ProfileManager {
         }
     }
 
-    public static List<String> readProfileState(String profileName, int overlayState) {
-        List<String> list = new ArrayList<>();
-        try {
+    public static HashMap<String, ProfileItem> readProfileState(String profileName,
+                                                                int overlayState) {
+        HashMap<String, ProfileItem> map = new HashMap<>();
+        try (InputStream input = new FileInputStream(Environment.getExternalStorageDirectory()
+                .getAbsolutePath() + "/substratum/profiles/" + profileName + "/overlay_state.xml")){
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(
-                    Environment.getExternalStorageDirectory().getAbsolutePath() +
-                            "/substratum/profiles/" + profileName + "/overlay_state.xml");
+            Document doc = dBuilder.parse(input);
             doc.getDocumentElement().normalize();
 
-            NodeList nList = doc.getElementsByTagName(
+            Node items = doc.getElementsByTagName(
                     overlayState == OverlayInfo.STATE_APPROVED_ENABLED ?
-                            METADATA_PROFILE_ENABLED : METADATA_PROFILE_DISABLED);
-            int listLength = nList.getLength();
-            for (int i = 0; i < listLength; i++) {
-                if (nList.item(i).getNodeType() == Node.ELEMENT_NODE) {
-                    Element element = (Element) nList.item(i);
-                    list.add(element.getAttribute(METADATA_PROFILE_PACKAGE_NAME));
+                            METADATA_PROFILE_ENABLED : METADATA_PROFILE_DISABLED)
+                    .item(0);
+
+            if (items != null) {
+                NodeList childNodes = items.getChildNodes();
+                int listLength = childNodes.getLength();
+                for (int i = 0; i < listLength; i++) {
+                    if (childNodes.item(i).getNodeType() == Node.ELEMENT_NODE) {
+                        Element e = (Element) childNodes.item(i);
+                        ProfileItem item =
+                                new ProfileItem(e.getAttribute(METADATA_PROFILE_PACKAGE_NAME));
+                        item.setParentTheme(e.getAttribute(METADATA_PROFILE_PARENT));
+                        item.setTargetPackage(e.getAttribute(METADATA_PROFILE_TARGET));
+                        item.setType1a(e.getAttribute(METADATA_PROFILE_TYPE1A));
+                        item.setType1b(e.getAttribute(METADATA_PROFILE_TYPE1B));
+                        item.setType1c(e.getAttribute(METADATA_PROFILE_TYPE1C));
+                        item.setType2(e.getAttribute(METADATA_PROFILE_TYPE2));
+                        item.setType3(e.getAttribute(METADATA_PROFILE_TYPE3));
+                        map.put(e.getAttribute(METADATA_PROFILE_PACKAGE_NAME), item);
+                    }
                 }
             }
-        } catch (Exception e) {
-            // At this point, the file does not exist!
+        } catch (IOException|ParserConfigurationException|SAXException e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+    public static List<String> readProfileStatePackage(String profileName, int overlayState) {
+        List<String> list = new ArrayList<>();
+        try (InputStream input = new FileInputStream(Environment.getExternalStorageDirectory()
+                .getAbsolutePath() + "/substratum/profiles/" + profileName + "/overlay_state.xml")){
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(input);
+            doc.getDocumentElement().normalize();
+
+            Node items = doc.getElementsByTagName(
+                    overlayState == OverlayInfo.STATE_APPROVED_ENABLED ?
+                            METADATA_PROFILE_ENABLED : METADATA_PROFILE_DISABLED).item(0);
+
+            if (items != null) {
+                NodeList childNodes = items.getChildNodes();
+                int listLength = childNodes.getLength();
+                for (int i = 0; i < listLength; i++) {
+                    if (childNodes.item(i).getNodeType() == Node.ELEMENT_NODE) {
+                        Element element = (Element) childNodes.item(i);
+                        list.add(element.getAttribute(METADATA_PROFILE_PACKAGE_NAME));
+                    }
+                }
+            }
+        } catch (IOException|ParserConfigurationException|SAXException e) {
+            e.printStackTrace();
         }
         return list;
     }
 
-    public static List<List<String>> readProfileStateWithTargetPackage(String profileName,
-                                                                       int overlayState) {
+    public static List<List<String>> readProfileStatePackageWithTargetPackage(String profileName,
+                                                                              int overlayState) {
         List<List<String>> list = new ArrayList<>();
-        try {
+        try (InputStream input = new FileInputStream(Environment.getExternalStorageDirectory()
+                .getAbsolutePath() + "/substratum/profiles/" + profileName + "/overlay_state.xml")){
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(
-                    Environment.getExternalStorageDirectory().getAbsolutePath() +
-                            "/substratum/profiles/" + profileName + "/overlay_state.xml");
+            Document doc = dBuilder.parse(input);
             doc.getDocumentElement().normalize();
 
-            NodeList nList = doc.getElementsByTagName(
+            Node items = doc.getElementsByTagName(
                     overlayState == OverlayInfo.STATE_APPROVED_ENABLED ?
-                            METADATA_PROFILE_ENABLED : METADATA_PROFILE_DISABLED);
-            int listLength = nList.getLength();
-            for (int i = 0; i < listLength; i++) {
-                if (nList.item(i).getNodeType() == Node.ELEMENT_NODE) {
-                    Element element = (Element) nList.item(i);
-                    List<String> overlay = new ArrayList<>();
-                    overlay.add(element.getAttribute(METADATA_PROFILE_PACKAGE_NAME));
-                    overlay.add(element.getAttribute(METADATA_PROFILE_TARGET));
-                    list.add(overlay);
+                            METADATA_PROFILE_ENABLED : METADATA_PROFILE_DISABLED).item(0);
+
+            if (items != null) {
+                NodeList childNodes = items.getChildNodes();
+                int listLength = childNodes.getLength();
+                for (int i = 0; i < listLength; i++) {
+                    if (childNodes.item(i).getNodeType() == Node.ELEMENT_NODE) {
+                        Element element = (Element) childNodes.item(i);
+                        List<String> overlay = new ArrayList<>();
+                        overlay.add(element.getAttribute(METADATA_PROFILE_PACKAGE_NAME));
+                        overlay.add(element.getAttribute(METADATA_PROFILE_TARGET));
+                        list.add(overlay);
+                    }
                 }
             }
-        } catch (Exception e) {
-            // At this point, the file does not exist!
+        } catch (IOException|ParserConfigurationException|SAXException e) {
+            e.printStackTrace();
         }
         return list;
     }

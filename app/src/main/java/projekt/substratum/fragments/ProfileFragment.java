@@ -18,8 +18,12 @@
 
 package projekt.substratum.fragments;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.content.res.AssetManager;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -51,6 +55,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import projekt.substratum.R;
@@ -59,11 +64,17 @@ import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeInterfacerService;
 import projekt.substratum.common.platform.ThemeManager;
+import projekt.substratum.common.systems.ProfileItem;
 import projekt.substratum.common.systems.ProfileManager;
 import projekt.substratum.common.tabs.WallpaperManager;
+import projekt.substratum.util.compilers.SubstratumBuilder;
 
+import static android.content.om.OverlayInfo.STATE_APPROVED_DISABLED;
+import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
+import static projekt.substratum.common.References.EXTERNAL_STORAGE_CACHE;
 import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
 import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;
+import static projekt.substratum.common.References.SUBSTRATUM_BUILDER_CACHE;
 import static projekt.substratum.common.References.VENDOR_DIR;
 import static projekt.substratum.common.systems.ProfileManager.DAY_PROFILE;
 import static projekt.substratum.common.systems.ProfileManager.DAY_PROFILE_HOUR;
@@ -675,13 +686,20 @@ public class ProfileFragment extends Fragment {
                             .setPositiveButton(getString(R.string.restore_dialog_okay), (dialog,
                                                                                          which) -> {
                                 dialog.dismiss();
-                                continueProcess();
+                                // Continue restore process (compile missing overlays and enable)
+                                new ContinueRestore(
+                                        getContext(),
+                                        profile_name,
+                                        cannot_run_overlays,
+                                        to_be_run)
+                                        .execute();
                             })
                             .setNegativeButton(getString(R.string.restore_dialog_cancel),
                                     (dialog, which) -> headerProgress.setVisibility(View.GONE))
                             .create().show();
                 } else {
-                    continueProcess();
+                    // Continue restore process (enable)
+                    new ContinueRestore(getContext(), profile_name, to_be_run).execute();
                     headerProgress.setVisibility(View.GONE);
                 }
             } else {
@@ -778,8 +796,10 @@ public class ProfileFragment extends Fragment {
                     FileOperations.setPermissions(755, current_directory);
                     FileOperations.setContext(current_directory);
                     FileOperations.mountRO();
+
+                    // Restore wallpaper
+                    new ContinueRestore(getContext()).execute();
                 }
-                continueProcessWallpaper();
                 AlertDialog.Builder alertDialogBuilder =
                         new AlertDialog.Builder(getContext());
                 alertDialogBuilder
@@ -811,9 +831,10 @@ public class ProfileFragment extends Fragment {
 
                 if (overlays.exists()) {
                     List<List<String>> profile =
-                            ProfileManager.readProfileStateWithTargetPackage(profile_name, 5);
-                    system = ProfileManager.readProfileState(profile_name, 4);
-                    system.addAll(ProfileManager.readProfileState(profile_name, 5));
+                            ProfileManager.readProfileStatePackageWithTargetPackage(
+                                    profile_name, STATE_APPROVED_ENABLED);
+                    system = ThemeManager.listOverlays(STATE_APPROVED_ENABLED);
+                    system.addAll(ThemeManager.listOverlays(STATE_APPROVED_DISABLED));
 
                     // Now process the overlays to be enabled
                     for (int i = 0, size = profile.size(); i < size; i++) {
@@ -865,36 +886,202 @@ public class ProfileFragment extends Fragment {
             }
             return null;
         }
+    }
+
+    private class ContinueRestore extends AsyncTask<Void, String, Void> {
+        private Context context;
+        private String profileName;
+        private List<List<String>> toBeCompiled;
+        private ArrayList<String> toBeRun;
+        private ProgressDialog progressDialog;
+
+        ContinueRestore(Context context_) {
+            context = context_;
+        }
+
+        ContinueRestore(Context context_, String profileName_, ArrayList<String> tobeRun_) {
+            context = context_;
+            profileName = profileName_;
+            toBeRun = tobeRun_;
+        }
+
+        ContinueRestore(Context context_, String profileName_, List<List<String>> toBeCompiled_,
+                        ArrayList<String> toBeRun_) {
+            context = context_;
+            profileName = profileName_;
+            toBeCompiled = toBeCompiled_;
+            toBeRun = toBeRun_;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            progressDialog = new ProgressDialog(context);
+            progressDialog.setIndeterminate(true);
+            progressDialog.setMessage("processing profile restoration");
+            progressDialog.show();
+
+            FileOperations.createNewFolder(Environment.getExternalStorageDirectory()
+                    .getAbsolutePath() + EXTERNAL_STORAGE_CACHE);
+        }
+
+        @Override
+        protected void onProgressUpdate(String... progress) {
+            progressDialog.setMessage(progress[0]);
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            if (toBeCompiled != null) {
+                HashMap<String, ProfileItem> items = ProfileManager.readProfileState(profileName,
+                        STATE_APPROVED_ENABLED);
+
+                for (int i = 0; i < toBeCompiled.size(); i++) {
+                    String compilePackage = toBeCompiled.get(i).get(0);
+                    ProfileItem currentItem = items.get(compilePackage);
+
+                    // TODO: move to res
+                    publishProgress("compiling " + (i + 1) + " of " + toBeCompiled.size() + ": " +
+                            compilePackage);
+
+                    String theme = currentItem.getParentTheme();
+
+                    AssetManager themeAssetManager;
+                    Resources themeResources = null;
+                    try {
+                        themeResources = context.getPackageManager()
+                                .getResourcesForApplication(theme);
+                    } catch (PackageManager.NameNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    assert themeResources != null;
+                    themeAssetManager = themeResources.getAssets();
+
+                    String target = currentItem.getTargetPackage();
+                    String type1a = currentItem.getType1a();
+                    String type1b = currentItem.getType1b();
+                    String type1c = currentItem.getType1c();
+                    String type2 = currentItem.getType2();
+                    String type3 = currentItem.getType3();
+
+                    String type1aDir = "overlays/" + target + "/type1a_" + type1a + ".xml";
+                    String type1bDir = "overlays/" + target + "/type1b_" + type1b + ".xml";
+                    String type1cDir = "overlays/" + target + "/type1c_" + type1c + ".xml";
+
+                    String additional_variant = (type2.length() > 0 ? type2 : null);
+                    String base_variant = (type3.length() > 0 ? type3 : null);
+
+                    // Prenotions
+                    String suffix = (type3.length() != 0 ?
+                            "/type3_" + type3 : "/res");
+                    String workingDirectory = context.getCacheDir().getAbsolutePath() +
+                            SUBSTRATUM_BUILDER_CACHE.substring(0,
+                                    SUBSTRATUM_BUILDER_CACHE.length() - 1);
+                    File created = new File(workingDirectory);
+                    if (created.exists()) {
+                        FileOperations.delete(context, created.getAbsolutePath());
+                    }
+                    FileOperations.createNewFolder(context, created.getAbsolutePath());
+
+                    // Handle the resource folder
+                    String listDir = "overlays/" + target + suffix;
+                    FileOperations.copyFileOrDir(
+                            themeAssetManager,
+                            listDir,
+                            workingDirectory + suffix,
+                            listDir);
+
+                    // Handle the type1s
+                    if (type1a.length() > 0) {
+                        FileOperations.copyFileOrDir(
+                                themeAssetManager,
+                                type1aDir,
+                                workingDirectory + suffix + "/values/type1a.xml",
+                                type1aDir);
+                    }
+                    if (type1b.length() > 0) {
+                        FileOperations.copyFileOrDir(
+                                themeAssetManager,
+                                type1bDir,
+                                workingDirectory + suffix + "/values/type1b.xml",
+                                type1bDir);
+                    }
+                    if (type1c.length() > 0) {
+                        FileOperations.copyFileOrDir(
+                                themeAssetManager,
+                                type1cDir,
+                                workingDirectory + suffix + "/values/type1c.xml",
+                                type1cDir);
+                    }
+
+                    SubstratumBuilder sb = new SubstratumBuilder();
+                    sb.beginAction(
+                            context,
+                            theme,
+                            target,
+                            References.grabPackageName(context, theme),
+                            compilePackage,
+                            additional_variant,
+                            base_variant,
+                            References.grabAppVersion(context, currentItem.getParentTheme()),
+                            References.checkOMS(context),
+                            theme,
+                            suffix,
+                            type1a,
+                            type1b,
+                            type1c,
+                            type2,
+                            type3,
+                            compilePackage
+                    );
+                }
+            }
+
+            // TODO: move to res
+            publishProgress("processing profile small bits");
+            if (profileName != null && toBeRun != null) continueProcess();
+            continueProcessWallpaper();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            try {
+                progressDialog.dismiss();
+            } catch (IllegalArgumentException e) {
+                // detached already
+            }
+        }
 
         void continueProcess() {
             File theme = new File(Environment.getExternalStorageDirectory().getAbsolutePath() +
-                    "/substratum/profiles/" + profile_name + "/theme");
+                    "/substratum/profiles/" + profileName + "/theme");
 
             // Encrypted devices boot Animation
             File bootanimation = new File(theme, "bootanimation.zip");
             if (bootanimation.exists() &&
-                    References.getDeviceEncryptionStatus(getContext()) > 1) {
+                    References.getDeviceEncryptionStatus(context) > 1) {
                 FileOperations.mountRW();
-                FileOperations.move(getContext(), "/system/media/bootanimation.zip",
+                FileOperations.move(context, "/system/media/bootanimation.zip",
                         "/system/madia/bootanimation-backup.zip");
-                FileOperations.copy(getContext(), bootanimation.getAbsolutePath(),
+                FileOperations.copy(context, bootanimation.getAbsolutePath(),
                         "/system/media/bootanimation.zip");
                 FileOperations.setPermissions(644, "/system/media/bootanimation.zip");
                 FileOperations.mountRO();
             }
 
-            if (References.checkThemeInterfacer(getContext())) {
-                ArrayList<String> toBeDisabled = new ArrayList<>(system);
-                boolean shouldRestartUi = ThemeManager.shouldRestartUI(getContext(), toBeDisabled)
-                        || ThemeManager.shouldRestartUI(getContext(), to_be_run);
-                ThemeInterfacerService.applyProfile(getContext(), profile_name, toBeDisabled,
-                        to_be_run,
+            if (References.checkThemeInterfacer(context)) {
+                ArrayList<String> toBeDisabled =
+                        new ArrayList<>(ThemeManager.listOverlays(STATE_APPROVED_ENABLED));
+                boolean shouldRestartUi = ThemeManager.shouldRestartUI(context, toBeDisabled)
+                        || ThemeManager.shouldRestartUI(context, toBeRun);
+                ThemeInterfacerService.applyProfile(context, profileName, toBeDisabled,
+                        toBeRun,
                         shouldRestartUi);
             } else {
                 // Restore the whole backed up profile back to /data/system/theme/
                 if (theme.exists()) {
-                    FileOperations.delete(getContext(), "/data/system/theme", false);
-                    FileOperations.copyDir(getContext(), theme.getAbsolutePath(),
+                    FileOperations.delete(context, "/data/system/theme", false);
+                    FileOperations.copyDir(context, theme.getAbsolutePath(),
                             "/data/system/theme");
                     FileOperations.setPermissionsRecursively(644, "/data/system/theme/audio");
                     FileOperations.setPermissions(755, "/data/system/theme/audio");
@@ -906,27 +1093,24 @@ public class ProfileFragment extends Fragment {
                     FileOperations.setPermissions(755, "/data/system/theme/fonts/");
                     FileOperations.setContext("/data/system/theme");
 
-                    ThemeManager.disableAllThemeOverlays(getContext());
-                    ThemeManager.enableOverlay(getContext(), to_be_run);
-                    ThemeManager.restartSystemUI(getContext());
+                    ThemeManager.disableAllThemeOverlays(context);
+                    ThemeManager.enableOverlay(context, toBeRun);
+                    ThemeManager.restartSystemUI(context);
                 }
             }
-
-            // Restore wallpapers
-            continueProcessWallpaper();
         }
 
         void continueProcessWallpaper() {
             String homeWallPath = Environment.getExternalStorageDirectory().getAbsolutePath() +
-                    "/substratum/profiles/" + profile_name + "/wallpaper.png";
+                    "/substratum/profiles/" + profileName + "/wallpaper.png";
             String lockWallPath = Environment.getExternalStorageDirectory().getAbsolutePath() +
-                    "/substratum/profiles/" + profile_name + "/wallpaper_lock.png";
+                    "/substratum/profiles/" + profileName + "/wallpaper_lock.png";
             File homeWall = new File(homeWallPath);
             File lockWall = new File(lockWallPath);
             if (homeWall.exists() || lockWall.exists()) {
                 try {
-                    WallpaperManager.setWallpaper(getContext(), homeWallPath, "home");
-                    WallpaperManager.setWallpaper(getContext(), lockWallPath, "lock");
+                    WallpaperManager.setWallpaper(context, homeWallPath, "home");
+                    WallpaperManager.setWallpaper(context, lockWallPath, "lock");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

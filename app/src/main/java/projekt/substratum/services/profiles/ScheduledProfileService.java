@@ -157,9 +157,9 @@ public class ScheduledProfileService extends JobService {
             String dialog_message = "";
             if (overlays.exists()) {
                 List<List<String>> profile =
-                        ProfileManager.readProfileStateWithTargetPackage(processed, 5);
-                system = ProfileManager.readProfileState(processed, 4);
-                system.addAll(ProfileManager.readProfileState(processed, 5));
+                        ProfileManager.readProfileStatePackageWithTargetPackage(processed, 5);
+                system = ProfileManager.readProfileStatePackage(processed, 4);
+                system.addAll(ProfileManager.readProfileStatePackage(processed, 5));
 
                 // Now process the overlays to be enabled
                 for (int i = 0, size = profile.size(); i < size; i++) {

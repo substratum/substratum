@@ -107,9 +107,10 @@ public class ManagerFragment extends Fragment {
             List<ManagerItem> updated = new ArrayList<>();
             if (References.checkOMS(getContext())) {
                 for (int i = 0; i < overlayList.size(); i++) {
-                    if (References.isPackageInstalled(
-                            getContext(),
-                            overlayList.get(i).getName())) {
+                    if (!overlayList.get(i).getName().endsWith(".icon") &&
+                            References.isPackageInstalled(
+                                    getContext(),
+                                    overlayList.get(i).getName())) {
                         updated.add(overlayList.get(i));
                     }
                 }
@@ -141,6 +142,16 @@ public class ManagerFragment extends Fragment {
                 } catch (Exception e) {
                     // Consume window refresh
                 }
+            }
+            int overlayListSize = overlayList.size();
+            if (overlayList != null && overlayListSize == 0) {
+                floatingActionButton.hide();
+                relativeLayout.setVisibility(View.VISIBLE);
+                mRecyclerView.setVisibility(View.GONE);
+            } else if (overlayList != null) {
+                floatingActionButton.show();
+                relativeLayout.setVisibility(View.GONE);
+                mRecyclerView.setVisibility(View.VISIBLE);
             }
             mAdapter.notifyDataSetChanged();
             if (swipeRefreshLayout != null && swipeRefreshLayout.isRefreshing()) {

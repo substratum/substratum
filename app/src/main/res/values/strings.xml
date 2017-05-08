@@ -427,7 +427,7 @@
     <string name="remove_dialog_later">Later</string>
     <string name="restore_dialog_cancel">Cancel</string>
     <string name="restore_dialog_okay">Continue</string>
-    <string name="restore_dialog_title">Please install these overlays to restore your profile
+    <string name="restore_dialog_title">These overlays will be installed to restore your profile
         completely:
     </string>
     <string name="backup_button">BACKUP CURRENT STATE</string>

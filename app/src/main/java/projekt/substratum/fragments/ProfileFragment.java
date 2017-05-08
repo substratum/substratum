@@ -939,9 +939,12 @@ public class ProfileFragment extends Fragment {
                     String compilePackage = toBeCompiled.get(i).get(0);
                     ProfileItem currentItem = items.get(compilePackage);
 
-                    // TODO: move to res
-                    publishProgress("compiling " + (i + 1) + " of " + toBeCompiled.size() + ": " +
+                    String format = String.format(
+                            getString(R.string.profile_compile_progress),
+                            i + 1,
+                            toBeCompiled.size(),
                             compilePackage);
+                    publishProgress(format);
 
                     String theme = currentItem.getParentTheme();
 
@@ -1036,8 +1039,7 @@ public class ProfileFragment extends Fragment {
                 }
             }
 
-            // TODO: move to res
-            publishProgress("processing profile small bits");
+            publishProgress(getString(R.string.profile_compile_progress));
             if (profileName != null && toBeRun != null) continueProcess();
             continueProcessWallpaper();
             return null;

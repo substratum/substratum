@@ -134,7 +134,7 @@
         </service>
         <service
             android:name=".services.tiles.FloatUiTile"
-            android:enabled="true"
+            android:enabled="false"
             android:icon="@drawable/floatui_tile"
             android:label="@string/shortcut_floatui"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">

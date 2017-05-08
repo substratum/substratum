@@ -980,6 +980,14 @@ public class MainActivity extends SubstratumActivity implements
                 new ComponentName(getApplicationContext(), FloatUiTile.class));
         getApplicationContext().startService(new Intent(getApplicationContext(),
                 SubstratumFloatInterface.class));
+        PackageManager packageManager = getPackageManager();
+        ComponentName componentName =
+                new ComponentName(getApplicationContext(), FloatUiTile.class);
+        packageManager.setComponentEnabledSetting(
+                componentName,
+                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                PackageManager.DONT_KILL_APP);
+        startService(new Intent(this, FloatUiTile.class));
     }
 
     private void hideFloatingHead() {

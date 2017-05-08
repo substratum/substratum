@@ -1039,7 +1039,7 @@ public class ProfileFragment extends Fragment {
                 }
             }
 
-            publishProgress(getString(R.string.profile_compile_progress));
+            publishProgress(getString(R.string.profile_compile_processing));
             if (profileName != null && toBeRun != null) continueProcess();
             continueProcessWallpaper();
             return null;

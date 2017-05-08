@@ -62,20 +62,6 @@
         <CheckBoxPreference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:key="overlay_updater"
-            android:summary="@string/settings_auto_updater_text"
-            android:title="@string/settings_auto_updater_title"/>
-
-        <CheckBoxPreference
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:key="overlay_alert"
-            android:summary="@string/settings_auto_alert_text"
-            android:title="@string/settings_auto_alert_title"/>
-
-        <CheckBoxPreference
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:key="theme_caching"
             android:summary="@string/settings_theme_caching_text"
             android:title="@string/settings_theme_caching_title"/>
@@ -113,6 +99,34 @@
             android:key="force_independence"
             android:summary="@string/force_independence_summary"
             android:title="@string/force_independence_title"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:title="@string/settings_title_automation">
+
+        <CheckBoxPreference
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:key="overlay_updater"
+            android:summary="@string/settings_auto_updater_text"
+            android:title="@string/settings_auto_updater_title"/>
+
+        <CheckBoxPreference
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:key="theme_updater"
+            android:summary="@string/settings_theme_auto_updater_text"
+            android:title="@string/settings_theme_auto_updater_title"/>
+
+        <CheckBoxPreference
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:key="overlay_alert"
+            android:summary="@string/settings_auto_alert_text"
+            android:title="@string/settings_auto_alert_title"/>
 
         <CheckBoxPreference
             android:layout_width="match_parent"

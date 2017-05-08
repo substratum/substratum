@@ -554,6 +554,7 @@ public class References {
         editor.putBoolean("enable_swapping_overlays", false);
         editor.putBoolean("overlay_alert", false);
         editor.putBoolean("overlay_updater", false);
+        editor.putBoolean("theme_updater", false);
         editor.remove("display_old_themes");
 
         // Initial parse of what is installed on the device
@@ -804,6 +805,15 @@ public class References {
         PackageManager packageManager = context.getPackageManager();
         return packageManager.queryIntentActivities(new Intent(SUBSTRATUM_THEME),
                 PackageManager.GET_META_DATA);
+    }
+
+    public static ArrayList<String> getThemesArray(Context context) {
+        ArrayList<String> returnArray = new ArrayList<>();
+        List<ResolveInfo> themesResolveInfo = getThemes(context);
+        for (int i = 0; i < themesResolveInfo.size(); i++) {
+            returnArray.add(themesResolveInfo.get(i).activityInfo.packageName);
+        }
+        return returnArray;
     }
 
     @SuppressWarnings("unchecked")

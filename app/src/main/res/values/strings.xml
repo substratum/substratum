@@ -500,10 +500,12 @@
     <string name="notification_hide">Dismiss</string>
     <string name="notification_hide_upgrade">Cancel</string>
     <string name="notification_initial_title">Substratum is running</string>
-    <string name="notification_initial_title_upgrade_intent">Substratum is now upgrading %s\'s resources&#8230;</string>
+    <string name="notification_initial_title_upgrade_intent">Upgrading %s\'s overlays&#8230;</string>
     <string name="notification_initial_title_upgrade">%s resources are now upgrading&#8230;</string>
     <string name="notification_done_title">Theme compilation has completed</string>
     <string name="notification_done_upgrade_title">Overlay upgrade has completed for %s!</string>
+    <string name="notification_done_update_text">All enabled and disabled overlays for this app has been updated.</string>
+    <string name="notification_done_upgrade_text">All enabled and disabled overlays for this theme has been updated.</string>
     <string name="notification_no_errors_found">No errors while installing any overlays</string>
     <string name="notification_some_errors_found">An error has occurred during overlay installation</string>
     <string name="notification_processing">Processing overlay for</string>
@@ -522,10 +524,10 @@
     <string name="shortcut_store_disabled">Theme Showcase</string>
 
     <string name="settings_title">About</string>
-    <string name="settings_title_1">App Options</string>
-    <string name="settings_title_2">Overlay List Options</string>
+    <string name="settings_title_1">User Preferences</string>
+    <string name="settings_title_2">Overlay List</string>
     <string name="settings_title_3">Theming</string>
-    <string name="settings_title_clickable">System Configuration</string>
+    <string name="settings_title_clickable">System Preferences</string>
     <string name="substratum_cache_clear_initial_toast">Substratum\'s cache is now being wiped&#8230;</string>
     <string name="substratum_restart_toast">Substratum restarted automatically after a settings change.</string>
     <string name="purge_cache">Invalidate Theme Cache</string>
@@ -704,6 +706,8 @@
     <string name="profile_success_notification">Profile successfully applied!</string>
     <string name="profile_failed_notification">Profile failed to apply&#8230;</string>
     <string name="profile_failed_info_notification">Touch for more information</string>
+    <string name="profile_compile_progress" formatted="false">Compiling %d of %d:\n%s</string>
+    <string name="profile_compile_processing">Now processing your saved overlay states&#8230;</string>
 
     <string name="theme_debug_mode_title">System Fallback Interjection Bypass</string>
     <string name="theme_debug_mode_summary">This will stop the app from using the legacy compiler fallback mechanism to help themes when they reach an unrecoverable state.</string>
@@ -734,8 +738,15 @@
     <string name="settings_system_status_certified">Certified</string>
     <string name="settings_system_status_uncertified">Uncertified</string>
 
-    <string name="settings_auto_updater_title">Automatically update overlays</string>
-    <string name="settings_auto_updater_text">When an application updates, the app will automatically build, compile and install an updated version of all overlays targeting the updated package.</string>
+    <string name="settings_title_automation">Automation</string>
+
+    <string name="settings_auto_updater_title">Automatically update target overlays</string>
+    <string name="settings_auto_updater_text">When an application updates, the app will automatically build, compile and install an updated version of all overlays targeting the updated package. Keeping this disabled will save battery.</string>
+
+    <string name="settings_theme_auto_updater_title">Automatically update theme overlays (BETA)</string>
+    <string name="settings_theme_auto_updater_dialog_title">WARNING</string>
+    <string name="settings_theme_auto_updater_text">When a theme updates, the app will automatically build, compile and install an updated version of all overlays you have built for the theme. Keeping this disabled will save battery.</string>
+    <string name="settings_theme_auto_updater_dialog_text">Please do NOT have PackageInstaller open in the foreground while the notification is up, framework overlays tend to restart PackageInstaller causing indefinite amounts of recompiling!</string>
 
     <string name="settings_auto_alert_title">New installable overlay found alert</string>
     <string name="settings_auto_alert_text">When installing a new application for the first time, if the application is themed by any of the installed themes, a notification will show up.</string>

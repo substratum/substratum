@@ -199,6 +199,18 @@ public class ThemeManager {
         return false;
     }
 
+    public static List<String> listOverlaysByTheme(Context context, String target) {
+        List<String> list = new ArrayList<>();
+        List<String> overlays = listOverlays(STATE_APPROVED_ENABLED);
+        overlays.addAll(listOverlays(STATE_APPROVED_DISABLED));
+        for (int i = 0; i < overlays.size(); i++) {
+            if (References.grabOverlayParent(context, overlays.get(i)).equals(target)) {
+                list.add(overlays.get(i));
+            }
+        }
+        return list;
+    }
+
     public static List<String> listOverlaysForTarget(String target) {
         List<String> list = new ArrayList<>();
         List<String> overlays = listOverlays(STATE_APPROVED_ENABLED);

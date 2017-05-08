@@ -313,9 +313,8 @@ public class ProfileFragment extends Fragment {
                                                     profile_selector.getSelectedItem());
                                     RefreshSpinner();
                                 })
-                        .setNegativeButton(getString(R.string.delete_dialog_cancel), (dialog,
-                                                                                      which) ->
-                                dialog.cancel())
+                        .setNegativeButton(getString(R.string.delete_dialog_cancel),
+                                (dialog, which) -> dialog.cancel())
                         .create()
                         .show();
             } else {

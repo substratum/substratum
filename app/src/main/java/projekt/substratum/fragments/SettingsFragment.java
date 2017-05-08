@@ -705,6 +705,38 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         }
                     });
 
+            final CheckBoxPreference theme_updater = (CheckBoxPreference)
+                    getPreferenceManager().findPreference("theme_updater");
+            Boolean theme_show = prefs.getBoolean("theme_updater", false);
+            if (theme_show) {
+                theme_updater.setChecked(true);
+            } else {
+                theme_updater.setChecked(false);
+            }
+            theme_updater.setOnPreferenceChangeListener(
+                    (preference, newValue) -> {
+                        boolean isChecked = (Boolean) newValue;
+                        if (isChecked) {
+                            final AlertDialog.Builder builder = new AlertDialog.Builder
+                                    (getContext());
+                            builder.setTitle(R.string.settings_theme_auto_updater_dialog_title);
+                            builder.setMessage(R.string.settings_theme_auto_updater_dialog_text);
+                            builder.setNegativeButton(R.string.break_compilation_dialog_cancel,
+                                    (dialog, id) -> dialog.dismiss());
+                            builder.setPositiveButton(R.string.break_compilation_dialog_continue,
+                                    (dialog, id) -> {
+                                        prefs.edit()
+                                                .putBoolean("theme_updater", true).apply();
+                                        theme_updater.setChecked(true);
+                                    });
+                            builder.show();
+                        } else {
+                            prefs.edit().putBoolean("theme_updater", false).apply();
+                            theme_updater.setChecked(false);
+                        }
+                        return false;
+                    });
+
             final CheckBoxPreference manager_disabled_overlays = (CheckBoxPreference)
                     getPreferenceManager().findPreference("manager_disabled_overlays");
             if (prefs.getBoolean("manager_disabled_overlays", true)) {

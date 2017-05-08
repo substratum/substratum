@@ -210,7 +210,7 @@ public class ManagerAdapter extends
                     packageName,
                     References.metadataOverlayParent);
             if (metadata != null && metadata.length() > 0 && newUpdate) {
-                String pName = "<b>" +  context.getString(R.string.manager_theme_name) + "</b> " +
+                String pName = "<b>" + context.getString(R.string.manager_theme_name) + "</b> " +
                         References.grabPackageName(context, metadata);
                 viewHolder.tvDesc.setVisibility(View.VISIBLE);
                 overlayList.get(position_fixed).setThemeName(pName);

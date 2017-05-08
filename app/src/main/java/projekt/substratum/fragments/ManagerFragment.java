@@ -312,76 +312,41 @@ public class ManagerFragment extends Fragment {
         @Override
         protected Void doInBackground(Void... params) {
             ManagerFragment fragment = ref.get();
-            Context context = fragment.context;
+            try {
+                Context context = fragment.context;
 
-            fragment.overlaysList = new ArrayList<>();
-            fragment.activated_overlays = new ArrayList<>();
-            ArrayList<String> disabled_overlays;
-            ArrayList<String> all_overlays;
-
-            if (References.checkOMS(fragment.context)) {
-                ArrayList<String> active = new ArrayList<>(
-                        ThemeManager.listOverlays(STATE_APPROVED_ENABLED));
-                ArrayList<String> disabled = new ArrayList<>(
-                        ThemeManager.listOverlays(STATE_APPROVED_DISABLED));
-
-                // ValidatorFilter out icon pack overlays from the advanced manager
+                fragment.overlaysList = new ArrayList<>();
                 fragment.activated_overlays = new ArrayList<>();
-                for (int i = 0; i < active.size(); i++) {
-                    if (!active.get(i).endsWith(".icon")) {
-                        fragment.activated_overlays.add(active.get(i));
-                    }
-                }
+                ArrayList<String> disabled_overlays;
+                ArrayList<String> all_overlays;
 
-                // ValidatorFilter out icon pack overlays from the advanced manager
-                disabled_overlays = new ArrayList<>();
-                for (int i = 0; i < disabled.size(); i++) {
-                    if (!disabled.get(i).endsWith(".icon")) {
-                        disabled_overlays.add(disabled.get(i));
-                    }
-                }
+                if (References.checkOMS(fragment.context)) {
+                    ArrayList<String> active = new ArrayList<>(
+                            ThemeManager.listOverlays(STATE_APPROVED_ENABLED));
+                    ArrayList<String> disabled = new ArrayList<>(
+                            ThemeManager.listOverlays(STATE_APPROVED_DISABLED));
 
-                if (fragment.prefs.getBoolean("manager_disabled_overlays", true)) {
-                    all_overlays = new ArrayList<>(fragment.activated_overlays);
-                    all_overlays.addAll(disabled_overlays);
-                    Collections.sort(all_overlays);
-
-                    // Create the map for {package name: package identifier}
-                    HashMap<String, String> unsortedMap = new HashMap<>();
-
-                    // Then let's convert all the package names to their app names
-                    for (int i = 0; i < all_overlays.size(); i++) {
-                        try {
-                            ApplicationInfo applicationInfo = context.getPackageManager()
-                                    .getApplicationInfo(all_overlays.get(i), 0);
-                            String packageTitle = context.getPackageManager()
-                                    .getApplicationLabel(applicationInfo).toString();
-                            unsortedMap.put(
-                                    all_overlays.get(i),
-                                    References.grabPackageName(context,
-                                            References.grabOverlayTarget(context, packageTitle)));
-                        } catch (Exception e) {
-                            // Suppress warning
+                    // ValidatorFilter out icon pack overlays from the advanced manager
+                    fragment.activated_overlays = new ArrayList<>();
+                    for (int i = 0; i < active.size(); i++) {
+                        if (!active.get(i).endsWith(".icon")) {
+                            fragment.activated_overlays.add(active.get(i));
                         }
                     }
 
-                    // Sort the values list
-                    List<Pair<String, String>> sortedMap = sortMapByValues(unsortedMap);
-
-                    for (Pair<String, String> entry : sortedMap) {
-                        if (disabled_overlays.contains(entry.first)) {
-                            ManagerItem st = new ManagerItem(context, entry.first, false);
-                            fragment.overlaysList.add(st);
-                        } else if (fragment.activated_overlays.contains(entry.first)) {
-                            ManagerItem st = new ManagerItem(context, entry.first, true);
-                            fragment.overlaysList.add(st);
+                    // ValidatorFilter out icon pack overlays from the advanced manager
+                    disabled_overlays = new ArrayList<>();
+                    for (int i = 0; i < disabled.size(); i++) {
+                        if (!disabled.get(i).endsWith(".icon")) {
+                            disabled_overlays.add(disabled.get(i));
                         }
                     }
-                } else {
-                    all_overlays = new ArrayList<>(fragment.activated_overlays);
-                    Collections.sort(all_overlays);
 
-                    try {
+                    if (fragment.prefs.getBoolean("manager_disabled_overlays", true)) {
+                        all_overlays = new ArrayList<>(fragment.activated_overlays);
+                        all_overlays.addAll(disabled_overlays);
+                        Collections.sort(all_overlays);
+
                         // Create the map for {package name: package identifier}
                         HashMap<String, String> unsortedMap = new HashMap<>();
 
@@ -395,7 +360,8 @@ public class ManagerFragment extends Fragment {
                                 unsortedMap.put(
                                         all_overlays.get(i),
                                         References.grabPackageName(context,
-                                                References.grabOverlayTarget(context,
+                                                References.grabOverlayTarget(
+                                                        context,
                                                         packageTitle)));
                             } catch (Exception e) {
                                 // Suppress warning
@@ -405,42 +371,84 @@ public class ManagerFragment extends Fragment {
                         // Sort the values list
                         List<Pair<String, String>> sortedMap = sortMapByValues(unsortedMap);
 
-                        sortedMap.stream().filter(entry ->
-                                fragment.activated_overlays.contains(entry.first))
-                                .forEach(entry -> {
-                                    ManagerItem st = new ManagerItem(context, entry.first, true);
-                                    fragment.overlaysList.add(st);
-                                });
-                    } catch (Exception e) {
-                        Toast toast = Toast.makeText(context,
-                                fragment.getString(R.string.advanced_manager_overlay_read_error),
-                                Toast.LENGTH_LONG);
-                        toast.show();
-                    }
-                }
-            } else {
-                // At this point, the object is an RRO formatted check
-                File currentDir = new File(LEGACY_NEXUS_DIR);
-                if (currentDir.exists() && currentDir.isDirectory()) {
-                    String[] listed = currentDir.list();
-                    for (String aListed : listed) {
-                        if (aListed.substring(aListed.length() - 4).equals(".apk")) {
-                            fragment.activated_overlays.add(
-                                    aListed.substring(0, aListed.length() - 4));
+                        for (Pair<String, String> entry : sortedMap) {
+                            if (disabled_overlays.contains(entry.first)) {
+                                ManagerItem st = new ManagerItem(context, entry.first, false);
+                                fragment.overlaysList.add(st);
+                            } else if (fragment.activated_overlays.contains(entry.first)) {
+                                ManagerItem st = new ManagerItem(context, entry.first, true);
+                                fragment.overlaysList.add(st);
+                            }
+                        }
+                    } else {
+                        all_overlays = new ArrayList<>(fragment.activated_overlays);
+                        Collections.sort(all_overlays);
+
+                        try {
+                            // Create the map for {package name: package identifier}
+                            HashMap<String, String> unsortedMap = new HashMap<>();
+
+                            // Then let's convert all the package names to their app names
+                            for (int i = 0; i < all_overlays.size(); i++) {
+                                try {
+                                    ApplicationInfo applicationInfo = context.getPackageManager()
+                                            .getApplicationInfo(all_overlays.get(i), 0);
+                                    String packageTitle = context.getPackageManager()
+                                            .getApplicationLabel(applicationInfo).toString();
+                                    unsortedMap.put(
+                                            all_overlays.get(i),
+                                            References.grabPackageName(context,
+                                                    References.grabOverlayTarget(context,
+                                                            packageTitle)));
+                                } catch (Exception e) {
+                                    // Suppress warning
+                                }
+                            }
+
+                            // Sort the values list
+                            List<Pair<String, String>> sortedMap = sortMapByValues(unsortedMap);
+
+                            sortedMap.stream().filter(entry ->
+                                    fragment.activated_overlays.contains(entry.first))
+                                    .forEach(entry -> {
+                                        ManagerItem st = new ManagerItem(context, entry.first,
+                                                true);
+                                        fragment.overlaysList.add(st);
+                                    });
+                        } catch (Exception e) {
+                            Toast toast = Toast.makeText(context,
+                                    fragment.getString(
+                                            R.string.advanced_manager_overlay_read_error),
+                                    Toast.LENGTH_LONG);
+                            toast.show();
                         }
                     }
-                    Collections.sort(fragment.activated_overlays);
-                    for (int i = 0; i < fragment.activated_overlays.size(); i++) {
-                        ManagerItem st = new ManagerItem(context,
-                                fragment.activated_overlays.get(i), true);
-                        fragment.overlaysList.add(st);
+                } else {
+                    // At this point, the object is an RRO formatted check
+                    File currentDir = new File(LEGACY_NEXUS_DIR);
+                    if (currentDir.exists() && currentDir.isDirectory()) {
+                        String[] listed = currentDir.list();
+                        for (String aListed : listed) {
+                            if (aListed.substring(aListed.length() - 4).equals(".apk")) {
+                                fragment.activated_overlays.add(
+                                        aListed.substring(0, aListed.length() - 4));
+                            }
+                        }
+                        Collections.sort(fragment.activated_overlays);
+                        for (int i = 0; i < fragment.activated_overlays.size(); i++) {
+                            ManagerItem st = new ManagerItem(context,
+                                    fragment.activated_overlays.get(i), true);
+                            fragment.overlaysList.add(st);
+                        }
                     }
                 }
-            }
-            try {
-                Thread.sleep(MANAGER_FRAGMENT_LOAD_DELAY);
-            } catch (InterruptedException ie) {
-                // Suppress warning
+                try {
+                    Thread.sleep(MANAGER_FRAGMENT_LOAD_DELAY);
+                } catch (InterruptedException ie) {
+                    // Suppress warning
+                }
+            } catch (Exception e) {
+                // Consume window refresh
             }
             return null;
         }

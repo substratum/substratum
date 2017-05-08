@@ -63,6 +63,16 @@ import static projekt.substratum.common.References.metadataOverlayType2;
 import static projekt.substratum.common.References.metadataOverlayType3;
 
 public class ProfileManager {
+    public static final String SCHEDULED_PROFILE_ENABLED = "scheduled_profile_enabled";
+    public static final String SCHEDULED_PROFILE_TYPE_EXTRA = "type";
+    public static final String SCHEDULED_PROFILE_CURRENT_PROFILE = "current_profile";
+    public static final String NIGHT = "night";
+    public static final String NIGHT_PROFILE = "night_profile";
+    public static final String NIGHT_PROFILE_HOUR = "night_profile_hour";
+    public static final String NIGHT_PROFILE_MINUTE = "night_profile_minute";
+    public static final String DAY_PROFILE = "day_profile";
+    public static final String DAY_PROFILE_HOUR = "day_profile_hour";
+    public static final String DAY_PROFILE_MINUTE = "day_profile_minute";
     // Profile state list tags
     private static final String METADATA_PROFILE_ENABLED = "enabled";
     private static final String METADATA_PROFILE_DISABLED = "disabled";
@@ -76,17 +86,6 @@ public class ProfileManager {
     private static final String METADATA_PROFILE_TYPE1C = "type1c";
     private static final String METADATA_PROFILE_TYPE2 = "type2";
     private static final String METADATA_PROFILE_TYPE3 = "type3";
-
-    public static final String SCHEDULED_PROFILE_ENABLED = "scheduled_profile_enabled";
-    public static final String SCHEDULED_PROFILE_TYPE_EXTRA = "type";
-    public static final String SCHEDULED_PROFILE_CURRENT_PROFILE = "current_profile";
-    public static final String NIGHT = "night";
-    public static final String NIGHT_PROFILE = "night_profile";
-    public static final String NIGHT_PROFILE_HOUR = "night_profile_hour";
-    public static final String NIGHT_PROFILE_MINUTE = "night_profile_minute";
-    public static final String DAY_PROFILE = "day_profile";
-    public static final String DAY_PROFILE_HOUR = "day_profile_hour";
-    public static final String DAY_PROFILE_MINUTE = "day_profile_minute";
     private static final String DAY = "day";
 
     public static void updateScheduledProfile(Context context) {
@@ -324,7 +323,8 @@ public class ProfileManager {
                                                                 int overlayState) {
         HashMap<String, ProfileItem> map = new HashMap<>();
         try (InputStream input = new FileInputStream(Environment.getExternalStorageDirectory()
-                .getAbsolutePath() + "/substratum/profiles/" + profileName + "/overlay_state.xml")){
+                .getAbsolutePath() + "/substratum/profiles/" + profileName + "/overlay_state" +
+                ".xml")) {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(input);
@@ -354,7 +354,7 @@ public class ProfileManager {
                     }
                 }
             }
-        } catch (IOException|ParserConfigurationException|SAXException e) {
+        } catch (IOException | ParserConfigurationException | SAXException e) {
             e.printStackTrace();
         }
         return map;
@@ -363,7 +363,8 @@ public class ProfileManager {
     public static List<String> readProfileStatePackage(String profileName, int overlayState) {
         List<String> list = new ArrayList<>();
         try (InputStream input = new FileInputStream(Environment.getExternalStorageDirectory()
-                .getAbsolutePath() + "/substratum/profiles/" + profileName + "/overlay_state.xml")){
+                .getAbsolutePath() + "/substratum/profiles/" + profileName + "/overlay_state" +
+                ".xml")) {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(input);
@@ -383,7 +384,7 @@ public class ProfileManager {
                     }
                 }
             }
-        } catch (IOException|ParserConfigurationException|SAXException e) {
+        } catch (IOException | ParserConfigurationException | SAXException e) {
             e.printStackTrace();
         }
         return list;
@@ -393,7 +394,8 @@ public class ProfileManager {
                                                                               int overlayState) {
         List<List<String>> list = new ArrayList<>();
         try (InputStream input = new FileInputStream(Environment.getExternalStorageDirectory()
-                .getAbsolutePath() + "/substratum/profiles/" + profileName + "/overlay_state.xml")){
+                .getAbsolutePath() + "/substratum/profiles/" + profileName + "/overlay_state" +
+                ".xml")) {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(input);
@@ -416,7 +418,7 @@ public class ProfileManager {
                     }
                 }
             }
-        } catch (IOException|ParserConfigurationException|SAXException e) {
+        } catch (IOException | ParserConfigurationException | SAXException e) {
             e.printStackTrace();
         }
         return list;

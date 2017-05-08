@@ -818,7 +818,6 @@ public class MainActivity extends SubstratumActivity implements
         searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setOnQueryTextListener(this);
         searchItem.setVisible(!hideBundle);
-        showcase.setVisible(!hideBundle);
         restartUi.setVisible(!hideRestartUi && isOMS);
         return true;
     }

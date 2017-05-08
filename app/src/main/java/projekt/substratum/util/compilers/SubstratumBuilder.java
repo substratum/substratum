@@ -105,6 +105,13 @@ public class SubstratumBuilder {
                                String type2,
                                String type3,
                                String override_package) {
+        File checkCompileFolder = new File(
+                Environment.getExternalStorageDirectory().getAbsolutePath() +
+                        EXTERNAL_STORAGE_CACHE);
+        if (!checkCompileFolder.exists() && !checkCompileFolder.mkdirs()) {
+            Log.e(SUBSTRATUM_BUILDER, "Could not create compilation folder on external storage...");
+        }
+
         has_errored_out = false;
 
         debug = PreferenceManager.getDefaultSharedPreferences(context)

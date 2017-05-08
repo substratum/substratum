@@ -19,7 +19,10 @@
 package projekt.substratum.fragments;
 
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
@@ -74,6 +77,7 @@ import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
 import static projekt.substratum.common.References.EXTERNAL_STORAGE_CACHE;
 import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
 import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;
+import static projekt.substratum.common.References.STATUS_CHANGED;
 import static projekt.substratum.common.References.SUBSTRATUM_BUILDER_CACHE;
 import static projekt.substratum.common.References.VENDOR_DIR;
 import static projekt.substratum.common.systems.ProfileManager.DAY_PROFILE;
@@ -88,6 +92,7 @@ public class ProfileFragment extends Fragment {
 
     public static int nightHour, nightMinute, dayHour, dayMinute;
 
+    private static final int THREAD_WAIT_DURATION = 500;
     private List<String> list;
     private ProgressBar headerProgress;
     private Spinner profile_selector, dayProfile, nightProfile;
@@ -99,6 +104,8 @@ public class ProfileFragment extends Fragment {
     private String dialog_message;
     private boolean dayNightEnabled;
     private ArrayList<CharSequence> selectedBackup;
+    private boolean isWaiting;
+    private FinishReceiver finishReceiver;
 
     public static void setNightProfileStart(int hour, int minute) {
         nightHour = hour;
@@ -461,6 +468,16 @@ public class ProfileFragment extends Fragment {
             scheduledProfileCard.setVisibility(View.GONE);
         }
         return root;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        try {
+            getContext().getApplicationContext().unregisterReceiver(finishReceiver);
+        } catch (IllegalArgumentException e) {
+            // Unregistered already
+        }
     }
 
     // TODO: move this to ProfileManager
@@ -921,6 +938,15 @@ public class ProfileFragment extends Fragment {
 
             FileOperations.createNewFolder(Environment.getExternalStorageDirectory()
                     .getAbsolutePath() + EXTERNAL_STORAGE_CACHE);
+
+            if (toBeCompiled != null) {
+                if (References.checkThemeInterfacer(getContext()) &&
+                        !References.isBinderInterfacer(getContext())) {
+                    if (finishReceiver == null) finishReceiver = new FinishReceiver();
+                    IntentFilter filter = new IntentFilter(STATUS_CHANGED);
+                    context.getApplicationContext().registerReceiver(finishReceiver, filter);
+                }
+            }
         }
 
         @Override
@@ -1035,6 +1061,21 @@ public class ProfileFragment extends Fragment {
                             type3,
                             compilePackage
                     );
+                    if (References.checkThemeInterfacer(getContext()) &&
+                            !References.isBinderInterfacer(getContext())) {
+                        // Thread wait
+                        isWaiting = true;
+                        do {
+                            try {
+                                Thread.sleep(THREAD_WAIT_DURATION);
+                            } catch (InterruptedException e) {
+                                Thread.currentThread().interrupt();
+                            }
+                        } while (isWaiting);
+                    }
+
+                    // Add current package to enable queue
+                    toBeRun.add(compilePackage);
                 }
             }
 
@@ -1048,6 +1089,7 @@ public class ProfileFragment extends Fragment {
         protected void onPostExecute(Void result) {
             try {
                 progressDialog.dismiss();
+                context.getApplicationContext().unregisterReceiver(finishReceiver);
             } catch (IllegalArgumentException e) {
                 // detached already
             }
@@ -1115,6 +1157,19 @@ public class ProfileFragment extends Fragment {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+            }
+        }
+    }
+
+    class FinishReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String PRIMARY_COMMAND_KEY = "primary_command_key";
+            String COMMAND_VALUE_JOB_COMPLETE = "job_complete";
+            String command = intent.getStringExtra(PRIMARY_COMMAND_KEY);
+
+            if (command.equals(COMMAND_VALUE_JOB_COMPLETE)) {
+                isWaiting = false;
             }
         }
     }

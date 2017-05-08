@@ -42,6 +42,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -933,8 +934,11 @@ public class ProfileFragment extends Fragment {
         protected void onPreExecute() {
             progressDialog = new ProgressDialog(context);
             progressDialog.setIndeterminate(true);
+            progressDialog.setCancelable(false);
             progressDialog.setMessage("processing profile restoration");
             progressDialog.show();
+            if (progressDialog.getWindow() != null) progressDialog.getWindow().addFlags(
+                    WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
             FileOperations.createNewFolder(Environment.getExternalStorageDirectory()
                     .getAbsolutePath() + EXTERNAL_STORAGE_CACHE);

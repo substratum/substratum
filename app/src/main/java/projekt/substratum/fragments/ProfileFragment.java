@@ -717,7 +717,6 @@ public class ProfileFragment extends Fragment {
                 } else {
                     // Continue restore process (enable)
                     new ContinueRestore(getContext(), profile_name, to_be_run).execute();
-                    headerProgress.setVisibility(View.GONE);
                 }
             } else {
                 String current_directory;
@@ -829,8 +828,8 @@ public class ProfileFragment extends Fragment {
                 alertDialogBuilder.setCancelable(false);
                 AlertDialog alertDialog = alertDialogBuilder.create();
                 alertDialog.show();
-                headerProgress.setVisibility(View.GONE);
             }
+            headerProgress.setVisibility(View.GONE);
             super.onPostExecute(result);
         }
 

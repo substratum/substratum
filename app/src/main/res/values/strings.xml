@@ -745,7 +745,7 @@
 
     <string name="settings_theme_auto_updater_title">Automatically update theme overlays (BETA)</string>
     <string name="settings_theme_auto_updater_dialog_title">WARNING</string>
-    <string name="settings_theme_auto_updater_text">When a theme updates, the app will automatically build, compile and install an updated version of all overlays you have built for the theme. Keeping this disabled will save battery.</string>
+    <string name="settings_theme_auto_updater_text">Substratum will automatically build, compile and install an updated version of all overlays for the recently updated theme. Keeping this disabled will save battery.</string>
     <string name="settings_theme_auto_updater_dialog_text">Please do NOT have PackageInstaller open in the foreground while the notification is up, framework overlays tend to restart PackageInstaller causing indefinite amounts of recompiling!</string>
 
     <string name="settings_auto_alert_title">New installable overlay found alert</string>

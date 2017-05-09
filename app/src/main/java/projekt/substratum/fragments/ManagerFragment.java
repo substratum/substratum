@@ -54,6 +54,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.R;
@@ -115,17 +116,10 @@ public class ManagerFragment extends Fragment {
                     }
                 }
             } else {
-                File currentDir = new File(LEGACY_NEXUS_DIR);
-                String[] listed = currentDir.list();
-                for (String file : listed) {
-                    if (file.substring(file.length() - 4).equals(".apk")) {
-                        updated.add(
-                                new ManagerItem(
-                                        getContext(),
-                                        file.substring(0, file.length() - 4),
-                                        true));
-                    }
-                }
+                List<String> listed = ThemeManager.listOverlays(STATE_APPROVED_ENABLED);
+                Collections.sort(listed);
+                updated.addAll(listed.stream().map(file ->
+                        new ManagerItem(getContext(), file, true)).collect(Collectors.toList()));
             }
             ((ManagerAdapter) mAdapter).setOverlayManagerList(updated);
             overlayList = updated;
@@ -290,7 +284,6 @@ public class ManagerFragment extends Fragment {
     private List<String> updateEnabledOverlays() {
         List<String> state5 = ThemeManager.listOverlays(STATE_APPROVED_ENABLED);
         ArrayList<String> all = new ArrayList<>(state5);
-
         ArrayList<String> all_installed_overlays = new ArrayList<>();
 
         // Filter out icon pack overlays from all overlays
@@ -436,21 +429,13 @@ public class ManagerFragment extends Fragment {
                     }
                 } else {
                     // At this point, the object is an RRO formatted check
-                    File currentDir = new File(LEGACY_NEXUS_DIR);
-                    if (currentDir.exists() && currentDir.isDirectory()) {
-                        String[] listed = currentDir.list();
-                        for (String aListed : listed) {
-                            if (aListed.substring(aListed.length() - 4).equals(".apk")) {
-                                fragment.activated_overlays.add(
-                                        aListed.substring(0, aListed.length() - 4));
-                            }
-                        }
-                        Collections.sort(fragment.activated_overlays);
-                        for (int i = 0; i < fragment.activated_overlays.size(); i++) {
-                            ManagerItem st = new ManagerItem(context,
-                                    fragment.activated_overlays.get(i), true);
-                            fragment.overlaysList.add(st);
-                        }
+                    List<String> listed = ThemeManager.listOverlays(STATE_APPROVED_ENABLED);
+                    fragment.activated_overlays.addAll(listed);
+                    Collections.sort(fragment.activated_overlays);
+                    for (int i = 0; i < fragment.activated_overlays.size(); i++) {
+                        ManagerItem st = new ManagerItem(context,
+                                fragment.activated_overlays.get(i), true);
+                        fragment.overlaysList.add(st);
                     }
                 }
                 try {

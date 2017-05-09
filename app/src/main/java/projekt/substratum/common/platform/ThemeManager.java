@@ -37,6 +37,7 @@ import static android.content.om.OverlayInfo.STATE_APPROVED_DISABLED;
 import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
 import static android.content.om.OverlayInfo.STATE_NOT_APPROVED_DANGEROUS_OVERLAY;
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
+import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
 import static projekt.substratum.common.References.checkOMS;
 import static projekt.substratum.common.References.checkThemeInterfacer;
 
@@ -162,8 +163,8 @@ public class ThemeManager {
             // At this point, we probably ran into a legacy command
             switch (state) {
                 case STATE_APPROVED_ENABLED:
-                    File legacyCheck = new File("/system/vendor/overlay");
-                    if (legacyCheck.exists()) {
+                    File legacyCheck = new File(LEGACY_NEXUS_DIR);
+                    if (legacyCheck.exists() && legacyCheck.isDirectory()) {
                         list.clear();
                         String[] lister = legacyCheck.list();
                         for (String aLister : lister) {

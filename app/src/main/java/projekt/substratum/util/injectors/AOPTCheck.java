@@ -39,49 +39,22 @@ import projekt.substratum.common.References;
 public class AOPTCheck {
 
     private Context mContext;
+    private SharedPreferences prefs;
+    private String aoptPath;
 
     @SuppressWarnings("EqualsBetweenInconvertibleTypes")
     public void injectAOPT(Context context, Boolean forced) {
         mContext = context;
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        aoptPath = context.getFilesDir().getAbsolutePath() + "/aopt";
 
         // Check if AOPT is installed on the device
-        File aopt = new File(context.getFilesDir().getAbsolutePath() + "/aopt");
-        if (!aopt.exists() || forced) {
-            if (!Arrays.toString(Build.SUPPORTED_ABIS).contains("86")) {
-                // Developers: AOPT-ARM (32bit) is using the legacy AAPT binary, while AAPT-ARM64
-                //             (64bit) is using the brand new AOPT binary.
-                String architecture =
-                        Arrays.asList(Build.SUPPORTED_64_BIT_ABIS).size() > 0 ? "ARM64" : "ARM";
-                try {
-                    if (prefs.getString("compiler", "aopt").equals("aopt")) {
-                        copyAOPT("aopt" + (architecture.equals("ARM64") ? "64" : ""));
-                        Log.d(References.SUBSTRATUM_LOG,
-                                "Android Overlay Packaging Tool (" + architecture + ") " +
-                                        "has been added into the compiler directory.");
-                    } else {
-                        copyAOPT("aapt");
-                        Log.d(References.SUBSTRATUM_LOG,
-                                "Android Asset Packaging Tool (" + architecture + ") " +
-                                        "has been added into the compiler directory.");
-                    }
-                } catch (Exception e) {
-                    // Suppress warning
-                }
-            } else {
-                // Take account for x86 devices
-                try {
-                    copyAOPT("aapt86");
-                    Log.d(References.SUBSTRATUM_LOG,
-                            "Android Asset Packaging Tool (x86) " +
-                                    "has been added into the compiler directory.");
-                } catch (Exception e) {
-                    // Suppress warning
-                }
-            }
+        File aopt = new File(aoptPath);
+        if (!aopt.isFile() || forced) {
+            inject();
         } else if (aopt.exists()) {
-            String integrityCheck = checkAOPTIntegrity(mContext);
+            String integrityCheck = checkAOPTIntegrity();
             // AOPT outputs different ui
             if (integrityCheck != null &&
                     (integrityCheck.equals(mContext.getString(R.string.aapt_version)) ||
@@ -93,44 +66,49 @@ public class AOPTCheck {
                 Log.e(References.SUBSTRATUM_LOG,
                         "The system partition already contains an existing compiler, " +
                                 "however it does not match Substratum integrity.");
-                if (!Arrays.toString(Build.SUPPORTED_ABIS).contains("86")) {
-                    // Developers: AOPT-ARM (32bit) is using the legacy AAPT binary,
-                    //             while AAPT-ARM64 (64bit) is using the brand new AOPT binary.
-                    String architecture =
-                            Arrays.asList(Build.SUPPORTED_64_BIT_ABIS).size() > 0 ? "ARM64" : "ARM";
-                    try {
-                        if (prefs.getString("compiler", "aopt").equals("aopt")) {
-                            copyAOPT("aopt" + (architecture.equals("ARM64") ? "64" : ""));
-                            Log.d(References.SUBSTRATUM_LOG,
-                                    "Android Overlay Packaging Tool (" + architecture + ") " +
-                                            "has been added into the compiler directory.");
-                        } else {
-                            copyAOPT("aapt");
-                            Log.d(References.SUBSTRATUM_LOG,
-                                    "Android Asset Packaging Tool (" + architecture + ") " +
-                                            "has been added into the compiler directory.");
-                        }
-                    } catch (Exception e) {
-                        // Suppress warning
-                    }
+                inject();
+            }
+        }
+    }
+
+    private void inject() {
+        if (!Arrays.toString(Build.SUPPORTED_ABIS).contains("86")) {
+            // Developers: AOPT-ARM (32bit) is using the legacy AAPT binary, while AAPT-ARM64
+            //             (64bit) is using the brand new AOPT binary.
+            String architecture =
+                    Arrays.asList(Build.SUPPORTED_64_BIT_ABIS).size() > 0 ? "ARM64" : "ARM";
+            try {
+                if (prefs.getString("compiler", "aopt").equals("aopt")) {
+                    copyAOPT("aopt" + (architecture.equals("ARM64") ? "64" : ""));
+                    Log.d(References.SUBSTRATUM_LOG,
+                            "Android Overlay Packaging Tool (" + architecture + ") " +
+                                    "has been added into the compiler directory.");
                 } else {
-                    // Take account for x86 devices
-                    try {
-                        copyAOPT("aapt86");
-                        Log.d(References.SUBSTRATUM_LOG,
-                                "Android Asset Packaging Tool (x86) " +
-                                        "has been added into the compiler directory.");
-                    } catch (Exception e) {
-                        // Suppress warning
-                    }
+                    copyAOPT("aapt");
+                    Log.d(References.SUBSTRATUM_LOG,
+                            "Android Asset Packaging Tool (" + architecture + ") " +
+                                    "has been added into the compiler directory.");
                 }
+            } catch (Exception e) {
+                // Suppress warning
+            }
+        } else {
+            // Take account for x86 devices
+            try {
+                copyAOPT("aapt86");
+                Log.d(References.SUBSTRATUM_LOG,
+                        "Android Asset Packaging Tool (x86) " +
+                                "has been added into the compiler directory.");
+            } catch (Exception e) {
+                // Suppress warning
             }
         }
     }
 
     private boolean copyAOPT(String filename) {
         AssetManager assetManager = mContext.getAssets();
-        String newFileName = mContext.getFilesDir().getAbsolutePath() + "/aopt";
+        String newFileName = aoptPath;
+        boolean res = true;
         try (InputStream in = assetManager.open(filename);
              OutputStream out = new FileOutputStream(newFileName)) {
             byte[] buffer = new byte[1024];
@@ -140,16 +118,22 @@ public class AOPTCheck {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            res = false;
         }
-        return new File(newFileName).setExecutable(true, true);
+        if (res) {
+            File f = new File(newFileName);
+            if (f.isFile()) {
+                res = f.setExecutable(true, true);
+            }
+        }
+        return res;
     }
 
-    private String checkAOPTIntegrity(Context context) {
+    private String checkAOPTIntegrity() {
         Process proc = null;
         try {
-            String aopt = context.getFilesDir().getAbsolutePath() + "/aopt";
             Runtime rt = Runtime.getRuntime();
-            proc = rt.exec(new String[]{aopt, "version"});
+            proc = rt.exec(new String[]{aoptPath, "version"});
             try (BufferedReader stdInput = new BufferedReader(new
                     InputStreamReader(proc.getInputStream()))) {
                 return stdInput.readLine();

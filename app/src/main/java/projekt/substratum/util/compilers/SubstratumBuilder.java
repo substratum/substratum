@@ -583,7 +583,7 @@ public class SubstratumBuilder {
                     nativeApp.waitFor();
                     File unsignedAPK = new File(work_area + "/" + overlay_package + "." +
                             theme_name + "-unsigned.apk");
-                    if (unsignedAPK.exists()) {
+                    if (unsignedAPK.isFile()) {
                         Log.d(References.SUBSTRATUM_BUILDER, "Overlay APK creation has completed!");
                         return true;
                     } else {

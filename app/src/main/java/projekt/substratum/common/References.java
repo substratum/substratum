@@ -320,7 +320,7 @@ public class References {
         String xposed_version = "";
 
         File f = new File("/system/framework/XposedBridge.jar");
-        if (f.exists() && !f.isDirectory()) {
+        if (f.isFile()) {
             File file = new File("/system/", "xposed.prop");
             try {
                 BufferedReader br = new BufferedReader(new FileReader(file));
@@ -365,13 +365,13 @@ public class References {
                 Environment.getExternalStorageDirectory().getAbsolutePath() +
                         File.separator + "substratum" +
                         File.separator + "SubstratumRescue_Legacy.zip");
-        if (!rescueFile.exists()) {
+        if (!rescueFile.isFile()) {
             copyRescueFile(context, "rescue.dat",
                     Environment.getExternalStorageDirectory().getAbsolutePath() +
                             File.separator + "substratum" +
                             File.separator + "SubstratumRescue.zip");
         }
-        if (!rescueFileLegacy.exists()) {
+        if (!rescueFileLegacy.isFile()) {
             copyRescueFile(context, "rescue_legacy.dat",
                     Environment.getExternalStorageDirectory().getAbsolutePath() +
                             File.separator + "substratum" +
@@ -1837,19 +1837,19 @@ public class References {
 
         @Override
         protected void onPostExecute(String result) {
-            progress.dismiss();
-            Toast toast = Toast.makeText(mContext, mContext.getString(R.string
-                            .background_updated_toast),
-                    Toast.LENGTH_SHORT);
-            Toast toast2 = Toast.makeText(mContext, mContext.getString(R.string
-                            .background_updated_toast_cancel),
-                    Toast.LENGTH_SHORT);
+            if (progress != null) {
+                progress.dismiss();
+            }
             if (launch) {
-                toast.show();
+                Toast.makeText(mContext, mContext.getString(R.string
+                            .background_updated_toast),
+                    Toast.LENGTH_SHORT).show();
                 // At this point, we can safely assume that the theme has successfully extracted
                 launchTheme(mContext, theme_package, theme_mode, false);
             } else {
-                toast2.show();
+                Toast.makeText(mContext, mContext.getString(R.string
+                            .background_updated_toast_cancel),
+                    Toast.LENGTH_SHORT).show();
                 // We don't want this cache anymore, delete it from the system completely
                 new CacheCreator().wipeCache(mContext, theme_package);
             }

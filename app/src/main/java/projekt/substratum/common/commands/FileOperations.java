@@ -79,14 +79,19 @@ public class FileOperations {
         Root.runCommand("ln -s " + source + " " + destination);
     }
 
-    private static String checkMountCMD() {
+    private static String checkBox(String mountType) {
         Process process = null;
+        // default style is "toybox" style, because aosp has toybox not toolbox
+        String result = mountType + ",remount";
         try {
             Runtime rt = Runtime.getRuntime();
             process = rt.exec(new String[]{"readlink", "/system/bin/mount"});
             try (BufferedReader stdInput = new BufferedReader(new
                     InputStreamReader(process.getInputStream()))) {
-                return stdInput.readLine();
+                // if it has toolbox instead of toybox, handle
+                if (stdInput.readLine().equals("toolbox")) {
+                    result = "remount," + mountType;
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -95,73 +100,31 @@ public class FileOperations {
                 process.destroy();
             }
         }
-        return null;
+        return result;
     }
 
     public static void mountRW() {
-        String mountCMD = checkMountCMD();
-        if (mountCMD != null) {
-            if (mountCMD.equals("toybox")) {
-                Root.runCommand("mount -o rw,remount /system");
-            } else if (mountCMD.equals("toolbox")) {
-                Root.runCommand("mount -o remount,rw /system");
-            }
-        }
+        Root.runCommand("mount -o " + checkBox("rw") + " /system");
     }
 
     public static void mountRWData() {
-        String mountCMD = checkMountCMD();
-        if (mountCMD != null) {
-            if (mountCMD.equals("toybox")) {
-                Root.runCommand("mount -o rw,remount /data");
-            } else if (mountCMD.equals("toolbox")) {
-                Root.runCommand("mount -o remount,rw /data");
-            }
-        }
+        Root.runCommand("mount -o " + checkBox("rw") + " /data");
     }
 
     public static void mountRWVendor() {
-        String mountCMD = checkMountCMD();
-        if (mountCMD != null) {
-            if (mountCMD.equals("toybox")) {
-                Root.runCommand("mount -o rw,remount /vendor");
-            } else if (mountCMD.equals("toolbox")) {
-                Root.runCommand("mount -o remount,rw /vendor");
-            }
-        }
+        Root.runCommand("mount -o " + checkBox("rw") + " /vendor");
     }
 
     public static void mountRO() {
-        String mountCMD = checkMountCMD();
-        if (mountCMD != null) {
-            if (mountCMD.equals("toybox")) {
-                Root.runCommand("mount -o ro,remount /system");
-            } else if (mountCMD.equals("toolbox")) {
-                Root.runCommand("mount -o remount,ro /system");
-            }
-        }
+        Root.runCommand("mount -o " + checkBox("ro") + " /system");
     }
 
     public static void mountROData() {
-        String mountCMD = checkMountCMD();
-        if (mountCMD != null) {
-            if (mountCMD.equals("toybox")) {
-                Root.runCommand("mount -o ro,remount /data");
-            } else if (mountCMD.equals("toolbox")) {
-                Root.runCommand("mount -o remount,ro /data");
-            }
-        }
+        Root.runCommand("mount -o " + checkBox("ro") + " /data");
     }
 
     public static void mountROVendor() {
-        String mountCMD = checkMountCMD();
-        if (mountCMD != null) {
-            if (mountCMD.equals("toybox")) {
-                Root.runCommand("mount -o ro,remount /vendor");
-            } else if (mountCMD.equals("toolbox")) {
-                Root.runCommand("mount -o remount,ro /vendor");
-            }
-        }
+        Root.runCommand("mount -o " + checkBox("ro") + " /vendor");
     }
 
     public static void createNewFolder(Context context, String destination) {
@@ -367,21 +330,20 @@ public class FileOperations {
                 destination);
         File in = new File(source);
         File out = new File(destination);
-        boolean using_root = false;
         try {
             if (in.isFile()) {
                 FileUtils.moveFile(in, out);
-            } else {
+            } else if (in.isDirectory()) {
                 FileUtils.moveDirectory(in, out);
             }
         } catch (IOException e) {
             Log.d(MOVE_LOG,
                     "Rootless operation failed, falling back to rooted mode..." + e.getMessage());
-            Root.runCommand("mv -f " + source + " " + destination);
-            using_root = true;
         }
-        if (!using_root)
-            Log.d(MOVE_LOG, "Operation " + (!in.exists() && out.exists() ? "succeeded" : "failed"));
+        if (in.exists() && !out.exists()) {
+            Root.runCommand("mv -f " + source + " " + destination);
+        }
+        Log.d(MOVE_LOG, "Operation " + (!in.exists() && out.exists() ? "succeeded" : "failed"));
     }
 
     public static long getFileSize(File source) {

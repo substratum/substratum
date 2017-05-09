@@ -284,19 +284,22 @@ public class ThemeManager {
         }
     }
 
-    public static void uninstallOverlay(Context context, ArrayList<String> overlays) {
+    public static void uninstallOverlay(Context context,
+                                        ArrayList<String> overlays,
+                                        Boolean bypassRestart) {
         if (checkThemeInterfacer(context)) {
             ThemeInterfacerService.uninstallOverlays(
                     context,
                     overlays,
-                    shouldRestartUI(context, overlays));
+                    !bypassRestart && shouldRestartUI(context, overlays));
         } else {
             String command = "";
             for (String packageName : overlays) {
                 command += (command.isEmpty() ? "" : " && ") + "pm uninstall " + packageName;
             }
             new ElevatedCommands.ThreadRunner().execute(command);
-            if (checkOMS(context) && shouldRestartUI(context, overlays)) restartSystemUI(context);
+            if (!bypassRestart && checkOMS(context) && shouldRestartUI(context, overlays))
+                restartSystemUI(context);
         }
     }
 

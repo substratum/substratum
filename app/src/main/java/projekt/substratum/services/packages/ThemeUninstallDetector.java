@@ -93,7 +93,7 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
                     }
 
                     // Uninstall all overlays for this package
-                    ThemeManager.uninstallOverlay(context, all_overlays);
+                    ThemeManager.uninstallOverlay(context, all_overlays, false);
 
                     // Clear SubstratumBuilder cache for this package
                     Log.d(TAG, "Now purging caches for \"" + package_name + "\"...");
@@ -176,7 +176,7 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
                     }
 
                     // Uninstall all overlays for this package
-                    ThemeManager.uninstallOverlay(context, all_overlays);
+                    ThemeManager.uninstallOverlay(context, all_overlays, false);
 
                     // Clear SubstratumBuilder cache for this package
                     Log.d(TAG, "Now purging caches for \"" + package_name + "\"...");

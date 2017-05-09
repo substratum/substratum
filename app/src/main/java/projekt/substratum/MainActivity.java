@@ -1259,7 +1259,7 @@ public class MainActivity extends SubstratumActivity implements
             }
 
             if (removeList.size() > 0)
-                ThemeManager.uninstallOverlay(context, removeList);
+                ThemeManager.uninstallOverlay(context, removeList, false);
             return null;
         }
     }

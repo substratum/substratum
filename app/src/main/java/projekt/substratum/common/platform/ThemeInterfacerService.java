@@ -111,8 +111,9 @@ public class ThemeInterfacerService {
         }
     }
 
-    public static void uninstallOverlays(Context context, ArrayList<String> overlays, boolean
-            restartUi) {
+    public static void uninstallOverlays(Context context,
+                                         ArrayList<String> overlays,
+                                         boolean restartUi) {
         if (References.isBinderInterfacer(context)) {
             try {
                 BinderService.getInstance().getInterfacerInterface()

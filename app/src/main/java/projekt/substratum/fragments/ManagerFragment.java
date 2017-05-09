@@ -772,7 +772,10 @@ public class ManagerFragment extends Fragment {
 
             // The magic goes here
             if (checkThemeInterfacer(context)) {
-                ThemeManager.uninstallOverlay(context, data);
+                List<String> enabled = ThemeManager.listOverlays(STATE_APPROVED_ENABLED);
+                // Returns true if the two specified collections have no elements in common.
+                Boolean shouldRestartUI = Collections.disjoint(enabled, data);
+                ThemeManager.uninstallOverlay(context, data, shouldRestartUI);
             } else {
                 ArrayList<String> final_commands = new ArrayList<>();
                 for (int i = 0; i < data.size(); i++) {

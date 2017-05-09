@@ -21,6 +21,7 @@ package projekt.substratum.common.platform;
 import android.content.Context;
 import android.content.om.OverlayInfo;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -158,7 +159,24 @@ public class ThemeManager {
                 }
             }
         } catch (Exception e) {
-            // Suppress warnings: At this point, we probably ran into an OMS3/Legacy command
+            // At this point, we probably ran into a legacy command
+            switch (state) {
+                case STATE_APPROVED_ENABLED:
+                    File legacyCheck = new File("/system/vendor/overlay");
+                    if (legacyCheck.exists()) {
+                        list.clear();
+                        String[] lister = legacyCheck.list();
+                        for (String aLister : lister) {
+                            if (aLister.endsWith(".apk")) {
+                                list.add(aLister.substring(0, aLister.length() - 4));
+                            }
+                        }
+                    }
+                    break;
+                default:
+                    list.clear();
+                    break;
+            }
         }
         return list;
     }

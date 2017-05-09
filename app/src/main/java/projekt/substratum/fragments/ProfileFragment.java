@@ -91,9 +91,8 @@ import static projekt.substratum.common.systems.ProfileManager.SCHEDULED_PROFILE
 
 public class ProfileFragment extends Fragment {
 
-    public static int nightHour, nightMinute, dayHour, dayMinute;
-
     private static final int THREAD_WAIT_DURATION = 500;
+    public static int nightHour, nightMinute, dayHour, dayMinute;
     private List<String> list;
     private ProgressBar headerProgress;
     private Spinner profile_selector, dayProfile, nightProfile;

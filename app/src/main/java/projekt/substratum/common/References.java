@@ -1842,14 +1842,14 @@ public class References {
             }
             if (launch) {
                 Toast.makeText(mContext, mContext.getString(R.string
-                            .background_updated_toast),
-                    Toast.LENGTH_SHORT).show();
+                                .background_updated_toast),
+                        Toast.LENGTH_SHORT).show();
                 // At this point, we can safely assume that the theme has successfully extracted
                 launchTheme(mContext, theme_package, theme_mode, false);
             } else {
                 Toast.makeText(mContext, mContext.getString(R.string
-                            .background_updated_toast_cancel),
-                    Toast.LENGTH_SHORT).show();
+                                .background_updated_toast_cancel),
+                        Toast.LENGTH_SHORT).show();
                 // We don't want this cache anymore, delete it from the system completely
                 new CacheCreator().wipeCache(mContext, theme_package);
             }

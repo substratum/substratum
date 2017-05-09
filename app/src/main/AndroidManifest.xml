@@ -164,6 +164,7 @@
 
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:resizeableActivity="false"
             android:theme="@style/PhotoCrop.ActivityTheme"/>
         <activity android:name=".activities.launch.AppIntroActivity">
             <intent-filter>
@@ -172,6 +173,7 @@
         </activity>
         <activity
             android:name=".activities.floatui.FloatUILaunchActivity"
+            android:resizeableActivity="false"
             android:theme="@style/Theme.AppCompat.Translucent">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -179,6 +181,7 @@
         </activity>
         <activity
             android:name=".activities.launch.RescueActivity"
+            android:resizeableActivity="false"
             android:theme="@style/Theme.AppCompat.Translucent">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -186,17 +189,22 @@
         </activity>
         <activity
             android:name=".activities.launch.ThemeLaunchActivity"
+            android:resizeableActivity="false"
             android:theme="@style/Theme.AppCompat.Translucent">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
         </activity>
-        <activity android:name=".LaunchActivity">
+        <activity
+            android:name=".LaunchActivity"
+            android:resizeableActivity="false">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
         </activity>
-        <activity android:name=".LauncherActivity">
+        <activity
+            android:name=".LauncherActivity"
+            android:resizeableActivity="false">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -211,6 +219,7 @@
             android:enabled="false"
             android:icon="@mipmap/debug_icon"
             android:label="@string/debug_app_name"
+            android:resizeableActivity="false"
             android:taskAffinity="com.squareup.leakcanary.${applicationId}"
             android:theme="@style/LeakCanaryTheme"
             tools:replace="android:icon,android:label,android:taskAffinity,android:theme">
@@ -222,6 +231,7 @@
         </activity>
         <activity
             android:name=".activities.launch.AppShortcutLaunch"
+            android:resizeableActivity="false"
             android:theme="@style/Theme.AppCompat.Translucent">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -229,6 +239,7 @@
         </activity>
         <activity
             android:name=".activities.launch.SplashScreenActivity"
+            android:resizeableActivity="false"
             android:theme="@style/SplashScreen.ActivityTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -237,6 +248,7 @@
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:resizeableActivity="false"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -246,6 +258,7 @@
             android:name=".InformationActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:parentActivityName=".MainActivity"
+            android:resizeableActivity="false"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -254,6 +267,7 @@
         <activity
             android:name=".activities.showcase.ShowcaseActivity"
             android:configChanges="keyboardHidden|screenSize"
+            android:resizeableActivity="false"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -262,6 +276,7 @@
         <activity
             android:name=".activities.studio.StudioPreviewActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:resizeableActivity="false"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -270,6 +285,7 @@
         <activity
             android:name=".activities.studio.StudioSelectorActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:resizeableActivity="false"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -277,16 +293,19 @@
         </activity>
         <activity
             android:name=".util.welcome.AppIntro"
+            android:resizeableActivity="false"
             android:theme="@style/CustomWelcomeScreenTheme"/>
         <activity
             android:name=".activities.profiles.ProfileErrorInfoActivity"
             android:excludeFromRecents="true"
             android:label="@string/restore_dialog_title"
+            android:resizeableActivity="false"
             android:theme="@style/AppTheme.Dialog"/>
         <activity
             android:name=".activities.launch.ManageSpaceActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_manage_space"
+            android:resizeableActivity="false"
             android:theme="@style/AppTheme"/>
     </application>
 

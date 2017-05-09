@@ -33,6 +33,7 @@ import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import projekt.substratum.R;
@@ -105,6 +106,7 @@ public class OverlayUpdater extends BroadcastReceiver {
         private NotificationCompat.Builder mBuilder;
         private List<String> installed_overlays;
         private int id = currentNotificationID;
+        private ArrayList<String> errored_packages;
 
         @Override
         protected void onPreExecute() {
@@ -117,6 +119,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                     break;
             }
             if (UPGRADE_MODE != null && !UPGRADE_MODE.equals("") && installed_overlays.size() > 0) {
+                errored_packages = new ArrayList<>();
                 mNotifyManager = (NotificationManager) context.getSystemService(
                         Context.NOTIFICATION_SERVICE);
                 mBuilder = new NotificationCompat.Builder(context);
@@ -149,21 +152,43 @@ public class OverlayUpdater extends BroadcastReceiver {
                         References.grabAppIcon(
                                 context,
                                 package_name)));
-                mBuilder.setSmallIcon(R.drawable.notification_success_icon);
-                String format = String.format(
-                        context.getString(R.string.notification_done_upgrade_title),
-                        References.grabPackageName(context, package_name));
-                mBuilder.setContentTitle(format);
-                switch (UPGRADE_MODE) {
-                    case APP_UPGRADE:
-                        mBuilder.setContentText(
-                                context.getString(R.string.notification_done_update_text));
-                        break;
-                    case THEME_UPGRADE:
-                        mBuilder.setContentText(
-                                context.getString(R.string.notification_done_upgrade_text));
-                        break;
+
+                if (errored_packages.size() > 0) {
+                    mBuilder.setSmallIcon(R.drawable.notification_warning_icon);
+                    String format = String.format(
+                            context.getString(R.string.notification_done_upgrade_title_warning),
+                            References.grabPackageName(context, package_name));
+                    mBuilder.setContentTitle(format);
+
+                    StringBuilder stringBuilder = new StringBuilder();
+                    for (int i = 0; i < errored_packages.size(); i++) {
+                        stringBuilder.append(errored_packages.get(i));
+                        if ((errored_packages.size() - 1) > i) {
+                            stringBuilder.append("\n");
+                        }
+                    }
+                    String format2 = String.format(
+                            context.getString(R.string.notification_done_upgrade_title_failed),
+                            stringBuilder.toString());
+                    mBuilder.setContentText(format2);
+                } else {
+                    mBuilder.setSmallIcon(R.drawable.notification_success_icon);
+                    String format = String.format(
+                            context.getString(R.string.notification_done_upgrade_title),
+                            References.grabPackageName(context, package_name));
+                    mBuilder.setContentTitle(format);
+                    switch (UPGRADE_MODE) {
+                        case APP_UPGRADE:
+                            mBuilder.setContentText(
+                                    context.getString(R.string.notification_done_update_text));
+                            break;
+                        case THEME_UPGRADE:
+                            mBuilder.setContentText(
+                                    context.getString(R.string.notification_done_upgrade_text));
+                            break;
+                    }
                 }
+                errored_packages = new ArrayList<>();
                 UPGRADE_MODE = "";
                 currentNotificationID = 0;
                 mNotifyManager.notify(id, mBuilder.build());
@@ -344,6 +369,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                             type3,
                             installed_overlays.get(i)
                     );
+                    if (sb.has_errored_out) errored_packages.add(installed_overlays.get(i));
                 }
             }
             return null;

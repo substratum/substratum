@@ -504,6 +504,8 @@
     <string name="notification_initial_title_upgrade">%s resources are now upgrading&#8230;</string>
     <string name="notification_done_title">Theme compilation has completed</string>
     <string name="notification_done_upgrade_title">Overlay upgrade has completed for %s!</string>
+    <string name="notification_done_upgrade_title_warning">Overlay upgrade partially completed for %s!</string>
+    <string name="notification_done_upgrade_title_failed" formatted="false">Missing or unbuildable configuration:\n\n%s</string>
     <string name="notification_done_update_text">All enabled and disabled overlays for this app have been updated.</string>
     <string name="notification_done_upgrade_text">All enabled and disabled overlays for this theme have been updated.</string>
     <string name="notification_no_errors_found">No errors while installing any overlays</string>

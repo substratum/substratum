@@ -192,8 +192,11 @@ public class FileOperations {
         try {
             FileUtils.copyFile(in, out);
         } catch (IOException e) {
+            // Suppress warning
+        }
+        if (!out.exists()) {
             Log.d(COPY_LOG,
-                    "Rootless operation failed, falling back to rooted mode..." + e.getMessage());
+                    "Rootless operation failed, falling back to rooted mode...");
             Root.runCommand("cp -f " + source + " " + destination);
         }
         Log.d(COPY_LOG, "Operation " + (out.exists() ? "succeeded" : "failed"));
@@ -220,8 +223,11 @@ public class FileOperations {
         try {
             FileUtils.copyDirectory(in, out);
         } catch (IOException e) {
+            // Suppress warning
+        }
+        if (!out.exists()) {
             Log.d(COPY_LOG,
-                    "Rootless operation failed, falling back to rooted mode..." + e.getMessage());
+                    "Rootless operation failed, falling back to rooted mode...");
             Root.runCommand("cp -rf " + source + " " + destination);
         }
         Log.d(COPYDIR_LOG, "Operation " + (out.exists() ? "succeeded" : "failed"));
@@ -276,9 +282,11 @@ public class FileOperations {
         } catch (FileNotFoundException e) {
             Log.d(DELETE_LOG, "File already " + (deleteParent ? "deleted." : "cleaned."));
         } catch (IOException e) {
-            e.printStackTrace();
+            // Suppress warning
+        }
+        if (dir.exists()) {
             Log.d(DELETE_LOG,
-                    "Rootless operation failed, falling back to rooted mode..." + e.getMessage());
+                    "Rootless operation failed, falling back to rooted mode...");
             if (deleteParent) {
                 Root.runCommand("rm -rf " + directory);
             } else {
@@ -341,7 +349,7 @@ public class FileOperations {
         }
         if (in.exists() && !out.exists()) {
             Log.d(MOVE_LOG,
-                    "Rootless operation failed, falling back to rooted mode..." + e.getMessage());
+                    "Rootless operation failed, falling back to rooted mode...");
             Root.runCommand("mv -f " + source + " " + destination);
         }
         Log.d(MOVE_LOG, "Operation " + (!in.exists() && out.exists() ? "succeeded" : "failed"));

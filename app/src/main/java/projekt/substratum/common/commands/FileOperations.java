@@ -337,10 +337,11 @@ public class FileOperations {
                 FileUtils.moveDirectory(in, out);
             }
         } catch (IOException e) {
-            Log.d(MOVE_LOG,
-                    "Rootless operation failed, falling back to rooted mode..." + e.getMessage());
+            //Supress warning
         }
         if (in.exists() && !out.exists()) {
+            Log.d(MOVE_LOG,
+                    "Rootless operation failed, falling back to rooted mode..." + e.getMessage());
             Root.runCommand("mv -f " + source + " " + destination);
         }
         Log.d(MOVE_LOG, "Operation " + (!in.exists() && out.exists() ? "succeeded" : "failed"));
@@ -408,8 +409,8 @@ public class FileOperations {
 
     private static boolean copyFile(AssetManager assetManager, String filename,
                                     String destination, String remember) {
-        InputStream inputStream;
-        OutputStream outputStream;
+        InputStream inputStream = null;
+        OutputStream outputStream = null;
         try {
             inputStream = assetManager.open(filename);
             String destinationFile = destination + "/" + filename.replaceAll("\\s+", "")
@@ -421,14 +422,20 @@ public class FileOperations {
             while ((read = inputStream.read(buffer)) != -1) {
                 outputStream.write(buffer, 0, read);
             }
-            inputStream.close();
-            outputStream.flush();
-            outputStream.close();
+
             return true;
         } catch (Exception e) {
             e.printStackTrace();
             if (ENABLE_DIRECT_ASSETS_LOGGING)
                 Log.e(DA_LOG, "An exception has been reached: " + e.getMessage());
+        } finally {
+            if (inputStream != null) {
+                inputStream.close();
+            }
+            if (outputStream != null) {
+                outputStream.flush();
+                outputStream.close();
+            }
         }
         return false;
     }

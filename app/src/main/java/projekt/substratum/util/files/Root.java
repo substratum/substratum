@@ -106,8 +106,10 @@ public class Root {
                 if (bufferedReader != null)
                     bufferedReader.close();
 
-                process.waitFor();
-                process.destroy();
+                if (process != null) {
+                    process.waitFor();
+                    process.destroy();
+                }
 
                 closed = true;
             } catch (Exception e) {

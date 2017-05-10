@@ -179,6 +179,9 @@ public class FileOperations {
             } catch (InterruptedException e) {
                 Thread.interrupted();
             }
+            if (!file.exists()) {
+                copy(source, destination);
+            }
         } else {
             copy(source, destination);
         }
@@ -265,6 +268,9 @@ public class FileOperations {
             } catch (InterruptedException e) {
                 Thread.interrupted();
             }
+            if (file.exists()) {
+                delete(directory, deleteParent);
+            }
         } else {
             delete(directory, deleteParent);
         }
@@ -327,6 +333,9 @@ public class FileOperations {
                 Log.d(MOVE_LOG, "Operation " + (file.exists() ? "succeeded" : "failed"));
             } catch (InterruptedException e) {
                 Thread.interrupted();
+            }
+            if (!file.exists()) {
+                move(source, destination);
             }
         } else {
             move(source, destination);

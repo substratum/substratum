@@ -446,12 +446,17 @@ public class FileOperations {
             if (ENABLE_DIRECT_ASSETS_LOGGING)
                 Log.e(DA_LOG, "An exception has been reached: " + e.getMessage());
         } finally {
-            if (inputStream != null) {
-                inputStream.close();
-            }
-            if (outputStream != null) {
-                outputStream.flush();
-                outputStream.close();
+            try {
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+
+                if (outputStream != null) {
+                    outputStream.flush();
+                    outputStream.close();
+                }
+            } catch (IOException e) {
+                // Suppress warning
             }
         }
         return false;

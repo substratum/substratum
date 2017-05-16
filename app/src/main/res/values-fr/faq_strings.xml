@@ -19,7 +19,7 @@
   -->
 <resources>
     <string name="question_one">Qu\'est-ce que Substratum ?</string>
-    <string name="answer_one">Substratum est une application qui tire parti du service de gestion des surcouches de Sony (OMS). C\'est similaire à \"Layers\" en termes de stabilité et de personnalisation (puisque cela a été construit à partir de RRO) mais propose des fonctionnalités telles que l\'absence de redémarrage pour appliquer, la modification de l\'animation de démarrage, des polices et la commutation de priorité.</string>
+    <string name="answer_one">Substratum est une application qui tire parti du service de gestion des surcouches de Sony (OMS). C\'est similaire à \"Layers\" en termes de stabilité et de personnalisation (puisque cela a été construit à partir de RRO) mais propose des fonctionnalités telles que l\'absence de redémarrage pour être appliqué, la modification de l\'animation de démarrage, des polices et la commutation de priorité.</string>
     <string name="question_two">Qu\'est-ce que l\'Interface de thème ?</string>
     <string name="answer_two">L\'Interface de thème est la base de ce qui permet d\'exécuter Substratum en tant que moteur de thème. Le principe de l\'Interface de thème est de simuler les techniques \"client/serveur\". Substratum communique avec l\'Interface de thème pour signaler les commandes directement au système.</string>
     <string name="question_three">Que dois-je faire pour que Substratum fonctionne correctement ?</string>

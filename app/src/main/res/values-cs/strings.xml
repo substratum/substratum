@@ -19,8 +19,8 @@
   -->
 <resources>
     <string name="showcase">ukázka</string>
-    <string name="android">verze androidu:</string>
-    <string name="device">model zařízení:</string>
+    <string name="android">Verze systému Android:</string>
+    <string name="device">Model zařízení:</string>
     <string name="resource_checker_request">Poslat žádost o sloučení pomocí&#8230;</string>
     <string name="resource_checker">Asistent ověření zdrojů</string>
     <string name="resource_checker_commons">Framework</string>
@@ -149,12 +149,12 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="sounds_unlock_sound">Zvuky odemčení obrazovky</string>
     <string name="settings_about_substratum">verze Substratum</string>
     <string name="settings_about_interfacer">Verze interfaceru</string>
-    <string name="settings_about_interfacer_not_installed">není nainstalováno</string>
-    <string name="settings_about_interfacer_masquerade">tato ROM vyžaduje aktualizaci pro využití funkcí Intarfacer</string>
-    <string name="settings_about_oms_rro_version">platforma pro motivy:</string>
+    <string name="settings_about_interfacer_not_installed">Není nainstalováno</string>
+    <string name="settings_about_interfacer_masquerade">Tato ROM vyžaduje aktualizaci pro využití funkcí Intarfacer</string>
+    <string name="settings_about_oms_rro_version">Platforma pro motivy:</string>
     <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
-    <string name="settings_about_system_version">systémová platforma</string>
+    <string name="settings_about_system_version">Systémová platforma</string>
     <string name="settings_aopt_switcher_title">Kompilátor systémových potahů</string>
     <string name="theme_information_tab_one">Správce potahů</string>
     <string name="theme_information_tab_two">Spouštěcí animace</string>
@@ -329,8 +329,12 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="notification_hide">Odmítnout</string>
     <string name="notification_hide_upgrade">Zrušit</string>
     <string name="notification_initial_title">Substratum je spuštěno</string>
+    <string name="notification_initial_title_upgrade_intent">Aktualizace potahů%s&#8230;</string>
     <string name="notification_initial_title_upgrade">%s zdroje se nyní aktualizují&#8230;</string>
     <string name="notification_done_title">Byla dokončena kompilace motivu</string>
+    <string name="notification_done_upgrade_title">Aktualizace potahů pro %s byla dokončena!</string>
+    <string name="notification_done_update_text">Byly aktualizovány všechny povolené a zakázané potahy pro tuto aplikaci.</string>
+    <string name="notification_done_upgrade_text">Byly aktualizovány všechny povolené a zakázané motivy pro tuto aplikaci.</string>
     <string name="notification_no_errors_found">Nenastaly žádné chyby při instalaci potahů</string>
     <string name="notification_some_errors_found">Nastala chyba při instalaci potahu</string>
     <string name="notification_processing">Zpracovávání potahu pro</string>
@@ -343,10 +347,10 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="shortcut_store">Ukázka motivů</string>
     <string name="shortcut_store_disabled">Ukázka motivů</string>
     <string name="settings_title">O aplikaci</string>
-    <string name="settings_title_1">Možnosti aplikace</string>
-    <string name="settings_title_2">Seznam možností potahů</string>
+    <string name="settings_title_1">Uživatelské předvolby</string>
+    <string name="settings_title_2">Seznam potahů</string>
     <string name="settings_title_3">Úpravy motivů</string>
-    <string name="settings_title_clickable">Konfigurace systému</string>
+    <string name="settings_title_clickable">Systémové předvolby</string>
     <string name="substratum_cache_clear_initial_toast">Mezipaměť Substratum se nyní čistí&#8230;</string>
     <string name="substratum_restart_toast">Substratum se automaticky restartovalo po
  změně.</string>
@@ -448,6 +452,8 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="profile_success_notification">Profil je úspěšně aplikován!</string>
     <string name="profile_failed_notification">Profil se nepodařilo aplikovat&#8230;</string>
     <string name="profile_failed_info_notification">Klikněte pro více informací</string>
+    <string name="profile_compile_progress" formatted="false">Kompilace %d z %d:\n%s</string>
+    <string name="profile_compile_processing">Probíhá zpracování dříve uložených nastavení potahů&#8230;</string>
     <string name="theme_debug_mode_title">Obejítí originálního systému</string>
     <string name="theme_debug_mode_summary">Umožní aplikaci přestat používat původní mechanismus kompilace s cílem pomoci motivu, pokud se dostane do neřešitelné situace.</string>
     <string name="break_compilation_dialog_title">VAROVÁNÍ</string>
@@ -467,11 +473,20 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="profile_dialog_cancel">Zrušit</string>
     <string name="bottom_sheet_dialog_hide_outdated_themes">Skrýt neaktuální motivy (6.0.0+) [Doporučeno!]</string>
     <string name="bottom_sheet_dialog_show_outdated_themes">Zobrazit neaktuální motivy (před-6.0.0)</string>
-    <string name="settings_system_status">certifikace systému</string>
-    <string name="settings_system_status_rooted">režim s rootem</string>
-    <string name="settings_system_status_rootless">režim bez rootu</string>
-    <string name="settings_system_status_certified">certifikované</string>
-    <string name="settings_system_status_uncertified">necertifikované</string>
+    <string name="settings_system_status">Certifikace systému</string>
+    <string name="settings_system_status_rooted">Režim s rootem</string>
+    <string name="settings_system_status_rootless">Režim bez rootu</string>
+    <string name="settings_system_status_certified">Certifikováno</string>
+    <string name="settings_system_status_uncertified">Necertifikováno</string>
+    <string name="settings_title_automation">Automatizace</string>
+    <string name="settings_auto_updater_title">Automaticky aktualizovat cílené potahy</string>
+    <string name="settings_auto_updater_text">Substratum automaticky vytvoří, zkompiluje a nainstaluje aktualizovanou verzi všech potahů pro nedávno aktualizované aplikace. Ponecháním tohoto přepínače ve stavu vypnuto se ušetří baterie.</string>
+    <string name="settings_theme_auto_updater_title">Automaticky aktualizovat potahy motivu (BETA)</string>
+    <string name="settings_theme_auto_updater_dialog_title">VAROVÁNÍ</string>
+    <string name="settings_theme_auto_updater_text">Substratum automaticky vytvoří, zkompiluje a nainstaluje aktualizovanou verzi všech potahů pro nedávno aktualizované motivy. Ponecháním tohoto přepínače ve stavu vypnuto se ušetří baterie.</string>
+    <string name="settings_theme_auto_updater_dialog_text">Prosím, nemějte v popředí otevřenou aplikaci PackageInstaller, když je zobrazeno upozornění. Framework potahů má tendenci restartovat PackageInstaller, což způsobuje množství rekompilací!</string>
+    <string name="settings_auto_alert_title">Oznámení nově nainstalovaných potahů</string>
+    <string name="settings_auto_alert_text">Zobrazit upozornění, pokud je nově nainstalovaná aplikace podporována některým z dostupných motivů.</string>
     <string name="settings_force_english_title">Vynutit anglický jazyk</string>
     <string name="settings_force_english_text">Toto přinutí aplikaci, aby používala anglický jazyk.</string>
     <string name="settings_force_english_toast_reverted">Vynucená angličtina byla úspěšně zakázána!</string>
@@ -495,6 +510,8 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="per_app_draw_over_other_apps_request">Prosím, udělte Substratum oprávnění \"vykreslovat přes jiné aplikace\" pro plovoucí okno a právo \"Statistiky využívání\" pro přístup aplikacím v popředí pro sjednocení cílů témat.</string>
     <string name="per_app_usage_stats_request">Prosím, udělte Substratum oprávnění \"přístup k používání\" pro přístup k odpovídajícím cílům motivů.</string>
     <string name="per_app_manual_grant">Prosím, ručně udělte oprávnění k \"využití přístupu\" a \"vykreslování nad ostatními aplikacemi\" v nastavení aplikace pro používání plovoucího okna!</string>
+    <string name="notification_overlay_found_specific" formatted="false">Potah pro %s je v %s!</string>
+    <string name="notification_overlay_found_description">Motiv můžete otevřít kliknutím na toto upozornění!</string>
     <string name="community_info_overlays">Potahy</string>
     <string name="community_info_bootanimation">Spouštěcí animace</string>
     <string name="community_info_fonts">Písma</string>
@@ -524,7 +541,7 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="interfacer_not_authorized_toast">Tato verze Substratum není autorizovaná a nebude pracovat se systémovým modulem Interfacer.</string>
     <string name="app_crash_title">%s neustále ukončuje&#8230;</string>
     <string name="app_crash_content">Byly zakázány všechny povolené potahy pro tuto aplikaci.</string>
-    <string name="rom_status">stav podpory:</string>
+    <string name="rom_status">Stav podpory:</string>
     <string name="rom_status_supported">%s je podporováno komunitou!</string>
     <string name="rom_status_unsupported">tato ROM není podporována komunitou!</string>
     <string name="rom_status_network">zkontrolujte připojení k internetu&#8230;</string>

@@ -165,6 +165,7 @@ coleção de animações de carregamento porreiras para o Android.    </string>
     <string name="library_lemniscate_authorWebsite">https://stackoverflow.com/users/5821000/vladimir-jovanovi</string>
     <!-- Library section -->
     <string name="library_lemniscate_libraryName">Lemniscate</string>
+    <string name="library_lemniscate_libraryDescription">Lemniscate é uma biblioteca que o vai ajudar a fazer sua vista de progresso, bonita e elegante.</string>
     <string name="library_lemniscate_libraryWebsite">https://github.com/vlad1m1r990/Lemniscate</string>
     <!-- OpenSource section -->
     <string name="library_lemniscate_repositoryLink">https://github.com/vlad1m1r990/Lemniscate</string>
@@ -177,6 +178,7 @@ coleção de animações de carregamento porreiras para o Android.    </string>
     <string name="library_numberprogressbar_authorWebsite">https://github.com/daimajia</string>
     <!-- Library section -->
     <string name="library_numberprogressbar_libraryName">NumberProgressBar</string>
+    <string name="library_numberprogressbar_libraryDescription">Uma barra de progresso com base em número sexy.</string>
     <string name="library_numberprogressbar_libraryWebsite">https://github.com/daimajia/NumberProgressBar</string>
     <string name="library_numberprogressbar_libraryVersion">1.4</string>
     <!-- OpenSource section -->

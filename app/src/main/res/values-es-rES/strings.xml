@@ -19,8 +19,8 @@
   -->
 <resources>
     <string name="showcase">Mostrador de Temas</string>
-    <string name="android">Versión de Android:</string>
-    <string name="device">Modelo del Dispositivo:</string>
+    <string name="android">Version de Android:</string>
+    <string name="device">Modelo del móvil:</string>
     <string name="resource_checker_request">Enviar una solicitud de fusión de commit con&#8230;</string>
     <string name="resource_checker">Validador de Commits</string>
     <string name="resource_checker_commons">Framework</string>
@@ -146,7 +146,7 @@ correctamente&#8230;</string>
     <string name="settings_about_substratum">Versión de Substratum</string>
     <string name="settings_about_interfacer">Versión de Interfacer</string>
     <string name="settings_about_interfacer_not_installed">No instalado</string>
-    <string name="settings_about_interfacer_masquerade">Esta ROM requiere una actualización para utilizar la funcionalidad Interfacer</string>
+    <string name="settings_about_interfacer_masquerade">Esta rom requiere una actualización para utilizar la funcionalidad de interfaz</string>
     <string name="settings_about_oms_rro_version">Plataforma de Tematización:</string>
     <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
@@ -317,8 +317,12 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="notification_hide">Cancelar</string>
     <string name="notification_hide_upgrade">Cancelar</string>
     <string name="notification_initial_title">Substratum se está ejecutando</string>
+    <string name="notification_initial_title_upgrade_intent">Actualizando %s de capas&#8230;</string>
     <string name="notification_initial_title_upgrade">Los recursos de %s  se están actualizando&#8230;</string>
     <string name="notification_done_title">Se completó la compilación del tema</string>
+    <string name="notification_done_upgrade_title">¡Actualización de las capas ha terminado de %s!</string>
+    <string name="notification_done_update_text">Todas las capas activadas y desactivadas para esta aplicación han sido actualizadas.</string>
+    <string name="notification_done_upgrade_text">Todas las capas activadas y desactivadas para esta tema han sido actualizadas.</string>
     <string name="notification_no_errors_found">No hubo errores durante la instalación de las capas</string>
     <string name="notification_some_errors_found">Ha ocurrido un error durante la instalación de las capas</string>
     <string name="notification_processing">Procesando capa</string>
@@ -333,10 +337,10 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="shortcut_store">Mostrador de Temas</string>
     <string name="shortcut_store_disabled">Mostrador de Temas</string>
     <string name="settings_title">Acerca de</string>
-    <string name="settings_title_1">Opciones de la App</string>
-    <string name="settings_title_2">Opciones de la Lista de Capas</string>
+    <string name="settings_title_1">Preferencias de usuario</string>
+    <string name="settings_title_2">Lista de capas</string>
     <string name="settings_title_3">Tematizar</string>
-    <string name="settings_title_clickable">Configuración del Sistema</string>
+    <string name="settings_title_clickable">Preferencias de usuario</string>
     <string name="substratum_cache_clear_initial_toast">La caché de Substratum se está borrando&#8230;</string>
     <string name="substratum_restart_toast">Substratum se reinició automáticamente después de un cambio de configuración.</string>
     <string name="purge_cache">Invalidar la Caché del Tema</string>
@@ -426,6 +430,8 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="profile_success_notification">¡Perfil aplicado con éxito!</string>
     <string name="profile_failed_notification">El perfil falló en aplicarse&#8230;</string>
     <string name="profile_failed_info_notification">Toque para más información</string>
+    <string name="profile_compile_progress" formatted="false">Compilando %d de %d:\n%s</string>
+    <string name="profile_compile_processing">Ahora procesando tus estados de capa guardado&#8230;</string>
     <string name="theme_debug_mode_title">Derivación de la interjección de seguridad del sistema</string>
     <string name="theme_debug_mode_summary">Esto evitará que la aplicación utilice el mecanismo de suplencia al compilador legacy (legado) para ayudar a los temas cuando han alcanzado un estado irrecuperable.</string>
     <string name="break_compilation_dialog_title">ADVERTENCIA</string>
@@ -445,11 +451,19 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="profile_dialog_cancel">Cancelar</string>
     <string name="bottom_sheet_dialog_hide_outdated_themes">Ocultar temas desactualizados (6.0.0+) [Recomendado]</string>
     <string name="bottom_sheet_dialog_show_outdated_themes">Mostrar temas desactualizados (anterior a 6.0.0)</string>
-    <string name="settings_system_status">Certificación del Sistema</string>
+    <string name="settings_system_status">Certificación del sistema</string>
     <string name="settings_system_status_rooted">Modo Root</string>
-    <string name="settings_system_status_rootless">Modo sin root</string>
+    <string name="settings_system_status_rootless">Modo rootless</string>
     <string name="settings_system_status_certified">Certificado</string>
     <string name="settings_system_status_uncertified">Sin certificar</string>
+    <string name="settings_title_automation">Automatización</string>
+    <string name="settings_auto_updater_title">Actualizar automáticamente capas selecionadas</string>
+    <string name="settings_auto_updater_text">Substratum automáticamente construirá, compilara e instalara una versión actualizada de todas las capas de las aplicaciones recientemente actualizadas. Teniendo esto desactivado ahorrará batería.</string>
+    <string name="settings_theme_auto_updater_title">Actualizar automáticamente capa de tema (BETA)</string>
+    <string name="settings_theme_auto_updater_dialog_title">ADVERTENCIA</string>
+    <string name="settings_theme_auto_updater_text">Substratum automáticamente construirá, compilara e instalara una versión actualizada de todas las capas de los temas recientemente actualizados. Teniendo esto desactivado ahorrará batería.</string>
+    <string name="settings_auto_alert_title">Alerta de encuentro de nueva capa instalable</string>
+    <string name="settings_auto_alert_text">Al instalar una nueva aplicación por primera vez, si la aplicación puede ser tematizada por alguno de los temas instalados, se mostrará una notificación.</string>
     <string name="settings_force_english_title">Forzar Idioma Inglés</string>
     <string name="settings_force_english_text">Esto forzará a la aplicación a utilizar el idioma Inglés.</string>
     <string name="settings_force_english_toast_reverted">Forzar Inglés ha sido desactivado con éxito!</string>
@@ -473,6 +487,8 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="per_app_draw_over_other_apps_request">Por favor conceda a Substratum los permisos \"dibujar sobre otras aplicaciones\" para la interfaz de usuario flotante y \"Estadísticas de uso\" para acceder a la aplicación de primer plano para coincidir con objetivos de tema.</string>
     <string name="per_app_usage_stats_request">Por favor conceda a Substratum el permiso de \"acceso de uso\" para acceder a la aplicación de primer plano para los objetivos de tema coincidentes.</string>
     <string name="per_app_manual_grant">Por favor conceder manualmente a Substratum los permisos de \"acceso de uso\" y \"dibujar sobre otras aplicaciones\" en la configuración de la aplicación para usar FloatUI!</string>
+    <string name="notification_overlay_found_specific" formatted="false">¡Una capa para %s se encuentra en %s!</string>
+    <string name="notification_overlay_found_description">¡Puede abrir el tema haciendo clic en esta notificación!</string>
     <string name="community_info_overlays">Capas</string>
     <string name="community_info_bootanimation">Animaciones de Inicio</string>
     <string name="community_info_fonts">Fuentes</string>
@@ -502,7 +518,7 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="interfacer_not_authorized_toast">Esta versión de Substratum no está autorizada y no funcionará con el módulo Interfacer del sistema.</string>
     <string name="app_crash_title">%s se detiene constantemente&#8230;</string>
     <string name="app_crash_content">Se desactivaron las capas habilitadas para esta aplicación.</string>
-    <string name="rom_status">Estado del Soporte:</string>
+    <string name="rom_status">Estado del soporte:</string>
     <string name="rom_status_supported">¡%s es apoyada por la comunidad!</string>
     <string name="rom_status_unsupported">¡esta rom no es apoyada por la comunidad!</string>
     <string name="rom_status_network">Verificación de Internet requerida&#8230;</string>

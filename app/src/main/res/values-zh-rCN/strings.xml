@@ -133,7 +133,7 @@
     <string name="settings_about_interfacer">主题接口版本</string>
     <string name="settings_about_interfacer_not_installed">未安装</string>
     <string name="settings_about_interfacer_masquerade">请更新您的系统以使用主题接口功能</string>
-    <string name="settings_about_oms_rro_version">主题平台：</string>
+    <string name="settings_about_oms_rro_version">主题化平台：</string>
     <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2（旧版）</string>
     <string name="settings_about_system_version">系统平台</string>
@@ -297,8 +297,12 @@
     <string name="notification_hide">忽略</string>
     <string name="notification_hide_upgrade">取消</string>
     <string name="notification_initial_title">Substratum 正在运行</string>
+    <string name="notification_initial_title_upgrade_intent">正在升级 %s 叠加层</string>
     <string name="notification_initial_title_upgrade">%s 资源正在升级</string>
     <string name="notification_done_title">主题编译成功</string>
+    <string name="notification_done_upgrade_title">%s 叠加层升级完成</string>
+    <string name="notification_done_update_text">已更新此应用的所有叠加层</string>
+    <string name="notification_done_upgrade_text">已更新此主题的所有叠加层</string>
     <string name="notification_no_errors_found">安装叠加层时没有发生错误</string>
     <string name="notification_some_errors_found">在叠加层安装期间发生错误</string>
     <string name="notification_processing">正在处理叠加层来</string>
@@ -311,10 +315,10 @@
     <string name="shortcut_store">主题展示</string>
     <string name="shortcut_store_disabled">主题展示</string>
     <string name="settings_title">关于</string>
-    <string name="settings_title_1">应用程序选项</string>
-    <string name="settings_title_2">叠加层列表选项</string>
+    <string name="settings_title_1">用户首选项</string>
+    <string name="settings_title_2">叠加层列表</string>
     <string name="settings_title_3">主题</string>
-    <string name="settings_title_clickable">系统配置</string>
+    <string name="settings_title_clickable">系统首选项</string>
     <string name="substratum_cache_clear_initial_toast">正在清除 Substratum 缓存</string>
     <string name="substratum_restart_toast">Substratum 会在设置改变后自动重启</string>
     <string name="purge_cache">无效主题缓存</string>
@@ -404,6 +408,8 @@
     <string name="profile_success_notification">成功应用配置文件</string>
     <string name="profile_failed_notification">无法应用配置文件</string>
     <string name="profile_failed_info_notification">点击查看更多</string>
+    <string name="profile_compile_progress" formatted="false">编译 %d:\n%s 的 %d</string>
+    <string name="profile_compile_processing">正在处理您保存的叠加层</string>
     <string name="theme_debug_mode_title">系统后备机制</string>
     <string name="theme_debug_mode_summary">当主题不可恢复时，停用旧版编译器后备机制以提供帮助。</string>
     <string name="break_compilation_dialog_title">警告</string>
@@ -428,6 +434,15 @@
     <string name="settings_system_status_rootless">非 Root 模式</string>
     <string name="settings_system_status_certified">已认证</string>
     <string name="settings_system_status_uncertified">未认证</string>
+    <string name="settings_title_automation">自动更新</string>
+    <string name="settings_auto_updater_title">自动更新目标叠加层</string>
+    <string name="settings_auto_updater_text">Substratum 会自动为获得更新的叠加层生成、编译和安装一个新的版本。禁用此功能可以省电。</string>
+    <string name="settings_theme_auto_updater_title">自动更新主题叠加层（测试）</string>
+    <string name="settings_theme_auto_updater_dialog_title">警告</string>
+    <string name="settings_theme_auto_updater_text">Substratum 会自动为获得更新的叠加层生成、编译和安装一个新的版本。禁用此功能可以省电。</string>
+    <string name="settings_theme_auto_updater_dialog_text">在通知开启时，请勿在前台打开 PackageInstaller，否则框架重叠会使 PackageInstaller 重启，并导致无限期的重新编译。</string>
+    <string name="settings_auto_alert_title">显示通知</string>
+    <string name="settings_auto_alert_text">在应用安装过程中，如果发现已安装的主题中包含此应用的叠加层，将显示通知。</string>
     <string name="settings_force_english_title">使用英语环境</string>
     <string name="settings_force_english_text">开启此选项后应用语言会更改为英语</string>
     <string name="settings_force_english_toast_reverted">英语环境已关闭</string>
@@ -451,6 +466,8 @@
     <string name="per_app_draw_over_other_apps_request">请授予 Substratum “出现在其他应用上”和“使用情况访问”权限以便于访问前台应用，从而进行主题匹配。</string>
     <string name="per_app_usage_stats_request">请授予 Substratum “使用情况访问”权限以便于访问前台应用，从而进行主题匹配。</string>
     <string name="per_app_manual_grant">请手动授予 Substratum “出现在其他应用上”和“使用情况访问”权限以便于使用 FloatUI。</string>
+    <string name="notification_overlay_found_specific" formatted="false">%s 叠加层在 %s 中</string>
+    <string name="notification_overlay_found_description">点击此通知以打开主题</string>
     <string name="community_info_overlays">叠加层</string>
     <string name="community_info_bootanimation">开机动画</string>
     <string name="community_info_fonts">字体</string>
@@ -481,8 +498,8 @@
     <string name="app_crash_title">保持停止 %s</string>
     <string name="app_crash_content">已禁用此应用的所有叠加层</string>
     <string name="rom_status">支持状态：</string>
-    <string name="rom_status_supported">%s 已受社区支持</string>
-    <string name="rom_status_unsupported">此 ROM 不受社区支持</string>
+    <string name="rom_status_supported">%s 已加入社区支持</string>
+    <string name="rom_status_unsupported">此 ROM 未加入社区支持</string>
     <string name="rom_status_network">联网状态检查</string>
     <!-- Nav drawer -->
     <string name="nav_home">主题包</string>

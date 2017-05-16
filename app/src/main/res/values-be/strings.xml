@@ -19,8 +19,8 @@
   -->
 <resources>
     <string name="showcase">каталог</string>
-    <string name="android">версія Android:</string>
-    <string name="device">мадэль прылады:</string>
+    <string name="android">Версія Android:</string>
+    <string name="device">Мадэль прылады:</string>
     <string name="resource_checker_request">Запытаць ўкараненне камітаў праз&#8230;</string>
     <string name="resource_checker">Праверка камітаў</string>
     <string name="resource_checker_commons">Фрэймворк</string>
@@ -132,12 +132,12 @@
     <string name="sounds_unlock_sound">Гукі разблакоўкі экрана</string>
     <string name="settings_about_substratum">версія substratum</string>
     <string name="settings_about_interfacer">версія інтэрфейсу</string>
-    <string name="settings_about_interfacer_not_installed">не ўсталявана</string>
-    <string name="settings_about_interfacer_masquerade">гэты ROM патрабуе абнаўлення, каб выкарыстоўваць функцыянальныя магчымасці інтэрфейсу</string>
-    <string name="settings_about_oms_rro_version">платформа тэмы:</string>
+    <string name="settings_about_interfacer_not_installed">Не ўсталявана</string>
+    <string name="settings_about_interfacer_masquerade">Гэта ROM патрабуе абнаўлення, каб выкарыстоўваць функцыянальныя магчымасці інтэрфейсу</string>
+    <string name="settings_about_oms_rro_version">Платформа тэмы:</string>
     <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
-    <string name="settings_about_system_version">сістэмная платформа</string>
+    <string name="settings_about_system_version">Сістэмная платформа</string>
     <string name="settings_aopt_switcher_title">Сістэмны зборшчык напластаванняў</string>
     <string name="theme_information_tab_one">Кіраванне пластамі</string>
     <string name="theme_information_tab_two">Анімацыі загрузкі</string>
@@ -309,8 +309,12 @@
     <string name="notification_hide">Скасаваць</string>
     <string name="notification_hide_upgrade">Скасаваць</string>
     <string name="notification_initial_title">Substratum запушчаны</string>
+    <string name="notification_initial_title_upgrade_intent">Абнаўленне напластаванняў %s&#8230;</string>
     <string name="notification_initial_title_upgrade">Рэсурсы %s абнаўляюцца&#8230;</string>
     <string name="notification_done_title">Зборка тэмы завершана</string>
+    <string name="notification_done_upgrade_title">Абнаўленне напластаванняў для %s завершана!</string>
+    <string name="notification_done_update_text">Усе ўключаныя і адключаныя напластаванні для гэтай праграмы былі абноўленыя.</string>
+    <string name="notification_done_upgrade_text">Усе ўключаныя і адключаныя напластаванні для дадзенай тэмы былі абноўленыя.</string>
     <string name="notification_no_errors_found">Памылак пры ўсталёўцы напластаванняў не ўзнікла</string>
     <string name="notification_some_errors_found">Адбылася памылка падчас усталёўкі напластавання</string>
     <string name="notification_processing">Прымяненне напластаванняў</string>
@@ -323,10 +327,10 @@
     <string name="shortcut_store">Каталаг тэм</string>
     <string name="shortcut_store_disabled">Каталаг тэм</string>
     <string name="settings_title">Аб сістэме</string>
-    <string name="settings_title_1">Опцыі праграмы</string>
-    <string name="settings_title_2">Параметры спісу напластаванняў</string>
+    <string name="settings_title_1">Перавагі карыстальніка</string>
+    <string name="settings_title_2">Спіс напластаванняў</string>
     <string name="settings_title_3">Афармленне</string>
-    <string name="settings_title_clickable">Канфігурацыя сістэмы</string>
+    <string name="settings_title_clickable">Сістэмныя налады</string>
     <string name="substratum_cache_clear_initial_toast">Ачыстка кэша Substratum&#8230;</string>
     <string name="substratum_restart_toast">Substratum аўтаматычна перазапусціцца пасля змены налад.</string>
     <string name="purge_cache">Ануляваць кэш тэм</string>
@@ -416,6 +420,8 @@
     <string name="profile_success_notification">Профіль паспяхова ужыты!</string>
     <string name="profile_failed_notification">Не атрымалася ужыць профіль&#8230;</string>
     <string name="profile_failed_info_notification">Націсніце, каб даведацца больш</string>
+    <string name="profile_compile_progress" formatted="false">Збіраецца %d з %d:\n%s</string>
+    <string name="profile_compile_processing">Аднаўленне раней прымененых налад&#8230;</string>
     <string name="theme_debug_mode_title">Абыход сістэмы вяртання</string>
     <string name="theme_debug_mode_summary">Прадухіліць выкарыстанне механізму вяртання сумяшчальнага зборшчыка, як толькі тэмы дасягаюць непапраўнага стану.</string>
     <string name="break_compilation_dialog_title">УВАГА</string>
@@ -435,11 +441,21 @@
     <string name="profile_dialog_cancel">Скасаваць</string>
     <string name="bottom_sheet_dialog_hide_outdated_themes">Хаваць састарэлыя тэмы (6.0.0+) [Рэкамендуецца!]</string>
     <string name="bottom_sheet_dialog_show_outdated_themes">Паказваць састарэлыя тэмы (папяр-6.0.0)</string>
-    <string name="settings_system_status">сертыфікацыя сістэмы</string>
-    <string name="settings_system_status_rooted">ужываецца root</string>
-    <string name="settings_system_status_rootless">рэжым без root</string>
-    <string name="settings_system_status_certified">сертыфікавана</string>
-    <string name="settings_system_status_uncertified">несертыфікавана</string>
+    <string name="settings_system_status">Сумяшчальнасць сістэмы</string>
+    <string name="settings_system_status_rooted">Ужываецца root</string>
+    <string name="settings_system_status_rootless">Без выкарыстання root</string>
+    <string name="settings_system_status_certified">Сумяшчальная</string>
+    <string name="settings_system_status_uncertified">Несумяшчальная</string>
+    <string name="settings_title_automation">Аўтаматызацыя</string>
+    <string name="settings_auto_updater_title">Аўтаматычнае абнаўленне мэтавых напластаванняў</string>
+    <string name="settings_auto_updater_text">Substratum будзе аўтаматычна збіраць і ўсталёўваць актуальныя версіі напластаванняў для нядаўна абноўленых праграм.
+Адключэнне магчымасці падоўжыць працу ад батарэі.</string>
+    <string name="settings_theme_auto_updater_title">Аўтаабнаўленне напластаванняў тэм (BETA)</string>
+    <string name="settings_theme_auto_updater_dialog_title">УВАГА</string>
+    <string name="settings_theme_auto_updater_text">Substratum будзе аўтаматычна ствараць, кампіляваць і ўсталёўваць абноўленую версію ўсіх напластаванняў абноўленай тэмы. Адключэнне гэтай функцыі эканоміць зарад батарэі.</string>
+    <string name="settings_theme_auto_updater_dialog_text">Калі ласка, НЕ пакідайце ўсталёўшчык пакетаў (праграм) адкрытым, пакуль апавяшчэнне ў сіле. Напластаванняў фреймворка ўласціва перазапускаць ўсталёўшчык, выклікаючы працэс пересборкі мноства разоў!</string>
+    <string name="settings_auto_alert_title">Напластаванні для новых праграм</string>
+    <string name="settings_auto_alert_text">Паказваць апавяшчэнне, калі свежаўсталяваная праграма падтрымліваецца ў якой-небудзь з наяўных тэм.</string>
     <string name="settings_force_english_title">Прымусова англійская</string>
     <string name="settings_force_english_text">Праграма зменіць мову на англійскую.</string>
     <string name="settings_force_english_toast_reverted">Прымусова англійская адключана!</string>
@@ -463,6 +479,8 @@
     <string name="per_app_draw_over_other_apps_request">Неабходна прадаставіць дазволу \"па-над іншых вокнаў\" і \"доступ да гісторыі выкарыстання\", каб дазволіць substratum працаваць у фонавым рэжыме для суаднясення мэтаў тэмы.</string>
     <string name="per_app_usage_stats_request">Неабходна даць дазвол \"доступ да гісторыі выкарыстання\", каб дазволіць substratum працаваць у фонавым рэжыме для суаднясення мэтаў тэмы.</string>
     <string name="per_app_manual_grant">Неабходна ўручную прадаставіць дазволы \"доступ да гісторыі выкарыстання\" і \"па-над іншых вокнаў\" у наладах прыкладання для працы FloatUI!</string>
+    <string name="notification_overlay_found_specific" formatted="false">Для %s ёсць напластаванне ў %s!</string>
+    <string name="notification_overlay_found_description">Можаце перайсці да тэмы, націснуўшы на гэта апавяшчэнне!</string>
     <string name="community_info_overlays">Напластаванні</string>
     <string name="community_info_bootanimation">Анімацыі загрузкі</string>
     <string name="community_info_fonts">Шрыфты</string>
@@ -494,7 +512,7 @@
     <string name="interfacer_not_authorized_toast">Дадзеная версія Substratum не з\'яўляецца сапраўднай і не будзе працаваць з сістэмным інтэрфейсам.</string>
     <string name="app_crash_title">%s працягвае вылятаць&#8230;</string>
     <string name="app_crash_content">Усе ўключаныя напластаванні для гэтай праграмы былі адключаныя.</string>
-    <string name="rom_status">статус падтрымкі:</string>
+    <string name="rom_status">Статус падтрымкі:</string>
     <string name="rom_status_supported">%s падтрымліваецца супольнасцю!</string>
     <string name="rom_status_unsupported">гэты ROM не падтрымліваецца супольнасцю!</string>
     <string name="rom_status_network">патрабуецца праверка ў інтэрнэце&#8230;</string>

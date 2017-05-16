@@ -19,8 +19,8 @@
   -->
 <resources>
     <string name="showcase">vitrina</string>
-    <string name="android">Android versija:</string>
-    <string name="device">įrenginio modelis:</string>
+    <string name="android">\"Android\" versija:</string>
+    <string name="device">Įrenginio modelis:</string>
     <string name="resource_checker_request">Siųsti įpareigojimą suliejimo užklausai naudojant&#8230;</string>
     <string name="resource_checker">Įpareigojimo Vertintojas</string>
     <string name="resource_checker_commons">Pagrindas</string>
@@ -144,12 +144,12 @@
     <string name="sounds_unlock_sound">Ekrano Atrakinimo Garsai</string>
     <string name="settings_about_substratum">\"substratum\" versija</string>
     <string name="settings_about_interfacer">sąsajos versija</string>
-    <string name="settings_about_interfacer_not_installed">neįdiegta</string>
-    <string name="settings_about_interfacer_masquerade">šiam \"rom\" reikia atnaujinimo, kad panaudotų sąsajos funkcionalumą</string>
-    <string name="settings_about_oms_rro_version">temos platforma:</string>
+    <string name="settings_about_interfacer_not_installed">Neįdiegta</string>
+    <string name="settings_about_interfacer_masquerade">Šiam \"rom\" reikia atnaujinimo, kad panaudotų sąsajos funkcionalumą</string>
+    <string name="settings_about_oms_rro_version">Temos platforma:</string>
     <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
-    <string name="settings_about_system_version">sistemos platforma</string>
+    <string name="settings_about_system_version">Sistemos platforma</string>
     <string name="settings_aopt_switcher_title">Sistemos Perdangų Kompiliatorius</string>
     <string name="theme_information_tab_one">Greitas Pritaikymas</string>
     <string name="theme_information_tab_two">Paleidimo animacijos</string>
@@ -322,8 +322,12 @@
     <string name="notification_hide">Pamiršti</string>
     <string name="notification_hide_upgrade">Atšaukti</string>
     <string name="notification_initial_title">\"Substratum\" veikia</string>
+    <string name="notification_initial_title_upgrade_intent">Tobulinamos %s perdangos&#8230;</string>
     <string name="notification_initial_title_upgrade">%s resursai atnaujinami&#8230;</string>
     <string name="notification_done_title">Temos kompiliavimas baigtas</string>
+    <string name="notification_done_upgrade_title">Perdangų tobulinimas buvo baigtas %s!</string>
+    <string name="notification_done_update_text">Visos įjungtos ir išjungtos perdangos šiai programai buvo atnaujintos.</string>
+    <string name="notification_done_upgrade_text">Visos įjungtos ir išjungtos perdangos šiai temai buvo atnaujintos.</string>
     <string name="notification_no_errors_found">Diegiant perdangas nebuvo jokių klaidų</string>
     <string name="notification_some_errors_found">Įdiegiant perdangas įvyko klaida</string>
     <string name="notification_processing">Apdorojamos perdangos</string>
@@ -336,10 +340,10 @@
     <string name="shortcut_store">Temų Vitrina</string>
     <string name="shortcut_store_disabled">Temų Vitrina</string>
     <string name="settings_title">Apie</string>
-    <string name="settings_title_1">Programėlės Nustatymai</string>
-    <string name="settings_title_2">Perdangų Sąrašo Parinktys</string>
+    <string name="settings_title_1">Vartotojo Nustatymai</string>
+    <string name="settings_title_2">Perdangų Sąrašas</string>
     <string name="settings_title_3">Apipavidalinimas</string>
-    <string name="settings_title_clickable">Sistemos Konfigūracija</string>
+    <string name="settings_title_clickable">Sistemos Nustatymai</string>
     <string name="substratum_cache_clear_initial_toast">\"Substratum\" talpykla dabar išvaloma&#8230;</string>
     <string name="substratum_restart_toast">\"Substratum\" persikrovė automatiškai po nustatymų pakeitimo.</string>
     <string name="purge_cache">Anuliuoti Temos Talpyklą</string>
@@ -431,6 +435,8 @@
     <string name="profile_success_notification">Profilis sėkmingai pritaikytas!</string>
     <string name="profile_failed_notification">Profilio nepavyko pritaikyti&#8230;</string>
     <string name="profile_failed_info_notification">Palieskite norėdami gauti daugiau informacijos</string>
+    <string name="profile_compile_progress" formatted="false">Kompiliuojama %d iš %d\n%s</string>
+    <string name="profile_compile_processing">Dabar apdorojamos jūsų išsaugotų perdangų būseną&#8230;</string>
     <string name="theme_debug_mode_title">Sistemos Atsarginio Įterpimo Apėjimas</string>
     <string name="theme_debug_mode_summary">Tai sustabdys programą naudoti \"legacy\" kompiliatoriaus atsarginį mechanizmą, kad padėti temoms, kai jie pasiekia nepataisoma būklę.</string>
     <string name="break_compilation_dialog_title">ĮSPĖJIMAS</string>
@@ -450,11 +456,20 @@
     <string name="profile_dialog_cancel">Atšaukti</string>
     <string name="bottom_sheet_dialog_hide_outdated_themes">Slėpti pasenusios temas (6.0.0+) [Rekomenduojama!]</string>
     <string name="bottom_sheet_dialog_show_outdated_themes">Rodyti pasenusios temass (prieš-6.0.0)</string>
-    <string name="settings_system_status">sistemos sertifikacija</string>
-    <string name="settings_system_status_rooted">\"root\" režimas</string>
-    <string name="settings_system_status_rootless">be \"root\" režimas</string>
-    <string name="settings_system_status_certified">sertifikuota</string>
-    <string name="settings_system_status_uncertified">nesertifikuotas</string>
+    <string name="settings_system_status">Sistemos sertifikacija</string>
+    <string name="settings_system_status_rooted">\"Root\" režimas</string>
+    <string name="settings_system_status_rootless">Be \"root\" režimas</string>
+    <string name="settings_system_status_certified">Sertifikuota</string>
+    <string name="settings_system_status_uncertified">Nesertifikuotas</string>
+    <string name="settings_title_automation">Automatika</string>
+    <string name="settings_auto_updater_title">Automatiškai atnaujinti tikslines perdangas</string>
+    <string name="settings_auto_updater_text">\"Substratum\" automatiškai sukurs, sukompiliuos ir įdiegs atnaujintą versiją perdangų, neseniai atnaujintoms programoms. Palikus išjungta tausos aukumuliatorių.</string>
+    <string name="settings_theme_auto_updater_title">Automatiškai atnaujinti temos perdangas (BETA)</string>
+    <string name="settings_theme_auto_updater_dialog_title">ĮSPĖJIMAS</string>
+    <string name="settings_theme_auto_updater_text">\"Substratum\" automatiškai sukurs, sukompiliuos ir įdiegs atnaujintą versiją perdangų, neseniai atnaujintai temai. Palikus išjungta tausos aukumuliatorių.</string>
+    <string name="settings_theme_auto_updater_dialog_text">Prašome neturėti Paketo Įdiegiklio atidaryto aktyviame lange. Kai pasirodo pranešimas, perdangų struktūra linkusi paleisti iš naujo Paketo Įdiegiklį, kas sukelia neriboto kiekio kompiliavimą!</string>
+    <string name="settings_auto_alert_title">Naujos įdiegiamos perdangos įspėjimas</string>
+    <string name="settings_auto_alert_text">Kai pirmą kartą įdiegiate naują programėlę ir ji yra apipavidalinta bet kurios iš idiegtų temų, pasirodys pranešimas.</string>
     <string name="settings_force_english_title">Priverstinė Anglų Kalba</string>
     <string name="settings_force_english_text">Tai privers programėlei naudoti anglų kalba.</string>
     <string name="settings_force_english_toast_reverted">Sėkmingai išjungta priverstinė anglų kalba!</string>
@@ -478,6 +493,8 @@
     <string name="per_app_draw_over_other_apps_request">Prašome suteikti \"Substratum\" \"rodyti virš kitų programų\" ir \"Naudojimo statistikos\" leidimą, kad pasiektų priekinio plano programas.</string>
     <string name="per_app_usage_stats_request">Prašome suteikti \"Substratum\" \"naudojimosi prieigos\" leidimą, kad pasiektų priekinio plano programas.</string>
     <string name="per_app_manual_grant">Prašome programų nustatymuose rankiniu būdu suteikti \"Substratum\" \"naudojimosi prieigos\" leidimą ir \"rodyti virš kitų programų\", kad galėtumėte naudotis Plaukiojančiu UI!</string>
+    <string name="notification_overlay_found_specific" formatted="false">Perdangos %s yra %s!</string>
+    <string name="notification_overlay_found_description">Jūs galite atidaryti temą paspaudę ant šio pranešimo!</string>
     <string name="community_info_overlays">Perdangos</string>
     <string name="community_info_bootanimation">Paleidimo Animacijos</string>
     <string name="community_info_fonts">Šriftai</string>
@@ -507,7 +524,7 @@
     <string name="interfacer_not_authorized_toast">Ši \"Substratum\" versija neleidžiama ir neveiks su sistemos sąsajos moduliu.</string>
     <string name="app_crash_title">%s vis stabdoma&#8230;</string>
     <string name="app_crash_content">Visos įjungtos perdangos šiai programėlei buvo išjungtos.</string>
-    <string name="rom_status">palaikymo statusas:</string>
+    <string name="rom_status">Palaikymo statusas:</string>
     <string name="rom_status_supported">%s bendruomenės palaikomas!</string>
     <string name="rom_status_unsupported">šis \"rom\" nėra bendruomenės palaikomas!</string>
     <string name="rom_status_network">reikalingas interneto patikrinimas&#8230;</string>

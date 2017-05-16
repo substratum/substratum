@@ -19,8 +19,8 @@
   -->
 <resources>
     <string name="showcase">bemutatóterem</string>
-    <string name="android">android verzió:</string>
-    <string name="device">eszköz modell:</string>
+    <string name="android">Android verzió:</string>
+    <string name="device">Eszköz modell:</string>
     <string name="resource_checker_request">Változtatás elfogadási kérelem küldése&#8230;</string>
     <string name="resource_checker">Változtatás érvényesítő</string>
     <string name="resource_checker_commons">Keretrendszer</string>
@@ -189,12 +189,12 @@
     <string name="sounds_unlock_sound">Képernyő feloldási hangok</string>
     <string name="settings_about_substratum">substratum verzió</string>
     <string name="settings_about_interfacer">interfacer verzió</string>
-    <string name="settings_about_interfacer_not_installed">nincs telepítve</string>
-    <string name="settings_about_interfacer_masquerade">a rom frissítése szükséges, hogy kihasználja az interfacer funkciót</string>
-    <string name="settings_about_oms_rro_version">téma platform:</string>
+    <string name="settings_about_interfacer_not_installed">Nincs telepítve</string>
+    <string name="settings_about_interfacer_masquerade">A rom frissítése szükséges, hogy kihasználja az interfacer funkciót</string>
+    <string name="settings_about_oms_rro_version">Téma platform:</string>
     <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
-    <string name="settings_about_system_version">rendszer platform</string>
+    <string name="settings_about_system_version">Rendszer platform</string>
     <string name="settings_aopt_switcher_title">Rendszerfedvény összeállító</string>
     <string name="theme_information_tab_one">Fedvény kezelő</string>
     <string name="theme_information_tab_two">Rendszerindítási animációk</string>
@@ -405,8 +405,12 @@
     <string name="notification_hide">Elvet</string>
     <string name="notification_hide_upgrade">Mégse</string>
     <string name="notification_initial_title">Substratum fut</string>
+    <string name="notification_initial_title_upgrade_intent">%s fedvényeinek frissítése&#8230;</string>
     <string name="notification_initial_title_upgrade">%s erőforrás frissítése folyamatban&#8230;</string>
     <string name="notification_done_title">Téma összeállítása befejezve</string>
+    <string name="notification_done_upgrade_title">%s fedvény frissítése megtörtént!</string>
+    <string name="notification_done_update_text">Az alkalmazás minden letiltott és engedélyezett fedvénye frissítésre került.</string>
+    <string name="notification_done_upgrade_text">A téma minden letiltott és engedélyezett fedvénye frissítésre került.</string>
     <string name="notification_no_errors_found">Fedvények telepítése során nem lépett fel hiba</string>
     <string name="notification_some_errors_found">Hiba történt a fedvények telepítése közben</string>
     <string name="notification_processing">Fedvény feldolgozása:</string>
@@ -422,10 +426,10 @@
     <string name="shortcut_store">Téma-bemutató</string>
     <string name="shortcut_store_disabled">Téma-bemutató</string>
     <string name="settings_title">Névjegy</string>
-    <string name="settings_title_1">Alkalmazás beállítások</string>
-    <string name="settings_title_2">Fedvénylista beállítások</string>
+    <string name="settings_title_1">Felhasználói beállítások</string>
+    <string name="settings_title_2">Fedvénylista</string>
     <string name="settings_title_3">Témázás</string>
-    <string name="settings_title_clickable">Rendszerkonfiguráció</string>
+    <string name="settings_title_clickable">Rendszer beállítások</string>
     <string name="substratum_cache_clear_initial_toast">Substratum gyorsítótárának törlése folyamatban&#8230;</string>
     <string name="substratum_restart_toast">Substratum automatikusan újraindult a beállítások módosítása után.</string>
     <string name="purge_cache">Téma gyorsítótárának érvénytelenítése</string>
@@ -517,6 +521,8 @@
     <string name="profile_success_notification">Profil sikeresen alkalmazva!</string>
     <string name="profile_failed_notification">Profil alkalmazása sikertelen&#8230;</string>
     <string name="profile_failed_info_notification">További információkért érintse meg</string>
+    <string name="profile_compile_progress" formatted="false">%d / %d összeállítása:\n%s</string>
+    <string name="profile_compile_processing">Mentett fedvény állapotok feldolgozása&#8230;</string>
     <string name="theme_debug_mode_title">Vészhelyzeti rendszer megkerülése</string>
     <string name="theme_debug_mode_summary">Ez megakadályozza, hogy az alkalmazás a témákat segítve az elavult összeállítási mechanizmust használja, ha azok egy javíthatatlan állapotot érnek el.</string>
     <string name="break_compilation_dialog_title">FIGYELMEZTETÉS</string>
@@ -537,11 +543,20 @@
     <string name="profile_dialog_cancel">Mégse</string>
     <string name="bottom_sheet_dialog_hide_outdated_themes">Elavult témák elrejtése (6.0.0+) [Javasolt!]</string>
     <string name="bottom_sheet_dialog_show_outdated_themes">Elavult témák megjelenítése (6.0.0 előtti)</string>
-    <string name="settings_system_status">rendszer tanúsítvány</string>
-    <string name="settings_system_status_rooted">rootolt mód</string>
-    <string name="settings_system_status_rootless">root nélküli mód</string>
-    <string name="settings_system_status_certified">hitelesített</string>
-    <string name="settings_system_status_uncertified">nem hitelesített</string>
+    <string name="settings_system_status">Rendszer tanúsítvány</string>
+    <string name="settings_system_status_rooted">Rootolt mód</string>
+    <string name="settings_system_status_rootless">Root nélküli mód</string>
+    <string name="settings_system_status_certified">Hitelesített</string>
+    <string name="settings_system_status_uncertified">Nem hitelesített</string>
+    <string name="settings_title_automation">Automatizálás</string>
+    <string name="settings_auto_updater_title">Cél fedvények automatikus frissítése</string>
+    <string name="settings_auto_updater_text">A Substratum a nemrégiben frissített alkalmazások számára automatikusan felépíti, összeállítja és telepíti az összes fedvény egy frissített verzióját. A kikapcsolása energiát takarít meg.</string>
+    <string name="settings_theme_auto_updater_title">Téma fedvények automatikus frissítése (BÉTA)</string>
+    <string name="settings_theme_auto_updater_dialog_title">FIGYELMEZTETÉS</string>
+    <string name="settings_theme_auto_updater_text">A Substratum a nemrégiben frissített téma számára automatikusan felépíti, összeállítja és telepíti az összes fedvény egy frissített verzióját. A kikapcsolása energiát takarít meg.</string>
+    <string name="settings_theme_auto_updater_dialog_text">Az előtérben NE legyen megnyitva a Csomagtelepítő, ha az értesítés megjelenik, mivel a keretrendszer fedvények hajlamosak újraindítani a csomagtelepítőt, mely határozatlan mennyiségű újrafordítást okozhat!</string>
+    <string name="settings_auto_alert_title">Új telepíthető fedvény elérhető riasztás</string>
+    <string name="settings_auto_alert_text">Egy új alkalmazás első alkalommal való telepítésekor, ha az alkalmazást bármely telepített téma kezeli, egy értesítés jelenik meg.</string>
     <string name="settings_force_english_title">Angol nyelv kényszerítése</string>
     <string name="settings_force_english_text">Ez arra kényszeríti az alkalmazást, hogy az angol nyelvet használja.</string>
     <string name="settings_force_english_toast_reverted">Angol kényszerítése sikeresen kikapcsolva!</string>
@@ -565,6 +580,8 @@
     <string name="per_app_draw_over_other_apps_request">Kérjük adjon \"rajzolás más alkalmazások felett\" és \"használati statisztikák\" engedélyt a Substratum FloatUI részére az előtérben futó alkalmazáshoz illő témacélok eléréséhez.</string>
     <string name="per_app_usage_stats_request">Kérjük adjon \"használati statisztikák\" engedélyt a Substratum FloatUI részére az előtérben futó alkalmazáshoz illő témacélok eléréséhez.</string>
     <string name="per_app_manual_grant">Kérjük, kézzel engedélyezze a Substratum számára a \"használati hozzáférés\" engedélyeket, majd az alkalmazás beállításaiban a \"rajzolás más alkalmazások felett\" lehetőséget, hogy a FloatUI-t használhassa!</string>
+    <string name="notification_overlay_found_specific" formatted="false">%s téma elérhető itt: %s!</string>
+    <string name="notification_overlay_found_description">A téma megnyitásához kattintson az értesítésre!</string>
     <string name="community_info_overlays">Fedvények</string>
     <string name="community_info_bootanimation">Rendszerindítási animációk</string>
     <string name="community_info_fonts">Betűtípusok</string>
@@ -594,7 +611,7 @@
     <string name="interfacer_not_authorized_toast">A Substratum ezen verziója nem engedélyezett és nem fog működni a rendszer Interfacer modullal.</string>
     <string name="app_crash_title">%s folyton leáll&#8230;</string>
     <string name="app_crash_content">A program letiltotta ezen alkalmazás összes engedélyezett fedvényét.</string>
-    <string name="rom_status">támogatás állapota:</string>
+    <string name="rom_status">Támogatás állapota:</string>
     <string name="rom_status_supported">%s a közösség által támogatott!</string>
     <string name="rom_status_unsupported">ez a rom, nem támogatott a közösség által!</string>
     <string name="rom_status_network">internetes ellenőrzés szükséges&#8230;</string>

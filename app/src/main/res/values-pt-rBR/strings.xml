@@ -19,8 +19,6 @@
   -->
 <resources>
     <string name="showcase">mostruário</string>
-    <string name="android">versão do android:</string>
-    <string name="device">modelo do dispositivo:</string>
     <string name="resource_checker_request">Enviar solicitação de mesclagem de atualização usando&#8230;</string>
     <string name="resource_checker">Validador de Atualizações</string>
     <string name="resource_checker_commons">Framework</string>
@@ -149,12 +147,8 @@ corretamente&#8230;</string>
     <string name="sounds_unlock_sound">Sons de Desbloqueio da Tela</string>
     <string name="settings_about_substratum">versão do substratum</string>
     <string name="settings_about_interfacer">versão do interfacer</string>
-    <string name="settings_about_interfacer_not_installed">não instalado</string>
-    <string name="settings_about_interfacer_masquerade">esta rom requer uma atualização para utilizar a funcionalidade do interfacer</string>
-    <string name="settings_about_oms_rro_version">plataforma de tema:</string>
     <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2 (Legado)</string>
-    <string name="settings_about_system_version">plataforma de sistema</string>
     <string name="settings_aopt_switcher_title">Compilador de Camadas</string>
     <string name="theme_information_tab_one">Gerente de Camadas</string>
     <string name="theme_information_tab_two">Animações de inicialização</string>
@@ -340,10 +334,7 @@ resolver este problema.    </string>
     <string name="shortcut_store">Amostra de Temas</string>
     <string name="shortcut_store_disabled">Amostra de Temas</string>
     <string name="settings_title">Sobre</string>
-    <string name="settings_title_1">Opções do App</string>
-    <string name="settings_title_2">Opções de Lista de Camadas</string>
     <string name="settings_title_3">Aplicando tema</string>
-    <string name="settings_title_clickable">Configuração do Sistema</string>
     <string name="substratum_cache_clear_initial_toast">O cache do Substratum está sendo apagado&#8230;</string>
     <string name="substratum_restart_toast">Substratum irá reiniciar automaticamente após as configurações serem alteradas.</string>
     <string name="purge_cache">Invalidar o cache do tema</string>
@@ -452,11 +443,7 @@ resolver este problema.    </string>
     <string name="profile_dialog_cancel">Cancelar</string>
     <string name="bottom_sheet_dialog_hide_outdated_themes">Esconder os temas desatualizados (6.0.0+) [recomendado]</string>
     <string name="bottom_sheet_dialog_show_outdated_themes">Mostrar temas desatualizados (pre-6.0.0)</string>
-    <string name="settings_system_status">certificação do sistema</string>
-    <string name="settings_system_status_rooted">modo root</string>
-    <string name="settings_system_status_rootless">modo sem root</string>
-    <string name="settings_system_status_certified">certificado</string>
-    <string name="settings_system_status_uncertified">não certificado</string>
+    <string name="settings_theme_auto_updater_dialog_title">AVISO</string>
     <string name="settings_force_english_title">Forçar a línguagem Inglês</string>
     <string name="settings_force_english_text">Isto irá forçar o aplicativo a usar a línguagem Inglês.</string>
     <string name="settings_force_english_toast_reverted">Desativado com sucesso forçar linguagem Inglês!</string>
@@ -509,7 +496,6 @@ resolver este problema.    </string>
     <string name="interfacer_not_authorized_toast">Esta versão do substrato não está autorizada e não funcionará com o módulo do sistema interfacer.</string>
     <string name="app_crash_title">%s parando&#8230;</string>
     <string name="app_crash_content">Todas as camadas habilitadas para essa aplicação foram desativados.</string>
-    <string name="rom_status">status de suporte:</string>
     <string name="rom_status_supported">%s tem suporte da comunidade!</string>
     <string name="rom_status_unsupported">esta ROM não é suportada pela comunidade!</string>
     <string name="rom_status_network">verificação de internet requerida&#8230;</string>

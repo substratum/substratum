@@ -20,7 +20,7 @@
 <resources>
     <string name="showcase">Showcase</string>
     <string name="android">Android-Version:</string>
-    <string name="device">Gerätemodell:</string>
+    <string name="device">Geräte Model:</string>
     <string name="resource_checker_request">Sende Anfrage für die Commit-Einbindung mit&#8230;</string>
     <string name="resource_checker">Commit-Bestätiger</string>
     <string name="resource_checker_commons">Gerüst</string>
@@ -136,12 +136,12 @@ eingerichtet&#8230;</string>
     <string name="sounds_unlock_sound">Bildschirm-entsperren-Töne</string>
     <string name="settings_about_substratum">Substratum-Version</string>
     <string name="settings_about_interfacer">Interfacer-Version</string>
-    <string name="settings_about_interfacer_not_installed">nicht installiert</string>
-    <string name="settings_about_interfacer_masquerade">Diese Rom benötigt ein Update, um die Interfacer-Funktionalität zu nutzen</string>
+    <string name="settings_about_interfacer_not_installed">Nicht installiert</string>
+    <string name="settings_about_interfacer_masquerade">Diese Rom benötigt ein Update um den Interfacer zu benutzen</string>
     <string name="settings_about_oms_rro_version">Theme-Plattform:</string>
     <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
-    <string name="settings_about_system_version">Systemplattform</string>
+    <string name="settings_about_system_version">System-Plattform</string>
     <string name="settings_aopt_switcher_title">System-Overlay-Kompilierer</string>
     <string name="theme_information_tab_one">Overlay-Manager</string>
     <string name="theme_information_tab_two">Boot-Animationen</string>
@@ -302,8 +302,12 @@ eingerichtet&#8230;</string>
     <string name="notification_hide">Ausblenden</string>
     <string name="notification_hide_upgrade">Abbrechen</string>
     <string name="notification_initial_title">Substratum läuft im Hintergrund</string>
+    <string name="notification_initial_title_upgrade_intent">Aktualisiere die Overlays von %s&#8230;</string>
     <string name="notification_initial_title_upgrade">%s-Ressourcen werden aktualisiert&#8230;</string>
     <string name="notification_done_title">Theme-Kompilierung abgeschlossen</string>
+    <string name="notification_done_upgrade_title">Overlays von %s erfolgreich aktualisiert!</string>
+    <string name="notification_done_update_text">Alle ein- und ausgeschalteten Overlays dieser App wurden aktualisiert.</string>
+    <string name="notification_done_upgrade_text">Alle​ ein- und ausgeschalteten Overlays dieses Themes wurden aktualisiert.</string>
     <string name="notification_no_errors_found">Keine Fehler während dem installieren der Overlays</string>
     <string name="notification_some_errors_found">Bei der Installation des Overlays ist ein Fehler aufgetreten</string>
     <string name="notification_processing">Overlay verarbeiten von</string>
@@ -318,8 +322,8 @@ um das Problem zu beheben.    </string>
     <string name="shortcut_store">Theme-Showcase</string>
     <string name="shortcut_store_disabled">Theme-Showcase</string>
     <string name="settings_title">Über</string>
-    <string name="settings_title_1">App-Optionen</string>
-    <string name="settings_title_2">Optionen der Overlay-Liste</string>
+    <string name="settings_title_1">Benutzereinstellungen</string>
+    <string name="settings_title_2">Overlay-Liste</string>
     <string name="settings_title_3">Theming</string>
     <string name="settings_title_clickable">Systemkonfiguration</string>
     <string name="substratum_cache_clear_initial_toast">Substratum-Zwischenspeicher wird geleert&#8230;</string>
@@ -343,9 +347,9 @@ um das Problem zu beheben.    </string>
     <string name="disable_completion">Alle Overlays dieses Themes werden deaktiviert&#8230;</string>
     <string name="enable_completion">Alle installierten Overlays dieses Themes werden aktiviert&#8230;</string>
     <string name="dynamic_actionbar_colors">Dynamische Farbe der App-Leiste</string>
-    <string name="dynamic_actionbar_colors_subtext">Substratum wird bei der Übersicht eines Themes die Hauptfarbe des Feature-Bilds auf die App-Leiste anwenden.</string>
+    <string name="dynamic_actionbar_colors_subtext">Substratum wird bei der Übersicht eines Themes die Hauptfarbe des Titelbildes auf die App-Leiste anwenden.</string>
     <string name="dynamic_navbar_colors">Dynamische Farbe der Navigationsleiste</string>
-    <string name="dynamic_navbar_colors_subtext">Substratum wird bei der Übersicht eines Themes die Hauptfarbe des Feature-Bilds auf die Navigationsleiste anwenden.</string>
+    <string name="dynamic_navbar_colors_subtext">Substratum wird bei der Übersicht eines Themes die Hauptfarbe des Titebildes auf die Navigationsleiste anwenden.</string>
     <string name="manager_title">Deaktivierte Overlays in der Liste anzeigen</string>
     <string name="manager_subtext">Alle deaktivierten Overlays in der Overlay-Liste mit ihren zugehörigen aktivierten Overlays anzeigen.</string>
     <string name="alternate_drawer_design_title">Alternatives Drawer-Design</string>
@@ -411,6 +415,8 @@ um das Problem zu beheben.    </string>
     <string name="profile_success_notification">Profil erfolgreich angewendet!</string>
     <string name="profile_failed_notification">Profil konnte nicht korrekt angewendet werden&#8230;</string>
     <string name="profile_failed_info_notification">Tippe für weitere Informationen</string>
+    <string name="profile_compile_progress" formatted="false">Kompilieren %d von %d:\n%s</string>
+    <string name="profile_compile_processing">Verarbeiten deiner gespeicherten Overlay-Zustände&#8230;</string>
     <string name="theme_debug_mode_title">Umgehung des Notfall-Systems</string>
     <string name="theme_debug_mode_summary">Hierdurch wird verhindert, dass die App den veralteten Compiler nutzt, um Themes zu helfen, wenn diese einen nicht behebbaren Zustand erreichen.</string>
     <string name="break_compilation_dialog_title">WARNUNG</string>
@@ -433,8 +439,17 @@ um das Problem zu beheben.    </string>
     <string name="settings_system_status">Systemzertifizierung</string>
     <string name="settings_system_status_rooted">Root-Modus</string>
     <string name="settings_system_status_rootless">Ohne-Root-Modus</string>
-    <string name="settings_system_status_certified">zertifiziert</string>
-    <string name="settings_system_status_uncertified">nicht zertifiziert</string>
+    <string name="settings_system_status_certified">Zertizifiert</string>
+    <string name="settings_system_status_uncertified">Unzertifiziert</string>
+    <string name="settings_title_automation">Automatisierung</string>
+    <string name="settings_auto_updater_title">Ausgewählte Overlays automatisch aktualisieren</string>
+    <string name="settings_auto_updater_text">Substratum wird automatisch für alle aktualisierten Apps eine aktualisierte Version der Overlays erstellen, kompilieren und installieren. Diese Funktion ausgeschaltet zu lassen spart Akku.</string>
+    <string name="settings_theme_auto_updater_title">Aktualisiere Theme-Overlays automatisch (BETA)</string>
+    <string name="settings_theme_auto_updater_dialog_title">WARNUNG</string>
+    <string name="settings_theme_auto_updater_text">Substratum wird automatisch für alle aktualisierten Themes eine aktualisierte Version der Overlays erstellen, kompilieren und installieren. Diese Funktion ausgeschaltet zu lassen spart Akku.</string>
+    <string name="settings_theme_auto_updater_dialog_text">Bitte öffne NICHT den Packet-Installer im Vordergrund während die Benachrichtigung erscheint. Framework Overlays tendieren dazu den Packet-Installer neuzustarten, was eine unendliche Anzahl an Neukompilierungen zur Folge hat!</string>
+    <string name="settings_auto_alert_title">Alarm wegen eines gefundenen neuen installierbaren Overlays</string>
+    <string name="settings_auto_alert_text">Wenn eine neue Applikation zum ersten Mal installiert wird, erscheint eine Benachrichtigung, falls die Applikation durch irgendeine der installierten Themes designt ist.</string>
     <string name="settings_force_english_title">Englische Sprache forcieren</string>
     <string name="settings_force_english_text">Dies zwingt die Anwendung, die englische Sprache zu verwenden.</string>
     <string name="settings_force_english_toast_reverted">Forcieren der englischen Sprache erfolgreich deaktiviert!</string>
@@ -458,6 +473,8 @@ um das Problem zu beheben.    </string>
     <string name="per_app_draw_over_other_apps_request">Bitte gewähre Substratum die Berechtigung \"über andere Apps zeichnen\" für die schwebende Oberfläche und die Berechtigung für \"Nutzungsdaten\", damit auf die App im Vordergrund zugegriffen werden kann und Ziele für Themes ausgemacht werden können.</string>
     <string name="per_app_usage_stats_request">Bitte gewähre Substratum die Berechtigung \"Nutzungsdaten\", damit auf die App im Vordergrund zugegriffen werden kann und Ziele für Themes ausgemacht werden können.</string>
     <string name="per_app_manual_grant">Bitte gewähre Substratum in den Anwendungseinstellungen manuell die Berechtigungen für \"Nutzungszugriff\" und \"Über andere Apps zeichnen\", um FloatUI nutzen zu können!</string>
+    <string name="notification_overlay_found_specific" formatted="false">Ein Overlay für %s ist in %s!</string>
+    <string name="notification_overlay_found_description">Durch Klicken auf diese Benachrichtigung kannst Du das Theme öffnen!</string>
     <string name="community_info_overlays">Overlays</string>
     <string name="community_info_bootanimation">Boot-Animationen</string>
     <string name="community_info_fonts">Schriftarten</string>
@@ -465,7 +482,7 @@ um das Problem zu beheben.    </string>
     <string name="community_info_wallpapers">Hintergrundbilder</string>
     <string name="community_info_paid">Bezahlt</string>
     <string name="restore_info_dialog_title">Achtung</string>
-    <string name="restore_info_dialog_message">Das Wiederherstellen von Overlays, Schriftarten-Paketen, Tönen oder Hintergrundbildern kann einige Zeit in Anspruch nehmen, seien Sie also bitte geduldig.</string>
+    <string name="restore_info_dialog_message">Das Wiederherstellen von Overlays, Schriftarten-Paketen, Tönen oder Hintergrundbildern kann einige Zeit in Anspruch nehmen, seien sie also bitte geduldig.</string>
     <string name="restore_bootanimation_text">Boot-Animation</string>
     <string name="restore_bootanimation_summary">Diese funktion entfernt alle zuvor aktivierten Bootanimationen und stellt die Standard-Bootanimation\n wiederher</string>
     <string name="restore_bootanimation_button">Boot-Animation wiederherstellen</string>
@@ -473,7 +490,7 @@ um das Problem zu beheben.    </string>
     <string name="restore_overlay_summary">Diese Funktion entfernt alle bisher angewandten Overlays und setzt das System entweder durch Deinstallation oder Deaktivierung auf das Standardtheme zurück.\n</string>
     <string name="restore_overlay_button">Theme wiederherstellen</string>
     <string name="restore_sounds_text">Töne</string>
-    <string name="restore_sounds_summary">Diese funktion entfernt das zuvor aktivierte Tonset und stellt das Standardtonset wiederher\n</string>
+    <string name="restore_sounds_summary">Diese funktion entfernt das zuvor aktivierte Ton-Set und stellt das Standardton-Set wiederher\n</string>
     <string name="restore_sounds_button">Töne wiederherstellen</string>
     <string name="restore_wallpaper_text">Hintergrundbild</string>
     <string name="restore_wallpaper_summary">Die Funktion erlaubt das Entfernen des zuvor angewandten Bildschirmhintergrunds auf dem Startbildschirm, Sperrbildschirm oder beidem und stellt das System-Hintergrundbild für diese wiederher\n</string>
@@ -487,7 +504,7 @@ um das Problem zu beheben.    </string>
     <string name="interfacer_not_authorized_toast">Diese Version von Substrat ist nicht autorisiert und funktioniert nicht mit dem System Interfacer Modul.</string>
     <string name="app_crash_title">%s wird fortlaufend beendet&#8230;</string>
     <string name="app_crash_content">Alle für diese App aktivierten Overlays wurden deaktiviert.</string>
-    <string name="rom_status">Support-Status:</string>
+    <string name="rom_status">Unterstützungsstatus:</string>
     <string name="rom_status_supported">%s wird von der Community unterstützt!</string>
     <string name="rom_status_unsupported">Diese ROM wird nicht von der Community unterstützt!</string>
     <string name="rom_status_network">Internet-Check erforderlich&#8230;</string>

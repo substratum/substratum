@@ -19,8 +19,8 @@
   -->
 <resources>
     <string name="showcase">vitrin</string>
-    <string name="android">android sürümü:</string>
-    <string name="device">cihaz modeli:</string>
+    <string name="android">Android sürümü:</string>
+    <string name="device">Cihaz modeli:</string>
     <string name="resource_checker_request">Kullanarak hata bildirimi isteği gönder&#8230;</string>
     <string name="resource_checker">Hata Bildirimi Doğrulama</string>
     <string name="resource_checker_commons">Framework</string>
@@ -193,12 +193,12 @@ bu sorunu
     <string name="sounds_unlock_sound">Ekran Kilidi Açma Sesleri</string>
     <string name="settings_about_substratum">substratum sürümü</string>
     <string name="settings_about_interfacer">arayüz sürümü</string>
-    <string name="settings_about_interfacer_not_installed">yüklü değil</string>
-    <string name="settings_about_interfacer_masquerade">bu rom, arayüz işlevselliğini kullanmak için bir güncelleştirme gerektiriyor</string>
-    <string name="settings_about_oms_rro_version">tema platformu:</string>
+    <string name="settings_about_interfacer_not_installed">Yüklü değil</string>
+    <string name="settings_about_interfacer_masquerade">Bu rom, arayüz işlevselliğini kullanmak için bir güncelleştirme gerektiriyor</string>
+    <string name="settings_about_oms_rro_version">Tema platformu:</string>
     <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2 (Eski)</string>
-    <string name="settings_about_system_version">sistem platformu</string>
+    <string name="settings_about_system_version">Sistem platformu</string>
     <string name="settings_aopt_switcher_title">Sistem Tema Derleyici</string>
     <string name="theme_information_tab_one">Tema Yöneticisi</string>
     <string name="theme_information_tab_two">Önyükleme animasyonları</string>
@@ -412,8 +412,12 @@ sağlayan
     <string name="notification_hide">Yoksay</string>
     <string name="notification_hide_upgrade">İptal</string>
     <string name="notification_initial_title">Substratum çalışıyor</string>
+    <string name="notification_initial_title_upgrade_intent">%s yükseltiliyor&#8230;</string>
     <string name="notification_initial_title_upgrade">%s kaynakları şuan güncelleniyor&#8230;</string>
     <string name="notification_done_title">Tema düzenlemesi tamamlandı</string>
+    <string name="notification_done_upgrade_title">%s tema yükseltmesi tamamlandı!</string>
+    <string name="notification_done_update_text">Bu uygulama için etkinleştirilen ve devre dışı bırakılmış tüm temalar güncellendi.</string>
+    <string name="notification_done_upgrade_text">Bu tema için etkinleştirilmiş ve devre dışı bırakılmış tüm temalar güncellendi.</string>
     <string name="notification_no_errors_found">Temalar yüklenirken hata oluşmadı</string>
     <string name="notification_some_errors_found">Tema kurulumu sırasında bir hata oluştu</string>
     <string name="notification_processing">için tema işleniyor</string>
@@ -429,10 +433,10 @@ sağlayan
     <string name="shortcut_store">Tema Vitrini</string>
     <string name="shortcut_store_disabled">Tema Vitrini</string>
     <string name="settings_title">Hakkında</string>
-    <string name="settings_title_1">Uygulama Seçenekleri</string>
-    <string name="settings_title_2">Tema Listesi Seçenekleri</string>
+    <string name="settings_title_1">Kullanıcı Tercihleri</string>
+    <string name="settings_title_2">Tema Listesi</string>
     <string name="settings_title_3">Temala</string>
-    <string name="settings_title_clickable">Sistem Yapılandırması</string>
+    <string name="settings_title_clickable">Kullanıcı Tercihleri</string>
     <string name="substratum_cache_clear_initial_toast">Substratum önbelleği temizleniyor&#8230;</string>
     <string name="substratum_restart_toast">Substratum ayarlar değiştirildikten sonra yeniden başlatılacak.</string>
     <string name="purge_cache">Tema Önbelleğini Geçersiz Kıl</string>
@@ -524,6 +528,8 @@ sağlayan
     <string name="profile_success_notification">Profil başarıyla uygulandı!</string>
     <string name="profile_failed_notification">Profil uygulaması başarısız oldu&#8230;</string>
     <string name="profile_failed_info_notification">Daha fazla bilgi için dokunun</string>
+    <string name="profile_compile_progress" formatted="false">Düzenleniyor %d / %d:\n%s</string>
+    <string name="profile_compile_processing">Şimdi kaydettiğiniz tema durumları işleme koyuluyor&#8230;</string>
     <string name="theme_debug_mode_title">Sistem Geri Bildirim Müdahalesini Yoksay</string>
     <string name="theme_debug_mode_summary">Uygulamanın kurtarılamayan bir duruma geldiğinde temalara yardımcı olmak için eski derleyicinin geri dönüş mekanizmasını kullanmasını durduracaktır.</string>
     <string name="break_compilation_dialog_title">UYARI</string>
@@ -543,11 +549,20 @@ sağlayan
     <string name="profile_dialog_cancel">İptal</string>
     <string name="bottom_sheet_dialog_hide_outdated_themes">Eski temaları gizle (6.0.0+) [Önerilen!]</string>
     <string name="bottom_sheet_dialog_show_outdated_themes">Eski temaları göster (6.0.0 öncesi)</string>
-    <string name="settings_system_status">sistem sertifikası</string>
-    <string name="settings_system_status_rooted">kök erişimli mod</string>
-    <string name="settings_system_status_rootless">kök erişimsiz mod</string>
-    <string name="settings_system_status_certified">sertifikalı</string>
-    <string name="settings_system_status_uncertified">sertifikasız</string>
+    <string name="settings_system_status">Sistem sertifikası</string>
+    <string name="settings_system_status_rooted">Kök erişimli mod</string>
+    <string name="settings_system_status_rootless">Kök erişimsiz mod</string>
+    <string name="settings_system_status_certified">Sertifikalı</string>
+    <string name="settings_system_status_uncertified">Sertifikasız</string>
+    <string name="settings_title_automation">Otomasyon</string>
+    <string name="settings_auto_updater_title">Hedef temaları otomatik olarak güncelle</string>
+    <string name="settings_auto_updater_text">Substratum, yeni güncellenen uygulamalar için otomatik olarak tüm temaların güncellenmiş bir sürümünü kuracak, düzenleyecek ve yükleyecektir. Bu devre dışı bırakmak pil tasarrufu sağlayacaktır.</string>
+    <string name="settings_theme_auto_updater_title">Temaları otomatik olarak güncelle (BETA)</string>
+    <string name="settings_theme_auto_updater_dialog_title">UYARI</string>
+    <string name="settings_theme_auto_updater_text">Substratum, yakın zamanda güncellenen temaya ait tüm temaların güncellenmiş bir sürümünü otomatik olarak oluşturacak, düzenleyecek ve yükleyecektir. Bunu devre dışı bırakmak pil tasarrufu sağlayacaktır.</string>
+    <string name="settings_theme_auto_updater_dialog_text">Bildirim görüntülenirken lütfen Paket Yükleyicisini ön planda açmayın, bu Paket Yükleyicisinin temaların derleme işlemini tekrar etmesine sebep olacaktır!</string>
+    <string name="settings_auto_alert_title">Yeni kurulabilir tema bulundu uyarısı</string>
+    <string name="settings_auto_alert_text">İlk kez yeni bir uygulama yüklediğinizde, uygulamanın yüklü temalardan herhangi birinde uyumlu bir temaya sahip ise, bir bildirim görüntülenecektir.</string>
     <string name="settings_force_english_title">İngilizceye Zorla</string>
     <string name="settings_force_english_text">Uygulamayı İngilizce kullanmaya zorlar.</string>
     <string name="settings_force_english_toast_reverted">İngilizceye zorlama başarıyla devre dışı bırakıldı!</string>
@@ -571,6 +586,8 @@ sağlayan
     <string name="per_app_draw_over_other_apps_request">Yüzen kullanıcı arayüzü için Substratum \'a \"diğer uygulamalar üzerinde görüntüleme\" ve Tema hedeflerini eşleştirmek için Substratum \'a ön plan uygulamasına erişebilmek adına \"kullanım erişimi\" izni verin.</string>
     <string name="per_app_usage_stats_request">Lütfen, tema hedeflerini eşleştirmek için Substratum \'a ön plan uygulamasına erişebilmek adına \"kullanım erişimi\" izni verin.</string>
     <string name="per_app_manual_grant">Lütfen, Yüzen Arayüzü kullanmak için Uygulama Ayarlarından Substratum\'a \"kullanım erişimi\" ve \"diğer uygulamalar üzerinde görüntüle\" izinlerini verin!</string>
+    <string name="notification_overlay_found_specific" formatted="false">%s için bir tema %s!</string>
+    <string name="notification_overlay_found_description">Bu bildirimi tıklayarak temayı açabilirsiniz!</string>
     <string name="community_info_overlays">Temalar</string>
     <string name="community_info_bootanimation">Önyükleme Animasyonları</string>
     <string name="community_info_fonts">Yazı Tipleri</string>
@@ -600,7 +617,7 @@ sağlayan
     <string name="interfacer_not_authorized_toast">Substratum\'un bu sürümü yetkili değildir ve Sistem Arayüz modülü ile çalışmaz.</string>
     <string name="app_crash_title">%s hata vermeye devam ediyor&#8230;</string>
     <string name="app_crash_content">Bu uygulama için etkin olan temalar devre dışı bırakıldı.</string>
-    <string name="rom_status">destek durumu:</string>
+    <string name="rom_status">Destek durumu:</string>
     <string name="rom_status_supported">%s topluluğu tarafından desteklenmektedir!</string>
     <string name="rom_status_unsupported">bu rom topluluk tarafından desteklenmiyor!</string>
     <string name="rom_status_network">internet kontrolü gerekli&#8230;</string>

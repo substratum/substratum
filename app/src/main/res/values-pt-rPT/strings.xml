@@ -19,10 +19,11 @@
   -->
 <resources>
     <string name="showcase">expositor</string>
-    <string name="android">Versão do Android:</string>
+    <string name="android">Versão Android:</string>
     <string name="device">Modelo do dispositivo:</string>
     <string name="resource_checker_commons">Framework</string>
     <string name="resource_checker_dialog_quit">Sair</string>
+    <string name="resource_commit_dialog_title">Falta de recursos em %s</string>
     <string name="showcase_no_connection">o mostruário de temas requer uma ligação à internet para funcionar!</string>
     <string name="showcase_no_themes">Parece que houve um erro ao guardar em cache a base de dados de visualização deste separador&#8230;    </string>
     <string name="on_demand_updating_title">Inicializador da Cache de Recursos</string>
@@ -61,6 +62,7 @@ corrigir coisas que não estão a receber temas em modo de compatibilidade, uma 
     <string name="legacy_dialog_soft_reboot_text">Executando no sistema Resource Runtime Overlay (RRO), é necessário realizar uma reinicialização após a adição ou remoção de camadas.\n\nProsseguir com este diálogo seria automaticamente reiniciar o dispositivo, por isso, certifique-se de ter salvo o seu trabalho antes de continuar.</string>
     <string name="activity_missing_toast">Não houveram aplicações encontradas que pudessem lidar com este pedido, desculpe!</string>
     <string name="abort_overlay_toast_success">Todas as camadas removidas!</string>
+    <string name="reboot_awaiting_manager_title">SOBREPOSIÇÃO AGUARDA REINICIALIZAÇÃO</string>
     <string name="manager_theme_name">Tema:</string>
     <string name="manager_type1a">Tipo1a:</string>
     <string name="manager_type1b">Tipo1b:</string>
@@ -135,12 +137,12 @@ corretamente&#8230;</string>
     <string name="sounds_unlock_sound">Sons de Desbloqueio da Tela</string>
     <string name="settings_about_substratum">versão do substratum</string>
     <string name="settings_about_interfacer">versão do interfaceador</string>
-    <string name="settings_about_interfacer_not_installed">não instalado</string>
-    <string name="settings_about_interfacer_masquerade">Esta ROM requer uma atualização para utilizar a funcionalidade do interfaceador</string>
-    <string name="settings_about_oms_rro_version">plataforma de temas:</string>
+    <string name="settings_about_interfacer_not_installed">Não instalado</string>
+    <string name="settings_about_interfacer_masquerade">Esta Rom requer uma atualização para utilizar a funcionalidade do interfacer</string>
+    <string name="settings_about_oms_rro_version">Plataforma de temas:</string>
     <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2 (Compatibilidade)</string>
-    <string name="settings_about_system_version">plataforma do sistema</string>
+    <string name="settings_about_system_version">Plataforma do sistema</string>
     <string name="settings_aopt_switcher_title">Compilador de Camadas do Substratum</string>
     <string name="theme_information_tab_one">Aplicação Rápida</string>
     <string name="theme_information_tab_two">Gerenciador de Camadas</string>
@@ -169,6 +171,7 @@ corretamente&#8230;</string>
     <string name="manage_wallpaper_lock_toast">Papel de parede da tela de bloqueio restaurado com sucesso!</string>
     <string name="manage_wallpaper_all_toast">Papel de parede restaurado com sucesso!</string>
     <string name="manage_icons_title">Restaurar Ícones do Sistema</string>
+    <string name="manage_icons_toast">Ícones do sistema restaurados com sucesso!</string>
     <string name="adapter_uninstalling">Removendo agora %s&#8230;</string>
     <string name="plugin_template">Plugin</string>
     <string name="api_21">Lollipop</string>
@@ -208,6 +211,7 @@ corretamente&#8230;</string>
     <string name="dialog_restart_reboot_content">Isto efetua uma reinicialização do seu dispositivo.</string>
     <string name="dialog_restart_soft_reboot_title">Reinício de Software</string>
     <string name="dialog_restart_soft_reboot_content">Isto efetua uma reinicialização de soft do seu dispositivo.</string>
+    <string name="studio">icon studio</string>
     <string name="studio_system">Restaurar Ícones do Sistema</string>
     <string name="studio_system_reset_dialog_toast">Todos os ícones customizados foram desabilitados!</string>
     <string name="studio_system_reset_dialog">Deseja restaurar os ícones atuais de volta aos ícones padrão do sistema?</string>
@@ -264,6 +268,7 @@ clique em
     <string name="profile_edittext_hint">favor digitar um nome para seu perfil&#8230;</string>
     <string name="profile_edittext_empty_toast">Favor entre com um nome para seu perfil antes de salvar o backup!</string>
     <string name="profile_edittext_title">Novo Perfil:</string>
+    <string name="profile_edittext_whitespace_warning_toast">Não é possível usar o espaço em branco dentro o nome do perfil!</string>
     <string name="toast_backup_success">Lista atual de camadas salva em \"/storage/emulated/0/substratum/profiles/%s\"</string>
     <string name="spinner_default_item">selecione um perfil&#8230;</string>
     <string name="select_to_toggle_all_overlays">Selecione para alternar todas as camadas</string>
@@ -287,12 +292,16 @@ clique em
     <string name="root_rejected_timer_plural">fechando em %s segundos&#8230;</string>
     <string name="root_rejected_timer_singular">fechando em %s segundos&#8230;</string>
     <string name="toast_compiled_updated">Camada(s) selecionada(s) atualizada!</string>
+    <string name="toast_compiled_updated_with_errors">Camada(s) selecionada(s) atualizada(s) com alguns erros!</string>
     <string name="toast_disabled3">Favor compilar esta camada antes de aplicar!</string>
     <string name="toast_disabled4">Não pode desabilitar uma camada que não tenha compilado!</string>
+    <string name="toast_disabled5">Favor selecione uma camada válida antes de executar esta ação.</string>
     <string name="toast_disabled6">Camada(s) selecionada(s) removida(s)!</string>
+    <string name="toast_uninstalled">Acabou de desinstalar este tema! Será finalizado na próxima atualização!</string>
     <string name="no_themes_title">nenhum tema encontrado&#8230;</string>
     <string name="no_themes_description">favor instalar um tema compatível!</string>
     <string name="no_themes_description_search">\"%s\" não foi encontrado na lista de temas instalados&#8230;</string>
+    <string name="toast_needs_caching">Cache do Substratum limpa, favor reconstruir este tema antes de continuar!</string>
     <string name="notification_theme_installed">instalado</string>
     <string name="notification_theme_updated">atualizado</string>
     <string name="notification_theme_installed_content">Tema instalado com sucesso.</string>
@@ -300,9 +309,13 @@ clique em
     <string name="notification_hide">Ignorar</string>
     <string name="notification_hide_upgrade">Cancelar</string>
     <string name="notification_initial_title">Substratum está aberto</string>
+    <string name="notification_initial_title_upgrade_intent">A atualizar %s sobreposições&#8230;</string>
     <string name="notification_initial_title_upgrade">%s recursos estão agora atualizando&#8230;</string>
     <string name="notification_done_title">Compilação do tema completa</string>
+    <string name="notification_done_update_text">Todas as sobreposições ativadas/desativadas para esta app foram atualizadas.</string>
+    <string name="notification_done_upgrade_text">Todas as sobreposições ativadas/desativadas para este tema foram atualizadas.</string>
     <string name="notification_no_errors_found">Nenhum erro ao instalar as camadas</string>
+    <string name="notification_some_errors_found">Ocorreu um erro durante a instalação da camada</string>
     <string name="notification_processing">Processando camadas para</string>
     <string name="notification_processing_n">Criando e assinando camadas&#8230;</string>
     <string name="advanced_manager_overlay_read_error">Não foi possível analisar a lista de camadas. Por favor, abra a Recuperação e toque em \"Restaurar Tema do Sistema\" (desinstalar todas as camadas instaladas) para resolver o problema.    </string>
@@ -313,20 +326,36 @@ clique em
     <string name="shortcut_store">Amostra de Temas</string>
     <string name="shortcut_store_disabled">Amostra de Temas</string>
     <string name="settings_title">Sobre</string>
-    <string name="settings_title_1">Opções do App</string>
+    <string name="settings_title_1">Preferências do sistema</string>
+    <string name="settings_title_2">Lista de Camadas</string>
     <string name="settings_title_3">Aplicando tema</string>
-    <string name="settings_title_clickable">Configuração do sistema</string>
+    <string name="settings_title_clickable">Preferências do sistema</string>
     <string name="substratum_cache_clear_initial_toast">O cache do Substratum está sendo apagado&#8230;</string>
+    <string name="substratum_restart_toast">Substratum reiniciou automaticamente após uma mudança de configuração.</string>
     <string name="restart_systemui">Habilitar após recriar o SystemUI </string>
+    <string name="restart_systemui_subtext">Recriar automaticamente o SystemUI após ativar/desativar uma camada do SystemUI</string>
+    <string name="restart_systemui_toast_enabled">SystemUI irá recriar dinamicamente ao invés de reiniciar!</string>
+    <string name="restart_systemui_toast_disabled">SystemUI irá reiniciar automaticamente ao invés de recriar!</string>
     <string name="show_theme_template_version">Mostrar informações avançadas do tema</string>
+    <string name="show_theme_template_version_description">Mostrar cada níveis de SDK alvo do tema, versão do tema e versão do plugin como uma etiqueta em cada um dos cartões de tema.</string>
     <string name="vibrate_on_compiled">Notificar após o tema ser compilado</string>
+    <string name="vibrate_on_compiled_description">Quando o tema for compilado, vibrar o aparelho para notificar o utilizador que a compilação foi finalizada.</string>
     <string name="hide_app_icon">Mostrar ícone do aplicativo</string>
+    <string name="hide_app_icon_toast_enabled">O ícone do aplicativo foi removido do seu launcher!</string>
+    <string name="hide_app_icon_toast_disabled">O ícone do aplicativo foi adicionado ao seu launcher!</string>
     <string name="hide_app_icon_not_supported">Mudança não suportada</string>
+    <string name="hide_app_icon_supported">Isto irá permitir que você alterne entre ter o ícone no launcher visível ou invisível em sua tela de início.</string>
     <string name="cache_clear_completion">%s cache do tema foi removido!</string>
+    <string name="disable_completion">Todas as camadas deste temas estão agora sendo desativadas&#8230;</string>
+    <string name="enable_completion">Todas as camadas instaladas deste temas estão agora a ser ativadas&#8230;</string>
     <string name="dynamic_actionbar_colors">Barra de Ação Colorida Dinâmica</string>
+    <string name="dynamic_actionbar_colors_subtext">Na janela de informação do tema, o Substratum irá adaptar a barra de ação flexível para a cor predominante do tema.</string>
     <string name="dynamic_navbar_colors">Cores Dinâmicas da Barra de Navegação</string>
+    <string name="dynamic_navbar_colors_subtext">Na janela de informação do tema, o Substratum irá adaptar a barra de ação flexível para a cor predominante do tema.</string>
     <string name="manager_title">Mostrar camadas desabilitadas na lista</string>
+    <string name="manager_subtext">Na janela gestor avançado, mostrar todas as camadas desativadas com as respectivas partes ativadas.</string>
     <string name="alternate_drawer_design_title">Design da Gaveta Secundária</string>
+    <string name="alternate_drawer_design_subtext">Usa uma gaveta de navegação alternativa quando navegar pela interface de utilizador.</string>
     <string name="show_outdated_themes_title">Mostrar todos os temas desatualizados</string>
     <string name="show_outdated_themes_content">Desativar isto permite ao Substratum utilizar
          o novo algoritmo onde temas são carregados muito mais rápido do que o habitual. Isto apenas funciona para 
@@ -390,6 +419,7 @@ clique em
     <string name="profile_success_notification">Perfil aplicado com sucesso!</string>
     <string name="profile_failed_notification">Falha ao aplicar perfil&#8230;</string>
     <string name="profile_failed_info_notification">Toque para mais informações</string>
+    <string name="profile_compile_progress" formatted="false">A compilar %d de %d:\n%s</string>
     <string name="break_compilation_dialog_title">AVISO</string>
     <string name="break_compilation_dialog_content">Isto pode parar completamente o processo de compilação. Ative esta opção apenas se souber o que está a fazer!</string>
     <string name="break_compilation_dialog_continue">Continuar</string>
@@ -406,14 +436,24 @@ clique em
     <string name="profile_dialog_cancel">Cancelar</string>
     <string name="bottom_sheet_dialog_hide_outdated_themes">Esconder temas desatualizados (6.0.0+) [Recomendado!]</string>
     <string name="bottom_sheet_dialog_show_outdated_themes">Mostrar temas desatualizados (pre-6.0.0)</string>
-    <string name="settings_system_status">certificação do sistema</string>
-    <string name="settings_system_status_rooted">modo root</string>
-    <string name="settings_system_status_rootless">modo sem root</string>
-    <string name="settings_system_status_certified">certificado</string>
-    <string name="settings_system_status_uncertified">não certificado</string>
+    <string name="settings_system_status">Certificação do sistema</string>
+    <string name="settings_system_status_rooted">Modo root</string>
+    <string name="settings_system_status_rootless">Modo rootless</string>
+    <string name="settings_system_status_certified">Certificado</string>
+    <string name="settings_system_status_uncertified">Não certificado</string>
+    <string name="settings_title_automation">Automação</string>
+    <string name="settings_auto_updater_title">Atualizar automaticamente as sobreposições de destino</string>
+    <string name="settings_auto_updater_text">O substratum vai compilar e instalar uma versão atualizada de todas as sobreposições para o tema recentemente atualizado. Manter desativado poupa bateria.</string>
+    <string name="settings_theme_auto_updater_title">Atualizar automaticamente as sobreposições do tema (BETA)</string>
+    <string name="settings_theme_auto_updater_dialog_title">AVISO</string>
+    <string name="settings_theme_auto_updater_text">O substratum vai compilar e instalar uma versão atualizada de todas as sobreposições para o tema recentemente atualizado. Manter desativado poupa bateria.</string>
+    <string name="settings_auto_alert_title">Alerta de nova sobreposição instalável encontrado</string>
     <string name="settings_force_english_title">Forçar língua inglesa</string>
     <string name="settings_force_english_text">Isto vai forçar a aplicação a usar a língua inglesa.</string>
     <string name="settings_force_english_toast_reverted">Forçar inglês desativado com sucesso!</string>
+    <string name="settings_manage_space_title">Gerir o uso do armazenamento</string>
+    <string name="settings_theme_caching_title">Recursos de tema em cache</string>
+    <string name="settings_force_stop_interfacer_title">Forçar paragem do serviço interfacer</string>
     <string name="root_required_title">Root necessário</string>
     <string name="root_required_boot_animation">O seu dispositivo está encriptado, por isso será necessário root para aplicar animações de inicialização.</string>
     <string name="root_required_boot_animation_profile">O seu dispositivo está encriptado, por isso será necessário root para fazer cópias de segurança e restauros de animações de inicialização.</string>
@@ -426,6 +466,8 @@ clique em
     <string name="per_app_draw_over_other_apps_request">Por favor, conceda ao Substratum permissões de \"Desenhar sobre outras aplicações\" para a interface flutuante e \"Utilização de estatísticas\" para aceder à aplicação de fundo, de forma a corresponder os alvos do tema.</string>
     <string name="per_app_usage_stats_request">Por favor, conceda ao Substratum permissões de \"Utilização de estatísticas\" para aceder à aplicação de fundo, de forma a corresponder os alvos do tema.</string>
     <string name="per_app_manual_grant">Por favor, conceda manualmente ao Substratum permissões de \"Desenhar sobre outras aplicações\" e \"Utilização de estatísticas\" nas Definições da aplicação para poder utilizar a interface flutuante!</string>
+    <string name="notification_overlay_found_specific" formatted="false">Uma sobreposição de %s está em %s!</string>
+    <string name="notification_overlay_found_description">Pode abrir o tema clicando sobre esta notificação!</string>
     <string name="community_info_overlays">Camadas</string>
     <string name="community_info_bootanimation">Animações de Boot</string>
     <string name="community_info_fonts">Fontes</string>
@@ -449,6 +491,15 @@ clique em
     <string name="restore_fonts_text">Pacotes de tipos de letra</string>
     <string name="restore_fonts_summary">Esta função remove o conjunto de tipos de letra previamente aplicado e restaura o conjunto de tipos de letra padrão.\n</string>
     <string name="restore_fonts_button">Restaurar tipos de letra</string>
+    <string name="restore_icons_text">Pacote de ícones</string>
+    <string name="restore_icons_summary">Esta função remove o o pacote de ícones previamente aplicado e restaura os ícones padrão.\n</string>
+    <string name="restore_icons_button">Restaurar ícones</string>
+    <string name="interfacer_not_authorized_toast">Esta versão do substratum não é autorizada e não funcionará com o módulo do sistema interfacer.</string>
+    <string name="app_crash_title">%s continua a parar&#8230;</string>
+    <string name="app_crash_content">Todas as sobreposições ativadas para esta app foram desativadas.</string>
+    <string name="rom_status">Estado do suporte:</string>
+    <string name="rom_status_supported">%s é suportado pela comunidade!</string>
+    <string name="rom_status_unsupported">esta rom não é suportado pela comunidade!</string>
     <string name="rom_status_network">necessário verificar internet&#8230;</string>
     <!-- Nav drawer -->
     <string name="nav_home">Pacotes de temas</string>
@@ -467,20 +518,34 @@ clique em
     <string name="nav_section_header_get_involved">Comunidade</string>
     <string name="nav_drawer_community">Grupos &amp; comunidades</string>
     <string name="nav_drawer_googleplus">Comunidade Google+</string>
+    <string name="nav_drawer_telegram">Grupo de chat do telegram</string>
     <string name="nav_drawer_xda">XDA Subforum</string>
     <!-- Featured content -->
+    <string name="nav_drawer_featured">Conteúdos em destaque</string>
     <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
     <string name="nav_drawer_xda_portal">Portal do XDA</string>
+    <string name="force_independence_title">Modo independente do sistema</string>
+    <string name="force_independence_summary">Isto força que todos os reencaminhamentos ao interfaceador sejam desativados.</string>
     <string name="settings_about_interfacer_disconnected">desligado</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">Recursos</string>
     <string name="nav_drawer_homepage">Página oficial</string>
     <string name="nav_drawer_template">Modelo de Tema (Criadores de temas)</string>
+    <string name="nav_drawer_gerrit">Plataforma &amp; exposições gerrit</string>
+    <string name="nav_drawer_github">Repositório da plataforma GitHub</string>
     <string name="nav_troubleshooting">Solução de Problemas</string>
     <!-- More -->
     <string name="nav_section_header_more">Mais</string>
     <string name="nav_team">Contribuidores</string>
     <string name="nav_opensource">Licenças</string>
     <string name="nav_settings">Configurações</string>
+    <string name="title_activity_manage_space">Gerir o uso do armazenamento</string>
+    <string name="manage_space_cache_text_title">Limpar cache</string>
     <string name="clear_cache_button_loading">Carregando&#8230;</string>
+    <string name="clear_cache_button_text">Limpar cache do substratum</string>
+    <string name="manage_space_cache_counter_title">Limpar a cache local irá remover todos os ficheiros usados pelo compilador do tema e descarga online. Todos os pacotes de temas e configurações de utilizador serão mantidas.\n\nDependendo do tamanho da cache, pode demorar alguns segundos a completar.</string>
+    <string name="manage_space_reset_text_title">Reiniciar configuração</string>
+    <string name="manage_space_reset_text_desc">Está a ter problemas com a aplicação? Ou recentemente fez um grande salto de uma versão antiga do substratum? Uma limpeza da configuração ajuda a solucionar o problema!</string>
+    <string name="manage_space_reset_dialog_title">Reiniciar configuração?</string>
+    <string name="manage_space_reset_dialog_content">O app vai fechar após a conclusão do reinício!</string>
 </resources>

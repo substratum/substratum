@@ -19,8 +19,8 @@
   -->
 <resources>
     <string name="showcase">prezentacja</string>
-    <string name="android">wersja systemu Android:</string>
-    <string name="device">model urządzenia:</string>
+    <string name="android">Wersja systemu Android:</string>
+    <string name="device">Model urządzenia:</string>
     <string name="resource_checker_request">Wyślij prośbę scalenia rewizji przy użyciu&#8230;</string>
     <string name="resource_checker">Weryfikator rewizji</string>
     <string name="resource_checker_commons">Framework</string>
@@ -133,12 +133,12 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="sounds_unlock_sound">Dźwięk odblokowania ekranu</string>
     <string name="settings_about_substratum">Wersja substratum</string>
     <string name="settings_about_interfacer">wersja interfacera</string>
-    <string name="settings_about_interfacer_not_installed">nie zainstalowany</string>
-    <string name="settings_about_interfacer_masquerade">ten rom wymaga aktualizacji, aby korzystać z funkcjonalności interfacera motywu</string>
-    <string name="settings_about_oms_rro_version">platforma motywu:</string>
+    <string name="settings_about_interfacer_not_installed">Nie zainstalowany</string>
+    <string name="settings_about_interfacer_masquerade">Ten rom wymaga aktualizacji, aby korzystać z funkcjonalności interfacera</string>
+    <string name="settings_about_oms_rro_version">Platforma motywu:</string>
     <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2 (starsza wersja)</string>
-    <string name="settings_about_system_version">platforma systemowa</string>
+    <string name="settings_about_system_version">Platforma systemowa</string>
     <string name="settings_aopt_switcher_title">Kompilator Nakładek</string>
     <string name="theme_information_tab_one">Menedżer nakładek</string>
     <string name="theme_information_tab_two">Animacje rozruchu</string>
@@ -303,8 +303,12 @@ Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
     <string name="notification_hide">Odrzuć</string>
     <string name="notification_hide_upgrade">Anuluj</string>
     <string name="notification_initial_title">Substratum jest uruchomione</string>
+    <string name="notification_initial_title_upgrade_intent">Uaktualnianie nakładek %s...</string>
     <string name="notification_initial_title_upgrade">Zasoby %s są teraz aktualizowane&#8230;</string>
     <string name="notification_done_title">Kompilacja motywu została zakończona</string>
+    <string name="notification_done_upgrade_title">Uaktualnienie nakładki dla %s zakończone!</string>
+    <string name="notification_done_update_text">Wszystkie włączone i wyłączone nakładki dla tej aplikacji zostały uaktualnione.</string>
+    <string name="notification_done_upgrade_text">Wszystkie włączone i wyłączone nakładki dla tego motywu zostały uaktualnione.</string>
     <string name="notification_no_errors_found">Nie wystąpiły żadne błędy podczas instalowania nakładek</string>
     <string name="notification_some_errors_found">Wystąpił błąd podczas instalowania nakładki</string>
     <string name="notification_processing">Nakładki do przetworzenia</string>
@@ -318,10 +322,10 @@ Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
     <string name="shortcut_store">Prezentacja Motywu</string>
     <string name="shortcut_store_disabled">Prezentacja Motywu</string>
     <string name="settings_title">O</string>
-    <string name="settings_title_1">Opcje aplikacji</string>
-    <string name="settings_title_2">Opcje listy nakładek</string>
+    <string name="settings_title_1">Preferencje użytkownika</string>
+    <string name="settings_title_2">Lista nakładek</string>
     <string name="settings_title_3">Skórki</string>
-    <string name="settings_title_clickable">Konfiguracja systemu</string>
+    <string name="settings_title_clickable">Preferencje systemowe</string>
     <string name="substratum_cache_clear_initial_toast">Wymazywanie pamięci podręcznej Substratum&#8230;</string>
     <string name="substratum_restart_toast">Substratum zostanie automatycznie uruchomione po zmianie ustawień.</string>
     <string name="purge_cache">Unieważnia pamięć podręczną motywu</string>
@@ -411,6 +415,8 @@ Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
     <string name="profile_success_notification">Profil zastosowany z powodzeniem!</string>
     <string name="profile_failed_notification">Nie można zastosować profilu&#8230;</string>
     <string name="profile_failed_info_notification">Dotknij, aby uzyskać więcej informacji</string>
+    <string name="profile_compile_progress" formatted="false">Kompilacja %d z %d:\n%s</string>
+    <string name="profile_compile_processing">Teraz są przetwarzane zapisane stany twoich nakładek&#8230;</string>
     <string name="theme_debug_mode_title">Układ obejścia rezerwy systemu</string>
     <string name="theme_debug_mode_summary">To pozwoli na zaprzestanie używania przez aplikację mechanizmu awaryjnego starszego kompilatora, gdy motywy osiągną stan nie do odzyskania.</string>
     <string name="break_compilation_dialog_title">OSTRZEŻENIE</string>
@@ -430,11 +436,20 @@ Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
     <string name="profile_dialog_cancel">Anuluj</string>
     <string name="bottom_sheet_dialog_hide_outdated_themes">Ukryj nieaktualne motywy (6.0.0+) [Zalecane!]</string>
     <string name="bottom_sheet_dialog_show_outdated_themes">Pokaż nieaktualne motywy (sprzed-6.0.0)</string>
-    <string name="settings_system_status">system certyfikacji</string>
-    <string name="settings_system_status_rooted">tryb roota</string>
-    <string name="settings_system_status_rootless">tryb bez roota</string>
-    <string name="settings_system_status_certified">atestowany</string>
-    <string name="settings_system_status_uncertified">nie atestowany</string>
+    <string name="settings_system_status">System certyfikacji</string>
+    <string name="settings_system_status_rooted">Tryb roota</string>
+    <string name="settings_system_status_rootless">Tryb bez roota</string>
+    <string name="settings_system_status_certified">Atestowany</string>
+    <string name="settings_system_status_uncertified">Nie atestowany</string>
+    <string name="settings_title_automation">Automatyzacja</string>
+    <string name="settings_auto_updater_title">Automatycznie aktualizuj docelowe nakładki</string>
+    <string name="settings_auto_updater_text">Substratum automatycznie przebuduje, skompiluje i zainstaluje zaktualizowaną wersję wszystkich nakładek dla ostatnio aktualizowanych aplikacji. Wyłączenie tego oszczędzi baterię.</string>
+    <string name="settings_theme_auto_updater_title">Automatyczne aktualizacje nakładek motywu (BETA)</string>
+    <string name="settings_theme_auto_updater_dialog_title">OSTRZEŻENIE</string>
+    <string name="settings_theme_auto_updater_text">Substratum automatycznie przebuduje, skompiluje i zainstaluje zaktualizowaną wersję wszystkich nakładek dla ostatnio aktualizowanych motywów. Wyłączenie tego oszczędzi baterię.</string>
+    <string name="settings_theme_auto_updater_dialog_text">Proszę nie utrzymywać otwartego Pakietu Instalacyjnego na pierwszym planie podczas gdy powiadomienie jest włączone, struktura nakładek ma tendencję do ponownego uruchamiania Pakietu Instalacyjnego powodując nieokreślone ilości ponownych kompilacji!</string>
+    <string name="settings_auto_alert_title">Pojawiła się nowa instalacyjna nakładka</string>
+    <string name="settings_auto_alert_text">Podczas instalowania nowej aplikacji po raz pierwszy, jeśli aplikacja jest objęta dowolnym z zainstalowanych motywów, pojawi się powiadomienie.</string>
     <string name="settings_force_english_title">Wymuś język angielski</string>
     <string name="settings_force_english_text">Włączenie tej opcji wymusi przełączenie interfejsu aplikacji na język angielski.</string>
     <string name="settings_force_english_toast_reverted">Pomyślnie wyłączono wymuszenie języka angielskiego!</string>
@@ -458,6 +473,8 @@ Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
     <string name="per_app_draw_over_other_apps_request">Proszę pozwolić Substratum do używania uprawnień \"zezwól na wyświetlanie nad innymi aplikacjami\" dla obsługi pływającego interfejsu i \"zezwól na dostęp do użytkowania\" w celu umożliwienia dopasowania motywu do działających aplikacji.</string>
     <string name="per_app_usage_stats_request">Proszę zezwolić aplikacji Substratum do używania uprawnienia \"dostęp do użytkowania\" w celu umożliwienia dopasowania motywu do działających aplikacji.</string>
     <string name="per_app_manual_grant">Aby używać FloatUI, proszę pozwolić aplikacji Substratum do używania uprawnień \"zezwól na dostęp do użytkowania\" i \"zezwól na wyświetlanie nad innymi aplikacjami\"!</string>
+    <string name="notification_overlay_found_specific" formatted="false">Nakładka dla %s jest w %s!</string>
+    <string name="notification_overlay_found_description">Można otworzyć motyw poprzez kliknięcie tego powiadomienia!</string>
     <string name="community_info_overlays">Nakładki</string>
     <string name="community_info_bootanimation">Animacje rozruchu</string>
     <string name="community_info_fonts">Czcionki</string>
@@ -487,7 +504,7 @@ Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
     <string name="interfacer_not_authorized_toast">Ta wersja Substratum nie jest autoryzowana i nie będzie działać z modułem Interfacera.</string>
     <string name="app_crash_title">%s ciągle się zatrzymuje&#8230;</string>
     <string name="app_crash_content">Wszystkie włączone nakładki dla tej aplikacji zostały wyłączone.</string>
-    <string name="rom_status">status wsparcia:</string>
+    <string name="rom_status">Status wsparcia:</string>
     <string name="rom_status_supported">%s jest wspierany przez społeczność!</string>
     <string name="rom_status_unsupported">ten rom nie jest wspierany przez społeczność!</string>
     <string name="rom_status_network">wymaga sprawdzenia przez internet&#8230;</string>

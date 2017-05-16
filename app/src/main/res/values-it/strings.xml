@@ -19,8 +19,8 @@
   -->
 <resources>
     <string name="showcase">vetrina</string>
-    <string name="android">ersione android:</string>
-    <string name="device">modello del dispositivo:</string>
+    <string name="android">Versione Android:</string>
+    <string name="device">Modello dispositivo:</string>
     <string name="resource_checker_request">Invia una richiesta di commit merge utilizzando&#8230;</string>
     <string name="resource_checker">Commit Validator</string>
     <string name="resource_checker_commons">Framework</string>
@@ -133,12 +133,12 @@
     <string name="sounds_unlock_sound">Suoni di sblocco dello schermo</string>
     <string name="settings_about_substratum">Versione di substratum</string>
     <string name="settings_about_interfacer">versione dell\'interfaccia</string>
-    <string name="settings_about_interfacer_not_installed">non installato</string>
-    <string name="settings_about_interfacer_masquerade">questa rom richiede un aggiornamento per poter utilizzare la funzione interfacer</string>
-    <string name="settings_about_oms_rro_version">piattaforma tema:</string>
+    <string name="settings_about_interfacer_not_installed">Non installato</string>
+    <string name="settings_about_interfacer_masquerade">Questa rom richiede un aggiornamento per poter utilizzare le funzionalità di interfacer</string>
+    <string name="settings_about_oms_rro_version">Piattaforma tema:</string>
     <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
-    <string name="settings_about_system_version">piattaforma di sistema</string>
+    <string name="settings_about_system_version">Piattaforma sistema</string>
     <string name="settings_aopt_switcher_title">System Overlay Compiler</string>
     <string name="theme_information_tab_one">Gestore di overlay</string>
     <string name="theme_information_tab_two">Animazioni di avvio</string>
@@ -306,8 +306,12 @@ Vuoi ripristinare le icone predefinite di sistema?    </string>
     <string name="notification_hide">Respingi</string>
     <string name="notification_hide_upgrade">Cancella</string>
     <string name="notification_initial_title">Substratum sta funzionando</string>
+    <string name="notification_initial_title_upgrade_intent">Aggiornamento overlay di %s&#8230;</string>
     <string name="notification_initial_title_upgrade">%s le sorgenti si stanno ora aggiornando&#8230;</string>
     <string name="notification_done_title">La compilazione del tema è stata completata</string>
+    <string name="notification_done_upgrade_title">Aggiornamento overlay di %s è stato completato!</string>
+    <string name="notification_done_update_text">Tutti gli overlay, abilitati e disabilitati, per questa applicazione sono stati aggiornati.</string>
+    <string name="notification_done_upgrade_text">Tutti gli overlay, abilitati e disabilitati, per questo tema sono stati aggiornati.</string>
     <string name="notification_no_errors_found">Nessun errore mentre installo qualsiasi overlays</string>
     <string name="notification_some_errors_found">Si è verificato un errore durante l\'installazione dell\'overlay</string>
     <string name="notification_processing">Processando overlay per</string>
@@ -321,10 +325,10 @@ Vuoi ripristinare le icone predefinite di sistema?    </string>
     <string name="shortcut_store">Vetrina del tema</string>
     <string name="shortcut_store_disabled">Vetrina del tema</string>
     <string name="settings_title">Informazioni</string>
-    <string name="settings_title_1">Opzioni applicazione</string>
-    <string name="settings_title_2">Elenco Opzioni Overlay</string>
+    <string name="settings_title_1">Preferenze utente</string>
+    <string name="settings_title_2">Elenco overlay</string>
     <string name="settings_title_3">Temando</string>
-    <string name="settings_title_clickable">Configurazione di Sistema</string>
+    <string name="settings_title_clickable">Preferenze di sistema</string>
     <string name="substratum_cache_clear_initial_toast">Le cache di Substratum stanno per essere pulite&#8230;</string>
     <string name="substratum_restart_toast">Substrato si è riavviato automaticamente dopo un cambiamento delle impostazioni.</string>
     <string name="purge_cache">Invalida Cache Tema</string>
@@ -414,6 +418,7 @@ Vuoi ripristinare le icone predefinite di sistema?    </string>
     <string name="profile_success_notification">Profilo applicato con successo!</string>
     <string name="profile_failed_notification">Applicazione profilo fallita&#8230;</string>
     <string name="profile_failed_info_notification">Tocco per ulteriori informazioni</string>
+    <string name="profile_compile_progress" formatted="false">Compliazione %d di %d:\n%s</string>
     <string name="theme_debug_mode_title">System Fallback Interjection Bypass</string>
     <string name="theme_debug_mode_summary">Questo fermerà l\'app da utilizzare il meccanismo di fallback del compilatore legacy per aiutare i temi quando raggiungono uno stato irrecuperabile.</string>
     <string name="break_compilation_dialog_title">ATTENZIONE</string>
@@ -433,11 +438,13 @@ Vuoi ripristinare le icone predefinite di sistema?    </string>
     <string name="profile_dialog_cancel">Cancella</string>
     <string name="bottom_sheet_dialog_hide_outdated_themes">Nascondere temi obsoleti (6.0.0+) [consigliato]</string>
     <string name="bottom_sheet_dialog_show_outdated_themes">Visualizza temi obsoleti (pre-6.0.0)</string>
-    <string name="settings_system_status">certificazione sistema</string>
-    <string name="settings_system_status_rooted">modalità root</string>
-    <string name="settings_system_status_rootless">modalità rootless</string>
-    <string name="settings_system_status_certified">certificato</string>
-    <string name="settings_system_status_uncertified">non certificato</string>
+    <string name="settings_system_status">Certificazione sistema</string>
+    <string name="settings_system_status_rooted">Modalità root</string>
+    <string name="settings_system_status_rootless">Modalità rootless</string>
+    <string name="settings_system_status_certified">Certificato</string>
+    <string name="settings_system_status_uncertified">Non certificato</string>
+    <string name="settings_title_automation">Automazione</string>
+    <string name="settings_theme_auto_updater_dialog_title">ATTENZIONE</string>
     <string name="settings_force_english_title">Forza la lingua inglese</string>
     <string name="settings_force_english_text">Questo forzerà l\'applicazione ad usare la lingua inglese.</string>
     <string name="settings_force_english_toast_reverted">Lingua inglese disattivata con successo!</string>
@@ -490,7 +497,7 @@ Vuoi ripristinare le icone predefinite di sistema?    </string>
     <string name="interfacer_not_authorized_toast">Questa versione di Substratum non è autorizzata e non funzionerà col modulo Interfacer di sistema.</string>
     <string name="app_crash_title">%s, continua a fermarsi&#8230;</string>
     <string name="app_crash_content">Tutti gli overlay abilitati per questa applicazione sono stati disabilitati.</string>
-    <string name="rom_status">stato supporto:</string>
+    <string name="rom_status">Stato di supporto:</string>
     <string name="rom_status_supported">%s è supportato dalla community!</string>
     <string name="rom_status_unsupported">questa rom non è supportata dalla community!</string>
     <string name="rom_status_network">richiesta connessione internet&#8230;</string>

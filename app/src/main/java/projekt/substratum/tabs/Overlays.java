@@ -878,7 +878,7 @@ public class Overlays extends Fragment {
         if (themer_email.length() > 0) {
             send.setVisibility(View.VISIBLE);
             send.setOnClickListener(v -> {
-                String device = " " + Build.MODEL + " (" + Build.DEVICE + ") " +
+                String device = Build.MODEL + " (" + Build.DEVICE + ") " +
                         "[" + Build.FINGERPRINT + "]";
                 String theme_version = References.grabAppVersion(getContext(), theme_pid);
                 String email_subject =
@@ -897,7 +897,7 @@ public class Overlays extends Fragment {
                      BufferedWriter out = new BufferedWriter(fw)) {
                     String attachment_body =
                             String.format(context.getString(R.string.logcat_attachment_body),
-                                    device, error_logs, BuildConfig.VERSION_CODE, theme_version);
+                                    device, theme_version, BuildConfig.VERSION_CODE, error_logs);
                     out.write(attachment_body);
                 } catch (IOException e) {
                     // Suppress exception

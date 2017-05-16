@@ -47,19 +47,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 import projekt.substratum.BuildConfig;
 import projekt.substratum.LauncherActivity;
@@ -78,7 +67,6 @@ import projekt.substratum.util.injectors.AOPTCheck;
 import projekt.substratum.util.readers.ReadFilterFile;
 import projekt.substratum.util.readers.ReadRepositoriesFile;
 import projekt.substratum.util.readers.ReadResourcesFile;
-import projekt.substratum.util.readers.ReadSupportedROMsFile;
 import projekt.substratum.util.views.SheetDialog;
 
 import static projekt.substratum.common.References.HIDDEN_CACHING_MODE_TAP_COUNT;
@@ -863,14 +851,14 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-            if (result != null && result.length() > 0) {
+            if (result.length() > 0) {
                 String supportedRom = String.format(
                         getString(R.string.rom_status_supported), result);
                 platformSummary.append(getString(R.string.rom_status))
                         .append(" ").append(supportedRom);
                 systemPlatform.setSummary(platformSummary.toString());
             } else if (!References.isNetworkAvailable(
-                    getContext()) || (result != null && result.equals(""))) {
+                    getContext()) || result.equals("")) {
                 platformSummary.append(getString(R.string.rom_status)).append(" ").append(
                         getString(R.string.rom_status_network));
                 systemPlatform.setSummary(platformSummary.toString());
@@ -883,154 +871,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            String inputFileName = sUrl[1];
-
-            InputStream input = null;
-            OutputStream output = null;
-            HttpURLConnection connection = null;
-
-            if (References.isNetworkAvailable(getContext())) {
-                try {
-                    URL url = new URL(sUrl[0]);
-                    connection = (HttpURLConnection) url.openConnection();
-                    connection.connect();
-
-                    // expect HTTP 200 OK, so we don't mistakenly save error report
-                    // instead of the file
-                    if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                        return "Server returned HTTP " + connection.getResponseCode()
-                                + " " + connection.getResponseMessage();
-                    }
-
-                    // this will be useful to display download percentage
-                    // might be -1: server did not report the length
-                    int fileLength = connection.getContentLength();
-
-                    // download the file
-                    input = connection.getInputStream();
-
-                    output = new FileOutputStream(getContext().getCacheDir().getAbsolutePath() +
-                            "/" + inputFileName);
-
-                    byte data[] = new byte[4096];
-                    long total = 0;
-                    int count;
-                    while ((count = input.read(data)) != -1) {
-                        // allow canceling with back button
-                        if (isCancelled()) {
-                            input.close();
-                            return null;
-                        }
-                        total += count;
-                        // publishing the progress....
-                        if (fileLength > 0) // only if total length is known
-                            publishProgress((int) (total * 100 / fileLength));
-                        output.write(data, 0, count);
-                    }
-                } catch (Exception e) {
-                    return "";
-                } finally {
-                    try {
-                        if (output != null)
-                            output.close();
-                        if (input != null)
-                            input.close();
-                    } catch (IOException ignored) {
-                    }
-
-                    if (connection != null)
-                        connection.disconnect();
-                }
-            } else {
-                File check = new File(getContext().getCacheDir().getAbsolutePath() +
-                        "/" + inputFileName);
-                if (!check.exists()) {
-                    return null;
-                }
-            }
-
-            HashMap<String, String> listOfRoms =
-                    ReadSupportedROMsFile.main(getContext().getCacheDir() + "/" + inputFileName);
-
-            try {
-                Boolean supported = false;
-                String supported_rom = null;
-
-                Iterator it = listOfRoms.entrySet().iterator();
-                Iterator it2 = listOfRoms.entrySet().iterator();
-
-                // First check if it is a valid prop
-                while (it.hasNext()) {
-                    Map.Entry pair = (Map.Entry) it.next();
-
-                    String key = (String) pair.getKey();
-                    String value = (String) pair.getValue();
-                    Process process = Runtime.getRuntime().exec("getprop " + key);
-                    BufferedReader reader = new BufferedReader(
-                            new InputStreamReader(process.getInputStream()));
-                    process.waitFor();
-                    String line = reader.readLine();
-                    if (line != null && line.length() > 0) {
-                        if (value == null || value.length() == 0) {
-                            String current = key;
-                            if (current.contains(".")) {
-                                current = current.split("\\.")[1];
-                            }
-                            Log.d(References.SUBSTRATUM_LOG, "Supported ROM: " + current);
-                            supported_rom = current;
-                            supported = true;
-                        } else {
-                            Log.d(References.SUBSTRATUM_LOG, "Supported ROM: " + value);
-                            supported_rom = value;
-                            supported = true;
-                        }
-                        break;
-                    }
-                    reader.close();
-                    it.remove();
-                }
-
-                // Then check ro.product.flavor
-                if (!supported) {
-                    Process process = Runtime.getRuntime().exec("getprop ro.build.flavor");
-                    BufferedReader reader = new BufferedReader(
-                            new InputStreamReader(process.getInputStream()));
-                    String line;
-                    while ((line = reader.readLine()) != null) {
-                        while (it2.hasNext()) {
-                            Map.Entry pair = (Map.Entry) it2.next();
-
-                            String key = (String) pair.getKey();
-                            String value = (String) pair.getValue();
-
-                            if (line.toLowerCase().contains(key.toLowerCase())) {
-                                if (value == null || value.length() == 0) {
-                                    String current = key;
-                                    if (current.contains(".")) {
-                                        current = current.split("\\.")[1];
-                                    }
-                                    Log.d(References.SUBSTRATUM_LOG,
-                                            "Supported ROM (1): " + current);
-                                    supported_rom = current;
-                                    supported = true;
-                                } else {
-                                    Log.d(References.SUBSTRATUM_LOG,
-                                            "Supported ROM (1): " + value);
-                                    supported_rom = value;
-                                    supported = true;
-                                }
-                                break;
-                            }
-                        }
-                        if (supported) break;
-                    }
-                    reader.close();
-                }
-                return supported_rom;
-            } catch (Exception e) {
-                // Suppress warning
-            }
-            return null;
+            return References.checkFirmwareSupport(getContext(), sUrl[0], sUrl[1]);
         }
     }
 

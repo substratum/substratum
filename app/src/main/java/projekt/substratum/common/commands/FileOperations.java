@@ -192,8 +192,11 @@ public class FileOperations {
         try {
             FileUtils.copyFile(in, out);
         } catch (IOException e) {
+            // Suppress warning
+        }
+        if (!out.exists()) {
             Log.d(COPY_LOG,
-                    "Rootless operation failed, falling back to rooted mode..." + e.getMessage());
+                    "Rootless operation failed, falling back to rooted mode...");
             Root.runCommand("cp -f " + source + " " + destination);
         }
         Log.d(COPY_LOG, "Operation " + (out.exists() ? "succeeded" : "failed"));
@@ -220,8 +223,11 @@ public class FileOperations {
         try {
             FileUtils.copyDirectory(in, out);
         } catch (IOException e) {
+            // Suppress warning
+        }
+        if (!out.exists()) {
             Log.d(COPY_LOG,
-                    "Rootless operation failed, falling back to rooted mode..." + e.getMessage());
+                    "Rootless operation failed, falling back to rooted mode...");
             Root.runCommand("cp -rf " + source + " " + destination);
         }
         Log.d(COPYDIR_LOG, "Operation " + (out.exists() ? "succeeded" : "failed"));
@@ -276,9 +282,11 @@ public class FileOperations {
         } catch (FileNotFoundException e) {
             Log.d(DELETE_LOG, "File already " + (deleteParent ? "deleted." : "cleaned."));
         } catch (IOException e) {
-            e.printStackTrace();
+            // Suppress warning
+        }
+        if (dir.exists()) {
             Log.d(DELETE_LOG,
-                    "Rootless operation failed, falling back to rooted mode..." + e.getMessage());
+                    "Rootless operation failed, falling back to rooted mode...");
             if (deleteParent) {
                 Root.runCommand("rm -rf " + directory);
             } else {
@@ -337,10 +345,11 @@ public class FileOperations {
                 FileUtils.moveDirectory(in, out);
             }
         } catch (IOException e) {
-            Log.d(MOVE_LOG,
-                    "Rootless operation failed, falling back to rooted mode..." + e.getMessage());
+            //Supress warning
         }
         if (in.exists() && !out.exists()) {
+            Log.d(MOVE_LOG,
+                    "Rootless operation failed, falling back to rooted mode...");
             Root.runCommand("mv -f " + source + " " + destination);
         }
         Log.d(MOVE_LOG, "Operation " + (!in.exists() && out.exists() ? "succeeded" : "failed"));
@@ -408,8 +417,8 @@ public class FileOperations {
 
     private static boolean copyFile(AssetManager assetManager, String filename,
                                     String destination, String remember) {
-        InputStream inputStream;
-        OutputStream outputStream;
+        InputStream inputStream = null;
+        OutputStream outputStream = null;
         try {
             inputStream = assetManager.open(filename);
             String destinationFile = destination + "/" + filename.replaceAll("\\s+", "")
@@ -421,14 +430,25 @@ public class FileOperations {
             while ((read = inputStream.read(buffer)) != -1) {
                 outputStream.write(buffer, 0, read);
             }
-            inputStream.close();
-            outputStream.flush();
-            outputStream.close();
+
             return true;
         } catch (Exception e) {
             e.printStackTrace();
             if (ENABLE_DIRECT_ASSETS_LOGGING)
                 Log.e(DA_LOG, "An exception has been reached: " + e.getMessage());
+        } finally {
+            try {
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+
+                if (outputStream != null) {
+                    outputStream.flush();
+                    outputStream.close();
+                }
+            } catch (IOException e) {
+                // Suppress warning
+            }
         }
         return false;
     }

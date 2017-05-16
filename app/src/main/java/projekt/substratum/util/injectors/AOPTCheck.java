@@ -107,10 +107,9 @@ public class AOPTCheck {
 
     private boolean copyAOPT(String filename) {
         AssetManager assetManager = mContext.getAssets();
-        String newFileName = aoptPath;
         boolean res = true;
         try (InputStream in = assetManager.open(filename);
-             OutputStream out = new FileOutputStream(newFileName)) {
+             OutputStream out = new FileOutputStream(aoptPath)) {
             byte[] buffer = new byte[1024];
             int read;
             while ((read = in.read(buffer)) != -1) {
@@ -121,7 +120,7 @@ public class AOPTCheck {
             res = false;
         }
         if (res) {
-            File f = new File(newFileName);
+            File f = new File(aoptPath);
             if (f.isFile()) {
                 res = f.setExecutable(true, true);
             }

@@ -18,7 +18,6 @@
 
 package projekt.substratum.tabs;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -84,6 +83,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 import eightbitlab.com.blurview.BlurView;
@@ -119,6 +119,8 @@ import static projekt.substratum.common.References.SUBSTRATUM_BUILDER_CACHE;
 import static projekt.substratum.common.References.SUBSTRATUM_LOG;
 import static projekt.substratum.common.References.checkThemeInterfacer;
 import static projekt.substratum.common.References.isPackageInstalled;
+import static projekt.substratum.common.References.metadataAuthor;
+import static projekt.substratum.common.References.metadataEmail;
 import static projekt.substratum.util.files.MapUtils.sortMapByValues;
 
 public class Overlays extends Fragment {
@@ -150,7 +152,6 @@ public class Overlays extends Fragment {
     private ProgressBar progressBar;
     private Boolean is_active = false;
     private String error_logs = "";
-    private String themer_email, theme_author;
     private MaterialProgressBar materialProgressBar;
     private double current_amount = 0;
     private double total_amount = 0;
@@ -855,70 +856,11 @@ public class Overlays extends Fragment {
         ImageButton send = (ImageButton) dialog.findViewById(
                 R.id.send);
         send.setVisibility(View.GONE);
-
-        theme_author = "";
-        themer_email = "";
-        try {
-            ApplicationInfo appInfo =
-                    context.getPackageManager().getApplicationInfo(
-                            theme_pid,
-                            PackageManager.GET_META_DATA);
-            if (appInfo.metaData != null) {
-                if (appInfo.metaData.getString("Substratum_Author") != null) {
-                    theme_author = appInfo.metaData.getString("Substratum_Author");
-                }
-                if (appInfo.metaData.getString("Substratum_Email") != null) {
-                    themer_email = appInfo.metaData.getString("Substratum_Email");
-                }
-            }
-        } catch (Exception e) {
-            // NameNotFound
-        }
-
-        if (themer_email.length() > 0) {
+        if (References.getOverlayMetadata(context, theme_pid, metadataEmail) != null) {
             send.setVisibility(View.VISIBLE);
             send.setOnClickListener(v -> {
-                String device = Build.MODEL + " (" + Build.DEVICE + ") " +
-                        "[" + Build.FINGERPRINT + "]";
-                String theme_version = References.grabAppVersion(getContext(), theme_pid);
-                String email_subject =
-                        String.format(context.getString(R.string.logcat_email_subject), theme_name);
-                String xposed = References.checkXposedVersion();
-                if (xposed.length() > 0) {
-                    device += " {" + xposed + "}";
-                }
-                String email_body = String.format(context.getString(R.string.logcat_email_body),
-                        theme_author, theme_name);
-                @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat =
-                        new SimpleDateFormat("yyyyMMdd-HH:mm");
-                File log = new File(Environment.getExternalStorageDirectory().getAbsolutePath() +
-                        "/theme_error-" + dateFormat.format(new Date()) + ".txt");
-                try (FileWriter fw = new FileWriter(log, false);
-                     BufferedWriter out = new BufferedWriter(fw)) {
-                    String attachment_body =
-                            String.format(context.getString(R.string.logcat_attachment_body),
-                                    device, theme_version, BuildConfig.VERSION_CODE, error_logs);
-                    out.write(attachment_body);
-                } catch (IOException e) {
-                    // Suppress exception
-                }
-                Intent i = new Intent(Intent.ACTION_SEND);
-                i.setType("message/rfc822");
-                i.putExtra(Intent.EXTRA_EMAIL, new String[]{themer_email});
-                i.putExtra(Intent.EXTRA_SUBJECT, email_subject);
-                i.putExtra(Intent.EXTRA_TEXT, email_body);
-                i.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(log));
-                try {
-                    startActivity(Intent.createChooser(
-                            i, context.getString(R.string.logcat_email_activity)));
-                } catch (android.content.ActivityNotFoundException ex) {
-                    Lunchbar.make(
-                            getActivityView(),
-                            R.string.logcat_email_activity_error,
-                            Lunchbar.LENGTH_LONG)
-                            .show();
-                }
                 dialog.dismiss();
+                new SendErrorReport(context, theme_pid, error_logs).execute();
             });
         }
         dialog.show();
@@ -2179,6 +2121,91 @@ public class Overlays extends Fragment {
                 }
             }
             return null;
+        }
+    }
+
+    private static class SendErrorReport extends AsyncTask<Void, Void, File> {
+        private Context context;
+        private String themePid;
+        private String errorLog;
+        private String themeName, themeAuthor, themeEmail;
+        private String emailSubject, emailBody;
+        private ProgressDialog progressDialog;
+
+        SendErrorReport(Context context_, String themePid_, String errorLog_) {
+            context = context_;
+            themePid = themePid_;
+            errorLog = errorLog_;
+
+            themeName = References.grabPackageName(context_, themePid);
+            themeAuthor = References.getOverlayMetadata(context, themePid, metadataAuthor);
+            themeEmail = References.getOverlayMetadata(context, themePid, metadataEmail);
+
+            emailSubject = String.format(
+                    context.getString(R.string.logcat_email_subject), themeName);
+            emailBody = String.format(
+                    context.getString(R.string.logcat_email_body), themeAuthor, themeName);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            progressDialog = new ProgressDialog(context);
+            progressDialog.setIndeterminate(true);
+            progressDialog.setCancelable(false);
+            progressDialog.setMessage(context.getString(R.string.logcat_processing_dialog));
+            progressDialog.show();
+        }
+
+        @Override
+        protected File doInBackground(Void... sUrl) {
+            String rom = References.checkFirmwareSupport(context,
+                    context.getString(R.string.supported_roms_url),
+                    "supported_roms.xml");
+            String version = Build.VERSION.RELEASE + " - " + (!rom.isEmpty() ? rom : "Unknown");
+
+            String device = Build.MODEL + " (" + Build.DEVICE + ") " +
+                    "[" + Build.FINGERPRINT + "]";
+            String xposed = References.checkXposedVersion();
+            if (!xposed.isEmpty()) device += " {" + xposed + "}";
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd-HH:mm", Locale.US);
+            File log = new File(Environment.getExternalStorageDirectory().getAbsolutePath() +
+                    "/theme_error-" + dateFormat.format(new Date()) + ".txt");
+            try (FileWriter fw = new FileWriter(log, false);
+                 BufferedWriter out = new BufferedWriter(fw)) {
+
+                String attachment = String.format(
+                        context.getString(R.string.logcat_attachment_body),
+                        device,
+                        version,
+                        References.grabAppVersion(context, themePid),
+                        BuildConfig.VERSION_CODE, errorLog);
+                out.write(attachment);
+            } catch (IOException e) {
+                // Suppress exception
+            }
+            return log;
+        }
+
+        @Override
+        protected void onPostExecute(File result) {
+            progressDialog.dismiss();
+
+            Intent i = new Intent(Intent.ACTION_SEND);
+            i.setType("message/rfc822");
+            i.putExtra(Intent.EXTRA_EMAIL, new String[]{themeEmail});
+            i.putExtra(Intent.EXTRA_SUBJECT, emailSubject);
+            i.putExtra(Intent.EXTRA_TEXT, emailBody);
+            i.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(result));
+            try {
+                context.startActivity(Intent.createChooser(
+                        i, context.getString(R.string.logcat_email_activity)));
+            } catch (android.content.ActivityNotFoundException ex) {
+                Toast.makeText(context,
+                        R.string.logcat_email_activity_error,
+                        Toast.LENGTH_LONG)
+                        .show();
+            }
         }
     }
 

@@ -160,6 +160,7 @@ public class References {
     // These strings control the current filter for themes
     public static final String metadataName = "Substratum_Name";
     public static final String metadataAuthor = "Substratum_Author";
+    public static final String metadataEmail = "Substratum_Email";
     public static final String metadataLegacy = "Substratum_Legacy";
     public static final String metadataWallpapers = "Substratum_Wallpapers";
     public static final String metadataOverlayDevice = "Substratum_Device";
@@ -282,7 +283,7 @@ public class References {
             File check = new File(context.getCacheDir().getAbsolutePath() +
                     "/" + inputFileName);
             if (!check.exists()) {
-                return null;
+                return "";
             }
         }
 
@@ -294,7 +295,6 @@ public class References {
             Boolean supported = false;
 
             Iterator it = listOfRoms.entrySet().iterator();
-            Iterator it2 = listOfRoms.entrySet().iterator();
 
             // First check if it is a valid prop
             while (it.hasNext()) {
@@ -329,6 +329,7 @@ public class References {
 
             // Then check ro.product.flavor
             if (!supported) {
+                Iterator it2 = listOfRoms.entrySet().iterator();
                 Process process = Runtime.getRuntime().exec("getprop ro.build.flavor");
                 BufferedReader reader = new BufferedReader(
                         new InputStreamReader(process.getInputStream()));

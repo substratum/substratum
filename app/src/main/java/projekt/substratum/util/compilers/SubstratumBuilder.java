@@ -419,12 +419,11 @@ public class SubstratumBuilder {
                 String vendor_location = LEGACY_NEXUS_DIR;
                 String vendor_partition = VENDOR_DIR;
                 String vendor_symlink = PIXEL_NEXUS_DIR;
-                String current_vendor =
-                        ((References.inNexusFilter()) ? vendor_partition : vendor_location);
 
                 FileOperations.mountRW();
-                if (current_vendor.equals(vendor_location)) {
-                    FileOperations.createNewFolder(current_vendor);
+                // For Non-Nexus devices
+                if (!References.inNexusFilter()) {
+                    FileOperations.createNewFolder(vendor_location);
                     FileOperations.move(context, Environment.getExternalStorageDirectory()
                             .getAbsolutePath() + EXTERNAL_STORAGE_CACHE + overlay_package +
                             "." + parse2_themeName + "-signed.apk", vendor_location +
@@ -434,6 +433,7 @@ public class SubstratumBuilder {
                     FileOperations.setPermissions(755, vendor_location);
                     FileOperations.setContext(vendor_location);
                 } else {
+                // For Nexus devices
                     FileOperations.mountRWVendor();
                     FileOperations.createNewFolder(vendor_symlink);
                     FileOperations.createNewFolder(vendor_partition);

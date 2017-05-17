@@ -425,13 +425,6 @@ public class SubstratumBuilder {
                 FileOperations.mountRW();
                 if (current_vendor.equals(vendor_location)) {
                     FileOperations.createNewFolder(current_vendor);
-                } else {
-                    FileOperations.mountRWVendor();
-                    FileOperations.createNewFolder(vendor_symlink);
-                    FileOperations.createNewFolder(vendor_partition);
-                    FileOperations.mountROVendor();
-                }
-                if (current_vendor.equals(vendor_location)) {
                     FileOperations.move(context, Environment.getExternalStorageDirectory()
                             .getAbsolutePath() + EXTERNAL_STORAGE_CACHE + overlay_package +
                             "." + parse2_themeName + "-signed.apk", vendor_location +
@@ -442,6 +435,8 @@ public class SubstratumBuilder {
                     FileOperations.setContext(vendor_location);
                 } else {
                     FileOperations.mountRWVendor();
+                    FileOperations.createNewFolder(vendor_symlink);
+                    FileOperations.createNewFolder(vendor_partition);
                     // On nexus devices, put framework overlay to /vendor/overlay/
                     if (overlay_package.equals("android")) {
                         String android_overlay = vendor_partition + "/" + overlay_package + "."

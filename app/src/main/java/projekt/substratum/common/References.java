@@ -236,133 +236,108 @@ public class References {
     private Context mContext; // Used for support checker
 
     public static String checkFirmwareSupport(Context context, String urls, String inputFileName) {
-        InputStream input = null;
-        OutputStream output = null;
-        HttpURLConnection connection = null;
-
-        if (References.isNetworkAvailable(context)) {
-            try {
-                URL url = new URL(urls);
-                connection = (HttpURLConnection) url.openConnection();
-                connection.connect();
-
-                // expect HTTP 200 OK, so we don't mistakenly save error report
-                // instead of the file
-                if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                    return "Server returned HTTP " + connection.getResponseCode()
-                            + " " + connection.getResponseMessage();
-                }
-
-                // download the file
-                input = connection.getInputStream();
-
-                output = new FileOutputStream(context.getCacheDir().getAbsolutePath() +
-                        "/" + inputFileName);
-
-                byte data[] = new byte[4096];
-                int count;
-                while ((count = input.read(data)) != -1) {
-                    // allow canceling with back button
-                    output.write(data, 0, count);
-                }
-            } catch (Exception e) {
-                return "";
-            } finally {
-                try {
-                    if (output != null)
-                        output.close();
-                    if (input != null)
-                        input.close();
-                } catch (IOException ignored) {
-                }
-
-                if (connection != null)
-                    connection.disconnect();
-            }
-        } else {
-            File check = new File(context.getCacheDir().getAbsolutePath() +
-                    "/" + inputFileName);
-            if (!check.exists()) {
-                return "";
-            }
-        }
-
-        HashMap<String, String> listOfRoms =
-                ReadSupportedROMsFile.main(context.getCacheDir() + "/" + inputFileName);
         String supported_rom = "";
-
         try {
+            HttpURLConnection connection = (HttpURLConnection) new URL(urls).openConnection();
+            connection.connect();
+
+            if (References.isNetworkAvailable(context)) {
+                try (InputStream input = connection.getInputStream();
+                     OutputStream output = new FileOutputStream(
+                             context.getCacheDir().getAbsolutePath() + "/" + inputFileName)){
+
+                    // expect HTTP 200 OK, so we don't mistakenly save error report
+                    // instead of the file
+                    if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
+                        return "Server returned HTTP " + connection.getResponseCode()
+                                + " " + connection.getResponseMessage();
+                    }
+
+                    byte data[] = new byte[4096];
+                    int count;
+                    while ((count = input.read(data)) != -1) {
+                        // allow canceling with back button
+                        output.write(data, 0, count);
+                    }
+                }
+            } else {
+                File check = new File(context.getCacheDir().getAbsolutePath() +
+                        "/" + inputFileName);
+                if (!check.exists()) {
+                    return "";
+                }
+            }
+
+            HashMap<String, String> listOfRoms =
+                    ReadSupportedROMsFile.main(context.getCacheDir() + "/" + inputFileName);
             Boolean supported = false;
 
-            Iterator it = listOfRoms.entrySet().iterator();
-
             // First check if it is a valid prop
-            while (it.hasNext()) {
-                Map.Entry pair = (Map.Entry) it.next();
-
+            for (Object o : listOfRoms.entrySet()) {
+                Map.Entry pair = (Map.Entry) o;
                 String key = (String) pair.getKey();
                 String value = (String) pair.getValue();
                 Process process = Runtime.getRuntime().exec("getprop " + key);
-                BufferedReader reader = new BufferedReader(
-                        new InputStreamReader(process.getInputStream()));
                 process.waitFor();
-                String line = reader.readLine();
-                if (line != null && line.length() > 0) {
-                    if (value == null || value.length() == 0) {
-                        String current = key;
-                        if (current.contains(".")) {
-                            current = current.split("\\.")[1];
+                try (BufferedReader reader = new BufferedReader(
+                        new InputStreamReader(process.getInputStream()))) {
+                    String line = reader.readLine();
+                    if (line != null && line.length() > 0) {
+                        if (value == null || value.length() == 0) {
+                            String current = key;
+                            if (current.contains(".")) {
+                                current = current.split("\\.")[1];
+                            }
+                            Log.d(References.SUBSTRATUM_LOG, "Supported ROM: " + current);
+                            supported_rom = current;
+                            supported = true;
+                        } else {
+                            Log.d(References.SUBSTRATUM_LOG, "Supported ROM: " + value);
+                            supported_rom = value;
+                            supported = true;
                         }
-                        Log.d(References.SUBSTRATUM_LOG, "Supported ROM: " + current);
-                        supported_rom = current;
-                        supported = true;
-                    } else {
-                        Log.d(References.SUBSTRATUM_LOG, "Supported ROM: " + value);
-                        supported_rom = value;
-                        supported = true;
+                        break;
                     }
-                    break;
                 }
-                reader.close();
-                it.remove();
             }
 
             // Then check ro.product.flavor
             if (!supported) {
-                Iterator it2 = listOfRoms.entrySet().iterator();
+                Iterator it = listOfRoms.entrySet().iterator();
                 Process process = Runtime.getRuntime().exec("getprop ro.build.flavor");
-                BufferedReader reader = new BufferedReader(
-                        new InputStreamReader(process.getInputStream()));
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    while (it2.hasNext()) {
-                        Map.Entry pair = (Map.Entry) it2.next();
+                process.waitFor();
+                try (BufferedReader reader = new BufferedReader(
+                                new InputStreamReader(process.getInputStream()))) {
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        while (it.hasNext()) {
+                            Map.Entry pair = (Map.Entry) it.next();
 
-                        String key = (String) pair.getKey();
-                        String value = (String) pair.getValue();
+                            String key = (String) pair.getKey();
+                            String value = (String) pair.getValue();
 
-                        if (line.toLowerCase().contains(key.toLowerCase())) {
-                            if (value == null || value.length() == 0) {
-                                String current = key;
-                                if (current.contains(".")) {
-                                    current = current.split("\\.")[1];
+                            if (line.toLowerCase().contains(key.toLowerCase())) {
+                                if (value == null || value.length() == 0) {
+                                    String current = key;
+                                    if (current.contains(".")) {
+                                        current = current.split("\\.")[1];
+                                    }
+                                    Log.d(References.SUBSTRATUM_LOG,
+                                            "Supported ROM (1): " + current);
+                                    supported_rom = current;
+                                    supported = true;
+                                } else {
+                                    Log.d(References.SUBSTRATUM_LOG,
+                                            "Supported ROM (1): " + value);
+                                    supported_rom = value;
+                                    supported = true;
                                 }
-                                Log.d(References.SUBSTRATUM_LOG,
-                                        "Supported ROM (1): " + current);
-                                supported_rom = current;
-                                supported = true;
-                            } else {
-                                Log.d(References.SUBSTRATUM_LOG,
-                                        "Supported ROM (1): " + value);
-                                supported_rom = value;
-                                supported = true;
+                                break;
                             }
-                            break;
                         }
+                        if (supported) break;
                     }
-                    if (supported) break;
                 }
-                reader.close();
             }
         } catch (Exception e) {
             // Suppress warning

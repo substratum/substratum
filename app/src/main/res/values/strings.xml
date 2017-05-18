@@ -825,6 +825,7 @@
     <string name="rom_status_supported">%s is community supported!</string>
     <string name="rom_status_unsupported">this rom is not community supported!</string>
     <string name="rom_status_network">internet check required&#8230;</string>
+    <string name="rom_status_on_stock">You are currently running a ROM without Theme Interfacer present. Functionality may be limited.</string>
 
     <!-- Nav drawer -->
     <string name="nav_home">Theme packs</string>

@@ -855,21 +855,38 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
+            if (!References.checkThemeInterfacer(getContext())) {
+                platformSummary.append(getString(R.string.rom_status))
+                        .append(" ")
+                        .append(getString(R.string.rom_status_on_stock));
+                systemPlatform.setSummary(platformSummary.toString());
+                return;
+            }
+
+            if (!References.isNetworkAvailable(getContext())) {
+                platformSummary.append(getString(R.string.rom_status))
+                        .append(" ")
+                        .append(getString(R.string.rom_status_network));
+                systemPlatform.setSummary(platformSummary.toString());
+                return;
+            }
+
             if (result.length() > 0) {
                 String supportedRom = String.format(
                         getString(R.string.rom_status_supported), result);
                 platformSummary.append(getString(R.string.rom_status))
-                        .append(" ").append(supportedRom);
+                        .append(" ")
+                        .append(supportedRom);
                 systemPlatform.setSummary(platformSummary.toString());
-            } else if (!References.isNetworkAvailable(
-                    getContext()) || result.equals("")) {
-                platformSummary.append(getString(R.string.rom_status)).append(" ").append(
-                        getString(R.string.rom_status_network));
+                return;
+            }
+
+            if (result.equals("")) {
+                platformSummary.append(getString(R.string.rom_status))
+                        .append(" ")
+                        .append(getString(R.string.rom_status_unsupported));
                 systemPlatform.setSummary(platformSummary.toString());
-            } else {
-                platformSummary.append(getString(R.string.rom_status)).append(" ").append(
-                        getString(R.string.rom_status_unsupported));
-                systemPlatform.setSummary(platformSummary.toString());
+                return;
             }
         }
 

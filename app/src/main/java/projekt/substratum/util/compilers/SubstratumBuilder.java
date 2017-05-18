@@ -185,27 +185,16 @@ public class SubstratumBuilder {
             if (Arrays.asList(work_area_array.list()).contains("priority")) {
                 Log.d(References.SUBSTRATUM_BUILDER,
                         "A specified priority file has been found for this overlay!");
-                BufferedReader reader = null;
-                try {
-                    reader = new BufferedReader(
-                            new InputStreamReader(new FileInputStream(
-                                    new File(work_area_array.getAbsolutePath() + "/priority"))));
+                try (
+                        BufferedReader reader = new BufferedReader(
+                                new InputStreamReader(new FileInputStream(
+                                        new File(work_area_array.getAbsolutePath() + "/priority"))));
+                ){
                     legacy_priority = Integer.parseInt(reader.readLine());
                 } catch (IOException e) {
                     dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
                             "There was an error parsing priority file!");
                     legacy_priority = References.DEFAULT_PRIORITY;
-                } finally {
-                    if (reader != null) {
-                        try {
-                            reader.close();
-                        } catch (IOException e) {
-                            dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
-                                    "Could not read priority file " +
-                                            "properly, falling back to default integer...");
-                            legacy_priority = References.DEFAULT_PRIORITY;
-                        }
-                    }
                 }
             } else {
                 legacy_priority = References.DEFAULT_PRIORITY;

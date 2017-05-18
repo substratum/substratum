@@ -391,9 +391,9 @@ public class SubstratumBuilder {
                     if (variant != null) {
                         no_install = Environment
                                 .getExternalStorageDirectory()
-                                .getAbsolutePath() + EXTERNAL_STORAGE_CACHE +
-                                overlay_package + "." + parse2_themeName +
-                                "-signed.apk";
+                                .getAbsolutePath() +
+                                EXTERNAL_STORAGE_CACHE + overlay_package + "." +
+                                parse2_themeName + "." + varianter + "-signed.apk";
                     } else {
                         no_install = Environment
                                 .getExternalStorageDirectory()

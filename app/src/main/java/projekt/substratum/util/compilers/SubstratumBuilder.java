@@ -367,7 +367,7 @@ public class SubstratumBuilder {
                     String overlayName = variant == null ?
                             overlay_package + "." + parse2_themeName :
                             overlay_package + "." + parse2_themeName + "." + varianter;
-                    special_snowflake = ThemeManager.isOverlayEnabled(overlayName);
+                    special_snowflake = ThemeManager.isOverlayEnabled(context, overlayName);
                 }
 
                 if (!special_snowflake) {

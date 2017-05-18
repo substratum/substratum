@@ -71,9 +71,9 @@ public class ThemeManager {
             ThemeInterfacerService.enableOverlays(context, overlays, shouldRestartUI(context,
                     overlays));
         } else {
-            String commands = enableOverlay;
-            for (int i = 0; i < overlays.size(); i++) {
-                commands += " " + overlays.get(i);
+            String commands = enableOverlay + " " + overlays.get(0);
+            for (int i = 1; i < overlays.size(); i++) {
+                commands += ";" + enableOverlay + " " + overlays.get(i);
             }
             new ElevatedCommands.ThreadRunner().execute(commands);
             if (shouldRestartUI(context, overlays)) ThemeManager.restartSystemUI(context);
@@ -85,9 +85,9 @@ public class ThemeManager {
             ThemeInterfacerService.disableOverlays(context, overlays, shouldRestartUI(context,
                     overlays));
         } else {
-            String commands = disableOverlay;
-            for (int i = 0; i < overlays.size(); i++) {
-                commands += " " + overlays.get(i);
+            String commands = disableOverlay + " " + overlays.get(0);
+            for (int i = 1; i < overlays.size(); i++) {
+                commands += ";" + disableOverlay + " " + overlays.get(i);
             }
             new ElevatedCommands.ThreadRunner().execute(commands);
             if (shouldRestartUI(context, overlays)) restartSystemUI(context);
@@ -101,8 +101,8 @@ public class ThemeManager {
         } else {
             String commands = "";
             for (int i = 0; i < overlays.size() - 1; i++) {
-                String parentName = overlays.get(i);
-                String packageName = overlays.get(i + 1);
+                String packageName = overlays.get(i);
+                String parentName = overlays.get(i + 1);
                 commands += (commands.isEmpty() ? "" : " && ") + setPriority + " " + packageName +
                         " " + parentName;
             }
@@ -113,7 +113,7 @@ public class ThemeManager {
 
     public static void disableAllThemeOverlays(Context context) {
         if (checkThemeInterfacer(context)) {
-            List<String> list = ThemeManager.listOverlays(STATE_APPROVED_ENABLED).stream()
+            List<String> list = ThemeManager.listOverlays(context, STATE_APPROVED_ENABLED).stream()
                     .filter(o -> References.grabOverlayParent(context, o) != null)
                     .collect(Collectors.toList());
             if (!list.isEmpty()) {
@@ -140,7 +140,7 @@ public class ThemeManager {
     }
 
     @SuppressWarnings("unchecked")
-    public static List<String> listOverlays(int state) {
+    public static List<String> listOverlays(Context context, int state) {
         List<String> list = new ArrayList<>();
         try {
             Map<String, List<OverlayInfo>> allOverlays = OverlayManagerService.getAllOverlays();
@@ -160,23 +160,46 @@ public class ThemeManager {
                 }
             }
         } catch (Exception e) {
-            // At this point, we probably ran into a legacy command
-            switch (state) {
-                case STATE_APPROVED_ENABLED:
-                    File legacyCheck = new File(LEGACY_NEXUS_DIR);
-                    if (legacyCheck.exists() && legacyCheck.isDirectory()) {
-                        list.clear();
-                        String[] lister = legacyCheck.list();
-                        for (String aLister : lister) {
-                            if (aLister.endsWith(".apk")) {
-                                list.add(aLister.substring(0, aLister.length() - 4));
+            // At this point, we probably ran into a legacy command or stock OMS
+            if (References.checkOMS(context)) {
+                String prefix;
+                switch (state) {
+                    case STATE_APPROVED_ENABLED:
+                        prefix = "[x]";
+                        break;
+                    case STATE_APPROVED_DISABLED:
+                        prefix = "[ ]";
+                        break;
+                    default:
+                        prefix = "---";
+                        break;
+                }
+
+                String[] arrList = Root.runCommand(listAllOverlays)
+                        .split(System.getProperty("line.separator"));
+                for (String line : arrList) {
+                    if (line.startsWith(prefix)) {
+                        list.add(line.substring(4));
+                    }
+                }
+            } else {
+                switch (state) {
+                    case STATE_APPROVED_ENABLED:
+                        File legacyCheck = new File(LEGACY_NEXUS_DIR);
+                        if (legacyCheck.exists() && legacyCheck.isDirectory()) {
+                            list.clear();
+                            String[] lister = legacyCheck.list();
+                            for (String aLister : lister) {
+                                if (aLister.endsWith(".apk")) {
+                                    list.add(aLister.substring(0, aLister.length() - 4));
+                                }
                             }
                         }
-                    }
-                    break;
-                default:
-                    list.clear();
-                    break;
+                        break;
+                    default:
+                        list.clear();
+                        break;
+                }
             }
         }
         return list;
@@ -185,31 +208,51 @@ public class ThemeManager {
     @SuppressWarnings("unchecked")
     public static List<String> listTargetWithMultipleOverlaysEnabled() {
         List<String> list = new ArrayList<>();
-        Map<String, List<OverlayInfo>> allOverlays = OverlayManagerService.getAllOverlays();
-        if (allOverlays != null) {
-            Set<String> set = allOverlays.keySet();
-            for (String targetPackageName : set) {
-                List<OverlayInfo> targetOverlays = allOverlays.get(targetPackageName);
-                int targetOverlaysSize = targetOverlays.size();
-                int count = 0;
+        try {
+            Map<String, List<OverlayInfo>> allOverlays = OverlayManagerService.getAllOverlays();
+            if (allOverlays != null) {
+                Set<String> set = allOverlays.keySet();
+                for (String targetPackageName : set) {
+                    List<OverlayInfo> targetOverlays = allOverlays.get(targetPackageName);
+                    int targetOverlaysSize = targetOverlays.size();
+                    int count = 0;
 
-                for (OverlayInfo oi : targetOverlays) {
-                    if (oi.isEnabled()) {
-                        count++;
+                    for (OverlayInfo oi : targetOverlays) {
+                        if (oi.isEnabled()) {
+                            count++;
+                        }
+                    }
+                    if (targetOverlaysSize > 1 && count > 1) {
+                        list.add(targetPackageName);
                     }
                 }
-                if (targetOverlaysSize > 1 && count > 1) {
-                    list.add(targetPackageName);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Stock OMS goes here
+            String prefix = "[x]";
+            String[] arrList = Root.runCommand(listAllOverlays)
+                    .split(System.getProperty("line.separator"));
+            int counter = 0;
+            String currentApp = "";
+            for (String line : arrList) {
+                if (line.startsWith(prefix)) {
+                    counter++;
+                } else if (!line.startsWith("---")){
+                    if (counter > 1) {
+                        list.add(currentApp);
+                    }
+                    counter = 0;
+                    currentApp = line;
                 }
             }
         }
         return list;
     }
 
-    public static boolean isOverlay(String target) {
-        List<String> list = new ArrayList<>();
-        List<String> overlays = listOverlays(STATE_APPROVED_ENABLED);
-        overlays.addAll(listOverlays(STATE_APPROVED_DISABLED));
+    public static boolean isOverlay(Context context, String target) {
+        List<String> overlays = listOverlays(context, STATE_APPROVED_ENABLED);
+        overlays.addAll(listOverlays(context, STATE_APPROVED_DISABLED));
         for (int i = 0; i < overlays.size(); i++) {
             if (overlays.get(i).equals(target)) {
                 return true;
@@ -220,8 +263,8 @@ public class ThemeManager {
 
     public static List<String> listOverlaysByTheme(Context context, String target) {
         List<String> list = new ArrayList<>();
-        List<String> overlays = listOverlays(STATE_APPROVED_ENABLED);
-        overlays.addAll(listOverlays(STATE_APPROVED_DISABLED));
+        List<String> overlays = listOverlays(context, STATE_APPROVED_ENABLED);
+        overlays.addAll(listOverlays(context, STATE_APPROVED_DISABLED));
         for (int i = 0; i < overlays.size(); i++) {
             if (References.grabOverlayParent(context, overlays.get(i)).equals(target)) {
                 list.add(overlays.get(i));
@@ -230,25 +273,25 @@ public class ThemeManager {
         return list;
     }
 
-    public static List<String> listOverlaysForTarget(String target) {
+    public static List<String> listOverlaysForTarget(Context context, String target) {
         List<String> list = new ArrayList<>();
-        List<String> overlays = listOverlays(STATE_APPROVED_ENABLED);
-        overlays.addAll(listOverlays(STATE_APPROVED_DISABLED));
+        List<String> overlays = listOverlays(context, STATE_APPROVED_ENABLED);
+        overlays.addAll(listOverlays(context, STATE_APPROVED_DISABLED));
         list.addAll(overlays.stream().filter(o -> o.startsWith(target))
                 .collect(Collectors.toList()));
         return list;
     }
 
-    public static List<String> listEnabledOverlaysForTarget(String target) {
+    public static List<String> listEnabledOverlaysForTarget(Context context, String target) {
         List<String> list = new ArrayList<>();
-        List<String> overlays = listOverlays(STATE_APPROVED_ENABLED);
+        List<String> overlays = listOverlays(context, STATE_APPROVED_ENABLED);
         list.addAll(overlays.stream().filter(o -> o.startsWith(target))
                 .collect(Collectors.toList()));
         return list;
     }
 
-    public static boolean isOverlayEnabled(String overlayName) {
-        List<String> enabledOverlays = ThemeManager.listOverlays(STATE_APPROVED_ENABLED);
+    public static boolean isOverlayEnabled(Context context, String overlayName) {
+        List<String> enabledOverlays = ThemeManager.listOverlays(context, STATE_APPROVED_ENABLED);
         for (String o : enabledOverlays) {
             if (o.equals(overlayName)) return true;
         }

@@ -72,7 +72,7 @@ public class OverlayUpdater extends BroadcastReceiver {
             this.package_name = intent.getData().toString().substring(8);
             this.context = context;
 
-            if (ThemeManager.isOverlay(package_name) ||
+            if (ThemeManager.isOverlay(context, package_name) ||
                     !References.checkOMS(context) ||
                     References.isCachingEnabled(context)) {
                 return;
@@ -112,7 +112,7 @@ public class OverlayUpdater extends BroadcastReceiver {
         protected void onPreExecute() {
             switch (UPGRADE_MODE) {
                 case APP_UPGRADE:
-                    installed_overlays = ThemeManager.listOverlaysForTarget(package_name);
+                    installed_overlays = ThemeManager.listOverlaysForTarget(context, package_name);
                     break;
                 case THEME_UPGRADE:
                     installed_overlays = ThemeManager.listOverlaysByTheme(context, package_name);

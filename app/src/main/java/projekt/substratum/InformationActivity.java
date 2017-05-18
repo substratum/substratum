@@ -746,9 +746,10 @@ public class InformationActivity extends SubstratumActivity {
                 builder1.setMessage(R.string.clean_dialog_body)
                         .setPositiveButton(R.string.uninstall_dialog_okay, (dialog, id18) -> {
                             // Get all installed overlays
-                            List<String> stateAll =
-                                    ThemeManager.listOverlays(STATE_APPROVED_DISABLED);
-                            stateAll.addAll(ThemeManager.listOverlays(STATE_APPROVED_ENABLED));
+                            List<String> stateAll = ThemeManager.listOverlays(
+                                    getApplicationContext(), STATE_APPROVED_DISABLED);
+                            stateAll.addAll(ThemeManager.listOverlays(
+                                    getApplicationContext(), STATE_APPROVED_ENABLED));
 
                             ArrayList<String> all_overlays = new ArrayList<>();
                             for (int j = 0; j < stateAll.size(); j++) {
@@ -812,8 +813,8 @@ public class InformationActivity extends SubstratumActivity {
                 builder3.setMessage(R.string.disable_dialog_body)
                         .setPositiveButton(R.string.uninstall_dialog_okay, (dialog, id16) -> {
                             // Get all enabled overlays
-                            List<String> stateAll =
-                                    ThemeManager.listOverlays(STATE_APPROVED_ENABLED);
+                            List<String> stateAll = ThemeManager.listOverlays(
+                                    getApplicationContext(), STATE_APPROVED_ENABLED);
 
                             ArrayList<String> all_overlays = new ArrayList<>();
                             for (int j = 0; j < stateAll.size(); j++) {
@@ -854,8 +855,8 @@ public class InformationActivity extends SubstratumActivity {
                 builder4.setMessage(R.string.enable_dialog_body)
                         .setPositiveButton(R.string.uninstall_dialog_okay, (dialog, id14) -> {
                             // Get all disabled overlays
-                            List<String> stateAll =
-                                    ThemeManager.listOverlays(STATE_APPROVED_DISABLED);
+                            List<String> stateAll = ThemeManager.listOverlays(
+                                    getApplicationContext(), STATE_APPROVED_DISABLED);
 
                             ArrayList<String> all_overlays = new ArrayList<>();
                             for (int j = 0; j < stateAll.size(); j++) {

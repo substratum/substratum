@@ -117,8 +117,10 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
             String dialogTitle = String.format(getString(R.string.per_app_dialog_title),
                     packageName);
 
-            List<String> state4 = ThemeManager.listOverlays(STATE_APPROVED_DISABLED);
-            List<String> state5 = ThemeManager.listOverlays(STATE_APPROVED_ENABLED);
+            List<String> state4 =
+                    ThemeManager.listOverlays(getApplicationContext(), STATE_APPROVED_DISABLED);
+            List<String> state5 =
+                    ThemeManager.listOverlays(getApplicationContext(), STATE_APPROVED_ENABLED);
             ArrayList<String> disabled = new ArrayList<>(state4);
             ArrayList<String> enabled = new ArrayList<>(state5);
             ArrayList<String> all_overlays = new ArrayList<>();

@@ -243,7 +243,7 @@ public class ProfileManager {
                 xmlSerializer.startTag(null, METADATA_PROFILE_OVERLAYS);
 
                 // Write enabled overlays
-                List<String> enabled = ThemeManager.listOverlays(STATE_APPROVED_ENABLED);
+                List<String> enabled = ThemeManager.listOverlays(context, STATE_APPROVED_ENABLED);
                 if (enabled.size() > 0) {
                     xmlSerializer.startTag(null, METADATA_PROFILE_ENABLED);
                     for (String packageName : enabled) {
@@ -277,7 +277,7 @@ public class ProfileManager {
                 }
 
                 // Write disabled overlays
-                List<String> disabled = ThemeManager.listOverlays(STATE_APPROVED_DISABLED);
+                List<String> disabled = ThemeManager.listOverlays(context, STATE_APPROVED_DISABLED);
                 if (disabled.size() > 0) {
                     xmlSerializer.startTag(null, METADATA_PROFILE_DISABLED);
                     for (String packageName : disabled) {

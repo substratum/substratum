@@ -848,8 +848,8 @@ public class ProfileFragment extends Fragment {
                     List<List<String>> profile =
                             ProfileManager.readProfileStatePackageWithTargetPackage(
                                     profile_name, STATE_APPROVED_ENABLED);
-                    system = ThemeManager.listOverlays(STATE_APPROVED_ENABLED);
-                    system.addAll(ThemeManager.listOverlays(STATE_APPROVED_DISABLED));
+                    system = ThemeManager.listOverlays(getContext(), STATE_APPROVED_ENABLED);
+                    system.addAll(ThemeManager.listOverlays(getContext(), STATE_APPROVED_DISABLED));
 
                     // Now process the overlays to be enabled
                     for (int i = 0, size = profile.size(); i < size; i++) {
@@ -1116,7 +1116,7 @@ public class ProfileFragment extends Fragment {
 
             if (References.checkThemeInterfacer(context)) {
                 ArrayList<String> toBeDisabled =
-                        new ArrayList<>(ThemeManager.listOverlays(STATE_APPROVED_ENABLED));
+                        new ArrayList<>(ThemeManager.listOverlays(context, STATE_APPROVED_ENABLED));
                 boolean shouldRestartUi = ThemeManager.shouldRestartUI(context, toBeDisabled)
                         || ThemeManager.shouldRestartUI(context, toBeRun);
                 ThemeInterfacerService.applyProfile(context, profileName, toBeDisabled,

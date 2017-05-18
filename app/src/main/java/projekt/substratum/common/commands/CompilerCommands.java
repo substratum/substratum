@@ -80,7 +80,8 @@ public class CompilerCommands {
                 "android:targetPackage=\"" + targetPackage + "\"/>\n" +
 
                 // Our current overlay label is set to be its own package name
-                "    <application android:label=\"" + package_name + "\">\n" +
+                "    <application android:label=\"" + package_name + "\"" +
+                " android:hasCode=\"false\">\n" +
 
                 // Ensure that this overlay was specifically made for this device only
                 "        <meta-data android:name=\"" + metadataOverlayDevice + "\" " +

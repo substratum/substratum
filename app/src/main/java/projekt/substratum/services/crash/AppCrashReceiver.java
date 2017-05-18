@@ -66,7 +66,7 @@ public class AppCrashReceiver extends BroadcastReceiver {
             Log.e(TAG, "\'" + packageName + "\' is repeatedly stopping...");
             Log.e(TAG, "Now disabling all overlays for \'" + packageName + "\'...");
 
-            List<String> overlays = ThemeManager.listEnabledOverlaysForTarget(packageName);
+            List<String> overlays = ThemeManager.listEnabledOverlaysForTarget(context, packageName);
 
             if (overlays.size() > 0) {
                 try {

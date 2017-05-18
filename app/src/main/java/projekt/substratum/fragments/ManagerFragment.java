@@ -27,6 +27,7 @@ import android.content.pm.ApplicationInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
@@ -116,7 +117,8 @@ public class ManagerFragment extends Fragment {
                     }
                 }
             } else {
-                List<String> listed = ThemeManager.listOverlays(STATE_APPROVED_ENABLED);
+                List<String> listed =
+                        ThemeManager.listOverlays(getContext(), STATE_APPROVED_ENABLED);
                 Collections.sort(listed);
                 updated.addAll(listed.stream().map(file ->
                         new ManagerItem(getContext(), file, true)).collect(Collectors.toList()));
@@ -282,7 +284,7 @@ public class ManagerFragment extends Fragment {
     }
 
     private List<String> updateEnabledOverlays() {
-        List<String> state5 = ThemeManager.listOverlays(STATE_APPROVED_ENABLED);
+        List<String> state5 = ThemeManager.listOverlays(getContext(), STATE_APPROVED_ENABLED);
         ArrayList<String> all = new ArrayList<>(state5);
         ArrayList<String> all_installed_overlays = new ArrayList<>();
 
@@ -326,9 +328,9 @@ public class ManagerFragment extends Fragment {
 
                 if (References.checkOMS(fragment.context)) {
                     ArrayList<String> active = new ArrayList<>(
-                            ThemeManager.listOverlays(STATE_APPROVED_ENABLED));
+                            ThemeManager.listOverlays(fragment.context, STATE_APPROVED_ENABLED));
                     ArrayList<String> disabled = new ArrayList<>(
-                            ThemeManager.listOverlays(STATE_APPROVED_DISABLED));
+                            ThemeManager.listOverlays(fragment.context, STATE_APPROVED_DISABLED));
 
                     // ValidatorFilter out icon pack overlays from the advanced manager
                     fragment.activated_overlays = new ArrayList<>();
@@ -429,7 +431,8 @@ public class ManagerFragment extends Fragment {
                     }
                 } else {
                     // At this point, the object is an RRO formatted check
-                    List<String> listed = ThemeManager.listOverlays(STATE_APPROVED_ENABLED);
+                    List<String> listed =
+                            ThemeManager.listOverlays(fragment.context, STATE_APPROVED_ENABLED);
                     fragment.activated_overlays.addAll(listed);
                     Collections.sort(fragment.activated_overlays);
                     for (int i = 0; i < fragment.activated_overlays.size(); i++) {
@@ -509,27 +512,11 @@ public class ManagerFragment extends Fragment {
                 }
 
                 // The magic goes here
-                if (checkThemeInterfacer(context)) {
-                    ThemeManager.disableOverlay(context, data);
-                } else {
-                    String final_commands = ThemeManager.disableOverlay;
-                    for (int i = 0; i < data.size(); i++) {
-                        final_commands += " " + data.get(i);
-                    }
-                    if (!checkThemeInterfacer(context) &&
-                            isPackageInstalled(context, MASQUERADE_PACKAGE)) {
-                        Log.d(SUBSTRATUM_LOG, "Using Masquerade as the fallback system...");
-                        Intent runCommand = MasqueradeService.getMasquerade(context);
-                        runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                        runCommand.setAction("masquerade.substratum.COMMANDS");
-                        runCommand.putExtra("om-commands", final_commands);
-                        context.sendBroadcast(runCommand);
-                    }
-                }
+                ThemeManager.disableOverlay(context, data);
 
                 if (!References.checkThemeInterfacer(context) &&
                         References.needsRecreate(context, data)) {
-                    Handler handler = new Handler();
+                    Handler handler = new Handler(Looper.getMainLooper());
                     handler.postDelayed(() -> {
                         // OMS may not have written all the changes so quickly just yet
                         // so we may need to have a small delay
@@ -696,27 +683,11 @@ public class ManagerFragment extends Fragment {
                 }
 
                 // The magic goes here
-                if (checkThemeInterfacer(context)) {
-                    ThemeManager.enableOverlay(context, data);
-                } else {
-                    String final_commands = ThemeManager.enableOverlay;
-                    for (int i = 0; i < data.size(); i++) {
-                        final_commands += " " + data.get(i);
-                    }
-                    if (!checkThemeInterfacer(context) &&
-                            isPackageInstalled(context, MASQUERADE_PACKAGE)) {
-                        Log.d(SUBSTRATUM_LOG, "Using Masquerade as the fallback system...");
-                        Intent runCommand = MasqueradeService.getMasquerade(context);
-                        runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                        runCommand.setAction("masquerade.substratum.COMMANDS");
-                        runCommand.putExtra("om-commands", final_commands);
-                        context.sendBroadcast(runCommand);
-                    }
-                }
+                ThemeManager.enableOverlay(context, data);
 
                 if (!References.checkThemeInterfacer(context) &&
                         References.needsRecreate(context, data)) {
-                    Handler handler = new Handler();
+                    Handler handler = new Handler(Looper.getMainLooper());
                     handler.postDelayed(() -> {
                         // OMS may not have written all the changes so quickly just yet
                         // so we may need to have a small delay
@@ -771,30 +742,14 @@ public class ManagerFragment extends Fragment {
             }
 
             // The magic goes here
-            if (checkThemeInterfacer(context)) {
-                List<String> enabled = ThemeManager.listOverlays(STATE_APPROVED_ENABLED);
-                // Returns true if the two specified collections have no elements in common.
-                Boolean shouldRestartUI = Collections.disjoint(enabled, data);
-                ThemeManager.uninstallOverlay(context, data, shouldRestartUI);
-            } else {
-                ArrayList<String> final_commands = new ArrayList<>();
-                for (int i = 0; i < data.size(); i++) {
-                    final_commands.add(data.get(i));
-                }
-                if (!checkThemeInterfacer(context) &&
-                        isPackageInstalled(context, MASQUERADE_PACKAGE)) {
-                    Log.d(SUBSTRATUM_LOG, "Using Masquerade as the fallback system...");
-                    Intent runCommand = MasqueradeService.getMasquerade(context);
-                    runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                    runCommand.setAction("masquerade.substratum.COMMANDS");
-                    runCommand.putExtra("pm-uninstall", final_commands);
-                    context.sendBroadcast(runCommand);
-                }
-            }
+            List<String> enabled = ThemeManager.listOverlays(context, STATE_APPROVED_ENABLED);
+            // Returns true if the two specified collections have no elements in common.
+            Boolean shouldRestartUI = Collections.disjoint(enabled, data);
+            ThemeManager.uninstallOverlay(context, data, shouldRestartUI);
 
             if (!References.checkThemeInterfacer(context) &&
                     References.needsRecreate(context, data)) {
-                Handler handler = new Handler();
+                Handler handler = new Handler(Looper.getMainLooper());
                 handler.postDelayed(() -> {
                     // OMS may not have written all the changes so quickly just yet
                     // so we may need to have a small delay

@@ -59,7 +59,7 @@ public class OverlayFound extends BroadcastReceiver {
             this.package_name = intent.getData().toString().substring(8);
             this.context = context;
 
-            if (ThemeManager.isOverlay(package_name)) {
+            if (ThemeManager.isOverlay(context, package_name)) {
                 return;
             }
 

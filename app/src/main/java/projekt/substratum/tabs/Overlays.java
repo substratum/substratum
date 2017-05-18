@@ -622,7 +622,7 @@ public class Overlays extends Fragment {
     }
 
     private List<String> updateEnabledOverlays() {
-        List<String> state5 = ThemeManager.listOverlays(STATE_APPROVED_ENABLED);
+        List<String> state5 = ThemeManager.listOverlays(getContext(), STATE_APPROVED_ENABLED);
         ArrayList<String> all = new ArrayList<>(state5);
 
         all_installed_overlays = new ArrayList<>();
@@ -767,7 +767,7 @@ public class Overlays extends Fragment {
             }
 
             progressBar.setVisibility(View.GONE);
-            if (needsRecreate()) {
+            if (needsRecreate(getContext())) {
                 Handler handler = new Handler();
                 handler.postDelayed(() -> {
                     // OMS may not have written all the changes so quickly just yet
@@ -882,12 +882,12 @@ public class Overlays extends Fragment {
         }
     }
 
-    private boolean needsRecreate() {
+    private boolean needsRecreate(Context context) {
         for (OverlaysItem oi : checkedOverlays) {
             String packageName = oi.getPackageName();
             if (packageName.equals("android") || packageName.equals("projekt.substratum")) {
                 if (!enable_mode && !disable_mode &&
-                        ThemeManager.isOverlayEnabled(oi.getFullOverlayParameters())) {
+                        ThemeManager.isOverlayEnabled(context, oi.getFullOverlayParameters())) {
                     return false;
                 } else if (enable_mode || disable_mode || compile_enable_mode) {
                     return false;
@@ -1467,7 +1467,7 @@ public class Overlays extends Fragment {
                         if (targetOverlay.equals("android") ||
                                 targetOverlay.equals("com.android.systemui")) {
                             String packageName = checkedOverlays.get(i).getFullOverlayParameters();
-                            if (ThemeManager.isOverlayEnabled(packageName)) {
+                            if (ThemeManager.isOverlayEnabled(getContext(), packageName)) {
                                 ThemeManager.restartSystemUI(getContext());
                                 break;
                             }
@@ -1545,7 +1545,7 @@ public class Overlays extends Fragment {
                     }
 
                     progressBar.setVisibility(View.GONE);
-                    if (needsRecreate()) {
+                    if (needsRecreate(getContext())) {
                         Handler handler = new Handler();
                         handler.postDelayed(() -> {
                             // OMS may not have written all the changes so quickly just yet
@@ -1601,7 +1601,7 @@ public class Overlays extends Fragment {
                     }
 
                     progressBar.setVisibility(View.GONE);
-                    if (needsRecreate()) {
+                    if (needsRecreate(getContext())) {
                         Handler handler = new Handler();
                         handler.postDelayed(() -> {
                             // OMS may not have written all the changes so quickly just yet

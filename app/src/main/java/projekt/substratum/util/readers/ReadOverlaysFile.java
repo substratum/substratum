@@ -20,11 +20,14 @@ package projekt.substratum.util.readers;
 
 import android.content.Context;
 import android.os.Environment;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +37,7 @@ import static projekt.substratum.common.References.EXTERNAL_STORAGE_CACHE;
 
 public class ReadOverlaysFile {
 
-    public static List<String> main(Context context, String argv[]) {
+    public static List<String> main(Context context, int state) {
         // Copy provided overlays xml path
         File current_overlays = new File(Environment
                 .getExternalStorageDirectory().getAbsolutePath() +
@@ -42,15 +45,13 @@ public class ReadOverlaysFile {
         if (current_overlays.exists()) {
             FileOperations.delete(context, current_overlays.getAbsolutePath());
         }
-        FileOperations.copy(context, argv[0], current_overlays.getAbsolutePath());
-
-        // Parse provided state count
-        int state_count = Integer.parseInt(argv[1]);
+        File overlay = new File("/data/system/overlays.xml");
+        FileOperations.copy(context, overlay.getAbsolutePath(), current_overlays.getAbsolutePath());
 
         List<String> list = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(current_overlays))) {
             for (String line; (line = br.readLine()) != null; ) {
-                if (line.contains("state=\"" + state_count + "\"")) {
+                if (line.contains("state=\"" + state + "\"")) {
                     String[] split = line.substring(22).split("\\s+");
                     list.add(split[0].substring(1, split[0].length() - 1));
                 }

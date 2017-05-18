@@ -457,9 +457,9 @@ public class RecoveryFragment extends Fragment {
             if (withUninstall) {
                 if (References.checkOMS(context)) {
                     List<String> overlays =
-                            ThemeManager.listOverlays(STATE_NOT_APPROVED_DANGEROUS_OVERLAY);
-                    overlays.addAll(ThemeManager.listOverlays(STATE_APPROVED_DISABLED));
-                    overlays.addAll(ThemeManager.listOverlays(STATE_APPROVED_ENABLED));
+                            ThemeManager.listOverlays(context, STATE_NOT_APPROVED_DANGEROUS_OVERLAY);
+                    overlays.addAll(ThemeManager.listOverlays(context, STATE_APPROVED_DISABLED));
+                    overlays.addAll(ThemeManager.listOverlays(context, STATE_APPROVED_ENABLED));
 
                     fragment.final_commands_array = new ArrayList<>();
                     fragment.final_commands_array.addAll(overlays.stream()
@@ -598,7 +598,7 @@ public class RecoveryFragment extends Fragment {
             Context context = ref.get().getActivity();
             ArrayList<String> toBeDisabled = new ArrayList<>();
 
-            toBeDisabled.addAll(ThemeManager.listOverlays(STATE_APPROVED_ENABLED).stream()
+            toBeDisabled.addAll(ThemeManager.listOverlays(context, STATE_APPROVED_ENABLED).stream()
                     .filter(o -> References.grabIconPack(context, o) != null)
                     .collect(Collectors.toList()));
 

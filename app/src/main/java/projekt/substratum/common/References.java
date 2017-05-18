@@ -556,7 +556,8 @@ public class References {
             boolean usesInterfacer = checkThemeInterfacer(context);
             boolean usesOMS7old = output != null && output.equals(
                     "The overlay manager has already been initialized.");
-            if (usesInterfacer || usesOMS7old) {
+
+            if (usesInterfacer || usesOMS7old || checkOreo()) {
                 prefs.edit().putBoolean("oms_state", true).apply();
                 prefs.edit().putInt("oms_version", 7).apply();
                 Log.d(SUBSTRATUM_LOG, "Initializing Substratum with the seventh " +
@@ -1035,41 +1036,48 @@ public class References {
         return null;
     }
 
-    public static void logOverlayStates() {
+    public static void logOverlayStates(Context context) {
         /*
           An internal state used as the initial state of an overlay. OverlayInfo
           objects exposed outside the {@link
          * com.android.server.om.OverlayManagerService} should never have this
           state.
          */
-        List<String> stateN1 = ThemeManager.listOverlays(STATE_NOT_APPROVED_UNKNOWN);
+        List<String> stateN1 =
+                ThemeManager.listOverlays(context, STATE_NOT_APPROVED_UNKNOWN);
         /*
           The overlay package is disabled by the PackageManager.
          */
-        List<String> state0 = ThemeManager.listOverlays(STATE_NOT_APPROVED_COMPONENT_DISABLED);
+        List<String> state0 =
+                ThemeManager.listOverlays(context, STATE_NOT_APPROVED_COMPONENT_DISABLED);
         /*
           The target package of the overlay is not installed.
          */
-        List<String> state1 = ThemeManager.listOverlays(STATE_NOT_APPROVED_MISSING_TARGET);
+        List<String> state1 =
+                ThemeManager.listOverlays(context, STATE_NOT_APPROVED_MISSING_TARGET);
         /*
           Creation of idmap file failed (e.g. no matching resources).
          */
-        List<String> state2 = ThemeManager.listOverlays(STATE_NOT_APPROVED_NO_IDMAP);
+        List<String> state2 =
+                ThemeManager.listOverlays(context, STATE_NOT_APPROVED_NO_IDMAP);
         /*
           The overlay package is dangerous, i.e. it touches resources not explicitly
           OK'd by the target package.
          */
-        List<String> state3 = ThemeManager.listOverlays(STATE_NOT_APPROVED_DANGEROUS_OVERLAY);
+        List<String> state3 =
+                ThemeManager.listOverlays(context, STATE_NOT_APPROVED_DANGEROUS_OVERLAY);
         /*
           The OverlayInfo is currently disabled but it is allowed to be enabled
           ({@link #STATE_APPROVED_ENABLED}) in the future.
          */
-        List<String> state4 = ThemeManager.listOverlays(STATE_APPROVED_DISABLED);
+        List<String> state4 =
+                ThemeManager.listOverlays(context, STATE_APPROVED_DISABLED);
         /*
           The OverlayInfo is enabled but can be disabled
           ({@link #STATE_APPROVED_DISABLED}) in the future.
          */
-        List<String> state5 = ThemeManager.listOverlays(STATE_APPROVED_ENABLED);
+        List<String> state5 =
+                ThemeManager.listOverlays(context, STATE_APPROVED_ENABLED);
 
         for (int i = 0; i < stateN1.size(); i++) {
             Log.e("OverlayState (-1)", stateN1.get(i));

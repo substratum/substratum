@@ -490,7 +490,7 @@ public class StudioPreviewActivity extends AppCompatActivity {
             activity.total_amount = activity.icons.size();
             activity.disable_me = new ArrayList<>();
 
-            List<String> state5 = ThemeManager.listOverlays(STATE_APPROVED_ENABLED);
+            List<String> state5 = ThemeManager.listOverlays(context, STATE_APPROVED_ENABLED);
             ArrayList<String> activated_overlays = new ArrayList<>(state5);
 
             activity.enable_me = new ArrayList<>();
@@ -961,8 +961,8 @@ public class StudioPreviewActivity extends AppCompatActivity {
                 iconPacksExposed.add(iconPacks.get(ip).activityInfo.packageName);
             }
 
-            List<String> enabledOverlays = ThemeManager.listOverlays(STATE_APPROVED_ENABLED);
-            List<String> disabledOverlays = ThemeManager.listOverlays(STATE_APPROVED_ENABLED);
+            List<String> enabledOverlays = ThemeManager.listOverlays(context, STATE_APPROVED_ENABLED);
+            List<String> disabledOverlays = ThemeManager.listOverlays(context, STATE_APPROVED_ENABLED);
             ArrayList<String> all_overlays = new ArrayList<>(enabledOverlays);
             all_overlays.addAll(disabledOverlays);
 

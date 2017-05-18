@@ -156,7 +156,11 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         boolean verified = prefs.getBoolean("complexion", true);
         boolean certified = verified;
         if (References.checkOMS(getContext())) {
-            certified = verified && full_oms;
+            if (interfacer) {
+                certified = verified && full_oms;
+            } else {
+                certified = verified;
+            }
         }
 
         systemStatus.setSummary((interfacer

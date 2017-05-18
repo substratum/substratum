@@ -428,14 +428,14 @@ public class SubstratumBuilder {
                     FileOperations.createNewFolder(vendor_partition);
                     // On nexus devices, put framework overlay to /vendor/overlay/
                     if (overlay_package.equals("android")) {
-                        String android_overlay = vendor_partition + "/" + overlay_package + "."
+                        String android_overlay = vendor_partition + overlay_package + "."
                                 + parse2_themeName + (variant == null ? "" : "." + varianter) +
                                 ".apk";
                         FileOperations.move(context, Environment.getExternalStorageDirectory()
                                 .getAbsolutePath() + EXTERNAL_STORAGE_CACHE + overlay_package +
                                 "." + parse2_themeName + "-signed.apk", android_overlay);
                     } else {
-                        String overlay = vendor_symlink + "/" + overlay_package + "." +
+                        String overlay = vendor_symlink + overlay_package + "." +
                                 parse2_themeName + (variant == null ? "" : "." + varianter) +
                                 ".apk";
                         FileOperations.move(context, Environment.getExternalStorageDirectory()

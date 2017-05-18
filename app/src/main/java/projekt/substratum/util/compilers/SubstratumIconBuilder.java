@@ -94,7 +94,6 @@ public class SubstratumIconBuilder {
                 resolution = 0;
                 break;
         }
-        FileOutputStream out = null;
         try {
             String drawableName = drawable_name;
             if (icon_override == null) {
@@ -105,24 +104,18 @@ public class SubstratumIconBuilder {
                 Resources resources = packContext.getResources();
                 Bitmap b = BitmapFactory.decodeResource(resources, drawable);
                 Bitmap bScaled = Bitmap.createScaledBitmap(b, resolution, resolution, true);
-                out = new FileOutputStream(
-                        icon_location.getAbsolutePath() + "/" + drawableName + ".png");
-                bScaled.compress(Bitmap.CompressFormat.PNG, 100, out);
+                try (FileOutputStream out = new FileOutputStream(
+                                icon_location.getAbsolutePath() + "/" + drawableName + ".png")){
+                    bScaled.compress(Bitmap.CompressFormat.PNG, 100, out);
+                }
             } else {
-                out = new FileOutputStream(
-                        icon_location.getAbsolutePath() + "/" + drawableName + ".png");
-                icon_override.compress(Bitmap.CompressFormat.PNG, 100, out);
+                try (FileOutputStream out = new FileOutputStream(
+                        icon_location.getAbsolutePath() + "/" + drawableName + ".png")) {
+                    icon_override.compress(Bitmap.CompressFormat.PNG, 100, out);
+                }
             }
         } catch (Exception e) {
             has_errored_out = true;
-        } finally {
-            try {
-                if (out != null) {
-                    out.close();
-                }
-            } catch (IOException e) {
-                has_errored_out = true;
-            }
         }
     }
 

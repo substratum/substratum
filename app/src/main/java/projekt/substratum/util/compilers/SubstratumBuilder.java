@@ -185,27 +185,16 @@ public class SubstratumBuilder {
             if (Arrays.asList(work_area_array.list()).contains("priority")) {
                 Log.d(References.SUBSTRATUM_BUILDER,
                         "A specified priority file has been found for this overlay!");
-                BufferedReader reader = null;
-                try {
-                    reader = new BufferedReader(
-                            new InputStreamReader(new FileInputStream(
-                                    new File(work_area_array.getAbsolutePath() + "/priority"))));
+                try (
+                        BufferedReader reader = new BufferedReader(
+                                new InputStreamReader(new FileInputStream(
+                                        new File(work_area_array.getAbsolutePath() + "/priority"))));
+                ){
                     legacy_priority = Integer.parseInt(reader.readLine());
                 } catch (IOException e) {
                     dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
                             "There was an error parsing priority file!");
                     legacy_priority = References.DEFAULT_PRIORITY;
-                } finally {
-                    if (reader != null) {
-                        try {
-                            reader.close();
-                        } catch (IOException e) {
-                            dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
-                                    "Could not read priority file " +
-                                            "properly, falling back to default integer...");
-                            legacy_priority = References.DEFAULT_PRIORITY;
-                        }
-                    }
                 }
             } else {
                 legacy_priority = References.DEFAULT_PRIORITY;
@@ -402,9 +391,9 @@ public class SubstratumBuilder {
                     if (variant != null) {
                         no_install = Environment
                                 .getExternalStorageDirectory()
-                                .getAbsolutePath() + EXTERNAL_STORAGE_CACHE +
-                                overlay_package + "." + parse2_themeName +
-                                "-signed.apk";
+                                .getAbsolutePath() +
+                                EXTERNAL_STORAGE_CACHE + overlay_package + "." +
+                                parse2_themeName + "." + varianter + "-signed.apk";
                     } else {
                         no_install = Environment
                                 .getExternalStorageDirectory()
@@ -419,19 +408,11 @@ public class SubstratumBuilder {
                 String vendor_location = LEGACY_NEXUS_DIR;
                 String vendor_partition = VENDOR_DIR;
                 String vendor_symlink = PIXEL_NEXUS_DIR;
-                String current_vendor =
-                        ((References.inNexusFilter()) ? vendor_partition : vendor_location);
 
                 FileOperations.mountRW();
-                if (current_vendor.equals(vendor_location)) {
-                    FileOperations.createNewFolder(current_vendor);
-                } else {
-                    FileOperations.mountRWVendor();
-                    FileOperations.createNewFolder(vendor_symlink);
-                    FileOperations.createNewFolder(vendor_partition);
-                    FileOperations.mountROVendor();
-                }
-                if (current_vendor.equals(vendor_location)) {
+                // For Non-Nexus devices
+                if (!References.inNexusFilter()) {
+                    FileOperations.createNewFolder(vendor_location);
                     FileOperations.move(context, Environment.getExternalStorageDirectory()
                             .getAbsolutePath() + EXTERNAL_STORAGE_CACHE + overlay_package +
                             "." + parse2_themeName + "-signed.apk", vendor_location +
@@ -441,17 +422,20 @@ public class SubstratumBuilder {
                     FileOperations.setPermissions(755, vendor_location);
                     FileOperations.setContext(vendor_location);
                 } else {
+                // For Nexus devices
                     FileOperations.mountRWVendor();
+                    FileOperations.createNewFolder(vendor_symlink);
+                    FileOperations.createNewFolder(vendor_partition);
                     // On nexus devices, put framework overlay to /vendor/overlay/
                     if (overlay_package.equals("android")) {
-                        String android_overlay = vendor_partition + "/" + overlay_package + "."
+                        String android_overlay = vendor_partition + overlay_package + "."
                                 + parse2_themeName + (variant == null ? "" : "." + varianter) +
                                 ".apk";
                         FileOperations.move(context, Environment.getExternalStorageDirectory()
                                 .getAbsolutePath() + EXTERNAL_STORAGE_CACHE + overlay_package +
                                 "." + parse2_themeName + "-signed.apk", android_overlay);
                     } else {
-                        String overlay = vendor_symlink + "/" + overlay_package + "." +
+                        String overlay = vendor_symlink + overlay_package + "." +
                                 parse2_themeName + (variant == null ? "" : "." + varianter) +
                                 ".apk";
                         FileOperations.move(context, Environment.getExternalStorageDirectory()

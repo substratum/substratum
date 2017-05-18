@@ -506,19 +506,16 @@ public class References {
                     "Unable to create directories for rescue archive dumps.");
         }
 
-        InputStream in;
-        OutputStream out;
-        try {
-            in = assetManager.open(sourceFileName);
-            out = new FileOutputStream(destFile);
+        try (
+                InputStream in = assetManager.open(sourceFileName);
+                OutputStream out = new FileOutputStream(destFile)
+        ){
             byte[] buffer = new byte[8192];
             int read;
             while ((read = in.read(buffer)) != -1) {
                 out.write(buffer, 0, read);
             }
-            in.close();
-            out.flush();
-            out.close();
+
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -544,12 +541,18 @@ public class References {
     public static void setAndCheckOMS(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         prefs.edit().remove("oms_state").apply();
-
+        Process p = null;
         try {
-            Process p = Runtime.getRuntime().exec("cmd overlay");
-            BufferedReader reader = new BufferedReader(
-                    new InputStreamReader(p.getInputStream()));
-            String output = reader.readLine();
+            String output = null;
+            p = Runtime.getRuntime().exec("cmd overlay");
+
+            try (BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(p.getInputStream()))) {
+                output = reader.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
             boolean usesInterfacer = checkThemeInterfacer(context);
             boolean usesOMS7old = output != null && output.equals(
                     "The overlay manager has already been initialized.");
@@ -570,6 +573,10 @@ public class References {
             prefs.edit().putInt("oms_version", 0).apply();
             Log.d(SUBSTRATUM_LOG, "Initializing Substratum with the second " +
                     "iteration of the Resource Runtime Overlay system...");
+        } finally {
+            if (p != null) {
+                p.destroy();
+            }
         }
     }
 
@@ -614,37 +621,49 @@ public class References {
 
     // This method is used to check whether a build.prop value is found
     public static String getProp(String propName) {
-        Process p;
+        Process p = null;
         String result = "";
         try {
             p = new ProcessBuilder("/system/bin/getprop", propName)
                     .redirectErrorStream(true).start();
-            BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            String line;
-            while ((line = br.readLine()) != null) {
-                result = line;
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()))) {
+                String line;
+                while ((line = br.readLine()) != null) {
+                    result = line;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            br.close();
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            if (p != null) {
+                p.destroy();
+            }
         }
         return result;
     }
 
     // This method is used to check whether a build.prop value is found
     public static StringBuilder getBuildProp() {
-        Process p;
+        Process p = null;
         StringBuilder result = new StringBuilder();
         try {
             p = new ProcessBuilder("/system/bin/getprop").redirectErrorStream(true).start();
-            BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            String line;
-            while ((line = br.readLine()) != null) {
-                result.append(line).append("\n");
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()))) {
+                String line;
+                while ((line = br.readLine()) != null) {
+                    result.append(line).append("\n");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            br.close();
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            if (p != null) {
+                p.destroy();
+            }
         }
         return result;
     }
@@ -942,14 +961,17 @@ public class References {
           The object will be an ArrayList of icon directories where the icon occurs inside the
           to-be-themed target. For example "res/mipmap-xxxhdpi/ic_launcher.png".
          */
+        Process process = null;
+        DataOutputStream outputStream = null;
+        BufferedReader reader = null;
         try {
             ApplicationInfo ai =
                     mContext.getPackageManager().getApplicationInfo(packageName, 0);
-            Process process = Runtime.getRuntime().exec(mContext.getFilesDir().getAbsolutePath() +
+            process = Runtime.getRuntime().exec(mContext.getFilesDir().getAbsolutePath() +
                     "/aopt d badging " + ai.sourceDir);
 
-            DataOutputStream outputStream = new DataOutputStream(process.getOutputStream());
-            BufferedReader reader = new BufferedReader(new InputStreamReader(
+            outputStream = new DataOutputStream(process.getOutputStream());
+            reader = new BufferedReader(new InputStreamReader(
                     process.getInputStream()));
             HashMap hashMap = new HashMap<>();
             ArrayList<String> iconArray = new ArrayList();
@@ -987,11 +1009,28 @@ public class References {
                 // Once we reach this point, we have concluded the map assignation
                 return hashMap;
             }
-            outputStream.writeBytes("exit\n");
-            outputStream.flush();
+
             process.waitFor();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (outputStream != null) {
+                    outputStream.writeBytes("exit\n");
+                    outputStream.flush();
+                    outputStream.close();
+                }
+
+                if (reader != null) {
+                    reader.close();
+                }
+
+                if (process != null) {
+                    process.destroy();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }
@@ -1063,14 +1102,17 @@ public class References {
           The object will be an ArrayList of icon directories where the icon occurs inside the
           to-be-themed target. For example "res/mipmap-xxxhdpi/ic_launcher.png".
          */
+        Process process = null;
+        DataOutputStream outputStream = null;
+        BufferedReader reader = null;
         try {
             ApplicationInfo ai =
                     mContext.getPackageManager().getApplicationInfo(packageName, 0);
-            Process process = Runtime.getRuntime().exec(
+            process = Runtime.getRuntime().exec(
                     mContext.getFilesDir().getAbsolutePath() + "/aopt d badging " + ai.sourceDir);
 
-            DataOutputStream outputStream = new DataOutputStream(process.getOutputStream());
-            BufferedReader reader = new BufferedReader(new InputStreamReader(
+            outputStream = new DataOutputStream(process.getOutputStream());
+            reader = new BufferedReader(new InputStreamReader(
                     process.getInputStream()));
             String s;
             while ((s = reader.readLine()) != null) {
@@ -1080,12 +1122,28 @@ public class References {
                     return appIcon.split("/")[2].substring(0, appIcon.split("/")[2].length() - 4);
                 }
             }
-            outputStream.writeBytes("exit\n");
-            outputStream.flush();
             process.waitFor();
         } catch (Exception e) {
             // At this point we could simply show that there is no app icon in the package
             // e.g. DocumentsUI
+        } finally {
+            try {
+                if (outputStream != null) {
+                    outputStream.writeBytes("exit\n");
+                    outputStream.flush();
+                    outputStream.close();
+                }
+
+                if (reader != null) {
+                    reader.close();
+                }
+
+                if (process != null) {
+                    process.destroy();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return "ic_launcher";
     }
@@ -1884,39 +1942,37 @@ public class References {
         String hex = null;
 
         // Try to clone the InputStream (WARNING: Might be an ugly hek)
-        InputStream clone1, clone2;
+        byte[] byteArray;
         try {
-            byte[] byteArray = IOUtils.toByteArray(overlay);
-            clone1 = new ByteArrayInputStream(byteArray);
-            clone2 = new ByteArrayInputStream(byteArray);
+            byteArray = IOUtils.toByteArray(overlay);
         } catch (IOException e) {
             Log.e(SUBSTRATUM_LOG, "Unable to clone InputStream");
             return null;
         }
 
-        // Find the name of the top most color in the file first.
-        String resource_name = new ReadVariantPrioritizedColor(clone1).run();
+        try (
+                InputStream clone1 = new ByteArrayInputStream(byteArray);
+                InputStream clone2 = new ByteArrayInputStream(byteArray);
+        ){
+            // Find the name of the top most color in the file first.
+            String resource_name = new ReadVariantPrioritizedColor(clone1).run();
 
-        if (resource_name != null) {
-            try (BufferedReader br = new BufferedReader(new InputStreamReader(clone2))) {
-                String line;
-                while ((line = br.readLine()) != null) {
-                    if (line.contains("\"" + resource_name + "\"")) {
-                        String[] split = line.substring(line.lastIndexOf("\">") + 2).split("<");
-                        hex = split[0];
-                        if (hex.startsWith("?")) hex = "#00000000";
+            if (resource_name != null) {
+                try (BufferedReader br = new BufferedReader(new InputStreamReader(clone2))) {
+                    String line;
+                    while ((line = br.readLine()) != null) {
+                        if (line.contains("\"" + resource_name + "\"")) {
+                            String[] split = line.substring(line.lastIndexOf("\">") + 2).split("<");
+                            hex = split[0];
+                            if (hex.startsWith("?")) hex = "#00000000";
+                        }
                     }
+                } catch (IOException ioe) {
+                    Log.e(SUBSTRATUM_LOG, "Unable to find " + resource_name + " in this overlay!");
                 }
-            } catch (IOException ioe) {
-                Log.e(SUBSTRATUM_LOG, "Unable to find " + resource_name + " in this overlay!");
             }
-        }
-
-        try {
-            clone1.close();
-            clone2.close();
         } catch (IOException e) {
-            Log.e(SUBSTRATUM_LOG, "Failed to close InputStream");
+            e.printStackTrace();
         }
         return hex;
     }

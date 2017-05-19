@@ -728,6 +728,21 @@ public class References {
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
+    // This method checks whether fonts is supported by the system
+    public static boolean isFontsSupported() {
+        try {
+            Class<?> cls = Class.forName("android.graphics.Typeface");
+            cls.getDeclaredMethod("getSystemFontDirLocation");
+            cls.getDeclaredMethod("getThemeFontConfigLocation");
+            cls.getDeclaredMethod("getThemeFontDirLocation");
+            Log.d(References.SUBSTRATUM_LOG, "This system fully supports font hotswapping.");
+            return true;
+        } catch (Exception ex) {
+            // Suppress Fonts
+        }
+        return false;
+    }
+
     // This method checks for offensive words
     public static boolean isOffensive(Context context, String toBeProcessed) {
         if (toBeProcessed == null) {

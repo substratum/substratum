@@ -25,6 +25,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import projekt.substratum.common.References;
 import projekt.substratum.tabs.BootAnimations;
 import projekt.substratum.tabs.Fonts;
 import projekt.substratum.tabs.Overlays;
@@ -83,7 +84,7 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
         } else if (package_checker.contains("bootanimation")) {
             package_checker.remove("bootanimation");
             return new BootAnimations();
-        } else if (package_checker.contains("fonts")) {
+        } else if (package_checker.contains("fonts") && References.isFontsSupported()) {
             package_checker.remove("fonts");
             return new Fonts();
         } else if (package_checker.contains("audio")) {

@@ -99,7 +99,6 @@ import static projekt.substratum.common.References.wallpaperFragment;
 
 public class InformationActivity extends SubstratumActivity {
 
-    private static final int THEME_INFORMATION_REQUEST_CODE = 1;
     public static String theme_name, theme_pid, theme_mode;
     private static List<String> tab_checker;
     private static String wallpaperUrl;
@@ -276,7 +275,6 @@ public class InformationActivity extends SubstratumActivity {
         theme_name = currentIntent.getStringExtra("theme_name");
         theme_pid = currentIntent.getStringExtra("theme_pid");
         theme_mode = currentIntent.getStringExtra("theme_mode");
-        Boolean theme_legacy = currentIntent.getBooleanExtra("theme_legacy", false);
         wallpaperUrl = null;
 
         try {
@@ -387,7 +385,7 @@ public class InformationActivity extends SubstratumActivity {
                         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
                                 .theme_information_tab_two)));
                     }
-                    if (tab_checker.contains(fontsFragment)) {
+                    if (tab_checker.contains(fontsFragment) && References.isFontsSupported()) {
                         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
                                 .theme_information_tab_three)));
                     }

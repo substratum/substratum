@@ -323,17 +323,7 @@ public class MainActivity extends SubstratumActivity implements
             drawerBuilder.withHeaderHeight(DimenHolder.fromDp(0));
         }
         drawerBuilder.withAccountHeader(header);
-        Boolean fonts_allowed = false;
-        try {
-            Class<?> cls = Class.forName("android.graphics.Typeface");
-            cls.getDeclaredMethod("getSystemFontDirLocation");
-            cls.getDeclaredMethod("getThemeFontConfigLocation");
-            cls.getDeclaredMethod("getThemeFontDirLocation");
-            Log.d(References.SUBSTRATUM_LOG, "This system fully supports font hotswapping.");
-            fonts_allowed = true;
-        } catch (Exception ex) {
-            // Suppress Fonts
-        }
+
 
         // Split the community chats out for easy adapting
         ExpandableDrawerItem social = new ExpandableDrawerItem()
@@ -405,7 +395,7 @@ public class MainActivity extends SubstratumActivity implements
                         .withName(R.string.nav_bootanim)
                         .withIcon(R.drawable.nav_bootanim)
                         .withIdentifier(3));
-        if (fonts_allowed) drawerBuilder.addDrawerItems(
+        if (References.isFontsSupported()) drawerBuilder.addDrawerItems(
                 new PrimaryDrawerItem()
                         .withName(R.string.nav_fonts)
                         .withIcon(R.drawable.nav_fonts)

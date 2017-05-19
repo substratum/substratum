@@ -987,6 +987,91 @@ public class Overlays extends Fragment {
         return null;
     }
 
+    private static class SendErrorReport extends AsyncTask<Void, Void, File> {
+        private Context context;
+        private String themePid;
+        private String errorLog;
+        private String themeName, themeAuthor, themeEmail;
+        private String emailSubject, emailBody;
+        private ProgressDialog progressDialog;
+
+        SendErrorReport(Context context_, String themePid_, String errorLog_) {
+            context = context_;
+            themePid = themePid_;
+            errorLog = errorLog_;
+
+            themeName = References.grabPackageName(context_, themePid);
+            themeAuthor = References.getOverlayMetadata(context, themePid, metadataAuthor);
+            themeEmail = References.getOverlayMetadata(context, themePid, metadataEmail);
+
+            emailSubject = String.format(
+                    context.getString(R.string.logcat_email_subject), themeName);
+            emailBody = String.format(
+                    context.getString(R.string.logcat_email_body), themeAuthor, themeName);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            progressDialog = new ProgressDialog(context);
+            progressDialog.setIndeterminate(true);
+            progressDialog.setCancelable(false);
+            progressDialog.setMessage(context.getString(R.string.logcat_processing_dialog));
+            progressDialog.show();
+        }
+
+        @Override
+        protected File doInBackground(Void... sUrl) {
+            String rom = References.checkFirmwareSupport(context,
+                    context.getString(R.string.supported_roms_url),
+                    "supported_roms.xml");
+            String version = Build.VERSION.RELEASE + " - " + (!rom.isEmpty() ? rom : "Unknown");
+
+            String device = Build.MODEL + " (" + Build.DEVICE + ") " +
+                    "[" + Build.FINGERPRINT + "]";
+            String xposed = References.checkXposedVersion();
+            if (!xposed.isEmpty()) device += " {" + xposed + "}";
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd-HH:mm", Locale.US);
+            File log = new File(Environment.getExternalStorageDirectory().getAbsolutePath() +
+                    "/theme_error-" + dateFormat.format(new Date()) + ".txt");
+            try (FileWriter fw = new FileWriter(log, false);
+                 BufferedWriter out = new BufferedWriter(fw)) {
+
+                String attachment = String.format(
+                        context.getString(R.string.logcat_attachment_body),
+                        device,
+                        version,
+                        References.grabAppVersion(context, themePid),
+                        BuildConfig.VERSION_CODE, errorLog);
+                out.write(attachment);
+            } catch (IOException e) {
+                // Suppress exception
+            }
+            return log;
+        }
+
+        @Override
+        protected void onPostExecute(File result) {
+            progressDialog.dismiss();
+
+            Intent i = new Intent(Intent.ACTION_SEND);
+            i.setType("message/rfc822");
+            i.putExtra(Intent.EXTRA_EMAIL, new String[]{themeEmail});
+            i.putExtra(Intent.EXTRA_SUBJECT, emailSubject);
+            i.putExtra(Intent.EXTRA_TEXT, emailBody);
+            i.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(result));
+            try {
+                context.startActivity(Intent.createChooser(
+                        i, context.getString(R.string.logcat_email_activity)));
+            } catch (android.content.ActivityNotFoundException ex) {
+                Toast.makeText(context,
+                        R.string.logcat_email_activity_error,
+                        Toast.LENGTH_LONG)
+                        .show();
+            }
+        }
+    }
+
     private class LoadOverlays extends AsyncTask<String, Integer, String> {
 
         @Override
@@ -2121,91 +2206,6 @@ public class Overlays extends Fragment {
                 }
             }
             return null;
-        }
-    }
-
-    private static class SendErrorReport extends AsyncTask<Void, Void, File> {
-        private Context context;
-        private String themePid;
-        private String errorLog;
-        private String themeName, themeAuthor, themeEmail;
-        private String emailSubject, emailBody;
-        private ProgressDialog progressDialog;
-
-        SendErrorReport(Context context_, String themePid_, String errorLog_) {
-            context = context_;
-            themePid = themePid_;
-            errorLog = errorLog_;
-
-            themeName = References.grabPackageName(context_, themePid);
-            themeAuthor = References.getOverlayMetadata(context, themePid, metadataAuthor);
-            themeEmail = References.getOverlayMetadata(context, themePid, metadataEmail);
-
-            emailSubject = String.format(
-                    context.getString(R.string.logcat_email_subject), themeName);
-            emailBody = String.format(
-                    context.getString(R.string.logcat_email_body), themeAuthor, themeName);
-        }
-
-        @Override
-        protected void onPreExecute() {
-            progressDialog = new ProgressDialog(context);
-            progressDialog.setIndeterminate(true);
-            progressDialog.setCancelable(false);
-            progressDialog.setMessage(context.getString(R.string.logcat_processing_dialog));
-            progressDialog.show();
-        }
-
-        @Override
-        protected File doInBackground(Void... sUrl) {
-            String rom = References.checkFirmwareSupport(context,
-                    context.getString(R.string.supported_roms_url),
-                    "supported_roms.xml");
-            String version = Build.VERSION.RELEASE + " - " + (!rom.isEmpty() ? rom : "Unknown");
-
-            String device = Build.MODEL + " (" + Build.DEVICE + ") " +
-                    "[" + Build.FINGERPRINT + "]";
-            String xposed = References.checkXposedVersion();
-            if (!xposed.isEmpty()) device += " {" + xposed + "}";
-
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd-HH:mm", Locale.US);
-            File log = new File(Environment.getExternalStorageDirectory().getAbsolutePath() +
-                    "/theme_error-" + dateFormat.format(new Date()) + ".txt");
-            try (FileWriter fw = new FileWriter(log, false);
-                 BufferedWriter out = new BufferedWriter(fw)) {
-
-                String attachment = String.format(
-                        context.getString(R.string.logcat_attachment_body),
-                        device,
-                        version,
-                        References.grabAppVersion(context, themePid),
-                        BuildConfig.VERSION_CODE, errorLog);
-                out.write(attachment);
-            } catch (IOException e) {
-                // Suppress exception
-            }
-            return log;
-        }
-
-        @Override
-        protected void onPostExecute(File result) {
-            progressDialog.dismiss();
-
-            Intent i = new Intent(Intent.ACTION_SEND);
-            i.setType("message/rfc822");
-            i.putExtra(Intent.EXTRA_EMAIL, new String[]{themeEmail});
-            i.putExtra(Intent.EXTRA_SUBJECT, emailSubject);
-            i.putExtra(Intent.EXTRA_TEXT, emailBody);
-            i.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(result));
-            try {
-                context.startActivity(Intent.createChooser(
-                        i, context.getString(R.string.logcat_email_activity)));
-            } catch (android.content.ActivityNotFoundException ex) {
-                Toast.makeText(context,
-                        R.string.logcat_email_activity_error,
-                        Toast.LENGTH_LONG)
-                        .show();
-            }
         }
     }
 

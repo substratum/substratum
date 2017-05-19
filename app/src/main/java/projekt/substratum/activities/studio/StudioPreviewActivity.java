@@ -961,8 +961,10 @@ public class StudioPreviewActivity extends AppCompatActivity {
                 iconPacksExposed.add(iconPacks.get(ip).activityInfo.packageName);
             }
 
-            List<String> enabledOverlays = ThemeManager.listOverlays(context, STATE_APPROVED_ENABLED);
-            List<String> disabledOverlays = ThemeManager.listOverlays(context, STATE_APPROVED_ENABLED);
+            List<String> enabledOverlays = ThemeManager.listOverlays(context,
+                    STATE_APPROVED_ENABLED);
+            List<String> disabledOverlays = ThemeManager.listOverlays(context,
+                    STATE_APPROVED_ENABLED);
             ArrayList<String> all_overlays = new ArrayList<>(enabledOverlays);
             all_overlays.addAll(disabledOverlays);
 

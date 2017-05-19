@@ -64,7 +64,6 @@ import projekt.substratum.adapters.fragments.manager.ManagerItem;
 import projekt.substratum.common.References;
 import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.FileOperations;
-import projekt.substratum.common.platform.MasqueradeService;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.util.views.FloatingActionMenu;
 
@@ -73,13 +72,9 @@ import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
 import static projekt.substratum.common.References.DATA_RESOURCE_DIR;
 import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
 import static projekt.substratum.common.References.MANAGER_REFRESH;
-import static projekt.substratum.common.References.MASQUERADE_PACKAGE;
 import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;
 import static projekt.substratum.common.References.REFRESH_WINDOW_DELAY;
-import static projekt.substratum.common.References.SUBSTRATUM_LOG;
 import static projekt.substratum.common.References.VENDOR_DIR;
-import static projekt.substratum.common.References.checkThemeInterfacer;
-import static projekt.substratum.common.References.isPackageInstalled;
 import static projekt.substratum.util.files.MapUtils.sortMapByValues;
 
 public class ManagerFragment extends Fragment {

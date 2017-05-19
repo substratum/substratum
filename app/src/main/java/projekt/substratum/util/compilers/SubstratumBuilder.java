@@ -188,8 +188,9 @@ public class SubstratumBuilder {
                 try (
                         BufferedReader reader = new BufferedReader(
                                 new InputStreamReader(new FileInputStream(
-                                        new File(work_area_array.getAbsolutePath() + "/priority"))));
-                ){
+                                        new File(work_area_array.getAbsolutePath() + "/priority")
+                                )));
+                ) {
                     legacy_priority = Integer.parseInt(reader.readLine());
                 } catch (IOException e) {
                     dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
@@ -422,7 +423,7 @@ public class SubstratumBuilder {
                     FileOperations.setPermissions(755, vendor_location);
                     FileOperations.setContext(vendor_location);
                 } else {
-                // For Nexus devices
+                    // For Nexus devices
                     FileOperations.mountRWVendor();
                     FileOperations.createNewFolder(vendor_symlink);
                     FileOperations.createNewFolder(vendor_partition);

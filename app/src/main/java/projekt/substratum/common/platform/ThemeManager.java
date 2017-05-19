@@ -238,7 +238,7 @@ public class ThemeManager {
             for (String line : arrList) {
                 if (line.startsWith(prefix)) {
                     counter++;
-                } else if (!line.startsWith("---")){
+                } else if (!line.startsWith("---")) {
                     if (counter > 1) {
                         list.add(currentApp);
                     }

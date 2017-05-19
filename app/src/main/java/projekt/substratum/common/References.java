@@ -244,7 +244,7 @@ public class References {
             if (References.isNetworkAvailable(context)) {
                 try (InputStream input = connection.getInputStream();
                      OutputStream output = new FileOutputStream(
-                             context.getCacheDir().getAbsolutePath() + "/" + inputFileName)){
+                             context.getCacheDir().getAbsolutePath() + "/" + inputFileName)) {
 
                     // expect HTTP 200 OK, so we don't mistakenly save error report
                     // instead of the file
@@ -307,7 +307,7 @@ public class References {
                 Process process = Runtime.getRuntime().exec("getprop ro.build.flavor");
                 process.waitFor();
                 try (BufferedReader reader = new BufferedReader(
-                                new InputStreamReader(process.getInputStream()))) {
+                        new InputStreamReader(process.getInputStream()))) {
                     String line;
                     while ((line = reader.readLine()) != null) {
                         while (it.hasNext()) {
@@ -509,7 +509,7 @@ public class References {
         try (
                 InputStream in = assetManager.open(sourceFileName);
                 OutputStream out = new FileOutputStream(destFile)
-        ){
+        ) {
             byte[] buffer = new byte[8192];
             int read;
             while ((read = in.read(buffer)) != -1) {
@@ -627,7 +627,8 @@ public class References {
         try {
             p = new ProcessBuilder("/system/bin/getprop", propName)
                     .redirectErrorStream(true).start();
-            try (BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()))) {
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream())
+            )) {
                 String line;
                 while ((line = br.readLine()) != null) {
                     result = line;
@@ -651,7 +652,8 @@ public class References {
         StringBuilder result = new StringBuilder();
         try {
             p = new ProcessBuilder("/system/bin/getprop").redirectErrorStream(true).start();
-            try (BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()))) {
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream())
+            )) {
                 String line;
                 while ((line = br.readLine()) != null) {
                     result.append(line).append("\n");
@@ -1976,7 +1978,7 @@ public class References {
         try (
                 InputStream clone1 = new ByteArrayInputStream(byteArray);
                 InputStream clone2 = new ByteArrayInputStream(byteArray);
-        ){
+        ) {
             // Find the name of the top most color in the file first.
             String resource_name = new ReadVariantPrioritizedColor(clone1).run();
 

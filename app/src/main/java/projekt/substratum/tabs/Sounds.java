@@ -264,16 +264,19 @@ public class Sounds extends Fragment {
 
         @Override
         protected void onPreExecute() {
-            mProgressDialog = new ProgressDialog(getActivity(), R.style.RestoreDialog);
-            mProgressDialog.setMessage(getString(R.string.manage_dialog_performing));
-            mProgressDialog.setIndeterminate(true);
-            mProgressDialog.setCancelable(false);
-            mProgressDialog.show();
+            if (References.checkThemeInterfacer(getContext())) {
+                mProgressDialog = new ProgressDialog(getActivity(), R.style.RestoreDialog);
+                mProgressDialog.setMessage(getString(R.string.manage_dialog_performing));
+                mProgressDialog.setIndeterminate(true);
+                mProgressDialog.setCancelable(false);
+                mProgressDialog.show();
+            }
         }
 
         @Override
         protected void onPostExecute(String result) {
-            mProgressDialog.dismiss();
+            if (References.checkThemeInterfacer(getContext()))
+                mProgressDialog.dismiss();
             SharedPreferences.Editor editor = prefs.edit();
             editor.remove("sounds_applied");
             editor.apply();

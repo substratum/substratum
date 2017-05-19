@@ -154,7 +154,6 @@ public class SoundUtils {
                 context.getApplicationContext().registerReceiver(finishReceiver, intentFilter);
             } else {
                 soundUtils.finishFunction();
-                progress.dismiss();
                 ThemeManager.restartSystemUI(context);
             }
         }

@@ -14,7 +14,7 @@ public class VersionChecker {
         return false;
     }
 
-    public static boolean checkOreoOMS() {
+    public static boolean checkOreoStockOMS() {
         switch (Build.ID) {
             case "OPP2.170420.017":
                 return true;

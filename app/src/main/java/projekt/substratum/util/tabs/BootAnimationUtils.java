@@ -59,7 +59,7 @@ import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.tabs.BootAnimationManager;
 
 import static projekt.substratum.common.References.EXTERNAL_STORAGE_CACHE;
-import static projekt.substratum.common.platform.VersionChecker.checkOreoOMS;
+import static projekt.substratum.common.platform.VersionChecker.checkOreoStockOMS;
 
 public class BootAnimationUtils {
 
@@ -326,10 +326,10 @@ public class BootAnimationUtils {
             if (!has_failed) {
                 Log.d(TAG, "Moving boot animation to theme directory " +
                         "and setting correct contextual parameters...");
-                boolean is_encrypted = false;
+                boolean is_encrypted = References.getDeviceEncryptionStatus(mContext) > 1;
                 File themeDirectory;
                 if (References.checkOMS(mContext)) {
-                    if (References.getDeviceEncryptionStatus(mContext) <= 1) {
+                    if (!is_encrypted && !checkOreoStockOMS()) {
                         Log.d(TAG, "Data partition on the current device is decrypted, using " +
                                 "dedicated theme bootanimation slot...");
                         themeDirectory = new File(DATA_SYSTEM);
@@ -342,7 +342,6 @@ public class BootAnimationUtils {
                     } else {
                         Log.d(TAG, "Data partition on the current device is encrypted, using " +
                                 "dedicated encrypted bootanimation slot...");
-                        is_encrypted = true;
                         themeDirectory = new File(SYSTEM_MEDIA);
                     }
                 } else {
@@ -364,54 +363,52 @@ public class BootAnimationUtils {
 
                 // Move created boot animation to working directory
                 FileOperations.move(mContext,
-                        mContext.getCacheDir().getAbsolutePath() +
-                                "/BootAnimationCache/AnimationCreator/" + "scaled-"
-                                + bootanimation + ".zip",
+                        scaledBootAnimCheck.getAbsolutePath(),
                         Environment.getExternalStorageDirectory().getAbsolutePath() +
                                 EXTERNAL_STORAGE_CACHE + "bootanimation.zip");
 
                 // Inject backup script for encrypted legacy and encrypted OMS devices
-                if (!has_failed &&
-                        !checkOreoOMS() &&
-                        (is_encrypted || !References.checkOMS(mContext))) {
+                if (!has_failed && (is_encrypted || !References.checkOMS(mContext))) {
                     FileOperations.mountRW();
                     File backupScript = new File("/system/addon.d/" + BACKUP_SCRIPT);
 
-                    if (!backupScript.exists()) {
-                        AssetManager assetManager = mContext.getAssets();
-                        String backupScriptPath =
-                                mContext.getFilesDir().getAbsolutePath() + "/" + BACKUP_SCRIPT;
-                        OutputStream out = null;
-                        InputStream in = null;
-                        try {
-                            out = new FileOutputStream(backupScriptPath);
-                            in = assetManager.open(BACKUP_SCRIPT);
-                            byte[] buffer = new byte[1024];
-                            int read;
-                            while ((read = in.read(buffer)) != -1) {
-                                out.write(buffer, 0, read);
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        } finally {
-                            if (in != null) {
-                                try {
-                                    in.close();
-                                } catch (IOException e) {
-                                    // Suppress warning
+                    if (!checkOreoStockOMS()) {
+                        if (!backupScript.exists()) {
+                            AssetManager assetManager = mContext.getAssets();
+                            String backupScriptPath =
+                                    mContext.getFilesDir().getAbsolutePath() + "/" + BACKUP_SCRIPT;
+                            OutputStream out = null;
+                            InputStream in = null;
+                            try {
+                                out = new FileOutputStream(backupScriptPath);
+                                in = assetManager.open(BACKUP_SCRIPT);
+                                byte[] buffer = new byte[1024];
+                                int read;
+                                while ((read = in.read(buffer)) != -1) {
+                                    out.write(buffer, 0, read);
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            } finally {
+                                if (in != null) {
+                                    try {
+                                        in.close();
+                                    } catch (IOException e) {
+                                        // Suppress warning
+                                    }
+                                }
+                                if (out != null) {
+                                    try {
+                                        out.close();
+                                    } catch (IOException e) {
+                                        // Suppress warning
+                                    }
                                 }
                             }
-                            if (out != null) {
-                                try {
-                                    out.close();
-                                } catch (IOException e) {
-                                    // Suppress warning
-                                }
-                            }
+                            FileOperations.copy(mContext, mContext.getFilesDir().getAbsolutePath() +
+                                    "/" + BACKUP_SCRIPT, backupScript.getAbsolutePath());
+                            FileOperations.setPermissions(755, backupScript.getAbsolutePath());
                         }
-                        FileOperations.copy(mContext, mContext.getFilesDir().getAbsolutePath() +
-                                "/" + BACKUP_SCRIPT, backupScript.getAbsolutePath());
-                        FileOperations.setPermissions(755, backupScript.getAbsolutePath());
                     }
 
                     File backupDirectory = new File(themeDirectory.getAbsolutePath() +
@@ -424,8 +421,12 @@ public class BootAnimationUtils {
                     File bootAnimationCheck = new File(themeDirectory.getAbsolutePath() +
                             "/bootanimation.zip");
 
-                    if (backupDirectory.exists() && backupScript.exists()) {
-                        Log.d(TAG, "Old bootanimation is backed up, ready to go!");
+                    if (backupDirectory.exists()) {
+                        if (checkOreoStockOMS()) {
+                            Log.d(TAG, "Old bootanimation is backed up, ready to go!");
+                        } else if (backupScript.exists()) {
+                            Log.d(TAG, "Old bootanimation is backed up, ready to go!");
+                        }
                     } else if (!bootAnimationCheck.exists() && !backupDirectory.exists()) {
                         Log.d(TAG, "There is no predefined bootanimation on this device, " +
                                 "injecting a brand new default bootanimation...");

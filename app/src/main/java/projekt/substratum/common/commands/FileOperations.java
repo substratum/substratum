@@ -345,14 +345,14 @@ public class FileOperations {
                 FileUtils.moveDirectory(in, out);
             }
         } catch (IOException e) {
-            //Supress warning
+            // Suppress warning
         }
-        if (in.exists() && !out.exists()) {
+        if (!out.exists()) {
             Log.d(MOVE_LOG,
                     "Rootless operation failed, falling back to rooted mode...");
             Root.runCommand("mv -f " + source + " " + destination);
         }
-        Log.d(MOVE_LOG, "Operation " + (!in.exists() && out.exists() ? "succeeded" : "failed"));
+        Log.d(MOVE_LOG, "Operation " + (out.exists() ? "succeeded" : "failed"));
     }
 
     public static long getFileSize(File source) {

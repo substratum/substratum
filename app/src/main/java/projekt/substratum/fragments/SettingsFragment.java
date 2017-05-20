@@ -454,6 +454,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     }
                     return false;
                 });
+                if (VersionChecker.checkOreoStockOMS()) crashReceiver.setVisible(false);
             }
 
             if (References.checkThemeInterfacer(getContext())) {

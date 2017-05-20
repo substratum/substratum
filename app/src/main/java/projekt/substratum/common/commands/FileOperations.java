@@ -344,10 +344,7 @@ public class FileOperations {
             } else if (in.isDirectory()) {
                 FileUtils.moveDirectory(in, out);
             }
-        } catch (IOException e) {
-            // Suppress warning
-        }
-        if (!out.exists()) {
+        } catch (Exception e) {
             Log.d(MOVE_LOG,
                     "Rootless operation failed, falling back to rooted mode...");
             Root.runCommand("mv -f " + source + " " + destination);

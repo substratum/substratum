@@ -574,107 +574,43 @@
     <string name="fab_menu_swap_toggle">Disable other themes</string>
     <string name="fab_menu_swap_toggle_legacy">Remove all existing</string>
 
-    <string name="team_eye">Eyes of Substratum</string>
-    <string name="team_eye_text">This contributor has helped so much in the project, from backend code reviews, documentation write ups, frequently answered question compilations, immediate ROM commit tests, handling showcase updates, last minute app bug fixes, and overall an amazing attitude in aids to help others get started with the system&#8230;our project would be a very different place without all his hard work and dedication!</string>
+    <string name="team_title_one">Leaders of Substratum</string>
+    <string name="team_text_one">Not only did we create something that works for the users, but we worked in conjunction with themers to make it a wonderful theming engine for the community!</string>
 
-    <string name="team_title_1">Substratum Team Leaders</string>
-    <string name="team_text_1">Not only did we create something that works for the users, but we worked in conjunction with themers to make it a wonderful theming engine for the community!</string>
+    <string name="team_title_two">Substratum Translators</string>
+    <string name="team_text_two">A huge thank you to these translators for bringing Substratum to everyone around the world!</string>
+    <string name="team_button_two">Show Translators</string>
+    <string name="team_button_two_contribute">Contribute Now!</string>
 
-    <string name="team_title_2">Substratum Development Contributors</string>
-    <string name="team_text_2">These developers came when we needed help and aided the cause to create the OMS scene a much better place!</string>
+    <string name="team_title_three">Substratum Contributors</string>
+    <string name="team_text_three">What\'s great is when the community comes together and unifies to create an app that works for all of us!</string>
+    <string name="team_button_three">Show Contributors</string>
 
-    <string name="team_title_3">Substratum Lead Themers</string>
-    <string name="team_text_3">These core themers got Substratum ready, as well as aided the developers closely to provide features geared towards other themers such as anti-piracy and a more definitive UI!</string>
+    <string name="team_title_four">Layers Contributors</string>
+    <string name="team_text_four">These people brought you Layers Manager in the past and have since went on to do many great things in getting Substratum ready for us!</string>
+    <string name="team_button_four">Show Contributors</string>
 
-    <string name="team_title_4">Substratum Contributors</string>
-    <string name="team_text_4">These people stepped up and willingly contributed their dedication and time to all of us and we love them a lot!</string>
-
-    <string name="team_title_5">Substratum Translators</string>
-    <string name="team_text_5">A huge thank you to these translators for bringing Substratum to everyone around the world!</string>
-    <string name="team_button_5">Show Translators</string>
-    <string name="team_button_5_contribute">Contribute Now!</string>
-
-    <string name="team_title_6">Layers Contributors</string>
-    <string name="team_text_6">These people brought you Layers Manager in the past and have since went on to do many great things in getting Substratum ready for us!</string>
-    <string name="team_button_6">Show Contributors</string>
-
-    <string name="team_title_7">Substratum Rootless Development Contributors</string>
-    <string name="team_text_7">These developers started out with a plan to phase out root, then delivered with flying colors!</string>
-
-    <string name="contributor_reinhard" translatable="false">Reinhard Strauch</string>
-    <string name="contributor_brian" translatable="false">Brian Gill (Bgill55)</string>
-    <string name="contributor_aldrin" translatable="false">Aldrin Holmes (CallMeAldy)</string>
-    <string name="contributor_steve" translatable="false">Steve Lovejoy (lovejoy777)</string>
-    <string name="contributor_niklas" translatable="false">Niklas Schnettler (Sh4dowSoul)</string>
-    <string name="contributor_andrzej" translatable="false">Andrzej Ressel (jereksel)</string>
-    <string name="contributor_denis" translatable="false">Denis Suarez (Wh0Cares)</string>
-
-    <string name="contributor_alex" translatable="false">Alex Cruz (Mazda)</string>
-    <string name="contributor_alex_link" translatable="false">https://lh3.googleusercontent.com/-ILWld607Lrs/AAAAAAAAAAI/AAAAAAAAAfA/V0vb59H6Xqo/s360-c/photo.jpg</string>
-
-    <string name="contributor_ben" translatable="false">Benjamin Humpton (Morningstar)</string>
-    <string name="contributor_ben_link" translatable="false">https://lh3.googleusercontent.com/-2svXmwg7saQ/AAAAAAAAAAI/AAAAAAAAW4Y/vK_XYcVFqn8/s360-c/photo.jpg</string>
-
-    <string name="contributor_char" translatable="false">Char G</string>
-    <string name="contributor_char_link" translatable="false">https://lh3.googleusercontent.com/-76kHnSc8_Cs/AAAAAAAAAAI/AAAAAAAAyTs/u9YnYSf0wV8/s360-c/photo.jpg</string>
-
-    <string name="contributor_nathan" translatable="false">Nathan Chancellor (The Flash)</string>
-    <string name="contributor_nathan_link" translatable="false">https://lh3.googleusercontent.com/-q3fCjLU-tTA/AAAAAAAAAAI/AAAAAAAAbL8/lSpIJHV7Jsc/s360-c/photo.jpg</string>
-
-    <string name="contributor_randall" translatable="false">Randall Rushing (bigrushdog)</string>
-    <string name="contributor_randall_link" translatable="false">https://lh3.googleusercontent.com/-DmVuJxKRU6c/AAAAAAAAAAI/AAAAAAAA3Ls/ylaECV-Uer4/s360-c/photo.jpg</string>
-
-    <string name="contributor_idan" translatable="false">Idan Shulman</string>
-    <string name="contributor_idan_link" translatable="false">https://lh3.googleusercontent.com/-3B6IQ4CbIKs/AAAAAAAAAAI/AAAAAAAATIo/DlpTSfukFJ0/s360-c/photo.jpg</string>
-
-    <string name="contributor_travis" translatable="false">Travis Hall (notjustanotherdesigner)</string>
-    <string name="contributor_travis_link" translatable="false">https://lh3.googleusercontent.com/-qcJSZKtqyq0/AAAAAAAAAAI/AAAAAAAAxlE/EjXP5WynQ74/s360-c/photo.jpg</string>
-
-    <string name="contributor_sajid" translatable="false">Sajid Shaik</string>
-    <string name="contributor_sajid_link" translatable="false">https://lh3.googleusercontent.com/-GZWYKoQoIB0/AAAAAAAAAAI/AAAAAAAAiUg/QhGfzaMXVbI/s360-c/photo.jpg</string>
-
-    <string name="contributor_anthony" translatable="false">Anthony Nguyen (LinkedDesigns)</string>
-    <string name="contributor_anthony_link" translatable="false">https://lh3.googleusercontent.com/-RQGZNug3X_Q/AAAAAAAAAAI/AAAAAAAAH3w/Wy0y0R_VpC0/s360-c/photo.jpg</string>
-
-    <string name="contributor_kevin" translatable="false">Kevin Aguilar (221 Pixels)</string>
-    <string name="contributor_kevin_link" translatable="false">https://lh3.googleusercontent.com/-IspNqtIzYEs/AAAAAAAAAAI/AAAAAAABAAc/Eo8lGk-Jq50/s360-c/photo.jpg</string>
-
-    <string name="team_nicholas" translatable="false">Nicholas Chum (nicholaschum)</string>
-
-    <string name="team_syko" translatable="false">Mike Finnegan (Sykopompos)</string>
-
-    <string name="team_george" translatable="false">George Gian (KreAch3R)</string>
-    <string name="team_george_link" translatable="false">https://lh3.googleusercontent.com/-TynH4xk_mUg/AAAAAAAAAAI/AAAAAAAABg8/P7N0EEGE5WU/s360-c/photo.jpg</string>
-
-    <string name="team_cory" translatable="false">Cory Collins (camcory)</string>
-    <string name="team_cory_link" translatable="false">https://lh3.googleusercontent.com/-zWvjEPBnqqo/AAAAAAAAAAI/AAAAAAAAETM/X1efzWQi4N0/s360-c/photo.jpg</string>
-
-    <string name="team_jacob" translatable="false">Jacob McSwain (USA-RedDragon)</string>
-    <string name="team_jacob_link" translatable="false">https://lh3.googleusercontent.com/-8k-upsMSNjE/AAAAAAAAAAI/AAAAAAAAQqY/YSrfZLh1q1E/s360-c/photo.jpg</string>
-
-    <string name="team_surge" translatable="false">Suraj Raval (Surge1223)</string>
-    <string name="team_surge_link" translatable="false">https://lh3.googleusercontent.com/-M_nokQGdeQo/AAAAAAAAAAI/AAAAAAAAAdU/5olbk0yAQbI/s360-c/photo.jpg</string>
-
-    <string name="team_ivan" translatable="false">Ivan Iskandar (iskandar1023)</string>
-    <string name="team_ivan_link" translatable="false">https://lh3.googleusercontent.com/-dHxEt-Jnh5Q/AAAAAAAAAAI/AAAAAAAASbE/ujArwKCPUQo/s360-c/photo.jpg</string>
-
-    <string name="team_raja" translatable="false">Raja Mu (RajaMu)</string>
-    <string name="team_raja_link" translatable="false">https://lh3.googleusercontent.com/-QnwLJuXNDI4/AAAAAAAAAAI/AAAAAAAAFr4/uudXv-OXGcg/s360-c/photo.jpg</string>
-
-    <string name="team_jimmy" translatable="false">Jimmy Setiawan (setiawanjimmy)</string>
-    <string name="team_jimmy_link" translatable="false">https://lh3.googleusercontent.com/-Vr3ducdRB-Y/AAAAAAAAAAI/AAAAAAAATZw/cs89A1rHjGM/s360-c/photo.jpg</string>
-
-    <string name="team_dejan" translatable="false">Dejan Barić (llevo3)</string>
-    <string name="team_dejan_link" translatable="false">https://lh3.googleusercontent.com/-Bs-5_0XMnSk/AAAAAAAAAAI/AAAAAAAAPKw/SswQi6wdzpM/s360-c/photo.jpg</string>
-
-    <string name="team_dave" translatable="false">David Wilson (daveyannihilation)</string>
-    <string name="team_dave_link" translatable="false">https://lh3.googleusercontent.com/-DplAfZWGiNI/AAAAAAAAAAI/AAAAAAAAe3k/8cW-4h2tug8/s360-c/photo.jpg</string>
-
-    <string name="team_branden" translatable="false">Branden Manibusan (BrandenM)</string>
-    <string name="team_branden_link" translatable="false">https://lh3.googleusercontent.com/-56pMQf9oyy0/AAAAAAAAAAI/AAAAAAAAdps/scNiEc8QW0U/s360-c/photo.jpg</string>
-
-    <string name="team_jeremy" translatable="false">Jeremy Beck (jerbeck24)</string>
-    <string name="team_jeremy_link" translatable="false">https://lh3.googleusercontent.com/-9cREi-gE05k/AAAAAAAAAAI/AAAAAAAAnvU/7S6JqslbMwc/s360-c/photo.jpg</string>
+    <string name="team_nicholas" translatable="false">Nicholas Chum</string>
+    <string name="team_nicholas_description">Development Coordinator</string>
+    <string name="team_nicholas_link" translatable="false">https://plus.google.com/+NicholasChumCDT</string>
+    <string name="team_syko" translatable="false">Mike Finnegan</string>
+    <string name="team_syko_description">System Researcher</string>
+    <string name="team_syko_link" translatable="false">https://plus.google.com/+SykoPompos</string>
+    <string name="team_ivan" translatable="false">Ivan Iskandar</string>
+    <string name="team_ivan_description">Platform &amp; Features</string>
+    <string name="team_ivan_link" translatable="false">https://plus.google.com/+IvanIskandar1023</string>
+    <string name="team_surge" translatable="false">Suraj Raval</string>
+    <string name="team_surge_description">Binaries &amp; Algorithms</string>
+    <string name="team_surge_link" translatable="false">https://plus.google.com/109273915986671208869</string>
+    <string name="team_george" translatable="false">George Gian</string>
+    <string name="team_george_description" translatable="false">Platform Experimentation</string>
+    <string name="team_george_link" translatable="false">https://plus.google.com/+GeorgeGian</string>
+    <string name="team_nathan" translatable="false">Nathan Chancellor</string>
+    <string name="team_nathan_description" translatable="false">Documentation &amp; Relations</string>
+    <string name="team_nathan_link" translatable="false">https://plus.google.com/+NathanChancellor</string>
+    <string name="team_char" translatable="false">Char G</string>
+    <string name="team_char_description">Community Organization &amp; Support</string>
+    <string name="team_char_link" translatable="false">https://plus.google.com/+CharG</string>
 
     <string name="slide_1_title">welcome to substratum</string>
     <string name="slide_1_text">a minimal yet powerful theme engine based on Sony\'s overlay manager service</string>
@@ -870,7 +806,7 @@
     <string name="nav_troubleshooting">Troubleshooting</string>
     <!-- More -->
     <string name="nav_section_header_more">More</string>
-    <string name="nav_team">Contributors</string>
+    <string name="nav_team_contributors">Team &amp; Contributors</string>
     <string name="nav_opensource">Licenses</string>
     <string name="nav_settings">Settings</string>
 

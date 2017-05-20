@@ -18,14 +18,35 @@
   -->
 
 <resources>
+    <string-array name="substratum_contributors">
+        <item>Alex Cruz (Mazda)</item>
+        <item>Anthony Nguyen (LinkedDesigns)</item>
+        <item>Benjamin Humpton (Morningstar)</item>
+        <item>Branden Manibusan (BrandenM)</item>
+        <item>Cory Collins (camcory)</item>
+        <item>David Wilson (daveyannihilation)</item>
+        <item>Dejan Barić (llevo3)</item>
+        <item>Harsh Shandilya (MSF Jarvis)</item>
+        <item>Idan Shulman</item>
+        <item>Jacob McSwain (USA-RedDragon)</item>
+        <item>Jeremy Beck (jerbeck24)</item>
+        <item>Jimmy Setiawan (setiawanjimmy)</item>
+        <item>Kevin Aguilar (221 Pixels)</item>
+        <item>Oguzhan Yigit (sirmordred)</item>
+        <item>Raja Mu (RajaMu)</item>
+        <item>Randall Rushing (bigrushdog)</item>
+        <item>Sajid Shaik</item>
+        <item>Travis Hall (notjustanotherdesigner)</item>
+    </string-array>
+
     <string-array name="layers_contributors">
-        <item>@string/contributor_reinhard</item>
-        <item>@string/contributor_brian</item>
-        <item>@string/contributor_aldrin</item>
-        <item>@string/contributor_steve</item>
-        <item>@string/contributor_niklas</item>
-        <item>@string/contributor_andrzej</item>
-        <item>@string/contributor_denis</item>
+        <item>Reinhard Strauch</item>
+        <item>Brian Gill (Bgill55)</item>
+        <item>Aldrin Holmes (CallMeAldy)</item>
+        <item>Steve Lovejoy (lovejoy777)</item>
+        <item>Niklas Schnettler (Sh4dowSoul)</item>
+        <item>Andrzej Ressel (jereksel)</item>
+        <item>Denis Suarez (Wh0Cares)</item>
     </string-array>
 
     <string-array name="translations">

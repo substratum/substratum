@@ -18,6 +18,8 @@
   -->
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -34,7 +36,7 @@
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:text="@string/team_title_1"
+            android:text="@string/team_title_one"
             android:textColor="@color/settings_title_color"
             android:textStyle="bold"/>
 
@@ -44,7 +46,7 @@
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:text="@string/team_text_1"/>
+            android:text="@string/team_text_one"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -52,57 +54,405 @@
             android:layout_marginTop="10dp"
             android:baselineAligned="false">
 
+            <android.support.v7.widget.CardView
+                android:id="@+id/nicholas_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:cardCornerRadius="@dimen/card_corner_radius">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="10dp">
+
+                    <ImageView
+                        android:id="@+id/nicholas"
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:contentDescription="@string/team_nicholas"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/team_nicholas"/>
+
+                    <TextView
+                        android:id="@+id/nicholas_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/nicholas"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:text="@string/team_nicholas"
+                        android:textColor="@color/main_screen_card_theme_title"
+                        android:textSize="18sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/nicholas_text"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="10dp"
+                        android:gravity="center"
+                        android:text="@string/team_nicholas_description"
+                        android:textColor="@color/main_screen_card_theme_title"
+                        android:textSize="14sp"/>
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/syko_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:cardCornerRadius="@dimen/card_corner_radius">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="10dp">
+
+                    <ImageView
+                        android:id="@+id/syko"
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:contentDescription="@string/team_syko"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/team_syko"/>
+
+                    <TextView
+                        android:id="@+id/syko_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/syko"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:text="@string/team_syko"
+                        android:textColor="@color/main_screen_card_theme_title"
+                        android:textSize="18sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/syko_text"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="10dp"
+                        android:gravity="center"
+                        android:text="@string/team_syko_description"
+                        android:textColor="@color/main_screen_card_theme_title"
+                        android:textSize="14sp"/>
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:baselineAligned="false">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/ivan_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:cardCornerRadius="@dimen/card_corner_radius">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="10dp">
+
+                    <ImageView
+                        android:id="@+id/ivan"
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:contentDescription="@string/team_ivan"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/team_ivan"/>
+
+                    <TextView
+                        android:id="@+id/ivan_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/ivan"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:text="@string/team_ivan"
+                        android:textColor="@color/main_screen_card_theme_title"
+                        android:textSize="18sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/ivan_text"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="10dp"
+                        android:gravity="center"
+                        android:text="@string/team_ivan_description"
+                        android:textColor="@color/main_screen_card_theme_title"
+                        android:textSize="14sp"/>
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/surge_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:cardCornerRadius="@dimen/card_corner_radius">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="10dp">
+
+                    <ImageView
+                        android:id="@+id/surge"
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:contentDescription="@string/team_surge"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/team_surge"/>
+
+                    <TextView
+                        android:id="@+id/surge_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/surge"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:text="@string/team_surge"
+                        android:textColor="@color/main_screen_card_theme_title"
+                        android:textSize="18sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/surge_text"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="10dp"
+                        android:gravity="center"
+                        android:text="@string/team_surge_description"
+                        android:textColor="@color/main_screen_card_theme_title"
+                        android:textSize="14sp"/>
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:baselineAligned="false">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/george_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:cardCornerRadius="@dimen/card_corner_radius">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="10dp">
+
+                    <ImageView
+                        android:id="@+id/george"
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:contentDescription="@string/team_george"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/team_george"/>
+
+                    <TextView
+                        android:id="@+id/george_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/george"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:text="@string/team_george"
+                        android:textColor="@color/main_screen_card_theme_title"
+                        android:textSize="18sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/george_text"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="10dp"
+                        android:gravity="center"
+                        android:text="@string/team_george_description"
+                        android:textColor="@color/main_screen_card_theme_title"
+                        android:textSize="14sp"/>
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/nathan_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:cardCornerRadius="@dimen/card_corner_radius">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="10dp">
+
+                    <ImageView
+                        android:id="@+id/nathan"
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:contentDescription="@string/team_nathan"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/team_nathan"/>
+
+                    <TextView
+                        android:id="@+id/nathan_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/nathan"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:text="@string/team_nathan"
+                        android:textColor="@color/main_screen_card_theme_title"
+                        android:textSize="18sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/nathan_text"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="10dp"
+                        android:gravity="center"
+                        android:text="@string/team_nathan_description"
+                        android:textColor="@color/main_screen_card_theme_title"
+                        android:textSize="14sp"/>
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:baselineAligned="false">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/char_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:cardCornerRadius="@dimen/card_corner_radius">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="10dp">
+
+                    <ImageView
+                        android:id="@+id/charcat"
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:contentDescription="@string/team_nathan"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/team_char"/>
+
+                    <TextView
+                        android:id="@+id/char_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/charcat"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:text="@string/team_char"
+                        android:textColor="@color/main_screen_card_theme_title"
+                        android:textSize="18sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/char_text"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/team_char_description"
+                        android:textColor="@color/main_screen_card_theme_title"
+                        android:textSize="14sp"/>
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
-                android:layout_weight="1">
-
-                <ImageView
-                    android:id="@+id/nicholas"
-                    android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/team_nicholas"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/nicholas"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:gravity="start"
-                    android:text="@string/team_nicholas"
-                    android:textColor="@color/main_screen_card_theme_title"
-                    android:textSize="18sp"/>
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:layout_weight="1">
-
-                <ImageView
-                    android:id="@+id/syko"
-                    android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/team_syko"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/syko"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:gravity="start"
-                    android:text="@string/team_syko"
-                    android:textColor="@color/main_screen_card_theme_title"
-                    android:textSize="18sp"/>
-
-            </RelativeLayout>
+                android:layout_weight="1"
+                tools:ignore="UselessLeaf"/>
 
         </LinearLayout>
 
@@ -112,7 +462,7 @@
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:text="@string/team_title_2"
+            android:text="@string/team_title_three"
             android:textColor="@color/settings_title_color"
             android:textStyle="bold"/>
 
@@ -122,35 +472,19 @@
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:text="@string/team_text_2"/>
+            android:text="@string/team_text_three"/>
 
-        <LinearLayout
+        <Button
+            android:id="@+id/list_button_contributors"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
-
-            <me.wangyuwei.galleryview.GalleryView
-                android:id="@+id/developer1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_weight="1"/>
-
-            <me.wangyuwei.galleryview.GalleryView
-                android:id="@+id/developer2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_weight="1"/>
-
-            <me.wangyuwei.galleryview.GalleryView
-                android:id="@+id/developer3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_weight="1"/>
-
-        </LinearLayout>
+            android:layout_margin="10dp"
+            android:background="@color/restore_button"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:selectableItemBackground"
+            android:text="@string/team_button_three"
+            android:textColor="@color/restore_button_text_color"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -158,7 +492,7 @@
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:text="@string/team_title_7"
+            android:text="@string/team_title_two"
             android:textColor="@color/settings_title_color"
             android:textStyle="bold"/>
 
@@ -168,190 +502,7 @@
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:text="@string/team_text_7"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
-
-            <me.wangyuwei.galleryview.GalleryView
-                android:id="@+id/developerRootless1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_weight="1"/>
-
-            <me.wangyuwei.galleryview.GalleryView
-                android:id="@+id/developerRootless2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_weight="1"/>
-
-            <me.wangyuwei.galleryview.GalleryView
-                android:id="@+id/developerRootless3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_weight="1"/>
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/team_title_3"
-            android:textColor="@color/settings_title_color"
-            android:textStyle="bold"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/team_text_3"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
-
-            <me.wangyuwei.galleryview.GalleryView
-                android:id="@+id/designer1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_weight="1"/>
-
-            <me.wangyuwei.galleryview.GalleryView
-                android:id="@+id/designer2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_weight="1"/>
-
-            <me.wangyuwei.galleryview.GalleryView
-                android:id="@+id/designer3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_weight="1"/>
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/team_eye"
-            android:textColor="@color/settings_title_color"
-            android:textStyle="bold"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/team_eye_text"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:baselineAligned="false"
-            android:orientation="vertical"
-            android:padding="10dp">
-
-            <ImageView
-                android:id="@+id/nathan"
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/team_nathan"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:gravity="start"
-                android:text="@string/contributor_nathan"
-                android:textColor="@color/main_screen_card_theme_title"
-                android:textSize="18sp"/>
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/team_title_4"
-            android:textColor="@color/settings_title_color"
-            android:textStyle="bold"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/team_text_4"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
-
-            <me.wangyuwei.galleryview.GalleryView
-                android:id="@+id/contributor1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_weight="1"/>
-
-            <me.wangyuwei.galleryview.GalleryView
-                android:id="@+id/contributor2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_weight="1"/>
-
-            <me.wangyuwei.galleryview.GalleryView
-                android:id="@+id/contributor3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_weight="1"/>
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/team_title_5"
-            android:textColor="@color/settings_title_color"
-            android:textStyle="bold"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/team_text_5"/>
+            android:text="@string/team_text_two"/>
 
         <Button
             android:id="@+id/list_button_translators_contribute"
@@ -362,8 +513,9 @@
             android:layout_marginTop="10dp"
             android:background="@color/restore_button"
             android:clickable="true"
+            android:focusable="true"
             android:foreground="?android:selectableItemBackground"
-            android:text="@string/team_button_5_contribute"
+            android:text="@string/team_button_two_contribute"
             android:textColor="@color/restore_button_text_color"/>
 
         <Button
@@ -373,8 +525,9 @@
             android:layout_margin="10dp"
             android:background="@color/restore_button"
             android:clickable="true"
+            android:focusable="true"
             android:foreground="?android:selectableItemBackground"
-            android:text="@string/team_button_5"
+            android:text="@string/team_button_two"
             android:textColor="@color/restore_button_text_color"/>
 
         <TextView
@@ -383,7 +536,7 @@
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:text="@string/team_title_6"
+            android:text="@string/team_title_four"
             android:textColor="@color/settings_title_color"
             android:textStyle="bold"/>
 
@@ -393,7 +546,7 @@
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:text="@string/team_text_6"/>
+            android:text="@string/team_text_four"/>
 
         <Button
             android:id="@+id/list_button_layers"
@@ -402,8 +555,9 @@
             android:layout_margin="10dp"
             android:background="@color/restore_button"
             android:clickable="true"
+            android:focusable="true"
             android:foreground="?android:selectableItemBackground"
-            android:text="@string/team_button_6"
+            android:text="@string/team_button_four"
             android:textColor="@color/restore_button_text_color"/>
 
     </LinearLayout>

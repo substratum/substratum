@@ -457,7 +457,7 @@ public class MainActivity extends SubstratumActivity implements
                         .withName(R.string.nav_section_header_more));
         drawerBuilder.addDrawerItems(
                 new SecondaryDrawerItem()
-                        .withName(R.string.nav_team)
+                        .withName(R.string.nav_team_contributors)
                         .withIcon(R.drawable.nav_drawer_team)
                         .withIdentifier(13));
         drawerBuilder.addDrawerItems(
@@ -526,7 +526,7 @@ public class MainActivity extends SubstratumActivity implements
                                 "TroubleshootingFragment");
                         break;
                     case 13:
-                        switchFragment(getString(R.string.nav_team),
+                        switchFragment(getString(R.string.nav_team_contributors),
                                 "TeamFragment");
                         break;
                     case 14:

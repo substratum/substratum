@@ -159,11 +159,8 @@ public class PackageModificationDetector extends BroadcastReceiver {
                             true,
                             grabPendingIntent(package_name),
                             R.drawable.notification_updated,
-                            ((BitmapDrawable)
-                                    References.grabAppIcon(
-                                            context,
-                                            INTERFACER_PACKAGE
-                                    )).getBitmap(),
+                            ((BitmapDrawable) References.grabAppIcon(context, package_name))
+                                    .getBitmap(),
                             Notification.PRIORITY_MAX,
                             ThreadLocalRandom.current().nextInt(0, 1000)).createNotification();
                 } else {

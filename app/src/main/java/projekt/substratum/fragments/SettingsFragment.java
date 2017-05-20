@@ -315,7 +315,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         final CheckBoxPreference show_template_version = (CheckBoxPreference)
                 getPreferenceManager().findPreference("show_template_version");
-        if (prefs.getBoolean("show_template_version", true)) {
+        if (prefs.getBoolean("show_template_version", false)) {
             show_template_version.setChecked(true);
         } else {
             show_template_version.setChecked(false);

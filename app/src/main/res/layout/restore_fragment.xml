@@ -34,7 +34,9 @@
 
         <include layout="@layout/restore_bootanimation"/>
 
-        <include layout="@layout/restore_fonts"/>
+        <include
+            android:id="@+id/restore_fonts_card"
+            layout="@layout/restore_fonts"/>
 
         <include layout="@layout/restore_sounds"/>
 

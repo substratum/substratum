@@ -38,6 +38,7 @@ import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
 import static android.content.om.OverlayInfo.STATE_NOT_APPROVED_DANGEROUS_OVERLAY;
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
 import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
+import static projekt.substratum.common.References.MASQUERADE_PACKAGE;
 import static projekt.substratum.common.References.checkOMS;
 import static projekt.substratum.common.References.checkThemeInterfacer;
 
@@ -58,8 +59,11 @@ public class ThemeManager {
     private static final String disableAllOverlays = "cmd overlay disable-all";
     private static final String setPriority = "cmd overlay set-priority";
     private static final String[] blacklistedPackages = new String[]{
-            INTERFACER_PACKAGE
+            INTERFACER_PACKAGE,
+            MASQUERADE_PACKAGE
     };
+    // Non-Interfacer (NI) values
+    private static final Integer NI_restartSystemUIDelay = 2000;
 
     public static boolean blacklisted(String packageName) {
         List<String> blacklisted = Arrays.asList(blacklistedPackages);
@@ -76,7 +80,12 @@ public class ThemeManager {
                 commands += ";" + enableOverlay + " " + overlays.get(i);
             }
             new ElevatedCommands.ThreadRunner().execute(commands);
-            if (shouldRestartUI(context, overlays)) ThemeManager.restartSystemUI(context);
+            try {
+                Thread.sleep(NI_restartSystemUIDelay);
+                if (shouldRestartUI(context, overlays)) restartSystemUI(context);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -90,7 +99,12 @@ public class ThemeManager {
                 commands += ";" + disableOverlay + " " + overlays.get(i);
             }
             new ElevatedCommands.ThreadRunner().execute(commands);
-            if (shouldRestartUI(context, overlays)) restartSystemUI(context);
+            try {
+                Thread.sleep(NI_restartSystemUIDelay);
+                if (shouldRestartUI(context, overlays)) restartSystemUI(context);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -112,11 +126,13 @@ public class ThemeManager {
     }
 
     public static void disableAllThemeOverlays(Context context) {
-        if (checkThemeInterfacer(context)) {
+        if (checkThemeInterfacer(context) || VersionChecker.checkOreoStockOMS()) {
             List<String> list = ThemeManager.listOverlays(context, STATE_APPROVED_ENABLED).stream()
                     .filter(o -> References.grabOverlayParent(context, o) != null)
                     .collect(Collectors.toList());
-            if (!list.isEmpty()) {
+            if (VersionChecker.checkOreoStockOMS() && !list.isEmpty()) {
+                ThemeManager.disableOverlay(context, new ArrayList<>(list));
+            } else if (!list.isEmpty()) {
                 ThemeInterfacerService.disableOverlays(context, new ArrayList<>(list),
                         shouldRestartUI(context, new ArrayList<>(list)));
             }

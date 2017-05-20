@@ -115,6 +115,7 @@ import static android.content.om.OverlayInfo.STATE_NOT_APPROVED_MISSING_TARGET;
 import static android.content.om.OverlayInfo.STATE_NOT_APPROVED_NO_IDMAP;
 import static android.content.om.OverlayInfo.STATE_NOT_APPROVED_UNKNOWN;
 import static projekt.substratum.common.analytics.PackageAnalytics.PACKAGE_TAG;
+import static projekt.substratum.common.platform.VersionChecker.checkOreo;
 
 public class References {
 
@@ -382,16 +383,6 @@ public class References {
     public static boolean isCachingEnabled(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context)
                 .getBoolean("caching_enabled", false);
-    }
-
-    public static boolean checkOreo() {
-        switch (Build.VERSION.RELEASE) {
-            case "O":
-                return true;
-            default:
-                break;
-        }
-        return false;
     }
 
     public static void createShortcut(Context context, String theme_pid, String theme_name) {

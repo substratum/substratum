@@ -82,6 +82,7 @@ import projekt.substratum.common.References;
 import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
+import projekt.substratum.common.platform.VersionChecker;
 import projekt.substratum.common.tabs.WallpaperManager;
 import projekt.substratum.util.views.FloatingActionMenu;
 import projekt.substratum.util.views.SheetDialog;
@@ -96,6 +97,7 @@ import static projekt.substratum.common.References.metadataWallpapers;
 import static projekt.substratum.common.References.overlaysFragment;
 import static projekt.substratum.common.References.soundsFragment;
 import static projekt.substratum.common.References.wallpaperFragment;
+import static projekt.substratum.common.platform.VersionChecker.checkOreo;
 
 public class InformationActivity extends SubstratumActivity {
 
@@ -140,8 +142,7 @@ public class InformationActivity extends SubstratumActivity {
     }
 
     private static void setOverflowButtonColor(final Activity activity, final Boolean dark_mode) {
-        @SuppressLint("PrivateResource")
-        final String overflowDescription =
+        @SuppressLint("PrivateResource") final String overflowDescription =
                 activity.getString(R.string.abc_action_menu_overflow_description);
         final ViewGroup decorView = (ViewGroup) activity.getWindow().getDecorView();
         final ViewTreeObserver viewTreeObserver = decorView.getViewTreeObserver();
@@ -688,7 +689,7 @@ public class InformationActivity extends SubstratumActivity {
         if (!isOMS) menu.findItem(R.id.enable).setVisible(false);
         if (!isOMS) menu.findItem(R.id.restart_systemui).setVisible(false);
         if (isOMS) menu.findItem(R.id.reboot_device).setVisible(false);
-        if (isOMS || References.checkOreo()) menu.findItem(R.id.soft_reboot).setVisible(false);
+        if (isOMS || checkOreo()) menu.findItem(R.id.soft_reboot).setVisible(false);
 
         menu.findItem(R.id.clean_cache).setVisible(prefs.getBoolean("caching_enabled", false));
 

@@ -101,6 +101,7 @@ import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.MasqueradeService;
 import projekt.substratum.common.platform.ThemeManager;
+import projekt.substratum.common.platform.VersionChecker;
 import projekt.substratum.services.notification.NotificationButtonReceiver;
 import projekt.substratum.util.compilers.CacheCreator;
 import projekt.substratum.util.compilers.SubstratumBuilder;
@@ -722,7 +723,8 @@ public class Overlays extends Fragment {
             }
 
             if (compile_enable_mode) {
-                if (checkThemeInterfacer(context)) {
+                if (checkThemeInterfacer(context) ||
+                        VersionChecker.checkOreoStockOMS()) {
                     ThemeManager.enableOverlay(context, final_command);
                 } else {
                     final_commands += ThemeManager.enableOverlay;
@@ -1579,7 +1581,8 @@ public class Overlays extends Fragment {
                         }
                         progressBar.setVisibility(View.VISIBLE);
                         if (toggle_all.isChecked()) toggle_all.setChecked(false);
-                        if (checkThemeInterfacer(getContext())) {
+                        if (checkThemeInterfacer(getContext()) ||
+                                VersionChecker.checkOreoStockOMS()) {
                             ThemeManager.disableOverlay(getContext(), disableBeforeEnabling);
                             ThemeManager.enableOverlay(getContext(), final_command);
                         } else {
@@ -1610,7 +1613,8 @@ public class Overlays extends Fragment {
                     } else {
                         progressBar.setVisibility(View.VISIBLE);
                         if (toggle_all.isChecked()) toggle_all.setChecked(false);
-                        if (checkThemeInterfacer(getContext())) {
+                        if (checkThemeInterfacer(getContext()) ||
+                                VersionChecker.checkOreoStockOMS()) {
                             ThemeManager.enableOverlay(getContext(), final_command);
                         } else {
                             String final_commands = ThemeManager.enableOverlay;
@@ -1662,7 +1666,8 @@ public class Overlays extends Fragment {
                     disable_mode = false;
                     progressBar.setVisibility(View.VISIBLE);
                     if (toggle_all.isChecked()) toggle_all.setChecked(false);
-                    if (checkThemeInterfacer(getContext())) {
+                    if (checkThemeInterfacer(getContext()) ||
+                            VersionChecker.checkOreoStockOMS()) {
                         ThemeManager.disableOverlay(getContext(), final_command);
                     } else {
                         String final_commands = "";

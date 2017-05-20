@@ -133,18 +133,6 @@
     <!-- ClassPath for autoDetect section -->
     <string name="library_floatingview_classPath">jp.co.recruit_lifestyle.android.floatingview.FloatingView</string>
     <!-- License section -->
-    <!-- Jike Gallery -->
-    <!-- Author section -->
-    <string name="library_jikegallery_author">Jeason Wong</string>
-    <string name="library_jikegallery_authorWebsite">http://wangyuwei.me/</string>
-    <!-- Library section -->
-    <string name="library_jikegallery_libraryName">JikeGallery</string>
-    <string name="library_jikegallery_libraryDescription">一个拥有垂直平滑动画的画廊展示控件，能使显示的内容更加吸引人。</string>
-    <string name="library_jikegallery_libraryWebsite">https://github.com/JeasonWong/JikeGallery</string>
-    <!-- OpenSource section -->
-    <!-- ClassPath for autoDetect section -->
-    <string name="library_jikegallery_classPath">me.wangyuwei:GalleryView</string>
-    <!-- License section -->
     <!-- ExpandableLayout -->
     <!-- Author section -->
     <!-- Library section -->

@@ -133,7 +133,7 @@
     <string name="settings_about_interfacer">主题接口版本</string>
     <string name="settings_about_interfacer_not_installed">未安装</string>
     <string name="settings_about_interfacer_masquerade">请更新您的系统以使用主题接口功能</string>
-    <string name="settings_about_oms_rro_version">主题化平台：</string>
+    <string name="settings_about_oms_rro_version">主题平台：</string>
     <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2（旧版）</string>
     <string name="settings_about_system_version">系统平台</string>
@@ -246,7 +246,6 @@
     <string name="remove_dialog_later">推迟</string>
     <string name="restore_dialog_cancel">取消</string>
     <string name="restore_dialog_okay">继续</string>
-    <string name="restore_dialog_title">为了完全还原您的配置，请安装以下叠加层：</string>
     <string name="backup_button">备份当前状态</string>
     <string name="backup_no_overlays">您当前的设置中没有叠加层。</string>
     <string name="restore_button">恢复配置文件</string>
@@ -346,7 +345,7 @@
     <string name="manager_title">在列表显示已禁用的叠加层</string>
     <string name="manager_subtext">在叠加层列表中显示所有叠加层，包括已启用和已禁用的。</string>
     <string name="alternate_drawer_design_title">备用抽屉设计</string>
-    <string name="alternate_drawer_design_subtext">在浏览用户界面时使用备用导航抽屉设计</string>
+    <string name="alternate_drawer_design_subtext">浏览用户界面时使用备用导航抽屉设计</string>
     <string name="show_outdated_themes_title">显示所有旧版本主题</string>
     <string name="show_outdated_themes_content">禁用此项后 Substratum 将使用全新算法，主题加载速度会比平时更快。但只有在正确配置 6.0.0+ 插件时主题才会生效。</string>
     <string name="fab_menu_compile_enable">编译 &amp; 启用</string>
@@ -357,25 +356,6 @@
     <string name="fab_menu_enable">启用所选项</string>
     <string name="fab_menu_swap_toggle">禁用其他主题</string>
     <string name="fab_menu_swap_toggle_legacy">删除所有现有的</string>
-    <string name="team_eye">Substratum 之眼</string>
-    <string name="team_eye_text">这位贡献者给予了我们很多帮助，包括后端代码审查，文档写作，汇总各类常见问题，提交测试 ROM，各种漏洞修复等。他用令人惊叹的工作态度帮助别人使用这个系统。总之，如果没有他的辛勤工作和无私奉献，我们很难取得现在的优秀成果！</string>
-    <string name="team_title_1">Substratum 团队领导者</string>
-    <string name="team_text_1">我们与主题制作者们共同创造了一个完美的主题引擎，希望它能为用户带来更好的体验！</string>
-    <string name="team_title_2">Substratum 开发者</string>
-    <string name="team_text_2">这些人帮助我们让 OMS 开发环境变得更好！</string>
-    <string name="team_title_3">Substratum 主题制作领导者</string>
-    <string name="team_text_3">他们协助开发人员为其他主题制作者提供新的特性和反盗版等功能，使 Substratum 变得更加完善。</string>
-    <string name="team_title_4">Substratum 贡献者</string>
-    <string name="team_text_4">这些人非常乐意为 Substratum 贡献自己的精力与时间，我们很爱他们！</string>
-    <string name="team_title_5">Substratum 翻译者</string>
-    <string name="team_text_5">这些人把 Substratum 介绍给了全世界，我们对他们的努力表示衷心感谢！</string>
-    <string name="team_button_5">显示翻译者</string>
-    <string name="team_button_5_contribute">贡献翻译</string>
-    <string name="team_title_6">Layers 贡献者</string>
-    <string name="team_text_6">这些人以前为您带来了 Layers Manager ，并继续为 Substratum 的到来做了很多重要的事！</string>
-    <string name="team_button_6">显示贡献者</string>
-    <string name="team_title_7">Substratum（非 Root 版）开发者</string>
-    <string name="team_text_7">这些人使 Substratum 在无需 Root 权限的环境下稳定运行，他们的优异成绩令人瞩目！</string>
     <string name="slide_1_title">欢迎来到 Substratum</string>
     <string name="slide_1_text">体积虽小却功能强大，基于索尼 Overlay Manager Service 的主题引擎</string>
     <string name="slide_2_title">全新的用户界面</string>
@@ -436,10 +416,10 @@
     <string name="settings_system_status_uncertified">未认证</string>
     <string name="settings_title_automation">自动更新</string>
     <string name="settings_auto_updater_title">自动更新目标叠加层</string>
-    <string name="settings_auto_updater_text">Substratum 会自动为获得更新的叠加层生成、编译和安装一个新的版本。禁用此功能可以省电。</string>
+    <string name="settings_auto_updater_text">Substratum 会自动为获得更新的目标叠加层生成、编译和安装一个新的版本。禁用此功能可以省电。</string>
     <string name="settings_theme_auto_updater_title">自动更新主题叠加层（测试）</string>
     <string name="settings_theme_auto_updater_dialog_title">警告</string>
-    <string name="settings_theme_auto_updater_text">Substratum 会自动为获得更新的叠加层生成、编译和安装一个新的版本。禁用此功能可以省电。</string>
+    <string name="settings_theme_auto_updater_text">Substratum 会自动为获得更新的主题叠加层生成、编译和安装一个新的版本。禁用此功能可以省电。</string>
     <string name="settings_theme_auto_updater_dialog_text">在通知开启时，请勿在前台打开 PackageInstaller，否则框架重叠会使 PackageInstaller 重启，并导致无限期的重新编译。</string>
     <string name="settings_auto_alert_title">显示通知</string>
     <string name="settings_auto_alert_text">在应用安装过程中，如果发现已安装的主题中包含此应用的叠加层，将显示通知。</string>
@@ -536,16 +516,15 @@
     <string name="nav_troubleshooting">疑难解答</string>
     <!-- More -->
     <string name="nav_section_header_more">更多</string>
-    <string name="nav_team">贡献者</string>
     <string name="nav_opensource">许可</string>
     <string name="nav_settings">设置</string>
     <string name="title_activity_manage_space">管理存储空间</string>
     <string name="manage_space_cache_text_title">清除缓存</string>
     <string name="clear_cache_button_loading">正在加载</string>
     <string name="clear_cache_button_text">清除 Substratum 缓存</string>
-    <string name="manage_space_cache_counter_title">清除主题编译器产生的文件和其它在线下载内容。所有主题包和用户配置将保持原状。这可能需要一点时间，请耐心等待。</string>
+    <string name="manage_space_cache_counter_title">清除主题编译器产生的缓存文件和其它在线下载内容。所有主题包和用户配置将保持原状。这可能需要一点时间，请耐心等待。</string>
     <string name="manage_space_reset_text_title">重置配置</string>
-    <string name="manage_space_reset_text_desc">您是否在使用中遇到了问题？或者您最近是否对 Substratum 做了大版本的跨越式更新？请进行重置操作，有利于问题的解决。</string>
+    <string name="manage_space_reset_text_desc">您是否在使用中遇到了问题？最近是否对 Substratum 做了大版本的跨越式更新？请进行重置操作，有利于问题的解决。</string>
     <string name="manage_space_reset_dialog_title">您确定要重置所有配置吗？</string>
     <string name="manage_space_reset_dialog_content">应用程序会在重置完成后自动关闭</string>
 </resources>

@@ -245,7 +245,6 @@
     <string name="remove_dialog_later">Later</string>
     <string name="restore_dialog_cancel">Annuleren</string>
     <string name="restore_dialog_okay">Doorgaan</string>
-    <string name="restore_dialog_title">Gelieve deze overlays te installeren om je profiel volledig te herstellen:</string>
     <string name="backup_button">BACK-UP HUIDIGE TOESTAND</string>
     <string name="backup_no_overlays">Er zijn geen overlays in je huidige opstelling.</string>
     <string name="restore_button">HERSTEL PROFIEL</string>
@@ -356,25 +355,6 @@
     <string name="fab_menu_enable">Selectie inschakelen</string>
     <string name="fab_menu_swap_toggle">Andere thema\'s uitschakelen</string>
     <string name="fab_menu_swap_toggle_legacy">Verwijder alle bestaande</string>
-    <string name="team_eye">Ogen van Substratum</string>
-    <string name="team_eye_text">Deze bijdrager heeft zoveel geholpen met het project, van backend code herzieningen, documentatie recensies, frequent beantwoorden van vraagcompilaties, onmiddellijke ROM toepassingstests, afhandelen van uitgelicht updates, last-minute app bugs verhelpen, en over het algemeen een geweldige houding in ondersteuning om anderen op weg te helpen met het systeem&#8230; ons project zou op een heel andere plek zijn zonder al zijn harde werk en toewijding!</string>
-    <string name="team_title_1">Substratum teamleiders</string>
-    <string name="team_text_1">Niet alleen hebben wij iets gemaakt dat werkt voor de gebruikers, maar wij hebben in samenwerking met themers gewerkt om het een geweldige thematisering dienst te maken voor de communiteit!</string>
-    <string name="team_title_2">Substratum ontwikkeling bijdragers</string>
-    <string name="team_text_2">Deze ontwikkelaars zijn te hulp geschoten toen wij dat nodig hadden en hebben geholpen de OMS-scène een betere plek te maken!</string>
-    <string name="team_title_3">Substratum hoofd themers</string>
-    <string name="team_text_3">Deze themers hebben Substratum klaargemaakt, zowel als de ontwikkelaars geholpen met het bieden van functies die andere themers van dienst zijn, zoals anti-piraterij en een meer definitieve UI!</string>
-    <string name="team_title_4">Substratum bijdragers</string>
-    <string name="team_text_4">Deze mensen hebben vrijwillig hun steentje bijgedragen en tijd erin gestoken, hiervoor houden wij ontzettend van ze!</string>
-    <string name="team_title_5">Substratum vertalers</string>
-    <string name="team_text_5">Grote dank aan deze vertalers voor het brengen van Substratum aan de hele wereld!</string>
-    <string name="team_button_5">Toon vertalers</string>
-    <string name="team_button_5_contribute">Nu bijdragen!</string>
-    <string name="team_title_6">Layers bijdragers</string>
-    <string name="team_text_6">Deze mensen brachten je Layers Manager in het verleden en hebben veel geweldige dingen gedaan om Substratum klaar te maken voor ons!</string>
-    <string name="team_button_6">Toon bijdragers</string>
-    <string name="team_title_7">Substratum rootloze ontwikkeling bijdragers</string>
-    <string name="team_text_7">Deze ontwikkelaars begonnen met een plan om root uit te faseren en hebben succesvol geleverd!</string>
     <string name="slide_1_title">welkom bij Substratum</string>
     <string name="slide_1_text">een minimaal maar krachtige thema dienst gebaseerd op Sony\'s overlay manager service (OMS)</string>
     <string name="slide_2_title">een gloednieuwe gebruikersinterface</string>
@@ -535,7 +515,6 @@
     <string name="nav_troubleshooting">Probleemoplossing</string>
     <!-- More -->
     <string name="nav_section_header_more">Meer</string>
-    <string name="nav_team">Bijdragers</string>
     <string name="nav_opensource">Licenties</string>
     <string name="nav_settings">Instellingen</string>
     <string name="title_activity_manage_space">Beheer opslagruimtegebruik</string>

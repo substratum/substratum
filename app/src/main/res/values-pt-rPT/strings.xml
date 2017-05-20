@@ -259,7 +259,6 @@ clique em
     <string name="remove_dialog_later">Depois</string>
     <string name="restore_dialog_cancel">Cancelar</string>
     <string name="restore_dialog_okay">Continuar</string>
-    <string name="restore_dialog_title">Por favor instale estas camadas para restaurar seu perfil completamente:</string>
     <string name="backup_button">SALVAR ESTADO ATUAL</string>
     <string name="backup_no_overlays">Não há camadas em sua configuração atual.</string>
     <string name="restore_button">RESTAURAR PERFIL</string>
@@ -368,25 +367,6 @@ clique em
     <string name="fab_menu_enable">Habilitar Selecionado</string>
     <string name="fab_menu_swap_toggle">Desabilitar outros temas</string>
     <string name="fab_menu_swap_toggle_legacy">Remover todos existentes</string>
-    <string name="team_eye">Olhos do Substratum</string>
-    <string name="team_eye_text">Este colaborador tem ajudado muito no projeto, desde revisões de código de back-end, escrita de documentação, compilações de respostas frequentes, testes de novas alterações em ROMs, atualizações do mostruário, correções de última hora de bugs na aplicação e, de uma forma geral, uma atitude surpreendente e sempre com o espírito para ajudar outras pessoas a iniciarem-se com o sistema. O nosso projeto seria muito diferente sem todo seu enorme trabalho e dedicação!</string>
-    <string name="team_title_1">Líderes do Time Substratum</string>
-    <string name="team_text_1">Não somente fizemos algo que funcionasse para os utilizadores, como também trabalhamos em conjunto com criadores de temas para fazer um incrível motor de temas para a comunidade!</string>
-    <string name="team_title_2">Contribuidores de Desenvolvimento do Substratum</string>
-    <string name="team_text_2">Esses desenvolvedores vieram qiando precisámos de ajuda e ajudaram a causa para criar a cena da OMS um lugar muito melhor!</string>
-    <string name="team_title_3">Substratum Lead Themers</string>
-    <string name="team_text_3">Estes criadores de temas importantes fizeram com que o Substratum ficasse disponível e trabalharam de perto com os desenvolvedores de forma a ajudá-los com funcionalidades de ajuda a outros criadores de temas, tais como as de anti-pirataria e uma interface mais definitiva!</string>
-    <string name="team_title_4">Colaboradores do Substratum</string>
-    <string name="team_text_4">Estas pessoas contribuíram voluntariamente com a sua dedicação e tempo para todos nós e nós adoramo-os!</string>
-    <string name="team_title_5">Tradutores do Substratum</string>
-    <string name="team_text_5">Um enorme obrigado a estes tradutores por trazerem o substratum a todos à volta do mundo!</string>
-    <string name="team_button_5">Mostrar tradutores</string>
-    <string name="team_button_5_contribute">Ajude agora!</string>
-    <string name="team_title_6">Contribuidores do Layers</string>
-    <string name="team_text_6">Estas pessoas trouxeram para o Layers Manager no passado e desde então passaram a contribuir com coisas incríveis deixando o Substratum pronto para nós!</string>
-    <string name="team_button_6">Mostrar contribuintes</string>
-    <string name="team_title_7">Contribuidores no Desenvolvimento do Substratum Rootless</string>
-    <string name="team_text_7">Estes desenvolvedores começaram com um plano para se livrarem do root e, de seguida, conseguiram-no num abrir e fechar de olhos!</string>
     <string name="slide_1_title">bem-vindo ao substratum</string>
     <string name="slide_1_text">um motor de tema mínimo e potente com base no serviço de gestor de sobreposição da Sony</string>
     <string name="slide_2_title">uma nova interface de usuário</string>
@@ -536,7 +516,6 @@ clique em
     <string name="nav_troubleshooting">Solução de Problemas</string>
     <!-- More -->
     <string name="nav_section_header_more">Mais</string>
-    <string name="nav_team">Contribuidores</string>
     <string name="nav_opensource">Licenças</string>
     <string name="nav_settings">Configurações</string>
     <string name="title_activity_manage_space">Gerir o uso do armazenamento</string>

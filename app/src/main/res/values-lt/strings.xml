@@ -271,7 +271,6 @@
     <string name="remove_dialog_later">Vėliau</string>
     <string name="restore_dialog_cancel">Atšaukti</string>
     <string name="restore_dialog_okay">Tęsti</string>
-    <string name="restore_dialog_title">Prašome įdiegti šias perdangas , kad visiškai atkurti jūsų profilį:</string>
     <string name="backup_button">ATSARGINĖS KOPIJOS DABARTINĖ BŪSENA</string>
     <string name="backup_no_overlays">Nėra jokių perdangų jūsų dabartinėje konfigūracijoje.</string>
     <string name="restore_button">ATKURTI PROFILĮ</string>
@@ -384,25 +383,6 @@
     <string name="fab_menu_enable">Įjungti Pasirinktus</string>
     <string name="fab_menu_swap_toggle">Išjungti kitas temas</string>
     <string name="fab_menu_swap_toggle_legacy">Pašalinti visus esamus</string>
-    <string name="team_eye">\"Substratum\" akys</string>
-    <string name="team_eye_text">Šie bendradarbiai labai daug padėjo šiame projekte, nuo posistemės kodo peržiūrėjimo, dokumentacijos smulkaus aprašymo, dažniausiai atsakytų klausimų rinkinių, tiesioginiame \"ROM commit\" testuose, vitrinos atnaujinimuose, programos klaidų taisyme paskutinę minutę ir apskritai nuostabiu požiūriu į pagalbą kitiems, kad pradėtu su sistema&#8230;mūsų projektas būtų visiškai kitoks be jų sunkaus darbo ir atsidavimo!</string>
-    <string name="team_title_1">\"Substratum\" Komandos Lyderiai</string>
-    <string name="team_text_1">Mes ne tik sukūrėme kažką, kas dirba vartotojams, bet mes dirbome kartu su apipavidalintojais, kad sukurti nuostabų apipavidalinimo variklį bendruomenei!</string>
-    <string name="team_title_2">\"Substratum\" Vystymosi Bendraautoriai</string>
-    <string name="team_text_2">Šie žmonės atėjo kai mums reikėjo jų pagalbos ir parodė priežastį sukurti \"OMS\" geresnėje vietoje!</string>
-    <string name="team_title_3">\"Substratum\" Pagrindiniai Apipavidalintojai</string>
-    <string name="team_text_3">Šie pagrindiniai apipavidalintojai turi \"Substratum\" paruoštą pagrindą, taip pat pagelbėja programuotojams teikti funkcijas orientuotas į kitus apipavidalintojus, kova su piratavimu ir tobulesnę Naudotojo Sąsają (NS)!</string>
-    <string name="team_title_4">\"Substratum\" Bendraautoriai</string>
-    <string name="team_text_4">Šie žmonės noriai prisidėjo savo atsidavimu, laiku mums visiems ir todėl mes juos labai mylime!</string>
-    <string name="team_title_5">\"Substratum\" Vertėjai</string>
-    <string name="team_text_5">Labai dėkojame šiems vertėjams, kad pristatė \"Substratum\" visiem žmonėms aplink pasaulį!</string>
-    <string name="team_button_5">Rodyti Vertėjus</string>
-    <string name="team_button_5_contribute">Prisidėkite Dabar!</string>
-    <string name="team_title_6">Sluoksnių Bendraautoriai</string>
-    <string name="team_text_6">Šie žmonės pristatė jums \"Layers Manager\" ir padarė labai puikių dalykų, kad galėtume jums pristatyti \"Substratum\"!</string>
-    <string name="team_button_6">Rodyti Bendraautorius</string>
-    <string name="team_title_7">\"Substratum\" Be \"Root\" Vystymosi Bendraautoriai</string>
-    <string name="team_text_7">Šie kūrėjai pradėjo planą, kad palaipsniui panaikinti \"root\" turėjimo butinybę ir tada pristatė su skraidančiomis spalvomis!</string>
     <string name="slide_1_title">sveiki atvykę į \"substratum\"</string>
     <string name="slide_1_text">minimalus, bet galingas temų variklis, remiantis \"Sony overlay manager service\"</string>
     <string name="slide_2_title">visiškai nauja vartotojo sąsaja</string>
@@ -563,7 +543,6 @@
     <string name="nav_troubleshooting">Trikčių diagnostika ir šalinimas</string>
     <!-- More -->
     <string name="nav_section_header_more">Daugiau</string>
-    <string name="nav_team">Bendraautoriai</string>
     <string name="nav_opensource">Licencijos</string>
     <string name="nav_settings">Nustatymai</string>
     <string name="title_activity_manage_space">Tvarkyti Saugyklos Naudojimą</string>

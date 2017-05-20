@@ -272,8 +272,6 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="remove_dialog_later">Později</string>
     <string name="restore_dialog_cancel">Zrušit</string>
     <string name="restore_dialog_okay">Pokračovat</string>
-    <string name="restore_dialog_title">Prosím, nainstalujte tento potah pro kompletní obnovení profilu:
-    </string>
     <string name="backup_button">ZÁLOHOVÁNÍ AKTUÁLNÍHO STAVU</string>
     <string name="backup_no_overlays">Ve vašem aktuálním nastavení nejsou žádné potahy.</string>
     <string name="restore_button">OBNOVIT PROFIL</string>
@@ -401,25 +399,6 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="fab_menu_enable">Povolit vybrané</string>
     <string name="fab_menu_swap_toggle">Zakázat další motivy</string>
     <string name="fab_menu_swap_toggle_legacy">Odstranit všechny existující</string>
-    <string name="team_eye">Eyes of Substratum</string>
-    <string name="team_eye_text">Tento přispěvatel velmi pomohl tomuto projektu, od revize kódu na pozadí, přípravy dokumentace, častého odpovídání na otázky, okamžitého testování ROM, vyrovnání se s aktualizacemi Showcase, opravami chyb a celkově pomáhal ostatním naučit se pracovat se systémem... náš projekt by nebyl tam kde je bez jeho těžké práce a obětavosti!</string>
-    <string name="team_title_1">Vedoucí týmu Substratum</string>
-    <string name="team_text_1">Nejenže jsme vytvořily něco co funguje pro uživatele, ale také jsme spolupracovali s tvůrci motivů, aby jsme vytvořily úžasný program na vytváření motivů pro komunitu!</string>
-    <string name="team_title_2">Přispěvatelé do vývoje Substratum</string>
-    <string name="team_text_2">Tito vývojáři jsou k dispozici, pokud potřebujeme pomoc a pomáhají vytvořit z OMS scény lepší místo!</string>
-    <string name="team_title_3">Hlavní tvůrci motivů pro Substratum</string>
-    <string name="team_text_3">Tito hlavní tvůrci motivů připravili Substratum, a také pomohli vývojářům vytvořit funkce pro tvůrce jako například protipirátskou ochranu a efektivní uživatelské prostředí!</string>
-    <string name="team_title_4">Přispěvatelé Substratum</string>
-    <string name="team_text_4">Tito lidé ochotně přispěli, za jejich obětavost a čas je máme velmi rádi!</string>
-    <string name="team_title_5">Překladatelé Substratum</string>
-    <string name="team_text_5">Velké díky těmto překladatelům, že zpřístupnili Substratum všem na celém světě!</string>
-    <string name="team_button_5">Zobrazit překladatele</string>
-    <string name="team_button_5_contribute">Přispějte!</string>
-    <string name="team_title_6">Přispěvatelé Layers</string>
-    <string name="team_text_6">Tito lidé vám v minulosti přinesli Layers Manager a udělali spoustu skvělé práce, abychom my mohli přinést Substratum!</string>
-    <string name="team_button_6">Zobrazit přispěvatele</string>
-    <string name="team_title_7">Přispěvatelé do vývoje Rootless Substratum</string>
-    <string name="team_text_7">Tito vývojáři začali s plánem postupného odstranění potřeby root, a pak dodali vítězoslavně kód!</string>
     <string name="slide_1_title">vítejte v substratum</string>
     <string name="slide_1_text">minimalistický, ale výkonný theme engine založený na správci služeb potahů od Sony</string>
     <string name="slide_2_title">zbrusu nové uživatelské rozhraní</string>
@@ -580,7 +559,6 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="nav_troubleshooting">Poradce při potížích</string>
     <!-- More -->
     <string name="nav_section_header_more">Více</string>
-    <string name="nav_team">Přispěvatelé</string>
     <string name="nav_opensource">Licence</string>
     <string name="nav_settings">Nastavení</string>
     <string name="title_activity_manage_space">Správa využití úložiště</string>

@@ -254,7 +254,6 @@
     <string name="remove_dialog_later">Позже</string>
     <string name="restore_dialog_cancel">Отмена</string>
     <string name="restore_dialog_okay">Продолжить</string>
-    <string name="restore_dialog_title">Выберите наслоения для полного восстановления профиля:    </string>
     <string name="backup_button">СОСТОЯНИЕ РЕЗЕРВНОЙ КОПИИ</string>
     <string name="backup_no_overlays">В текущей конфигурации наслоений нет.</string>
     <string name="restore_button">ВОССТАНОВИТЬ ПРОФИЛЬ</string>
@@ -367,26 +366,6 @@
     <string name="fab_menu_enable">Активировать выбранное</string>
     <string name="fab_menu_swap_toggle">Отключить другие темы</string>
     <string name="fab_menu_swap_toggle_legacy">Удалить все существующие</string>
-    <string name="team_eye">Глаза Substratum</string>
-    <string name="team_eye_text">Этот участник неоценимо помог проекту проверкой механизмов работы кода, написанием документации, составлением часто задаваемых вопросов, немедленными тестами изменений в прошивках, отслеживанием обновлений каталога, незамедлительными исправлениями багов приложения и в целом поразительным стремлением помочь новичкам&#8230; наш проект был бы совершенно иным без его тяжёлой работы и преданности!</string>
-    <string name="team_title_1">Лидеры разработки Substratum</string>
-    <string name="team_text_1">Мы не просто создали то, что работает для пользователей, но совещались с дизайнерами тем, чтобы создать чудесный движок тем для сообщества!     </string>
-    <string name="team_title_2">Внесшие вклад разработчики</string>
-    <string name="team_text_2">Эти разработчики пришли, когда нам нужна была помощь, и сделали OMS сцену теплым местечком!     </string>
-    <string name="team_title_3">Главные творцы Substratum</string>
-    <string name="team_text_3">Это ключевые авторы тем, ставшие асами Substratum и наставляли разработчиков по функционалу для авторов тем, такому как  защита от пиратства, и более доступному пользовательскому интерфейсу!     </string>
-    <string name="team_title_4">Содействовавшие разработке Substratum</string>
-    <string name="team_text_4">Эти люди активно и охотно вкладывали усилия и время ради всех нас, за что мы их очень любим!</string>
-    <string name="team_title_5">Переводчики Substratum</string>
-    <string name="team_text_5">Огромная благодарность этим переводчикам, они сделали Substratum доступнее каждому во всем мире!
-    </string>
-    <string name="team_button_5">Показать переводчиков</string>
-    <string name="team_button_5_contribute">Внести вклад!</string>
-    <string name="team_title_6">Участвовавшие в Layers</string>
-    <string name="team_text_6">Эти люди создали для вас Layers Manager в прошлом и с тех пор сделали много полезного, чтобы сегодня появился Substratum!</string>
-    <string name="team_button_6">Показать участников</string>
-    <string name="team_title_7">Содействовавшие разработке безрутового Substratum</string>
-    <string name="team_text_7">Их замыслом был обход применения прав Суперпользователя, задумка пришлась к стати!</string>
     <string name="slide_1_title">приветствуем в substratum</string>
     <string name="slide_1_text">минималистичный, но мощный движок тем, основанный на OMS от Sony</string>
     <string name="slide_2_title">совершенно новый интерфейс</string>
@@ -548,7 +527,6 @@
     <string name="nav_troubleshooting">Устранение неполадок</string>
     <!-- More -->
     <string name="nav_section_header_more">Еще</string>
-    <string name="nav_team">Участники</string>
     <string name="nav_opensource">Лицензии</string>
     <string name="nav_settings">Настройки</string>
     <string name="title_activity_manage_space">Использование памяти</string>

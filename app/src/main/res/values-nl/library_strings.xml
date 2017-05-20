@@ -138,20 +138,6 @@
     <string name="library_floatingview_classPath">jp.co.recruit_lifestyle.android.floatingview.FloatingView</string>
     <!-- License section -->
     <string name="library_floatingview_licenseId">apache_2_0</string>
-    <!-- Jike Gallery -->
-    <!-- Author section -->
-    <string name="library_jikegallery_author">Jeason Wong</string>
-    <string name="library_jikegallery_authorWebsite">http://wangyuwei.me/</string>
-    <!-- Library section -->
-    <string name="library_jikegallery_libraryName">JikeGallery</string>
-    <string name="library_jikegallery_libraryDescription">Een coole galerijweergave met soepele verticale animaties die inhoud aantrekkelijker weergeeft.</string>
-    <string name="library_jikegallery_libraryWebsite">https://github.com/JeasonWong/JikeGallery</string>
-    <!-- OpenSource section -->
-    <string name="library_jikegallery_isOpenSource">true</string>
-    <!-- ClassPath for autoDetect section -->
-    <string name="library_jikegallery_classPath">me.wangyuwei:GalleryView</string>
-    <!-- License section -->
-    <string name="library_jikegallery_licenseId">apache_2_0</string>
     <!-- ExpandableLayout -->
     <!-- Author section -->
     <!-- Library section -->

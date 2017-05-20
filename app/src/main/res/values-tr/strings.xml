@@ -344,9 +344,6 @@ sağlayan
     <string name="remove_dialog_later">Sonra</string>
     <string name="restore_dialog_cancel">İptal</string>
     <string name="restore_dialog_okay">Devam</string>
-    <string name="restore_dialog_title">Profilinizi tamamen geri yüklemek için lütfen bu temalar
-        yükleyin:
-    </string>
     <string name="backup_button">GEÇERLİ YEDEK DURUMU</string>
     <string name="backup_no_overlays">Mevcut kurulumunuz da herhangi bir tema yok.</string>
     <string name="restore_button">PROFİLİ GERİ YÜKLE</string>
@@ -477,25 +474,6 @@ sağlayan
     <string name="fab_menu_enable">Seçilenleri Etkinleştir</string>
     <string name="fab_menu_swap_toggle">Diğer temaları devre dışı bırak</string>
     <string name="fab_menu_swap_toggle_legacy">Mevcut olanların tümünü kaldır</string>
-    <string name="team_eye">Substratum\'un Gözleri</string>
-    <string name="team_eye_text">Bu katılımcı projede çok yardımcı oldu, arka uç kodu incelemeleri, dokümanlar yazma, sıkça cevap verilen soru düzenlemeleri, anında ROM taahhüt testleri, vitrin güncellemeleri işleme, son dakika uygulama hatası düzeltmeleri ve başkalarının sistemi kullanmaya başlamasına yardımcı olmak için genel olarak inanılmaz bir tutum... Projemiz, tüm yoğun çalışması ve bağlılığı olmaksızın çok farklı bir yerde olacaktır!</string>
-    <string name="team_title_1">Substratum Takım Liderleri</string>
-    <string name="team_text_1">Kullanıcılar için işe yarayan bir şeyler yaratmamızın yanı sıra, topluluk için harika bir tema motoru haline getirmek için tema geliştiricileri ile birlikte çalıştık!</string>
-    <string name="team_title_2">Substratum\' un Geliştirmesinde Katkısı Bulunanlar</string>
-    <string name="team_text_2">Bu geliştiriciler, yardım gerektiğinde geldi ve OMS sahnesini daha iyi bir yer haline getirme nedenine yardımcı oldu!</string>
-    <string name="team_title_3">Substratum Lider Tema Geliştiricileri</string>
-    <string name="team_text_3">Bu çekirdek tema geliştiricileri Substratum\'u hazırladı ve geliştiricilere, korsanlığa karşı koruma ve daha kesin bir kullanıcı arayüzü gibi diğer tema geliştiricilerine yönelik özellikler sunmaya da yardımcı oldu!</string>
-    <string name="team_title_4">Substratum\'a Katkıda Bulunanlar</string>
-    <string name="team_text_4">Bu insanlar bu projeye hız verdi ve istekleriyle katkıda bulundu ve zamanlarını harcadılar ve biz onları çok seviyoruz!</string>
-    <string name="team_title_5">Substratum Çevirmenleri</string>
-    <string name="team_text_5">Substratum\'u dünyadaki herkese getirdiğiniz için bu çevirmenlere çok teşekkür ederim!</string>
-    <string name="team_button_5">Çevirmenleri Göster</string>
-    <string name="team_button_5_contribute">Şimdi Katkıda Bulunun!</string>
-    <string name="team_title_6">Layers\'e Katkıda Bulunanlar</string>
-    <string name="team_text_6">Bu insanlar geçmişte Layers\'i getirdiler ve o zamandan beri Substratum\'u bizim için hazır hale getirmekte çok güzel şeyler yapmaya devam ettiler!</string>
-    <string name="team_button_6">Katkıda Bulunanları Göster</string>
-    <string name="team_title_7">Substratum\'un Kök Erişimi Olmadan Çalışmasına Katkıda Bulunanlar</string>
-    <string name="team_text_7">Bu geliştiriciler, bu sistemin kök erişimi olmadan çalışmasına yönelik bir plan yaptılar, ve renkleri özgür bıraktılar!</string>
     <string name="slide_1_title">substratum\'a hoşgeldiniz</string>
     <string name="slide_1_text">Sony\'nin tema yöneticisi hizmetine dayanan minimal ancak güçlü bir tema motoru</string>
     <string name="slide_2_title">yepyeni bir kullanıcı arayüzü</string>
@@ -555,8 +533,8 @@ sağlayan
     <string name="settings_system_status_certified">Sertifikalı</string>
     <string name="settings_system_status_uncertified">Sertifikasız</string>
     <string name="settings_title_automation">Otomasyon</string>
-    <string name="settings_auto_updater_title">Hedef temaları otomatik olarak güncelle</string>
-    <string name="settings_auto_updater_text">Substratum, yeni güncellenen uygulamalar için otomatik olarak tüm temaların güncellenmiş bir sürümünü kuracak, düzenleyecek ve yükleyecektir. Bu devre dışı bırakmak pil tasarrufu sağlayacaktır.</string>
+    <string name="settings_auto_updater_title">Hedeflenen temaları otomatik olarak güncelle</string>
+    <string name="settings_auto_updater_text">Substratum, yeni güncellenen uygulamalar için otomatik olarak tüm temaların güncellenmiş bir sürümünü kuracak, düzenleyecek ve yükleyecektir. Bunu devre dışı bırakmak pil tasarrufu sağlayacaktır.</string>
     <string name="settings_theme_auto_updater_title">Temaları otomatik olarak güncelle (BETA)</string>
     <string name="settings_theme_auto_updater_dialog_title">UYARI</string>
     <string name="settings_theme_auto_updater_text">Substratum, yakın zamanda güncellenen temaya ait tüm temaların güncellenmiş bir sürümünü otomatik olarak oluşturacak, düzenleyecek ve yükleyecektir. Bunu devre dışı bırakmak pil tasarrufu sağlayacaktır.</string>
@@ -656,7 +634,6 @@ sağlayan
     <string name="nav_troubleshooting">Sorun giderme</string>
     <!-- More -->
     <string name="nav_section_header_more">Daha fazla</string>
-    <string name="nav_team">Katkıda Bulunanlar</string>
     <string name="nav_opensource">Lisanslar</string>
     <string name="nav_settings">Ayarlar</string>
     <string name="title_activity_manage_space">Depolama Alanını Yönet</string>

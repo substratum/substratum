@@ -250,7 +250,6 @@ Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
     <string name="remove_dialog_later">Później</string>
     <string name="restore_dialog_cancel">Anuluj</string>
     <string name="restore_dialog_okay">Kontynuuj</string>
-    <string name="restore_dialog_title">Należy zainstalować te nakładki aby całkowicie przywrócić swój profil:    </string>
     <string name="backup_button">WYKONAJ KOPIĘ ZAPASOWĄ</string>
     <string name="backup_no_overlays">Brak nakładek w bieżącej konfiguracji.</string>
     <string name="restore_button">PRZYWRÓĆ PROFIL</string>
@@ -364,25 +363,6 @@ Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
     <string name="fab_menu_enable">Włącz zaznaczone</string>
     <string name="fab_menu_swap_toggle">Wyłącz inne motywy</string>
     <string name="fab_menu_swap_toggle_legacy">Usuń wszystkie istniejące</string>
-    <string name="team_eye">Oczy Substratum</string>
-    <string name="team_eye_text">Ten współpracownik bardzo pomógł w projekcie, przy opinii kodu, opisach dokumentacji, odpowiedzi na często zadawane pytania kompilacji, natychmiastowym testowaniu poprawek romu, obsłudze aktualizacji prezentacji, naprawie błędów aplikacji w ostatniej chwili, i ogólnie niesamowitej postawie przy pomocy z systemem... bez jego jego ciężkiej pracy i poświęcenia nasz projekt wyglądałby zupełnie inaczej!</string>
-    <string name="team_title_1">Liderzy Zespołu</string>
-    <string name="team_text_1">Nie tylko stworzyliśmy coś, co służy naszym użytkownikom, ale współpracowaliśmy z twórcami motywów aby stworzyć ten wspaniały silnik motywów dla społeczności!</string>
-    <string name="team_title_2">Współtwórcy Rozwojowi</string>
-    <string name="team_text_2">Ci deweloperzy przybyli kiedy potrzebowaliśmy pomocy, oraz przyczynili sie do stworzenia sceny OMS dużo lepszym miejscem!</string>
-    <string name="team_title_3">Główni twórcy motywów</string>
-    <string name="team_text_3">Te osoby przyczyniły się do zarówno do ukończenia Substratum, jak też wspomagali programistów w celu zapewnienia funkcji przygotowanych dla innych, takich jak anty-piractwo czy lepszy interfejs użytkownika!</string>
-    <string name="team_title_4">Współautorzy</string>
-    <string name="team_text_4">Te osoby chętnie przyczyniły się i zaangażowały swój czas dla nas wszystkich, kochamy je mocno!</string>
-    <string name="team_title_5">Tłumaczenia</string>
-    <string name="team_text_5">Ogromne podziękowania dla tych tłumaczy za wprowadzenie Substratum dla każdego na świecie!</string>
-    <string name="team_button_5">Pokaż tłumaczy</string>
-    <string name="team_button_5_contribute">Przyczyń się teraz!</string>
-    <string name="team_title_6">Autorzy warstw</string>
-    <string name="team_text_6">Te osoby przyniosły ci Menedżer warstw w przeszłości i mają wspaniałe pomysły, oraz wiedzą co dalej robić aby Substratum było gotowe dla nas!</string>
-    <string name="team_button_6">Pokaż współtwórców</string>
-    <string name="team_title_7">Współtwórcy rozwojowi Substratum bez użycia roota</string>
-    <string name="team_text_7">Ci deweloperzy zaczynali z planem wycofania roota, a następnie dokonali tego śpiewająco!</string>
     <string name="slide_1_title">witamy w substratum</string>
     <string name="slide_1_text">minimalnym, ale potężnym silniku motywów opartym na Sony Overlay Manager Service</string>
     <string name="slide_2_title">nowy interfejs użytkownika</string>
@@ -543,7 +523,6 @@ Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
     <string name="nav_troubleshooting">Rozwiązywanie problemów</string>
     <!-- More -->
     <string name="nav_section_header_more">Więcej</string>
-    <string name="nav_team">Współtwórcy</string>
     <string name="nav_opensource">Licencje</string>
     <string name="nav_settings">Ustawienia</string>
     <string name="title_activity_manage_space">Zarządzaj użyciem pamięci</string>

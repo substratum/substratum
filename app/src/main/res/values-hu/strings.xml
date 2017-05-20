@@ -340,9 +340,6 @@
     <string name="remove_dialog_later">Később</string>
     <string name="restore_dialog_cancel">Mégse</string>
     <string name="restore_dialog_okay">Folytatás</string>
-    <string name="restore_dialog_title">Kérjük, telepítse ezeket a fedvényeket, hogy profilja
-        teljesen visszaállítható legyen:
-    </string>
     <string name="backup_button">AKTUÁLIS ÁLLAPOT MENTÉSE</string>
     <string name="backup_no_overlays">Jelenleg nincsenek fedvények az aktuális beállításaiban.</string>
     <string name="restore_button">PROFIL VISSZAÁLLÍTÁSA</string>
@@ -470,25 +467,6 @@
     <string name="fab_menu_enable">Kiválasztottak engedélyezése</string>
     <string name="fab_menu_swap_toggle">Más témák letiltása</string>
     <string name="fab_menu_swap_toggle_legacy">Összes létező eltávolítása</string>
-    <string name="team_eye">A Substratum Szeme</string>
-    <string name="team_eye_text">Ő az a közreműködő, aki nagyon sokat segített a projektben, a backend-kód véleményezéstől, dokumentáció íráson, gyakran ismételt kérdést válogatásokon, azonnali ROM véglegesítési teszteken, bemutatóterem frissítések kezelésen át, az utolsó pillanatos alkalmazás hibajavításig, és összességében egy csodálatos hozzáállása van a mások támogatásában, hogy kezdhessenek valamit a rendszerrel&#8230;projektünk egy nagyon más hely lenne az Ő kemény munkája és elkötelezettsége nélkül!</string>
-    <string name="team_title_1">Substratum Csoport Vezetők</string>
-    <string name="team_text_1">Nem csak létrehoztunk valamit, ami működik a felhasználók számára, hanem szorosan együttműködtünk a témafejlesztőkkel, hogy a Substratum egy csodálatos témakezelési-motorja legyen a közösségnek!</string>
-    <string name="team_title_2">Substratum Fejlesztési Közreműködők</string>
-    <string name="team_text_2">Ezek a fejlesztők akkor jöttek, amikor segítségre volt szükségünk, és segítettek abban, hogy az OMS egy sokkal jobb hely legyen!</string>
-    <string name="team_title_3">Substratum Vezető Témakészítők</string>
-    <string name="team_text_3">Ezek a fő témakészítők tették a Substratumot véglegessé, valamint hasznos funkciókat javasoltak a fejlesztőknek - mint például a kalózkodás elleni küzdelem és a tisztább felhasználói felület - integrálni!</string>
-    <string name="team_title_4">Substratum Közreműködők</string>
-    <string name="team_text_4">Ezek az emberek az elkötelezettségüket és idejüket biztosították számunkra, ezért szeretjük őket!</string>
-    <string name="team_title_5">Substratum Fordítók</string>
-    <string name="team_text_5">Hatalmas köszönet ezeknek fordítóknak, hogy a Substratum mindenkinek elérhető szerte a világon!</string>
-    <string name="team_button_5">Fordítók megjelenítése</string>
-    <string name="team_button_5_contribute">Hozzájárulás most!</string>
-    <string name="team_title_6">Rétegek Közreműködők</string>
-    <string name="team_text_6">Ezek az emberek hozták létre korábban a Réteg-kezelőt és azóta rengeteg nagyszerű dolgot hoztak létre, hogy a Substratum elkészüljön számunkra!</string>
-    <string name="team_button_6">Közreműködők megjelenítése</string>
-    <string name="team_title_7">Substratum root-mentes fejlesztési közreműködők</string>
-    <string name="team_text_7">Ezek a fejlesztők a root fokozatos kiiktatásának tervén dolgoztak, majd bravúrral véghez is vitték azt!</string>
     <string name="slide_1_title">üdvözli a substratum</string>
     <string name="slide_1_text">egy minimális, mégis erős témamotor a Sony fedvény kezelő szolgáltatása alapján</string>
     <string name="slide_2_title">egy teljesen új felhasználói felület</string>
@@ -650,7 +628,6 @@
     <string name="nav_troubleshooting">Hibaelhárítás</string>
     <!-- More -->
     <string name="nav_section_header_more">Továbbiak</string>
-    <string name="nav_team">Közreműködők</string>
     <string name="nav_opensource">Licencek</string>
     <string name="nav_settings">Beállítások</string>
     <string name="title_activity_manage_space">Tárhely használat kezelése</string>

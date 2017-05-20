@@ -19,6 +19,8 @@
   -->
 <resources>
     <string name="showcase">Galerie de thème</string>
+    <string name="android">Version Android :</string>
+    <string name="device">Modèle :</string>
     <string name="resource_checker_request">Envoyer la demande de fusion de validation en utilisant&#8230;</string>
     <string name="resource_checker">Demande de validation</string>
     <string name="resource_checker_commons">Framework</string>
@@ -60,6 +62,7 @@
     <string name="activity_missing_toast">Désolé, aucune application trouvée qui pourrait gérer cette demande !</string>
     <string name="abort_overlay_toast_success">Toutes les surcouches sont désinstallées !</string>
     <string name="rescue_toast">Restauration système en cours&#8230;</string>
+    <string name="reboot_awaiting_manager_title">SURCOUCHE DANS L\'ATTENTE DU REDÉMARRAGE</string>
     <string name="manager_theme_name">Thème :</string>
     <string name="manager_type1a">Type 1a :</string>
     <string name="manager_type1b">Type 1b :</string>
@@ -128,8 +131,12 @@
     <string name="sounds_unlock_sound">Sons du déverrouillage de l\'écran</string>
     <string name="settings_about_substratum">Version de Substratum</string>
     <string name="settings_about_interfacer">Version de l\'Interface de thème</string>
+    <string name="settings_about_interfacer_not_installed">Non installé</string>
+    <string name="settings_about_interfacer_masquerade">Cette ROM requiert une mise à jour pour utiliser la fonctionnalité de l\'Interface de thème</string>
+    <string name="settings_about_oms_rro_version">Plateforme thème :</string>
     <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
+    <string name="settings_about_system_version">Plateforme système</string>
     <string name="settings_aopt_switcher_title">Compilateur de Surcouche</string>
     <string name="theme_information_tab_one">Gestionnaire de surcouche</string>
     <string name="theme_information_tab_two">Animations de démarrage</string>
@@ -199,6 +206,7 @@
     <string name="dialog_restart_reboot_content">Effectue un redémarrage complet de votre appareil</string>
     <string name="dialog_restart_soft_reboot_title">Redémarrage logiciel</string>
     <string name="dialog_restart_soft_reboot_content">Effectue un redémarrage logiciel de votre appareil</string>
+    <string name="studio">icône studio</string>
     <string name="studio_system">Rétablir les icônes système</string>
     <string name="studio_system_reset_dialog_toast">Toutes les icônes modifiées ont déjà été désactivées !</string>
     <string name="studio_system_reset_dialog">Voulez-vous remplacer les icônes actuelles par les icônes système d\'origine ?</string>
@@ -237,7 +245,6 @@
     <string name="remove_dialog_later">Plus tard</string>
     <string name="restore_dialog_cancel">Annuler</string>
     <string name="restore_dialog_okay">Continuer</string>
-    <string name="restore_dialog_title">Installez ces surcouches pour pouvoir rétablir entièrement votre profil :</string>
     <string name="backup_button">SAUVEGARDER</string>
     <string name="backup_no_overlays">Aucune surcouche dans votre configuration actuelle.</string>
     <string name="restore_button">RÉTABLIR LE PROFIL</string>
@@ -291,6 +298,8 @@
     <string name="notification_initial_title">Substratum est en cours d\'exécution</string>
     <string name="notification_initial_title_upgrade">Mise à niveau des ressources de %s en cours&#8230;</string>
     <string name="notification_done_title">Compilation de thème terminée</string>
+    <string name="notification_done_upgrade_title">La mise à jour de la surcouche a terminé pour %s !</string>
+    <string name="notification_done_update_text">Toutes les surcouches activées et désactivées pour cette application ont été mises à jour.</string>
     <string name="notification_no_errors_found">Aucune erreur lors de l\'installation des surcouches</string>
     <string name="notification_some_errors_found">Erreur lors de l\'installation de la surcouche</string>
     <string name="notification_processing">Traitement de la surcouche en cours pour</string>
@@ -303,7 +312,10 @@
     <string name="shortcut_store">Galerie de thème</string>
     <string name="shortcut_store_disabled">Galerie de thème</string>
     <string name="settings_title">À propos</string>
+    <string name="settings_title_1">Préférences utilisateur</string>
+    <string name="settings_title_2">Liste des surcouches</string>
     <string name="settings_title_3">Thème</string>
+    <string name="settings_title_clickable">Préférences système</string>
     <string name="substratum_cache_clear_initial_toast">Suppression du cache de Substratum en cours&#8230;</string>
     <string name="substratum_restart_toast">Substratum a redémarré automatiquement après une modification des paramètres</string>
     <string name="purge_cache">Réinitialiser le cache du thème</string>
@@ -342,25 +354,6 @@
     <string name="fab_menu_enable">Activer la sélection</string>
     <string name="fab_menu_swap_toggle">Désactiver les autres thèmes</string>
     <string name="fab_menu_swap_toggle_legacy">Supprimer toutes les présentes</string>
-    <string name="team_eye">Les yeux de Substratum</string>
-    <string name="team_eye_text">Ce collaborateur a tellement contribué au projet, que cela soit en apportant des commentaires au code de Substratum, en rédigeant de la documentation, en compilant les Foires Aux Questions, en testant les nouvelles intégration de Substratum dans les ROMs, en mettant continuellement à jour la galerie de thème, en effectuant des corrections de bogue de dernière minute, et par dessus tout, en ayant une attitude incroyable dans sa manière d\'aider les gens à démarrer avec le système... Notre projet serait un endroit très différent, sans tout son travail acharné et son dévouement !</string>
-    <string name="team_title_1">Chefs d\'équipe de Substratum</string>
-    <string name="team_text_1">Non seulement nous avons créé quelque chose qui fonctionne pour les utilisateurs, mais nous avons en plus travaillé en collaboration avec des concepteurs de thèmes, afin d\'offrir ce merveilleux moteur de thème à la communauté !</string>
-    <string name="team_title_2">Collaborateurs au développement de Substratum</string>
-    <string name="team_text_2">Ces développeurs sont venus quand nous avions besoin d\'aide et ont aidé la cause en faisant du \"Service de gestion des surcouches\", un bien meilleur endroit !</string>
-    <string name="team_title_3">Concepteurs de thème Substratum</string>
-    <string name="team_text_3">Ce noyau de concepteurs de thèmes a permis à Substratum d\'être prêt, et aidé de près les développeurs afin de fournir des fonctionnalités appréciées par les autres concepteurs de thèmes, telles que la protection contre le piratage et une meilleure interface utilisateur !</string>
-    <string name="team_title_4">Collaborateurs de Substratum</string>
-    <string name="team_text_4">Ces personnes nous ont dédié beaucoup de temps. Nous les apprécions énormément !</string>
-    <string name="team_title_5">Traducteurs de Substratum</string>
-    <string name="team_text_5">Un grand merci à ces traducteurs pour mettre à disposition de tous Substratum à travers le monde !</string>
-    <string name="team_button_5">Afficher les traducteurs</string>
-    <string name="team_button_5_contribute">Participez !</string>
-    <string name="team_title_6">Collaborateurs de \"Layers\"</string>
-    <string name="team_text_6">Ces personnes vous ont apporté le \"Gestionnaire Layers\" par le passé, et ont depuis continué à faire de grandes choses pour la préparation Substratum !</string>
-    <string name="team_button_6">Afficher les collaborateurs</string>
-    <string name="team_title_7">Collaborateurs au développement de Substratum sans droits \"Root\"</string>
-    <string name="team_text_7">Ces développeurs ont commencé avec pour plan d\'éliminer le recours aux droits \"Root\", puis nous l\'ont livré avec des couleurs flamboyantes !</string>
     <string name="slide_1_title">Bienvenue dans Substratum</string>
     <string name="slide_1_text">Un moteur de thème puissant et minimal, basé sur le service de gestion des surcouches de Sony</string>
     <string name="slide_2_title">Une toute nouvelle interface utilisateur</string>
@@ -393,6 +386,7 @@
     <string name="profile_success_notification">Profil appliqué !</string>
     <string name="profile_failed_notification">Échec de la mise en place du profil&#8230;</string>
     <string name="profile_failed_info_notification">Afficher les détails</string>
+    <string name="profile_compile_progress" formatted="false">Compilation %d sur %d : \n%s</string>
     <string name="theme_debug_mode_title">Contournement d\'interjection du système</string>
     <string name="theme_debug_mode_summary">Cela empêchera l\'application d\'utiliser le mécanisme de rechange du compilateur existant, pour aider les thèmes lorsqu\'ils atteignent un état irrécupérable</string>
     <string name="break_compilation_dialog_title">AVERTISSEMENT</string>
@@ -411,7 +405,18 @@
     <string name="profile_dialog_cancel">Annuler</string>
     <string name="bottom_sheet_dialog_hide_outdated_themes">Masquer les thèmes obsolètes (Supérieurs à 6.0.0) [Conseillé !]</string>
     <string name="bottom_sheet_dialog_show_outdated_themes">Afficher les thèmes obsolètes (Inférieurs à 6.0.0) [Non pris en charge]</string>
+    <string name="settings_system_status">Certification système</string>
+    <string name="settings_system_status_rooted">Mode Root</string>
+    <string name="settings_system_status_rootless">Mode Rootless</string>
+    <string name="settings_system_status_certified">Certifié</string>
+    <string name="settings_system_status_uncertified">Non certifié</string>
+    <string name="settings_title_automation">Automatisation</string>
+    <string name="settings_theme_auto_updater_title">Automatiquement mettre à jour les surcouches du thème (BETA)</string>
     <string name="settings_theme_auto_updater_dialog_title">AVERTISSEMENT</string>
+    <string name="settings_theme_auto_updater_text">Substratum va automatiquement construire, compiler et installer une version à jour de toutes les surcouches pour le thème récemment mis à jour. Garder ceci désactivé économisera de la batterie.</string>
+    <string name="settings_theme_auto_updater_dialog_text">Veuillez ne PAS avoir l\'installateur de paquet ouvert au premier plan lorsque la notification est affichée, les surcouches du framework ont tendance à redémarrer l\'installateur de paquet ce qui provoque des recompilations en boucle !</string>
+    <string name="settings_auto_alert_title">Alerte si nouvelle surcouche installable trouvée</string>
+    <string name="settings_auto_alert_text">Lors de la première installation d\'une nouvelle application, si l\'application est supportée par l\'un des thèmes, une notification sera affichée.</string>
     <string name="settings_force_english_title">Forcer la langue anglaise</string>
     <string name="settings_force_english_text">Force l\'application à utiliser la langue anglaise</string>
     <string name="settings_force_english_toast_reverted">Langue anglaise désactivée !</string>
@@ -421,6 +426,8 @@
     <string name="settings_theme_caching_found_snackbar">Vous venez de découvrir l\'option de mise en cache des ressources de thème !</string>
     <string name="settings_crash_receiver_title">Collecteur d\'erreur de thème</string>
     <string name="settings_crash_receiver_text">Désactiver automatiquement une surcouche lors de la détection d\'erreurs répétitives de l\'application</string>
+    <string name="settings_force_stop_interfacer_title">Forcer la fermeture du service de l\'Interface de thème</string>
+    <string name="settings_force_stop_interfacer_snackbar">Redémarrage de l\'Interface de thème en cours&#8230;</string>
     <string name="root_required_title">Droits Root</string>
     <string name="root_required_boot_animation">Votre appareil est chiffré. Les droits \"Root\" sont nécessaires pour modifier l\'animation de démarrage.</string>
     <string name="root_required_boot_animation_profile">Votre appareil est chiffré. Les droits \"Root\" sont nécessaires pour pour sauvegarder et restaurer l\'animation de démarrage.</string>
@@ -433,6 +440,8 @@
     <string name="per_app_draw_over_other_apps_request">Veuillez accorder à Substratum les autorisations \"Se superposer aux autres applications\" et \"Accès aux statistiques d\'utilisation\" afin de pouvoir filtrer dynamiquement vos applications</string>
     <string name="per_app_usage_stats_request">Veuillez accorder à Substratum l\'autorisation \"Accès aux données d\'utilisation\" afin de pouvoir filtrer dynamiquement vos applications</string>
     <string name="per_app_manual_grant">Veuillez accorder manuellement à Substratum les autorisations \"Accès aux données d\'utilisation\" et \"Se superposer aux autres applications\" dans l\'application \"Paramètres\" afin de pouvoir utiliser FloatUI !</string>
+    <string name="notification_overlay_found_specific" formatted="false">Une surcouche pour %s se trouve dans %s !</string>
+    <string name="notification_overlay_found_description">Vous pouvez ouvrir le thème en appuyant sur cette notification !</string>
     <string name="community_info_overlays">Surcouches</string>
     <string name="community_info_bootanimation">Animations de démarrage</string>
     <string name="community_info_fonts">Polices</string>
@@ -456,10 +465,13 @@
     <string name="restore_fonts_text">Paquets de polices</string>
     <string name="restore_fonts_summary">Cette fonction remplace toutes les polices actuellement installées par celles d\'origine\n</string>
     <string name="restore_fonts_button">Restaurer</string>
+    <string name="restore_icons_text">Pack d\'icônes</string>
+    <string name="restore_icons_summary">Cette fonctionnalité a supprimé le pack d\'icônes précédemment appliqué et restaure les icônes originaux.\n</string>
     <string name="restore_icons_button">Restaurer les icônes</string>
     <string name="interfacer_not_authorized_toast">Cette version de Substratum n\'est pas agréé et ne fonctionnera pas avec l\'Interface de thème</string>
     <string name="app_crash_title">%s s\'est arrêté&#8230;</string>
     <string name="app_crash_content">Toutes les surcouches activées pour cette application ont été désactivées</string>
+    <string name="rom_status">Support :</string>
     <string name="rom_status_supported">%s est pris en charge par la communauté !</string>
     <string name="rom_status_unsupported">Cette ROM n’est pas prise en charge par la communauté !</string>
     <string name="rom_status_network">Vérification par Internet nécessaire&#8230;</string>
@@ -498,13 +510,15 @@
     <string name="nav_troubleshooting">Dépannage</string>
     <!-- More -->
     <string name="nav_section_header_more">Plus</string>
-    <string name="nav_team">Contributeurs</string>
     <string name="nav_opensource">Licences</string>
     <string name="nav_settings">Paramètres</string>
     <string name="title_activity_manage_space">Gérer l’utilisation du stockage</string>
     <string name="manage_space_cache_text_title">Vider le cache</string>
     <string name="clear_cache_button_loading">Chargement en cours&#8230;</string>
     <string name="clear_cache_button_text">Vider le cache Substratum</string>
+    <string name="manage_space_cache_counter_title">Effacer le cache local effacera tous les fichiers utilisés par le compilateur de thème et le téléchargement en ligne. Tous les packs de thème et les configurations utilisateur resteront en l\'état.\n\nSelon la taille de votre cache, cela peut prendre quelques secondes pour terminer.</string>
     <string name="manage_space_reset_text_title">Réinitialiser la configuration</string>
+    <string name="manage_space_reset_text_desc">Avez-vous des problèmes avec l\'application ? Ou avez-vous récemment fait une grosse mise à jour depuis une ancienne version de substratum ? Un simple effacement de configurations peut probablement aider à résoudre le problème !</string>
     <string name="manage_space_reset_dialog_title">Réinitialiser la configuration ?</string>
+    <string name="manage_space_reset_dialog_content">L\'application va fermer une fois la réinitialisation terminée !</string>
 </resources>

@@ -265,7 +265,6 @@ correctamente&#8230;</string>
     <string name="remove_dialog_later">Después</string>
     <string name="restore_dialog_cancel">Cancelar</string>
     <string name="restore_dialog_okay">Continuar</string>
-    <string name="restore_dialog_title">Instala estas capas para restaurar tu perfil completamente:    </string>
     <string name="backup_button">RESGUARDAR ESTADO ACTUAL</string>
     <string name="backup_no_overlays">No hay capas en su configuración actual.</string>
     <string name="restore_button">RESTAURAR PERFIL</string>
@@ -379,25 +378,6 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="fab_menu_enable">Activar Seleccionados</string>
     <string name="fab_menu_swap_toggle">Desactivar otros temas</string>
     <string name="fab_menu_swap_toggle_legacy">Eliminar todas las capas actuales</string>
-    <string name="team_eye">Ojos de Substratum</string>
-    <string name="team_eye_text">Este contribuyente ha ayudado tanto en el proyecto, desde revisiones de código de backend, escritura de documentación, compilaciones de preguntas con respuestas frecuentes, pruebas de confirmación de ROM inmediatas, manejo de actualizaciones del mostrador, correcciones de última hora de errores de aplicaciones y en general una actitud increíble en ayudas para ayudar a otros a empezar con el sistema... nuestro proyecto sería un lugar muy diferente sin todo su trabajo duro y dedicación!</string>
-    <string name="team_title_1">Líderes del Equipo Substratum</string>
-    <string name="team_text_1">No sólo creamos algo que funcione para los usuarios, también trabajamos en conjunto con diseñadores de temas para que sea un maravilloso motor de decoración para la comunidad!</string>
-    <string name="team_title_2">Contribuyentes del Desarrollo Substratum</string>
-    <string name="team_text_2">Estos desarrolladores llegaron cuando necesitábamos ayuda y gracias a su apoyo logramos hacer del ambiente OMS un lugar mucho mejor!</string>
-    <string name="team_title_3">Principales themers de Substratum</string>
-    <string name="team_text_3">Este núcleo de diseñadores de temas, consiguieron poner en marcha Substratum, así mismo orientaron a los desarrolladores para proporcionar características relacionadas a otros temas, tales como la lucha contra la piratería y una interfaz de usuario mejor acabada!</string>
-    <string name="team_title_4">Contribuyentes de Substratum</string>
-    <string name="team_text_4">Estas personas contribuyeron de manera intensa y voluntaria, con su dedicación y tiempo para todos nosotros, los queremos mucho!</string>
-    <string name="team_title_5">Traductores de Substratum</string>
-    <string name="team_text_5">Un enorme agradecimiento a estos traductores por llevar a Substratum a todas las personas alrededor del mundo!</string>
-    <string name="team_button_5">Ver Traductores</string>
-    <string name="team_button_5_contribute">¡Contribuye Ahora!</string>
-    <string name="team_title_6">Contribuyentes de Layers</string>
-    <string name="team_text_6">Estas personas ayudaron a crear Layers Manager en el pasado y desde entonces pasaron a hacer grandes cosas para conseguir que Substratum esté listo para nosotros!</string>
-    <string name="team_button_6">Ver a contribuyentes</string>
-    <string name="team_title_7">Contribuyentes del desarrollo de Substratum Rootless</string>
-    <string name="team_text_7">Estos desarrolladores comenzaron con un plan para eliminar el requisito de root, lo lograron maravillosamente!</string>
     <string name="slide_1_title">Bienvenido a Substratum</string>
     <string name="slide_1_text">Un pequeño pero potente motor de temas, basado en los servicios de gestión de capas (OMS) de Sony</string>
     <string name="slide_2_title">Una nueva interfaz de usuario</string>
@@ -557,7 +537,6 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="nav_troubleshooting">Solución de Problemas</string>
     <!-- More -->
     <string name="nav_section_header_more">Más</string>
-    <string name="nav_team">Contribuyentes</string>
     <string name="nav_opensource">Licencias</string>
     <string name="nav_settings">Ajustes</string>
     <string name="title_activity_manage_space">Administrar el uso del almacenamiento</string>

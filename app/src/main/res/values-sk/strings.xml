@@ -263,7 +263,6 @@ Chcete obnoviť aktuálne ikony na predvolené systémové ikony?
     <string name="remove_dialog_later">Neskôr</string>
     <string name="restore_dialog_cancel">Zrušiť</string>
     <string name="restore_dialog_okay">Pokračovať</string>
-    <string name="restore_dialog_title">Prosím, nainštalujte tieto prekrytia pre kompletné obnovenie profilu:</string>
     <string name="backup_button">ZÁLOHOVANIE AKTUÁLNEHO STAVU</string>
     <string name="backup_no_overlays">Vo vašom aktuálnom nastavení nie sú žiadne prekrytia.</string>
     <string name="restore_button">OBNOVENIE PROFILU</string>
@@ -374,25 +373,6 @@ Chcete obnoviť aktuálne ikony na predvolené systémové ikony?
     <string name="fab_menu_enable">Povoliť označené</string>
     <string name="fab_menu_swap_toggle">Zakázať iné témy</string>
     <string name="fab_menu_swap_toggle_legacy">Odstrániť všetky existujúce</string>
-    <string name="team_eye">Oči Substratum</string>
-    <string name="team_eye_text">Tento prispievateľ veľmi pomohol tomuto projektu, od revízie kódu na pozadí, prípravy dokumentácie, častého odpovedania na otázky, okamžitého testovania ROM, vyrovnania sa s aktualizáciami Showcase, opravami chýb a celkovo pomáhal ostatným sa naučiť sa pracovať so systémom... náš projekt by nebol tam kde je bez jeho ťažkej práce a obetavosti!</string>
-    <string name="team_title_1">Vedúci tímu Substratum</string>
-    <string name="team_text_1">Nielenže sme vytvorili niečo, čo funguje pre používateľov, ale spolupracujeme s tvorcami tém aby sme vytvorili skvelého správcu tém pre komunitu!</string>
-    <string name="team_title_2">Prispievatelia pre vývoj Substratum</string>
-    <string name="team_text_2">Títo vývojári sú po ruke, ak potrebujeme pomoc a pomáhajú vytvoriť z OMS scény lepšie miesto!</string>
-    <string name="team_title_3">Najdôležitejší tvorcovia tém pre Substratum</string>
-    <string name="team_text_3">Títo hlavní tvorcovia tém naštartovali Substratum a pomohli vývojárom vytvoriť funkcie pre tvorcov ako napríklad proti-pirátsku ochranu a viac efektívne užívateľské rozhranie!</string>
-    <string name="team_title_4">Prispievatelia pre Substratum</string>
-    <string name="team_text_4">Títo ľudia ochotne prispeli, za ich obetavosť a čas ich máme veľmi radi!</string>
-    <string name="team_title_5">Prekladatelia Substratum</string>
-    <string name="team_text_5">Veľká vďaka týmto prekladateľom, že sprístupnili Substratum všetkým na celom svete!</string>
-    <string name="team_button_5">Zobraziť prekladateľov</string>
-    <string name="team_button_5_contribute">Prispejte!</string>
-    <string name="team_title_6">Prispievatelia pre Layers</string>
-    <string name="team_text_6">Títo ľudia vám v minulosti priniesli Layers Manager a urobili veľa skvelej práce aby sme my mohli priniesť Substratum!</string>
-    <string name="team_button_6">Zobraziť prispievateľov</string>
-    <string name="team_title_7">Prispievatelia do vývoja bezROOTového Substratum</string>
-    <string name="team_text_7">Títo vývojári začali s plánom postupného odstránenia potreby ROOTu, a potom dodali víťazoslávne kód!</string>
     <string name="slide_1_title">Vitajte v Substratum</string>
     <string name="slide_1_text">minimalistický, ale výkonný kód na zmenu tém, založený na Správcovi služieb prekrytí od Sony</string>
     <string name="slide_2_title">úplne nové používateľské rozhranie</string>
@@ -553,7 +533,6 @@ Chcete obnoviť aktuálne ikony na predvolené systémové ikony?
     <string name="nav_troubleshooting">Riešenie problémov</string>
     <!-- More -->
     <string name="nav_section_header_more">Viac</string>
-    <string name="nav_team">Prispievatelia</string>
     <string name="nav_opensource">Licencie</string>
     <string name="nav_settings">Nastavenia</string>
     <string name="title_activity_manage_space">Správa využitia úložiska</string>

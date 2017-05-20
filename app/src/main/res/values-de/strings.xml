@@ -23,7 +23,7 @@
     <string name="device">Geräte Model:</string>
     <string name="resource_checker_request">Sende Anfrage für die Commit-Einbindung mit&#8230;</string>
     <string name="resource_checker">Commit-Bestätiger</string>
-    <string name="resource_checker_commons">Gerüst</string>
+    <string name="resource_checker_commons">Framework</string>
     <string name="resource_checker_dialog_quit">Verlassen</string>
     <string name="resource_not_validated">Neue Commits wurden eingebunden!</string>
     <string name="resource_needs_internet">Verbinde dich mit dem Internet, um deine ROM-Commits überprüfen zu lassen!</string>
@@ -251,7 +251,6 @@ eingerichtet&#8230;</string>
     <string name="remove_dialog_later">Später</string>
     <string name="restore_dialog_cancel">Abbrechen</string>
     <string name="restore_dialog_okay">Fortsetzen</string>
-    <string name="restore_dialog_title">Bitte installiere diese Overlays um dein Profil komplett zurückzusetzen:</string>
     <string name="backup_button">AKTUELLEN ZUSTAND SICHERN</string>
     <string name="backup_no_overlays">Es gibt keine Overlays in deiner aktuellen Konfiguration.</string>
     <string name="restore_button">PROFIL WIEDERHERSTELLEN</string>
@@ -364,25 +363,6 @@ um das Problem zu beheben.    </string>
     <string name="fab_menu_enable">Aktivieren</string>
     <string name="fab_menu_swap_toggle">Andere Themes deaktivieren</string>
     <string name="fab_menu_swap_toggle_legacy">Alle vorhandenen entfernen</string>
-    <string name="team_eye">Die Augen von Substratum</string>
-    <string name="team_eye_text">Dieser Mithelfer hat so viel zu diesem Projekt beigetragen. Angefangen bei Backend-Code-Reviews, über Erstellen von Dokumentationen, Zusammenstellen von FAQs, unverzüglicher Test von ROM-Commits, Gestaltung der Showcase-Updates und dem beheben von Bugs kurz vor Schluss sowie letztendlich einer unglaublich tollen Attitüde dabei, anderen dabei zu helfen, in das System reinzukommen. Unser Projekt wäre ohne seine ganze harte Arbeit und Hingabe sicherlich nicht dort, wo es heute ist!</string>
-    <string name="team_title_1">Substratum-Teamleiter</string>
-    <string name="team_text_1">Wir haben nicht nur etwas erschaffen, das für Benutzer funktioniert, sondern haben auch mit Theme-Entwicklern zusammengearbeitet, um Substratum zu einer wundervollen Theming-Engine für die Community zu machen!</string>
-    <string name="team_title_2">Substratum-Mitwirkende</string>
-    <string name="team_text_2">Diese Entwickler waren da als wir Hilfe benötigten und haben die OMS-Szene besser gemacht!</string>
-    <string name="team_title_3">Führende Substratum-Themer</string>
-    <string name="team_text_3">Diese großen Theme-Entwickler haben geholfen Substratum fertigzustellen sowie für Theme-Entwickler nützliche Funktionen – wie Anti-Piraterie oder eine übersichtlichere Benutzeroberfläche – zu integrieren.</string>
-    <string name="team_title_4">Substratum-Mitwirkende</string>
-    <string name="team_text_4">Diese Leute haben uns freundlicherweise ihr Engagement und ihre Zeit zur Verfügung gestellt, wofür wir sie lieben!</string>
-    <string name="team_title_5">Substratum-Übersetzer</string>
-    <string name="team_text_5">Ein großes Dankeschön an folgende Übersetzer, die Substratum der ganzen Welt zugänglich machen!</string>
-    <string name="team_button_5">Übersetzer anzeigen</string>
-    <string name="team_button_5_contribute">Mach mit!</string>
-    <string name="team_title_6">Layers-Mitwirkende</string>
-    <string name="team_text_6">Diese Leute haben in der Vergangenheit bereits den Layers-Manager verwirklicht und haben auch seitdem viel dazu beigetragen, dass Substratum uns jetzt zur Verfügung steht!</string>
-    <string name="team_button_6">Mitwirkende anzeigen</string>
-    <string name="team_title_7">Substratum-Mitwirkende bei der Ohne-Root-Entwicklung</string>
-    <string name="team_text_7">Diese Entwickler setzten sich das Ziel, Root-Berechtigungen unnötig zu machen und erreichten es mit Bravur!</string>
     <string name="slide_1_title">Willkommen zu Substratum</string>
     <string name="slide_1_text">Eine minimalistische, aber dennoch mächtige Theme-Engine, die auf dem Overlay Manager Service (OMS) von Sony basiert</string>
     <string name="slide_2_title">Eine brandneue Benutzeroberfläche</string>
@@ -543,7 +523,6 @@ um das Problem zu beheben.    </string>
     <string name="nav_troubleshooting">Fehlerbehebung</string>
     <!-- More -->
     <string name="nav_section_header_more">Mehr</string>
-    <string name="nav_team">Mitwirkende</string>
     <string name="nav_opensource">Lizenzen</string>
     <string name="nav_settings">Einstellungen</string>
     <string name="title_activity_manage_space">Speichernutzung verwalten</string>
@@ -554,5 +533,5 @@ um das Problem zu beheben.    </string>
     <string name="manage_space_reset_text_title">Konfiguration zurücksetzen</string>
     <string name="manage_space_reset_text_desc">Hast du Probleme mit der App? Oder hast du in letzter Zeit ein Upgrade von einer sehr alten Version von Substratum gemacht? Das simple zurücksetzen deiner Konfiguration könnte deine Probleme beheben!</string>
     <string name="manage_space_reset_dialog_title">Konfiguration zurücksetzen?</string>
-    <string name="manage_space_reset_dialog_content">Die wird sich schließen nachdem der Reset fertig ist!</string>
+    <string name="manage_space_reset_dialog_content">Die App wird sich schließen nachdem der Reset fertig ist!</string>
 </resources>

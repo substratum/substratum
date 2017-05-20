@@ -255,7 +255,6 @@ Vuoi ripristinare le icone predefinite di sistema?    </string>
     <string name="remove_dialog_later">Più tardi</string>
     <string name="restore_dialog_cancel">Cancella</string>
     <string name="restore_dialog_okay">Continua</string>
-    <string name="restore_dialog_title">Per favore installa questi overlays per ripristinare completamente il tuo profilo:    </string>
     <string name="backup_button">FAI IL BACKUP DELLO STATO CORRENTE</string>
     <string name="backup_no_overlays">Non ci sono overlays nella tua configurazione attuale.</string>
     <string name="restore_button">RIPRISTINA PROFILO</string>
@@ -367,25 +366,6 @@ Vuoi ripristinare le icone predefinite di sistema?    </string>
     <string name="fab_menu_enable">Abilita selezionati</string>
     <string name="fab_menu_swap_toggle">Disabilita gli altri temi</string>
     <string name="fab_menu_swap_toggle_legacy">Rimuovi tutti gli esistenti</string>
-    <string name="team_eye">Occhi di Substratum</string>
-    <string name="team_eye_text">Questo collaboratore ha aiutato così tanto nel progetto dalle revisioni del codice nel backend, alla documentazione scrivere ups, spesso ha risposto alle domande sul compilatore, testato immediatamente commit nelle ROM, ha gestito la vetrina dei temi, ha corretto bug dell\'app all\'ultimo minuto, e nel complesso un atteggiamento incredibile in sussidi per aiutare gli altri per iniziare con il sistema... il nostro progetto sarebbe molto diverso, senza tutto il suo duro lavoro e dedizione!</string>
-    <string name="team_title_1">Capi del team Substratum</string>
-    <string name="team_text_1">Non solo abbiamo creato qualcosa che funzioni per gli utenti, ma abbiamo anche lavorato in congiunzione coi themer per renderlo un meraviglioso gestore temi per la community!</string>
-    <string name="team_title_2">Contributori allo sviluppo Substratum</string>
-    <string name="team_text_2">Questi sviluppatori sono arrivati quando avevamo bisogno e hanno contribuito a rendere la scena OMS un luogo molto migliore!</string>
-    <string name="team_title_3">Themer principali di Substratum</string>
-    <string name="team_text_3">Questi themer principali hanno reso Substratum pronto, come pure hanno aiutato gli sviluppatori a ricevere funzionalità orientate agli altri themer come l\'anti-pirateria è una UI più definita!</string>
-    <string name="team_title_4">Contributori Substratum</string>
-    <string name="team_text_4">Queste persone hanno contribuito volentieri con dedizione e tempo per tutti noi e noi li amiamo molto!</string>
-    <string name="team_title_5">Traduttori Substratum</string>
-    <string name="team_text_5">Un grosso grazie a questi traduttori per aver portato Substratum a chiunque in giro per il mondo!</string>
-    <string name="team_button_5">Visualizza traduttori</string>
-    <string name="team_button_5_contribute">Contribuisci ora!</string>
-    <string name="team_title_6">Contributori di Layers</string>
-    <string name="team_text_6">Queste persone hanno portato Layers Manager nel passato e hanno continuato a fare grandi cose per rendere Substratum pronto per noi!</string>
-    <string name="team_button_6">Visualizza collaboratori</string>
-    <string name="team_title_7">Contributori allo sviluppo Substratum Rootless</string>
-    <string name="team_text_7">Questi sviluppatori hanno iniziato con un piano per eliminare gradualmente il root, e l\'hanno consegnato a pieni voti!</string>
     <string name="slide_1_title">Benvenuto in substratum</string>
     <string name="slide_1_text">un minimale ma potente motore per i temi basato sull\'Overlay Manager Service di Sony</string>
     <string name="slide_2_title">una marca della nuova interfaccia utente</string>
@@ -536,7 +516,6 @@ Vuoi ripristinare le icone predefinite di sistema?    </string>
     <string name="nav_troubleshooting">Risoluzione dei problemi</string>
     <!-- More -->
     <string name="nav_section_header_more">Altro</string>
-    <string name="nav_team">Contributori</string>
     <string name="nav_opensource">Licenze</string>
     <string name="nav_settings">Impostazioni</string>
     <string name="title_activity_manage_space">Gestire l\'utilizzo memoria</string>

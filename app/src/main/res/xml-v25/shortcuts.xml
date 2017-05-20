@@ -42,16 +42,4 @@
             android:targetClass="projekt.substratum.activities.launch.RescueActivity"
             android:targetPackage="projekt.substratum"/>
     </shortcut>
-    <shortcut
-        android:enabled="true"
-        android:icon="@drawable/app_shortcut_floatui"
-        android:shortcutDisabledMessage="@string/shortcut_floatui_disabled"
-        android:shortcutId="floatui"
-        android:shortcutLongLabel="@string/shortcut_floatui"
-        android:shortcutShortLabel="@string/shortcut_floatui">
-        <intent
-            android:action="android.intent.action.VIEW"
-            android:targetClass="projekt.substratum.activities.floatui.FloatUILaunchActivity"
-            android:targetPackage="projekt.substratum"/>
-    </shortcut>
 </shortcuts>

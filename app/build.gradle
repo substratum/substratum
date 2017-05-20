@@ -37,10 +37,9 @@ android {
         abortOnError false
     }
 
-    applicationVariants.all { variant ->
-        variant.outputs.each { output ->
-            output.outputFile = new File(
-                    output.outputFile.parent, "substratum_beta_" + versionCode + "_" + "${gitHash()}" + ".apk")
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "substratum_beta_${variant.versionCode}_${gitHash()}.apk"
         }
     }
 
@@ -53,15 +52,7 @@ android {
         buildConfigField "String", "GIT_HASH", "\"${gitHash()}\""
     }
 
-    defaultConfig {
-        jackOptions {
-            enabled true
-            additionalParameters('jack.incremental': 'true')
-        }
-    }
-
     compileOptions {
-        incremental true
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }

@@ -82,7 +82,6 @@ import projekt.substratum.common.References;
 import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
-import projekt.substratum.common.platform.VersionChecker;
 import projekt.substratum.common.tabs.WallpaperManager;
 import projekt.substratum.util.views.FloatingActionMenu;
 import projekt.substratum.util.views.SheetDialog;

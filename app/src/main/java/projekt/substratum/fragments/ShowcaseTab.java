@@ -181,8 +181,8 @@ public class ShowcaseTab extends Fragment {
 
             String[] checkerCommands = {mContext.getCacheDir() + "/ShowcaseCache/" + inputFileName};
 
-            @SuppressWarnings("unchecked")
-            final Map<String, String> newArray = ReadCloudShowcaseFile.main(checkerCommands);
+            @SuppressWarnings("unchecked") final Map<String, String> newArray =
+                    ReadCloudShowcaseFile.main(checkerCommands);
             ShowcaseItem newEntry = new ShowcaseItem();
 
             for (String key : newArray.keySet()) {

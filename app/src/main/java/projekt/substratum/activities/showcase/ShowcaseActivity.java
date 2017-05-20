@@ -212,8 +212,8 @@ public class ShowcaseActivity extends AppCompatActivity {
             String[] checkerCommands = {getApplicationContext().getCacheDir() +
                     "/ShowcaseCache/" + resultant};
 
-            @SuppressWarnings("unchecked")
-            final Map<String, String> newArray = ReadShowcaseTabsFile.main(checkerCommands);
+            @SuppressWarnings("unchecked") final Map<String, String> newArray =
+                    ReadShowcaseTabsFile.main(checkerCommands);
 
             ArrayList<String> links = new ArrayList<>();
 

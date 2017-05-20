@@ -209,7 +209,7 @@ public class MainActivity extends SubstratumActivity implements
         supportInvalidateOptionsMenu();
     }
 
-    protected RefWatcher installLeakCanary() {
+    protected void installLeakCanary() {
         LeakCanary.enableDisplayLeakActivity(this);
         RefWatcher refWatcher = LeakCanary.refWatcher(this).build();
         getApplication().registerActivityLifecycleCallbacks(
@@ -249,7 +249,6 @@ public class MainActivity extends SubstratumActivity implements
                         refWatcher.watch(activity);
                     }
                 });
-        return refWatcher;
     }
 
     @Override
@@ -804,7 +803,6 @@ public class MainActivity extends SubstratumActivity implements
         if (!isOMS) menu.findItem(R.id.per_app).setVisible(false);
 
         searchItem = menu.findItem(R.id.action_search);
-        MenuItem showcase = menu.findItem(R.id.search);
         MenuItem restartUi = menu.findItem(R.id.restart_systemui);
         searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setOnQueryTextListener(this);
@@ -1206,6 +1204,7 @@ public class MainActivity extends SubstratumActivity implements
     }
 
     private static class DoCleanUp extends AsyncTask<Void, Void, Void> {
+        @SuppressLint("StaticFieldLeak")
         private Context context;
 
         private DoCleanUp(Context context) {

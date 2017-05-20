@@ -133,7 +133,7 @@ public class PriorityLoaderFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            List<String> targets = ThemeManager.listTargetWithMultipleOverlaysEnabled();
+            List<String> targets = ThemeManager.listTargetWithMultipleOverlaysEnabled(getContext());
             for (String t : targets) {
                 prioritiesList.add(new PrioritiesItem(t, References.grabAppIcon(getContext(), t)));
                 app_list.add(t);

@@ -175,7 +175,7 @@ public class ThemeManager {
                     }
                 }
             }
-        } catch (Exception e) {
+        } catch (Exception|NoSuchMethodError e) {
             // At this point, we probably ran into a legacy command or stock OMS
             if (References.checkOMS(context)) {
                 String prefix;
@@ -195,7 +195,10 @@ public class ThemeManager {
                         .split(System.getProperty("line.separator"));
                 for (String line : arrList) {
                     if (line.startsWith(prefix)) {
-                        list.add(line.substring(4));
+                        String packageName = line.substring(4);
+                        if (References.isPackageInstalled(context, packageName)) {
+                            list.add(packageName);
+                        }
                     }
                 }
             } else {
@@ -222,7 +225,7 @@ public class ThemeManager {
     }
 
     @SuppressWarnings("unchecked")
-    public static List<String> listTargetWithMultipleOverlaysEnabled() {
+    public static List<String> listTargetWithMultipleOverlaysEnabled(Context context) {
         List<String> list = new ArrayList<>();
         try {
             Map<String, List<OverlayInfo>> allOverlays = OverlayManagerService.getAllOverlays();
@@ -243,8 +246,7 @@ public class ThemeManager {
                     }
                 }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception|NoSuchMethodError e) {
             // Stock OMS goes here
             String prefix = "[x]";
             String[] arrList = Root.runCommand(listAllOverlays)
@@ -253,7 +255,9 @@ public class ThemeManager {
             String currentApp = "";
             for (String line : arrList) {
                 if (line.startsWith(prefix)) {
-                    counter++;
+                    if (References.isPackageInstalled(context, line.substring(4))) {
+                        counter++;
+                    }
                 } else if (!line.startsWith("---")) {
                     if (counter > 1) {
                         list.add(currentApp);

@@ -175,7 +175,7 @@ public class ThemeManager {
                     }
                 }
             }
-        } catch (Exception|NoSuchMethodError e) {
+        } catch (Exception | NoSuchMethodError e) {
             // At this point, we probably ran into a legacy command or stock OMS
             if (References.checkOMS(context)) {
                 String prefix;
@@ -246,7 +246,7 @@ public class ThemeManager {
                     }
                 }
             }
-        } catch (Exception|NoSuchMethodError e) {
+        } catch (Exception | NoSuchMethodError e) {
             // Stock OMS goes here
             String prefix = "[x]";
             String[] arrList = Root.runCommand(listAllOverlays)

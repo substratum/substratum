@@ -859,10 +859,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             super.onPostExecute(result);
 
             if (!References.checkThemeInterfacer(getContext())) {
-                platformSummary.append(getString(R.string.rom_status))
-                        .append(" ")
-                        .append(getString(R.string.rom_status_on_stock));
-                systemPlatform.setSummary(platformSummary.toString());
                 return;
             }
 

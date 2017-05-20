@@ -22,7 +22,6 @@ import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
 
-import projekt.substratum.common.References;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeInterfacerService;
 
@@ -57,18 +56,21 @@ public class BootAnimationManager {
     }
 
     public static void clearBootAnimation(Context context) {
-        if (getDeviceEncryptionStatus(context) <= 1 && checkThemeInterfacer(context)) {
+        if (getDeviceEncryptionStatus(context) <= 1) {
             // OMS with theme interface
-            ThemeInterfacerService.clearBootAnimation(context);
-        } else if (getDeviceEncryptionStatus(context) <= 1 && !References.checkOMS(context)) {
-            // Legacy decrypted
-            FileOperations.delete(context, "/data/system/theme/bootanimation.zip");
+            if (checkThemeInterfacer(context)) {
+                ThemeInterfacerService.clearBootAnimation(context);
+            } else {
+                FileOperations.delete(context, "/data/system/theme/bootanimation.zip");
+            }
         } else {
             // Encrypted OMS and legacy
             FileOperations.mountRW();
-            FileOperations.move(context, "/system/media/bootanimation-backup.zip",
+            FileOperations.move(context,
+                    "/system/media/bootanimation-backup.zip",
                     "/system/media/bootanimation.zip");
             FileOperations.delete(context, "/system/addon.d/81-subsboot.sh");
+            FileOperations.mountRO();
         }
     }
 }

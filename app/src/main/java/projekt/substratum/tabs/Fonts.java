@@ -60,6 +60,10 @@ import java.util.Collections;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import javax.crypto.Cipher;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
@@ -88,6 +92,8 @@ public class Fonts extends Fragment {
     private JobReceiver jobReceiver;
     private LocalBroadcastManager localBroadcastManager;
     private Context mContext;
+    private Boolean encrypted = false;
+    private Cipher cipher = null;
 
     @Override
     public View onCreateView(
@@ -96,6 +102,22 @@ public class Fonts extends Fragment {
             Bundle savedInstanceState) {
         mContext = getContext();
         theme_pid = InformationActivity.getThemePID();
+        byte[] encryption_key = InformationActivity.getEncryptionKey();
+        byte[] iv_encrypt_key = InformationActivity.getIVEncryptKey();
+        try {
+            cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+            cipher.init(
+                    Cipher.DECRYPT_MODE,
+                    new SecretKeySpec(encryption_key, "AES"),
+                    new IvParameterSpec(iv_encrypt_key)
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (encryption_key != null && iv_encrypt_key != null) {
+            encrypted = true;
+        }
         root = (ViewGroup) inflater.inflate(R.layout.tab_fonts, container, false);
         progressBar = root.findViewById(R.id.progress_bar_loader);
         defaults = root.findViewById(R.id.restore_to_default);
@@ -117,7 +139,8 @@ public class Fonts extends Fragment {
             fonts.add(getString(R.string.font_default_spinner));
             fonts.add(getString(R.string.font_spinner_set_defaults));
             for (int i = 0; i < unparsedFonts.size(); i++) {
-                fonts.add(unparsedFonts.get(i).substring(0, unparsedFonts.get(i).length() - 4));
+                fonts.add(unparsedFonts.get(i).substring(0,
+                        unparsedFonts.get(i).length() - (encrypted ? 8 : 4)));
             }
 
             ArrayAdapter<String> adapter1 = new ArrayAdapter<>(getActivity(),
@@ -197,7 +220,7 @@ public class Fonts extends Fragment {
                     new FontsClearer(this).execute("");
                 } else {
                     new FontUtils().execute(fontSelector.getSelectedItem().toString(),
-                            mContext, theme_pid);
+                            mContext, theme_pid, cipher);
                 }
             } else {
                 Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
@@ -371,14 +394,24 @@ public class Fonts extends Fragment {
                 // Copy the font.zip from assets/fonts of the theme's assets
                 String source = sUrl[0] + ".zip";
 
-                try (InputStream inputStream = themeAssetManager.open(fontsDir + "/" + source);
-                     OutputStream outputStream =
-                             new FileOutputStream(mContext.getCacheDir().getAbsolutePath() +
-                                     "/FontCache/" + source)) {
-                    CopyStream(inputStream, outputStream);
-                } catch (Exception e) {
-                    Log.e(TAG,
-                            "There is no fonts.zip found within the assets of this theme!");
+                if (encrypted) {
+                    FileOperations.copyFileOrDir(
+                            themeAssetManager,
+                            fontsDir + "/" + source + ".enc",
+                            getContext().getCacheDir().getAbsolutePath() +
+                                    "/FontCache/" + source,
+                            fontsDir + "/" + source + ".enc",
+                            cipher);
+                } else {
+                    try (InputStream inputStream = themeAssetManager.open(fontsDir + "/" + source);
+                         OutputStream outputStream =
+                                 new FileOutputStream(mContext.getCacheDir().getAbsolutePath() +
+                                         "/FontCache/" + source)) {
+                        CopyStream(inputStream, outputStream);
+                    } catch (Exception e) {
+                        Log.e(TAG,
+                                "There is no fonts.zip found within the assets of this theme!");
+                    }
                 }
 
                 // Unzip the fonts to get it prepared for the preview

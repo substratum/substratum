@@ -28,6 +28,8 @@ import android.widget.Toast;
 
 import java.lang.ref.WeakReference;
 
+import javax.crypto.Cipher;
+
 import projekt.substratum.R;
 import projekt.substratum.common.References;
 import projekt.substratum.common.commands.ElevatedCommands;
@@ -40,11 +42,13 @@ public class FontUtils {
     private ProgressDialog progress;
     private String theme_pid;
     private SharedPreferences prefs;
+    private Cipher cipher;
 
-    public void execute(String arguments, Context context, String theme_pid) {
+    public void execute(String arguments, Context context, String theme_pid, Cipher cipher) {
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
         this.mContext = context;
         this.theme_pid = theme_pid;
+        this.cipher = cipher;
         new FontHandlerAsync(this).execute(arguments);
     }
 
@@ -117,7 +121,11 @@ public class FontUtils {
             FontUtils fragment = ref.get();
             Context context = fragment.mContext;
             try {
-                FontManager.setFonts(context, fragment.theme_pid, sUrl[0]);
+                FontManager.setFonts(
+                        context,
+                        fragment.theme_pid,
+                        sUrl[0],
+                        fragment.cipher);
             } catch (Exception e) {
                 e.printStackTrace();
                 return "failed";

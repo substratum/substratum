@@ -33,6 +33,8 @@ import java.io.OutputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import javax.crypto.Cipher;
+
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeInterfacerService;
 import projekt.substratum.common.platform.ThemeManager;
@@ -42,7 +44,11 @@ import static projekt.substratum.common.References.checkThemeInterfacer;
 
 public class FontManager {
 
-    public static void setFonts(Context context, String theme_pid, String name) {
+    public static void setFonts(
+            Context context,
+            String theme_pid,
+            String name,
+            Cipher cipher) {
         if (checkOMS(context) && checkThemeInterfacer(context)) {
             ThemeInterfacerService.setFonts(context, theme_pid, name);
         } else {
@@ -74,14 +80,25 @@ public class FontManager {
                 try {
                     Context otherContext = context.createPackageContext(theme_pid, 0);
                     AssetManager am = otherContext.getAssets();
-                    try (InputStream inputStream = am.open("fonts/" + sourceFile);
-                         OutputStream outputStream = new FileOutputStream(context.getCacheDir()
-                                 .getAbsolutePath() + "/FontCache/" + sourceFile)) {
-                        byte[] buffer = new byte[5120];
-                        int length = inputStream.read(buffer);
-                        while (length > 0) {
-                            outputStream.write(buffer, 0, length);
-                            length = inputStream.read(buffer);
+
+                    if (cipher != null) {
+                        FileOperations.copyFileOrDir(
+                                am,
+                                "fonts/" + sourceFile + ".enc",
+                                context.getCacheDir().getAbsolutePath() +
+                                        "/FontCache/" + sourceFile,
+                                "fonts/" + sourceFile + ".zip.enc",
+                                cipher);
+                    } else {
+                        try (InputStream inputStream = am.open("fonts/" + sourceFile);
+                             OutputStream outputStream = new FileOutputStream(context.getCacheDir()
+                                     .getAbsolutePath() + "/FontCache/" + sourceFile)) {
+                            byte[] buffer = new byte[5120];
+                            int length = inputStream.read(buffer);
+                            while (length > 0) {
+                                outputStream.write(buffer, 0, length);
+                                length = inputStream.read(buffer);
+                            }
                         }
                     }
                 } catch (Exception e) {

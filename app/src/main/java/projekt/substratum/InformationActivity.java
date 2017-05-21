@@ -101,7 +101,11 @@ import static projekt.substratum.common.platform.VersionChecker.checkOreo;
 
 public class InformationActivity extends SubstratumActivity {
 
-    public static String theme_name, theme_pid, theme_mode;
+    public static String theme_name;
+    public static String theme_pid;
+    public static String theme_mode;
+    public static byte[] encryption_key;
+    public static byte[] iv_encrypt_key;
     private static List<String> tab_checker;
     private static String wallpaperUrl;
     private Boolean uninstalled = false;
@@ -125,6 +129,14 @@ public class InformationActivity extends SubstratumActivity {
 
     public static String getThemePID() {
         return theme_pid;
+    }
+
+    public static byte[] getEncryptionKey() {
+        return encryption_key;
+    }
+
+    public static byte[] getIVEncryptKey() {
+        return iv_encrypt_key;
     }
 
     public static String getWallpaperUrl() {
@@ -276,6 +288,8 @@ public class InformationActivity extends SubstratumActivity {
         theme_name = currentIntent.getStringExtra("theme_name");
         theme_pid = currentIntent.getStringExtra("theme_pid");
         theme_mode = currentIntent.getStringExtra("theme_mode");
+        encryption_key = currentIntent.getByteArrayExtra("encryption_key");
+        iv_encrypt_key = currentIntent.getByteArrayExtra("iv_encrypt_key");
         wallpaperUrl = null;
 
         try {

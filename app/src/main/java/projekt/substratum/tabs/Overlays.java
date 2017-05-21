@@ -136,7 +136,11 @@ public class Overlays extends Fragment {
     private SubstratumBuilder sb;
     private List<OverlaysItem> overlaysLists, checkedOverlays;
     private RecyclerView.Adapter mAdapter;
-    private String theme_name, theme_pid, versionName;
+    private String theme_name;
+    private String theme_pid;
+    private String versionName;
+    private byte[] encryption_key;
+    private byte[] iv_encrypt_key;
     private NotificationManager mNotifyManager;
     private NotificationCompat.Builder mBuilder;
     private boolean has_initialized_cache = false;
@@ -173,6 +177,7 @@ public class Overlays extends Fragment {
     private String type2 = "";
     private String type3 = "";
     private Phase3_mainFunction phase3_mainFunction;
+    private Boolean encrypted;
 
     private void logTypes() {
         if (ENABLE_PACKAGE_LOGGING) {
@@ -425,6 +430,13 @@ public class Overlays extends Fragment {
 
         theme_name = InformationActivity.getThemeName();
         theme_pid = InformationActivity.getThemePID();
+        encryption_key = InformationActivity.getEncryptionKey();
+        iv_encrypt_key = InformationActivity.getIVEncryptKey();
+
+        if (encryption_key != null && iv_encrypt_key != null) {
+            Log.d(TAG, "Loading Substratum Theme in encrypted assets mode.");
+            encrypted = true;
+        }
 
         mixAndMatchMode = prefs.getBoolean("enable_swapping_overlays", false);
 

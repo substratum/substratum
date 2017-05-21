@@ -46,6 +46,8 @@ public class ThemeLaunchActivity extends Activity {
                                              Boolean theme_launch_type,
                                              Boolean theme_debug,
                                              Boolean theme_piracy_check,
+                                             byte[] encryption_key,
+                                             byte[] iv_encrypt_key,
                                              Boolean theme_legacy) {
 
         Intent intent = new Intent(context, InformationActivity.class);
@@ -61,6 +63,8 @@ public class ThemeLaunchActivity extends Activity {
         intent.putExtra("theme_debug", theme_debug);
         intent.putExtra("theme_piracy_check", theme_piracy_check);
         intent.putExtra("theme_legacy", theme_legacy);
+        intent.putExtra("encryption_key", encryption_key);
+        intent.putExtra("iv_encrypt_key", iv_encrypt_key);
         try {
             ApplicationInfo ai =
                     context.getPackageManager().getApplicationInfo(theme_pid, GET_META_DATA);
@@ -81,7 +85,6 @@ public class ThemeLaunchActivity extends Activity {
         package_name = activityExtras.getStringExtra("package_name");
         Boolean omsCheck = activityExtras.getBooleanExtra("oms_check", false);
         theme_mode = activityExtras.getStringExtra("theme_mode");
-        Boolean notification = activityExtras.getBooleanExtra("notification", false);
         String hash_passthrough = activityExtras.getStringExtra("hash_passthrough");
         Boolean certified = activityExtras.getBooleanExtra("certified", true);
 
@@ -127,31 +130,40 @@ public class ThemeLaunchActivity extends Activity {
             Boolean theme_debug = intent.getBoolean("theme_debug");
             Boolean theme_piracy_check = intent.getBoolean("theme_piracy_check");
 
-            startActivity(launchThemeActivity(
-                    getApplicationContext(),
-                    theme_name,
-                    theme_author,
-                    theme_pid,
-                    theme_mode,
-                    theme_hash,
-                    theme_launch_type,
-                    theme_debug,
-                    theme_piracy_check,
-                    References.checkOMS(getApplicationContext())
-            ));
+            byte[] encryption_key = intent.getByteArray("encryption_key");
+            byte[] iv_encrypt_key = intent.getByteArray("iv_encrypt_key");
+
+            startActivity(
+                    launchThemeActivity(
+                            getApplicationContext(),
+                            theme_name,
+                            theme_author,
+                            theme_pid,
+                            theme_mode,
+                            theme_hash,
+                            theme_launch_type,
+                            theme_debug,
+                            theme_piracy_check,
+                            encryption_key,
+                            iv_encrypt_key,
+                            References.checkOMS(getApplicationContext())
+                    ));
         } else if (legacyTheme) {
-            startActivity(launchThemeActivity(
-                    getApplicationContext(),
-                    References.grabPackageName(getApplicationContext(), package_name),
-                    null,
-                    package_name,
-                    theme_mode,
-                    null,
-                    null,
-                    null,
-                    null,
-                    References.checkOMS(getApplicationContext())
-            ));
+            startActivity(
+                    launchThemeActivity(
+                            getApplicationContext(),
+                            References.grabPackageName(getApplicationContext(), package_name),
+                            null,
+                            package_name,
+                            theme_mode,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            References.checkOMS(getApplicationContext())
+                    ));
         }
         legacyTheme = false;
         finish();

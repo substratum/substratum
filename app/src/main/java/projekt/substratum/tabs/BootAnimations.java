@@ -63,6 +63,10 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import javax.crypto.Cipher;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
@@ -95,6 +99,8 @@ public class BootAnimations extends Fragment {
     private boolean paused = false;
     private JobReceiver jobReceiver;
     private LocalBroadcastManager localBroadcastManager;
+    private Boolean encrypted = false;
+    private Cipher cipher = null;
 
     @Override
     public View onCreateView(
@@ -102,6 +108,23 @@ public class BootAnimations extends Fragment {
             ViewGroup container,
             Bundle savedInstanceState) {
         theme_pid = InformationActivity.getThemePID();
+        byte[] encryption_key = InformationActivity.getEncryptionKey();
+        byte[] iv_encrypt_key = InformationActivity.getIVEncryptKey();
+
+        try {
+            cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+            cipher.init(
+                    Cipher.DECRYPT_MODE,
+                    new SecretKeySpec(encryption_key, "AES"),
+                    new IvParameterSpec(iv_encrypt_key)
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (encryption_key != null && iv_encrypt_key != null) {
+            encrypted = true;
+        }
 
         root = (ViewGroup) inflater.inflate(R.layout.tab_bootanimations, container, false);
         nsv = root.findViewById(R.id.nestedScrollView);
@@ -132,7 +155,7 @@ public class BootAnimations extends Fragment {
             parsedBootAnimations.add(getString(R.string.bootanimation_spinner_set_defaults));
             for (int i = 0; i < unparsedBootAnimations.size(); i++) {
                 parsedBootAnimations.add(unparsedBootAnimations.get(i).substring(0,
-                        unparsedBootAnimations.get(i).length() - 4));
+                        unparsedBootAnimations.get(i).length() - (encrypted ? 8 : 4)));
             }
 
             ArrayAdapter<String> adapter1 = new ArrayAdapter<>(getActivity(),
@@ -334,15 +357,26 @@ public class BootAnimations extends Fragment {
                 // Copy the bootanimation.zip from assets/bootanimation of the theme's assets
                 String source = sUrl[0] + ".zip";
 
-                try (InputStream inputStream = themeAssetManager.open(
-                        bootanimationsDir + "/" + source);
-                     OutputStream outputStream =
-                             new FileOutputStream(getContext().getCacheDir().getAbsolutePath() +
-                                     "/BootAnimationCache/" + source)) {
-                    CopyStream(inputStream, outputStream);
-                } catch (Exception e) {
-                    Log.e(TAG,
-                            "There is no bootanimation.zip found within the assets of this theme!");
+                if (encrypted) {
+                    FileOperations.copyFileOrDir(
+                            themeAssetManager,
+                            bootanimationsDir + "/" + source + ".enc",
+                            getContext().getCacheDir().getAbsolutePath() +
+                                    "/BootAnimationCache/" + source,
+                            bootanimationsDir + "/" + source + ".enc",
+                            cipher);
+                } else {
+                    try (InputStream inputStream = themeAssetManager.open(
+                            bootanimationsDir + "/" + source);
+                         OutputStream outputStream =
+                                 new FileOutputStream(getContext().getCacheDir().getAbsolutePath() +
+                                         "/BootAnimationCache/" + source)) {
+                        CopyStream(inputStream, outputStream);
+                    } catch (Exception e) {
+                        Log.e(TAG,
+                                "There is no bootanimation.zip found within the assets of " +
+                                        "this theme!");
+                    }
                 }
 
                 // Unzip the boot animation to get it prepared for the preview

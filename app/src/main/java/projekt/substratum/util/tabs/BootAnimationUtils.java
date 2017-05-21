@@ -22,6 +22,7 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.os.AsyncTask;
 import android.os.Environment;
@@ -53,6 +54,8 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
+import javax.crypto.Cipher;
+
 import projekt.substratum.R;
 import projekt.substratum.common.References;
 import projekt.substratum.common.commands.FileOperations;
@@ -68,8 +71,12 @@ public class BootAnimationUtils {
     private static final String SYSTEM_MEDIA = "/system/media/";
     private static final String BACKUP_SCRIPT = "81-subsboot.sh";
 
-    public void execute(View view, String arguments, Context context, String theme_pid) {
-        new BootAnimationHandlerAsync(view, context, theme_pid).execute(arguments);
+    public void execute(View view,
+                        String arguments,
+                        Context context,
+                        String theme_pid,
+                        Cipher cipher) {
+        new BootAnimationHandlerAsync(view, context, theme_pid, cipher).execute(arguments);
     }
 
     private static class BootAnimationHandlerAsync extends AsyncTask<String, Integer, String> {
@@ -82,14 +89,17 @@ public class BootAnimationUtils {
         private View view;
         private String theme_pid;
         private SharedPreferences prefs;
+        private Cipher cipher;
 
         BootAnimationHandlerAsync(View view,
                                   Context context,
-                                  String theme_pid) {
+                                  String theme_pid,
+                                  Cipher cipher) {
             this.mContext = context;
             this.view = view;
             this.theme_pid = theme_pid;
             this.prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+            this.cipher = cipher;
         }
 
         @Override
@@ -149,21 +159,40 @@ public class BootAnimationUtils {
             // Now let's take out desc.txt from the theme's assets (bootanimation.zip) and parse it
             if (!has_failed) {
                 Log.d(TAG, "Analyzing integrity of boot animation descriptor file...");
-                try {
-                    Context otherContext = mContext.createPackageContext(theme_pid, 0);
-                    AssetManager am = otherContext.getAssets();
-                    try (InputStream inputStream = am.open(
-                            "bootanimation/" + bootanimation + ".zip");
-                         OutputStream outputStream = new FileOutputStream(
-                                 mContext.getCacheDir().getAbsolutePath() +
-                                         "/BootAnimationCache/AnimationCreator/" +
-                                         bootanimation + ".zip")) {
-                        CopyStream(inputStream, outputStream);
+                if (cipher != null) {
+                    try {
+                        Context otherContext = mContext.createPackageContext(theme_pid, 0);
+                        AssetManager themeAssetManager = otherContext.getAssets();
+                        FileOperations.copyFileOrDir(
+                                themeAssetManager,
+                                "bootanimation/" + bootanimation + ".zip.enc",
+                                mContext.getCacheDir().getAbsolutePath() +
+                                        "/BootAnimationCache/AnimationCreator/" +
+                                        bootanimation + ".zip",
+                                "bootanimation/" + bootanimation + ".zip.enc",
+                                cipher);
+                    } catch (PackageManager.NameNotFoundException e) {
+                        e.printStackTrace();
                     }
-                } catch (Exception e) {
-                    has_failed = true;
-                    Log.e(TAG,
-                            "There is no bootanimation.zip found within the assets of this theme!");
+                } else {
+                    try {
+                        Context otherContext = mContext.createPackageContext(theme_pid, 0);
+                        AssetManager am = otherContext.getAssets();
+                        try (InputStream inputStream = am.open(
+                                "bootanimation/" + bootanimation + ".zip");
+                             OutputStream outputStream = new FileOutputStream(
+                                     mContext.getCacheDir().getAbsolutePath() +
+                                             "/BootAnimationCache/AnimationCreator/" +
+                                             bootanimation + ".zip")) {
+                            CopyStream(inputStream, outputStream);
+                        }
+                    } catch (Exception e) {
+                        has_failed = true;
+                        Log.e(TAG,
+                                "There is no bootanimation.zip found within the assets " +
+                                        "of this theme!");
+
+                    }
                 }
 
                 // Rename the file

@@ -243,7 +243,7 @@ public class BootAnimations extends Fragment {
                 } else {
                     new BootAnimationUtils().execute(nsv,
                             bootAnimationSelector.getSelectedItem().toString(),
-                            getContext(), theme_pid);
+                            getContext(), theme_pid, cipher);
                 }
             } else {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -257,7 +257,7 @@ public class BootAnimations extends Fragment {
                                 } else {
                                     new BootAnimationUtils().execute(nsv,
                                             bootAnimationSelector.getSelectedItem().toString(),
-                                            getContext(), theme_pid);
+                                            getContext(), theme_pid, cipher);
                                 }
                             }
                         })

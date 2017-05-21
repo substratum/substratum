@@ -61,6 +61,10 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import javax.crypto.Cipher;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
@@ -95,6 +99,8 @@ public class Sounds extends Fragment {
     private boolean paused = false;
     private JobReceiver jobReceiver;
     private LocalBroadcastManager localBroadcastManager;
+    private Boolean encrypted = false;
+    private Cipher cipher = null;
 
     @Override
     public View onCreateView(
@@ -102,6 +108,23 @@ public class Sounds extends Fragment {
             ViewGroup container,
             Bundle savedInstanceState) {
         theme_pid = InformationActivity.getThemePID();
+        byte[] encryption_key = InformationActivity.getEncryptionKey();
+        byte[] iv_encrypt_key = InformationActivity.getIVEncryptKey();
+
+        try {
+            cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+            cipher.init(
+                    Cipher.DECRYPT_MODE,
+                    new SecretKeySpec(encryption_key, "AES"),
+                    new IvParameterSpec(iv_encrypt_key)
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (encryption_key != null && iv_encrypt_key != null) {
+            encrypted = true;
+        }
 
         root = (ViewGroup) inflater.inflate(R.layout.tab_sounds, container, false);
         nsv = root.findViewById(R.id.nestedScrollView);
@@ -127,7 +150,7 @@ public class Sounds extends Fragment {
         recyclerView.setAdapter(empty_adapter);
 
         try {
-            // Parses the list of items in the fonts folder
+            // Parses the list of items in the sounds folder
             Resources themeResources =
                     getContext().getPackageManager().getResourcesForApplication(theme_pid);
             themeAssetManager = themeResources.getAssets();
@@ -141,7 +164,7 @@ public class Sounds extends Fragment {
             unarchivedSounds.add(getString(R.string.sounds_spinner_set_defaults));
             for (int i = 0; i < archivedSounds.size(); i++) {
                 unarchivedSounds.add(archivedSounds.get(i).substring(0,
-                        archivedSounds.get(i).length() - 4));
+                        archivedSounds.get(i).length() - (encrypted ? 8 : 4)));
             }
 
             ArrayAdapter<String> adapter1 = new ArrayAdapter<>(getActivity(),
@@ -228,8 +251,12 @@ public class Sounds extends Fragment {
             if (soundsSelector.getSelectedItemPosition() == 1) {
                 new SoundsClearer().execute("");
             } else {
-                new SoundUtils().execute(nsv,
-                        soundsSelector.getSelectedItem().toString(), getContext(), theme_pid);
+                new SoundUtils().execute(
+                        nsv,
+                        soundsSelector.getSelectedItem().toString(),
+                        getContext(),
+                        theme_pid,
+                        cipher);
             }
         }
     }
@@ -349,16 +376,25 @@ public class Sounds extends Fragment {
                 // Copy the sounds.zip from assets/sounds of the theme's assets
 
                 String source = sUrl[0] + ".zip";
-
-                try (InputStream inputStream = themeAssetManager.open(
-                        soundsDir + "/" + source);
-                     OutputStream outputStream =
-                             new FileOutputStream(getContext().getCacheDir().getAbsolutePath() +
-                                     "/SoundsCache/" + source)) {
-                    CopyStream(inputStream, outputStream);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Log.e(TAG, "There is no sounds.zip found within the assets of this theme!");
+                if (encrypted) {
+                    FileOperations.copyFileOrDir(
+                            themeAssetManager,
+                            soundsDir + "/" + source + ".enc",
+                            getContext().getCacheDir().getAbsolutePath() +
+                                    "/SoundsCache/" + source,
+                            soundsDir + "/" + source + ".enc",
+                            cipher);
+                } else {
+                    try (InputStream inputStream = themeAssetManager.open(
+                            soundsDir + "/" + source);
+                         OutputStream outputStream =
+                                 new FileOutputStream(getContext().getCacheDir().getAbsolutePath() +
+                                         "/SoundsCache/" + source)) {
+                        CopyStream(inputStream, outputStream);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Log.e(TAG, "There is no sounds.zip found within the assets of this theme!");
+                    }
                 }
 
                 // Unzip the sounds archive to get it prepared for the preview

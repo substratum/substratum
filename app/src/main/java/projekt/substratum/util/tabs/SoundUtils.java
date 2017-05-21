@@ -35,6 +35,8 @@ import android.view.View;
 
 import java.lang.ref.WeakReference;
 
+import javax.crypto.Cipher;
+
 import projekt.substratum.R;
 import projekt.substratum.common.References;
 import projekt.substratum.common.commands.FileOperations;
@@ -53,11 +55,17 @@ public class SoundUtils {
     private boolean ringtone = false;
     private SharedPreferences prefs;
     private View view;
+    private Cipher cipher;
 
-    public void execute(View view, String arguments, Context context, String theme_pid) {
+    public void execute(View view,
+                        String arguments,
+                        Context context,
+                        String theme_pid,
+                        Cipher cipher) {
         this.mContext = context;
         this.theme_pid = theme_pid;
         this.view = view;
+        this.cipher = cipher;
 
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
         new SoundsHandlerAsync(this).execute(arguments);
@@ -162,7 +170,11 @@ public class SoundUtils {
         protected String doInBackground(String... sUrl) {
             SoundUtils soundUtils = ref.get();
             Context context = soundUtils.mContext;
-            boolean[] results = SoundManager.setSounds(context, soundUtils.theme_pid, sUrl[0]);
+            boolean[] results = SoundManager.setSounds(
+                    context,
+                    soundUtils.theme_pid,
+                    sUrl[0],
+                    soundUtils.cipher);
             soundUtils.has_failed = results[0];
             soundUtils.ringtone = results[1];
 

@@ -38,6 +38,8 @@ import java.io.OutputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import javax.crypto.Cipher;
+
 import projekt.substratum.R;
 import projekt.substratum.common.References;
 import projekt.substratum.common.commands.FileOperations;
@@ -73,7 +75,11 @@ public class SoundManager {
     private static final String MEDIA_CONTENT_URI = "content://media/internal/audio/media";
     private static final String SYSTEM_CONTENT_URI = "content://settings/global";
 
-    public static boolean[] setSounds(Context context, String theme_pid, String name) {
+    public static boolean[] setSounds(
+            Context context,
+            String theme_pid,
+            String name,
+            Cipher cipher) {
         boolean has_failed = false;
         boolean ringtone = false;
 
@@ -105,15 +111,26 @@ public class SoundManager {
             try {
                 Context otherContext = context.createPackageContext(theme_pid, 0);
                 AssetManager am = otherContext.getAssets();
-                try (InputStream inputStream = am.open("audio/" + sounds + ".zip");
-                     OutputStream outputStream = new FileOutputStream(context.getCacheDir()
-                             .getAbsolutePath() + "/SoundsCache/SoundsInjector/" +
-                             sounds + ".zip")) {
-                    byte[] buffer = new byte[5120];
-                    int length = inputStream.read(buffer);
-                    while (length > 0) {
-                        outputStream.write(buffer, 0, length);
-                        length = inputStream.read(buffer);
+
+                if (cipher != null) {
+                    FileOperations.copyFileOrDir(
+                            am,
+                            "audio/" + sounds + ".zip.enc",
+                            context.getCacheDir().getAbsolutePath() +
+                                    "/SoundsCache/SoundsInjector/" + sounds + ".zip",
+                            "audio/" + sounds + ".zip.enc",
+                            cipher);
+                } else {
+                    try (InputStream inputStream = am.open("audio/" + sounds + ".zip");
+                         OutputStream outputStream = new FileOutputStream(context.getCacheDir()
+                                 .getAbsolutePath() + "/SoundsCache/SoundsInjector/" +
+                                 sounds + ".zip")) {
+                        byte[] buffer = new byte[5120];
+                        int length = inputStream.read(buffer);
+                        while (length > 0) {
+                            outputStream.write(buffer, 0, length);
+                            length = inputStream.read(buffer);
+                        }
                     }
                 }
             } catch (Exception e) {

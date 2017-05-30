@@ -45,6 +45,7 @@ import projekt.substratum.R;
 import projekt.substratum.common.References;
 
 import static android.text.Html.FROM_HTML_MODE_LEGACY;
+import static com.bumptech.glide.request.RequestOptions.centerCropTransform;
 
 public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, GestureViewHolder> {
 
@@ -284,13 +285,13 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
 
                         Glide.with(mContext)
                                 .load(bitmapData)
-                                .centerCrop()
+                                .apply(centerCropTransform())
                                 .into(priorityObjectAdapter.mAppIcon);
                     }
                 } else {
                     Glide.with(mContext)
                             .load(prioritiesItem.getBitmapId())
-                            .centerCrop()
+                            .apply(centerCropTransform())
                             .into(priorityObjectAdapter.mAppIcon);
                 }
             } catch (Exception e) {

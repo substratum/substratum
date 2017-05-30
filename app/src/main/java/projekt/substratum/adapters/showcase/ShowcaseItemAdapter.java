@@ -39,6 +39,9 @@ import java.util.List;
 import projekt.substratum.R;
 import projekt.substratum.common.References;
 
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
+import static com.bumptech.glide.request.RequestOptions.centerCropTransform;
+
 public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapter.ViewHolder> {
     private ArrayList<ShowcaseItem> information;
 
@@ -60,14 +63,14 @@ public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapte
 
         Glide.with(context)
                 .load(showcaseItem.getThemeIcon())
-                .centerCrop()
-                .crossFade()
+                .apply(centerCropTransform())
+                .transition(withCrossFade())
                 .into(viewHolder.imageView);
 
         Glide.with(context)
                 .load(showcaseItem.getThemeBackgroundImage())
-                .centerCrop()
-                .crossFade()
+                .apply(centerCropTransform())
+                .transition(withCrossFade())
                 .into(viewHolder.backgroundImageView);
 
         viewHolder.themeName.setText(showcaseItem.getThemeName());

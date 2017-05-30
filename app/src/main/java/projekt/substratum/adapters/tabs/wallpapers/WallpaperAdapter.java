@@ -50,6 +50,9 @@ import java.util.ArrayList;
 
 import projekt.substratum.R;
 
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
+import static com.bumptech.glide.request.RequestOptions.centerCropTransform;
+
 public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.ViewHolder> {
     private ProgressDialog mProgressDialog;
     private ArrayList<WallpaperEntries> information;
@@ -80,8 +83,8 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
 
         Glide.with(mContext)
                 .load(wallpaperEntry.getWallpaperPreview())
-                .centerCrop()
-                .crossFade()
+                .apply(centerCropTransform())
+                .transition(withCrossFade())
                 .into(viewHolder.imageView);
 
         viewHolder.wallpaperName.setText(wallpaperEntry.getWallpaperName());

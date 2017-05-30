@@ -39,6 +39,8 @@ import java.util.ArrayList;
 import projekt.substratum.R;
 import projekt.substratum.common.References;
 
+import static com.bumptech.glide.request.RequestOptions.centerCropTransform;
+
 public class IconPackAdapter extends RecyclerView.Adapter<IconEntry> {
 
     private ArrayList<IconInfo> itemList;
@@ -63,7 +65,7 @@ public class IconPackAdapter extends RecyclerView.Adapter<IconEntry> {
             holder.iconName.setText(itemList.get(position).getParsedName());
             Glide.with(itemList.get(position).getContext())
                     .load(itemList.get(position).getDrawable())
-                    .centerCrop()
+                    .apply(centerCropTransform())
                     .into(holder.iconDrawable);
         } else {
             try {
@@ -86,7 +88,7 @@ public class IconPackAdapter extends RecyclerView.Adapter<IconEntry> {
 
                         Glide.with(itemList.get(position).getContext())
                                 .load(bitmapData)
-                                .centerCrop()
+                                .apply(centerCropTransform())
                                 .into(holder.iconDrawable);
                     }
                 } else {
@@ -117,7 +119,7 @@ public class IconPackAdapter extends RecyclerView.Adapter<IconEntry> {
 
                                 Glide.with(itemList.get(position).getContext())
                                         .load(bitmapData)
-                                        .centerCrop()
+                                        .apply(centerCropTransform())
                                         .into(holder.iconDrawable);
                             }
                         }
@@ -134,7 +136,7 @@ public class IconPackAdapter extends RecyclerView.Adapter<IconEntry> {
 
                             Glide.with(itemList.get(position).getContext())
                                     .load(bitmapData)
-                                    .centerCrop()
+                                    .apply(centerCropTransform())
                                     .into(holder.iconDrawable);
                         }
                     }

@@ -88,6 +88,7 @@ import projekt.substratum.util.views.SheetDialog;
 
 import static android.content.om.OverlayInfo.STATE_APPROVED_DISABLED;
 import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
+import static com.bumptech.glide.request.RequestOptions.centerCropTransform;
 import static projekt.substratum.common.References.BYPASS_SUBSTRATUM_BUILDER_DELETION;
 import static projekt.substratum.common.References.bootAnimationsFragment;
 import static projekt.substratum.common.References.fontsFragment;
@@ -978,7 +979,7 @@ public class InformationActivity extends SubstratumActivity {
                 getWindow().setNavigationBarColor(Color.parseColor("#ffff00"));
             } else if (kenBurnsView != null) {
                 Glide.with(getApplicationContext()).load(byteArray)
-                        .centerCrop().into(kenBurnsView);
+                        .apply(centerCropTransform()).into(kenBurnsView);
             }
         }
 

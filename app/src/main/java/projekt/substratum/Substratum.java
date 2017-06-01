@@ -41,6 +41,7 @@ public class Substratum extends Application {
         super.onCreate();
         substratum = this;
         startBinderService();
+        References.registerBroadcastReceivers(this);
     }
 
     public void startBinderService() {

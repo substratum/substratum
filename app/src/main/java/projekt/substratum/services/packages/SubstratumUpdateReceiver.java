@@ -40,6 +40,5 @@ public class SubstratumUpdateReceiver extends BroadcastReceiver {
         if (scheduleProfileEnabled) {
             ProfileManager.updateScheduledProfile(context);
         }
-        References.registerBroadcastReceivers(context);
     }
 }

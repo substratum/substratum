@@ -59,8 +59,6 @@ public class BootCompletedDetector extends BroadcastReceiver {
             if (prefs.getBoolean(SCHEDULED_PROFILE_ENABLED, false)) {
                 ProfileManager.updateScheduledProfile(context);
             }
-
-            References.registerBroadcastReceivers(context);
             clearSubstratumCompileFolder(context);
         }
     }

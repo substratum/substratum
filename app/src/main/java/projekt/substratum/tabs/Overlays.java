@@ -2076,8 +2076,13 @@ public class Overlays extends Fragment {
                                 fragment.type2 = fragment.checkedOverlays.get(i).getSelectedVariantName4();
                                 String type2folder = "/type2_" + fragment.type2;
                                 String to_copy = overlaysDir + "/" + current_overlay + type2folder;
-                                FileOperations.copyFileOrDir(fragment.themeAssetManager, to_copy,
-                                        workingDirectory + type2folder, to_copy);
+                                if (!References.isCachingEnabled(context)) {
+                                    FileOperations.copyFileOrDir(
+                                            fragment.themeAssetManager,
+                                            to_copy,
+                                            workingDirectory + type2folder,
+                                            to_copy);
+                                }
                                 Log.d(TAG, "Currently processing package" +
                                         " \"" + fragment.checkedOverlays.get(i)
                                         .getFullOverlayParameters() + "\"...");

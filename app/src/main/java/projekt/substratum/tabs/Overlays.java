@@ -610,7 +610,7 @@ public class Overlays extends Fragment {
         }
 
         // Enable job listener
-        jobReceiver = new JobReceiver(this);
+        jobReceiver = new JobReceiver();
         IntentFilter intentFilter = new IntentFilter("Overlays.START_JOB");
         localBroadcastManager = LocalBroadcastManager.getInstance(getContext());
         localBroadcastManager.registerReceiver(jobReceiver, intentFilter);
@@ -2296,37 +2296,29 @@ public class Overlays extends Fragment {
         }
     }
 
-    private static class JobReceiver extends BroadcastReceiver {
-        private WeakReference<Overlays> ref;
-
-        JobReceiver(Overlays fragment) {
-            ref = new WeakReference<>(fragment);
-        }
-
+    private class JobReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Overlays fragment = ref.get();
-
-            if (!fragment.isAdded()) return;
+            if (!isAdded()) return;
 
             String command = intent.getStringExtra("command");
             switch (command) {
                 case "CompileEnable":
-                    if (fragment.mAdapter != null) fragment.startCompileEnableMode();
+                    if (mAdapter != null) startCompileEnableMode();
                     break;
                 case "CompileUpdate":
-                    if (fragment.mAdapter != null) fragment.startCompileUpdateMode();
+                    if (mAdapter != null) startCompileUpdateMode();
                     break;
                 case "Disable":
-                    if (fragment.mAdapter != null) fragment.startDisable();
+                    if (mAdapter != null) startDisable();
                     break;
                 case "Enable":
-                    if (fragment.mAdapter != null) fragment.startEnable();
+                    if (mAdapter != null) startEnable();
                     break;
                 case "MixAndMatchMode":
-                    if (fragment.mAdapter != null) {
+                    if (mAdapter != null) {
                         boolean newValue = intent.getBooleanExtra("newValue", false);
-                        fragment.setMixAndMatchMode(newValue);
+                        setMixAndMatchMode(newValue);
                     }
                     break;
             }

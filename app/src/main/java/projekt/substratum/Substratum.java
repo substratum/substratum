@@ -18,10 +18,14 @@
 
 package projekt.substratum;
 
+import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.app.Application;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.util.Log;
 
 import projekt.substratum.common.References;
@@ -42,6 +46,20 @@ public class Substratum extends Application {
         substratum = this;
         startBinderService();
         References.registerBroadcastReceivers(this);
+        createNotificationChannel();
+    }
+
+    @SuppressLint("NewApi")
+    public void createNotificationChannel() {
+        if (Build.VERSION.RELEASE.equals("O")) {
+            NotificationManager notificationManager =
+                    (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            NotificationChannel mainChannel = new NotificationChannel(
+                    References.MAIN_NOTIFICATION_CHANNEL_ID,
+                    "Main Notification",
+                    NotificationManager.IMPORTANCE_DEFAULT);
+            notificationManager.createNotificationChannel(mainChannel);
+        }
     }
 
     public void startBinderService() {

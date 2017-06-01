@@ -23,6 +23,8 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.graphics.Bitmap;
 
+import projekt.substratum.common.References;
+
 public class NotificationCreator {
 
     private Context mContext;
@@ -62,6 +64,7 @@ public class NotificationCreator {
             if (big_icon != null) mBuilder.setLargeIcon(big_icon);
 
             mBuilder.setPriority(notification_priority);
+            mBuilder.setChannel(References.MAIN_NOTIFICATION_CHANNEL_ID);
             mNotifyManager.notify(invoke_id, mBuilder.build());
             return true;
         } catch (Exception e) {

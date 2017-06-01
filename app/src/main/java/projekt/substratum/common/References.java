@@ -234,6 +234,8 @@ public class References {
     // Localized variables shared amongst common resources
     private static ScheduledProfileReceiver scheduledProfileReceiver;
     private Context mContext; // Used for support checker
+    // Notification Channel
+    public static final String MAIN_NOTIFICATION_CHANNEL_ID = "main";
 
     public static String checkFirmwareSupport(Context context, String urls, String inputFileName) {
         String supported_rom = "";

@@ -667,6 +667,7 @@ public class Overlays extends Fragment {
                 mBuilder.setSmallIcon(R.drawable.notification_success_icon);
                 mBuilder.setContentTitle(context.getString(R.string.notification_done_title));
                 mBuilder.setContentText(context.getString(R.string.notification_no_errors_found));
+                mBuilder.setChannel(References.MAIN_NOTIFICATION_CHANNEL_ID);
                 if (prefs.getBoolean("vibrate_on_compiled", false)) {
                     mBuilder.setVibrate(new long[]{100, 200, 100, 500});
                 }
@@ -815,6 +816,7 @@ public class Overlays extends Fragment {
             if (prefs.getBoolean("vibrate_on_compiled", false)) {
                 mBuilder.setVibrate(new long[]{100, 200, 100, 500});
             }
+            mBuilder.setChannel(References.MAIN_NOTIFICATION_CHANNEL_ID);
             mNotifyManager.notify(id, mBuilder.build());
         }
 
@@ -1420,6 +1422,7 @@ public class Overlays extends Fragment {
                         .setSmallIcon(android.R.drawable.ic_popup_sync)
                         .setPriority(notification_priority)
                         .setContentIntent(resultPendingIntent)
+                        .setChannel(References.MAIN_NOTIFICATION_CHANNEL_ID)
                         .setOngoing(true);
                 fragment.mNotifyManager.notify(fragment.id, fragment.mBuilder.build());
 

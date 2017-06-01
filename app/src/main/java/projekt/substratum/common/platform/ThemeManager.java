@@ -75,11 +75,11 @@ public class ThemeManager {
             ThemeInterfacerService.enableOverlays(context, overlays, shouldRestartUI(context,
                     overlays));
         } else {
-            String commands = enableOverlay + " " + overlays.get(0);
+            StringBuilder commands = new StringBuilder(enableOverlay + " " + overlays.get(0));
             for (int i = 1; i < overlays.size(); i++) {
-                commands += ";" + enableOverlay + " " + overlays.get(i);
+                commands.append(";" + enableOverlay + " ").append(overlays.get(i));
             }
-            new ElevatedCommands.ThreadRunner().execute(commands);
+            new ElevatedCommands.ThreadRunner().execute(commands.toString());
             try {
                 Thread.sleep(NI_restartSystemUIDelay);
                 if (shouldRestartUI(context, overlays)) restartSystemUI(context);
@@ -94,11 +94,11 @@ public class ThemeManager {
             ThemeInterfacerService.disableOverlays(context, overlays, shouldRestartUI(context,
                     overlays));
         } else {
-            String commands = disableOverlay + " " + overlays.get(0);
+            StringBuilder commands = new StringBuilder(disableOverlay + " " + overlays.get(0));
             for (int i = 1; i < overlays.size(); i++) {
-                commands += ";" + disableOverlay + " " + overlays.get(i);
+                commands.append(";" + disableOverlay + " ").append(overlays.get(i));
             }
-            new ElevatedCommands.ThreadRunner().execute(commands);
+            new ElevatedCommands.ThreadRunner().execute(commands.toString());
             try {
                 Thread.sleep(NI_restartSystemUIDelay);
                 if (shouldRestartUI(context, overlays)) restartSystemUI(context);
@@ -113,14 +113,14 @@ public class ThemeManager {
             ThemeInterfacerService.setPriority(
                     context, overlays, shouldRestartUI(context, overlays));
         } else {
-            String commands = "";
+            StringBuilder commands = new StringBuilder();
             for (int i = 0; i < overlays.size() - 1; i++) {
                 String packageName = overlays.get(i);
                 String parentName = overlays.get(i + 1);
-                commands += (commands.isEmpty() ? "" : " && ") + setPriority + " " + packageName +
-                        " " + parentName;
+                commands.append((commands.length() == 0) ? "" : " && ").append(setPriority)
+                        .append(" ").append(packageName).append(" ").append(parentName);
             }
-            new ElevatedCommands.ThreadRunner().execute(commands);
+            new ElevatedCommands.ThreadRunner().execute(commands.toString());
             if (shouldRestartUI(context, overlays)) restartSystemUI(context);
         }
     }
@@ -339,9 +339,9 @@ public class ThemeManager {
         if (checkThemeInterfacer(context)) {
             ThemeInterfacerService.installOverlays(context, overlays);
         } else {
-            String packages = "";
+            StringBuilder packages = new StringBuilder();
             for (String o : overlays) {
-                packages += o + " ";
+                packages.append(o).append(" ");
             }
             new ElevatedCommands.ThreadRunner().execute("pm install -r " + packages);
         }
@@ -356,11 +356,12 @@ public class ThemeManager {
                     overlays,
                     !bypassRestart && shouldRestartUI(context, overlays));
         } else {
-            String command = "";
+            StringBuilder command = new StringBuilder();
             for (String packageName : overlays) {
-                command += (command.isEmpty() ? "" : " && ") + "pm uninstall " + packageName;
+                command.append((command.length() == 0) ? "" : " && ").append("pm uninstall ")
+                        .append(packageName);
             }
-            new ElevatedCommands.ThreadRunner().execute(command);
+            new ElevatedCommands.ThreadRunner().execute(command.toString());
             if (!bypassRestart && checkOMS(context) && shouldRestartUI(context, overlays))
                 restartSystemUI(context);
         }

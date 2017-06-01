@@ -101,7 +101,7 @@ public class ProfileFragment extends Fragment {
     private String to_be_run_commands;
     private ArrayAdapter<String> adapter;
     private List<List<String>> cannot_run_overlays;
-    private String dialog_message;
+    private StringBuilder dialog_message;
     private boolean dayNightEnabled;
     private ArrayList<CharSequence> selectedBackup;
     private boolean isWaiting;
@@ -838,7 +838,7 @@ public class ProfileFragment extends Fragment {
             if (References.checkOMS(getContext())) {  // RRO doesn't need any of this
                 profile_name = sUrl[0];
                 cannot_run_overlays = new ArrayList<>();
-                dialog_message = "";
+                dialog_message = new StringBuilder();
                 to_be_run_commands = "";
 
                 File overlays = new File(Environment.getExternalStorageDirectory().getAbsolutePath()
@@ -877,11 +877,11 @@ public class ProfileFragment extends Fragment {
                                 .replace(",", " ");
 
                         if (dialog_message.length() == 0) {
-                            dialog_message = dialog_message + "\u2022 " + targetPackage + " (" +
-                                    detailSplit + ")";
+                            dialog_message.append("\u2022 ").append(targetPackage).append(" (")
+                                    .append(detailSplit).append(")");
                         } else {
-                            dialog_message = dialog_message + "\n" + "\u2022 " + targetPackage
-                                    + " (" + detailSplit + ")";
+                            dialog_message.append("\n").append("\u2022 ").append(targetPackage)
+                                    .append(" (").append(detailSplit).append(")");
                         }
                     }
                 }

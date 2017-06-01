@@ -153,7 +153,7 @@ public class Overlays extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
     private ProgressBar progressBar;
     private Boolean is_active = false;
-    private StringBuilder error_logs = new StringBuilder();
+    private StringBuilder error_logs;
     private MaterialProgressBar materialProgressBar;
     private double current_amount = 0;
     private double total_amount = 0;
@@ -1531,6 +1531,7 @@ public class Overlays extends Fragment {
             fragment.missingType3 = false;
             fragment.has_failed = false;
             fragment.fail_count = 0;
+            fragment.error_logs = new StringBuilder();
 
             if (!fragment.enable_mode && !fragment.disable_mode) {
                 // Change title in preparation for loop to change subtext

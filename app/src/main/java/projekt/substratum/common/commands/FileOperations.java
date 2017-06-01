@@ -290,12 +290,12 @@ public class FileOperations {
             if (deleteParent) {
                 Root.runCommand("rm -rf " + directory);
             } else {
-                String command = "rm -rf ";
+                StringBuilder command = new StringBuilder("rm -rf ");
                 if (dir.isDirectory()) {
                     for (File child : dir.listFiles()) {
-                        command += child.getAbsolutePath() + " ";
+                        command.append(child.getAbsolutePath()).append(" ");
                     }
-                    Root.runCommand(command);
+                    Root.runCommand(command.toString());
                 } else {
                     Root.runCommand(command + directory);
                 }

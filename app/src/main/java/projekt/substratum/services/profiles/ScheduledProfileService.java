@@ -154,7 +154,7 @@ public class ScheduledProfileService extends JobService {
             ArrayList<String> to_be_run = new ArrayList<>();
             List<List<String>> cannot_run_overlays = new ArrayList<>();
             List<String> system = new ArrayList<>();
-            String dialog_message = "";
+            StringBuilder dialog_message = new StringBuilder();
             if (overlays.exists()) {
                 List<List<String>> profile =
                         ProfileManager.readProfileStatePackageWithTargetPackage(processed, 5);
@@ -187,11 +187,11 @@ public class ScheduledProfileService extends JobService {
                             .replace(",", " ");
 
                     if (dialog_message.length() == 0) {
-                        dialog_message = dialog_message + "\u2022 " + targetPackage + " (" +
-                                detailSplit + ")";
+                        dialog_message.append("\u2022 ").append(targetPackage).append(" (")
+                                .append(detailSplit).append(")");
                     } else {
-                        dialog_message = dialog_message + "\n" + "\u2022 " + targetPackage
-                                + " (" + detailSplit + ")";
+                        dialog_message.append("\n" + "\u2022 ").append(targetPackage).append(" (")
+                                .append(detailSplit).append(")");
                     }
                 }
             }
@@ -241,7 +241,7 @@ public class ScheduledProfileService extends JobService {
             } else {
                 Intent notifyIntent = new Intent(context, ProfileErrorInfoActivity.class);
                 notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                notifyIntent.putExtra("dialog_message", dialog_message);
+                notifyIntent.putExtra("dialog_message", dialog_message.toString());
                 PendingIntent contentIntent =
                         PendingIntent.getActivity(context, 0, notifyIntent, 0);
 

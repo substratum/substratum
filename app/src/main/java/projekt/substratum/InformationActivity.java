@@ -727,13 +727,13 @@ public class InformationActivity extends SubstratumActivity {
 
                 String[] changelog_parsing =
                         References.grabThemeChangelog(getApplicationContext(), theme_pid);
-                String to_show = "";
+                StringBuilder to_show = new StringBuilder();
                 if (changelog_parsing != null) {
                     for (String aChangelog_parsing : changelog_parsing) {
-                        to_show += "\u2022 " + aChangelog_parsing + "\n";
+                        to_show.append("\u2022 ").append(aChangelog_parsing).append("\n");
                     }
                 }
-                text.setText(to_show);
+                text.setText(to_show.toString());
                 sheetDialog.setCanceledOnTouchOutside(true);
                 sheetDialog.setContentView(sheetView);
                 sheetDialog.show();

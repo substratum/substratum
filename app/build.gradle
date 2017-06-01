@@ -17,7 +17,6 @@
  */
 
 apply plugin: 'com.android.application'
-apply plugin: 'com.google.gms.google-services'
 
 def gitHash = { ->
     def stdout = new ByteArrayOutputStream()
@@ -145,3 +144,4 @@ dependencies {
     compile 'com.github.vlad1m1r990:Lemniscate:1.2.0'
     compile 'com.daimajia.numberprogressbar:library:1.4@aar'
 }
+apply plugin: 'com.google.gms.google-services'

@@ -34,7 +34,6 @@ import java.io.File;
 import java.util.List;
 
 import projekt.substratum.R;
-import projekt.substratum.common.References;
 
 import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
 import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;
@@ -253,11 +252,6 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
 
         OverlaysItem current_object = overlayList.get(position);
         Context context = current_object.getInheritedContext();
-
-        if (current_object.getAppIcon() == null) {
-            current_object.setAppIcon(
-                    References.grabAppIcon(context, current_object.getPackageName()));
-        }
 
         viewHolder.app_icon.setImageDrawable(current_object.getAppIcon());
 

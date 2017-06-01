@@ -27,6 +27,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import projekt.substratum.common.References;
+
 public class OverlaysItem implements Serializable {
 
     public boolean is_variant_chosen = false;
@@ -88,9 +90,8 @@ public class OverlaysItem implements Serializable {
                     baseResources.replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "");
         variant_mode = true;
         this.enabledOverlays = new ArrayList<>();
-        for (int i = 0; i < enabledOverlays.size(); i++) {
-            this.enabledOverlays.add(enabledOverlays.get(i));
-        }
+        this.enabledOverlays.addAll(enabledOverlays);
+        this.app_icon = References.grabAppIcon(context, packageName);
     }
 
     boolean isDeviceOMS() {
@@ -166,9 +167,7 @@ public class OverlaysItem implements Serializable {
 
     public void updateEnabledOverlays(List<String> enabledOverlays) {
         this.enabledOverlays = new ArrayList<>();
-        for (int i = 0; i < enabledOverlays.size(); i++) {
-            this.enabledOverlays.add(enabledOverlays.get(i));
-        }
+        this.enabledOverlays.addAll(enabledOverlays);
     }
 
     int getSelectedVariant2() {

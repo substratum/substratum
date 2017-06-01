@@ -33,6 +33,7 @@ import static projekt.substratum.common.systems.ProfileManager.SCHEDULED_PROFILE
 public class SubstratumUpdateReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
+        if (!intent.getAction().equals(Intent.ACTION_MY_PACKAGE_REPLACED)) return;
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         Substratum.getInstance().startBinderService();
         boolean scheduleProfileEnabled = prefs.getBoolean(SCHEDULED_PROFILE_ENABLED, false);

@@ -59,33 +59,6 @@
         <receiver android:name=".services.notification.FloatUiButtonReceiver"/>
         <receiver android:name=".services.notification.NotificationButtonReceiver"/>
         <receiver android:name=".services.notification.NotificationUpgradeReceiver"/>
-        <receiver android:name=".services.packages.OverlayFound">
-            <intent-filter>
-
-                <!-- Full API deprecation on target SDK level 26 -->
-                <action android:name="android.intent.action.PACKAGE_ADDED"/>
-
-                <data android:scheme="package"/>
-            </intent-filter>
-        </receiver>
-        <receiver android:name=".services.packages.OverlayUpdater">
-            <intent-filter>
-
-                <!-- Full API deprecation on target SDK level 26 -->
-                <action android:name="android.intent.action.PACKAGE_ADDED"/>
-
-                <data android:scheme="package"/>
-            </intent-filter>
-        </receiver>
-        <receiver android:name=".services.packages.PackageModificationDetector">
-            <intent-filter>
-
-                <!-- Full API deprecation on target SDK level 26 -->
-                <action android:name="android.intent.action.PACKAGE_ADDED"/>
-
-                <data android:scheme="package"/>
-            </intent-filter>
-        </receiver>
         <receiver android:name=".services.packages.ThemeUninstallDetector">
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_FULLY_REMOVED"/>
@@ -94,15 +67,6 @@
             </intent-filter>
         </receiver>
         <receiver android:name=".services.profiles.ScheduledProfileReceiver"/>
-        <receiver
-            android:name=".services.crash.AppCrashReceiver"
-            android:exported="false">
-            <intent-filter>
-
-                <!-- Full API deprecation on target SDK level 26 -->
-                <action android:name="projekt.substratum.APP_CRASHED"/>
-            </intent-filter>
-        </receiver>
         <receiver android:name=".services.packages.SubstratumUpdateReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>

@@ -145,10 +145,9 @@ public class References {
     public static final String CRASH_CLASS_NAME = "projekt.substratum.EXTRA_EXCEPTION_CLASS_NAME";
     public static final String CRASH_REPEATING = "projekt.substratum.EXTRA_CRASH_REPEATING";
     // System intents to catch
-    public static final String BOOT_COMPLETED = "android.intent.action.BOOT_COMPLETED";
-    public final static String PACKAGE_ADDED = "android.intent.action.PACKAGE_ADDED";
-    public static final String PACKAGE_FULLY_REMOVED =
-            "android.intent.action.PACKAGE_FULLY_REMOVED";
+    public static final String BOOT_COMPLETED = Intent.ACTION_BOOT_COMPLETED;
+    public static final String PACKAGE_ADDED = Intent.ACTION_PACKAGE_ADDED;
+    public static final String PACKAGE_FULLY_REMOVED = Intent.ACTION_PACKAGE_FULLY_REMOVED;
     // App intents to send
     public static final String MANAGER_REFRESH = "projekt.substratum.MANAGER_REFRESH";
     // Keep it simple, stupid!
@@ -349,7 +348,9 @@ public class References {
     public static void registerBroadcastReceivers(Context context) {
         try {
             IntentFilter intentAppCrashed = new IntentFilter(APP_CRASHED);
+            intentAppCrashed.addDataScheme("package");
             IntentFilter intentPackageAdded = new IntentFilter(PACKAGE_ADDED);
+            intentPackageAdded.addDataScheme("package");
             context.getApplicationContext().registerReceiver(
                     new AppCrashReceiver(), intentAppCrashed);
             context.getApplicationContext().registerReceiver(

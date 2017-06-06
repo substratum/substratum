@@ -47,7 +47,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
@@ -788,10 +787,10 @@ public class MainActivity extends SubstratumActivity implements
         if (!isOMS) menu.findItem(R.id.per_app).setVisible(false);
 
         searchItem = menu.findItem(R.id.action_search);
-        MenuItem restartUi = menu.findItem(R.id.restart_systemui);
-        searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView = (SearchView) searchItem.getActionView();
         searchView.setOnQueryTextListener(this);
         searchItem.setVisible(!hideBundle);
+        MenuItem restartUi = menu.findItem(R.id.restart_systemui);
         restartUi.setVisible(!hideRestartUi && isOMS);
         return true;
     }

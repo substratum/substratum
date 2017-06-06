@@ -36,17 +36,13 @@
         android:orientation="horizontal"
         android:padding="16dp">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:tint="@color/main_screen_card_theme_title"
-            app:srcCompat="@drawable/bottom_sheet_dialog_hide"/>
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_marginStart="16dp"
+            android:drawableStart="@drawable/bottom_sheet_dialog_hide"
+            android:drawableTint="@color/main_screen_card_theme_title"
+            android:drawablePadding="16dp"
             android:text="@string/bottom_sheet_dialog_hide_outdated_themes"
             android:textColor="?android:attr/textColorPrimary"/>
     </LinearLayout>
@@ -62,17 +58,13 @@
         android:orientation="horizontal"
         android:padding="16dp">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:tint="@color/main_screen_card_theme_title"
-            app:srcCompat="@drawable/bottom_sheet_dialog_show"/>
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_marginStart="16dp"
+            android:drawableStart="@drawable/bottom_sheet_dialog_show"
+            android:drawableTint="@color/main_screen_card_theme_title"
+            android:drawablePadding="16dp"
             android:text="@string/bottom_sheet_dialog_show_outdated_themes"
             android:textColor="?android:attr/textColorPrimary"/>
     </LinearLayout>

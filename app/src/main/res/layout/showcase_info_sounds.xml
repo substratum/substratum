@@ -26,15 +26,11 @@
               android:layout_marginTop="10dp"
               android:orientation="horizontal">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/nav_sounds"/>
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
+        android:drawableStart="@drawable/nav_sounds"
+        android:drawablePadding="28dp"
         android:text="@string/community_info_sounds"/>
 
 </LinearLayout>

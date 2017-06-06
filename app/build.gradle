@@ -54,9 +54,9 @@ android {
     flavorDimensions "preview"
     productFlavors {
         main {}
-        odp {
+        preview {
             targetSdkVersion "O"
-            versionNameSuffix " (odp)"
+            versionNameSuffix " (target-preview)"
         }
     }
 

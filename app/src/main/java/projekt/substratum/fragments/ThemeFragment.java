@@ -111,7 +111,8 @@ public class ThemeFragment extends Fragment {
         }
 
         // Initialize a proper loading sequence so the user does not see the unparsed string
-        MainActivity.actionbar_content.setText(getString(R.string.actionbar_theme_count_loading));
+        ((MainActivity)getActivity()).actionbar_content
+                .setText(getString(R.string.actionbar_theme_count_loading));
 
         substratum_packages = new HashMap<>();
         recyclerView = root.findViewById(R.id.theme_list);
@@ -229,7 +230,8 @@ public class ThemeFragment extends Fragment {
         }
 
         if (substratum_packages.size() == 0) {
-            if (MainActivity.searchView != null && !MainActivity.searchView.isIconified()) {
+            if (((MainActivity)getActivity()).searchView != null &&
+                    !((MainActivity)getActivity()).searchView.isIconified()) {
                 if (MainActivity.userInput.length() > 0) {
                     String parse = String.format(
                             getString(R.string.no_themes_description_search),
@@ -257,15 +259,15 @@ public class ThemeFragment extends Fragment {
         // Now let's place the proper amount of theme count into the context text
         String parse;
         if (substratum_packages.size() == 0) {
-            MainActivity.switchToStockToolbar(title);
+            ((MainActivity)getActivity()).switchToStockToolbar(title);
         } else if (substratum_packages.size() == 1) {
             parse = String.format(getString(R.string.actionbar_theme_count_singular),
                     String.valueOf(substratum_packages.size()));
-            MainActivity.switchToCustomToolbar(title, parse);
+            ((MainActivity)getActivity()).switchToCustomToolbar(title, parse);
         } else {
             parse = String.format(getString(R.string.actionbar_theme_count_plural),
                     String.valueOf(substratum_packages.size()));
-            MainActivity.switchToCustomToolbar(title, parse);
+            ((MainActivity)getActivity()).switchToCustomToolbar(title, parse);
         }
 
         // Now we need to sort the buffered installed themes
@@ -287,7 +289,8 @@ public class ThemeFragment extends Fragment {
         protected void onPostExecute(String result) {
             if (isAdded()) refreshLayout();
             if (substratum_packages.size() == 0) {
-                if (MainActivity.searchView != null && !MainActivity.searchView.isIconified()) {
+                if (((MainActivity)getActivity()).searchView != null &&
+                        !((MainActivity)getActivity()).searchView.isIconified()) {
                     if (MainActivity.userInput.length() > 0) {
                         String parse = String.format(
                                 getString(R.string.no_themes_description_search),

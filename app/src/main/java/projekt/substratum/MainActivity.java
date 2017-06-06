@@ -127,11 +127,9 @@ public class MainActivity extends SubstratumActivity implements
     private static final int PERMISSIONS_REQUEST_USAGE_ACCESS_SETTINGS = 3;
     private static final String SELECTED_DRAWER_ITEM = "selected_drawer_item";
 
-    @SuppressLint("StaticFieldLeak")
-    public static TextView actionbar_title, actionbar_content;
+    public TextView actionbar_title, actionbar_content;
     public static String userInput = "";
-    @SuppressLint("StaticFieldLeak")
-    public static SearchView searchView;
+    public SearchView searchView;
     public static MenuItem searchItem;
     private static ActionBar supportActionBar;
     private Drawer drawer;
@@ -140,7 +138,7 @@ public class MainActivity extends SubstratumActivity implements
     private SharedPreferences prefs;
     private boolean hideBundle, hideRestartUi;
 
-    public static void switchToCustomToolbar(String title, String content) {
+    public void switchToCustomToolbar(String title, String content) {
         if (supportActionBar != null) supportActionBar.setTitle("");
         if (actionbar_content != null) actionbar_content.setVisibility(View.VISIBLE);
         if (actionbar_title != null) actionbar_title.setVisibility(View.VISIBLE);
@@ -148,7 +146,7 @@ public class MainActivity extends SubstratumActivity implements
         if (actionbar_content != null) actionbar_content.setText(content);
     }
 
-    public static void switchToStockToolbar(String title) {
+    public void switchToStockToolbar(String title) {
         try {
             actionbar_content.setVisibility(View.GONE);
             actionbar_title.setVisibility(View.GONE);

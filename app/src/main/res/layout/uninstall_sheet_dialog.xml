@@ -39,6 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:gravity="center"
             android:drawableStart="@drawable/uninstall_sheet_icon"
             android:drawableTint="@color/main_screen_card_theme_title"
             android:drawablePadding="16dp"

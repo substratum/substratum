@@ -25,7 +25,6 @@ import android.content.SharedPreferences;
 import android.support.v7.preference.PreferenceManager;
 
 import projekt.substratum.Substratum;
-import projekt.substratum.common.References;
 import projekt.substratum.common.systems.ProfileManager;
 
 import static projekt.substratum.common.systems.ProfileManager.SCHEDULED_PROFILE_ENABLED;

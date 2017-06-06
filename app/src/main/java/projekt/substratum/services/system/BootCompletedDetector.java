@@ -28,7 +28,6 @@ import android.util.Log;
 
 import java.io.File;
 
-import projekt.substratum.common.References;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.systems.ProfileManager;
 

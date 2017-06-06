@@ -123,13 +123,12 @@ public class ValidatorAdapter extends RecyclerView.Adapter<ValidatorAdapter.View
                     dialog.getWindow().setLayout(RecyclerView.LayoutParams.MATCH_PARENT,
                             RecyclerView.LayoutParams.WRAP_CONTENT);
 
-                TextView text = (TextView) dialog.findViewById(R.id.textField);
+                TextView text = dialog.findViewById(R.id.textField);
                 text.setText(error_logs.toString());
-                ImageButton confirm = (ImageButton) dialog.findViewById(R.id.confirm);
+                ImageButton confirm = dialog.findViewById(R.id.confirm);
                 confirm.setOnClickListener(view -> dialog.dismiss());
 
-                ImageButton send = (ImageButton) dialog.findViewById(
-                        R.id.send);
+                ImageButton send = dialog.findViewById(R.id.send);
                 send.setOnClickListener(v2 -> {
                     String device = " " + Build.MODEL + " (" + Build.DEVICE + ") " +
                             "[" + Build.FINGERPRINT + "]";
@@ -185,12 +184,12 @@ public class ValidatorAdapter extends RecyclerView.Adapter<ValidatorAdapter.View
 
         ViewHolder(View view) {
             super(view);
-            cardView = (CardView) view.findViewById(R.id.pack_card);
-            packIcon = (ImageView) view.findViewById(R.id.pack_icon);
-            verificationIcon = (ImageView) view.findViewById(R.id.verification);
-            packName = (TextView) view.findViewById(R.id.pack_name);
-            verificationText = (TextView) view.findViewById(R.id.verification_text);
-            numberProgressBar = (NumberProgressBar) view.findViewById(R.id.number_progress_bar);
+            cardView = view.findViewById(R.id.pack_card);
+            packIcon = view.findViewById(R.id.pack_icon);
+            verificationIcon = view.findViewById(R.id.verification);
+            packName = view.findViewById(R.id.pack_name);
+            verificationText = view.findViewById(R.id.verification_text);
+            numberProgressBar = view.findViewById(R.id.number_progress_bar);
         }
     }
 }

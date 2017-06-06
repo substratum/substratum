@@ -274,13 +274,13 @@ public class MainActivity extends SubstratumActivity implements
 
         prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-        actionbar_title = (TextView) findViewById(R.id.activity_title);
-        actionbar_content = (TextView) findViewById(R.id.theme_count);
+        actionbar_title = findViewById(R.id.activity_title);
+        actionbar_content = findViewById(R.id.theme_count);
 
         References.setROMVersion(getApplicationContext(), false);
         References.setAndCheckOMS(getApplicationContext());
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
             if (getSupportActionBar() != null) {
@@ -1099,8 +1099,8 @@ public class MainActivity extends SubstratumActivity implements
             SheetDialog sheetDialog = new SheetDialog(this);
             @SuppressLint("InflateParams")
             View sheetView = getLayoutInflater().inflate(R.layout.bottom_sheet_dialog, null);
-            LinearLayout hide = (LinearLayout) sheetView.findViewById(R.id.hide_outdated_themes);
-            LinearLayout show = (LinearLayout) sheetView.findViewById(R.id.show_outdated_themes);
+            LinearLayout hide = sheetView.findViewById(R.id.hide_outdated_themes);
+            LinearLayout show = sheetView.findViewById(R.id.show_outdated_themes);
             hide.setOnClickListener(v -> {
                 prefs.edit().putBoolean("display_old_themes", false).apply();
                 Intent intent = getIntent();
@@ -1143,16 +1143,16 @@ public class MainActivity extends SubstratumActivity implements
 
                 float radius = 5;
                 View decorView = activity.getWindow().getDecorView();
-                ViewGroup rootView = (ViewGroup) decorView.findViewById(android.R.id.content);
+                ViewGroup rootView = decorView.findViewById(android.R.id.content);
                 Drawable windowBackground = decorView.getBackground();
 
-                BlurView blurView = (BlurView) activity.mProgressDialog.findViewById(R.id.blurView);
+                BlurView blurView = activity.mProgressDialog.findViewById(R.id.blurView);
 
                 blurView.setupWith(rootView)
                         .windowBackground(windowBackground)
                         .blurAlgorithm(new RenderScriptBlur(context))
                         .blurRadius(radius);
-                TextView textView = (TextView) activity.mProgressDialog.findViewById(R.id.timer);
+                TextView textView = activity.mProgressDialog.findViewById(R.id.timer);
                 if (References.isPackageInstalled(
                         context, "eu.chainfire.supersu")) {
                     CountDownTimer Count = new CountDownTimer(5000, 1000) {

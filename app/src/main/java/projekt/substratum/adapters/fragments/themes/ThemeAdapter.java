@@ -196,7 +196,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
 
             SheetDialog sheetDialog = new SheetDialog(mContext);
             View sheetView = View.inflate(mContext, R.layout.uninstall_sheet_dialog, null);
-            LinearLayout uninstall = (LinearLayout) sheetView.findViewById(R.id.uninstall);
+            LinearLayout uninstall = sheetView.findViewById(R.id.uninstall);
             uninstall.setOnClickListener(view2 -> {
                 toBeUninstalled = themeItem;
                 new uninstallTheme().execute();
@@ -284,16 +284,16 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
 
         ViewHolder(View view) {
             super(view);
-            cardView = (CardView) view.findViewById(R.id.theme_card);
-            theme_name = (TextView) view.findViewById(R.id.theme_name);
-            theme_author = (TextView) view.findViewById(R.id.theme_author);
-            theme_apis = (TextView) view.findViewById(R.id.api_levels);
-            theme_version = (TextView) view.findViewById(R.id.theme_version);
-            plugin_version = (TextView) view.findViewById(R.id.plugin_version);
-            imageView = (ImageView) view.findViewById(R.id.theme_preview_image);
+            cardView = view.findViewById(R.id.theme_card);
+            theme_name = view.findViewById(R.id.theme_name);
+            theme_author = view.findViewById(R.id.theme_author);
+            theme_apis = view.findViewById(R.id.api_levels);
+            theme_version = view.findViewById(R.id.theme_version);
+            plugin_version = view.findViewById(R.id.plugin_version);
+            imageView = view.findViewById(R.id.theme_preview_image);
             divider = view.findViewById(R.id.theme_ready_divider);
-            tbo = (ImageView) view.findViewById(R.id.theme_ready_indicator);
-            two = (ImageView) view.findViewById(R.id.theme_unready_indicator);
+            tbo = view.findViewById(R.id.theme_ready_indicator);
+            two = view.findViewById(R.id.theme_unready_indicator);
         }
     }
 

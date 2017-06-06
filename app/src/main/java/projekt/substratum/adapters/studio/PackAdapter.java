@@ -78,9 +78,9 @@ public class PackAdapter extends RecyclerView.Adapter<PackAdapter.ViewHolder> {
 
         ViewHolder(View view) {
             super(view);
-            cardView = (CardView) view.findViewById(R.id.pack_card);
-            packIcon = (ImageView) view.findViewById(R.id.pack_icon);
-            packName = (TextView) view.findViewById(R.id.pack_name);
+            cardView = view.findViewById(R.id.pack_card);
+            packIcon = view.findViewById(R.id.pack_icon);
+            packName = view.findViewById(R.id.pack_name);
         }
     }
 }

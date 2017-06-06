@@ -53,7 +53,7 @@ public class SplashScreenActivity extends Activity {
             // set its background to our AnimationDrawable XML resource.
 
             try {
-                ImageView img = (ImageView) findViewById(R.id.splashscreen_image);
+                ImageView img = findViewById(R.id.splashscreen_image);
                 img.setImageDrawable(getDrawable(R.drawable.splashscreen_intro));
 
                 // Get the background, which has been compiled to an AnimationDrawable object.

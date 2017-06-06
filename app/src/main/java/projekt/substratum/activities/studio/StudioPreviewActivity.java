@@ -350,9 +350,9 @@ public class StudioPreviewActivity extends AppCompatActivity {
 
         Intent currentIntent = getIntent();
         current_pack = currentIntent.getStringExtra("icon_pack");
-        progressCircle = (MaterialProgressBar) findViewById(R.id.progress_bar_loader);
+        progressCircle = findViewById(R.id.progress_bar_loader);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
             if (getSupportActionBar() != null) {
@@ -364,7 +364,7 @@ public class StudioPreviewActivity extends AppCompatActivity {
             toolbar.setNavigationOnClickListener((view) -> onBackPressed());
         }
 
-        floatingActionButton = (FloatingActionButton) findViewById(R.id.apply_fab);
+        floatingActionButton = findViewById(R.id.apply_fab);
         floatingActionButton.setOnClickListener((view) -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(StudioPreviewActivity.this);
             builder.setTitle(References.grabPackageName(getApplicationContext(), current_pack));
@@ -406,18 +406,17 @@ public class StudioPreviewActivity extends AppCompatActivity {
 
             final float radius = 5;
             final View decorView = activity.getWindow().getDecorView();
-            final ViewGroup rootView = (ViewGroup) decorView.findViewById(android.R.id.content);
+            final ViewGroup rootView = decorView.findViewById(android.R.id.content);
             final Drawable windowBackground = decorView.getBackground();
 
-            BlurView blurView = (BlurView) activity.mProgressDialog.findViewById(R.id.blurView);
+            BlurView blurView = activity.mProgressDialog.findViewById(R.id.blurView);
 
             blurView.setupWith(rootView)
                     .windowBackground(windowBackground)
                     .blurAlgorithm(new RenderScriptBlur(activity.getApplicationContext()))
                     .blurRadius(radius);
 
-            activity.progressBar =
-                    (ProgressBar) activity.mProgressDialog.findViewById(R.id.loading_bar);
+            activity.progressBar = activity.mProgressDialog.findViewById(R.id.loading_bar);
             activity.progressBar.setProgressTintList(ColorStateList.valueOf(activity.getColor(
                     R.color.compile_dialog_wave_color)));
             activity.progressBar.setIndeterminate(false);
@@ -430,8 +429,7 @@ public class StudioPreviewActivity extends AppCompatActivity {
         protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
             StudioPreviewActivity activity = ref.get();
-            TextView textView =
-                    (TextView) activity.mProgressDialog.findViewById(R.id.current_object);
+            TextView textView = activity.mProgressDialog.findViewById(R.id.current_object);
             textView.setText(activity.current_icon);
             double progress = (activity.current_amount / activity.total_amount) * 100;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -903,8 +901,7 @@ public class StudioPreviewActivity extends AppCompatActivity {
             Context context = activity.getApplicationContext();
 
             if (!isCancelled()) {
-                RecyclerView recyclerView =
-                        (RecyclerView) activity.findViewById(R.id.icon_pack_recycler);
+                RecyclerView recyclerView = activity.findViewById(R.id.icon_pack_recycler);
                 GridLayoutManager linearLayout = new GridLayoutManager(context, 4);
 
                 recyclerView.setHasFixedSize(true);

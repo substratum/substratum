@@ -421,18 +421,16 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
 
         ViewHolder(View itemLayoutView) {
             super(itemLayoutView);
-            app_icon = (ImageView) itemLayoutView.findViewById(R.id.app_icon);
-            card = (CardView) itemLayoutView.findViewById(R.id.card);
-            checkBox = (CheckBox) itemLayoutView.findViewById(R.id.checkBox);
-            overlayState = (TextView) itemLayoutView.findViewById(R.id.installedState);
-            optionsSpinner = (Spinner) itemLayoutView.findViewById(R.id.optionsSpinner);
-            optionsSpinner2 = (Spinner) itemLayoutView.findViewById(R.id.optionsSpinner2);
-            optionsSpinner3 = (Spinner) itemLayoutView.findViewById(R.id.optionsSpinner3);
-            optionsSpinner4 = (Spinner) itemLayoutView.findViewById(R.id.optionsSpinner4);
-            overlayTargetPackageName = (TextView)
-                    itemLayoutView.findViewById(R.id.overlayTargetPackageName);
-            overlayTargetPackage = (TextView)
-                    itemLayoutView.findViewById(R.id.overlayTargetPackage);
+            app_icon = itemLayoutView.findViewById(R.id.app_icon);
+            card = itemLayoutView.findViewById(R.id.card);
+            checkBox = itemLayoutView.findViewById(R.id.checkBox);
+            overlayState = itemLayoutView.findViewById(R.id.installedState);
+            optionsSpinner = itemLayoutView.findViewById(R.id.optionsSpinner);
+            optionsSpinner2 = itemLayoutView.findViewById(R.id.optionsSpinner2);
+            optionsSpinner3 = itemLayoutView.findViewById(R.id.optionsSpinner3);
+            optionsSpinner4 = itemLayoutView.findViewById(R.id.optionsSpinner4);
+            overlayTargetPackageName = itemLayoutView.findViewById(R.id.overlayTargetPackageName);
+            overlayTargetPackage = itemLayoutView.findViewById(R.id.overlayTargetPackage);
         }
     }
 }

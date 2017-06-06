@@ -407,8 +407,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         View sheetView = View.inflate(getContext(),
                                 R.layout.aopt_sheet_dialog, null);
 
-                        LinearLayout aapt = (LinearLayout) sheetView.findViewById(R.id.aapt);
-                        LinearLayout aopt = (LinearLayout) sheetView.findViewById(R.id.aopt);
+                        LinearLayout aapt = sheetView.findViewById(R.id.aapt);
+                        LinearLayout aopt = sheetView.findViewById(R.id.aopt);
                         aapt.setOnClickListener(v -> {
                             prefs.edit().remove("compiler").apply();
                             prefs.edit().putString("compiler", "aapt").apply();
@@ -920,7 +920,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             dialog.dismiss();
             Dialog dialog2 = new Dialog(getContext());
             dialog2.setContentView(R.layout.validator_dialog_inner);
-            RecyclerView recyclerView = (RecyclerView) dialog2.findViewById(R.id.recycler_view);
+            RecyclerView recyclerView = dialog2.findViewById(R.id.recycler_view);
             ArrayList<ValidatorInfo> validatorInfos = new ArrayList<>();
             for (int i = 0; i < result.size(); i++) {
                 boolean validated = !erroredPackages.contains(result.get(i));
@@ -945,7 +945,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
             recyclerView.setLayoutManager(layoutManager);
 
-            Button button = (Button) dialog2.findViewById(R.id.button_done);
+            Button button = dialog2.findViewById(R.id.button_done);
             button.setOnClickListener(v -> dialog2.dismiss());
 
             WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();

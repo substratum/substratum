@@ -73,11 +73,11 @@ public class TimePickerFragment extends DialogFragment implements
 
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         if ((flag & FLAG_START_TIME) != 0) {
-            Button startTime = (Button) getActivity().findViewById(R.id.night_start_time);
+            Button startTime = getActivity().findViewById(R.id.night_start_time);
             startTime.setText(References.parseTime(getActivity(), hourOfDay, minute));
             ProfileFragment.setNightProfileStart(hourOfDay, minute);
         } else if ((flag & FLAG_END_TIME) != 0) {
-            Button endTime = (Button) getActivity().findViewById((R.id.night_end_time));
+            Button endTime = getActivity().findViewById((R.id.night_end_time));
             endTime.setText(References.parseTime(getActivity(), hourOfDay, minute));
             ProfileFragment.setDayProfileStart(hourOfDay, minute);
         }

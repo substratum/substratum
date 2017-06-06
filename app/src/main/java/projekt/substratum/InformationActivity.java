@@ -295,15 +295,14 @@ public class InformationActivity extends SubstratumActivity {
             theme_mode = "";
         }
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         if (toolbar != null) toolbar.setTitle(theme_name);
 
         gradientView = findViewById(R.id.gradientView);
-        collapsingToolbarLayout =
-                (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar_tabbed_layout);
+        collapsingToolbarLayout = findViewById(R.id.collapsing_toolbar_tabbed_layout);
         if (collapsingToolbarLayout != null) collapsingToolbarLayout.setTitle(theme_name);
 
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        final ViewPager viewPager = findViewById(R.id.viewpager);
 
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
@@ -321,7 +320,7 @@ public class InformationActivity extends SubstratumActivity {
             dominantColor = getDominantColor(heroImageBitmap);
         }
 
-        appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
+        appBarLayout = findViewById(R.id.appbar);
         appBarLayout.setBackgroundColor(dominantColor);
 
         if (collapsingToolbarLayout != null &&
@@ -343,8 +342,7 @@ public class InformationActivity extends SubstratumActivity {
         int sheetColor = getApplicationContext().getColor(R.color.fab_menu_background_card);
         int fabColor = getApplicationContext().getColor(R.color.fab_background_color);
 
-        final FloatingActionMenu floatingActionButton =
-                (FloatingActionMenu) findViewById(R.id.apply_fab);
+        final FloatingActionMenu floatingActionButton = findViewById(R.id.apply_fab);
         floatingActionButton.show();
 
         // Create material sheet FAB
@@ -359,7 +357,7 @@ public class InformationActivity extends SubstratumActivity {
 
         new LayoutLoader().execute("");
 
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout = findViewById(R.id.tabs);
         if (tabLayout != null) {
             if (theme_mode.equals("")) {
                 try {
@@ -541,7 +539,7 @@ public class InformationActivity extends SubstratumActivity {
             });
 
             Intent intent = new Intent("Overlays.START_JOB");
-            Switch enable_swap = (Switch) findViewById(R.id.enable_swap);
+            Switch enable_swap = findViewById(R.id.enable_swap);
             if (!References.checkOMS(this)) {
                 enable_swap.setText(getString(R.string.fab_menu_swap_toggle_legacy));
             }
@@ -560,8 +558,7 @@ public class InformationActivity extends SubstratumActivity {
                 });
             }
 
-            final TextView compile_enable_selected =
-                    (TextView) findViewById(R.id.compile_enable_selected);
+            final TextView compile_enable_selected = findViewById(R.id.compile_enable_selected);
             if (!References.checkOMS(this)) compile_enable_selected.setVisibility(View.GONE);
             if (compile_enable_selected != null) {
                 compile_enable_selected.setOnClickListener(v -> {
@@ -578,8 +575,7 @@ public class InformationActivity extends SubstratumActivity {
                 });
             }
 
-            TextView compile_update_selected =
-                    (TextView) findViewById(R.id.compile_update_selected);
+            TextView compile_update_selected = findViewById(R.id.compile_update_selected);
             if (!References.checkOMS(this)) {
                 compile_update_selected.setText(getString(R.string.fab_menu_compile_install));
             }
@@ -598,7 +594,7 @@ public class InformationActivity extends SubstratumActivity {
                 });
             }
 
-            TextView disable_selected = (TextView) findViewById(R.id.disable_selected);
+            TextView disable_selected = findViewById(R.id.disable_selected);
             if (!References.checkOMS(this)) {
                 disable_selected.setText(getString(R.string.fab_menu_uninstall));
             }
@@ -617,9 +613,9 @@ public class InformationActivity extends SubstratumActivity {
                 });
             }
 
-            LinearLayout enable_zone = (LinearLayout) findViewById(R.id.enable);
+            LinearLayout enable_zone = findViewById(R.id.enable);
             if (!References.checkOMS(this)) enable_zone.setVisibility(View.GONE);
-            TextView enable_selected = (TextView) findViewById(R.id.enable_selected);
+            TextView enable_selected = findViewById(R.id.enable_selected);
             if (enable_selected != null) {
                 enable_selected.setOnClickListener(v -> {
                     materialSheetFab.setEventListener(new MaterialSheetFabEventListener() {
@@ -717,13 +713,13 @@ public class InformationActivity extends SubstratumActivity {
                 @SuppressLint("InflateParams")
                 View sheetView = getLayoutInflater().inflate(R.layout.changelog_sheet_dialog, null);
 
-                LinearLayout titleBox = (LinearLayout) sheetView.findViewById(R.id.title_box);
-                TextView title = (TextView) titleBox.findViewById(R.id.title);
+                LinearLayout titleBox = sheetView.findViewById(R.id.title_box);
+                TextView title = titleBox.findViewById(R.id.title);
                 String format_me = String.format(getString(R.string.changelog_title), theme_name);
                 title.setText(format_me);
 
-                LinearLayout textBox = (LinearLayout) sheetView.findViewById(R.id.text_box);
-                TextView text = (TextView) textBox.findViewById(R.id.text);
+                LinearLayout textBox = sheetView.findViewById(R.id.text_box);
+                TextView text = textBox.findViewById(R.id.text);
 
                 String[] changelog_parsing =
                         References.grabThemeChangelog(getApplicationContext(), theme_pid);
@@ -985,7 +981,7 @@ public class InformationActivity extends SubstratumActivity {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            kenBurnsView = (KenBurnsView) findViewById(R.id.kenburnsView);
+            kenBurnsView = findViewById(R.id.kenburnsView);
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             if (heroImageBitmap != null) {
                 heroImageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);

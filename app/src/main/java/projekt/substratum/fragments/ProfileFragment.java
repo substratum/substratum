@@ -146,7 +146,7 @@ public class ProfileFragment extends Fragment {
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 
-        headerProgress = (ProgressBar) root.findViewById(R.id.header_loading_bar);
+        headerProgress = root.findViewById(R.id.header_loading_bar);
         headerProgress.setVisibility(View.GONE);
 
         // Create a user viewable directory for profiles
@@ -162,7 +162,7 @@ public class ProfileFragment extends Fragment {
         }
 
         // Handle Backups
-        backup_name = (EditText) root.findViewById(R.id.edittext);
+        backup_name = root.findViewById(R.id.edittext);
 
         // Restrict whitespace for profile name
         InputFilter filter = (source, start, end, dest, dstart, dend) -> {
@@ -187,7 +187,7 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        final Button backupButton = (Button) root.findViewById(R.id.backupButton);
+        final Button backupButton = root.findViewById(R.id.backupButton);
         backupButton.setOnClickListener(v -> {
             if (backup_name.getText().length() > 0) {
                 selectedBackup = new ArrayList<>();
@@ -274,7 +274,7 @@ public class ProfileFragment extends Fragment {
         list = new ArrayList<>();
         list.add(getResources().getString(R.string.spinner_default_item));
 
-        profile_selector = (Spinner) root.findViewById(R.id.restore_spinner);
+        profile_selector = root.findViewById(R.id.restore_spinner);
 
         // Now lets add all the located profiles
         File f = new File(Environment.getExternalStorageDirectory().getAbsolutePath() +
@@ -293,7 +293,7 @@ public class ProfileFragment extends Fragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         profile_selector.setAdapter(adapter);
 
-        ImageButton imageButton = (ImageButton) root.findViewById(R.id.remove_profile);
+        ImageButton imageButton = root.findViewById(R.id.remove_profile);
         imageButton.setOnClickListener(v -> {
             if (profile_selector.getSelectedItemPosition() > 0) {
                 String formatted = String.format(getString(R.string.delete_dialog_text),
@@ -334,7 +334,7 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        final Button restoreButton = (Button) root.findViewById(R.id.restoreButton);
+        final Button restoreButton = root.findViewById(R.id.restoreButton);
         restoreButton.setOnClickListener(v -> {
             if (profile_selector.getSelectedItemPosition() > 0) {
                 RestoreFunction restoreFunction = new RestoreFunction();
@@ -349,12 +349,12 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        final CardView scheduledProfileCard = (CardView) root.findViewById(R.id.cardListView3);
+        final CardView scheduledProfileCard = root.findViewById(R.id.cardListView3);
         if (References.checkOMS(getContext()) && References.checkThemeInterfacer(getContext
                 ())) {
-            final ExpandableLayout scheduledProfileLayout = (ExpandableLayout) root.findViewById(
+            final ExpandableLayout scheduledProfileLayout = root.findViewById(
                     R.id.scheduled_profile_card_content_container);
-            final Switch dayNightSwitch = (Switch) root.findViewById(R.id.profile_switch);
+            final Switch dayNightSwitch = root.findViewById(R.id.profile_switch);
             dayNightSwitch.setOnCheckedChangeListener((compoundButton, b) -> {
                 if (b) {
                     scheduledProfileLayout.expand();
@@ -365,7 +365,7 @@ public class ProfileFragment extends Fragment {
             });
 
             final FragmentManager fm = getActivity().getSupportFragmentManager();
-            final Button startTime = (Button) root.findViewById(R.id.night_start_time);
+            final Button startTime = root.findViewById(R.id.night_start_time);
             startTime.setOnClickListener(view -> {
                 DialogFragment timePickerFragment = new TimePickerFragment();
                 if (startTime.getText().equals(getResources().getString(R.string.start_time))) {
@@ -377,7 +377,7 @@ public class ProfileFragment extends Fragment {
                 timePickerFragment.show(fm, "TimePicker");
             });
 
-            final Button endTime = (Button) root.findViewById(R.id.night_end_time);
+            final Button endTime = root.findViewById(R.id.night_end_time);
             endTime.setOnClickListener(view -> {
                 DialogFragment timePickerFragment = new TimePickerFragment();
                 if (endTime.getText().equals(getResources().getString(R.string.end_time))) {
@@ -389,9 +389,9 @@ public class ProfileFragment extends Fragment {
                 timePickerFragment.show(fm, "TimePicker");
             });
 
-            dayProfile = (Spinner) root.findViewById(R.id.day_spinner);
+            dayProfile = root.findViewById(R.id.day_spinner);
             dayProfile.setAdapter(adapter);
-            nightProfile = (Spinner) root.findViewById(R.id.night_spinner);
+            nightProfile = root.findViewById(R.id.night_spinner);
             nightProfile.setAdapter(adapter);
 
             if (prefs.getBoolean(SCHEDULED_PROFILE_ENABLED, false)) {
@@ -413,7 +413,7 @@ public class ProfileFragment extends Fragment {
                 nightProfile.setSelection(adapter.getPosition(night));
             }
 
-            final Button applyScheduledProfileButton = (Button) root.findViewById(
+            final Button applyScheduledProfileButton = root.findViewById(
                     R.id.apply_schedule_button);
             applyScheduledProfileButton.setOnClickListener(view -> {
                 if (dayNightEnabled) {

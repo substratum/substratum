@@ -94,7 +94,7 @@ public class StudioSelectorActivity extends AppCompatActivity {
             finish();
         }
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
             if (getSupportActionBar() != null) {
@@ -105,7 +105,7 @@ public class StudioSelectorActivity extends AppCompatActivity {
             toolbar.setNavigationOnClickListener((view) -> onBackPressed());
         }
 
-        RelativeLayout none_found = (RelativeLayout) findViewById(R.id.pack_placeholder);
+        RelativeLayout none_found = findViewById(R.id.pack_placeholder);
         none_found.setVisibility(View.GONE);
 
         // Create a bare list to store each of the values necessary to add into the RecyclerView
@@ -138,7 +138,7 @@ public class StudioSelectorActivity extends AppCompatActivity {
             packs.add(packInfo);
         }
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
@@ -151,7 +151,7 @@ public class StudioSelectorActivity extends AppCompatActivity {
             none_found.setVisibility(View.VISIBLE);
         }
 
-        CardView update_configuration = (CardView) findViewById(R.id.studio_update);
+        CardView update_configuration = findViewById(R.id.studio_update);
         update_configuration.setOnClickListener((view) -> {
             if (References.isPackageInstalled(
                     getApplicationContext(),

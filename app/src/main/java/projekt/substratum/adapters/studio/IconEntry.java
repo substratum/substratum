@@ -38,8 +38,8 @@ class IconEntry extends RecyclerView.ViewHolder implements View.OnClickListener 
         super(itemView);
         this.mContext = mContext;
         itemView.setOnClickListener(this);
-        iconName = (TextView) itemView.findViewById(R.id.icon_pack_package);
-        iconDrawable = (ImageView) itemView.findViewById(R.id.icon_pack_icon);
+        iconName = itemView.findViewById(R.id.icon_pack_package);
+        iconDrawable = itemView.findViewById(R.id.icon_pack_icon);
     }
 
     public void setDisabled(Boolean bool) {

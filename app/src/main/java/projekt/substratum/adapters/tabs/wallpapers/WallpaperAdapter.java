@@ -213,9 +213,9 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
 
         ViewHolder(View view) {
             super(view);
-            cardView = (CardView) view.findViewById(R.id.wallpaperCard);
-            imageView = (ImageView) view.findViewById(R.id.wallpaperImage);
-            wallpaperName = (TextView) view.findViewById(R.id.wallpaperName);
+            cardView = view.findViewById(R.id.wallpaperCard);
+            imageView = view.findViewById(R.id.wallpaperImage);
+            wallpaperName = view.findViewById(R.id.wallpaperName);
         }
     }
 

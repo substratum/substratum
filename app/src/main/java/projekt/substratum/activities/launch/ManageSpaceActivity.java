@@ -49,7 +49,7 @@ public class ManageSpaceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_space);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -57,9 +57,9 @@ public class ManageSpaceActivity extends AppCompatActivity {
         }
         if (toolbar != null) toolbar.setNavigationOnClickListener(v -> onBackPressed());
 
-        CardView clearCacheButton = (CardView) findViewById(R.id.clear_cache_button);
-        CardView resetAppButton = (CardView) findViewById(R.id.reset_app_button);
-        cacheCounter = (TextView) findViewById(R.id.cache_counter);
+        CardView clearCacheButton = findViewById(R.id.clear_cache_button);
+        CardView resetAppButton = findViewById(R.id.reset_app_button);
+        cacheCounter = findViewById(R.id.cache_counter);
         cacheCounter.setText(getString(R.string.clear_cache_button_loading));
         cacheCounter.setText(Formatter.formatFileSize(this, getFileSize(getCacheDir())));
 

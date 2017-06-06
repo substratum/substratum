@@ -428,21 +428,20 @@ public class Overlays extends Fragment {
 
         mixAndMatchMode = prefs.getBoolean("enable_swapping_overlays", false);
 
-        progressBar = (ProgressBar) root.findViewById(R.id.header_loading_bar);
+        progressBar = root.findViewById(R.id.header_loading_bar);
         progressBar.setVisibility(View.GONE);
 
-        materialProgressBar = (MaterialProgressBar) root.findViewById(R.id.progress_bar_loader);
+        materialProgressBar = root.findViewById(R.id.progress_bar_loader);
 
         // Pre-initialize the adapter first so that it won't complain for skipping layout on logs
-        mRecyclerView = (RecyclerView) root.findViewById(R.id.overlayRecyclerView);
+        mRecyclerView = root.findViewById(R.id.overlayRecyclerView);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         ArrayList<OverlaysItem> empty_array = new ArrayList<>();
         RecyclerView.Adapter empty_adapter = new OverlaysAdapter(empty_array);
         mRecyclerView.setAdapter(empty_adapter);
 
-        TextView toggle_all_overlays_text =
-                (TextView) root.findViewById(R.id.toggle_all_overlays_text);
+        TextView toggle_all_overlays_text = root.findViewById(R.id.toggle_all_overlays_text);
         toggle_all_overlays_text.setVisibility(View.VISIBLE);
 
         File work_area = new File(Environment.getExternalStorageDirectory().getAbsolutePath() +
@@ -452,7 +451,7 @@ public class Overlays extends Fragment {
         }
 
         // Adjust the behaviour of the mix and match toggle in the sheet
-        toggle_all = (Switch) root.findViewById(R.id.toggle_all_overlays);
+        toggle_all = root.findViewById(R.id.toggle_all_overlays);
         toggle_all.setOnCheckedChangeListener(
                 (buttonView, isChecked) -> {
                     try {
@@ -468,7 +467,7 @@ public class Overlays extends Fragment {
                 });
 
         // Allow the user to toggle the select all switch by clicking on the bar above
-        RelativeLayout toggleZone = (RelativeLayout) root.findViewById(R.id.toggle_zone);
+        RelativeLayout toggleZone = root.findViewById(R.id.toggle_zone);
         toggleZone.setOnClickListener(v -> {
             try {
                 toggle_all.setChecked(!toggle_all.isChecked());
@@ -484,7 +483,7 @@ public class Overlays extends Fragment {
         });
 
         // Allow the user to swipe down to refresh the overlay list
-        swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout = root.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(() -> {
             overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
             for (int i = 0; i < overlaysLists.size(); i++) {
@@ -501,7 +500,7 @@ public class Overlays extends Fragment {
         /*
           PLUGIN TYPE 3: Parse each overlay folder to see if they have folder options
          */
-        base_spinner = (Spinner) root.findViewById(R.id.type3_spinner);
+        base_spinner = root.findViewById(R.id.type3_spinner);
         Overlays overlays = this;
         base_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -833,12 +832,12 @@ public class Overlays extends Fragment {
                     RecyclerView.LayoutParams.MATCH_PARENT,
                     RecyclerView.LayoutParams.WRAP_CONTENT);
 
-        TextView text = (TextView) dialog.findViewById(R.id.textField);
+        TextView text = dialog.findViewById(R.id.textField);
         text.setText(error_logs);
-        ImageButton confirm = (ImageButton) dialog.findViewById(R.id.confirm);
+        ImageButton confirm = dialog.findViewById(R.id.confirm);
         confirm.setOnClickListener(view -> dialog.dismiss());
 
-        ImageButton copy_clipboard = (ImageButton) dialog.findViewById(R.id.copy_clipboard);
+        ImageButton copy_clipboard = dialog.findViewById(R.id.copy_clipboard);
         copy_clipboard.setOnClickListener(v -> {
             ClipboardManager clipboard =
                     (ClipboardManager) context.getSystemService(CLIPBOARD_SERVICE);
@@ -852,8 +851,7 @@ public class Overlays extends Fragment {
             dialog.dismiss();
         });
 
-        ImageButton send = (ImageButton) dialog.findViewById(
-                R.id.send);
+        ImageButton send = dialog.findViewById(R.id.send);
         send.setVisibility(View.GONE);
         if (References.getOverlayMetadata(context, theme_pid, metadataEmail) != null) {
             send.setVisibility(View.VISIBLE);
@@ -1441,10 +1439,10 @@ public class Overlays extends Fragment {
 
                 final float radius = 5;
                 final View decorView = fragment.getActivity().getWindow().getDecorView();
-                final ViewGroup rootView = (ViewGroup) decorView.findViewById(android.R.id.content);
+                final ViewGroup rootView = decorView.findViewById(android.R.id.content);
                 final Drawable windowBackground = decorView.getBackground();
 
-                BlurView blurView = (BlurView) fragment.mProgressDialog.findViewById(R.id.blurView);
+                BlurView blurView = fragment.mProgressDialog.findViewById(R.id.blurView);
 
                 if (rootView != null) {
                     blurView.setupWith(rootView)
@@ -1453,14 +1451,12 @@ public class Overlays extends Fragment {
                             .blurRadius(radius);
                 }
 
-                fragment.dialogProgress = (ProgressBar)
-                        fragment.mProgressDialog.findViewById(R.id.loading_bar);
+                fragment.dialogProgress = fragment.mProgressDialog.findViewById(R.id.loading_bar);
                 fragment.dialogProgress.setProgressTintList(ColorStateList.valueOf(context.getColor(
                         R.color.compile_dialog_wave_color)));
                 fragment.dialogProgress.setIndeterminate(false);
 
-                fragment.loader_string = (TextView)
-                        fragment.mProgressDialog.findViewById(R.id.title);
+                fragment.loader_string = fragment.mProgressDialog.findViewById(R.id.title);
                 fragment.loader_string.setText(context.getResources().getString(
                         R.string.sb_phase_1_loader));
             }
@@ -1557,8 +1553,7 @@ public class Overlays extends Fragment {
         protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
             Overlays fragment = ref.get();
-            TextView textView = (TextView)
-                    fragment.mProgressDialog.findViewById(R.id.current_object);
+            TextView textView = fragment.mProgressDialog.findViewById(R.id.current_object);
             textView.setText(fragment.current_dialog_overlay);
             double progress = (fragment.current_amount / fragment.total_amount) * 100;
             fragment.dialogProgress.setProgress((int) progress, true);

@@ -64,11 +64,11 @@ public class Wallpapers extends Fragment {
             Bundle savedInstanceState) {
         wallpaperUrl = InformationActivity.getWallpaperUrl();
         root = (ViewGroup) inflater.inflate(R.layout.tab_wallpapers, container, false);
-        materialProgressBar = (MaterialProgressBar) root.findViewById(R.id.progress_bar_loader);
+        materialProgressBar = root.findViewById(R.id.progress_bar_loader);
         no_network = root.findViewById(R.id.no_network);
         no_wallpapers = root.findViewById(R.id.none_found);
 
-        swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout = root.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(() -> {
             refreshLayout();
             swipeRefreshLayout.setRefreshing(false);
@@ -79,7 +79,7 @@ public class Wallpapers extends Fragment {
 
     private void refreshLayout() {
         // Pre-initialize the adapter first so that it won't complain for skipping layout on logs
-        mRecyclerView = (RecyclerView) root.findViewById(R.id.wallpaperRecyclerView);
+        mRecyclerView = root.findViewById(R.id.wallpaperRecyclerView);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         ArrayList<WallpaperEntries> empty_array = new ArrayList<>();

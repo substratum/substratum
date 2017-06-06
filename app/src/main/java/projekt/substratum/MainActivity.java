@@ -95,9 +95,15 @@ import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.common.platform.VersionChecker;
+import projekt.substratum.fragments.ManagerFragment;
 import projekt.substratum.fragments.PriorityListFragment;
 import projekt.substratum.fragments.PriorityLoaderFragment;
+import projekt.substratum.fragments.ProfileFragment;
+import projekt.substratum.fragments.RecoveryFragment;
+import projekt.substratum.fragments.SettingsFragment;
+import projekt.substratum.fragments.TeamFragment;
 import projekt.substratum.fragments.ThemeFragment;
+import projekt.substratum.fragments.TroubleshootingFragment;
 import projekt.substratum.services.floatui.SubstratumFloatInterface;
 import projekt.substratum.services.system.InterfacerAuthorizationReceiver;
 import projekt.substratum.services.tiles.FloatUiTile;
@@ -168,7 +174,7 @@ public class MainActivity extends SubstratumActivity implements
         tx.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         tx.replace(R.id.main, Fragment.instantiate(
                 MainActivity.this,
-                "projekt.substratum.fragments." + fragment));
+                fragment));
         tx.commit();
         hideBundle = true;
         hideRestartUi = !title.equals(getString(R.string.nav_overlay_manager));
@@ -502,7 +508,7 @@ public class MainActivity extends SubstratumActivity implements
                         break;
                     case 7:
                         switchFragment(getString(R.string.nav_overlay_manager),
-                                "ManagerFragment");
+                                ManagerFragment.class.getCanonicalName());
                         break;
                     case 8:
                         Intent intent = new Intent(getApplicationContext(),
@@ -511,23 +517,23 @@ public class MainActivity extends SubstratumActivity implements
                         break;
                     case 9:
                         switchFragment(getString(R.string.nav_priorities),
-                                "PriorityLoaderFragment");
+                                PriorityLoaderFragment.class.getCanonicalName());
                         break;
                     case 10:
                         switchFragment(getString(R.string.nav_backup_restore),
-                                "ProfileFragment");
+                                ProfileFragment.class.getCanonicalName());
                         break;
                     case 11:
                         switchFragment(getString(R.string.nav_manage),
-                                "RecoveryFragment");
+                                RecoveryFragment.class.getCanonicalName());
                         break;
                     case 12:
                         switchFragment(getString(R.string.nav_troubleshooting),
-                                "TroubleshootingFragment");
+                                TroubleshootingFragment.class.getCanonicalName());
                         break;
                     case 13:
                         switchFragment(getString(R.string.nav_team_contributors),
-                                "TeamFragment");
+                                TeamFragment.class.getCanonicalName());
                         break;
                     case 14:
                         switchFragmentToLicenses(getString(R.string.nav_opensource),
@@ -535,7 +541,7 @@ public class MainActivity extends SubstratumActivity implements
                         break;
                     case 15:
                         switchFragment(getString(R.string.nav_settings),
-                                "SettingsFragment");
+                                SettingsFragment.class.getCanonicalName());
                         break;
                     case 100:
                         try {

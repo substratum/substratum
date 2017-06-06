@@ -303,7 +303,7 @@ public class MainActivity extends SubstratumActivity implements
                 .withCurrentProfileHiddenInList(true)
                 .build();
 
-        LibsConfiguration.getInstance().setItemAnimator(new SlideDownAlphaAnimator());
+        //LibsConfiguration.getInstance().setItemAnimator(new SlideDownAlphaAnimator());
         final LibsSupportFragment fragment = new LibsBuilder().supportFragment();
 
         DrawerBuilder drawerBuilder = new DrawerBuilder();

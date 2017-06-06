@@ -22,6 +22,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.support.v4.app.NotificationCompat;
 
 import projekt.substratum.common.References;
 
@@ -53,8 +54,8 @@ public class NotificationCreator {
         try {
             NotificationManager mNotifyManager = (NotificationManager) mContext.getSystemService(
                     Context.NOTIFICATION_SERVICE);
-            android.support.v7.app.NotificationCompat.Builder mBuilder = new
-                    android.support.v7.app.NotificationCompat.Builder(mContext);
+            NotificationCompat.Builder mBuilder = new
+                    NotificationCompat.Builder(mContext, References.MAIN_NOTIFICATION_CHANNEL_ID);
 
             if (content_title != null) mBuilder.setContentTitle(content_title);
             if (content_text != null) mBuilder.setContentText(content_text);
@@ -64,7 +65,6 @@ public class NotificationCreator {
             if (big_icon != null) mBuilder.setLargeIcon(big_icon);
 
             mBuilder.setPriority(notification_priority);
-            mBuilder.setChannel(References.MAIN_NOTIFICATION_CHANNEL_ID);
             mNotifyManager.notify(invoke_id, mBuilder.build());
             return true;
         } catch (Exception e) {

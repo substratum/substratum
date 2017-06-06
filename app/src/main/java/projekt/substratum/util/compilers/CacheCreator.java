@@ -168,7 +168,8 @@ public class CacheCreator {
             mNotifyManager =
                     (NotificationManager) mContext.getSystemService(
                             Context.NOTIFICATION_SERVICE);
-            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(mContext);
+            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(mContext,
+                    References.MAIN_NOTIFICATION_CHANNEL_ID);
 
             // Buffer proper English and parse it (no 's after a name that ends with s)
             String theme = getThemeName(package_identifier);

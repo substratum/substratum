@@ -304,7 +304,8 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
         PendingIntent resultPendingIntent = PendingIntent.getActivity(
                 getApplicationContext(), 0, new Intent(), 0);
 
-        final NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+        final NotificationCompat.Builder builder = new NotificationCompat.Builder(this,
+                References.MAIN_NOTIFICATION_CHANNEL_ID);
         builder.setWhen(System.currentTimeMillis());
         prefs = PreferenceManager.getDefaultSharedPreferences(
                 getApplicationContext());

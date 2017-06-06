@@ -78,7 +78,7 @@ public class ScheduledProfileService extends JobService {
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
         mNotifyManager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        mBuilder = new NotificationCompat.Builder(context);
+        mBuilder = new NotificationCompat.Builder(context, References.MAIN_NOTIFICATION_CHANNEL_ID);
         extra = params.getExtras().getString(SCHEDULED_PROFILE_TYPE_EXTRA);
 
         if (extra != null && !extra.isEmpty()) {

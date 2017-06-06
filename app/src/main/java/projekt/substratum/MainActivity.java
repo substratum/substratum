@@ -24,12 +24,10 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Application;
 import android.app.ProgressDialog;
-import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
@@ -105,7 +103,6 @@ import projekt.substratum.fragments.TeamFragment;
 import projekt.substratum.fragments.ThemeFragment;
 import projekt.substratum.fragments.TroubleshootingFragment;
 import projekt.substratum.services.floatui.SubstratumFloatInterface;
-import projekt.substratum.services.system.InterfacerAuthorizationReceiver;
 import projekt.substratum.services.tiles.FloatUiTile;
 import projekt.substratum.util.files.Root;
 import projekt.substratum.util.helpers.ContextWrapper;
@@ -118,7 +115,6 @@ import static android.content.om.OverlayInfo.STATE_NOT_APPROVED_MISSING_TARGET;
 import static projekt.substratum.common.References.BYPASS_ALL_VERSION_CHECKS;
 import static projekt.substratum.common.References.ENABLE_ROOT_CHECK;
 import static projekt.substratum.common.References.EXTERNAL_STORAGE_CACHE;
-import static projekt.substratum.common.References.INTERFACER_PACKAGE;
 import static projekt.substratum.common.References.SUBSTRATUM_BUILDER_CACHE;
 import static projekt.substratum.common.References.SUBSTRATUM_LOG;
 import static projekt.substratum.common.References.checkUsagePermissions;
@@ -143,7 +139,6 @@ public class MainActivity extends SubstratumActivity implements
     private ProgressDialog mProgressDialog;
     private SharedPreferences prefs;
     private boolean hideBundle, hideRestartUi;
-    private BroadcastReceiver authorizationReceiver;
 
     public static void switchToCustomToolbar(String title, String content) {
         if (supportActionBar != null) supportActionBar.setTitle("");
@@ -273,10 +268,6 @@ public class MainActivity extends SubstratumActivity implements
         if (savedInstanceState != null) {
             selectedDrawer = savedInstanceState.getInt(SELECTED_DRAWER_ITEM);
         }
-
-        authorizationReceiver = new InterfacerAuthorizationReceiver();
-        IntentFilter filter = new IntentFilter(INTERFACER_PACKAGE + ".CALLER_AUTHORIZED");
-        getApplicationContext().registerReceiver(authorizationReceiver, filter);
 
         prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
@@ -776,16 +767,6 @@ public class MainActivity extends SubstratumActivity implements
 
             mProgressDialog = new ProgressDialog(this, R.style.SubstratumBuilder_BlurView);
             new RootRequester(this).execute();
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        try {
-            getApplicationContext().unregisterReceiver(authorizationReceiver);
-        } catch (IllegalArgumentException e) {
-            // Already unregistered
         }
     }
 

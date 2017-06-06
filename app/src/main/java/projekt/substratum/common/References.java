@@ -102,6 +102,7 @@ import projekt.substratum.services.packages.OverlayFound;
 import projekt.substratum.services.packages.OverlayUpdater;
 import projekt.substratum.services.packages.PackageModificationDetector;
 import projekt.substratum.services.profiles.ScheduledProfileReceiver;
+import projekt.substratum.services.system.InterfacerAuthorizationReceiver;
 import projekt.substratum.util.compilers.CacheCreator;
 import projekt.substratum.util.injectors.AOPTCheck;
 import projekt.substratum.util.readers.ReadSupportedROMsFile;
@@ -361,6 +362,12 @@ public class References {
                     new OverlayUpdater(), intentPackageAdded);
             context.getApplicationContext().registerReceiver(
                     new PackageModificationDetector(), intentPackageAdded);
+
+            IntentFilter interfacerAuthorize = new IntentFilter(
+                    INTERFACER_PACKAGE + ".CALLER_AUTHORIZED");
+            context.getApplicationContext().registerReceiver(
+                    new InterfacerAuthorizationReceiver(), interfacerAuthorize);
+
             Log.d(SUBSTRATUM_LOG,
                     "Successfully registered broadcast receivers for Substratum functionality!");
         } catch (Exception e) {

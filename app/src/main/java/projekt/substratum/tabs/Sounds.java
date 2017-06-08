@@ -111,19 +111,19 @@ public class Sounds extends Fragment {
         byte[] encryption_key = InformationActivity.getEncryptionKey();
         byte[] iv_encrypt_key = InformationActivity.getIVEncryptKey();
 
-        try {
-            cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-            cipher.init(
-                    Cipher.DECRYPT_MODE,
-                    new SecretKeySpec(encryption_key, "AES"),
-                    new IvParameterSpec(iv_encrypt_key)
-            );
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        encrypted = encryption_key != null && iv_encrypt_key != null;
 
-        if (encryption_key != null && iv_encrypt_key != null) {
-            encrypted = true;
+        if (encrypted) {
+            try {
+                cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+                cipher.init(
+                        Cipher.DECRYPT_MODE,
+                        new SecretKeySpec(encryption_key, "AES"),
+                        new IvParameterSpec(iv_encrypt_key)
+                );
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         root = (ViewGroup) inflater.inflate(R.layout.tab_sounds, container, false);

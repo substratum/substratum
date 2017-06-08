@@ -122,9 +122,7 @@ public class BootAnimations extends Fragment {
             e.printStackTrace();
         }
 
-        if (encryption_key != null && iv_encrypt_key != null) {
-            encrypted = true;
-        }
+        encrypted = encryption_key != null && iv_encrypt_key != null;
 
         root = (ViewGroup) inflater.inflate(R.layout.tab_bootanimations, container, false);
         nsv = root.findViewById(R.id.nestedScrollView);
@@ -243,7 +241,7 @@ public class BootAnimations extends Fragment {
                 } else {
                     new BootAnimationUtils().execute(nsv,
                             bootAnimationSelector.getSelectedItem().toString(),
-                            getContext(), theme_pid, cipher);
+                            getContext(), theme_pid, encrypted, cipher);
                 }
             } else {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -257,7 +255,7 @@ public class BootAnimations extends Fragment {
                                 } else {
                                     new BootAnimationUtils().execute(nsv,
                                             bootAnimationSelector.getSelectedItem().toString(),
-                                            getContext(), theme_pid, cipher);
+                                            getContext(), theme_pid, encrypted, cipher);
                                 }
                             }
                         })

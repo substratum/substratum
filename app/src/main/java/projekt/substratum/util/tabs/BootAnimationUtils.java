@@ -75,8 +75,10 @@ public class BootAnimationUtils {
                         String arguments,
                         Context context,
                         String theme_pid,
+                        Boolean encrypted,
                         Cipher cipher) {
-        new BootAnimationHandlerAsync(view, context, theme_pid, cipher).execute(arguments);
+        new BootAnimationHandlerAsync(view, context, theme_pid, encrypted, cipher)
+                .execute(arguments);
     }
 
     private static class BootAnimationHandlerAsync extends AsyncTask<String, Integer, String> {
@@ -89,16 +91,19 @@ public class BootAnimationUtils {
         private View view;
         private String theme_pid;
         private SharedPreferences prefs;
+        private Boolean encrypted;
         private Cipher cipher;
 
         BootAnimationHandlerAsync(View view,
                                   Context context,
                                   String theme_pid,
+                                  Boolean encrypted,
                                   Cipher cipher) {
             this.mContext = context;
             this.view = view;
             this.theme_pid = theme_pid;
             this.prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+            this.encrypted = encrypted;
             this.cipher = cipher;
         }
 
@@ -165,11 +170,13 @@ public class BootAnimationUtils {
                         AssetManager themeAssetManager = otherContext.getAssets();
                         FileOperations.copyFileOrDir(
                                 themeAssetManager,
-                                "bootanimation/" + bootanimation + ".zip.enc",
+                                "bootanimation/" + bootanimation +
+                                        (encrypted ? ".zip.enc" : ".zip"),
                                 mContext.getCacheDir().getAbsolutePath() +
                                         "/BootAnimationCache/AnimationCreator/" +
                                         bootanimation + ".zip",
-                                "bootanimation/" + bootanimation + ".zip.enc",
+                                "bootanimation/" + bootanimation +
+                                        (encrypted ? ".zip.enc" : ".zip"),
                                 cipher);
                     } catch (PackageManager.NameNotFoundException e) {
                         e.printStackTrace();

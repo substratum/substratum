@@ -147,8 +147,8 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                                 if (checkSubstratumVerity.exists()) {
                                     References.launchTheme(mContext,
                                             themeItem.getThemePackage(),
-                                            themeItem.getThemeMode(),
-                                            false);
+                                            themeItem.getThemeMode()
+                                    );
                                 } else {
                                     new References.SubstratumThemeUpdate(
                                             mContext,
@@ -184,8 +184,8 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                     } else {
                         References.launchTheme(mContext,
                                 themeItem.getThemePackage(),
-                                themeItem.getThemeMode(),
-                                false);
+                                themeItem.getThemeMode()
+                        );
                     }
                 });
 

@@ -24,6 +24,7 @@ import android.app.AppOpsManager;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.app.admin.DevicePolicyManager;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -152,6 +153,7 @@ public class References {
     // App intents to send
     public static final String MANAGER_REFRESH = "projekt.substratum.MANAGER_REFRESH";
     public static final String TEMPLATE_THEME_MODE = "projekt.substratum.THEME";
+    public static final String TEMPLATE_GET_KEYS = "projekt.substratum.GET_KEYS";
     public static final String TEMPLATE_RECEIVE_KEYS = "projekt.substratum.RECEIVE_KEYS";
     // Keep it simple, stupid!
     public static final int HIDDEN_CACHING_MODE_TAP_COUNT = 7;
@@ -1617,6 +1619,16 @@ public class References {
         }
     }
 
+    public static void sendLocalizedKeyMessage(Context context,
+                                               byte[] encryption_key,
+                                               byte[] iv_encrypt_key) {
+        Log.d("KeyRetrieval",
+                "The system has completed the handshake for keys retrieval " +
+                        "and is now passing it to the activity...");
+        Intent intent = new Intent("Substratum.KeyRetrieval");
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+    }
+
     public static void sendRefreshMessage(Context context) {
         Log.d("ThemeFragmentRefresher",
                 "A theme has been modified, sending update signal to refresh the list!");
@@ -1674,23 +1686,55 @@ public class References {
     // Launch intent for a theme
     public static void launchTheme(Context mContext,
                                    String package_name,
-                                   String theme_mode,
-                                   Boolean notification) {
-        Intent theme_intent = themeIntent(mContext, package_name, theme_mode, notification);
+                                   String theme_mode) {
+        Intent theme_intent = themeIntent(
+                mContext,
+                package_name,
+                theme_mode,
+                false,
+                TEMPLATE_THEME_MODE);
         mContext.startActivity(theme_intent);
+    }
+
+    // Key return of a theme
+    public static void grabThemeKeys(Context mContext, String package_name) {
+        Intent theme_intent = themeIntent(
+                mContext,
+                package_name,
+                null,
+                false,
+                TEMPLATE_GET_KEYS);
+        mContext.startActivity(theme_intent);
+    }
+
+    public static boolean startKeyRetrievalReceiver(Context context) {
+        try {
+            IntentFilter intentGetKeys = new IntentFilter(TEMPLATE_RECEIVE_KEYS);
+            context.getApplicationContext().registerReceiver(
+                    new KeyRetriever(), intentGetKeys);
+
+            Log.d(SUBSTRATUM_LOG,
+                    "Successfully registered key retrieval receiver!");
+            return true;
+        } catch (Exception e) {
+            Log.e(SUBSTRATUM_LOG,
+                    "Failed to register key retrieval receiver...");
+        }
+        return false;
     }
 
     public static Intent themeIntent(Context mContext,
                                      String package_name,
                                      String theme_mode,
-                                     Boolean notification) {
+                                     Boolean notification,
+                                     String actionIntent) {
         boolean should_debug = projekt.substratum.BuildConfig.DEBUG;
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
         if (should_debug) Log.d("ThemeLauncher", "Creating new intent...");
         Intent intentActivity = new Intent(mContext, ThemeLaunchActivity.class);
         intentActivity.putExtra("package_name", package_name);
         if (should_debug) Log.d("ThemeLauncher", "Assigning action to intent...");
-        intentActivity.setAction(TEMPLATE_THEME_MODE);
+        intentActivity.setAction(actionIntent);
         if (should_debug) Log.d("ThemeLauncher", "Assigning package name to intent...");
         intentActivity.setPackage(package_name);
         if (should_debug) Log.d("ThemeLauncher", "Checking for theme system type...");
@@ -2049,7 +2093,7 @@ public class References {
                                 .background_updated_toast),
                         Toast.LENGTH_SHORT).show();
                 // At this point, we can safely assume that the theme has successfully extracted
-                launchTheme(mContext, theme_package, theme_mode, false);
+                launchTheme(mContext, theme_package, theme_mode);
             } else {
                 Toast.makeText(mContext, mContext.getString(R.string
                                 .background_updated_toast_cancel),
@@ -2063,6 +2107,17 @@ public class References {
         protected String doInBackground(Void... Params) {
             launch = new CacheCreator().initializeCache(mContext, theme_package);
             return null;
+        }
+    }
+
+    public static class KeyRetriever extends BroadcastReceiver {
+        
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            sendLocalizedKeyMessage(
+                    context,
+                    intent.getByteArrayExtra("encryption_key"),
+                    intent.getByteArrayExtra("iv_encrypt_key"));
         }
     }
 }

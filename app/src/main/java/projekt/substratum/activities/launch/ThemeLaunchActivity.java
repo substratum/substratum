@@ -23,6 +23,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.os.Bundle;
+import android.util.Log;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -100,11 +101,13 @@ public class ThemeLaunchActivity extends Activity {
         myIntent.setClassName(package_name, package_name + ".SubstratumLauncher");
 
         try {
-            startActivityForResult(myIntent, intent_id);
+            startActivityForResult(myIntent,
+                    (action.equals(References.TEMPLATE_GET_KEYS) ? 10000 : intent_id));
         } catch (Exception e) {
             try {
                 legacyTheme = true;
-                startActivityForResult(myIntent, intent_id);
+                startActivityForResult(myIntent,
+                        (action.equals(References.TEMPLATE_GET_KEYS) ? 10000 : intent_id));
             } catch (Exception e2) {
                 // Suppress warning
             }
@@ -114,7 +117,7 @@ public class ThemeLaunchActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request we're responding to
-        if (data != null) {
+        if (data != null && requestCode != 10000) {
             Bundle intent = data.getExtras();
 
             String theme_name = intent.getString("theme_name");
@@ -145,7 +148,7 @@ public class ThemeLaunchActivity extends Activity {
                             iv_encrypt_key,
                             References.checkOMS(getApplicationContext())
                     ));
-        } else if (legacyTheme) {
+        } else if (legacyTheme && requestCode != 10000) {
             startActivity(
                     launchThemeActivity(
                             getApplicationContext(),

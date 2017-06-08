@@ -309,6 +309,10 @@ public class InformationActivity extends SubstratumActivity {
             theme_mode = "";
         }
 
+        if (encryption_key != null && iv_encrypt_key != null) {
+            References.grabThemeKeys(getApplicationContext(), theme_pid);
+        }
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         if (toolbar != null) toolbar.setTitle(theme_name);
 

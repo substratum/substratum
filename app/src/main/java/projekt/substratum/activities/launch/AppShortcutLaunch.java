@@ -40,7 +40,7 @@ public class AppShortcutLaunch extends SubstratumActivity {
         String theme_pid = currentIntent.getStringExtra("theme_pid");
 
         if (!References.isCachingEnabled(getApplicationContext())) {
-            References.launchTheme(this, theme_pid, null, false);
+            References.launchTheme(this, theme_pid, null);
         } else {
             SharedPreferences prefs = this.getSharedPreferences(
                     "substratum_state", Context.MODE_PRIVATE);
@@ -53,7 +53,7 @@ public class AppShortcutLaunch extends SubstratumActivity {
                             getBuildDirPath() + theme_pid, "substratum.xml");
 
                     if (checkSubstratumVerity.exists()) {
-                        References.launchTheme(this, theme_pid, null, false);
+                        References.launchTheme(this, theme_pid, null);
                     } else {
                         createToast(getString(R.string.toast_needs_caching), Toast.LENGTH_LONG);
                         Intent intent = new Intent(this, MainActivity.class);

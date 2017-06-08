@@ -85,7 +85,7 @@ public class ThemeLaunchActivity extends Activity {
         package_name = activityExtras.getStringExtra("package_name");
         Boolean omsCheck = activityExtras.getBooleanExtra("oms_check", false);
         theme_mode = activityExtras.getStringExtra("theme_mode");
-        String hash_passthrough = activityExtras.getStringExtra("hash_passthrough");
+        Integer hash_passthrough = activityExtras.getIntExtra("hash_passthrough", 0);
         Boolean certified = activityExtras.getBooleanExtra("certified", true);
 
         Intent myIntent = new Intent();

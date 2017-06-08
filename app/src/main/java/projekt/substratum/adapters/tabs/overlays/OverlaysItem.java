@@ -91,7 +91,6 @@ public class OverlaysItem implements Serializable {
         variant_mode = true;
         this.enabledOverlays = new ArrayList<>();
         this.enabledOverlays.addAll(enabledOverlays);
-        this.app_icon = References.grabAppIcon(context, packageName);
     }
 
     boolean isDeviceOMS() {

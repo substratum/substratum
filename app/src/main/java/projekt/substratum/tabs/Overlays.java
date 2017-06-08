@@ -1045,13 +1045,12 @@ public class Overlays extends Fragment {
 
     public VariantItem setTypeOneHexAndSpinner(String current, String package_identifier) {
         if (encrypted) {
-            Log.e("Current", current);
             try (InputStream inputStream = FileOperations.getInputStream(themeAssetManager,
                     "overlays/" + package_identifier + "/" + current, cipher)) {
                 String hex = References.getOverlayResource(inputStream);
 
                 return new VariantItem(
-                        current.substring(7, current.length() - 7), hex);
+                        current.substring(7, current.length() - 8), hex);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -2066,13 +2065,16 @@ public class Overlays extends Fragment {
 
                                     String to_copy =
                                             overlaysDir + "/" + current_overlay + "/type1a_" +
-                                                    fragment.checkedOverlays.get(i)
-                                                            .getSelectedVariantName() + ".xml";
+                                                    checkedOverlays.get(i)
+                                                            .getSelectedVariantName() +
+                                                    (encrypted ? ".xml.enc" : ".xml");
 
                                     FileOperations.copyFileOrDir(
                                             fragment.themeAssetManager,
                                             to_copy,
-                                            workingDirectory + suffix + "/values/type1a.xml",
+                                            workingDirectory + suffix + (encrypted ?
+                                                    "/values/type1a.xml.enc" :
+                                                    "/values/type1a.xml"),
                                             to_copy,
                                             cipher);
                                 }
@@ -2105,13 +2107,16 @@ public class Overlays extends Fragment {
 
                                     String to_copy =
                                             overlaysDir + "/" + current_overlay + "/type1b_" +
-                                                    fragment.checkedOverlays.get(i)
-                                                            .getSelectedVariantName2() + ".xml";
+                                                    checkedOverlays.get(i)
+                                                            .getSelectedVariantName2() +
+                                                    (encrypted ? ".xml.enc" : ".xml");
 
                                     FileOperations.copyFileOrDir(
                                             fragment.themeAssetManager,
                                             to_copy,
-                                            workingDirectory + suffix + "/values/type1b.xml",
+                                            workingDirectory + suffix + (encrypted ?
+                                                    "/values/type1b.xml.enc" :
+                                                    "/values/type1b.xml"),
                                             to_copy,
                                             cipher);
                                 }
@@ -2146,13 +2151,16 @@ public class Overlays extends Fragment {
 
                                     String to_copy =
                                             overlaysDir + "/" + current_overlay + "/type1c_" +
-                                                    fragment.checkedOverlays.get(i)
-                                                            .getSelectedVariantName3() + ".xml";
+                                                    checkedOverlays.get(i)
+                                                            .getSelectedVariantName3() +
+                                                    (encrypted ? ".xml.enc" : ".xml");
 
                                     FileOperations.copyFileOrDir(
                                             fragment.themeAssetManager,
                                             to_copy,
-                                            workingDirectory + suffix + "/values/type1c.xml",
+                                            workingDirectory + suffix + (encrypted ?
+                                                    "/values/type1c.xml.enc" :
+                                                    "/values/type1c.xml"),
                                             to_copy,
                                             cipher);
                                 }

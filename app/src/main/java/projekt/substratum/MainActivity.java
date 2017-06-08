@@ -758,7 +758,7 @@ public class MainActivity extends SubstratumActivity implements
                         .setPositiveButton(R.string.dialog_ok, (dialog, which) -> dialog.cancel())
                         .show();
             }
-            
+
             References.startKeyRetrievalReceiver(getApplicationContext());
             mProgressDialog = new ProgressDialog(this, R.style.SubstratumBuilder_BlurView);
             new RootRequester(this).execute();

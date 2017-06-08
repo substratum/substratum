@@ -39,10 +39,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:gravity="center"
+            android:drawablePadding="16dp"
             android:drawableStart="@drawable/manage_overlays_disable_all"
             android:drawableTint="@color/main_screen_card_theme_title"
-            android:drawablePadding="16dp"
+            android:gravity="center"
             android:text="@string/manage_system_overlay_disable"
             android:textColor="?android:attr/textColorPrimary"/>
     </LinearLayout>
@@ -61,10 +61,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:gravity="center"
+            android:drawablePadding="16dp"
             android:drawableStart="@drawable/manage_overlays_uninstall_all"
             android:drawableTint="@color/main_screen_card_theme_title"
-            android:drawablePadding="16dp"
+            android:gravity="center"
             android:text="@string/manage_system_overlay_uninstall"
             android:textColor="?android:attr/textColorPrimary"/>
     </LinearLayout>

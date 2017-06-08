@@ -2111,7 +2111,7 @@ public class References {
     }
 
     public static class KeyRetriever extends BroadcastReceiver {
-        
+
         @Override
         public void onReceive(Context context, Intent intent) {
             sendLocalizedKeyMessage(

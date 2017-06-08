@@ -37,7 +37,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    <uses-permission android:name="projekt.interfacer.permission.ACCESS_SERVICE" />
+    <uses-permission android:name="projekt.interfacer.permission.ACCESS_SERVICE"/>
 
     <application
         android:name=".Substratum"

@@ -40,10 +40,10 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:gravity="center"
+            android:drawablePadding="16dp"
             android:drawableStart="@drawable/bottom_sheet_dialog_hide"
             android:drawableTint="@color/main_screen_card_theme_title"
-            android:drawablePadding="16dp"
+            android:gravity="center"
             android:text="@string/bottom_sheet_dialog_hide_outdated_themes"
             android:textColor="?android:attr/textColorPrimary"/>
     </LinearLayout>
@@ -63,10 +63,10 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:gravity="center"
+            android:drawablePadding="16dp"
             android:drawableStart="@drawable/bottom_sheet_dialog_show"
             android:drawableTint="@color/main_screen_card_theme_title"
-            android:drawablePadding="16dp"
+            android:gravity="center"
             android:text="@string/bottom_sheet_dialog_show_outdated_themes"
             android:textColor="?android:attr/textColorPrimary"/>
     </LinearLayout>

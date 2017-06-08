@@ -39,10 +39,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:gravity="center"
+            android:drawablePadding="16dp"
             android:drawableStart="@drawable/aopt_sheet_stable"
             android:drawableTint="@color/main_screen_card_theme_title"
-            android:drawablePadding="16dp"
+            android:gravity="center"
             android:text="@string/settings_aapt"
             android:textColor="?android:attr/textColorPrimary"/>
     </LinearLayout>
@@ -61,10 +61,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:gravity="center"
+            android:drawablePadding="16dp"
             android:drawableStart="@drawable/aopt_sheet_experimental"
             android:drawableTint="@color/main_screen_card_theme_title"
-            android:drawablePadding="16dp"
+            android:gravity="center"
             android:text="@string/settings_aopt"
             android:textColor="?android:attr/textColorPrimary"/>
     </LinearLayout>

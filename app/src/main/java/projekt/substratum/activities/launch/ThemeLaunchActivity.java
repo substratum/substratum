@@ -87,27 +87,24 @@ public class ThemeLaunchActivity extends Activity {
         theme_mode = activityExtras.getStringExtra("theme_mode");
         Integer hash_passthrough = activityExtras.getIntExtra("hash_passthrough", 0);
         Boolean certified = activityExtras.getBooleanExtra("certified", true);
+        String action = activityExtras.getAction();
+        String packageName = activityExtras.getPackage();
 
         Intent myIntent = new Intent();
         myIntent.putExtra("certified", certified);
         myIntent.putExtra("hash_passthrough", hash_passthrough);
         myIntent.putExtra("theme_legacy", omsCheck);
         myIntent.putExtra("theme_mode", theme_mode);
+        myIntent.setAction(action);
+        myIntent.setPackage(packageName);
         myIntent.setClassName(package_name, package_name + ".SubstratumLauncher");
-
-        Intent myIntent2 = new Intent();
-        myIntent2.putExtra("certified", certified);
-        myIntent2.putExtra("hash_passthrough", hash_passthrough);
-        myIntent2.putExtra("theme_legacy", omsCheck);
-        myIntent2.putExtra("theme_mode", theme_mode);
-        myIntent2.setClassName(package_name, package_name + ".SubstratumLauncher");
 
         try {
             startActivityForResult(myIntent, intent_id);
         } catch (Exception e) {
             try {
                 legacyTheme = true;
-                startActivityForResult(myIntent2, intent_id);
+                startActivityForResult(myIntent, intent_id);
             } catch (Exception e2) {
                 // Suppress warning
             }

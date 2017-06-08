@@ -151,6 +151,8 @@ public class References {
     public static final String PACKAGE_FULLY_REMOVED = Intent.ACTION_PACKAGE_FULLY_REMOVED;
     // App intents to send
     public static final String MANAGER_REFRESH = "projekt.substratum.MANAGER_REFRESH";
+    public static final String TEMPLATE_THEME_MODE = "projekt.substratum.THEME";
+    public static final String TEMPLATE_RECEIVE_KEYS = "projekt.substratum.RECEIVE_KEYS";
     // Keep it simple, stupid!
     public static final int HIDDEN_CACHING_MODE_TAP_COUNT = 7;
     public static final int SHOWCASE_SHUFFLE_COUNT = 5;
@@ -1687,6 +1689,10 @@ public class References {
         if (should_debug) Log.d("ThemeLauncher", "Creating new intent...");
         Intent intentActivity = new Intent(mContext, ThemeLaunchActivity.class);
         intentActivity.putExtra("package_name", package_name);
+        if (should_debug) Log.d("ThemeLauncher", "Assigning action to intent...");
+        intentActivity.setAction(TEMPLATE_THEME_MODE);
+        if (should_debug) Log.d("ThemeLauncher", "Assigning package name to intent...");
+        intentActivity.setPackage(package_name);
         if (should_debug) Log.d("ThemeLauncher", "Checking for theme system type...");
         intentActivity.putExtra("oms_check", !checkOMS(mContext));
         intentActivity.putExtra("theme_mode", theme_mode);

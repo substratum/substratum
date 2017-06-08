@@ -1018,7 +1018,8 @@ public class ProfileFragment extends Fragment {
                             themeAssetManager,
                             listDir,
                             workingDirectory + suffix,
-                            listDir);
+                            listDir,
+                            null);
 
                     // Handle the type1s
                     if (type1a.length() > 0) {
@@ -1026,21 +1027,24 @@ public class ProfileFragment extends Fragment {
                                 themeAssetManager,
                                 type1aDir,
                                 workingDirectory + suffix + "/values/type1a.xml",
-                                type1aDir);
+                                type1aDir,
+                                null);
                     }
                     if (type1b.length() > 0) {
                         FileOperations.copyFileOrDir(
                                 themeAssetManager,
                                 type1bDir,
                                 workingDirectory + suffix + "/values/type1b.xml",
-                                type1bDir);
+                                type1bDir,
+                                null);
                     }
                     if (type1c.length() > 0) {
                         FileOperations.copyFileOrDir(
                                 themeAssetManager,
                                 type1cDir,
                                 workingDirectory + suffix + "/values/type1c.xml",
-                                type1cDir);
+                                type1cDir,
+                                null);
                     }
 
                     SubstratumBuilder sb = new SubstratumBuilder();

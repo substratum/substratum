@@ -21,6 +21,8 @@ package projekt.substratum.common.commands;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.os.Environment;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import org.apache.commons.io.FileUtils;
@@ -33,6 +35,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+
+import javax.crypto.Cipher;
+import javax.crypto.CipherInputStream;
 
 import projekt.substratum.common.platform.ThemeInterfacerService;
 import projekt.substratum.util.files.Root;
@@ -48,6 +53,7 @@ public class FileOperations {
     private static final String DELETE_LOG = "SubstratumDelete";
     private static final String MOVE_LOG = "SubstratumMove";
     private static final String DA_LOG = "DirectAssets";
+    private static final String ENCRYPTION_EXTENSION = ".enc";
 
     public static void adjustContentProvider(final String uri,
                                              final String topic, final String fileName) {
@@ -365,6 +371,24 @@ public class FileOperations {
     }
 
     /**
+     * EncryptedAssets InputStream
+     *
+     * @param assetManager take the asset manager context from the theme package
+     * @param filePath     the expected list directory inside the assets folder
+     * @param cipherKey    the decryption key for the Cipher object
+     */
+    public static InputStream getInputStream(
+            @NonNull AssetManager assetManager,
+            @NonNull String filePath,
+            @Nullable Cipher cipherKey) throws IOException {
+        InputStream inputStream = assetManager.open(filePath);
+        if (cipherKey != null && filePath.endsWith(ENCRYPTION_EXTENSION)) {
+            return new CipherInputStream(inputStream, cipherKey);
+        }
+        return inputStream;
+    }
+
+    /**
      * DirectAssets Mode Functions
      *
      * @param assetManager take the asset manager context from the theme package
@@ -376,7 +400,7 @@ public class FileOperations {
      *                     structure.
      */
     public static boolean copyFileOrDir(AssetManager assetManager, String listDir,
-                                        String destination, String remember) {
+                                        String destination, String remember, Cipher cipher) {
         String assets[];
         if (ENABLE_DIRECT_ASSETS_LOGGING) Log.d(DA_LOG, "Source: " + listDir);
         if (ENABLE_DIRECT_ASSETS_LOGGING) Log.d(DA_LOG, "Destination: " + destination);
@@ -387,7 +411,7 @@ public class FileOperations {
                 if (ENABLE_DIRECT_ASSETS_LOGGING)
                     Log.d(DA_LOG, "This is a file object, directly copying...");
                 if (ENABLE_DIRECT_ASSETS_LOGGING) Log.d(DA_LOG, listDir);
-                boolean copied = copyFile(assetManager, listDir, destination, remember);
+                boolean copied = copyFile(assetManager, listDir, destination, remember, cipher);
                 if (ENABLE_DIRECT_ASSETS_LOGGING) Log.d(DA_LOG, "File operation status: " +
                         ((copied) ? "Success!" : "Failed"));
             } else {
@@ -401,7 +425,8 @@ public class FileOperations {
                             ((dir.mkdir()) ? "Success!" : "Failed"));
                 }
                 for (String asset : assets) {
-                    copyFileOrDir(assetManager, listDir + "/" + asset, destination, remember);
+                    copyFileOrDir(assetManager, listDir + "/" + asset, destination, remember,
+                            cipher);
                 }
             }
             return true;
@@ -413,11 +438,16 @@ public class FileOperations {
     }
 
     private static boolean copyFile(AssetManager assetManager, String filename,
-                                    String destination, String remember) {
+                                    String destination, String remember, Cipher cipher) {
         InputStream inputStream = null;
         OutputStream outputStream = null;
         try {
             inputStream = assetManager.open(filename);
+            if (cipher != null && filename.endsWith(".enc")) {
+                inputStream = new CipherInputStream(inputStream, cipher);
+            } else if (cipher == null && filename.endsWith(".enc")) {
+                return false;
+            }
             String destinationFile = destination + "/" + filename.replaceAll("\\s+", "")
                     .substring(remember.replaceAll("\\s+", "").length());
             outputStream = new FileOutputStream(destinationFile);

@@ -304,13 +304,15 @@ public class OverlayUpdater extends BroadcastReceiver {
                             themeAssetManager,
                             listDir,
                             workingDirectory + suffix,
-                            listDir);
+                            listDir,
+                            null);
                     if (type2 != null && type2.length() > 0) {
                         FileOperations.copyFileOrDir(
                                 themeAssetManager,
                                 listDir,
                                 workingDirectory + "/type2_" + type2,
-                                listDir);
+                                listDir,
+                                null);
                     }
 
                     // Handle the type1s
@@ -319,21 +321,24 @@ public class OverlayUpdater extends BroadcastReceiver {
                                 themeAssetManager,
                                 type1aDir,
                                 workingDirectory + suffix + "/values/type1a.xml",
-                                type1aDir);
+                                type1aDir,
+                                null);
                     }
                     if (type1b != null && type1b.length() > 0) {
                         FileOperations.copyFileOrDir(
                                 themeAssetManager,
                                 type1bDir,
                                 workingDirectory + suffix + "/values/type1b.xml",
-                                type1bDir);
+                                type1bDir,
+                                null);
                     }
                     if (type1c != null && type1c.length() > 0) {
                         FileOperations.copyFileOrDir(
                                 themeAssetManager,
                                 type1cDir,
                                 workingDirectory + suffix + "/values/type1c.xml",
-                                type1cDir);
+                                type1cDir,
+                                null);
                     }
 
                     File workDir = new File(context.getCacheDir().getAbsolutePath() +

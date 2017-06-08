@@ -963,7 +963,7 @@ public class Overlays extends Fragment {
     }
 
     public VariantItem setTypeTwoSpinners(InputStreamReader
-            inputStreamReader) {
+                                                  inputStreamReader) {
         try (BufferedReader reader = new BufferedReader(inputStreamReader)) {
             return new VariantItem(String.format(getString(R.string
                     .overlays_variant_substitute), reader.readLine()), null);
@@ -2073,7 +2073,8 @@ public class Overlays extends Fragment {
                                 packageName = (packageName + fragment.checkedOverlays.get(i)
                                         .getSelectedVariantName4()).replaceAll("\\s+", "")
                                         .replaceAll("[^a-zA-Z0-9]+", "");
-                                fragment.type2 = fragment.checkedOverlays.get(i).getSelectedVariantName4();
+                                fragment.type2 = fragment.checkedOverlays.get(i)
+                                        .getSelectedVariantName4();
                                 String type2folder = "/type2_" + fragment.type2;
                                 String to_copy = overlaysDir + "/" + current_overlay + type2folder;
                                 if (!References.isCachingEnabled(context)) {
@@ -2095,7 +2096,8 @@ public class Overlays extends Fragment {
                                             current_overlay,
                                             fragment.theme_name,
                                             packageName,
-                                            fragment.checkedOverlays.get(i).getSelectedVariantName4(),
+                                            fragment.checkedOverlays.get(i)
+                                                    .getSelectedVariantName4(),
                                             sUrl[0],
                                             fragment.versionName,
                                             References.checkOMS(context),
@@ -2116,7 +2118,8 @@ public class Overlays extends Fragment {
                                             current_overlay,
                                             fragment.theme_name,
                                             packageName,
-                                            fragment.checkedOverlays.get(i).getSelectedVariantName4(),
+                                            fragment.checkedOverlays.get(i)
+                                                    .getSelectedVariantName4(),
                                             null,
                                             fragment.versionName,
                                             References.checkOMS(context),

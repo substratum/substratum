@@ -197,6 +197,8 @@ public class References {
     public static final String PIXEL_NEXUS_DIR = "/system/overlay/";
     public static final String LEGACY_NEXUS_DIR = "/system/vendor/overlay/";
     public static final String VENDOR_DIR = "/vendor/overlay/";
+    // Notification Channel
+    public static final String MAIN_NOTIFICATION_CHANNEL_ID = "main";
     // This controls the filter used by the post-6.0.0 template checker
     private static final String SUBSTRATUM_THEME = "projekt.substratum.THEME";
     private static final String SUBSTRATUM_LAUNCHER_CLASS = ".SubstratumLauncher";
@@ -235,8 +237,6 @@ public class References {
     // Localized variables shared amongst common resources
     private static ScheduledProfileReceiver scheduledProfileReceiver;
     private Context mContext; // Used for support checker
-    // Notification Channel
-    public static final String MAIN_NOTIFICATION_CHANNEL_ID = "main";
 
     public static String checkFirmwareSupport(Context context, String urls, String inputFileName) {
         String supported_rom = "";

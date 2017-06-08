@@ -60,9 +60,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mikepenz.aboutlibraries.LibsBuilder;
-import com.mikepenz.aboutlibraries.LibsConfiguration;
 import com.mikepenz.aboutlibraries.ui.LibsSupportFragment;
-import com.mikepenz.itemanimators.SlideDownAlphaAnimator;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
@@ -125,12 +123,11 @@ public class MainActivity extends SubstratumActivity implements
     private static final int PERMISSIONS_REQUEST_DRAW_OVER_OTHER_APPS = 2;
     private static final int PERMISSIONS_REQUEST_USAGE_ACCESS_SETTINGS = 3;
     private static final String SELECTED_DRAWER_ITEM = "selected_drawer_item";
-
-    public TextView actionbar_title, actionbar_content;
     public static String userInput = "";
-    public SearchView searchView;
     public static MenuItem searchItem;
     private static ActionBar supportActionBar;
+    public TextView actionbar_title, actionbar_content;
+    public SearchView searchView;
     private Drawer drawer;
     private int permissionCheck;
     private ProgressDialog mProgressDialog;

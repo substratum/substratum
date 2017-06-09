@@ -107,7 +107,6 @@ import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.MasqueradeService;
 import projekt.substratum.common.platform.ThemeManager;
-import projekt.substratum.common.platform.VersionChecker;
 import projekt.substratum.services.notification.NotificationButtonReceiver;
 import projekt.substratum.util.compilers.CacheCreator;
 import projekt.substratum.util.compilers.SubstratumBuilder;
@@ -124,7 +123,6 @@ import static projekt.substratum.common.References.REFRESH_WINDOW_DELAY;
 import static projekt.substratum.common.References.STATUS_CHANGED;
 import static projekt.substratum.common.References.SUBSTRATUM_BUILDER;
 import static projekt.substratum.common.References.SUBSTRATUM_BUILDER_CACHE;
-import static projekt.substratum.common.References.SUBSTRATUM_LOG;
 import static projekt.substratum.common.References.checkThemeInterfacer;
 import static projekt.substratum.common.References.isPackageInstalled;
 import static projekt.substratum.common.References.metadataAuthor;
@@ -752,28 +750,7 @@ public class Overlays extends Fragment {
             }
 
             if (compile_enable_mode) {
-                if (checkThemeInterfacer(context) ||
-                        VersionChecker.checkOreo()) {
-                    ThemeManager.enableOverlay(context, final_command);
-                } else {
-                    final_commands.append(ThemeManager.enableOverlay);
-                    for (int i = 0; i < final_command.size(); i++) {
-                        final_commands.append(" ").append(final_command.get(i));
-                        // Wait for the install to be finished on the rooted set up
-                        while (!isPackageInstalled(context, final_command.get(i))) {
-                            try {
-                                Log.d(TAG,
-                                        "Waiting for \'" + final_command.get(i) +
-                                                "\' to finish installing...");
-                                Thread.sleep(500);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                        if (isPackageInstalled(context, final_command.get(i)))
-                            Log.d(TAG, final_command.get(i) + " successfully installed silently.");
-                    }
-                }
+                ThemeManager.enableOverlay(context, final_command);
             }
 
             if (!checkThemeInterfacer(context) && isPackageInstalled(context, MASQUERADE_PACKAGE)) {
@@ -1712,57 +1689,12 @@ public class Overlays extends Fragment {
                         }
                         fragment.progressBar.setVisibility(View.VISIBLE);
                         if (fragment.toggle_all.isChecked()) fragment.toggle_all.setChecked(false);
-                        if (checkThemeInterfacer(context) ||
-                                VersionChecker.checkOreo()) {
-                            ThemeManager.disableOverlay(context, disableBeforeEnabling);
-                            ThemeManager.enableOverlay(context, fragment.final_command);
-                        } else {
-                            StringBuilder final_commands = new StringBuilder();
-                            if (disableBeforeEnabling.size() > 0)
-                                final_commands = new StringBuilder(ThemeManager.disableOverlay);
-                            for (int i = 0; i < disableBeforeEnabling.size(); i++) {
-                                final_commands.append(" ").append(disableBeforeEnabling.get(i));
-                            }
-                            if (final_commands.length() > 0 && fragment.final_command.size() > 0) {
-                                final_commands.append(" " + ThemeManager.enableOverlay);
-                            } else if (fragment.final_command.size() > 0) {
-                                final_commands = new StringBuilder(ThemeManager.enableOverlay);
-                            }
-                            for (int i = 0; i < fragment.final_command.size(); i++) {
-                                final_commands.append(" ").append(fragment.final_command.get(i));
-                            }
-                            if (!checkThemeInterfacer(context) &&
-                                    isPackageInstalled(context, MASQUERADE_PACKAGE)) {
-                                Log.d(TAG, "Using Masquerade as the fallback system...");
-                                Intent runCommand = MasqueradeService.getMasquerade(context);
-                                runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                                runCommand.setAction("masquerade.substratum.COMMANDS");
-                                runCommand.putExtra("om-commands", final_commands.toString());
-                                context.sendBroadcast(runCommand);
-                            }
-                        }
+                        ThemeManager.disableOverlay(context, disableBeforeEnabling);
+                        ThemeManager.enableOverlay(context, fragment.final_command);
                     } else {
                         fragment.progressBar.setVisibility(View.VISIBLE);
                         if (fragment.toggle_all.isChecked()) fragment.toggle_all.setChecked(false);
-                        if (checkThemeInterfacer(context) ||
-                                VersionChecker.checkOreo()) {
-                            ThemeManager.enableOverlay(context, fragment.final_command);
-                        } else {
-                            StringBuilder final_commands =
-                                    new StringBuilder(ThemeManager.enableOverlay);
-                            for (int i = 0; i < fragment.final_command.size(); i++) {
-                                final_commands.append(" ").append(fragment.final_command.get(i));
-                            }
-                            if (!checkThemeInterfacer(context) &&
-                                    isPackageInstalled(context, MASQUERADE_PACKAGE)) {
-                                Log.d(SUBSTRATUM_LOG, "Using Masquerade as the fallback system...");
-                                Intent runCommand = MasqueradeService.getMasquerade(context);
-                                runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                                runCommand.setAction("masquerade.substratum.COMMANDS");
-                                runCommand.putExtra("om-commands", final_commands.toString());
-                                context.sendBroadcast(runCommand);
-                            }
-                        }
+                        ThemeManager.enableOverlay(context, fragment.final_command);
                     }
 
                     fragment.progressBar.setVisibility(View.GONE);
@@ -1800,29 +1732,7 @@ public class Overlays extends Fragment {
                     fragment.disable_mode = false;
                     fragment.progressBar.setVisibility(View.VISIBLE);
                     if (fragment.toggle_all.isChecked()) fragment.toggle_all.setChecked(false);
-                    if (checkThemeInterfacer(context) ||
-                            VersionChecker.checkOreo()) {
-                        ThemeManager.disableOverlay(context, fragment.final_command);
-                    } else {
-                        StringBuilder final_commands = new StringBuilder();
-                        if (final_commands.length() > 0 && fragment.final_command.size() > 0) {
-                            final_commands.append(" " + ThemeManager.disableOverlay);
-                        } else if (fragment.final_command.size() > 0) {
-                            final_commands = new StringBuilder(ThemeManager.disableOverlay);
-                        }
-                        for (int i = 0; i < fragment.final_command.size(); i++) {
-                            final_commands.append(" ").append(fragment.final_command.get(i));
-                        }
-                        if (!checkThemeInterfacer(context) &&
-                                isPackageInstalled(context, MASQUERADE_PACKAGE)) {
-                            Log.d(TAG, "Using Masquerade as the fallback system...");
-                            Intent runCommand = MasqueradeService.getMasquerade(context);
-                            runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                            runCommand.setAction("masquerade.substratum.COMMANDS");
-                            runCommand.putExtra("om-commands", final_commands.toString());
-                            context.sendBroadcast(runCommand);
-                        }
-                    }
+                    ThemeManager.disableOverlay(context, fragment.final_command);
 
                     fragment.progressBar.setVisibility(View.GONE);
                     if (fragment.needsRecreate(context)) {

@@ -89,7 +89,6 @@ import projekt.substratum.common.References;
 import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
-import projekt.substratum.common.platform.VersionChecker;
 import projekt.substratum.fragments.ManagerFragment;
 import projekt.substratum.fragments.PriorityListFragment;
 import projekt.substratum.fragments.PriorityLoaderFragment;
@@ -781,7 +780,7 @@ public class MainActivity extends SubstratumActivity implements
 
         boolean isOMS = References.checkOMS(getApplicationContext());
         if (isOMS) menu.findItem(R.id.reboot_device).setVisible(false);
-        if (isOMS || VersionChecker.checkOreo()) menu.findItem(R.id.soft_reboot).setVisible(false);
+        if (isOMS) menu.findItem(R.id.soft_reboot).setVisible(false);
         if (!isOMS) menu.findItem(R.id.per_app).setVisible(false);
 
         searchItem = menu.findItem(R.id.action_search);

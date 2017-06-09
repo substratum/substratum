@@ -118,7 +118,6 @@ import static android.content.om.OverlayInfo.STATE_NOT_APPROVED_MISSING_TARGET;
 import static android.content.om.OverlayInfo.STATE_NOT_APPROVED_NO_IDMAP;
 import static android.content.om.OverlayInfo.STATE_NOT_APPROVED_UNKNOWN;
 import static projekt.substratum.common.analytics.PackageAnalytics.PACKAGE_TAG;
-import static projekt.substratum.common.platform.VersionChecker.checkOreo;
 
 public class References {
 

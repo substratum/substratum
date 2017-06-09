@@ -126,19 +126,10 @@ public class ThemeManager {
     }
 
     public static void disableAllThemeOverlays(Context context) {
-        if (checkThemeInterfacer(context) || VersionChecker.checkOreo()) {
-            List<String> list = ThemeManager.listOverlays(context, STATE_APPROVED_ENABLED).stream()
-                    .filter(o -> References.grabOverlayParent(context, o) != null)
-                    .collect(Collectors.toList());
-            if (VersionChecker.checkOreo() && !list.isEmpty()) {
-                ThemeManager.disableOverlay(context, new ArrayList<>(list));
-            } else if (!list.isEmpty()) {
-                ThemeInterfacerService.disableOverlays(context, new ArrayList<>(list),
-                        shouldRestartUI(context, new ArrayList<>(list)));
-            }
-        } else {
-            new ElevatedCommands.ThreadRunner().execute(disableAllOverlays);
-        }
+        List<String> list = ThemeManager.listOverlays(context, STATE_APPROVED_ENABLED).stream()
+                .filter(o -> References.grabOverlayParent(context, o) != null)
+                .collect(Collectors.toList());
+        ThemeManager.disableOverlay(context, new ArrayList<>(list));
     }
 
     public static void restartSystemUI(Context context) {

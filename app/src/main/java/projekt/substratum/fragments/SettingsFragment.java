@@ -61,7 +61,6 @@ import projekt.substratum.adapters.fragments.settings.ValidatorFilter;
 import projekt.substratum.adapters.fragments.settings.ValidatorInfo;
 import projekt.substratum.common.References;
 import projekt.substratum.common.platform.ThemeManager;
-import projekt.substratum.common.platform.VersionChecker;
 import projekt.substratum.common.systems.Validator;
 import projekt.substratum.util.files.FileDownloader;
 import projekt.substratum.util.injectors.AOPTCheck;
@@ -454,7 +453,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     }
                     return false;
                 });
-                if (VersionChecker.checkOreo()) crashReceiver.setVisible(false);
+                if (!References.checkSubstratumFeature(getContext())) {
+                    crashReceiver.setVisible(false);
+                }
             }
 
             if (References.checkThemeInterfacer(getContext())) {
@@ -591,7 +592,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 }
             }
 
-            if (VersionChecker.checkOreo()) aboutInterfacer.setVisible(false);
+            if (!References.checkSubstratumFeature(getContext())) {
+                aboutInterfacer.setVisible(false);
+            }
 
             final CheckBoxPreference hide_app_checkbox = (CheckBoxPreference)
                     getPreferenceManager().findPreference("hide_app_checkbox");

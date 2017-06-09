@@ -97,7 +97,6 @@ import static projekt.substratum.common.References.metadataWallpapers;
 import static projekt.substratum.common.References.overlaysFragment;
 import static projekt.substratum.common.References.soundsFragment;
 import static projekt.substratum.common.References.wallpaperFragment;
-import static projekt.substratum.common.platform.VersionChecker.checkOreo;
 
 public class InformationActivity extends SubstratumActivity {
 
@@ -703,7 +702,7 @@ public class InformationActivity extends SubstratumActivity {
         if (!isOMS) menu.findItem(R.id.enable).setVisible(false);
         if (!isOMS) menu.findItem(R.id.restart_systemui).setVisible(false);
         if (isOMS) menu.findItem(R.id.reboot_device).setVisible(false);
-        if (isOMS || checkOreo()) menu.findItem(R.id.soft_reboot).setVisible(false);
+        if (isOMS) menu.findItem(R.id.soft_reboot).setVisible(false);
 
         menu.findItem(R.id.clean_cache).setVisible(prefs.getBoolean("caching_enabled", false));
 

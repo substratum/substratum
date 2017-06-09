@@ -28,8 +28,8 @@ def gitHash = { ->
 }
 
 android {
-    compileSdkVersion "android-O"
-    buildToolsVersion "26.0.0-rc2"
+    compileSdkVersion 26
+    buildToolsVersion "26.0.0"
 
     lintOptions {
         checkReleaseBuilds false
@@ -45,7 +45,7 @@ android {
     defaultConfig {
         applicationId "projekt.substratum"
         minSdkVersion 24
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 760
         versionName "seven hundred sixty"
         buildConfigField "String", "GIT_HASH", "\"${gitHash()}\""
@@ -55,7 +55,7 @@ android {
     productFlavors {
         main {}
         preview {
-            targetSdkVersion "O"
+            targetSdkVersion 26
             versionNameSuffix " (target-preview)"
         }
     }

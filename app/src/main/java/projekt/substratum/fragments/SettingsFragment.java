@@ -454,7 +454,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     }
                     return false;
                 });
-                if (VersionChecker.checkOreoStockOMS()) crashReceiver.setVisible(false);
+                if (VersionChecker.checkOreo()) crashReceiver.setVisible(false);
             }
 
             if (References.checkThemeInterfacer(getContext())) {
@@ -591,7 +591,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 }
             }
 
-            if (VersionChecker.checkOreoStockOMS()) aboutInterfacer.setVisible(false);
+            if (VersionChecker.checkOreo()) aboutInterfacer.setVisible(false);
 
             final CheckBoxPreference hide_app_checkbox = (CheckBoxPreference)
                     getPreferenceManager().findPreference("hide_app_checkbox");

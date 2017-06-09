@@ -62,7 +62,7 @@ import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.tabs.BootAnimationManager;
 
 import static projekt.substratum.common.References.EXTERNAL_STORAGE_CACHE;
-import static projekt.substratum.common.platform.VersionChecker.checkOreoStockOMS;
+import static projekt.substratum.common.platform.VersionChecker.checkOreo;
 
 public class BootAnimationUtils {
 
@@ -365,7 +365,7 @@ public class BootAnimationUtils {
                 boolean is_encrypted = References.getDeviceEncryptionStatus(mContext) > 1;
                 File themeDirectory;
                 if (References.checkOMS(mContext)) {
-                    if (!is_encrypted && !checkOreoStockOMS()) {
+                    if (!is_encrypted && !checkOreo()) {
                         Log.d(TAG, "Data partition on the current device is decrypted, using " +
                                 "dedicated theme bootanimation slot...");
                         themeDirectory = new File(DATA_SYSTEM);
@@ -408,7 +408,7 @@ public class BootAnimationUtils {
                     FileOperations.mountRW();
                     File backupScript = new File("/system/addon.d/" + BACKUP_SCRIPT);
 
-                    if (!checkOreoStockOMS()) {
+                    if (!checkOreo()) {
                         if (!backupScript.exists()) {
                             AssetManager assetManager = mContext.getAssets();
                             String backupScriptPath =
@@ -458,7 +458,7 @@ public class BootAnimationUtils {
                             "/bootanimation.zip");
 
                     if (backupDirectory.exists()) {
-                        if (checkOreoStockOMS()) {
+                        if (checkOreo()) {
                             Log.d(TAG, "Old bootanimation is backed up, ready to go!");
                         } else if (backupScript.exists()) {
                             Log.d(TAG, "Old bootanimation is backed up, ready to go!");

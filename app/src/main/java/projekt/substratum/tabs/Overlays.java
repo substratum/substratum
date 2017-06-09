@@ -753,7 +753,7 @@ public class Overlays extends Fragment {
 
             if (compile_enable_mode) {
                 if (checkThemeInterfacer(context) ||
-                        VersionChecker.checkOreoStockOMS()) {
+                        VersionChecker.checkOreo()) {
                     ThemeManager.enableOverlay(context, final_command);
                 } else {
                     final_commands.append(ThemeManager.enableOverlay);
@@ -1713,7 +1713,7 @@ public class Overlays extends Fragment {
                         fragment.progressBar.setVisibility(View.VISIBLE);
                         if (fragment.toggle_all.isChecked()) fragment.toggle_all.setChecked(false);
                         if (checkThemeInterfacer(context) ||
-                                VersionChecker.checkOreoStockOMS()) {
+                                VersionChecker.checkOreo()) {
                             ThemeManager.disableOverlay(context, disableBeforeEnabling);
                             ThemeManager.enableOverlay(context, fragment.final_command);
                         } else {
@@ -1745,7 +1745,7 @@ public class Overlays extends Fragment {
                         fragment.progressBar.setVisibility(View.VISIBLE);
                         if (fragment.toggle_all.isChecked()) fragment.toggle_all.setChecked(false);
                         if (checkThemeInterfacer(context) ||
-                                VersionChecker.checkOreoStockOMS()) {
+                                VersionChecker.checkOreo()) {
                             ThemeManager.enableOverlay(context, fragment.final_command);
                         } else {
                             StringBuilder final_commands =
@@ -1801,7 +1801,7 @@ public class Overlays extends Fragment {
                     fragment.progressBar.setVisibility(View.VISIBLE);
                     if (fragment.toggle_all.isChecked()) fragment.toggle_all.setChecked(false);
                     if (checkThemeInterfacer(context) ||
-                            VersionChecker.checkOreoStockOMS()) {
+                            VersionChecker.checkOreo()) {
                         ThemeManager.disableOverlay(context, fragment.final_command);
                     } else {
                         StringBuilder final_commands = new StringBuilder();

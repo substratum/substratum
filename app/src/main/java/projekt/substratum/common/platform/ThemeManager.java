@@ -126,11 +126,11 @@ public class ThemeManager {
     }
 
     public static void disableAllThemeOverlays(Context context) {
-        if (checkThemeInterfacer(context) || VersionChecker.checkOreoStockOMS()) {
+        if (checkThemeInterfacer(context) || VersionChecker.checkOreo()) {
             List<String> list = ThemeManager.listOverlays(context, STATE_APPROVED_ENABLED).stream()
                     .filter(o -> References.grabOverlayParent(context, o) != null)
                     .collect(Collectors.toList());
-            if (VersionChecker.checkOreoStockOMS() && !list.isEmpty()) {
+            if (VersionChecker.checkOreo() && !list.isEmpty()) {
                 ThemeManager.disableOverlay(context, new ArrayList<>(list));
             } else if (!list.isEmpty()) {
                 ThemeInterfacerService.disableOverlays(context, new ArrayList<>(list),

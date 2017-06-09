@@ -4,9 +4,11 @@ import android.os.Build;
 
 public class VersionChecker {
 
+    // TODO: This needs to go
     public static boolean checkOreo() {
         switch (Build.VERSION.RELEASE) {
             case "O":
+            case "8.0.0":
                 return true;
             default:
                 break;

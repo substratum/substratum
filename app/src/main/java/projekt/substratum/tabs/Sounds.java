@@ -111,7 +111,7 @@ public class Sounds extends Fragment {
         byte[] encryption_key = InformationActivity.getEncryptionKey();
         byte[] iv_encrypt_key = InformationActivity.getIVEncryptKey();
 
-        encrypted = encryption_key != null && iv_encrypt_key != null;
+        // encrypted = encryption_key != null && iv_encrypt_key != null;
 
         if (encrypted) {
             try {

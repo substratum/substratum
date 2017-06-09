@@ -122,7 +122,7 @@ public class BootAnimations extends Fragment {
             e.printStackTrace();
         }
 
-        encrypted = encryption_key != null && iv_encrypt_key != null;
+        // encrypted = encryption_key != null && iv_encrypt_key != null;
 
         root = (ViewGroup) inflater.inflate(R.layout.tab_bootanimations, container, false);
         nsv = root.findViewById(R.id.nestedScrollView);

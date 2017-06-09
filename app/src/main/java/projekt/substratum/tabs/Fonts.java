@@ -115,9 +115,8 @@ public class Fonts extends Fragment {
             e.printStackTrace();
         }
 
-        if (encryption_key != null && iv_encrypt_key != null) {
-            encrypted = true;
-        }
+        // encrypted = encryption_key != null && iv_encrypt_key != null;
+
         root = (ViewGroup) inflater.inflate(R.layout.tab_fonts, container, false);
         progressBar = root.findViewById(R.id.progress_bar_loader);
         defaults = root.findViewById(R.id.restore_to_default);

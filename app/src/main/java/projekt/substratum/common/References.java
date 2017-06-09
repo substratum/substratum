@@ -105,6 +105,7 @@ import projekt.substratum.services.packages.PackageModificationDetector;
 import projekt.substratum.services.profiles.ScheduledProfileReceiver;
 import projekt.substratum.services.system.InterfacerAuthorizationReceiver;
 import projekt.substratum.util.compilers.CacheCreator;
+import projekt.substratum.util.files.Root;
 import projekt.substratum.util.injectors.AOPTCheck;
 import projekt.substratum.util.readers.ReadSupportedROMsFile;
 import projekt.substratum.util.readers.ReadVariantPrioritizedColor;
@@ -546,23 +547,18 @@ public class References {
     public static void setAndCheckOMS(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         prefs.edit().remove("oms_state").apply();
-        Process p = null;
         try {
-            String output = null;
-            p = Runtime.getRuntime().exec("cmd overlay");
-
-            try (BufferedReader reader = new BufferedReader(
-                    new InputStreamReader(p.getInputStream()))) {
-                output = reader.readLine();
-            } catch (IOException e) {
-                e.printStackTrace();
+            boolean foundOms = false;
+            if (checkThemeInterfacer(context)) {
+                foundOms = true;
+            } else {
+                String out = Root.runCommand("cmd overlay").split("\n")[0];
+                if (out.equals("The overlay manager has already been initialized.") ||
+                        out.equals("Overlay manager (overlay) commands:")) {
+                    foundOms = true;
+                }
             }
-
-            boolean usesInterfacer = checkThemeInterfacer(context);
-            boolean usesOMS7old = output != null && output.equals(
-                    "The overlay manager has already been initialized.");
-
-            if (usesInterfacer || usesOMS7old || checkOreo()) {
+            if (foundOms) {
                 prefs.edit().putBoolean("oms_state", true).apply();
                 prefs.edit().putInt("oms_version", 7).apply();
                 Log.d(SUBSTRATUM_LOG, "Initializing Substratum with the seventh " +
@@ -579,10 +575,6 @@ public class References {
             prefs.edit().putInt("oms_version", 0).apply();
             Log.d(SUBSTRATUM_LOG, "Initializing Substratum with the second " +
                     "iteration of the Resource Runtime Overlay system...");
-        } finally {
-            if (p != null) {
-                p.destroy();
-            }
         }
     }
 

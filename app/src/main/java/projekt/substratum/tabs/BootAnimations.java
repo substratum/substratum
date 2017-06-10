@@ -113,7 +113,7 @@ public class BootAnimations extends Fragment {
 
         // encrypted = encryption_key != null && iv_encrypt_key != null;
 
-        if (encryption_key != null && iv_encrypt_key != null) {
+        if (encrypted) {
             try {
                 cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
                 cipher.init(

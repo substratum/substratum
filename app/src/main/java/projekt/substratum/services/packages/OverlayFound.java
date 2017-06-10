@@ -106,7 +106,7 @@ public class OverlayFound extends BroadcastReceiver {
             mBuilder.setLargeIcon(((BitmapDrawable)
                     References.grabAppIcon(context, theme_package)).getBitmap());
 
-            Intent notificationIntent = References.themeIntent(context, theme_package, null, false,
+            Intent notificationIntent = References.themeIntent(context, theme_package, null,
                     References.TEMPLATE_THEME_MODE);
             PendingIntent contentIntent = PendingIntent.getActivity(
                     context,

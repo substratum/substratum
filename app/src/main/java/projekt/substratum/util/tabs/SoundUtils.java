@@ -161,6 +161,7 @@ public class SoundUtils {
                 IntentFilter intentFilter = new IntentFilter(STATUS_CHANGED);
                 context.getApplicationContext().registerReceiver(finishReceiver, intentFilter);
             } else {
+                progress.dismiss();
                 soundUtils.finishFunction();
                 ThemeManager.restartSystemUI(context);
             }

@@ -487,7 +487,7 @@
     <string name="toast_disabled3">Please compile this overlay before applying!</string>
     <string name="toast_disabled4">You can\'t disable an overlay you don\'t have compiled!</string>
     <string name="toast_disabled5">Please select a valid overlay before performing this action.</string>
-    <string name="toast_samsung_prototype_one_overlay">At this time, only one overlay can be selected a time.</string>
+    <string name="toast_samsung_prototype_one_overlay">At this time, only one overlay can be selected at a time.</string>
     <string name="toast_disabled6">Selected overlay(s) removed!</string>
     <string name="toast_uninstalled">You just uninstalled this theme! I\'ll be gone on your next refresh!</string>
     <string name="no_themes_title">no themes found&#8230;</string>

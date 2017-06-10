@@ -340,6 +340,25 @@ public class Overlays extends Fragment {
                     }
                 }
 
+                // TODO: Disable the one overlay checker
+                if (References.isSamsung(getContext())) {
+                    if (checkedOverlays.size() > 1) {
+                        Lunchbar.make(
+                                getActivityView(),
+                                R.string.toast_samsung_prototype_one_overlay,
+                                Lunchbar.LENGTH_LONG)
+                                .show();
+                        for (int i = 0; i < overlaysLists.size(); i++) {
+                            OverlaysItem currentOverlay = overlaysLists.get(i);
+                            if (currentOverlay.isSelected()) {
+                                currentOverlay.setSelected(false);
+                            }
+                            mAdapter.notifyDataSetChanged();
+                        }
+                        return;
+                    }
+                }
+
                 String current_directory;
                 if (References.inNexusFilter()) {
                     current_directory = PIXEL_NEXUS_DIR;
@@ -348,41 +367,52 @@ public class Overlays extends Fragment {
                 }
 
                 if (!checkedOverlays.isEmpty()) {
-                    for (int i = 0; i < checkedOverlays.size(); i++) {
-                        FileOperations.mountRW();
-                        FileOperations.delete(getContext(), current_directory +
-                                checkedOverlays.get(i).getPackageName() + "." +
-                                checkedOverlays.get(i).getThemeName() + ".apk");
-                        mAdapter.notifyDataSetChanged();
-                    }
-                    // Untick all options in the adapter after compiling
-                    toggle_all.setChecked(false);
-                    overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
-                    for (int i = 0; i < overlaysLists.size(); i++) {
-                        OverlaysItem currentOverlay = overlaysLists.get(i);
-                        if (currentOverlay.isSelected()) {
-                            currentOverlay.setSelected(false);
+                    if (References.isSamsung(getContext())) {
+                        // TODO: Needs verifying this works with multiple APKs
+                        for (int i = 0; i < checkedOverlays.size(); i++) {
+                            Uri packageURI = Uri.parse("package:" +
+                                    checkedOverlays.get(i).getPackageName() + "." +
+                                    checkedOverlays.get(i).getThemeName());
+                            Intent uninstallIntent = new Intent(Intent.ACTION_DELETE, packageURI);
+                            startActivity(uninstallIntent);
                         }
+                    } else {
+                        for (int i = 0; i < checkedOverlays.size(); i++) {
+                            FileOperations.mountRW();
+                            FileOperations.delete(getContext(), current_directory +
+                                    checkedOverlays.get(i).getPackageName() + "." +
+                                    checkedOverlays.get(i).getThemeName() + ".apk");
+                            mAdapter.notifyDataSetChanged();
+                        }
+                        // Untick all options in the adapter after compiling
+                        toggle_all.setChecked(false);
+                        overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
+                        for (int i = 0; i < overlaysLists.size(); i++) {
+                            OverlaysItem currentOverlay = overlaysLists.get(i);
+                            if (currentOverlay.isSelected()) {
+                                currentOverlay.setSelected(false);
+                            }
+                        }
+                        Toast.makeText(getContext(),
+                                getString(R.string.toast_disabled6),
+                                Toast.LENGTH_SHORT).show();
+                        AlertDialog.Builder alertDialogBuilder =
+                                new AlertDialog.Builder(getContext());
+                        alertDialogBuilder.setTitle(
+                                getString(R.string.legacy_dialog_soft_reboot_title));
+                        alertDialogBuilder.setMessage(
+                                getString(R.string.legacy_dialog_soft_reboot_text));
+                        alertDialogBuilder.setPositiveButton(
+                                android.R.string.ok,
+                                (dialog, id12) -> ElevatedCommands.reboot());
+                        alertDialogBuilder.setNegativeButton(
+                                R.string.remove_dialog_later, (dialog, id1) -> {
+                                    progressBar.setVisibility(View.GONE);
+                                    dialog.dismiss();
+                                });
+                        AlertDialog alertDialog = alertDialogBuilder.create();
+                        alertDialog.show();
                     }
-                    Toast.makeText(getContext(),
-                            getString(R.string.toast_disabled6),
-                            Toast.LENGTH_SHORT).show();
-                    AlertDialog.Builder alertDialogBuilder =
-                            new AlertDialog.Builder(getContext());
-                    alertDialogBuilder.setTitle(
-                            getString(R.string.legacy_dialog_soft_reboot_title));
-                    alertDialogBuilder.setMessage(
-                            getString(R.string.legacy_dialog_soft_reboot_text));
-                    alertDialogBuilder.setPositiveButton(
-                            android.R.string.ok,
-                            (dialog, id12) -> ElevatedCommands.reboot());
-                    alertDialogBuilder.setNegativeButton(
-                            R.string.remove_dialog_later, (dialog, id1) -> {
-                                progressBar.setVisibility(View.GONE);
-                                dialog.dismiss();
-                            });
-                    AlertDialog alertDialog = alertDialogBuilder.create();
-                    alertDialog.show();
                 } else {
                     if (toggle_all.isChecked()) toggle_all.setChecked(false);
                     is_active = false;
@@ -1796,8 +1826,6 @@ public class Overlays extends Fragment {
                 intent.setDataAndType(
                         uri,
                         "application/vnd.android.package-archive");
-                List<ResolveInfo> resInfoList = context.getPackageManager()
-                        .queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 context.startActivity(intent);

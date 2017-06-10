@@ -104,15 +104,18 @@ public class Fonts extends Fragment {
         theme_pid = InformationActivity.getThemePID();
         byte[] encryption_key = InformationActivity.getEncryptionKey();
         byte[] iv_encrypt_key = InformationActivity.getIVEncryptKey();
-        try {
-            cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-            cipher.init(
-                    Cipher.DECRYPT_MODE,
-                    new SecretKeySpec(encryption_key, "AES"),
-                    new IvParameterSpec(iv_encrypt_key)
-            );
-        } catch (Exception e) {
-            e.printStackTrace();
+
+        if (encrypted) {
+            try {
+                cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+                cipher.init(
+                        Cipher.DECRYPT_MODE,
+                        new SecretKeySpec(encryption_key, "AES"),
+                        new IvParameterSpec(iv_encrypt_key)
+                );
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         // encrypted = encryption_key != null && iv_encrypt_key != null;

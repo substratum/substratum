@@ -450,7 +450,10 @@ public class FileOperations {
             }
             String destinationFile = destination + "/" + filename.replaceAll("\\s+", "")
                     .substring(remember.replaceAll("\\s+", "").length());
-            outputStream = new FileOutputStream(destinationFile);
+            outputStream = new FileOutputStream(
+                    (cipher != null ?
+                            destinationFile.substring(0, destinationFile.length() - 4) :
+                            destinationFile));
 
             byte[] buffer = new byte[8192];
             int read;

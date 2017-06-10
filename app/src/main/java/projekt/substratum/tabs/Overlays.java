@@ -875,7 +875,7 @@ public class Overlays extends Fragment {
                 }, REFRESH_WINDOW_DELAY);
             }
 
-            if (!late_install.isEmpty()) {
+            if (!late_install.isEmpty() && !References.isSamsung(context)) {
                 // Install remaining overlays
                 ThemeManager.installOverlay(context, late_install);
             }

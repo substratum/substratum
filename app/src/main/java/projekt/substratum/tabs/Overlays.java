@@ -172,7 +172,7 @@ public class Overlays extends Fragment {
     private AssetManager themeAssetManager;
     private Boolean missingType3 = false;
     private JobReceiver jobReceiver;
-    private LocalBroadcastManager localBroadcastManager;
+    private LocalBroadcastManager localBroadcastManager, localBroadcastManager2;
     private String type1a = "";
     private String type1b = "";
     private String type1c = "";
@@ -181,6 +181,7 @@ public class Overlays extends Fragment {
     private Phase3_mainFunction phase3_mainFunction;
     private Boolean encrypted = false;
     private Cipher cipher = null;
+    private RefreshReceiver refreshReceiver;
 
     private void logTypes() {
         if (ENABLE_PACKAGE_LOGGING) {
@@ -505,6 +506,12 @@ public class Overlays extends Fragment {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.tab_overlays, container, false);
         prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 
+        // Register the theme install receiver to auto refresh the fragment
+        refreshReceiver = new RefreshReceiver();
+        IntentFilter filter = new IntentFilter("ThemeFragment.REFRESH");
+        localBroadcastManager = LocalBroadcastManager.getInstance(getContext());
+        localBroadcastManager.registerReceiver(refreshReceiver, filter);
+
         theme_name = InformationActivity.getThemeName();
         theme_pid = InformationActivity.getThemePID();
         byte[] encryption_key = InformationActivity.getEncryptionKey();
@@ -718,8 +725,8 @@ public class Overlays extends Fragment {
         // Enable job listener
         jobReceiver = new JobReceiver();
         IntentFilter intentFilter = new IntentFilter("Overlays.START_JOB");
-        localBroadcastManager = LocalBroadcastManager.getInstance(getContext());
-        localBroadcastManager.registerReceiver(jobReceiver, intentFilter);
+        localBroadcastManager2 = LocalBroadcastManager.getInstance(getContext());
+        localBroadcastManager2.registerReceiver(jobReceiver, intentFilter);
         return root;
     }
 
@@ -957,8 +964,13 @@ public class Overlays extends Fragment {
             }
         }
         try {
+            localBroadcastManager.unregisterReceiver(refreshReceiver);
+        } catch (IllegalArgumentException e) {
+            // Unregistered already
+        }
+        try {
             getContext().unregisterReceiver(finishReceiver);
-            localBroadcastManager.unregisterReceiver(jobReceiver);
+            localBroadcastManager2.unregisterReceiver(jobReceiver);
         } catch (IllegalArgumentException e) {
             // Unregistered already
         }
@@ -2444,6 +2456,14 @@ public class Overlays extends Fragment {
                     }
                     break;
             }
+        }
+    }
+
+    class RefreshReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (mAdapter != null) mAdapter.notifyDataSetChanged();
         }
     }
 }

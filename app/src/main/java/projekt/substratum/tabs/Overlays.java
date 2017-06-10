@@ -2464,6 +2464,12 @@ public class Overlays extends Fragment {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (mAdapter != null) mAdapter.notifyDataSetChanged();
+            if (References.isSamsung(context)) {
+                Toast.makeText(
+                        context,
+                        context.getString(R.string.toast_samsung_prototype_restart),
+                        Toast.LENGTH_LONG).show();
+            }
         }
     }
 }

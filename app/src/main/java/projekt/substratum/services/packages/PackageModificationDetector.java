@@ -85,6 +85,13 @@ public class PackageModificationDetector extends BroadcastReceiver {
                             appInfo.metaData.getString(References.metadataName);
                     String check_theme_author =
                             appInfo.metaData.getString(References.metadataAuthor);
+                    String check_theme_overlay =
+                            appInfo.metaData.getString(References.metadataOverlayParent);
+                    if (check_theme_overlay != null) {
+                        // We should refresh fragments on overlay installs
+                        References.sendRefreshMessage(context);
+                        return;
+                    }
                     if (check_theme_name == null && check_theme_author == null) return;
                 } else {
                     return;

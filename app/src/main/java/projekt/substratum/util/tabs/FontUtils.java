@@ -36,6 +36,10 @@ import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.common.tabs.FontManager;
 
+import static projekt.substratum.common.References.INTERFACER_PACKAGE;
+import static projekt.substratum.common.References.checkOMS;
+import static projekt.substratum.common.References.checkThemeInterfacer;
+
 public class FontUtils {
 
     private Context mContext;
@@ -71,29 +75,37 @@ public class FontUtils {
                 fragment.progress.setCancelable(false);
                 fragment.progress.show();
             }
+            Boolean isInterfacer = checkOMS(context) && checkThemeInterfacer(context);
+            if (isInterfacer)
+                Toast.makeText(context,
+                        context.getString(R.string.font_dialog_apply_success), Toast
+                                .LENGTH_LONG).show();
         }
 
         @Override
         protected void onPostExecute(String result) {
-            FontUtils fragment = ref.get();
-            Context context = fragment.mContext;
-            if (References.ENABLE_EXTRAS_DIALOG) {
-                fragment.progress.dismiss();
-            }
-            if (result == null) {
-                SharedPreferences.Editor editor = fragment.prefs.edit();
-                editor.putString("fonts_applied", fragment.theme_pid);
-                editor.apply();
-                Toast toast = Toast.makeText(context,
-                        context.getString(R.string.font_dialog_apply_success), Toast.LENGTH_LONG);
-                toast.show();
-            } else {
-                Toast toast = Toast.makeText(context,
-                        context.getString(R.string.font_dialog_apply_failed), Toast.LENGTH_LONG);
-                toast.show();
-            }
+            if (result == null || !result.equals(INTERFACER_PACKAGE)) {
+                FontUtils fragment = ref.get();
+                Context context = fragment.mContext;
 
-            if (result == null) {
+                if (References.ENABLE_EXTRAS_DIALOG) {
+                    fragment.progress.dismiss();
+                }
+                if (result == null) {
+                    SharedPreferences.Editor editor = fragment.prefs.edit();
+                    editor.putString("fonts_applied", fragment.theme_pid);
+                    editor.apply();
+                    Toast toast = Toast.makeText(context,
+                            context.getString(R.string.font_dialog_apply_success), Toast
+                                    .LENGTH_LONG);
+                    toast.show();
+                } else {
+                    Toast toast = Toast.makeText(context,
+                            context.getString(R.string.font_dialog_apply_failed), Toast
+                                    .LENGTH_LONG);
+                    toast.show();
+                }
+
                 // Finally, refresh the window
                 if (!References.checkThemeInterfacer(context) &&
                         References.checkOMS(context)) {
@@ -121,11 +133,23 @@ public class FontUtils {
             FontUtils fragment = ref.get();
             Context context = fragment.mContext;
             try {
+                Boolean isInterfacer = checkOMS(context) && checkThemeInterfacer(context);
+                
+                if (isInterfacer) {
+                    SharedPreferences.Editor editor = fragment.prefs.edit();
+                    editor.putString("fonts_applied", fragment.theme_pid);
+                    editor.apply();
+                }
+
+                // Inform the font manager to start setting fonts!
                 FontManager.setFonts(
                         context,
                         fragment.theme_pid,
                         sUrl[0],
                         fragment.cipher);
+
+                if (isInterfacer)
+                    return INTERFACER_PACKAGE;
             } catch (Exception e) {
                 e.printStackTrace();
                 return "failed";

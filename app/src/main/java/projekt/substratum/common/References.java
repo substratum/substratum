@@ -152,6 +152,7 @@ public class References {
     public static final String PACKAGE_FULLY_REMOVED = Intent.ACTION_PACKAGE_FULLY_REMOVED;
     // App intents to send
     public static final String MANAGER_REFRESH = "projekt.substratum.MANAGER_REFRESH";
+    public static final String KEY_RETRIEVAL = "Substratum.KeyRetrieval";
     public static final String TEMPLATE_THEME_MODE = "projekt.substratum.THEME";
     public static final String TEMPLATE_GET_KEYS = "projekt.substratum.GET_KEYS";
     public static final String TEMPLATE_RECEIVE_KEYS = "projekt.substratum.RECEIVE_KEYS";
@@ -167,6 +168,8 @@ public class References {
     public static final String metadataAuthor = "Substratum_Author";
     public static final String metadataEmail = "Substratum_Email";
     public static final String metadataLegacy = "Substratum_Legacy";
+    public static final String metadataEncryption = "Substratum_Encryption";
+    public static final String metadataEncryptionValue = "onCompileVerify";
     public static final String metadataWallpapers = "Substratum_Wallpapers";
     public static final String metadataOverlayDevice = "Substratum_Device";
     public static final String metadataOverlayParent = "Substratum_Parent";
@@ -1616,7 +1619,9 @@ public class References {
         Log.d("KeyRetrieval",
                 "The system has completed the handshake for keys retrieval " +
                         "and is now passing it to the activity...");
-        Intent intent = new Intent("Substratum.KeyRetrieval");
+        Intent intent = new Intent(KEY_RETRIEVAL);
+        intent.putExtra("encryption_key", encryption_key);
+        intent.putExtra("iv_encrypt_key", iv_encrypt_key);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
 

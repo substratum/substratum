@@ -23,12 +23,15 @@ import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
@@ -36,14 +39,21 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.crypto.Cipher;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+
 import projekt.substratum.R;
 import projekt.substratum.common.References;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.util.compilers.SubstratumBuilder;
 
+import static projekt.substratum.common.References.KEY_RETRIEVAL;
 import static projekt.substratum.common.References.PACKAGE_ADDED;
 import static projekt.substratum.common.References.SUBSTRATUM_BUILDER_CACHE;
+import static projekt.substratum.common.References.metadataEncryption;
+import static projekt.substratum.common.References.metadataEncryptionValue;
 import static projekt.substratum.common.References.metadataOverlayParent;
 import static projekt.substratum.common.References.metadataOverlayTarget;
 import static projekt.substratum.common.References.metadataOverlayType1a;
@@ -64,6 +74,30 @@ public class OverlayUpdater extends BroadcastReceiver {
     private String package_name;
     private Context context;
     private Integer currentNotificationID;
+    private LocalBroadcastManager localBroadcastManager;
+    private KeyRetrieval keyRetrieval;
+    private Intent securityIntent;
+    private Cipher cipher;
+
+    private Handler handler = new Handler();
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            Log.d(TAG, "Waiting for encryption key handshake approval...");
+            if (securityIntent != null) {
+                Log.d(TAG, "Encryption key handshake approved!");
+                handler.removeCallbacks(runnable);
+            } else {
+                Log.d(TAG, "Encryption key still null...");
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                handler.postDelayed(this, 100);
+            }
+        }
+    };
 
     @SuppressWarnings({"ConstantConditions"})
     @Override
@@ -239,6 +273,58 @@ public class OverlayUpdater extends BroadcastReceiver {
                     String theme = References.getOverlayMetadata(context,
                             installed_overlays.get(i), metadataOverlayParent);
 
+                    Boolean encrypted = false;
+                    String encrypt_check =
+                            References.getOverlayMetadata(context, theme, metadataEncryption);
+
+                    if (encrypt_check != null && encrypt_check.equals(metadataEncryptionValue)) {
+                        Log.d(TAG, "This overlay for " +
+                                References.grabPackageName(context, theme) +
+                                " is encrypted, passing handshake to the theme package...");
+                        encrypted = true;
+
+                        References.grabThemeKeys(context, theme);
+
+                        keyRetrieval = new KeyRetrieval();
+                        IntentFilter if1 = new IntentFilter(KEY_RETRIEVAL);
+                        localBroadcastManager = LocalBroadcastManager.getInstance(context);
+                        localBroadcastManager.registerReceiver(keyRetrieval, if1);
+
+                        int counter = 0;
+                        handler.postDelayed(runnable, 100);
+                        while (securityIntent == null && counter < 5) {
+                            try {
+                                Thread.sleep(500);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            counter++;
+                        }
+                        if (counter > 5) {
+                            Log.e(TAG, "Could not receive handshake in time...");
+                            return null;
+                        }
+
+                        if (securityIntent != null) {
+                            try {
+                                byte[] encryption_key =
+                                        securityIntent.getByteArrayExtra("encryption_key");
+                                byte[] iv_encrypt_key =
+                                        securityIntent.getByteArrayExtra("iv_encrypt_key");
+
+                                cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+                                cipher.init(
+                                        Cipher.DECRYPT_MODE,
+                                        new SecretKeySpec(encryption_key, "AES"),
+                                        new IvParameterSpec(iv_encrypt_key)
+                                );
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                                return null;
+                            }
+                        }
+                    }
+
                     AssetManager themeAssetManager;
                     Resources themeResources = null;
                     try {
@@ -252,6 +338,7 @@ public class OverlayUpdater extends BroadcastReceiver {
 
                     String target = References.getOverlayMetadata(
                             context, installed_overlays.get(i), metadataOverlayTarget);
+
                     String type1a = References.getOverlayMetadata(
                             context, installed_overlays.get(i), metadataOverlayType1a);
                     String type1b = References.getOverlayMetadata(
@@ -269,9 +356,12 @@ public class OverlayUpdater extends BroadcastReceiver {
                     if (type2 != null && type2.contains("overlays/")) return null;
                     if (type3 != null && type3.contains("overlays/")) return null;
 
-                    String type1aDir = "overlays/" + target + "/type1a_" + type1a + ".xml";
-                    String type1bDir = "overlays/" + target + "/type1b_" + type1b + ".xml";
-                    String type1cDir = "overlays/" + target + "/type1c_" + type1c + ".xml";
+                    String type1aDir = "overlays/" + target + "/type1a_" + type1a +
+                            (encrypted ? ".xml.enc" : ".xml");
+                    String type1bDir = "overlays/" + target + "/type1b_" + type1b +
+                            (encrypted ? ".xml.enc" : ".xml");
+                    String type1cDir = "overlays/" + target + "/type1c_" + type1c +
+                            (encrypted ? ".xml.enc" : ".xml");
                     String type2Dir = "overlays/" + target + "/type2_" + type2;
                     String type3Dir = "overlays/" + target + "/type3_" + type3;
 
@@ -305,14 +395,14 @@ public class OverlayUpdater extends BroadcastReceiver {
                             listDir,
                             workingDirectory + suffix,
                             listDir,
-                            null);
+                            (encrypted ? cipher : null));
                     if (type2 != null && type2.length() > 0) {
                         FileOperations.copyFileOrDir(
                                 themeAssetManager,
                                 listDir,
                                 workingDirectory + "/type2_" + type2,
                                 listDir,
-                                null);
+                                (encrypted ? cipher : null));
                     }
 
                     // Handle the type1s
@@ -322,7 +412,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                                 type1aDir,
                                 workingDirectory + suffix + "/values/type1a.xml",
                                 type1aDir,
-                                null);
+                                (encrypted ? cipher : null));
                     }
                     if (type1b != null && type1b.length() > 0) {
                         FileOperations.copyFileOrDir(
@@ -330,7 +420,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                                 type1bDir,
                                 workingDirectory + suffix + "/values/type1b.xml",
                                 type1bDir,
-                                null);
+                                (encrypted ? cipher : null));
                     }
                     if (type1c != null && type1c.length() > 0) {
                         FileOperations.copyFileOrDir(
@@ -338,7 +428,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                                 type1cDir,
                                 workingDirectory + suffix + "/values/type1c.xml",
                                 type1cDir,
-                                null);
+                                (encrypted ? cipher : null));
                     }
 
                     File workDir = new File(context.getCacheDir().getAbsolutePath() +
@@ -375,9 +465,23 @@ public class OverlayUpdater extends BroadcastReceiver {
                             installed_overlays.get(i)
                     );
                     if (sb.has_errored_out) errored_packages.add(installed_overlays.get(i));
+
+                    try {
+                        localBroadcastManager.unregisterReceiver(keyRetrieval);
+                    } catch (IllegalArgumentException e) {
+                        // Unregistered already
+                    }
                 }
             }
             return null;
+        }
+    }
+
+    class KeyRetrieval extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            securityIntent = intent;
         }
     }
 }

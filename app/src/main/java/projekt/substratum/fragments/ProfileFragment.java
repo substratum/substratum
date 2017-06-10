@@ -30,11 +30,13 @@ import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Lunchbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.text.InputFilter;
@@ -62,6 +64,10 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.crypto.Cipher;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+
 import projekt.substratum.R;
 import projekt.substratum.common.References;
 import projekt.substratum.common.commands.ElevatedCommands;
@@ -76,11 +82,14 @@ import projekt.substratum.util.compilers.SubstratumBuilder;
 import static android.content.om.OverlayInfo.STATE_APPROVED_DISABLED;
 import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
 import static projekt.substratum.common.References.EXTERNAL_STORAGE_CACHE;
+import static projekt.substratum.common.References.KEY_RETRIEVAL;
 import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
 import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;
 import static projekt.substratum.common.References.STATUS_CHANGED;
 import static projekt.substratum.common.References.SUBSTRATUM_BUILDER_CACHE;
 import static projekt.substratum.common.References.VENDOR_DIR;
+import static projekt.substratum.common.References.metadataEncryption;
+import static projekt.substratum.common.References.metadataEncryptionValue;
 import static projekt.substratum.common.systems.ProfileManager.DAY_PROFILE;
 import static projekt.substratum.common.systems.ProfileManager.DAY_PROFILE_HOUR;
 import static projekt.substratum.common.systems.ProfileManager.DAY_PROFILE_MINUTE;
@@ -904,11 +913,35 @@ public class ProfileFragment extends Fragment {
     }
 
     private class ContinueRestore extends AsyncTask<Void, String, Void> {
+        private final String TAG = "ContinueRestore";
         private Context context;
         private String profileName;
         private List<List<String>> toBeCompiled;
         private ArrayList<String> toBeRun;
         private ProgressDialog progressDialog;
+        private LocalBroadcastManager localBroadcastManager;
+        private KeyRetrieval keyRetrieval;
+        private Intent securityIntent;
+        private Cipher cipher;
+        private Handler handler = new Handler();
+        private Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                Log.d(TAG, "Waiting for encryption key handshake approval...");
+                if (securityIntent != null) {
+                    Log.d(TAG, "Encryption key handshake approved!");
+                    handler.removeCallbacks(runnable);
+                } else {
+                    Log.d(TAG, "Encryption key still null...");
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    handler.postDelayed(this, 100);
+                }
+            }
+        };
 
         ContinueRestore(Context context_) {
             context = context_;
@@ -962,6 +995,7 @@ public class ProfileFragment extends Fragment {
                 HashMap<String, ProfileItem> items = ProfileManager.readProfileState(profileName,
                         STATE_APPROVED_ENABLED);
 
+                String prevTheme = "";
                 for (int i = 0; i < toBeCompiled.size(); i++) {
                     String compilePackage = toBeCompiled.get(i).get(0);
                     ProfileItem currentItem = items.get(compilePackage);
@@ -974,6 +1008,60 @@ public class ProfileFragment extends Fragment {
                     publishProgress(format);
 
                     String theme = currentItem.getParentTheme();
+
+                    Boolean encrypted = false;
+                    String encrypt_check =
+                            References.getOverlayMetadata(context, theme, metadataEncryption);
+
+                    if (encrypt_check != null && encrypt_check.equals(metadataEncryptionValue) &&
+                            !theme.equals(prevTheme)) {
+                        prevTheme = theme;
+                        Log.d(TAG, "This overlay for " +
+                                References.grabPackageName(context, theme) +
+                                " is encrypted, passing handshake to the theme package...");
+                        encrypted = true;
+
+                        References.grabThemeKeys(context, theme);
+
+                        keyRetrieval = new KeyRetrieval();
+                        IntentFilter if1 = new IntentFilter(KEY_RETRIEVAL);
+                        localBroadcastManager = LocalBroadcastManager.getInstance(context);
+                        localBroadcastManager.registerReceiver(keyRetrieval, if1);
+
+                        int counter = 0;
+                        handler.postDelayed(runnable, 100);
+                        while (securityIntent == null && counter < 5) {
+                            try {
+                                Thread.sleep(500);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            counter++;
+                        }
+                        if (counter > 5) {
+                            Log.e(TAG, "Could not receive handshake in time...");
+                            return null;
+                        }
+
+                        if (securityIntent != null) {
+                            try {
+                                byte[] encryption_key =
+                                        securityIntent.getByteArrayExtra("encryption_key");
+                                byte[] iv_encrypt_key =
+                                        securityIntent.getByteArrayExtra("iv_encrypt_key");
+
+                                cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+                                cipher.init(
+                                        Cipher.DECRYPT_MODE,
+                                        new SecretKeySpec(encryption_key, "AES"),
+                                        new IvParameterSpec(iv_encrypt_key)
+                                );
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                                return null;
+                            }
+                        }
+                    }
 
                     AssetManager themeAssetManager;
                     Resources themeResources = null;
@@ -993,9 +1081,12 @@ public class ProfileFragment extends Fragment {
                     String type2 = currentItem.getType2();
                     String type3 = currentItem.getType3();
 
-                    String type1aDir = "overlays/" + target + "/type1a_" + type1a + ".xml";
-                    String type1bDir = "overlays/" + target + "/type1b_" + type1b + ".xml";
-                    String type1cDir = "overlays/" + target + "/type1c_" + type1c + ".xml";
+                    String type1aDir = "overlays/" + target + "/type1a_" + type1a +
+                            (encrypted ? ".xml.enc" : ".xml");
+                    String type1bDir = "overlays/" + target + "/type1b_" + type1b +
+                            (encrypted ? ".xml.enc" : ".xml");
+                    String type1cDir = "overlays/" + target + "/type1c_" + type1c +
+                            (encrypted ? ".xml.enc" : ".xml");
 
                     String additional_variant = (type2.length() > 0 ? type2 : null);
                     String base_variant = (type3.length() > 0 ? type3 : null);
@@ -1019,7 +1110,7 @@ public class ProfileFragment extends Fragment {
                             listDir,
                             workingDirectory + suffix,
                             listDir,
-                            null);
+                            (encrypted ? cipher : null));
 
                     // Handle the type1s
                     if (type1a.length() > 0) {
@@ -1028,7 +1119,7 @@ public class ProfileFragment extends Fragment {
                                 type1aDir,
                                 workingDirectory + suffix + "/values/type1a.xml",
                                 type1aDir,
-                                null);
+                                (encrypted ? cipher : null));
                     }
                     if (type1b.length() > 0) {
                         FileOperations.copyFileOrDir(
@@ -1036,7 +1127,7 @@ public class ProfileFragment extends Fragment {
                                 type1bDir,
                                 workingDirectory + suffix + "/values/type1b.xml",
                                 type1bDir,
-                                null);
+                                (encrypted ? cipher : null));
                     }
                     if (type1c.length() > 0) {
                         FileOperations.copyFileOrDir(
@@ -1044,7 +1135,7 @@ public class ProfileFragment extends Fragment {
                                 type1cDir,
                                 workingDirectory + suffix + "/values/type1c.xml",
                                 type1cDir,
-                                null);
+                                (encrypted ? cipher : null));
                     }
 
                     SubstratumBuilder sb = new SubstratumBuilder();
@@ -1141,11 +1232,10 @@ public class ProfileFragment extends Fragment {
                     FileOperations.setPermissionsRecursively(644, "/data/system/theme/fonts/");
                     FileOperations.setPermissions(755, "/data/system/theme/fonts/");
                     FileOperations.setContext("/data/system/theme");
-
-                    ThemeManager.disableAllThemeOverlays(context);
-                    ThemeManager.enableOverlay(context, toBeRun);
-                    ThemeManager.restartSystemUI(context);
                 }
+
+                ThemeManager.disableAllThemeOverlays(context);
+                ThemeManager.enableOverlay(context, toBeRun);
             }
         }
 
@@ -1163,6 +1253,13 @@ public class ProfileFragment extends Fragment {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+            }
+        }
+
+        class KeyRetrieval extends BroadcastReceiver {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                securityIntent = intent;
             }
         }
     }

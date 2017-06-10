@@ -130,6 +130,7 @@ public class References {
     public static final Boolean ENABLE_DIRECT_ASSETS_LOGGING = false; // Self explanatory
     public static final Boolean BYPASS_ALL_VERSION_CHECKS = false; // For developer previews only!
     public static final Boolean BYPASS_SUBSTRATUM_BUILDER_DELETION = false; // Do not delete cache?
+    public static final Boolean FORCE_SAMSUNG_VARIANT = false; // Debugging on a non-Samsung device
     // These are specific log tags for different classes
     public static final String SUBSTRATUM_BUILDER = "SubstratumBuilder";
     public static final String SUBSTRATUM_LOG = "SubstratumLogger";
@@ -1775,6 +1776,17 @@ public class References {
     public static boolean isBinderInterfacer(Context context) {
         PackageInfo packageInfo = getThemeInterfacerPackage(context);
         return packageInfo != null && packageInfo.versionCode >= 60;
+    }
+
+    // Check if the system is of the Samsung variant
+    public static boolean isSamsung(Context context) {
+        if (FORCE_SAMSUNG_VARIANT) return true;
+        File checkPerms = new File("/system/etc/permissions/");
+        String[] checker = checkPerms.list();
+        for (String aChecker : checker) {
+            if (aChecker.equals("touchwiz.xml")) return true;
+        }
+        return false;
     }
 
     // Obtain a live sample of the metadata in an app

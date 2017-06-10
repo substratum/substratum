@@ -33,7 +33,6 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.content.res.AssetManager;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
@@ -263,6 +262,8 @@ public class Overlays extends Fragment {
                         }
                         mAdapter.notifyDataSetChanged();
                     }
+                    is_active = false;
+                    compile_enable_mode = false;
                     return;
                 }
             }
@@ -355,7 +356,29 @@ public class Overlays extends Fragment {
                             }
                             mAdapter.notifyDataSetChanged();
                         }
+
+                        compile_enable_mode = false;
+                        enable_mode = false;
+                        disable_mode = false;
+                        is_active = false;
                         return;
+                    } else {
+                        // TODO: Do not hardcode to the 0th overlay
+                        if (!References.isPackageInstalled(getContext(),
+                                checkedOverlays.get(0).getPackageName() + "." +
+                                        checkedOverlays.get(0).getThemeName())) {
+                            Lunchbar.make(
+                                    getActivityView(),
+                                    R.string.toast_disabled5,
+                                    Lunchbar.LENGTH_LONG)
+                                    .show();
+
+                            compile_enable_mode = false;
+                            enable_mode = false;
+                            disable_mode = false;
+                            is_active = false;
+                            return;
+                        }
                     }
                 }
 

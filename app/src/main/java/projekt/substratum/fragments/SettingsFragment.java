@@ -458,7 +458,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 }
             }
 
-            if (References.checkThemeInterfacer(getContext())) {
+            if (References.checkThemeInterfacer(getContext()) &&
+                    References.checkOMS(getContext())) {
                 forceIndependence.setChecked(prefs.getBoolean("force_independence", false));
                 forceIndependence.setOnPreferenceChangeListener(
                         (preference, newValue) -> {

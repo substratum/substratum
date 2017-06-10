@@ -435,7 +435,7 @@ public class Overlays extends Fragment {
         byte[] encryption_key = InformationActivity.getEncryptionKey();
         byte[] iv_encrypt_key = InformationActivity.getIVEncryptKey();
 
-        if (encrypted) {
+        if (encryption_key != null && iv_encrypt_key != null) {
             try {
                 cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
                 cipher.init(
@@ -443,14 +443,11 @@ public class Overlays extends Fragment {
                         new SecretKeySpec(encryption_key, "AES"),
                         new IvParameterSpec(iv_encrypt_key)
                 );
+                Log.d(TAG, "Loading substratum theme in encrypted assets mode.");
+                encrypted = true;
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
-
-        if (encryption_key != null && iv_encrypt_key != null) {
-            Log.d(TAG, "Loading substratum theme in encrypted assets mode.");
-            encrypted = true;
         } else {
             Log.d(TAG, "Loading substratum theme in decrypted assets mode.");
         }

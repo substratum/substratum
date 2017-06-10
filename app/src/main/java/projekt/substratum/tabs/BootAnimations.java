@@ -111,7 +111,9 @@ public class BootAnimations extends Fragment {
         byte[] encryption_key = InformationActivity.getEncryptionKey();
         byte[] iv_encrypt_key = InformationActivity.getIVEncryptKey();
 
-        if (encrypted) {
+        // encrypted = encryption_key != null && iv_encrypt_key != null;
+
+        if (encryption_key != null && iv_encrypt_key != null) {
             try {
                 cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
                 cipher.init(
@@ -123,8 +125,6 @@ public class BootAnimations extends Fragment {
                 e.printStackTrace();
             }
         }
-
-        // encrypted = encryption_key != null && iv_encrypt_key != null;
 
         root = (ViewGroup) inflater.inflate(R.layout.tab_bootanimations, container, false);
         nsv = root.findViewById(R.id.nestedScrollView);

@@ -49,9 +49,8 @@ public class Substratum extends Application {
         createNotificationChannel();
     }
 
-    @SuppressLint("NewApi")
     public void createNotificationChannel() {
-        if (Build.VERSION.RELEASE.equals("O")) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             NotificationManager notificationManager =
                     (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
             NotificationChannel mainChannel = new NotificationChannel(

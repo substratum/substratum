@@ -465,9 +465,12 @@ public class MainActivity extends SubstratumActivity implements
                 switch ((int) drawerItem.getIdentifier()) {
                     case 1:
                         switchThemeFragment(((References.checkOMS(
-                                getApplicationContext())) ?
+                                getApplicationContext()) ?
                                         getString(R.string.app_name) :
-                                        getString(R.string.legacy_app_name)),
+                                        (References.isSamsung(getApplicationContext()) ?
+                                                getString(R.string.samsung_app_name) :
+                                                getString(R.string.legacy_app_name)))
+                                ),
                                 References.homeFragment);
                         break;
                     case 2:
@@ -1172,11 +1175,15 @@ public class MainActivity extends SubstratumActivity implements
             activity.prefs.edit().putBoolean("complexion",
                     !References.spreadYourWingsAndFly(context) &&
                             References.hashPassthrough(context) != 0).apply();
-            if (!References.checkThemeInterfacer(context)) {
+            if (!References.checkThemeInterfacer(context) &&
+                    !References.isSamsung(context)) {
                 Boolean receivedRoot = Root.requestRootAccess();
                 if (receivedRoot) Log.d(SUBSTRATUM_LOG, "Substratum has loaded in rooted mode.");
                 References.injectRescueArchives(context);
                 return receivedRoot;
+            } else if (References.isSamsung(context)) {
+                Log.d(SUBSTRATUM_LOG, "Substratum has loaded in Samsung mode.");
+                return false;
             } else {
                 Log.d(SUBSTRATUM_LOG, "Substratum has loaded in rootless mode.");
                 return false;

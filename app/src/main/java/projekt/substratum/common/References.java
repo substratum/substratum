@@ -543,6 +543,7 @@ public class References {
 
     // This method is used to determine whether there the system is initiated with OMS
     public static Boolean checkOMS(@NonNull Context context) {
+        if (FORCE_SAMSUNG_VARIANT) return false;
         //noinspection ConstantConditions
         if (context == null) return true; // Safe to assume that window refreshes only on OMS
         if (!BYPASS_ALL_VERSION_CHECKS) {
@@ -570,7 +571,7 @@ public class References {
                     foundOms = true;
                 }
             }
-            if (foundOms) {
+            if (foundOms && !isSamsung(context)) {
                 prefs.edit().putBoolean("oms_state", true).apply();
                 prefs.edit().putInt("oms_version", 7).apply();
                 Log.d(SUBSTRATUM_LOG, "Initializing Substratum with the seventh " +
@@ -741,6 +742,7 @@ public class References {
 
     // This method checks whether fonts is supported by the system
     public static boolean isFontsSupported() {
+        if (FORCE_SAMSUNG_VARIANT) return false;
         try {
             Class<?> cls = Class.forName("android.graphics.Typeface");
             cls.getDeclaredMethod("getSystemFontDirLocation");

@@ -33,6 +33,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.content.res.AssetManager;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
@@ -48,6 +49,7 @@ import android.service.notification.StatusBarNotification;
 import android.support.design.widget.Lunchbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.util.Pair;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -245,6 +247,26 @@ public class Overlays extends Fragment {
                     checkedOverlays.add(currentOverlay);
                 }
             }
+
+            // TODO: Disable the one overlay checker
+            if (References.isSamsung(getContext())) {
+                if (checkedOverlays.size() > 1) {
+                    Lunchbar.make(
+                            getActivityView(),
+                            R.string.toast_samsung_prototype_one_overlay,
+                            Lunchbar.LENGTH_LONG)
+                            .show();
+                    for (int i = 0; i < overlaysLists.size(); i++) {
+                        OverlaysItem currentOverlay = overlaysLists.get(i);
+                        if (currentOverlay.isSelected()) {
+                            currentOverlay.setSelected(false);
+                        }
+                        mAdapter.notifyDataSetChanged();
+                    }
+                    return;
+                }
+            }
+
             if (!checkedOverlays.isEmpty()) {
                 Phase2_InitializeCache phase2 = new Phase2_InitializeCache(this);
                 if (base_spinner.getSelectedItemPosition() != 0 &&
@@ -1764,7 +1786,22 @@ public class Overlays extends Fragment {
                             .show();
                 }
             }
-            if (!References.checkOMS(context) &&
+            // TODO: Handle multiple APKs
+            if (References.isSamsung(context)) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                Uri uri = FileProvider.getUriForFile(
+                        context,
+                        context.getApplicationContext().getPackageName() + ".provider",
+                        new File(fragment.late_install.get(0)));
+                intent.setDataAndType(
+                        uri,
+                        "application/vnd.android.package-archive");
+                List<ResolveInfo> resInfoList = context.getPackageManager()
+                        .queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                context.startActivity(intent);
+            } else if (!References.checkOMS(context) &&
                     fragment.final_runner.size() == fragment.fail_count) {
                 final AlertDialog.Builder alertDialogBuilder =
                         new AlertDialog.Builder(context);
@@ -2221,7 +2258,8 @@ public class Overlays extends Fragment {
                                     fragment.missingType3 = true;
                                 }
                             } else {
-                                if (fragment.sb.special_snowflake) {
+                                if (fragment.sb.special_snowflake ||
+                                        fragment.sb.no_install.length() > 0) {
                                     fragment.late_install.add(fragment.sb.no_install);
                                 } else if (References.checkThemeInterfacer(context) &&
                                         !References.isBinderInterfacer(context)) {
@@ -2270,7 +2308,8 @@ public class Overlays extends Fragment {
                                 }
                                 fragment.has_failed = true;
                             } else {
-                                if (fragment.sb.special_snowflake) {
+                                if (fragment.sb.special_snowflake ||
+                                        fragment.sb.no_install.length() > 0) {
                                     fragment.late_install.add(fragment.sb.no_install);
                                 } else if (References.checkThemeInterfacer(context) &&
                                         !References.isBinderInterfacer(context)) {

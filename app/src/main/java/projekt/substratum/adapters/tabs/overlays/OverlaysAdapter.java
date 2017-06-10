@@ -34,6 +34,7 @@ import java.io.File;
 import java.util.List;
 
 import projekt.substratum.R;
+import projekt.substratum.common.References;
 
 import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
 import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;
@@ -355,24 +356,37 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                     }
                 }
             } else {
-                // At this point, the object is an RRO formatted check
-                File file = new File(PIXEL_NEXUS_DIR);
-                File file2 = new File(LEGACY_NEXUS_DIR);
-                if (file.exists() || file2.exists()) {
-                    File filer1 = new File(
-                            file.getAbsolutePath() + "/" +
-                                    current_object.getPackageName() + "." +
-                                    current_object.getThemeName() + ".apk");
-                    File filer2 = new File(
-                            file2.getAbsolutePath() + "/" +
-                                    current_object.getPackageName() + "." +
-                                    current_object.getThemeName() + ".apk");
-                    if (filer1.exists() || filer2.exists()) {
+                if (References.isSamsung(context)) {
+                    if (References.isPackageInstalled(
+                            context,
+                            current_object.getPackageName() + "." +
+                                    current_object.getThemeName())) {
                         viewHolder.overlayTargetPackageName.setTextColor(
                                 context.getColor(R.color.overlay_installed_list_entry));
                     } else {
                         viewHolder.overlayTargetPackageName.setTextColor(
                                 context.getColor(R.color.overlay_not_installed_list_entry));
+                    }
+                } else {
+                    // At this point, the object is an RRO formatted check
+                    File file = new File(PIXEL_NEXUS_DIR);
+                    File file2 = new File(LEGACY_NEXUS_DIR);
+                    if (file.exists() || file2.exists()) {
+                        File filer1 = new File(
+                                file.getAbsolutePath() + "/" +
+                                        current_object.getPackageName() + "." +
+                                        current_object.getThemeName() + ".apk");
+                        File filer2 = new File(
+                                file2.getAbsolutePath() + "/" +
+                                        current_object.getPackageName() + "." +
+                                        current_object.getThemeName() + ".apk");
+                        if (filer1.exists() || filer2.exists()) {
+                            viewHolder.overlayTargetPackageName.setTextColor(
+                                    context.getColor(R.color.overlay_installed_list_entry));
+                        } else {
+                            viewHolder.overlayTargetPackageName.setTextColor(
+                                    context.getColor(R.color.overlay_not_installed_list_entry));
+                        }
                     }
                 }
             }

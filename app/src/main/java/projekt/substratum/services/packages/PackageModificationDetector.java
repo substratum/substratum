@@ -23,6 +23,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -30,14 +31,20 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.TaskStackBuilder;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.ThreadLocalRandom;
+
+import javax.crypto.Cipher;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
 
 import projekt.substratum.InformationActivity;
 import projekt.substratum.MainActivity;
@@ -47,7 +54,10 @@ import projekt.substratum.util.compilers.CacheCreator;
 import projekt.substratum.util.helpers.NotificationCreator;
 
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
+import static projekt.substratum.common.References.KEY_RETRIEVAL;
 import static projekt.substratum.common.References.PACKAGE_ADDED;
+import static projekt.substratum.common.References.metadataEncryption;
+import static projekt.substratum.common.References.metadataEncryptionValue;
 
 public class PackageModificationDetector extends BroadcastReceiver {
 
@@ -244,6 +254,29 @@ public class PackageModificationDetector extends BroadcastReceiver {
     private class ThemeCacher extends AsyncTask<String, Integer, String> {
 
         Boolean success = false;
+        private LocalBroadcastManager localBroadcastManager;
+        private KeyRetrieval keyRetrieval;
+        private Intent securityIntent;
+        private Cipher cipher;
+        private Handler handler = new Handler();
+        private Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                Log.d(TAG, "Waiting for encryption key handshake approval...");
+                if (securityIntent != null) {
+                    Log.d(TAG, "Encryption key handshake approved!");
+                    handler.removeCallbacks(runnable);
+                } else {
+                    Log.d(TAG, "Encryption key still null...");
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    handler.postDelayed(this, 100);
+                }
+            }
+        };
 
         @Override
         protected void onPostExecute(String result) {
@@ -286,9 +319,68 @@ public class PackageModificationDetector extends BroadcastReceiver {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            success = !References.isCachingEnabled(mContext) ||
-                    new CacheCreator().initializeCache(mContext, package_name);
+            boolean cacheable = References.isPackageDebuggable(mContext, package_name);
+            if (!cacheable) return null;
+
+            String encrypt_check =
+                    References.getOverlayMetadata(mContext, package_name, metadataEncryption);
+
+            if (encrypt_check != null && encrypt_check.equals(metadataEncryptionValue)) {
+                Log.d(TAG, "This overlay for " +
+                        References.grabPackageName(mContext, package_name) +
+                        " is encrypted, passing handshake to the theme package...");
+
+                References.grabThemeKeys(mContext, package_name);
+
+                keyRetrieval = new KeyRetrieval();
+                IntentFilter if1 = new IntentFilter(KEY_RETRIEVAL);
+                localBroadcastManager = LocalBroadcastManager.getInstance(mContext);
+                localBroadcastManager.registerReceiver(keyRetrieval, if1);
+
+                int counter = 0;
+                handler.postDelayed(runnable, 100);
+                while (securityIntent == null && counter < 5) {
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    counter++;
+                }
+                if (counter > 5) {
+                    Log.e(TAG, "Could not receive handshake in time...");
+                    return null;
+                }
+
+                if (securityIntent != null) {
+                    try {
+                        byte[] encryption_key =
+                                securityIntent.getByteArrayExtra("encryption_key");
+                        byte[] iv_encrypt_key =
+                                securityIntent.getByteArrayExtra("iv_encrypt_key");
+
+                        cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+                        cipher.init(
+                                Cipher.DECRYPT_MODE,
+                                new SecretKeySpec(encryption_key, "AES"),
+                                new IvParameterSpec(iv_encrypt_key)
+                        );
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        return null;
+                    }
+                }
+            }
+
+            success = new CacheCreator().initializeCache(mContext, package_name, cipher);
             return null;
+        }
+
+        class KeyRetrieval extends BroadcastReceiver {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                securityIntent = intent;
+            }
         }
     }
 }

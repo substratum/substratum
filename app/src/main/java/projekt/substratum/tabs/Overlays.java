@@ -1562,7 +1562,8 @@ public class Overlays extends Fragment {
                     if (versioning.exists()) {
                         fragment.has_initialized_cache = true;
                     } else {
-                        new CacheCreator().initializeCache(context, fragment.theme_pid);
+                        new CacheCreator().initializeCache(context, fragment.theme_pid,
+                                fragment.cipher);
                         fragment.has_initialized_cache = true;
                     }
                 } else {

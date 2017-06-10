@@ -79,6 +79,7 @@
     <string name="background_updated_toast_cancel">This theme needs to upgrade its resource cache
         before it is functional!
     </string>
+    <string name="background_updated_toast_rejected">Could not create resource cache for this theme!</string>
     <string name="background_updated_toast_cleaning">Substratum is now clearing up this theme\'s
         resource cache&#8230;</string>
     <string name="failed_to_install_title_notification">Failed to install OMS theme</string>

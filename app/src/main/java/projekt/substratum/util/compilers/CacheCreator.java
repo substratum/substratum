@@ -26,23 +26,19 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.AssetManager;
+import android.content.res.Resources;
 import android.service.notification.StatusBarNotification;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Enumeration;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
-import java.util.zip.ZipInputStream;
+
+import javax.crypto.Cipher;
 
 import projekt.substratum.R;
 import projekt.substratum.common.References;
@@ -57,11 +53,11 @@ public class CacheCreator {
     private int id = References.notification_id_upgrade;
     private NotificationManager mNotifyManager;
 
-    public boolean initializeCache(Context context, String package_identifier) {
+    public boolean initializeCache(Context context, String package_identifier, Cipher cipher) {
         // Extract the files from the assets folder of the target theme
         mContext = context;
         try {
-            return unzip(package_identifier);
+            return extractAsset(package_identifier, cipher);
         } catch (IOException ioe) {
             // Exception
         }
@@ -109,67 +105,23 @@ public class CacheCreator {
         return false;
     }
 
-    private boolean unzip(String package_identifier) throws IOException {
+    private boolean extractAsset(String package_identifier, Cipher cipher) throws IOException {
         // First, extract the APK as a zip so we don't have to access the APK multiple times
         try {
-            String source = mContext.getPackageManager().getApplicationInfo(package_identifier, 0)
-                    .sourceDir;
-            File myDir = new File(mContext.getCacheDir(), References.SUBSTRATUM_BUILDER);
-            if (!myDir.exists()) {
-                boolean created = myDir.mkdir();
-                if (!created) Log.e(References.SUBSTRATUM_LOG,
-                        "Could not create Substratum cache folder...");
+            File myDir = new File(mContext.getCacheDir().getAbsoluteFile() +
+                    SUBSTRATUM_BUILDER_CACHE + package_identifier + "/assets");
+            if (myDir.exists()) {
+                FileOperations.delete(mContext, myDir.getAbsolutePath());
             }
-            File myDir2 = new File(mContext.getCacheDir().getAbsoluteFile() +
-                    SUBSTRATUM_BUILDER_CACHE + package_identifier);
-            if (!myDir2.exists()) {
-                boolean created = myDir2.mkdir();
-                if (!created)
-                    Log.e(References.SUBSTRATUM_LOG, "Could not create theme cache folder...");
-            } else {
-                FileOperations.delete(mContext, myDir2.getAbsolutePath());
-                boolean created = myDir2.mkdir();
-                if (!created)
-                    Log.e(References.SUBSTRATUM_LOG, "Could not create theme cache folder...");
-            }
-            String destination = mContext.getCacheDir().getAbsolutePath() + SUBSTRATUM_BUILDER_CACHE
-                    + package_identifier;
-
-            // Initialize Notification
-            int notification_priority = Notification.PRIORITY_MAX;
-
-            // Create an Intent for the BroadcastReceiver
-            Intent buttonIntent = new Intent(mContext, NotificationUpgradeReceiver.class);
-
-            // Create the PendingIntent
-            PendingIntent btPendingIntent = PendingIntent.getBroadcast(
-                    mContext, 0, buttonIntent, 0);
-            PendingIntent resultPendingIntent = PendingIntent.getActivity(
-                    mContext, 0, new Intent(), 0);
+            FileOperations.createNewFolder(mContext, myDir.getAbsolutePath());
 
             // Now count the amount of files needed to be extracted
-            int files = 0;
-            try {
-                Context otherContext = mContext.createPackageContext(package_identifier, 0);
-                try (ZipFile zipFile = new ZipFile(otherContext.getPackageCodePath())) {
-                    Enumeration zipEntries = zipFile.entries();
-                    while (zipEntries.hasMoreElements()) {
-                        zipEntries.nextElement(); // Iterable to move to the next file
-                        files += 1;
-                    }
-                }
-                Log.d("SubstratumCacher",
-                        "Extracting \"" + package_identifier + "\" with " + files + " files...");
-            } catch (Exception e) {
-                Log.e("SubstratumCacher",
-                        "CacheCreator was not able to extract this theme's assets.");
-            }
-
-            mNotifyManager =
-                    (NotificationManager) mContext.getSystemService(
-                            Context.NOTIFICATION_SERVICE);
-            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(mContext,
-                    References.MAIN_NOTIFICATION_CHANNEL_ID);
+            Resources themeResources = mContext.getPackageManager()
+                    .getResourcesForApplication(package_identifier);
+            assert themeResources != null;
+            AssetManager themeAssetManager = themeResources.getAssets();
+            String[] assets = themeAssetManager.list("");
+            int files = assets.length;
 
             // Buffer proper English and parse it (no 's after a name that ends with s)
             String theme = getThemeName(package_identifier);
@@ -183,6 +135,23 @@ public class CacheCreator {
             String theme_name = String.format(
                     mContext.getString(R.string.notification_initial_title_upgrade), theme);
 
+            // Initialize Notification
+            int notification_priority = Notification.PRIORITY_MAX;
+
+            // Create an Intent for the BroadcastReceiver
+            Intent buttonIntent = new Intent(mContext, NotificationUpgradeReceiver.class);
+
+            // Create the PendingIntent
+            PendingIntent btPendingIntent = PendingIntent.getBroadcast(
+                    mContext, 0, buttonIntent, 0);
+            PendingIntent resultPendingIntent = PendingIntent.getActivity(
+                    mContext, 0, new Intent(), 0);
+
+            mNotifyManager = (NotificationManager) mContext.getSystemService(
+                    Context.NOTIFICATION_SERVICE);
+            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(mContext,
+                    References.MAIN_NOTIFICATION_CHANNEL_ID);
+
             mBuilder.setContentTitle(theme_name)
                     .setProgress(files, 0, true)
                     .addAction(android.R.color.transparent, mContext.getString(R.string
@@ -193,41 +162,26 @@ public class CacheCreator {
                     .setOngoing(true);
             mNotifyManager.notify(id, mBuilder.build());
 
-            try (ZipInputStream inputStream = new ZipInputStream(
-                    new BufferedInputStream(new FileInputStream(source)))) {
-                ZipEntry zipEntry;
-                int count;
-                byte[] buffer = new byte[65536];
-                int file_count = 0;
-                while ((zipEntry = inputStream.getNextEntry()) != null &&
-                        checkNotificationVisibility()) {
-                    File file = new File(destination, zipEntry.getName());
-                    File dir = zipEntry.isDirectory() ? file : file.getParentFile();
-                    if (!dir.isDirectory() && !dir.mkdirs())
-                        throw new FileNotFoundException(
-                                "Failed to ensure directory: " + dir.getAbsolutePath());
-                    if (zipEntry.isDirectory())
-                        continue;
-                    try (FileOutputStream outputStream = new FileOutputStream(file)) {
-                        while ((count = inputStream.read(buffer)) != -1) {
-                            outputStream.write(buffer, 0, count);
-                        }
-                    }
-                    file_count += 1;
-                    if (file_count % 200 == 0) {
-                        mBuilder.setProgress(files, file_count, false);
-                        mNotifyManager.notify(id, mBuilder.build());
-                    }
-                }
-                if (checkNotificationVisibility()) {
-                    createVersioningPlaceholderFile(package_identifier, package_identifier);
-                    mNotifyManager.cancel(id);
-                    Log.d("SubstratumCacher",
-                            "The theme's assets have been successfully expanded to the work area!");
-                    return true;
-                }
-                return false;
+            int count = 0;
+            for (String dir : assets) {
+                FileOperations.copyFileOrDir(
+                        themeAssetManager,
+                        dir,
+                        myDir.getAbsolutePath() + "/" + dir,
+                        dir,
+                        cipher);
+                count++;
+                mBuilder.setProgress(files, count, false);
+                mNotifyManager.notify(id, mBuilder.build());
             }
+            if (checkNotificationVisibility()) {
+                createVersioningPlaceholderFile(package_identifier, package_identifier);
+                mNotifyManager.cancel(id);
+                Log.d("SubstratumCacher",
+                        "The theme's assets have been successfully expanded to the work area!");
+                return true;
+            }
+            return false;
         } catch (Exception e) {
             Log.e(References.SUBSTRATUM_LOG,
                     "There is no valid package found installed on this device.");

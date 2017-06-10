@@ -49,6 +49,7 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.service.notification.StatusBarNotification;
@@ -72,6 +73,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
+import java.security.cert.X509Certificate;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -88,6 +92,11 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
+
+import javax.crypto.Cipher;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+import javax.security.auth.x500.X500Principal;
 
 import projekt.substratum.R;
 import projekt.substratum.activities.launch.AppShortcutLaunch;
@@ -2081,13 +2090,60 @@ public class References {
         return hex;
     }
 
+    public static boolean isPackageDebuggable(Context context, String packageName) {
+        X500Principal DEBUG_DN = new X500Principal("C=US,O=Android,CN=Android Debug");
+        boolean debuggable = false;
+
+        try {
+            @SuppressLint("PackageManagerGetSignatures")
+            PackageInfo pinfo = context.getPackageManager()
+                    .getPackageInfo(packageName,PackageManager.GET_SIGNATURES);
+            Signature signatures[] = pinfo.signatures;
+            CertificateFactory cf = CertificateFactory.getInstance("X.509");
+
+            for (Signature signature : signatures) {
+                ByteArrayInputStream stream = new ByteArrayInputStream(signature.toByteArray());
+                X509Certificate cert = (X509Certificate) cf.generateCertificate(stream);
+                debuggable = cert.getSubjectX500Principal().equals(DEBUG_DN);
+                if (debuggable) break;
+            }
+        } catch (PackageManager.NameNotFoundException | CertificateException e) {
+            //cacheable variable will remain false
+        }
+        return debuggable;
+    }
+
     // This class serves to update the theme's cache on demand
     public static class SubstratumThemeUpdate extends AsyncTask<Void, Integer, String> {
-
+        private final String TAG = "SubstratumThemeUpdate";
         private ProgressDialog progress;
         private String theme_name, theme_package, theme_mode;
-        private Boolean launch;
+        private Boolean launch = false;
+        private Boolean cacheable = false;
         private Context mContext;
+        private LocalBroadcastManager localBroadcastManager;
+        private KeyRetrieval keyRetrieval;
+        private Intent securityIntent;
+        private Cipher cipher;
+        private Handler handler = new Handler();
+        private Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                Log.d(TAG, "Waiting for encryption key handshake approval...");
+                if (securityIntent != null) {
+                    Log.d(TAG, "Encryption key handshake approved!");
+                    handler.removeCallbacks(runnable);
+                } else {
+                    Log.d(TAG, "Encryption key still null...");
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    handler.postDelayed(this, 100);
+                }
+            }
+        };
 
         public SubstratumThemeUpdate(Context mContext, String theme_package, String theme_name,
                                      String theme_mode) {
@@ -2095,6 +2151,7 @@ public class References {
             this.theme_package = theme_package;
             this.theme_name = theme_name;
             this.theme_mode = theme_mode;
+            this.cacheable = isPackageDebuggable(mContext, theme_package);
         }
 
         @Override
@@ -2108,7 +2165,7 @@ public class References {
             progress.setMessage(parse);
             progress.setIndeterminate(false);
             progress.setCancelable(false);
-            progress.show();
+            if (cacheable) progress.show();
         }
 
         @Override
@@ -2122,6 +2179,12 @@ public class References {
                         Toast.LENGTH_SHORT).show();
                 // At this point, we can safely assume that the theme has successfully extracted
                 launchTheme(mContext, theme_package, theme_mode);
+            } else if (!cacheable) {
+                Toast.makeText(mContext, mContext.getString(R.string.
+                                background_updated_toast_rejected),
+                        Toast.LENGTH_SHORT).show();
+                // Just in case.
+                new CacheCreator().wipeCache(mContext, theme_package);
             } else {
                 Toast.makeText(mContext, mContext.getString(R.string
                                 .background_updated_toast_cancel),
@@ -2133,8 +2196,67 @@ public class References {
 
         @Override
         protected String doInBackground(Void... Params) {
-            launch = new CacheCreator().initializeCache(mContext, theme_package);
+            if (!cacheable) return null;
+
+            String encrypt_check =
+                    References.getOverlayMetadata(mContext, theme_package, metadataEncryption);
+
+            if (encrypt_check != null && encrypt_check.equals(metadataEncryptionValue)) {
+                Log.d(TAG, "This overlay for " +
+                        References.grabPackageName(mContext, theme_package) +
+                        " is encrypted, passing handshake to the theme package...");
+
+                References.grabThemeKeys(mContext, theme_package);
+
+                keyRetrieval = new KeyRetrieval();
+                IntentFilter if1 = new IntentFilter(KEY_RETRIEVAL);
+                localBroadcastManager = LocalBroadcastManager.getInstance(mContext);
+                localBroadcastManager.registerReceiver(keyRetrieval, if1);
+
+                int counter = 0;
+                handler.postDelayed(runnable, 100);
+                while (securityIntent == null && counter < 5) {
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    counter++;
+                }
+                if (counter > 5) {
+                    Log.e(TAG, "Could not receive handshake in time...");
+                    return null;
+                }
+
+                if (securityIntent != null) {
+                    try {
+                        byte[] encryption_key =
+                                securityIntent.getByteArrayExtra("encryption_key");
+                        byte[] iv_encrypt_key =
+                                securityIntent.getByteArrayExtra("iv_encrypt_key");
+
+                        cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+                        cipher.init(
+                                Cipher.DECRYPT_MODE,
+                                new SecretKeySpec(encryption_key, "AES"),
+                                new IvParameterSpec(iv_encrypt_key)
+                        );
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        return null;
+                    }
+                }
+            }
+
+            launch = new CacheCreator().initializeCache(mContext, theme_package, cipher);
             return null;
+        }
+
+        class KeyRetrieval extends BroadcastReceiver {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                securityIntent = intent;
+            }
         }
     }
 

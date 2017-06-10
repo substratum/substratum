@@ -114,6 +114,7 @@ import static projekt.substratum.common.References.EXTERNAL_STORAGE_CACHE;
 import static projekt.substratum.common.References.SUBSTRATUM_BUILDER_CACHE;
 import static projekt.substratum.common.References.SUBSTRATUM_LOG;
 import static projekt.substratum.common.References.checkUsagePermissions;
+import static projekt.substratum.common.References.isSamsung;
 
 public class MainActivity extends SubstratumActivity implements
         ActivityCompat.OnRequestPermissionsResultCallback, SearchView.OnQueryTextListener {
@@ -370,6 +371,7 @@ public class MainActivity extends SubstratumActivity implements
                                 .withIdentifier(108));
 
         // Begin initializing the navigation drawer
+        Boolean checkSamsungStatus = isSamsung(getApplicationContext());
         drawerBuilder.addDrawerItems(
                 new PrimaryDrawerItem()
                         .withName(R.string.nav_home)
@@ -380,17 +382,18 @@ public class MainActivity extends SubstratumActivity implements
                         .withName(R.string.nav_overlays)
                         .withIcon(R.drawable.nav_overlays)
                         .withIdentifier(2));
-        drawerBuilder.addDrawerItems(
+        if (!checkSamsungStatus) drawerBuilder.addDrawerItems(
                 new PrimaryDrawerItem()
                         .withName(R.string.nav_bootanim)
                         .withIcon(R.drawable.nav_bootanim)
                         .withIdentifier(3));
-        if (References.isFontsSupported()) drawerBuilder.addDrawerItems(
-                new PrimaryDrawerItem()
-                        .withName(R.string.nav_fonts)
-                        .withIcon(R.drawable.nav_fonts)
-                        .withIdentifier(4));
-        drawerBuilder.addDrawerItems(
+        if (References.isFontsSupported() && !checkSamsungStatus)
+            drawerBuilder.addDrawerItems(
+                    new PrimaryDrawerItem()
+                            .withName(R.string.nav_fonts)
+                            .withIcon(R.drawable.nav_fonts)
+                            .withIdentifier(4));
+        if (!checkSamsungStatus) drawerBuilder.addDrawerItems(
                 new PrimaryDrawerItem()
                         .withName(R.string.nav_sounds)
                         .withIcon(R.drawable.nav_sounds)
@@ -409,19 +412,21 @@ public class MainActivity extends SubstratumActivity implements
                         .withIcon(R.drawable.nav_overlay_manager)
                         .withIdentifier(7));
         if (References.checkThemeInterfacer(getApplicationContext()) &&
-                References.isAuthorizedDebugger(getApplicationContext()))
+                References.isAuthorizedDebugger(getApplicationContext()) &&
+                !checkSamsungStatus)
             drawerBuilder.addDrawerItems(
                     new PrimaryDrawerItem()
                             .withName(R.string.nav_studio)
                             .withIcon(R.drawable.nav_drawer_studio)
                             .withSelectable(false)
                             .withIdentifier(8));
-        if (References.checkOMS(getApplicationContext())) drawerBuilder.addDrawerItems(
-                new PrimaryDrawerItem()
-                        .withName(R.string.nav_priorities)
-                        .withIcon(R.drawable.nav_drawer_priorities)
-                        .withIdentifier(9));
-        drawerBuilder.addDrawerItems(
+        if (References.checkOMS(getApplicationContext()) && !checkSamsungStatus)
+            drawerBuilder.addDrawerItems(
+                    new PrimaryDrawerItem()
+                            .withName(R.string.nav_priorities)
+                            .withIcon(R.drawable.nav_drawer_priorities)
+                            .withIdentifier(9));
+        if (!checkSamsungStatus) drawerBuilder.addDrawerItems(
                 new PrimaryDrawerItem()
                         .withName(R.string.nav_backup_restore)
                         .withIcon(R.drawable.nav_drawer_profiles)

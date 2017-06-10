@@ -448,7 +448,7 @@ public class FileOperations {
             } else if (cipher == null && filename.endsWith(".enc")) {
                 return false;
             }
-            String destinationFile = destination + "/" + filename.replaceAll("\\s+", "")
+            String destinationFile = destination + filename.replaceAll("\\s+", "")
                     .substring(remember.replaceAll("\\s+", "").length());
             outputStream = new FileOutputStream(
                     (cipher != null ?

@@ -1679,6 +1679,22 @@ public class References {
         return null;
     }
 
+    // Collect shell input
+    public static void runShellCommand(String input) {
+        Process p;
+        try {
+            p = Runtime.getRuntime().exec(input);
+            p.waitFor();
+            BufferedReader buf = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            String line;
+            while ((line = buf.readLine()) != null) {
+                Log.e("SubstratumShell", line);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     // Launch intent for a theme
     public static void launchTheme(Context mContext,
                                    String package_name,

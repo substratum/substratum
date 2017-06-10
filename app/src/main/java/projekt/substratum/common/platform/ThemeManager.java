@@ -90,6 +90,7 @@ public class ThemeManager {
     }
 
     public static void disableOverlay(Context context, ArrayList<String> overlays) {
+        if (overlays.isEmpty()) return;
         if (checkThemeInterfacer(context)) {
             ThemeInterfacerService.disableOverlays(context, overlays, shouldRestartUI(context,
                     overlays));

@@ -24,6 +24,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -75,6 +76,7 @@ import static projekt.substratum.common.References.MANAGER_REFRESH;
 import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;
 import static projekt.substratum.common.References.REFRESH_WINDOW_DELAY;
 import static projekt.substratum.common.References.VENDOR_DIR;
+import static projekt.substratum.common.References.isSamsung;
 import static projekt.substratum.util.files.MapUtils.sortMapByValues;
 
 public class ManagerFragment extends Fragment {
@@ -102,7 +104,7 @@ public class ManagerFragment extends Fragment {
     private void refreshList() {
         if (overlayList != null && mAdapter != null) {
             List<ManagerItem> updated = new ArrayList<>();
-            if (References.checkOMS(getContext())) {
+            if (References.checkOMS(getContext()) && !References.isSamsung(getContext())) {
                 for (int i = 0; i < overlayList.size(); i++) {
                     if (!overlayList.get(i).getName().endsWith(".icon") &&
                             References.isPackageInstalled(
@@ -533,40 +535,53 @@ public class ManagerFragment extends Fragment {
             } else {
                 for (int i = 0; i < fragment.overlaysList.size(); i++) {
                     if (fragment.overlaysList.get(i).isSelected()) {
-                        FileOperations.mountRW();
-                        FileOperations.mountRWData();
-                        FileOperations.mountRWVendor();
-                        FileOperations.bruteforceDelete(DATA_RESOURCE_DIR + "overlays.list");
-                        FileOperations.bruteforceDelete(LEGACY_NEXUS_DIR +
-                                fragment.overlaysList.get(i).getName() + ".apk");
-                        FileOperations.bruteforceDelete(PIXEL_NEXUS_DIR +
-                                fragment.overlaysList.get(i).getName() + ".apk");
-                        FileOperations.bruteforceDelete(VENDOR_DIR +
-                                fragment.overlaysList.get(i).getName() + ".apk");
-                        String legacy_resource_idmap =
-                                (LEGACY_NEXUS_DIR.substring(1, LEGACY_NEXUS_DIR.length()) +
-                                        fragment.overlaysList.get(i).getName())
-                                        .replace("/", "@") + ".apk@idmap";
-                        String pixel_resource_idmap =
-                                (PIXEL_NEXUS_DIR.substring(1, PIXEL_NEXUS_DIR.length()) +
-                                        fragment.overlaysList.get(i).getName())
-                                        .replace("/", "@") + ".apk@idmap";
-                        String vendor_resource_idmap =
-                                (VENDOR_DIR.substring(1, VENDOR_DIR.length()) +
-                                        fragment.overlaysList.get(i).getName())
-                                        .replace("/", "@") + ".apk@idmap";
-                        Log.d(this.getClass().getSimpleName(),
-                                "Removing idmap resource pointer '" + legacy_resource_idmap + "'");
-                        FileOperations.bruteforceDelete(DATA_RESOURCE_DIR + legacy_resource_idmap);
-                        Log.d(this.getClass().getSimpleName(),
-                                "Removing idmap resource pointer '" + pixel_resource_idmap + "'");
-                        FileOperations.bruteforceDelete(DATA_RESOURCE_DIR + pixel_resource_idmap);
-                        Log.d(this.getClass().getSimpleName(),
-                                "Removing idmap resource pointer '" + vendor_resource_idmap + "'");
-                        FileOperations.bruteforceDelete(DATA_RESOURCE_DIR + vendor_resource_idmap);
-                        FileOperations.mountROVendor();
-                        FileOperations.mountROData();
-                        FileOperations.mountRO();
+                        if (References.isSamsung(context)) {
+                            ArrayList<String> overlay = new ArrayList<>();
+                            overlay.add(fragment.overlaysList.get(i).getName());
+                            ThemeManager.uninstallOverlay(context, overlay, false);
+                        } else {
+                            FileOperations.mountRW();
+                            FileOperations.mountRWData();
+                            FileOperations.mountRWVendor();
+                            FileOperations.bruteforceDelete(DATA_RESOURCE_DIR + "overlays.list");
+                            FileOperations.bruteforceDelete(LEGACY_NEXUS_DIR +
+                                    fragment.overlaysList.get(i).getName() + ".apk");
+                            FileOperations.bruteforceDelete(PIXEL_NEXUS_DIR +
+                                    fragment.overlaysList.get(i).getName() + ".apk");
+                            FileOperations.bruteforceDelete(VENDOR_DIR +
+                                    fragment.overlaysList.get(i).getName() + ".apk");
+                            String legacy_resource_idmap =
+                                    (LEGACY_NEXUS_DIR.substring(1, LEGACY_NEXUS_DIR.length()) +
+                                            fragment.overlaysList.get(i).getName())
+                                            .replace("/", "@") + ".apk@idmap";
+                            String pixel_resource_idmap =
+                                    (PIXEL_NEXUS_DIR.substring(1, PIXEL_NEXUS_DIR.length()) +
+                                            fragment.overlaysList.get(i).getName())
+                                            .replace("/", "@") + ".apk@idmap";
+                            String vendor_resource_idmap =
+                                    (VENDOR_DIR.substring(1, VENDOR_DIR.length()) +
+                                            fragment.overlaysList.get(i).getName())
+                                            .replace("/", "@") + ".apk@idmap";
+                            Log.d(this.getClass().getSimpleName(),
+                                    "Removing idmap resource pointer '" +
+                                            legacy_resource_idmap + "'");
+
+                            FileOperations.bruteforceDelete(DATA_RESOURCE_DIR +
+                                    legacy_resource_idmap);
+                            Log.d(this.getClass().getSimpleName(),
+                                    "Removing idmap resource pointer '" +
+                                            pixel_resource_idmap + "'");
+                            FileOperations.bruteforceDelete(DATA_RESOURCE_DIR +
+                                    pixel_resource_idmap);
+                            Log.d(this.getClass().getSimpleName(),
+                                    "Removing idmap resource pointer '" +
+                                            vendor_resource_idmap + "'");
+                            FileOperations.bruteforceDelete(DATA_RESOURCE_DIR +
+                                    vendor_resource_idmap);
+                            FileOperations.mountROVendor();
+                            FileOperations.mountROData();
+                            FileOperations.mountRO();
+                        }
                     }
                 }
 
@@ -576,11 +591,25 @@ public class ManagerFragment extends Fragment {
                 fragment.activated_overlays.clear();
                 fragment.overlaysList.clear();
 
-                File currentDir = new File(LEGACY_NEXUS_DIR);
-                String[] listed = currentDir.list();
-                for (String file : listed) {
-                    if (file.substring(file.length() - 4).equals(".apk")) {
-                        fragment.activated_overlays.add(file.substring(0, file.length() - 4));
+                if (isSamsung(context)) {
+                    final PackageManager pm = context.getPackageManager();
+                    List<ApplicationInfo> packages =
+                            pm.getInstalledApplications(PackageManager.GET_META_DATA);
+                    for (ApplicationInfo packageInfo : packages) {
+                        if (References.getOverlayMetadata(
+                                context,
+                                packageInfo.packageName,
+                                References.metadataOverlayParent) != null) {
+                            fragment.activated_overlays.add(packageInfo.packageName);
+                        }
+                    }
+                } else {
+                    File currentDir = new File(LEGACY_NEXUS_DIR);
+                    String[] listed = currentDir.list();
+                    for (String file : listed) {
+                        if (file.substring(file.length() - 4).equals(".apk")) {
+                            fragment.activated_overlays.add(file.substring(0, file.length() - 4));
+                        }
                     }
                 }
 
@@ -603,7 +632,7 @@ public class ManagerFragment extends Fragment {
             fragment.mAdapter.notifyDataSetChanged();
             fragment.loadingBar.setVisibility(View.GONE);
 
-            if (!References.checkOMS(context)) {
+            if (!References.checkOMS(context) && !References.isSamsung(context)) {
                 Toast.makeText(
                         context,
                         fragment.getString(R.string.toast_disabled6),
@@ -743,7 +772,8 @@ public class ManagerFragment extends Fragment {
             ThemeManager.uninstallOverlay(context, data, shouldRestartUI);
 
             if (!References.checkThemeInterfacer(context) &&
-                    References.needsRecreate(context, data)) {
+                    References.needsRecreate(context, data) &&
+                    !References.isSamsung(context)) {
                 Handler handler = new Handler(Looper.getMainLooper());
                 handler.postDelayed(() -> {
                     // OMS may not have written all the changes so quickly just yet

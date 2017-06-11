@@ -2100,7 +2100,7 @@ public class References {
         try {
             @SuppressLint("PackageManagerGetSignatures")
             PackageInfo pinfo = context.getPackageManager()
-                    .getPackageInfo(packageName,PackageManager.GET_SIGNATURES);
+                    .getPackageInfo(packageName, PackageManager.GET_SIGNATURES);
             Signature signatures[] = pinfo.signatures;
             CertificateFactory cf = CertificateFactory.getInstance("X.509");
 

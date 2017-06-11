@@ -19,7 +19,11 @@
 package projekt.substratum.common.platform;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.om.OverlayInfo;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -151,6 +155,7 @@ public class ThemeManager {
     public static List<String> listOverlays(Context context, int state) {
         List<String> list = new ArrayList<>();
         try {
+            if (References.isSamsung(context)) throw new Exception();
             Map<String, List<OverlayInfo>> allOverlays = OverlayManagerService.getAllOverlays();
             if (allOverlays != null) {
                 Set<String> set = allOverlays.keySet();
@@ -169,7 +174,7 @@ public class ThemeManager {
             }
         } catch (Exception | NoSuchMethodError e) {
             // At this point, we probably ran into a legacy command or stock OMS
-            if (References.checkOMS(context)) {
+            if (References.checkOMS(context) && !References.isSamsung(context)) {
                 String prefix;
                 switch (state) {
                     case STATE_APPROVED_ENABLED:
@@ -196,13 +201,28 @@ public class ThemeManager {
             } else {
                 switch (state) {
                     case STATE_APPROVED_ENABLED:
-                        File legacyCheck = new File(LEGACY_NEXUS_DIR);
-                        if (legacyCheck.exists() && legacyCheck.isDirectory()) {
+                        if (References.isSamsung(context)) {
+                            final PackageManager pm = context.getPackageManager();
+                            List<ApplicationInfo> packages =
+                                    pm.getInstalledApplications(PackageManager.GET_META_DATA);
                             list.clear();
-                            String[] lister = legacyCheck.list();
-                            for (String aLister : lister) {
-                                if (aLister.endsWith(".apk")) {
-                                    list.add(aLister.substring(0, aLister.length() - 4));
+                            for (ApplicationInfo packageInfo : packages) {
+                                if (References.getOverlayMetadata(
+                                        context,
+                                        packageInfo.packageName,
+                                        References.metadataOverlayParent) != null) {
+                                    list.add(packageInfo.packageName);
+                                }
+                            }
+                        } else {
+                            File legacyCheck = new File(LEGACY_NEXUS_DIR);
+                            if (legacyCheck.exists() && legacyCheck.isDirectory()) {
+                                list.clear();
+                                String[] lister = legacyCheck.list();
+                                for (String aLister : lister) {
+                                    if (aLister.endsWith(".apk")) {
+                                        list.add(aLister.substring(0, aLister.length() - 4));
+                                    }
                                 }
                             }
                         }
@@ -342,11 +362,18 @@ public class ThemeManager {
     public static void uninstallOverlay(Context context,
                                         ArrayList<String> overlays,
                                         Boolean bypassRestart) {
-        if (checkThemeInterfacer(context)) {
+        if (checkThemeInterfacer(context) && !References.isSamsung(context)) {
             ThemeInterfacerService.uninstallOverlays(
                     context,
                     overlays,
                     !bypassRestart && shouldRestartUI(context, overlays));
+        } else if (References.isSamsung(context)) {
+            // TODO: Needs verifying this works with multiple APKs
+            for (int i = 0; i < overlays.size(); i++) {
+                Uri packageURI = Uri.parse("package:" + overlays.get(i));
+                Intent uninstallIntent = new Intent(Intent.ACTION_DELETE, packageURI);
+                context.startActivity(uninstallIntent);
+            }
         } else {
             StringBuilder command = new StringBuilder();
             for (String packageName : overlays) {

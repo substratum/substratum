@@ -554,8 +554,12 @@ public class InformationActivity extends SubstratumActivity {
 
             Intent intent = new Intent("Overlays.START_JOB");
             Switch enable_swap = findViewById(R.id.enable_swap);
-            if (!References.checkOMS(this)) {
+            if (!References.checkOMS(this) && !References.isSamsung(getApplicationContext())) {
                 enable_swap.setText(getString(R.string.fab_menu_swap_toggle_legacy));
+            } else if (References.isSamsung(getApplicationContext())) {
+                View fab_menu_divider = findViewById(R.id.fab_menu_divider);
+                fab_menu_divider.setVisibility(View.GONE);
+                enable_swap.setVisibility(View.GONE);
             }
             if (enable_swap != null) {
                 boolean enabled = prefs.getBoolean("enable_swapping_overlays", true);

@@ -111,7 +111,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         aboutSubstratum.setOnPreferenceClickListener(
                 preference -> {
                     try {
-                        String sourceURL = "";
+                        String sourceURL;
                         if (BuildConfig.DEBUG) {
                             sourceURL = getString(R.string.substratum_github_commits);
                         } else {
@@ -126,9 +126,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     return false;
                 });
 
-        systemPlatform = getPreferenceManager().findPreference
-                ("system_platform");
-
+        systemPlatform = getPreferenceManager().findPreference("system_platform");
 
         if (References.checkOMS(getContext())) {
             new checkROMSupportList().execute(
@@ -145,7 +143,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         platformSummary.append(getString(R.string.settings_about_oms_rro_version) + " ");
         platformSummary.append(((References.checkOMS(getContext())) ?
                 getString(R.string.settings_about_oms_version_7) :
-                getString(R.string.settings_about_rro_version_2)) + "\n");
+                getString(R.string.settings_about_rro_version_2)) +
+                (References.isSamsung(getContext()) ? "" : "\n"));
         systemPlatform.setSummary(platformSummary);
         systemPlatform.setIcon(References.grabAppIcon(getContext(), "com.android.systemui"));
 

@@ -420,7 +420,7 @@ public class References {
             Date disabled = DateUtil.addDays(SELF_DISABLER_DATE);
             String buildTime = sdf.format(disabled.getTime());
             Date strDate = sdf.parse(buildTime);
-            if (new Date().after(strDate)) return true;
+            if (new Date().after(strDate) && isSamsung(context)) return true;
         } catch (ParseException e) {
             // Suppress warning
         }

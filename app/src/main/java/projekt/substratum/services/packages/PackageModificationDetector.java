@@ -55,7 +55,6 @@ import projekt.substratum.util.helpers.NotificationCreator;
 
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
 import static projekt.substratum.common.References.KEY_RETRIEVAL;
-import static projekt.substratum.common.References.PACKAGE_ADDED;
 import static projekt.substratum.common.References.metadataEncryption;
 import static projekt.substratum.common.References.metadataEncryptionValue;
 
@@ -69,145 +68,138 @@ public class PackageModificationDetector extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (PACKAGE_ADDED.equals(intent.getAction())) {
-            this.mContext = context;
-            Uri packageName = intent.getData();
-            package_name = packageName.toString().substring(8);
+        this.mContext = context;
+        References.sendOverlayRefreshMessage(mContext);
 
-            if (!package_name.endsWith(".icon")) References.sendRefreshManagerMessage(context);
+        Uri packageName = intent.getData();
+        package_name = packageName.toString().substring(8);
 
-            // First, check if the app installed is actually a substratum theme
+        if (!package_name.endsWith(".icon")) References.sendRefreshManagerMessage(context);
+
+        // First, check if the app installed is actually a substratum theme
+        try {
+            ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
+                    package_name, PackageManager.GET_META_DATA);
+            if (appInfo.metaData != null) {
+                String check_theme_name =
+                        appInfo.metaData.getString(References.metadataName);
+                String check_theme_author =
+                        appInfo.metaData.getString(References.metadataAuthor);
+                if (check_theme_name == null && check_theme_author == null) return;
+            } else {
+                return;
+            }
+        } catch (Exception e) {
+            return;
+        }
+
+        // When it is a proper theme, then we can continue
+        replacing = intent.getBooleanExtra(Intent.EXTRA_REPLACING, false);
+        prefs = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
+
+        // Let's add it to the list of installed themes on shared prefs
+        SharedPreferences mainPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+        Set<String> installed_themes =
+                mainPrefs.getStringSet("installed_themes", new HashSet<>());
+        Set<String> installed_sorted = new TreeSet<>();
+
+        int beginning_size = installed_themes.size();
+        if (!installed_themes.contains(package_name)) {
+            installed_themes.add(package_name);
+            installed_sorted.addAll(installed_themes);
+        }
+        if (installed_themes.size() > beginning_size) {
+            mainPrefs.edit().putStringSet("installed_themes", installed_sorted).apply();
+        }
+
+        // Legacy check to see if an OMS theme is guarded from being installed on legacy
+        if (!References.checkOMS(context)) {
             try {
                 ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
                         package_name, PackageManager.GET_META_DATA);
                 if (appInfo.metaData != null) {
-                    String check_theme_name =
-                            appInfo.metaData.getString(References.metadataName);
-                    String check_theme_author =
-                            appInfo.metaData.getString(References.metadataAuthor);
-                    String check_theme_overlay =
-                            appInfo.metaData.getString(References.metadataOverlayParent);
-                    if (check_theme_overlay != null) {
-                        // We should refresh fragments on overlay installs
-                        References.sendRefreshMessage(context);
+                    Boolean check_legacy =
+                            appInfo.metaData.getBoolean(References.metadataLegacy);
+                    if (!check_legacy) {
+                        Log.e(TAG, "Device is non-OMS, while an " +
+                                "OMS theme is installed, aborting operation!");
+
+                        String parse = String.format(mContext.getString(
+                                R.string.failed_to_install_text_notification),
+                                appInfo.metaData.getString(
+                                        References.metadataName));
+
+                        Intent showIntent = new Intent();
+                        PendingIntent contentIntent = PendingIntent.getActivity(
+                                mContext, 0, showIntent, 0);
+
+                        new NotificationCreator(
+                                context,
+                                mContext.getString(
+                                        R.string.failed_to_install_title_notification),
+                                parse,
+                                true,
+                                contentIntent,
+                                R.drawable.notification_warning_icon,
+                                null,
+                                Notification.PRIORITY_MAX,
+                                References.notification_id).createNotification();
+
+                        References.uninstallPackage(mContext, package_name);
                         return;
                     }
-                    if (check_theme_name == null && check_theme_author == null) return;
-                } else {
-                    return;
                 }
             } catch (Exception e) {
-                return;
+                // Suppress warning
             }
+        }
 
-            // When it is a proper theme, then we can continue
-            replacing = intent.getBooleanExtra(Intent.EXTRA_REPLACING, false);
-            prefs = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
-
-            // Let's add it to the list of installed themes on shared prefs
-            SharedPreferences mainPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-            Set<String> installed_themes =
-                    mainPrefs.getStringSet("installed_themes", new HashSet<>());
-            Set<String> installed_sorted = new TreeSet<>();
-
-            int beginning_size = installed_themes.size();
-            if (!installed_themes.contains(package_name)) {
-                installed_themes.add(package_name);
-                installed_sorted.addAll(installed_themes);
-            }
-            if (installed_themes.size() > beginning_size) {
-                mainPrefs.edit().putStringSet("installed_themes", installed_sorted).apply();
-            }
-
-            // Legacy check to see if an OMS theme is guarded from being installed on legacy
-            if (!References.checkOMS(context)) {
-                try {
-                    ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
-                            package_name, PackageManager.GET_META_DATA);
-                    if (appInfo.metaData != null) {
-                        Boolean check_legacy =
-                                appInfo.metaData.getBoolean(References.metadataLegacy);
-                        if (!check_legacy) {
-                            Log.e(TAG, "Device is non-OMS, while an " +
-                                    "OMS theme is installed, aborting operation!");
-
-                            String parse = String.format(mContext.getString(
-                                    R.string.failed_to_install_text_notification),
-                                    appInfo.metaData.getString(
-                                            References.metadataName));
-
-                            Intent showIntent = new Intent();
-                            PendingIntent contentIntent = PendingIntent.getActivity(
-                                    mContext, 0, showIntent, 0);
-
-                            new NotificationCreator(
-                                    context,
-                                    mContext.getString(
-                                            R.string.failed_to_install_title_notification),
-                                    parse,
-                                    true,
-                                    contentIntent,
-                                    R.drawable.notification_warning_icon,
-                                    null,
-                                    Notification.PRIORITY_MAX,
-                                    References.notification_id).createNotification();
-
-                            References.uninstallPackage(mContext, package_name);
-                            return;
-                        }
-                    }
-                } catch (Exception e) {
-                    // Suppress warning
-                }
-            }
-
-            if (replacing) {
-                // We need to check if this is a new install or not
-                Log.d(TAG, "'" + package_name + "' has been updated.");
-                if (!References.isCachingEnabled(context)) {
-                    Log.d(TAG, "'" + package_name +
-                            "' has been updated with caching mode disabled.");
-
-                    new NotificationCreator(
-                            context,
-                            getThemeName(package_name) + " " + mContext.getString(
-                                    R.string.notification_theme_updated),
-                            mContext.getString(R.string.notification_theme_updated_content),
-                            true,
-                            grabPendingIntent(package_name),
-                            R.drawable.notification_updated,
-                            ((BitmapDrawable) References.grabAppIcon(context, package_name))
-                                    .getBitmap(),
-                            Notification.PRIORITY_MAX,
-                            ThreadLocalRandom.current().nextInt(0, 1000)).createNotification();
-                } else {
-                    Log.d(TAG, "'" + package_name +
-                            "' has been updated with caching mode enabled.");
-                    prefs.edit().putBoolean("is_updating", true).apply();
-                    new ThemeCacher().execute("");
-                }
-            } else if (!References.isCachingEnabled(context)) {
-                // This is a new install, but caching mode is disabled, so pass right through!
-                Log.d(TAG, "'" + package_name + "' has been installed with caching mode disabled.");
+        if (replacing) {
+            // We need to check if this is a new install or not
+            Log.d(TAG, "'" + package_name + "' has been updated.");
+            if (!References.isCachingEnabled(context)) {
+                Log.d(TAG, "'" + package_name +
+                        "' has been updated with caching mode disabled.");
 
                 new NotificationCreator(
                         context,
                         getThemeName(package_name) + " " + mContext.getString(
-                                R.string.notification_theme_installed),
-                        mContext.getString(R.string.notification_theme_installed_content),
+                                R.string.notification_theme_updated),
+                        mContext.getString(R.string.notification_theme_updated_content),
                         true,
                         grabPendingIntent(package_name),
-                        R.drawable.notification_icon,
-                        BitmapFactory.decodeResource(
-                                mContext.getResources(), R.mipmap.main_launcher),
+                        R.drawable.notification_updated,
+                        ((BitmapDrawable) References.grabAppIcon(context, package_name))
+                                .getBitmap(),
                         Notification.PRIORITY_MAX,
                         ThreadLocalRandom.current().nextInt(0, 1000)).createNotification();
             } else {
-                Log.d(TAG, "'" + package_name + "' has been installed with caching mode enabled.");
+                Log.d(TAG, "'" + package_name +
+                        "' has been updated with caching mode enabled.");
+                prefs.edit().putBoolean("is_updating", true).apply();
                 new ThemeCacher().execute("");
             }
-            References.sendRefreshMessage(context);
+        } else if (!References.isCachingEnabled(context)) {
+            // This is a new install, but caching mode is disabled, so pass right through!
+            Log.d(TAG, "'" + package_name + "' has been installed with caching mode disabled.");
+
+            new NotificationCreator(
+                    context,
+                    getThemeName(package_name) + " " + mContext.getString(
+                            R.string.notification_theme_installed),
+                    mContext.getString(R.string.notification_theme_installed_content),
+                    true,
+                    grabPendingIntent(package_name),
+                    R.drawable.notification_icon,
+                    BitmapFactory.decodeResource(
+                            mContext.getResources(), R.mipmap.main_launcher),
+                    Notification.PRIORITY_MAX,
+                    ThreadLocalRandom.current().nextInt(0, 1000)).createNotification();
+        } else {
+            Log.d(TAG, "'" + package_name + "' has been installed with caching mode enabled.");
+            new ThemeCacher().execute("");
         }
+        References.sendRefreshMessage(context);
     }
 
     private String getThemeName(String package_name) {

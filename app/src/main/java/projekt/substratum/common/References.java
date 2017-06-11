@@ -371,6 +371,8 @@ public class References {
             intentAppCrashed.addDataScheme("package");
             IntentFilter intentPackageAdded = new IntentFilter(PACKAGE_ADDED);
             intentPackageAdded.addDataScheme("package");
+            IntentFilter intentPackageFullyRemoved = new IntentFilter(PACKAGE_FULLY_REMOVED);
+            intentPackageFullyRemoved.addDataScheme("package");
             context.getApplicationContext().registerReceiver(
                     new AppCrashReceiver(), intentAppCrashed);
             context.getApplicationContext().registerReceiver(
@@ -379,6 +381,8 @@ public class References {
                     new OverlayUpdater(), intentPackageAdded);
             context.getApplicationContext().registerReceiver(
                     new PackageModificationDetector(), intentPackageAdded);
+            context.getApplicationContext().registerReceiver(
+                    new PackageModificationDetector(), intentPackageFullyRemoved);
 
             IntentFilter interfacerAuthorize = new IntentFilter(
                     INTERFACER_PACKAGE + ".CALLER_AUTHORIZED");
@@ -1641,6 +1645,13 @@ public class References {
         Log.d("ThemeFragmentRefresher",
                 "A theme has been modified, sending update signal to refresh the list!");
         Intent intent = new Intent("ThemeFragment.REFRESH");
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+    }
+
+    public static void sendOverlayRefreshMessage(Context context) {
+        Log.d("OverlayRefresher",
+                "A theme has been modified, sending update signal to refresh the list!");
+        Intent intent = new Intent("Overlay.REFRESH");
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
 

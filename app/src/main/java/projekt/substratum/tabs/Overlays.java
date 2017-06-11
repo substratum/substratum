@@ -508,7 +508,7 @@ public class Overlays extends Fragment {
 
         // Register the theme install receiver to auto refresh the fragment
         refreshReceiver = new RefreshReceiver();
-        IntentFilter filter = new IntentFilter("ThemeFragment.REFRESH");
+        IntentFilter filter = new IntentFilter("Overlay.REFRESH");
         localBroadcastManager = LocalBroadcastManager.getInstance(getContext());
         localBroadcastManager.registerReceiver(refreshReceiver, filter);
 

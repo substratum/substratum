@@ -508,19 +508,21 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         // Hidden caching mode option
         if (!themeCaching.isVisible()) {
             systemPlatform.setOnPreferenceClickListener(preference -> {
-                tapCount++;
-                if (tapCount == 1) {
-                    new Handler().postDelayed(() -> tapCount = 0, 2000);
-                } else if (tapCount == HIDDEN_CACHING_MODE_TAP_COUNT) {
-                    themeCaching.setVisible(true);
-                    tapCount = 0;
-                    if (getView() != null) {
-                        Lunchbar.make(getView(),
-                                R.string.settings_theme_caching_found_snackbar,
-                                Lunchbar.LENGTH_LONG)
-                                .show();
+                if (!References.isSamsung(getContext())) {
+                    tapCount++;
+                    if (tapCount == 1) {
+                        new Handler().postDelayed(() -> tapCount = 0, 2000);
+                    } else if (tapCount == HIDDEN_CACHING_MODE_TAP_COUNT) {
+                        themeCaching.setVisible(true);
+                        tapCount = 0;
+                        if (getView() != null) {
+                            Lunchbar.make(getView(),
+                                    R.string.settings_theme_caching_found_snackbar,
+                                    Lunchbar.LENGTH_LONG)
+                                    .show();
+                        }
+                        systemPlatform.setOnPreferenceClickListener(null);
                     }
-                    systemPlatform.setOnPreferenceClickListener(null);
                 }
                 return false;
             });
@@ -567,7 +569,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             aboutInterfacer.setOnPreferenceClickListener(
                     preference -> {
                         try {
-                            String sourceURL = "";
+                            String sourceURL;
                             if (BuildConfig.DEBUG) {
                                 sourceURL = getString(R.string.interfacer_github_commits);
                             } else {

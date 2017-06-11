@@ -143,8 +143,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         platformSummary.append(getString(R.string.settings_about_oms_rro_version) + " ");
         platformSummary.append(((References.checkOMS(getContext())) ?
                 getString(R.string.settings_about_oms_version_7) :
-                getString(R.string.settings_about_rro_version_2)) +
-                (References.isSamsung(getContext()) ? "" : "\n"));
+                getString(R.string.settings_about_rro_version_2)));
         systemPlatform.setSummary(platformSummary);
         systemPlatform.setIcon(References.grabAppIcon(getContext(), "com.android.systemui"));
 
@@ -872,7 +871,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
 
             if (!References.isNetworkAvailable(getContext())) {
-                platformSummary.append(getString(R.string.rom_status))
+                platformSummary.append("\n")
+                        .append(getString(R.string.rom_status))
                         .append(" ")
                         .append(getString(R.string.rom_status_network));
                 systemPlatform.setSummary(platformSummary.toString());
@@ -882,7 +882,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             if (result.length() > 0) {
                 String supportedRom = String.format(
                         getString(R.string.rom_status_supported), result);
-                platformSummary.append(getString(R.string.rom_status))
+                platformSummary.append("\n")
+                        .append(getString(R.string.rom_status))
                         .append(" ")
                         .append(supportedRom);
                 systemPlatform.setSummary(platformSummary.toString());
@@ -890,7 +891,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
 
             if (result.equals("")) {
-                platformSummary.append(getString(R.string.rom_status))
+                platformSummary.append("\n")
+                        .append(getString(R.string.rom_status))
                         .append(" ")
                         .append(getString(R.string.rom_status_unsupported));
                 systemPlatform.setSummary(platformSummary.toString());

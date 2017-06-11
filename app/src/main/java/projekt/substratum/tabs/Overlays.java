@@ -2470,6 +2470,13 @@ public class Overlays extends Fragment {
                         context.getString(R.string.toast_samsung_prototype_restart),
                         Toast.LENGTH_LONG).show();
             }
+            for (int i = 0; i < overlaysLists.size(); i++) {
+                OverlaysItem currentOverlay = overlaysLists.get(i);
+                if (currentOverlay.isSelected()) {
+                    currentOverlay.setSelected(false);
+                }
+                mAdapter.notifyDataSetChanged();
+            }
         }
     }
 }

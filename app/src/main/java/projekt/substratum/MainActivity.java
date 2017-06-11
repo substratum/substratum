@@ -1124,8 +1124,8 @@ public class MainActivity extends SubstratumActivity implements
             MainActivity activity = ref.get();
             Context context = activity.getApplicationContext();
 
-            if (!result && !References.isSamsung(context) && 
-                ENABLE_ROOT_CHECK && !BYPASS_ALL_VERSION_CHECKS &&
+            if (!result && !References.isSamsung(context) &&
+                    ENABLE_ROOT_CHECK && !BYPASS_ALL_VERSION_CHECKS &&
                     !References.checkThemeInterfacer(context)) {
                 activity.mProgressDialog.setCancelable(false);
                 activity.mProgressDialog.show();

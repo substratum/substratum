@@ -152,7 +152,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         Preference systemStatus = getPreferenceManager().findPreference("system_status");
         boolean full_oms = References.checkOMS(getContext()) &&
                 References.checkSubstratumFeature(getContext());
-        boolean interfacer = References.checkThemeInterfacer(getContext());
+        boolean interfacer = References.checkThemeInterfacer(getContext()) &&
+                !References.isSamsung(getContext());
         boolean verified = prefs.getBoolean("complexion", true);
         boolean certified = verified;
         if (References.checkOMS(getContext())) {
@@ -165,7 +166,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         systemStatus.setSummary((interfacer
                 ? getString(R.string.settings_system_status_rootless)
-                : getString(R.string.settings_system_status_rooted))
+                : (References.isSamsung(getContext()) ?
+                getString(R.string.settings_system_status_samsung) :
+                getString(R.string.settings_system_status_rooted)))
                 + " (" + (certified ? getString(R.string.settings_system_status_certified) :
                 getString(R.string.settings_system_status_uncertified)) + ")"
         );

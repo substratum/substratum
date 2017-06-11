@@ -32,13 +32,17 @@
             android:id="@+id/restore_icons_card"
             layout="@layout/restore_icons"/>
 
-        <include layout="@layout/restore_bootanimation"/>
+        <include
+            android:id="@+id/restore_bootanimation_card"
+            layout="@layout/restore_bootanimation"/>
 
         <include
             android:id="@+id/restore_fonts_card"
             layout="@layout/restore_fonts"/>
 
-        <include layout="@layout/restore_sounds"/>
+        <include
+            android:id="@+id/restore_sounds_card"
+            layout="@layout/restore_sounds"/>
 
         <include layout="@layout/restore_wallpaper"/>
 

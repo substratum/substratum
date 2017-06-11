@@ -274,13 +274,24 @@ public class RecoveryFragment extends Fragment {
             sheetDialog.show();
         });
 
+        View bootanimationCard = root.findViewById(R.id.restore_bootanimation_card);
+        if (References.isSamsung(getContext())) {
+            bootanimationCard.setVisibility(View.GONE);
+        }
+
         View fontsCard = root.findViewById(R.id.restore_fonts_card);
         if (!References.isFontsSupported()) {
             fontsCard.setVisibility(View.GONE);
         }
 
+        View soundCard = root.findViewById(R.id.restore_sounds_card);
+        if (References.isSamsung(getContext())) {
+            soundCard.setVisibility(View.GONE);
+        }
+
         View iconsCard = root.findViewById(R.id.restore_icons_card);
-        if (!References.checkThemeInterfacer(mContext) ||
+        if (References.isSamsung(mContext) ||
+                !References.checkThemeInterfacer(mContext) ||
                 !References.isAuthorizedDebugger(mContext)) {
             iconsCard.setVisibility(View.GONE);
         }

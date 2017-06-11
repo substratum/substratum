@@ -92,6 +92,7 @@ import static com.bumptech.glide.request.RequestOptions.centerCropTransform;
 import static projekt.substratum.common.References.BYPASS_SUBSTRATUM_BUILDER_DELETION;
 import static projekt.substratum.common.References.bootAnimationsFragment;
 import static projekt.substratum.common.References.fontsFragment;
+import static projekt.substratum.common.References.isSamsung;
 import static projekt.substratum.common.References.metadataOverlayParent;
 import static projekt.substratum.common.References.metadataWallpapers;
 import static projekt.substratum.common.References.overlaysFragment;
@@ -694,11 +695,17 @@ public class InformationActivity extends SubstratumActivity {
                     PorterDuff.Mode.SRC_ATOP);
         }
 
-        if (!isOMS) menu.findItem(R.id.disable).setVisible(false);
-        if (!isOMS) menu.findItem(R.id.enable).setVisible(false);
-        if (!isOMS) menu.findItem(R.id.restart_systemui).setVisible(false);
-        if (isOMS) menu.findItem(R.id.reboot_device).setVisible(false);
-        if (isOMS) menu.findItem(R.id.soft_reboot).setVisible(false);
+        if (!isOMS) {
+            menu.findItem(R.id.disable).setVisible(false);
+            menu.findItem(R.id.enable).setVisible(false);
+            menu.findItem(R.id.restart_systemui).setVisible(false);
+        }
+        if (isOMS || isSamsung(getApplicationContext())) {
+            menu.findItem(R.id.clean).setVisible(false);
+            menu.findItem(R.id.reboot_device).setVisible(false);
+            menu.findItem(R.id.soft_reboot).setVisible(false);
+            menu.findItem(R.id.uninstall).setVisible(false);
+        }
 
         menu.findItem(R.id.clean_cache).setVisible(prefs.getBoolean("caching_enabled", false));
 

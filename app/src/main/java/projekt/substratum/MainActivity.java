@@ -787,8 +787,10 @@ public class MainActivity extends SubstratumActivity implements
         getMenuInflater().inflate(R.menu.activity_menu, menu);
 
         boolean isOMS = References.checkOMS(getApplicationContext());
-        if (isOMS) menu.findItem(R.id.reboot_device).setVisible(false);
-        if (isOMS) menu.findItem(R.id.soft_reboot).setVisible(false);
+        if (isOMS || isSamsung(getApplicationContext())) {
+            menu.findItem(R.id.reboot_device).setVisible(false);
+            menu.findItem(R.id.soft_reboot).setVisible(false);
+        }
         if (!isOMS) menu.findItem(R.id.per_app).setVisible(false);
 
         searchItem = menu.findItem(R.id.action_search);

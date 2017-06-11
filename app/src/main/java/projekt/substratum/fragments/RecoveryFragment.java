@@ -274,6 +274,11 @@ public class RecoveryFragment extends Fragment {
             sheetDialog.show();
         });
 
+        View overlayCard = root.findViewById(R.id.restore_overlay_card);
+        if (References.isSamsung(getContext())) {
+            overlayCard.setVisibility(View.GONE);
+        }
+
         View bootanimationCard = root.findViewById(R.id.restore_bootanimation_card);
         if (References.isSamsung(getContext())) {
             bootanimationCard.setVisibility(View.GONE);

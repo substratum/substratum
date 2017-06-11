@@ -81,6 +81,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -98,6 +99,7 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import javax.security.auth.x500.X500Principal;
 
+import projekt.substratum.BuildConfig;
 import projekt.substratum.R;
 import projekt.substratum.activities.launch.AppShortcutLaunch;
 import projekt.substratum.activities.launch.ThemeLaunchActivity;
@@ -226,6 +228,7 @@ public class References {
     // November security update (incompatible firmware) timestamp;
     private static final long NOVEMBER_PATCH_TIMESTAMP = 1478304000000L;
     private static final long JANUARY_PATCH_TIMESTAMP = 1483549200000L;
+    private static final Date SELF_DISABLER_DATE = BuildConfig.buildTime;
     // Specific intents Substratum should be listening to
     private static final String APP_CRASHED = "projekt.substratum.APP_CRASHED";
     // Metadata used in theme templates to denote specific parts of a theme
@@ -409,6 +412,19 @@ public class References {
         } catch (Exception e) {
             // Suppress warning
         }
+    }
+
+    public static boolean selfDisabler(Context context) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.CANADA);
+            Date disabled = DateUtil.addDays(SELF_DISABLER_DATE);
+            String buildTime = sdf.format(disabled.getTime());
+            Date strDate = sdf.parse(buildTime);
+            if (new Date().after(strDate)) return true;
+        } catch (ParseException e) {
+            // Suppress warning
+        }
+        return false;
     }
 
     public static boolean isCachingEnabled(Context context) {
@@ -2126,6 +2142,15 @@ public class References {
             //cacheable variable will remain false
         }
         return debuggable;
+    }
+
+    public static class DateUtil {
+        static Date addDays(Date date) {
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
+            cal.add(Calendar.DATE, 7);
+            return cal.getTime();
+        }
     }
 
     // This class serves to update the theme's cache on demand

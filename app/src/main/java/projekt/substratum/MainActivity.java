@@ -263,6 +263,8 @@ public class MainActivity extends SubstratumActivity implements
             selectedDrawer = savedInstanceState.getInt(SELECTED_DRAWER_ITEM);
         }
 
+        References.selfDisabler(getApplicationContext());
+
         prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         actionbar_title = findViewById(R.id.activity_title);
@@ -1126,9 +1128,11 @@ public class MainActivity extends SubstratumActivity implements
             MainActivity activity = ref.get();
             Context context = activity.getApplicationContext();
 
-            if (!result && !References.isSamsung(context) &&
-                    ENABLE_ROOT_CHECK && !BYPASS_ALL_VERSION_CHECKS &&
-                    !References.checkThemeInterfacer(context)) {
+            if (References.selfDisabler(context) ||
+                    (!result &&
+                            !References.isSamsung(context) &&
+                            ENABLE_ROOT_CHECK && !BYPASS_ALL_VERSION_CHECKS &&
+                            !References.checkThemeInterfacer(context))) {
                 activity.mProgressDialog.setCancelable(false);
                 activity.mProgressDialog.show();
                 activity.mProgressDialog.setContentView(R.layout.root_rejected_loader);
@@ -1144,8 +1148,14 @@ public class MainActivity extends SubstratumActivity implements
                         .windowBackground(windowBackground)
                         .blurAlgorithm(new RenderScriptBlur(context))
                         .blurRadius(radius);
+                TextView titleView = activity.mProgressDialog.findViewById(R.id.title);
                 TextView textView = activity.mProgressDialog.findViewById(R.id.timer);
-                if (References.isPackageInstalled(
+
+                if (References.selfDisabler(context)) {
+                    titleView.setText(
+                            activity.getString(R.string.toast_samsung_prototype_disabled));
+                    textView.setVisibility(View.GONE);
+                } else if (References.isPackageInstalled(
                         context, "eu.chainfire.supersu")) {
                     CountDownTimer Count = new CountDownTimer(5000, 1000) {
                         public void onTick(long millisUntilFinished) {

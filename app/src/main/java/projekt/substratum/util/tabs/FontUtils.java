@@ -134,7 +134,7 @@ public class FontUtils {
             Context context = fragment.mContext;
             try {
                 Boolean isInterfacer = checkOMS(context) && checkThemeInterfacer(context);
-                
+
                 if (isInterfacer) {
                     SharedPreferences.Editor editor = fragment.prefs.edit();
                     editor.putString("fonts_applied", fragment.theme_pid);

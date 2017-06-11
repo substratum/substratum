@@ -489,6 +489,7 @@
     <string name="toast_disabled5">Please select a valid overlay before performing this action.</string>
     <string name="toast_samsung_prototype_one_overlay">At this time, only one overlay can be selected at a time.</string>
     <string name="toast_samsung_prototype_restart">Please restart your device or force close your overlaid application!</string>
+    <string name="toast_samsung_prototype_disabled">This version of substratum has expired.\n\nPlease update to a fresh copy!</string>
     <string name="toast_disabled6">Selected overlay(s) removed!</string>
     <string name="toast_uninstalled">You just uninstalled this theme! I\'ll be gone on your next refresh!</string>
     <string name="no_themes_title">no themes found&#8230;</string>

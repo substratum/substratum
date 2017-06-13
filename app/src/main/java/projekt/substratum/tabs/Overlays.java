@@ -184,6 +184,7 @@ public class Overlays extends Fragment {
     private Boolean encrypted = false;
     private Cipher cipher = null;
     private RefreshReceiver refreshReceiver;
+    private ActivityManager am;
 
     private void logTypes() {
         if (ENABLE_PACKAGE_LOGGING) {
@@ -505,6 +506,8 @@ public class Overlays extends Fragment {
             Bundle savedInstanceState) {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.tab_overlays, container, false);
         prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+
+        am = (ActivityManager) getContext().getSystemService(Activity.ACTIVITY_SERVICE);
 
         // Register the theme install receiver to auto refresh the fragment
         refreshReceiver = new RefreshReceiver();
@@ -1145,10 +1148,6 @@ public class Overlays extends Fragment {
             if (currentOverlay.isSelected()) {
                 currentOverlay.setSelected(false);
             }
-
-            // Try and kill the background processes of the app
-            ActivityManager am = (ActivityManager)
-                    getContext().getSystemService(Activity.ACTIVITY_SERVICE);
             am.killBackgroundProcesses(currentOverlay.getPackageName());
 
             mAdapter.notifyDataSetChanged();

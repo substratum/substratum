@@ -1131,6 +1131,32 @@ public class Overlays extends Fragment {
         return null;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case 2486:
+                refreshList();
+        }
+    }
+
+    private void refreshList() {
+        if (mAdapter != null) mAdapter.notifyDataSetChanged();
+
+        for (int i = 0; i < overlaysLists.size(); i++) {
+            OverlaysItem currentOverlay = overlaysLists.get(i);
+            if (currentOverlay.isSelected()) {
+                currentOverlay.setSelected(false);
+            }
+
+            // Try and kill the background processes of the app
+            ActivityManager am = (ActivityManager)
+                    getContext().getSystemService(Activity.ACTIVITY_SERVICE);
+            am.killBackgroundProcesses(currentOverlay.getPackageName());
+
+            mAdapter.notifyDataSetChanged();
+        }
+    }
+
     private static class SendErrorReport extends AsyncTask<Void, Void, File> {
         @SuppressLint("StaticFieldLeak")
         private Context context;
@@ -1877,9 +1903,8 @@ public class Overlays extends Fragment {
                 intent.setDataAndType(
                         uri,
                         "application/vnd.android.package-archive");
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                context.startActivity(intent);
+                fragment.startActivityForResult(intent, 2486);
             } else if (!References.checkOMS(context) &&
                     fragment.final_runner.size() == fragment.fail_count) {
                 final AlertDialog.Builder alertDialogBuilder =
@@ -2479,27 +2504,7 @@ public class Overlays extends Fragment {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (mAdapter != null) mAdapter.notifyDataSetChanged();
-            if (References.isSamsung(context)) {
-                Toast.makeText(
-                        context,
-                        context.getString(R.string.toast_samsung_prototype_restart),
-                        Toast.LENGTH_LONG).show();
-            }
-
-            for (int i = 0; i < overlaysLists.size(); i++) {
-                OverlaysItem currentOverlay = overlaysLists.get(i);
-                if (currentOverlay.isSelected()) {
-                    currentOverlay.setSelected(false);
-                }
-
-                // Try and kill the background processes of the app
-                ActivityManager am = (ActivityManager)
-                        context.getSystemService(Activity.ACTIVITY_SERVICE);
-                am.killBackgroundProcesses(currentOverlay.getPackageName());
-
-                mAdapter.notifyDataSetChanged();
-            }
+            refreshList();
         }
     }
 }

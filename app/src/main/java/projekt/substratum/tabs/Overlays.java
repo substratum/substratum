@@ -1864,7 +1864,7 @@ public class Overlays extends Fragment {
                 }
             }
             // TODO: Handle multiple APKs
-            if (References.isSamsung(context)) {
+            if (References.isSamsung(context) && fragment.late_install.size() > 0) {
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 Uri uri = FileProvider.getUriForFile(
                         context,

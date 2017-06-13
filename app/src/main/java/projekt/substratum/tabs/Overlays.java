@@ -368,8 +368,7 @@ public class Overlays extends Fragment {
                     } else {
                         // TODO: Do not hardcode to the 0th overlay
                         if (!References.isPackageInstalled(getContext(),
-                                checkedOverlays.get(0).getPackageName() + "." +
-                                        checkedOverlays.get(0).getThemeName())) {
+                                checkedOverlays.get(0).getFullOverlayParameters())) {
                             Lunchbar.make(
                                     getActivityView(),
                                     R.string.toast_disabled5,
@@ -397,8 +396,7 @@ public class Overlays extends Fragment {
                         // TODO: Needs verifying this works with multiple APKs
                         for (int i = 0; i < checkedOverlays.size(); i++) {
                             Uri packageURI = Uri.parse("package:" +
-                                    checkedOverlays.get(i).getPackageName() + "." +
-                                    checkedOverlays.get(i).getThemeName());
+                                    checkedOverlays.get(i).getFullOverlayParameters());
                             Intent uninstallIntent = new Intent(Intent.ACTION_DELETE, packageURI);
                             startActivity(uninstallIntent);
                         }

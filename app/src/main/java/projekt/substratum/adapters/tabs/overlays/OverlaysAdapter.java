@@ -357,10 +357,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                 }
             } else {
                 if (References.isSamsung(context)) {
-                    if (References.isPackageInstalled(
-                            context,
-                            current_object.getPackageName() + "." +
-                                    current_object.getThemeName())) {
+                    if (current_object.isOverlayEnabled()) {
                         viewHolder.overlayTargetPackageName.setTextColor(
                                 context.getColor(R.color.overlay_installed_list_entry));
                     } else {

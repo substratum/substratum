@@ -69,8 +69,13 @@ public class ThemeManager {
     // Non-Interfacer (NI) values
     private static final Integer NI_restartSystemUIDelay = 2000;
 
-    public static boolean blacklisted(String packageName) {
-        List<String> blacklisted = Arrays.asList(blacklistedPackages);
+    public static boolean blacklisted(String packageName, Boolean unsupportedSamsung) {
+        List<String> blacklisted = new ArrayList<>(Arrays.asList(blacklistedPackages));
+        if (unsupportedSamsung) {
+            blacklisted.add("com.android.settings");
+            blacklisted.add("com.android.systemui.headers");
+            blacklisted.add("com.android.systemui.tiles");
+        }
         return blacklisted.contains(packageName);
     }
 

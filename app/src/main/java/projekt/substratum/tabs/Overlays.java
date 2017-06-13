@@ -1238,7 +1238,17 @@ public class Overlays extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
+            super.onPostExecute(result);
             Overlays fragment = ref.get();
+            if (References.isSamsung(fragment.getContext()) &&
+                    !References.isSamsungTheme(fragment.getContext(), fragment.theme_pid)) {
+                Lunchbar.make(
+                        fragment.getActivityView(),
+                        R.string.toast_samsung_prototype_alert,
+                        Lunchbar.LENGTH_LONG)
+                        .show();
+            }
+
             if (fragment.materialProgressBar != null) {
                 fragment.materialProgressBar.setVisibility(View.GONE);
             }
@@ -1249,7 +1259,6 @@ public class Overlays extends Fragment {
             fragment.mAdapter.notifyDataSetChanged();
             fragment.mRecyclerView.setVisibility(View.VISIBLE);
             fragment.swipeRefreshLayout.setVisibility(View.VISIBLE);
-            super.onPostExecute(result);
         }
 
         @SuppressWarnings("ConstantConditions")
@@ -1309,12 +1318,15 @@ public class Overlays extends Fragment {
                         ioe.printStackTrace();
                     }
                 }
-
                 values.addAll(overlaysFolder.stream().filter(package_name -> (References
                         .isPackageInstalled(context, package_name) ||
                         References.allowedSystemUIOverlay(package_name) ||
                         References.allowedSettingsOverlay(package_name)) &&
-                        (!ThemeManager.blacklisted(package_name))).collect(Collectors.toList()));
+                        (!ThemeManager.blacklisted(
+                                package_name,
+                                References.isSamsung(context) &&
+                                        !References.isSamsungTheme(context, fragment.theme_pid))))
+                        .collect(Collectors.toList()));
 
                 // Create the map for {package name: package identifier}
                 HashMap<String, String> unsortedMap = new HashMap<>();

@@ -182,6 +182,7 @@ public class References {
     public static final String metadataLegacy = "Substratum_Legacy";
     public static final String metadataEncryption = "Substratum_Encryption";
     public static final String metadataEncryptionValue = "onCompileVerify";
+    public static final String metadataSamsungSupport = "Substratum_Samsung";
     public static final String metadataWallpapers = "Substratum_Wallpapers";
     public static final String metadataOverlayDevice = "Substratum_Device";
     public static final String metadataOverlayParent = "Substratum_Parent";
@@ -1827,6 +1828,11 @@ public class References {
         return false;
     }
 
+    // Check if theme is Samsung supported
+    public static boolean isSamsungTheme(Context context, String package_name) {
+        return getOverlayMetadata(context, package_name, metadataSamsungSupport, false);
+    }
+
     // Obtain a live sample of the metadata in an app
     private static boolean getMetaData(Context context, String trigger) {
         List<ApplicationInfo> list =
@@ -1895,7 +1901,7 @@ public class References {
             return currentPatchTimestamp > NOVEMBER_PATCH_TIMESTAMP &&
                     currentPatchTimestamp < JANUARY_PATCH_TIMESTAMP;
         } catch (ParseException pe) {
-            pe.printStackTrace();
+            // Suppress warning for ROMs that erase this prop
         }
 
         // Something bad happened. Aborting

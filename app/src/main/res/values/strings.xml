@@ -487,14 +487,16 @@
     <string name="toast_disabled3">Please compile this overlay before applying!</string>
     <string name="toast_disabled4">You can\'t disable an overlay you don\'t have compiled!</string>
     <string name="toast_disabled5">Please select a valid overlay before performing this action.</string>
-    <string name="toast_samsung_prototype_one_overlay">At this time, only one overlay can be selected at a time.</string>
-    <string name="toast_samsung_prototype_restart">Please restart your device or force close your overlaid application!</string>
-    <string name="toast_samsung_prototype_disabled">This version of substratum has expired.\n\nPlease update to a fresh copy!</string>
     <string name="toast_disabled6">Selected overlay(s) removed!</string>
     <string name="toast_uninstalled">You just uninstalled this theme! I\'ll be gone on your next refresh!</string>
     <string name="no_themes_title">no themes found&#8230;</string>
     <string name="no_themes_description">please install a compatible theme!</string>
     <string name="no_themes_description_search">\"%s\" was not found in the list of themes installed&#8230;</string>
+
+    <string name="toast_samsung_prototype_one_overlay">At this time, only one overlay can be selected at a time.</string>
+    <string name="toast_samsung_prototype_restart">Please restart your device or force close your overlaid application!</string>
+    <string name="toast_samsung_prototype_disabled">This version of substratum has expired.\n\nPlease update to a fresh copy!</string>
+    <string name="toast_samsung_prototype_alert">Substratum automatically hid unsupported system overlays for your device!</string>
 
     <string name="toast_needs_caching">Substratum\'s cache was wiped, please rebuild this theme before continuing!</string>
 

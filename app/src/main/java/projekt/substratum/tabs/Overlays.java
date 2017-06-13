@@ -1266,15 +1266,6 @@ public class Overlays extends Fragment {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             Overlays fragment = ref.get();
-            if (References.isSamsung(fragment.getContext()) &&
-                    !References.isSamsungTheme(fragment.getContext(), fragment.theme_pid)) {
-                Lunchbar.make(
-                        fragment.getActivityView(),
-                        R.string.toast_samsung_prototype_alert,
-                        Lunchbar.LENGTH_LONG)
-                        .show();
-            }
-
             if (fragment.materialProgressBar != null) {
                 fragment.materialProgressBar.setVisibility(View.GONE);
             }

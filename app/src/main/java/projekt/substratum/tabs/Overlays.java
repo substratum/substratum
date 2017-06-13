@@ -19,6 +19,8 @@
 package projekt.substratum.tabs;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -2484,11 +2486,18 @@ public class Overlays extends Fragment {
                         context.getString(R.string.toast_samsung_prototype_restart),
                         Toast.LENGTH_LONG).show();
             }
+
             for (int i = 0; i < overlaysLists.size(); i++) {
                 OverlaysItem currentOverlay = overlaysLists.get(i);
                 if (currentOverlay.isSelected()) {
                     currentOverlay.setSelected(false);
                 }
+
+                // Try and kill the background processes of the app
+                ActivityManager am = (ActivityManager)
+                        context.getSystemService(Activity.ACTIVITY_SERVICE);
+                am.killBackgroundProcesses(currentOverlay.getPackageName());
+
                 mAdapter.notifyDataSetChanged();
             }
         }

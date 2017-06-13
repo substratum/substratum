@@ -34,6 +34,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import projekt.substratum.common.References;
+import projekt.substratum.common.Resources;
 import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.util.files.Root;
 
@@ -72,6 +73,7 @@ public class ThemeManager {
     public static boolean blacklisted(String packageName, Boolean unsupportedSamsung) {
         List<String> blacklisted = new ArrayList<>(Arrays.asList(blacklistedPackages));
         if (unsupportedSamsung) {
+            blacklisted.addAll(new ArrayList<>(Arrays.asList(Resources.ALLOWED_SETTINGS_ELEMENTS)));
             blacklisted.add("com.android.settings");
             blacklisted.add("com.android.systemui.headers");
             blacklisted.add("com.android.systemui.tiles");

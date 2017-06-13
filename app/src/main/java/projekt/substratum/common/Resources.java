@@ -29,6 +29,10 @@ public class Resources {
             "com.android.systemui.statusbars",
             "com.android.systemui.tiles"
     };
+    // Filter to adjust Settings elements
+    public static final String[] ALLOWED_SETTINGS_ELEMENTS = {
+            "com.android.settings.icons",
+    };
     // Predetermined list of new Nexus/Pixel Devices
     static final String[] NEXUS_FILTER = new String[]{
             "angler", // Nexus 6P
@@ -41,11 +45,6 @@ public class Resources {
             "muskie", // Pixel XL 2
             "taimen", // Pixel ?
     };
-    // Filter to adjust Settings elements
-    static final String[] ALLOWED_SETTINGS_ELEMENTS = {
-            "com.android.settings.icons",
-    };
-
     // Filter to adjust UI sounds
     static final String[] ALLOWED_UI_THEMABLE_SOUNDS = {
             "lock_sound",

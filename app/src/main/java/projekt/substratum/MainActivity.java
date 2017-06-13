@@ -249,7 +249,7 @@ public class MainActivity extends SubstratumActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (BuildConfig.DEBUG) {
+        if (BuildConfig.DEBUG && !References.isSamsung(getApplicationContext())) {
             Log.d(SUBSTRATUM_LOG, "Substratum launched with debug mode signatures.");
             if (LeakCanary.isInAnalyzerProcess(this)) return;
             installLeakCanary();

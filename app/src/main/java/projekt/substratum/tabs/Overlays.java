@@ -130,6 +130,8 @@ import static projekt.substratum.common.References.checkThemeInterfacer;
 import static projekt.substratum.common.References.isPackageInstalled;
 import static projekt.substratum.common.References.metadataAuthor;
 import static projekt.substratum.common.References.metadataEmail;
+import static projekt.substratum.common.References.metadataEncryption;
+import static projekt.substratum.common.References.metadataEncryptionValue;
 import static projekt.substratum.util.files.MapUtils.sortMapByValues;
 
 public class Overlays extends Fragment {
@@ -517,10 +519,12 @@ public class Overlays extends Fragment {
 
         theme_name = InformationActivity.getThemeName();
         theme_pid = InformationActivity.getThemePID();
-        byte[] encryption_key = InformationActivity.getEncryptionKey();
-        byte[] iv_encrypt_key = InformationActivity.getIVEncryptKey();
+        String encrypt_check =
+                References.getOverlayMetadata(getContext(), theme_pid, metadataEncryption);
 
-        if (encryption_key != null && iv_encrypt_key != null) {
+        if (encrypt_check != null && encrypt_check.equals(metadataEncryptionValue)) {
+            byte[] encryption_key = InformationActivity.getEncryptionKey();
+            byte[] iv_encrypt_key = InformationActivity.getIVEncryptKey();
             try {
                 cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
                 cipher.init(

@@ -372,7 +372,6 @@ public class References {
     public static void registerBroadcastReceivers(Context context) {
         try {
             IntentFilter intentAppCrashed = new IntentFilter(APP_CRASHED);
-            intentAppCrashed.addDataScheme("package");
             IntentFilter intentPackageAdded = new IntentFilter(PACKAGE_ADDED);
             intentPackageAdded.addDataScheme("package");
             IntentFilter intentPackageFullyRemoved = new IntentFilter(PACKAGE_FULLY_REMOVED);

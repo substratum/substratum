@@ -1806,6 +1806,10 @@ public class References {
 
     // Begin check if device is running on the latest theme interface
     public static boolean checkThemeInterfacer(Context context) {
+        if (context == null) { // If activity has already been destroyed context instance will be null
+            Log.e(SUBSTRATUM_LOG, "activity has been destroyed, cannot check if interfacer is used");
+            return false;
+        }
         boolean forceIndependence = PreferenceManager.getDefaultSharedPreferences(context)
                 .getBoolean("force_independence", false);
         return !forceIndependence && getThemeInterfacerPackage(context) != null;

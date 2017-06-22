@@ -19,13 +19,22 @@
 package projekt.substratum.activities.launch;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
+import java.lang.ref.WeakReference;
+
+import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.MainActivity;
 import projekt.substratum.R;
 import projekt.substratum.common.References;
@@ -37,11 +46,14 @@ public class SplashScreenActivity extends Activity {
     private static final int DELAY_LAUNCH_MAIN_ACTIVITY = 600;
     private static final int DELAY_LAUNCH_APP_INTRO = 2300;
     private Intent intent;
+    private MaterialProgressBar materialProgressBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splashscreen_layout);
+
+        materialProgressBar = findViewById(R.id.splash_progress);
 
         Intent currentIntent = getIntent();
         Boolean first_run = currentIntent.getBooleanExtra("first_run", false);
@@ -73,9 +85,103 @@ public class SplashScreenActivity extends Activity {
         }
 
         final Handler handler = new Handler();
-        handler.postDelayed(() -> {
-            startActivity(intent);
-            finish();
-        }, intent_launch_delay);
+        handler.postDelayed(() -> new CheckSamsung(this).execute(), intent_launch_delay);
+    }
+
+    private void launch() {
+        startActivity(intent);
+        finish();
+    }
+
+    static class CheckSamsung extends AsyncTask<Void, Void, Void> {
+        private WeakReference<SplashScreenActivity> ref;
+        private SharedPreferences.Editor editor;
+        private KeyRetrieval keyRetrieval;
+        private Intent securityIntent;
+        private Handler handler = new Handler();
+        private Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                if (securityIntent != null) {
+                    handler.removeCallbacks(runnable);
+                } else {
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    handler.postDelayed(this, 100);
+                }
+            }
+        };
+
+        CheckSamsung(SplashScreenActivity activity) {
+            ref = new WeakReference<>(activity);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            SplashScreenActivity activity = ref.get();
+            if (References.isSamsung(activity) &&
+                    References.isPackageInstalled(activity, "projekt.sungstratum")) {
+                activity.materialProgressBar.setVisibility(View.VISIBLE);
+            }
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            Context context = ref.get().getApplicationContext();
+            editor = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE).edit();
+            editor.remove("sungstratung").apply();
+
+            if (!References.isSamsung(context) ||
+                    !References.isPackageInstalled(context, "projekt.sungstratum")) {
+                return null;
+            }
+
+            keyRetrieval = new KeyRetrieval();
+            IntentFilter filter = new IntentFilter("projekt.substratum.PASS");
+            context.getApplicationContext().registerReceiver(keyRetrieval, filter);
+
+            Intent intent = new Intent("projekt.substratum.AUTHENTICATE");
+            try {
+                context.startActivity(intent);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            int counter = 0;
+            handler.postDelayed(runnable, 100);
+            while (securityIntent == null && counter < 5) {
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                counter++;
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void voids) {
+            ref.get().launch();
+        }
+
+        class KeyRetrieval extends BroadcastReceiver {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                securityIntent = intent;
+                context.getApplicationContext().unregisterReceiver(keyRetrieval);
+                if (securityIntent != null) {
+                    int hash = securityIntent.getIntExtra("app_hash", 0);
+                    boolean debug = securityIntent.getBooleanExtra("app_debug", true);
+
+                    if (hash == 637743013 && !debug) {
+                        editor.putBoolean("sungstratung", true).apply();
+                    }
+                }
+            }
+        }
     }
 }

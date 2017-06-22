@@ -1824,12 +1824,11 @@ public class References {
     // Check if the system is of the Samsung variant
     public static boolean isSamsung(Context context) {
         if (FORCE_SAMSUNG_VARIANT) return true;
-        File checkPerms = new File("/system/etc/permissions/");
-        String[] checker = checkPerms.list();
-        for (String aChecker : checker) {
-            if (aChecker.equals("touchwiz.xml")) return true;
-        }
-        return false;
+        boolean isTouchWiz = context.getPackageManager().hasSystemFeature("touchwiz");
+        boolean sungstratungPresent = context
+                .getSharedPreferences("substratum_state", Context.MODE_PRIVATE)
+                .getBoolean("sungstratung", false);
+        return isTouchWiz && sungstratungPresent;
     }
 
     // Check if theme is Samsung supported

@@ -25,15 +25,12 @@ import android.os.Build;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.Arrays;
 
-import projekt.substratum.R;
 import projekt.substratum.common.References;
 
 public class AOPTCheck {
@@ -51,25 +48,21 @@ public class AOPTCheck {
 
         // Check if AOPT is installed on the device
         File aopt = new File(aoptPath);
+
         if (!aopt.isFile() || forced) {
             inject();
         } else if (aopt.exists()) {
-            String integrityCheck = checkAOPTIntegrity();
-            // AOPT outputs different ui
-            if (integrityCheck != null &&
-                    (integrityCheck.equals(mContext.getString(R.string.aapt_version)) ||
-                            integrityCheck.equals(mContext.getString(R.string.aopt_version)))) {
-                Log.d(References.SUBSTRATUM_LOG,
-                        "The system partition already contains an existing compiler " +
-                                "and Substratum is locked and loaded!");
-            } else {
-                Log.e(References.SUBSTRATUM_LOG,
-                        "The system partition already contains an existing compiler, " +
-                                "however it does not match Substratum integrity.");
-                inject();
-            }
+            Log.d(References.SUBSTRATUM_LOG,
+                    "The system partition already contains an existing compiler " +
+                            "and Substratum is locked and loaded!");
+        } else {
+            Log.e(References.SUBSTRATUM_LOG,
+                    "The system partition already contains an existing compiler, " +
+                            "however it does not match Substratum integrity.");
+            inject();
         }
     }
+
 
     private void inject() {
         if (!Arrays.toString(Build.SUPPORTED_ABIS).contains("86")) {
@@ -77,8 +70,9 @@ public class AOPTCheck {
             //             (64bit) is using the brand new AOPT binary.
             String architecture =
                     Arrays.asList(Build.SUPPORTED_64_BIT_ABIS).size() > 0 ? "ARM64" : "ARM";
+            String integrityCheck = prefs.getString("compiler", "aapt");
             try {
-                if (prefs.getString("compiler", "aopt").equals("aopt")) {
+                if (integrityCheck.equals("aopt")) {
                     copyAOPT("aopt" + (architecture.equals("ARM64") ? "64" : ""));
                     Log.d(References.SUBSTRATUM_LOG,
                             "Android Overlay Packaging Tool (" + architecture + ") " +
@@ -105,9 +99,8 @@ public class AOPTCheck {
         }
     }
 
-    private boolean copyAOPT(String filename) {
+    private void copyAOPT(String filename) {
         AssetManager assetManager = mContext.getAssets();
-        boolean res = true;
         try (InputStream in = assetManager.open(filename);
              OutputStream out = new FileOutputStream(aoptPath)) {
             byte[] buffer = new byte[1024];
@@ -117,33 +110,10 @@ public class AOPTCheck {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            res = false;
         }
-        if (res) {
-            File f = new File(aoptPath);
-            if (f.isFile()) {
-                res = f.setExecutable(true, true);
-            }
+        File f = new File(aoptPath);
+        if (f.isFile()) {
+            f.setExecutable(true, true);
         }
-        return res;
-    }
-
-    private String checkAOPTIntegrity() {
-        Process proc = null;
-        try {
-            Runtime rt = Runtime.getRuntime();
-            proc = rt.exec(new String[]{aoptPath, "version"});
-            try (BufferedReader stdInput = new BufferedReader(new
-                    InputStreamReader(proc.getInputStream()))) {
-                return stdInput.readLine();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (proc != null) {
-                proc.destroy();
-            }
-        }
-        return null;
     }
 }

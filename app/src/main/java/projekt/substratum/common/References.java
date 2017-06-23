@@ -1792,6 +1792,7 @@ public class References {
         intentActivity.setAction(actionIntent);
         if (should_debug) Log.d("ThemeLauncher", "Assigning package name to intent...");
         intentActivity.setPackage(package_name);
+        intentActivity.putExtra("calling_package_name", mContext.getPackageName());
         if (should_debug) Log.d("ThemeLauncher", "Checking for theme system type...");
         intentActivity.putExtra("oms_check", !checkOMS(mContext));
         intentActivity.putExtra("theme_mode", theme_mode);

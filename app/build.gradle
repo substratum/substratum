@@ -102,12 +102,9 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0-RC0'
     // Commons IO
     compile 'commons-io:commons-io:2.5'
-    // ZipSigner
-    compile files('src/main/libs/kellinwood-logging-android-1.4.jar')
-    compile files('src/main/libs/kellinwood-logging-lib-1.1.jar')
-    compile files('src/main/libs/kellinwood-logging-log4j-1.0.jar')
-    compile files('src/main/libs/zipio-lib-1.8.jar')
-    compile files('src/main/libs/zipsigner-lib-1.17.jar')
+    // APK Signer
+    compile 'com.android.tools.build:apksig:2.3.3'
+    compile "org.bouncycastle:bcprov-jdk16:1.45"
     // Loading
     compile 'me.zhanghai.android.materialprogressbar:library:1.4.1'
     // App Intro

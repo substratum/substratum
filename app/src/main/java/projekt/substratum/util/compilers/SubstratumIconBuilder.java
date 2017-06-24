@@ -22,28 +22,40 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
+
+import com.android.apksig.ApkSigner;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.security.KeyStore;
+import java.security.PrivateKey;
+import java.security.SecureRandom;
+import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
-import kellinwood.security.zipsigner.ZipSigner;
 import projekt.substratum.common.References;
 import projekt.substratum.common.commands.CompilerCommands;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
+import projekt.substratum.util.key.CertificateGenerator;
 
 import static projekt.substratum.common.References.EXTERNAL_STORAGE_CACHE;
+import static projekt.substratum.common.References.SUBSTRATUM_ICON_BUILDER;
 
 public class SubstratumIconBuilder {
 
@@ -422,13 +434,50 @@ public class SubstratumIconBuilder {
                 String destination = Environment.getExternalStorageDirectory().getAbsolutePath() +
                         EXTERNAL_STORAGE_CACHE + overlay_package + ".icon-signed.apk";
 
-                ZipSigner zipSigner = new ZipSigner();
-                if (References.ENABLE_SIGNING) {
-                    zipSigner.setKeymode("testkey");
-                } else {
-                    zipSigner.setKeymode("none");
+                File key = new File(context.getDataDir() + "/key");
+                char[] keyPass = "overlay".toCharArray();
+
+                if (!key.exists()) {
+                    Log.d(SUBSTRATUM_ICON_BUILDER, "generating new keystore...");
+                    // Generate private key
+                    KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
+                    keyGen.initialize(1024, SecureRandom.getInstance("SHA1PRNG"));
+                    KeyPair keyPair = keyGen.generateKeyPair();
+                    PrivateKey privateKey = keyPair.getPrivate();
+
+                    // Generate certificate
+                    X509Certificate[] chain = new X509Certificate[1];
+                    X509Certificate certificate =
+                            CertificateGenerator.generateX509Certificate(keyPair);
+                    chain[0] = certificate;
+
+                    // Store new keystore
+                    KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
+                    keyStore.load(null, null);
+                    keyStore.setKeyEntry("key", privateKey, keyPass, chain);
+                    keyStore.setCertificateEntry("cert", certificate);
+                    keyStore.store(new FileOutputStream(key), keyPass);
                 }
-                zipSigner.signZip(source, destination);
+
+                KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
+                keyStore.load(new FileInputStream(key), keyPass);
+                PrivateKey privateKey = (PrivateKey) keyStore.getKey("key", keyPass);
+                List<X509Certificate> certs = new ArrayList<>();
+                certs.add((X509Certificate) keyStore.getCertificateChain("key")[0]);
+
+                ApkSigner.SignerConfig signerConfig =
+                        new ApkSigner.SignerConfig.Builder("overlay", privateKey, certs).build();
+                List<ApkSigner.SignerConfig> signerConfigs = new ArrayList<>();
+                signerConfigs.add(signerConfig);
+                ApkSigner.Builder apkSigner = new ApkSigner.Builder(signerConfigs);
+                apkSigner
+                        .setV1SigningEnabled(false)
+                        .setV2SigningEnabled(true)
+                        .setInputApk(new File(source))
+                        .setOutputApk(new File(destination))
+                        .setMinSdkVersion(Build.VERSION.SDK_INT)
+                        .build()
+                        .sign();
 
                 Log.d(References.SUBSTRATUM_ICON_BUILDER, "APK successfully signed!");
             } catch (Throwable t) {

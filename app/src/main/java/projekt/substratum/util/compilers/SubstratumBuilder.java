@@ -19,27 +19,39 @@
 package projekt.substratum.util.compilers;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.Log;
+
+import com.android.apksig.ApkSigner;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.security.KeyStore;
+import java.security.PrivateKey;
+import java.security.SecureRandom;
+import java.security.cert.X509Certificate;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
-import kellinwood.security.zipsigner.ZipSigner;
 import projekt.substratum.common.References;
 import projekt.substratum.common.commands.CompilerCommands;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
+import projekt.substratum.util.key.CertificateGenerator;
 
 import static projekt.substratum.common.References.BYPASS_SUBSTRATUM_BUILDER_DELETION;
 import static projekt.substratum.common.References.EXTERNAL_STORAGE_CACHE;
@@ -189,7 +201,7 @@ public class SubstratumBuilder {
                         BufferedReader reader = new BufferedReader(
                                 new InputStreamReader(new FileInputStream(
                                         new File(work_area_array.getAbsolutePath() + "/priority")
-                                )));
+                                )))
                 ) {
                     legacy_priority = Integer.parseInt(reader.readLine());
                 } catch (IOException e) {
@@ -340,16 +352,54 @@ public class SubstratumBuilder {
                         EXTERNAL_STORAGE_CACHE + overlay_package + "." + parse2_themeName +
                         "-signed.apk";
 
-                ZipSigner zipSigner = new ZipSigner();
-                if (References.ENABLE_SIGNING) {
-                    zipSigner.setKeymode("testkey");
-                } else {
-                    zipSigner.setKeymode("none");
+                File key = new File(context.getDataDir() + "/key");
+                char[] keyPass = "overlay".toCharArray();
+                
+                if (!key.exists()) {
+                    Log.d(SUBSTRATUM_BUILDER, "generating new keystore...");
+                    // Generate private key
+                    KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
+                    keyGen.initialize(1024, SecureRandom.getInstance("SHA1PRNG"));
+                    KeyPair keyPair = keyGen.generateKeyPair();
+                    PrivateKey privateKey = keyPair.getPrivate();
+
+                    // Generate certificate
+                    X509Certificate[] chain = new X509Certificate[1];
+                    X509Certificate certificate =
+                            CertificateGenerator.generateX509Certificate(keyPair);
+                    chain[0] = certificate;
+
+                    // Store new keystore
+                    KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
+                    keyStore.load(null, null);
+                    keyStore.setKeyEntry("key", privateKey, keyPass, chain);
+                    keyStore.setCertificateEntry("cert", certificate);
+                    keyStore.store(new FileOutputStream(key), keyPass);
                 }
-                zipSigner.signZip(source, destination);
+
+                KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
+                keyStore.load(new FileInputStream(key), keyPass);
+                PrivateKey privateKey = (PrivateKey) keyStore.getKey("key", keyPass);
+                List<X509Certificate> certs = new ArrayList<>();
+                certs.add((X509Certificate) keyStore.getCertificateChain("key")[0]);
+
+                ApkSigner.SignerConfig signerConfig =
+                        new ApkSigner.SignerConfig.Builder("overlay", privateKey, certs).build();
+                List<ApkSigner.SignerConfig> signerConfigs = new ArrayList<>();
+                signerConfigs.add(signerConfig);
+                ApkSigner.Builder apkSigner = new ApkSigner.Builder(signerConfigs);
+                apkSigner
+                        .setV1SigningEnabled(false)
+                        .setV2SigningEnabled(true)
+                        .setInputApk(new File(source))
+                        .setOutputApk(new File(destination))
+                        .setMinSdkVersion(Build.VERSION.SDK_INT)
+                        .build()
+                        .sign();
 
                 Log.d(References.SUBSTRATUM_BUILDER, "APK successfully signed!");
             } catch (Throwable t) {
+                t.printStackTrace();
                 dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
                         "APK could not be signed. " + t.toString());
                 has_errored_out = true;

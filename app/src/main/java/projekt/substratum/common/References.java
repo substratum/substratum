@@ -218,7 +218,8 @@ public class References {
     public static final String LEGACY_NEXUS_DIR = "/system/vendor/overlay/";
     public static final String VENDOR_DIR = "/vendor/overlay/";
     // Notification Channel
-    public static final String MAIN_NOTIFICATION_CHANNEL_ID = "main";
+    public static final String DEFAULT_NOTIFICATION_CHANNEL_ID = "default";
+    public static final String ONGOING_NOTIFICATION_CHANNEL_ID = "ongoing";
     // This controls the filter used by the post-6.0.0 template checker
     private static final String SUBSTRATUM_THEME = "projekt.substratum.THEME";
     private static final String SUBSTRATUM_LAUNCHER_CLASS = ".SubstratumLauncher";

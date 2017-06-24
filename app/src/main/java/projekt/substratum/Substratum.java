@@ -24,6 +24,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioAttributes;
 import android.util.Log;
 
 import projekt.substratum.common.References;
@@ -52,10 +53,23 @@ public class Substratum extends Application {
             NotificationManager notificationManager =
                     (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
             NotificationChannel mainChannel = new NotificationChannel(
-                    References.MAIN_NOTIFICATION_CHANNEL_ID,
-                    "Main Notification",
+                    References.DEFAULT_NOTIFICATION_CHANNEL_ID,
+                    getString(R.string.notification_channel_default),
                     NotificationManager.IMPORTANCE_DEFAULT);
+            mainChannel.setDescription(
+                    getString(R.string.notification_channel_default_description));
+            mainChannel.setSound(null, new AudioAttributes.Builder()
+                    .setUsage(AudioAttributes.USAGE_NOTIFICATION)
+                    .build());
             notificationManager.createNotificationChannel(mainChannel);
+
+            NotificationChannel compileChannel = new NotificationChannel(
+                    References.ONGOING_NOTIFICATION_CHANNEL_ID,
+                    getString(R.string.notification_channel_ongoing),
+                    NotificationManager.IMPORTANCE_LOW);
+            mainChannel.setDescription(
+                    getString(R.string.notification_channel_ongoing_description));
+            notificationManager.createNotificationChannel(compileChannel);
         }
     }
 

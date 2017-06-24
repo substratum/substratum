@@ -80,7 +80,7 @@ public class AppCrashReceiver extends BroadcastReceiver {
                 String app_crash_title =
                         String.format(context.getString(R.string.app_crash_title), packageName);
                 NotificationCompat.Builder builder = new NotificationCompat.Builder(context,
-                        References.MAIN_NOTIFICATION_CHANNEL_ID);
+                        References.DEFAULT_NOTIFICATION_CHANNEL_ID);
                 builder.setSmallIcon(R.drawable.notification_overlay_corruption);
                 builder.setContentTitle(app_crash_title);
                 builder.setContentText(context.getString(R.string.app_crash_content));

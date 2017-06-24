@@ -55,7 +55,7 @@ public class NotificationCreator {
             NotificationManager mNotifyManager = (NotificationManager) mContext.getSystemService(
                     Context.NOTIFICATION_SERVICE);
             NotificationCompat.Builder mBuilder = new
-                    NotificationCompat.Builder(mContext, References.MAIN_NOTIFICATION_CHANNEL_ID);
+                    NotificationCompat.Builder(mContext, References.DEFAULT_NOTIFICATION_CHANNEL_ID);
 
             if (content_title != null) mBuilder.setContentTitle(content_title);
             if (content_text != null) mBuilder.setContentText(content_text);

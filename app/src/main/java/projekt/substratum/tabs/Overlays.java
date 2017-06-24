@@ -119,8 +119,9 @@ import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
 import static projekt.substratum.common.References.ENABLE_PACKAGE_LOGGING;
 import static projekt.substratum.common.References.EXTERNAL_STORAGE_CACHE;
 import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
-import static projekt.substratum.common.References.MAIN_NOTIFICATION_CHANNEL_ID;
+import static projekt.substratum.common.References.DEFAULT_NOTIFICATION_CHANNEL_ID;
 import static projekt.substratum.common.References.MASQUERADE_PACKAGE;
+import static projekt.substratum.common.References.ONGOING_NOTIFICATION_CHANNEL_ID;
 import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;
 import static projekt.substratum.common.References.REFRESH_WINDOW_DELAY;
 import static projekt.substratum.common.References.STATUS_CHANGED;
@@ -779,7 +780,7 @@ public class Overlays extends Fragment {
             // Closing off the persistent notification
             if (checkActiveNotifications()) {
                 mNotifyManager.cancel(id);
-                mBuilder = new NotificationCompat.Builder(context, MAIN_NOTIFICATION_CHANNEL_ID);
+                mBuilder = new NotificationCompat.Builder(context, DEFAULT_NOTIFICATION_CHANNEL_ID);
                 mBuilder.setAutoCancel(true);
                 mBuilder.setProgress(0, 0, false);
                 mBuilder.setOngoing(false);
@@ -903,7 +904,7 @@ public class Overlays extends Fragment {
         // Closing off the persistent notification
         if (checkActiveNotifications()) {
             mNotifyManager.cancel(id);
-            mBuilder = new NotificationCompat.Builder(context, MAIN_NOTIFICATION_CHANNEL_ID);
+            mBuilder = new NotificationCompat.Builder(context, DEFAULT_NOTIFICATION_CHANNEL_ID);
             mBuilder.setAutoCancel(true);
             mBuilder.setProgress(0, 0, false);
             mBuilder.setOngoing(false);
@@ -914,7 +915,7 @@ public class Overlays extends Fragment {
             if (prefs.getBoolean("vibrate_on_compiled", false)) {
                 mBuilder.setVibrate(new long[]{100, 200, 100, 500});
             }
-            mBuilder.setChannel(References.MAIN_NOTIFICATION_CHANNEL_ID);
+            mBuilder.setChannel(References.DEFAULT_NOTIFICATION_CHANNEL_ID);
             mNotifyManager.notify(id, mBuilder.build());
         }
 
@@ -1601,7 +1602,7 @@ public class Overlays extends Fragment {
                         (NotificationManager) context.getSystemService(
                                 Context.NOTIFICATION_SERVICE);
                 fragment.mBuilder = new NotificationCompat.Builder(context,
-                        MAIN_NOTIFICATION_CHANNEL_ID);
+                        ONGOING_NOTIFICATION_CHANNEL_ID);
                 fragment.mBuilder.setContentTitle(
                         context.getString(R.string.notification_initial_title))
                         .setProgress(100, 0, true)
@@ -1610,7 +1611,7 @@ public class Overlays extends Fragment {
                         .setSmallIcon(android.R.drawable.ic_popup_sync)
                         .setPriority(notification_priority)
                         .setContentIntent(resultPendingIntent)
-                        .setChannel(References.MAIN_NOTIFICATION_CHANNEL_ID)
+                        .setChannel(References.ONGOING_NOTIFICATION_CHANNEL_ID)
                         .setOngoing(true);
                 fragment.mNotifyManager.notify(fragment.id, fragment.mBuilder.build());
 

@@ -150,7 +150,7 @@ public class CacheCreator {
             mNotifyManager = (NotificationManager) mContext.getSystemService(
                     Context.NOTIFICATION_SERVICE);
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(mContext,
-                    References.MAIN_NOTIFICATION_CHANNEL_ID);
+                    References.ONGOING_NOTIFICATION_CHANNEL_ID);
 
             mBuilder.setContentTitle(theme_name)
                     .setProgress(files, 0, true)

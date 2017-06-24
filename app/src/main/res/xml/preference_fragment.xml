@@ -156,6 +156,12 @@
             android:summary="@string/vibrate_on_compiled_description"
             android:title="@string/vibrate_on_compiled"/>
 
+        <Preference
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:key="manage_notifications"
+            android:title="@string/manage_notification_channel"/>
+
         <CheckBoxPreference
             android:layout_width="match_parent"
             android:layout_height="match_parent"

@@ -20,6 +20,8 @@ package projekt.substratum.fragments;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
@@ -34,6 +36,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.support.design.widget.Lunchbar;
 import android.support.v7.preference.CheckBoxPreference;
 import android.support.v7.preference.Preference;
@@ -49,6 +52,7 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import projekt.substratum.BuildConfig;
 import projekt.substratum.LauncherActivity;
@@ -69,6 +73,7 @@ import projekt.substratum.util.readers.ReadRepositoriesFile;
 import projekt.substratum.util.readers.ReadResourcesFile;
 import projekt.substratum.util.views.SheetDialog;
 
+import static android.content.Context.NOTIFICATION_SERVICE;
 import static projekt.substratum.common.References.HIDDEN_CACHING_MODE_TAP_COUNT;
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
 import static projekt.substratum.common.References.INTERFACER_SERVICE;
@@ -294,24 +299,52 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         final CheckBoxPreference vibrate_on_compiled = (CheckBoxPreference)
                 getPreferenceManager().findPreference("vibrate_on_compiled");
-        if (prefs.getBoolean("vibrate_on_compiled", true)) {
-            vibrate_on_compiled.setChecked(true);
-        } else {
-            vibrate_on_compiled.setChecked(false);
-        }
-        vibrate_on_compiled.setOnPreferenceChangeListener(
-                (preference, newValue) -> {
-                    boolean isChecked = (Boolean) newValue;
-                    if (isChecked) {
-                        prefs.edit().putBoolean("vibrate_on_compiled", true).apply();
-                        vibrate_on_compiled.setChecked(true);
-                        return true;
-                    } else {
-                        prefs.edit().putBoolean("vibrate_on_compiled", false).apply();
-                        vibrate_on_compiled.setChecked(false);
-                        return false;
-                    }
+        final Preference manage_notifications =
+                getPreferenceManager().findPreference("manage_notifications");
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            vibrate_on_compiled.setVisible(false);
+            manage_notifications.setOnPreferenceClickListener(preference -> {
+                NotificationManager notificationManager =
+                        (NotificationManager) getContext().getSystemService(NOTIFICATION_SERVICE);
+                List<NotificationChannel> channels = notificationManager.getNotificationChannels();
+                CharSequence[] channelNames = new CharSequence[channels.size()];
+                for (int i = 0; i < channels.size(); i++) {
+                    channelNames[i] = channels.get(i).getName();
+                }
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle(R.string.manage_notification_channel_dialog_title);
+                builder.setNegativeButton(android.R.string.cancel, (dialog, i) -> dialog.cancel());
+                builder.setItems(channelNames, (dialog, i) -> {
+                    Intent intent = new Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
+                    intent.putExtra(Settings.EXTRA_APP_PACKAGE, getContext().getPackageName());
+                    intent.putExtra(Settings.EXTRA_CHANNEL_ID, channels.get(i).getId());
+                    startActivity(intent);
                 });
+                builder.create().show();
+                return false;
+            });
+        } else {
+            manage_notifications.setVisible(false);
+            if (prefs.getBoolean("vibrate_on_compiled", true)) {
+                vibrate_on_compiled.setChecked(true);
+            } else {
+                vibrate_on_compiled.setChecked(false);
+            }
+            vibrate_on_compiled.setOnPreferenceChangeListener(
+                    (preference, newValue) -> {
+                        boolean isChecked = (Boolean) newValue;
+                        if (isChecked) {
+                            prefs.edit().putBoolean("vibrate_on_compiled", true).apply();
+                            vibrate_on_compiled.setChecked(true);
+                            return true;
+                        } else {
+                            prefs.edit().putBoolean("vibrate_on_compiled", false).apply();
+                            vibrate_on_compiled.setChecked(false);
+                            return false;
+                        }
+                    });
+        }
 
         final CheckBoxPreference show_template_version = (CheckBoxPreference)
                 getPreferenceManager().findPreference("show_template_version");

@@ -305,7 +305,7 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                 getApplicationContext(), 0, new Intent(), 0);
 
         final NotificationCompat.Builder builder = new NotificationCompat.Builder(this,
-                References.MAIN_NOTIFICATION_CHANNEL_ID);
+                References.ONGOING_NOTIFICATION_CHANNEL_ID);
         builder.setWhen(System.currentTimeMillis());
         prefs = PreferenceManager.getDefaultSharedPreferences(
                 getApplicationContext());

@@ -41,7 +41,7 @@ public class FirebaseMessagingService extends
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(this, References.MAIN_NOTIFICATION_CHANNEL_ID)
+                new NotificationCompat.Builder(this, References.DEFAULT_NOTIFICATION_CHANNEL_ID)
                         .setContentIntent(contentIntent)
                         .setAutoCancel(true)
                         .setSmallIcon(R.mipmap.main_launcher)

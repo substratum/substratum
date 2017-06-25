@@ -1174,7 +1174,7 @@ public class MainActivity extends SubstratumActivity implements
             // Ignore root if the device is Samsung
             boolean samsungCheck = References.isSamsungDevice(context) &&
                     !References.isPackageInstalled(context, SST_ADDON_PACKAGE);
-            if (samsungCheck || !References.selfDisabler(context) ||
+            if (samsungCheck || References.selfDisabler(context) ||
                     (!result &&
                             !References.isSamsung(context) &&
                             ENABLE_ROOT_CHECK && !BYPASS_ALL_VERSION_CHECKS &&

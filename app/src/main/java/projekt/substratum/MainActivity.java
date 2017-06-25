@@ -799,6 +799,10 @@ public class MainActivity extends SubstratumActivity implements
             References.startKeyRetrievalReceiver(getApplicationContext());
             mProgressDialog = new ProgressDialog(this, R.style.SubstratumBuilder_BlurView);
             new RootRequester(this).execute();
+            if (!prefs.contains("complexion")) {
+                prefs.edit().putBoolean("complexion", true).apply();
+                new References.Markdown(getApplicationContext(), prefs);
+            }
         }
     }
 

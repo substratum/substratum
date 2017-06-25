@@ -2219,6 +2219,30 @@ public class References {
         return debuggable;
     }
 
+    public static class Markdown extends AsyncTask<Void, Void, Void> {
+        @SuppressLint("StaticFieldLeak")
+        private Context context;
+        private SharedPreferences prefs;
+
+        public Markdown(Context context, SharedPreferences prefs) {
+            this.context = context;
+            this.prefs = prefs;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+        }
+
+        @Override
+        protected Void doInBackground(Void... sUrl) {
+            prefs.edit().putBoolean("complexion",
+                    !References.spreadYourWingsAndFly(context) &&
+                            References.hashPassthrough(context) != 0).apply();
+            return null;
+        }
+    }
+
     public static class DateUtil {
         static Date addDays(Date date) {
             Calendar cal = Calendar.getInstance();

@@ -116,10 +116,10 @@ import projekt.substratum.util.compilers.SubstratumBuilder;
 
 import static android.content.Context.CLIPBOARD_SERVICE;
 import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
+import static projekt.substratum.common.References.DEFAULT_NOTIFICATION_CHANNEL_ID;
 import static projekt.substratum.common.References.ENABLE_PACKAGE_LOGGING;
 import static projekt.substratum.common.References.EXTERNAL_STORAGE_CACHE;
 import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
-import static projekt.substratum.common.References.DEFAULT_NOTIFICATION_CHANNEL_ID;
 import static projekt.substratum.common.References.MASQUERADE_PACKAGE;
 import static projekt.substratum.common.References.ONGOING_NOTIFICATION_CHANNEL_ID;
 import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;

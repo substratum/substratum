@@ -354,7 +354,7 @@ public class SubstratumBuilder {
 
                 File key = new File(context.getDataDir() + "/key");
                 char[] keyPass = "overlay".toCharArray();
-                
+
                 if (!key.exists()) {
                     Log.d(SUBSTRATUM_BUILDER, "generating new keystore...");
                     // Generate private key

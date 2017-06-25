@@ -32,7 +32,6 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
-import android.content.pm.FeatureInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -1684,7 +1683,8 @@ public class References {
 
     public static void sendKillMessage(Context context) {
         Log.d("SubstratumKiller",
-                "A crucial action has been conducted by the user and Substratum is now shutting down!");
+                "A crucial action has been conducted by the user and Substratum is now shutting " +
+                        "down!");
         Intent intent = new Intent("MainActivity.KILL");
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
@@ -1852,8 +1852,10 @@ public class References {
 
     // Begin check if device is running on the latest theme interface
     public static boolean checkThemeInterfacer(Context context) {
-        if (context == null) { // If activity has already been destroyed context instance will be null
-            Log.e(SUBSTRATUM_LOG, "activity has been destroyed, cannot check if interfacer is used");
+        if (context == null) { // If activity has already been destroyed context instance will be
+            // null
+            Log.e(SUBSTRATUM_LOG, "activity has been destroyed, cannot check if interfacer is " +
+                    "used");
             return false;
         }
         boolean forceIndependence = PreferenceManager.getDefaultSharedPreferences(context)
